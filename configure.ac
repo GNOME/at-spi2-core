@@ -21,17 +21,18 @@ m4_define([atk_micro_version], [1])
 m4_define([atk_version],
           [atk_major_version.atk_minor_version.atk_micro_version])
 
-dnl The X.Y in -latk-X.Y line. This is expected to stay 1.0 until Atk 2.
+dnl The X.Y in -latk-X.Y line. This is expected to stay 1.0 until Atk 3.
 m4_define([atk_api_version], [1.0])
 
 dnl Number of releases since we've added interfaces
 m4_define([atk_interface_age], [1])
 
+dnl binary_age includes major version as ATK 2 is still fully API and ABI compatible
 m4_define([atk_binary_age],
-          [m4_eval(100 * atk_minor_version + 10 + atk_micro_version)])
+          [m4_eval(10000 * atk_major_version + 100 * atk_minor_version + 10 + atk_micro_version)])
 
 m4_define([lt_current],
-          [m4_eval(100 * atk_minor_version + 10 + atk_micro_version - atk_interface_age)])
+          [m4_eval(10000 * atk_major_version + 100 * atk_minor_version + 10 + atk_micro_version - atk_interface_age)])
 m4_define([lt_revision], [atk_interface_age])
 m4_define([lt_age], [m4_eval(atk_binary_age - atk_interface_age)])
 m4_define([lt_version_info], [lt_current:lt_revision:lt_age])
