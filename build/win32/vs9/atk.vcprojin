@@ -21,8 +21,6 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)\$(PlatformName)\bin"
-			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\$(PlatformName)\obj"
 			ConfigurationType="2"
 			InheritedPropertySheets=".\atk.vsprops"
 			CharacterSet="1"
@@ -59,8 +57,6 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)\$(PlatformName)\bin"
-			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\$(PlatformName)\obj"
 			ConfigurationType="2"
 			InheritedPropertySheets=".\atk.vsprops"
 			CharacterSet="1"

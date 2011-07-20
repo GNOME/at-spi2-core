@@ -75,7 +75,7 @@ After the build of ATK, the "install" project will copy build results
 and headers into their appropriate location under <root>\vs10\<PlatformName>.
 For instance, built DLLs go into <root>\vs10\<PlatformName>\bin, built LIBs into
 <root>\vs10\<PlatformName>\lib and atk headers into
-<root>\vs10\<PlatformName>\include\atk-2.0. This is then from where
+<root>\vs10\<PlatformName>\include\atk-1.0. This is then from where
 project files higher in the stack are supposed to look for them, not
 from a specific ATK source tree.
 
