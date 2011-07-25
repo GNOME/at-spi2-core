@@ -270,7 +270,20 @@ static const char *role_names [] =
   "redundant object",
   "form",
   "link",
-  "input method window"
+  "input method window",
+  "table row",
+  "tree item",
+  "document spreadsheet",
+  "document presentation",
+  "document text",
+  "document web",
+  "document email",
+  "comment",
+  "list box",
+  "grouping",
+  "image map",
+  "notification",
+  "info bar"
 };
 
 #define MAX_ROLES (sizeof (role_names) / sizeof (char *))
