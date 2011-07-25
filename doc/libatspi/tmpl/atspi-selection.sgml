@@ -1,0 +1,113 @@
+<!-- ##### SECTION Title ##### -->
+atspi-selection
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT AtspiSelection ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION atspi_selection_get_n_selected_children ##### -->
+<para>
+
+</para>
+
+@obj: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_selection_get_selected_child ##### -->
+<para>
+
+</para>
+
+@obj: 
+@selected_child_index: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_selection_select_child ##### -->
+<para>
+
+</para>
+
+@obj: 
+@child_index: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_selection_deselect_selected_child ##### -->
+<para>
+
+</para>
+
+@obj: 
+@selected_child_index: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_selection_deselect_child ##### -->
+<para>
+
+</para>
+
+@obj: 
+@child_index: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_selection_is_child_selected ##### -->
+<para>
+
+</para>
+
+@obj: 
+@child_index: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_selection_select_all ##### -->
+<para>
+
+</para>
+
+@obj: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_selection_clear_selection ##### -->
+<para>
+
+</para>
+
+@obj: 
+@error: 
+@Returns: 
+
+

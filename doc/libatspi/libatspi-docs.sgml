@@ -8,14 +8,14 @@
   <bookinfo>
     <title>libatspi Reference Manual</title>
     <releaseinfo>
-      for libatspi [VERSION].
+      for libatspi 2.1.
       The latest version of this documentation can be found on-line at
-      <ulink role="online-location" url="http://[SERVER]/libatspi/index.html">http://[SERVER]/libatspi/</ulink>.
+      <ulink role="online-location" url="http://developer.gnome.org/libatspi/">http://developer.gnome.org/libatspi/</ulink>.
     </releaseinfo>
   </bookinfo>
 
   <chapter>
-    <title>[Insert title here]</title>
+    <title>API reference</title>
         <xi:include href="xml/atspi-text.xml"/>
     <xi:include href="xml/atspi-stateset.xml"/>
     <xi:include href="xml/atspi-application.xml"/>

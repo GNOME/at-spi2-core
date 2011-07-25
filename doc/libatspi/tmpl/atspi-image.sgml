@@ -1,0 +1,80 @@
+<!-- ##### SECTION Title ##### -->
+atspi-image
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT AtspiImage ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION atspi_image_get_image_description ##### -->
+<para>
+
+</para>
+
+@obj: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_image_get_image_size ##### -->
+<para>
+
+</para>
+
+@obj: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_image_get_image_position ##### -->
+<para>
+
+</para>
+
+@obj: 
+@ctype: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_image_get_image_extents ##### -->
+<para>
+
+</para>
+
+@obj: 
+@ctype: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_image_get_image_locale ##### -->
+<para>
+
+</para>
+
+@obj: 
+@error: 
+@Returns: 
+
+

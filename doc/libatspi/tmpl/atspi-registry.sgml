@@ -1,0 +1,129 @@
+<!-- ##### SECTION Title ##### -->
+atspi-registry
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### FUNCTION atspi_key_definition_get_type ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_get_desktop_count ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_get_desktop ##### -->
+<para>
+
+</para>
+
+@i: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_get_desktop_list ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_register_keystroke_listener ##### -->
+<para>
+
+</para>
+
+@listener: 
+@key_set: 
+@modmask: 
+@event_types: 
+@sync_type: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_deregister_keystroke_listener ##### -->
+<para>
+
+</para>
+
+@listener: 
+@key_set: 
+@modmask: 
+@event_types: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_register_device_event_listener ##### -->
+<para>
+
+</para>
+
+@listener: 
+@event_types: 
+@filter: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_deregister_device_event_listener ##### -->
+<para>
+
+</para>
+
+@listener: 
+@filter: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_generate_keyboard_event ##### -->
+<para>
+
+</para>
+
+@keyval: 
+@keystring: 
+@synth_type: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_generate_mouse_event ##### -->
+<para>
+
+</para>
+
+@x: 
+@y: 
+@name: 
+@error: 
+@Returns: 
+
+

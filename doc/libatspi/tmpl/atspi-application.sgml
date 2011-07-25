@@ -1,0 +1,44 @@
+<!-- ##### SECTION Title ##### -->
+AtspiApplication
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT AtspiApplication ##### -->
+<para>
+
+</para>
+
+@parent: 
+@hash: 
+@bus_name: 
+@bus: 
+@root: 
+@cache: 
+@toolkit_name: 
+@toolkit_version: 
+@atspi_version: 
+
+<!-- ##### STRUCT AtspiApplicationClass ##### -->
+<para>
+
+</para>
+
+@parent_class: 
+

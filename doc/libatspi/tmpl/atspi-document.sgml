@@ -1,0 +1,59 @@
+<!-- ##### SECTION Title ##### -->
+atspi-document
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT AtspiDocument ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION atspi_document_get_locale ##### -->
+<para>
+
+</para>
+
+@obj: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_document_get_attribute_value ##### -->
+<para>
+
+</para>
+
+@obj: 
+@attribute: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_document_get_attributes ##### -->
+<para>
+
+</para>
+
+@obj: 
+@error: 
+@Returns: 
+
+

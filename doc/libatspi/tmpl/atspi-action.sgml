@@ -1,0 +1,82 @@
+<!-- ##### SECTION Title ##### -->
+atspi-action
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT AtspiAction ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION atspi_action_get_n_actions ##### -->
+<para>
+
+</para>
+
+@obj: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_action_get_description ##### -->
+<para>
+
+</para>
+
+@obj: 
+@i: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_action_get_key_binding ##### -->
+<para>
+
+</para>
+
+@obj: 
+@i: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_action_get_name ##### -->
+<para>
+
+</para>
+
+@obj: 
+@i: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_action_do_action ##### -->
+<para>
+
+</para>
+
+@obj: 
+@i: 
+@error: 
+@Returns: 
+
+

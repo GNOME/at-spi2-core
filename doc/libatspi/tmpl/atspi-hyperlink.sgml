@@ -1,0 +1,117 @@
+<!-- ##### SECTION Title ##### -->
+AtspiHyperlink
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT AtspiHyperlink ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT AtspiHyperlinkClass ##### -->
+<para>
+
+</para>
+
+@parent_class: 
+
+<!-- ##### FUNCTION atspi_hyperlink_new ##### -->
+<para>
+
+</para>
+
+@app: 
+@path: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_hyperlink_get_n_anchors ##### -->
+<para>
+
+</para>
+
+@obj: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_hyperlink_get_uri ##### -->
+<para>
+
+</para>
+
+@obj: 
+@i: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_hyperlink_get_object ##### -->
+<para>
+
+</para>
+
+@obj: 
+@i: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_hyperlink_get_index_range ##### -->
+<para>
+
+</para>
+
+@obj: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_hyperlink_get_start_index ##### -->
+<para>
+
+</para>
+
+@obj: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_hyperlink_get_end_index ##### -->
+<para>
+
+</para>
+
+@obj: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_hyperlink_is_valid ##### -->
+<para>
+
+</para>
+
+@obj: 
+@error: 
+@Returns: 
+
+

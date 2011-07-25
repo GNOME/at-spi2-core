@@ -1,0 +1,79 @@
+<!-- ##### SECTION Title ##### -->
+atspi-value
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT AtspiValue ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION atspi_value_get_minimum_value ##### -->
+<para>
+
+</para>
+
+@obj: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_value_get_current_value ##### -->
+<para>
+
+</para>
+
+@obj: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_value_get_maximum_value ##### -->
+<para>
+
+</para>
+
+@obj: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_value_set_current_value ##### -->
+<para>
+
+</para>
+
+@obj: 
+@new_value: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_value_get_minimum_increment ##### -->
+<para>
+
+</para>
+
+@obj: 
+@error: 
+@Returns: 
+
+

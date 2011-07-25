@@ -1,0 +1,100 @@
+<!-- ##### SECTION Title ##### -->
+atspi-editabletext
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT AtspiEditableText ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION atspi_editable_text_set_attributes ##### -->
+<para>
+
+</para>
+
+@obj: 
+@attributes: 
+@start_pos: 
+@end_pos: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_editable_text_insert_text ##### -->
+<para>
+
+</para>
+
+@obj: 
+@position: 
+@text: 
+@length: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_editable_text_copy_text ##### -->
+<para>
+
+</para>
+
+@obj: 
+@start_pos: 
+@end_pos: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_editable_text_cut_text ##### -->
+<para>
+
+</para>
+
+@obj: 
+@start_pos: 
+@end_pos: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_editable_text_delete_text ##### -->
+<para>
+
+</para>
+
+@obj: 
+@start_pos: 
+@end_pos: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atspi_editable_text_paste_text ##### -->
+<para>
+
+</para>
+
+@obj: 
+@position: 
+@error: 
+@Returns: 
+
+
