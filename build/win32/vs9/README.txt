@@ -1,4 +1,5 @@
-Note that all this is rather experimental.
+Please do not build this package in a path that contains spaces to avoid
+possible problems during the build or during the usage of the library.
 
 This VS9 solution and the projects it includes are intented to be used
 in a ATK source tree unpacked from a tarball. In a git checkout you

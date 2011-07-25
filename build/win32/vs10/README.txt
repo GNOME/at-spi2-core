@@ -1,11 +1,12 @@
-Note that all this is rather experimental.
+Please do not build this package in a path that contains spaces to avoid
+possible problems during the build or during the usage of the library.
 
 This VS10 solution and the projects it includes are intented to be used
 in a ATK source tree unpacked from a tarball. In a git checkout you
 first need to use some Unix-like environment or manual work to expand
 the .in files needed, mainly config.h.win32.in into config.h.win32.
-You will also need to expand atk.vcprojin here into
-atk.vcproj.
+You will also need to expand atk.vcxprojin and atk.vcxproj.filtersin here
+into atk.vcxproj and atk.vcxproj.filters respectively.
 
 The dependencies for this package are gettext-runtime (libintl), GLib*
 and ZLib.
