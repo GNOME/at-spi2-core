@@ -59,6 +59,12 @@
 @path: 
 @Returns: 
 
+<!-- ##### FUNCTION atspi_image_get_type ##### -->
+<para>
+
+</para>
+
+
 <!-- ##### FUNCTION atspi_document_get_type ##### -->
 <para>
 
