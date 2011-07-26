@@ -289,13 +289,13 @@ static const char *role_names [] =
 #define MAX_ROLES (sizeof (role_names) / sizeof (char *))
 
 /**
- * atspi_role_get_name
- * @role: an #AtspiAccessibleRole object to query.
+ * atspi_role_get_name:
+ * @role: an #AtspiRole object to query.
  *
- * Get a localizeable string that indicates the name of an #AtspiAccessibleRole.
+ * Gets a localizable string that indicates the name of an #AtspiRole.
  * <em>DEPRECATED.</em>
  *
- * Returns: a localizable string name for an #AtspiAccessibleRole enumerated type.
+ * Returns: a localizable string name for an #AtspiRole enumerated type.
  **/
 gchar *
 atspi_role_get_name (AtspiRole role)
@@ -314,10 +314,10 @@ atspi_role_get_name (AtspiRole role)
  * atspi_accessible_get_name:
  * @obj: a pointer to the #AtspiAccessible object on which to operate.
  *
- * Get the name of an #AtspiAccessible object.
+ * Gets the name of an #AtspiAccessible object.
  *
- * Returns: a UTF-8 string indicating the name of the #AtspiAccessible object.
- * or NULL on exception
+ * Returns: a UTF-8 string indicating the name of the #AtspiAccessible object 
+ * or NULL on exception.
  **/
 gchar *
 atspi_accessible_get_name (AtspiAccessible *obj, GError **error)
@@ -337,10 +337,10 @@ atspi_accessible_get_name (AtspiAccessible *obj, GError **error)
  * atspi_accessible_get_description:
  * @obj: a pointer to the #AtspiAccessible object on which to operate.
  *
- * Get the description of an #AtspiAccessible object.
+ * Gets the description of an #AtspiAccessible object.
  *
- * Returns: a UTF-8 string describing the #AtspiAccessible object.
- * or NULL on exception
+ * Returns: a UTF-8 string describing the #AtspiAccessible object 
+ * or NULL on exception.
  **/
 gchar *
 atspi_accessible_get_description (AtspiAccessible *obj, GError **error)
@@ -364,7 +364,7 @@ const char *str_parent = "Parent";
  * atspi_accessible_get_parent:
  * @obj: a pointer to the #AtspiAccessible object to query.
  *
- * Get an #AtspiAccessible object's parent container.
+ * Gets an #AtspiAccessible object's parent container.
  *
  * Returns: (transfer full): a pointer to the #AtspiAccessible object which
  *          contains the given #AtspiAccessible instance, or NULL if the @obj
@@ -412,10 +412,10 @@ atspi_accessible_get_parent (AtspiAccessible *obj, GError **error)
  * atspi_accessible_get_child_count:
  * @obj: a pointer to the #AtspiAccessible object on which to operate.
  *
- * Get the number of children contained by an #AtspiAccessible object.
+ * Gets the number of children contained by an #AtspiAccessible object.
  *
  * Returns: a #long indicating the number of #AtspiAccessible children
- *          contained by an #AtspiAccessible object. or -1 on exception
+ *          contained by an #AtspiAccessible object or -1 on exception.
  *
  **/
 gint
@@ -440,10 +440,10 @@ atspi_accessible_get_child_count (AtspiAccessible *obj, GError **error)
  * @obj: a pointer to the #AtspiAccessible object on which to operate.
  * @child_index: a #long indicating which child is specified.
  *
- * Get the #AtspiAccessible child of an #AtspiAccessible object at a given index.
+ * Gets the #AtspiAccessible child of an #AtspiAccessible object at a given index.
  *
  * Returns: (transfer full): a pointer to the #AtspiAccessible child object at
- * index @child_index. or NULL on exception
+ * index @child_index or NULL on exception.
  **/
 AtspiAccessible *
 atspi_accessible_get_child_at_index (AtspiAccessible *obj,
@@ -470,13 +470,14 @@ atspi_accessible_get_child_at_index (AtspiAccessible *obj,
 }
 
 /**
- * atspi_accessible_get_index_in_parent
+ * atspi_accessible_get_index_in_parent:
  * @obj: a pointer to the #AtspiAccessible object on which to operate.
  *
- * Get the index of an #AtspiAccessible object in its containing #AtspiAccessible.
+ * Gets the index of an #AtspiAccessible object within its parent's 
+ * #AtspiAccessible children list.
  *
  * Returns: a #glong indicating the index of the #AtspiAccessible object
- *          in its parent (i.e. containing) #AtspiAccessible instance,
+ *          in its parent,
  *          or -1 if @obj has no containing parent or on exception.
  **/
 gint
@@ -516,11 +517,11 @@ typedef struct
  * atspi_accessible_get_relation_set:
  * @obj: a pointer to the #AtspiAccessible object on which to operate.
  *
- * Get the set of #AtspiRelation objects which describe this #AtspiAccessible object's
- *       relationships with other #AtspiAccessible objects.
+ * Gets the set of #AtspiRelation objects which describes this #AtspiAccessible object's
+ * relationships with other #AtspiAccessible objects.
  *
- * Returns: (element-type AtspiAccessible*) (transfer full): an array of
- *          #AtspiAccessibleRelation pointers. or NULL on exception
+ * Returns: (element-type AtspiAccessible*) (transfer full): a #GArray of
+ *          #AtspiRelation pointers or NULL on exception.
  **/
 GArray *
 atspi_accessible_get_relation_set (AtspiAccessible *obj, GError **error)
@@ -554,10 +555,10 @@ atspi_accessible_get_relation_set (AtspiAccessible *obj, GError **error)
  * atspi_accessible_get_role:
  * @obj: a pointer to the #AtspiAccessible object on which to operate.
  *
- * Get the UI role of an #AtspiAccessible object.
- * A UTF-8 string describing this role can be obtained via atspi_accessible_getRoleName ().
+ * Gets the UI role played by an #AtspiAccessible object.
+ * This role's name can be obtained via atspi_accessible_get_role_name ().
  *
- * Returns: the #AtspiRole of the object.
+ * Returns: the #AtspiRole of an #AtspiAccessible object.
  *
  **/
 AtspiRole
@@ -582,11 +583,12 @@ atspi_accessible_get_role (AtspiAccessible *obj, GError **error)
  * atspi_accessible_get_role_name:
  * @obj: a pointer to the #AtspiAccessible object on which to operate.
  *
- * Get a UTF-8 string describing the role this object plays in the UI.
+ * Gets a UTF-8 string corresponding to the name of the role played by an object.
  * This method will return useful values for roles that fall outside the
- * enumeration used in atspi_accessible_getRole ().
+ * enumeration used in atspi_accessible_get_role ().
  *
- * Returns: a UTF-8 string specifying the role of this #AtspiAccessible object.
+ * Returns: a UTF-8 string specifying the type of UI role played by an
+ * #AtspiAccessible object.
  *
  **/
 gchar *
@@ -613,11 +615,13 @@ atspi_accessible_get_role_name (AtspiAccessible *obj, GError **error)
  * atspi_accessible_get_localized_role_name:
  * @obj: a pointer to the #AtspiAccessible object on which to operate.
  *
- * Get a UTF-8 string describing the (localized) role this object plays in the UI.
+ * Gets a UTF-8 string corresponding to the name of the role played by an 
+ * object, translated to the current locale.
  * This method will return useful values for roles that fall outside the
  * enumeration used in atspi_accessible_getRole ().
  *
- * Returns: a UTF-8 string specifying the role of this #AtspiAccessible object.
+ * Returns: a localized, UTF-8 string specifying the type of UI role played 
+ * by an #AtspiAccessible object.
  *
  **/
 gchar *
@@ -647,10 +651,10 @@ defunct_set ()
  * atspi_accessible_get_state_set:
  * @obj: a pointer to the #AtspiAccessible object on which to operate.
  *
- * Gets the current state of an object.
+ * Gets the states currently held by an object.
  *
- * Returns: (transfer full): a pointer to an #AtspiStateSet representing the
- *          object's current state.
+ * Returns: (transfer full): a pointer to an #AtspiStateSet representing an
+ * object's current state set.
  **/
 AtspiStateSet *
 atspi_accessible_get_state_set (AtspiAccessible *obj)
@@ -679,13 +683,13 @@ atspi_accessible_get_state_set (AtspiAccessible *obj)
  * atspi_accessible_get_attributes:
  * @obj: The #AtspiAccessible being queried.
  *
- * Get the #AttributeSet representing any assigned 
+ * Gets the #AttributeSet representing any assigned 
  * name-value pair attributes or annotations for this object.
  * For typographic, textual, or textually-semantic attributes, see
  * atspi_text_get_attributes instead.
  *
  * Returns: (element-type gchar* gchar*) (transfer full): The name-value-pair
- *          attributes assigned to this object.
+ * attributes assigned to this object.
  */
 GHashTable *
 atspi_accessible_get_attributes (AtspiAccessible *obj, GError **error)
@@ -719,12 +723,12 @@ add_to_attribute_array (gpointer key, gpointer value, gpointer data)
  * atspi_accessible_get_attributes_as_array:
  * @obj: The #AtspiAccessible being queried.
  *
- * Get the #AttributeSet representing any assigned 
+ * Gets a #GArray representing any assigned 
  * name-value pair attributes or annotations for this object.
  * For typographic, textual, or textually-semantic attributes, see
  * atspi_text_get_attributes_as_array instead.
  *
- * Returns: (element-type gchar*) (transfer full): The name-value-pair
+ * Returns: (element-type GArray*) (transfer full): The name-value-pair
  *          attributes assigned to this object.
  */
 GArray *
@@ -753,9 +757,9 @@ atspi_accessible_get_attributes_as_array (AtspiAccessible *obj, GError **error)
  * atspi_accessible_get_application:
  * @obj: The #AtspiAccessible being queried.
  *
- * Get the containing #AtspiApplication for an object.
+ * Gets the containing #AtspiApplication for an object.
  *
- * Returns: (transfer full): the containing AtspiApplication instance for
+ * Returns: (transfer full): the containing #AtspiApplication instance for
  *          this object.
  */
 AtspiAccessible *
@@ -796,11 +800,10 @@ atspi_accessible_get_application (AtspiAccessible *obj, GError **error)
  * atspi_accessible_get_toolkit_name:
  * @obj: a pointer to the #AtspiAccessible object on which to operate.
  *
- * Get the toolkit for a #AtspiAccessible object.
+ * Gets the toolkit name for an #AtspiAccessible object.
  * Only works on application root objects.
  *
- * Returns: a UTF-8 string indicating the toolkit name for the #AtspiAccessible object.
- * or NULL on exception
+ * Returns: a UTF-8 string indicating the toolkit name for the #AtspiAccessible object or NULL on exception.
  **/
 gchar *
 atspi_accessible_get_toolkit_name (AtspiAccessible *obj, GError **error)
@@ -821,11 +824,10 @@ atspi_accessible_get_toolkit_name (AtspiAccessible *obj, GError **error)
  * atspi_accessible_get_toolkit_version:
  * @obj: a pointer to the #AtspiAccessible object on which to operate.
  *
- * Get the toolkit version for a #AtspiAccessible object.
+ * Gets the toolkit version for an #AtspiAccessible object.
  * Only works on application root objects.
  *
- * Returns: a UTF-8 string indicating the toolkit ersion for the #AtspiAccessible object.
- * or NULL on exception
+ * Returns: a UTF-8 string indicating the toolkit version for the #AtspiAccessible object or NULL on exception.
  **/
 gchar *
 atspi_accessible_get_toolkit_version (AtspiAccessible *obj, GError **error)
@@ -846,12 +848,11 @@ atspi_accessible_get_toolkit_version (AtspiAccessible *obj, GError **error)
  * atspi_accessible_get_atspi_version:
  * @obj: a pointer to the #AtspiAccessible object on which to operate.
  *
- * Get the AT-SPI IPC specification version supported by the application
+ * Gets the AT-SPI IPC specification version supported by the application
  * pointed to by the #AtspiAccessible object.
  * Only works on application root objects.
  *
- * Returns: a UTF-8 string indicating the AT-SPI ersion for the #AtspiAccessible object.
- * or NULL on exception
+ * Returns: a UTF-8 string indicating the AT-SPI version for the #AtspiAccessible object or NULL on exception.
  **/
 gchar *
 atspi_accessible_get_atspi_version (AtspiAccessible *obj, GError **error)
@@ -872,11 +873,11 @@ atspi_accessible_get_atspi_version (AtspiAccessible *obj, GError **error)
  * atspi_accessible_get_toolkit_version:
  * @obj: a pointer to the #AtspiAccessible object on which to operate.
  *
- * Get the application id for a #AtspiAccessible object.
+ * Gets the application id for a #AtspiAccessible object.
  * Only works on application root objects.
  *
- * Returns: a gint indicating the id for the #AtspiAccessible object.
- * or -1 on exception
+ * Returns: a positive #gint indicating the id for the #AtspiAccessible object 
+ * or -1 on exception.
  **/
 gint
 atspi_accessible_get_id (AtspiAccessible *obj, GError **error)
@@ -926,7 +927,8 @@ _atspi_accessible_is_a (AtspiAccessible *accessible,
  * atspi_accessible_is_action:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Query whether the specified #AtspiAccessible implements #AtspiAction.
+ * Query whether the specified #AtspiAccessible implements the 
+ * #AtspiAction interface.
  *
  * Returns: #TRUE if @obj implements the #AtspiAction interface,
  *          #FALSE otherwise.
@@ -942,7 +944,8 @@ atspi_accessible_is_action (AtspiAccessible *obj)
  * atspi_accessible_is_application:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Query whether the specified #AtspiAccessible implements #AtspiApplication.
+ * Query whether the specified #AtspiAccessible implements the
+ * #AtspiApplication interface.
  *
  * Returns: #TRUE if @obj implements the #AtspiApplication interface,
  *          #FALSE otherwise.
@@ -955,10 +958,13 @@ atspi_accessible_is_application (AtspiAccessible *obj)
 }
 
 /**                      
- * atspi_accessible_is_collection:                                                                                                                                                                          * @obj: a pointer to the #AtspiAccessible instance to query.                                                                                                                                          
- *                          
- * Query whether the specified #AtspiAccessible implements #AtspiCollection.    
- * Returns: #TRUE if @obj implements the #AtspiCollection interface,                                                                                                               
+ * atspi_accessible_is_collection:
+ * @obj: a pointer to the #AtspiAccessible instance to query.
+ *
+ * Query whether the specified #AtspiAccessible implements the
+ * #AtspiCollection interface.
+ *
+ * Returns: #TRUE if @obj implements the #AtspiCollection interface,
  *          #FALSE otherwise.
  **/
 gboolean
@@ -988,7 +994,8 @@ atspi_accessible_is_component (AtspiAccessible *obj)
  * atspi_accessible_is_document:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Query whether the specified #AtspiAccessible implements #AtspiDocument.
+ * Query whether the specified #AtspiAccessible implements the
+ * #AtspiDocument interface.
  *
  * Returns: #TRUE if @obj implements the #AtspiDocument interface,
  *          #FALSE otherwise.
@@ -1004,7 +1011,8 @@ atspi_accessible_is_document (AtspiAccessible *obj)
  * atspi_accessible_is_editable_text:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Query whether the specified #AtspiAccessible implements #AtspiEditableText.
+ * Query whether the specified #AtspiAccessible implements the
+ * #AtspiEditableText interface.
  *
  * Returns: #TRUE if @obj implements the #AtspiEditableText interface,
  *          #FALSE otherwise.
@@ -1020,7 +1028,8 @@ atspi_accessible_is_editable_text (AtspiAccessible *obj)
  * atspi_accessible_is_hypertext:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Query whether the specified #AtspiAccessible implements #AtspiHypertext.
+ * Query whether the specified #AtspiAccessible implements the
+ * #AtspiHypertext interface.
  *
  * Returns: #TRUE if @obj implements the #AtspiHypertext interface,
  *          #FALSE otherwise.
@@ -1036,7 +1045,8 @@ atspi_accessible_is_hypertext (AtspiAccessible *obj)
  * atspi_accessible_is_hyperlink:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Query whether the specified #AtspiAccessible implements #AtspiHyperlink.
+ * Query whether the specified #AtspiAccessible implements the 
+ * #AtspiHyperlink interface.
  *
  * Returns: #TRUE if @obj implements the #AtspiHypertext interface,
  *          #FALSE otherwise.
@@ -1052,7 +1062,8 @@ atspi_accessible_is_hyperlink (AtspiAccessible *obj)
  * atspi_accessible_is_image:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Query whether the specified #AtspiAccessible implements #AtspiImage.
+ * Query whether the specified #AtspiAccessible implements the
+ * #AtspiImage interface.
  *
  * Returns: #TRUE if @obj implements the #AtspiImage interface,
  *          #FALSE otherwise.
@@ -1068,7 +1079,8 @@ atspi_accessible_is_image (AtspiAccessible *obj)
  * atspi_accessible_is_selection:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Query whether the specified #AtspiAccessible implements #AtspiSelection.
+ * Query whether the specified #AtspiAccessible implements the
+ * #AtspiSelection interface.
  *
  * Returns: #TRUE if @obj implements the #AtspiSelection interface,
  *          #FALSE otherwise.
@@ -1084,7 +1096,8 @@ atspi_accessible_is_selection (AtspiAccessible *obj)
  * atspi_accessible_is_table:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Query whether the specified #AtspiAccessible implements #AtspiTable.
+ * Query whether the specified #AtspiAccessible implements the
+ * #AtspiTable interface.
  *
  * Returns: #TRUE if @obj implements the #AtspiTable interface,
  *          #FALSE otherwise.
@@ -1100,8 +1113,8 @@ atspi_accessible_is_table (AtspiAccessible *obj)
  * atspi_accessible_is_streamable_content:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Query whether the specified #AtspiAccessible implements
- *          #AtspiStreamableContent.
+ * Query whether the specified #AtspiAccessible implements the
+ * #AtspiStreamableContent interface.
  *
  * Returns: #TRUE if @obj implements the #AtspiStreamableContent interface,
  *          #FALSE otherwise.
@@ -1122,7 +1135,8 @@ atspi_accessible_is_streamable_content (AtspiAccessible *obj)
  * atspi_accessible_is_text:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Query whether the specified #AtspiAccessible implements #AtspiText.
+ * Query whether the specified #AtspiAccessible implements the 
+ * #AtspiText interface.
  *
  * Returns: #TRUE if @obj implements the #AtspiText interface,
  *          #FALSE otherwise.
@@ -1138,7 +1152,8 @@ atspi_accessible_is_text (AtspiAccessible *obj)
  * atspi_accessible_is_value:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Query whether the specified #AtspiAccessible implements #AtspiValue.
+ * Query whether the specified #AtspiAccessible implements the
+ * #AtspiValue interface.
  *
  * Returns: #TRUE if @obj implements the #AtspiValue interface,
  *          #FALSE otherwise.
@@ -1154,7 +1169,7 @@ atspi_accessible_is_value (AtspiAccessible *obj)
  * atspi_accessible_get_action:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Get the #AtspiAction interface for an #AtspiAccessible.
+ * Gets the #AtspiAction interface for an #AtspiAccessible.
  *
  * Returns: (transfer full): a pointer to an #AtspiAction interface
  *          instance, or NULL if @obj does not implement #AtspiAction.
@@ -1170,7 +1185,7 @@ atspi_accessible_get_action (AtspiAccessible *accessible)
  * atspi_accessible_get_collection:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Get the #AtspiCollection interface for an #AtspiAccessible.
+ * Gets the #AtspiCollection interface for an #AtspiAccessible.
  *
  * Returns: (transfer full): a pointer to an #AtspiCollection interface
  *          instance, or NULL if @obj does not implement #AtspiCollection.
@@ -1186,7 +1201,7 @@ atspi_accessible_get_collection (AtspiAccessible *accessible)
  * atspi_accessible_get_component:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Get the #AtspiComponent interface for an #AtspiAccessible.
+ * Gets the #AtspiComponent interface for an #AtspiAccessible.
  *
  * Returns: (transfer full): a pointer to an #AtspiComponent interface
  *          instance, or NULL if @obj does not implement #AtspiComponent.
@@ -1202,7 +1217,7 @@ atspi_accessible_get_component (AtspiAccessible *obj)
  * atspi_accessible_get_document:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Get the #AtspiDocument interface for an #AtspiAccessible.
+ * Gets the #AtspiDocument interface for an #AtspiAccessible.
  *
  * Returns: (transfer full): a pointer to an #AtspiDocument interface
  *          instance, or NULL if @obj does not implement #AtspiDocument.
@@ -1218,7 +1233,7 @@ atspi_accessible_get_document (AtspiAccessible *accessible)
  * atspi_accessible_get_editable_text:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Get the #AtspiEditableText interface for an #AtspiAccessible.
+ * Gets the #AtspiEditableText interface for an #AtspiAccessible.
  *
  * Returns: (transfer full): a pointer to an #AtspiEditableText interface
  *          instance, or NULL if @obj does not implement #AtspiEditableText.
@@ -1234,8 +1249,7 @@ atspi_accessible_get_editable_text (AtspiAccessible *accessible)
  * atspi_accessible_get_hyperlink:
  * @obj: a pointer to the #AtspiAccessible object on which to operate.
  *
- * Get the #AtspiHyperlink associated with the given #AtspiAccessible, if
- * supported.
+ * Gets the #AtspiHyperlink interface for an #AtspiAccessible.
  *
  * Returns: (transfer full): the #AtspiHyperlink object associated with
  *          the given #AtspiAccessible, or NULL if not supported.
@@ -1251,7 +1265,7 @@ atspi_accessible_get_hyperlink (AtspiAccessible *accessible)
  * atspi_accessible_get_hypertext:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Get the #AtspiHypertext interface for an #AtspiAccessible.
+ * Gets the #AtspiHypertext interface for an #AtspiAccessible.
  *
  * Returns: (transfer full): a pointer to an #AtspiHypertext interface
  *          instance, or NULL if @obj does not implement #AtspiHypertext.
@@ -1267,7 +1281,7 @@ atspi_accessible_get_hypertext (AtspiAccessible *accessible)
  * atspi_accessible_get_image:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Get the #AtspiImage interface for an #AtspiAccessible.
+ * Gets the #AtspiImage interface for an #AtspiAccessible.
  *
  * Returns: (transfer full): a pointer to an #AtspiImage interface instance, or
  *          NULL if @obj does not implement #AtspiImage.
@@ -1283,7 +1297,7 @@ atspi_accessible_get_image (AtspiAccessible *accessible)
  * atspi_accessible_get_selection:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Get the #AtspiSelection interface for an #AtspiAccessible.
+ * Gets the #AtspiSelection interface for an #AtspiAccessible.
  *
  * Returns: (transfer full): a pointer to an #AtspiSelection interface
  *          instance, or NULL if @obj does not implement #AtspiSelection.
@@ -1300,7 +1314,7 @@ atspi_accessible_get_selection (AtspiAccessible *accessible)
  * atspi_accessible_get_streamable_content:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Get the #AtspiStreamableContent interface for an #AtspiAccessible.
+ * Gets the #AtspiStreamableContent interface for an #AtspiAccessible.
  *
  * Returns: (transfer full): a pointer to an #AtspiStreamableContent interface
  *          instance, or NULL if @obj does not implement #AtspiStreamableContent.
@@ -1317,7 +1331,7 @@ atspi_accessible_get_streamable_content (AtspiAccessible *accessible)
  * atspi_accessible_get_table:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Get the #AtspiTable interface for an #AtspiAccessible.
+ * Gets the #AtspiTable interface for an #AtspiAccessible.
  *
  * Returns: (transfer full): a pointer to an #AtspiTable interface instance, or
  *          NULL if @obj does not implement #AtspiTable.
@@ -1333,7 +1347,7 @@ atspi_accessible_get_table (AtspiAccessible *obj)
  * atspi_accessible_get_text:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Get the #AtspiTable interface for an #AtspiAccessible.
+ * Gets the #AtspiTable interface for an #AtspiAccessible.
  *
  * Returns: (transfer full): a pointer to an #AtspiText interface instance, or
  *          NULL if @obj does not implement #AtspiText.
@@ -1349,7 +1363,7 @@ atspi_accessible_get_text (AtspiAccessible *obj)
  * atspi_accessible_get_value:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
- * Get the #AtspiTable interface for an #AtspiAccessible.
+ * Gets the #AtspiTable interface for an #AtspiAccessible.
  *
  * Returns: (transfer full): a pointer to an #AtspiValue interface instance, or
  *          NULL if @obj does not implement #AtspiValue.
@@ -1372,12 +1386,13 @@ append_const_val (GArray *array, const gchar *val)
 
 /**
  * atspi_accessible_get_interfaces:
+ * @obj: The #AtspiAccessible to query.
  *
- * #obj: The #AtspiAccessible to query.
+ * A set of pointers to all interfaces supported by an #AtspiAccessible.
  *
  * Returns: (element-type gchar*) (transfer full): A #GArray of strings
  *          describing the interfaces supported by the object.  Interfaces are
- *          denoted in short-hand (ie, "Component", "Text", etc.)
+ *          denoted in short-hand (i.e. "Component", "Text" etc.).
  **/
 GArray *
 atspi_accessible_get_interfaces (AtspiAccessible *obj)
@@ -1414,7 +1429,14 @@ atspi_accessible_get_interfaces (AtspiAccessible *obj)
 
   return ret;
 }
-
+/**
+ * atspi_accessible_new:
+ * @app: an #AtspiApplication reference to the new objects's parent application.
+ * @path: a UTF-8 string indicating the new object's parent path.
+ *
+ * Creates a new #AtspiAccessible object.
+ * Returns: a new #AtspiAccessible object. 
+ **/
 AtspiAccessible *
 atspi_accessible_new (AtspiApplication *app, const gchar *path)
 {
