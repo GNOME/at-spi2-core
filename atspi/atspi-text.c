@@ -23,7 +23,14 @@
  */
 
 #include "atspi-private.h"
-
+/**
+ * atspi_range_copy:
+ * @src: a pointer to the source #AtspiRange object that will be copied.
+ *
+ * Gets a copy of an #AtspiRange object.
+ *
+ * Returns: the #AtspiRange copy of an #AtspiRange object.
+ **/
 AtspiRange *
 atspi_range_copy (AtspiRange *src)
 {
@@ -61,9 +68,9 @@ G_DEFINE_BOXED_TYPE (AtspiTextRange, atspi_text_range, atspi_text_range_copy,
  * atspi_text_get_character_count:
  * @obj: a pointer to the #AtspiText object to query.
  *
- * Get the character count of an #AccessibleText object.
+ * Gets the character count of an #AccessibleText object.
  *
- * Returns: a long integer indicating the total number of
+ * Returns: a #gint indicating the total number of
  *              characters in the #AccessibleText object.
  **/
 gint
@@ -81,11 +88,11 @@ atspi_text_get_character_count (AtspiText *obj, GError **error)
 /**
  * atspi_text_get_text:
  * @obj: a pointer to the #AtspiText object to query.
- * @start_offset: a #long indicating the start of the desired text range.
- * @end_offset: a #long indicating the first character past the desired range.
+ * @start_offset: a #gint indicating the start of the desired text range.
+ * @end_offset: a #gint indicating the first character past the desired range.
  *
- * Get a range of text from an #AtspiText object.  The number of bytes
- *          in the returned string may exceed end_offset-start_offset, since
+ * Gets a range of text from an #AtspiText object.  The number of bytes
+ *          in the returned string may exceed either end_offset or start_offset, since
  *          UTF-8 is a variable-width encoding.
  *
  * Returns: a text string containing characters from @start_offset
@@ -114,9 +121,9 @@ atspi_text_get_text (AtspiText *obj,
  * atspi_text_get_caret_offset:
  * @obj: a pointer to the #AtspiText object to query.
  *
- * Get the current offset of the text caret in an #AtspiText object.
+ * Gets the current offset of the text caret in an #AtspiText object.
  *
- * Returns: a long integer indicating the current position of the text caret.
+ * Returns: a #gint indicating the current position of the text caret.
  **/
 gint
 atspi_text_get_caret_offset (AtspiText *obj, GError **error)
@@ -133,19 +140,20 @@ atspi_text_get_caret_offset (AtspiText *obj, GError **error)
 /**
  * atspi_text_get_attributes:
  * @obj: a pointer to the #AtspiText object to query.
- * @offset: a long integer indicating the offset from which the attribute
+ * @offset: a #gint indicating the offset from which the attribute
  *        search is based.
- * @start_offset: (out): a #gint indicating the start of the desired text
+ * @start_offset: (out): a #gint pointer indicating the start of the desired text
  *                range.
- * @end_offset: (out): a #gint indicating the first character past the desired
+ * @end_offset: (out): a #gint pointer indicating the first character past the desired
  *              range.
  *
- * Get the attributes applied to a range of text from an #AtspiText
- *          object, and the bounds of the range.
- *          The text attributes correspond to CSS attributes where possible,
+ * Gets the attributes applied to a range of text from an #AtspiText
+ * object. The text attributes correspond to CSS attributes
+ * where possible.
+ * <em>DEPRECATED</em>
  *
  * Returns: (element-type gchar* gchar*) (transfer full): a #GHashTable
- *          describing the attributes at the given character offset
+ * describing the attributes at the given character offset.
  **/
 GHashTable *
 atspi_text_get_attributes (AtspiText *obj,
@@ -185,19 +193,22 @@ atspi_text_get_attributes (AtspiText *obj,
 /**
  * atspi_text_get_attribute_run:
  * @obj: a pointer to the #AtspiText object to query.
- * @offset: an integer indicating the offset from which the attribute
+ * @offset: a #gint indicating the offset from which the attribute
  *        search is based.
- * @include_defaults: a #bool if False, the call should only return those 
- *                 attributes which are explicitly set on the current attribute 
- *                 run, omitting any attributes which are inherited from the 
- *                 default values.
- * @start_offset: (out): a #gint indicating the start of the desired text
+ * @include_defaults: a #bool that, when set as #FALSE, indicates the call
+ * should only return those attributes which are explicitly set on the current
+ * attribute run, omitting any attributes which are inherited from the 
+ * default values.
+ * @start_offset: (out): a #gint pointer indicating the start of the desired text
  *                range.
- * @end_offset: (out): a #gint indicating the first character past the desired
+ * @end_offset: (out): a #gint pointer indicating the first character past the desired
  *              range.
  *
- * Returns: (element-type gchar* gchar*) (transfer full): the AttributeSet
- *          defined at offset, optionally including the 'default' attributes.
+ * Gets a set of attributes applied to a range of text from an #AtspiText object, optionally
+ * including its 'default' attributes.
+ *
+ * Returns: (element-type gchar* gchar*) (transfer full): a #GHashTable with attributes
+ *          defined at the indicated offset, optionally including the 'default' ones.
  **/
 GHashTable *
 atspi_text_get_attribute_run (AtspiText *obj,
@@ -243,8 +254,10 @@ atspi_text_get_attribute_run (AtspiText *obj,
  * @offset: The character offset at which to query the attribute.
  * @attribute_name: The attribute to query.
  *
+ * Gets the value of a named attribute at a given offset.
+ *
  * Returns: the value of a given attribute at the given offset, or NULL if
- *          not present.
+ * not present.
  **/
 gchar *
 atspi_text_get_attribute_value (AtspiText *obj,
@@ -265,15 +278,11 @@ atspi_text_get_attribute_value (AtspiText *obj,
  * atspi_text_get_default_attributes:
  * @obj: a pointer to the #AtspiText object to query.
  *
- * Get the default attributes applied to an #AtspiText
- *          object.
- *          The text attributes correspond to CSS attributes where possible,
- *          keys and values are delimited from one another via ":", and
- *          the delimiter between key/value pairs is ";". Thus
- *          "font-size:10;foreground-color:0,0,0" would be a valid
- *          return string.  The combination of this attribute set and
- *          the attributes reported by #atspi_text_getAttributes
- *          describes the entire set of text attributes over a range.
+ * Gets the default attributes applied to an #AtspiText
+ * object. The text attributes correspond to CSS attributes 
+ * where possible. The combination of this attribute set and
+ * the attributes reported by #atspi_text_get_attributes
+ * describes the entire set of text attributes over a range.
  *
  * Returns: (element-type gchar* gchar*) (transfer full): a #GHashTable
  *          containing the default attributes applied to a text object,
@@ -296,7 +305,7 @@ atspi_text_get_default_attributes (AtspiText *obj, GError **error)
  * @obj: a pointer to the #AtspiText object on which to operate.
  * @new_offset: the offset to which the text caret is to be moved.
  *
- * Set the text caret position for an #AtspiText object.
+ * Moves the text caret to a given position.
  *
  * Returns: #TRUE if successful, #FALSE otherwise.
  **/
@@ -318,12 +327,12 @@ atspi_text_set_caret_offset (AtspiText *obj,
 /**
  * atspi_text_get_text_before_offset:
  * @obj: a pointer to the #AtspiText object on which to operate.
- * @offset: an integer indicating the offset from which the delimiter
+ * @offset: a #gint indicating the offset from which the delimiter
  *        search is based.
  * @type: an #AtspiTextBoundaryType indicating whether the desired
  *       text string is a word, sentence, line, or attribute run.
  *
- * Get delimited text from an #AtspiText object which precedes a given
+ * Gets delimited text from an #AtspiText object which precedes a given
  *          text offset.
  *
  * Returns: an #AtspiTextRange containing a UTF-8 string representing the
@@ -360,12 +369,12 @@ atspi_text_get_text_before_offset (AtspiText *obj,
 /**
  * atspi_text_get_text_at_offset:
  * @obj: a pointer to the #AtspiText object on which to operate.
- * @offset: a long integer indicating the offset from which the delimiter
+ * @offset: a #gint indicating the offset from which the delimiter
  *        search is based.
  * @type: an #AtspiTextBoundaryType indicating whether the desired
  *       text string is a word, sentence, line, or attribute run.
  *
- * Get delimited text from an #AtspiText object which includes a given
+ * Gets delimited text from an #AtspiText object which includes a given
  *          text offset.
  *
  * Returns: an #AtspiTextRange containing a UTF-8 string representing the
@@ -402,12 +411,12 @@ atspi_text_get_text_at_offset (AtspiText *obj,
 /**
  * atspi_text_get_text_after_offset:
  * @obj: a pointer to the #AtspiText object on which to operate.
- * @offset: an integer indicating the offset from which the delimiter
+ * @offset: a #gint indicating the offset from which the delimiter
  *        search is based.
  * @type: an #AtspiTextBoundaryType indicating whether the desired
  *       text string is a word, sentence, line, or attribute run.
  *
- * Get delimited text from an #AtspiText object which follows a given
+ * Gets delimited text from an #AtspiText object which follows a given
  *          text offset.
  *
  * Returns: an #AtspiTextRange containing a UTF-8 string representing the
@@ -445,12 +454,12 @@ atspi_text_get_text_after_offset (AtspiText *obj,
 /**
  * atspi_text_get_character_at_offset:
  * @obj: a pointer to the #AtspiText object on which to operate.
- * @offset: a long integer indicating the text offset where the desired
+ * @offset: a #gint indicating the text offset where the desired
  *          character is located.
  *
- * Get the character at a given offset for an #AtspiText object.
+ * Gets the character at a given offset for an #AtspiText object.
  *
- * Returns: an #unsigned long integer which represents the
+ * Returns: a #guint  representing the
  *        UCS-4 unicode code point of the given character, or
  *        0xFFFFFFFF if the character in question cannot be represented
  *        in the UCS-4 encoding.
@@ -473,15 +482,16 @@ atspi_text_get_character_at_offset (AtspiText *obj,
 /**
  * atspi_text_get_character_extents:
  * @obj: a pointer to the #AtspiText object on which to operate.
- * @offset: an integer indicating the offset of the text character for
+ * @offset: a #gint indicating the offset of the text character for
  *        whom boundary information is requested.
  * @type: an #AccessibleCoordType indicating the coordinate system to use
  *        for the returned values.
  *
- * Returns: A #AtspiRect specifying the position and size of the character.
- *
- * Get the bounding box containing the glyph representing
+ * Gets a bounding box containing the glyph representing
  *        the character at a particular text offset.
+ *
+ * Returns: An #AtspiRect specifying the position and size of the character.
+ *
  **/
 AtspiRect *
 atspi_text_get_character_extents (AtspiText *obj,
@@ -516,9 +526,9 @@ atspi_text_get_character_extents (AtspiText *obj,
  * @type: an #AtspiCoordType indicating the coordinate system in which
  *       the values should be returned.
  *
- * Get the character offset into the text at a given point.
+ * Gets the character offset into the text at a given point.
  *
- * Returns: the offset (as an integer) at the point (@x, @y)
+ * Returns: the offset (as a #gint) at the point (@x, @y)
  *       in the specified coordinate system.
  *
  **/
@@ -543,17 +553,18 @@ atspi_text_get_offset_at_point (AtspiText *obj,
 /**
  * atspi_text_get_range_extents:
  * @obj: a pointer to the #AtspiText object on which to operate.
- * @start_offset: an integer indicating the offset of the first text character for
+ * @start_offset: a #gint indicating the offset of the first text character for
  *        whom boundary information is requested.
- * @end_offset: an integer indicating the offset of the text character
+ * @end_offset: a #gint indicating the offset of the text character
  *        after the last character for whom boundary information is requested.
  * @type: an #AtspiCoordType indicating the coordinate system to use
  *        for the returned values.
  *
- * Returns: A #AtspiRect giving the position and size of the specified range
+ * Gets the bounding box for text within a range in an  #AtspiText object.
+ *
+ * Returns: An #AtspiRect giving the position and size of the specified range
  *          of text.
  *
- * Get the bounding box for text within a range in an  #AtspiText object.
  **/
 AtspiRect *
 atspi_text_get_range_extents (AtspiText *obj,
@@ -595,7 +606,7 @@ atspi_text_get_range_extents (AtspiText *obj,
  * @clipTypeY: an #AtspiTextClipType indicating how to treat characters that
  *        intersect the bounding box's y extents.
  *
- * Get the ranges of text from an #AtspiText object which lie within the
+ * Gets the ranges of text from an #AtspiText object which lie within the
  *          bounds defined by (@x, @y) and (@x+@width, @y+@height).
  *
  * Returns: (transfer full) (element-type AtspiTextRange*): a null-terminated list of
@@ -628,10 +639,10 @@ atspi_text_get_bounded_ranges (AtspiText *obj,
  * atspi_text_get_n_selections:
  * @obj: a pointer to the #AtspiText object on which to operate.
  *
- * Get the number of active non-contiguous selections for an
+ * Gets the number of active non-contiguous selections for an
  *          #AtspiText object.
  *
- * Returns: a long integer indicating the current
+ * Returns: a #gint indicating the current
  *          number of non-contiguous text selections active
  *          within an #AtspiText object.
  **/
@@ -648,15 +659,11 @@ atspi_text_get_n_selections (AtspiText *obj, GError **error)
 }
 
 /**
- * atspi_text_get_sSelection:
+ * atspi_text_get_selection:
  * @obj: a pointer to the #AtspiText object on which to operate.
- * @selection_num: an integer indicating which selection to query.
- * @start_offset: a pointer to a long integer into which the start offset
- *           of the selection will be returned.
- * @end_offset: a pointer to a long integer into which the start offset
- *           of the selection will be returned.
+ * @selection_num: a #gint indicating which selection to query.
  *
- * Get the bounds of the @selection_num-th active text selection for an
+ * Gets the bounds of the @selection_num-th active text selection for an
  *         #AtspiText object.
  **/
 AtspiRange *
@@ -686,7 +693,7 @@ atspi_text_get_selection (AtspiText *obj,
  * @start_offset: the starting offset of the desired new selection.
  * @end_offset: the offset of the first character after the new selection.
  *
- * Select some text (add a text selection) in an #AtspiText object.
+ * Selects some text (adds a text selection) in an #AtspiText object.
  *
  * Returns: #TRUE if successful, #FALSE otherwise.
  **/
@@ -706,10 +713,9 @@ atspi_text_add_selection (AtspiText *obj,
 /**
  * atspi_text_remove_selection:
  * @obj: a pointer to the #AtspiText object on which to operate.
- * @selection_num: an integer indicating which (possibly of several)
- *         text selection to remove.
+ * @selection_num: a #gint indicating which text selection to remove.
  *
- * De-select a text selection.
+ * De-selects a text selection.
  *
  * Returns: #TRUE if successful, #FALSE otherwise.
  **/
@@ -732,11 +738,11 @@ atspi_text_remove_selection (AtspiText *obj,
  * atspi_text_set_selection:
  * @obj: a pointer to the #AtspiText object on which to operate.
  * @selection_num: a zero-offset index indicating which text selection to modify.
- * @start_offset: a long int, the new starting offset for the selection.
- * @end_offset: a long int, the desired new offset of the first character
+ * @start_offset: a #gint indicating the new starting offset for the selection.
+ * @end_offset: a #gint indicating the desired new offset of the first character
  *             after the selection.
  *
- * Change the bounds of an existing #AtspiText text selection.
+ * Changes the bounds of an existing #AtspiText text selection.
  *
  * Returns: #TRUE if successful, #FALSE otherwise.
  **/
