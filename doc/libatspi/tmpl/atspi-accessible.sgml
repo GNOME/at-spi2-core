@@ -2,11 +2,14 @@
 AtspiAccessible
 
 <!-- ##### SECTION Short_Description ##### -->
-
+The base interface which is implemented by all accessible objects.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+The base interface which is implemented by all accessible objects. 
+All objects support interfaces for querying their contained 'children'
+and position in the accessible-object hierarchy, whether or not they
+actually have children.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
