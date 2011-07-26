@@ -28,7 +28,7 @@
  * atspi_image_get_image_description:
  * @obj: a pointer to the #AtspiImage implementor on which to operate.
  *
- * Get the description of the image displayed in an #AtspiImage object.
+ * Gets the description of the image displayed in an #AtspiImage object.
  *
  * Returns: a UTF-8 string describing the image.
  **/
@@ -48,7 +48,11 @@ atspi_image_get_image_description (AtspiImage *obj, GError **error)
  * atspi_image_get_image_size:
  * @obj: a pointer to the #AtspiImage to query.
  *
- * Get the size of the image displayed in a specified #AtspiImage object.
+ * Gets the size of the image displayed in a specified #AtspiImage object.
+ *
+ * Returns: a pointer to an #AtspiPoint where x corresponds to
+ * the image's width and y corresponds to the image's height.
+ *
  **/
 AtspiPoint *
 atspi_image_get_image_size (AtspiImage *obj, GError **error)
@@ -72,8 +76,12 @@ atspi_image_get_image_size (AtspiImage *obj, GError **error)
  * @ctype: the desired coordinate system into which to return the results,
  *         (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
  *
- * Get the minimum x and y coordinates of the image displayed in a
+ * Gets the minimum x and y coordinates of the image displayed in a
  *         specified #AtspiImage implementor.
+ *
+ * Returns: a pointer to an #AtspiPoint where x and y correspond to the
+ * minimum coordinates of the displayed image. 
+ * 
  **/
 AtspiPoint *
 atspi_image_get_image_position (AtspiImage *obj,
@@ -102,8 +110,11 @@ atspi_image_get_image_position (AtspiImage *obj,
  * @ctype: the desired coordinate system into which to return the results,
  *         (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
  *
- * Get the bounding box of the image displayed in a
+ * Gets the bounding box of the image displayed in a
  *         specified #AtspiImage implementor.
+ *
+ * Returns: a pointer to an #AtspiRect corresponding to the image's bounding box. The minimum x and y coordinates, 
+ * width, and height are specified.
  **/
 AtspiRect *
 atspi_image_get_image_extents (AtspiImage *obj,
@@ -123,11 +134,11 @@ atspi_image_get_image_extents (AtspiImage *obj,
 
 /**
  * atspi_image_get_image_locale:
- * @obj: The #AtspiImage being queried.
+ * @obj: a pointer to the #AtspiImage to query.
  *
- * Get the locale associated with an image and its textual representation.
+ * Gets the locale associated with an image and its textual representation.
  *
- * Returns: A POSIX LC_MESSAGES-style Locale value for image description and text.
+ * Returns: A POSIX LC_MESSAGES-style locale value for image description and text.
  **/
 gchar *
 atspi_image_get_image_locale  (AtspiImage *obj, GError **error)
