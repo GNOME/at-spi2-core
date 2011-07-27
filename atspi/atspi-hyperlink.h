@@ -54,7 +54,7 @@ struct _AtspiHyperlinkClass
 GType atspi_hyperlink_get_type (void); 
 
 AtspiHyperlink *
-atspi_hyperlink_new (AtspiApplication *app, const gchar *path);
+_atspi_hyperlink_new (AtspiApplication *app, const gchar *path);
 
 gint atspi_hyperlink_get_n_anchors (AtspiHyperlink *obj, GError **error);
 

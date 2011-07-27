@@ -37,13 +37,11 @@ atspi_hyperlink_class_init (AtspiHyperlinkClass *klass)
 }
 
 AtspiHyperlink *
-atspi_hyperlink_new (AtspiApplication *app, const gchar *path)
+_atspi_hyperlink_new (AtspiApplication *app, const gchar *path)
 {
   AtspiHyperlink *hyperlink;
   
   hyperlink = g_object_new (ATSPI_TYPE_HYPERLINK, NULL);
-  g_return_val_if_fail (hyperlink != NULL, NULL);
-
   hyperlink->parent.app = g_object_ref (app);
   hyperlink->parent.path = g_strdup (path);
 

@@ -262,9 +262,7 @@ ref_hyperlink (const char *app_name, const char *path)
   {
     return g_object_ref (hyperlink);
   }
-  hyperlink = atspi_hyperlink_new (app, path);
-  if (!hyperlink)
-    return NULL;
+  hyperlink = _atspi_hyperlink_new (app, path);
   g_hash_table_insert (app->hash, g_strdup (hyperlink->parent.path), hyperlink);
   /* TODO: This should be a weak ref */
   g_object_ref (hyperlink);	/* for the hash */
@@ -674,11 +672,11 @@ process_deferred_message (BusDataClosure *closure)
   if (type == DBUS_MESSAGE_TYPE_SIGNAL &&
       !strncmp (interface, "org.a11y.atspi.Event.", 21))
   {
-    atspi_dbus_handle_event (closure->bus, closure->message, closure->data);
+    _atspi_dbus_handle_event (closure->bus, closure->message, closure->data);
   }
   if (dbus_message_is_method_call (closure->message, atspi_interface_device_event_listener, "NotifyEvent"))
   {
-    atspi_dbus_handle_DeviceEvent (closure->bus,
+    _atspi_dbus_handle_DeviceEvent (closure->bus,
                                    closure->message, closure->data);
   }
   if (dbus_message_is_signal (closure->message, atspi_interface_cache, "AddAccessible"))
@@ -1254,7 +1252,7 @@ _atspi_dbus_set_state (AtspiAccessible *accessible, DBusMessageIter *iter)
 }
 
 GQuark
-atspi_error_quark (void)
+_atspi_error_quark (void)
 {
   return g_quark_from_static_string ("atspi_error");
 }

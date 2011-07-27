@@ -32,7 +32,4 @@
 DBusHandlerResult _atspi_dbus_handle_DeviceEvent (DBusConnection *bus, DBusMessage *message, void *data);
 
 gchar *_atspi_device_listener_get_path (AtspiDeviceListener *listener);
-
-DBusHandlerResult
-atspi_dbus_handle_DeviceEvent (DBusConnection *bus, DBusMessage *message, void *data);
 #endif	/* _ATSPI_DEVICE_LISTENER_H_ */

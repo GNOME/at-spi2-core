@@ -346,11 +346,8 @@ read_device_event_from_iter (DBusMessageIter *iter, AtspiDeviceEvent *event)
   event->is_text = is_text;
 }
 
-/*
- * atspi_dbus_handle_DeviceEvent: (skip)
- */
 DBusHandlerResult
-atspi_dbus_handle_DeviceEvent (DBusConnection *bus, DBusMessage *message, void *data)
+_atspi_dbus_handle_DeviceEvent (DBusConnection *bus, DBusMessage *message, void *data)
 {
   const char *path = dbus_message_get_path (message);
   int id;

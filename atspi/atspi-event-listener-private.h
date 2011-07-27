@@ -34,5 +34,5 @@ DBusHandlerResult _atspi_dbus_handle_Event (DBusConnection *bus, DBusMessage *me
 
 void _atspi_send_event (AtspiEvent *e);
 
-DBusHandlerResult atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data);
+DBusHandlerResult _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data);
 #endif	/* _ATSPI_EVENT_LISTENER_H_ */

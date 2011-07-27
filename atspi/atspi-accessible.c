@@ -1244,7 +1244,7 @@ AtspiHyperlink *
 atspi_accessible_get_hyperlink (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_hyperlink) ?
-          atspi_hyperlink_new (accessible->parent.app, accessible->parent.path) : NULL);
+          _atspi_hyperlink_new (accessible->parent.app, accessible->parent.path) : NULL);
 }
 
 /**

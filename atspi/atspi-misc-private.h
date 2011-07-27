@@ -171,8 +171,8 @@ void _atspi_dbus_set_state (AtspiAccessible *accessible, DBusMessageIter *iter);
  * be from the #ATSPIAtspiError enumeration. See #GError for information on
  * error domains.
  */
-#define ATSPI_ERROR atspi_error_quark()
-GQuark atspi_error_quark (void);
+#define ATSPI_ERROR _atspi_error_quark()
+GQuark _atspi_error_quark (void);
 
 /**
  * AtspiError:
