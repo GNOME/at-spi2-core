@@ -1506,7 +1506,7 @@ atspi_accessible_get_process_id (AtspiAccessible *accessible, GError **error)
   dbus_message_unref (message);
   dbus_message_get_args (reply, NULL, DBUS_TYPE_UINT32, &pid, DBUS_TYPE_INVALID);
   dbus_message_unref (reply);
-  dbus_error_init (&error);
+  dbus_error_free (&d_error);
   return pid;
 }
 
