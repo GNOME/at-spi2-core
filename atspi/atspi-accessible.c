@@ -728,7 +728,7 @@ add_to_attribute_array (gpointer key, gpointer value, gpointer data)
  * For typographic, textual, or textually-semantic attributes, see
  * atspi_text_get_attributes_as_array instead.
  *
- * Returns: (element-type GArray*) (transfer full): The name-value-pair
+ * Returns: (element-type gchar*) (transfer full): The name-value-pair
  *          attributes assigned to this object.
  */
 GArray *
@@ -1429,15 +1429,8 @@ atspi_accessible_get_interfaces (AtspiAccessible *obj)
 
   return ret;
 }
-/**
- * atspi_accessible_new:
- * @app: an #AtspiApplication reference to the new objects's parent application.
- * @path: a UTF-8 string indicating the new object's parent path.
- *
- * Creates a new #AtspiAccessible object.
- * Returns: a new #AtspiAccessible object. 
- **/
-AtspiAccessible *
+
+AtspiAccessible * 
 atspi_accessible_new (AtspiApplication *app, const gchar *path)
 {
   AtspiAccessible *accessible;
