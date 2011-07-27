@@ -2,11 +2,16 @@
 atspi-hypertext
 
 <!-- ##### SECTION Short_Description ##### -->
-
+An interface used for objects which implement linking between
+multiple resource locations.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+An interface used for objects which implement linking between
+multiple resource or content locations, or multiple 'markers'
+within a single document. A hypertext instance is associated
+with one or more hyperlinks which are associated with	particular
+offests within the hypertext's content.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
