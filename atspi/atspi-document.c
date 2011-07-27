@@ -25,9 +25,9 @@
 
 /**
  * atspi_document_get_locale:
- * @obj: a pointer to the #Accessible object on which to operate.
+ * @obj: a pointer to the #AtspiDocument object on which to operate.
  *
- * Gets the locale associated with the document's content.
+ * Gets the locale associated with the document's content, 
  * e.g. the locale for LOCALE_TYPE_MESSAGES.
  *
  * Returns: a string compliant with the POSIX standard for locale description.
@@ -46,14 +46,12 @@ atspi_document_get_locale (AtspiDocument *obj, GError **error)
 
 /**
  * atspi_document_get_attribute_value:
- * @obj: a pointer to the #Accessible object on which to operate.
- * @attribute: a string indicating the name of a specific attribute 
+ * @obj: a pointer to the #AtspiDocument object on which to operate.
+ * @attribute: a string indicating the name of a specific attribute.
  *
  * Gets the value of a single attribute, if specified for the document as a whole.
  *
- * (name-value pair) being queried.
- * 
- * Returns a string corresponding to the value of the specified attribute, or
+ * Returns: a string corresponding to the value of the specified attribute, or
  * an empty string if the attribute is unspecified for the object.
  **/
 gchar *
@@ -76,15 +74,13 @@ atspi_document_get_attribute_value (AtspiDocument *obj,
 
 /**
  * atspi_document_get_attributes:
- * @obj: a pointer to the #Accessible object on which to operate.
+ * @obj: a pointer to the #AtspiDocument object on which to operate.
  * 
- * Gets all attributes specified for a document as a whole.  
- *
- * For attributes which change within 
- * the document content, see atspi_text_get_attribute_run instead.
+ * Gets all constant attributes for the document as a whole. For attributes
+ * that change within the document content, see @atspi_text_get_attribute_run instead.
  * 
- * Returns: (element-type gchar* gchar*) (transfer full): an ::AttributeSet
- *          containing the attributes of the document, as name-value pairs.
+ * Returns: (element-type gchar* gchar*) (transfer full): a #GHashTable
+ *          containing the constant attributes of the document, as name-value pairs.
  **/
 GHashTable *
 atspi_document_get_attributes (AtspiDocument *obj, GError **error)
