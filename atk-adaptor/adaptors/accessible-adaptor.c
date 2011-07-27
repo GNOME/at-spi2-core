@@ -25,8 +25,9 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-#include "common/spi-dbus.h"
-#include "common/spi-stateset.h"
+#include "atspi/atspi.h"
+#include "spi-dbus.h"
+#include "accessible-stateset.h"
 #include "object.h"
 #include "introspection.h"
 
@@ -122,7 +123,7 @@ impl_get_Parent (DBusMessageIter * iter, void *user_data)
               spi_object_append_null_reference (&iter_variant);
             }
         }
-      else if (role != Accessibility_ROLE_APPLICATION)
+      else if (role != ATSPI_ROLE_APPLICATION)
          spi_object_append_null_reference (&iter_variant);
       else
          spi_object_append_desktop_reference (&iter_variant);
@@ -253,42 +254,42 @@ impl_GetIndexInParent (DBusConnection * bus,
 }
 
 static gboolean
-spi_init_relation_type_table (Accessibility_RelationType * types)
+spi_init_relation_type_table (AtspiRelationType * types)
 {
   gint i;
 
   for (i = 0; i < ATK_RELATION_LAST_DEFINED; i++)
-    types[i] = Accessibility_RELATION_NULL;
+    types[i] = ATSPI_RELATION_NULL;
 
-  types[ATK_RELATION_CONTROLLED_BY] = Accessibility_RELATION_CONTROLLED_BY;
-  types[ATK_RELATION_CONTROLLER_FOR] = Accessibility_RELATION_CONTROLLER_FOR;
-  types[ATK_RELATION_LABEL_FOR] = Accessibility_RELATION_LABEL_FOR;
-  types[ATK_RELATION_LABELLED_BY] = Accessibility_RELATION_LABELLED_BY;
-  types[ATK_RELATION_MEMBER_OF] = Accessibility_RELATION_MEMBER_OF;
-  types[ATK_RELATION_NODE_CHILD_OF] = Accessibility_RELATION_NODE_CHILD_OF;
-  types[ATK_RELATION_FLOWS_TO] = Accessibility_RELATION_FLOWS_TO;
-  types[ATK_RELATION_FLOWS_FROM] = Accessibility_RELATION_FLOWS_FROM;
-  types[ATK_RELATION_SUBWINDOW_OF] = Accessibility_RELATION_SUBWINDOW_OF;
-  types[ATK_RELATION_EMBEDS] = Accessibility_RELATION_EMBEDS;
-  types[ATK_RELATION_EMBEDDED_BY] = Accessibility_RELATION_EMBEDDED_BY;
-  types[ATK_RELATION_POPUP_FOR] = Accessibility_RELATION_POPUP_FOR;
+  types[ATK_RELATION_CONTROLLED_BY] = ATSPI_RELATION_CONTROLLED_BY;
+  types[ATK_RELATION_CONTROLLER_FOR] = ATSPI_RELATION_CONTROLLER_FOR;
+  types[ATK_RELATION_LABEL_FOR] = ATSPI_RELATION_LABEL_FOR;
+  types[ATK_RELATION_LABELLED_BY] = ATSPI_RELATION_LABELLED_BY;
+  types[ATK_RELATION_MEMBER_OF] = ATSPI_RELATION_MEMBER_OF;
+  types[ATK_RELATION_NODE_CHILD_OF] = ATSPI_RELATION_NODE_CHILD_OF;
+  types[ATK_RELATION_FLOWS_TO] = ATSPI_RELATION_FLOWS_TO;
+  types[ATK_RELATION_FLOWS_FROM] = ATSPI_RELATION_FLOWS_FROM;
+  types[ATK_RELATION_SUBWINDOW_OF] = ATSPI_RELATION_SUBWINDOW_OF;
+  types[ATK_RELATION_EMBEDS] = ATSPI_RELATION_EMBEDS;
+  types[ATK_RELATION_EMBEDDED_BY] = ATSPI_RELATION_EMBEDDED_BY;
+  types[ATK_RELATION_POPUP_FOR] = ATSPI_RELATION_POPUP_FOR;
   types[ATK_RELATION_PARENT_WINDOW_OF] =
-    Accessibility_RELATION_PARENT_WINDOW_OF;
+    ATSPI_RELATION_PARENT_WINDOW_OF;
   types[ATK_RELATION_DESCRIPTION_FOR] =
-    Accessibility_RELATION_DESCRIPTION_FOR;
-  types[ATK_RELATION_DESCRIBED_BY] = Accessibility_RELATION_DESCRIBED_BY;
-  types[ATK_RELATION_NODE_PARENT_OF] = Accessibility_RELATION_NODE_PARENT_OF;
+    ATSPI_RELATION_DESCRIPTION_FOR;
+  types[ATK_RELATION_DESCRIBED_BY] = ATSPI_RELATION_DESCRIBED_BY;
+  types[ATK_RELATION_NODE_PARENT_OF] = ATSPI_RELATION_NODE_PARENT_OF;
 
   return TRUE;
 }
 
-static Accessibility_RelationType
+static AtspiRelationType
 spi_relation_type_from_atk_relation_type (AtkRelationType type)
 {
   static gboolean is_initialized = FALSE;
-  static Accessibility_RelationType
+  static AtspiRelationType
     spi_relation_type_table[ATK_RELATION_LAST_DEFINED];
-  Accessibility_RelationType spi_type;
+  AtspiRelationType spi_type;
 
   if (!is_initialized)
     is_initialized = spi_init_relation_type_table (spi_relation_type_table);
@@ -296,7 +297,7 @@ spi_relation_type_from_atk_relation_type (AtkRelationType type)
   if (type > ATK_RELATION_NULL && type < ATK_RELATION_LAST_DEFINED)
     spi_type = spi_relation_type_table[type];
   else
-    spi_type = Accessibility_RELATION_EXTENDED;
+    spi_type = ATSPI_RELATION_EXTENDED;
   return spi_type;
 }
 
@@ -551,7 +552,7 @@ void
 spi_initialize_accessible (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_ACCESSIBLE,
+                             ATSPI_DBUS_INTERFACE_ACCESSIBLE,
                              spi_org_a11y_atspi_Accessible,	
                              methods, properties);
 };

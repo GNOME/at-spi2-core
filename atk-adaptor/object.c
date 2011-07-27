@@ -30,8 +30,8 @@
  */
 
 #include <atk/atk.h>
-#include <common/spi-types.h>
-#include <common/spi-dbus.h>
+#include "atspi/atspi.h"
+#include "spi-dbus.h"
 
 #include "accessible-register.h"
 #include "accessible-cache.h"
@@ -78,7 +78,7 @@ spi_object_append_null_reference (DBusMessageIter * iter)
 {
   DBusMessageIter iter_struct;
   const char *name;
-  const char *path = SPI_DBUS_PATH_NULL;
+  const char *path = ATSPI_DBUS_PATH_NULL;
 
   name = dbus_bus_get_unique_name (spi_global_app_data->bus);
 
@@ -215,66 +215,66 @@ spi_object_append_interfaces (DBusMessageIter * iter, AtkObject * obj)
 {
   const gchar *itf;
 
-  itf = SPI_DBUS_INTERFACE_ACCESSIBLE;
+  itf = ATSPI_DBUS_INTERFACE_ACCESSIBLE;
   dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
 
   if (ATK_IS_ACTION (obj))
     {
-      itf = SPI_DBUS_INTERFACE_ACTION;
+      itf = ATSPI_DBUS_INTERFACE_ACTION;
       dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
     }
 
   if (atk_object_get_role (obj) == ATK_ROLE_APPLICATION)
     {
-      itf = SPI_DBUS_INTERFACE_APPLICATION;
+      itf = ATSPI_DBUS_INTERFACE_APPLICATION;
       dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
     }
 
   if (ATK_IS_COMPONENT (obj))
     {
-      itf = SPI_DBUS_INTERFACE_COMPONENT;
+      itf = ATSPI_DBUS_INTERFACE_COMPONENT;
       dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
     }
 
   if (ATK_IS_EDITABLE_TEXT (obj))
     {
-      itf = SPI_DBUS_INTERFACE_EDITABLE_TEXT;
+      itf = ATSPI_DBUS_INTERFACE_EDITABLE_TEXT;
       dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
     }
 
   if (ATK_IS_TEXT (obj))
     {
-      itf = SPI_DBUS_INTERFACE_TEXT;
+      itf = ATSPI_DBUS_INTERFACE_TEXT;
       dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
     }
 
   if (ATK_IS_HYPERTEXT (obj))
     {
-      itf = SPI_DBUS_INTERFACE_HYPERTEXT;
+      itf = ATSPI_DBUS_INTERFACE_HYPERTEXT;
       dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
     }
 
   if (ATK_IS_IMAGE (obj))
     {
-      itf = SPI_DBUS_INTERFACE_IMAGE;
+      itf = ATSPI_DBUS_INTERFACE_IMAGE;
       dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
     }
 
   if (ATK_IS_SELECTION (obj))
     {
-      itf = SPI_DBUS_INTERFACE_SELECTION;
+      itf = ATSPI_DBUS_INTERFACE_SELECTION;
       dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
     }
 
   if (ATK_IS_TABLE (obj))
     {
-      itf = SPI_DBUS_INTERFACE_TABLE;
+      itf = ATSPI_DBUS_INTERFACE_TABLE;
       dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
     }
 
   if (ATK_IS_VALUE (obj))
     {
-      itf = SPI_DBUS_INTERFACE_VALUE;
+      itf = ATSPI_DBUS_INTERFACE_VALUE;
       dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
     }
 
@@ -290,13 +290,13 @@ spi_object_append_interfaces (DBusMessageIter * iter, AtkObject * obj)
     {
       itf = "org.a11y.atspi.Collection";
       dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
-      itf = SPI_DBUS_INTERFACE_DOCUMENT;
+      itf = ATSPI_DBUS_INTERFACE_DOCUMENT;
       dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
     }
 
   if (ATK_IS_HYPERLINK_IMPL (obj))
     {
-      itf = SPI_DBUS_INTERFACE_HYPERLINK;
+      itf = ATSPI_DBUS_INTERFACE_HYPERLINK;
       dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
     }
 }
@@ -336,130 +336,130 @@ spi_object_append_attribute_set (DBusMessageIter * iter, AtkAttributeSet * attr)
 /*---------------------------------------------------------------------------*/
 
 static gboolean
-init_role_lookup_table (Accessibility_Role * role_table)
+init_role_lookup_table (AtspiRole * role_table)
 {
   int i;
   /* if it's not in the list below, dunno what it is */
   for (i = 0; i < ATK_ROLE_LAST_DEFINED; ++i)
     {
-      role_table[i] = Accessibility_ROLE_UNKNOWN;
+      role_table[i] = ATSPI_ROLE_UNKNOWN;
     }
 
-  role_table[ATK_ROLE_INVALID] = Accessibility_ROLE_INVALID;
-  role_table[ATK_ROLE_ACCEL_LABEL] = Accessibility_ROLE_ACCELERATOR_LABEL;
-  role_table[ATK_ROLE_ALERT] = Accessibility_ROLE_ALERT;
-  role_table[ATK_ROLE_ANIMATION] = Accessibility_ROLE_ANIMATION;
-  role_table[ATK_ROLE_ARROW] = Accessibility_ROLE_ARROW;
-  role_table[ATK_ROLE_CALENDAR] = Accessibility_ROLE_CALENDAR;
-  role_table[ATK_ROLE_CANVAS] = Accessibility_ROLE_CANVAS;
-  role_table[ATK_ROLE_CHECK_BOX] = Accessibility_ROLE_CHECK_BOX;
-  role_table[ATK_ROLE_CHECK_MENU_ITEM] = Accessibility_ROLE_CHECK_MENU_ITEM;
-  role_table[ATK_ROLE_COLOR_CHOOSER] = Accessibility_ROLE_COLOR_CHOOSER;
-  role_table[ATK_ROLE_COLUMN_HEADER] = Accessibility_ROLE_COLUMN_HEADER;
-  role_table[ATK_ROLE_COMBO_BOX] = Accessibility_ROLE_COMBO_BOX;
-  role_table[ATK_ROLE_DATE_EDITOR] = Accessibility_ROLE_DATE_EDITOR;
-  role_table[ATK_ROLE_DESKTOP_ICON] = Accessibility_ROLE_DESKTOP_ICON;
-  role_table[ATK_ROLE_DESKTOP_FRAME] = Accessibility_ROLE_DESKTOP_FRAME;
-  role_table[ATK_ROLE_DIAL] = Accessibility_ROLE_DIAL;
-  role_table[ATK_ROLE_DIALOG] = Accessibility_ROLE_DIALOG;
-  role_table[ATK_ROLE_DIRECTORY_PANE] = Accessibility_ROLE_DIRECTORY_PANE;
-  role_table[ATK_ROLE_DRAWING_AREA] = Accessibility_ROLE_DRAWING_AREA;
-  role_table[ATK_ROLE_FILE_CHOOSER] = Accessibility_ROLE_FILE_CHOOSER;
-  role_table[ATK_ROLE_FILLER] = Accessibility_ROLE_FILLER;
-  role_table[ATK_ROLE_FONT_CHOOSER] = Accessibility_ROLE_FONT_CHOOSER;
-  role_table[ATK_ROLE_FRAME] = Accessibility_ROLE_FRAME;
-  role_table[ATK_ROLE_GLASS_PANE] = Accessibility_ROLE_GLASS_PANE;
-  role_table[ATK_ROLE_HTML_CONTAINER] = Accessibility_ROLE_HTML_CONTAINER;
-  role_table[ATK_ROLE_ICON] = Accessibility_ROLE_ICON;
-  role_table[ATK_ROLE_IMAGE] = Accessibility_ROLE_IMAGE;
-  role_table[ATK_ROLE_INTERNAL_FRAME] = Accessibility_ROLE_INTERNAL_FRAME;
-  role_table[ATK_ROLE_LABEL] = Accessibility_ROLE_LABEL;
-  role_table[ATK_ROLE_LAYERED_PANE] = Accessibility_ROLE_LAYERED_PANE;
-  role_table[ATK_ROLE_LIST] = Accessibility_ROLE_LIST;
-  role_table[ATK_ROLE_LIST_ITEM] = Accessibility_ROLE_LIST_ITEM;
-  role_table[ATK_ROLE_MENU] = Accessibility_ROLE_MENU;
-  role_table[ATK_ROLE_MENU_BAR] = Accessibility_ROLE_MENU_BAR;
-  role_table[ATK_ROLE_MENU_ITEM] = Accessibility_ROLE_MENU_ITEM;
-  role_table[ATK_ROLE_OPTION_PANE] = Accessibility_ROLE_OPTION_PANE;
-  role_table[ATK_ROLE_PAGE_TAB] = Accessibility_ROLE_PAGE_TAB;
-  role_table[ATK_ROLE_PAGE_TAB_LIST] = Accessibility_ROLE_PAGE_TAB_LIST;
-  role_table[ATK_ROLE_PANEL] = Accessibility_ROLE_PANEL;
-  role_table[ATK_ROLE_PASSWORD_TEXT] = Accessibility_ROLE_PASSWORD_TEXT;
-  role_table[ATK_ROLE_POPUP_MENU] = Accessibility_ROLE_POPUP_MENU;
-  role_table[ATK_ROLE_PROGRESS_BAR] = Accessibility_ROLE_PROGRESS_BAR;
-  role_table[ATK_ROLE_PUSH_BUTTON] = Accessibility_ROLE_PUSH_BUTTON;
-  role_table[ATK_ROLE_RADIO_BUTTON] = Accessibility_ROLE_RADIO_BUTTON;
-  role_table[ATK_ROLE_RADIO_MENU_ITEM] = Accessibility_ROLE_RADIO_MENU_ITEM;
-  role_table[ATK_ROLE_ROOT_PANE] = Accessibility_ROLE_ROOT_PANE;
-  role_table[ATK_ROLE_ROW_HEADER] = Accessibility_ROLE_ROW_HEADER;
-  role_table[ATK_ROLE_SCROLL_BAR] = Accessibility_ROLE_SCROLL_BAR;
-  role_table[ATK_ROLE_SCROLL_PANE] = Accessibility_ROLE_SCROLL_PANE;
-  role_table[ATK_ROLE_SEPARATOR] = Accessibility_ROLE_SEPARATOR;
-  role_table[ATK_ROLE_SLIDER] = Accessibility_ROLE_SLIDER;
-  role_table[ATK_ROLE_SPIN_BUTTON] = Accessibility_ROLE_SPIN_BUTTON;
-  role_table[ATK_ROLE_SPLIT_PANE] = Accessibility_ROLE_SPLIT_PANE;
-  role_table[ATK_ROLE_STATUSBAR] = Accessibility_ROLE_STATUS_BAR;
-  role_table[ATK_ROLE_TABLE] = Accessibility_ROLE_TABLE;
-  role_table[ATK_ROLE_TABLE_CELL] = Accessibility_ROLE_TABLE_CELL;
+  role_table[ATK_ROLE_INVALID] = ATSPI_ROLE_INVALID;
+  role_table[ATK_ROLE_ACCEL_LABEL] = ATSPI_ROLE_ACCELERATOR_LABEL;
+  role_table[ATK_ROLE_ALERT] = ATSPI_ROLE_ALERT;
+  role_table[ATK_ROLE_ANIMATION] = ATSPI_ROLE_ANIMATION;
+  role_table[ATK_ROLE_ARROW] = ATSPI_ROLE_ARROW;
+  role_table[ATK_ROLE_CALENDAR] = ATSPI_ROLE_CALENDAR;
+  role_table[ATK_ROLE_CANVAS] = ATSPI_ROLE_CANVAS;
+  role_table[ATK_ROLE_CHECK_BOX] = ATSPI_ROLE_CHECK_BOX;
+  role_table[ATK_ROLE_CHECK_MENU_ITEM] = ATSPI_ROLE_CHECK_MENU_ITEM;
+  role_table[ATK_ROLE_COLOR_CHOOSER] = ATSPI_ROLE_COLOR_CHOOSER;
+  role_table[ATK_ROLE_COLUMN_HEADER] = ATSPI_ROLE_COLUMN_HEADER;
+  role_table[ATK_ROLE_COMBO_BOX] = ATSPI_ROLE_COMBO_BOX;
+  role_table[ATK_ROLE_DATE_EDITOR] = ATSPI_ROLE_DATE_EDITOR;
+  role_table[ATK_ROLE_DESKTOP_ICON] = ATSPI_ROLE_DESKTOP_ICON;
+  role_table[ATK_ROLE_DESKTOP_FRAME] = ATSPI_ROLE_DESKTOP_FRAME;
+  role_table[ATK_ROLE_DIAL] = ATSPI_ROLE_DIAL;
+  role_table[ATK_ROLE_DIALOG] = ATSPI_ROLE_DIALOG;
+  role_table[ATK_ROLE_DIRECTORY_PANE] = ATSPI_ROLE_DIRECTORY_PANE;
+  role_table[ATK_ROLE_DRAWING_AREA] = ATSPI_ROLE_DRAWING_AREA;
+  role_table[ATK_ROLE_FILE_CHOOSER] = ATSPI_ROLE_FILE_CHOOSER;
+  role_table[ATK_ROLE_FILLER] = ATSPI_ROLE_FILLER;
+  role_table[ATK_ROLE_FONT_CHOOSER] = ATSPI_ROLE_FONT_CHOOSER;
+  role_table[ATK_ROLE_FRAME] = ATSPI_ROLE_FRAME;
+  role_table[ATK_ROLE_GLASS_PANE] = ATSPI_ROLE_GLASS_PANE;
+  role_table[ATK_ROLE_HTML_CONTAINER] = ATSPI_ROLE_HTML_CONTAINER;
+  role_table[ATK_ROLE_ICON] = ATSPI_ROLE_ICON;
+  role_table[ATK_ROLE_IMAGE] = ATSPI_ROLE_IMAGE;
+  role_table[ATK_ROLE_INTERNAL_FRAME] = ATSPI_ROLE_INTERNAL_FRAME;
+  role_table[ATK_ROLE_LABEL] = ATSPI_ROLE_LABEL;
+  role_table[ATK_ROLE_LAYERED_PANE] = ATSPI_ROLE_LAYERED_PANE;
+  role_table[ATK_ROLE_LIST] = ATSPI_ROLE_LIST;
+  role_table[ATK_ROLE_LIST_ITEM] = ATSPI_ROLE_LIST_ITEM;
+  role_table[ATK_ROLE_MENU] = ATSPI_ROLE_MENU;
+  role_table[ATK_ROLE_MENU_BAR] = ATSPI_ROLE_MENU_BAR;
+  role_table[ATK_ROLE_MENU_ITEM] = ATSPI_ROLE_MENU_ITEM;
+  role_table[ATK_ROLE_OPTION_PANE] = ATSPI_ROLE_OPTION_PANE;
+  role_table[ATK_ROLE_PAGE_TAB] = ATSPI_ROLE_PAGE_TAB;
+  role_table[ATK_ROLE_PAGE_TAB_LIST] = ATSPI_ROLE_PAGE_TAB_LIST;
+  role_table[ATK_ROLE_PANEL] = ATSPI_ROLE_PANEL;
+  role_table[ATK_ROLE_PASSWORD_TEXT] = ATSPI_ROLE_PASSWORD_TEXT;
+  role_table[ATK_ROLE_POPUP_MENU] = ATSPI_ROLE_POPUP_MENU;
+  role_table[ATK_ROLE_PROGRESS_BAR] = ATSPI_ROLE_PROGRESS_BAR;
+  role_table[ATK_ROLE_PUSH_BUTTON] = ATSPI_ROLE_PUSH_BUTTON;
+  role_table[ATK_ROLE_RADIO_BUTTON] = ATSPI_ROLE_RADIO_BUTTON;
+  role_table[ATK_ROLE_RADIO_MENU_ITEM] = ATSPI_ROLE_RADIO_MENU_ITEM;
+  role_table[ATK_ROLE_ROOT_PANE] = ATSPI_ROLE_ROOT_PANE;
+  role_table[ATK_ROLE_ROW_HEADER] = ATSPI_ROLE_ROW_HEADER;
+  role_table[ATK_ROLE_SCROLL_BAR] = ATSPI_ROLE_SCROLL_BAR;
+  role_table[ATK_ROLE_SCROLL_PANE] = ATSPI_ROLE_SCROLL_PANE;
+  role_table[ATK_ROLE_SEPARATOR] = ATSPI_ROLE_SEPARATOR;
+  role_table[ATK_ROLE_SLIDER] = ATSPI_ROLE_SLIDER;
+  role_table[ATK_ROLE_SPIN_BUTTON] = ATSPI_ROLE_SPIN_BUTTON;
+  role_table[ATK_ROLE_SPLIT_PANE] = ATSPI_ROLE_SPLIT_PANE;
+  role_table[ATK_ROLE_STATUSBAR] = ATSPI_ROLE_STATUS_BAR;
+  role_table[ATK_ROLE_TABLE] = ATSPI_ROLE_TABLE;
+  role_table[ATK_ROLE_TABLE_CELL] = ATSPI_ROLE_TABLE_CELL;
   role_table[ATK_ROLE_TABLE_COLUMN_HEADER] =
-    Accessibility_ROLE_TABLE_COLUMN_HEADER;
-  role_table[ATK_ROLE_TABLE_ROW_HEADER] = Accessibility_ROLE_TABLE_ROW_HEADER;
+    ATSPI_ROLE_TABLE_COLUMN_HEADER;
+  role_table[ATK_ROLE_TABLE_ROW_HEADER] = ATSPI_ROLE_TABLE_ROW_HEADER;
   role_table[ATK_ROLE_TEAR_OFF_MENU_ITEM] =
-    Accessibility_ROLE_TEAROFF_MENU_ITEM;
-  role_table[ATK_ROLE_TERMINAL] = Accessibility_ROLE_TERMINAL;
-  role_table[ATK_ROLE_TEXT] = Accessibility_ROLE_TEXT;
-  role_table[ATK_ROLE_TOGGLE_BUTTON] = Accessibility_ROLE_TOGGLE_BUTTON;
-  role_table[ATK_ROLE_TOOL_BAR] = Accessibility_ROLE_TOOL_BAR;
-  role_table[ATK_ROLE_TOOL_TIP] = Accessibility_ROLE_TOOL_TIP;
-  role_table[ATK_ROLE_TREE] = Accessibility_ROLE_TREE;
-  role_table[ATK_ROLE_TREE_TABLE] = Accessibility_ROLE_TREE_TABLE;
-  role_table[ATK_ROLE_UNKNOWN] = Accessibility_ROLE_UNKNOWN;
-  role_table[ATK_ROLE_VIEWPORT] = Accessibility_ROLE_VIEWPORT;
-  role_table[ATK_ROLE_WINDOW] = Accessibility_ROLE_WINDOW;
-  role_table[ATK_ROLE_HEADER] = Accessibility_ROLE_HEADER;
-  role_table[ATK_ROLE_FOOTER] = Accessibility_ROLE_FOOTER;
-  role_table[ATK_ROLE_PARAGRAPH] = Accessibility_ROLE_PARAGRAPH;
-  role_table[ATK_ROLE_RULER] = Accessibility_ROLE_RULER;
-  role_table[ATK_ROLE_APPLICATION] = Accessibility_ROLE_APPLICATION;
-  role_table[ATK_ROLE_AUTOCOMPLETE] = Accessibility_ROLE_AUTOCOMPLETE;
-  role_table[ATK_ROLE_EDITBAR] = Accessibility_ROLE_EDITBAR;
-  role_table[ATK_ROLE_EMBEDDED] = Accessibility_ROLE_EMBEDDED;
-  role_table[ATK_ROLE_ENTRY] = Accessibility_ROLE_ENTRY;
-  role_table[ATK_ROLE_CHART] = Accessibility_ROLE_CHART;
-  role_table[ATK_ROLE_CAPTION] = Accessibility_ROLE_CAPTION;
-  role_table[ATK_ROLE_DOCUMENT_FRAME] = Accessibility_ROLE_DOCUMENT_FRAME;
-  role_table[ATK_ROLE_HEADING] = Accessibility_ROLE_HEADING;
-  role_table[ATK_ROLE_PAGE] = Accessibility_ROLE_PAGE;
-  role_table[ATK_ROLE_SECTION] = Accessibility_ROLE_SECTION;
-  role_table[ATK_ROLE_FORM] = Accessibility_ROLE_FORM;
-  role_table[ATK_ROLE_REDUNDANT_OBJECT] = Accessibility_ROLE_REDUNDANT_OBJECT;
-  role_table[ATK_ROLE_LINK] = Accessibility_ROLE_LINK;
+    ATSPI_ROLE_TEAROFF_MENU_ITEM;
+  role_table[ATK_ROLE_TERMINAL] = ATSPI_ROLE_TERMINAL;
+  role_table[ATK_ROLE_TEXT] = ATSPI_ROLE_TEXT;
+  role_table[ATK_ROLE_TOGGLE_BUTTON] = ATSPI_ROLE_TOGGLE_BUTTON;
+  role_table[ATK_ROLE_TOOL_BAR] = ATSPI_ROLE_TOOL_BAR;
+  role_table[ATK_ROLE_TOOL_TIP] = ATSPI_ROLE_TOOL_TIP;
+  role_table[ATK_ROLE_TREE] = ATSPI_ROLE_TREE;
+  role_table[ATK_ROLE_TREE_TABLE] = ATSPI_ROLE_TREE_TABLE;
+  role_table[ATK_ROLE_UNKNOWN] = ATSPI_ROLE_UNKNOWN;
+  role_table[ATK_ROLE_VIEWPORT] = ATSPI_ROLE_VIEWPORT;
+  role_table[ATK_ROLE_WINDOW] = ATSPI_ROLE_WINDOW;
+  role_table[ATK_ROLE_HEADER] = ATSPI_ROLE_HEADER;
+  role_table[ATK_ROLE_FOOTER] = ATSPI_ROLE_FOOTER;
+  role_table[ATK_ROLE_PARAGRAPH] = ATSPI_ROLE_PARAGRAPH;
+  role_table[ATK_ROLE_RULER] = ATSPI_ROLE_RULER;
+  role_table[ATK_ROLE_APPLICATION] = ATSPI_ROLE_APPLICATION;
+  role_table[ATK_ROLE_AUTOCOMPLETE] = ATSPI_ROLE_AUTOCOMPLETE;
+  role_table[ATK_ROLE_EDITBAR] = ATSPI_ROLE_EDITBAR;
+  role_table[ATK_ROLE_EMBEDDED] = ATSPI_ROLE_EMBEDDED;
+  role_table[ATK_ROLE_ENTRY] = ATSPI_ROLE_ENTRY;
+  role_table[ATK_ROLE_CHART] = ATSPI_ROLE_CHART;
+  role_table[ATK_ROLE_CAPTION] = ATSPI_ROLE_CAPTION;
+  role_table[ATK_ROLE_DOCUMENT_FRAME] = ATSPI_ROLE_DOCUMENT_FRAME;
+  role_table[ATK_ROLE_HEADING] = ATSPI_ROLE_HEADING;
+  role_table[ATK_ROLE_PAGE] = ATSPI_ROLE_PAGE;
+  role_table[ATK_ROLE_SECTION] = ATSPI_ROLE_SECTION;
+  role_table[ATK_ROLE_FORM] = ATSPI_ROLE_FORM;
+  role_table[ATK_ROLE_REDUNDANT_OBJECT] = ATSPI_ROLE_REDUNDANT_OBJECT;
+  role_table[ATK_ROLE_LINK] = ATSPI_ROLE_LINK;
   role_table[ATK_ROLE_INPUT_METHOD_WINDOW] =
-    Accessibility_ROLE_INPUT_METHOD_WINDOW;
-  role_table[ATK_ROLE_TABLE_ROW] = Accessibility_ROLE_TABLE_ROW;
-  role_table[ATK_ROLE_TREE_ITEM] = Accessibility_ROLE_TREE_ITEM;
+    ATSPI_ROLE_INPUT_METHOD_WINDOW;
+  role_table[ATK_ROLE_TABLE_ROW] = ATSPI_ROLE_TABLE_ROW;
+  role_table[ATK_ROLE_TREE_ITEM] = ATSPI_ROLE_TREE_ITEM;
   role_table[ATK_ROLE_DOCUMENT_SPREADSHEET] =
-    Accessibility_ROLE_DOCUMENT_SPREADSHEET;
+    ATSPI_ROLE_DOCUMENT_SPREADSHEET;
   role_table[ATK_ROLE_DOCUMENT_PRESENTATION] =
-    Accessibility_ROLE_DOCUMENT_PRESENTATION;
-  role_table[ATK_ROLE_DOCUMENT_TEXT] = Accessibility_ROLE_DOCUMENT_TEXT;
-  role_table[ATK_ROLE_DOCUMENT_WEB] = Accessibility_ROLE_DOCUMENT_WEB;
-  role_table[ATK_ROLE_DOCUMENT_EMAIL] = Accessibility_ROLE_DOCUMENT_EMAIL;
-  role_table[ATK_ROLE_COMMENT] = Accessibility_ROLE_COMMENT;
-  role_table[ATK_ROLE_LIST_BOX] = Accessibility_ROLE_LIST_BOX;
-  role_table[ATK_ROLE_GROUPING] = Accessibility_ROLE_GROUPING;
-  role_table[ATK_ROLE_IMAGE_MAP] = Accessibility_ROLE_IMAGE_MAP;
-  role_table[ATK_ROLE_NOTIFICATION] = Accessibility_ROLE_NOTIFICATION;
-  role_table[ATK_ROLE_INFO_BAR] = Accessibility_ROLE_INFO_BAR;
+    ATSPI_ROLE_DOCUMENT_PRESENTATION;
+  role_table[ATK_ROLE_DOCUMENT_TEXT] = ATSPI_ROLE_DOCUMENT_TEXT;
+  role_table[ATK_ROLE_DOCUMENT_WEB] = ATSPI_ROLE_DOCUMENT_WEB;
+  role_table[ATK_ROLE_DOCUMENT_EMAIL] = ATSPI_ROLE_DOCUMENT_EMAIL;
+  role_table[ATK_ROLE_COMMENT] = ATSPI_ROLE_COMMENT;
+  role_table[ATK_ROLE_LIST_BOX] = ATSPI_ROLE_LIST_BOX;
+  role_table[ATK_ROLE_GROUPING] = ATSPI_ROLE_GROUPING;
+  role_table[ATK_ROLE_IMAGE_MAP] = ATSPI_ROLE_IMAGE_MAP;
+  role_table[ATK_ROLE_NOTIFICATION] = ATSPI_ROLE_NOTIFICATION;
+  role_table[ATK_ROLE_INFO_BAR] = ATSPI_ROLE_INFO_BAR;
   return TRUE;
 }
 
-Accessibility_Role
+AtspiRole
 spi_accessible_role_from_atk_role (AtkRole role)
 {
   static gboolean is_initialized = FALSE;
-  static Accessibility_Role spi_role_table[ATK_ROLE_LAST_DEFINED];
-  Accessibility_Role spi_role;
+  static AtspiRole spi_role_table[ATK_ROLE_LAST_DEFINED];
+  AtspiRole spi_role;
 
   if (!is_initialized)
     {
@@ -472,7 +472,7 @@ spi_accessible_role_from_atk_role (AtkRole role)
     }
   else
     {
-      spi_role = Accessibility_ROLE_EXTENDED;
+      spi_role = ATSPI_ROLE_EXTENDED;
     }
   return spi_role;
 }

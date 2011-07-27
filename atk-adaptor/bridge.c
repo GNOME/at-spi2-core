@@ -44,13 +44,13 @@
 #include "event.h"
 #include "adaptors.h"
 #include "object.h"
-#include "common/spi-stateset.h"
+#include "accessible-stateset.h"
 
 #include "accessible-register.h"
 #include "accessible-leasing.h"
 #include "accessible-cache.h"
 
-#include "common/spi-dbus.h"
+#include "spi-dbus.h"
 
 /*---------------------------------------------------------------------------*/
 
@@ -143,8 +143,8 @@ get_registered_event_listeners (SpiBridge *app)
   DBusMessageIter iter, iter_array, iter_struct;
 
   message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
-                                         SPI_DBUS_PATH_REGISTRY,
-                                         SPI_DBUS_INTERFACE_REGISTRY,
+                                         ATSPI_DBUS_PATH_REGISTRY,
+                                         ATSPI_DBUS_INTERFACE_REGISTRY,
                                          "GetRegisteredEvents");
   if (!message)
     return;
@@ -235,12 +235,12 @@ register_application (SpiBridge * app)
 
   /* These will be overridden when we get a reply, but in practice these
      defaults should always be correct */
-  app->desktop_name = SPI_DBUS_NAME_REGISTRY;
-  app->desktop_path = SPI_DBUS_PATH_ROOT;
+  app->desktop_name = ATSPI_DBUS_NAME_REGISTRY;
+  app->desktop_path = ATSPI_DBUS_PATH_ROOT;
 
   message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
-                                          SPI_DBUS_PATH_ROOT,
-                                          SPI_DBUS_INTERFACE_SOCKET,
+                                          ATSPI_DBUS_PATH_ROOT,
+                                          ATSPI_DBUS_INTERFACE_SOCKET,
                                           "Embed");
 
   dbus_message_iter_init_append (message, &iter);
@@ -285,8 +285,8 @@ deregister_application (SpiBridge * app)
   dbus_error_init (&error);
 
   message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
-                                          SPI_DBUS_PATH_REGISTRY,
-                                          SPI_DBUS_INTERFACE_REGISTRY,
+                                          ATSPI_DBUS_PATH_REGISTRY,
+                                          ATSPI_DBUS_INTERFACE_REGISTRY,
                                           "DeregisterApplication");
   dbus_message_set_no_reply (message, TRUE);
 
@@ -366,7 +366,7 @@ socket_ref_state_set (AtkObject *accessible)
       return NULL;
     }
   *(child_path++) = '\0';
-  message = dbus_message_new_method_call (child_name, child_path, SPI_DBUS_INTERFACE_ACCESSIBLE, "GetState");
+  message = dbus_message_new_method_call (child_name, child_path, ATSPI_DBUS_INTERFACE_ACCESSIBLE, "GetState");
   g_free (child_name);
   reply = dbus_connection_send_with_reply_and_block (spi_global_app_data->bus, message, 1, NULL);
   dbus_message_unref (message);
@@ -421,7 +421,7 @@ socket_embed_hook (AtkSocket * socket, gchar * plug_id)
     {
       DBusMessage *message;
       *(plug_path++) = '\0';
-      message = dbus_message_new_method_call (plug_name, plug_path, SPI_DBUS_INTERFACE_SOCKET, "Embedded");
+      message = dbus_message_new_method_call (plug_name, plug_path, ATSPI_DBUS_INTERFACE_SOCKET, "Embedded");
       dbus_message_append_args (message, DBUS_TYPE_STRING, &path, DBUS_TYPE_INVALID);
       dbus_connection_send (spi_global_app_data->bus, message, NULL);
     }
@@ -628,7 +628,7 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
   if (dbus_message_get_type (message) != DBUS_MESSAGE_TYPE_SIGNAL)
     return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 
-  if (!strcmp (interface, SPI_DBUS_INTERFACE_REGISTRY))
+  if (!strcmp (interface, ATSPI_DBUS_INTERFACE_REGISTRY))
     {
       result = DBUS_HANDLER_RESULT_HANDLED;
       if (!strcmp (member, "EventListenerRegistered"))

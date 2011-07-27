@@ -27,9 +27,9 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-#include "common/bitarray.h"
-#include "common/spi-dbus.h"
-#include "common/spi-stateset.h"
+#include "bitarray.h"
+#include "spi-dbus.h"
+#include "accessible-stateset.h"
 
 #include "accessible-register.h"
 #include "object.h"
@@ -39,13 +39,13 @@ typedef struct _MatchRulePrivate MatchRulePrivate;
 struct _MatchRulePrivate
 {
   gint *states;
-  Accessibility_Collection_MatchType statematchtype;
+  AtspiCollectionMatchType statematchtype;
   AtkAttributeSet *attributes;
-  Accessibility_Collection_MatchType attributematchtype;
+  AtspiCollectionMatchType attributematchtype;
   gint *roles;
-  Accessibility_Collection_MatchType rolematchtype;
+  AtspiCollectionMatchType rolematchtype;
   gchar **ifaces;
-  Accessibility_Collection_MatchType interfacematchtype;
+  AtspiCollectionMatchType interfacematchtype;
   gboolean invert;
 };
 
@@ -161,17 +161,17 @@ match_states_lookup (AtkObject * child, MatchRulePrivate * mrp)
 {
   switch (mrp->statematchtype)
     {
-    case Accessibility_Collection_MATCH_ALL:
+    case ATSPI_Collection_MATCH_ALL:
       if (match_states_all_p (child, mrp->states))
         return TRUE;
       break;
 
-    case Accessibility_Collection_MATCH_ANY:
+    case ATSPI_Collection_MATCH_ANY:
       if (match_states_any_p (child, mrp->states))
         return TRUE;
       break;
 
-    case Accessibility_Collection_MATCH_NONE:
+    case ATSPI_Collection_MATCH_NONE:
       if (match_states_none_p (child, mrp->states))
         return TRUE;
       break;
@@ -202,7 +202,7 @@ match_roles_all_p (AtkObject * child, gint * roles)
 static gboolean
 match_roles_any_p (AtkObject * child, gint * roles)
 {
-  Accessibility_Role role;
+  AtspiRole role;
   int i;
 
   if (roles == NULL || roles[0] == BITARRAY_SEQ_TERM)
@@ -240,17 +240,17 @@ match_roles_lookup (AtkObject * child, MatchRulePrivate * mrp)
 {
   switch (mrp->rolematchtype)
     {
-    case Accessibility_Collection_MATCH_ALL:
+    case ATSPI_Collection_MATCH_ALL:
       if (match_roles_all_p (child, mrp->roles))
         return TRUE;
       break;
 
-    case Accessibility_Collection_MATCH_ANY:
+    case ATSPI_Collection_MATCH_ANY:
       if (match_roles_any_p (child, mrp->roles))
         return TRUE;
       break;
 
-    case Accessibility_Collection_MATCH_NONE:
+    case ATSPI_Collection_MATCH_NONE:
       if (match_roles_none_p (child, mrp->roles))
         return TRUE;
       break;
@@ -313,17 +313,17 @@ match_interfaces_lookup (AtkObject * child, MatchRulePrivate * mrp)
   switch (mrp->interfacematchtype)
     {
 
-    case Accessibility_Collection_MATCH_ALL:
+    case ATSPI_Collection_MATCH_ALL:
       if (match_interfaces_all_p (child, mrp->ifaces))
         return TRUE;
       break;
 
-    case Accessibility_Collection_MATCH_ANY:
+    case ATSPI_Collection_MATCH_ANY:
       if (match_interfaces_any_p (child, mrp->ifaces))
         return TRUE;
       break;
 
-    case Accessibility_Collection_MATCH_NONE:
+    case ATSPI_Collection_MATCH_NONE:
       if (match_interfaces_none_p (child, mrp->ifaces))
         return TRUE;
       break;
@@ -449,17 +449,17 @@ match_attributes_lookup (AtkObject * child, MatchRulePrivate * mrp)
   switch (mrp->attributematchtype)
     {
 
-    case Accessibility_Collection_MATCH_ALL:
+    case ATSPI_Collection_MATCH_ALL:
       if (match_attributes_all_p (child, mrp->attributes))
         return TRUE;
       break;
 
-    case Accessibility_Collection_MATCH_ANY:
+    case ATSPI_Collection_MATCH_ANY:
       if (match_attributes_any_p (child, mrp->attributes))
         return TRUE;
       break;
 
-    case Accessibility_Collection_MATCH_NONE:
+    case ATSPI_Collection_MATCH_NONE:
       if (match_attributes_none_p (child, mrp->attributes))
         return TRUE;
       break;
@@ -583,7 +583,7 @@ sort_order_rev_canonical (MatchRulePrivate * mrp, GList * ls,
 }
 
 static int
-query_exec (MatchRulePrivate * mrp, Accessibility_Collection_SortOrder sortby,
+query_exec (MatchRulePrivate * mrp, AtspiCollectionSortOrder sortby,
             GList * ls, gint kount, gint max,
             AtkObject * obj, glong index,
             gboolean flag,
@@ -591,11 +591,11 @@ query_exec (MatchRulePrivate * mrp, Accessibility_Collection_SortOrder sortby,
 {
   switch (sortby)
     {
-    case Accessibility_Collection_SORT_ORDER_CANONICAL:
+    case ATSPI_Collection_SORT_ORDER_CANONICAL:
       kount = sort_order_canonical (mrp, ls, 0, max, obj, index, flag,
                                     pobj, recurse, traverse);
       break;
-    case Accessibility_Collection_SORT_ORDER_REVERSE_CANONICAL:
+    case ATSPI_Collection_SORT_ORDER_REVERSE_CANONICAL:
       kount = sort_order_canonical (mrp, ls, 0, max, obj, index, flag,
                                     pobj, recurse, traverse);
       break;
@@ -761,7 +761,7 @@ static DBusMessage *
 GetMatchesFrom (DBusMessage * message,
                 AtkObject * current_object,
                 MatchRulePrivate * mrp,
-                const Accessibility_Collection_SortOrder sortby,
+                const AtspiCollectionSortOrder sortby,
                 const dbus_bool_t isrestrict,
                 dbus_int32_t count, const dbus_bool_t traverse)
 {
@@ -784,7 +784,7 @@ GetMatchesFrom (DBusMessage * message,
 
   ls = g_list_remove (ls, ls->data);
 
-  if (sortby == Accessibility_Collection_SORT_ORDER_REVERSE_CANONICAL)
+  if (sortby == ATSPI_Collection_SORT_ORDER_REVERSE_CANONICAL)
     ls = g_list_reverse (ls);
 
   free_mrp_data (mrp);
@@ -834,7 +834,7 @@ static DBusMessage *
 GetMatchesInOrder (DBusMessage * message,
                    AtkObject * current_object,
                    MatchRulePrivate * mrp,
-                   const Accessibility_Collection_SortOrder sortby,
+                   const AtspiCollectionSortOrder sortby,
                    const dbus_bool_t recurse,
                    dbus_int32_t count, const dbus_bool_t traverse)
 {
@@ -851,7 +851,7 @@ GetMatchesInOrder (DBusMessage * message,
 
   ls = g_list_remove (ls, ls->data);
 
-  if (sortby == Accessibility_Collection_SORT_ORDER_REVERSE_CANONICAL)
+  if (sortby == ATSPI_Collection_SORT_ORDER_REVERSE_CANONICAL)
     ls = g_list_reverse (ls);
 
   free_mrp_data (mrp);
@@ -867,7 +867,7 @@ static DBusMessage *
 GetMatchesInBackOrder (DBusMessage * message,
                        AtkObject * current_object,
                        MatchRulePrivate * mrp,
-                       const Accessibility_Collection_SortOrder sortby,
+                       const AtspiCollectionSortOrder sortby,
                        dbus_int32_t count)
 {
   GList *ls = NULL;
@@ -883,7 +883,7 @@ GetMatchesInBackOrder (DBusMessage * message,
 
   ls = g_list_remove (ls, ls->data);
 
-  if (sortby == Accessibility_Collection_SORT_ORDER_REVERSE_CANONICAL)
+  if (sortby == ATSPI_Collection_SORT_ORDER_REVERSE_CANONICAL)
     ls = g_list_reverse (ls);
 
   free_mrp_data (mrp);
@@ -894,7 +894,7 @@ static DBusMessage *
 GetMatchesTo (DBusMessage * message,
               AtkObject * current_object,
               MatchRulePrivate * mrp,
-              const Accessibility_Collection_SortOrder sortby,
+              const AtspiCollectionSortOrder sortby,
               const dbus_bool_t recurse,
               const dbus_bool_t isrestrict,
               dbus_int32_t count, const dbus_bool_t traverse)
@@ -920,7 +920,7 @@ GetMatchesTo (DBusMessage * message,
 
   ls = g_list_remove (ls, ls->data);
 
-  if (sortby != Accessibility_Collection_SORT_ORDER_REVERSE_CANONICAL)
+  if (sortby != ATSPI_Collection_SORT_ORDER_REVERSE_CANONICAL)
     ls = g_list_reverse (ls);
 
   free_mrp_data (mrp);
@@ -972,15 +972,15 @@ impl_GetMatchesFrom (DBusConnection * bus, DBusMessage * message,
 
   switch (tree)
     {
-    case Accessibility_Collection_TREE_RESTRICT_CHILDREN:
+    case ATSPI_Collection_TREE_RESTRICT_CHILDREN:
       return GetMatchesFrom (message, current_object,
                              &rule, sortby, TRUE, count, traverse);
       break;
-    case Accessibility_Collection_TREE_RESTRICT_SIBLING:
+    case ATSPI_Collection_TREE_RESTRICT_SIBLING:
       return GetMatchesFrom (message, current_object,
                              &rule, sortby, FALSE, count, traverse);
       break;
-    case Accessibility_Collection_TREE_INORDER:
+    case ATSPI_Collection_TREE_INORDER:
       return GetMatchesInOrder (message, current_object,
                                 &rule, sortby, TRUE, count, traverse);
       break;
@@ -1037,15 +1037,15 @@ impl_GetMatchesTo (DBusConnection * bus, DBusMessage * message,
 
   switch (tree)
     {
-    case Accessibility_Collection_TREE_RESTRICT_CHILDREN:
+    case ATSPI_Collection_TREE_RESTRICT_CHILDREN:
       return GetMatchesTo (message, current_object,
                            &rule, sortby, recurse, TRUE, count, traverse);
       break;
-    case Accessibility_Collection_TREE_RESTRICT_SIBLING:
+    case ATSPI_Collection_TREE_RESTRICT_SIBLING:
       return GetMatchesTo (message, current_object,
                            &rule, sortby, recurse, FALSE, count, traverse);
       break;
-    case Accessibility_Collection_TREE_INORDER:
+    case ATSPI_Collection_TREE_INORDER:
       return GetMatchesInBackOrder (message, current_object,
                                     &rule, sortby, count);
       break;
@@ -1088,7 +1088,7 @@ impl_GetMatches (DBusConnection * bus, DBusMessage * message, void *user_data)
                       obj, 0, TRUE, NULL, TRUE, traverse);
   ls = g_list_remove (ls, ls->data);
 
-  if (sortby == Accessibility_Collection_SORT_ORDER_REVERSE_CANONICAL)
+  if (sortby == ATSPI_Collection_SORT_ORDER_REVERSE_CANONICAL)
     ls = g_list_reverse (ls);
   free_mrp_data (&rule);
   return return_and_free_list (message, ls);
@@ -1105,5 +1105,5 @@ void
 spi_initialize_collection (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_COLLECTION, spi_org_a11y_atspi_Collection, methods, NULL);
+                             ATSPI_DBUS_INTERFACE_COLLECTION, spi_org_a11y_atspi_Collection, methods, NULL);
 };

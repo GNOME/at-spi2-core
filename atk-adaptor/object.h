@@ -57,7 +57,7 @@ spi_object_append_interfaces (DBusMessageIter * iter, AtkObject * obj);
 void
 spi_object_append_attribute_set (DBusMessageIter * iter, AtkAttributeSet * attr);
 
-Accessibility_Role
+AtspiRole
 spi_accessible_role_from_atk_role (AtkRole role);
 
 #endif /* ACCESSIBLE_OBJECT_H */

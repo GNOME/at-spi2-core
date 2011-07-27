@@ -25,7 +25,7 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-#include "common/spi-dbus.h"
+#include "spi-dbus.h"
 #include "introspection.h"
 
 /* for spi_global_app_data  is there a better way? */
@@ -145,7 +145,7 @@ void
 spi_initialize_application (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_APPLICATION,
+                             ATSPI_DBUS_INTERFACE_APPLICATION,
                              spi_org_a11y_atspi_Application,
                              methods, properties);
 };

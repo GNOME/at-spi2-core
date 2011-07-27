@@ -27,7 +27,7 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-Accessibility_Role spi_accessible_role_from_atk_role (AtkRole role);
+AtspiRole spi_accessible_role_from_atk_role (AtkRole role);
 
 void spi_initialize_accessible (DRoutePath * path);
 void spi_initialize_action (DRoutePath * path);

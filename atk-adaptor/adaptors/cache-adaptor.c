@@ -28,8 +28,8 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-#include "common/spi-dbus.h"
-#include "common/spi-stateset.h"
+#include "spi-dbus.h"
+#include "accessible-stateset.h"
 #include "accessible-cache.h"
 #include "bridge.h"
 #include "object.h"
@@ -132,7 +132,7 @@ append_cache_item (AtkObject * obj, gpointer data)
                 spi_object_append_null_reference (&iter_struct);
               }
           }
-        else if (role != Accessibility_ROLE_APPLICATION)
+        else if (role != ATSPI_ROLE_APPLICATION)
           spi_object_append_null_reference (&iter_struct);
         else
           spi_object_append_desktop_reference (&iter_struct);
@@ -238,7 +238,7 @@ emit_cache_remove (SpiCache *cache, GObject * obj)
   DBusMessage *message;
 
   if ((message = dbus_message_new_signal (SPI_CACHE_OBJECT_PATH,
-                                          SPI_DBUS_INTERFACE_CACHE,
+                                          ATSPI_DBUS_INTERFACE_CACHE,
                                           "RemoveAccessible")))
     {
       DBusMessageIter iter;
@@ -261,7 +261,7 @@ emit_cache_add (SpiCache *cache, GObject * obj)
   DBusMessage *message;
 
   if ((message = dbus_message_new_signal (SPI_CACHE_OBJECT_PATH,
-                                          SPI_DBUS_INTERFACE_CACHE,
+                                          ATSPI_DBUS_INTERFACE_CACHE,
                                           "AddAccessible")))
     {
       DBusMessageIter iter;
@@ -316,7 +316,7 @@ static DRouteMethod methods[] = {
 void
 spi_initialize_cache (DRoutePath * path)
 {
-  droute_path_add_interface (path, SPI_DBUS_INTERFACE_CACHE, spi_org_a11y_atspi_Cache, methods, NULL);
+  droute_path_add_interface (path, ATSPI_DBUS_INTERFACE_CACHE, spi_org_a11y_atspi_Cache, methods, NULL);
 
   g_signal_connect (spi_global_cache,
                     "object-added",

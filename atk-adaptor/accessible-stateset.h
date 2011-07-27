@@ -21,17 +21,17 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef SPI_STATE_SET_H_
-#define SPI_STATE_SET_H_
+#ifndef ACCESSSIBLE_STATE_SET_H_
+#define ACCESSIBLE_STATE_SET_H_
 
-#include "spi-types.h"
 #include <atk/atkstateset.h>
+#include "atspi/atspi.h"
 
 G_BEGIN_DECLS
 
 /* private - internal API to abstract away atk API */
 AtkStateSet *spi_state_set_cache_from_sequence(GArray *seq);
-AtkState     spi_atk_state_from_spi_state     (Accessibility_StateType state);
+AtkState     spi_atk_state_from_spi_state     (AtspiStateType state);
 void spi_atk_state_to_dbus_array (AtkObject * object, dbus_uint32_t * array);
 void spi_atk_state_set_to_dbus_array (AtkStateSet *set, dbus_uint32_t * array);
 #define      spi_state_set_cache_ref(s)        g_object_ref (s)
@@ -48,4 +48,4 @@ void spi_atk_state_set_to_dbus_array (AtkStateSet *set, dbus_uint32_t * array);
 
 G_END_DECLS
 
-#endif /* SPI_STATE_SET_H_ */
+#endif /* ACCESSIBLE_STATE_SET_H_ */

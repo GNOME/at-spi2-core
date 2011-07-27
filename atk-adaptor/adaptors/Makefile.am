@@ -3,6 +3,7 @@ noinst_LTLIBRARIES = libatk-bridge-adaptors.la
 libatk_bridge_adaptors_la_CFLAGS =\
 			  $(DBUS_CFLAGS) \
 		          $(ATK_CFLAGS)       \
+		          $(ATSPI_CFLAGS)       \
 		          -I$(top_srcdir)     \
 		          -I$(top_srcdir)/atk-adaptor \
 	$(P2P_CFLAGS)
@@ -10,6 +11,7 @@ libatk_bridge_adaptors_la_CFLAGS =\
 libatk_bridge_adaptors_la_LIBADD =\
 			  $(DBUS_LIBS) \
 		          $(ATK_LIBS)       \
+		          $(ATSPI_LIBS)       \
 			  $(X_LIBS)
 
 libatk_bridge_adaptors_la_SOURCES =\

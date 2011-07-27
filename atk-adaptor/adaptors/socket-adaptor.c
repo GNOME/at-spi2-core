@@ -25,8 +25,8 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-#include "common/spi-dbus.h"
-#include "common/spi-stateset.h"
+#include "spi-dbus.h"
+#include "accessible-stateset.h"
 #include "object.h"
 #include "introspection.h"
 #include "bridge.h"
@@ -49,7 +49,7 @@ new_socket_call_message (AtkComponent *component, const char *member)
       DBusMessage *message;
       *(path_parent++) = '\0';
       message = dbus_message_new_method_call (bus_parent, path_parent,
-                                              SPI_DBUS_INTERFACE_COMPONENT,
+                                              ATSPI_DBUS_INTERFACE_COMPONENT,
                                               member);
       g_free (bus_parent);
       return message;
@@ -199,7 +199,7 @@ void
 spi_initialize_socket (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_SOCKET,
+                             ATSPI_DBUS_INTERFACE_SOCKET,
                              NULL, /* spi_org_a11y_atspi_Socket,	 */
                              methods, NULL);
 };

@@ -25,7 +25,7 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-#include "common/spi-dbus.h"
+#include "spi-dbus.h"
 #include "object.h"
 
 #include "introspection.h"
@@ -111,5 +111,5 @@ void
 spi_initialize_hypertext (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_HYPERTEXT, spi_org_a11y_atspi_Hypertext, methods, NULL);
+                             ATSPI_DBUS_INTERFACE_HYPERTEXT, spi_org_a11y_atspi_Hypertext, methods, NULL);
 };

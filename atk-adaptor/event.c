@@ -32,7 +32,7 @@
 #include "bridge.h"
 #include "accessible-register.h"
 
-#include "common/spi-dbus.h"
+#include "spi-dbus.h"
 #include "event.h"
 #include "object.h"
 
@@ -114,7 +114,7 @@ send_and_allow_reentry (DBusConnection * bus, DBusMessage * message)
 
 static gboolean
 Accessibility_DeviceEventController_NotifyListenersSync (const
-                                                         Accessibility_DeviceEvent
+                                                         AtspiDeviceEvent
                                                          * key_event)
 {
   DBusMessage *message;
@@ -123,8 +123,8 @@ Accessibility_DeviceEventController_NotifyListenersSync (const
 
   message =
     dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
-                                  SPI_DBUS_PATH_DEC,
-                                  SPI_DBUS_INTERFACE_DEC,
+                                  ATSPI_DBUS_PATH_DEC,
+                                  ATSPI_DBUS_INTERFACE_DEC,
                                   "NotifyListenersSync");
 
   dbus_error_init (&error);
@@ -146,7 +146,7 @@ Accessibility_DeviceEventController_NotifyListenersSync (const
 }
 
 static void
-spi_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent * keystroke,
+spi_init_keystroke_from_atk_key_event (AtspiDeviceEvent * keystroke,
                                        AtkKeyEventStruct * event)
 {
   keystroke->id = (dbus_int32_t) event->keyval;
@@ -172,10 +172,10 @@ spi_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent * keystroke,
   switch (event->type)
     {
     case (ATK_KEY_EVENT_PRESS):
-      keystroke->type = Accessibility_KEY_PRESSED_EVENT;
+      keystroke->type = ATSPI_KEY_PRESSED;
       break;
     case (ATK_KEY_EVENT_RELEASE):
-      keystroke->type = Accessibility_KEY_RELEASED_EVENT;
+      keystroke->type = ATSPI_KEY_RELEASED;
       break;
     default:
       keystroke->type = 0;
@@ -195,7 +195,7 @@ static gint
 spi_atk_bridge_key_listener (AtkKeyEventStruct * event, gpointer data)
 {
   gboolean result;
-  Accessibility_DeviceEvent key_event;
+  AtspiDeviceEvent key_event;
 
   spi_init_keystroke_from_atk_key_event (&key_event, event);
 

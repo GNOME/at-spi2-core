@@ -26,7 +26,7 @@
 #include <droute/droute.h>
 #include <string.h>
 
-#include "common/spi-dbus.h"
+#include "spi-dbus.h"
 #include "object.h"
 #include "introspection.h"
 
@@ -184,28 +184,28 @@ impl_GetLayer (DBusConnection * bus, DBusMessage * message, void *user_data)
   switch (atklayer)
     {
     case ATK_LAYER_BACKGROUND:
-      rv = Accessibility_LAYER_BACKGROUND;
+      rv = ATSPI_LAYER_BACKGROUND;
       break;
     case ATK_LAYER_CANVAS:
-      rv = Accessibility_LAYER_CANVAS;
+      rv = ATSPI_LAYER_CANVAS;
       break;
     case ATK_LAYER_WIDGET:
-      rv = Accessibility_LAYER_WIDGET;
+      rv = ATSPI_LAYER_WIDGET;
       break;
     case ATK_LAYER_MDI:
-      rv = Accessibility_LAYER_MDI;
+      rv = ATSPI_LAYER_MDI;
       break;
     case ATK_LAYER_POPUP:
-      rv = Accessibility_LAYER_POPUP;
+      rv = ATSPI_LAYER_POPUP;
       break;
     case ATK_LAYER_OVERLAY:
-      rv = Accessibility_LAYER_OVERLAY;
+      rv = ATSPI_LAYER_OVERLAY;
       break;
     case ATK_LAYER_WINDOW:
-      rv = Accessibility_LAYER_WINDOW;
+      rv = ATSPI_LAYER_WINDOW;
       break;
     default:
-      rv = Accessibility_LAYER_INVALID;
+      rv = ATSPI_LAYER_INVALID;
       break;
     }
   reply = dbus_message_new_method_return (message);
@@ -418,5 +418,5 @@ void
 spi_initialize_component (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_COMPONENT, spi_org_a11y_atspi_Component, methods, NULL);
+                             ATSPI_DBUS_INTERFACE_COMPONENT, spi_org_a11y_atspi_Component, methods, NULL);
 };

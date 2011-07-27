@@ -25,7 +25,7 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-#include "common/spi-dbus.h"
+#include "spi-dbus.h"
 #include "object.h"
 #include "introspection.h"
 
@@ -701,5 +701,5 @@ void
 spi_initialize_table (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_TABLE, spi_org_a11y_atspi_Table, methods, properties);
+                             ATSPI_DBUS_INTERFACE_TABLE, spi_org_a11y_atspi_Table, methods, properties);
 };

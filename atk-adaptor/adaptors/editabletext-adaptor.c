@@ -26,7 +26,7 @@
 #include <droute/droute.h>
 #include "introspection.h"
 
-#include "common/spi-dbus.h"
+#include "spi-dbus.h"
 
 static DBusMessage *
 impl_SetTextContents (DBusConnection * bus, DBusMessage * message,
@@ -214,5 +214,5 @@ void
 spi_initialize_editabletext (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_EDITABLE_TEXT, spi_org_a11y_atspi_EditableText, methods, NULL);
+                             ATSPI_DBUS_INTERFACE_EDITABLE_TEXT, spi_org_a11y_atspi_EditableText, methods, NULL);
 };
