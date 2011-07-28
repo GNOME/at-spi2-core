@@ -28,12 +28,12 @@
 /**
  * atspi_editable_text_set_attributes:
  * @obj: a pointer to the #AtspiEditableText object to modify.
- * @attributes: a character string indicating the attributes to apply to the range,
+ * @attributes: a string indicating the attributes to apply to the range,
  *        delimited by ':'.
- * @startOffset: a #long indicating the start of the desired text range.
- * @endOffset: a #long indicating the first character past the desired range.
+ * @startOffset: a #gint indicating the start of the desired text range.
+ * @endOffset: a #gint indicating the first character past the desired range.
  *
- * Set the attributes applied to a range of text from an #AtspiEditableText
+ * Sets the attributes applied to a range of text from an #AtspiEditableText
  *          object, and the bounds of the range.
  *
  * Returns: #TRUE if the operation was successful, otherwise #FALSE.
@@ -83,15 +83,17 @@ atspi_editable_text_set_text_contents (AtspiEditableText *obj,
 /**
  * atspi_editable_text_insert_text:
  * @obj: a pointer to the #AtspiEditableText object to modify.
- * @position: an integer indicating the character offset at which to insert
+ * @position: a #gint indicating the character offset at which to insert
  *       the new text.  
- * @text: a gchar* pointer to the text to insert, in UTF-8 encoding.
- * @length: (frankly I'm not sure this parameter should be here)
+ * @text: a string representing the text to insert, in UTF-8 encoding.
+ * @length:  the number of characters of text to insert. If the character
+ * count of text is less than or equal to length, the entire contents
+ * of text will be inserted.
  *
- * Insert text into an #AtspiEditableText object.
+ * Inserts text into an #AtspiEditableText object.
  * As with all character offsets, the specified @position may not be the
- *       same as the resulting byte offset, since the text is in a
- *       variable-width encoding.
+ * same as the resulting byte offset, since the text is in a
+ * variable-width encoding.
  *
  * Returns: #TRUE if the operation was successful, otherwise #FALSE.
  **/
@@ -115,14 +117,14 @@ atspi_editable_text_insert_text (AtspiEditableText *obj,
 /**
  * atspi_editable_text_copy_text:
  * @obj: a pointer to the #AtspiEditableText object to modify.
- * @start_pos: an integer indicating the starting character offset
+ * @start_pos: a #gint indicating the starting character offset
  *       of the text to copy.
- * @end_pos: an integer indicating the offset of the first character
+ * @end_pos: a #gint indicating the offset of the first character
  *       past the end of the text section to be copied.
  *
- * Copy text from an #AtspiEditableText object into the clipboard.
+ * Copies text from an #AtspiEditableText object into the system clipboard.
  *
- * see: atspi_editable_text_paste_text 
+ * see: #atspi_editable_text_paste_text 
  *
  * Returns: #TRUE if the operation was successful, otherwise #FALSE.
  **/
@@ -144,15 +146,15 @@ atspi_editable_text_copy_text (AtspiEditableText *obj,
 /**
  * atspi_editable_text_cut_text:
  * @obj: a pointer to the #AtspiEditableText object to modify.
- * @start_pos: an integer indicating the starting character offset
+ * @start_pos: a #gint indicating the starting character offset
  *       of the text to cut.
- * @end_pos: an integer indicating the offset of the first character
+ * @end_pos: a #gint indicating the offset of the first character
  *       past the end of the text section to be cut.
  *
- * Delete text from an #AtspiEditableText object, copying the
- *       excised portion into the clipboard.
+ * Deletes text from an #AtspiEditableText object, copying the
+ *       excised portion into the system clipboard.
  *
- * see: atspi_editable_text_paste_text
+ * see: #atspi_editable_text_paste_text
  *
  * Returns: #TRUE if operation was successful, #FALSE otherwise.
  **/
@@ -175,15 +177,15 @@ atspi_editable_text_cut_text (AtspiEditableText *obj,
 /**
  * atspi_editable_text_delete_text:
  * @obj: a pointer to the #AtspiEditableText object to modify.
- * @start_pos: an integer indicating the starting character offset
+ * @start_pos: a #gint indicating the starting character offset
  *       of the text to delete.
- * @end_pos: an integer indicating the offset of the first character
+ * @end_pos: a #gint indicating the offset of the first character
  *       past the end of the text section to be deleted.
  *
- * Delete text from an #AtspiEditableText object, without copying the
- *       excised portion into the clipboard.
+ * Deletes text from an #AtspiEditableText object, without copying the
+ *       excised portion into the system clipboard.
  *
- * see: atspi_editable_text_cut_text
+ * see: #atspi_editable_text_cut_text
  *
  * Returns: #TRUE if the operation was successful, otherwise #FALSE.
  **/
@@ -206,10 +208,10 @@ atspi_editable_text_delete_text (AtspiEditableText *obj,
 /**
  * atspi_editable_text_paste_text:
  * @obj: a pointer to the #AtspiEditableText object to modify.
- * @position: an integer indicating the character offset at which to insert
+ * @position: a #gint indicating the character offset at which to insert
  *       the new text.  
  *
- * Insert text from the clipboard into an #AtspiEditableText object.
+ * Inserts text from the system clipboard into an #AtspiEditableText object.
  * As with all character offsets, the specified @position may not be the
  *       same as the resulting byte offset, since the text is in a
  *       variable-width encoding.
