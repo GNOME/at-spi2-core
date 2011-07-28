@@ -1,6 +1,0 @@
-Name: cspi (Uninstalled)
-Description: Accessibility Technology software simple client library
-Requires: dbind-0.1
-Version: @VERSION@
-Libs: ${pc_top_builddir}/${pcfiledir}/cspi/libcspi.la
-Cflags: -I${pc_top_builddir}/${pcfiledir} @X_CFLAGS@
