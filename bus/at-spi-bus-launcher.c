@@ -331,26 +331,6 @@ init_sigterm_handling (A11yBusLauncher *app)
 }
 
 static gboolean
-is_a11y_using_corba (void)
-{
-  char *gconf_argv[] = { "gconftool-2", "--get", "/desktop/gnome/interface/at-spi-corba", NULL };
-  char *stdout = NULL;
-  int estatus;
-  gboolean result = FALSE;
-
-  if (!g_spawn_sync (NULL, gconf_argv, NULL,
-                     G_SPAWN_SEARCH_PATH, NULL, NULL, &stdout, NULL, &estatus, NULL))
-    goto out;
-  if (estatus != 0)
-    goto out;
-  if (g_str_has_prefix (stdout, "true"))
-    result = TRUE;
- out:
-  g_free (stdout);
-  return result;
-}
-
-static gboolean
 already_running ()
 {
   Atom AT_SPI_BUS;
@@ -403,9 +383,6 @@ main (int    argc,
   int name_owner_id;
 
   g_type_init ();
-
-  if (is_a11y_using_corba ())
-    return 0;
 
   if (already_running ())
     return 0;

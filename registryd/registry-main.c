@@ -36,10 +36,6 @@
 #include "deviceeventcontroller.h"
 #include "atspi/atspi.h"
 
-#define CORBA_GCONF_KEY  "/desktop/gnome/interface/at-spi-corba"
-
-static gboolean need_to_quit ();
-
 static GMainLoop *mainloop;
 static gchar *dbus_name = NULL;
 static gboolean use_gnome_session = FALSE;
@@ -204,9 +200,6 @@ main (int argc, char **argv)
   DBusError error;
   int ret;
 
-  if (need_to_quit ())
-    return 0;
-
   g_type_init();
 
   /*Parse command options*/
@@ -253,40 +246,4 @@ main (int argc, char **argv)
 
   g_main_loop_run (mainloop);
   return 0;
-}
-
-static gboolean
-need_to_quit ()
-{
-  void *gconf = NULL;
-  gconf_client_get_default_t gconf_client_get_default = NULL;
-  gconf_client_get_bool_t gconf_client_get_bool = NULL;
-  GObject *gconf_client;	/* really a GConfClient */
-  gboolean ret;
-
-  g_type_init ();
-
-  gconf = dlopen ("libgconf-2.so", RTLD_LAZY);
-  if (gconf)
-    {
-      gconf_client_get_default = dlsym (gconf, "gconf_client_get_default");
-      gconf_client_get_bool = dlsym (gconf, "gconf_client_get_bool");
-  }
-
-  if (!gconf_client_get_default || !gconf_client_get_bool)
-    {
-      if (gconf)
-        dlclose (gconf);
-      return FALSE;
-    }
-
-  /* If we've been relocated, we will exit if the at-spi-corba gconf key
- * has been set.  If we have not been relocated, we will only run if the
- * at-spi-dbus gconf key has been set.
-   */
-  gconf_client = gconf_client_get_default ();
-  ret = gconf_client_get_bool (gconf_client, CORBA_GCONF_KEY, NULL);
-  g_object_unref (gconf_client);
-
-  return ret;
 }
