@@ -9,7 +9,7 @@ to be modified, or which reflects its value.
 <para>
 An interface supporting a one-dimensional scalar 
 to be modified, or which reflects its value. If
-STATE_EDITABLE is not present, the valuator is
+STATE_EDITABLE is not present, the value is
 treated as "read only".
 </para>
 
