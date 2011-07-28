@@ -27,7 +27,7 @@
 #include <glib-object.h>
 #include <dbus/dbus.h>
 
-#include "spi-types.h"
+#include <atspi/atspi.h>
 
 DBusMessage *
 spi_dbus_general_error (DBusMessage * message)
@@ -130,7 +130,7 @@ dbus_bool_t spi_dbus_message_iter_append_struct(DBusMessageIter *iter, ...)
   return TRUE;
 }
 
-dbus_bool_t spi_dbus_marshal_deviceEvent(DBusMessage *message, const Accessibility_DeviceEvent *e)
+dbus_bool_t spi_dbus_marshal_deviceEvent(DBusMessage *message, const AtspiDeviceEvent *e)
 {
   DBusMessageIter iter;
 
@@ -139,7 +139,7 @@ dbus_bool_t spi_dbus_marshal_deviceEvent(DBusMessage *message, const Accessibili
   return spi_dbus_message_iter_append_struct(&iter, DBUS_TYPE_UINT32, &e->type, DBUS_TYPE_INT32, &e->id, DBUS_TYPE_INT16, &e->hw_code, DBUS_TYPE_INT16, &e->modifiers, DBUS_TYPE_INT32, &e->timestamp, DBUS_TYPE_STRING, &e->event_string, DBUS_TYPE_BOOLEAN, &e->is_text, DBUS_TYPE_INVALID);
 }
 
-dbus_bool_t spi_dbus_demarshal_deviceEvent(DBusMessage *message, Accessibility_DeviceEvent *e)
+dbus_bool_t spi_dbus_demarshal_deviceEvent(DBusMessage *message, AtspiDeviceEvent *e)
 {
   DBusMessageIter iter;
 

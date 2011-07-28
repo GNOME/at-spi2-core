@@ -32,6 +32,7 @@ libatk_bridge_la_SOURCES =	\
 	$(top_builddir)/atk-adaptor/accessible-register.h	\
 	$(top_builddir)/atk-adaptor/accessible-stateset.c \
 	$(top_builddir)/atk-adaptor/accessible-stateset.h \
+	$(top_builddir)/atk-adaptor/bitarray.h \
 	$(top_builddir)/atk-adaptor/introspection.c         \
 	$(top_builddir)/atk-adaptor/introspection.h         \
 	$(top_builddir)/atk-adaptor/bridge.c		\
@@ -39,4 +40,6 @@ libatk_bridge_la_SOURCES =	\
 	$(top_builddir)/atk-adaptor/object.c		\
 	$(top_builddir)/atk-adaptor/object.h		\
 	$(top_builddir)/atk-adaptor/event.c			\
-	$(top_builddir)/atk-adaptor/event.h
+	$(top_builddir)/atk-adaptor/event.h \
+	$(top_builddir)/atk-adaptor/spi-dbus.c \
+	$(top_builddir)/atk-adaptor/spi-dbus.h

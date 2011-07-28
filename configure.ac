@@ -113,7 +113,6 @@ AC_CONFIG_FILES([Makefile
 		 dbind/dbind-config.h
 		 dbind/Makefile
 		 droute/Makefile
-		 common/Makefile
 		 atk-adaptor/Makefile
 		 atk-adaptor/adaptors/Makefile
 		 atk-adaptor/gtk-2.0/Makefile
