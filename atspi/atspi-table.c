@@ -29,10 +29,11 @@
  * atspi_table_get_caption:
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  *
- * Get an accessible representation of the caption for an #AtspiTable.
+ * Gets an accessible representation of the caption for an #AtspiTable.
  *
- * Returns: (transfer full): an #Accessible object that serves as the table's
- *          caption.
+ * Returns: (transfer full): an #AtspiAccessible object that serves as
+ * the table's caption.
+ *
  **/
 AtspiAccessible *
 atspi_table_get_caption (AtspiTable *obj, GError **error)
@@ -49,7 +50,7 @@ atspi_table_get_caption (AtspiTable *obj, GError **error)
  * atspi_table_get_summary:
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  *
- * Get an accessible object which summarizes the contents of an #AtspiTable.
+ * Gets an accessible object which summarizes the contents of an #AtspiTable.
  *
  * Returns: (transfer full): an #AtspiAccessible object that serves as the
  *          table's summary (often a reduced #AtspiTable).
@@ -70,11 +71,11 @@ atspi_table_get_summary (AtspiTable *obj, GError **error)
  * atspi_table_get_n_rows:
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  *
- * Get the number of rows in an #AtspiTable,
+ * Gets the number of rows in an #AtspiTable,
  *        exclusive of any rows that are programmatically hidden, but inclusive
  *        of rows that may be outside of the current scrolling window or viewport.
  *
- * Returns: an integer indicating the number of rows in the table.
+ * Returns: a #gint indicating the number of rows in the table.
  **/
 gint
 atspi_table_get_n_rows (AtspiTable *obj, GError **error)
@@ -92,11 +93,11 @@ atspi_table_get_n_rows (AtspiTable *obj, GError **error)
  * atspi_table_get_n_columns:
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  *
- * Get the number of columns in an #AtspiTable,
+ * Gets the number of columns in an #AtspiTable,
  *        exclusive of any columns that are programmatically hidden, but inclusive
  *        of columns that may be outside of the current scrolling window or viewport.
  *
- * Returns: an integer indicating the number of columns in the table.
+ * Returns: a #gint indicating the number of columns in the table.
  **/
 gint
 atspi_table_get_n_columns (AtspiTable *obj, GError **error)
@@ -116,9 +117,9 @@ atspi_table_get_n_columns (AtspiTable *obj, GError **error)
  * @row: the specified table row, zero-indexed.
  * @column: the specified table column, zero-indexed.
  *
- * Get the table cell at the specified row and column indices.
- *          To get the accessible object at a particular (x, y) screen coordinate,
- *          use #atspi_component_get_accessible_at_point ().
+ * Gets the table cell at the specified row and column indices.
+ * To get the accessible object at a particular (x, y) screen 
+ * coordinate, use #atspi_component_get_accessible_at_point.
  *
  * Returns: (transfer full): an #AtspiAccessible object representing the
  *          specified table cell.
@@ -145,13 +146,14 @@ atspi_table_get_accessible_at (AtspiTable *obj,
  * @row: the specified table row, zero-indexed.
  * @column: the specified table column, zero-indexed.
  *
- * Get the 1-D child index corresponding to the specified 2-D row and column indices.
- *          To get the accessible object at a particular (x, y) screen coordinate,
- *          use #Accessible_getAccessibleAtPoint ().
- * @see #atspi_table_getRowAtIndex(), #atspi_table_getColumnAtIndex()
+ * Gets the 1-D child index corresponding to the specified 2-D row and
+ * column indices. To get the accessible object at a particular (x, y) screen 
+ * coordinate, use #atspi_component_get_accessible_at_point.
  *
- * Returns: a long integer which serves as the index of a specified cell in the
- *          table, in a form usable by #Accessible_getChildAtIndex().
+ * @see #atspi_table_get_row_at_index, #atspi_table_get_column_at_index
+ *
+ * Returns: a #gint which serves as the index of a specified cell in the
+ *          table, in a form usable by #atspi_get_child_at_index.
  **/
 gint
 atspi_table_get_index_at (AtspiTable *obj,
@@ -174,11 +176,12 @@ atspi_table_get_index_at (AtspiTable *obj,
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  * @index: the specified child index, zero-indexed.
  *
- * Get the table row index occupied by the child at a particular 1-D child index.
+ * Gets the table row index occupied by the child at a particular 1-D 
+ * child index.
  *
- * @see #atspi_table_get_indexAt(), #atspi_table_get_columnAtIndex()
+ * @see #atspi_table_get_index_at, #atspi_table_get_column_at_index
  *
- * Returns: a long integer indicating the first row spanned by the child of a
+ * Returns: a #gint indicating the first row spanned by the child of a
  *          table, at the specified 1-D (zero-offset) @index.
  **/
 gint
@@ -201,11 +204,12 @@ atspi_table_get_row_at_index (AtspiTable *obj,
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  * @index: the specified child index, zero-indexed.
  *
- * Get the table column index occupied by the child at a particular 1-D child index.
+ * Gets the table column index occupied by the child at a particular 1-D
+ * child index.
  *
- * @see #atspi_table_getIndexAt(), #atspi_table_getRowAtIndex()
+ * @see #atspi_table_get_index_at, #atspi_table_get_row_at_index
  *
- * Returns: a long integer indicating the first column spanned by the child of a
+ * Returns: a #gint indicating the first column spanned by the child of a
  *          table, at the specified 1-D (zero-offset) @index.
  **/
 gint
@@ -228,8 +232,8 @@ atspi_table_get_column_at_index (AtspiTable *obj,
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  * @row: the specified table row, zero-indexed.
  *
- * Get a text description of a particular table row.  This differs from
- * atspi_table_get_row_header, which returns an #AtspiAccessible.
+ * Gets a text description of a particular table row.  This differs from
+ * #atspi_table_get_row_header, which returns an #AtspiAccessible.
  *
  * Returns: a UTF-8 string describing the specified table row, if available.
  **/
@@ -253,8 +257,8 @@ atspi_table_get_row_description (AtspiTable *obj,
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  * @column: the specified table column, zero-indexed.
  *
- * Get a text description of a particular table column.  This differs from
- * atspi_table_get_column_header, which returns an #Accessible.
+ * Gets a text description of a particular table column.  This differs from
+ * #atspi_table_get_column_header, which returns an #Accessible.
  *
  * Returns: a UTF-8 string describing the specified table column, if available.
  **/
@@ -278,10 +282,11 @@ atspi_table_get_column_description (AtspiTable *obj,
  * @row: the specified table row, zero-indexed.
  * @column: the specified table column, zero-indexed.
  *
- * Get the number of rows spanned by the table cell at the specific row and column.
- * (some tables can have cells which span multiple rows and/or columns).
+ * Gets the number of rows spanned by the table cell at the specific row
+ * and column. (some tables can have cells which span multiple rows
+ * and/or columns).
  *
- * Returns: a long integer indicating the number of rows spanned by the specified cell.
+ * Returns: a #gint indicating the number of rows spanned by the specified cell.
  **/
 gint
 atspi_table_get_row_extent_at (AtspiTable *obj,
@@ -305,10 +310,11 @@ atspi_table_get_row_extent_at (AtspiTable *obj,
  * @row: the specified table row, zero-indexed.
  * @column: the specified table column, zero-indexed.
  *
- * Get the number of columns spanned by the table cell at the specific row and column.
- * (some tables can have cells which span multiple rows and/or columns).
+ * Gets the number of columns spanned by the table cell at the specific
+ * row and column (some tables can have cells which span multiple
+ * rows and/or columns).
  *
- * Returns: a long integer indicating the number of columns spanned by the specified cell.
+ * Returns: a #gint indicating the number of columns spanned by the specified cell.
  **/
 gint
 atspi_table_get_column_extent_at (AtspiTable *obj,
@@ -331,10 +337,10 @@ atspi_table_get_column_extent_at (AtspiTable *obj,
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  * @row: the specified table row, zero-indexed.
  *
- * Get the header associated with a table row, if available.  This differs from
- * atspi_table_get_row_description, which returns a string.
+ * Gets the header associated with a table row, if available. This differs from
+ * #atspi_table_get_row_description, which returns a string.
  *
- * Returns: (transfer full): a #Accessible representatin of the specified
+ * Returns: (transfer full): an #AtspiAccessible representatin of the specified
  *          table row, if available.
  **/
 AtspiAccessible *
@@ -357,10 +363,11 @@ atspi_table_get_row_header (AtspiTable *obj,
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  * @column: the specified table column, zero-indexed.
  *
- * Get the header associated with a table column, if available.  This differs from
- * atspi_table_get_column_description, which returns a string.
+ * Gets the header associated with a table column, if available.
+ * This differs from #atspi_table_get_column_description, which
+ * returns a string.
  *
- * Returns: (transfer full): a #AtspiAccessible representation of the
+ * Returns: (transfer full): an #AtspiAccessible representation of the
  *          specified table column, if available.
  **/
 AtspiAccessible *
@@ -382,10 +389,10 @@ atspi_table_get_column_header (AtspiTable *obj,
  * atspi_table_get_n_selected_rows:
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  *
- * Query a table to find out how many rows are currently selected.  Not all tables
- *  support row selection.
+ * Query a table to find out how many rows are currently selected. 
+ * Not all tables support row selection.
  *
- * Returns: a long integer indicating the number of rows currently selected.
+ * Returns: a #gint indicating the number of rows currently selected.
  **/
 gint
 atspi_table_get_n_selected_rows (AtspiTable *obj, GError **error)
@@ -403,9 +410,9 @@ atspi_table_get_n_selected_rows (AtspiTable *obj, GError **error)
  * atspi_table_get_selected_rows:
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  *
- * Query a table for a list of indices of rows which are currently selected.
+ * Queries a table for a list of indices of rows which are currently selected.
  *
- * Returns: (element-type gint) (transfer full): an array of integers,
+ * Returns: (element-type gint) (transfer full): an array of #gint values,
  *          specifying which rows are currently selected.
  **/
 GArray *
@@ -425,9 +432,10 @@ atspi_table_get_selected_rows (AtspiTable *obj,
  * atspi_table_get_selected_columns:
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  *
- * Query a table for a list of indices of columns which are currently selected.
+ * Queries a table for a list of indices of columns which are currently
+ * selected.
  *
- * Returns: (element-type gint) (transfer full): an array of integers,
+ * Returns: (element-type gint) (transfer full): an array of #gint values,
  *          specifying which columns are currently selected.
  **/
 GArray *
@@ -447,10 +455,10 @@ atspi_table_get_selected_columns (AtspiTable *obj,
  * atspi_table_get_n_selected_columns:
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  *
- * Query a table to find out how many columns are currently selected.  Not all tables
- *  support column selection.
+ * Queries a table to find out how many columns are currently selected. 
+ * Not all tables support column selection.
  *
- * Returns: a long integer indicating the number of columns currently selected.
+ * Returns: a #gint indicating the number of columns currently selected.
  **/
 gint
 atspi_table_get_n_selected_columns (AtspiTable *obj, GError **error)
@@ -469,7 +477,8 @@ atspi_table_get_n_selected_columns (AtspiTable *obj, GError **error)
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  * @row: the zero-indexed row number of the row being queried.
  *
- * Determine whether a table row is selected.  Not all tables support row selection.
+ * Determines whether a table row is selected.  Not all tables support 
+ * row selection.
  *
  * Returns: #TRUE if the specified row is currently selected, #FALSE if not.
  **/
@@ -493,7 +502,7 @@ atspi_table_is_row_selected (AtspiTable *obj,
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  * @column: the zero-indexed column number of the column being queried.
  *
- * Determine whether specified table column is selected.
+ * Determines whether specified table column is selected.
  * Not all tables support column selection.
  *
  * Returns: #TRUE if the specified column is currently selected, #FALSE if not.
@@ -518,7 +527,7 @@ atspi_table_is_column_selected (AtspiTable *obj,
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  * @row: the zero-indexed row number of the row being selected.
  *
- * Select the specified row, adding it to the current row selection.
+ * Selects the specified row, adding it to the current row selection.
  * Not all tables support row selection.
  *
  * Returns: #TRUE if the specified row was successfully selected, #FALSE if not.
@@ -543,7 +552,7 @@ atspi_table_add_row_selection (AtspiTable *obj,
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  * @column: the zero-indexed column number of the column being selected.
  *
- * Select the specified column, adding it to the current column selection.
+ * Selects the specified column, adding it to the current column selection.
  * Not all tables support column selection.
  *
  * Returns: #TRUE if the specified column was successfully selected, #FALSE if not.
@@ -566,12 +575,13 @@ atspi_table_add_column_selection (AtspiTable *obj,
 /**
  * atspi_table_remove_row_selection:
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
- * @row: the zero-indexed number of the row being deselected.
+ * @row: the zero-indexed number of the row being de-selected.
  *
- * De-select the specified row, removing it to the current row selection.
+ * De-selects the specified row, removing it from the current row selection.
  * Not all tables support row selection.
  *
- * Returns: #TRUE if the specified row was successfully de-selected, #FALSE if not.
+ * Returns: #TRUE if the specified row was successfully de-selected,
+ * #FALSE if not.
  **/
 gboolean
 atspi_table_remove_row_selection (AtspiTable *obj,
@@ -593,10 +603,12 @@ atspi_table_remove_row_selection (AtspiTable *obj,
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  * @column: the zero-indexed column number of the column being de-selected.
  *
- * De-select the specified column, removing it to the current column selection.
+ * De-selects the specified column, removing it from the current column
+ * selection.
  * Not all tables support column selection.
  *
- * Returns: #TRUE if the specified column was successfully de-selected, #FALSE if not.
+ * Returns: #TRUE if the specified column was successfully de-selected,
+ * #FALSE if not.
  **/
 gboolean
 atspi_table_remove_column_selection (AtspiTable *obj,
@@ -616,42 +628,43 @@ atspi_table_remove_column_selection (AtspiTable *obj,
 /**
  * atspi_table_get_row_column_extents_at_index:
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
- * @index: the index of the Table child whose row/column 
+ * @index: the index of the #AtspiTable child whose row/column 
  * extents are requested.
  * @row: (out): back-filled with the first table row associated with
- * the cell with child index \c index.
+ * the cell with child index.
  * @col: (out): back-filled with the first table column associated 
- * with the cell with child index \c index.
+ * with the cell with child index.
  * @row_extents: (out): back-filled with the number of table rows 
- * across which child \c i extends.
+ * across which child i extends.
  * @col_extents: (out): back-filled with the number of table columns
- * across which child \c i extends.
- * @is_selected: (out): a boolean which is back-filled with \c True
- * if the child at index \c i corresponds to a selected table cell,
- * \c False otherwise.
+ * across which child i extends.
+ * @is_selected: (out): a boolean which is back-filled with #TRUE
+ * if the child at index i corresponds to a selected table cell,
+ * #FALSE otherwise.
  *
- * Given a child index, determine the row and column indices and 
+ * Given a child index, determines the row and column indices and 
  * extents, and whether the cell is currently selected.  If
- * the child at \c index is not a cell (for instance, if it is 
- * a summary, caption, etc.), \c False is returned.
+ * the child at index is not a cell (for instance, if it is 
+ * a summary, caption, etc.), #FALSE is returned.
  *
  * Example:
- * If the Table child at index '6' extends across columns 5 and 6 of
- * row 2 of a Table instance, and is currently selected, then
+ * If the #AtspiTable child at index '6' extends across columns 5 and 6 of
+ * row 2 of an #AtspiTable instance, and is currently selected, then
  * 
- * retval = table::getRowColumnExtentsAtIndex (6, row, col, 
+ * retval = atspi_table_get_row_column_extents_at_index (table, 6,
+ *                                             row, col, 
  *                                             row_extents,
  *                                             col_extents,
  *                                             is_selected);
  * 
- * will return True, and after the call
+ * will return #TRUE, and after the call
  * row, col, row_extents, col_extents,
- * and \c is_selected will contain 2, 5, 1, 2, and 
- * True, respectively.
+ * and is_selected will contain 2, 5, 1, 2, and 
+ * #TRUE, respectively.
  *
- * Returns: \c True if the index is associated with a valid table
- * cell, \c False if the index does not correspond to a cell.  If 
- * \c False is returned, the values of the out parameters are 
+ * Returns: #TRUE if the index is associated with a valid table
+ * cell, #FALSE if the index does not correspond to a cell.  If 
+ * #FALSE is returned, the values of the out parameters are 
  * undefined.
  **/
 gboolean
@@ -684,7 +697,7 @@ atspi_table_get_row_column_extents_at_index (AtspiTable *obj,
  * @row: the zero-indexed row of the cell being queried.
  * @column: the zero-indexed column of the cell being queried.
  *
- * Determine whether the cell at a specific row and column is selected.
+ * Determines whether the cell at a specific row and column is selected.
  *
  * Returns: #TRUE if the specified cell is currently selected, #FALSE if not.
  **/
