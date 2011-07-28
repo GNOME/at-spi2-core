@@ -28,7 +28,7 @@
  * atspi_selection_get_n_selected_children:
  * @obj: a pointer to the #AtspiSelection implementor on which to operate.
  *
- * Get the number of children of an #AtspiSelection implementor which are
+ * Gets the number of children of an #AtspiSelection implementor which are
  *        currently selected.
  *
  * Returns: a #gint indicating the number of #Accessible children
@@ -53,15 +53,17 @@ atspi_selection_get_n_selected_children (AtspiSelection *obj, GError **error)
  * @selected_child_index: a #gint indicating which of the selected
  *      children is specified.
  *
- * Get the i-th selected #AtspiAccessible child of an #AtspiSelection.
- *      Note that @child_index refers to the index in the list of 'selected'
+ * Gets the i-th selected #AtspiAccessible child of an #AtspiSelection.
+ *      Note that @selected_child_index refers to the index in the list 
+ *      of 'selected'
  *      children and generally differs from that used in
- *      #atspi_accessible_get_child_at_index() or returned by
- *      #atspi_accessible_get_index_in_parent(). @selected_child_index must lie between 0
- *      and #Atspi_selection_get_n_selected_children()-1, inclusive.
+ *      #atspi_accessible_get_child_at_index or returned by
+ *      #atspi_accessible_get_index_in_parent.
+ *      @selected_child_index must lie between 0
+ *      and #atspi_selection_get_n_selected_children - 1, inclusive.
  *
  * Returns: (transfer full): a pointer to a selected #AtspiAccessible child
- *          object, specified by @child_index.
+ *          object, specified by @selected_child_index.
  *
  **/
 AtspiAccessible *
@@ -86,7 +88,7 @@ atspi_selection_get_selected_child (AtspiSelection *obj,
  * @child_index: a #gint indicating which child of the #Accessible
  *              is to be selected.
  *
- * Add a child to the selected children list of an #AtspiSelection.
+ * Adds a child to the selected children list of an #AtspiSelection.
  *         For #AtspiSelection implementors that only allow
  *         single selections, this may replace the (single) current
  *         selection.
@@ -114,11 +116,11 @@ atspi_selection_select_child (AtspiSelection *obj,
  * @selected_child_index: a #gint indicating which of the selected children
  *              of the #Accessible is to be selected.
  *
- * Remove a child to the selected children list of an #AtspiSelection.
+ * Removes a child to the selected children list of an #AtspiSelection.
  *          Note that @child_index is the index in the selected-children list,
  *          not the index in the parent container.  @selectedChildIndex in this
  *          method, and @child_index in #atspi_selection_select_child
- *          are asymmettric.
+ *          are asymmetric.
  *
  * Returns: #TRUE if the child was successfully deselected, #FALSE otherwise.
  **/
@@ -143,7 +145,7 @@ atspi_selection_deselect_selected_child (AtspiSelection *obj,
  * @child_index: a #gint indicating which of the children
  *              of the #AtspiAccessible is to be de-selected.
  *
- * Deselect a specific child of an #AtspiSelection.
+ * Deselects a specific child of an #AtspiSelection.
  *          Note that @child_index is the index of the child
  *          in the parent container.
  * 
@@ -171,9 +173,9 @@ atspi_selection_deselect_child (AtspiSelection *obj,
  * @obj: a pointer to the #AtspiSelection implementor on which to operate.
  * @child_index: an index into the #AtspiSelection's list of children.
  *
- * Determine whether a particular child of an #AtspiSelection implementor
+ * Determines whether a particular child of an #AtspiSelection implementor
  *        is currently selected.  Note that @child_index is the index into the
- *        standard #Accessible container's list of children.
+ *        standard #AtspiAccessible container's list of children.
  *
  * Returns: #TRUE if the specified child is currently selected,
  *          #FALSE otherwise.
@@ -197,7 +199,7 @@ atspi_selection_is_child_selected (AtspiSelection *obj,
  * atspi_selection_select_all:
  * @obj: a pointer to the #AtspiSelection implementor on which to operate.
  *
- * Attempt to select all of the children of an #AtspiSelection implementor.
+ * Attempts to select all of the children of an #AtspiSelection implementor.
  * Not all #AtspiSelection implementors support this operation.
  *
  * Returns: #TRUE if successful, #FALSE otherwise.
@@ -219,7 +221,7 @@ atspi_selection_select_all (AtspiSelection *obj, GError **error)
  * atspi_selection_clear_selection:
  * @obj: a pointer to the #AtspiSelection implementor on which to operate.
  *
- * Clear the current selection, removing all selected children from the
+ * Clears the current selection, removing all selected children from the
  *       specified #AtspiSelection implementor's selection list.
  *
  * Returns: #TRUE if successful, #FALSE otherwise.
