@@ -2,11 +2,16 @@
 atspi-selection
 
 <!-- ##### SECTION Short_Description ##### -->
-
+An interface which indicates that an object exposes a 'selection' model,
+allowing the selection of one or more of its children.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+An interface which indicates that an object exposes a 'selection'
+model, allowing the selection of one or more of its children.
+Read-only Selection instances are possible, in which case the
+interface is used to programmatically determine the selected-ness
+of its children.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
