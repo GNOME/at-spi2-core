@@ -28,7 +28,7 @@
  * atspi_relation_get_relation_type:
  * @obj: a pointer to the #AtspiRelation object to query.
  *
- * Get the type of relationship represented by an #AtspiRelation.
+ * Gets the type of relationship represented by an #AtspiRelation.
  *
  * Returns: an #AtspiRelationType indicating the type of relation
  *         encapsulated in this #AtspiRelation object.
@@ -44,12 +44,12 @@ atspi_relation_get_relation_type (AtspiRelation *obj)
  * atspi_relation_get_n_targets:
  * @obj: a pointer to the #AtspiRelation object to query.
  *
- * Get the number of objects which this relationship has as its
- *       target objects (the subject is the #Accessible from which this
+ * Gets the number of objects which this relationship has as its
+ *       target objects (the subject is the #AtspiAccessible from which this
  *       #AtspiRelation originated).
  *
- * Returns: a short integer indicating how many target objects which the
- *       originating #Accessible object has the #AtspiRelation
+ * Returns: a #gint indicating how many target objects which the
+ *       originating #AtspiAccessible object has the #AtspiRelation
  *       relationship with.
  **/
 gint
@@ -61,9 +61,9 @@ atspi_relation_get_n_targets (AtspiRelation *obj)
 /**
  * atspi_relation_get_target:
  * @obj: a pointer to the #AtspiRelation object to query.
- * @i: a (zero-index) integer indicating which (of possibly several) target is requested.
+ * @i: a (zero-index) #gint indicating which (of possibly several) target is requested.
  *
- * Get the @i-th target of a specified #AtspiRelation relationship.
+ * Gets the @i-th target of a specified #AtspiRelation relationship.
  *
  * Returns: (transfer full): an #AtspiAccessible which is the @i-th object
  *          with which the originating #AtspiAccessible has relationship
