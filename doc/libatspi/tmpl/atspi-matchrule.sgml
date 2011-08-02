@@ -1,12 +1,14 @@
 <!-- ##### SECTION Title ##### -->
-AtspiMatchRule
+atspi-matchrule
 
 <!-- ##### SECTION Short_Description ##### -->
-
+An interface that allows the definition of match rules
+for accessible objects.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+An interface that allows the definition of match rules
+for accessible objects.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
