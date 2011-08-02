@@ -85,11 +85,13 @@ atspi_state_set_class_init (AtspiStateSetClass* klass)
 {
 }
 
-/*
+/**
  * atspi_state_set_new:
  *
- * @states: (element-type AtspiStateType): An array of states with which to initialize
- * the state set.
+ * @states: (element-type AtspiStateType): An array of states with which the
+ * method initializes the state set.
+ *
+ * Generates an #AtspiStateSet with the given @states.
  *
  * Returns: A new #AtspiStateSet with the given states.
  **/
@@ -120,6 +122,18 @@ _atspi_state_set_new_internal (AtspiAccessible *accessible, gint64 states)
   return set;
 }
 
+/**
+ * atspi_state_set_set_by_name:
+ *
+ * @set: a pointer to the #AtspiStateSet object on which to operate.
+ *
+ * @name: a string corresponding to a state name.
+ * 
+ * @enabled: if #TRUE, @name should be enabled in the @set in question; otherwise, it
+ * should be disabled. 
+ *
+ * Enables/disables a state in an #AtspiStateSet according to its @name.
+ **/
 void
 atspi_state_set_set_by_name (AtspiStateSet *set, const gchar *name, gboolean enabled)
 {
@@ -168,10 +182,11 @@ refresh_states (AtspiStateSet *set)
  * atspi_state_set_add:
  *
  * @set: a pointer to the #AtspiStateSet object on which to operate.
+ *
  * @state: an #AtspiStateType to be added to the specified #AtspiStateSet.
  *
- * Add a particular #AtspiState to an #AtspiStateSet (i.e. set the
- *       given state to #TRUE in the stateset.
+ * Adds a particular #AtspiState to an #AtspiStateSet (i.e. sets the
+ *       given state to #TRUE in the stateset).
  *
  **/
 void
@@ -183,15 +198,17 @@ atspi_state_set_add (AtspiStateSet *set, AtspiStateType state)
 
 /**
  * atspi_state_set_compare:
- * @set: a pointer to the first #AtspiStateSet object on which to operate.
- * @set: a pointer to the second #AtspiStateSet setect on which to operate.
  *
- * Determine the differences between two instances of #AtspiStateSet.
- *.
- * @see AtspiStateSet_equals().
+ * @set: a pointer to the first #AtspiStateSet object on which to operate.
+ *
+ * @set2: a pointer to the second #AtspiStateSet object on which to operate.
+ *
+ * Determines the differences between two instances of #AtspiStateSet.
+ *
+ * @see #atspi_state_set_equals.
  *
  * Returns: (transfer full): an #AtspiStateSet object containing all states
- *          contained on one of the two sets but not the other.
+ * contained on one of the two sets but not the other.
  *
  **/
 AtspiStateSet *
@@ -206,12 +223,14 @@ atspi_state_set_compare (AtspiStateSet *set,
 
 /**
  * atspi_state_set_contains:
+ *
  * @set: a pointer to the #AtspiStateSet object on which to operate.
+ *
  * @state: an #AtspiStateType for which the specified #AtspiStateSet
  *       will be queried.
  *
- * Determine whether a given #AtspiStateSet includes a given state; that is,
- *       whether @state is true for the stateset in question.
+ * Determines whether a given #AtspiStateSet includes a given state; that is,
+ *       whether @state is true for the @set in question.
  *
  * Returns: #TRUE if @state is true/included in the given #AtspiStateSet,
  *          otherwise #FALSE.
@@ -229,17 +248,19 @@ atspi_state_set_contains (AtspiStateSet *set,
 
 /**
  * atspi_state_set_equals:
+ *
  * @set: a pointer to the first #AtspiStateSet object on which to operate.
+ *
  * @set2: a pointer to the second #AtspiStateSet object on which to operate.
  *
- * Determine whether two instances of #AtspiStateSet are equivalent (i.e.
+ * Determines whether two instances of #AtspiStateSet are equivalent (i.e.
  *         consist of the same #AtspiStates).  Useful for checking multiple
- *         state variables at once; construct the target state then compare against it.
+ *         state variables at once.
  *
- * @see AtspiStateSet_compare().
+ * @see #atspi_state_set_compare.
  *
  * Returns: #TRUE if the two #AtspiStateSets are equivalent,
- *          otherwise #FALSE.
+ * otherwise #FALSE.
  *
  **/
 gboolean
@@ -258,7 +279,7 @@ atspi_state_set_equals (AtspiStateSet *set,
  *
  * @set: The #AtspiStateSet to be queried.
  *
- * Return the states in an #AtspiStateSet as an array.
+ * Returns the states in an #AtspiStateSet as an array.
  *
  * Returns: (element-type AtspiStateType) (transfer full): A #GArray of state
  *          types representing the current state.
@@ -305,9 +326,10 @@ atspi_state_set_is_empty (AtspiStateSet *set)
  * atspi_state_set_remove:
  *
  * @set: a pointer to the #AtspiStateSet object on which to operate.
- * @state: an #AtspiStateType to remove from the specifiedn state set.
  *
- * Remove a particular #AtspiState to an #AtspiStateSet (i.e. set the
+ * @state: an #AtspiStateType to remove from the specified @set.
+ *
+ * Removes a particular #AtspiState to an #AtspiStateSet (i.e. sets the
  *       given state to #FALSE in the stateset.)
  *
  **/
