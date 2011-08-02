@@ -1,12 +1,15 @@
 <!-- ##### SECTION Title ##### -->
-AtspiRelation
+atspi-relation
 
 <!-- ##### SECTION Short_Description ##### -->
-
+ An interface via which non-hierarchical relationships
+ are indicated.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+ An interface via which non-hierarchical relationships
+ are indicated. An instance of this interface represents
+ a "one-to-many" correspondance.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
