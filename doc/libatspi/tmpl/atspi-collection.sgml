@@ -2,11 +2,14 @@
 atspi-collection
 
 <!-- ##### SECTION Short_Description ##### -->
-
+An interface designed to allow accessibles which satisfy a set of 
+criteria to be returned.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+An interface designed to allow accessibles which satisfy a set of 
+criteria to be returned. This interface can be used to avoid iteration
+or client-side search of the object tree.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
