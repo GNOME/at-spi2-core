@@ -38,8 +38,8 @@
  *
  * A callback function prototype via which clients receive device event notifications.
  *
- * Returns: %TRUE if the client wishes to consume/preempt the event, preventing it from being
- * relayed to the currently focussed application, %FALSE if the event delivery should proceed as normal.
+ * Returns: #TRUE if the client wishes to consume/preempt the event, preventing it from being
+ * relayed to the currently focussed application, #FALSE if the event delivery should proceed as normal.
  **/
 typedef gboolean (*AtspiDeviceListenerCB)    (const AtspiDeviceEvent *stroke,
 						     void                      *user_data);
@@ -49,10 +49,10 @@ typedef gboolean (*AtspiDeviceListenerCB)    (const AtspiDeviceEvent *stroke,
  * @stroke: (transfer full): The #AtspiDeviceEvent for which notification is
  *          being received.
  *
- * Like #AtspiDeviceListenerCB but with no user data.
+ * Similar to #AtspiDeviceListenerCB, but with no user data.
  *
- * Returns: %TRUE if the client wishes to consume/preempt the event, preventing it from being
- * relayed to the currently focussed application, %FALSE if the event delivery should proceed as normal.
+ * Returns: #TRUE if the client wishes to consume/preempt the event, preventing it from being
+ * relayed to the currently focussed application, #FALSE if the event delivery should proceed as normal.
  **/
 typedef gboolean (*AtspiDeviceListenerSimpleCB)    (const AtspiDeviceEvent *stroke);
 
