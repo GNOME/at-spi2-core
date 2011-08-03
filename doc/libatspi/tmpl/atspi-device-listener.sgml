@@ -1,12 +1,14 @@
 <!-- ##### SECTION Title ##### -->
-AtspiDeviceListener
+atspi-devicelistener
 
 <!-- ##### SECTION Short_Description ##### -->
-
+An interface for creating and manipulating
+device listeners.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+An interface for creating and manipulating
+device listeners with callback functions.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
