@@ -1,3 +1,4 @@
+
 /*
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
@@ -28,11 +29,11 @@
 /**
  * atspi_get_desktop_count:
  *
- * Get the number of virtual desktops.
- * NOTE: currently multiple virtual desktops are not implemented, this
- *       function always returns '1'.
+ * Gets the number of virtual desktops.
+ * NOTE: multiple virtual desktops are not implemented yet; as a 
+ * consequence, this function always returns 1.
  *
- * Returns: an integer indicating the number of active virtual desktops.
+ * Returns: a #gint indicating the number of active virtual desktops.
  **/
 gint
 atspi_get_desktop_count ()
@@ -42,12 +43,14 @@ atspi_get_desktop_count ()
 
 /**
  * atspi_get_desktop:
- * @i: an integer indicating which of the accessible desktops is to be returned.
+ * @i: a #gint indicating which of the accessible desktops is to be returned.
  *
- * Get the virtual desktop indicated by index @i.
- * NOTE: currently multiple virtual desktops are not implemented.
+ * Gets the virtual desktop indicated by index @i.
+ * NOTE: currently multiple virtual desktops are not implemented;
+ * as a consequence, any @i value different from 0 will not return a
+ * virtual desktop - instead it will return NULL.
  *
- * Returns: (transfer full): a pointer to the 'i-th' virtual desktop's
+ * Returns: (transfer full): a pointer to the @i-th virtual desktop's
  * #AtspiAccessible representation.
  **/
 AtspiAccessible*
@@ -60,14 +63,14 @@ atspi_get_desktop (gint i)
 /**
  * atspi_get_desktop_list:
  *
- * Get the list of virtual desktops.  On return, @list will point
+ * Gets the list of virtual desktops.  On return, @list will point
  *     to a newly-created, NULL terminated array of virtual desktop
  *     pointers.
  *     It is the responsibility of the caller to free this array when
  *     it is no longer needed.
- *
- * Not Yet Implemented : this implementation always returns a single
- * #Accessible desktop.
+ * NOTE: currently multiple virtual desktops are not implemented;
+ * this implementation always returns a #Garray with a single
+ * #AtspiAccessible desktop.
  *
  * Returns: (transfer full): a #GArray of desktops.
  **/
@@ -89,28 +92,28 @@ atspi_get_desktop_list ()
  *             keystroke events are requested.
  * @key_set: (element-type AtspiKeyDefinition) (allow-none): a pointer to the
  *        #AtspiKeyDefinition array indicating which keystroke events are
- *        requested, or %NULL
+ *        requested, or NULL
  *        to indicate that all keycodes and keyvals for the specified
  *        modifier set are to be included.
  * @modmask:   an #AtspiKeyMaskType mask indicating which
  *             key event modifiers must be set in combination with @keys,
  *             events will only be reported for key events for which all
  *             modifiers in @modmask are set.  If you wish to listen for
- *             events with multiple modifier combinations you must call
- *             register_keystroke_listener() once for each
+ *             events with multiple modifier combinations, you must call
+ *             #atspi_register_keystroke_listener once for each
  *             combination.
  * @event_types: an #AtspiKeyMaskType mask indicating which
- *             types of key events are requested (#ATSPI_KEY_PRESSED, etc.).
- * @sync_type: a #AtspiKeyListenerSyncType parameter indicating
+ *             types of key events are requested (ATSPI_KEY_PRESSED etc.).
+ * @sync_type: an #AtspiKeyListenerSyncType parameter indicating
  *             the behavior of the notification/listener transaction.
  *             
- * Register a listener for keystroke events, either pre-emptively for
+ * Registers a listener for keystroke events, either pre-emptively for
  *             all windows (ATSPI_KEYLISTENER_ALL_WINDOWS),
  *             non-preemptively (ATSPI_KEYLISTENER_NOSYNC), or
  *             pre-emptively at the toolkit level (ATSPI_KEYLISTENER_CANCONSUME).
  *             If ALL_WINDOWS or CANCONSUME are used, the event is consumed
- *             upon receipt if one of @listener's callbacks returns #TRUE.
- *             ( Other sync_type values may be available in the future )
+ *             upon receipt if one of @listener's callbacks returns #TRUE 
+ *             (other sync_type values may be available in the future).
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  **/
@@ -183,7 +186,7 @@ atspi_register_keystroke_listener (AtspiDeviceListener  *listener,
  *            keystroke events are requested.
  * @key_set: (element-type AtspiKeyDefinition) (allow-none): a pointer to the
  *        #AtspiKeyDefinition array indicating which keystroke events are
- *        requested, or %NULL
+ *        requested, or NULL
  *        to indicate that all keycodes and keyvals for the specified
  *        modifier set are to be included.
  * @modmask:  the key modifier mask for which this listener is to be
@@ -231,7 +234,7 @@ atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
  *             types of key events are requested (#ATSPI_KEY_PRESSED, etc.).
  * @filter: Unused parameter.
  *             
- * Register a listener for device events, for instance button events.
+ * Registers a listener for device events, for instance button events.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  **/
@@ -292,19 +295,19 @@ atspi_deregister_device_event_listener (AtspiDeviceListener *listener,
 
 /**
  * atspi_generate_keyboard_event:
- * @keyval: a long integer indicating the keycode or keysym of the key event
+ * @keyval: a #gint indicating the keycode or keysym of the key event
  *           being synthesized.
  * @keystring: an (optional) UTF-8 string which, if @keyval is NULL,
- *           indicates a 'composed' keyboard input string which is 
+ *           indicates a 'composed' keyboard input string  
  *           being synthesized; this type of keyboard event synthesis does
  *           not emulate hardware keypresses but injects the string 
  *           as though a composing input method (such as XIM) were used.
- * @synth_type: a #AtspiKeySynthType flag indicating whether @keyval
+ * @synth_type: an #AtspiKeySynthType flag indicating whether @keyval
  *           is to be interpreted as a keysym rather than a keycode
  *           (ATSPI_KEYSYM), or whether to synthesize
  *           ATSPI_KEY_PRESS, ATSPI_KEY_RELEASE, or both (ATSPI_KEY_PRESSRELEASE).
  *
- * Synthesize a keyboard event (as if a hardware keyboard event occurred in the
+ * Synthesizes a keyboard event (as if a hardware keyboard event occurred in the
  * current UI context).
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
@@ -327,12 +330,12 @@ atspi_generate_keyboard_event (glong keyval,
 
 /**
  * atspi_generate_mouse_event:
- * @x: a #long indicating the screen x coordinate of the mouse event.
- * @y: a #long indicating the screen y coordinate of the mouse event.
+ * @x: a #glong indicating the screen x coordinate of the mouse event.
+ * @y: a #glong indicating the screen y coordinate of the mouse event.
  * @name: a string indicating which mouse event to be synthesized
  *        (e.g. "b1p", "b1c", "b2r", "rel", "abs").
  *
- * Synthesize a mouse event at a specific screen coordinate.
+ * Synthesizes a mouse event at a specific screen coordinate.
  * Most AT clients should use the #AccessibleAction interface when
  * tempted to generate mouse events, rather than this method.
  * Event names: b1p = button 1 press; b2r = button 2 release;
