@@ -118,14 +118,14 @@ typedef struct _AtspiKeySet
 
 /**
  *AtspiKeyListenerSyncType:
- *@SPI_KEYLISTENER_NOSYNC: Events may be delivered asynchronously, 
+  * @ATSPI_KEYLISTENER_NOSYNC: Events may be delivered asynchronously, 
  * which means in some cases they may already have been delivered to the 
  * application before the AT client receives the notification.  
- *@SPI_KEYLISTENER_SYNCHRONOUS: Events are delivered synchronously, before the 
+ * @ATSPI_KEYLISTENER_SYNCHRONOUS: Events are delivered synchronously, before the 
  * currently focussed application sees them.  
- *@ATSPI_KEYLISTENER_CANCONSUME: Events may be consumed by the AT client.  Presumes and
+ * @ATSPI_KEYLISTENER_CANCONSUME: Events may be consumed by the AT client.  Presumes and
  * requires #ATSPI_KEYLISTENER_SYNCHRONOUS, incompatible with #ATSPI_KEYLISTENER_NOSYNC.
- *@SPI_KEYLISTENER_ALL_WINDOWS: Events are received not from the application toolkit layer, but
+ * @ATSPI_KEYLISTENER_ALL_WINDOWS: Events are received not from the application toolkit layer, but
  * from the device driver or windowing system subsystem; such notifications are 'global' in the 
  * sense that they are not broken or defeated by applications that participate poorly
  * in the accessibility APIs, or not at all; however because of the intrusive nature of
@@ -133,8 +133,8 @@ typedef struct _AtspiKeySet
  * event notifications, even when inaccessible or "broken" applications have focus, are not
  * required, it may be best to avoid this enum value/flag.
  *
- *Specified the tyupe of a key listener event.
- * Certain of the values above can and should be bitwise-'OR'ed
+ * Specifies the type of a key listener event.
+ * The values above can and should be bitwise-'OR'-ed
  * together, observing the compatibility limitations specified in the description of
  * each value.  For instance, #ATSPI_KEYLISTENER_ALL_WINDOWS | #ATSPI_KEYLISTENER_CANCONSUME is
  * a commonly used combination which gives the AT complete control over the delivery of matching
