@@ -2,11 +2,11 @@
 atspi-types
 
 <!-- ##### SECTION Short_Description ##### -->
-
+Type definitions needed by multiple interfaces.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+Type definitions needed by multiple interfaces.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
