@@ -122,6 +122,8 @@ callback_unref (gpointer callback)
  * @callback_destroyed: A #GDestroyNotify called when the listener is freed
  * and data associated with the callback should be freed.  Can be NULL.
  *
+ * Creates a new #AtspiEventListener associated with a specified @callback.
+ *
  * Returns: (transfer full): A new #AtspiEventListener.
  */
 AtspiEventListener *
@@ -138,14 +140,15 @@ atspi_event_listener_new (AtspiEventListenerCB callback,
 }
 
 /**
- * atspi_event_listener_new_simple: (skip)
+ * atspi_event_listener_new_simple:
  * @callback: (scope notified): An #AtspiEventListenerSimpleCB to be called
  * when an event is fired.
  * @callback_destroyed: A #GDestroyNotify called when the listener is freed
  * and data associated with the callback should be freed.  Can be NULL.
  *
+ * Creates a new #AtspiEventListener associated with a specified @callback.
  * Returns: (transfer full): A new #AtspiEventListener.
- */
+ **/
 AtspiEventListener *
 atspi_event_listener_new_simple (AtspiEventListenerSimpleCB callback,
                                  GDestroyNotify callback_destroyed)
@@ -401,6 +404,8 @@ listener_entry_free (EventListenerEntry *e)
  *            and toolkit events (e.g. "Gtk", "AWT").
  *            Examples: "focus:", "Gtk:GtkWidget:button_press_event".
  *
+ * Adds an in-process callback function to an existing #AtspiEventListener.
+ *
  * Legal object event types:
  *
  *    (property change events)
@@ -468,13 +473,13 @@ listener_entry_free (EventListenerEntry *e)
  *            mouse:b3p
  *            mouse:b3r
  *
- * NOTE: this string may be UTF-8, but should not contain byte value 56
+ * NOTE: this character string may be UTF-8, but should not contain byte 
+ * value 56
  *            (ascii ':'), except as a delimiter, since non-UTF-8 string
  *            delimiting functions are used internally.
  *            In general, listening to
  *            toolkit-specific events is not recommended.
  *
- * Add an in-process callback function to an existing AtspiEventListener.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  **/
@@ -494,14 +499,19 @@ atspi_event_listener_register (AtspiEventListener *listener,
 
 /**
  * atspi_event_listener_register_from_callback:
- * @callback: (scope notified): the #AtspiEventListenerCB to be registered against
- *            an event type.
+ * @callback: (scope notified): the #AtspiEventListenerCB to be registered 
+ * against an event type.
  * @user_data: (closure): User data to be passed to the callback.
  * @callback_destroyed: A #GDestroyNotify called when the callback is destroyed.
  * @event_type: a character string indicating the type of events for which
  *            notification is requested.  See #atspi_event_listener_register
  * for a description of the format.
- */
+ * 
+ * Registers an #AtspiEventListenerCB against an @event_type.
+ *
+ * Returns: #TRUE if successfull, otherwise #FALSE.
+ *
+ **/
 gboolean
 atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
 				             void *user_data,
@@ -568,7 +578,7 @@ atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
 }
 
 /**
- * atspi_event_listener_register_no_data: (skip)
+ * atspi_event_listener_register_no_data:
  * @callback: (scope notified): the #AtspiEventListenerSimpleCB to be
  *            registered against an event type.
  * @callback_destroyed: A #GDestroyNotify called when the callback is destroyed.
@@ -580,7 +590,10 @@ atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
  *            and toolkit events (e.g. "Gtk", "AWT").
  *            Examples: "focus:", "Gtk:GtkWidget:button_press_event".
  *
- * Like atspi_event_listener_register, but callback takes no user_data.
+ * Registers an #AtspiEventListenetSimpleCB. The method is similar to 
+ * #atspi_event_listener_register, but @callback takes no user_data.
+ *
+ * Returns: #TRUE if successfull, otherwise #FALSE.
  **/
 gboolean
 atspi_event_listener_register_no_data (AtspiEventListenerSimpleCB callback,
@@ -607,7 +620,7 @@ is_superset (const gchar *super, const gchar *sub)
  * @event_type: a string specifying the event type for which this
  *             listener is to be deregistered.
  *
- * deregisters an #AtspiEventListener from the registry, for a specific
+ * Deregisters an #AtspiEventListener from the registry, for a specific
  *             event type.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
@@ -630,7 +643,7 @@ atspi_event_listener_deregister (AtspiEventListener *listener,
  * @event_type: a string specifying the event type for which this
  *             listener is to be deregistered.
  *
- * deregisters an #AtspiEventListenerCB from the registry, for a specific
+ * Deregisters an #AtspiEventListenerCB from the registry, for a specific
  *             event type.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
