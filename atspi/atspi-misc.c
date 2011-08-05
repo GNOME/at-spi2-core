@@ -869,8 +869,8 @@ atspi_init (void)
  *
  * Starts/enters the main event loop for the AT-SPI services.
  *
- * (NOTE: This method does not return control, it is exited via a call to
- *  atspi_event_quit () from within an event handler).
+ * NOTE: This method does not return control; it is exited via a call to
+ * #atspi_event_quit from within an event handler.
  *
  **/
 void
@@ -885,7 +885,7 @@ atspi_event_main (void)
  * atspi_event_quit:
  *
  * Quits the last main event loop for the SPI services,
- * see atspi_event_main
+ * See: #atspi_event_main
  **/
 void
 atspi_event_quit (void)
@@ -896,10 +896,10 @@ atspi_event_quit (void)
 /**
  * atspi_exit:
  *
- * Disconnects from the Accessibility Registry and releases 
+ * Disconnects from #AtspiRegistry instances and releases 
  * any floating resources. Call only once at exit.
  *
- * Returns: 0 if there were no leaks, otherwise non zero.
+ * Returns: 0 if there were no leaks, otherwise other integer values.
  **/
 int
 atspi_exit (void)
