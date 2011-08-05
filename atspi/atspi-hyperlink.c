@@ -52,11 +52,12 @@ _atspi_hyperlink_new (AtspiApplication *app, const gchar *path)
  * atspi_hyperlink_get_n_anchors:
  * @obj: a pointer to the #AtspiHyperlink object on which to operate.
  *
- * Get the total number of anchors which an #AtspiHyperlink implementor has.
- *       Though typical hyperlinks have only one anchor, client-side image maps and
- *       other hypertext objects may potentially activate or refer to multiple
- *       URIs.  For each anchor there is a corresponding URI and object.
- * see atspi_hyperlink_get_uri() and atspi_hyperlink_get_object().
+ * Gets the total number of anchors which an #AtspiHyperlink implementor has.
+ * Though typical hyperlinks have only one anchor, client-side image maps and
+ * other hypertext objects may potentially activate or refer to multiple
+ * URIs.  For each anchor there is a corresponding URI and object.
+ *
+ * see: #atspi_hyperlink_get_uri and #atspi_hyperlink_get_object.
  *
  * Returns: a #gint indicating the number of anchors in this hyperlink.
  **/
@@ -77,7 +78,7 @@ atspi_hyperlink_get_n_anchors (AtspiHyperlink *obj, GError **error)
  * @obj: a pointer to the #AtspiHyperlink implementor on which to operate.
  * @i: a (zero-index) integer indicating which hyperlink anchor to query.
  *
- * Get the URI associated with a particular hyperlink anchor.  
+ * Gets the URI associated with a particular hyperlink anchor.
  *
  * Returns: a UTF-8 string giving the URI of the @ith hyperlink anchor.
  **/
@@ -100,9 +101,10 @@ atspi_hyperlink_get_uri (AtspiHyperlink *obj, int i, GError **error)
 /**
  * atspi_hyperlink_get_object:
  * @obj: a pointer to the #AtspiHyperlink implementor on which to operate.
- * @i: a (zero-index) long integer indicating which hyperlink anchor to query.
+ * @i: a (zero-index) #gint indicating which hyperlink anchor to query.
  *
- * Get the object associated with a particular hyperlink anchor, as an #Accessible. 
+ * Gets the object associated with a particular hyperlink anchor, as an
+ * #AtspiAccessible.
  *
  * Returns: (transfer full): an #AtspiAccessible that represents the object
  *        associated with the @ith anchor of the specified #AtspiHyperlink.
@@ -125,8 +127,8 @@ atspi_hyperlink_get_object (AtspiHyperlink *obj, gint i, GError **error)
  * @obj: a pointer to the #AtspiHyperlink implementor on which to operate.
  *
  *
- * Get the starting and ending character offsets of the text range associated with
- *       a #AtspiHyperlink, in its originating #AtspiHypertext.
+ * Gets the starting and ending character offsets of the text range
+ * associated with an #AtspiHyperlink, in its originating #AtspiHypertext.
  **/
 AtspiRange *
 atspi_hyperlink_get_index_range (AtspiHyperlink *obj, GError **error)
@@ -151,8 +153,8 @@ atspi_hyperlink_get_index_range (AtspiHyperlink *obj, GError **error)
  * @obj: a pointer to the #AtspiHyperlink implementor on which to operate.
  *
  *
- * Get the starting character offset of the text range associated with
- *       a #AtspiHyperlink, in its originating #AtspiHypertext.
+ * Gets the starting character offset of the text range associated with
+ *       an #AtspiHyperlink, in its originating #AtspiHypertext.
  **/
 gint
 atspi_hyperlink_get_start_index (AtspiHyperlink *obj, GError **error)
@@ -172,8 +174,8 @@ atspi_hyperlink_get_start_index (AtspiHyperlink *obj, GError **error)
  * @obj: a pointer to the #AtspiHyperlink implementor on which to operate.
  *
  *
- * Get the ending character offset of the text range associated with
- *       a #AtspiHyperlink, in its originating #AtspiHypertext.
+ * Gets the ending character offset of the text range associated with
+ *       an #AtspiHyperlink, in its originating #AtspiHypertext.
  **/
 gint
 atspi_hyperlink_get_end_index (AtspiHyperlink *obj, GError **error)
@@ -194,10 +196,10 @@ atspi_hyperlink_get_end_index (AtspiHyperlink *obj, GError **error)
  * atspi_hyperlink_is_valid:
  * @obj: a pointer to the #AtspiHyperlink on which to operate.
  *
- * Tell whether an #AtspiHyperlink object is still valid with respect to its
+ * Tells whether an #AtspiHyperlink object is still valid with respect to its
  *          originating hypertext object.
  *
- * Returns: #TRUE of the specified #AtspiHyperlink is still valid with respect
+ * Returns: #TRUE if the specified #AtspiHyperlink is still valid with respect
  *          to its originating #AtspiHypertext object, #FALSE otherwise.
  **/
 gboolean
