@@ -66,8 +66,7 @@ extern "C" {
 #endif
 
 /**
- *
-ATSPI_LOCALE_TYPE:
+ * AtspiLocaleType:
  * @ATSPI_LOCALE_TYPE_MESSAGES:
  * @ATSPI_LOCALE_TYPE_COLLATE:
  * @ATSPI_LOCALE_TYPE_CTYPE:
@@ -75,11 +74,11 @@ ATSPI_LOCALE_TYPE:
  * @ATSPI_LOCALE_TYPE_NUMERIC:
  * @ATSPI_LOCALE_TYPE_TIME:
  *
- * Used by Text and Document interfaces these correspond to the POSIX
- * 'setlocale' enum values.
+ * Used by interfaces #AtspiText and #AtspiDocument, this
+ * enumeration corresponds to the POSIX 'setlocale' enum values.
  *
  * Bitfield/set of flags generated from the AT-SPI specification.
- */
+ **/
 typedef enum {
     ATSPI_LOCALE_TYPE_MESSAGES,
     ATSPI_LOCALE_TYPE_COLLATE,
@@ -92,21 +91,21 @@ typedef enum {
 /**
  * ATSPI_LOCALE_TYPE_COUNT:
  *
- * 1 higher than the highest valid value of #AtspiLocaleType.
- */
+ * One higher than the highest valid value of #AtspiLocaleType.
+ **/
 #define ATSPI_LOCALE_TYPE _COUNT(5+1)
 
 /**
- *
-ATSPI_COORD_TYPE:
+ * AtspiCoordType:
  * @ATSPI_COORD_TYPE_SCREEN:
  * @ATSPI_COORD_TYPE_WINDOW:
  *
- * Used by Component, Image, and Text interfaces to specify whether coordinates
+ * Enumeration used by #AtspiComponent, #AtspiImage, and #AtspiText interfaces
+ * to specify whether coordinates
  * are relative to the window or the screen.
  *
  * Bitfield/set of flags generated from the AT-SPI specification.
- */
+ **/
 typedef enum {
     ATSPI_COORD_TYPE_SCREEN,
     ATSPI_COORD_TYPE_WINDOW,
@@ -115,13 +114,12 @@ typedef enum {
 /**
  * ATSPI_COORD_TYPE_COUNT:
  *
- * 1 higher than the highest valid value of #AtspiCoordType.
- */
+ * One higher than the highest valid value of #AtspiCoordType.
+ **/
 #define ATSPI_COORD_TYPE_COUNT (1+1)
 
 /**
- *
-ATSPI_Collection_SortOrder:
+ * AtspiCollectionSortOrder:
  * @ATSPI_Collection_SORT_ORDER_INVALID:
  * @ATSPI_Collection_SORT_ORDER_CANONICAL:
  * @ATSPI_Collection_SORT_ORDER_FLOW:
@@ -131,8 +129,11 @@ ATSPI_Collection_SortOrder:
  * @ATSPI_Collection_SORT_ORDER_REVERSE_TAB:
  * @ATSPI_Collection_SORT_ORDER_LAST_DEFINED:
  *
+ * Enumeration used by interface #AtspiCollection to specify
+ * the way #AtspiAccesible objects should be sorted.
+ *
  * Bitfield/set of flags generated from the AT-SPI specification.
- */
+ **/
 typedef enum {
     ATSPI_Collection_SORT_ORDER_INVALID,
     ATSPI_Collection_SORT_ORDER_CANONICAL,
@@ -147,13 +148,12 @@ typedef enum {
 /**
  * ATSPI_SORTORDER_COUNT:
  *
- * 1 higher than the highest valid value of #AtspiCollectionSortOrder.
+ * One higher than the highest valid value of #AtspiCollectionSortOrder.
  */
 #define ATSPI_SORTORDER_COUNT (7+1)
 
 /**
- *
-ATSPI_Collection_MatchType:
+ * AtspiCollectionMatchType:
  * @ATSPI_Collection_MATCH_INVALID:
  * @ATSPI_Collection_MATCH_ALL:
  * @ATSPI_Collection_MATCH_ANY:
@@ -161,8 +161,11 @@ ATSPI_Collection_MatchType:
  * @ATSPI_Collection_MATCH_EMPTY:
  * @ATSPI_Collection_MATCH_LAST_DEFINED:
  *
+ * Enumeration used by #AtspiMatchRule to specify
+ * how to interpret #AtspiAccesible objects.
+ *
  * Bitfield/set of flags generated from the AT-SPI specification.
- */
+ **/
 typedef enum {
     ATSPI_Collection_MATCH_INVALID,
     ATSPI_Collection_MATCH_ALL,
@@ -175,20 +178,22 @@ typedef enum {
 /**
  * ATSPI_MATCHTYPE_COUNT:
  *
- * 1 higher than the highest valid value of #AtspiCollectionMatchType.
- */
+ * One higher than the highest valid value of #AtspiCollectionMatchType.
+ **/
 #define ATSPI_MATCHTYPES_COUNT (5+1)
 
 /**
- *
-ATSPI_Collection_TreeTraversalType:
+ * AtspiCollectionTreeTraversalType:
  * @ATSPI_Collection_TREE_RESTRICT_CHILDREN:
  * @ATSPI_Collection_TREE_RESTRICT_SIBLING:
  * @ATSPI_Collection_TREE_INORDER:
  * @ATSPI_Collection_TREE_LAST_DEFINED:
  *
+ * Enumeration used by interface #AtspiCollection to specify
+ * restrictions on #AtspiAccesible objects to be traversed.
+ *
  * Bitfield/set of flags generated from the AT-SPI specification.
- */
+ **/
 typedef enum {
     ATSPI_Collection_TREE_RESTRICT_CHILDREN,
     ATSPI_Collection_TREE_RESTRICT_SIBLING,
@@ -199,14 +204,13 @@ typedef enum {
 /**
  * ATSPI_TREETRAVERSALTYPE_COUNT:
  *
- * 1 higher than the highest valid value of
+ * One higher than the highest valid value of
  * #AtspiCollection_TreeTraversalType.
  */
 #define ATSPI_TREETRAVERSALTYPE _COUNT(3+1)
 
 /**
- *
-ATSPI_ComponentLayer:
+ * AtspiComponentLayer:
  * @ATSPI_LAYER_INVALID: Indicates an error condition or uninitialized value.
  * @ATSPI_LAYER_BACKGROUND: The bottom-most layer, over which everything else
  * is painted.        The 'desktop background' is generally in this layer.
@@ -224,22 +228,24 @@ ATSPI_ComponentLayer:
  * @ATSPI_LAYER_LAST_DEFINED: Used only to determine the end of the
  * enumeration.
  *
- * The ComponentLayer of a Component instance indicates its relative stacking
- * order       with respect to the onscreen visual representation of the UI.      
- * ComponentLayer, in combination with Component bounds information, can be used  
- *     to compute the visibility of all or part of a component.  This is important
- * in       programmatic determination of region-of-interest for magnification,
- * and in       &#168;flat screen review&#168; models of the screen, as well as
- * for other uses.       Objects residing in two of the ComponentLayer categories
- * support       further z-ordering information, with respect to their peers in
- * the same layer:       namely, LAYER_WINDOW and LAYER_MDI.  Relative stacking
- * order for other objects within       the same layer is not available; the
- * recommended heuristic is &#168;first child paints first&#168;,        in other
- * words, assume that the first siblings in the child list are subject to being   
- *    overpainted by later siblings if their bounds intersect.        The order of
- * layers, from bottom to top, is: 	     	    	LAYER_BACKGROUND 	    	LAYER_WINDOW
- * 	    	LAYER_MDI 	    	LAYER_CANVAS 	    	LAYER_WIDGET 	    	LAYER_POPUP 	   
- * 	LAYER_OVERLAY 	
+ * The #AtspiComponentLayer of a Component instance indicates its relative
+ * stacking order with respect to the onscreen visual representation of the
+ * UI. #AtspiComponentLayer, in combination with #AtspiComponent bounds 
+ * information, can be used to compute the visibility of all or part of a 
+ * component.  This is important in programmatic determination of 
+ * region-of-interest for magnification, and in 
+ * flat screen review models of the screen, as well as
+ * for other uses. Objects residing in two of the #AtspiComponentLayer 
+ * categories support further z-ordering information, with respect to their 
+ * peers in the same layer: namely, @ATSPI_LAYER_WINDOW and 
+ * @ATSPI_LAYER_MDI.  Relative stacking order for other objects within the 
+ * same layer is not available; the recommended heuristic is 
+ * first child paints first. In other words, assume that the 
+ * first siblings in the child list are subject to being overpainted by later 
+ * siblings if their bounds intersect. The order of layers, from bottom to top,
+ *  is: @ATSPI_LAYER_BACKGROUND, @ATSPI_LAYER_WINDOW, @ATSPI_LAYER_MDI,
+ * @ATSPI_LAYER_CANVAS, @ATSPI_LAYER_WIDGET, @ATSPI_LAYER_POPUP, and 	   
+ * @ATSPI_LAYER_OVERLAY.
  *
  * Bitfield/set of flags generated from the AT-SPI specification.
  */
@@ -256,50 +262,50 @@ typedef enum {
 } AtspiComponentLayer;
 
 /**
- * ATSPI_COMPONENTLAYER:_COUNT
+ * ATSPI_COMPONENTLAYER_COUNT:
  *
- * 1 higher than the highest valid value of #AtspiComponentLayer.
- */
+ * One higher than the highest valid value of #AtspiComponentLayer.
+ **/
 #define ATSPI_COMPONENTLAYER_COUNT (8+1)
 
 /**
- *
-ATSPI_TEXT_BOUNDARY_TYPE:
+ * AtspiTextBoundaryType:
  * @ATSPI_TEXT_BOUNDARY_CHAR: Text is bounded by this character only.       
  * Start and end offsets differ by one, by definition, for this value.
  * @ATSPI_TEXT_BOUNDARY_WORD_START: Boundary condition is start of a word; i.e.
- * range is from start of       one word to the start of another word.
+ * range is from start of one word to the start of another word.
  * @ATSPI_TEXT_BOUNDARY_WORD_END: Boundary condition is the end of a word; i.e.
- * range is from  	    the end of one word to the end of another.     Some locales
- * may not distinguish between words and       characters or glyphs, in particular
- * those locales which use       wholly or partially ideographic character sets. 
- * In these cases,       characters may be returned in lieu of multi-character
+ * range is from the end of one word to the end of another. Some locales
+ * may not distinguish between words and characters or glyphs. In particular,
+ * those locales which use wholly or partially ideographic character sets. 
+ * In these cases, characters may be returned in lieu of multi-character
  * substrings.
  * @ATSPI_TEXT_BOUNDARY_SENTENCE_START: Boundary condition is start of a
- * sentence, as determined  	    by the application.       Some locales or
- * character sets may not include explicit sentence       delimiters, so this
- * boundary type can not always be honored.       Some locales will return lines
+ * sentence, as determined by the application. Some locales or
+ * character sets may not include explicit sentence delimiters, so this
+ * boundary type can not always be honored. Some locales will return lines
  * of text instead of grammatical sentences.
  * @ATSPI_TEXT_BOUNDARY_SENTENCE_END: Boundary condition is end of a sentence,
- * as determined by the application,  	    including the sentence-delimiting
- * character, for instance '.'       Some locales or character sets may not
- * include explicit sentence       delimiters, so this boundary type can not
- * always be honored.       Some locales will return lines of text instead of
+ * as determined by the application, including the sentence-delimiting
+ * character, for instance '.' Some locales or character sets may not
+ * include explicit sentence delimiters, so this boundary type can not
+ * always be honored. Some locales will return lines of text instead of
  * grammatical sentences.
  * @ATSPI_TEXT_BOUNDARY_LINE_START: Boundary condition is the start of a line;
- * i.e. range is        from start of one line to the start of another.  This
- * generally        means that an end-of-line character will appear at the end of
+ * i.e. range is from start of one line to the start of another.  This
+ * generally means that an end-of-line character will appear at the end of
  * the range.
  * @ATSPI_TEXT_BOUNDARY_LINE_END: Boundary condition is the end of a line; i.e.
- * range is       from start of one line to the start of another.  This generally 
- *       means that an end-of-line character will be the first character of the
+ * range is from start of one line to the start of another.  This generally 
+ * means that an end-of-line character will be the first character of the
  * range.
  *
  * Specifies the boundary conditions determining a run of text as returned from
- *       GetTextAtOffset, GetTextAfterOffset, and GetTextBeforeOffset.
+ * #atspi_text_get_text_at_offset, #atspi_text_get_text_after_offset, and
+ * #atspi_text_get_text_before_offset.
  *
  * Bitfield/set of flags generated from the AT-SPI specification.
- */
+ **/
 typedef enum {
     ATSPI_TEXT_BOUNDARY_CHAR,
     ATSPI_TEXT_BOUNDARY_WORD_START,
@@ -313,13 +319,12 @@ typedef enum {
 /**
  * ATSPI_TEXT_BOUNDARY_TYPE_COUNT:
  *
- * 1 higher than the highest valid value of #AtspiTextBOundaryType.
+ * One higher than the highest valid value of #AtspiTextBOundaryType.
  */
 #define ATSPI_TEXT_BOUNDARY_TYPE_COUNT (6+1)
 
 /**
- *
-ATSPI_TEXT_CLIP_TYPE:
+ * AtspiTextClipType:
  * @ATSPI_TEXT_CLIP_NONE:
  * @ATSPI_TEXT_CLIP_MIN: Characters/glyphs clipped by the minimum coordinate
  * are omitted
@@ -328,12 +333,11 @@ ATSPI_TEXT_CLIP_TYPE:
  * @ATSPI_TEXT_CLIP_BOTH: Only glyphs falling entirely within the region
  * bounded by min and max are retained.
  *
- * TEXT_CLIP_TYPE:       CLIP_MIN means text clipped by min coordinate is
- * omitted,       CLIP_MAX clips text interescted by the max coord, and CLIP_BOTH 
- *      will retain only text falling fully within the min/max bounds.
+ * Enumeration used by interface #AtspiText to indicate
+ * how to treat characters intersecting bounding boxes.
  *
  * Bitfield/set of flags generated from the AT-SPI specification.
- */
+ **/
 typedef enum {
     ATSPI_TEXT_CLIP_NONE,
     ATSPI_TEXT_CLIP_MIN,
@@ -344,13 +348,12 @@ typedef enum {
 /**
  * ATSPI_TEXT_CLIP_TYPE_COUNT:
  *
- * 1 higher than the highest valid value of #AtspiTextClipType.
+ * One higher than the highest valid value of #AtspiTextClipType.
  */
 #define ATSPI_TEXT_CLIP_TYPE_COUNT (3+1)
 
 /**
- *
-ATSPI_StateType:
+ * AtspiStateType:
  * @ATSPI_STATE_INVALID:
  * @ATSPI_STATE_ACTIVE: Indicates a window is currently the active window, or
  * is an active subelement within a container or table
@@ -473,14 +476,14 @@ ATSPI_StateType:
  * to failure of input       validation.  For instance, a form control may
  * acquire this state in response       to invalid or malformed user input.
  * @ATSPI_STATE_SUPPORTS_AUTOCOMPLETION: This state indicates that the object
- * in question implements some form of &#168;typeahead&#168; or       
+ * in question implements some form of typeahead or       
  * pre-selection behavior whereby entering the first character of one or more
  * sub-elements       causes those elements to scroll into view or become
  * selected.  Subsequent character input       may narrow the selection further as
  * long as one or more sub-elements match the string.       This state is normally
  * only useful and encountered on objects that implement Selection.       In some
  * cases the typeahead behavior may result in full or partial
- * &#168;completion&#168; of        the data in the input field, in which case
+ * completion of        the data in the input field, in which case
  * these input events may trigger text-changed       events from the source.
  * @ATSPI_STATE_SELECTABLE_TEXT: This state indicates that the object in
  * question supports text selection.        It should only be exposed on objects
@@ -499,8 +502,12 @@ ATSPI_StateType:
  * as a parameter, it indicates the number of       items in the StateType
  * enumeration.
  *
+ * 
+ * Enumeration used by various interfaces indicating every possible state 
+ * an #AtspiAccesible object can assume.
+ *
  * Bitfield/set of flags generated from the AT-SPI specification.
- */
+ **/
 typedef enum {
     ATSPI_STATE_INVALID,
     ATSPI_STATE_ACTIVE,
@@ -549,20 +556,19 @@ typedef enum {
 /**
  * ATSPI_STATETYPE_COUNT:
  *
- * 1 higher than the highest valid value of #AtspiStateType.
- */
+ * One higher than the highest valid value of #AtspiStateType.
+ **/
 #define ATSPI_STATETYPE_COUNT (41+1)
 
 /**
- *
-ATSPI_KeyEventType:
+ * AtspiKeyEventType:
  * @ATSPI_KEY_PRESSED:
  * @ATSPI_KEY_RELEASED:
  *
- * Deprecated, DO NOT USE!
+ * Deprecated. Should not be used.
  *
  * Bitfield/set of flags generated from the AT-SPI specification.
- */
+ **/
 typedef enum {
     ATSPI_KEY_PRESSED,
     ATSPI_KEY_RELEASED,
@@ -571,13 +577,12 @@ typedef enum {
 /**
  * ATSPI_KEYEVENTTYPE_COUNT:
  *
- * 1 higher than the highest valid value of #AtspiKeyEventType.
- */
+ * One higher than the highest valid value of #AtspiKeyEventType.
+ **/
 #define ATSPI_KEYEVENTTYPE_COUNT (1+1)
 
 /**
- *
-ATSPI_EventType:
+ * AtspiEventType:
  * @ATSPI_KEY_PRESSED_EVENT: < key on a keyboard device was pressed.
  * @ATSPI_KEY_RELEASED_EVENT: < key on a keyboard device was released.
  * @ATSPI_BUTTON_PRESSED_EVENT: < button on a non-keyboard human interface
@@ -585,12 +590,12 @@ ATSPI_EventType:
  * @ATSPI_BUTTON_RELEASED_EVENT: < button on a non-keyboard human interface
  * device        (HID) was pressed
  *
- * Used to specify the event types of interest to an EventListener, or       to
- * identify the type of an event for which notification has been sent.        @see
- * EventTypeSeq, DeviceEvent::type
+ * Enumeration used to specify the event types of interest to an 
+ * #AtspiEventListener, or 
+ * to identify the type of an event for which notification has been sent.  
  *
  * Bitfield/set of flags generated from the AT-SPI specification.
- */
+ **/
 typedef enum {
     ATSPI_KEY_PRESSED_EVENT,
     ATSPI_KEY_RELEASED_EVENT,
@@ -601,13 +606,12 @@ typedef enum {
 /**
  * ATSPI_EVENTTYPE_COUNT:
  *
- * 1 higher than the highest valid value of #AtspiEventType.
+ * One higher than the highest valid value of #AtspiEventType.
  */
 #define ATSPI_EVENTTYPE_COUNT (3+1)
 
 /**
- *
-AtspiKeySynthType:
+ * AtspiKeySynthType:
  * @ATSPI_KEY_PRESS: emulate the pressing of a hardware keyboard key.
  * @ATSPI_KEY_RELEASE: emulate the release of a hardware keyboard key.
  * @ATSPI_KEY_PRESSRELEASE: a hardware keyboard key is pressed and immediately
@@ -629,11 +633,11 @@ AtspiKeySynthType:
  * KeySynthType::KEY_SYM.       In practice this limitation primarily effects
  * Chinese and Japanese locales.
  *
- * Used when synthesizing keyboard input via
- * DeviceEventController:GenerateKeyboardEvent.
+ * Enumeration used when synthesizing keyboard input via
+ * #atspi_generate_keyboard_event.
  *
  * Bitfield/set of flags generated from the AT-SPI specification.
- */
+ **/
 typedef enum {
     ATSPI_KEY_PRESS,
     ATSPI_KEY_RELEASE,
@@ -645,13 +649,12 @@ typedef enum {
 /**
  * ATSPI_KEYSYNTHTYPE_COUNT:
  *
- * 1 higher than the highest valid value of #AtspiKeySynthType.
- */
+ * One higher than the highest valid value of #AtspiKeySynthType.
+ **/
 #define ATSPI_KEYSYNTHTYPE_COUNT (4+1)
 
 /**
- *
-ATSPI_ModifierType:
+ * AtspiModifierType:
  * @ATSPI_MODIFIER_SHIFT: The left or right 'Shift' key
  * @ATSPI_MODIFIER_SHIFTLOCK: The ShiftLock or CapsLock key
  * @ATSPI_MODIFIER_CONTROL: 'Control'/'Ctrl'
@@ -667,8 +670,10 @@ ATSPI_ModifierType:
  * @ATSPI_MODIFIER_NUMLOCK: A symbolic meta key name that is mapped by AT-SPI
  * to the        appropriate META value, for the convenience of the client.
  *
+ *
+ *
  * Bitfield/set of flags generated from the AT-SPI specification.
- */
+ **/
 typedef enum {
     ATSPI_MODIFIER_SHIFT,
     ATSPI_MODIFIER_SHIFTLOCK,
@@ -683,13 +688,12 @@ typedef enum {
 /**
  * ATSPI_MODIFIERTYPE_COUNT:
  *
- * 1 higher than the highest valid value of #AtspiModifierType.
- */
+ * One higher than the highest valid value of #AtspiModifierType.
+ **/
 #define ATSPI_MODIFIERTYPE_COUNT (7+1)
 
 /**
- *
-ATSPI_RelationType:
+ * AtspiRelationType:
  * @ATSPI_RELATION_NULL: Not a meaningful relationship; clients should not
  * normally encounter this RelationType value.
  * @ATSPI_RELATION_LABEL_FOR: Object is a label for one or more other objects.
@@ -742,20 +746,27 @@ ATSPI_RelationType:
  * @ATSPI_RELATION_LAST_DEFINED: Do not use as a parameter value, used to
  * determine the size of the enumeration.
  *
- * RelationType specifies a relationship between objects (possibly one-to-many
- * or many-to-one)       outside of the normal parent/child hierarchical
- * relationship.  It allows better semantic       identification of how objects
- * are associated with one another.       For instance the RELATION_LABELLED_BY
+ * #AtspiRelationType specifies a relationship between objects 
+ * (possibly one-to-many
+ * or many-to-one) outside of the normal parent/child hierarchical
+ * relationship. It allows better semantic       identification of how objects
+ * are associated with one another.       For instance the 
+ * @ATSPI_RELATION_LABELLED_BY
  * relationship may be used to identify labelling information       that should
  * accompany the accessibleName property when presenting an object's content or
- * identity       to the end user.  Similarly, RELATION_CONTROLLER_FOR can be used
- * to further specify the context       in which a valuator is useful, and/or the
- * other UI components which are directly effected by       user interactions with
- * the valuator. Common examples include association of scrollbars with       the
+ * identity       to the end user.  Similarly, 
+ * @ATSPI_RELATION_CONTROLLER_FOR can be used
+ * to further specify the context in which a valuator is useful, and/or the
+ * other UI components which are directly effected by user interactions with
+ * the valuator. Common examples include association of scrollbars with the
  * viewport or panel which they control.
  *
+ * 
+ * Enumeration used to specify
+ * the type of relation encapsulated in an #AtspiRelation object.
+ *
  * Bitfield/set of flags generated from the AT-SPI specification.
- */
+ **/
 typedef enum {
     ATSPI_RELATION_NULL,
     ATSPI_RELATION_LABEL_FOR,
@@ -782,13 +793,12 @@ typedef enum {
 /**
  * ATSPI_RELATIONTYPE_COUNT:
  *
- * 1 higher than the highest valid value of #AtspiRelationType.
- */
+ * One higher than the highest valid value of #AtspiRelationType.
+ **/
 #define ATSPI_RELATIONTYPE_COUNT (19+1)
 
 /**
- *
-ATSPI_Role:
+ * AtspiRole:
  * @ATSPI_ROLE_INVALID: A Role indicating an error condition, such as
  * uninitialized Role data.
  * @ATSPI_ROLE_ACCELERATOR_LABEL: Object is a label indicating the keyboard
@@ -871,7 +881,7 @@ ATSPI_Role:
  * radio buttons in the       same group to become uncghecked when this one is
  * checked.
  * @ATSPI_ROLE_RADIO_MENU_ITEM: Object is both a menu item and a "radio button"
- * (see ROLE_RADIO_BUTTON)
+ * (see @ATSPI_ROLE_RADIO_BUTTON)
  * @ATSPI_ROLE_ROOT_PANE: A specialized pane that has a glass pane and a
  * layered pane as its       children.
  * @ATSPI_ROLE_ROW_HEADER: The header for a row of data
@@ -879,40 +889,41 @@ ATSPI_Role:
  * incrementally view a large       amount of data by moving the bounds of a
  * viewport along a one-dimensional axis.
  * @ATSPI_ROLE_SCROLL_PANE: An object that allows a user to incrementally view
- * a large amount       of information.  ROLE_SCROLL_PANE objects are usually
- * accompanied by       ROLE_SCROLL_BAR controllers, on which the
- * RELATION_CONTROLLER_FOR and       RELATION_CONTROLLED_BY reciprocal relations
- * are set; \see        Accessibility::RelationSet.
+ * a large amount of information. @ATSPI_ROLE_SCROLL_PANE objects are usually
+ * accompanied by @ATSPI_ROLE_SCROLL_BAR controllers, on which the
+ * @ATSPI_RELATION_CONTROLLER_FOR and @ATSPI_RELATION_CONTROLLED_BY 
+ * reciprocal relations
+ * are set; see  #atspi_get_relation_set.
  * @ATSPI_ROLE_SEPARATOR: An object usually contained in a menu to provide a
  * visible and       logical separation of the contents in a menu.
  * @ATSPI_ROLE_SLIDER: An object that allows the user to select from a bounded
  * range
  * @ATSPI_ROLE_SPIN_BUTTON: An object which allows one of a set of choices to
  * be selected,        and which displays the current choice.  Unlike
- * ROLE_SCROLL_BAR,       ROLE_SLIDER objects need not control 'viewport'-like
- * objects.
+ * @ATSPI_ROLE_SCROLL_BAR, @ATSPI_ROLE_SLIDER objects need not control 
+ * 'viewport'-like objects.
  * @ATSPI_ROLE_SPLIT_PANE: A specialized panel that presents two other panels
  * at the same time.
  * @ATSPI_ROLE_STATUS_BAR: Object displays non-quantitative status information
- * (c.f. ROLE_PROGRESS_BAR)
+ * (c.f. @ATSPI_ROLE_PROGRESS_BAR)
  * @ATSPI_ROLE_TABLE: An object used to repesent information in terms of rows
  * and columns.
- * @ATSPI_ROLE_TABLE_CELL: A 'cell' or discrete child within a Table. \note
- * Table cells need not have ROLE_TABLE_CELL,        other RoleType values are
- * valid as well.
+ * @ATSPI_ROLE_TABLE_CELL: A 'cell' or discrete child within a Table. NOTE:
+ * Table cells need not have @ATSPI_ROLE_TABLE_CELL, other 
+ * #AtspiRoleType values are valid as well.
  * @ATSPI_ROLE_TABLE_COLUMN_HEADER: An object which labels a particular column
  * in a Table.
  * @ATSPI_ROLE_TABLE_ROW_HEADER: An object which labels a particular row in a
  * Table. Table rows and columns may also be        labelled via the
- * RELATION_LABEL_FOR/RELATION_LABELLED_BY relationships;        see
- * Accessibility.RelationSet.
+ * @ATSPI_RELATION_LABEL_FOR/@ATSPI_RELATION_LABELLED_BY relationships;
+ * see #atspi_get_relation_set.
  * @ATSPI_ROLE_TEAROFF_MENU_ITEM: Object allows menu to be removed from menubar
  * and shown in its own window.
- * @ATSPI_ROLE_TERMINAL: An object that emulates a terminal
+ * @ATSPI_ROLE_TERMINAL: An object that emulates a terminal.
  * @ATSPI_ROLE_TEXT: An object that presents text to the user, of nonspecific
  * type.
  * @ATSPI_ROLE_TOGGLE_BUTTON: A specialized push button that can be checked or
- * unchecked, but does       not procide a separate indicator for the current
+ * unchecked, but does not procide a separate indicator for the current
  * state.
  * @ATSPI_ROLE_TOOL_BAR: A bar or palette usually composed of push buttons or
  * toggle buttons
@@ -927,20 +938,20 @@ ATSPI_Role:
  * @ATSPI_ROLE_VIEWPORT: An object usually used in a scroll pane, or to
  * otherwise clip a larger object or        content renderer to a specific
  * onscreen viewport.
- * @ATSPI_ROLE_WINDOW: A &#168;top level window&#168; with no title or border.
+ * @ATSPI_ROLE_WINDOW: A top level window with no title or border.
  * @ATSPI_ROLE_EXTENDED: means that the role for this item is known, but not
  * included in the        core enumeration
  * @ATSPI_ROLE_HEADER: An object that serves as a document header.
  * @ATSPI_ROLE_FOOTER: An object that serves as a document footer.
  * @ATSPI_ROLE_PARAGRAPH: An object which is contains a single paragraph of
- * text content. See also ROLE_TEXT.
+ * text content. See also @ATSPI_ROLE_TEXT.
  * @ATSPI_ROLE_RULER: An object which describes margins and tab stops, etc.    
  *    for text objects which it controls        (should have CONTROLLER_FOR
  * relation to such).
  * @ATSPI_ROLE_APPLICATION: An object corresponding to the toplevel accessible
  * of an        application, which may contain ROLE_FRAME objects or other      
- * accessible objects.  Children of AccessibleDesktop objects        are generally
- * ROLE_APPLICATION objects.
+ * accessible objects.  Children of #AccessibleDesktop objects  are generally
+ * @ATSPI_ROLE_APPLICATION objects.
  * @ATSPI_ROLE_AUTOCOMPLETE: The object is a dialog or list containing items
  * for insertion        into an entry widget, for instance a list of words for
  * completion        of a text entry.
@@ -951,50 +962,52 @@ ATSPI_Role:
  * embedded.       In particular, it is used for some kinds of document embedding,
  * and       for embedding of out-of-process component, "panel applets", etc.
  * @ATSPI_ROLE_ENTRY: The object is a component whose textual content may be
- * entered or modified by the user, 	    provided STATE_EDITABLE is present.      
- * A readonly ROLE_ENTRY object (i.e. where STATE_EDITABLE is not present) implies
- * a       read-only 'text field' in a form, as opposed to a title, label, or
+ * entered or modified by the user, provided @ATSPI_STATE_EDITABLE is present.
+ * A readonly @ATSPI_ROLE_ENTRY object (i.e. where @ATSPI_STATE_EDITABLE is 
+ * not present) implies
+ * a read-only 'text field' in a form, as opposed to a title, label, or
  * caption.
  * @ATSPI_ROLE_CHART: The object is a graphical depiction of quantitative data.
- *  It may contain multiple       subelements whose attributes and/or description
- * may be queried to obtain both the       quantitative data and information about
- * how the data is being presented.       The LABELLED_BY relation is particularly
- * important in interpreting objects of this type,       as is the
- * accessible-description property.         See ROLE_CAPTION
+ *  It may contain multiple subelements whose attributes and/or description
+ * may be queried to obtain both the  quantitative data and information about
+ * how the data is being presented. The @ATSPI_LABELLED_BY relation is 
+ * particularly
+ * important in interpreting objects of this type, as is the
+ * accessible-description property. See @ATSPI_ROLE_CAPTION.
  * @ATSPI_ROLE_CAPTION: The object contains descriptive information, usually
- * textual, about another user interface       element such as a table, chart, or
+ * textual, about another user interface element such as a table, chart, or
  * image.
  * @ATSPI_ROLE_DOCUMENT_FRAME: The object is a visual frame or container which
- * contains a view of document content.         Document frames may occur within
- * another Document instance, in which case the second        document may be said
- * to be embedded in the containing instance.  HTML frames are       often
- * ROLE_DOCUMENT_FRAME.  Either this object, or a singleton descendant, should
- * implement       the Document interface.
+ * contains a view of document content. Document frames may occur within
+ * another Document instance, in which case the second  document may be said
+ * to be embedded in the containing instance.  HTML frames are often
+ * @ATSPI_ROLE_DOCUMENT_FRAME.  Either this object, or a singleton descendant, 
+ * should implement the #AtspiDocument interface.
  * @ATSPI_ROLE_HEADING: The object serves as a heading for content which
  * follows it in a document.       The 'heading level' of the heading, if
  * availabe,  may be obtained by       querying the object's attributes.
  * @ATSPI_ROLE_PAGE: The object is a containing instance which encapsulates a
- * page of        information.  ROLE_PAGE is used in documents and content which
- * support       a paginated navigation model.
+ * page of information. @ATSPI_ROLE_PAGE is used in documents and content which
+ * support a paginated navigation model.
  * @ATSPI_ROLE_SECTION: The object is a containing instance of document content
- * which constitutes       a particular 'logical' section of the document.  The
- * type of content within       a section, and the nature of the section division
- * itself, may be obtained       by querying the object's attributes.  Sections
+ * which constitutes a particular 'logical' section of the document.  The
+ * type of content within a section, and the nature of the section division
+ * itself, may be obtained by querying the object's attributes.  Sections
  * may be nested.
  * @ATSPI_ROLE_REDUNDANT_OBJECT: The object is redundant with another object in
- * the hierarchy,        and is exposed for purely technical reasons.  Objects of
- * this role        should be ignored by clients, if they are encountered at all.
+ * the hierarchy, and is exposed for purely technical reasons.  Objects of
+ * this role should be ignored by clients, if they are encountered at all.
  * @ATSPI_ROLE_FORM: The object is a containing instance of document content
- * which       has within it components with which the user can interact in order
- * to       input information; i.e. the object is a container for pushbuttons,    
- *   comboboxes, text input fields, and other 'GUI' components.       ROLE_FORM
- * should not, in general, be used for toplevel GUI containers       or dialogs,
- * but should be reserved for 'GUI' containers which occur within       document
- * content, for instance within Web documents, presentations, or        text
+ * which has within it components with which the user can interact in order
+ * to input information; i.e. the object is a container for pushbuttons,    
+ * comboboxes, text input fields, and other 'GUI' components. @ATSPI_ROLE_FORM
+ * should not, in general, be used for toplevel GUI containers or dialogs,
+ * but should be reserved for 'GUI' containers which occur within document
+ * content, for instance within Web documents, presentations, or text
  * documents.  Unlike other GUI containers and dialogs which occur inside      
- * application instances, ROLE_FORM containers' components are associated with    
- *   the current document, rather than the current foreground application or      
- * viewer instance.
+ * application instances, @ATSPI_ROLE_FORM containers' components are
+ * associated with the current document, rather than the current foreground 
+ * application or viewer instance.
  * @ATSPI_ROLE_LINK: The object is a hypertext anchor, i.e. a "link" in a      
  * hypertext document.  Such objects are distinct from 'inline'       content
  * which may also use the Hypertext/Hyperlink interfaces       to indicate the
@@ -1034,6 +1047,9 @@ ATSPI_Role:
  * within an existing window.
  * @ATSPI_ROLE_LAST_DEFINED: Not a valid role, used for finding end of
  * enumeration.
+ *
+ * Enumeration used by interface #AtspiAccessible to specify the role
+ * of an #AtspiAccessible object.
  *
  * Bitfield/set of flags generated from the AT-SPI specification.
  */
@@ -1147,7 +1163,7 @@ typedef enum {
 /**
  * ATSPI_ROLE_COUNT:
  *
- * 1 higher than the highest valid value of #AtspiRole.
+ * One higher than the highest valid value of #AtspiRole.
  */
 #define ATSPI_ROLE_COUNT (90+1)
 
