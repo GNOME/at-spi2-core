@@ -33,16 +33,6 @@ AtspiHyperlink
 
 @parent_class: 
 
-<!-- ##### FUNCTION atspi_hyperlink_new ##### -->
-<para>
-
-</para>
-
-@app: 
-@path: 
-@Returns: 
-
-
 <!-- ##### FUNCTION atspi_hyperlink_get_n_anchors ##### -->
 <para>
 

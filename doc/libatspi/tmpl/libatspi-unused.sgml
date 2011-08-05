@@ -50,3 +50,12 @@
 @data: 
 @Returns: 
 
+<!-- ##### FUNCTION atspi_hyperlink_new ##### -->
+<para>
+
+</para>
+
+@app: 
+@path: 
+@Returns: 
+
