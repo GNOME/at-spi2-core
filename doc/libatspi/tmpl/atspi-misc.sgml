@@ -2,11 +2,11 @@
 atspi-misc
 
 <!-- ##### SECTION Short_Description ##### -->
-
+Miscellaneous methods for using AT-SPI services.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+Miscellaneous methods for using AT-SPI services.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->

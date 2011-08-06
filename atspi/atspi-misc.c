@@ -884,7 +884,7 @@ atspi_event_main (void)
 /**
  * atspi_event_quit:
  *
- * Quits the last main event loop for the SPI services,
+ * Quits the last main event loop for the AT-SPI services,
  * See: #atspi_event_main
  **/
 void
