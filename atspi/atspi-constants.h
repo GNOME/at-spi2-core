@@ -67,12 +67,16 @@ extern "C" {
 
 /**
  * AtspiLocaleType:
- * @ATSPI_LOCALE_TYPE_MESSAGES:
- * @ATSPI_LOCALE_TYPE_COLLATE:
- * @ATSPI_LOCALE_TYPE_CTYPE:
- * @ATSPI_LOCALE_TYPE_MONETARY:
- * @ATSPI_LOCALE_TYPE_NUMERIC:
- * @ATSPI_LOCALE_TYPE_TIME:
+ * @ATSPI_LOCALE_TYPE_MESSAGES: For localizable natural-language messages
+ * @ATSPI_LOCALE_TYPE_COLLATE: For regular expression matching and string 
+ * collation 
+ * @ATSPI_LOCALE_TYPE_CTYPE: For regular expression matching, character 
+ * classification, conversion, case-sensitive comparison, and wide character 
+ * functions 
+ * @ATSPI_LOCALE_TYPE_MONETARY: For monetary formatting
+ * @ATSPI_LOCALE_TYPE_NUMERIC: For number formatting (such as the decimal 
+ * point and the thousands separator)
+ * @ATSPI_LOCALE_TYPE_TIME: For time and date formatting
  *
  * Used by interfaces #AtspiText and #AtspiDocument, this
  * enumeration corresponds to the POSIX 'setlocale' enum values.
@@ -97,12 +101,12 @@ typedef enum {
 
 /**
  * AtspiCoordType:
- * @ATSPI_COORD_TYPE_SCREEN:
- * @ATSPI_COORD_TYPE_WINDOW:
+ * @ATSPI_COORD_TYPE_SCREEN: Specifies xy coordinates relative to the screen
+ * @ATSPI_COORD_TYPE_WINDOW: Specifies xy coordinates relative to the widget's 
+ * top-level window
  *
  * Enumeration used by #AtspiComponent, #AtspiImage, and #AtspiText interfaces
- * to specify whether coordinates
- * are relative to the window or the screen.
+ * to specify whether coordinates are relative to the window or the screen.
  *
  * Bitfield/set of flags generated from the AT-SPI specification.
  **/
@@ -154,12 +158,15 @@ typedef enum {
 
 /**
  * AtspiCollectionMatchType:
- * @ATSPI_Collection_MATCH_INVALID:
- * @ATSPI_Collection_MATCH_ALL:
- * @ATSPI_Collection_MATCH_ANY:
- * @ATSPI_Collection_MATCH_NONE:
- * @ATSPI_Collection_MATCH_EMPTY:
- * @ATSPI_Collection_MATCH_LAST_DEFINED:
+ * @ATSPI_Collection_MATCH_INVALID: 
+ * @ATSPI_Collection_MATCH_ALL: #TRUE if all of the criteria are met
+ * @ATSPI_Collection_MATCH_ANY: #TRUE if any of the criteria are met
+ * @ATSPI_Collection_MATCH_NONE: #TRUE if none of the criteria are met
+ * @ATSPI_Collection_MATCH_EMPTY: Same as @ATSPI_Collection_MATCH_ALL if
+ * the criteria is non-empty; for empty criteria this rule requires returned 
+ * value to also have empty set. 
+ * @ATSPI_Collection_MATCH_LAST_DEFINED: Used only to determine the end of the
+ * enumeration.
  *
  * Enumeration used by #AtspiMatchRule to specify
  * how to interpret #AtspiAccesible objects.
@@ -215,22 +222,23 @@ typedef enum {
  * @ATSPI_LAYER_BACKGROUND: The bottom-most layer, over which everything else
  * is painted.        The 'desktop background' is generally in this layer.
  * @ATSPI_LAYER_CANVAS: The 'background' layer for most content renderers and
- * UI Component        containers.
+ * UI #AtspiComponent containers.
  * @ATSPI_LAYER_WIDGET: The layer in which the majority of ordinary
  * 'foreground' widgets reside.
- * @ATSPI_LAYER_MDI: A special layer between LAYER_CANVAS and LAYER_WIDGET, in
- * which the       'pseudo windows' (e.g. the MDI frames) reside.        (See
- * Component.GetMDIZOrder)
- * @ATSPI_LAYER_POPUP: A layer for popup window content, above LAYER_WIDGET.
+ * @ATSPI_LAYER_MDI: A special layer between @ATSPI_LAYER_CANVAS and 
+ * @ATSPI_LAYER_WIDGET, in which the 'pseudo windows' (e.g. the MDI frames) 
+ * reside. See #atspi_component_get_mdi_z_order. 
+ * @ATSPI_LAYER_POPUP: A layer for popup window content, above
+ * @ATSPI_LAYER_WIDGET.
  * @ATSPI_LAYER_OVERLAY: The topmost layer.
  * @ATSPI_LAYER_WINDOW: The layer in which a toplevel window background usually
  * resides.
  * @ATSPI_LAYER_LAST_DEFINED: Used only to determine the end of the
  * enumeration.
  *
- * The #AtspiComponentLayer of a Component instance indicates its relative
- * stacking order with respect to the onscreen visual representation of the
- * UI. #AtspiComponentLayer, in combination with #AtspiComponent bounds 
+ * The #AtspiComponentLayer of an #AtspiComponent instance indicates its 
+ * relative stacking order with respect to the onscreen visual representation 
+ * of the UI. #AtspiComponentLayer, in combination with #AtspiComponent bounds 
  * information, can be used to compute the visibility of all or part of a 
  * component.  This is important in programmatic determination of 
  * region-of-interest for magnification, and in 
@@ -270,8 +278,9 @@ typedef enum {
 
 /**
  * AtspiTextBoundaryType:
- * @ATSPI_TEXT_BOUNDARY_CHAR: Text is bounded by this character only.       
- * Start and end offsets differ by one, by definition, for this value.
+ * @ATSPI_TEXT_BOUNDARY_CHAR: An #AtspiText instance is bounded by this 
+ * character only. Start and end offsets differ by one, by definition, 
+ * for this value.
  * @ATSPI_TEXT_BOUNDARY_WORD_START: Boundary condition is start of a word; i.e.
  * range is from start of one word to the start of another word.
  * @ATSPI_TEXT_BOUNDARY_WORD_END: Boundary condition is the end of a word; i.e.
@@ -325,7 +334,7 @@ typedef enum {
 
 /**
  * AtspiTextClipType:
- * @ATSPI_TEXT_CLIP_NONE:
+ * @ATSPI_TEXT_CLIP_NONE: No characters/glyphs are omitted
  * @ATSPI_TEXT_CLIP_MIN: Characters/glyphs clipped by the minimum coordinate
  * are omitted
  * @ATSPI_TEXT_CLIP_MAX: Characters/glyphs which intersect the maximum
@@ -354,7 +363,8 @@ typedef enum {
 
 /**
  * AtspiStateType:
- * @ATSPI_STATE_INVALID:
+ * @ATSPI_STATE_INVALID: Indicates an invalid state - probably an error 
+ * condition.
  * @ATSPI_STATE_ACTIVE: Indicates a window is currently the active window, or
  * is an active subelement within a container or table
  * @ATSPI_STATE_ARMED: Indicates that the object is armed
@@ -368,10 +378,10 @@ typedef enum {
  * @ATSPI_STATE_EDITABLE: Indicates the user can change the contents of this
  * object
  * @ATSPI_STATE_ENABLED: Indicates that this object is enabled, i.e. that it
- * currently reflects some application state.        Objects that are "greyed out"
- * may lack this state, and may lack the STATE_SENSITIVE if direct user      
- * interaction cannot cause
- * them to acquire STATE_ENABLED.  @see STATE_SENSITIVE.
+ * currently reflects some application state. Objects that are "greyed out"
+ * may lack this state, and may lack the @ATSPI_STATE_SENSITIVE if direct
+ * user interaction cannot cause them to acquire @ATSPI_STATE_ENABLED. 
+ * See @ATSPI_STATE_SENSITIVE
  * @ATSPI_STATE_EXPANDABLE: Indicates this object allows progressive
  * disclosure of its children
  * @ATSPI_STATE_EXPANDED: Indicates this object is expanded
@@ -387,119 +397,118 @@ typedef enum {
  * @ATSPI_STATE_ICONIFIED: Indicates this object is minimized and is
  * represented only by an icon
  * @ATSPI_STATE_MODAL: Indicates something must be done with this object
- * before the user can       interact with an object in a different window.
+ * before the user can interact with an object in a different window.
  * @ATSPI_STATE_MULTI_LINE: Indicates this (text) object can contain multiple
  * lines of text
  * @ATSPI_STATE_MULTISELECTABLE: Indicates this object allows more than one of
- * its children to be       selected at the same time, or in the case of text
- * objects,        that the object supports non-contiguous text selections.
+ * its children to be selected at the same time, or in the case of text
+ * objects, that the object supports non-contiguous text selections.
  * @ATSPI_STATE_OPAQUE: Indicates this object paints every pixel within its
- * rectangular region.       It also indicates an alpha value of unity, if it
+ * rectangular region. It also indicates an alpha value of unity, if it
  * supports alpha blending.
  * @ATSPI_STATE_PRESSED: Indicates this object is currently pressed
  * @ATSPI_STATE_RESIZABLE: Indicates the size of this object's size is not
  * fixed
  * @ATSPI_STATE_SELECTABLE: Indicates this object is the child of an object
- * that allows its       children to be selected and that this child is one of
+ * that allows its children to be selected and that this child is one of
  * those children       that can be selected.
  * @ATSPI_STATE_SELECTED: Indicates this object is the child of an object that
- * allows its       children to be selected and that this child is one of those
- * children       that has been selected.
+ * allows its children to be selected and that this child is one of those
+ * children that has been selected.
  * @ATSPI_STATE_SENSITIVE: Indicates this object is sensitive, e.g. to user
- * interaction.        STATE_SENSITIVE usually accompanies STATE_ENABLED for
- * user-actionable controls,       but may be found in the absence of
- * STATE_ENABLED if the current visible state of the        control is
- * "disconnected" from the application state.  In such cases, direct user
- * interaction       can often result in the object gaining STATE_SENSITIVE, for
- * instance if a user makes        an explicit selection using an object whose
- * current state is ambiguous or undefined.       @see STATE_ENABLED,
- * STATE_INDETERMINATE.
+ * interaction. @ATSPI_STATE_SENSITIVE usually accompanies 
+ * @ATSPI_STATE_ENABLED for user-actionable controls, but may be found in the 
+ * absence of @ATSPI_STATE_ENABLED if the current visible state of the control 
+ * is "disconnected" from the application state.  In such cases, direct user
+ * interaction can often result in the object gaining @ATSPI_STATE_SENSITIVE, 
+ * for instance if a user makes an explicit selection using an object whose
+ * current state is ambiguous or undefined. See @ATSPI_STATE_ENABLED,
+ * @ATSPI_STATE_INDETERMINATE.
  * @ATSPI_STATE_SHOWING: Indicates this object, the object's parent, the
- * object's parent's       parent, and so on, are all 'shown' to the end-user,
- * i.e.       subject to "exposure" if blocking or obscuring objects do not
- * interpose       between this object
- * and the top of the window stack.
+ * object's parent's parent, and so on, are all 'shown' to the end-user,
+ * i.e. subject to "exposure" if blocking or obscuring objects do not
+ * interpose between this object and the top of the window stack.
  * @ATSPI_STATE_SINGLE_LINE: Indicates this (text) object can contain only a
  * single line of text
  * @ATSPI_STATE_STALE: Indicates that the information returned for this object
- * may no longer be       synchronized with the application state.  This can occur
- * if the object has STATE_TRANSIENT,       and can also occur towards the end of
- * the object peer's
- * lifecycle.
+ * may no longer be synchronized with the application state.  This can occur
+ * if the object has @ATSPI_STATE_TRANSIENT, and can also occur towards the 
+ * end of the object peer's lifecycle
  * @ATSPI_STATE_TRANSIENT: Indicates this object is transient
  * @ATSPI_STATE_VERTICAL: Indicates the orientation of this object is vertical;
- * for example this state may appear on        such objects as scrollbars, text
+ * for example this state may appear on such objects as scrollbars, text
  * objects (with vertical text flow), separators, etc.
- * @ATSPI_STATE_VISIBLE: 	  Indicates this object is visible, e.g. has been
- * explicitly marked for exposure to the user. 	  STATE_VISIBLE is no guarantee
- * that the object is actually unobscured on the screen, only       that it is
- * 'potentially' visible, barring obstruction, being scrolled or clipped out of
- * the        field of view, or having an ancestor container that has not yet made
- * visible.       A widget is potentially onscreen if it has both STATE_VISIBLE
- * and STATE_SHOWING.       The absence of STATE_VISIBLE and STATE_SHOWING is
- * semantically equivalent to saying        that an object is 'hidden'.
+ * @ATSPI_STATE_VISIBLE: Indicates this object is visible, e.g. has been
+ * explicitly marked for exposure to the user. @ATSPI_STATE_VISIBLE is no 
+ * guarantee that the object is actually unobscured on the screen, only that 
+ * it is 'potentially' visible, barring obstruction, being scrolled or clipped 
+ * out of the field of view, or having an ancestor container that has not yet 
+ * made visible. A widget is potentially onscreen if it has both 
+ * @ATSPI_STATE_VISIBLE and @ATSPI_STATE_SHOWING. The absence of 
+ * @ATSPI_STATE_VISIBLE and @ATSPI_STATE_SHOWING is
+ * semantically equivalent to saying that an object is 'hidden'.
  * @ATSPI_STATE_MANAGES_DESCENDANTS: Indicates that "active-descendant-changed"
- * event is sent when children       become 'active' (i.e. are selected or
- * navigated to onscreen).  Used to       prevent need to enumerate all children
- * in very large containers, like       tables.  The presence of
- * STATE_MANAGES_DESCENDANTS is an indication to the client.       that the
- * children should not, and need not, be enumerated by the client.       Objects
- * implementing this state are expected to provide relevant state      
- * notifications to listening clients, for instance notifications of visibility   
- *    changes and activation of their contained child objects, without the client 
- *       having previously requested references to those children.
+ * event is sent when children become 'active' (i.e. are selected or
+ * navigated to onscreen).  Used to prevent need to enumerate all children
+ * in very large containers, like tables. The presence of
+ * @ATSPI_STATE_MANAGES_DESCENDANTS is an indication to the client that the
+ * children should not, and need not, be enumerated by the client.
+ * Objects implementing this state are expected to provide relevant state      
+ * notifications to listening clients, for instance notifications of 
+ * visibility changes and activation of their contained child objects, without 
+ * the client having previously requested references to those children.
  * @ATSPI_STATE_INDETERMINATE: Indicates that a check box or other boolean
- * indicator is in a state other than        checked or not checked.  This
- * usually means that the boolean value reflected or        controlled by the
+ * indicator is in a state other than checked or not checked.  This
+ * usually means that the boolean value reflected or controlled by the
  * object does not apply consistently to the entire current context.      
  * For example, a checkbox for the "Bold" attribute of text may have
- * STATE_INDETERMINATE       if the currently selected text contains a mixture
- * of weight attributes.         In many cases interacting with a
- * STATE_INDETERMINATE object will cause        the context's corresponding
- * boolean attribute to be homogenized, whereupon the object       will lose
- * STATE_INDETERMINATE and a corresponding state-changed event will be fired.
+ * @ATSPI_STATE_INDETERMINATE if the currently selected text contains a mixture
+ * of weight attributes. In many cases interacting with a
+ * @ATSPI_STATE_INDETERMINATE object will cause the context's corresponding
+ * boolean attribute to be homogenized, whereupon the object will lose
+ * @ATSPI_STATE_INDETERMINATE and a corresponding state-changed event will be
+ * fired.
  * @ATSPI_STATE_REQUIRED: Indicates that user interaction with this object is
- * 'required' from the user,        for instance before completing the
+ * 'required' from the user, for instance before completing the
  * processing of a form.
  * @ATSPI_STATE_TRUNCATED: 	  Indicates that an object's onscreen content
  * is truncated, e.g. a text value in a spreadsheet cell.
  * @ATSPI_STATE_ANIMATED: Indicates this object's visual representation is
- * dynamic, not static.       This state may be applied to an object during an
- * animated 'effect' and        be removed from the object once its visual
- * representation becomes static.     some applications, notably content viewers,
- * may not be able to detect       all kinds of animated content.  Therefore the
- * absence of this state should not       be taken as
+ * dynamic, not static. This state may be applied to an object during an
+ * animated 'effect' and be removed from the object once its visual
+ * representation becomes static. Some applications, notably content viewers,
+ * may not be able to detect all kinds of animated content.  Therefore the
+ * absence of this state should not be taken as
  * definitive evidence that the object's visual representation is      
  * static; this state is advisory.
  * @ATSPI_STATE_INVALID_ENTRY: This object has indicated an error condition
- * due
- * to failure of input       validation.  For instance, a form control may
- * acquire this state in response       to invalid or malformed user input.
+ * due to failure of input validation.  For instance, a form control may
+ * acquire this state in response to invalid or malformed user input.
  * @ATSPI_STATE_SUPPORTS_AUTOCOMPLETION: This state indicates that the object
  * in question implements some form of typeahead or       
  * pre-selection behavior whereby entering the first character of one or more
- * sub-elements       causes those elements to scroll into view or become
- * selected.  Subsequent character input       may narrow the selection further as
- * long as one or more sub-elements match the string.       This state is normally
- * only useful and encountered on objects that implement Selection.       In some
- * cases the typeahead behavior may result in full or partial
- * completion of        the data in the input field, in which case
- * these input events may trigger text-changed       events from the source.
+ * sub-elements causes those elements to scroll into view or become
+ * selected. Subsequent character input may narrow the selection further as
+ * long as one or more sub-elements match the string. This state is normally
+ * only useful and encountered on objects that implement #AtspiSelection.
+ * In some cases the typeahead behavior may result in full or partial
+ * completion of the data in the input field, in which case
+ * these input events may trigger text-changed events from the source.
  * @ATSPI_STATE_SELECTABLE_TEXT: This state indicates that the object in
- * question supports text selection.        It should only be exposed on objects
- * which implement the Text interface,        in order to distinguish this state
- * from STATE_SELECTABLE, which infers that       the object in question is a
- * selectable child of an object which implements       Selection.  While similar,
- * text selection and subelement selection are       distinct operations.
+ * question supports text selection. It should only be exposed on objects
+ * which implement the #AtspiText interface, in order to distinguish this state
+ * from @ATSPI_STATE_SELECTABLE, which infers that the object in question is a
+ * selectable child of an object which implements #AtspiSelection. While 
+ * similar, text selection and subelement selection are distinct operations.
  * @ATSPI_STATE_IS_DEFAULT: This state indicates that the object in question is
- * the 'default' interaction object        in a dialog, i.e. the one that gets
- * activated if the user presses "Enter" when the       dialog is initially
+ * the 'default' interaction object in a dialog, i.e. the one that gets
+ * activated if the user presses "Enter" when the dialog is initially
  * posted.
  * @ATSPI_STATE_VISITED: This state indicates that the object (typically a
- * hyperlink)       has already been activated or invoked, with the result that
- * some backing data       has been downloaded or rendered.
+ * hyperlink) has already been activated or invoked, with the result that
+ * some backing data has been downloaded or rendered.
  * @ATSPI_STATE_LAST_DEFINED: This value of the enumeration should not be used
- * as a parameter, it indicates the number of       items in the StateType
+ * as a parameter, it indicates the number of items in the #AtspiStateType
  * enumeration.
  *
  * 
@@ -617,20 +626,20 @@ typedef enum {
  * @ATSPI_KEY_PRESSRELEASE: a hardware keyboard key is pressed and immediately
  * released.
  * @ATSPI_KEY_SYM: a symbolic key event is generated, without specifying a
- * hardware key.        @note if the keysym is not present in the current keyboard
- * map,       the DeviceEventController instance has a limited ability to generate
- *       such keysyms on-the-fly.  Reliability of GenerateKeyboardEvent calls     
- *  using out-of-keymap keysyms will vary from system to system, and on the      
- * number of different out-of-keymap being generated in quick succession.       In
- * practice this is rarely significant, since the keysyms of interest to       AT
- * clients and keyboard emulators are usually part of the current keymap, i.e.    
- *   present on the system keyboard for the current locale (even if a physical    
- *   hardware keyboard is not connected.
+ * hardware key. @note if the keysym is not present in the current keyboard
+ * map, the #AtspiDeviceEventController instance has a limited ability to 
+ * generate such keysyms on-the-fly. Reliability of GenerateKeyboardEvent 
+ * calls using out-of-keymap keysyms will vary from system to system, and on 
+ * the number of different out-of-keymap being generated in quick succession. 
+ * In practice this is rarely significant, since the keysyms of interest to 
+ * AT clients and keyboard emulators are usually part of the current keymap, 
+ * i.e. present on the system keyboard for the current locale (even if a 
+ * physical hardware keyboard is not connected.
  * @ATSPI_KEY_STRING: a string is converted to its equivalent keyboard events
- * and emitted.        If the string consists of complex character or composed
- * characters       which are not in the current keymap, string emission is
- * subject to the       out-of-keymap limitations described for
- * KeySynthType::KEY_SYM.       In practice this limitation primarily effects
+ * and emitted. If the string consists of complex character or composed
+ * characters which are not in the current keymap, string emission is
+ * subject to the out-of-keymap limitations described for
+ * @ATSPI_KEY_SYM. In practice this limitation primarily effects
  * Chinese and Japanese locales.
  *
  * Enumeration used when synthesizing keyboard input via
@@ -660,15 +669,15 @@ typedef enum {
  * @ATSPI_MODIFIER_CONTROL: 'Control'/'Ctrl'
  * @ATSPI_MODIFIER_ALT: The Alt key (as opposed to AltGr)
  * @ATSPI_MODIFIER_META: depending on the platform this may map to 'Window',
- * 'Function', 'Meta',       'Menu', or 'NumLock'.         Such 'Meta keys' will
- * map to one of META, META2, META3.       On X Windows platforms these META
- * values map to        the modifier masks Mod1Mask, Mod2Mask, Mod3Mask, e.g. an
- * event having       ModifierType::MODIFIER_META2 means that the 'Mod2Mask' bit
- * is       set in the corresponding XEvent.
- * @ATSPI_MODIFIER_META2:
- * @ATSPI_MODIFIER_META3:
+ * 'Function', 'Meta', 'Menu', or 'NumLock'. Such 'Meta keys' will
+ * map to one of META, META2, META3. On X Windows platforms these META
+ * values map to the modifier masks Mod1Mask, Mod2Mask, Mod3Mask, e.g. an
+ * event having @ATSPI_MODIFIER_META2 means that the 'Mod2Mask' bit
+ * is set in the corresponding XEvent.
+ * @ATSPI_MODIFIER_META2: See @ATSPI_MODIFIER_META
+ * @ATSPI_MODIFIER_META3: See @ATSPI_MODIFIER_META
  * @ATSPI_MODIFIER_NUMLOCK: A symbolic meta key name that is mapped by AT-SPI
- * to the        appropriate META value, for the convenience of the client.
+ * to the appropriate META value, for the convenience of the client.
  *
  *
  *
@@ -695,16 +704,17 @@ typedef enum {
 /**
  * AtspiRelationType:
  * @ATSPI_RELATION_NULL: Not a meaningful relationship; clients should not
- * normally encounter this RelationType value.
+ * normally encounter this #AtspiRelationType value.
  * @ATSPI_RELATION_LABEL_FOR: Object is a label for one or more other objects.
  * @ATSPI_RELATION_LABELLED_BY: Object is labelled by one or more other
  * objects.
  * @ATSPI_RELATION_CONTROLLER_FOR: Object is an interactive object which
- * modifies the state, onscreen location, or other attributes       of one or more
+ * modifies the state, onscreen location, or other attributes of one or more
  * target objects.
  * @ATSPI_RELATION_CONTROLLED_BY: Object state, position, etc. is
- * modified/controlled by user interaction with one or        more other objects. 
- *  For instance a viewport or scroll pane may be CONTROLLED_BY scrollbars.
+ * modified/controlled by user interaction with one or more other objects. 
+ * For instance a viewport or scroll pane may be @ATSPI_RELATION_CONTROLLED_BY
+ * scrollbars.
  * @ATSPI_RELATION_MEMBER_OF: Object has a grouping relationship (e.g. 'same
  * group as') to one or more other objects.
  * @ATSPI_RELATION_TOOLTIP_FOR: Object is a tooltip associated with another
@@ -712,37 +722,37 @@ typedef enum {
  * @ATSPI_RELATION_NODE_CHILD_OF: Object is a child of the target.
  * @ATSPI_RELATION_NODE_PARENT_OF: Object is a parent of the target.
  * @ATSPI_RELATION_EXTENDED: Used to indicate that a relationship exists, but
- * its type is not specified in the enumeration       and must be obtained via a
- * call to getRelationTypeName.
+ * its type is not specified in the enumeration.
  * @ATSPI_RELATION_FLOWS_TO: Object renders content which flows logically to
- * another object.         For instance, text in a paragraph may flow to another
- * object which is not the        'next sibling' in the accessibility hierarchy.
- * @ATSPI_RELATION_FLOWS_FROM: Reciprocal of RELATION_FLOWS_TO.
+ * another object. For instance, text in a paragraph may flow to another
+ * object which is not the 'next sibling' in the accessibility hierarchy.
+ * @ATSPI_RELATION_FLOWS_FROM: Reciprocal of @ATSPI_RELATION_FLOWS_TO.
  * @ATSPI_RELATION_SUBWINDOW_OF: Object is visually and semantically considered
- * a subwindow of another object, even though       it is not the object's child. 
- * Useful when dealing with embedded applications and other cases       where the
+ * a subwindow of another object, even though it is not the object's child. 
+ * Useful when dealing with embedded applications and other cases where the
  * widget hierarchy does not map cleanly to the onscreen presentation.
- * @ATSPI_RELATION_EMBEDS: Similar to SUBWINDOW_OF, but specifically used for
- * cross-process embedding.
- * @ATSPI_RELATION_EMBEDDED_BY: Reciprocal of RELATION_EMBEDS; Used to denote
- * content rendered by embedded renderers that       live in a separate process
+ * @ATSPI_RELATION_EMBEDS: Similar to @ATSPI_RELATION_SUBWINDOW_OF, but 
+ * specifically used for cross-process embedding.
+ * @ATSPI_RELATION_EMBEDDED_BY: Reciprocal of @ATSPI_RELATION_EMBEDS. Used to
+ * denote content rendered by embedded renderers that live in a separate process
  * space from the embedding context.
  * @ATSPI_RELATION_POPUP_FOR: Denotes that the object is a transient window or
- * frame associated with another onscreen object.       Similar to TOOLTIP_FOR,
- * but more general.  Useful for windows which are technically        toplevels
- * but which, for one or more reasons, do not explicitly cause their associated   
- *    window to lose 'window focus'. Creation of a ROLE_WINDOW object with the
- * POPUP_FOR relation       usually requires some presentation action on the part
- * of assistive technology clients, even though       the previous toplevel
- * ROLE_FRAME object may still be the active window.
+ * frame associated with another onscreen object. Similar to @ATSPI_TOOLTIP_FOR,
+ * but more general. Useful for windows which are technically toplevels
+ * but which, for one or more reasons, do not explicitly cause their 
+ * associated window to lose 'window focus'. Creation of an @ATSPI_ROLE_WINDOW
+ * object with the @ATSPI_RELATION_POPUP_FOR relation usually requires 
+ * some presentation action on the part
+ * of assistive technology clients, even though the previous toplevel
+ * @ATSPI_ROLE_FRAME object may still be the active window.
  * @ATSPI_RELATION_PARENT_WINDOW_OF: This is the reciprocal relation to
- * RELATION_POPUP_FOR.
+ * @ATSPI_RELATION_POPUP_FOR.
  * @ATSPI_RELATION_DESCRIPTION_FOR: Indicates that an object provides
- * descriptive information        about another object; more verbose than
- * RELATION_LABEL_FOR.
+ * descriptive information about another object; more verbose than
+ * @ATSPI_RELATION_LABEL_FOR.
  * @ATSPI_RELATION_DESCRIBED_BY: Indicates that another object provides
- * descriptive information        about this object; more verbose than
- * RELATION_LABELLED_BY.
+ * descriptive information about this object; more verbose than
+ * @ATSPI_RELATION_LABELLED_BY.
  * @ATSPI_RELATION_LAST_DEFINED: Do not use as a parameter value, used to
  * determine the size of the enumeration.
  *
@@ -799,7 +809,7 @@ typedef enum {
 
 /**
  * AtspiRole:
- * @ATSPI_ROLE_INVALID: A Role indicating an error condition, such as
+ * @ATSPI_ROLE_INVALID: A role indicating an error condition, such as
  * uninitialized Role data.
  * @ATSPI_ROLE_ACCELERATOR_LABEL: Object is a label indicating the keyboard
  * accelerators for the parent
@@ -814,7 +824,7 @@ typedef enum {
  * @ATSPI_ROLE_CHECK_BOX: A choice that can be checked or unchecked and
  * provides a separate       indicator for the current state.
  * @ATSPI_ROLE_CHECK_MENU_ITEM: A menu item that behaves like a check box (see
- * ROLE_CHECK_BOX)
+ * @ATSPI_ROLE_CHECK_BOX)
  * @ATSPI_ROLE_COLOR_CHOOSER: A specialized dialog that lets the user choose a
  * color.
  * @ATSPI_ROLE_COLUMN_HEADER: The header for a column of data
@@ -822,15 +832,15 @@ typedef enum {
  * @ATSPI_ROLE_DATE_EDITOR: An object which allows entry of a date
  * @ATSPI_ROLE_DESKTOP_ICON: An inconifed internal frame within a DESKTOP_PANE
  * @ATSPI_ROLE_DESKTOP_FRAME: A pane that supports internal frames and
- * iconified versions of those       internal frames.
+ * iconified versions of those internal frames.
  * @ATSPI_ROLE_DIAL: An object that allows a value to be changed via rotating a
- * visual element,       or which displays a value via such a rotating element.
+ * visual element, or which displays a value via such a rotating element.
  * @ATSPI_ROLE_DIALOG: A top level window with title bar and a border
  * @ATSPI_ROLE_DIRECTORY_PANE: A pane that allows the user to navigate through
- * and select the contents       of a directory
+ * and select the contents of a directory
  * @ATSPI_ROLE_DRAWING_AREA: A specialized dialog that displays the files in
- * the directory and lets       the user select a file, browse a different
- * directory, or specify a       filename.
+ * the directory and lets the user select a file, browse a different
+ * directory, or specify a filename.
  * @ATSPI_ROLE_FILE_CHOOSER: An object used for drawing custom user interface
  * elements.
  * @ATSPI_ROLE_FILLER: A object that fills up space in a user interface
@@ -841,7 +851,7 @@ typedef enum {
  * @ATSPI_ROLE_GLASS_PANE: A pane that is guaranteed to be painted on top of
  * all panes beneath it
  * @ATSPI_ROLE_HTML_CONTAINER: A document container for HTML, whose children   
- *    represent the document content.
+ * represent the document content.
  * @ATSPI_ROLE_ICON: A small fixed size picture, typically used to decorate
  * components
  * @ATSPI_ROLE_IMAGE: An image, typically static.
@@ -850,56 +860,55 @@ typedef enum {
  * @ATSPI_ROLE_LABEL: An object used to present an icon or short string in an
  * interface
  * @ATSPI_ROLE_LAYERED_PANE: A specialized pane that allows its children to be
- * drawn in layers,       providing a form of stacking order.
+ * drawn in layers, providing a form of stacking order.
  * @ATSPI_ROLE_LIST: An object that presents a list of objects to the user and
- * allows the       user to select one or more of them.
+ * allows the user to select one or more of them.
  * @ATSPI_ROLE_LIST_ITEM: An object that represents an element of a list.
  * @ATSPI_ROLE_MENU: An object usually found inside a menu bar that contains a
- * list of       actions the user can choose from.
+ * list of actions the user can choose from.
  * @ATSPI_ROLE_MENU_BAR: An object usually drawn at the top of the primary
- * dialog box of an       application that contains a list of menus the user can
+ * dialog box of an application that contains a list of menus the user can
  * choose from.
  * @ATSPI_ROLE_MENU_ITEM: An object usually contained in a menu that presents
- * an action the       user can choose.
+ * an action the user can choose.
  * @ATSPI_ROLE_OPTION_PANE: A specialized pane whose primary use is inside a
- * DIALOG
+ * dialog
  * @ATSPI_ROLE_PAGE_TAB: An object that is a child of a page tab list
  * @ATSPI_ROLE_PAGE_TAB_LIST: An object that presents a series of panels (or
- * page tabs), one at a time,       through some mechanism provided by the
+ * page tabs), one at a time,through some mechanism provided by the
  * object.
  * @ATSPI_ROLE_PANEL: A generic container that is often used to group objects.
  * @ATSPI_ROLE_PASSWORD_TEXT: A text object uses for passwords, or other places
- * where the text       content is not shown visibly to the user.
+ * where the text content is not shown visibly to the user.
  * @ATSPI_ROLE_POPUP_MENU: A temporary window that is usually used to offer the
- * user a list of       choices, and then hides when the user selects one of those
+ * user a list of choices, and then hides when the user selects one of those
  * choices.
  * @ATSPI_ROLE_PROGRESS_BAR: An object used to indicate how much of a task has
  * been completed.
  * @ATSPI_ROLE_PUSH_BUTTON: An object the user can manipulate to tell the
- * application to do       something.
+ * application to do something.
  * @ATSPI_ROLE_RADIO_BUTTON: A specialized check box that will cause other
- * radio buttons in the       same group to become uncghecked when this one is
+ * radio buttons in the same group to become unchecked when this one is
  * checked.
  * @ATSPI_ROLE_RADIO_MENU_ITEM: Object is both a menu item and a "radio button"
  * (see @ATSPI_ROLE_RADIO_BUTTON)
  * @ATSPI_ROLE_ROOT_PANE: A specialized pane that has a glass pane and a
- * layered pane as its       children.
+ * layered pane as its children.
  * @ATSPI_ROLE_ROW_HEADER: The header for a row of data
  * @ATSPI_ROLE_SCROLL_BAR: An object usually used to allow a user to
- * incrementally view a large       amount of data by moving the bounds of a
+ * incrementally view a large amount of data by moving the bounds of a
  * viewport along a one-dimensional axis.
  * @ATSPI_ROLE_SCROLL_PANE: An object that allows a user to incrementally view
  * a large amount of information. @ATSPI_ROLE_SCROLL_PANE objects are usually
  * accompanied by @ATSPI_ROLE_SCROLL_BAR controllers, on which the
  * @ATSPI_RELATION_CONTROLLER_FOR and @ATSPI_RELATION_CONTROLLED_BY 
- * reciprocal relations
- * are set; see  #atspi_get_relation_set.
+ * reciprocal relations are set. See  #atspi_get_relation_set.
  * @ATSPI_ROLE_SEPARATOR: An object usually contained in a menu to provide a
- * visible and       logical separation of the contents in a menu.
+ * visible and logical separation of the contents in a menu.
  * @ATSPI_ROLE_SLIDER: An object that allows the user to select from a bounded
  * range
  * @ATSPI_ROLE_SPIN_BUTTON: An object which allows one of a set of choices to
- * be selected,        and which displays the current choice.  Unlike
+ * be selected, and which displays the current choice.  Unlike
  * @ATSPI_ROLE_SCROLL_BAR, @ATSPI_ROLE_SLIDER objects need not control 
  * 'viewport'-like objects.
  * @ATSPI_ROLE_SPLIT_PANE: A specialized panel that presents two other panels
@@ -912,11 +921,11 @@ typedef enum {
  * Table cells need not have @ATSPI_ROLE_TABLE_CELL, other 
  * #AtspiRoleType values are valid as well.
  * @ATSPI_ROLE_TABLE_COLUMN_HEADER: An object which labels a particular column
- * in a Table.
+ * in an #AtspiTable.
  * @ATSPI_ROLE_TABLE_ROW_HEADER: An object which labels a particular row in a
- * Table. Table rows and columns may also be        labelled via the
- * @ATSPI_RELATION_LABEL_FOR/@ATSPI_RELATION_LABELLED_BY relationships;
- * see #atspi_get_relation_set.
+ * #AtspiTable. #AtspiTable rows and columns may also be labelled via the
+ * @ATSPI_RELATION_LABEL_FOR/@ATSPI_RELATION_LABELLED_BY relationships.
+ * See #atspi_get_relation_set.
  * @ATSPI_ROLE_TEAROFF_MENU_ITEM: Object allows menu to be removed from menubar
  * and shown in its own window.
  * @ATSPI_ROLE_TERMINAL: An object that emulates a terminal.
@@ -933,58 +942,56 @@ typedef enum {
  * user.
  * @ATSPI_ROLE_TREE_TABLE: An object that presents both tabular and
  * hierarchical info to the user
- * @ATSPI_ROLE_UNKNOWN: The object contains some Accessible information, but
- * its role is       not known.
+ * @ATSPI_ROLE_UNKNOWN: The object contains some #AtspiAccessible information, 
+ * but its role is not known.
  * @ATSPI_ROLE_VIEWPORT: An object usually used in a scroll pane, or to
- * otherwise clip a larger object or        content renderer to a specific
+ * otherwise clip a larger object or content renderer to a specific
  * onscreen viewport.
  * @ATSPI_ROLE_WINDOW: A top level window with no title or border.
  * @ATSPI_ROLE_EXTENDED: means that the role for this item is known, but not
- * included in the        core enumeration
+ * included in the core enumeration
  * @ATSPI_ROLE_HEADER: An object that serves as a document header.
  * @ATSPI_ROLE_FOOTER: An object that serves as a document footer.
  * @ATSPI_ROLE_PARAGRAPH: An object which is contains a single paragraph of
  * text content. See also @ATSPI_ROLE_TEXT.
  * @ATSPI_ROLE_RULER: An object which describes margins and tab stops, etc.    
- *    for text objects which it controls        (should have CONTROLLER_FOR
- * relation to such).
+ *    for text objects which it controls (should have 
+ * @ATSPI_RELATION_CONTROLLER_FOR relation to such).
  * @ATSPI_ROLE_APPLICATION: An object corresponding to the toplevel accessible
- * of an        application, which may contain ROLE_FRAME objects or other      
- * accessible objects.  Children of #AccessibleDesktop objects  are generally
+ * of an application, which may contain @ATSPI_ROLE_FRAME objects or other      
+ * accessible objects. Children of #AccessibleDesktop objects  are generally
  * @ATSPI_ROLE_APPLICATION objects.
  * @ATSPI_ROLE_AUTOCOMPLETE: The object is a dialog or list containing items
- * for insertion        into an entry widget, for instance a list of words for
- * completion        of a text entry.
+ * for insertion into an entry widget, for instance a list of words for
+ * completion of a text entry.
  * @ATSPI_ROLE_EDITBAR: The object is an editable text object in a toolbar.
  * @ATSPI_ROLE_EMBEDDED: The object is an embedded component container.  This
- * role is a        "grouping" hint that the contained objects share a context
- * which is        different from the container in which this accessible is
- * embedded.       In particular, it is used for some kinds of document embedding,
- * and       for embedding of out-of-process component, "panel applets", etc.
+ * role is a "grouping" hint that the contained objects share a context
+ * which is different from the container in which this accessible is
+ * embedded. In particular, it is used for some kinds of document embedding,
+ * and for embedding of out-of-process component, "panel applets", etc.
  * @ATSPI_ROLE_ENTRY: The object is a component whose textual content may be
  * entered or modified by the user, provided @ATSPI_STATE_EDITABLE is present.
  * A readonly @ATSPI_ROLE_ENTRY object (i.e. where @ATSPI_STATE_EDITABLE is 
- * not present) implies
- * a read-only 'text field' in a form, as opposed to a title, label, or
- * caption.
+ * not present) implies a read-only 'text field' in a form, as opposed to a 
+ * title, label, or caption.
  * @ATSPI_ROLE_CHART: The object is a graphical depiction of quantitative data.
- *  It may contain multiple subelements whose attributes and/or description
+ * It may contain multiple subelements whose attributes and/or description
  * may be queried to obtain both the  quantitative data and information about
  * how the data is being presented. The @ATSPI_LABELLED_BY relation is 
- * particularly
- * important in interpreting objects of this type, as is the
+ * particularly important in interpreting objects of this type, as is the
  * accessible-description property. See @ATSPI_ROLE_CAPTION.
  * @ATSPI_ROLE_CAPTION: The object contains descriptive information, usually
  * textual, about another user interface element such as a table, chart, or
  * image.
  * @ATSPI_ROLE_DOCUMENT_FRAME: The object is a visual frame or container which
- * contains a view of document content. Document frames may occur within
- * another Document instance, in which case the second  document may be said
- * to be embedded in the containing instance.  HTML frames are often
- * @ATSPI_ROLE_DOCUMENT_FRAME.  Either this object, or a singleton descendant, 
+ * contains a view of document content. #AtspiDocument frames may occur within
+ * another #AtspiDocument instance, in which case the second  document may be
+ * said to be embedded in the containing instance.  HTML frames are often
+ * @ATSPI_ROLE_DOCUMENT_FRAME:  Either this object, or a singleton descendant, 
  * should implement the #AtspiDocument interface.
  * @ATSPI_ROLE_HEADING: The object serves as a heading for content which
- * follows it in a document.       The 'heading level' of the heading, if
+ * follows it in a document. The 'heading level' of the heading, if
  * availabe,  may be obtained by       querying the object's attributes.
  * @ATSPI_ROLE_PAGE: The object is a containing instance which encapsulates a
  * page of information. @ATSPI_ROLE_PAGE is used in documents and content which
@@ -1010,12 +1017,12 @@ typedef enum {
  * application or viewer instance.
  * @ATSPI_ROLE_LINK: The object is a hypertext anchor, i.e. a "link" in a      
  * hypertext document.  Such objects are distinct from 'inline'       content
- * which may also use the Hypertext/Hyperlink interfaces       to indicate the
- * range/location within a text object where       an inline or embedded object
+ * which may also use the #AtspiHypertext/#AtspiHyperlink interfacesto indicate
+ * the range/location within a text object where an inline or embedded object
  * lies.
  * @ATSPI_ROLE_INPUT_METHOD_WINDOW: The object is a window or similar viewport
- * which is used       to allow composition or input of a 'complex character',    
- *   in other words it is an "input method window."
+ * which is used to allow composition or input of a 'complex character',    
+ * in other words it is an "input method window."
  * @ATSPI_ROLE_TABLE_ROW: A row in a table.
  * @ATSPI_ROLE_TREE_ITEM: An object that represents an element of a tree.
  * @ATSPI_ROLE_DOCUMENT_SPREADSHEET: A document frame which contains a
