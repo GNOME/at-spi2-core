@@ -116,6 +116,13 @@ atk_no_op_object_get_type (void)
         NULL
     };
 
+    static const GInterfaceInfo atk_window_info =
+    {
+        (GInterfaceInitFunc) NULL,
+        (GInterfaceFinalizeFunc) NULL,
+        NULL
+    };
+
     type = g_type_register_static (ATK_TYPE_OBJECT,
                                     "AtkNoOpObject", &tinfo, 0);
     g_type_add_interface_static (type, ATK_TYPE_COMPONENT,
@@ -138,6 +145,8 @@ atk_no_op_object_get_type (void)
                                  &atk_value_info);
     g_type_add_interface_static (type, ATK_TYPE_DOCUMENT,
                                  &atk_document_info);
+    g_type_add_interface_static (type, ATK_TYPE_WINDOW,
+                                 &atk_window_info);
   }
   return type;
 }
