@@ -340,7 +340,7 @@ atspi_table_get_column_extent_at (AtspiTable *obj,
  * Gets the header associated with a table row, if available. This differs from
  * #atspi_table_get_row_description, which returns a string.
  *
- * Returns: (transfer full): an #AtspiAccessible representatin of the specified
+ * Returns: (transfer full): an #AtspiAccessible representation of the specified
  *          table row, if available.
  **/
 AtspiAccessible *
