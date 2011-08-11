@@ -116,7 +116,7 @@ atspi_selection_select_child (AtspiSelection *obj,
  * @selected_child_index: a #gint indicating which of the selected children
  *              of the #Accessible is to be selected.
  *
- * Removes a child to the selected children list of an #AtspiSelection.
+ * Removes a child from the selected children list of an #AtspiSelection.
  *          Note that @child_index is the index in the selected-children list,
  *          not the index in the parent container.  @selectedChildIndex in this
  *          method, and @child_index in #atspi_selection_select_child
