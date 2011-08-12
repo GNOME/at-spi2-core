@@ -392,7 +392,7 @@ typedef enum {
  * focus
  * @ATSPI_STATE_HAS_TOOLTIP: Indicates that the object has an associated
  * tooltip
- * @ATSPI_STATE_HORIZONTAL: Indicates the orientation of thsi object is
+ * @ATSPI_STATE_HORIZONTAL: Indicates the orientation of this object is
  * horizontal
  * @ATSPI_STATE_ICONIFIED: Indicates this object is minimized and is
  * represented only by an icon
