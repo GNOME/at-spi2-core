@@ -628,7 +628,7 @@ typedef enum {
  * @ATSPI_KEY_PRESSRELEASE: Emulates the pressing and immediate releasing
  * ofa hardware keyboard key.
  * @ATSPI_KEY_SYM: A symbolic key event is generated, without specifying a
- * hardware key. @note if the keysym is not present in the current keyboard
+ * hardware key. Note: if the keysym is not present in the current keyboard
  * map, the #AtspiDeviceEventController instance has a limited ability to 
  * generate such keysyms on-the-fly. Reliability of GenerateKeyboardEvent 
  * calls using out-of-keymap keysyms will vary from system to system, and on 
@@ -919,7 +919,7 @@ typedef enum {
  * (c.f. @ATSPI_ROLE_PROGRESS_BAR)
  * @ATSPI_ROLE_TABLE: An object used to repesent information in terms of rows
  * and columns.
- * @ATSPI_ROLE_TABLE_CELL: A 'cell' or discrete child within a Table. NOTE:
+ * @ATSPI_ROLE_TABLE_CELL: A 'cell' or discrete child within a Table. Note:
  * Table cells need not have @ATSPI_ROLE_TABLE_CELL, other 
  * #AtspiRoleType values are valid as well.
  * @ATSPI_ROLE_TABLE_COLUMN_HEADER: An object which labels a particular column
