@@ -765,7 +765,7 @@ typedef enum {
  * are associated with one another.       For instance the 
  * @ATSPI_RELATION_LABELLED_BY
  * relationship may be used to identify labelling information       that should
- * accompany the accessibleName property when presenting an object's content or
+ * accompany the accessible name property when presenting an object's content or
  * identity       to the end user.  Similarly, 
  * @ATSPI_RELATION_CONTROLLER_FOR can be used
  * to further specify the context in which a valuator is useful, and/or the
@@ -982,7 +982,7 @@ typedef enum {
  * may be queried to obtain both the  quantitative data and information about
  * how the data is being presented. The @ATSPI_LABELLED_BY relation is 
  * particularly important in interpreting objects of this type, as is the
- * accessible-description property. See @ATSPI_ROLE_CAPTION.
+ * accessible description property. See @ATSPI_ROLE_CAPTION.
  * @ATSPI_ROLE_CAPTION: The object contains descriptive information, usually
  * textual, about another user interface element such as a table, chart, or
  * image.
