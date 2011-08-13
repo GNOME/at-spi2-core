@@ -158,7 +158,8 @@ typedef enum {
 
 /**
  * AtspiCollectionMatchType:
- * @ATSPI_Collection_MATCH_INVALID: 
+ * @ATSPI_Collection_MATCH_INVALID: Indicates an error condition or 
+ * uninitialized value.
  * @ATSPI_Collection_MATCH_ALL: #TRUE if all of the criteria are met.
  * @ATSPI_Collection_MATCH_ANY: #TRUE if any of the criteria are met.
  * @ATSPI_Collection_MATCH_NONE: #TRUE if none of the criteria are met.
