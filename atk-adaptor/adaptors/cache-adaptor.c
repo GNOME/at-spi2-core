@@ -318,15 +318,11 @@ spi_initialize_cache (DRoutePath * path)
 {
   droute_path_add_interface (path, ATSPI_DBUS_INTERFACE_CACHE, spi_org_a11y_atspi_Cache, methods, NULL);
 
-  g_signal_connect (spi_global_cache,
-                    "object-added",
-                    (GCallback) emit_cache_add,
-                    NULL);
+  g_signal_connect (spi_global_cache, "object-added",
+                    (GCallback) emit_cache_add, NULL);
 
-  g_signal_connect (spi_global_cache,
-                    "object-removed",
-                    (GCallback) emit_cache_remove,
-                    NULL);
+  g_signal_connect (spi_global_cache, "object-removed",
+                    (GCallback) emit_cache_remove, NULL);
 };
 
 /*END------------------------------------------------------------------------*/

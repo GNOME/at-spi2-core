@@ -72,7 +72,9 @@ spi_leasing_finalize (GObject * object)
 {
   SpiLeasing *leasing = SPI_LEASING (object);
 
-  g_free (leasing->expiry_queue);
+  if (leasing->expiry_func_id)
+    g_source_remove (leasing->expiry_func_id);
+  g_queue_free (leasing->expiry_queue);
   G_OBJECT_CLASS (spi_leasing_parent_class)->finalize (object);
 }
 

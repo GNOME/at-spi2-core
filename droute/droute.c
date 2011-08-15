@@ -686,9 +686,29 @@ droute_path_register (DRoutePath *path, DBusConnection *bus)
 }
 
 void
+droute_path_unregister (DRoutePath *path, DBusConnection *bus)
+{
+  dbus_connection_unregister_object_path (bus, path->path);
+}
+
+void
 droute_context_register (DRouteContext *cnx, DBusConnection *bus)
 {
     g_ptr_array_foreach (cnx->registered_paths, (GFunc) droute_path_register,
+                         bus);
+}
+
+void
+droute_context_unregister (DRouteContext *cnx, DBusConnection *bus)
+{
+    g_ptr_array_foreach (cnx->registered_paths, (GFunc) droute_path_unregister,
+                         bus);
+}
+
+void
+droute_context_deregister (DRouteContext *cnx, DBusConnection *bus)
+{
+    g_ptr_array_foreach (cnx->registered_paths, (GFunc) droute_path_unregister,
                          bus);
 }
 
@@ -698,4 +718,11 @@ droute_intercept_dbus (DBusConnection *bus)
     dbus_connection_register_object_path (bus, DBUS_PATH_DBUS,
                                           &droute_vtable, NULL);
 }
+
+void
+droute_unintercept_dbus (DBusConnection *bus)
+{
+    dbus_connection_unregister_object_path (bus, DBUS_PATH_DBUS);
+}
+
 /*END------------------------------------------------------------------------*/

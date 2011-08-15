@@ -613,7 +613,8 @@ state_event_listener (GSignalInvocationHint * signal_hint,
               DBUS_TYPE_INT32_AS_STRING, 0, append_basic);
 
   if (!g_strcmp0 (pname, "defunct"))
-    spi_register_deregister_object (spi_global_register, G_OBJECT (accessible));
+    spi_register_deregister_object (spi_global_register, G_OBJECT (accessible),
+                                    TRUE);
   return TRUE;
 }
 
@@ -1194,11 +1195,14 @@ spi_atk_deregister_event_listeners (void)
     atk_bridge_focus_tracker_id = 0;
   }
 
-  for (i = 0; ids && i < ids->len; i++)
+  if (ids)
     {
-      atk_remove_global_event_listener (g_array_index (ids, guint, i));
+      for (i = 0; i < ids->len; i++)
+        {
+          atk_remove_global_event_listener (g_array_index (ids, guint, i));
+        }
+      g_array_free (ids, TRUE);
     }
-  g_array_free (ids, TRUE);
 
   if (atk_bridge_key_event_listener_id)
   {

@@ -125,8 +125,8 @@ spi_cache_init (SpiCache * cache)
 
   add_subtree (cache, spi_global_app_data->root);
 
-  atk_add_global_event_listener (child_added_listener,
-                                 "Gtk:AtkObject:children-changed");
+  cache->child_added_listener = atk_add_global_event_listener (child_added_listener,
+                                                               "Gtk:AtkObject:children-changed"); 
 
   g_signal_connect (G_OBJECT (spi_global_app_data->root),
                     "children-changed::add",
@@ -141,7 +141,15 @@ spi_cache_finalize (GObject * object)
   while (!g_queue_is_empty (cache->add_traversal))
     g_object_unref (G_OBJECT (g_queue_pop_head (cache->add_traversal)));
   g_queue_free (cache->add_traversal);
-  g_free (cache->objects);
+  g_hash_table_unref (cache->objects);
+
+  g_signal_handlers_disconnect_by_func (spi_global_register,
+                                        (GCallback) remove_object, cache);
+
+  g_signal_handlers_disconnect_by_func (G_OBJECT (spi_global_app_data->root),
+                                        (GCallback) toplevel_added_listener, NULL);
+
+  atk_remove_global_event_listener (cache->child_added_listener);
 
   G_OBJECT_CLASS (spi_cache_parent_class)->finalize (object);
 }

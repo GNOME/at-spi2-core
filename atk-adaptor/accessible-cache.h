@@ -44,6 +44,8 @@ struct _SpiCache
   GHashTable * objects;
   GQueue *add_traversal;
   gint add_pending_idle;
+
+  guint child_added_listener;
 };
 
 struct _SpiCacheClass

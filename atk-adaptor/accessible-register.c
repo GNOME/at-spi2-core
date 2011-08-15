@@ -121,11 +121,26 @@ spi_register_init (SpiRegister * reg)
 }
 
 static void
+deregister_object (gpointer data, GObject * gobj)
+{
+  SpiRegister *reg = SPI_REGISTER (data);
+
+  spi_register_deregister_object (reg, gobj, FALSE);
+}
+
+static void
+spi_register_remove_weak_ref (gpointer key, gpointer val, gpointer reg)
+{
+  g_object_weak_unref (val, deregister_object, reg);
+}
+
+static void
 spi_register_finalize (GObject * object)
 {
   SpiRegister *reg = SPI_REGISTER (object);
 
-  g_free (reg->ref2ptr);
+  g_hash_table_foreach (reg->ref2ptr, spi_register_remove_weak_ref, reg);
+  g_hash_table_unref (reg->ref2ptr);
 
   G_OBJECT_CLASS (spi_register_parent_class)->finalize (object);
 }
@@ -186,16 +201,8 @@ ref_to_path (guint ref)
  * Removes the AtkObject from the reference lookup tables, meaning
  * it is no longer exposed over D-Bus.
  */
-static void
-deregister_object (gpointer data, GObject * gobj)
-{
-  SpiRegister *reg = SPI_REGISTER (data);
-
-  spi_register_deregister_object (reg, gobj);
-}
-
 void
-spi_register_deregister_object (SpiRegister *reg, GObject *gobj)
+spi_register_deregister_object (SpiRegister *reg, GObject *gobj, gboolean unref)
 {
   guint ref;
 
@@ -206,6 +213,8 @@ spi_register_deregister_object (SpiRegister *reg, GObject *gobj)
                      register_signals [OBJECT_DEREGISTERED],
                      0,
                      gobj);
+      if (unref)
+        g_object_weak_unref (gobj, deregister_object, reg);
       g_hash_table_remove (reg->ref2ptr, GINT_TO_POINTER (ref));
 
 #ifdef SPI_ATK_DEBUG

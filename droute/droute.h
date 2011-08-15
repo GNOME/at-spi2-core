@@ -97,8 +97,17 @@ void
 droute_path_register (DRoutePath *path, DBusConnection *bus);
 
 void
+droute_path_unregister (DRoutePath *path, DBusConnection *bus);
+
+void
 droute_context_register (DRouteContext *cnx, DBusConnection *bus);
 
 void
+droute_context_unregister (DRouteContext *cnx, DBusConnection *bus);
+
+void
 droute_intercept_dbus (DBusConnection *connection);
+
+void
+droute_unintercept_dbus (DBusConnection *connection);
 #endif /* _DROUTE_H */

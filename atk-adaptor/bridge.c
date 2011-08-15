@@ -54,6 +54,9 @@
 
 /*---------------------------------------------------------------------------*/
 
+static DBusHandlerResult
+signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data);
+
 SpiBridge *spi_global_app_data = NULL;
 
 /*static Display *bridge_display = NULL;*/
@@ -301,28 +304,6 @@ deregister_application (SpiBridge * app)
 
 /*---------------------------------------------------------------------------*/
 
-static void
-exit_func (void)
-{
-  if (!spi_global_app_data)
-    {
-      return;
-    }
-
-  spi_atk_tidy_windows ();
-  spi_atk_deregister_event_listeners ();
-  deregister_application (spi_global_app_data);
-
-  g_free (spi_global_app_data);
-  spi_global_app_data = NULL;
-
-  /* Not currently creating an XDisplay */
-#if 0
-  if (bridge_display)
-    XCloseDisplay (bridge_display);
-#endif
-}
-
 /*---------------------------------------------------------------------------*/
 
 static AtkPlugClass *plug_class;
@@ -498,9 +479,7 @@ new_connection_cb (DBusServer *server, DBusConnection *con, void *data)
   droute_intercept_dbus (con);
   droute_context_register (spi_global_app_data->droute, con);
 
-  new_list = g_list_append (spi_global_app_data->direct_connections, con);
-  if (new_list)
-    spi_global_app_data->direct_connections = new_list;
+  spi_global_app_data->direct_connections = g_list_append (spi_global_app_data->direct_connections, con);
 }
 
 static int
@@ -851,8 +830,53 @@ gnome_accessibility_module_init (void)
 void
 gnome_accessibility_module_shutdown (void)
 {
+  GList *l;
+
+  if (!spi_global_app_data)
+      return;
+
+  spi_atk_tidy_windows ();
   spi_atk_deregister_event_listeners ();
-  exit_func ();
+
+  deregister_application (spi_global_app_data);
+
+  if (spi_global_app_data->bus)
+    {
+      dbus_connection_remove_filter (spi_global_app_data->bus, signal_filter, NULL);
+      droute_context_unregister (spi_global_app_data->droute, spi_global_app_data->bus);
+      dbus_connection_unref (spi_global_app_data->bus);
+    }
+
+  for (l = spi_global_app_data->direct_connections; l; l = l->next)
+    {
+      droute_context_unregister (spi_global_app_data->droute, l->data);
+      droute_unintercept_dbus (l->data);
+      dbus_connection_unref (l);
+    }
+  g_list_free (spi_global_app_data->direct_connections);
+
+  for (l = clients; l; l = l->next)
+     g_free (l->data);
+  g_list_free (clients);
+  clients = NULL;
+
+  g_object_unref (spi_global_cache);
+  g_object_unref (spi_global_leasing);
+  g_object_unref (spi_global_register);
+
+  if (spi_global_app_data->main_context)
+    g_main_context_unref (spi_global_app_data->main_context);
+
+  droute_free (spi_global_app_data->droute);
+
+  g_free (spi_global_app_data);
+  spi_global_app_data = NULL;
+
+  /* Not currently creating an XDisplay */
+#if 0
+  if (bridge_display)
+    XCloseDisplay (bridge_display);
+#endif
 }
 
 static gchar *name_match_tmpl =

@@ -73,7 +73,7 @@ gchar *
 spi_register_root_object_path ();
 
 void
-spi_register_deregister_object (SpiRegister *reg, GObject *gobj);
+spi_register_deregister_object (SpiRegister *reg, GObject *gobj, gboolean unref);
 
 /*---------------------------------------------------------------------------*/
 
