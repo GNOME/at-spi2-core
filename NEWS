@@ -1,3 +1,15 @@
+What's new in at-spi2-core 2.1.5:
+
+* Propertly free DBus error in atspi_accessible_get_process_id.
+
+* Clean up names of some private functions.
+
+* Move DBus interface name constants into atspi-constants.h and make public.
+
+* Remove support for relocated CORBA.
+
+* Fix for BGO#655127: Avoid Python crash for atspi_accessible_get_relation_set.
+
 What's new in at-spi2-core 2.1.4:
 
 * Some API changes to device and event listeners for compatibility with
