@@ -1,3 +1,10 @@
+What's new in at-spi2-atk 2.1.5:
+
+* Use libatspi constants rather than keeping duplicate copies of the
+  constants in at-spi2-atk.
+
+* Fixed some problems when shutting down and restarting the module.
+
 What's new in at-spi2-atk 2.1.4:
 
 * Ensure the detail integers are initialized before sending events.
