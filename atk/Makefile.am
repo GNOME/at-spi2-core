@@ -57,7 +57,8 @@ atk_sources = 	\
 	atktext.c		\
 	atkutil.c		\
 	atkmisc.c		\
-	atkvalue.c
+	atkvalue.c \
+	atkwindow.c
 
 libatk_1_0_la_SOURCES = 	\
 	$(atk_sources)		\
@@ -94,7 +95,8 @@ atk_headers = \
         atktext.h		\
         atkutil.h		\
         atkmisc.h		\
-        atkvalue.h
+        atkvalue.h \
+        atkwindow.h
 
 libatkinclude_HEADERS =		\
 	$(atk_headers)		\
