@@ -1,3 +1,13 @@
+Changes in version 2.1.5:
+=========================
+*
+* Bug 638924: Add AtkWindow
+* Fixing out of tree compilation on Win32
+* Update README.txt
+* Fixing release number of the new ATK roles added
+* Updated Traditional Chinese, Indonesian, Bulgarian, French,
+*  Hungarian and Swedish translations
+
 Changes in version 2.1.0:
 =========================
 *
