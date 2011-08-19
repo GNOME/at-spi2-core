@@ -81,7 +81,6 @@ extern "C" {
  * Used by interfaces #AtspiText and #AtspiDocument, this
  * enumeration corresponds to the POSIX 'setlocale' enum values.
  *
- * Bitfield/set of flags generated from the AT-SPI specification.
  **/
 typedef enum {
     ATSPI_LOCALE_TYPE_MESSAGES,
@@ -108,7 +107,6 @@ typedef enum {
  * Enumeration used by #AtspiComponent, #AtspiImage, and #AtspiText interfaces
  * to specify whether coordinates are relative to the window or the screen.
  *
- * Bitfield/set of flags generated from the AT-SPI specification.
  **/
 typedef enum {
     ATSPI_COORD_TYPE_SCREEN,
@@ -136,7 +134,6 @@ typedef enum {
  * Enumeration used by interface #AtspiCollection to specify
  * the way #AtspiAccesible objects should be sorted.
  *
- * Bitfield/set of flags generated from the AT-SPI specification.
  **/
 typedef enum {
     ATSPI_Collection_SORT_ORDER_INVALID,
@@ -172,7 +169,6 @@ typedef enum {
  * Enumeration used by #AtspiMatchRule to specify
  * how to interpret #AtspiAccesible objects.
  *
- * Bitfield/set of flags generated from the AT-SPI specification.
  **/
 typedef enum {
     ATSPI_Collection_MATCH_INVALID,
@@ -200,7 +196,6 @@ typedef enum {
  * Enumeration used by interface #AtspiCollection to specify
  * restrictions on #AtspiAccesible objects to be traversed.
  *
- * Bitfield/set of flags generated from the AT-SPI specification.
  **/
 typedef enum {
     ATSPI_Collection_TREE_RESTRICT_CHILDREN,
@@ -256,7 +251,6 @@ typedef enum {
  * @ATSPI_LAYER_CANVAS, @ATSPI_LAYER_WIDGET, @ATSPI_LAYER_POPUP, and 	   
  * @ATSPI_LAYER_OVERLAY.
  *
- * Bitfield/set of flags generated from the AT-SPI specification.
  */
 typedef enum {
     ATSPI_LAYER_INVALID,
@@ -314,7 +308,6 @@ typedef enum {
  * #atspi_text_get_text_at_offset, #atspi_text_get_text_after_offset, and
  * #atspi_text_get_text_before_offset.
  *
- * Bitfield/set of flags generated from the AT-SPI specification.
  **/
 typedef enum {
     ATSPI_TEXT_BOUNDARY_CHAR,
@@ -346,7 +339,6 @@ typedef enum {
  * Enumeration used by interface #AtspiText to indicate
  * how to treat characters intersecting bounding boxes.
  *
- * Bitfield/set of flags generated from the AT-SPI specification.
  **/
 typedef enum {
     ATSPI_TEXT_CLIP_NONE,
@@ -516,7 +508,6 @@ typedef enum {
  * Enumeration used by various interfaces indicating every possible state 
  * an #AtspiAccesible object can assume.
  *
- * Bitfield/set of flags generated from the AT-SPI specification.
  **/
 typedef enum {
     ATSPI_STATE_INVALID,
@@ -577,7 +568,6 @@ typedef enum {
  *
  * Deprecated. Should not be used.
  *
- * Bitfield/set of flags generated from the AT-SPI specification.
  **/
 typedef enum {
     ATSPI_KEY_PRESSED,
@@ -606,7 +596,6 @@ typedef enum {
  * #AtspiEventListener, or 
  * to identify the type of an event for which notification has been sent.  
  *
- * Bitfield/set of flags generated from the AT-SPI specification.
  **/
 typedef enum {
     ATSPI_KEY_PRESSED_EVENT,
@@ -648,7 +637,6 @@ typedef enum {
  * Enumeration used when synthesizing keyboard input via
  * #atspi_generate_keyboard_event.
  *
- * Bitfield/set of flags generated from the AT-SPI specification.
  **/
 typedef enum {
     ATSPI_KEY_PRESS,
@@ -684,7 +672,6 @@ typedef enum {
  *
  *
  *
- * Bitfield/set of flags generated from the AT-SPI specification.
  **/
 typedef enum {
     ATSPI_MODIFIER_SHIFT,
@@ -778,7 +765,6 @@ typedef enum {
  * Enumeration used to specify
  * the type of relation encapsulated in an #AtspiRelation object.
  *
- * Bitfield/set of flags generated from the AT-SPI specification.
  **/
 typedef enum {
     ATSPI_RELATION_NULL,
@@ -1061,7 +1047,6 @@ typedef enum {
  * Enumeration used by interface #AtspiAccessible to specify the role
  * of an #AtspiAccessible object.
  *
- * Bitfield/set of flags generated from the AT-SPI specification.
  */
 typedef enum {
     ATSPI_ROLE_INVALID,
