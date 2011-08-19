@@ -112,7 +112,7 @@ return_accessibles (DBusMessage *message)
  *
  * @count: The maximum number of results to return, or 0 for no limit.
  *
- * @traverse: TODO
+ * @traverse: Not supported.
  *
  * Gets all #AtspiAccessible objects from the @collection matching a given
  * @rule.  
@@ -164,11 +164,13 @@ atspi_collection_get_matches (AtspiCollection *collection,
  * @tree: An #AtspiCollectionTreeTraversalType specifying restrictions on
  *        the objects to be traversed.
  *
- * @recurse: TODO
+ * @restrict: If #TRUE, only descendants of @current_object's parent
+ * will be returned. Otherwise (if #FALSE), any accessible may be returned
+ * if it would preceed @current_object in a flattened hierarchy.
  *
  * @count: The maximum number of results to return, or 0 for no limit.
  *
- * @traverse: TODO
+ * @traverse: Not supported.
  *
  * Gets all #AtspiAccessible objects from the @collection, after 
  * @current_object, matching a given @rule.  
@@ -183,7 +185,7 @@ atspi_collection_get_matches_to (AtspiCollection *collection,
                               AtspiMatchRule *rule,
                               AtspiCollectionSortOrder sortby,
                               AtspiCollectionTreeTraversalType tree,
-                              gboolean recurse,
+                              gboolean restrict,
                               gint count,
                               gboolean traverse,
                               GError **error)
@@ -192,7 +194,7 @@ atspi_collection_get_matches_to (AtspiCollection *collection,
   DBusMessage *reply;
   dbus_int32_t d_sortby = sortby;
   dbus_int32_t d_tree = tree;
-  dbus_bool_t d_recurse = recurse;
+  dbus_bool_t d_restrict = restrict;
   dbus_int32_t d_count = count;
   dbus_bool_t d_traverse = traverse;
 
@@ -205,7 +207,7 @@ atspi_collection_get_matches_to (AtspiCollection *collection,
     return NULL;
   dbus_message_append_args (message, DBUS_TYPE_UINT32, &d_sortby,
                                      DBUS_TYPE_UINT32, &d_tree,
-                            DBUS_TYPE_BOOLEAN, &d_recurse,
+                            DBUS_TYPE_BOOLEAN, &d_restrict,
                             DBUS_TYPE_INT32, &d_count,
                             DBUS_TYPE_BOOLEAN, &d_traverse,
                             DBUS_TYPE_INVALID);
@@ -232,7 +234,7 @@ atspi_collection_get_matches_to (AtspiCollection *collection,
  *
  * @count: The maximum number of results to return, or 0 for no limit.
  *
- * @traverse: TODO
+ * @traverse: Not supported.
  *
  * Gets all #AtspiAccessible objects from the @collection, before  
  * @current_object, matching a given @rule.  
