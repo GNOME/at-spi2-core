@@ -1088,6 +1088,7 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
   }
   retval = TRUE;
 done:
+  dbus_error_free (&err);
   if (reply)
     dbus_message_unref (reply);
   return retval;
