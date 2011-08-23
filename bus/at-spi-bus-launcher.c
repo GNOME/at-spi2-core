@@ -62,6 +62,9 @@ static const gchar introspection_xml[] =
   "      <arg type='s' name='address' direction='out'/>"
   "    </method>"
   "  </interface>"
+  "<interface name='org.a11y.Status'>"
+  "<property name='IsEnabled' type='b' access='read'/>"
+  "</interface>"
   "</node>";
 static GDBusNodeInfo *introspection_data = NULL;
 
@@ -227,10 +230,37 @@ handle_method_call (GDBusConnection       *connection,
     }
 }
 
-static const GDBusInterfaceVTable interface_vtable =
+static GVariant *
+handle_get_property  (GDBusConnection       *connection,
+                      const gchar           *sender,
+                      const gchar           *object_path,
+                      const gchar           *interface_name,
+                      const gchar           *property_name,
+                    GError **error,
+                    gpointer               user_data)
+{
+  A11yBusLauncher *app = user_data;
+
+  if (g_strcmp0 (property_name, "IsEnabled") == 0)
+    {
+      gboolean result = (app->a11y_bus_pid > 0);
+      return g_variant_new ("(b)", result);
+    }
+  else
+    return NULL;
+}
+
+static const GDBusInterfaceVTable bus_vtable =
 {
   handle_method_call,
-  NULL,
+  NULL, /* handle_get_property, */
+  NULL  /* handle_set_property */
+};
+
+static const GDBusInterfaceVTable status_vtable =
+{
+  NULL, /* handle_method_call */
+  handle_get_property,
   NULL  /* handle_set_property */
 };
 
@@ -264,12 +294,20 @@ on_bus_acquired (GDBusConnection *connection,
   registration_id = g_dbus_connection_register_object (connection,
                                                        "/org/a11y/bus",
                                                        introspection_data->interfaces[0],
-                                                       &interface_vtable,
+                                                       &bus_vtable,
                                                        _global_app,
                                                        NULL,
                                                        &error);
   if (registration_id == 0)
     g_error ("%s", error->message);
+
+  g_dbus_connection_register_object (connection,
+                                                       "/org/a11y/bus",
+                                                       introspection_data->interfaces[1],
+                                                       &status_vtable,
+                                                       _global_app,
+                                                       NULL,
+                                                       &error);
 }
 
 static void
