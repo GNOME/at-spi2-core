@@ -2,6 +2,7 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
+ * Copyright 2011, F123 Consulting & Mais Diferenças
  * Copyright 2008, 2009, Codethink Ltd.
  * Copyright 2001, 2002, 2003 Sun Microsystems Inc.,
  * Copyright 2001, 2002, 2003 Ximian, Inc.
@@ -1069,13 +1070,17 @@ generic_event_listener (GSignalInvocationHint * signal_hint,
  * and stores the signal id returned so that the function may be
  * de-registered later.
  */
-static void
+static guint
 add_signal_listener (GSignalEmissionHook listener, const char *signal_name)
 {
   guint id;
 
   id = atk_add_global_event_listener (listener, signal_name);
-  g_array_append_val (listener_ids, id);
+
+  if (id > 0) /* id == 0 is a failure */
+    g_array_append_val (listener_ids, id);
+
+  return id;
 }
 
 /*
@@ -1092,6 +1097,7 @@ spi_atk_register_event_listeners (void)
    */
   GObject *ao = g_object_new (ATK_TYPE_OBJECT, NULL);
   AtkObject *bo = atk_no_op_object_new (ao);
+  guint id = 0;
 
   g_object_unref (G_OBJECT (bo));
   g_object_unref (ao);
@@ -1109,13 +1115,37 @@ spi_atk_register_event_listeners (void)
 
   add_signal_listener (property_event_listener,
                        "Gtk:AtkObject:property-change");
-  add_signal_listener (window_event_listener, "window:create");
-  add_signal_listener (window_event_listener, "window:destroy");
-  add_signal_listener (window_event_listener, "window:minimize");
-  add_signal_listener (window_event_listener, "window:maximize");
-  add_signal_listener (window_event_listener, "window:restore");
-  add_signal_listener (window_event_listener, "window:activate");
-  add_signal_listener (window_event_listener, "window:deactivate");
+
+  /* window events: we tentative try to register using the old format */
+  id = add_signal_listener (window_event_listener, "window:create");
+
+  if (id != 0)
+    {
+      /* If we are able to register using the old format, we assume
+       * that the ATK implementor is managing window events without
+       * AtkWindow. We can't use the opposite test because after
+       * including AtkWindow on ATK you would be able to register to
+       * that event, although the ATK implementor could or not use it.
+       */
+
+      add_signal_listener (window_event_listener, "window:destroy");
+      add_signal_listener (window_event_listener, "window:minimize");
+      add_signal_listener (window_event_listener, "window:maximize");
+      add_signal_listener (window_event_listener, "window:restore");
+      add_signal_listener (window_event_listener, "window:activate");
+      add_signal_listener (window_event_listener, "window:deactivate");
+    }
+  else
+    {
+      add_signal_listener (window_event_listener, "Atk:AtkWindow:create");
+      add_signal_listener (window_event_listener, "Atk:AtkWindow:destroy");
+      add_signal_listener (window_event_listener, "Atk:AtkWindow:minimize");
+      add_signal_listener (window_event_listener, "Atk:AtkWindow:maximize");
+      add_signal_listener (window_event_listener, "Atk:AtkWindow:restore");
+      add_signal_listener (window_event_listener, "Atk:AtkWindow:activate");
+      add_signal_listener (window_event_listener, "Atk:AtkWindow:deactivate");
+    }
+
   add_signal_listener (document_event_listener,
                        "Gtk:AtkDocument:load-complete");
   add_signal_listener (document_event_listener, "Gtk:AtkDocument:reload");
