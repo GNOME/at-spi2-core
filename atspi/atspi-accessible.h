@@ -80,7 +80,7 @@ AtspiAccessible * atspi_accessible_get_child_at_index (AtspiAccessible *obj, gin
 
 gint atspi_accessible_get_index_in_parent (AtspiAccessible *obj, GError **error);
 
-GPtrArray * atspi_accessible_get_relation_set (AtspiAccessible *obj, GError **error);
+GArray * atspi_accessible_get_relation_set (AtspiAccessible *obj, GError **error);
 
 AtspiRole atspi_accessible_get_role (AtspiAccessible *obj, GError **error);
 

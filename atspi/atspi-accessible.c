@@ -519,10 +519,10 @@ typedef struct
  * Get the set of #AtspiRelation objects which describe this #AtspiAccessible object's
  *       relationships with other #AtspiAccessible objects.
  *
- * Returns: (element-type AtspiRelation*) (transfer full): an array of
+ * Returns: (element-type AtspiAccessible*) (transfer full): an array of
  *          #AtspiAccessibleRelation pointers. or NULL on exception
  **/
-GPtrArray *
+GArray *
 atspi_accessible_get_relation_set (AtspiAccessible *obj, GError **error)
 {
   DBusMessage *reply;
@@ -536,14 +536,14 @@ atspi_accessible_get_relation_set (AtspiAccessible *obj, GError **error)
     return NULL;
   _ATSPI_DBUS_CHECK_SIG (reply, "a(ua(so))", error, NULL);
 
-  ret = g_ptr_array_new ();
+  ret = g_array_new (TRUE, TRUE, sizeof (AtspiRelation *));
   dbus_message_iter_init (reply, &iter);
   dbus_message_iter_recurse (&iter, &iter_array);
   while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
   {
     AtspiRelation *relation;
     relation = _atspi_relation_new_from_iter (&iter_array);
-    g_ptr_array_add (ret, relation);
+    ret = g_array_append_val (ret, relation);
     dbus_message_iter_next (&iter_array);
   }
   dbus_message_unref (reply);
