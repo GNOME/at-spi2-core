@@ -1,3 +1,7 @@
+What's new in at-spi2-atk 2.1.90:
+
+* Try to use the new AtkWindow interface to register for window events.
+
 What's new in at-spi2-atk 2.1.5:
 
 * Use libatspi constants rather than keeping duplicate copies of the
