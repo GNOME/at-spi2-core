@@ -1431,7 +1431,7 @@ atspi_accessible_get_interfaces (AtspiAccessible *obj)
 }
 
 AtspiAccessible * 
-atspi_accessible_new (AtspiApplication *app, const gchar *path)
+_atspi_accessible_new (AtspiApplication *app, const gchar *path)
 {
   AtspiAccessible *accessible;
   

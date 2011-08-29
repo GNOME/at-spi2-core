@@ -64,7 +64,7 @@ struct _AtspiAccessibleClass
 GType atspi_accessible_get_type (void); 
 
 AtspiAccessible *
-atspi_accessible_new (AtspiApplication *app, const gchar *path);
+_atspi_accessible_new (AtspiApplication *app, const gchar *path);
 
 gchar * atspi_role_get_name (AtspiRole role);
 

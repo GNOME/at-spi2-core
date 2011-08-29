@@ -229,7 +229,7 @@ ref_accessible (const char *app_name, const char *path)
   {
     if (!app->root)
     {
-      app->root = atspi_accessible_new (app, atspi_path_root);
+      app->root = _atspi_accessible_new (app, atspi_path_root);
       app->root->accessible_parent = atspi_get_desktop (0);
     }
     return g_object_ref (app->root);
@@ -240,7 +240,7 @@ ref_accessible (const char *app_name, const char *path)
   {
     return g_object_ref (a);
   }
-  a = atspi_accessible_new (app, path);
+  a = _atspi_accessible_new (app, path);
   if (!a)
     return NULL;
   g_hash_table_insert (app->hash, g_strdup (a->parent.path), a);
@@ -519,7 +519,7 @@ ref_accessible_desktop (AtspiApplication *app)
     g_object_ref (desktop);
     return desktop;
   }
-  desktop = atspi_accessible_new (app, atspi_path_root);
+  desktop = _atspi_accessible_new (app, atspi_path_root);
   if (!desktop)
   {
     return NULL;
