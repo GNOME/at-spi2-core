@@ -1,3 +1,19 @@
+What's new in at-spi2-core 2.1.90:
+
+* Fixed a memory leak on DBus errors.
+
+* Added org.a11y.Status.IsEnabled (currently a read-only property) to the bus
+  launcher.
+
+* Fix for BGO#656004: atspi_accessible_get_relation_set returns a GArray again.
+
+* Numerous documentation fixes from Aline Bessa.
+
+* CLean up device listeners from disconnected applications.
+
+* Fix for BGO#657585: Do not crash when the bus launcher is unable to open the
+  X display.
+
 What's new in at-spi2-core 2.1.5:
 
 * Propertly free DBus error in atspi_accessible_get_process_id.
