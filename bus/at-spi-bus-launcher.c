@@ -192,9 +192,9 @@ ensure_a11y_bus (A11yBusLauncher *app)
                          bus_address_atom,
                          XA_STRING, 8, PropModeReplace,
                          (guchar *) app->a11y_bus_address, strlen (app->a11y_bus_address));
+        XFlush (display);
+        XCloseDisplay (display);
       }
-    XFlush (display);
-    XCloseDisplay (display);
   }
 
   return;
