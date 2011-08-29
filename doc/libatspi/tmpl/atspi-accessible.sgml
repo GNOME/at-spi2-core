@@ -36,16 +36,6 @@ actually have children.
 
 @parent_class: 
 
-<!-- ##### FUNCTION atspi_accessible_new ##### -->
-<para>
-
-</para>
-
-@app: 
-@path: 
-@Returns: 
-
-
 <!-- ##### FUNCTION atspi_role_get_name ##### -->
 <para>
 

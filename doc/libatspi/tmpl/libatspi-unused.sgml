@@ -40,6 +40,15 @@
 </para>
 
 
+<!-- ##### FUNCTION atspi_accessible_new ##### -->
+<para>
+
+</para>
+
+@app: 
+@path: 
+@Returns: 
+
 <!-- ##### FUNCTION atspi_dbus_handle_deviceEvent ##### -->
 <para>
 
