@@ -2069,7 +2069,7 @@ spi_deregister_controller_key_listener (SpiDEController            *controller,
   RemoveListenerClosure  ctx;
 
   ctx.bus = controller->bus;
-  ctx.listener = (DEControllerListener *) key_listener;
+  ctx.listener = (DEControllerListener *) spi_key_listener_clone (key_listener);
 
   /* special case, copy keyset from existing controller list entry */
   if (g_slist_length(key_listener->keys) == 0)
@@ -2083,6 +2083,7 @@ spi_deregister_controller_key_listener (SpiDEController            *controller,
   spi_re_entrant_list_foreach (&controller->key_listeners,
 				remove_listener_cb, &ctx);
 
+  spi_key_listener_clone_free ((DEControllerKeyListener *) ctx.listener);
 }
 
 void

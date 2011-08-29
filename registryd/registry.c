@@ -293,8 +293,7 @@ handle_disconnection (DBusConnection *bus, DBusMessage *message, void *user_data
               SpiReference *ref  = g_ptr_array_index (reg->apps, i);
               while (!g_strcmp0 (old, ref->name))
                 {
-                  children_removed_listener (bus, i, old, ref->path);
-                  g_ptr_array_remove_index (reg->apps, i);
+                  remove_application (reg, bus, i);
                 }
             } 
 
