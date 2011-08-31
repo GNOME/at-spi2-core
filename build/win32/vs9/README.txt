@@ -1,6 +1,11 @@
 Please do not build this package in a path that contains spaces to avoid
 possible problems during the build or during the usage of the library.
 
+Please refer to the following GNOME Live! page for more detailed
+instructions on building ATK and its dependencies with Visual C++:
+
+https://live.gnome.org/GTK%2B/Win32/MSVCCompilationOfGTKStack
+
 This VS9 solution and the projects it includes are intented to be used
 in a ATK source tree unpacked from a tarball. In a git checkout you
 first need to use some Unix-like environment or manual work to expand
