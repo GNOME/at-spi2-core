@@ -210,7 +210,18 @@ atk_focus_tracker_notify (AtkObject       *object)
  * @event_type: the type of event for which notification is requested
  *
  * Adds the specified function to the list of functions to be called
- * when an event of type event_type occurs.
+ * when an ATK event of type event_type occurs.
+ *
+ * The format of event_type is the following:
+ *  "ATK:<atk_type>:<atk_event>
+ *
+ * Where "ATK" works as the namespace, <atk_interface> is the name of
+ * the ATK type (interface or object) and <atk_event> is the name of
+ * the signal defined on that interface.
+ *
+ * For example:
+ *   ATK:AtkObject:state-change
+ *   ATK:AtkText:text-selection-changed
  *
  * Returns: added event listener id, or 0 on failure.
  **/
