@@ -2098,6 +2098,7 @@ spi_remove_device_listeners (SpiDEController *controller, const char *bus_name)
     if (!strcmp (listener->bus_name, bus_name))
     {
       spi_controller_deregister_device_listener (controller, listener);
+      tmp = controller->mouse_listeners;
     }
   }
   for (l = controller->key_listeners; l; l = tmp)
@@ -2106,7 +2107,9 @@ spi_remove_device_listeners (SpiDEController *controller, const char *bus_name)
     tmp = l->next;
     if (!strcmp (key_listener->listener.bus_name, bus_name))
     {
+      /* TODO: untangle the below line(s) */
       spi_deregister_controller_key_listener (controller, key_listener);
+      tmp = controller->key_listeners;
     }
   }
 }
