@@ -1,3 +1,8 @@
+What's new in at-spi2-atk 2.1.91:
+
+* Fix for BGO#645321: Use an array of bytes rather than a string for the
+  atk-bridge location in the schema.
+
 What's new in at-spi2-atk 2.1.90:
 
 * Try to use the new AtkWindow interface to register for window events.
