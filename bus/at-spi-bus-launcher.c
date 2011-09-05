@@ -43,7 +43,9 @@ typedef enum {
 typedef struct {
   GMainLoop *loop;
   gboolean launch_immediately;
+  gboolean a11y_enabled;
   GDBusConnection *session_bus;
+  GSettings *desktop_schema;
 
   A11yBusState state;
   /* -1 == error, 0 == pending, > 0 == running */
@@ -63,7 +65,7 @@ static const gchar introspection_xml[] =
   "    </method>"
   "  </interface>"
   "<interface name='org.a11y.Status'>"
-  "<property name='IsEnabled' type='b' access='read'/>"
+  "<property name='IsEnabled' type='b' access='readwrite'/>"
   "</interface>"
   "</node>";
 static GDBusNodeInfo *introspection_data = NULL;
@@ -129,7 +131,7 @@ on_bus_exited (GPid     pid,
   g_main_loop_quit (app->loop);
 } 
 
-static void
+static gboolean
 ensure_a11y_bus (A11yBusLauncher *app)
 {
   GPid pid;
@@ -138,7 +140,7 @@ ensure_a11y_bus (A11yBusLauncher *app)
   GError *error = NULL;
 
   if (app->a11y_bus_pid != 0)
-    return;
+    return FALSE;
   
   argv[1] = g_strdup_printf ("--config-file=%s/at-spi2/accessibility.conf", SYSCONFDIR);
 
@@ -197,7 +199,7 @@ ensure_a11y_bus (A11yBusLauncher *app)
       }
   }
 
-  return;
+  return TRUE;
   
  error:
   close (app->pipefd[0]);
@@ -243,11 +245,72 @@ handle_get_property  (GDBusConnection       *connection,
 
   if (g_strcmp0 (property_name, "IsEnabled") == 0)
     {
-      gboolean result = (app->a11y_bus_pid > 0);
-      return g_variant_new ("(b)", result);
+      return g_variant_new ("(b)", app->a11y_enabled);
     }
   else
     return NULL;
+}
+
+handle_a11y_enabled_change (A11yBusLauncher *app, gboolean enabled,
+                               gboolean notify_gsettings)
+{
+  GVariantBuilder *builder;
+  GVariantBuilder *invalidated_builder;
+
+  if (enabled == app->a11y_enabled)
+    return;
+
+  app->a11y_enabled = enabled;
+
+  if (notify_gsettings && app->desktop_schema)
+    g_settings_set_boolean (app->desktop_schema, "toolkit-accessibility",
+                            enabled);
+
+  builder = g_variant_builder_new (G_VARIANT_TYPE_ARRAY);
+  invalidated_builder = g_variant_builder_new (G_VARIANT_TYPE ("as"));
+  g_variant_builder_add (builder, "{sv}", "IsEnabled",
+                         g_variant_new_boolean (enabled));
+
+  g_dbus_connection_emit_signal (app->session_bus, NULL, "/org/a11y/bus",
+                                 "org.freedesktop.DBus", "PropertiesChanged",
+                                 g_variant_new ("(sa{sv}as)", "org.a11y.Status",
+                                                builder,
+                                                invalidated_builder),
+                                 NULL);
+}
+
+static gboolean
+handle_set_property  (GDBusConnection       *connection,
+                      const gchar           *sender,
+                      const gchar           *object_path,
+                      const gchar           *interface_name,
+                      const gchar           *property_name,
+                      GVariant *value,
+                    GError **error,
+                    gpointer               user_data)
+{
+  A11yBusLauncher *app = user_data;
+
+  if (g_strcmp0 (property_name, "IsEnabled") == 0)
+    {
+      const gchar *type = g_variant_get_type_string (value);
+      gboolean enabled;
+      if (g_strcmp0 (type, "b") != 0)
+        {
+          g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_INVALID_ARGS,
+                       "org.a11y.Status.IsEnabled expects a boolean but got %s", type);
+          return FALSE;
+        }
+      enabled = g_variant_get_boolean (value);
+      handle_a11y_enabled_change (app, enabled, TRUE);
+      return TRUE;
+    }
+  else
+    {
+      g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_INVALID_ARGS,
+                       "Unknown property '%s'", property_name);
+      return FALSE;
+    }
 }
 
 static const GDBusInterfaceVTable bus_vtable =
@@ -261,7 +324,7 @@ static const GDBusInterfaceVTable status_vtable =
 {
   NULL, /* handle_method_call */
   handle_get_property,
-  NULL  /* handle_set_property */
+  handle_set_property
 };
 
 static void
@@ -402,14 +465,41 @@ already_running ()
     bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
     g_setenv ("DBUS_SESSION_BUS_ADDRESS", old_session, TRUE);
     if (bus != NULL)
-      result = TRUE;
-    g_object_unref (bus);
+      {
+        result = TRUE;
+        g_object_unref (bus);
+      }
   }
 
   XCloseDisplay (bridge_display);
   return result;
 }
 
+static GSettings *
+get_desktop_schema ()
+{
+  const char * const *schemas = NULL;
+  gint i;
+
+  schemas = g_settings_list_schemas ();
+  for (i = 0; schemas[i]; i++)
+  {
+    if (!strcmp (schemas[i], "org.gnome.desktop.interface"))
+      return g_settings_new (schemas[i]);
+  }
+}
+
+static void
+gsettings_key_changed (GSettings *gsettings, const gchar *key, void *user_data)
+{
+  gboolean new_val = g_settings_get_boolean (gsettings, key);
+  A11yBusLauncher *app = user_data;
+
+  if (strcmp (key, "toolkit-accessibility") != 0)
+    return;
+
+  handle_a11y_enabled_change (_global_app, new_val, FALSE);
+}
 
 int
 main (int    argc,
@@ -419,6 +509,8 @@ main (int    argc,
   GMainLoop *loop;
   GDBusConnection *session_bus;
   int name_owner_id;
+  gboolean a11y_set = FALSE;
+  gint i;
 
   g_type_init ();
 
@@ -427,7 +519,26 @@ main (int    argc,
 
   _global_app = g_slice_new0 (A11yBusLauncher);
   _global_app->loop = g_main_loop_new (NULL, FALSE);
-  _global_app->launch_immediately = (argc == 2 && strcmp (argv[1], "--launch-immediately") == 0);
+
+  for (i = 1; i < argc; i++)
+    {
+      if (!strcmp (argv[i], "--launch-immediately"))
+        _global_app->launch_immediately = TRUE;
+      else if (sscanf (argv[i], "--a11y=%d", &_global_app->a11y_enabled) == 2)
+        a11y_set = TRUE;
+    else
+      g_error ("usage: %s [--launch-immediately] [--a11y=0|1]", argv[0]);
+    }
+
+  if (!a11y_set)
+    _global_app->a11y_enabled = _global_app->launch_immediately;
+
+  _global_app->desktop_schema = get_desktop_schema ();
+
+  if (_global_app->desktop_schema)
+    g_signal_connect (_global_app->desktop_schema,
+                      "changed::toolkit-accessibility",
+                      G_CALLBACK (gsettings_key_changed), _global_app);
 
   init_sigterm_handling (_global_app);
 
