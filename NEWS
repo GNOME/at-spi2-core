@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.1.91:
+
+* Fixed a crash when deregistering event listeners.
+
+* Made DBus IsEnabled property readwrite.
+
 What's new in at-spi2-core 2.1.90:
 
 * Fixed a memory leak on DBus errors.
