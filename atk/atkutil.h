@@ -166,79 +166,21 @@ typedef enum {
   ATK_XY_WINDOW
 }AtkCoordType;
 
-/*
- * Adds the specified function to the list of functions to be called
- * when an object receives focus.
- */
 guint    atk_add_focus_tracker     (AtkEventListener      focus_tracker);
-
-/*
- * Removes the specified focus tracker from the list of function
- * to be called when any object receives focus
- */
 void     atk_remove_focus_tracker  (guint                tracker_id);
-
-/*
- * atk_focus_tracker_init:
- * @init: An #AtkEventListenerInit function to be called
- * prior to any focus-tracking requests.
- *
- * Specifies the function to be called for focus tracker initialization.
- * removal. This function should be called by an implementation of the
- * ATK interface if any specific work needs to be done to enable
- * focus tracking.
- */
 void     atk_focus_tracker_init    (AtkEventListenerInit  init);
-
-/*
- * Cause the focus tracker functions which have been specified to be
- * executed for the object.
- */
 void     atk_focus_tracker_notify  (AtkObject            *object);
-
-/*
- * Adds the specified function to the list of functions to be called
- * when an event of type event_type occurs.
- */
 guint	atk_add_global_event_listener (GSignalEmissionHook listener,
 				       const gchar        *event_type);
-
-/*
- * Removes the specified event listener
- */
 void	atk_remove_global_event_listener (guint listener_id);
-
-/*
- * Adds the specified function to the list of functions to be called
- * when an keyboard event occurs.
- */
 guint	atk_add_key_event_listener (AtkKeySnoopFunc listener, gpointer data);
-
-/*
- * Removes the specified event listener
- */
 void	atk_remove_key_event_listener (guint listener_id);
 
-/*
- * Returns the root accessible container for the current application.
- */
 AtkObject* atk_get_root(void);
-
 AtkObject* atk_get_focus_object (void);
 
-/*
- * Returns name string for the GUI toolkit.
- */
 const gchar *atk_get_toolkit_name (void);
-
-/*
- * Returns version string for the GUI toolkit.
- */
 const gchar *atk_get_toolkit_version (void);
-
-/*
- * Gets the current version of ATK
- */
 const gchar *atk_get_version (void);
 
 /* --- GType boilerplate --- */
