@@ -205,6 +205,8 @@ ensure_a11y_bus (A11yBusLauncher *app)
   close (app->pipefd[0]);
   close (app->pipefd[1]);
   app->state = A11Y_BUS_STATE_ERROR;
+
+  return FALSE;
 }
 
 static void
@@ -487,6 +489,8 @@ get_desktop_schema ()
     if (!strcmp (schemas[i], "org.gnome.desktop.interface"))
       return g_settings_new (schemas[i]);
   }
+
+  return NULL;
 }
 
 static void
