@@ -76,6 +76,7 @@ copy ..\..\..\atk\atktext.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0
 copy ..\..\..\atk\atkutil.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
 copy ..\..\..\atk\atkmisc.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
 copy ..\..\..\atk\atkvalue.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkwindow.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
 copy ..\..\..\atk\atk-enum-types.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
 
 mkdir $(OutDir)\lib&#x0D;&#x0A;

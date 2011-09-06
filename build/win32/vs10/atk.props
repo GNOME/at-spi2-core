@@ -71,6 +71,8 @@ copy ..\..\..\atk\atkmisc.h $(CopyDir)\include\atk-$(AtkApiVersion)\atk
 
 copy ..\..\..\atk\atkvalue.h $(CopyDir)\include\atk-$(AtkApiVersion)\atk
 
+copy ..\..\..\atk\atkwindow.h $(CopyDir)\include\atk-$(AtkApiVersion)\atk
+
 copy ..\..\..\atk\atk-enum-types.h $(CopyDir)\include\atk-$(AtkApiVersion)\atk
 
 
