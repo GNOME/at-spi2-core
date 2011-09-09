@@ -241,10 +241,10 @@ remove_events (SpiRegistry *registry, const char *bus_name, const char *event)
   for (list = registry->events; list;)
     {
       event_data *evdata = list->data;
+      list = list->next;
       if (!g_strcmp0 (evdata->bus_name, bus_name) &&
           event_is_subtype (evdata->data, remove_data))
         {
-          list = list->next;
           g_strfreev (evdata->data);
           g_free (evdata->bus_name);
           g_free (evdata);
@@ -254,7 +254,6 @@ remove_events (SpiRegistry *registry, const char *bus_name, const char *event)
         {
           if (needs_mouse_poll (evdata->data))
             mouse_found = TRUE;
-          list = list->next;
         }
     }
 
@@ -832,7 +831,6 @@ impl_register_event (DBusConnection *bus, DBusMessage *message, void *user_data)
   gchar *name;
   event_data *evdata;
   gchar **data;
-  GList *new_list;
   DBusMessage *signal;
   const char *sender = dbus_message_get_sender (message);
 
@@ -846,20 +844,9 @@ impl_register_event (DBusConnection *bus, DBusMessage *message, void *user_data)
   if (!evdata)
     return NULL;
   data = g_strsplit (name, ":", 3);
-  if (!data)
-    {
-      g_free (evdata);
-      return NULL;
-    }
-  if (!data [0])
-    data [1] = NULL;
-  if (!data [1])
-    data [2] = NULL;
   evdata->bus_name = g_strdup (sender);
   evdata->data = data;
-  new_list = g_list_append (registry->events, evdata);
-  if (new_list)
-    registry->events = new_list;
+  registry->events = g_list_append (registry->events, evdata);
 
   if (needs_mouse_poll (evdata->data))
     {
@@ -918,7 +905,7 @@ impl_get_registered_events (DBusConnection *bus, DBusMessage *message, void *use
       evdata = list->data;
       str = g_strconcat (evdata->data [0],
                          ":", (evdata->data [1]? evdata->data [1]: ""),
-                         ":", (evdata->data [2]? evdata->data [2]: ""), NULL);
+                         ":", (evdata->data [1] && evdata->data [2]? evdata->data [2]: ""), NULL);
       dbus_message_iter_open_container (&iter_array, DBUS_TYPE_STRUCT, NULL, &iter_struct);
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &evdata->bus_name);
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &str);
