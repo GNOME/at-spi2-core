@@ -104,6 +104,14 @@ atspi_value_set_current_value (AtspiValue *obj, gdouble new_value, GError **erro
   AtspiAccessible *accessible = ATSPI_ACCESSIBLE (obj);
 
   g_return_val_if_fail (accessible != NULL, FALSE);
+
+  if (!accessible->parent.app || !accessible->parent.app->bus_name)
+{
+    g_set_error_literal (error, ATSPI_ERROR, ATSPI_ERROR_APPLICATION_GONE,
+                          _("The application no longer exists"));
+    return FALSE;
+  }
+
     message = dbus_message_new_method_call (accessible->parent.app->bus_name,
                                             accessible->parent.path,
                                             DBUS_INTERFACE_PROPERTIES, "Set");

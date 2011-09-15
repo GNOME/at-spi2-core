@@ -49,6 +49,8 @@ new_message (AtspiCollection *collection, char *method)
     return NULL;
 
   accessible = ATSPI_ACCESSIBLE (collection);
+  if (!accessible->parent.app)
+    return NULL;
   return dbus_message_new_method_call (accessible->parent.app->bus_name,
                                        accessible->parent.path,
                                        atspi_interface_collection,

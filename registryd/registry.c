@@ -375,6 +375,8 @@ impl_Embed (DBusConnection *bus, DBusMessage *message, void *user_data)
   if (!(dbus_message_iter_get_arg_type (&iter_struct) == DBUS_TYPE_STRING))
 	goto error;
   dbus_message_iter_get_basic (&iter_struct, &app_name);
+  if (!app_name)
+    app_name = dbus_message_get_sender (message);
   if (!dbus_message_iter_next (&iter_struct))
         goto error;
   if (!(dbus_message_iter_get_arg_type (&iter_struct) == DBUS_TYPE_OBJECT_PATH))

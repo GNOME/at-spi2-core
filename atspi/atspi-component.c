@@ -307,10 +307,19 @@ atspi_component_set_extents (AtspiComponent *obj,
 
   g_return_val_if_fail (obj != NULL, FALSE);
 
+  if (!aobj->parent.app || !aobj->parent.app->bus_name)
+  {
+    g_set_error_literal (error, ATSPI_ERROR, ATSPI_ERROR_APPLICATION_GONE,
+                          _("The application no longer exists"));
+    return FALSE;
+  }
+
   message = dbus_message_new_method_call (aobj->parent.app->bus_name,
                                           aobj->parent.path,
                                           atspi_interface_component,
                                           "SetExtents");
+  if (!message)
+    return FALSE;
 
   dbus_message_iter_init_append (message, &iter);
   if (!dbus_message_iter_open_container (&iter, DBUS_TYPE_STRUCT, NULL, &iter_struct))
