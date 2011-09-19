@@ -688,7 +688,7 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
       message = dbus_message_new_method_call (atspi_bus_registry,
 	    atspi_path_registry,
 	    atspi_interface_registry,
-	    "RegisterEvent");
+	    "DeregisterEvent");
       if (!message)
       return FALSE;
       dbus_message_append_args (message, DBUS_TYPE_STRING, &event_type, DBUS_TYPE_INVALID);
