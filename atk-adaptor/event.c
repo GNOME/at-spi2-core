@@ -53,8 +53,10 @@ static gint atk_bridge_focus_tracker_id;
 
 typedef struct _SpiReentrantCallClosure 
 {
+  DBusConnection *bus;
   GMainLoop   *loop;
   DBusMessage *reply;
+  guint timeout;
 } SpiReentrantCallClosure;
 
 static void
@@ -81,6 +83,17 @@ set_reply (DBusPendingCall * pending, void *user_data)
   g_main_loop_quit (closure->loop);
 }
 
+static gboolean
+timeout_reply (void *data)
+{
+  SpiReentrantCallClosure *closure = data;
+
+  if (!dbus_connection_get_is_connected (closure->bus))
+    g_main_loop_quit (closure->loop);
+  closure->timeout = -1;
+  return FALSE;
+}
+
 static DBusMessage *
 send_and_allow_reentry (DBusConnection * bus, DBusMessage * message)
 {
@@ -90,16 +103,21 @@ send_and_allow_reentry (DBusConnection * bus, DBusMessage * message)
 
   main_context = (g_getenv ("AT_SPI_CLIENT") ? NULL :
                   spi_global_app_data->main_context);
+  closure.bus = bus;
   closure.loop = g_main_loop_new (main_context, FALSE);
+  closure.reply = NULL;
   switch_main_context (main_context);
 
-  if (!dbus_connection_send_with_reply (bus, message, &pending, -1) || !pending)
+  if (!dbus_connection_send_with_reply (bus, message, &pending, 9000) || !pending)
     {
       switch_main_context (NULL);
       return NULL;
     }
   dbus_pending_call_set_notify (pending, set_reply, (void *) &closure, NULL);
+  closure.timeout = g_timeout_add (500, timeout_reply, &closure);
   g_main_loop_run  (closure.loop);
+  if (closure.timeout != -1)
+    g_source_remove (closure.timeout);
   
   g_main_loop_unref (closure.loop);
   return closure.reply;
