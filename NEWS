@@ -1,3 +1,13 @@
+Changes in version 2.1.92:
+==========================
+*
+* Updated Visual Studio files due AtkWindow addition
+* Bug 649577: atk_add_global_event_listener should only accept ATK events
+* Minor documentation updates
+* Updated German, Basque, Japanese, Serbian, Catalan, Tamil, Punjabi,
+*  Asturian, Italian, Polish, British English, Brazilian Portuguese,
+*  Korean, Telugu and Kannada Translation
+
 Changes in version 2.1.5:
 =========================
 *
