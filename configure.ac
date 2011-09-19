@@ -1,4 +1,4 @@
-AC_INIT([at-spi2-core], [2.1.91], [accessibility-atspi@lists.linux-foundation.org])
+AC_INIT([at-spi2-core], [2.1.92], [accessibility-atspi@lists.linux-foundation.org])
 AC_PREREQ([2.59])
 AC_CONFIG_AUX_DIR(config)
 AC_CONFIG_MACRO_DIR([m4])
@@ -20,7 +20,7 @@ AC_SUBST(LT_CURRENT)
 AC_SUBST(LT_REVISION)
 AC_SUBST(LT_AGE)
 
-AM_INIT_AUTOMAKE([1.9 -Wall foreign])
+AM_INIT_AUTOMAKE([1.9 -Wall foreign no-dist-gzip dist-xz])
 
 AC_PROG_CC
 LT_INIT([disable-static])

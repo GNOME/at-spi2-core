@@ -19,7 +19,7 @@
   <maintainer>
     <foaf:Person>
       <foaf:name>Mike Gorse</foaf:name>
-      <foaf:mbox rdf:resource="mailto:mgorse@novell.com" />
+      <foaf:mbox rdf:resource="mailto:mgorse@suse.com" />
       <gnome:userid>mgorse</gnome:userid>
     </foaf:Person>
   </maintainer>

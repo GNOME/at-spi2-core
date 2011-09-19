@@ -1,3 +1,17 @@
+What's new in at-spi2-core 2.1.92:
+
+* Fixed a crash when handling event listeners.
+
+* Fix for BGO#659088: Correctly define ATSPI_MODIFIER_NUMLOCK.
+
+* Add some defensive checks to prevent problems with defunct objects.
+
+* BGO#657051: Fix a build error on Solaris.
+
+* Fix some missing return statements.
+
+* Some fixes related to deregistering event listeners.
+
 What's new in at-spi2-core 2.1.91:
 
 * Fixed a crash when deregistering event listeners.
