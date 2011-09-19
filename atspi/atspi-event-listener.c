@@ -693,7 +693,8 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
       return FALSE;
       dbus_message_append_args (message, DBUS_TYPE_STRING, &event_type, DBUS_TYPE_INVALID);
       reply = _atspi_dbus_send_with_reply_and_block (message, error);
-      dbus_message_unref (reply);
+      if (reply)
+        dbus_message_unref (reply);
 
       listener_entry_free (e);
     }
