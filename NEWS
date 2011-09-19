@@ -1,3 +1,7 @@
+What's new in at-spi2-atk 2.1.92:
+
+* Fix for BGO#658013: Add timeout to check for disconnect on a key listener.
+
 What's new in at-spi2-atk 2.1.91:
 
 * Fix for BGO#645321: Use an array of bytes rather than a string for the

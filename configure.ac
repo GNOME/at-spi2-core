@@ -1,4 +1,4 @@
-AC_INIT([at-spi2-atk], [2.1.91], [accessibility-atspi@lists.linux-foundation.org])
+AC_INIT([at-spi2-atk], [2.1.92], [accessibility-atspi@lists.linux-foundation.org])
 AC_CONFIG_AUX_DIR(config)
 
 AT_SPI_ATK_MAJOR_VERSION=0
@@ -20,7 +20,7 @@ AC_SUBST(LT_CURRENT)
 AC_SUBST(LT_REVISION)
 AC_SUBST(LT_AGE)
 
-AM_INIT_AUTOMAKE([-Wall foreign])
+AM_INIT_AUTOMAKE([-Wall foreign no-dist-gzip dist-xz])
 
 dnl translation of any at-spi strings: used only for .server
 IT_PROG_INTLTOOL([0.40.0])
