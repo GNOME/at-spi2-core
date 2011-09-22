@@ -951,7 +951,7 @@ _atspi_dbus_call (gpointer obj, const char *interface, const char *method, GErro
   _atspi_process_deferred_messages ((gpointer)TRUE);
   if (dbus_error_is_set (&err))
   {
-    g_set_error(error, ATSPI_ERROR, ATSPI_ERROR_IPC, err.message);
+    g_set_error(error, ATSPI_ERROR, ATSPI_ERROR_IPC, "%s", err.message);
     dbus_error_free (&err);
   }
   return retval;
