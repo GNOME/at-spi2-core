@@ -1,3 +1,8 @@
+What's new in at-spi2-atk 2.2.0:
+
+* Really fix BGO#658013: Attach the timeout for a key listener to the
+  appropriate main loop context.
+
 What's new in at-spi2-atk 2.1.92:
 
 * Fix for BGO#658013: Add timeout to check for disconnect on a key listener.
