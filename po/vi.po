@@ -4,6 +4,7 @@
 # T.M.Thanh <tmthanh@yahoo.com>, 2002.
 # Pham Thanh Long <lngt@ngonngu.net>, 2007.
 # Clytie Siddall <clytie@riverland.net.au>, 2005-2009.
+# Nguyễn Thái Ngọc Duy <pclouds@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
@@ -11,8 +12,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=atk&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2011-09-27 17:51+0000\n"
-"PO-Revision-Date: 2011-10-02 11:03+1100\n"
-"Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
+"PO-Revision-Date: 2011-10-02 11:06+1100\n"
+"Last-Translator: Nguyễn Thái Ngọc Duy <pclouds@gmail.com>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -406,78 +407,67 @@ msgid "input method window"
 msgstr "cửa sổ cách gõ"
 
 #: ../atk/atkobject.c:163
-#, fuzzy
 #| msgid "table row header"
 msgid "table row"
-msgstr "tên hàng bảng"
+msgstr "hàng bảng"
 
 #: ../atk/atkobject.c:164
-#, fuzzy
 #| msgid "tree table"
 msgid "tree item"
-msgstr "bảng cây"
+msgstr "nút cây"
 
 #: ../atk/atkobject.c:165
-#, fuzzy
 #| msgid "document frame"
 msgid "document spreadsheet"
-msgstr "khung tài liệu"
+msgstr "bảng tính tài liệu"
 
 #: ../atk/atkobject.c:166
-#, fuzzy
 #| msgid "document frame"
 msgid "document presentation"
-msgstr "khung tài liệu"
+msgstr "trình diễn tài liệu"
 
 #: ../atk/atkobject.c:167
-#, fuzzy
 #| msgid "document frame"
 msgid "document text"
-msgstr "khung tài liệu"
+msgstr "văn bản tài liệu"
 
 #: ../atk/atkobject.c:168
-#, fuzzy
 #| msgid "document frame"
 msgid "document web"
-msgstr "khung tài liệu"
+msgstr "web tài liệu"
 
 #: ../atk/atkobject.c:169
-#, fuzzy
 #| msgid "document frame"
 msgid "document email"
-msgstr "khung tài liệu"
+msgstr "email tài liệu"
 
 #: ../atk/atkobject.c:170
 msgid "comment"
-msgstr ""
+msgstr "bình luận"
 
 #: ../atk/atkobject.c:171
-#, fuzzy
 #| msgid "list"
 msgid "list box"
-msgstr "danh sách"
+msgstr "ô danh sách"
 
 #: ../atk/atkobject.c:172
 msgid "grouping"
-msgstr ""
+msgstr "nhóm"
 
 #: ../atk/atkobject.c:173
-#, fuzzy
 #| msgid "image"
 msgid "image map"
-msgstr "ảnh"
+msgstr "bản đồ ảnh"
 
 #: ../atk/atkobject.c:174
-#, fuzzy
 #| msgid "animation"
 msgid "notification"
-msgstr "hình động"
+msgstr "thông báo"
 
 #: ../atk/atkobject.c:175
-#, fuzzy
 #| msgid "menu bar"
 msgid "info bar"
-msgstr "thanh trình đơn"
+msgstr "thanh thông tin"
 
 #: ../atk/atkobject.c:514
 msgid "Accessible Name"
