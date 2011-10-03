@@ -534,10 +534,14 @@ main (int    argc,
       g_error ("usage: %s [--launch-immediately] [--a11y=0|1]", argv[0]);
     }
 
-  if (!a11y_set)
-    _global_app->a11y_enabled = _global_app->launch_immediately;
-
   _global_app->desktop_schema = get_desktop_schema ();
+
+  if (!a11y_set)
+    {
+      _global_app->a11y_enabled = _global_app->desktop_schema
+                                  ? g_settings_get_boolean (_global_app->desktop_schema, "toolkit-accessibility")
+                                  : _global_app->launch_immediately;
+    }
 
   if (_global_app->desktop_schema)
     g_signal_connect (_global_app->desktop_schema,
