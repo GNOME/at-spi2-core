@@ -3,56 +3,55 @@
 # This file is distributed under the same license as the at-spi package.
 # Ilkka Tuohela <hile@iki.fi>, 2008.
 # Sami Pesonen <sampeson@iki.fi>, 2003.
-# Tommi Vainikainen <thv@iki.fi>, 2009-2010.
+# Tommi Vainikainen <thv@iki.fi>, 2009-2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-15 10:47+0200\n"
-"PO-Revision-Date: 2010-03-15 10:47+0200\n"
+"POT-Creation-Date: 2011-10-05 11:20+0300\n"
+"PO-Revision-Date: 2011-10-05 11:19+0300\n"
 "Last-Translator: Tommi Vainikainen <thv@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../at-spi2.schemas.in.h:1
-msgid "Enable DBus-based AT-SPI infrastructure"
-msgstr "Ota käyttöön DBus-pohjainen AT-SPI-infrastruktuuri"
+#, c-format
+msgid "atk-bridge: Couldn't listen on dbus server: %s"
+msgstr "atk-bridge: Ei voitu kuunnella dbus-palvelinta: %s"
 
-#: ../at-spi2.schemas.in.h:2
-msgid "GTK+ modules for accessibility support"
-msgstr "Esteettömyystuen GTK+-modulit"
+#~ msgid "Enable DBus-based AT-SPI infrastructure"
+#~ msgstr "Ota käyttöön DBus-pohjainen AT-SPI-infrastruktuuri"
 
-#: ../at-spi2.schemas.in.h:3
-msgid ""
-"In combination with /desktop/gnome/interface/accessibility, this key is "
-"needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-"
-"SPI infrastructure has been relocated. It is ignored if the DBus-based AT-"
-"SPI infrastructure has not been relocated."
-msgstr ""
-"Yhdessä avaimen /desktop/gnome/interface/accessibility kanssa tätä avainta "
-"käytetään ottamaan käyttöön DBus-pohjainen AT-SPI-infrastruktuuri mikäli "
-"DBus-pohjainen AT-SPI-infrastruktuuri on uudelleensijoitettu. Tämän avaimen "
-"arvolla ei ole merkitystä mikäli DBus-pohjaista AT-SPI-infrastruktuuria ei "
-"ole uudelleensijoitettu."
+#~ msgid "GTK+ modules for accessibility support"
+#~ msgstr "Esteettömyystuen GTK+-modulit"
 
-#: ../at-spi2.schemas.in.h:4
-msgid "This key determines the GTK+ modules to load for accessibility support."
-msgstr "Tämä avain määrittää esteettömyystuelle ladattavat GTK+-modulit."
+#~ msgid ""
+#~ "In combination with /desktop/gnome/interface/accessibility, this key is "
+#~ "needed to enable the DBus-based AT-SPI infrastructure if the DBus-based "
+#~ "AT-SPI infrastructure has been relocated. It is ignored if the DBus-based "
+#~ "AT-SPI infrastructure has not been relocated."
+#~ msgstr ""
+#~ "Yhdessä avaimen /desktop/gnome/interface/accessibility kanssa tätä "
+#~ "avainta käytetään ottamaan käyttöön DBus-pohjainen AT-SPI-infrastruktuuri "
+#~ "mikäli DBus-pohjainen AT-SPI-infrastruktuuri on uudelleensijoitettu. "
+#~ "Tämän avaimen arvolla ei ole merkitystä mikäli DBus-pohjaista AT-SPI-"
+#~ "infrastruktuuria ei ole uudelleensijoitettu."
 
-#: ../registryd/Accessibility_Registry.server.in.in.h:1
-msgid "AT-SPI Registry"
-msgstr "AT-SPI-rekisteri"
+#~ msgid ""
+#~ "This key determines the GTK+ modules to load for accessibility support."
+#~ msgstr "Tämä avain määrittää esteettömyystuelle ladattavat GTK+-modulit."
 
-#: ../registryd/Accessibility_Registry.server.in.in.h:2
-msgid "Accessibility Registry"
-msgstr "Esteettömyysrekisteri"
+#~ msgid "AT-SPI Registry"
+#~ msgstr "AT-SPI-rekisteri"
 
-#: ../registryd/at-spi-registryd.desktop.in.in.in.h:1
-msgid "AT SPI Registry"
-msgstr "AT-SPI-rekisteri"
+#~ msgid "Accessibility Registry"
+#~ msgstr "Esteettömyysrekisteri"
+
+#~ msgid "AT SPI Registry"
+#~ msgstr "AT-SPI-rekisteri"
 
 #~ msgid "AT SPI Registry Wrapper"
 #~ msgstr "AT-SPI-rekisteripäällyste"
