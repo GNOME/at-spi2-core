@@ -225,7 +225,7 @@ main (int argc, char **argv)
   ret = dbus_bus_request_name(bus, dbus_name, DBUS_NAME_FLAG_DO_NOT_QUEUE, &error);
   if (ret == DBUS_REQUEST_NAME_REPLY_EXISTS)
     {
-      g_error("Could not obtain D-Bus name - %s\n", dbus_name);
+      exit (0);	/* most likely already running */
     }
   else
     {
