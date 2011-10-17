@@ -1,3 +1,7 @@
+What's new in at-spi2-atk 2.2.1:
+
+* Updated Finnish translation.
+
 What's new in at-spi2-atk 2.2.0:
 
 * Really fix BGO#658013: Attach the timeout for a key listener to the
