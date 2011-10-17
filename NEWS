@@ -1,3 +1,12 @@
+What's new in at-spi2-core 2.2.1:
+
+* Fix org.a11y.Bus.Enabled property to set its initial state from the
+  GSettings key, if available and an initial property is not given on the
+  command line.
+
+* Fix for BGO#660947: Gracefully exit when already running, rather than
+  triggering a SIGABRT.
+
 What's new in at-spi2-core 2.1.92:
 
 * Fixed a crash when handling event listeners.
