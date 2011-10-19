@@ -125,8 +125,8 @@ dbus_bool_t spi_dbus_message_iter_append_struct(DBusMessageIter *iter, ...)
     ptr = va_arg(args, void *);
     dbus_message_iter_append_basic(&iter_struct, type, ptr);
   }
-  if (!dbus_message_iter_close_container(iter, &iter_struct)) return FALSE;
   va_end(args);
+  if (!dbus_message_iter_close_container(iter, &iter_struct)) return FALSE;
   return TRUE;
 }
 
