@@ -253,6 +253,7 @@ handle_get_property  (GDBusConnection       *connection,
     return NULL;
 }
 
+static void
 handle_a11y_enabled_change (A11yBusLauncher *app, gboolean enabled,
                                gboolean notify_gsettings)
 {
