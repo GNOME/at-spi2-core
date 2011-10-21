@@ -247,7 +247,7 @@ handle_get_property  (GDBusConnection       *connection,
 
   if (g_strcmp0 (property_name, "IsEnabled") == 0)
     {
-      return g_variant_new ("(b)", app->a11y_enabled);
+      return g_variant_new ("b", app->a11y_enabled);
     }
   else
     return NULL;
