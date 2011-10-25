@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.3.1:
+
+* Fix return type of org.a11y.Bus.IsEnabled property
+    
+* Declare void functions as such
+
 What's new in at-spi2-core 2.2.1:
 
 * Fix org.a11y.Bus.Enabled property to set its initial state from the
