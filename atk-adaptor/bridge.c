@@ -334,17 +334,19 @@ socket_ref_state_set (AtkObject *accessible)
   DBusMessageIter iter, iter_array;
   AtkStateSet *set;
 
+  set = atk_state_set_new ();
+
   if (!socket->embedded_plug_id)
-    return NULL;
+    return set;
 
   child_name = g_strdup (socket->embedded_plug_id);
   if (!child_name)
-    return NULL;
+    return set;
   child_path = g_utf8_strchr (child_name + 1, -1, ':');
   if (!child_path)
     {
       g_free (child_name);
-      return NULL;
+      return set;
     }
   *(child_path++) = '\0';
   message = dbus_message_new_method_call (child_name, child_path, ATSPI_DBUS_INTERFACE_ACCESSIBLE, "GetState");
@@ -352,15 +354,13 @@ socket_ref_state_set (AtkObject *accessible)
   reply = dbus_connection_send_with_reply_and_block (spi_global_app_data->bus, message, 1, NULL);
   dbus_message_unref (message);
   if (reply == NULL)
-    return NULL;
+    return set;
   if (strcmp (dbus_message_get_signature (reply), "au") != 0)
     {
       dbus_message_unref (reply);
-      return NULL;
+      return set;
     }
-  set = atk_state_set_new ();
-  if (!set)
-    return  NULL;
+
   dbus_message_iter_init (reply, &iter);
   dbus_message_iter_recurse (&iter, &iter_array);
   do
