@@ -187,6 +187,12 @@ impl_Embedded (DBusConnection *bus,
       iface->get_size = atspi_plug_component_get_size;
       iface->get_position = atspi_plug_component_get_position;
     }
+
+  /* Retrieve some info about the children, if they exist, when
+     embedding the plug to ensure the a11y subtree is generated.
+     https://bugzilla.gnome.org/show_bug.cgi?id=663876 */
+  atk_object_get_n_accessible_children (object);
+
   return dbus_message_new_method_return (message);
 }
 
