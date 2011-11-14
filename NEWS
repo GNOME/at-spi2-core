@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.2.2:
+
+* Fix for BGO#663992: set STATE_FOCUSED for a "focus" event
+    
+* Fix return type of org.a11y.Bus.IsEnabled property
+    
+* Declare void functions as such
+
 What's new in at-spi2-core 2.2.1:
 
 * Fix org.a11y.Bus.Enabled property to set its initial state from the
@@ -81,7 +89,6 @@ What's new in at-spi2-core 2.1.3:
 
 * Fix failure to update cache in response to children-changed events in some
   cases.
-
 
 What's new in at-spi2-core 2.1.2:
 
