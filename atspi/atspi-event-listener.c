@@ -897,9 +897,6 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   {
     cache_process_state_changed (&e);
   }
-  /* see BGO#663992 */
-  else if (!strncmp (e.type, "focus", 5) && e.source->states)
-    e.source->states->states |= (1 << ATSPI_STATE_FOCUSED);
 
   _atspi_send_event (&e);
 
