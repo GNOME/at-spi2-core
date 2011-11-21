@@ -1,3 +1,11 @@
+What's new in at-spi2-atk 2.3.2:
+
+* Have AtkSocket's implementation of ref_state_set to return empty sets
+  instead of NULL
+
+* Fix for BGO#663876: Make sure the a11y hierarchy under an AtkPlug is
+  generated when embedding.
+    
 What's new in at-spi2-atk 2.3.1:
 
 * Fix a small coding error that could generate compiler warnings.
