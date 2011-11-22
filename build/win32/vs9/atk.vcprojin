@@ -121,7 +121,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies=""
-				OutputFile="$(OutDir)\$(AtkDllPrefix)$(ProjectName)-$(AtkDllSuffix).dll"
+				OutputFile="$(OutDir)\$(AtkDllPrefix)$(ProjectName)$(AtkDllSuffix).dll"
 				LinkIncremental="2"
 				ModuleDefinitionFile="..\..\..\atk\atk.def"
 				GenerateDebugInformation="true"
@@ -154,7 +154,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies=""
-				OutputFile="$(OutDir)\$(AtkDllPrefix)$(ProjectName)-$(AtkDllSuffix).dll"
+				OutputFile="$(OutDir)\$(AtkDllPrefix)$(ProjectName)$(AtkDllSuffix).dll"
 				LinkIncremental="2"
 				ModuleDefinitionFile="..\..\..\atk\atk.def"
 				GenerateDebugInformation="true"
