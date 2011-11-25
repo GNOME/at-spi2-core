@@ -80,8 +80,6 @@ append_cache_item (AtkObject * obj, gpointer data)
   const char *name, *desc;
   dbus_uint32_t role;
 
-  g_object_ref (G_OBJECT (obj));
-
   set = atk_object_ref_state_set (obj);
   {
     AtkObject *application, *parent;
@@ -216,10 +214,15 @@ append_cache_item (AtkObject * obj, gpointer data)
   }
   dbus_message_iter_close_container (iter_array, &iter_struct);
   g_object_unref (set);
-  g_object_unref (obj);
 }
 
 /*---------------------------------------------------------------------------*/
+
+static void
+ref_accessible_hf (gpointer key, gpointer obj_data, gpointer data)
+{
+  g_object_ref (key);
+}
 
 /* For use as a GHFunc */
 static void
@@ -228,6 +231,12 @@ append_accessible_hf (gpointer key, gpointer obj_data, gpointer data)
   /* Make sure it isn't a hyperlink */
   if (ATK_IS_OBJECT (key))
     append_cache_item (ATK_OBJECT (key), data);
+}
+
+static void
+unref_accessible_hf (gpointer key, gpointer obj_data, gpointer data)
+{
+  g_object_unref (key);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -267,7 +276,9 @@ emit_cache_add (SpiCache *cache, GObject * obj)
       DBusMessageIter iter;
 
       dbus_message_iter_init_append (message, &iter);
+      g_object_ref (accessible);
       append_cache_item (accessible, &iter);
+      g_object_unref (accessible);
 
       dbus_connection_send (spi_global_app_data->bus, message, NULL);
 
@@ -300,7 +311,9 @@ impl_GetItems (DBusConnection * bus, DBusMessage * message, void *user_data)
   dbus_message_iter_init_append (reply, &iter);
   dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY,
                                     SPI_CACHE_ITEM_SIGNATURE, &iter_array);
+  spi_cache_foreach (spi_global_cache, ref_accessible_hf, NULL);
   spi_cache_foreach (spi_global_cache, append_accessible_hf, &iter_array);
+  spi_cache_foreach (spi_global_cache, unref_accessible_hf, NULL);
   dbus_message_iter_close_container (&iter, &iter_array);
   return reply;
 }
