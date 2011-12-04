@@ -237,7 +237,7 @@ atk_text_base_init (AtkTextIface *class)
  * atk_text_get_text:
  * @text: an #AtkText
  * @start_offset: start position
- * @end_offset: end position
+ * @end_offset: end position, or -1 for the end of the string.
  *
  * Gets the specified text.
  *
@@ -255,7 +255,8 @@ atk_text_get_text (AtkText      *text,
 
   iface = ATK_TEXT_GET_IFACE (text);
 
-  if (start_offset < 0 || end_offset < -1)
+  if (start_offset < 0 || end_offset < -1 ||
+      (end_offset != -1 && end_offset < start_offset))
     return NULL;
 
   if (iface->get_text)
