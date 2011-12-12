@@ -318,7 +318,7 @@ child_added_listener (GSignalInvocationHint * signal_hint,
                       const GValue * param_values, gpointer data)
 {
   SpiCache *cache = spi_global_cache;
-
+  gboolean child_needs_ref = TRUE;
   AtkObject *accessible;
   AtkObject *child;
 
@@ -351,10 +351,12 @@ child_added_listener (GSignalInvocationHint * signal_hint,
           child = g_value_get_pointer (param_values + 2);
 
           if (!ATK_IS_OBJECT (child))
-           {
-             child = atk_object_ref_accessible_child (accessible, index);
-           }
-          g_object_ref (child);
+            {
+              child = atk_object_ref_accessible_child (accessible, index);
+              child_needs_ref = FALSE;
+            }
+          if (child_needs_ref)
+            g_object_ref (child);
           g_queue_push_tail (cache->add_traversal, child);
 
           if (cache->add_pending_idle == 0)
