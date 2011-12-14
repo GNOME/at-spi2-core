@@ -1003,6 +1003,7 @@ atk_object_set_name (AtkObject    *accessible,
                      const gchar  *name)
 {
   AtkObjectClass *klass;
+  gboolean notify = FALSE;
 
   g_return_if_fail (ATK_IS_OBJECT (accessible));
   g_return_if_fail (name != NULL);
@@ -1010,8 +1011,12 @@ atk_object_set_name (AtkObject    *accessible,
   klass = ATK_OBJECT_GET_CLASS (accessible);
   if (klass->set_name)
     {
+      /* Do not notify for initial name setting. See bug 665870 */
+      notify = (accessible->name != NULL);
+
       (klass->set_name) (accessible, name);
-      g_object_notify (G_OBJECT (accessible), atk_object_name_property_name);
+      if (notify)
+        g_object_notify (G_OBJECT (accessible), atk_object_name_property_name);
     }
 }
 
@@ -1027,6 +1032,7 @@ atk_object_set_description (AtkObject   *accessible,
                             const gchar *description)
 {
   AtkObjectClass *klass;
+  gboolean notify = FALSE;
 
   g_return_if_fail (ATK_IS_OBJECT (accessible));
   g_return_if_fail (description != NULL);
@@ -1034,8 +1040,13 @@ atk_object_set_description (AtkObject   *accessible,
   klass = ATK_OBJECT_GET_CLASS (accessible);
   if (klass->set_description)
     {
+      /* Do not notify for initial name setting. See bug 665870 */
+      notify = (accessible->description != NULL);
+
       (klass->set_description) (accessible, description);
-      g_object_notify (G_OBJECT (accessible), atk_object_name_property_description);
+      if (notify)
+        g_object_notify (G_OBJECT (accessible),
+                         atk_object_name_property_description);
     }
 }
 
