@@ -421,6 +421,18 @@ signal_is_needed (const gchar *klass, const gchar *major, const gchar *minor)
   return ret;
 }
 
+/* Convert a : to a / so that listeners can use arg0path to match only
+ *  * the prefix */
+static char *
+adapt_minor_for_dbus (char *source)
+{
+  gchar *ret = g_strdup (source);
+  int i = strcspn (ret, ":");
+  if (ret[i] == ':')
+    ret[i] = '/';
+  return ret;
+}
+
 /*
  * Emits an AT-SPI event.
  * AT-SPI events names are split into three parts:
@@ -444,6 +456,7 @@ emit_event (AtkObject  *obj,
 {
   DBusConnection *bus = spi_global_app_data->bus;
   const char *path;
+  char *minor_dbus;
 
   gchar *cname, *t;
   DBusMessage *sig;
@@ -469,7 +482,9 @@ emit_event (AtkObject  *obj,
 
   dbus_message_iter_init_append(sig, &iter);
 
-  dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &minor);
+  minor_dbus = adapt_minor_for_dbus (minor);
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &minor_dbus);
+  g_free (minor_dbus);
   dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail1);
   dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail2);
   append_variant (&iter, type, val);
