@@ -706,9 +706,7 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
   {
     char *matchrule = g_ptr_array_index (matchrule_array, i);
     dbus_bus_remove_match (_atspi_bus(), matchrule, &d_error);
-    g_free (matchrule);
   }
-  g_ptr_array_free (matchrule_array, TRUE);
       dbus_error_init (&d_error);
       message = dbus_message_new_method_call (atspi_bus_registry,
 	    atspi_path_registry,
@@ -728,6 +726,9 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
   g_free (category);
   g_free (name);
   if (detail) g_free (detail);
+  for (i = 0; i < matchrule_array->len; i++)
+    g_free (g_ptr_array_index (matchrule_array, i));
+  g_ptr_array_free (matchrule_array, TRUE);
   return TRUE;
 }
 
