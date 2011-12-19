@@ -650,7 +650,7 @@ state_event_listener (GSignalInvocationHint * signal_hint,
   emit_event (accessible, ITF_EVENT_OBJECT, STATE_CHANGED, pname, detail1, 0,
               DBUS_TYPE_INT32_AS_STRING, 0, append_basic);
 
-  if (!g_strcmp0 (pname, "defunct"))
+  if (!g_strcmp0 (pname, "defunct") && detail1)
     spi_register_deregister_object (spi_global_register, G_OBJECT (accessible),
                                     TRUE);
   return TRUE;
