@@ -1,3 +1,15 @@
+What's new in at-spi2-atk 2.3.3:
+
+* Fix for BGO#664822 - gnome-shell crash when an AT is launched
+
+* Fix a reference leak if a child-added signal has no object value.
+
+* Change a : to a / in the suffix to an event, to allow DBus match rules
+  using arg0path.
+
+* Only deregister objects when they are marked defunct, not when a previously
+  defunct object is marked as no longer defunct.
+
 What's new in at-spi2-atk 2.3.2:
 
 * Have AtkSocket's implementation of ref_state_set to return empty sets
