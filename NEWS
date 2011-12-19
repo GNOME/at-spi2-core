@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.3.3:
+
+* Handle event detail suffixes (such as :system).
+
 What's new in at-spi2-core 2.3.2:
 
 * Some documentation improvements.
