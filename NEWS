@@ -1,3 +1,12 @@
+Changes in version 2.3.3:
+=========================
+*
+* Bug 665870: About reducing accessible-name, accessible-description
+*  change notifications
+* Minor documentation updates
+* Updated Visual Studio configuration files
+* Updated Simplified Chinese and Vietnamese translations
+
 Changes in version 2.2.0:
 =========================
 *
