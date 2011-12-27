@@ -87,17 +87,10 @@ dbus_bool_t spi_dbus_marshal_deviceEvent(DBusMessage *message, const Accessibili
 dbus_bool_t spi_dbus_demarshal_deviceEvent(DBusMessage *message, Accessibility_DeviceEvent *e)
 {
   DBusMessageIter iter;
-  dbus_uint16_t hw_code;
-  dbus_uint16_t modifiers;
 
   dbus_message_iter_init(message, &iter);
   if (spi_dbus_message_iter_get_struct(&iter, DBUS_TYPE_UINT32, &e->type, DBUS_TYPE_INT32, &e->id, DBUS_TYPE_INT32, &e->hw_code, DBUS_TYPE_INT32, &e->modifiers, DBUS_TYPE_INT32, &e->timestamp, DBUS_TYPE_STRING, &e->event_string, DBUS_TYPE_BOOLEAN, &e->is_text, DBUS_TYPE_INVALID))
     return TRUE;
-  /* TODO: Perhaps remove the below code for 2.1 */
-  if (!spi_dbus_message_iter_get_struct(&iter, DBUS_TYPE_UINT32, &e->type, DBUS_TYPE_INT32, &e->id, DBUS_TYPE_INT16, &hw_code, DBUS_TYPE_INT16, &modifiers, DBUS_TYPE_INT32, &e->timestamp, DBUS_TYPE_STRING, &e->event_string, DBUS_TYPE_BOOLEAN, &e->is_text, DBUS_TYPE_INVALID))
-    return FALSE;
-  e->hw_code = hw_code;
-  e->modifiers = modifiers;
   return TRUE;
 }
 

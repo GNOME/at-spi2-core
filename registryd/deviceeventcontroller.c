@@ -1910,13 +1910,14 @@ impl_register_keystroke_listener (DBusConnection *bus,
   GSList *keys = NULL;
   dbus_int32_t mask, type;
   Accessibility_EventListenerMode *mode;
-  dbus_bool_t ret;
+ dbus_bool_t ret;
   DBusMessage *reply = NULL;
   char *keystring;
-  char *sig;
+
+  if (strcmp (dbus_message_get_signature (message), "oa(iisi)uu(bbb)") != 0)
+    return invalid_arguments_error (message);
 
   dbus_message_iter_init(message, &iter);
-  // TODO: verify type signature
   dbus_message_iter_get_basic(&iter, &path);
   dbus_message_iter_next(&iter);
   dbus_message_iter_recurse(&iter, &iter_array);
@@ -1933,22 +1934,7 @@ impl_register_keystroke_listener (DBusConnection *bus,
   dbus_message_iter_next(&iter);
   dbus_message_iter_get_basic(&iter, &mask);
   dbus_message_iter_next(&iter);
-  sig = dbus_message_iter_get_signature (&iter);
-  if (sig && !strcmp (sig, "u"))
-    dbus_message_iter_get_basic(&iter, &type);
-  else
-  {
-    dbus_message_iter_recurse(&iter, &iter_array);
-    while (dbus_message_iter_get_arg_type(&iter_array) != DBUS_TYPE_INVALID)
-    {
-      dbus_uint32_t t;
-      dbus_message_iter_get_basic (&iter_array, &t);
-      type |= (1 << t);
-      dbus_message_iter_next (&iter_array);
-    }
-    dbus_message_iter_next (&iter_array);
-  }
-  dbus_free (sig);
+  dbus_message_iter_get_basic(&iter, &type);
   dbus_message_iter_next(&iter);
   mode = (Accessibility_EventListenerMode *)g_malloc(sizeof(Accessibility_EventListenerMode));
   if (mode)
@@ -2132,7 +2118,7 @@ impl_deregister_keystroke_listener (DBusConnection *bus,
   DBusMessage *reply = NULL;
 
   dbus_message_iter_init(message, &iter);
-  // TODO: verify type signature
+  if (strcmp (dbus_message_get_signature (message), "oa(iisi)uu") != 0)
   dbus_message_iter_get_basic(&iter, &path);
   dbus_message_iter_next(&iter);
   dbus_message_iter_recurse(&iter, &iter_array);
