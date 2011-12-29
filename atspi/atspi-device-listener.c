@@ -389,6 +389,11 @@ _atspi_dbus_handle_DeviceEvent (DBusConnection *bus, DBusMessage *message, void 
   if (klass->device_event)
   {
     retval = (*klass->device_event) (listener, &event);
+    if (retval != 0 && retval != 1)
+    {
+      g_warning ("at-spi: device event handler returned %d; should be 0 or 1", retval);
+      retval = 0;
+    }
   }
 done:
   reply = dbus_message_new_method_return (message);
