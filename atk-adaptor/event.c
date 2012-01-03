@@ -424,7 +424,7 @@ signal_is_needed (const gchar *klass, const gchar *major, const gchar *minor)
 /* Convert a : to a / so that listeners can use arg0path to match only
  *  * the prefix */
 static char *
-adapt_minor_for_dbus (char *source)
+adapt_minor_for_dbus (const char *source)
 {
   gchar *ret = g_strdup (source);
   int i = strcspn (ret, ":");
