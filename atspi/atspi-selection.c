@@ -105,7 +105,7 @@ atspi_selection_select_child (AtspiSelection *obj,
 
   g_return_val_if_fail (obj != NULL, FALSE);
 
-  _atspi_dbus_call (obj, atspi_interface_selection, "SelectChild", error, "i=>b", &d_child_index, &retval);
+  _atspi_dbus_call (obj, atspi_interface_selection, "SelectChild", error, "i=>b", d_child_index, &retval);
 
   return retval;
 }
@@ -163,7 +163,7 @@ atspi_selection_deselect_child (AtspiSelection *obj,
 
   g_return_val_if_fail (obj != NULL, FALSE);
 
-  _atspi_dbus_call (obj, atspi_interface_selection, "DeselectChild", error, "i=>b", &d_child_index, &retval);
+  _atspi_dbus_call (obj, atspi_interface_selection, "DeselectChild", error, "i=>b", d_child_index, &retval);
 
   return retval;
 }
@@ -190,7 +190,7 @@ atspi_selection_is_child_selected (AtspiSelection *obj,
 
   g_return_val_if_fail (obj != NULL, FALSE);
 
-  _atspi_dbus_call (obj, atspi_interface_selection, "IsChildSelected", error, "i=>b", &d_child_index, &retval);
+  _atspi_dbus_call (obj, atspi_interface_selection, "IsChildSelected", error, "i=>b", d_child_index, &retval);
 
   return retval;
 }
