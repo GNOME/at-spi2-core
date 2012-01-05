@@ -351,8 +351,6 @@ connection_setup_add_timeout (ConnectionSetup *cs,
   if (!dbus_timeout_get_enabled (timeout))
     return;
   
-  g_assert (dbus_timeout_get_data (timeout) == NULL);
-
   handler = g_new0 (TimeoutHandler, 1);
   handler->cs = cs;
   handler->timeout = timeout;

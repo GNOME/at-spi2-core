@@ -981,11 +981,129 @@ spi_controller_deregister_global_keygrabs (SpiDEController         *controller,
     spi_controller_update_key_grabs (controller, NULL);
 }
 
+static void
+append_keystroke_listener (DBusMessageIter *iter, DEControllerKeyListener *listener)
+{
+  dbus_uint32_t d_uint;
+  DBusMessageIter iter_struct, iter_subarray, iter_substruct;
+  GList *l;
+  GSList *kl;
+
+  if (!dbus_message_iter_open_container (iter, DBUS_TYPE_STRUCT, NULL,
+                                         &iter_struct))
+    return;
+
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING,
+                                  &listener->listener.bus_name);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH,
+                                  &listener->listener.path);
+  d_uint = listener->listener.type;
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT32, &d_uint);
+  d_uint = listener->listener.types;
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT32, &d_uint);
+  if (!dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY,
+                                         "(iisi)", &iter_subarray))
+  {
+    dbus_message_iter_close_container (iter, &iter_struct);
+    return;
+  }
+  for (kl = listener->keys; kl; kl = kl->next)
+  {
+    Accessibility_KeyDefinition *kd = kl->data;
+    if (!dbus_message_iter_open_container (&iter_subarray, DBUS_TYPE_STRUCT,
+                                         NULL, &iter_substruct))
+      break;
+    dbus_message_iter_append_basic (&iter_substruct, DBUS_TYPE_INT32, &kd->keycode);
+    dbus_message_iter_append_basic (&iter_substruct, DBUS_TYPE_INT32, &kd->keysym);
+    dbus_message_iter_append_basic (&iter_substruct, DBUS_TYPE_STRING, &kd->keystring);
+    dbus_message_iter_append_basic (&iter_substruct, DBUS_TYPE_INT32, &kd->unused);
+    dbus_message_iter_close_container (&iter_subarray, &iter_substruct);
+  }
+  dbus_message_iter_close_container (&iter_struct, &iter_subarray);
+  d_uint = listener->mask;
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT32, &d_uint);
+  if (dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_STRUCT,
+                                         NULL, &iter_substruct))
+  {
+    dbus_message_iter_append_basic (&iter_substruct, DBUS_TYPE_BOOLEAN,
+                                    &listener->mode->synchronous);
+    dbus_message_iter_append_basic (&iter_substruct, DBUS_TYPE_BOOLEAN,
+                                    &listener->mode->preemptive);
+    dbus_message_iter_append_basic (&iter_substruct, DBUS_TYPE_BOOLEAN,
+                                    &listener->mode->global);
+    dbus_message_iter_close_container (&iter_struct, &iter_substruct);
+  }
+  dbus_message_iter_close_container (iter, &iter_struct);
+}
+
+static void
+notify_keystroke_listener (SpiDEController *controller,
+                           DEControllerKeyListener *listener,
+                           gboolean enable)
+{
+  const char *path = SPI_DBUS_PATH_DEC;
+  const char *interface = SPI_DBUS_INTERFACE_DEVICE_EVENT_LISTENER;
+  const char *name = (enable
+                      ? "KeystrokeListenerRegistered"
+                      : "KeystrokeListenerDeregistered");
+  DBusMessage *signal;
+  DBusMessageIter iter;
+
+  signal = dbus_message_new_signal (path, interface, name);
+  if (!signal)
+    return;
+  dbus_message_iter_init_append (signal, &iter);
+  append_keystroke_listener (&iter, listener);
+  dbus_connection_send (controller->bus, signal, NULL);
+  dbus_message_unref (signal);
+}
+
+static void
+append_mouse_listener (DBusMessageIter *iter, DEControllerListener *listener)
+{
+  DBusMessageIter iter_struct;
+  dbus_uint32_t d_uint;
+
+  if (!dbus_message_iter_open_container (iter, DBUS_TYPE_STRUCT, NULL,
+                                         &iter_struct))
+    return;
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING,
+                                  &listener->bus_name);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH,
+                                  &listener->path);
+  d_uint = listener->types;
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT32, &d_uint);
+  dbus_message_iter_close_container (iter, &iter_struct);
+}
+
+static void
+notify_mouse_listener (SpiDEController *controller,
+                       DEControllerListener *listener,
+                       gboolean enable)
+{
+  const char *path = SPI_DBUS_PATH_DEC;
+  const char *interface = SPI_DBUS_INTERFACE_DEVICE_EVENT_LISTENER;
+  const char *name = (enable
+                      ? "DeviceListenerRegistered"
+                      : "DeviceListenerDeregistered");
+  DBusMessage *signal;
+  DBusMessageIter iter;
+
+  signal = dbus_message_new_signal (path, interface, name);
+  if (!signal)
+    return;
+  dbus_message_iter_init_append (signal, &iter);
+  append_mouse_listener (&iter, listener);
+  dbus_connection_send (controller->bus, signal, NULL);
+  dbus_message_unref (signal);
+}
+
 static gboolean
 spi_controller_register_device_listener (SpiDEController      *controller,
 					 DEControllerListener *listener)
 {
   DEControllerKeyListener *key_listener;
+  gboolean retval;
   
   switch (listener->type) {
   case SPI_DEVICE_TYPE_KBD:
@@ -996,10 +1114,12 @@ spi_controller_register_device_listener (SpiDEController      *controller,
       spi_dbus_add_disconnect_match (controller->bus, key_listener->listener.bus_name);
       if (key_listener->mode->global)
         {
-	  return spi_controller_register_global_keygrabs (controller, key_listener);	
+	  retval = spi_controller_register_global_keygrabs (controller, key_listener);
 	}
       else
-	      return TRUE;
+	  retval = TRUE;
+      if (retval)
+	notify_keystroke_listener (controller, key_listener, TRUE);
       break;
   case SPI_DEVICE_TYPE_MOUSE:
       controller->mouse_listeners = g_list_prepend (controller->mouse_listeners, listener);
@@ -1010,6 +1130,7 @@ spi_controller_register_device_listener (SpiDEController      *controller,
             g_timeout_add (100, spi_dec_poll_mouse_idle, controller);
         }
       spi_dbus_add_disconnect_match (controller->bus, listener->bus_name);
+      notify_mouse_listener (controller, listener, TRUE);
       break;
   default:
       break;
@@ -2042,6 +2163,8 @@ spi_controller_deregister_device_listener (SpiDEController            *controlle
   ctx.bus = controller->bus;
   ctx.listener = listener;
 
+  notify_mouse_listener (controller, listener, FALSE);
+
   spi_re_entrant_list_foreach (&controller->mouse_listeners,
 			       remove_listener_cb, &ctx);
   if (!controller->mouse_listeners)
@@ -2056,6 +2179,8 @@ spi_deregister_controller_key_listener (SpiDEController            *controller,
 
   ctx.bus = controller->bus;
   ctx.listener = (DEControllerListener *) spi_key_listener_clone (key_listener);
+
+  notify_keystroke_listener (controller, key_listener, FALSE);
 
   /* special case, copy keyset from existing controller list entry */
   if (g_slist_length(key_listener->keys) == 0)
@@ -2177,6 +2302,56 @@ impl_deregister_device_event_listener (DBusConnection *bus,
   spi_controller_deregister_device_listener (
 	  controller, listener);
   reply = dbus_message_new_method_return (message);
+  return reply;
+}
+
+static DBusMessage *
+impl_get_keystroke_listeners (DBusConnection *bus,
+				  DBusMessage *message,
+				  void *user_data)
+{
+  SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
+  DEControllerKeyListener *dec_listener;
+  DBusMessageIter iter, iter_array;
+  DBusMessage *reply = dbus_message_new_method_return (message);
+  GList *l;
+
+  if (!reply)
+    return NULL;
+
+  dbus_message_iter_init_append (reply, &iter);
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY,
+                                    "(souua(iisi)u(bbb))", &iter_array);
+  for (l = controller->key_listeners; l; l = l->next)
+  {
+    append_keystroke_listener (&iter_array, l->data);
+  }
+  dbus_message_iter_close_container (&iter, &iter_array);
+  return reply;
+}
+
+static DBusMessage *
+impl_get_device_event_listeners (DBusConnection *bus,
+				  DBusMessage *message,
+				  void *user_data)
+{
+  SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
+  DEControllerKeyListener *dec_listener;
+  DBusMessageIter iter, iter_array;
+  GList *l;
+  DBusMessage *reply = dbus_message_new_method_return (message);
+
+  if (!reply)
+    return NULL;
+
+  dbus_message_iter_init_append (reply, &iter);
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY,
+                                    "(sou)", &iter_array);
+  for (l = controller->key_listeners; l; l = l->next)
+  {
+    append_mouse_listener (&iter_array, l->data);
+  }
+  dbus_message_iter_close_container (&iter, &iter_array);
   return reply;
 }
 
@@ -2881,6 +3056,10 @@ handle_dec_method_from_idle (DBusConnection *bus, DBusMessage *message, void *us
           reply = impl_deregister_keystroke_listener (bus, message, user_data);
       else if (!strcmp (member, "DeregisterDeviceEventListener"))
           reply = impl_deregister_device_event_listener (bus, message, user_data);
+      else if (!strcmp (member, "GetKeystrokeListeners"))
+          reply = impl_get_keystroke_listeners (bus, message, user_data);
+      else if (!strcmp (member, "GetDeviceEventListeners"))
+          reply = impl_get_device_event_listeners (bus, message, user_data);
       else if (!strcmp (member, "GenerateKeyboardEvent"))
           reply = impl_generate_keyboard_event (bus, message, user_data);
       else if (!strcmp (member, "GenerateMouseEvent"))
