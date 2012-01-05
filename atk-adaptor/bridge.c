@@ -140,32 +140,34 @@ add_event (const char *bus_name, const char *event)
 static GSList *clients = NULL;
 
 static void
-get_registered_event_listeners (SpiBridge *app)
+tally_event_reply ()
 {
-  DBusMessage *message, *reply;
+  static int replies_received = 0;
+
+  replies_received++;
+  if (replies_received == 3)
+  {
+    if (!clients)
+      spi_atk_deregister_event_listeners ();
+    spi_global_app_data->events_initialized = TRUE;
+  }
+}
+
+static void
+get_events_reply (DBusPendingCall *pending, void *user_data)
+{
+  DBusMessage *reply = dbus_pending_call_steal_reply (pending);
   DBusMessageIter iter, iter_array, iter_struct;
 
-  message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
-                                         ATSPI_DBUS_PATH_REGISTRY,
-                                         ATSPI_DBUS_INTERFACE_REGISTRY,
-                                         "GetRegisteredEvents");
-  if (!message)
-    return;
-
-  reply = dbus_connection_send_with_reply_and_block (app->bus, message, 5000, NULL);
-  dbus_message_unref (message);
   if (!reply)
-    {
-      spi_global_app_data->events_initialized = TRUE;
-      return;
-    }
+    goto done;
+
   if (strcmp (dbus_message_get_signature (reply), "a(ss)") != 0)
     {
       g_warning ("atk-bridge: GetRegisteredEvents returned message with unknown signature");
-      dbus_message_unref (reply);
-      spi_global_app_data->events_initialized = TRUE;
-      return;
+      goto done;
     }
+
   dbus_message_iter_init (reply, &iter);
   dbus_message_iter_recurse (&iter, &iter_array);
   while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
@@ -178,11 +180,104 @@ get_registered_event_listeners (SpiBridge *app)
       add_event (bus_name, event);
       dbus_message_iter_next (&iter_array);
     }
-  dbus_message_unref (reply);
 
-  if (!clients)
-    spi_atk_deregister_event_listeners ();
-  spi_global_app_data->events_initialized = TRUE;
+done:
+  if (reply)
+    dbus_message_unref (reply);
+  if (pending)
+    dbus_pending_call_unref (pending);
+
+  tally_event_reply ();
+}
+
+static void
+get_device_events_reply (DBusPendingCall *pending, void *user_data)
+{
+  DBusMessage *reply = dbus_pending_call_steal_reply (pending);
+  DBusMessageIter iter, iter_array, iter_struct;
+
+  if (!reply)
+    goto done;
+
+  if (strncmp (dbus_message_get_signature (reply), "a(s", 3) != 0)
+    {
+      g_warning ("atk-bridge: get_device_events_reply: unknown signature");
+      goto done;
+    }
+
+  dbus_message_iter_init (reply, &iter);
+  dbus_message_iter_recurse (&iter, &iter_array);
+  while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
+    {
+      char *bus_name;
+      dbus_message_iter_recurse (&iter_array, &iter_struct);
+      dbus_message_iter_get_basic (&iter_struct, &bus_name);
+      spi_atk_add_client (bus_name);
+      dbus_message_iter_next (&iter_array);
+    }
+
+done:
+  if (reply)
+    dbus_message_unref (reply);
+  if (pending)
+    dbus_pending_call_unref (pending);
+
+  tally_event_reply ();
+}
+
+static void
+get_registered_event_listeners (SpiBridge *app)
+{
+  DBusMessage *message;
+  DBusPendingCall *pending = NULL;
+
+  message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
+                                         ATSPI_DBUS_PATH_REGISTRY,
+                                         ATSPI_DBUS_INTERFACE_REGISTRY,
+                                         "GetRegisteredEvents");
+  if (!message)
+    return;
+
+  dbus_connection_send_with_reply (app->bus, message, &pending, -1);
+  dbus_message_unref (message);
+  if (!pending)
+    {
+      spi_global_app_data->events_initialized = TRUE;
+      return;
+    }
+  dbus_pending_call_set_notify (pending, get_events_reply, NULL, NULL);
+
+  message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
+                                         ATSPI_DBUS_PATH_DEC,
+                                         ATSPI_DBUS_INTERFACE_DEC,
+                                         "GetKeystrokeListeners");
+  if (!message)
+    return;
+  pending = NULL;
+  dbus_connection_send_with_reply (app->bus, message, &pending, -1);
+  dbus_message_unref (message);
+  if (!pending)
+    {
+      spi_global_app_data->events_initialized = TRUE;
+      return;
+    }
+  dbus_pending_call_set_notify (pending, get_device_events_reply, NULL, NULL);
+
+  message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
+                                         ATSPI_DBUS_PATH_DEC,
+                                         ATSPI_DBUS_INTERFACE_DEC,
+                                         "GetDeviceEventListeners");
+  if (!message)
+    return;
+  pending = NULL;
+  dbus_connection_send_with_reply (app->bus, message, &pending, -1);
+  dbus_message_unref (message);
+  if (!pending)
+    {
+      spi_global_app_data->events_initialized = TRUE;
+      return;
+    }
+  dbus_pending_call_set_notify (pending, get_device_events_reply, NULL, NULL);
 }
 
 static void
@@ -459,7 +554,7 @@ get_ancestral_uid (uint pid)
 }
 
 static dbus_bool_t
-user_check (DBusConnection *bus, unsigned long uid)
+user_check (DBusConnection *bus, unsigned long uid, void *data)
 {
   if (uid == getuid () || uid == geteuid ())
     return TRUE;
@@ -597,6 +692,25 @@ handle_event_listener_deregistered (DBusConnection *bus, DBusMessage *message,
   remove_events (sender, name);
 }
 
+static void
+handle_device_listener_registered (DBusConnection *bus, DBusMessage *message,
+                                    void *user_data)
+{
+  char *sender;
+  DBusMessageIter iter, iter_struct;
+
+  if (strncmp (dbus_message_get_signature (message), "(s", 2) != 0)
+    {
+      g_warning ("atk-bridge: handle_device_listener_register: unknown signature");
+      return;
+    }
+
+  dbus_message_iter_init (message, &iter);
+  dbus_message_iter_recurse (&iter, &iter_struct);
+  dbus_message_iter_get_basic (&iter_struct, &sender);
+  spi_atk_add_client (sender);
+}
+
 static DBusHandlerResult
 signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
@@ -614,6 +728,16 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
         handle_event_listener_registered (bus, message, user_data);
       else if (!strcmp (member, "EventListenerDeregistered"))
         handle_event_listener_deregistered (bus, message, user_data);
+      else
+        result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+    }
+  else if (!strcmp (interface, ATSPI_DBUS_INTERFACE_DEVICE_EVENT_LISTENER))
+    {
+      result = DBUS_HANDLER_RESULT_HANDLED;
+      if (!strcmp (member, "KeystrokeListenerRegistered"))
+        handle_device_listener_registered (bus, message, user_data);
+      else if (!strcmp (member, "DeviceListenerRegistered"))
+        handle_device_listener_registered (bus, message, user_data);
       else
         result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     }
@@ -775,6 +899,7 @@ adaptor_init (gint * argc, gchar ** argv[])
 
   /* Set up filter and match rules to catch signals */
   dbus_bus_add_match (spi_global_app_data->bus, "type='signal', interface='org.a11y.atspi.Registry', sender='org.a11y.atspi.Registry'", NULL);
+  dbus_bus_add_match (spi_global_app_data->bus, "type='signal', interface='org.a11y.atspi.DeviceEventListener', sender='org.a11y.atspi.Registry'", NULL);
   dbus_connection_add_filter (spi_global_app_data->bus, signal_filter, NULL,
                               NULL);
 
@@ -831,6 +956,7 @@ void
 gnome_accessibility_module_shutdown (void)
 {
   GList *l;
+  GSList *ls;
 
   if (!spi_global_app_data)
       return;
@@ -851,13 +977,13 @@ gnome_accessibility_module_shutdown (void)
     {
       droute_context_unregister (spi_global_app_data->droute, l->data);
       droute_unintercept_dbus (l->data);
-      dbus_connection_unref (l);
+      dbus_connection_unref (l->data);
     }
   g_list_free (spi_global_app_data->direct_connections);
 
-  for (l = clients; l; l = l->next)
+  for (ls = clients; ls; ls = ls->next)
      g_free (l->data);
-  g_list_free (clients);
+  g_slist_free (clients);
   clients = NULL;
 
   g_object_unref (spi_global_cache);
