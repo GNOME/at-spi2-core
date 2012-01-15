@@ -87,10 +87,16 @@ dbind_send_and_allow_reentry (DBusConnection * bus, DBusMessage * message, DBusE
   dbus_pending_call_ref (pending);
   while (!closure->reply)
     {
-      if (!dbus_connection_read_write_dispatch (bus, dbind_timeout) ||
-          time_elapsed (&tv) > dbind_timeout)
+      if (!dbus_connection_read_write_dispatch (bus, dbind_timeout))
         {
           dbus_pending_call_unref (pending);
+          return NULL;
+        }
+      if (time_elapsed (&tv) > dbind_timeout)
+        {
+          dbus_pending_call_unref (pending);
+          dbus_set_error_const (error, "org.freedesktop.DBus.Error.NoReply",
+                                "timeout from dbind");
           return NULL;
         }
     }

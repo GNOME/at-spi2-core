@@ -398,7 +398,6 @@ get_reference_from_iter (DBusMessageIter *iter, const char **app_name, const cha
 static void
 add_accessible_from_iter (DBusMessageIter *iter)
 {
-  GList *new_list;
   DBusMessageIter iter_struct, iter_array;
   const char *app_name, *path;
   AtspiAccessible *accessible;
@@ -434,8 +433,7 @@ add_accessible_from_iter (DBusMessageIter *iter)
     AtspiAccessible *child;
     get_reference_from_iter (&iter_array, &app_name, &path);
     child = ref_accessible (app_name, path);
-    new_list = g_list_append (accessible->children, child);
-    if (new_list) accessible->children = new_list;
+    accessible->children = g_list_append (accessible->children, child);
   }
 
   /* interfaces */
@@ -927,6 +925,77 @@ atspi_exit (void)
   return leaked;
 }
 
+static GSList *hung_processes;
+
+static void
+remove_hung_process (DBusPendingCall *pending, void *data)
+{
+  gchar *bus_name = data;
+
+  hung_processes = g_slist_remove (hung_processes, data);
+  g_free (data);
+  dbus_pending_call_unref (pending);
+}
+
+static void
+check_for_hang (DBusMessage *message, DBusError *error, DBusConnection *bus, const char *bus_name)
+{
+  if (!message && error->name &&
+      !strcmp (error->name, "org.freedesktop.DBus.Error.NoReply"))
+  {
+    GSList *l;
+    DBusMessage *message;
+    gchar *bus_name_dup;
+    DBusPendingCall *pending = NULL;
+    for (l = hung_processes; l; l = l->next)
+      if (!strcmp (l->data, bus_name))
+        return;
+    message = dbus_message_new_method_call (bus_name, "/",
+                                            "org.freedesktop.DBus.Peer",
+                                            "Ping");
+    if (!message)
+      return;
+    dbus_connection_send_with_reply (bus, message, &pending, -1);
+    dbus_message_unref (message);
+    if (!pending)
+      return;
+    bus_name_dup = g_strdup (bus_name);
+    hung_processes = g_slist_append (hung_processes, bus_name_dup);
+    dbus_pending_call_set_notify (pending, remove_hung_process, bus_name_dup, NULL);
+  }
+}
+
+static gboolean
+connection_is_hung (const char *bus_name)
+{
+  GSList *l;
+
+  for (l = hung_processes; l; l = l->next)
+    if (!strcmp (l->data, bus_name))
+      return TRUE;
+  return FALSE;
+}
+
+static gboolean
+check_app (AtspiApplication *app, GError **error)
+{
+  if (!app || !app->bus)
+  {
+    g_set_error_literal (error, ATSPI_ERROR, ATSPI_ERROR_APPLICATION_GONE,
+                          _("The application no longer exists"));
+    return FALSE;
+  }
+
+  if (atspi_main_loop && connection_is_hung (app->bus_name))
+  {
+      g_set_error_literal (error, ATSPI_ERROR, ATSPI_ERROR_IPC,
+                           "The process appears to be hung.");
+    return FALSE;
+  }
+
+  return TRUE;
+}
+
 dbus_bool_t
 _atspi_dbus_call (gpointer obj, const char *interface, const char *method, GError **error, const char *type, ...)
 {
@@ -935,12 +1004,8 @@ _atspi_dbus_call (gpointer obj, const char *interface, const char *method, GErro
   DBusError err;
   AtspiObject *aobj = ATSPI_OBJECT (obj);
 
-  if (!aobj->app || !aobj->app->bus)
-  {
-    g_set_error_literal (error, ATSPI_ERROR, ATSPI_ERROR_APPLICATION_GONE,
-                          _("The application no longer exists"));
+  if (!check_app (aobj->app, error))
     return FALSE;
-  }
 
   va_start (args, type);
   dbus_error_init (&err);
@@ -948,6 +1013,7 @@ _atspi_dbus_call (gpointer obj, const char *interface, const char *method, GErro
                                            aobj->path, interface, method, &err,
                                            type, args);
   va_end (args);
+  check_for_hang (NULL, &err, aobj->app->bus, aobj->app->bus_name);
   _atspi_process_deferred_messages ((gpointer)TRUE);
   if (dbus_error_is_set (&err))
   {
@@ -970,6 +1036,7 @@ _atspi_dbus_call_partial (gpointer obj,
   return _atspi_dbus_call_partial_va (obj, interface, method, error, type, args);
 }
 
+
 DBusMessage *
 _atspi_dbus_call_partial_va (gpointer obj,
                           const char *interface,
@@ -986,22 +1053,19 @@ _atspi_dbus_call_partial_va (gpointer obj,
 
   dbus_error_init (&err);
 
-  if (!aobj->app || !aobj->app->bus)
-  {
-    g_set_error_literal (error, ATSPI_ERROR, ATSPI_ERROR_APPLICATION_GONE,
-                          _("The application no longer exists"));
+  if (!check_app (aobj->app, error))
     goto out;
-  }
 
-    msg = dbus_message_new_method_call (aobj->app->bus_name, aobj->path, interface, method);
-    if (!msg)
-        goto out;
+  msg = dbus_message_new_method_call (aobj->app->bus_name, aobj->path, interface, method);
+  if (!msg)
+    goto out;
 
-    p = type;
-    dbus_message_iter_init_append (msg, &iter);
-    dbind_any_marshal_va (&iter, &p, args);
+  p = type;
+  dbus_message_iter_init_append (msg, &iter);
+  dbind_any_marshal_va (&iter, &p, args);
 
-    reply = dbind_send_and_allow_reentry (aobj->app->bus, msg, &err);
+  reply = dbind_send_and_allow_reentry (aobj->app->bus, msg, &err);
+  check_for_hang (reply, &err, aobj->app->bus, aobj->app->bus_name);
 out:
   va_end (args);
   if (msg)
@@ -1028,12 +1092,8 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
   if (!aobj)
     return FALSE;
 
-  if (!aobj->app || !aobj->app->bus)
-  {
-    g_set_error_literal (error, ATSPI_ERROR, ATSPI_ERROR_APPLICATION_GONE,
-                          _("The application no longer exists"));
+  if (!check_app (aobj->app, error))
     return FALSE;
-  }
 
   message = dbus_message_new_method_call (aobj->app->bus_name,
                                           aobj->path,
@@ -1047,6 +1107,7 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
   dbus_message_append_args (message, DBUS_TYPE_STRING, &interface, DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID);
   dbus_error_init (&err);
   reply = dbind_send_and_allow_reentry (aobj->app->bus, message, &err);
+  check_for_hang (reply, &err, aobj->app->bus, aobj->app->bus_name);
   dbus_message_unref (message);
   _atspi_process_deferred_messages ((gpointer)TRUE);
   if (!reply)
@@ -1320,7 +1381,7 @@ get_accessibility_bus_address_dbus (void)
   {
     g_warning ("Error retrieving accessibility bus address: %s: %s",
                error.name, error.message);
-    dbus_error_init (&error);
+    dbus_error_free (&error);
     return NULL;
   }
   
