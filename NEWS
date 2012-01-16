@@ -1,3 +1,18 @@
+What's new in at-spi2-core 2.3.4:
+
+* Add some dbus message signature checks.
+
+* Fix a crash if a device listener incorrectly returns a non-bool.
+
+* Fix for BGO#666870: Keystroke listeners do not work unless an event listener
+  is also registered [also needs updated at-spi2-atk]
+
+* Fix for BGO#667254: Some atspi-selection_* functions were broken.
+
+* When a call times out, ping the connection and avoid making subsequent calls
+  until the ping is answered.
+
+
 What's new in at-spi2-core 2.3.3:
 
 * Handle event detail suffixes (such as :system).
