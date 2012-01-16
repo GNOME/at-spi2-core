@@ -1,3 +1,8 @@
+What's new in at-spi2-atk 2.3.4:
+
+* Fix for BGO#666870: Keystroke listeners do not work unless an event listener
+  is also registered [also needs updated at-spi2-core]
+
 What's new in at-spi2-atk 2.3.3:
 
 * Fix for BGO#664822 - gnome-shell crash when an AT is launched
