@@ -42,18 +42,6 @@ impl_get_Name (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_set_Name (DBusMessageIter * iter, void *user_data)
-{
-  AtkObject *object = (AtkObject *) user_data;
-  const char *name = droute_get_v_string (iter);
-
-  g_return_val_if_fail (ATK_IS_OBJECT (user_data), FALSE);
-
-  atk_object_set_name (object, name);
-  return TRUE;
-}
-
-static dbus_bool_t
 impl_get_Description (DBusMessageIter * iter, void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
@@ -61,18 +49,6 @@ impl_get_Description (DBusMessageIter * iter, void *user_data)
   g_return_val_if_fail (ATK_IS_OBJECT (user_data), FALSE);
 
   return droute_return_v_string (iter, atk_object_get_description (object));
-}
-
-static dbus_bool_t
-impl_set_Description (DBusMessageIter * iter, void *user_data)
-{
-  AtkObject *object = (AtkObject *) user_data;
-  const char *description = droute_get_v_string (iter);
-
-  g_return_val_if_fail (ATK_IS_OBJECT (user_data), FALSE);
-
-  atk_object_set_description (object, description);
-  return TRUE;
 }
 
 static dbus_bool_t
@@ -541,8 +517,8 @@ static DRouteMethod methods[] = {
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_Name, impl_set_Name, "Name"},
-  {impl_get_Description, impl_set_Description, "Description"},
+  {impl_get_Name, NULL, "Name"},
+  {impl_get_Description, NULL, "Description"},
   {impl_get_Parent, NULL, "Parent"},
   {impl_get_ChildCount, NULL, "ChildCount"},
   {NULL, NULL, NULL}
