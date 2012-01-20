@@ -184,7 +184,7 @@ atspi_text_get_attributes (AtspiText *obj,
   dbus_message_iter_next (&iter);
   dbus_message_iter_get_basic (&iter, &d_end_offset);
   if (end_offset)
-    *end_offset = d_start_offset;
+    *end_offset = d_end_offset;
 
   dbus_message_unref (reply);
   return ret;
