@@ -153,6 +153,17 @@ dbind_method_call_reentrant_va (DBusConnection *cnx,
     {
         DBusMessageIter iter;
         dbus_message_iter_init (reply, &iter);
+	if (strcmp (p + 2, dbus_message_get_signature (reply)) != 0)
+	{
+	    g_warning ("dbind: Call to \"%s\" returned signature %s; expected %s",
+		       method, p + 2, dbus_message_get_signature (reply));
+	    if (opt_error)
+	        dbus_set_error (opt_error, DBUS_ERROR_INVALID_ARGS,
+		                "Call to \"%s\" returned signature %s; expected %s",
+		                method, p + 2,
+		                dbus_message_get_signature (reply));
+	    goto out;
+	}
         p = arg_types;
         dbind_any_demarshal_va (&iter, &p, args_demarshal);
     }
