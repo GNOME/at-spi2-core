@@ -266,8 +266,11 @@ handle_a11y_enabled_change (A11yBusLauncher *app, gboolean enabled,
   app->a11y_enabled = enabled;
 
   if (notify_gsettings && app->desktop_schema)
-    g_settings_set_boolean (app->desktop_schema, "toolkit-accessibility",
-                            enabled);
+    {
+      g_settings_set_boolean (app->desktop_schema, "toolkit-accessibility",
+                              enabled);
+      g_settings_sync ();
+    }
 
   builder = g_variant_builder_new (G_VARIANT_TYPE_ARRAY);
   invalidated_builder = g_variant_builder_new (G_VARIANT_TYPE ("as"));
