@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <schemalist>
-  <schema id="org.a11y.atspi" path="/a11y/atspi/">
+	<schema id="org.a11y.atspi" path="/org/a11y/atspi/">
     <key name="atk-bridge-location" type="ay">
       <default>b'@libdir@/gtk-3.0/modules/libatk-bridge.so'</default>
       <summary>Atk-bridge location</summary>
