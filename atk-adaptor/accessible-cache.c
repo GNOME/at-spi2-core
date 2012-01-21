@@ -179,6 +179,8 @@ remove_object (GObject * source, GObject * gobj, gpointer data)
       g_signal_emit (cache, cache_signals [OBJECT_REMOVED], 0, gobj);
       g_hash_table_remove (cache->objects, gobj);
     }
+  else
+    g_queue_remove (cache->add_traversal, gobj);
 }
 
 static void
