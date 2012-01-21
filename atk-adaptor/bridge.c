@@ -975,14 +975,18 @@ gnome_accessibility_module_shutdown (void)
 
   for (l = spi_global_app_data->direct_connections; l; l = l->next)
     {
-      droute_context_unregister (spi_global_app_data->droute, l->data);
-      droute_unintercept_dbus (l->data);
-      dbus_connection_unref (l->data);
+      DBusConnection *connection;
+
+      connection = l->data;
+
+      droute_context_unregister (spi_global_app_data->droute, connection);
+      droute_unintercept_dbus (connection);
+      dbus_connection_unref (connection);
     }
   g_list_free (spi_global_app_data->direct_connections);
 
   for (ls = clients; ls; ls = ls->next)
-     g_free (l->data);
+    g_free (l->data);
   g_slist_free (clients);
   clients = NULL;
 
@@ -1031,19 +1035,25 @@ void
 spi_atk_remove_client (const char *bus_name)
 {
   GSList *l;
+  GSList *next_node;
 
-  for (l = clients; l; l = l->next)
+  l = clients;
+  while (l)
   {
+    next_node = l->next;
+
     if (!g_strcmp0 (l->data, bus_name))
     {
       gchar *match = g_strdup_printf (name_match_tmpl, l->data);
       dbus_bus_remove_match (spi_global_app_data->bus, match, NULL);
   g_free (match);
       g_free (l->data);
-      clients = g_slist_remove_link (clients, l);
+      clients = g_slist_delete_link (clients, l);
       if (!clients)
         spi_atk_deregister_event_listeners ();
     }
+
+    l = next_node;
   }
 }
 
