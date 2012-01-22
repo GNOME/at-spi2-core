@@ -164,7 +164,7 @@ atspi_event_listener_new_simple (AtspiEventListenerSimpleCB callback,
 static GList *event_listeners = NULL;
 
 static gchar *
-convert_name_from_dbus (const char *name)
+convert_name_from_dbus (const char *name, gboolean path_hack)
 {
   gchar *ret = g_malloc (g_utf8_strlen (name, -1) * 2 + 1);
   const char *p = name;
@@ -180,6 +180,11 @@ convert_name_from_dbus (const char *name)
       if (q > ret)
         *q++ = '-';
       *q++ = tolower (*p++);
+    }
+    else if (path_hack && *p == '/')
+    {
+      *q++ = ':';
+      p++;
     }
     else
       *q++ = *p++;
@@ -331,7 +336,7 @@ strdup_and_adjust_for_dbus (const char *s)
 }
 
 static gboolean
-convert_event_type_to_dbus (const char *eventType, char **categoryp, char **namep, char **detailp, char **matchrule)
+convert_event_type_to_dbus (const char *eventType, char **categoryp, char **namep, char **detailp, GPtrArray **matchrule_array)
 {
   gchar *tmp = strdup_and_adjust_for_dbus (eventType);
   char *category = NULL, *name = NULL, *detail = NULL;
@@ -349,22 +354,29 @@ convert_event_type_to_dbus (const char *eventType, char **categoryp, char **name
     detail = strtok_r (NULL, ":", &saveptr);
     if (detail) detail = g_strdup (detail);
   }
-  if (matchrule)
+  if (matchrule_array)
   {
-    *matchrule = g_strdup_printf ("type='signal',interface='org.a11y.atspi.Event.%s'", category);
-    if (!*matchrule) goto oom;
+    gchar *matchrule;
+    matchrule = g_strdup_printf ("type='signal',interface='org.a11y.atspi.Event.%s'", category);
     if (name && name [0])
     {
-      gchar *new_str = g_strconcat (*matchrule, ",member='", name, "'", NULL);
-      g_free (*matchrule);
-      *matchrule = new_str;
+      gchar *new_str = g_strconcat (matchrule, ",member='", name, "'", NULL);
+      g_free (matchrule);
+      matchrule = new_str;
     }
+    (*matchrule_array) = g_ptr_array_new ();
     if (detail && detail [0])
     {
-      gchar *new_str = g_strconcat (*matchrule, ",arg0='", detail, "'", NULL);
-      g_free (*matchrule);
-      *matchrule = new_str;
+      gchar *new_str = g_strconcat (matchrule, ",arg0='", detail, "'", NULL);
+      g_ptr_array_add (*matchrule_array, new_str);
+      new_str = g_strconcat (matchrule, ",arg0='", detail, "'", ":system", NULL);
+      g_ptr_array_add (*matchrule_array, new_str);
+      new_str = g_strconcat (matchrule, ",arg0path='", detail, "/'", NULL);
+      g_ptr_array_add (*matchrule_array, new_str);
+      g_free (matchrule);
     }
+    else
+      g_ptr_array_add (*matchrule_array, matchrule);
   }
   if (categoryp) *categoryp = category;
   else g_free (category);
@@ -520,10 +532,11 @@ atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
 				             GError **error)
 {
   EventListenerEntry *e;
-  char *matchrule;
   DBusError d_error;
   GList *new_list;
   DBusMessage *message, *reply;
+  GPtrArray *matchrule_array;
+  gint i;
 
   if (!callback)
     {
@@ -542,7 +555,7 @@ atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
   e->callback_destroyed = callback_destroyed;
   callback_ref (callback == remove_datum ? (gpointer)user_data : (gpointer)callback,
                 callback_destroyed);
-  if (!convert_event_type_to_dbus (event_type, &e->category, &e->name, &e->detail, &matchrule))
+  if (!convert_event_type_to_dbus (event_type, &e->category, &e->name, &e->detail, &matchrule_array))
   {
     g_free (e);
     return FALSE;
@@ -555,7 +568,13 @@ atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
   }
   event_listeners = new_list;
   dbus_error_init (&d_error);
-  dbus_bus_add_match (_atspi_bus(), matchrule, &d_error);
+  for (i = 0; i < matchrule_array->len; i++)
+  {
+    char *matchrule = g_ptr_array_index (matchrule_array, i);
+    dbus_bus_add_match (_atspi_bus(), matchrule, &d_error);
+    g_free (matchrule);
+  }
+  g_ptr_array_free (matchrule_array, TRUE);
   if (d_error.message)
   {
     g_warning ("Atspi: Adding match: %s", d_error.message);
@@ -654,10 +673,12 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
 				               const gchar              *event_type,
 				               GError **error)
 {
-  char *category, *name, *detail, *matchrule;
+  char *category, *name, *detail;
+  GPtrArray *matchrule_array;
+  gint i;
   GList *l;
 
-  if (!convert_event_type_to_dbus (event_type, &category, &name, &detail, &matchrule))
+  if (!convert_event_type_to_dbus (event_type, &category, &name, &detail, &matchrule_array))
   {
     return FALSE;
   }
@@ -683,7 +704,13 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
       if (need_replace)
         event_listeners = l;
       dbus_error_init (&d_error);
-      dbus_bus_remove_match (_atspi_bus(), matchrule, &d_error);
+  for (i = 0; i < matchrule_array->len; i++)
+  {
+    char *matchrule = g_ptr_array_index (matchrule_array, i);
+    dbus_bus_remove_match (_atspi_bus(), matchrule, &d_error);
+    g_free (matchrule);
+  }
+  g_ptr_array_free (matchrule_array, TRUE);
       dbus_error_init (&d_error);
       message = dbus_message_new_method_call (atspi_bus_registry,
 	    atspi_path_registry,
@@ -703,7 +730,6 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
   g_free (category);
   g_free (name);
   if (detail) g_free (detail);
-  g_free (matchrule);
   return TRUE;
 }
 
@@ -751,6 +777,18 @@ atspi_event_free (AtspiEvent *event)
   g_free (event);
 }
 
+static gboolean
+detail_matches_listener (const char *event_detail, const char *listener_detail)
+{
+  if (!listener_detail)
+    return TRUE;
+
+  return !(listener_detail [strcspn (listener_detail, ":")] == '\0'
+               ? strncmp (listener_detail, event_detail,
+                          strcspn (event_detail, ":"))
+               : strcmp (listener_detail, event_detail));
+}
+
 void
 _atspi_send_event (AtspiEvent *e)
 {
@@ -775,7 +813,7 @@ _atspi_send_event (AtspiEvent *e)
     EventListenerEntry *entry = l->data;
     if (!strcmp (category, entry->category) &&
         (entry->name == NULL || !strcmp (name, entry->name)) &&
-        (entry->detail == NULL || !strcmp (detail, entry->detail)))
+        detail_matches_listener (detail, entry->detail))
     {
         entry->callback (atspi_event_copy (e), entry->user_data);
     }
@@ -827,9 +865,9 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   e.detail2 = detail2;
   dbus_message_iter_next (&iter);
 
-  converted_type = convert_name_from_dbus (category);
-  name = convert_name_from_dbus (member);
-  detail = convert_name_from_dbus (detail);
+  converted_type = convert_name_from_dbus (category, FALSE);
+  name = convert_name_from_dbus (member, FALSE);
+  detail = convert_name_from_dbus (detail, TRUE);
 
   if (strcasecmp  (category, name) != 0)
   {
