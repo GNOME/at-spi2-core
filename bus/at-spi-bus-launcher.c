@@ -44,8 +44,10 @@ typedef struct {
   GMainLoop *loop;
   gboolean launch_immediately;
   gboolean a11y_enabled;
+  gboolean screen_reader_enabled;
   GDBusConnection *session_bus;
-  GSettings *desktop_schema;
+  GSettings *a11y_schema;
+  GSettings *interface_schema;
 
   A11yBusState state;
   /* -1 == error, 0 == pending, > 0 == running */
@@ -66,6 +68,7 @@ static const gchar introspection_xml[] =
   "  </interface>"
   "<interface name='org.a11y.Status'>"
   "<property name='IsEnabled' type='b' access='readwrite'/>"
+  "<property name='ScreenReaderEnabled' type='b' access='readwrite'/>"
   "</interface>"
   "</node>";
 static GDBusNodeInfo *introspection_data = NULL;
@@ -246,9 +249,9 @@ handle_get_property  (GDBusConnection       *connection,
   A11yBusLauncher *app = user_data;
 
   if (g_strcmp0 (property_name, "IsEnabled") == 0)
-    {
-      return g_variant_new ("b", app->a11y_enabled);
-    }
+    return g_variant_new ("b", app->a11y_enabled);
+  else if (g_strcmp0 (property_name, "ScreenReaderEnabled") == 0)
+    return g_variant_new ("b", app->screen_reader_enabled);
   else
     return NULL;
 }
@@ -265,9 +268,9 @@ handle_a11y_enabled_change (A11yBusLauncher *app, gboolean enabled,
 
   app->a11y_enabled = enabled;
 
-  if (notify_gsettings && app->desktop_schema)
+  if (notify_gsettings && app->interface_schema)
     {
-      g_settings_set_boolean (app->desktop_schema, "toolkit-accessibility",
+      g_settings_set_boolean (app->interface_schema, "toolkit-accessibility",
                               enabled);
       g_settings_sync ();
     }
@@ -275,6 +278,43 @@ handle_a11y_enabled_change (A11yBusLauncher *app, gboolean enabled,
   builder = g_variant_builder_new (G_VARIANT_TYPE_ARRAY);
   invalidated_builder = g_variant_builder_new (G_VARIANT_TYPE ("as"));
   g_variant_builder_add (builder, "{sv}", "IsEnabled",
+                         g_variant_new_boolean (enabled));
+
+  g_dbus_connection_emit_signal (app->session_bus, NULL, "/org/a11y/bus",
+                                 "org.freedesktop.DBus", "PropertiesChanged",
+                                 g_variant_new ("(sa{sv}as)", "org.a11y.Status",
+                                                builder,
+                                                invalidated_builder),
+                                 NULL);
+}
+
+static void
+handle_screen_reader_enabled_change (A11yBusLauncher *app, gboolean enabled,
+                               gboolean notify_gsettings)
+{
+  GVariantBuilder *builder;
+  GVariantBuilder *invalidated_builder;
+
+  if (enabled == app->screen_reader_enabled)
+    return;
+
+  /* If the screen reader is being enabled, we should enable accessibility
+   * if it isn't enabled already */
+  if (enabled)
+    handle_a11y_enabled_change (app, enabled, notify_gsettings);
+
+  app->screen_reader_enabled = enabled;
+
+  if (notify_gsettings && app->a11y_schema)
+    {
+      g_settings_set_boolean (app->a11y_schema, "screen-reader-enabled",
+                              enabled);
+      g_settings_sync ();
+    }
+
+  builder = g_variant_builder_new (G_VARIANT_TYPE_ARRAY);
+  invalidated_builder = g_variant_builder_new (G_VARIANT_TYPE ("as"));
+  g_variant_builder_add (builder, "{sv}", "ScreenReaderEnabled",
                          g_variant_new_boolean (enabled));
 
   g_dbus_connection_emit_signal (app->session_bus, NULL, "/org/a11y/bus",
@@ -296,19 +336,26 @@ handle_set_property  (GDBusConnection       *connection,
                     gpointer               user_data)
 {
   A11yBusLauncher *app = user_data;
+  const gchar *type = g_variant_get_type_string (value);
+  gboolean enabled;
+  
+  if (g_strcmp0 (type, "b") != 0)
+    {
+      g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_INVALID_ARGS,
+                       "org.a11y.Status.%s expects a boolean but got %s", property_name, type);
+      return FALSE;
+    }
+
+  enabled = g_variant_get_boolean (value);
 
   if (g_strcmp0 (property_name, "IsEnabled") == 0)
     {
-      const gchar *type = g_variant_get_type_string (value);
-      gboolean enabled;
-      if (g_strcmp0 (type, "b") != 0)
-        {
-          g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_INVALID_ARGS,
-                       "org.a11y.Status.IsEnabled expects a boolean but got %s", type);
-          return FALSE;
-        }
-      enabled = g_variant_get_boolean (value);
       handle_a11y_enabled_change (app, enabled, TRUE);
+      return TRUE;
+    }
+  else if (g_strcmp0 (property_name, "ScreenReaderEnabled") == 0)
+    {
+      handle_screen_reader_enabled_change (app, enabled, TRUE);
       return TRUE;
     }
   else
@@ -482,7 +529,7 @@ already_running ()
 }
 
 static GSettings *
-get_desktop_schema ()
+get_schema (const gchar *name)
 {
   const char * const *schemas = NULL;
   gint i;
@@ -490,7 +537,7 @@ get_desktop_schema ()
   schemas = g_settings_list_schemas ();
   for (i = 0; schemas[i]; i++)
   {
-    if (!strcmp (schemas[i], "org.gnome.desktop.interface"))
+    if (!strcmp (schemas[i], name))
       return g_settings_new (schemas[i]);
   }
 
@@ -503,10 +550,10 @@ gsettings_key_changed (GSettings *gsettings, const gchar *key, void *user_data)
   gboolean new_val = g_settings_get_boolean (gsettings, key);
   A11yBusLauncher *app = user_data;
 
-  if (strcmp (key, "toolkit-accessibility") != 0)
-    return;
-
-  handle_a11y_enabled_change (_global_app, new_val, FALSE);
+  if (!strcmp (key, "toolkit-accessibility"))
+    handle_a11y_enabled_change (_global_app, new_val, FALSE);
+  else if (!strcmp (key, "screen-reader-enabled"))
+    handle_screen_reader_enabled_change (_global_app, new_val, FALSE);
 }
 
 int
@@ -518,6 +565,7 @@ main (int    argc,
   GDBusConnection *session_bus;
   int name_owner_id;
   gboolean a11y_set = FALSE;
+  gboolean screen_reader_set = FALSE;
   gint i;
 
   g_type_init ();
@@ -534,22 +582,38 @@ main (int    argc,
         _global_app->launch_immediately = TRUE;
       else if (sscanf (argv[i], "--a11y=%d", &_global_app->a11y_enabled) == 2)
         a11y_set = TRUE;
+      else if (sscanf (argv[i], "--screen-reader=%d",
+                       &_global_app->screen_reader_enabled) == 2)
+        screen_reader_set = TRUE;
     else
-      g_error ("usage: %s [--launch-immediately] [--a11y=0|1]", argv[0]);
+      g_error ("usage: %s [--launch-immediately] [--a11y=0|1] [--screen-reader=0|1]", argv[0]);
     }
 
-  _global_app->desktop_schema = get_desktop_schema ();
+  _global_app->interface_schema = get_schema ("org.gnome.desktop.interface");
+  _global_app->a11y_schema = get_schema ("org.gnome.desktop.a11y.applications");
 
   if (!a11y_set)
     {
-      _global_app->a11y_enabled = _global_app->desktop_schema
-                                  ? g_settings_get_boolean (_global_app->desktop_schema, "toolkit-accessibility")
+      _global_app->a11y_enabled = _global_app->interface_schema
+                                  ? g_settings_get_boolean (_global_app->interface_schema, "toolkit-accessibility")
                                   : _global_app->launch_immediately;
     }
 
-  if (_global_app->desktop_schema)
-    g_signal_connect (_global_app->desktop_schema,
+  if (!screen_reader_set)
+    {
+      _global_app->screen_reader_enabled = _global_app->a11y_schema
+                                  ? g_settings_get_boolean (_global_app->a11y_schema, "screen-reader-enabled")
+                                  : FALSE;
+    }
+
+  if (_global_app->interface_schema)
+    g_signal_connect (_global_app->interface_schema,
                       "changed::toolkit-accessibility",
+                      G_CALLBACK (gsettings_key_changed), _global_app);
+
+  if (_global_app->a11y_schema)
+    g_signal_connect (_global_app->a11y_schema,
+                      "screen-reader-enabled",
                       G_CALLBACK (gsettings_key_changed), _global_app);
 
   init_sigterm_handling (_global_app);
