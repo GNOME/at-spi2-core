@@ -110,7 +110,8 @@ impl_GetAccessibleAt (DBusConnection * bus, DBusMessage * message,
     }
   obj = atk_table_ref_at (table, row, column);
   reply = spi_object_return_reference (message, obj);
-  g_object_unref (obj);
+  if (obj)
+    g_object_unref (obj);
 
   return reply;
 }
@@ -629,9 +630,8 @@ impl_GetRowColumnExtentsAtIndex (DBusConnection * bus, DBusMessage * message,
   dbus_bool_t is_selected;
   dbus_bool_t ret;
   DBusMessage *reply;
-
   AtkObject *cell;
-  AtkRole role;
+  AtkRole role = ATK_ROLE_INVALID;
 
   g_return_val_if_fail (ATK_IS_TABLE (user_data),
                         droute_not_yet_handled_error (message));
@@ -647,8 +647,11 @@ impl_GetRowColumnExtentsAtIndex (DBusConnection * bus, DBusMessage * message,
   col_extents = atk_table_get_column_extent_at (table, row, column);
   is_selected = atk_table_is_selected (table, row, column);
   cell = atk_table_ref_at (table, row, column);
-  role = atk_object_get_role (cell);
-  g_object_unref (cell);
+  if (cell)
+  {
+    role = atk_object_get_role (cell);
+    g_object_unref (cell);
+  }
   ret = (role == ATK_ROLE_TABLE_CELL ? TRUE : FALSE);
   reply = dbus_message_new_method_return (message);
   if (reply)

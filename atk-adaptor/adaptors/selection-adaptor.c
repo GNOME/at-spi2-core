@@ -69,7 +69,8 @@ impl_GetSelectedChild (DBusConnection * bus, DBusMessage * message,
     }
   atk_object = atk_selection_ref_selection (selection, selectedChildIndex);
   reply = spi_object_return_reference (message, atk_object);
-  g_object_unref (atk_object);
+  if (atk_object)
+    g_object_unref (atk_object);
 
   return reply;
 }
