@@ -19,7 +19,7 @@
     <annotation name="com.trolltech.QtDBus.QtTypeName.In1" value="QSpiMatchRule"/>
     <arg direction="in" name="sortby" type="u"/>
     <arg direction="in" name="tree" type="u"/>
-    <arg direction="in" name="recurse" type="b"/>
+    <arg direction="in" name="limit_scope" type="b"/>
     <arg direction="in" name="count" type="i"/>
     <arg direction="in" name="traverse" type="b"/>
     <arg direction="out" type="a(so)"/>
