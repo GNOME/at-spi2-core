@@ -1,3 +1,17 @@
+What's new in at-spi2-core 2.3.5:
+
+* Fix for BGO#668334: Set correct end offset in atspi_text_get_attributes.
+
+* Add some type checking on method replies; this should prevent crashes if
+  an application-side AT-SPI implementor returns something unexpected.
+
+* Call g_settings_sync after updating toolkit-accessibility.
+
+* Add ScreenReaderEnabled D-Bus property as a proxy for the GSettings key.
+
+* Fix for BGO#669344: Don't use "restrict" as a variable name, since it can
+  be a keyword.
+
 What's new in at-spi2-core 2.3.4:
 
 * Add some dbus message signature checks.
