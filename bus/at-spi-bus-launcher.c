@@ -613,7 +613,7 @@ main (int    argc,
 
   if (_global_app->a11y_schema)
     g_signal_connect (_global_app->a11y_schema,
-                      "screen-reader-enabled",
+                      "changed::screen-reader-enabled",
                       G_CALLBACK (gsettings_key_changed), _global_app);
 
   init_sigterm_handling (_global_app);
