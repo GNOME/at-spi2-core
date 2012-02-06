@@ -1,3 +1,17 @@
+What's new in at-spi2-atk 2.3.5:
+
+* Remove the ability to set an accessible's name and description via AT-SPI
+  (it seems wrong to have been exposing this in the first place).
+
+* Fix for BGO#659967: some list API usage fixes.
+
+* Fix for BGO#663967: Don't use /a11y/ as a dconf path.
+
+* Fix for BGO#666371: possible crash when accessibles are created and
+  deleted in rapid succession; eg, in gnome-shell)
+
+* Avoid triggering GLib criticals in a few places.
+
 What's new in at-spi2-atk 2.3.4:
 
 * Fix for BGO#666870: Keystroke listeners do not work unless an event listener
