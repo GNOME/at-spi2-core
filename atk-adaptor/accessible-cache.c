@@ -281,7 +281,7 @@ add_pending_items (gpointer data)
       current = g_queue_pop_head (cache->add_traversal);
       set = atk_object_ref_state_set (current);
 
-      if (!atk_state_set_contains_state (set, ATK_STATE_TRANSIENT))
+      if (set && !atk_state_set_contains_state (set, ATK_STATE_TRANSIENT))
         {
 	  g_queue_push_tail (to_add, current);
           if (!spi_cache_in (cache, G_OBJECT (current)) &&
@@ -292,7 +292,8 @@ add_pending_items (gpointer data)
             }
         }
 
-      g_object_unref (set);
+      if (set)
+        g_object_unref (set);
     }
 
   while (!g_queue_is_empty (to_add))
