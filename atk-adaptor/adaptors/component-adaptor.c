@@ -253,7 +253,7 @@ impl_GrabFocus (DBusConnection * bus, DBusMessage * message, void *user_data)
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_UINT32, &rv,
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
                                 DBUS_TYPE_INVALID);
     }
   return reply;
