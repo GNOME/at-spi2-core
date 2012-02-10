@@ -471,6 +471,7 @@ emit_event (AtkObject  *obj,
     return;
 
   path =  spi_register_object_to_path (spi_global_register, G_OBJECT (obj));
+  g_return_if_fail (path != NULL);
 
   /*
    * This is very annoying, but as '-' isn't a legal signal
