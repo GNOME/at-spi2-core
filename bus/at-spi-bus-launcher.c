@@ -260,8 +260,8 @@ static void
 handle_a11y_enabled_change (A11yBusLauncher *app, gboolean enabled,
                                gboolean notify_gsettings)
 {
-  GVariantBuilder *builder;
-  GVariantBuilder *invalidated_builder;
+  GVariantBuilder builder;
+  GVariantBuilder invalidated_builder;
 
   if (enabled == app->a11y_enabled)
     return;
@@ -275,16 +275,17 @@ handle_a11y_enabled_change (A11yBusLauncher *app, gboolean enabled,
       g_settings_sync ();
     }
 
-  builder = g_variant_builder_new (G_VARIANT_TYPE_ARRAY);
-  invalidated_builder = g_variant_builder_new (G_VARIANT_TYPE ("as"));
-  g_variant_builder_add (builder, "{sv}", "IsEnabled",
+  g_variant_builder_init (&builder, G_VARIANT_TYPE_ARRAY);
+  g_variant_builder_init (&invalidated_builder, G_VARIANT_TYPE ("as"));
+  g_variant_builder_add (&builder, "{sv}", "IsEnabled",
                          g_variant_new_boolean (enabled));
 
   g_dbus_connection_emit_signal (app->session_bus, NULL, "/org/a11y/bus",
-                                 "org.freedesktop.DBus", "PropertiesChanged",
+                                 "org.freedesktop.DBus.Properties",
+                                 "PropertiesChanged",
                                  g_variant_new ("(sa{sv}as)", "org.a11y.Status",
-                                                builder,
-                                                invalidated_builder),
+                                                &builder,
+                                                &invalidated_builder),
                                  NULL);
 }
 
@@ -292,8 +293,8 @@ static void
 handle_screen_reader_enabled_change (A11yBusLauncher *app, gboolean enabled,
                                gboolean notify_gsettings)
 {
-  GVariantBuilder *builder;
-  GVariantBuilder *invalidated_builder;
+  GVariantBuilder builder;
+  GVariantBuilder invalidated_builder;
 
   if (enabled == app->screen_reader_enabled)
     return;
@@ -312,16 +313,17 @@ handle_screen_reader_enabled_change (A11yBusLauncher *app, gboolean enabled,
       g_settings_sync ();
     }
 
-  builder = g_variant_builder_new (G_VARIANT_TYPE_ARRAY);
-  invalidated_builder = g_variant_builder_new (G_VARIANT_TYPE ("as"));
-  g_variant_builder_add (builder, "{sv}", "ScreenReaderEnabled",
+  g_variant_builder_init (&builder, G_VARIANT_TYPE_ARRAY);
+  g_variant_builder_init (&invalidated_builder, G_VARIANT_TYPE ("as"));
+  g_variant_builder_add (&builder, "{sv}", "ScreenReaderEnabled",
                          g_variant_new_boolean (enabled));
 
   g_dbus_connection_emit_signal (app->session_bus, NULL, "/org/a11y/bus",
-                                 "org.freedesktop.DBus", "PropertiesChanged",
+                                 "org.freedesktop.DBus.Properties",
+                                 "PropertiesChanged",
                                  g_variant_new ("(sa{sv}as)", "org.a11y.Status",
-                                                builder,
-                                                invalidated_builder),
+                                                &builder,
+                                                &invalidated_builder),
                                  NULL);
 }
 
