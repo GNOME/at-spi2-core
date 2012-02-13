@@ -1146,21 +1146,67 @@ set_reply (DBusPendingCall *pending, void *user_data)
     *replyptr = dbus_pending_call_steal_reply (pending);
 }
 
+static GSList *hung_processes = NULL;
+
+static void
+reset_hung_process (DBusPendingCall *pending, void *data)
+{
+  DBusMessage *message = data;
+  const char *dest = dbus_message_get_destination (message);
+  GSList *l;
+
+  /* At this point we don't care about the result */
+  dbus_pending_call_unref (pending);
+
+  for (l = hung_processes; l; l = l->next)
+  {
+    if (!strcmp (l->data, dest))
+    {
+      g_free (l->data);
+      hung_processes = g_slist_remove (hung_processes, data);
+      break;
+    }
+  }
+}
+
+static gint
+time_elapsed (struct timeval *origin)
+{
+  struct timeval tv;
+
+  gettimeofday (&tv, NULL);
+  return (tv.tv_sec - origin->tv_sec) * 1000 + (tv.tv_usec - origin->tv_usec) / 1000;
+}
+
 static DBusMessage *
 send_and_allow_reentry (DBusConnection *bus, DBusMessage *message, int timeout, DBusError *error)
 {
     DBusPendingCall *pending;
     DBusMessage *reply = NULL;
+  struct timeval tv;
 
     if (!dbus_connection_send_with_reply (bus, message, &pending, -1))
     {
         return NULL;
     }
     dbus_pending_call_set_notify (pending, set_reply, (void *)&reply, NULL);
+    gettimeofday (&tv, NULL);
     while (!reply)
     {
-      if (!dbus_connection_read_write_dispatch (bus, timeout))
+      if (!dbus_connection_read_write_dispatch (bus, timeout) ||
+          time_elapsed (&tv) > timeout)
+      {
+        const char *dest = dbus_message_get_destination (message);
+        GSList *l;
+        dbus_message_ref (message);
+        dbus_pending_call_set_notify (pending, reset_hung_process, message,
+                                      (DBusFreeFunction) dbus_message_unref);
+        for (l = hung_processes; l; l = l->next)
+          if (!strcmp (l->data, dest))
+            return NULL;
+        hung_processes = g_slist_prepend (hung_processes, g_strdup (dest));
         return NULL;
+      }
     }
     dbus_pending_call_unref (pending);
     return reply;
@@ -1177,6 +1223,16 @@ Accessibility_DeviceEventListener_NotifyEvent(SpiDEController *controller,
                                                       "NotifyEvent");
   DBusError error;
   dbus_bool_t consumed = FALSE;
+  GSList *l;
+
+  for (l = hung_processes; l; l = l->next)
+  {
+    if (!strcmp (l->data, listener->bus_name))
+    {
+      dbus_message_unref (message);
+      return FALSE;
+    }
+  }
 
   dbus_error_init(&error);
   if (spi_dbus_marshal_deviceEvent(message, key_event))
