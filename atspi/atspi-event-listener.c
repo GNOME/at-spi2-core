@@ -907,7 +907,8 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
 	accessible = _atspi_dbus_return_accessible_from_iter (&iter_variant);
 	g_value_init (&e.any_data, ATSPI_TYPE_ACCESSIBLE);
 	g_value_set_instance (&e.any_data, accessible);
-	g_object_unref (accessible);	/* value now owns it */
+	if (accessible)
+	  g_object_unref (accessible);	/* value now owns it */
       }
       break;
     }
