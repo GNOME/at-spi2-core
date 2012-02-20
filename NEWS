@@ -1,3 +1,10 @@
+What's new in at-spi2-atk 2.3.90:
+
+* Have GrabFocus return a bool, per the spec, rather than a uint32.
+
+* Fix a potential crash when emitting a signal if the ATK implementor
+  misbehaves.
+
 What's new in at-spi2-atk 2.3.5:
 
 * Remove the ability to set an accessible's name and description via AT-SPI
