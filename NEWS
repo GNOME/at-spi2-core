@@ -1,3 +1,14 @@
+What's new in at-spi2-core 2.3.90:
+
+* At-spi-bus-launcher now emits PropertiesChanged signals from the correct
+  interface.
+
+* If a keystroke listener does not respond, disable it until it responds.
+  This prevents the desktop from locking up if an AT hangs or is suspended
+  and has a keyboard listener registered.
+
+* Fix a warning when a NULL object is returned as the detail of an event.
+
 What's new in at-spi2-core 2.3.5:
 
 * Fix for BGO#668334: Set correct end offset in atspi_text_get_attributes.
