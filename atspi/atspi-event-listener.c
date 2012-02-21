@@ -935,6 +935,11 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   {
     cache_process_state_changed (&e);
   }
+  else if (!strncmp (e.type, "focus", 5))
+  {
+    /* BGO#663992 - TODO: figure out the real problem */
+    e.source->cached_properties &= ~(ATSPI_CACHE_STATES);
+  }
 
   _atspi_send_event (&e);
 
