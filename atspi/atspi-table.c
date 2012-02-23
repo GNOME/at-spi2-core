@@ -680,8 +680,11 @@ atspi_table_get_row_column_extents_at_index (AtspiTable *obj,
 
   g_return_val_if_fail (obj != NULL, FALSE);
 
-  _atspi_dbus_call (obj, atspi_interface_table, "GetRowColumnExtentsAtIndex", error, "i=>iiiibb", d_index, &d_row, &d_col, &d_row_extents, &d_col_extents, &d_is_selected, &retval);
+  _atspi_dbus_call (obj, atspi_interface_table, "GetRowColumnExtentsAtIndex",
+                    error, "i=>biiiib", d_index, &retval, &d_row, &d_col,
+                    &d_row_extents, &d_col_extents, &d_is_selected);
 
+  *row = d_row;
   *col = d_col;
   *row_extents = d_row_extents;;
   *col_extents = d_col_extents;
