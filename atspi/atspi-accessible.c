@@ -491,9 +491,9 @@ atspi_accessible_get_index_in_parent (AtspiAccessible *obj, GError **error)
   if (!_atspi_accessible_test_cache (obj->accessible_parent,
                                      ATSPI_CACHE_CHILDREN))
   {
-    dbus_uint32_t ret = -1;
+    dbus_int32_t ret = -1;
     _atspi_dbus_call (obj, atspi_interface_accessible,
-                      "GetIndexInParent", NULL, "=>u", &ret);
+                      "GetIndexInParent", NULL, "=>i", &ret);
     return ret;
   }
 

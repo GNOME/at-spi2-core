@@ -674,7 +674,7 @@ impl_GetIndexInParent (DBusConnection * bus,
   dbus_uint32_t rv = 0;
 
   reply = dbus_message_new_method_return (message);
-  dbus_message_append_args (reply, DBUS_TYPE_UINT32, &rv, DBUS_TYPE_INVALID);
+  dbus_message_append_args (reply, DBUS_TYPE_INT32, &rv, DBUS_TYPE_INVALID);
   return reply;
 }
 
