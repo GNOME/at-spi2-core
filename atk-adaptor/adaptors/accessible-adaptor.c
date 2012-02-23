@@ -217,7 +217,7 @@ impl_GetIndexInParent (DBusConnection * bus,
                        DBusMessage * message, void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
-  dbus_uint32_t rv;
+  dbus_int32_t rv;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_OBJECT (user_data),
@@ -225,7 +225,7 @@ impl_GetIndexInParent (DBusConnection * bus,
 
   rv = atk_object_get_index_in_parent (object);
   reply = dbus_message_new_method_return (message);
-  dbus_message_append_args (reply, DBUS_TYPE_UINT32, &rv, DBUS_TYPE_INVALID);
+  dbus_message_append_args (reply, DBUS_TYPE_INT32, &rv, DBUS_TYPE_INVALID);
   return reply;
 }
 
