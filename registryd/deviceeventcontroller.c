@@ -1224,19 +1224,27 @@ Accessibility_DeviceEventListener_NotifyEvent(SpiDEController *controller,
   DBusError error;
   dbus_bool_t consumed = FALSE;
   GSList *l;
+  gboolean hung = FALSE;
 
   for (l = hung_processes; l; l = l->next)
   {
     if (!strcmp (l->data, listener->bus_name))
     {
-      dbus_message_unref (message);
-      return FALSE;
+      dbus_message_set_no_reply (message, TRUE);
+      hung = TRUE;
+      break;
     }
   }
 
   dbus_error_init(&error);
   if (spi_dbus_marshal_deviceEvent(message, key_event))
   {
+    if (hung)
+    {
+      dbus_connection_send (controller->bus, message, NULL);
+      dbus_message_unref (message);
+      return FALSE;
+    }
     DBusMessage *reply = send_and_allow_reentry (controller->bus, message, 1000, &error);
     if (reply)
     {
