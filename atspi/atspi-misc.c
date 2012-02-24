@@ -835,7 +835,7 @@ atspi_init (void)
   dbus_bus_register (bus, &error);
   atspi_dbus_connection_setup_with_g_main(bus, g_main_context_default());
   dbus_connection_add_filter (bus, atspi_dbus_filter, NULL, NULL);
-  dbind_set_timeout (1000);
+  dbind_set_timeout (800);
   match = g_strdup_printf ("type='signal',interface='%s',member='AddAccessible'", atspi_interface_cache);
   dbus_error_init (&error);
   dbus_bus_add_match (bus, match, &error);
