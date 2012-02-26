@@ -1,4 +1,4 @@
-# translation of atk to Uighur 
+# translation of atk to Uighur
 # This file is distributed under the same license as the PACKAGE package.
 # Gheyret T.Kenji <gheyret@yahoo.com>, 2005.
 # Sahran <sahran.ug@gmail.com>, 2010
@@ -53,7 +53,7 @@ msgstr "ئىناۋەتسىز"
 
 #: ../atk/atkobject.c:75
 msgid "accelerator label"
-msgstr "تېزلەتكۈچنىڭ ئېنى"
+msgstr "تېزلەتكۈچنىڭ ئەنى"
 
 #: ../atk/atkobject.c:76
 msgid "alert"
@@ -402,7 +402,7 @@ msgstr "كىرگۈزگۈچ كۆزنىكى"
 
 #: ../atk/atkobject.c:488
 msgid "Accessible Name"
-msgstr "Accessible نىڭ ئاتى"
+msgstr "زىيارەتچان ئاتى"
 
 #: ../atk/atkobject.c:489
 msgid "Object instance's name formatted for assistive technology access"
@@ -410,7 +410,7 @@ msgstr "قوشۇمچە تېخنىكىلىق ساقلاش ئۈچۈن ئوبيېك
 
 #: ../atk/atkobject.c:495
 msgid "Accessible Description"
-msgstr "Accessible نىڭ چۈشەندۈرۈلۈشى"
+msgstr "قوشۇمچە چۈشەندۈرۈلۈشى"
 
 #: ../atk/atkobject.c:496
 msgid "Description of an object, formatted for assistive technology access"
