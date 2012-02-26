@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk 2.12 \n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=atk&component=general\n"
-"POT-Creation-Date: 2010-12-23 17:27+0000\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=atk&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2012-02-26 01:57+0000\n"
 "PO-Revision-Date: 2005-06-17 13:10+0000\n"
 "Last-Translator: Sahran <sahran.ug@gmail.com>\n"
 "Language-Team: Gnome Uighur Translation Project <gnome-uighur@yahoogroups.com>\n"
@@ -400,124 +400,187 @@ msgstr "ئۇلانما"
 msgid "input method window"
 msgstr "كىرگۈزگۈچ كۆزنىكى"
 
-#: ../atk/atkobject.c:488
+#: ../atk/atkobject.c:163
+#| msgid "table row header"
+msgid "table row"
+msgstr "جەدۋەل قۇرى"
+
+#: ../atk/atkobject.c:164
+#| msgid "tree table"
+msgid "tree item"
+msgstr "شاخسىمان تۇر"
+
+#: ../atk/atkobject.c:165
+#| msgid "document frame"
+msgid "document spreadsheet"
+msgstr "پۈتۈك جەدۋىلى"
+
+#: ../atk/atkobject.c:166
+#| msgid "document frame"
+msgid "document presentation"
+msgstr "پۈتۈك سۇنۇلمىسى"
+
+#: ../atk/atkobject.c:167
+#| msgid "document frame"
+msgid "document text"
+msgstr "پۈتۈك تېكىستى"
+
+#: ../atk/atkobject.c:168
+#| msgid "document frame"
+msgid "document web"
+msgstr "پۈتۈك تورتۇراسى"
+
+#: ../atk/atkobject.c:169
+#| msgid "document frame"
+msgid "document email"
+msgstr "پۈتۈك ئېلخېتى"
+
+#: ../atk/atkobject.c:170
+msgid "comment"
+msgstr "ئىزاھات"
+
+#: ../atk/atkobject.c:171
+#| msgid "list"
+msgid "list box"
+msgstr "تىزىم كۆزنەكچىسى"
+
+#: ../atk/atkobject.c:172
+msgid "grouping"
+msgstr "گۇرۇپپىلاش"
+
+#: ../atk/atkobject.c:173
+#| msgid "image"
+msgid "image map"
+msgstr "سۈرەت خەرىتىسى"
+
+#: ../atk/atkobject.c:174
+#| msgid "animation"
+msgid "notification"
+msgstr "ئۇقتۇرۇش"
+
+#: ../atk/atkobject.c:175
+#| msgid "menu bar"
+msgid "info bar"
+msgstr "ئۇچۇر بالدىقى"
+
+#: ../atk/atkobject.c:514
 msgid "Accessible Name"
 msgstr "زىيارەتچان ئاتى"
 
-#: ../atk/atkobject.c:489
+#: ../atk/atkobject.c:515
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "قوشۇمچە تېخنىكىلىق ساقلاش ئۈچۈن ئوبيېكت ئەمەلىي مىسال ئاتى فورماتلاندى"
 
-#: ../atk/atkobject.c:495
+#: ../atk/atkobject.c:521
 msgid "Accessible Description"
 msgstr "قوشۇمچە چۈشەندۈرۈلۈشى"
 
-#: ../atk/atkobject.c:496
+#: ../atk/atkobject.c:522
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "ئوبيېكت چۈشەندۈرۈشى، قوشۇمچە تېخنىكىلىق ساقلاش ئۈچۈن  فورماتلاندى"
 
-#: ../atk/atkobject.c:502
+#: ../atk/atkobject.c:528
 msgid "Accessible Parent"
 msgstr "زىيارەتچان ئاتا  كونترول"
 
-#: ../atk/atkobject.c:503
+#: ../atk/atkobject.c:529
 msgid "Is used to notify that the parent has changed"
 msgstr "ئاتا كونترولنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
 
-#: ../atk/atkobject.c:509
+#: ../atk/atkobject.c:535
 msgid "Accessible Value"
 msgstr "زىيارەتچان قىممەت"
 
-#: ../atk/atkobject.c:510
+#: ../atk/atkobject.c:536
 msgid "Is used to notify that the value has changed"
 msgstr "مەزكۇر قىممەتنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
 
-#: ../atk/atkobject.c:518
+#: ../atk/atkobject.c:544
 msgid "Accessible Role"
 msgstr "زىيارەتچان رولى"
 
-#: ../atk/atkobject.c:519
+#: ../atk/atkobject.c:545
 msgid "The accessible role of this object"
 msgstr "مەزكۇر ئوبيېكتنىڭ زىيارەتچان رولى"
 
-#: ../atk/atkobject.c:527
+#: ../atk/atkobject.c:553
 msgid "Accessible Layer"
 msgstr "زىيارەتچان قەۋەت"
 
-#: ../atk/atkobject.c:528
+#: ../atk/atkobject.c:554
 msgid "The accessible layer of this object"
 msgstr "مەزكۇر ئوبيېكتنىڭ زىيارەتچان قەۋىتى"
 
-#: ../atk/atkobject.c:536
+#: ../atk/atkobject.c:562
 msgid "Accessible MDI Value"
 msgstr "زىيارەتچان MDI قىممىتى"
 
-#: ../atk/atkobject.c:537
+#: ../atk/atkobject.c:563
 msgid "The accessible MDI value of this object"
 msgstr "مەزكۇر ئوبيېكتنىڭ زىيارەتچان MDI قىممىتى"
 
-#: ../atk/atkobject.c:545
+#: ../atk/atkobject.c:571
 msgid "Accessible Table Caption"
 msgstr "زىيارەتچان جەدۋەل تېمىسى"
 
-#: ../atk/atkobject.c:546
+#: ../atk/atkobject.c:572
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr "جەدۋەل قېشى ئۆزگەرگەندە خەۋەر بېرىش ئۈچۈن ئىشلىتىلىدۇ. بۇنى ئىشلەتمەي accessible-table-caption-object ئىشلەتكەن ياخشى"
 
-#: ../atk/atkobject.c:552
+#: ../atk/atkobject.c:578
 msgid "Accessible Table Column Header"
 msgstr "زىيارەتچان جەدۋەل ئىستون قېشى"
 
-#: ../atk/atkobject.c:553
+#: ../atk/atkobject.c:579
 msgid "Is used to notify that the table column header has changed"
 msgstr "جەدۋەل ئىستون قېشىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
 
-#: ../atk/atkobject.c:559
+#: ../atk/atkobject.c:585
 msgid "Accessible Table Column Description"
 msgstr "زىيارەتچان جەدۋەل ئىستونىنىڭ چۈشەندۈرۈلۈشى"
 
-#: ../atk/atkobject.c:560
+#: ../atk/atkobject.c:586
 msgid "Is used to notify that the table column description has changed"
 msgstr "جەدۋەل ئىستونىنىڭ چۈشەندۈرۈشىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
 
-#: ../atk/atkobject.c:566
+#: ../atk/atkobject.c:592
 msgid "Accessible Table Row Header"
 msgstr "زىيارەتچان جەدۋەل قۇر قېشى"
 
-#: ../atk/atkobject.c:567
+#: ../atk/atkobject.c:593
 msgid "Is used to notify that the table row header has changed"
 msgstr "جەدۋەل قۇر قېشىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
 
-#: ../atk/atkobject.c:573
+#: ../atk/atkobject.c:599
 msgid "Accessible Table Row Description"
 msgstr "زىيارەتچان جەدۋەل قۇرىنىڭ چۈشەندۈرۈلۈشى"
 
-#: ../atk/atkobject.c:574
+#: ../atk/atkobject.c:600
 msgid "Is used to notify that the table row description has changed"
 msgstr "جەدۋەل قۇرىنىڭ چۈشەندۈرۈشىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
 
-#: ../atk/atkobject.c:580
+#: ../atk/atkobject.c:606
 msgid "Accessible Table Summary"
 msgstr "زىيارەتچان جەدۋەل خۇلاسىسى"
 
-#: ../atk/atkobject.c:581
+#: ../atk/atkobject.c:607
 msgid "Is used to notify that the table summary has changed"
 msgstr "جەدۋەل ئۈزۈندىسىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
 
-#: ../atk/atkobject.c:587
+#: ../atk/atkobject.c:613
 msgid "Accessible Table Caption Object"
 msgstr "زىيارەتچان جەدۋەل تېما ئوبيېكتى"
 
-#: ../atk/atkobject.c:588
+#: ../atk/atkobject.c:614
 msgid "Is used to notify that the table caption has changed"
 msgstr "جەدۋەل تېمىسىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
 
-#: ../atk/atkobject.c:594
+#: ../atk/atkobject.c:620
 msgid "Number of Accessible Hypertext Links"
 msgstr "زىيارەتچان مول تېكىست ئۇلانمىسىنىڭ سانى"
 
-#: ../atk/atkobject.c:595
+#: ../atk/atkobject.c:621
 msgid "The number of links which the current AtkHypertext has"
 msgstr "ھازىرقى AtkHypertext  نىڭ ئۇلىنىشلىرىنىڭ سانى"
