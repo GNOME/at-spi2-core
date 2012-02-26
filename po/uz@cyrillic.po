@@ -1,0 +1,22 @@
+# Uzbek (Cyrillic) translation for at-spi2-core.
+# Copyright (C) 2012 at-spi2-core's COPYRIGHT HOLDER
+# This file is distributed under the same license as the at-spi2-core package.
+# Bahodir Mansurov <6ahodir@gmail.com>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi2-core master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
+"spi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2012-02-24 22:24+0000\n"
+"PO-Revision-Date: 2012-02-24 22:24+0000\n"
+"Last-Translator: Bahodir Mansurov <6ahodir@gmail.com>\n"
+"Language-Team: Uzbek (Cyrillic) <uz@cyrillic@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../atspi/atspi-component.c:313 ../atspi/atspi-misc.c:985
+#: ../atspi/atspi-value.c:111
+msgid "The application no longer exists"
+msgstr "Бу дастур энди мавжуд эмас"
