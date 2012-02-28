@@ -1554,6 +1554,8 @@ _atspi_accessible_test_cache (AtspiAccessible *accessible, AtspiCache flag)
 {
   AtspiCache mask = _atspi_accessible_get_cache_mask (accessible);
   AtspiCache result = accessible->cached_properties & mask & flag;
+  if (accessible->states && atspi_state_set_contains (accessible->states, ATSPI_STATE_TRANSIENT))
+    return FALSE;
   return (result != 0 && atspi_main_loop && !atspi_no_cache);
 }
 
