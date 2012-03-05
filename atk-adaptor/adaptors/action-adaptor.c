@@ -180,7 +180,7 @@ impl_DoAction (DBusConnection * bus, DBusMessage * message, void *user_data)
   AtkAction *action = (AtkAction *) user_data;
   DBusError error;
   dbus_int32_t index;
-  dbus_bool_t rv;
+  dbus_bool_t rv = TRUE;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_ACTION (user_data),
@@ -191,14 +191,16 @@ impl_DoAction (DBusConnection * bus, DBusMessage * message, void *user_data)
     {
       return droute_invalid_arguments_error (message);
     }
-  rv = atk_action_do_action (action, index);
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
                                 DBUS_TYPE_INVALID);
     }
-  return reply;
+  dbus_connection_send (bus, reply, NULL);
+  dbus_message_unref (reply);
+  atk_action_do_action (action, index);
+  return NULL;
 }
 
 DRouteMethod methods[] = {
