@@ -25,6 +25,8 @@
 #include "atspi-private.h"
 #include <string.h>
 
+static gboolean enable_caching = FALSE;
+
 static void
 atspi_action_interface_init (AtspiAction *action)
 {
@@ -1466,6 +1468,7 @@ atspi_accessible_set_cache_mask (AtspiAccessible *accessible, AtspiCache mask)
   g_return_if_fail (accessible->parent.app != NULL);
   g_return_if_fail (accessible == accessible->parent.app->root);
   accessible->parent.app->cache = mask;
+  enable_caching = TRUE;
 }
 
 /**
@@ -1556,7 +1559,8 @@ _atspi_accessible_test_cache (AtspiAccessible *accessible, AtspiCache flag)
   AtspiCache result = accessible->cached_properties & mask & flag;
   if (accessible->states && atspi_state_set_contains (accessible->states, ATSPI_STATE_TRANSIENT))
     return FALSE;
-  return (result != 0 && atspi_main_loop && !atspi_no_cache);
+  return (result != 0 && (atspi_main_loop || enable_caching) &&
+          !atspi_no_cache);
 }
 
 void
