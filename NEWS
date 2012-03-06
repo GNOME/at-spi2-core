@@ -1,3 +1,21 @@
+What's new in at-spi2-core 2.3.91:
+
+* Invalid states when receiving a focus event (BGO#663992).
+
+* Fix atspi_table_get_row_column_extents_at_index.
+
+* Expect a signed in tfor GetIndexInParent, per the spec.
+
+* Send key events to listeners assumed to be hung, but don't block.
+
+* Reduce the method call timeout slightly, so that it will be lower than
+  the keystroke listener timeout.
+
+* Don't cache data for transient objects.
+
+* Enable caching on a call to atspi_accessible_set_cache_mask, even if
+  atspi-event_main() hasn't been called.
+
 What's new in at-spi2-core 2.3.90:
 
 * At-spi-bus-launcher now emits PropertiesChanged signals from the correct
