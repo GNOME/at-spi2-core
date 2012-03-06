@@ -1,3 +1,15 @@
+Changes in version 2.3.91:
+==========================
+*
+* Bug 665549: add sanity-check of atk_text_get_text
+* Bug 668441: atk_action_get_keybinding docs are confusing and need
+*  updating
+* Using abstract atk_object_get_name to check accessible-name
+*  notification
+* Updated Belarusian, Estonian, Hungarian, Turkish, Norwegian,
+*  Ukranian and Uyghur translations
+
+
 Changes in version 2.3.3:
 =========================
 *
