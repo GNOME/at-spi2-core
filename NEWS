@@ -1,3 +1,11 @@
+What's new in at-spi2-atk 2.3.91:
+
+* Have GetIndexInParent() return a signed int, per the spec.
+
+* Send a DoAction reply message before invoking atk (works around
+  atk_action_do_action potentially not returning right away for gtk).
+
+
 What's new in at-spi2-atk 2.3.90:
 
 * Have GrabFocus return a bool, per the spec, rather than a uint32.
