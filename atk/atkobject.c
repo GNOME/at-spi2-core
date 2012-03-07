@@ -1015,7 +1015,7 @@ atk_object_set_name (AtkObject    *accessible,
   if (klass->set_name)
     {
       /* Do not notify for initial name setting. See bug 665870 */
-      notify = (atk_object_get_name (accessible) != NULL);
+      notify = (accessible->name != NULL);
 
       (klass->set_name) (accessible, name);
       if (notify)
