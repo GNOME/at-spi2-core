@@ -1,3 +1,10 @@
+Changes in version 2.3.93:
+==========================
+*
+* Revert "Using abstract atk_object_get_name to check accessible-name
+*  notification" change made on 2.3.93
+*  Related to mozilla bug: https://bugzilla.mozilla.org/show_bug.cgi?id=733712
+
 Changes in version 2.3.91:
 ==========================
 *
