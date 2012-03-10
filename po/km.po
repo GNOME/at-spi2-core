@@ -1,0 +1,23 @@
+# translation of at-spi2-atk.master.po to Khmer
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Khoem Sokhem <khoemsokhem@khmeros.info>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi2-atk.master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-spi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2012-01-05 21:00+0000\n"
+"PO-Revision-Date: 2012-01-13 10:35+0700\n"
+"Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
+"Language-Team: Khmer <support@khmeros.info>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"X-Language: km-KH\n"
+
+#: ../atk-adaptor/bridge.c:591
+#, c-format
+msgid "atk-bridge: Couldn't listen on dbus server: %s"
+msgstr "atk-bridge ៖ មិន​អាច​ដំណើរការ​នៅ​លើ​ម៉ាស៊ីន​បម្រើ dbus ៖ %s"
+
