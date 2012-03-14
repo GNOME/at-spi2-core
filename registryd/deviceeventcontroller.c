@@ -1178,6 +1178,25 @@ time_elapsed (struct timeval *origin)
   return (tv.tv_sec - origin->tv_sec) * 1000 + (tv.tv_usec - origin->tv_usec) / 1000;
 }
 
+static void
+reset_hung_process_from_ping (DBusPendingCall *pending, void *data)
+{
+  gchar *bus_name = data;
+  GSList *l;
+
+  for (l = hung_processes; l; l = l->next)
+  {
+    if (!strcmp (l->data, data))
+    {
+      g_free (l->data);
+      hung_processes = g_slist_remove (hung_processes, data);
+      break;
+    }
+  }
+  g_free (data);
+  dbus_pending_call_unref (pending);
+}
+
 static DBusMessage *
 send_and_allow_reentry (DBusConnection *bus, DBusMessage *message, int timeout, DBusError *error)
 {
@@ -1198,9 +1217,22 @@ send_and_allow_reentry (DBusConnection *bus, DBusMessage *message, int timeout, 
       {
         const char *dest = dbus_message_get_destination (message);
         GSList *l;
+        gchar *bus_name_dup;
         dbus_message_ref (message);
         dbus_pending_call_set_notify (pending, reset_hung_process, message,
                                       (DBusFreeFunction) dbus_message_unref);
+        message = dbus_message_new_method_call (dest, "/",
+                                                "org.freedesktop.DBus.Peer",
+                                                "Ping");
+        if (!message)
+          return;
+        dbus_connection_send_with_reply (bus, message, &pending, -1);
+        dbus_message_unref (message);
+        if (!pending)
+          return;
+        bus_name_dup = g_strdup (dest);
+        dbus_pending_call_set_notify (pending, reset_hung_process_from_ping,
+                                      bus_name_dup, NULL);
         for (l = hung_processes; l; l = l->next)
           if (!strcmp (l->data, dest))
             return NULL;
