@@ -119,6 +119,6 @@ copy $(SolutionDir)$(ConfigurationName)\$(PlatformName)\bin\*-$(AtkApiVersion).l
 	/>
 	<UserMacro
 		Name="AtkEtcInstallRoot"
-		Value="..\..\..\..\..\vs9\$(PlatformName)"
+		Value="..\..\..\..\vs9\$(PlatformName)"
 	/>
 </VisualStudioPropertySheet>

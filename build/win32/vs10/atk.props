@@ -3,7 +3,7 @@
   <PropertyGroup Label="UserMacros">
     <AtkApiVersion>1.0</AtkApiVersion>
     <AtkDummyPrefix>\"/dummy\"</AtkDummyPrefix>
-    <AtkEtcInstallRoot>..\..\..\..\..\vs10\$(Platform)</AtkEtcInstallRoot>
+    <AtkEtcInstallRoot>..\..\..\..\vs10\$(Platform)</AtkEtcInstallRoot>
     <CopyDir>$(AtkEtcInstallRoot)</CopyDir>
     <AtkDoInstall>
 mkdir $(CopyDir)\bin
