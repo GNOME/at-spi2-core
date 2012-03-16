@@ -1277,7 +1277,7 @@ Accessibility_DeviceEventListener_NotifyEvent(SpiDEController *controller,
       dbus_message_unref (message);
       return FALSE;
     }
-    DBusMessage *reply = send_and_allow_reentry (controller->bus, message, 1000, &error);
+    DBusMessage *reply = send_and_allow_reentry (controller->bus, message, 3000, &error);
     if (reply)
     {
       DBusError error;
