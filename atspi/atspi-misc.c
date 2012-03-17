@@ -1118,8 +1118,8 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
 
   if (dbus_message_get_type (reply) == DBUS_MESSAGE_TYPE_ERROR)
   {
-    const char *err;
-    dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &err, DBUS_TYPE_INVALID);
+    const char *err = NULL;
+    dbus_message_get_args (reply, NULL, DBUS_TYPE_STRING, &err, DBUS_TYPE_INVALID);
     if (err)
       g_set_error_literal (error, ATSPI_ERROR, ATSPI_ERROR_IPC, err);
     goto done;
