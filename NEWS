@@ -1,3 +1,10 @@
+What's new in at-spi2-core 2.3.92:
+
+* Some changes to try to prevent at-spi2-registryd from incorrectly
+  thinking that an AT is hung and passing keys meant for it to the application.
+
+* Fix crash fetching an error from a reply when retrieving a property.
+
 What's new in at-spi2-core 2.3.91:
 
 * Invalidate states when receiving a focus event (BGO#663992).
