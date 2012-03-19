@@ -1,3 +1,7 @@
+What's new in at-spi2-atk 2.3.92:
+
+* Add Khmer and Malayalam translations.
+
 What's new in at-spi2-atk 2.3.91:
 
 * Have GetIndexInParent() return a signed int, per the spec.
