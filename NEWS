@@ -1,3 +1,10 @@
+Changes in version 2.3.95:
+=========================
+*
+* Bug 671857: Add deprecation attributes to deprecated functions
+* Updated Visual Studio configuration files
+* Updated Khmer, Malayalam and Bengali Translations
+
 Changes in version 2.3.93:
 ==========================
 *
