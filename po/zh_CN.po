@@ -10,12 +10,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ATK HEAD\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=atk&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-09-27 17:51+0000\n"
-"PO-Revision-Date: 2011-09-28 02:19+0800\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-03-20 15:11+0000\n"
+"PO-Revision-Date: 2012-03-20 15:11+0000\n"
 "Last-Translator: YunQiang Su <wzssyqa@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bits\n"
@@ -407,37 +407,30 @@ msgid "input method window"
 msgstr "输入法窗口"
 
 #: ../atk/atkobject.c:163
-#| msgid "table row header"
 msgid "table row"
 msgstr "表格行"
 
 #: ../atk/atkobject.c:164
-#| msgid "tree table"
 msgid "tree item"
 msgstr "树条目"
 
 #: ../atk/atkobject.c:165
-#| msgid "document frame"
 msgid "document spreadsheet"
 msgstr "电子表格文档"
 
 #: ../atk/atkobject.c:166
-#| msgid "document frame"
 msgid "document presentation"
 msgstr "演示文档"
 
 #: ../atk/atkobject.c:167
-#| msgid "document frame"
 msgid "document text"
 msgstr "字处理文档"
 
 #: ../atk/atkobject.c:168
-#| msgid "document frame"
 msgid "document web"
 msgstr "网页文档"
 
 #: ../atk/atkobject.c:169
-#| msgid "document frame"
 msgid "document email"
 msgstr "电子邮件文档"
 
@@ -446,7 +439,6 @@ msgid "comment"
 msgstr "注释"
 
 #: ../atk/atkobject.c:171
-#| msgid "list"
 msgid "list box"
 msgstr "列表盒"
 
@@ -455,18 +447,14 @@ msgid "grouping"
 msgstr "分组"
 
 #: ../atk/atkobject.c:173
-#, fuzzy
-#| msgid "image"
 msgid "image map"
-msgstr "图像"
+msgstr "位图"
 
 #: ../atk/atkobject.c:174
-#| msgid "animation"
 msgid "notification"
 msgstr "通知"
 
 #: ../atk/atkobject.c:175
-#| msgid "menu bar"
 msgid "info bar"
 msgstr "信息栏"
 
