@@ -86,7 +86,7 @@ AtkTable interface when the model displayed by the table changes.
 <!-- ##### SIGNAL AtkTable::row-deleted ##### -->
 <para>
 The "row-deleted" signal is emitted by an object which implements the 
-AtkTable interface when a column is inserted.
+AtkTable interface when a row is deleted.
 
 </para>
 
@@ -97,17 +97,17 @@ AtkTable interface when a column is inserted.
 <!-- ##### SIGNAL AtkTable::row-inserted ##### -->
 <para>
 The "row-inserted" signal is emitted by an object which implements the 
-AtkTable interface when a column is inserted.
+AtkTable interface when a row is inserted.
 </para>
 
 @atktable: the object which received the signal.
-@arg1: The index of the first row deleted.
-@arg2: The number of rows deleted.
+@arg1: The index of the first row inserted.
+@arg2: The number of rows inserted.
 
 <!-- ##### SIGNAL AtkTable::row-reordered ##### -->
 <para>
 The "row-reordered" signal is emitted by an object which implements the 
-AtkTable interface when the columns are reordered.
+AtkTable interface when the rows are reordered.
 </para>
 
 @atktable: the object which received the signal.
