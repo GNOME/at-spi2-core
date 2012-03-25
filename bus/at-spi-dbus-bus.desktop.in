@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=AT SPI D-Bus Bus
+Name=AT-SPI D-Bus Bus
 Exec=@libexecdir@/at-spi-bus-launcher --launch-immediately
 OnlyShowIn=GNOME;Unity;
 NoDisplay=true
