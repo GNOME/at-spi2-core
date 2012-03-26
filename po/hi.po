@@ -5,19 +5,20 @@
 # G Karunakar <karunakar@freedomink.org>, 2003.
 # Ravishankar Shrivastava <raviratlami@yahoo.com>, 2004.
 # Rajesh Ranjan <rranjan@redhat.com>, 2005, 2006, 2009.
+# chandankumar(ciypro) <chandankumar.093047@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: hi\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=atk&component=general\n"
-"POT-Creation-Date: 2010-04-17 11:27+0000\n"
-"PO-Revision-Date: 2009-03-06 14:27+0530\n"
-"Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
-"Language-Team: Hindi <hindi.sf.net>\n"
+"product=atk&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-09-11 11:03+0000\n"
+"PO-Revision-Date: 2012-03-26 15:41+0530\n"
+"Last-Translator: chandankumar(ciypro) <chandankumar.093047@gmail.com>\n"
+"Language-Team: Hindi <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.2\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "\n"
 "\n"
@@ -25,6 +26,7 @@ msgstr ""
 "\n"
 "\n"
 "\n"
+"Language: hi\n"
 
 #: ../atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -412,126 +414,193 @@ msgstr "कड़ी"
 msgid "input method window"
 msgstr "इनपुट विधि विंडो"
 
-#: ../atk/atkobject.c:488
+#: ../atk/atkobject.c:163
+#| msgid "table row header"
+msgid "table row"
+msgstr "सारणी पंक्ति"
+
+#: ../atk/atkobject.c:164
+#| msgid "tree table"
+msgid "tree item"
+msgstr "ट्री मद"
+
+#: ../atk/atkobject.c:165
+#| msgid "document frame"
+msgid "document spreadsheet"
+msgstr "दस्तावेज़ स्प्रेडशीट"
+
+#: ../atk/atkobject.c:166
+#| msgid "document frame"
+msgid "document presentation"
+msgstr "दस्तावेज़ प्रस्तुतीकरण"
+
+#: ../atk/atkobject.c:167
+#| msgid "document frame"
+msgid "document text"
+msgstr "दस्तावेज़ पाठ"
+
+#: ../atk/atkobject.c:168
+#| msgid "document frame"
+msgid "document web"
+msgstr "दस्तावेज़ वेब"
+
+#: ../atk/atkobject.c:169
+#| msgid "document frame"
+msgid "document email"
+msgstr "दस्तावेज़ ईमेल"
+
+#: ../atk/atkobject.c:170
+msgid "comment"
+msgstr "टिप्पणी"
+
+#: ../atk/atkobject.c:171
+#| msgid "list"
+msgid "list box"
+msgstr "सूची बॉक्स"
+
+#: ../atk/atkobject.c:172
+msgid "grouping"
+msgstr "समूहबद्धता"
+
+#: ../atk/atkobject.c:173
+#| msgid "image"
+msgid "image map"
+msgstr "छवि नक़्शा"
+
+#: ../atk/atkobject.c:174
+#| msgid "animation"
+msgid "notification"
+msgstr "अधिसूचना"
+
+#: ../atk/atkobject.c:175
+#| msgid "menu bar"
+msgid "info bar"
+msgstr "जानकारी पट्टी"
+
+#: ../atk/atkobject.c:514
 msgid "Accessible Name"
 msgstr "पंहुचयोग्य नाम"
 
-#: ../atk/atkobject.c:489
+#: ../atk/atkobject.c:515
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "मददगार तकनीक पँहुच हेतु प्रारूपित वस्तु उदाहरण नाम"
 
-#: ../atk/atkobject.c:495
+#: ../atk/atkobject.c:521
 msgid "Accessible Description"
 msgstr "पहुँच योग्य वर्णन"
 
-#: ../atk/atkobject.c:496
+#: ../atk/atkobject.c:522
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "मददगार तकनीक पँहुच हेतु प्रारूपित वस्तु का वर्णन"
 
-#: ../atk/atkobject.c:502
+#: ../atk/atkobject.c:528
 msgid "Accessible Parent"
 msgstr "पहुँच योग्य जनक"
 
-#: ../atk/atkobject.c:503
+#: ../atk/atkobject.c:529
 msgid "Is used to notify that the parent has changed"
 msgstr "जनक बदल चुका है यह बताने हेतु उपयोग में आता है"
 
-#: ../atk/atkobject.c:509
+#: ../atk/atkobject.c:535
 msgid "Accessible Value"
 msgstr "पहुँच योग्य मूल्य"
 
-#: ../atk/atkobject.c:510
+#: ../atk/atkobject.c:536
 msgid "Is used to notify that the value has changed"
 msgstr "मान बदल चुका है यह बताने हेतु उपयोग में आता है"
 
-#: ../atk/atkobject.c:518
+#: ../atk/atkobject.c:544
 msgid "Accessible Role"
 msgstr "पहुँच योग्य भूमिका"
 
-#: ../atk/atkobject.c:519
+#: ../atk/atkobject.c:545
 msgid "The accessible role of this object"
 msgstr "इस वस्तु की पहुँच योग्य भूमिका"
 
-#: ../atk/atkobject.c:527
+#: ../atk/atkobject.c:553
 msgid "Accessible Layer"
 msgstr "पहुँच योग्य परत"
 
-#: ../atk/atkobject.c:528
+#: ../atk/atkobject.c:554
 msgid "The accessible layer of this object"
 msgstr "इस वस्तु की पहुँच योग्य परत"
 
-#: ../atk/atkobject.c:536
+#: ../atk/atkobject.c:562
 msgid "Accessible MDI Value"
 msgstr "पहुँच योग्य एमडीआई मूल्य"
 
-#: ../atk/atkobject.c:537
+#: ../atk/atkobject.c:563
 msgid "The accessible MDI value of this object"
 msgstr "इस वस्तु का पहुँच योग्य एमडीआई मूल्य"
 
-#: ../atk/atkobject.c:545
+#: ../atk/atkobject.c:571
 msgid "Accessible Table Caption"
 msgstr "पहुँच योग्य सारणी शीर्षक"
 
-#: ../atk/atkobject.c:546
+#: ../atk/atkobject.c:572
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
-"सारणी शीर्षक बदल चुका है यह बताने हेतु उपयोग में आता है, यह गुण उपयोग में नहीं लेना चाहिए. "
+"सारणी शीर्षक बदल चुका है यह बताने हेतु उपयोग में आता है, यह गुण उपयोग में "
+"नहीं लेना चाहिए. "
 "बदले में पहुँच योग्य-सारणी-शीर्षक-वस्तु उपयोग में लेना चाहिए"
 
-#: ../atk/atkobject.c:552
+#: ../atk/atkobject.c:578
 msgid "Accessible Table Column Header"
 msgstr "पहुँच योग्य सारणी स्तंभ शीर्षिका"
 
-#: ../atk/atkobject.c:553
+#: ../atk/atkobject.c:579
 msgid "Is used to notify that the table column header has changed"
 msgstr "सारणी स्तंभ शीर्षिका बदल चुका है यह बताने हेतु उपयोग में आता है"
 
-#: ../atk/atkobject.c:559
+#: ../atk/atkobject.c:585
 msgid "Accessible Table Column Description"
 msgstr "पहुँच योग्य सारणी स्तंभ वर्णन"
 
-#: ../atk/atkobject.c:560
+#: ../atk/atkobject.c:586
 msgid "Is used to notify that the table column description has changed"
-msgstr "पहुँच योग्य सारणी स्तंभ वर्णन बदल चुका है यह बताने हेतु उपयोग में आता है"
+msgstr ""
+"पहुँच योग्य सारणी स्तंभ वर्णन बदल चुका है यह बताने हेतु उपयोग में आता है"
 
-#: ../atk/atkobject.c:566
+#: ../atk/atkobject.c:592
 msgid "Accessible Table Row Header"
 msgstr "पहुँच योग्य सारणी पंक्ति शीर्षिका"
 
-#: ../atk/atkobject.c:567
+#: ../atk/atkobject.c:593
 msgid "Is used to notify that the table row header has changed"
 msgstr "सारणी पंक्ति शीर्षिका बदल चुका है यह बताने हेतु उपयोग में आता है"
 
-#: ../atk/atkobject.c:573
+#: ../atk/atkobject.c:599
 msgid "Accessible Table Row Description"
 msgstr "पहुँच योग्य सारणी पंक्ति वर्णन"
 
-#: ../atk/atkobject.c:574
+#: ../atk/atkobject.c:600
 msgid "Is used to notify that the table row description has changed"
-msgstr "पहुँच योग्य सारणी पंक्ति वर्णन बदल चुका है यह बताने हेतु उपयोग में आता है"
+msgstr ""
+"पहुँच योग्य सारणी पंक्ति वर्णन बदल चुका है यह बताने हेतु उपयोग में आता है"
 
-#: ../atk/atkobject.c:580
+#: ../atk/atkobject.c:606
 msgid "Accessible Table Summary"
 msgstr "पहुँच योग्य सारणी सारांश"
 
-#: ../atk/atkobject.c:581
+#: ../atk/atkobject.c:607
 msgid "Is used to notify that the table summary has changed"
 msgstr "सारणी स्तंभ सारांश बदल चुका है यह बताने हेतु उपयोग में आता है"
 
-#: ../atk/atkobject.c:587
+#: ../atk/atkobject.c:613
 msgid "Accessible Table Caption Object"
 msgstr "पहुँच योग्य सारणी शीर्षक वस्तु"
 
-#: ../atk/atkobject.c:588
+#: ../atk/atkobject.c:614
 msgid "Is used to notify that the table caption has changed"
 msgstr "सारणी शीर्षक बदल चुका है यह बताने हेतु उपयोग में आता है"
 
-#: ../atk/atkobject.c:594
+#: ../atk/atkobject.c:620
 msgid "Number of Accessible Hypertext Links"
 msgstr "पहुँच योग्य हायपरटेक्स्ट कड़ी की संख्या"
 
-#: ../atk/atkobject.c:595
+#: ../atk/atkobject.c:621
 msgid "The number of links which the current AtkHypertext has"
 msgstr "कड़ी की संख्या जो कि वर्तमान एटीके-हायपरटेक्स्ट में हैं"
+
