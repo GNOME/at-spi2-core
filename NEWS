@@ -1,3 +1,10 @@
+Changes in version 2.4.0:
+=========================
+*
+* Bug 593220: Some typos in atktable signals (docs)
+* Updated Hindi and Simplified Chinese translation
+
+
 Changes in version 2.3.95:
 =========================
 *
