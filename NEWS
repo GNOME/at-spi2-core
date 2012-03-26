@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.4.0:
+
+* Fix typo in at-spi-dbus-bus.desktop.in (BGO#605662).
+
 What's new in at-spi2-core 2.3.92:
 
 * Some changes to try to prevent at-spi2-registryd from incorrectly
