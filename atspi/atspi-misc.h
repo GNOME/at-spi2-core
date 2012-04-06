@@ -38,5 +38,5 @@ DBusConnection *
 atspi_get_a11y_bus ();
 
 void
-atspi_set_timeout (gint val);
+atspi_set_timeout (gint val, gint startup_time);
 #endif	/* _ATSPI_MISC_H_ */

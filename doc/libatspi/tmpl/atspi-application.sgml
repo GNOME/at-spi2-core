@@ -36,6 +36,7 @@ atspi-application
 @toolkit_name: 
 @toolkit_version: 
 @atspi_version: 
+@time_added: 
 
 <!-- ##### STRUCT AtspiApplicationClass ##### -->
 <para>

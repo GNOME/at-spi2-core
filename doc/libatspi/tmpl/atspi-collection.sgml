@@ -64,7 +64,7 @@ or client-side search of the object tree.
 @rule: 
 @sortby: 
 @tree: 
-@recurse: 
+@limit_scope: 
 @count: 
 @traverse: 
 @error: 
