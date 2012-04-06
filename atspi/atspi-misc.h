@@ -36,4 +36,7 @@ int atspi_exit ();
 
 DBusConnection *
 atspi_get_a11y_bus ();
+
+void
+atspi_set_timeout (gint val);
 #endif	/* _ATSPI_MISC_H_ */
