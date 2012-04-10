@@ -3,19 +3,21 @@
 # This file is distributed under the same license as the atk package.
 # Jordi Mallach <jordi@sindominio.net>, 2002, 2003, 2004, 2006.
 # Gil Forcada <gilforcada@guifi.net>, 2011.
+# Jordi Serratosa <jordis@softcatala.cat>, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk 1.6.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-16 00:04+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=atk&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2012-03-26 18:52+0000\n"
 "PO-Revision-Date: 2011-09-12 15:44+0200\n"
 "Last-Translator: Gil Forcada <gilforcada@guifi.net>\n"
 "Language-Team: català; valencià <<tradgnome@softcatala.org>>\n"
-"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bits\n"
+"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: ../atk/atkhyperlink.c:103
@@ -80,7 +82,7 @@ msgstr "canvas"
 
 #: ../atk/atkobject.c:81
 msgid "check box"
-msgstr "quadre de verificació"
+msgstr "casella de selecció"
 
 #: ../atk/atkobject.c:82
 msgid "check menu item"
@@ -96,7 +98,7 @@ msgstr "capçalera de columna"
 
 #: ../atk/atkobject.c:85
 msgid "combo box"
-msgstr "caixa combo"
+msgstr "quadre combinat"
 
 #: ../atk/atkobject.c:86
 msgid "dateeditor"
