@@ -38,6 +38,8 @@ static void handle_get_items (DBusPendingCall *pending, void *user_data);
 
 static DBusConnection *bus = NULL;
 static GHashTable *live_refs = NULL;
+static gint method_call_timeout = 800;
+static gint app_startup_time = 5000;
 
 GMainLoop *atspi_main_loop;
 gboolean atspi_no_cache;
@@ -202,6 +204,7 @@ get_application (const char *bus_name)
   if (!app) return NULL;
   app->hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
   app->bus = dbus_connection_ref (_atspi_bus ());
+  gettimeofday (&app->time_added, NULL);
   app->cache = ATSPI_CACHE_UNDEFINED;
   g_hash_table_insert (app_hash, bus_name_dup, app);
   dbus_error_init (&error);
@@ -835,7 +838,6 @@ atspi_init (void)
   dbus_bus_register (bus, &error);
   atspi_dbus_connection_setup_with_g_main(bus, g_main_context_default());
   dbus_connection_add_filter (bus, atspi_dbus_filter, NULL, NULL);
-  dbind_set_timeout (800);
   match = g_strdup_printf ("type='signal',interface='%s',member='AddAccessible'", atspi_interface_cache);
   dbus_error_init (&error);
   dbus_bus_add_match (bus, match, &error);
@@ -996,6 +998,22 @@ check_app (AtspiApplication *app, GError **error)
   return TRUE;
 }
 
+static void
+set_timeout (AtspiApplication *app)
+{
+  struct timeval tv;
+  int diff;
+
+  if (app && app_startup_time > 0)
+  {
+    gettimeofday (&tv, NULL);
+    diff = (tv.tv_sec - app->time_added.tv_sec) * 1000 + (tv.tv_usec - app->time_added.tv_usec) / 1000;
+    dbind_set_timeout (MAX(method_call_timeout, app_startup_time - diff));
+  }
+  else
+    dbind_set_timeout (method_call_timeout);
+}
+
 dbus_bool_t
 _atspi_dbus_call (gpointer obj, const char *interface, const char *method, GError **error, const char *type, ...)
 {
@@ -1009,6 +1027,7 @@ _atspi_dbus_call (gpointer obj, const char *interface, const char *method, GErro
 
   va_start (args, type);
   dbus_error_init (&err);
+  set_timeout (aobj->app);
   retval = dbind_method_call_reentrant_va (aobj->app->bus, aobj->app->bus_name,
                                            aobj->path, interface, method, &err,
                                            type, args);
@@ -1064,6 +1083,7 @@ _atspi_dbus_call_partial_va (gpointer obj,
   dbus_message_iter_init_append (msg, &iter);
   dbind_any_marshal_va (&iter, &p, args);
 
+  set_timeout (aobj->app);
   reply = dbind_send_and_allow_reentry (aobj->app->bus, msg, &err);
   check_for_hang (reply, &err, aobj->app->bus, aobj->app->bus_name);
 out:
@@ -1106,6 +1126,7 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
   }
   dbus_message_append_args (message, DBUS_TYPE_STRING, &interface, DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID);
   dbus_error_init (&err);
+  set_timeout (aobj->app);
   reply = dbind_send_and_allow_reentry (aobj->app->bus, message, &err);
   check_for_hang (reply, &err, aobj->app->bus, aobj->app->bus_name);
   dbus_message_unref (message);
@@ -1170,6 +1191,7 @@ _atspi_dbus_send_with_reply_and_block (DBusMessage *message, GError **error)
 
   bus = (app ? app->bus : _atspi_bus());
   dbus_error_init (&err);
+  set_timeout (app);
   reply = dbind_send_and_allow_reentry (bus, message, &err);
   _atspi_process_deferred_messages ((gpointer)TRUE);
   dbus_message_unref (message);

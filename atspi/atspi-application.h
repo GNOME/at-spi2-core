@@ -28,6 +28,7 @@
 #include <dbus/dbus.h>
 
 #include "atspi-accessible.h"
+#include <sys/time.h>
 
 #define ATSPI_TYPE_APPLICATION                        (atspi_application_get_type ())
 #define ATSPI_APPLICATION(obj)                        (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_APPLICATION, AtspiApplication))
@@ -48,6 +49,7 @@ struct _AtspiApplication
   gchar *toolkit_name;
   gchar *toolkit_version;
   gchar *atspi_version;
+  struct timeval time_added;
 };
 
 typedef struct _AtspiApplicationClass AtspiApplicationClass;
