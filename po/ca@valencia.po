@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the atk package.
 # Jordi Mallach <jordi@sindominio.net>, 2002, 2003, 2004, 2006.
 # Gil Forcada <gilforcada@guifi.net>, 2011.
+# Jordi Serratosa <jordis@softcatala.cat>, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk 1.6.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-26 14:21+0200\n"
+"POT-Creation-Date: 2012-04-10 20:50+0200\n"
 "PO-Revision-Date: 2011-09-12 15:44+0200\n"
 "Last-Translator: Gil Forcada <gilforcada@guifi.net>\n"
 "Language-Team: català; valencià <<tradgnome@softcatala.org>>\n"
@@ -80,7 +81,7 @@ msgstr "canvas"
 
 #: ../atk/atkobject.c:81
 msgid "check box"
-msgstr "quadre de verificació"
+msgstr "casella de selecció"
 
 #: ../atk/atkobject.c:82
 msgid "check menu item"
@@ -96,7 +97,7 @@ msgstr "capçalera de columna"
 
 #: ../atk/atkobject.c:85
 msgid "combo box"
-msgstr "caixa combo"
+msgstr "quadre combinat"
 
 #: ../atk/atkobject.c:86
 msgid "dateeditor"
