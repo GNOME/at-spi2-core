@@ -39,7 +39,7 @@ static void handle_get_items (DBusPendingCall *pending, void *user_data);
 static DBusConnection *bus = NULL;
 static GHashTable *live_refs = NULL;
 static gint method_call_timeout = 800;
-static gint app_startup_time = 5000;
+static gint app_startup_time = 15000;
 
 GMainLoop *atspi_main_loop;
 gboolean atspi_no_cache;
@@ -1479,7 +1479,7 @@ atspi_get_a11y_bus (void)
  *  behavior.
  *
  * By default, the normal timeout is set to 800 ms, and the application startup
- * timeout is set to 5 seconds.
+ * timeout is set to 15 seconds.
  */
 void
 atspi_set_timeout (gint val, gint startup_time)
