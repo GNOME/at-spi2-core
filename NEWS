@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.4.1:
+
+* Fix a GError set when a method call returns a reply of the wrong type.
+
+* Do not time out method calls for the first 15 seconds that an
+  application is on the bus (work-around for Orca setting an application's
+  script as "default" after a timeout on a slow-starting application).
+
 What's new in at-spi2-core 2.4.0:
 
 * Fix typo in at-spi-dbus-bus.desktop.in (BGO#605662).
