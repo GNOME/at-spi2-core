@@ -160,8 +160,8 @@ dbind_method_call_reentrant_va (DBusConnection *cnx,
 	    if (opt_error)
 	        dbus_set_error (opt_error, DBUS_ERROR_INVALID_ARGS,
 		                "Call to \"%s\" returned signature %s; expected %s",
-		                method, p + 2,
-		                dbus_message_get_signature (reply));
+		                method, dbus_message_get_signature (reply),
+                                p + 2);
 	    goto out;
 	}
         p = arg_types;
