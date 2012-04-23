@@ -63,7 +63,7 @@ atspi_document_get_attribute_value (AtspiDocument *obj,
 
   g_return_val_if_fail (obj != NULL, NULL);
 
-  _atspi_dbus_call (obj, atspi_interface_document, "GetAttributevaluee", error, "s=>s", attribute, &retval);
+  _atspi_dbus_call (obj, atspi_interface_document, "GetAttributeValue", error, "s=>s", attribute, &retval);
 
   if (!retval)
     retval = g_strdup ("");
