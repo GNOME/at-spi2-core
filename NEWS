@@ -1,3 +1,17 @@
+What's new in at-spi2-core 2.5.1:
+
+* Add atspi_set_timeout.
+
+* By default, disable method call timeouts until an application has been on
+the bus for 15 seconds (work-around for applications with potentially long
+start-up times). This behavior can be changed with a call to atspi_set_timeout.
+
+* Fix GError sent when receiving a reply of the wrong type
+    
+* Fix typo in atspi_document_get_attribute_value
+    
+* Fix for bug 675004 - object:state-changed:defunct events are emitted as object:state-change:defunct
+
 What's new in at-spi2-core 2.4.0:
 
 * Fix typo in at-spi-dbus-bus.desktop.in (BGO#605662).
