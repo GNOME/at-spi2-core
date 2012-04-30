@@ -588,7 +588,7 @@ setup_bus (void)
   server = dbus_server_listen(spi_global_app_data->app_bus_addr, &err);
   if (server == NULL)
   {
-    g_warning (_("atk-bridge: Couldn't listen on dbus server: %s"), err.message);
+    g_warning ("atk-bridge: Couldn't listen on dbus server: %s", err.message);
     dbus_error_init (&err);
     spi_global_app_data->app_bus_addr [0] = '\0';
     g_main_context_unref (spi_global_app_data->main_context);
