@@ -611,8 +611,12 @@ _atspi_dbus_return_hyperlink_from_message (DBusMessage *message)
 {
   DBusMessageIter iter;
   AtspiHyperlink *retval = NULL;
-  const char *signature = dbus_message_get_signature (message);
+  const char *signature;
    
+  if (!message)
+    return NULL;
+
+  signature = dbus_message_get_signature (message);
   if (!strcmp (signature, "(so)"))
   {
     dbus_message_iter_init (message, &iter);
