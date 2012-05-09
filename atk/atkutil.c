@@ -249,6 +249,9 @@ atk_add_global_event_listener (GSignalEmissionHook listener,
  * atk_remove_global_event_listener:
  * @listener_id: the id of the event listener to remove
  *
+ * @listener_id is the value returned by #atk_add_global_event_listener
+ * when you registered that event listener.
+ *
  * Removes the specified event listener
  **/
 void
@@ -293,7 +296,10 @@ atk_add_key_event_listener (AtkKeySnoopFunc listener, gpointer data)
  * atk_remove_key_event_listener:
  * @listener_id: the id of the event listener to remove
  *
- * Removes the specified event listener
+ * @listener_id is the value returned by #atk_add_key_event_listener
+ * when you registered that event listener.
+ *
+ * Removes the specified event listener.
  **/
 void
 atk_remove_key_event_listener (guint listener_id)
