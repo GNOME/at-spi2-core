@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.4.2:
+
+* Fix typo in atspi_document_get_attribute_value
+    
+* Fix for bug 675004 - object:state-changed:defunct events are emitted as object:state-change:defunct
+
+* Fix a potential crash when unsuccessfully querying for a hyperlink.
+
 What's new in at-spi2-core 2.4.1:
 
 * Fix a GError set when a method call returns a reply of the wrong type.
