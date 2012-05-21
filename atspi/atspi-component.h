@@ -31,6 +31,8 @@
 
 #include "atspi-types.h"
 
+G_BEGIN_DECLS
+
 typedef struct _AtspiRect AtspiRect;
 struct _AtspiRect
 {
@@ -104,4 +106,7 @@ gboolean atspi_component_set_extents (AtspiComponent *obj, gint x, gint y, gint 
 gboolean atspi_component_set_position (AtspiComponent *obj, gint x, gint y, AtspiCoordType ctype, GError **error);
 
 gboolean atspi_component_set_size (AtspiComponent *obj, gint width, gint height, GError **error);
+
+G_END_DECLS
+
 #endif	/* _ATSPI_COMPONENT_H_ */

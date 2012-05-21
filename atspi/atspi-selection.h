@@ -32,6 +32,8 @@
 
 #include "atspi-types.h"
 
+G_BEGIN_DECLS
+
 #define ATSPI_TYPE_SELECTION                    (atspi_selection_get_type ())
 #define ATSPI_IS_SELECTION(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_SELECTION)
 #define ATSPI_SELECTION(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_SELECTION, AtspiSelection)
@@ -61,5 +63,7 @@ atspi_selection_is_child_selected (AtspiSelection *obj,
 gboolean atspi_selection_select_all (AtspiSelection *obj, GError **error);
 
 gboolean atspi_selection_clear_selection (AtspiSelection *obj, GError **error);
+
+G_END_DECLS
 
 #endif	/* _ATSPI_SELECTION_H_ */

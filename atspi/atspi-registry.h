@@ -29,6 +29,8 @@
 #include "atspi-types.h"
 #include "atspi-device-listener.h"
 
+G_BEGIN_DECLS
+
 GType atspi_key_definition_get_type ();
 
 gint atspi_get_desktop_count ();
@@ -67,5 +69,7 @@ atspi_generate_keyboard_event (glong keyval,
 
 gboolean
 atspi_generate_mouse_event (glong x, glong y, const gchar *name, GError **error);
+
+G_END_DECLS
 
 #endif	/* _ATSPI_REGISTRY_H_ */

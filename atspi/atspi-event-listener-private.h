@@ -30,9 +30,14 @@
 
 #include "dbus/dbus.h"
 
+G_BEGIN_DECLS
+
 DBusHandlerResult _atspi_dbus_handle_Event (DBusConnection *bus, DBusMessage *message, void *data);
 
 void _atspi_send_event (AtspiEvent *e);
 
 DBusHandlerResult _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data);
+
+G_END_DECLS
+
 #endif	/* _ATSPI_EVENT_LISTENER_H_ */

@@ -31,6 +31,8 @@
 
 #include "atspi-types.h"
 
+G_BEGIN_DECLS
+
 #define ATSPI_TYPE_DOCUMENT                    (atspi_document_get_type ())
 #define ATSPI_IS_DOCUMENT(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_DOCUMENT)
 #define ATSPI_DOCUMENT(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_DOCUMENT, AtspiDocument)
@@ -48,5 +50,7 @@ gchar * atspi_document_get_locale (AtspiDocument *obj, GError **error);
 gchar * atspi_document_get_attribute_value (AtspiDocument *obj, gchar *attribute, GError **error);
 
 GHashTable * atspi_document_get_attributes (AtspiDocument *obj, GError **error);
+
+G_END_DECLS
 
 #endif	/* _ATSPI_DOCUMENT_H_ */

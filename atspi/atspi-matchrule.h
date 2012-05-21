@@ -32,6 +32,8 @@
 #include "atspi-constants.h"
 #include "atspi-types.h"
 
+G_BEGIN_DECLS
+
 #define ATSPI_TYPE_MATCH_RULE                        (atspi_match_rule_get_type ())
 #define ATSPI_MATCH_RULE(obj)                        (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_MATCH_RULE, AtspiMatchRule))
 #define ATSPI_MATCH_RULE_CLASS(klass)                (G_TYPE_CHECK_CLASS_CAST ((klass), ATSPI_TYPE_MATCH_RULE, AtspiMatchRuleClass))
@@ -72,5 +74,7 @@ atspi_match_rule_new (AtspiStateSet *states,
                       GArray *interfaces,
                       AtspiCollectionMatchType interfacematchtype,
                       gboolean invert);
+
+G_END_DECLS
 
 #endif	/* _ATSPI_MATCH_RULE_H_ */

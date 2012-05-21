@@ -30,6 +30,8 @@
 #include "atspi-accessible.h"
 #include <sys/time.h>
 
+G_BEGIN_DECLS
+
 #define ATSPI_TYPE_APPLICATION                        (atspi_application_get_type ())
 #define ATSPI_APPLICATION(obj)                        (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_APPLICATION, AtspiApplication))
 #define ATSPI_APPLICATION_CLASS(klass)                (G_TYPE_CHECK_CLASS_CAST ((klass), ATSPI_TYPE_APPLICATION, AtspiAccessibleClass))
@@ -60,5 +62,7 @@ struct _AtspiApplicationClass
 
 AtspiApplication *
 _atspi_application_new (const char *bus_name);
+
+G_END_DECLS
 
 #endif	/* _ATSPI_APPLICATION_H_ */

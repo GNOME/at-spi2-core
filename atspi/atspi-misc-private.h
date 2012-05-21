@@ -36,6 +36,8 @@
 
 #include "dbind/dbind.h"
 
+G_BEGIN_DECLS
+
 typedef struct _AtspiReference AtspiReference;
 struct _AtspiReference
 {
@@ -154,4 +156,7 @@ typedef enum
 
 extern GMainLoop *atspi_main_loop;
 extern gboolean atspi_no_cache;
+
+G_END_DECLS
+
 #endif	/* _ATSPI_MISC_PRIVATE_H_ */

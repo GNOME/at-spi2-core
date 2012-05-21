@@ -32,6 +32,8 @@
 #define ATSPI_IS_STATE_SET_CLASS(klass)             (G_TYPE_CHECK_CLASS_TYPE ((klass), ATSPI_TYPE_STATE_SET))
 #define ATSPI_STATE_SET_GET_CLASS(obj)              (G_TYPE_INSTANCE_GET_CLASS ((obj), ATSPI_TYPE_STATE_SET, AtspiStateSetClass))
 
+G_BEGIN_DECLS
+
 typedef struct _AtspiStateSet AtspiStateSet;
 struct _AtspiStateSet
 {
@@ -67,5 +69,7 @@ gboolean atspi_state_set_is_empty (AtspiStateSet *set);
 void atspi_state_set_remove (AtspiStateSet *set, AtspiStateType state);
 
 AtspiStateSet * _atspi_state_set_new_internal (struct _AtspiAccessible *accessible, gint64 states);
+
+G_END_DECLS
 
 #endif	/* _ATSPI_STATE_SET_H_ */

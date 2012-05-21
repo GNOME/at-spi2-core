@@ -26,6 +26,8 @@
 #ifndef _ATSPI_MISC_H_
 #define _ATSPI_MISC_H_
 
+G_BEGIN_DECLS
+
 int atspi_init (void);
 
 void atspi_event_main ();
@@ -39,4 +41,7 @@ atspi_get_a11y_bus ();
 
 void
 atspi_set_timeout (gint val, gint startup_time);
+
+G_END_DECLS
+
 #endif	/* _ATSPI_MISC_H_ */

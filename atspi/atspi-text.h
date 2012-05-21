@@ -32,6 +32,8 @@
 
 #include "atspi-types.h"
 
+G_BEGIN_DECLS
+
 typedef struct _AtspiRange AtspiRange;
 struct _AtspiRange
 {
@@ -122,4 +124,7 @@ gboolean atspi_text_add_selection (AtspiText *obj, gint start_offset, gint end_o
 gboolean atspi_text_remove_selection (AtspiText *obj, gint selection_num, GError **error);
 
 gboolean atspi_text_set_selection (AtspiText *obj, gint selection_num, gint start_offset, gint end_offset, GError **error);
+
+G_END_DECLS
+
 #endif	/* _ATSPI_TEXT_H_ */

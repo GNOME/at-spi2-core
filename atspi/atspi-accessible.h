@@ -26,6 +26,8 @@
 #ifndef _ATSPI_ACCESSIBLE_H_
 #define _ATSPI_ACCESSIBLE_H_
 
+G_BEGIN_DECLS
+
 #include "glib-object.h"
 
 #include "atspi-application.h"
@@ -140,4 +142,7 @@ guint atspi_accessible_get_process_id (AtspiAccessible *accessible, GError **err
 void _atspi_accessible_add_cache (AtspiAccessible *accessible, AtspiCache flag);
 AtspiCache _atspi_accessible_get_cache_mask (AtspiAccessible *accessible);
 gboolean _atspi_accessible_test_cache (AtspiAccessible *accessible, AtspiCache flag);
+
+G_END_DECLS
+
 #endif	/* _ATSPI_ACCESSIBLE_H_ */

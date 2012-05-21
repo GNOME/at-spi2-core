@@ -31,6 +31,8 @@
 
 #include "atspi-types.h"
 
+G_BEGIN_DECLS
+
 #define ATSPI_TYPE_ACTION                    (atspi_action_get_type ())
 #define ATSPI_IS_ACTION(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_ACTION)
 #define ATSPI_ACTION(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_ACTION, AtspiAction)
@@ -52,5 +54,7 @@ gchar * atspi_action_get_key_binding (AtspiAction *obj, gint i, GError **error);
 gchar * atspi_action_get_name (AtspiAction *obj, gint i, GError **error);
 
 gboolean atspi_action_do_action (AtspiAction *obj, gint i, GError **error);
+
+G_END_DECLS
 
 #endif	/* _ATSPI_ACTION_H_ */

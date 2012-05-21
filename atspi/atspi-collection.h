@@ -33,6 +33,8 @@
 #include "atspi-types.h"
 #include "atspi-matchrule.h"
 
+G_BEGIN_DECLS
+
 #define ATSPI_TYPE_COLLECTION                    (atspi_collection_get_type ())
 #define ATSPI_IS_COLLECTION(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_COLLECTION)
 #define ATSPI_COLLECTION(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_COLLECTION, AtspiCollection)
@@ -54,5 +56,7 @@ GArray * atspi_collection_get_matches_to (AtspiCollection *collection, AtspiAcce
 GArray * atspi_collection_get_matches_from (AtspiCollection *collection, AtspiAccessible *current_object, AtspiMatchRule *rule, AtspiCollectionSortOrder sortby, AtspiCollectionTreeTraversalType tree, gint count, gboolean traverse, GError **error);
 
 AtspiAccessible * atspi_collection_get_active_descendant (AtspiCollection *collection, GError **error);
+
+G_END_DECLS
 
 #endif	/* _ATSPI_COLLECTION_H_ */

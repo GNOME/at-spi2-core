@@ -31,7 +31,11 @@
 #include "atspi-matchrule.h"
 #include "dbus/dbus.h"
 
+G_BEGIN_DECLS
+
 gboolean
 _atspi_match_rule_marshal (AtspiMatchRule *rule, DBusMessageIter *iter);
+
+G_END_DECLS
 
 #endif	/* _ATSPI_MATCH_RULE_PRIVATE_H_ */

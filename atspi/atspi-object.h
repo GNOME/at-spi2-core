@@ -30,6 +30,8 @@
 #include "atspi-application.h"
 #include "atspi-types.h"
 
+G_BEGIN_DECLS
+
 #define ATSPI_TYPE_OBJECT                        (atspi_object_get_type ())
 #define ATSPI_OBJECT(obj)                        (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_OBJECT, AtspiObject))
 #define ATSPI_OBJECT_CLASS(klass)                (G_TYPE_CHECK_CLASS_CAST ((klass), ATSPI_TYPE_OBJECT, AtspiObjectClass))
@@ -52,4 +54,7 @@ struct _AtspiObjectClass
 };
 
 GType atspi_object_get_type (void); 
+
+G_END_DECLS
+
 #endif	/* _ATSPI_OBJECT_H_ */

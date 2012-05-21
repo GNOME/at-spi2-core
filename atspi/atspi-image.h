@@ -32,6 +32,8 @@
 
 #include "atspi-types.h"
 
+G_BEGIN_DECLS
+
 #define ATSPI_TYPE_IMAGE                    (atspi_image_get_type ())
 #define ATSPI_IS_IMAGE(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_IMAGE)
 #define ATSPI_IMAGE(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_IMAGE, AtspiImage)
@@ -53,4 +55,7 @@ AtspiPoint * atspi_image_get_image_position (AtspiImage *obj, AtspiCoordType cty
 AtspiRect * atspi_image_get_image_extents (AtspiImage *obj, AtspiCoordType ctype, GError **error);
 
 gchar * atspi_image_get_image_locale  (AtspiImage *obj, GError **error);
+
+G_END_DECLS
+
 #endif	/* _ATSPI_IMAGE_H_ */

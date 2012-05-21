@@ -32,6 +32,8 @@
 
 #include "atspi-types.h"
 
+G_BEGIN_DECLS
+
 #define ATSPI_TYPE_HYPERTEXT                    (atspi_hypertext_get_type ())
 #define ATSPI_IS_HYPERTEXT(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_HYPERTEXT)
 #define ATSPI_HYPERTEXT(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_HYPERTEXT, AtspiHypertext)
@@ -49,5 +51,7 @@ gint atspi_hypertext_get_n_links (AtspiHypertext *obj, GError **error);
 AtspiHyperlink * atspi_hypertext_get_link (AtspiHypertext *obj, gint link_index, GError **error);
 
 gint atspi_hypertext_get_link_index (AtspiHypertext *obj, gint             character_offset, GError **error);
+
+G_END_DECLS
 
 #endif	/* _ATSPI_HYPERTEXT_H_ */

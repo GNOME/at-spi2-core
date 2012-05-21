@@ -32,6 +32,8 @@
 
 #include "atspi-types.h"
 
+G_BEGIN_DECLS
+
 #define ATSPI_TYPE_TABLE                    (atspi_table_get_type ())
 #define ATSPI_IS_TABLE(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_TABLE)
 #define ATSPI_TABLE(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_TABLE, AtspiTable)
@@ -97,5 +99,7 @@ gboolean atspi_table_remove_column_selection (AtspiTable *obj, gint column, GErr
 gboolean atspi_table_get_row_column_extents_at_index (AtspiTable *obj, gint index, gint *row, gint *col, gint *row_extents, gint *col_extents, gboolean *is_selected, GError **error);
 
 gboolean atspi_table_is_selected (AtspiTable *obj, gint row, gint column, GError **error);
+
+G_END_DECLS
 
 #endif	/* _ATSPI_TABLE_H_ */

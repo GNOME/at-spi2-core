@@ -30,6 +30,8 @@
 
 #include "atspi-constants.h"
 
+G_BEGIN_DECLS
+
 #define ATSPI_TYPE_RELATION                    (atspi_relation_get_type ())
 #define ATSPI_IS_RELATION(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_RELATION)
 #define ATSPI_RELATION(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_RELATION, AtspiRelation)
@@ -59,4 +61,7 @@ AtspiAccessible * atspi_relation_get_target (AtspiRelation *obj, gint i);
 
 /* private */
 AtspiRelation * _atspi_relation_new_from_iter (DBusMessageIter *iter);
+
+G_END_DECLS
+
 #endif	/* _ATSPI_RELATION_H_ */

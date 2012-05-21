@@ -30,6 +30,8 @@
 
 #include "atspi-types.h"
 
+G_BEGIN_DECLS
+
 /**
  * AtspiDeviceListenerCB:
  * @stroke: (transfer full): The #AtspiDeviceEvent for which notification is
@@ -87,4 +89,7 @@ AtspiDeviceListener *atspi_device_listener_new_simple (AtspiDeviceListenerSimple
 void atspi_device_listener_add_callback (AtspiDeviceListener *listener, AtspiDeviceListenerCB callback, GDestroyNotify callback_destroyed, void *user_data);
 
 void atspi_device_listener_remove_callback (AtspiDeviceListener  *listener, AtspiDeviceListenerCB callback);
+
+G_END_DECLS
+
 #endif	/* _ATSPI_DEVICE_LISTENER_H_ */

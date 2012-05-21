@@ -33,6 +33,8 @@
 #include "atspi-text.h"	/* for AtspiRange */
 #include "atspi-types.h"
 
+G_BEGIN_DECLS
+
 #define ATSPI_TYPE_HYPERLINK                        (atspi_hyperlink_get_type ())
 #define ATSPI_HYPERLINK(obj)                        (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_HYPERLINK, AtspiHyperlink))
 #define ATSPI_HYPERLINK_CLASS(klass)                (G_TYPE_CHECK_CLASS_CAST ((klass), ATSPI_TYPE_HYPERLINK, AtspiHyperlinkClass))
@@ -69,5 +71,7 @@ gint atspi_hyperlink_get_start_index (AtspiHyperlink *obj, GError **error);
 gint atspi_hyperlink_get_end_index (AtspiHyperlink *obj, GError **error);
 
 gboolean atspi_hyperlink_is_valid (AtspiHyperlink *obj, GError **error);
+
+G_END_DECLS
 
 #endif	/* _ATSPI_HYPERLINK_H_ */

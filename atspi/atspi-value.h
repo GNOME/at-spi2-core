@@ -32,6 +32,8 @@
 
 #include "atspi-types.h"
 
+G_BEGIN_DECLS
+
 #define ATSPI_TYPE_VALUE                    (atspi_value_get_type ())
 #define ATSPI_IS_VALUE(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_VALUE)
 #define ATSPI_VALUE(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_VALUE, AtspiValue)
@@ -53,5 +55,7 @@ gdouble atspi_value_get_maximum_value (AtspiValue *obj, GError **error);
 gboolean atspi_value_set_current_value (AtspiValue *obj, gdouble new_value, GError **error);
 
 gdouble atspi_value_get_minimum_increment (AtspiValue *obj, GError **error);
+
+G_END_DECLS
 
 #endif	/* _ATSPI_VALUE_H_ */
