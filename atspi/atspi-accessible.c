@@ -661,9 +661,9 @@ defunct_set ()
 AtspiStateSet *
 atspi_accessible_get_state_set (AtspiAccessible *obj)
 {
+  /* TODO: Should take a GError **, but would be an API break */
   if (!obj->parent.app || !obj->parent.app->bus)
     return defunct_set ();
-
 
   if (!_atspi_accessible_test_cache (obj, ATSPI_CACHE_STATES))
   {
