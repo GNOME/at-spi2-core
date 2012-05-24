@@ -71,7 +71,7 @@ static gboolean init_done = FALSE;
  * Array of FocusTracker structs
  */
 static GArray *trackers = NULL;
-static guint  index = 0;
+static guint  global_index = 0;
 
 typedef struct _FocusTracker FocusTracker;
 
@@ -124,10 +124,10 @@ atk_add_focus_tracker (AtkEventListener   focus_tracker)
   {
     FocusTracker item;
 
-    item.index = ++index;
+    item.index = ++global_index;
     item.func = focus_tracker;
     trackers = g_array_append_val (trackers, item);
-    return index;
+    return global_index;
   }
   else
   {
