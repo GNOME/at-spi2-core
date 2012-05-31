@@ -119,7 +119,7 @@ match_states_any_p (AtkObject * child, gint * set)
 
   for (i = 0; set[i] != BITARRAY_SEQ_TERM; i++)
     {
-      if (!atk_state_set_contains_state (chs, set[i]))
+      if (atk_state_set_contains_state (chs, set[i]))
         {
           ret = TRUE;
           break;
