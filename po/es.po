@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: atk.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=atk&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-07-10 08:53+0000\n"
+"POT-Creation-Date: 2011-09-11 11:03+0000\n"
 "PO-Revision-Date: 2011-07-10 12:55+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
@@ -58,7 +58,7 @@ msgstr "El índice inicial de un objeto AtkHyperlink"
 
 #: ../atk/atkobject.c:74
 msgid "invalid"
-msgstr "inválido"
+msgstr "no válido"
 
 #: ../atk/atkobject.c:75
 msgid "accelerator label"
@@ -418,27 +418,22 @@ msgid "tree item"
 msgstr "elemento de árbol"
 
 #: ../atk/atkobject.c:165
-#| msgid "document frame"
 msgid "document spreadsheet"
 msgstr "documento de hoja de cálculo"
 
 #: ../atk/atkobject.c:166
-#| msgid "document frame"
 msgid "document presentation"
 msgstr "documento de presentación"
 
 #: ../atk/atkobject.c:167
-#| msgid "document frame"
 msgid "document text"
 msgstr "documento de texto"
 
 #: ../atk/atkobject.c:168
-#| msgid "document frame"
 msgid "document web"
 msgstr "documento web"
 
 #: ../atk/atkobject.c:169
-#| msgid "document frame"
 msgid "document email"
 msgstr "documento de correo electrónico"
 
@@ -447,7 +442,6 @@ msgid "comment"
 msgstr "comentario"
 
 #: ../atk/atkobject.c:171
-#| msgid "list"
 msgid "list box"
 msgstr "caja de lista"
 
