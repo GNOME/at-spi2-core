@@ -206,7 +206,9 @@ atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
                                      AtspiKeyEventMask    event_types,
                                      GError             **error)
 {
+  GArray *d_key_set;
   gchar *path = _atspi_device_listener_get_path (listener);
+  gint i;
   dbus_uint32_t d_modmask = modmask;
   dbus_uint32_t d_event_types = event_types;
   DBusError d_error;
@@ -217,11 +219,38 @@ atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
       return FALSE;
     }
 
+  /* copy the keyval filter values from the C api into the DBind KeySet */
+  if (key_set)
+    {
+      d_key_set = g_array_sized_new (FALSE, TRUE, sizeof (AtspiKeyDefinition), key_set->len);
+      d_key_set->len = key_set->len;
+      for (i = 0; i < key_set->len; ++i)
+        {
+	  AtspiKeyDefinition *kd =  ((AtspiKeyDefinition *) key_set->data) + i;
+	  AtspiKeyDefinition *d_kd =  ((AtspiKeyDefinition *) d_key_set->data) + i;
+          d_kd->keycode = kd->keycode;
+	  d_kd->keysym = kd->keysym;
+	  if (kd->keystring)
+	    {
+	      d_kd->keystring = kd->keystring;
+	    } 
+          else 
+            {
+	      d_kd->keystring = "";
+	    }
+        }
+    }
+  else
+    {
+      d_key_set = g_array_sized_new (FALSE, TRUE, sizeof (AtspiKeyDefinition), 0);
+    }
+
   dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry,
                                atspi_path_dec, atspi_interface_dec,
                                "DeregisterKeystrokeListener", &d_error,
-                               "oa(iisi)uu", path, &key_set, d_modmask,
+                               "oa(iisi)uu", path, d_key_set, d_modmask,
                                d_event_types);
+  g_array_free (d_key_set, TRUE);
   g_free (path);
   return TRUE;
 }
