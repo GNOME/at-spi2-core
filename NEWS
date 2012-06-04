@@ -1,3 +1,13 @@
+What's new in at-spi2-core 2.5.2:
+
+* Fix a crash when a call to fetch a hyperlink times out.
+
+* Fix C++ compilation.
+
+* Remove a warning that was sometimes logged when a method call timed out.
+
+* Fix crash in atspi_deregister_keystroke_listener (FDO#50578)
+
 What's new in at-spi2-core 2.5.1:
 
 * Add atspi_set_timeout.
