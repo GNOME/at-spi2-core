@@ -192,8 +192,9 @@ add_object (SpiCache * cache, GObject * gobj)
 /*---------------------------------------------------------------------------*/
 
 static GStaticRecMutex cache_mutex        = G_STATIC_REC_MUTEX_INIT;
-static GStaticMutex recursion_check_guard = G_STATIC_MUTEX_INIT;
 
+#ifdef SPI_ATK_DEBUG
+static GStaticMutex recursion_check_guard = G_STATIC_MUTEX_INIT;
 static gboolean recursion_check = FALSE;
 
 static gboolean
@@ -214,6 +215,7 @@ recursion_check_unset ()
   recursion_check = FALSE;
   g_static_mutex_unlock (&recursion_check_guard);
 }
+#endif /* SPI_ATK_DEBUG */
 
 /*---------------------------------------------------------------------------*/
 
