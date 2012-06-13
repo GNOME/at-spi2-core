@@ -65,7 +65,6 @@ add_event (const char *bus_name, const char *event)
 {
   event_data *evdata;
   gchar **data;
-  GList *new_list;
 
   spi_atk_add_client (bus_name);
   evdata = (event_data *) g_malloc (sizeof (*evdata));
@@ -79,9 +78,7 @@ add_event (const char *bus_name, const char *event)
     }
   evdata->bus_name = g_strdup (bus_name);
   evdata->data = data;
-  new_list = g_list_append (spi_global_app_data->events, evdata);
-  if (new_list)
-    spi_global_app_data->events = new_list;
+  spi_global_app_data->events = g_list_append (spi_global_app_data->events, evdata);
 }
 
 static GSList *clients = NULL;
@@ -232,7 +229,6 @@ register_reply (DBusPendingCall *pending, void *user_data)
 {
   DBusMessage *reply;
   SpiBridge *app = user_data;
-  DBusMessage *message;
 
   reply = dbus_pending_call_steal_reply (pending);
   dbus_pending_call_unref (pending);
@@ -270,7 +266,7 @@ register_reply (DBusPendingCall *pending, void *user_data)
 static gboolean
 register_application (SpiBridge * app)
 {
-  DBusMessage *message, *reply;
+  DBusMessage *message;
   DBusMessageIter iter;
   DBusError error;
   DBusPendingCall *pending;
@@ -513,8 +509,6 @@ user_check (DBusConnection *bus, unsigned long uid, void *data)
 static void
 new_connection_cb (DBusServer *server, DBusConnection *con, void *data)
 {
-  GList *new_list;
-
   dbus_connection_set_unix_user_function (con, user_check, NULL, NULL);
   dbus_connection_ref(con);
   atspi_dbus_connection_setup_with_g_main(con, NULL);
@@ -592,7 +586,6 @@ handle_event_listener_registered (DBusConnection *bus, DBusMessage *message,
 static void
 remove_events (const char *bus_name, const char *event)
 {
-  event_data *evdata;
   gchar **remove_data;
   GList *list;
 
@@ -628,7 +621,6 @@ static void
 handle_event_listener_deregistered (DBusConnection *bus, DBusMessage *message,
                                     void *user_data)
 {
-  const char *orig_name;
   gchar *name;
   char *sender;
 
@@ -726,7 +718,6 @@ adaptor_init (gint * argc, gchar ** argv[])
   GError *err = NULL;
   DBusError error;
   AtkObject *root;
-  gchar *introspection_directory;
   static gboolean inited = FALSE;
 
   if (inited)
