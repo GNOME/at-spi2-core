@@ -37,6 +37,7 @@
 
 #include <droute/droute.h>
 #include <atspi/atspi.h>
+#include <atk-bridge.h>
 
 #include "bridge.h"
 #include "event.h"

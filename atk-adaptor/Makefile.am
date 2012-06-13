@@ -29,7 +29,8 @@ libatk_bridge_2_0_la_SOURCES =  \
 	event.c                 \
 	event.h                 \
 	spi-dbus.c              \
-	spi-dbus.h
+	spi-dbus.h		\
+	atk-bridge.h
 
 libatk_bridge_2_0_la_LIBADD = \
 	$(DBUS_LIBS)          \

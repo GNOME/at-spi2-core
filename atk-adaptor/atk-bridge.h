@@ -2,9 +2,9 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2008, 2009 Codethink Ltd.
  * Copyright 2001, 2002, 2003 Sun Microsystems Inc.,
  * Copyright 2001, 2002, 2003 Ximian, Inc.
+ * Copyright 2008, 2009, 2010 Codethink Ltd.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -22,30 +22,14 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#define _GNU_SOURCE
-#include "config.h"
+#ifndef ATK_BRIDGE_H
+#define ATK_BRIDGE_H
 
-#include <gmodule.h>
-#include <atk-bridge.h>
+G_BEGIN_DECLS
 
-/*---------------------------------------------------------------------------*/
+int adaptor_init (int * argc, char ** argv[]);
+void adaptor_cleanup (void);
 
-int
-gtk_module_init (gint * argc, gchar ** argv[])
-{
-  const gchar *load_bridge = g_getenv ("NO_AT_BRIDGE");
+G_END_DECLS
 
-  if (!load_bridge || g_ascii_strtod (load_bridge, NULL) == 0)
-    {
-      return adaptor_init (argc, argv);
-    }
-  return 0;
-}
-
-gchar*
-g_module_check_init (GModule *module)
-{
-  g_module_make_resident (module);
-
-  return NULL;
-}
+#endif /* ATK_BRIDGE_H */

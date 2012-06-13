@@ -26,8 +26,7 @@
 #include "config.h"
 
 #include <gmodule.h>
-
-#include "bridge.h"
+#include <atk-bridge.h>
 
 /*---------------------------------------------------------------------------*/
 
