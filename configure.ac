@@ -62,15 +62,6 @@ PKG_CHECK_MODULES(ATSPI, [atspi-2 >= 2.1.4])
 AC_SUBST(ATSPI_LIBS)
 AC_SUBST(ATSPI_CFLAGS)
 
-AC_PATH_XTRA
-
-if test x$no_x = xyes ; then
-	AC_MSG_ERROR([X development libraries not found])
-else
-	X_LIBS="$X_LIBS $X_PRE_LIBS -lX11 $X_EXTRA_LIBS"
-fi
-AC_SUBST(X_LIBS)
-
 GLIB_GSETTINGS
 
 AC_ARG_ENABLE(p2p, [  --enable-p2p  Allow peer-to-peer DBus connections [default=yes]], enable_p2p="$enableval", enable_p2p=yes)

@@ -16,4 +16,4 @@ INCLUDES = -I$(top_srcdir)           \
 
 LDADD = $(top_builddir)/common/libspicommon.la 			\
 	$(top_builddir)/cspi/libcspi.la 			\
-	$(TESTS_LIBS) $(X_LIBS) $(XINPUT_LIBS) $(ATK_LIBS) $(GTK_LIBS) $(DBIND_LIBS) @EXTRA_SOCKET_LIBS@
+	$(TESTS_LIBS) $(XINPUT_LIBS) $(ATK_LIBS) $(GTK_LIBS) $(DBIND_LIBS) @EXTRA_SOCKET_LIBS@

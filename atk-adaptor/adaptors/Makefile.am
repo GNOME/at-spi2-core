@@ -11,8 +11,7 @@ libatk_bridge_adaptors_la_CFLAGS =\
 libatk_bridge_adaptors_la_LIBADD =\
 			  $(DBUS_LIBS) \
 		          $(ATK_LIBS)       \
-		          $(ATSPI_LIBS)       \
-			  $(X_LIBS)
+		          $(ATSPI_LIBS)
 
 libatk_bridge_adaptors_la_SOURCES =\
 	accessible-adaptor.c	\
