@@ -37,7 +37,7 @@ gtk_module_init (gint * argc, gchar ** argv[])
 
   if (!load_bridge || g_ascii_strtod (load_bridge, NULL) == 0)
     {
-      return adaptor_init (argc, argv);
+      return atk_bridge_adaptor_init (argc, argv);
     }
   return 0;
 }
@@ -57,7 +57,7 @@ gnome_accessibility_module_init (void)
 
   if (!load_bridge || g_ascii_strtod (load_bridge, NULL) == 0)
     {
-      adaptor_init (NULL, NULL);
+      atk_bridge_adaptor_init (NULL, NULL);
 
       if (g_getenv ("AT_SPI_DEBUG"))
         {
@@ -69,5 +69,5 @@ gnome_accessibility_module_init (void)
 void
 gnome_accessibility_module_shutdown (void)
 {
-    adaptor_cleanup ();
+    atk_bridge_adaptor_cleanup ();
 }

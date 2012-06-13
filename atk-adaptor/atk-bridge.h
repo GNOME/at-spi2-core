@@ -27,8 +27,8 @@
 
 G_BEGIN_DECLS
 
-int adaptor_init (int * argc, char ** argv[]);
-void adaptor_cleanup (void);
+int atk_bridge_adaptor_init (int * argc, char ** argv[]);
+void atk_bridge_adaptor_cleanup (void);
 
 G_END_DECLS
 

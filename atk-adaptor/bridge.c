@@ -710,7 +710,7 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
  *
  */
 int
-adaptor_init (gint * argc, gchar ** argv[])
+atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
 {
   GOptionContext *opt;
   GError *err = NULL;
@@ -851,7 +851,7 @@ adaptor_init (gint * argc, gchar ** argv[])
 }
 
 void
-adaptor_cleanup (void)
+atk_bridge_adaptor_cleanup (void)
 {
   GList *l;
   GSList *ls;

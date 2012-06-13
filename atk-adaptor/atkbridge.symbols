@@ -1,2 +1,2 @@
-adaptor_init
-adaptor_cleanup
+atk_bridge_adaptor_init
+atk_bridge_adaptor_cleanup

@@ -37,7 +37,7 @@ gtk_module_init (gint * argc, gchar ** argv[])
 
   if (!load_bridge || g_ascii_strtod (load_bridge, NULL) == 0)
     {
-      return adaptor_init (argc, argv);
+      return atk_bridge_adaptor_init (argc, argv);
     }
   return 0;
 }
