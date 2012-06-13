@@ -72,9 +72,6 @@ static guint register_signals[LAST_SIGNAL] = { 0 };
 static void
 spi_register_finalize (GObject * object);
 
-static void
-spi_register_dispose (GObject * object);
-
 /*---------------------------------------------------------------------------*/
 
 G_DEFINE_TYPE (SpiRegister, spi_register, G_TYPE_OBJECT)
@@ -86,7 +83,6 @@ static void spi_register_class_init (SpiRegisterClass * klass)
   spi_register_parent_class = g_type_class_ref (G_TYPE_OBJECT);
 
   object_class->finalize = spi_register_finalize;
-  object_class->dispose = spi_register_dispose;
 
   register_signals [OBJECT_REGISTERED] =
       g_signal_new ("object-registered",
@@ -143,14 +139,6 @@ spi_register_finalize (GObject * object)
   g_hash_table_unref (reg->ref2ptr);
 
   G_OBJECT_CLASS (spi_register_parent_class)->finalize (object);
-}
-
-static void
-spi_register_dispose (GObject * object)
-{
-  SpiRegister *reg = SPI_REGISTER (object);
-
-  G_OBJECT_CLASS (spi_register_parent_class)->dispose (object);
 }
 
 /*---------------------------------------------------------------------------*/

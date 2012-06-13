@@ -324,31 +324,6 @@ impl_GetAttributeValue (DBusConnection * bus, DBusMessage * message,
   return reply;
 }
 
-static char *
-_string_from_attribute_set (AtkAttributeSet * set)
-{
-  gchar *attributes, *tmp, *tmp2;
-  GSList *cur_attr;
-  AtkAttribute *at;
-
-  attributes = g_strdup ("");
-  cur_attr = (GSList *) set;
-  while (cur_attr)
-    {
-      at = (AtkAttribute *) cur_attr->data;
-      tmp = g_strdup_printf ("%s%s:%s%s",
-                             ((GSList *) (set) == cur_attr) ? "" : " ",
-                             at->name, at->value,
-                             (cur_attr->next) ? ";" : "");
-      tmp2 = g_strconcat (attributes, tmp, NULL);
-      g_free (tmp);
-      g_free (attributes);
-      attributes = tmp2;
-      cur_attr = cur_attr->next;
-    }
-  return attributes;
-}
-
 static DBusMessage *
 impl_GetAttributes (DBusConnection * bus, DBusMessage * message,
                     void *user_data)
@@ -746,8 +721,7 @@ impl_GetAttributeRun (DBusConnection * bus, DBusMessage * message,
   gint intstart_offset = 0, intend_offset = 0;
   DBusMessage *reply;
   AtkAttributeSet *attributes = NULL;
-  AtkAttribute *attr = NULL;
-  DBusMessageIter iter, iterArray;
+  DBusMessageIter iter;
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));

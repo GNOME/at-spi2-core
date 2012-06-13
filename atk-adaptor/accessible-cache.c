@@ -323,7 +323,6 @@ child_added_listener (GSignalInvocationHint * signal_hint,
   SpiCache *cache = spi_global_cache;
   gboolean child_needs_ref = TRUE;
   AtkObject *accessible;
-  AtkObject *child;
 
   const gchar *detail = NULL;
 

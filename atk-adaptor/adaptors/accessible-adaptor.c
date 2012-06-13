@@ -328,7 +328,6 @@ impl_GetRelationSet (DBusConnection * bus,
       for (j = 0; j < target->len; j++)
         {
           AtkObject *obj = target->pdata[j];
-          char *path;
           if (!obj)
             continue;
           spi_object_append_reference (&iter_targets, obj);
@@ -361,15 +360,6 @@ impl_GetRole (DBusConnection * bus, DBusMessage * message, void *user_data)
                                 DBUS_TYPE_INVALID);
     }
   return reply;
-}
-
-static char *
-impl_get_role_str (void *datum)
-{
-  g_return_val_if_fail (ATK_IS_OBJECT (datum), g_strdup (""));
-  return g_strdup_printf ("%d",
-                          spi_accessible_role_from_atk_role
-                          (atk_object_get_role ((AtkObject *) datum)));
 }
 
 static DBusMessage *

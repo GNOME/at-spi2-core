@@ -650,8 +650,6 @@ read_mr (DBusMessageIter * iter, MatchRulePrivate * mrp)
   int array_count;
   AtkAttribute *attr;
   int i;
-  const char *str;
-  char *interfaces = NULL;
 
   dbus_message_iter_recurse (iter, &iter_struct);
 
@@ -768,19 +766,18 @@ GetMatchesFrom (DBusMessage * message,
   GList *ls = NULL;
   AtkObject *parent;
   glong index = atk_object_get_index_in_parent (current_object);
-  gint kount = 0;
 
   ls = g_list_append (ls, current_object);
 
   if (!isrestrict)
     {
       parent = atk_object_get_parent (current_object);
-      kount = query_exec (mrp, sortby, ls, 0, count, parent, index,
-                          FALSE, NULL, TRUE, traverse);
+      query_exec (mrp, sortby, ls, 0, count, parent, index,
+                  FALSE, NULL, TRUE, traverse);
     }
   else
-    kount = query_exec (mrp, sortby, ls, 0, count,
-                        current_object, 0, FALSE, NULL, TRUE, traverse);
+    query_exec (mrp, sortby, ls, 0, count,
+                current_object, 0, FALSE, NULL, TRUE, traverse);
 
   ls = g_list_remove (ls, ls->data);
 
@@ -840,14 +837,13 @@ GetMatchesInOrder (DBusMessage * message,
 {
   GList *ls = NULL;
   AtkObject *obj;
-  gint kount = 0;
 
   ls = g_list_append (ls, current_object);
 
   obj = ATK_OBJECT(spi_register_path_to_object (spi_global_register, dbus_message_get_path (message)));
 
-  kount = inorder (obj, mrp, ls, 0, count,
-                   current_object, TRUE, NULL, traverse);
+  inorder (obj, mrp, ls, 0, count,
+           current_object, TRUE, NULL, traverse);
 
   ls = g_list_remove (ls, ls->data);
 
@@ -872,14 +868,13 @@ GetMatchesInBackOrder (DBusMessage * message,
 {
   GList *ls = NULL;
   AtkObject *collection;
-  gint kount = 0;
 
   ls = g_list_append (ls, current_object);
 
   collection = ATK_OBJECT(spi_register_path_to_object (spi_global_register, dbus_message_get_path (message)));
 
-  kount = sort_order_rev_canonical (mrp, ls, 0, count, current_object,
-                                    FALSE, collection);
+  sort_order_rev_canonical (mrp, ls, 0, count, current_object,
+                            FALSE, collection);
 
   ls = g_list_remove (ls, ls->data);
 
@@ -901,20 +896,19 @@ GetMatchesTo (DBusMessage * message,
 {
   GList *ls = NULL;
   AtkObject *obj;
-  gint kount = 0;
   ls = g_list_append (ls, current_object);
 
   if (recurse)
     {
       obj = ATK_OBJECT (atk_object_get_parent (current_object));
-      kount = query_exec (mrp, sortby, ls, 0, count,
-                          obj, 0, TRUE, current_object, TRUE, traverse);
+      query_exec (mrp, sortby, ls, 0, count,
+                  obj, 0, TRUE, current_object, TRUE, traverse);
     }
   else
     {
       obj = ATK_OBJECT (spi_register_path_to_object (spi_global_register, dbus_message_get_path (message)));
-      kount = query_exec (mrp, sortby, ls, 0, count,
-                          obj, 0, TRUE, current_object, TRUE, traverse);
+      query_exec (mrp, sortby, ls, 0, count,
+                  obj, 0, TRUE, current_object, TRUE, traverse);
 
     }
 
@@ -939,7 +933,6 @@ impl_GetMatchesFrom (DBusConnection * bus, DBusMessage * message,
   dbus_uint32_t tree;
   dbus_int32_t count;
   dbus_bool_t traverse;
-  GList *ls = NULL;
   const char *signature;
 
   signature = dbus_message_get_signature (message);
@@ -1002,7 +995,6 @@ impl_GetMatchesTo (DBusConnection * bus, DBusMessage * message,
   dbus_bool_t recurse;
   dbus_int32_t count;
   dbus_bool_t traverse;
-  GList *ls = NULL;
   const char *signature;
 
   signature = dbus_message_get_signature (message);

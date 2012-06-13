@@ -233,23 +233,6 @@ spi_atk_bridge_key_listener (AtkKeyEventStruct * event, gpointer data)
 
 /*---------------------------------------------------------------------------*/
 
-static gchar *
-convert_signal_name (const gchar * s)
-{
-  gchar *ret = g_strdup (s);
-  gchar *t;
-
-  if (!ret)
-    return NULL;
-  ret[0] = toupper (ret[0]);
-  while ((t = strchr (ret, '-')) != NULL)
-    {
-      memmove (t, t + 1, strlen (t));
-      *t = toupper (*t);
-    }
-  return ret;
-}
-
 static const void *
 validate_for_dbus (const gint type,
               const void *val)
@@ -373,7 +356,6 @@ static gboolean
 signal_is_needed (const gchar *klass, const gchar *major, const gchar *minor)
 {
   gchar *data [4];
-  GList *iter;
   event_data *evdata;
   gboolean ret = FALSE;
   GList *list;
@@ -458,9 +440,9 @@ emit_event (AtkObject  *obj,
   const char *path;
   char *minor_dbus;
 
-  gchar *cname, *t;
+  gchar *cname;
   DBusMessage *sig;
-  DBusMessageIter iter, iter_struct;
+  DBusMessageIter iter;
   
   if (!klass) klass = "";
   if (!major) major = "";
@@ -537,7 +519,7 @@ property_event_listener (GSignalInvocationHint * signal_hint,
   const gchar *pname = NULL;
 
   AtkObject *otemp;
-  const gchar *s1, s2;
+  const gchar *s1;
   gint i;
 
   accessible = g_value_get_object (&param_values[0]);
@@ -734,7 +716,7 @@ bounds_event_listener (GSignalInvocationHint * signal_hint,
   AtkObject *accessible;
   AtkRectangle *atk_rect;
   GSignalQuery signal_query;
-  const gchar *name, *s;
+  const gchar *name;
 
   g_signal_query (signal_hint->signal_id, &signal_query);
   name = signal_query.signal_name;
@@ -766,7 +748,7 @@ active_descendant_event_listener (GSignalInvocationHint * signal_hint,
   AtkObject *accessible;
   AtkObject *child;
   GSignalQuery signal_query;
-  const gchar *name, *minor;
+  const gchar *name;
   gint detail1;
 
   g_signal_query (signal_hint->signal_id, &signal_query);
@@ -775,7 +757,6 @@ active_descendant_event_listener (GSignalInvocationHint * signal_hint,
   accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
   child = ATK_OBJECT (g_value_get_pointer (&param_values[1]));
   g_return_val_if_fail (ATK_IS_OBJECT (child), TRUE);
-  minor = g_quark_to_string (signal_hint->detail);
 
   detail1 = atk_object_get_index_in_parent (child);
 
@@ -1043,24 +1024,6 @@ children_changed_event_listener (GSignalInvocationHint * signal_hint,
     }
  
   return TRUE;
-}
-
-/*---------------------------------------------------------------------------*/
-
-static void
-toplevel_added_event_listener (AtkObject * accessible,
-                               guint index, AtkObject * child)
-{
-  emit_event (accessible, ITF_EVENT_OBJECT, "children-changed", "add", index, 0,
-              "(so)", child, append_object);
-}
-
-static void
-toplevel_removed_event_listener (AtkObject * accessible,
-                                 guint index, AtkObject * child)
-{
-  emit_event (accessible, ITF_EVENT_OBJECT, "children-changed", "remove", index, 0,
-              "(so)", child, append_object);
 }
 
 /*---------------------------------------------------------------------------*/

@@ -84,7 +84,7 @@ spi_leasing_dispose (GObject * object)
   SpiLeasing *leasing = SPI_LEASING (object);
 
   ExpiryElement *head;
-  while (head = g_queue_pop_head (leasing->expiry_queue))
+  while ((head = g_queue_pop_head (leasing->expiry_queue)))
     {
       g_object_unref (head->object);
       g_slice_free (ExpiryElement, head);

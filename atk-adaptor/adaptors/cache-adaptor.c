@@ -152,7 +152,6 @@ append_cache_item (AtkObject * obj, gpointer data)
         for (i = 0; i < childcount; i++)
           {
             AtkObject *child;
-            gchar *child_path;
 
             child = atk_object_ref_accessible_child (obj, i);
             spi_object_append_reference (&iter_sub_array, child);
@@ -252,7 +251,6 @@ emit_cache_remove (SpiCache *cache, GObject * obj)
                                           "RemoveAccessible")))
     {
       DBusMessageIter iter;
-      gchar *path;
 
       dbus_message_iter_init_append (message, &iter);
 
