@@ -58,8 +58,6 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data);
 
 SpiBridge *spi_global_app_data = NULL;
 
-/*static Display *bridge_display = NULL;*/
-
 /*---------------------------------------------------------------------------*/
 
 /*
@@ -1000,13 +998,9 @@ gnome_accessibility_module_shutdown (void)
 
   g_free (spi_global_app_data);
   spi_global_app_data = NULL;
-
-  /* Not currently creating an XDisplay */
-#if 0
-  if (bridge_display)
-    XCloseDisplay (bridge_display);
-#endif
 }
+
+/*---------------------------------------------------------------------------*/
 
 static gchar *name_match_tmpl =
        "type='signal', interface='org.freedesktop.DBus', member='NameOwnerChanged', arg0='%s'";
