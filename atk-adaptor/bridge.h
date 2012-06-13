@@ -66,6 +66,8 @@ char *app_bus_addr;
 
 extern SpiBridge *spi_global_app_data;
 
+int adaptor_init (gint * argc, gchar ** argv[]);
+void adaptor_cleanup (void);
 void spi_atk_add_client (const char *bus_name);
 void spi_atk_remove_client (const char *bus_name);
 
