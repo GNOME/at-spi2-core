@@ -1,6 +1,6 @@
 SUBDIRS= adaptors . gtk-2.0 gtk-3.0
 
-noinst_LTLIBRARIES = libatk-bridge-2.0.la
+lib_LTLIBRARIES = libatk-bridge-2.0.la
 
 libatk_bridge_2_0_la_CFLAGS = \
 	$(DBUS_CFLAGS)    \
@@ -9,6 +9,9 @@ libatk_bridge_2_0_la_CFLAGS = \
 	-I$(top_srcdir)   \
 	-I$(top_srcdir)/atk-adaptor/adaptors \
 	$(P2P_CFLAGS)
+
+atkbridgeincludedir = $(pkgincludedir)/2.0/
+atkbridgeinclude_HEADERS = atk-bridge.h
 
 libatk_bridge_2_0_la_SOURCES =  \
         accessible-leasing.c    \
@@ -39,5 +42,11 @@ libatk_bridge_2_0_la_LIBADD = \
 	$(ATSPI_LIBS)         \
 	$(top_builddir)/droute/libdroute.la \
 	$(top_builddir)/atk-adaptor/adaptors/libatk-bridge-adaptors.la
+
+libatk_bridge_2_0_la_LDFLAGS = \
+	$(LT_VERSION_INFO)                          \
+	-export-symbols $(srcdir)/atkbridge.symbols \
+	-no-undefined                               \
+	$(AM_LDFLAGS)
 
 EXTRA_DIST = Makefile.include

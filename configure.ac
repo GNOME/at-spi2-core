@@ -104,6 +104,7 @@ fi
 AC_SUBST(P2P_CFLAGS)
 
 AC_CONFIG_FILES([Makefile
+		 atk-bridge-2.0.pc
 		 dbind/dbind-config.h
 		 dbind/Makefile
 		 droute/Makefile
