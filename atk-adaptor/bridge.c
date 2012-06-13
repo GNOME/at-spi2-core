@@ -37,7 +37,6 @@
 
 #include <droute/droute.h>
 #include <gmodule.h>
-#include <glib/gi18n.h>
 #include <atspi/atspi.h>
 
 #include "bridge.h"
