@@ -15,7 +15,6 @@ libatk_bridge_la_LDFLAGS = -no-undefined  \
 		           -rpath $(gtkmoduledir)
 
 libatk_bridge_la_LIBADD = $(DBUS_LIBS) \
-		          $(DBUS_LIBS)       \
 		          $(GMODULE_LIBS)       \
 		          $(ATK_LIBS)       \
 		          $(ATSPI_LIBS)       \
