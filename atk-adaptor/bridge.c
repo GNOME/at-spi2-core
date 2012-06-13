@@ -60,56 +60,6 @@ SpiBridge *spi_global_app_data = NULL;
 
 /*---------------------------------------------------------------------------*/
 
-/*
- * Returns a 'canonicalized' value for DISPLAY,
- * with the screen number stripped off if present.
- *
- */
-static const gchar *
-spi_display_name (void)
-{
-  static const char *canonical_display_name = NULL;
-  if (!canonical_display_name)
-    {
-      const gchar *display_env = g_getenv ("AT_SPI_DISPLAY");
-      if (!display_env)
-        {
-          display_env = g_getenv ("DISPLAY");
-          if (!display_env || !display_env[0])
-            canonical_display_name = ":0";
-          else
-            {
-              gchar *display_p, *screen_p;
-              canonical_display_name = g_strdup (display_env);
-              display_p = strrchr (canonical_display_name, ':');
-              screen_p = strrchr (canonical_display_name, '.');
-              if (screen_p && display_p && (screen_p > display_p))
-                {
-                  *screen_p = '\0';
-                }
-            }
-        }
-      else
-        {
-          canonical_display_name = display_env;
-        }
-    }
-  return canonical_display_name;
-}
-
-/*---------------------------------------------------------------------------*/
-
-static void
-set_reply (DBusPendingCall *pending, void *user_data)
-{
-    void **replyptr = (void **)user_data;
-
-    *replyptr = dbus_pending_call_steal_reply (pending);
-  dbus_pending_call_unref (pending);
-}
-
-/*---------------------------------------------------------------------------*/
-
 static void
 add_event (const char *bus_name, const char *event)
 {
