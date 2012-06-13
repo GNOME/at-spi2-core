@@ -36,7 +36,6 @@
 #include <atk/atk.h>
 
 #include <droute/droute.h>
-#include <gmodule.h>
 #include <atspi/atspi.h>
 
 #include "bridge.h"
@@ -901,50 +900,6 @@ adaptor_cleanup (void)
 
   g_free (spi_global_app_data);
   spi_global_app_data = NULL;
-}
-
-/*---------------------------------------------------------------------------*/
-
-int
-gtk_module_init (gint * argc, gchar ** argv[])
-{
-  const gchar *load_bridge = g_getenv ("NO_AT_BRIDGE");
-
-  if (!load_bridge || g_ascii_strtod (load_bridge, NULL) == 0)
-    {
-      return adaptor_init (argc, argv);
-    }
-  return 0;
-}
-
-gchar*
-g_module_check_init (GModule *module)
-{
-  g_module_make_resident (module);
-
-  return NULL;
-}
-
-void
-gnome_accessibility_module_init (void)
-{
-  const gchar *load_bridge = g_getenv ("NO_AT_BRIDGE");
-
-  if (!load_bridge || g_ascii_strtod (load_bridge, NULL) == 0)
-    {
-      adaptor_init (NULL, NULL);
-
-      if (g_getenv ("AT_SPI_DEBUG"))
-        {
-          g_print ("Atk Accessibility bridge initialized\n");
-        }
-    }
-}
-
-void
-gnome_accessibility_module_shutdown (void)
-{
-  adaptor_cleanup ();
 }
 
 /*---------------------------------------------------------------------------*/

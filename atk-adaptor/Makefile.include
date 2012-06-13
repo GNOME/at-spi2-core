@@ -6,6 +6,7 @@ libatk_bridge_la_CFLAGS = \
 	$(ATSPI_CFLAGS)   \
 	-I$(top_srcdir)   \
 	-I$(top_srcdir)/atk-adaptor/adaptors \
+	-I$(top_srcdir)/atk-adaptor/
 	$(P2P_CFLAGS)     \
 	$(X_CFLAGS)
 
