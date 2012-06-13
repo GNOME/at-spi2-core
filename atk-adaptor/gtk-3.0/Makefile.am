@@ -2,4 +2,4 @@
 
 include $(top_srcdir)/atk-adaptor/Makefile.include
 
-libatk_bridge_la_SOURCES += module.c
+libatk_bridge_la_SOURCES = module.c
