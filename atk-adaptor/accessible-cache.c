@@ -55,9 +55,6 @@ add_pending_items (gpointer data);
 static void
 spi_cache_finalize (GObject * object);
 
-static void
-spi_cache_dispose (GObject * object);
-
 /*---------------------------------------------------------------------------*/
 
 enum
@@ -79,7 +76,6 @@ static void spi_cache_class_init (SpiCacheClass * klass)
   spi_cache_parent_class = g_type_class_ref (G_TYPE_OBJECT);
 
   object_class->finalize = spi_cache_finalize;
-  object_class->dispose = spi_cache_dispose;
 
   cache_signals [OBJECT_ADDED] = \
       g_signal_new ("object-added",
@@ -152,14 +148,6 @@ spi_cache_finalize (GObject * object)
   atk_remove_global_event_listener (cache->child_added_listener);
 
   G_OBJECT_CLASS (spi_cache_parent_class)->finalize (object);
-}
-
-static void
-spi_cache_dispose (GObject * object)
-{
-  SpiCache *cache = SPI_CACHE (object);
-
-  G_OBJECT_CLASS (spi_cache_parent_class)->dispose (object);
 }
 
 /*---------------------------------------------------------------------------*/
