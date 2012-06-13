@@ -174,7 +174,6 @@ droute_add_one (DRouteContext *cnx,
                 const void    *data)
 {
     DRoutePath *new_path;
-    gboolean registered;
 
     new_path = path_new (cnx, path, FALSE, (void *)data, NULL, NULL, NULL);
 
@@ -215,7 +214,7 @@ droute_path_add_interface(DRoutePath *path,
 
     itf = g_string_chunk_insert (path->chunks, name);
     g_ptr_array_add (path->interfaces, itf);
-    g_ptr_array_add (path->introspection, introspect);
+    g_ptr_array_add (path->introspection, (gpointer) introspect);
 
     for (; methods != NULL && methods->name != NULL; methods++)
       {
