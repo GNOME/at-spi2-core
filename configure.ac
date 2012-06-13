@@ -22,6 +22,9 @@ AC_SUBST(LT_AGE)
 
 AM_INIT_AUTOMAKE([-Wall foreign no-dist-gzip dist-xz])
 
+# Enable silent build when available (Automake 1.11)
+m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
+
 dnl translation of any at-spi strings: used only for .server
 IT_PROG_INTLTOOL([0.40.0])
 
