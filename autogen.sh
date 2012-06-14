@@ -6,4 +6,6 @@ gtkdocize || exit 1
 intltoolize --force --copy --automake || exit 1
 
 # gnome-autogen.sh runs configure, so do likewise.
-autoreconf -vif && ./configure "$@"
+autoreconf -vif
+test -n "$NOCONFIGURE" || ./configure "$@"
+
