@@ -25,6 +25,8 @@
 #ifndef ATK_BRIDGE_H
 #define ATK_BRIDGE_H
 
+#include <glib.h>
+
 G_BEGIN_DECLS
 
 int atk_bridge_adaptor_init (int * argc, char ** argv[]);
