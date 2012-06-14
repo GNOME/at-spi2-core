@@ -699,6 +699,27 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
 }
 
 /*
+ * Checks the status of the environment variables
+ *
+ * At this moment it only checks NO_AT_BRIDGE
+ *
+ * Returns TRUE if there isn't anything on the environment preventing
+ * you to load the bridge, FALSE otherwise
+ */
+static gboolean
+check_envvar (void)
+{
+  const gchar *envvar;
+
+  envvar = g_getenv ("NO_AT_BRIDGE");
+
+  if (envvar && atoi (envvar) == 1)
+    return FALSE;
+  else
+    return TRUE;
+}
+
+/*
  * spi_app_init
  *
  * The following needs to be initialized.
@@ -717,8 +738,13 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
   DBusError error;
   AtkObject *root;
   static gboolean inited = FALSE;
+  gboolean load_bridge;
 
-  if (inited)
+  load_bridge = check_envvar ();
+  if (inited && !load_bridge)
+    g_warning ("ATK Bridge is disabled but a11y has already been enabled.");
+
+  if (inited || !load_bridge)
     return 0;
 
   inited = TRUE;
