@@ -56,6 +56,8 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data);
 
 SpiBridge *spi_global_app_data = NULL;
 
+static gboolean inited = FALSE;
+
 /*---------------------------------------------------------------------------*/
 
 static void
@@ -737,7 +739,6 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
   GError *err = NULL;
   DBusError error;
   AtkObject *root;
-  static gboolean inited = FALSE;
   gboolean load_bridge;
 
   load_bridge = check_envvar ();
@@ -882,6 +883,8 @@ atk_bridge_adaptor_cleanup (void)
   GList *l;
   GSList *ls;
 
+  g_return_if_fail (inited);
+
   if (!spi_global_app_data)
       return;
 
@@ -925,6 +928,8 @@ atk_bridge_adaptor_cleanup (void)
 
   g_free (spi_global_app_data);
   spi_global_app_data = NULL;
+
+  inited = FALSE;
 }
 
 /*---------------------------------------------------------------------------*/
