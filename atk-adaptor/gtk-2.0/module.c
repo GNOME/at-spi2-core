@@ -33,13 +33,7 @@
 int
 gtk_module_init (gint * argc, gchar ** argv[])
 {
-  const gchar *load_bridge = g_getenv ("NO_AT_BRIDGE");
-
-  if (!load_bridge || g_ascii_strtod (load_bridge, NULL) == 0)
-    {
-      return atk_bridge_adaptor_init (argc, argv);
-    }
-  return 0;
+  return atk_bridge_adaptor_init (argc, argv);
 }
 
 gchar*
@@ -53,16 +47,11 @@ g_module_check_init (GModule *module)
 void
 gnome_accessibility_module_init (void)
 {
-  const gchar *load_bridge = g_getenv ("NO_AT_BRIDGE");
+  atk_bridge_adaptor_init (NULL, NULL);
 
-  if (!load_bridge || g_ascii_strtod (load_bridge, NULL) == 0)
+  if (g_getenv ("AT_SPI_DEBUG"))
     {
-      atk_bridge_adaptor_init (NULL, NULL);
-
-      if (g_getenv ("AT_SPI_DEBUG"))
-        {
-          g_print ("Atk Accessibility bridge initialized\n");
-        }
+      g_print ("Atk Accessibility bridge initialized\n");
     }
 }
 

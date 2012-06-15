@@ -33,13 +33,7 @@
 int
 gtk_module_init (gint * argc, gchar ** argv[])
 {
-  const gchar *load_bridge = g_getenv ("NO_AT_BRIDGE");
-
-  if (!load_bridge || g_ascii_strtod (load_bridge, NULL) == 0)
-    {
-      return atk_bridge_adaptor_init (argc, argv);
-    }
-  return 0;
+  return atk_bridge_adaptor_init (argc, argv);
 }
 
 gchar*
