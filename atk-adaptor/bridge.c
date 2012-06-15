@@ -740,6 +740,7 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
   DBusError error;
   AtkObject *root;
   gboolean load_bridge;
+  DRoutePath *treepath, *accpath;
 
   load_bridge = check_envvar ();
   if (inited && !load_bridge)
@@ -749,8 +750,6 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
     return 0;
 
   inited = TRUE;
-
-  DRoutePath *treepath, *accpath;
 
   root = atk_get_root ();
   g_warn_if_fail (root);
