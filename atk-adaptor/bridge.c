@@ -464,7 +464,7 @@ install_plug_hooks ()
   socket_class->embed = socket_embed_hook;
 }
 
-static uint
+static guint
 get_ancestral_uid (uint pid)
 {
   FILE *fp;
