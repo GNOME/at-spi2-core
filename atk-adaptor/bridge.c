@@ -465,7 +465,7 @@ install_plug_hooks ()
 }
 
 static guint
-get_ancestral_uid (uint pid)
+get_ancestral_uid (guint pid)
 {
   FILE *fp;
   char buf [80];
