@@ -13,39 +13,39 @@
 #define SPI_INTROSPECTION_DATA_H_
 
 
-const char *spi_org_a11y_atspi_Accessible;
+extern const char *spi_org_a11y_atspi_Accessible;
 
-const char *spi_org_a11y_atspi_Action;
+extern const char *spi_org_a11y_atspi_Action;
 
-const char *spi_org_a11y_atspi_Application;
+extern const char *spi_org_a11y_atspi_Application;
 
-const char *spi_org_a11y_atspi_Collection;
+extern const char *spi_org_a11y_atspi_Collection;
 
-const char *spi_org_a11y_atspi_Component;
+extern const char *spi_org_a11y_atspi_Component;
 
-const char *spi_org_a11y_atspi_Document;
+extern const char *spi_org_a11y_atspi_Document;
 
-const char *spi_org_a11y_atspi_Hypertext;
+extern const char *spi_org_a11y_atspi_Hypertext;
 
-const char *spi_org_a11y_atspi_Hyperlink;
+extern const char *spi_org_a11y_atspi_Hyperlink;
 
-const char *spi_org_a11y_atspi_Image;
+extern const char *spi_org_a11y_atspi_Image;
 
-const char *spi_org_a11y_atspi_Selection;
+extern const char *spi_org_a11y_atspi_Selection;
 
-const char *spi_org_a11y_atspi_Table;
+extern const char *spi_org_a11y_atspi_Table;
 
-const char *spi_org_a11y_atspi_Text;
+extern const char *spi_org_a11y_atspi_Text;
 
-const char *spi_org_a11y_atspi_EditableText;
+extern const char *spi_org_a11y_atspi_EditableText;
 
-const char *spi_org_a11y_atspi_Cache;
+extern const char *spi_org_a11y_atspi_Cache;
 
-const char *spi_org_a11y_atspi_Value;
+extern const char *spi_org_a11y_atspi_Value;
 
-const char *spi_org_a11y_atspi_DeviceEventController;
+extern const char *spi_org_a11y_atspi_DeviceEventController;
 
-const char *spi_org_a11y_atspi_DeviceEventListener;
+extern const char *spi_org_a11y_atspi_DeviceEventListener;
 
 
 #endif /* SPI_INTROSPECTION_DATA_H_ */
