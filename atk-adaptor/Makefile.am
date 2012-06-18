@@ -1,4 +1,4 @@
-SUBDIRS= adaptors . gtk-2.0 gtk-3.0
+SUBDIRS= adaptors . gtk-2.0
 
 lib_LTLIBRARIES = libatk-bridge-2.0.la
 
