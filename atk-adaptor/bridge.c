@@ -857,7 +857,8 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
                            spi_global_app_data->bus);
 
   /* Register methods to send D-Bus signals on certain ATK events */
-  spi_atk_register_event_listeners ();
+  if (clients)
+    spi_atk_register_event_listeners ();
 
   /* Set up filter and match rules to catch signals */
   dbus_bus_add_match (spi_global_app_data->bus, "type='signal', interface='org.a11y.atspi.Registry', sender='org.a11y.atspi.Registry'", NULL);
@@ -947,7 +948,7 @@ spi_atk_add_client (const char *bus_name)
     if (!g_strcmp0 (l->data, bus_name))
       return;
   }
-  if (!clients && spi_global_app_data->events_initialized)
+  if (!clients)
     spi_atk_register_event_listeners ();
   clients = g_slist_append (clients, g_strdup (bus_name));
   match = g_strdup_printf (name_match_tmpl, bus_name);
