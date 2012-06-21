@@ -270,7 +270,6 @@ register_application (SpiBridge * app)
   DBusMessageIter iter;
   DBusError error;
   DBusPendingCall *pending;
-  const int max_addr_length = 128; /* should be long enough */
 
   dbus_error_init (&error);
 
@@ -298,16 +297,16 @@ register_application (SpiBridge * app)
   if (message)
     dbus_message_unref (message);
 
-  /* could this be better, we accept some amount of race in getting the temp name*/
-  /* make sure the directory exists */
-  mkdir ("/tmp/at-spi2/", S_IRWXU|S_IRWXG|S_IRWXO|S_ISVTX);
-  chmod ("/tmp/at-spi2/", S_IRWXU|S_IRWXG|S_IRWXO|S_ISVTX);
-  app->app_bus_addr = g_malloc(max_addr_length * sizeof(char));
 #ifndef DISABLE_P2P
-  sprintf (app->app_bus_addr, "unix:path=/tmp/at-spi2/socket-%d-%d", getpid(),
-           rand());
-#else
-  app->app_bus_addr [0] = '\0';
+  app->app_tmp_dir = g_build_filename (g_get_user_runtime_dir (),
+                                       "at-spi2-XXXXXX", NULL);
+  if (!g_mkdtemp (app->app_tmp_dir))
+  {
+    g_free (app->app_tmp_dir);
+    app->app_tmp_dir = NULL;
+    return FALSE;
+  }
+  app->app_bus_addr = g_strdup_printf ("unix:path=%s/socket", app->app_tmp_dir);
 #endif
 
   return TRUE;
@@ -338,6 +337,20 @@ deregister_application (SpiBridge * app)
   dbus_connection_send (app->bus, message, NULL);
   if (message)
     dbus_message_unref (message);
+
+  if (app->app_bus_addr)
+  {
+    unlink (app->app_bus_addr);
+    g_free (app->app_bus_addr);
+    app->app_bus_addr = NULL;
+  }
+
+  if (app->app_tmp_dir)
+  {
+    rmdir (app->app_tmp_dir);
+    g_free (app->app_tmp_dir);
+    app->app_tmp_dir = NULL;
+  }
 }
 
 /*---------------------------------------------------------------------------*/
@@ -524,6 +537,9 @@ setup_bus (void)
 #ifndef DISABLE_P2P
   DBusServer *server;
   DBusError err;
+
+  if (!spi_global_app_data->app_bus_addr)
+    return -1;
 
   dbus_error_init(&err);
   server = dbus_server_listen(spi_global_app_data->app_bus_addr, &err);
