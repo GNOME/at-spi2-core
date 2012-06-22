@@ -25,6 +25,15 @@ static void atk_util_class_init (AtkUtilClass *klass);
 
 static AtkObject *previous_focus_object = NULL;
 
+typedef struct _AtkUtilListenerInfo AtkUtilListenerInfo;
+struct _AtkUtilListenerInfo
+{
+  gint key;
+  guint signal_id;
+  gulong hook_id;
+};
+static GHashTable *listener_list = NULL;
+
 GType
 atk_util_get_type (void)
 {
@@ -47,16 +56,6 @@ atk_util_get_type (void)
       type = g_type_register_static (G_TYPE_OBJECT, "AtkUtil", &typeInfo, 0) ;
     }
   return type;
-}
-
-static void
-atk_util_class_init (AtkUtilClass *klass)
-{
-  klass->add_global_event_listener = NULL;
-  klass->remove_global_event_listener = NULL;
-  klass->get_root = NULL;
-  klass->get_toolkit_name = NULL;
-  klass->get_toolkit_version = NULL;
 }
 
 /*
@@ -204,6 +203,109 @@ atk_focus_tracker_notify (AtkObject       *object)
     }
 }
 
+static guint
+add_listener (GSignalEmissionHook listener,
+              const gchar         *object_type,
+              const gchar         *signal_name,
+              const gchar         *hook_data)
+{
+  GType type;
+  guint signal_id;
+  gint  rc = 0;
+  static gint listener_idx = 1;
+
+  type = g_type_from_name (object_type);
+  if (type)
+    {
+      signal_id  = g_signal_lookup (signal_name, type);
+      if (signal_id > 0)
+        {
+          AtkUtilListenerInfo *listener_info;
+
+          rc = listener_idx;
+
+          listener_info = g_new (AtkUtilListenerInfo, 1);
+          listener_info->key = listener_idx;
+          listener_info->hook_id =
+            g_signal_add_emission_hook (signal_id, 0, listener,
+                                        g_strdup (hook_data),
+                                        (GDestroyNotify) g_free);
+          listener_info->signal_id = signal_id;
+
+	  g_hash_table_insert(listener_list, &(listener_info->key), listener_info);
+          listener_idx++;
+        }
+      else
+        {
+          g_debug ("Signal type %s not supported\n", signal_name);
+        }
+    }
+  else
+    {
+      g_warning("Invalid object type %s\n", object_type);
+    }
+  return rc;
+}
+
+static guint
+atk_util_real_add_global_event_listener (GSignalEmissionHook listener,
+                                         const gchar *event_type)
+{
+  guint rc = 0;
+  gchar **split_string;
+
+  split_string = g_strsplit (event_type, ":", 3);
+
+  if (g_strv_length (split_string) == 3)
+    rc = add_listener (listener, split_string[1], split_string[2], event_type);
+
+  g_strfreev (split_string);
+
+  return rc;
+}
+
+static void
+atk_util_real_remove_global_event_listener (guint remove_listener)
+{
+  if (remove_listener > 0)
+    {
+      AtkUtilListenerInfo *listener_info;
+      gint tmp_idx = remove_listener;
+
+      listener_info = (AtkUtilListenerInfo *)
+        g_hash_table_lookup(listener_list, &tmp_idx);
+
+      if (listener_info != NULL)
+        {
+          /* Hook id of 0 and signal id of 0 are invalid */
+          if (listener_info->hook_id != 0 && listener_info->signal_id != 0)
+            {
+              /* Remove the emission hook */
+              g_signal_remove_emission_hook(listener_info->signal_id,
+                                            listener_info->hook_id);
+
+              /* Remove the element from the hash */
+              g_hash_table_remove(listener_list, &tmp_idx);
+            }
+          else
+            {
+              g_warning("Invalid listener hook_id %ld or signal_id %d\n",
+                        listener_info->hook_id, listener_info->signal_id);
+            }
+        }
+      else
+        {
+          g_warning("No listener with the specified listener id %d",
+                    remove_listener);
+        }
+    }
+  else
+    {
+      g_warning("Invalid listener_id %d", remove_listener);
+    }
+}
+
+
 /**
  * atk_add_global_event_listener:
  * @listener: the listener to notify
@@ -222,6 +324,11 @@ atk_focus_tracker_notify (AtkObject       *object)
  * For example:
  *   ATK:AtkObject:state-change
  *   ATK:AtkText:text-selection-changed
+ *
+ * Toolkit implementor note: Atk provides a default implementation for
+ * this virtual method, and that implementation should be enough for
+ * most of the cases. You should have a really good reason to
+ * reimplement this method.
  *
  * Returns: added event listener id, or 0 on failure.
  **/
@@ -251,6 +358,11 @@ atk_add_global_event_listener (GSignalEmissionHook listener,
  *
  * @listener_id is the value returned by #atk_add_global_event_listener
  * when you registered that event listener.
+ *
+ * Toolkit implementor note: Atk provides a default implementation for
+ * this virtual method, and that implementation should be enough for
+ * most of the cases. You should have a really good reason to
+ * reimplement this method.
  *
  * Removes the specified event listener
  **/
@@ -417,3 +529,15 @@ atk_get_version (void)
   return VERSION;
 }
 
+static void
+atk_util_class_init (AtkUtilClass *klass)
+{
+  klass->add_global_event_listener = atk_util_real_add_global_event_listener;
+  klass->remove_global_event_listener = atk_util_real_remove_global_event_listener;
+  klass->get_root = NULL;
+  klass->get_toolkit_name = NULL;
+  klass->get_toolkit_version = NULL;
+
+  listener_list = g_hash_table_new_full (g_int_hash, g_int_equal, NULL,
+                                         g_free);
+}
