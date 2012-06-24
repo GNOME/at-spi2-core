@@ -1355,7 +1355,8 @@ get_accessibility_bus_address_x11 (void)
   Atom actual_type;
   Display *bridge_display;
   int actual_format;
-  unsigned char *data = NULL;
+  char *data;
+  unsigned char *data_x11 = NULL;
   unsigned long nitems;
   unsigned long leftover;
 
@@ -1372,10 +1373,12 @@ get_accessibility_bus_address_x11 (void)
 		      AT_SPI_BUS, 0L,
 		      (long) BUFSIZ, False,
 		      (Atom) 31, &actual_type, &actual_format,
-		      &nitems, &leftover, &data);
+		      &nitems, &leftover, &data_x11);
   XCloseDisplay (bridge_display);
 
-  return g_strdup (data);
+  data = g_strdup (data_x11);
+  XFree (data_x11);
+  return data;
 }
 
 static char *
