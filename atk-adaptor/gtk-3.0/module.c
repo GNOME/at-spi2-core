@@ -43,3 +43,20 @@ g_module_check_init (GModule *module)
 
   return NULL;
 }
+
+void
+gnome_accessibility_module_init (void)
+{
+  atk_bridge_adaptor_init (NULL, NULL);
+
+  if (g_getenv ("AT_SPI_DEBUG"))
+    {
+      g_print ("Atk Accessibility bridge initialized\n");
+    }
+}
+
+void
+gnome_accessibility_module_shutdown (void)
+{
+    atk_bridge_adaptor_cleanup ();
+}
