@@ -1,3 +1,13 @@
+Changes in version 2.5.3:
+=========================
+*
+* Added extra doc on atk_remove_[key/global]_event_listener
+* Fixed compilation with some gcc versions/combination of options
+* Provide a default implementation for
+*   atk_util_[add/remove]_global_event_listner
+* Bug 478587: "accessible-role" - invalid default value
+* Updated Catalan, Catalan (Valencian), Greek, Norwegian, Spanish
+
 Changes in version 2.4.0:
 =========================
 *
