@@ -49,4 +49,5 @@ libatk_bridge_2_0_la_LDFLAGS = \
 	-no-undefined                               \
 	$(AM_LDFLAGS)
 
-EXTRA_DIST = Makefile.include
+EXTRA_DIST = Makefile.include \
+	atkbridge.symbols
