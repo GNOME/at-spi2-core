@@ -437,7 +437,7 @@ emit_event (AtkObject  *obj,
             void (*append_variant) (DBusMessageIter *, const char *, const void *))
 {
   DBusConnection *bus = spi_global_app_data->bus;
-  const char *path;
+  char *path;
   char *minor_dbus;
 
   gchar *cname;
@@ -623,7 +623,7 @@ state_event_listener (GSignalInvocationHint * signal_hint,
                       const GValue * param_values, gpointer data)
 {
   AtkObject *accessible;
-  gchar *pname;
+  const gchar *pname;
   guint detail1;
 
   accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
@@ -852,7 +852,8 @@ text_insert_event_listener (GSignalInvocationHint * signal_hint,
   guint text_changed_signal_id;
   GSignalQuery signal_query;
   const gchar *name;
-  gchar *minor, *text;
+  const gchar *minor_raw, *text;
+  gchar *minor;
   gint detail1 = 0, detail2 = 0;
 
   accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
@@ -865,9 +866,9 @@ text_insert_event_listener (GSignalInvocationHint * signal_hint,
 
 
   /* Add the insert and keep any detail coming from atk */
-  minor = g_quark_to_string (signal_hint->detail);
-  if (minor)
-    minor = g_strconcat ("insert:", minor, NULL);
+  minor_raw = g_quark_to_string (signal_hint->detail);
+  if (minor_raw)
+    minor = g_strconcat ("insert:", minor_raw, NULL);
   else
     minor = g_strdup ("insert");
 
@@ -900,7 +901,8 @@ text_remove_event_listener (GSignalInvocationHint * signal_hint,
   guint text_changed_signal_id;
   GSignalQuery signal_query;
   const gchar *name;
-  gchar *minor, *text;
+  const gchar *minor_raw, *text;
+  gchar *minor;
   gint detail1 = 0, detail2 = 0;
 
   accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
@@ -911,12 +913,11 @@ text_remove_event_listener (GSignalInvocationHint * signal_hint,
   g_signal_query (text_changed_signal_id, &signal_query);
   name = signal_query.signal_name;
 
-  minor = g_quark_to_string (signal_hint->detail);
+  minor_raw = g_quark_to_string (signal_hint->detail);
 
   /* Add the delete and keep any detail coming from atk */
-  minor = g_quark_to_string (signal_hint->detail);
-  if (minor)
-    minor = g_strconcat ("delete:", minor, NULL);
+  if (minor_raw)
+    minor = g_strconcat ("delete:", minor_raw, NULL);
   else
     minor = g_strdup ("delete");
 
