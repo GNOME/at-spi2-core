@@ -1,3 +1,16 @@
+What's new in at-spi2-atk 2.5.3:
+
+* Create a library (libatk-bridge), currently with atk_bridge_adaptor_init()
+  and atk_bridge_adaptor_cleanup() functions, to facilitate linking directly
+  into, ie GTK+ 3.
+
+* Only register events at beginning if an AT is listening (BGO#678475).
+
+* Use XDG_RUNTIME_DIR to hold the socket, rather than a potentially secure
+  directory hard-coded under /tmp (BGO#678348).
+
+* Fix various compiler warnings and build errors.
+
 What's new in at-spi2-atk 2.5.2:
 
 * Fix for bug 677211 - The collection interface's MATCH_ANY fails for states
