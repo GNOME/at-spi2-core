@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.5.3:
+
+* Fix a memory leak (BGO#678738)
+
 What's new in at-spi2-core 2.5.2:
 
 * Fix a crash when a call to fetch a hyperlink times out.
