@@ -545,7 +545,7 @@ atk_object_class_init (AtkObjectClass *klass)
                                                         _("The accessible role of this object"),
                                                         0,
                                                         G_MAXINT,
-                                                        0,
+                                                        ATK_ROLE_UNKNOWN,
                                                         G_PARAM_READWRITE));
   g_object_class_install_property (gobject_class,
                                    PROP_LAYER,
