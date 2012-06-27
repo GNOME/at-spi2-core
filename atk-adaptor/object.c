@@ -286,10 +286,14 @@ spi_object_append_interfaces (DBusMessageIter * iter, AtkObject * obj)
     }
 #endif
 
-  if (ATK_IS_DOCUMENT (obj))
+  if (ATK_IS_OBJECT (obj))
     {
       itf = "org.a11y.atspi.Collection";
       dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
+    }
+
+  if (ATK_IS_DOCUMENT (obj))
+    {
       itf = ATSPI_DBUS_INTERFACE_DOCUMENT;
       dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
     }
