@@ -1017,6 +1017,7 @@ children_changed_event_listener (GSignalInvocationHint * signal_hint,
                                             detail1);
       emit_event (accessible, ITF_EVENT_OBJECT, name, minor, detail1, detail2,
                   "(so)", ao, append_object);
+      g_object_unref (ao);
     }
   else
     {
