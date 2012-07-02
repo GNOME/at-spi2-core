@@ -337,6 +337,8 @@ impl_GetRelationSet (DBusConnection * bus,
     }
   dbus_message_iter_close_container (&iter, &iter_array);
 oom:
+  if (set)
+    g_object_unref (set);
   // TODO: handle out of memory */
   return reply;
 }
