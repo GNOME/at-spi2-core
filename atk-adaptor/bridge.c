@@ -298,15 +298,23 @@ register_application (SpiBridge * app)
     dbus_message_unref (message);
 
 #ifndef DISABLE_P2P
-  app->app_tmp_dir = g_build_filename (g_get_user_runtime_dir (),
-                                       "at-spi2-XXXXXX", NULL);
-  if (!g_mkdtemp (app->app_tmp_dir))
+  if (getuid () != 0)
   {
-    g_free (app->app_tmp_dir);
-    app->app_tmp_dir = NULL;
-    return FALSE;
+    app->app_tmp_dir = g_build_filename (g_get_user_runtime_dir (),
+                                         "at-spi2-XXXXXX", NULL);
+    if (!g_mkdtemp (app->app_tmp_dir))
+    {
+      g_free (app->app_tmp_dir);
+      app->app_tmp_dir = NULL;
+      return FALSE;
+    }
   }
-  app->app_bus_addr = g_strdup_printf ("unix:path=%s/socket", app->app_tmp_dir);
+
+  if (app->app_tmp_dir)
+    app->app_bus_addr = g_strdup_printf ("unix:path=%s/socket", app->app_tmp_dir);
+  else
+    app->app_bus_addr = g_strdup_printf ("unix:path=%s/at-spi2-socket-%d",
+                                         g_get_user_runtime_dir (), getpid ());
 #endif
 
   return TRUE;
