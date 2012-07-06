@@ -64,9 +64,8 @@ switch_main_context (GMainContext *cnx)
 {
   GList *list;
 
-#ifndef DISABLE_P2P
-  atspi_dbus_server_setup_with_g_main (spi_global_app_data->server, cnx);
-#endif
+  if (spi_global_app_data->server)
+    atspi_dbus_server_setup_with_g_main (spi_global_app_data->server, cnx);
   atspi_dbus_connection_setup_with_g_main (spi_global_app_data->bus, cnx);
   for (list = spi_global_app_data->direct_connections; list; list = list->next)
     atspi_dbus_connection_setup_with_g_main (list->data, cnx);
