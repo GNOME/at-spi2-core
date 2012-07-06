@@ -297,26 +297,6 @@ register_application (SpiBridge * app)
   if (message)
     dbus_message_unref (message);
 
-#ifndef DISABLE_P2P
-  if (getuid () != 0)
-  {
-    app->app_tmp_dir = g_build_filename (g_get_user_runtime_dir (),
-                                         "at-spi2-XXXXXX", NULL);
-    if (!g_mkdtemp (app->app_tmp_dir))
-    {
-      g_free (app->app_tmp_dir);
-      app->app_tmp_dir = NULL;
-      return FALSE;
-    }
-  }
-
-  if (app->app_tmp_dir)
-    app->app_bus_addr = g_strdup_printf ("unix:path=%s/socket", app->app_tmp_dir);
-  else
-    app->app_bus_addr = g_strdup_printf ("unix:path=%s/at-spi2-socket-%d",
-                                         g_get_user_runtime_dir (), getpid ());
-#endif
-
   return TRUE;
 }
 
@@ -539,37 +519,6 @@ new_connection_cb (DBusServer *server, DBusConnection *con, void *data)
   spi_global_app_data->direct_connections = g_list_append (spi_global_app_data->direct_connections, con);
 }
 
-static int
-setup_bus (void)
-{
-#ifndef DISABLE_P2P
-  DBusServer *server;
-  DBusError err;
-
-  if (!spi_global_app_data->app_bus_addr)
-    return -1;
-
-  dbus_error_init(&err);
-  server = dbus_server_listen(spi_global_app_data->app_bus_addr, &err);
-  if (server == NULL)
-  {
-    g_warning ("atk-bridge: Couldn't listen on dbus server: %s", err.message);
-    dbus_error_init (&err);
-    spi_global_app_data->app_bus_addr [0] = '\0';
-    g_main_context_unref (spi_global_app_data->main_context);
-    spi_global_app_data->main_context = NULL;
-    return -1;
-  }
-
-  atspi_dbus_server_setup_with_g_main(server, NULL);
-  dbus_server_set_new_connection_function(server, new_connection_cb, NULL, NULL);
-
-  spi_global_app_data->server = server;
-#endif
-
-  return 0;
-}
-
 
 gchar *atspi_dbus_name = NULL;
 static gboolean atspi_no_register = FALSE;
@@ -722,6 +671,55 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
     }
 
   return result;
+}
+
+int
+spi_atk_create_socket (SpiBridge *app)
+{
+#ifndef DISABLE_P2P
+  DBusServer *server;
+  DBusError err;
+
+  if (getuid () != 0)
+  {
+    app->app_tmp_dir = g_build_filename (g_get_user_runtime_dir (),
+                                         "at-spi2-XXXXXX", NULL);
+    if (!g_mkdtemp (app->app_tmp_dir))
+    {
+      g_free (app->app_tmp_dir);
+      app->app_tmp_dir = NULL;
+      return FALSE;
+    }
+  }
+
+  if (app->app_tmp_dir)
+    app->app_bus_addr = g_strdup_printf ("unix:path=%s/socket", app->app_tmp_dir);
+  else
+    app->app_bus_addr = g_strdup_printf ("unix:path=%s/at-spi2-socket-%d",
+                                         g_get_user_runtime_dir (), getpid ());
+
+  if (!spi_global_app_data->app_bus_addr)
+    return -1;
+
+  dbus_error_init(&err);
+  server = dbus_server_listen(spi_global_app_data->app_bus_addr, &err);
+  if (server == NULL)
+  {
+    g_warning ("atk-bridge: Couldn't listen on dbus server: %s", err.message);
+    dbus_error_init (&err);
+    spi_global_app_data->app_bus_addr [0] = '\0';
+    g_main_context_unref (spi_global_app_data->main_context);
+    spi_global_app_data->main_context = NULL;
+    return -1;
+  }
+
+  atspi_dbus_server_setup_with_g_main(server, NULL);
+  dbus_server_set_new_connection_function(server, new_connection_cb, NULL, NULL);
+
+  spi_global_app_data->server = server;
+#endif
+
+  return 0;
 }
 
 /*
@@ -895,8 +893,6 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
     register_application (spi_global_app_data);
   else
     get_registered_event_listeners (spi_global_app_data);
-
-  setup_bus();
 
   return 0;
 }
