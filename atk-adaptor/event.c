@@ -371,7 +371,11 @@ signal_is_needed (const gchar *klass, const gchar *major, const gchar *minor)
    * TODO: FOr 2.2, have at-spi2-core define a special "cache listener" for
    * this instead, so that we don't send these if no one is listening */
   if (!g_strcmp0 (data [1], "ChildrenChanged") ||
-      !g_strcmp0 (data [1], "PropertyChange") ||
+      ((!g_strcmp0 (data [1], "PropertyChange")) &&
+       (!g_strcmp0 (data [2], "accessible-name") ||
+        !g_strcmp0 (data [2], "accessible-description") ||
+        !g_strcmp0 (data [2], "accessible-parent") ||
+        !g_strcmp0 (data [2], "accessible-role"))) ||
       !g_strcmp0 (data [1], "StateChanged"))
   {
     g_free (data [2]);
