@@ -701,12 +701,12 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
       l = g_list_remove (l, e);
       if (need_replace)
         event_listeners = l;
-      dbus_error_init (&d_error);
-  for (i = 0; i < matchrule_array->len; i++)
-  {
-    char *matchrule = g_ptr_array_index (matchrule_array, i);
-    dbus_bus_remove_match (_atspi_bus(), matchrule, &d_error);
-  }
+      for (i = 0; i < matchrule_array->len; i++)
+      {
+	char *matchrule = g_ptr_array_index (matchrule_array, i);
+	dbus_error_init (&d_error);
+	dbus_bus_remove_match (_atspi_bus(), matchrule, &d_error);
+      }
       dbus_error_init (&d_error);
       message = dbus_message_new_method_call (atspi_bus_registry,
 	    atspi_path_registry,
