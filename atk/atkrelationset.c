@@ -339,3 +339,53 @@ atk_relation_set_add_relation_by_type (AtkRelationSet  *set,
     }
 }
 
+/**
+ * atk_relation_set_contains_target:
+ * @set: an #AtkRelationSet
+ * @relationship: an #AtkRelationType
+ * @target: an #AtkObject
+ *
+ * Determines whether the relation set contains a relation that
+ * matches the specified pair formed by type @relationship and object
+ * @target.
+ *
+ * Returns: %TRUE if @set contains a relation with the relationship
+ * type @relationship with an object @target, %FALSE otherwise
+ **/
+
+gboolean
+atk_relation_set_contains_target (AtkRelationSet  *set,
+                                  AtkRelationType relationship,
+                                  AtkObject       *target)
+{
+  GPtrArray *array_relations;
+  GPtrArray *array_target;
+  AtkObject *current_target;
+  AtkRelation *relation;
+  gint i;
+  gint c;
+
+  g_return_val_if_fail (ATK_IS_RELATION_SET (set), FALSE);
+  g_return_val_if_fail (ATK_IS_OBJECT (target), FALSE);
+
+  array_relations = set->relations;
+  if (array_relations == NULL)
+    return FALSE;
+
+  for (i = 0; i < array_relations->len; i++)
+  {
+    relation = g_ptr_array_index (array_relations, i);
+    if (relation->relationship == relationship)
+      {
+        array_target = atk_relation_get_target (relation);
+        for (c = 0; c < array_target->len; c++)
+          {
+            current_target = g_ptr_array_index (array_target, c);
+            if (target == current_target)
+              return TRUE;
+          }
+      }
+  }
+
+  return FALSE;
+}

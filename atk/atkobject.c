@@ -1636,7 +1636,8 @@ atk_object_add_relationship (AtkObject       *object,
   g_return_val_if_fail (ATK_IS_OBJECT (object), FALSE);
   g_return_val_if_fail (ATK_IS_OBJECT (target), FALSE);
 
-  if (atk_relation_set_contains (object->relation_set, relationship))
+  if (atk_relation_set_contains_target (object->relation_set,
+                                        relationship, target))
     return FALSE;
 
   array[0] = target;

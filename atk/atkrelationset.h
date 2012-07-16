@@ -60,6 +60,9 @@ GType atk_relation_set_get_type (void);
 AtkRelationSet* atk_relation_set_new                  (void);
 gboolean        atk_relation_set_contains             (AtkRelationSet  *set,
                                                        AtkRelationType relationship);
+gboolean        atk_relation_set_contains_target      (AtkRelationSet  *set,
+                                                       AtkRelationType relationship,
+                                                       AtkObject       *targe);
 void            atk_relation_set_remove               (AtkRelationSet  *set,
                                                        AtkRelation     *relation);
 void            atk_relation_set_add                  (AtkRelationSet  *set,
