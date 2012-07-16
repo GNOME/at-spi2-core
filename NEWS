@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.5.4:
+
+* Fix a missing return value.
+
+* Fix a crash when unable to remove a match rule.
+
 What's new in at-spi2-core 2.5.3:
 
 * Fix a memory leak (BGO#678738)
