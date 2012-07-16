@@ -1,3 +1,19 @@
+What's new in at-spi2-atk 2.5.4:
+
+    Fix for bug #679013 - AtspiCollection should be implemented for
+  all containers
+
+* Don't create a (non-readable) subdirectory for the socket when root.
+
+* Plug ref count leaks (BGO#679285).
+
+* Only create a directory and a socket when requested.
+
+* Only add items to the cache on children-changed if the children are
+  included in the event.
+
+* Only send PropertyChange signals used for caching, absent listeners.
+
 What's new in at-spi2-atk 2.5.3:
 
 * Create a library (libatk-bridge), currently with atk_bridge_adaptor_init()
