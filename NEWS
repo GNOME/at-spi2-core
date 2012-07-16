@@ -1,3 +1,9 @@
+Changes in version 2.5.4:
+=========================
+*
+* Bug 672869: Required a method to check if a relationset contains a
+*   relation taking into account relationship and target
+
 Changes in version 2.5.3:
 =========================
 *
