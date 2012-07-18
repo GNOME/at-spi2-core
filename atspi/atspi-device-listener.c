@@ -164,14 +164,12 @@ atspi_device_event_dispatch (AtspiDeviceListener               *listener,
 static void
 atspi_device_listener_init (AtspiDeviceListener *listener)
 {
-  GList *new_list;
 
   do
   {
     listener->id = listener_id++;
   } while (!id_is_free (listener->id));
-  new_list = g_list_append (device_listeners, listener);
-  if (new_list) device_listeners = new_list;
+  device_listeners = g_list_append (device_listeners, listener);
 }
 
 static void
@@ -278,13 +276,7 @@ atspi_device_listener_add_callback (AtspiDeviceListener  *listener,
   new_handler = device_event_handler_new (callback,
                                           callback_destroyed, user_data);
 
-  if (new_handler)
-  {
-    GList *new_list;
-    new_list = g_list_prepend (listener->callbacks, new_handler);
-    if (new_list)
-      listener->callbacks = new_list;
-  }
+  listener->callbacks = g_list_prepend (listener->callbacks, new_handler);
 }
 
 /**

@@ -324,12 +324,8 @@ add_app_to_desktop (AtspiAccessible *a, const char *bus_name)
   AtspiAccessible *obj = ref_accessible (bus_name, atspi_path_root);
   if (obj)
   {
-    GList *new_list = g_list_append (a->children, obj);
-    if (new_list)
-    {
-      a->children = new_list;
-      return TRUE;
-    }
+    a->children = g_list_append (a->children, obj);
+    return TRUE;
   }
   else
   {

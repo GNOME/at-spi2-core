@@ -209,9 +209,9 @@ cache_process_children_changed (AtspiEvent *event)
   {
     if (g_list_find (event->source->children, child))
       return;
-    GList *new_list = g_list_insert (event->source->children, g_object_ref (child), event->detail1);
-    if (new_list)
-      event->source->children = new_list;
+    event->source->children = g_list_insert (event->source->children,
+                                             g_object_ref (child),
+                                             event->detail1);
   }
   else if (g_list_find (event->source->children, child))
   {
@@ -345,12 +345,10 @@ convert_event_type_to_dbus (const char *eventType, char **categoryp, char **name
   if (tmp == NULL) return FALSE;
   category = strtok_r (tmp, ":", &saveptr);
   if (category) category = g_strdup (category);
-  if (!category) goto oom;
   name = strtok_r (NULL, ":", &saveptr);
   if (name)
   {
     name = g_strdup (name);
-    if (!name) goto oom;
     detail = strtok_r (NULL, ":", &saveptr);
     if (detail) detail = g_strdup (detail);
   }
@@ -384,12 +382,6 @@ convert_event_type_to_dbus (const char *eventType, char **categoryp, char **name
   else if (detail) g_free (detail);
   g_free (tmp);
   return TRUE;
-oom:
-  if (tmp) g_free (tmp);
-  if (category) g_free (category);
-  if (name) g_free (name);
-  if (detail) g_free (detail);
-  return FALSE;
 }
 
 static void
@@ -531,7 +523,6 @@ atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
 {
   EventListenerEntry *e;
   DBusError d_error;
-  GList *new_list;
   DBusMessage *message, *reply;
   GPtrArray *matchrule_array;
   gint i;
@@ -558,13 +549,7 @@ atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
     g_free (e);
     return FALSE;
   }
-  new_list = g_list_prepend (event_listeners, e);
-  if (!new_list)
-  {
-    listener_entry_free (e);
-    return FALSE;
-  }
-  event_listeners = new_list;
+  event_listeners = g_list_prepend (event_listeners, e);
   dbus_error_init (&d_error);
   for (i = 0; i < matchrule_array->len; i++)
   {

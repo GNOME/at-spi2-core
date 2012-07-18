@@ -91,11 +91,8 @@ return_accessibles (DBusMessage *message)
   while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
   {
     AtspiAccessible *accessible;
-    GArray *new_array;
     accessible = _atspi_dbus_return_accessible_from_iter (&iter_array);
-    new_array = g_array_append_val (ret, accessible);
-    if (new_array)
-      ret = new_array;
+    ret = g_array_append_val (ret, accessible);
     /* Iter was moved already, so no need to call dbus_message_iter_next */
   }
   dbus_message_unref (message);

@@ -299,11 +299,7 @@ atspi_state_set_get_states (AtspiStateSet *set)
   for (i = 0; i < 64; i++)
   {
     if (set->states & val)
-    {
-      GArray *new_array = g_array_append_val (ret, i);
-      if (new_array)
-        ret = new_array;
-    }
+      ret = g_array_append_val (ret, i);
     val <<= 1;
   }
   return ret;
