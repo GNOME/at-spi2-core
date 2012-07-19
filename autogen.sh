@@ -1,9 +1,11 @@
 #!/bin/sh
 # Run this to generate all the initial makefiles, etc.
 
+srcdir=`dirname $0`
+test -z "$srcdir" && srcdir=.
+
 #name of package
 PKG_NAME=${PKG_NAME:-Package}
-srcdir=${srcdir:-.}
 
 # default version requirements ...
 REQUIRED_AUTOCONF_VERSION=${REQUIRED_AUTOCONF_VERSION:-2.53}
