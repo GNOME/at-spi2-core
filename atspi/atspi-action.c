@@ -117,7 +117,7 @@ atspi_action_get_key_binding (AtspiAction *obj, gint i, GError **error)
  * Get the name of the '@i-th' action invocable on an
  *      object implementing #AtspiAction.
  *
- * Returns: the 'event type' name of the action, as a UTF-8 string.
+ * Returns: the non-localized name of the action, as a UTF-8 string.
  **/
 gchar *
 atspi_action_get_name (AtspiAction *obj, gint i, GError **error)
@@ -128,6 +128,30 @@ atspi_action_get_name (AtspiAction *obj, gint i, GError **error)
   g_return_val_if_fail (obj != NULL, NULL);
 
   _atspi_dbus_call (obj, atspi_interface_action, "GetName", error, "i=>s", d_i, &retval);
+
+  return retval;
+}
+
+/**
+ * atspi_action_get_localized_name:
+ * @obj: a pointer to the #AtspiAction implementor to query.
+ * @i: an integer indicating which action to query.
+ *
+ * Get the name of the '@i-th' action invocable on an
+ *      object implementing #AtspiAction.
+ *
+ * Returns: the name of the action, as a UTF-8 string.
+ **/
+gchar *
+atspi_action_get_localized_name (AtspiAction *obj, gint i, GError **error)
+{
+  dbus_int32_t d_i = i;
+  char *retval = NULL;
+
+  g_return_val_if_fail (obj != NULL, NULL);
+
+  _atspi_dbus_call (obj, atspi_interface_action, "GetLocalizedName", error,
+                    "i=>s", d_i, &retval);
 
   return retval;
 }

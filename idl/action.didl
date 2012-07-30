@@ -33,6 +33,12 @@ interface org.freestandards.atspi.Action {
 		string name;
 	}
 
+	method GetLocalizedName {
+		int32 index;
+	} reply {
+		string name;
+	}
+
 	/* Get the key-binding for the specified action. */
 	method GetKeyBinding {
 		int32 index;

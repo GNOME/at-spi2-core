@@ -53,6 +53,8 @@ gchar * atspi_action_get_key_binding (AtspiAction *obj, gint i, GError **error);
 
 gchar * atspi_action_get_name (AtspiAction *obj, gint i, GError **error);
 
+gchar * atspi_action_get_localized_name (AtspiAction *obj, gint i, GError **error);
+
 gboolean atspi_action_do_action (AtspiAction *obj, gint i, GError **error);
 
 G_END_DECLS

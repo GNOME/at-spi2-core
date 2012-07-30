@@ -14,6 +14,11 @@
     <arg type="s" direction="out"/>
   </method>
 
+  <method name="GetLocalizedName">
+    <arg type="i" name="index" direction="in"/>
+    <arg type="s" direction="out"/>
+  </method>
+
   <method name="GetKeyBinding">
     <arg type="i" name="index" direction="in"/>
     <arg type="s" direction="out"/>
