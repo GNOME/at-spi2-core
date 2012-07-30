@@ -98,6 +98,35 @@ impl_get_name (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
+impl_get_localized_name (DBusConnection * bus, DBusMessage * message, void *user_data)
+{
+  DBusMessage *reply;
+  DBusError error;
+  dbus_int32_t index;
+  const char *name;
+  AtkAction *action = (AtkAction *) user_data;
+
+  dbus_error_init (&error);
+  g_return_val_if_fail (ATK_IS_ACTION (user_data),
+                        droute_not_yet_handled_error (message));
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+    {
+      return droute_invalid_arguments_error (message);
+    }
+  name = atk_action_get_localized_name (action, index);
+  if (!name)
+    name = "";
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_STRING, &name,
+                                DBUS_TYPE_INVALID);
+    }
+  return reply;
+}
+
+static DBusMessage *
 impl_get_keybinding (DBusConnection * bus, DBusMessage * message,
                      void *user_data)
 {
@@ -149,10 +178,13 @@ impl_GetActions (DBusConnection * bus, DBusMessage * message, void *user_data)
   for (i = 0; i < count; i++)
     {
       const char *name = atk_action_get_name (action, i);
+      const char *lname = atk_action_get_localized_name (action, i);
       const char *desc = atk_action_get_description (action, i);
       const char *kb = atk_action_get_keybinding (action, i);
       if (!name)
         name = "";
+      if (!lname)
+        lname = "";
       if (!desc)
         desc = "";
       if (!kb)
@@ -161,6 +193,7 @@ impl_GetActions (DBusConnection * bus, DBusMessage * message, void *user_data)
           (&iter_array, DBUS_TYPE_STRUCT, NULL, &iter_struct))
         goto oom;
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &name);
+      dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &lname);
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &desc);
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &kb);
       if (!dbus_message_iter_close_container (&iter_array, &iter_struct))
@@ -207,6 +240,8 @@ DRouteMethod methods[] = {
   {impl_get_description, "GetDescription"}
   ,
   {impl_get_name, "GetName"}
+  ,
+  {impl_get_localized_name, "GetLocalizedName"}
   ,
   {impl_get_keybinding, "GetKeyBinding"}
   ,
