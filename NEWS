@@ -1,3 +1,9 @@
+What's new in at-spi2-atk 2.5.5:
+
+* Implement GetLocalizedName for actions (BGO#680598)
+
+* Allow to build out of source directory (BGO#680280).
+
 What's new in at-spi2-atk 2.5.4:
 
     Fix for bug #679013 - AtspiCollection should be implemented for
