@@ -1,3 +1,10 @@
+What's new in at-spi2-atk 2.5.90:
+
+* Don't leak a GError when option parsing fails (BGO#679296)
+
+* Rework some inefficient code when removing clients and events (BGO#679295,
+  BGO#679297).
+
 What's new in at-spi2-atk 2.5.5:
 
 * Implement GetLocalizedName for actions (BGO#680598)
