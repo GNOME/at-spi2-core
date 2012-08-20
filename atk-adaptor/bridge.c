@@ -575,11 +575,20 @@ remove_events (const char *bus_name, const char *event)
           spi_event_is_subtype (evdata->data, remove_data))
         {
           GList *events = spi_global_app_data->events;
-          list = list->next;
           g_strfreev (evdata->data);
           g_free (evdata->bus_name);
           g_free (evdata);
-          spi_global_app_data->events = g_list_remove (events, evdata);
+          if (list->prev)
+            {
+              GList *next = list->next;
+              list->prev = g_list_remove (list->prev, evdata);
+              list = next;
+            }
+          else
+            {
+              spi_global_app_data->events = g_list_remove (events, evdata);
+              list = spi_global_app_data->events;
+            }
         }
       else
         {
