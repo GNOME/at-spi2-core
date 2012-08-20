@@ -795,7 +795,10 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
   g_option_context_add_main_entries (opt, atspi_option_entries, NULL);
   g_option_context_set_ignore_unknown_options (opt, TRUE);
   if (!g_option_context_parse (opt, argc, argv, &err))
-    g_warning ("AT-SPI Option parsing failed: %s\n", err->message);
+    {
+      g_warning ("AT-SPI Option parsing failed: %s\n", err->message);
+      g_error_free (err);
+    }
   g_option_context_free (opt);
 
   /* Allocate global data and do ATK initializations */
