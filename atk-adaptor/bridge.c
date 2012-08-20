@@ -1008,6 +1008,7 @@ spi_atk_remove_client (const char *bus_name)
       clients = g_slist_delete_link (clients, l);
       if (!clients)
         spi_atk_deregister_event_listeners ();
+      return;
     }
 
     l = next_node;
