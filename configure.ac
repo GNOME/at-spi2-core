@@ -111,7 +111,6 @@ AC_CONFIG_FILES([Makefile
 		 atk-adaptor/Makefile
 		 atk-adaptor/adaptors/Makefile
 		 atk-adaptor/gtk-2.0/Makefile
-		 atk-adaptor/gtk-3.0/Makefile
 		 po/Makefile.in
                  schemas/Makefile
 		])
