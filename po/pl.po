@@ -4,6 +4,9 @@
 # pomóc w jego rozwijaniu i pielęgnowaniu, napisz do nas:
 # gnomepl@aviary.pl
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# Artur Flinta <aflinta@at.kernel.pl>, 2003.
+# Piotr Drąg <piotrdrag@gmail.com>, 2010-2011.
+# Aviary.pl <gnomepl@aviary.pl>, 2010-2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-atk\n"
