@@ -4,12 +4,15 @@
 # pomóc w jego rozwijaniu i pielęgnowaniu, napisz do nas:
 # gnomepl@aviary.pl
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# Artur Flinta <aflinta@at.kernel.pl>, 2003.
+# Piotr Drąg <piotrdrag@gmail.com>, 2011-2012.
+# Aviary.pl <gnomepl@aviary.pl>, 2011-2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-28 20:51+0200\n"
-"PO-Revision-Date: 2011-03-28 20:52+0200\n"
+"POT-Creation-Date: 2012-09-01 20:46+0200\n"
+"PO-Revision-Date: 2012-09-01 20:47+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -21,82 +24,7 @@ msgstr ""
 "X-Poedit-Language: Polish\n"
 "X-Poedit-Country: Poland\n"
 
-#: ../atspi/atspi-misc.c:290
-#, c-format
-msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
-msgstr "AT-SPI: nieznany podpis %s dla RemoveAccessible"
-
-#: ../atspi/atspi-misc.c:327
-#, c-format
-msgid "AT-SPI: Error calling getRoot for %s: %s"
-msgstr "AT-SPI: błąd podczas wywoływania getRoot dla %s: %s"
-
-#: ../atspi/atspi-misc.c:485
-#, c-format
-msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
-msgstr "AT-SPI: Błąd w GetItems, nadawca=%s, błąd=%s"
-
-#: ../atspi/atspi-misc.c:587
-#, c-format
-msgid ""
-"AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
-"signature %s"
-msgstr ""
-"AT-SPI: wywołano _atspi_dbus_return_accessible_from_message z dziwnym "
-"podpisem %s"
-
-#: ../atspi/atspi-misc.c:616
-#, c-format
-msgid ""
-"AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
-"signature %s"
-msgstr ""
-"AT-SPI: wywołano _atspi_dbus_return_hyperlink_from_message z dziwnym "
-"podpisem %s"
-
-#: ../atspi/atspi-misc.c:641
-#, c-format
-msgid "AT-SPI: AddAccessible with unknown signature %s\n"
-msgstr "AT-SPI: AddAccessible z nieznanym podpisem %s\n"
-
-#: ../atspi/atspi-misc.c:934 ../atspi/atspi-misc.c:985
-#: ../atspi/atspi-misc.c:1026
+#: ../atspi/atspi-component.c:313 ../atspi/atspi-misc.c:987
+#: ../atspi/atspi-value.c:111
 msgid "The application no longer exists"
 msgstr "Program już nie istnieje"
-
-#: ../atspi/atspi-misc.c:1062
-#, c-format
-msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
-msgstr ""
-"AT-SPI: oczekiwano wariantu podczas przechwytywania %s z interfejsu %s; "
-"otrzymano %s\n"
-
-#: ../atspi/atspi-misc.c:1068
-#, c-format
-msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
-msgstr "atspi_dbus_get_property: błędny typ: oczekiwano %s, otrzymano %c\n"
-
-#: ../atspi/atspi-misc.c:1211
-#, c-format
-msgid "AT-SPI: Unknown interface %s"
-msgstr "AT-SPI: nieznany interfejs %s"
-
-#: ../atspi/atspi-misc.c:1231
-#, c-format
-msgid "AT-SPI: expected 2 values in states array; got %d\n"
-msgstr "AT-SPI: oczekiwano dwóch wartości w macierzy stanów; otrzymano %d\n"
-
-#: ../atspi/atspi-accessible.c:997
-msgid "Streamable content not implemented"
-msgstr "Treść strumieniowa nie została zaimplementowana"
-
-#: ../atspi/atspi-event-listener.c:510
-msgid ""
-"called atspi_event_listener_register_from_callback with a NULL event_type"
-msgstr ""
-"wywołano atspi_event_listener_register_from_callback z PUSTYM event_type"
-
-#: ../atspi/atspi-event-listener.c:777
-#, c-format
-msgid "Got invalid signature %s for signal %s from interface %s\n"
-msgstr "Otrzymano nieprawidłowy podpis %s dla sygnału %s z interfejsu %s\n"
