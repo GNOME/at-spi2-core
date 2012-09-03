@@ -1,3 +1,11 @@
+Changes in version 2.5.91:
+==========================
+*
+* Bug 635332: Include C header information in GIR
+* Added atk_relation_set_contains_target to atk.symbols. That symbol
+*   was added in commmit a1d5ca86 (bug 672869).
+* Updated Polish, Galician and Latvian translations.
+
 Changes in version 2.5.4:
 =========================
 *
