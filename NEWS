@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.5.91:
+
+* Fix build with -fno-common.
+
+* Add glib-2.0 to requires in at-spi2.pc (BGO#682595)
+
 What's new in at-spi2-core 2.5.5:
 
 * Add atspi_action_get_localized_name (BGO#680598).
