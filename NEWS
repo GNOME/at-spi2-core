@@ -1,3 +1,7 @@
+What's new in at-spi2-atk 2.5.91:
+
+* Removed the gtk 3.0 module (BGO#678315).
+
 What's new in at-spi2-atk 2.5.90:
 
 * Don't leak a GError when option parsing fails (BGO#679296)
