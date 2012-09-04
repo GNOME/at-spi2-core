@@ -101,16 +101,11 @@ return_accessibles (DBusMessage *message)
 
 /**
  * atspi_collection_get_matches:
- *
  * @collection: A pointer to the #AtspiCollection to query.
- *
  * @rule: An #AtspiMatchRule describing the match criteria.
- *
  * @sortby: An #AtspiCollectionSortOrder specifying the way the results are to
  *          be sorted.
- *
  * @count: The maximum number of results to return, or 0 for no limit.
- *
  * @traverse: Not supported.
  *
  * Gets all #AtspiAccessible objects from the @collection matching a given
@@ -150,25 +145,18 @@ atspi_collection_get_matches (AtspiCollection *collection,
 
 /**
  * atspi_collection_get_matches_to:
- *
  * @collection: A pointer to the #AtspiCollection to query.
- *
  * @current_object: The object at which to start searching.
- *
  * @rule: An #AtspiMatchRule describing the match criteria.
- *
  * @sortby: An #AtspiCollectionSortOrder specifying the way the results are to
  *          be sorted.
- *
  * @tree: An #AtspiCollectionTreeTraversalType specifying restrictions on
- *        the objects to be traversed.
- *
+ *          the objects to be traversed.
  * @limit_scope: If #TRUE, only descendants of @current_object's parent
- * will be returned. Otherwise (if #FALSE), any accessible may be returned
- * if it would preceed @current_object in a flattened hierarchy.
- *
+ *          will be returned. Otherwise (if #FALSE), any accessible may be
+ *          returned if it would preceed @current_object in a flattened
+ *          hierarchy.
  * @count: The maximum number of results to return, or 0 for no limit.
- *
  * @traverse: Not supported.
  *
  * Gets all #AtspiAccessible objects from the @collection, after 
@@ -218,21 +206,14 @@ atspi_collection_get_matches_to (AtspiCollection *collection,
 
 /**
  * atspi_collection_get_matches_from:
- *
  * @collection: A pointer to the #AtspiCollection to query.
- *
  * @current_object: Upon reaching this object, searching should stop.
- *
  * @rule: An #AtspiMatchRule describing the match criteria.
- *
  * @sortby: An #AtspiCollectionSortOrder specifying the way the results are to
  *          be sorted.
- *
  * @tree: An #AtspiCollectionTreeTraversalType specifying restrictions on
- *        the objects to be traversed.
- *
+ *          the objects to be traversed.
  * @count: The maximum number of results to return, or 0 for no limit.
- *
  * @traverse: Not supported.
  *
  * Gets all #AtspiAccessible objects from the @collection, before  

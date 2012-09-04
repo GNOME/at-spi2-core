@@ -77,37 +77,28 @@ atspi_match_rule_class_init (AtspiMatchRuleClass *klass)
 
 /**
  * atspi_match_rule_new:
- *
  * @states: An #AtspiStateSet specifying the states to match or NULL if none.
- *
  * @statematchtype: An #AtspiCollectionMatchType specifying how to interpret
- *                  @states.
- *
+ *          @states.
  * @attributes: (element-type gchar* gchar*): A #GHashTable specifying
- *              attributes to match.
- *
+ *          attributes to match.
  * @attributematchtype: An #AtspiCollectionMatchType specifying how to
- *                      interpret @attributes.
- *
+ *          interpret @attributes.
  * @interfaces: (element-type gchar*): An array of interfaces to match, or
- *              NULL if not applicable.  Interface names should be specified
- *              by their DBus names (org.a11y.Atspi.Accessible,
- *              org.a11y.Atspi.Component, etc).
- *
+ *          NULL if not applicable.  Interface names should be specified
+ *          by their DBus names (org.a11y.Atspi.Accessible,
+ *          org.a11y.Atspi.Component, etc).
  * @interfacematchtype: An #AtspiCollectionMatchType specifying how to
- *                      interpret @interfaces.
- *
+ *          interpret @interfaces.
  * @roles: (element-type AtspiRole): A #GArray of roles to match, or NULL if
- *         not applicable.
- *
+ *          not applicable.
  * @rolematchtype: An #AtspiCollectionMatchType specifying how to
- *                      interpret @roles.
- *
+ *          interpret @roles.
  * @invert: if #TRUE, the match rule should be denied (inverted); if #FALSE,
- * it should not. For example, if the match rule defines that a match is
- * an object of ROLE_HEADING which has STATE_FOCUSABLE and a click action, 
- * inverting it would match all objects that are not of ROLE_HEADING, 
- * focusable and clickable at the same time.  
+ *          it should not. For example, if the match rule defines that a match is
+ *          an object of ROLE_HEADING which has STATE_FOCUSABLE and a click action,
+ *          inverting it would match all objects that are not of ROLE_HEADING,
+ *          focusable and clickable at the same time.
  *
  * Creates a new #AtspiMatchRule with specified @states, @attributes, 
  * @interfaces, and @roles.
