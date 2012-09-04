@@ -42,7 +42,7 @@ get_hyperlink (void *user_data)
 static dbus_bool_t
 impl_get_NAnchors (DBusMessageIter * iter, void *user_data)
 {
-  AtkHyperlink *link = (AtkHyperlink *) user_data;
+  AtkHyperlink *link = get_hyperlink (user_data);
   g_return_val_if_fail (ATK_IS_HYPERLINK (link), FALSE);
   return droute_return_v_int32 (iter, atk_hyperlink_get_n_anchors (link));
 }
