@@ -872,7 +872,7 @@ atspi_accessible_get_atspi_version (AtspiAccessible *obj, GError **error)
 }
 
 /**
- * atspi_accessible_get_toolkit_version:
+ * atspi_accessible_get_id:
  * @obj: a pointer to the #AtspiAccessible object on which to operate.
  *
  * Gets the application id for a #AtspiAccessible object.
