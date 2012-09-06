@@ -25,9 +25,6 @@ AM_INIT_AUTOMAKE([-Wall foreign no-dist-gzip dist-xz])
 # Enable silent build when available (Automake 1.11)
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 
-dnl translation of any at-spi strings: used only for .server
-IT_PROG_INTLTOOL([0.40.0])
-
 AC_PROG_CC
 AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
@@ -111,7 +108,6 @@ AC_CONFIG_FILES([Makefile
 		 atk-adaptor/Makefile
 		 atk-adaptor/adaptors/Makefile
 		 atk-adaptor/gtk-2.0/Makefile
-		 po/Makefile.in
                  schemas/Makefile
 		])
 
