@@ -43,8 +43,8 @@ Display *spi_set_display (const char *display_name)
         default_display = XOpenDisplay (display_name);  
         if (!default_display)
         {
-                g_error ("AT-SPI: Cannot open default display");
-                return NULL;
+                g_warning ("AT-SPI: Cannot open default display");
+                exit (1);
         }
  return default_display;
 }
