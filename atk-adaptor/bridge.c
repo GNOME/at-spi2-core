@@ -752,6 +752,27 @@ check_envvar (void)
     return TRUE;
 }
 
+void
+spi_atk_activate ()
+{
+  DRoutePath *treepath;
+
+  spi_atk_register_event_listeners ();
+  if (!spi_global_cache)
+    {
+      spi_global_cache    = g_object_new (SPI_CACHE_TYPE, NULL);
+      treepath = droute_add_one (spi_global_app_data->droute,
+                                 "/org/a11y/atspi/cache", spi_global_cache);
+
+      if (!treepath)
+        {
+          g_warning ("atk-bridge: Error in droute_add_one().  Already running?");
+          return;
+        }
+      spi_initialize_cache (treepath);
+    }
+}
+
 /*
  * spi_app_init
  *
@@ -771,7 +792,7 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
   DBusError error;
   AtkObject *root;
   gboolean load_bridge;
-  DRoutePath *treepath, *accpath;
+  DRoutePath *accpath;
 
   load_bridge = check_envvar ();
   if (inited && !load_bridge)
@@ -845,20 +866,10 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
    */
   spi_global_register = g_object_new (SPI_REGISTER_TYPE, NULL);
   spi_global_leasing  = g_object_new (SPI_LEASING_TYPE, NULL);
-  spi_global_cache    = g_object_new (SPI_CACHE_TYPE, NULL);
 
   /* Register droute for routing AT-SPI messages */
   spi_global_app_data->droute =
     droute_new ();
-
-  treepath = droute_add_one (spi_global_app_data->droute,
-                             "/org/a11y/atspi/cache", spi_global_cache);
-
-  if (!treepath)
-    {
-      g_warning ("atk-bridge: Error in droute_add_one().  Already running?");
-      return -1;
-    }
 
   accpath = droute_add_many (spi_global_app_data->droute,
                              "/org/a11y/atspi/accessible",
@@ -870,7 +881,6 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
 
 
   /* Register all interfaces with droute and set up application accessible db */
-  spi_initialize_cache (treepath);
   spi_initialize_accessible (accpath);
   spi_initialize_application (accpath);
   spi_initialize_action (accpath);
@@ -892,7 +902,7 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
 
   /* Register methods to send D-Bus signals on certain ATK events */
   if (clients)
-    spi_atk_register_event_listeners ();
+    spi_atk_activate ();
 
   /* Set up filter and match rules to catch signals */
   dbus_bus_add_match (spi_global_app_data->bus, "type='signal', interface='org.a11y.atspi.Registry', sender='org.a11y.atspi.Registry'", NULL);
@@ -981,7 +991,7 @@ spi_atk_add_client (const char *bus_name)
       return;
   }
   if (!clients)
-    spi_atk_register_event_listeners ();
+    spi_atk_activate ();
   clients = g_slist_append (clients, g_strdup (bus_name));
   match = g_strdup_printf (name_match_tmpl, bus_name);
   dbus_bus_add_match (spi_global_app_data->bus, match, NULL);

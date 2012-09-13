@@ -109,6 +109,7 @@ static void spi_cache_class_init (SpiCacheClass * klass)
 static void
 spi_cache_init (SpiCache * cache)
 {
+g_print("dbg: init cache\n");
   cache->objects = g_hash_table_new (g_direct_hash, g_direct_equal);
   cache->add_traversal = g_queue_new ();
 
@@ -422,6 +423,9 @@ spi_cache_foreach (SpiCache * cache, GHFunc func, gpointer data)
 gboolean
 spi_cache_in (SpiCache * cache, GObject * object)
 {
+  if (!cache)
+    return FALSE;
+
   if (g_hash_table_lookup_extended (cache->objects,
                                     object,
                                     NULL,
