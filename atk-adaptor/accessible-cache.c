@@ -180,7 +180,10 @@ remove_object (GObject * source, GObject * gobj, gpointer data)
       g_hash_table_remove (cache->objects, gobj);
     }
   else
-    g_queue_remove (cache->add_traversal, gobj);
+    {
+      g_queue_remove (cache->add_traversal, gobj);
+      g_object_unref (gobj);
+    }
 }
 
 static void
@@ -277,12 +280,14 @@ add_pending_items (gpointer data)
   while (!g_queue_is_empty (cache->add_traversal))
     {
       AtkStateSet *set;
-      
+
+      /* cache->add_traversal holds a ref to current */
       current = g_queue_pop_head (cache->add_traversal);
       set = atk_object_ref_state_set (current);
 
       if (set && !atk_state_set_contains_state (set, ATK_STATE_TRANSIENT))
         {
+          /* transfer the ref into to_add */
 	  g_queue_push_tail (to_add, current);
           if (!spi_cache_in (cache, G_OBJECT (current)) &&
               !atk_state_set_contains_state  (set, ATK_STATE_MANAGES_DESCENDANTS) &&
@@ -290,6 +295,11 @@ add_pending_items (gpointer data)
             {
               append_children (current, cache->add_traversal);
             }
+        }
+      else
+        {
+          /* drop the ref for the removed object */
+          g_object_unref (current);
         }
 
       if (set)
