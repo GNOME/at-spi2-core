@@ -109,7 +109,6 @@ static void spi_cache_class_init (SpiCacheClass * klass)
 static void
 spi_cache_init (SpiCache * cache)
 {
-g_print("dbg: init cache\n");
   cache->objects = g_hash_table_new (g_direct_hash, g_direct_equal);
   cache->add_traversal = g_queue_new ();
 
