@@ -939,6 +939,7 @@ atk_bridge_adaptor_cleanup (void)
     {
       dbus_connection_remove_filter (spi_global_app_data->bus, signal_filter, NULL);
       droute_context_unregister (spi_global_app_data->droute, spi_global_app_data->bus);
+      dbus_connection_close (spi_global_app_data->bus);
       dbus_connection_unref (spi_global_app_data->bus);
       spi_global_app_data->bus = NULL;
     }
