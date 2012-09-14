@@ -291,6 +291,9 @@ register_application (SpiBridge * app)
     if (!dbus_connection_send_with_reply (app->bus, message, &pending, -1)
         || !pending)
     {
+        if (pending)
+          dbus_pending_call_unref (pending);
+
         dbus_message_unref (message);
         return FALSE;
     }
