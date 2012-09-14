@@ -123,11 +123,12 @@ dbind_method_call_reentrant_va (DBusConnection *cnx,
     const char *p;
   va_list args_demarshal;
 
+  dbus_error_init (&real_err);
+
   va_copy (args_demarshal, args);
     if (opt_error)
         err = opt_error;
     else {
-        dbus_error_init (&real_err);
         err = &real_err;
     }
 
@@ -176,8 +177,8 @@ out:
     if (reply)
         dbus_message_unref (reply);
 
-    if (err == &real_err)
-        dbus_error_free (err);
+    if (dbus_error_is_set (&real_err))
+        dbus_error_free (&real_err);
 
     va_end (args_demarshal);
     return success;
@@ -244,10 +245,11 @@ dbind_emit_signal_va (DBusConnection *cnx,
     DBusError *err, real_err;
     const char *p;
 
+    dbus_error_init (&real_err);
+
     if (opt_error)
         err = opt_error;
     else {
-        dbus_error_init (&real_err);
         err = &real_err;
     }
 
@@ -268,8 +270,8 @@ out:
     if (msg)
         dbus_message_unref (msg);
 
-    if (err == &real_err)
-        dbus_error_free (err);
+    if (dbus_error_is_set (&real_err))
+        dbus_error_free (&real_err);
 
     return success;
 }

@@ -417,15 +417,18 @@ on_bus_acquired (GDBusConnection *connection,
                                                        NULL,
                                                        &error);
   if (registration_id == 0)
-    g_error ("%s", error->message);
+    {
+      g_error ("%s", error->message);
+      g_clear_error (&error);
+    }
 
   g_dbus_connection_register_object (connection,
-                                                       "/org/a11y/bus",
-                                                       introspection_data->interfaces[1],
-                                                       &status_vtable,
-                                                       _global_app,
-                                                       NULL,
-                                                       &error);
+                                     "/org/a11y/bus",
+                                     introspection_data->interfaces[1],
+                                     &status_vtable,
+                                     _global_app,
+                                     NULL,
+                                     NULL);
 }
 
 static void
@@ -513,11 +516,10 @@ already_running ()
   if (data)
   {
     GDBusConnection *bus;
-    GError *error = NULL;
     const gchar *old_session = g_getenv ("DBUS_SESSION_BUS_ADDRESS");
     /* TODO: Is there a better way to connect? This is really hacky */
     g_setenv ("DBUS_SESSION_BUS_ADDRESS", data, TRUE);
-    bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
+    bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
     g_setenv ("DBUS_SESSION_BUS_ADDRESS", old_session, TRUE);
     if (bus != NULL)
       {

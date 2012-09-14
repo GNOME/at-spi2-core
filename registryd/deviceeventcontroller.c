@@ -200,7 +200,15 @@ spi_dbus_add_disconnect_match (DBusConnection *bus, const char *name)
     dbus_error_init (&error);
     dbus_bus_add_match (bus, match, &error);
     g_free (match);
-    return !dbus_error_is_set (&error);
+    if (dbus_error_is_set (&error))
+      {
+        dbus_error_free (&error);
+        return FALSE;
+      }
+    else
+      {
+        return TRUE;
+      }
   }
   else return FALSE;
 }
@@ -215,7 +223,15 @@ spi_dbus_remove_disconnect_match (DBusConnection *bus, const char *name)
     dbus_error_init (&error);
     dbus_bus_remove_match (bus, match, &error);
     g_free (match);
-    return !dbus_error_is_set (&error);
+    if (dbus_error_is_set (&error))
+      {
+        dbus_error_free (&error);
+        return FALSE;
+      }
+    else
+      {
+        return TRUE;
+      }
   }
   else return FALSE;
 }
@@ -1253,7 +1269,6 @@ Accessibility_DeviceEventListener_NotifyEvent(SpiDEController *controller,
                                                       listener->path,
                                                       SPI_DBUS_INTERFACE_DEVICE_EVENT_LISTENER,
                                                       "NotifyEvent");
-  DBusError error;
   dbus_bool_t consumed = FALSE;
   GSList *l;
   gboolean hung = FALSE;
@@ -1268,21 +1283,21 @@ Accessibility_DeviceEventListener_NotifyEvent(SpiDEController *controller,
     }
   }
 
-  dbus_error_init(&error);
   if (spi_dbus_marshal_deviceEvent(message, key_event))
   {
+    DBusMessage *reply;
+
     if (hung)
     {
       dbus_connection_send (controller->bus, message, NULL);
       dbus_message_unref (message);
       return FALSE;
     }
-    DBusMessage *reply = send_and_allow_reentry (controller->bus, message, 3000, &error);
+
+    reply = send_and_allow_reentry (controller->bus, message, 3000, NULL);
     if (reply)
     {
-      DBusError error;
-      dbus_error_init(&error);
-      dbus_message_get_args(reply, &error, DBUS_TYPE_BOOLEAN, &consumed, DBUS_TYPE_INVALID);
+      dbus_message_get_args(reply, NULL, DBUS_TYPE_BOOLEAN, &consumed, DBUS_TYPE_INVALID);
       dbus_message_unref(reply);
     }
   }
@@ -2185,14 +2200,12 @@ impl_register_device_event_listener (DBusConnection *bus,
 {
   SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
   DEControllerListener *dec_listener;
-  DBusError error;
   const char *path;
   dbus_int32_t event_types;
   dbus_bool_t ret;
   DBusMessage *reply = NULL;
 
-  dbus_error_init(&error);
-  if (!dbus_message_get_args(message, &error, DBUS_TYPE_OBJECT_PATH, &path, DBUS_TYPE_UINT32, &event_types, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args(message, NULL, DBUS_TYPE_OBJECT_PATH, &path, DBUS_TYPE_UINT32, &event_types, DBUS_TYPE_INVALID))
   {
     return invalid_arguments_error (message);
   }
@@ -2384,13 +2397,11 @@ impl_deregister_device_event_listener (DBusConnection *bus,
 {
   SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
   DEControllerListener *listener;
-  DBusError error;
   const char *path;
   dbus_int32_t event_types;
   DBusMessage *reply = NULL;
 
-  dbus_error_init(&error);
-  if (!dbus_message_get_args(message, &error, DBUS_TYPE_OBJECT_PATH, &path, DBUS_TYPE_UINT32, &event_types, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args(message, NULL, DBUS_TYPE_OBJECT_PATH, &path, DBUS_TYPE_UINT32, &event_types, DBUS_TYPE_INVALID))
   {
     return invalid_arguments_error (message);
   }
@@ -2741,7 +2752,6 @@ dec_synth_keystring (SpiDEController *controller, const char *keystring)
 static DBusMessage * impl_generate_keyboard_event (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
-  DBusError error;
   dbus_int32_t keycode;
   char *keystring;
   dbus_uint32_t synth_type;
@@ -2750,8 +2760,7 @@ static DBusMessage * impl_generate_keyboard_event (DBusConnection *bus, DBusMess
   DEControllerPrivateData *priv;
   DBusMessage *reply = NULL;
 
-  dbus_error_init(&error);
-  if (!dbus_message_get_args(message, &error, DBUS_TYPE_INT32, &keycode, DBUS_TYPE_STRING, &keystring, DBUS_TYPE_UINT32, &synth_type, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args(message, NULL, DBUS_TYPE_INT32, &keycode, DBUS_TYPE_STRING, &keystring, DBUS_TYPE_UINT32, &synth_type, DBUS_TYPE_INVALID))
   {
     return invalid_arguments_error (message);
   }
@@ -2820,7 +2829,6 @@ static DBusMessage * impl_generate_keyboard_event (DBusConnection *bus, DBusMess
 /* Accessibility::DEController::GenerateMouseEvent */
 static DBusMessage * impl_generate_mouse_event (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-  DBusError error;
   dbus_int32_t       x;
   dbus_int32_t       y;
   char *eventName;
@@ -2829,8 +2837,7 @@ static DBusMessage * impl_generate_mouse_event (DBusConnection *bus, DBusMessage
   gboolean err = FALSE;
   Display *display = spi_get_display ();
 
-  dbus_error_init (&error);
-  if (!dbus_message_get_args(message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y, DBUS_TYPE_STRING, &eventName, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args(message, NULL, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y, DBUS_TYPE_STRING, &eventName, DBUS_TYPE_INVALID))
   {
     return invalid_arguments_error (message);
   }

@@ -1523,7 +1523,11 @@ atspi_accessible_get_process_id (AtspiAccessible *accessible, GError **error)
   dbus_message_unref (message);
   dbus_message_get_args (reply, NULL, DBUS_TYPE_UINT32, &pid, DBUS_TYPE_INVALID);
   dbus_message_unref (reply);
-  dbus_error_free (&d_error);
+  if (dbus_error_is_set (&d_error))
+    {
+      g_warning ("GetConnectionUnixProcessID failed: %s", d_error.message);
+      dbus_error_free (&d_error);
+    }
   return pid;
 }
 

@@ -197,7 +197,6 @@ main (int argc, char **argv)
   GOptionContext *opt;
 
   GError *err = NULL;
-  DBusError error;
   int ret;
 
   g_type_init();
@@ -207,12 +206,14 @@ main (int argc, char **argv)
   g_option_context_add_main_entries(opt, optentries, NULL);
 
   if (!g_option_context_parse(opt, &argc, &argv, &err))
+    {
       g_error("Option parsing failed: %s\n", err->message);
+      g_clear_error (&err);
+    }
 
   if (dbus_name == NULL)
       dbus_name = SPI_DBUS_NAME_REGISTRY;
 
-  dbus_error_init (&error);
   bus = atspi_get_a11y_bus ();
   if (!bus)
   {
@@ -222,7 +223,7 @@ main (int argc, char **argv)
   mainloop = g_main_loop_new (NULL, FALSE);
   atspi_dbus_connection_setup_with_g_main(bus, NULL);
 
-  ret = dbus_bus_request_name(bus, dbus_name, DBUS_NAME_FLAG_DO_NOT_QUEUE, &error);
+  ret = dbus_bus_request_name(bus, dbus_name, DBUS_NAME_FLAG_DO_NOT_QUEUE, NULL);
   if (ret == DBUS_REQUEST_NAME_REPLY_EXISTS)
     {
       exit (0);	/* most likely already running */

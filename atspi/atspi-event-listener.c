@@ -550,21 +550,22 @@ atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
     return FALSE;
   }
   event_listeners = g_list_prepend (event_listeners, e);
-  dbus_error_init (&d_error);
   for (i = 0; i < matchrule_array->len; i++)
   {
     char *matchrule = g_ptr_array_index (matchrule_array, i);
+    dbus_error_init (&d_error);
     dbus_bus_add_match (_atspi_bus(), matchrule, &d_error);
+    if (dbus_error_is_set (&d_error))
+      {
+        g_warning ("Atspi: Adding match: %s", d_error.message);
+        dbus_error_free (&d_error);
+        /* TODO: Set error */
+      }
+
     g_free (matchrule);
   }
   g_ptr_array_free (matchrule_array, TRUE);
-  if (d_error.message)
-  {
-    g_warning ("Atspi: Adding match: %s", d_error.message);
-    /* TODO: Set error */
-  }
 
-  dbus_error_init (&d_error);
   message = dbus_message_new_method_call (atspi_bus_registry,
 	atspi_path_registry,
 	atspi_interface_registry,
@@ -680,7 +681,6 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
         is_superset (detail, e->detail))
     {
       gboolean need_replace;
-      DBusError d_error;
       DBusMessage *message, *reply;
       need_replace = (l == event_listeners);
       l = g_list_remove (l, e);
@@ -689,10 +689,8 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
       for (i = 0; i < matchrule_array->len; i++)
       {
 	char *matchrule = g_ptr_array_index (matchrule_array, i);
-	dbus_error_init (&d_error);
-	dbus_bus_remove_match (_atspi_bus(), matchrule, &d_error);
+	dbus_bus_remove_match (_atspi_bus(), matchrule, NULL);
       }
-      dbus_error_init (&d_error);
       message = dbus_message_new_method_call (atspi_bus_registry,
 	    atspi_path_registry,
 	    atspi_interface_registry,

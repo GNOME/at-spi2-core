@@ -171,8 +171,13 @@ atspi_register_keystroke_listener (AtspiDeviceListener  *listener,
   listener_mode.global =
 	  (dbus_bool_t) ((sync_type & ATSPI_KEYLISTENER_ALL_WINDOWS)!=0);
 
-    dbus_error_init (&d_error);
-    dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry, atspi_path_dec, atspi_interface_dec, "RegisterKeystrokeListener", &d_error, "oa(iisi)uu(bbb)=>b", path, d_key_set, d_modmask, d_event_types, &listener_mode, &retval);
+  dbus_error_init (&d_error);
+  dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry, atspi_path_dec, atspi_interface_dec, "RegisterKeystrokeListener", &d_error, "oa(iisi)uu(bbb)=>b", path, d_key_set, d_modmask, d_event_types, &listener_mode, &retval);
+  if (dbus_error_is_set (&d_error))
+    {
+      g_warning ("RegisterKeystrokeListener failed: %s", d_error.message);
+      dbus_error_free (&d_error);
+    }
 
   g_array_free (d_key_set, TRUE);
   g_free (path);
@@ -250,6 +255,12 @@ atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
                                "DeregisterKeystrokeListener", &d_error,
                                "oa(iisi)uu", path, d_key_set, d_modmask,
                                d_event_types);
+  if (dbus_error_is_set (&d_error))
+    {
+      g_warning ("DeregisterKeystrokeListener failed: %s", d_error.message);
+      dbus_error_free (&d_error);
+    }
+
   g_array_free (d_key_set, TRUE);
   g_free (path);
   return TRUE;
@@ -284,6 +295,12 @@ atspi_register_device_event_listener (AtspiDeviceListener  *listener,
     }
 
     dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry, atspi_path_dec, atspi_interface_dec, "RegisterDeviceEventListener", &d_error, "ou=>b", path, d_event_types, &retval);
+    if (dbus_error_is_set (&d_error))
+      {
+        g_warning ("RegisterDeviceEventListener failed: %s", d_error.message);
+        dbus_error_free (&d_error);
+      }
+
   g_free (path);
   return retval;
 }
@@ -317,7 +334,13 @@ atspi_deregister_device_event_listener (AtspiDeviceListener *listener,
   event_types |= (1 << ATSPI_BUTTON_PRESSED_EVENT);
   event_types |= (1 << ATSPI_BUTTON_RELEASED_EVENT);
 
-    dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry, atspi_path_dec, atspi_interface_dec, "DeregisterDeviceEventListener", &d_error, "ou", path, event_types);
+  dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry, atspi_path_dec, atspi_interface_dec, "DeregisterDeviceEventListener", &d_error, "ou", path, event_types);
+  if (dbus_error_is_set (&d_error))
+    {
+      g_warning ("DeregisterDeviceEventListener failed: %s", d_error.message);
+      dbus_error_free (&d_error);
+    }
+
   g_free (path);
   return TRUE;
 }
@@ -351,8 +374,14 @@ atspi_generate_keyboard_event (glong keyval,
   DBusError d_error;
 
   dbus_error_init (&d_error);
-  if (!keystring) keystring = "";
-    dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry, atspi_path_dec, atspi_interface_dec, "GenerateKeyboardEvent", &d_error, "isu", d_keyval, keystring, d_synth_type);
+  if (!keystring)
+    keystring = "";
+  dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry, atspi_path_dec, atspi_interface_dec, "GenerateKeyboardEvent", &d_error, "isu", d_keyval, keystring, d_synth_type);
+  if (dbus_error_is_set (&d_error))
+    {
+      g_warning ("GenerateKeyboardEvent failed: %s", d_error.message);
+      dbus_error_free (&d_error);
+    }
 
   return TRUE;
 }
@@ -380,10 +409,16 @@ atspi_generate_mouse_event (glong x, glong y, const gchar *name, GError **error)
   DBusError d_error;
 
   dbus_error_init (&d_error);
-    dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry,
-                                 atspi_path_dec, atspi_interface_dec,
-                                 "GenerateMouseEvent", &d_error, "iis",
-                                 d_x, d_y, name);
+  dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry,
+                               atspi_path_dec, atspi_interface_dec,
+                               "GenerateMouseEvent", &d_error, "iis",
+                               d_x, d_y, name);
+  if (dbus_error_is_set (&d_error))
+    {
+      g_warning ("GenerateMouseEvent failed: %s", d_error.message);
+      dbus_error_free (&d_error);
+    }
+
   return TRUE;
 }
 
