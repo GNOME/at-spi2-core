@@ -246,5 +246,11 @@ main (int argc, char **argv)
     }
 
   g_main_loop_run (mainloop);
+
+  dbus_connection_close (bus);
+  dbus_connection_unref (bus);
+  g_object_unref (dec);
+  g_object_unref (registry);
+
   return 0;
 }

@@ -135,6 +135,13 @@ cleanup ()
     {
       g_hash_table_destroy (refs);
     }
+
+  if (bus)
+    {
+      dbus_connection_close (bus);
+      dbus_connection_unref (bus);
+      bus = NULL;
+    }
 }
 
 static gboolean atspi_inited = FALSE;
@@ -156,12 +163,16 @@ handle_get_bus_address (DBusPendingCall *pending, void *user_data)
                                DBUS_TYPE_INVALID))
     {
       DBusError error;
+      DBusConnection *bus;
+
       dbus_error_init (&error);
-      DBusConnection *bus = dbus_connection_open (address, &error);
+      bus = dbus_connection_open_private (address, &error);
       if (bus)
       {
         if (app->bus)
-          dbus_connection_unref (app->bus);
+          {
+            dbus_connection_unref (app->bus);
+          }
         app->bus = bus;
       }
       else
@@ -1433,12 +1444,32 @@ get_accessibility_bus_address_dbus (void)
   return address;
 }
 
+static DBusConnection *a11y_bus;
+static dbus_int32_t a11y_dbus_slot = -1;
+
+static void
+a11y_bus_free (void *data)
+{
+  if (data == a11y_bus)
+    {
+      a11y_bus = NULL;
+      dbus_connection_free_data_slot (&a11y_dbus_slot);
+    }
+}
+
 DBusConnection *
 atspi_get_a11y_bus (void)
 {
   DBusConnection *bus = NULL;
   DBusError error;
   char *address;
+
+  if (a11y_bus && dbus_connection_get_is_connected (a11y_bus))
+    return a11y_bus;
+
+  if (a11y_dbus_slot == -1)
+    if (!dbus_connection_allocate_data_slot (&a11y_dbus_slot))
+      g_warning ("at-spi: Unable to allocate D-Bus slot");
 
   address = get_accessibility_bus_address_x11 ();
   if (!address)
@@ -1447,10 +1478,10 @@ atspi_get_a11y_bus (void)
     return NULL;
 
   dbus_error_init (&error);
-  bus = dbus_connection_open (address, &error);
+  a11y_bus = dbus_connection_open_private (address, &error);
   g_free (address);
 
-  if (!bus)
+  if (!a11y_bus)
     {
       g_warning ("Couldn't connect to accessibility bus: %s", error.message);
       dbus_error_free (&error);
@@ -1458,15 +1489,21 @@ atspi_get_a11y_bus (void)
     }
   else
     {
-      if (!dbus_bus_register (bus, &error))
+      if (!dbus_bus_register (a11y_bus, &error))
 	{
 	  g_warning ("Couldn't register with accessibility bus: %s", error.message);
           dbus_error_free (&error);
+          dbus_connection_close (a11y_bus);
+          dbus_connection_unref (a11y_bus);
+          a11y_bus = NULL;
 	  return NULL;
 	}
     }
   
-  return bus;
+  /* Simulate a weak ref on the bus */
+  dbus_connection_set_data (a11y_bus, a11y_dbus_slot, a11y_bus, a11y_bus_free);
+
+  return a11y_bus;
 }
 
 /**
