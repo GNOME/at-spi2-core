@@ -940,6 +940,7 @@ atk_bridge_adaptor_cleanup (void)
       dbus_connection_remove_filter (spi_global_app_data->bus, signal_filter, NULL);
       droute_context_unregister (spi_global_app_data->droute, spi_global_app_data->bus);
       dbus_connection_unref (spi_global_app_data->bus);
+      spi_global_app_data->bus = NULL;
     }
 
   for (l = spi_global_app_data->direct_connections; l; l = l->next)
@@ -953,15 +954,16 @@ atk_bridge_adaptor_cleanup (void)
       dbus_connection_unref (connection);
     }
   g_list_free (spi_global_app_data->direct_connections);
+  spi_global_app_data->direct_connections = NULL;
 
   for (ls = clients; ls; ls = ls->next)
     g_free (l->data);
   g_slist_free (clients);
   clients = NULL;
 
-  g_object_unref (spi_global_cache);
-  g_object_unref (spi_global_leasing);
-  g_object_unref (spi_global_register);
+  g_clear_object (&spi_global_cache);
+  g_clear_object (&spi_global_leasing);
+  g_clear_object (&spi_global_register);
 
   if (spi_global_app_data->main_context)
     g_main_context_unref (spi_global_app_data->main_context);
