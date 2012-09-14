@@ -249,7 +249,9 @@ register_reply (DBusPendingCall *pending, void *user_data)
           dbus_message_iter_next (&iter_struct);
           dbus_message_iter_get_basic (&iter_struct, &obj_path);
 
+          g_free (app->desktop_name);
           app->desktop_name = g_strdup (app_name);
+          g_free (app->desktop_path);
           app->desktop_path = g_strdup (obj_path);
         }
     }
@@ -275,8 +277,8 @@ register_application (SpiBridge * app)
 
   /* These will be overridden when we get a reply, but in practice these
      defaults should always be correct */
-  app->desktop_name = ATSPI_DBUS_NAME_REGISTRY;
-  app->desktop_path = ATSPI_DBUS_PATH_ROOT;
+  app->desktop_name = g_strdup (ATSPI_DBUS_NAME_REGISTRY);
+  app->desktop_path = g_strdup (ATSPI_DBUS_PATH_ROOT);
 
   message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
                                           ATSPI_DBUS_PATH_ROOT,
@@ -339,6 +341,11 @@ deregister_application (SpiBridge * app)
     g_free (app->app_tmp_dir);
     app->app_tmp_dir = NULL;
   }
+
+  g_free (app->desktop_name);
+  app->desktop_name = NULL;
+  g_free (app->desktop_path);
+  app->desktop_path = NULL;
 }
 
 /*---------------------------------------------------------------------------*/
