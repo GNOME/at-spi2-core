@@ -22,6 +22,11 @@ AC_SUBST(LT_AGE)
 
 AM_INIT_AUTOMAKE([1.9 -Wall foreign no-dist-gzip dist-xz])
 
+# Support silent build rules. Disable
+# by either passing --disable-silent-rules to configure or passing V=1
+# to make
+AM_SILENT_RULES([yes])
+
 AC_PROG_CC
 LT_INIT([disable-static])
 PKG_PROG_PKG_CONFIG
