@@ -778,35 +778,34 @@ static const char *signal_interfaces[] =
  *
  * TODO: Avoid having duplicate functions for this here and in at-spi2-atk
  */
-static const gchar *
+static gchar *
 spi_display_name (void)
 {
-  static const char *canonical_display_name = NULL;
-  if (!canonical_display_name)
+  char *canonical_display_name = NULL;
+  const gchar *display_env = g_getenv ("AT_SPI_DISPLAY");
+
+  if (!display_env)
     {
-      const gchar *display_env = g_getenv ("AT_SPI_DISPLAY");
-      if (!display_env)
-        {
-          display_env = g_getenv ("DISPLAY");
-          if (!display_env || !display_env[0])
-            canonical_display_name = ":0";
-          else
-            {
-              gchar *display_p, *screen_p;
-              canonical_display_name = g_strdup (display_env);
-              display_p = g_utf8_strrchr (canonical_display_name, -1, ':');
-              screen_p = g_utf8_strrchr (canonical_display_name, -1, '.');
-              if (screen_p && display_p && (screen_p > display_p))
-                {
-                  *screen_p = '\0';
-                }
-            }
-        }
+      display_env = g_getenv ("DISPLAY");
+      if (!display_env || !display_env[0])
+        canonical_display_name = g_strdup (":0");
       else
         {
-          canonical_display_name = display_env;
+          gchar *display_p, *screen_p;
+          canonical_display_name = g_strdup (display_env);
+          display_p = g_utf8_strrchr (canonical_display_name, -1, ':');
+          screen_p = g_utf8_strrchr (canonical_display_name, -1, '.');
+          if (screen_p && display_p && (screen_p > display_p))
+            {
+              *screen_p = '\0';
+            }
         }
     }
+  else
+    {
+      canonical_display_name = g_strdup (display_env);
+    }
+
   return canonical_display_name;
 }
 
@@ -1350,14 +1349,20 @@ get_accessibility_bus_address_x11 (void)
 {
   Atom AT_SPI_BUS;
   Atom actual_type;
-  Display *bridge_display;
+  Display *bridge_display = NULL;
   int actual_format;
   char *data;
   unsigned char *data_x11 = NULL;
   unsigned long nitems;
   unsigned long leftover;
+  char *display_name;
 
-  bridge_display = XOpenDisplay (spi_display_name ());
+  display_name = spi_display_name ();
+  if (display_name != NULL)
+    {
+      bridge_display = XOpenDisplay (display_name);
+      g_free (display_name);
+    }
   if (!bridge_display)
     {
       g_warning ("Could not open X display");
