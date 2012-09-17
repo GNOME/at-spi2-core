@@ -85,10 +85,7 @@ _atspi_application_new (const gchar *bus_name)
   AtspiApplication *application;
   
   application = g_object_new (ATSPI_TYPE_APPLICATION, NULL);
-  if (application)
-  {
-    application->bus_name = g_strdup (bus_name);
-    application->root = NULL;
-  }
+  application->bus_name = g_strdup (bus_name);
+  application->root = NULL;
   return application;
 }

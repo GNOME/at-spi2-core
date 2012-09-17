@@ -205,7 +205,6 @@ get_application (const char *bus_name)
   if (!bus_name_dup) return NULL;
   // TODO: change below to something that will send state-change:defunct notification if necessary */
   app = _atspi_application_new (bus_name);
-  if (!app) return NULL;
   app->hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
   app->bus = dbus_connection_ref (_atspi_bus ());
   gettimeofday (&app->time_added, NULL);
