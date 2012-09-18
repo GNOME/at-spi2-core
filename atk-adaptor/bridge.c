@@ -938,7 +938,8 @@ atk_bridge_adaptor_cleanup (void)
   GList *l;
   GSList *ls;
 
-  g_return_if_fail (inited);
+  if (!inited)
+    return;
 
   if (!spi_global_app_data)
       return;
