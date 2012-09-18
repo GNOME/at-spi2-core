@@ -1,3 +1,10 @@
+What's new in at-spi2-atk 2.5.92:
+
+* Fix atspi_hyperlink_get_uri (BGO#683182).
+
+* Only initialize the cache when an AT is running.
+
+* Fix various memory leaks (BGO#683979, BGO#684077)
 What's new in at-spi2-atk 2.5.91:
 
 * Removed the gtk 3.0 module (BGO#678315).
