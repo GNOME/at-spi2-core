@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.5.92:
+
+* Fix some annotations.
+
+* Exit, rather than crash, when unable to open an X display (BGO#660407).
+
+* Fix various memory leaks (BGO#684033).
+
 What's new in at-spi2-core 2.5.91:
 
 * Fix build with -fno-common.
