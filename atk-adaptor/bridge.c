@@ -781,6 +781,8 @@ spi_atk_activate ()
           return;
         }
       spi_initialize_cache (treepath);
+      if (spi_global_app_data->bus)
+        droute_path_register (treepath, spi_global_app_data->bus);
     }
 }
 
