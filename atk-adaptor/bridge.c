@@ -963,13 +963,14 @@ atk_bridge_adaptor_cleanup (void)
 
       droute_context_unregister (spi_global_app_data->droute, connection);
       droute_unintercept_dbus (connection);
+      dbus_connection_close (connection);
       dbus_connection_unref (connection);
     }
   g_list_free (spi_global_app_data->direct_connections);
   spi_global_app_data->direct_connections = NULL;
 
   for (ls = clients; ls; ls = ls->next)
-    g_free (l->data);
+    g_free (ls->data);
   g_slist_free (clients);
   clients = NULL;
 
