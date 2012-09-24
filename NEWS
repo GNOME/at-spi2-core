@@ -1,3 +1,9 @@
+What's new in at-spi2-atk 2.6.0:
+
+* Fix some crashes in atk_bridge_adaptor_cleanup (BGO#684434).
+
+* When the cache is activated, register it on the main D-Bus connection.
+
 What's new in at-spi2-atk 2.5.92:
 
 * Fix atspi_hyperlink_get_uri (BGO#683182).
