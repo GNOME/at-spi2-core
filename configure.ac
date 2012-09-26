@@ -108,7 +108,6 @@ AC_CONFIG_FILES([Makefile
 		 atk-adaptor/Makefile
 		 atk-adaptor/adaptors/Makefile
 		 atk-adaptor/gtk-2.0/Makefile
-                 schemas/Makefile
 		])
 
 AC_OUTPUT
