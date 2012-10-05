@@ -270,6 +270,18 @@ cache_process_property_change (AtspiEvent *event)
       event->source->cached_properties &= ~ATSPI_CACHE_DESCRIPTION;
     }
   }
+  else if (!strcmp (event->type, "object:property-change:accessible-role"))
+  {
+    if (G_VALUE_HOLDS_INT (&event->any_data))
+    {
+      event->source->role = g_value_get_int (&event->any_data);
+      _atspi_accessible_add_cache (event->source, ATSPI_CACHE_ROLE);
+    }
+    else
+    {
+      event->source->cached_properties &= ~ATSPI_CACHE_ROLE;
+    }
+  }
 }
 
 static void
