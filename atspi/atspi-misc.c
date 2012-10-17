@@ -160,7 +160,7 @@ handle_get_bus_address (DBusPendingCall *pending, void *user_data)
   if (dbus_message_get_type (reply) == DBUS_MESSAGE_TYPE_METHOD_RETURN)
   {
     if (dbus_message_get_args (reply, NULL, DBUS_TYPE_STRING, &address,
-                               DBUS_TYPE_INVALID))
+                               DBUS_TYPE_INVALID) && address [0])
     {
       DBusError error;
       DBusConnection *bus;
