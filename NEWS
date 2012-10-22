@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.7.1:
+
+* Update the cache in response to role change notifications (BGO#685469).
+
+* Don't output a warning when a p2p connection isn't available.
+
 What's new in at-spi2-core 2.5.92:
 
 * Fix some annotations.
