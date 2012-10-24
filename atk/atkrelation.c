@@ -217,7 +217,8 @@ atk_relation_type_for_name (const gchar *name)
 
 /**
  * atk_relation_new:
- * @targets: an array of pointers to #AtkObjects  
+ * @targets: (array length=n_targets): an array of pointers to
+ *  #AtkObjects
  * @n_targets: number of #AtkObjects pointed to by @targets
  * @relationship: an #AtkRelationType with which to create the new
  *  #AtkRelation
@@ -282,7 +283,7 @@ atk_relation_get_relation_type (AtkRelation *relation)
  *
  * Gets the target list of @relation
  *
- * Returns: (transfer none): the target list of @relation
+ * Returns: (transfer none) (element-type Atk.Object): the target list of @relation
  **/
 GPtrArray*
 atk_relation_get_target (AtkRelation *relation)

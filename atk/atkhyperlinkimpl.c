@@ -42,7 +42,7 @@ atk_hyperlink_impl_get_type (void)
 
 /**
  * atk_hyperlink_impl_get_hyperlink:
- * @obj: a GObject instance that implements AtkHyperlinkImplIface
+ * @impl: a #GObject instance that implements AtkHyperlinkImplIface
  *
  * Gets the hyperlink associated with this object.
  *
@@ -52,18 +52,18 @@ atk_hyperlink_impl_get_type (void)
  * Since: 1.12
  **/
 AtkHyperlink *
-atk_hyperlink_impl_get_hyperlink (AtkHyperlinkImpl *obj)
+atk_hyperlink_impl_get_hyperlink (AtkHyperlinkImpl *impl)
 {
   AtkHyperlinkImplIface *iface;
 
-  g_return_val_if_fail (obj != NULL, NULL);
-  g_return_val_if_fail (ATK_IS_HYPERLINK_IMPL (obj), NULL);
+  g_return_val_if_fail (impl != NULL, NULL);
+  g_return_val_if_fail (ATK_IS_HYPERLINK_IMPL (impl), NULL);
 
-  iface = ATK_HYPERLINK_IMPL_GET_IFACE (obj);
+  iface = ATK_HYPERLINK_IMPL_GET_IFACE (impl);
 
   if (iface->get_hyperlink)
     {
-      return (iface->get_hyperlink) (obj);
+      return (iface->get_hyperlink) (impl);
     }
   return NULL;
 }

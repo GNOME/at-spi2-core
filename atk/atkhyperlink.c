@@ -359,7 +359,7 @@ atk_hyperlink_get_n_anchors (AtkHyperlink *link)
  *
  * Since: 1.4
  *
- * @Deprecated: This method is deprecated since ATK version 1.8.
+ * Deprecated: This method is deprecated since ATK version 1.8.
  * Please use ATK_STATE_SELECTED to indicate when a hyperlink within a
  * Hypertext container is selected.
  *

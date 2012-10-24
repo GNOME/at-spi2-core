@@ -129,7 +129,7 @@ atk_state_set_add_state (AtkStateSet   *set,
 /**
  * atk_state_set_add_states:
  * @set: an #AtkStateSet
- * @types: an array of #AtkStateType
+ * @types: (array length=n_types): an array of #AtkStateType
  * @n_types: The number of elements in the array
  *
  * Add the states for the specified types to the current state set.
@@ -195,7 +195,7 @@ atk_state_set_contains_state (AtkStateSet   *set,
 /**
  * atk_state_set_contains_states:
  * @set: an #AtkStateSet
- * @types: an array of #AtkStateType
+ * @types: (array length=n_types): an array of #AtkStateType
  * @n_types: The number of elements in the array
  *
  * Checks whether the states for all the specified types are in the 

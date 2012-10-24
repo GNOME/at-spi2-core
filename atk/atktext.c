@@ -295,8 +295,8 @@ atk_text_get_character_at_offset (AtkText      *text,
  * @text: an #AtkText
  * @offset: position
  * @boundary_type: An #AtkTextBoundary
- * @start_offset: the start offset of the returned string
- * @end_offset: the offset of the first character after the 
+ * @start_offset: (out): the start offset of the returned string
+ * @end_offset: (out): the offset of the first character after the
  *              returned substring
  *
  * Gets the specified text.
@@ -378,8 +378,8 @@ atk_text_get_text_after_offset (AtkText          *text,
  * @text: an #AtkText
  * @offset: position
  * @boundary_type: An #AtkTextBoundary
- * @start_offset: the start offset of the returned string
- * @end_offset: the offset of the first character after the 
+ * @start_offset: (out): the start offset of the returned string
+ * @end_offset: (out): the offset of the first character after the
  *              returned substring
  *
  * Gets the specified text.
@@ -465,8 +465,8 @@ atk_text_get_text_at_offset (AtkText          *text,
  * @text: an #AtkText
  * @offset: position
  * @boundary_type: An #AtkTextBoundary
- * @start_offset: the start offset of the returned string
- * @end_offset: the offset of the first character after the 
+ * @start_offset: (out): the start offset of the returned string
+ * @end_offset: (out): the offset of the first character after the
  *              returned substring
  *
  * Gets the specified text.
@@ -641,8 +641,8 @@ atk_text_get_character_extents (AtkText *text,
  *@text: an #AtkText
  *@offset: the offset at which to get the attributes, -1 means the offset of
  *the character to be inserted at the caret location.
- *@start_offset: the address to put the start offset of the range
- *@end_offset: the address to put the end offset of the range
+ *@start_offset: (out): the address to put the start offset of the range
+ *@end_offset: (out): the address to put the end offset of the range
  *
  *Creates an #AtkAttributeSet which consists of the attributes explicitly
  *set at the position @offset in the text. @start_offset and @end_offset are
@@ -804,8 +804,8 @@ atk_text_get_n_selections (AtkText *text)
  * start of the text.  The selected region closest to the beginning
  * of the text region is assigned the number 0, etc.  Note that adding,
  * moving or deleting a selected region can change the numbering.
- * @start_offset: passes back the start position of the selected region
- * @end_offset: passes back the end position of (e.g. offset immediately past) 
+ * @start_offset: (out): passes back the start position of the selected region
+ * @end_offset: (out): passes back the end position of (e.g. offset immediately past)
  * the selected region
  *
  * Gets the text from the specified selection.
@@ -1016,6 +1016,7 @@ atk_text_get_range_extents (AtkText          *text,
  *
  * Returns: (array zero-terminated=1): Array of AtkTextRange. The last
  *          element of the array returned by this function will be NULL.
+ * Virtual: get_bounded_ranges
  **/
 AtkTextRange**
 atk_text_get_bounded_ranges (AtkText          *text,
@@ -1384,7 +1385,8 @@ atk_text_real_get_bounded_ranges (AtkText          *text,
 
 /**
  * atk_text_free_ranges:
- * @ranges: A pointer to an array of  #AtkTextRange which is to be freed.
+ * @ranges: (array): A pointer to an array of #AtkTextRange which is
+ *   to be freed.
  *
  * Frees the memory associated with an array of AtkTextRange. It is assumed
  * that the array was returned by the function atk_text_get_bounded_ranges
