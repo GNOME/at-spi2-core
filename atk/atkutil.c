@@ -207,17 +207,22 @@ static guint
 add_listener (GSignalEmissionHook listener,
               const gchar         *object_type,
               const gchar         *signal_name,
+              const gchar         *detail_string,
               const gchar         *hook_data)
 {
   GType type;
   guint signal_id;
   gint  rc = 0;
   static gint listener_idx = 1;
+  GQuark detail_quark = 0;
 
   type = g_type_from_name (object_type);
   if (type)
     {
       signal_id  = g_signal_lookup (signal_name, type);
+      g_print ("[atk-util] detail string == %s\n", detail_string);
+      detail_quark = g_quark_from_string (detail_string);
+
       if (signal_id > 0)
         {
           AtkUtilListenerInfo *listener_info;
@@ -227,7 +232,7 @@ add_listener (GSignalEmissionHook listener,
           listener_info = g_new (AtkUtilListenerInfo, 1);
           listener_info->key = listener_idx;
           listener_info->hook_id =
-            g_signal_add_emission_hook (signal_id, 0, listener,
+            g_signal_add_emission_hook (signal_id, detail_quark, listener,
                                         g_strdup (hook_data),
                                         (GDestroyNotify) g_free);
           listener_info->signal_id = signal_id;
@@ -253,11 +258,14 @@ atk_util_real_add_global_event_listener (GSignalEmissionHook listener,
 {
   guint rc = 0;
   gchar **split_string;
+  guint length;
 
-  split_string = g_strsplit (event_type, ":", 3);
+  split_string = g_strsplit (event_type, ":", 0);
+  length = g_strv_length (split_string);
 
-  if (g_strv_length (split_string) == 3)
-    rc = add_listener (listener, split_string[1], split_string[2], event_type);
+  if ((length == 3) || (length == 4))
+    rc = add_listener (listener, split_string[1], split_string[2],
+                       split_string[3], event_type);
 
   g_strfreev (split_string);
 
@@ -315,15 +323,21 @@ atk_util_real_remove_global_event_listener (guint remove_listener)
  * when an ATK event of type event_type occurs.
  *
  * The format of event_type is the following:
- *  "ATK:<atk_type>:<atk_event>
+ *  "ATK:<atk_type>:<atk_event>:<atk_event_detail>
  *
  * Where "ATK" works as the namespace, <atk_interface> is the name of
- * the ATK type (interface or object) and <atk_event> is the name of
- * the signal defined on that interface.
+ * the ATK type (interface or object), <atk_event> is the name of the
+ * signal defined on that interface and <atk_event_detail> is the
+ * gsignal detail of that signal. You can find more info about gsignal
+ * details here:
+ * http://developer.gnome.org/gobject/stable/gobject-Signals.html
+ *
+ * The first three parameters are mandatory. The last one is optional.
  *
  * For example:
  *   ATK:AtkObject:state-change
  *   ATK:AtkText:text-selection-changed
+ *   ATK:AtkText:text-insert:system
  *
  * Toolkit implementor note: Atk provides a default implementation for
  * this virtual method, and that implementation should be enough for
