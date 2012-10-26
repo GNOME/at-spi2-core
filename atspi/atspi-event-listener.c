@@ -788,6 +788,7 @@ _atspi_send_event (AtspiEvent *e)
 {
   char *category, *name, *detail;
   GList *l;
+  GList *called_listeners = NULL;
 
   /* Ensure that the value is set to avoid a Python exception */
   /* TODO: Figure out how to do this without using a private field */
@@ -809,12 +810,24 @@ _atspi_send_event (AtspiEvent *e)
         (entry->name == NULL || !strcmp (name, entry->name)) &&
         detail_matches_listener (detail, entry->detail))
     {
+      GList *l2;
+      for (l2 = called_listeners; l2; l2 = l2->next)
+      {
+        EventListenerEntry *e2 = l2->data;
+        if (entry->callback == e2->callback && entry->user_data == e2->user_data)
+          break;
+      }
+      if (!l2)
+      {
         entry->callback (atspi_event_copy (e), entry->user_data);
+        called_listeners = g_list_prepend (called_listeners, entry);
+      }
     }
   }
   if (detail) g_free (detail);
   g_free (name);
   g_free (category);
+  g_list_free (called_listeners);
 }
 
 DBusHandlerResult
