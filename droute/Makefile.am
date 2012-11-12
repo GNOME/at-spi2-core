@@ -24,8 +24,7 @@ droute_test_CFLAGS = $(DBUS_CFLAGS) \
 		     $(ATSPI_CFLAGS) \
 		     -I$(top_srcdir)
 
-droute_test_LDFLAGS  = $(top_builddir)/dbind/libdbind.la\
-		       libdroute.la\
+droute_test_LDFLAGS  = libdroute.la\
 		       $(DBUS_LIBS) \
 		       $(GLIB_LIBS) \
 		       $(ATSPI_LIBS)
