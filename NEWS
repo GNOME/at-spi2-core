@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.6.2:
+
+* Don't output a warning when a p2p connection isn't available.
+
+* Don't distribute dbind-config.h (BGO#688083).
+
 What's new in at-spi2-core 2.6.1:
 
 * Update cache in response to role change notifications (BGO#685469).
