@@ -8,12 +8,14 @@ AM_CPPFLAGS = \
 	$(GLIB_CFLAGS)
 
 libdbind_la_SOURCES = \
-        dbind-config.h \
         dbind.h \
 	dbind.c \
         dbind-any.h \
 	dbind-any.c
 libdbind_la_LIBADD = $(DBUS_LIBS) $(GLIB_LIBS)
+
+nodist_libdbind_la_sources = \
+        dbind-config.h
 
 TESTS = dbtest
 
