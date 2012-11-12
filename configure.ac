@@ -80,14 +80,6 @@ AC_SUBST(EXTRA_SOCKET_LIBS)
 dnl find sizes & alignments
 orig_CPPFLAGS=$CPPFLAGS
 CPPFLAGS="$CPPFLAGS $DBUS_CFLAGS"
-DBIND_CHECK_ALIGNOF(char)
-DBIND_CHECK_ALIGNOF(dbus_bool_t)
-DBIND_CHECK_ALIGNOF(dbus_int16_t)
-DBIND_CHECK_ALIGNOF(dbus_int32_t)
-DBIND_CHECK_ALIGNOF(dbus_int64_t)
-DBIND_CHECK_ALIGNOF(double)
-DBIND_CHECK_ALIGNOF(dbind_pointer)
-DBIND_CHECK_ALIGNOF(dbind_struct)
 CPPFLAGS=$orig_CPPFLAGS 
 
 if test "x$GCC" = xyes; then
@@ -102,8 +94,6 @@ AC_SUBST(P2P_CFLAGS)
 
 AC_CONFIG_FILES([Makefile
 		 atk-bridge-2.0.pc
-		 dbind/dbind-config.h
-		 dbind/Makefile
 		 droute/Makefile
 		 atk-adaptor/Makefile
 		 atk-adaptor/adaptors/Makefile
