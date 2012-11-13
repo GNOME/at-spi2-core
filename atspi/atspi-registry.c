@@ -103,19 +103,20 @@ atspi_get_desktop_list ()
  *             #atspi_register_keystroke_listener once for each
  *             combination.
  * @event_types: an #AtspiKeyMaskType mask indicating which
- *             types of key events are requested (ATSPI_KEY_PRESSED etc.).
+ *             types of key events are requested (%ATSPI_KEY_PRESSED etc.).
  * @sync_type: an #AtspiKeyListenerSyncType parameter indicating
  *             the behavior of the notification/listener transaction.
+ * @error: (allow-none): a pointer to a %NULL #GError pointer, or %NULL
  *             
  * Registers a listener for keystroke events, either pre-emptively for
- *             all windows (ATSPI_KEYLISTENER_ALL_WINDOWS),
- *             non-preemptively (ATSPI_KEYLISTENER_NOSYNC), or
- *             pre-emptively at the toolkit level (ATSPI_KEYLISTENER_CANCONSUME).
+ *             all windows (%ATSPI_KEYLISTENER_ALL_WINDOWS),
+ *             non-preemptively (%ATSPI_KEYLISTENER_NOSYNC), or
+ *             pre-emptively at the toolkit level (%ATSPI_KEYLISTENER_CANCONSUME).
  *             If ALL_WINDOWS or CANCONSUME are used, the event is consumed
- *             upon receipt if one of @listener's callbacks returns #TRUE 
+ *             upon receipt if one of @listener's callbacks returns %TRUE 
  *             (other sync_type values may be available in the future).
  *
- * Returns: #TRUE if successful, otherwise #FALSE.
+ * Returns: %TRUE if successful, otherwise %FALSE.
  **/
 gboolean
 atspi_register_keystroke_listener (AtspiDeviceListener  *listener,
@@ -191,18 +192,19 @@ atspi_register_keystroke_listener (AtspiDeviceListener  *listener,
  *            keystroke events are requested.
  * @key_set: (element-type AtspiKeyDefinition) (allow-none): a pointer to the
  *        #AtspiKeyDefinition array indicating which keystroke events are
- *        requested, or NULL
+ *        requested, or %NULL
  *        to indicate that all keycodes and keyvals for the specified
  *        modifier set are to be included.
  * @modmask:  the key modifier mask for which this listener is to be
  *            'deregistered' (of type #AtspiKeyMaskType).
  * @event_types: an #AtspiKeyMaskType mask indicating which
- *             types of key events were requested (#ATSPI_KEY_PRESSED, etc.).
+ *             types of key events were requested (%ATSPI_KEY_PRESSED, etc.).
+ * @error: (allow-none): a pointer to a %NULL #GError pointer, or %NULL
  *
  * Removes a keystroke event listener from the registry's listener queue,
  *            ceasing notification of events with modifiers matching @modmask.
  *
- * Returns: #TRUE if successful, otherwise #FALSE.
+ * Returns: %TRUE if successful, otherwise %FALSE.
  **/
 gboolean
 atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
@@ -271,12 +273,13 @@ atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
  * @listener:  a pointer to the #AtspiDeviceListener which requests
  *             the events.
  * @event_types: an #AtspiDeviceEventMask mask indicating which
- *             types of key events are requested (#ATSPI_KEY_PRESSED, etc.).
+ *             types of key events are requested (%ATSPI_KEY_PRESSED, etc.).
  * @filter: Unused parameter.
+ * @error: (allow-none): a pointer to a %NULL #GError pointer, or %NULL
  *             
  * Registers a listener for device events, for instance button events.
  *
- * Returns: #TRUE if successful, otherwise #FALSE.
+ * Returns: %TRUE if successful, otherwise %FALSE.
  **/
 gboolean
 atspi_register_device_event_listener (AtspiDeviceListener  *listener,
@@ -310,11 +313,12 @@ atspi_register_device_event_listener (AtspiDeviceListener  *listener,
  * @listener: a pointer to the #AtspiDeviceListener for which
  *            device events are requested.
  * @filter: Unused parameter.
+ * @error: (allow-none): a pointer to a %NULL #GError pointer, or %NULL
  *
  * Removes a device event listener from the registry's listener queue,
  *            ceasing notification of events of the specified type.
  *
- * Returns: #TRUE if successful, otherwise #FALSE.
+ * Returns: %TRUE if successful, otherwise %FALSE.
  **/
 gboolean
 atspi_deregister_device_event_listener (AtspiDeviceListener *listener,
@@ -349,20 +353,23 @@ atspi_deregister_device_event_listener (AtspiDeviceListener *listener,
  * atspi_generate_keyboard_event:
  * @keyval: a #gint indicating the keycode or keysym of the key event
  *           being synthesized.
- * @keystring: an (optional) UTF-8 string which, if @keyval is NULL,
- *           indicates a 'composed' keyboard input string  
- *           being synthesized; this type of keyboard event synthesis does
- *           not emulate hardware keypresses but injects the string 
- *           as though a composing input method (such as XIM) were used.
+ * @keystring: (allow-none): an (optional) UTF-8 string which, if
+ *           @synth_type is %ATSPI_KEY_STRING, indicates a 'composed'
+ *           keyboard input string being synthesized; this type of
+ *           keyboard event synthesis does not emulate hardware
+ *           keypresses but injects the string as though a composing
+ *           input method (such as XIM) were used.
  * @synth_type: an #AtspiKeySynthType flag indicating whether @keyval
  *           is to be interpreted as a keysym rather than a keycode
- *           (ATSPI_KEYSYM), or whether to synthesize
- *           ATSPI_KEY_PRESS, ATSPI_KEY_RELEASE, or both (ATSPI_KEY_PRESSRELEASE).
+ *           (%ATSPI_KEY_SYM) or a string (%ATSPI_KEY_STRING), or
+ *           whether to synthesize %ATSPI_KEY_PRESS,
+ *           %ATSPI_KEY_RELEASE, or both (%ATSPI_KEY_PRESSRELEASE).
+ * @error: (allow-none): a pointer to a %NULL #GError pointer, or %NULL
  *
  * Synthesizes a keyboard event (as if a hardware keyboard event occurred in the
  * current UI context).
  *
- * Returns: #TRUE if successful, otherwise #FALSE.
+ * Returns: %TRUE if successful, otherwise %FALSE.
  **/
 gboolean
 atspi_generate_keyboard_event (glong keyval,
@@ -392,6 +399,7 @@ atspi_generate_keyboard_event (glong keyval,
  * @y: a #glong indicating the screen y coordinate of the mouse event.
  * @name: a string indicating which mouse event to be synthesized
  *        (e.g. "b1p", "b1c", "b2r", "rel", "abs").
+ * @error: (allow-none): a pointer to a %NULL #GError pointer, or %NULL
  *
  * Synthesizes a mouse event at a specific screen coordinate.
  * Most AT clients should use the #AccessibleAction interface when
@@ -400,7 +408,7 @@ atspi_generate_keyboard_event (glong keyval,
  *              b3c = button 3 click; b2d = button 2 double-click;
  *              abs = absolute motion; rel = relative motion.
  *
- * Returns: #TRUE if successful, otherwise #FALSE.
+ * Returns: %TRUE if successful, otherwise %FALSE.
  **/
 gboolean
 atspi_generate_mouse_event (glong x, glong y, const gchar *name, GError **error)
