@@ -125,7 +125,8 @@ Atspi-2.0.gir: $(INTROSPECTION_SCANNER) \
 		--libtool="$(top_builddir)/libtool" \
 		--library=libatspi.la \
 		--library=$(top_builddir)/dbind/libdbind.la \
-		--pkg dbus-1 \
+		--pkg-export atspi-2 \
+		--c-include "atspi/atspi.h" \
 		--warn-all \
 		--output $@ \
 		$(addprefix $(srcdir)/, $(INTROSPECTION_FILES))
