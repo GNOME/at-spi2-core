@@ -1041,12 +1041,25 @@ append_keystroke_listener (DBusMessageIter *iter, DEControllerKeyListener *liste
   if (dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_STRUCT,
                                          NULL, &iter_substruct))
   {
-    dbus_message_iter_append_basic (&iter_substruct, DBUS_TYPE_BOOLEAN,
-                                    &listener->mode->synchronous);
-    dbus_message_iter_append_basic (&iter_substruct, DBUS_TYPE_BOOLEAN,
-                                    &listener->mode->preemptive);
-    dbus_message_iter_append_basic (&iter_substruct, DBUS_TYPE_BOOLEAN,
-                                    &listener->mode->global);
+    if (listener->mode)
+    {
+      dbus_message_iter_append_basic (&iter_substruct, DBUS_TYPE_BOOLEAN,
+                                      &listener->mode->synchronous);
+      dbus_message_iter_append_basic (&iter_substruct, DBUS_TYPE_BOOLEAN,
+                                      &listener->mode->preemptive);
+      dbus_message_iter_append_basic (&iter_substruct, DBUS_TYPE_BOOLEAN,
+                                      &listener->mode->global);
+    }
+    else
+    {
+      dbus_bool_t dummy_val = FALSE;
+      dbus_message_iter_append_basic (&iter_substruct, DBUS_TYPE_BOOLEAN,
+                                      &dummy_val);
+      dbus_message_iter_append_basic (&iter_substruct, DBUS_TYPE_BOOLEAN,
+                                      &dummy_val);
+      dbus_message_iter_append_basic (&iter_substruct, DBUS_TYPE_BOOLEAN,
+                                      &dummy_val);
+    }
     dbus_message_iter_close_container (&iter_struct, &iter_substruct);
   }
   dbus_message_iter_close_container (iter, &iter_struct);
@@ -2353,6 +2366,11 @@ impl_deregister_keystroke_listener (DBusConnection *bus,
 
   dbus_message_iter_init(message, &iter);
   if (strcmp (dbus_message_get_signature (message), "oa(iisi)uu") != 0)
+  {
+    g_warning ("Received DeregisterKeystrokeListener with strange signature '%s'", dbus_message_get_signature (message));
+    return invalid_arguments_error (message);
+  }
+
   dbus_message_iter_get_basic(&iter, &path);
   dbus_message_iter_next(&iter);
   dbus_message_iter_recurse(&iter, &iter_array);
