@@ -434,6 +434,8 @@ socket_ref_state_set (AtkObject *accessible)
 static void
 socket_embed_hook (AtkSocket * socket, gchar * plug_id)
 {
+  g_return_if_fail (spi_global_register != NULL);
+
   AtkObject *accessible = ATK_OBJECT(socket);
   gchar *plug_name, *plug_path;
   AtkObjectClass *klass;
