@@ -489,8 +489,11 @@ atspi_accessible_get_index_in_parent (AtspiAccessible *obj, GError **error)
   gint i = 0;
 
   g_return_val_if_fail (obj != NULL, -1);
-  if (!obj->accessible_parent) return -1;
-  if (!_atspi_accessible_test_cache (obj->accessible_parent,
+  if (_atspi_accessible_test_cache (obj, ATSPI_CACHE_PARENT) &&
+      !obj->accessible_parent)
+    return -1;
+  if (!obj->accessible_parent ||
+      !_atspi_accessible_test_cache (obj->accessible_parent,
                                      ATSPI_CACHE_CHILDREN))
   {
     dbus_int32_t ret = -1;
