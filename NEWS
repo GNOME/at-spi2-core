@@ -1,3 +1,14 @@
+What's new in at-spi2-atk 2.7.2:
+
+* atk-adaptor: don't emit a critical in case the bridge was not initialized
+  (BGO#684334).
+    
+* Remove dbind (it was only used for the droute test).
+
+* Fix a crash in socket_embed_hook if spi_global_register is NULL.
+
+* [droute] Fix memory leak in path cleanup (BGO#688363).
+
 What's new in at-spi2-atk 2.7.1:
 
 * Remove the schema; it was only used to specify the location of the
