@@ -220,7 +220,6 @@ add_listener (GSignalEmissionHook listener,
   if (type)
     {
       signal_id  = g_signal_lookup (signal_name, type);
-      g_print ("[atk-util] detail string == %s\n", detail_string);
       detail_quark = g_quark_from_string (detail_string);
 
       if (signal_id > 0)
