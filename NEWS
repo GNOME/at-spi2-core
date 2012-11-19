@@ -1,3 +1,16 @@
+What's new in at-spi2-core 2.7.2:
+
+* Only call an event listener once per event, even if the listener registered
+  for both the event and a superset of the event.
+
+* Don't distribute dbind-config.h (BGO#688083).
+
+* Fix gtk-doc for Atspi-Registry (BGO#688224).
+
+* Some introspection fixes to make vapigen happy (BGO#688223).
+
+* [registry] Fixed a crash handling DeregisterKeystrokeListener.
+
 What's new in at-spi2-core 2.7.1:
 
 * Update the cache in response to role change notifications (BGO#685469).
