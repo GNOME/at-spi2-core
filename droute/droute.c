@@ -107,7 +107,7 @@ path_new (DRouteContext *cnx,
     new_path->properties = g_hash_table_new_full ((GHashFunc)str_pair_hash,
                                                   str_pair_equal,
                                                   g_free,
-                                                  NULL);
+                                                  g_free);
 
     new_path->introspect_children_cb = introspect_children_cb;
     new_path->introspect_children_data = introspect_children_data;
@@ -123,7 +123,7 @@ path_free (DRoutePath *path, gpointer user_data)
     g_free (path->path);
     g_string_chunk_free  (path->chunks);
     g_ptr_array_free     (path->interfaces, TRUE);
-    g_ptr_array_free     (path->introspection, FALSE);
+    g_free(g_ptr_array_free     (path->introspection, FALSE));
     g_hash_table_destroy (path->methods);
     g_hash_table_destroy (path->properties);
 }
