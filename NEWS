@@ -1,3 +1,10 @@
+Changes in version 2.7.2:
+==========================
+*
+* Bug 686801: Extend atk_add_global_event_listener in order to support
+*   signal details
+* Updated Thai translation.
+
 Changes in version 2.6.0:
 ==========================
 *
