@@ -680,7 +680,6 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
       !g_strcmp0(member, "NameOwnerChanged"))
     {
       char *name, *old, *new;
-      result = DBUS_HANDLER_RESULT_HANDLED;
       if (dbus_message_get_args (message, NULL,
                                  DBUS_TYPE_STRING, &name,
                                  DBUS_TYPE_STRING, &old,
