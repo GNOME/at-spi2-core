@@ -262,7 +262,8 @@ register_reply (DBusPendingCall *pending, void *user_data)
     }
   dbus_message_unref (reply);
 
-  get_registered_event_listeners (spi_global_app_data);
+  if (!spi_global_app_data->events_initialized)
+    get_registered_event_listeners (spi_global_app_data);
 }
 
 static gboolean
@@ -274,6 +275,9 @@ register_application (SpiBridge * app)
   DBusPendingCall *pending;
 
   dbus_error_init (&error);
+
+  g_free (app->desktop_name);
+  g_free (app->desktop_path);
 
   /* These will be overridden when we get a reply, but in practice these
      defaults should always be correct */
@@ -651,6 +655,7 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
   const char *interface = dbus_message_get_interface (message);
   const char *member = dbus_message_get_member (message);
   DBusHandlerResult result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+  static gboolean registry_lost = FALSE;
 
   if (dbus_message_get_type (message) != DBUS_MESSAGE_TYPE_SIGNAL)
     return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
@@ -686,7 +691,17 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
                                  DBUS_TYPE_STRING, &new,
                                  DBUS_TYPE_INVALID))
         {
-          if (*old != '\0' && *new == '\0')
+          if (!strcmp (name, "org.a11y.atspi.Registry"))
+            {
+              if (registry_lost && !old[0])
+                {
+                  register_application (spi_global_app_data);
+                  registry_lost = FALSE;
+                }
+              else if (!new[0])
+                registry_lost = TRUE;
+            }
+          else if (*old != '\0' && *new == '\0')
               spi_atk_remove_client (old);
         }
     }
@@ -921,6 +936,7 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
   /* Set up filter and match rules to catch signals */
   dbus_bus_add_match (spi_global_app_data->bus, "type='signal', interface='org.a11y.atspi.Registry', sender='org.a11y.atspi.Registry'", NULL);
   dbus_bus_add_match (spi_global_app_data->bus, "type='signal', interface='org.a11y.atspi.DeviceEventListener', sender='org.a11y.atspi.Registry'", NULL);
+  dbus_bus_add_match (spi_global_app_data->bus, "type='signal', arg0='org.a11y.atspi.Registry', interface='org.freedesktop.DBus', member='NameOwnerChanged'", NULL);
   dbus_connection_add_filter (spi_global_app_data->bus, signal_filter, NULL,
                               NULL);
 
