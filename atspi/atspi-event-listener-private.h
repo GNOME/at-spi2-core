@@ -38,6 +38,9 @@ void _atspi_send_event (AtspiEvent *e);
 
 DBusHandlerResult _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data);
 
+void
+_atspi_reregister_event_listeners ();
+
 G_END_DECLS
 
 #endif	/* _ATSPI_EVENT_LISTENER_H_ */

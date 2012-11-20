@@ -328,6 +328,35 @@ handle_remove_accessible (DBusConnection *bus, DBusMessage *message, void *user_
   return DBUS_HANDLER_RESULT_HANDLED;
 }
 
+static DBusHandlerResult
+handle_name_owner_changed (DBusConnection *bus, DBusMessage *message, void *user_data)
+{
+  const char *name, *new, *old;
+  static gboolean registry_lost = FALSE;
+
+  if (!dbus_message_get_args (message, NULL,
+                              DBUS_TYPE_STRING, &name,
+                              DBUS_TYPE_STRING, &old,
+                              DBUS_TYPE_STRING, &new,
+                              DBUS_TYPE_INVALID))
+  {
+    return;
+  }
+
+  if (!strcmp (name, "org.a11y.atspi.Registry"))
+  {
+    if (registry_lost && !old[0])
+    {
+      _atspi_reregister_event_listeners ();
+      _atspi_reregister_device_listeners ();
+      registry_lost = FALSE;
+    }
+    else if (!new[0])
+      registry_lost = TRUE;
+  }
+  return DBUS_HANDLER_RESULT_HANDLED;
+}
+
 static gboolean
 add_app_to_desktop (AtspiAccessible *a, const char *bus_name)
 {
@@ -702,6 +731,10 @@ process_deferred_message (BusDataClosure *closure)
   {
     handle_remove_accessible (closure->bus, closure->message, closure->data);
   }
+  if (dbus_message_is_signal (closure->message, "org.freedesktop.DBus", "NameOwnerChanged"))
+  {
+    handle_name_owner_changed (closure->bus, closure->message, closure->data);
+  }
 }
 
 static GQueue *deferred_messages = NULL;
@@ -767,6 +800,11 @@ atspi_dbus_filter (DBusConnection *bus, DBusMessage *message, void *data)
   if (dbus_message_is_signal (message, atspi_interface_cache, "RemoveAccessible"))
   {
     return defer_message (bus, message, data);
+  }
+  if (dbus_message_is_signal (message, "org.freedesktop.DBus", "NameOwnerChanged"))
+  {
+    defer_message (bus, message, data);
+    return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
   }
   return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 }
@@ -864,6 +902,10 @@ atspi_init (void)
   match = g_strdup_printf ("type='signal',interface='%s',member='StateChanged'", atspi_interface_event_object);
   dbus_bus_add_match (bus, match, NULL);
   g_free (match);
+
+  dbus_bus_add_match (bus,
+                      "type='signal', interface='org.freedesktop.DBus', member='NameOwnerChanged'",
+                      NULL);
 
   no_cache = g_getenv ("ATSPI_NO_CACHE");
   if (no_cache && g_strcmp0 (no_cache, "0") != 0)

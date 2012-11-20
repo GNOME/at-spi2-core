@@ -34,4 +34,8 @@
 
 #include "atspi.h"
 
+G_BEGIN_DECLS
+void _atspi_reregister_device_listeners ();
+G_END_DECLS
+
 #endif	/* _ATSPI_PRIVATE_H_ */

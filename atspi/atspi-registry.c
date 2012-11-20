@@ -26,6 +26,17 @@
 
 #include "atspi-private.h"
 
+typedef struct
+{
+  AtspiDeviceListener *listener;
+  GArray             *key_set;
+  AtspiKeyMaskType         modmask;
+  AtspiKeyEventMask        event_types;
+  gint sync_type;
+} DeviceListenerEntry;
+
+static GList *device_listeners;
+
 /**
  * atspi_get_desktop_count:
  *
@@ -86,6 +97,70 @@ atspi_get_desktop_list ()
   return array;
 }
 
+static gboolean
+notify_keystroke_listener (DeviceListenerEntry *e)
+{
+  gchar *path = _atspi_device_listener_get_path (e->listener);
+  gint                                i;
+  dbus_uint32_t d_modmask = e->modmask;
+  dbus_uint32_t d_event_types = e->event_types;
+  AtspiEventListenerMode     listener_mode;
+  gboolean                          retval = FALSE;
+  DBusError d_error;
+
+  listener_mode.synchronous =
+	  (dbus_bool_t) ((e->sync_type & ATSPI_KEYLISTENER_SYNCHRONOUS)!=0);
+  listener_mode.preemptive =
+	  (dbus_bool_t) ((e->sync_type & ATSPI_KEYLISTENER_CANCONSUME)!=0);
+  listener_mode.global =
+	  (dbus_bool_t) ((e->sync_type & ATSPI_KEYLISTENER_ALL_WINDOWS)!=0);
+
+  dbus_error_init (&d_error);
+  dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry,
+                               atspi_path_dec, atspi_interface_dec,
+                               "RegisterKeystrokeListener", &d_error,
+                               "oa(iisi)uu(bbb)=>b", path, e->key_set,
+                               e->modmask, e->event_types, &listener_mode,
+                               &retval);
+  if (dbus_error_is_set (&d_error))
+    {
+      g_warning ("RegisterKeystrokeListener failed: %s", d_error.message);
+      dbus_error_free (&d_error);
+    }
+
+  g_free (path);
+
+  return retval;
+}
+
+static void
+device_listener_entry_free (DeviceListenerEntry *e)
+{
+  g_array_free (e->key_set, TRUE);
+  g_free (e);
+}
+
+static void
+unregister_listener (gpointer data, GObject *object)
+{
+  GList *l;
+  AtspiDeviceListener *listener = ATSPI_DEVICE_LISTENER (object);
+
+  for (l = device_listeners; l;)
+    {
+      DeviceListenerEntry *e = l->data;
+      if (e->listener == listener)
+        {
+          GList *next = l->next;
+          device_listener_entry_free (e);
+          device_listeners = g_list_delete_link (device_listeners, l);
+          l = next;
+        }
+      else
+        l = l->next;
+    }
+}
+
 /**
  * atspi_register_keystroke_listener:
  * @listener:  a pointer to the #AtspiDeviceListener for which
@@ -125,29 +200,25 @@ atspi_register_keystroke_listener (AtspiDeviceListener  *listener,
 					 AtspiKeyEventMask        event_types,
 					 gint sync_type, GError **error)
 {
-  GArray *d_key_set;
-  gchar *path = _atspi_device_listener_get_path (listener);
-  gint                                i;
-  dbus_uint32_t d_modmask = modmask;
-  dbus_uint32_t d_event_types = event_types;
-  AtspiEventListenerMode     listener_mode;
-  gboolean                          retval = FALSE;
-  DBusError d_error;
+  DeviceListenerEntry *e;
 
-  if (!listener)
-    {
-      return retval;
-    }
+  g_return_val_if_fail (listener != NULL, FALSE);
 
-  /* copy the keyval filter values from the C api into the DBind KeySet */
+  e = g_new0 (DeviceListenerEntry, 1);
+  e->listener = listener;
+  e->modmask = modmask;
+  e->event_types = event_types;
+  e->sync_type = sync_type;
   if (key_set)
     {
-      d_key_set = g_array_sized_new (FALSE, TRUE, sizeof (AtspiKeyDefinition), key_set->len);
-      d_key_set->len = key_set->len;
-      for (i = 0; i < key_set->len; ++i)
+      gint i;
+      e->key_set = g_array_sized_new (FALSE, TRUE, sizeof (AtspiKeyDefinition),
+                                      key_set->len);
+      e->key_set->len = key_set->len;
+      for (i = 0; i < key_set->len; i++)
         {
 	  AtspiKeyDefinition *kd =  ((AtspiKeyDefinition *) key_set->data) + i;
-	  AtspiKeyDefinition *d_kd =  ((AtspiKeyDefinition *) d_key_set->data) + i;
+	  AtspiKeyDefinition *d_kd =  ((AtspiKeyDefinition *) e->key_set->data) + i;
           d_kd->keycode = kd->keycode;
 	  d_kd->keysym = kd->keysym;
 	  if (kd->keystring)
@@ -162,28 +233,12 @@ atspi_register_keystroke_listener (AtspiDeviceListener  *listener,
     }
   else
     {
-      d_key_set = g_array_sized_new (FALSE, TRUE, sizeof (AtspiKeyDefinition), 0);
-    }
-	
-  listener_mode.synchronous =
-	  (dbus_bool_t) ((sync_type & ATSPI_KEYLISTENER_SYNCHRONOUS)!=0);
-  listener_mode.preemptive =
-	  (dbus_bool_t) ((sync_type & ATSPI_KEYLISTENER_CANCONSUME)!=0);
-  listener_mode.global =
-	  (dbus_bool_t) ((sync_type & ATSPI_KEYLISTENER_ALL_WINDOWS)!=0);
-
-  dbus_error_init (&d_error);
-  dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry, atspi_path_dec, atspi_interface_dec, "RegisterKeystrokeListener", &d_error, "oa(iisi)uu(bbb)=>b", path, d_key_set, d_modmask, d_event_types, &listener_mode, &retval);
-  if (dbus_error_is_set (&d_error))
-    {
-      g_warning ("RegisterKeystrokeListener failed: %s", d_error.message);
-      dbus_error_free (&d_error);
+      e->key_set = g_array_sized_new (FALSE, TRUE, sizeof (AtspiKeyDefinition), 0);
     }
 
-  g_array_free (d_key_set, TRUE);
-  g_free (path);
-
-  return retval;
+  g_object_weak_ref (G_OBJECT (listener), unregister_listener, NULL);
+  device_listeners = g_list_prepend (device_listeners, e);
+  return notify_keystroke_listener (e);
 }
 
 /**
@@ -219,6 +274,7 @@ atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
   dbus_uint32_t d_modmask = modmask;
   dbus_uint32_t d_event_types = event_types;
   DBusError d_error;
+  GList *l;
 
   dbus_error_init (&d_error);
   if (!listener)
@@ -263,6 +319,24 @@ atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
       dbus_error_free (&d_error);
     }
 
+  unregister_listener (listener, NULL);
+  for (l = device_listeners; l;)
+    {
+      /* TODO: This code is all wrong / doesn't match what is in
+ *       deviceeventcontroller.c. It would be nice to deprecate these methods
+ *       in favor of methods that return an ID for the registration that can
+ *       be passed to a deregister function, for instance. */
+      DeviceListenerEntry *e = l->data;
+      if (e->modmask == modmask && e->event_types == event_types)
+        {
+          GList *next = l->next;
+          device_listener_entry_free (e);
+          device_listeners = g_list_delete_link (device_listeners, l);
+          l = next;
+        }
+      else
+        l = l->next;
+    }
   g_array_free (d_key_set, TRUE);
   g_free (path);
   return TRUE;
@@ -452,4 +526,16 @@ atspi_key_definition_free (AtspiKeyDefinition *kd)
   g_free (kd);
 }
 
+void
+_atspi_reregister_device_listeners ()
+{
+  GList *l;
+  DeviceListenerEntry *e;
+
+  for (l = device_listeners; l; l = l->next)
+    {
+      e = l->data;
+      notify_keystroke_listener (e);
+    }
+}
 G_DEFINE_BOXED_TYPE (AtspiKeyDefinition, atspi_key_definition, atspi_key_definition_copy, atspi_key_definition_free)

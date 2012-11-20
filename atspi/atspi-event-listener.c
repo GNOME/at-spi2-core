@@ -31,6 +31,7 @@ typedef struct
   AtspiEventListenerCB callback;
   void *user_data;
   GDestroyNotify callback_destroyed;
+  char *event_type;
   char *category;
   char *name;
   char *detail;
@@ -400,6 +401,7 @@ static void
 listener_entry_free (EventListenerEntry *e)
 {
   gpointer callback = (e->callback == remove_datum ? (gpointer)e->user_data : (gpointer)e->callback);
+  g_free (e->event_type);
   g_free (e->category);
   g_free (e->name);
   if (e->detail) g_free (e->detail);
@@ -511,6 +513,25 @@ atspi_event_listener_register (AtspiEventListener *listener,
                                                       event_type, error);
 }
 
+static gboolean
+notify_event_registered (EventListenerEntry *e)
+{
+  DBusMessage *message, *reply;
+
+  message = dbus_message_new_method_call (atspi_bus_registry,
+	atspi_path_registry,
+	atspi_interface_registry,
+	"RegisterEvent");
+  if (!message)
+    return FALSE;
+  dbus_message_append_args (message, DBUS_TYPE_STRING, &e->event_type, DBUS_TYPE_INVALID);
+  reply = _atspi_dbus_send_with_reply_and_block (message, NULL);
+
+  if (reply)
+    dbus_message_unref (reply);
+  return TRUE;
+}
+
 /**
  * atspi_event_listener_register_from_callback:
  * @callback: (scope notified): the #AtspiEventListenerCB to be registered 
@@ -551,6 +572,7 @@ atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
   }
 
   e = g_new (EventListenerEntry, 1);
+  e->event_type = g_strdup (event_type);
   e->callback = callback;
   e->user_data = user_data;
   e->callback_destroyed = callback_destroyed;
@@ -578,18 +600,21 @@ atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
   }
   g_ptr_array_free (matchrule_array, TRUE);
 
-  message = dbus_message_new_method_call (atspi_bus_registry,
-	atspi_path_registry,
-	atspi_interface_registry,
-	"RegisterEvent");
-  if (!message)
-    return FALSE;
-  dbus_message_append_args (message, DBUS_TYPE_STRING, &event_type, DBUS_TYPE_INVALID);
-  reply = _atspi_dbus_send_with_reply_and_block (message, error);
-  if (reply)
-    dbus_message_unref (reply);
-
+  notify_event_registered (e);
   return TRUE;
+}
+
+void
+_atspi_reregister_event_listeners ()
+{
+  GList *l;
+  EventListenerEntry *e;
+
+  for (l = event_listeners; l; l = l->next)
+    {
+      e = l->data;
+      notify_event_registered (e);
+    }
 }
 
 /**
