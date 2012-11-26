@@ -116,7 +116,7 @@ atspi_value_set_current_value (AtspiValue *obj, gdouble new_value, GError **erro
                                             accessible->parent.path,
                                             DBUS_INTERFACE_PROPERTIES, "Set");
     if (!message)
-      return NULL;
+      return FALSE;
     dbus_message_append_args (message, DBUS_TYPE_STRING, &atspi_interface_value,
                                DBUS_TYPE_STRING, &str_curval,
                               DBUS_TYPE_INVALID);

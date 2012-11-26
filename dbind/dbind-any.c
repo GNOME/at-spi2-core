@@ -306,7 +306,7 @@ dbind_any_free_r (const char **type, void **data)
 
         offset = 0 ;
         while (**type != DBUS_DICT_ENTRY_END_CHAR) {
-            char *subt = *type;
+            const char *subt = *type;
                         offset = ALIGN_VALUE (offset, dbind_find_c_alignment (*type));
                         *data = PTR_PLUS (data0, offset);
             dbind_any_free_r (type, data);
@@ -424,7 +424,7 @@ dbind_any_marshal (DBusMessageIter *iter,
 
         offset = 0 ;
         while (**type != DBUS_DICT_ENTRY_END_CHAR) {
-            char *subt = *type;
+            const char *subt = *type;
                         offset = ALIGN_VALUE (offset, dbind_find_c_alignment (*type));
                         *data = PTR_PLUS (data0, offset);
             dbind_any_marshal (&sub, type, data);
@@ -626,7 +626,7 @@ dbind_any_demarshal (DBusMessageIter *iter,
         dbus_message_iter_recurse (iter, &child);
 
         while (**type != DBUS_DICT_ENTRY_END_CHAR) {
-            char *subt = *type;
+            const char *subt = *type;
                         offset = ALIGN_VALUE (offset, dbind_find_c_alignment (*type));
                         *data = PTR_PLUS (data0, offset);
             dbind_any_demarshal (&child, type, data);
