@@ -191,7 +191,7 @@ add_object (SpiCache * cache, GObject * gobj)
 
 /*---------------------------------------------------------------------------*/
 
-static GStaticRecMutex cache_mutex        = G_STATIC_REC_MUTEX_INIT;
+static GRecMutex cache_mutex;
 
 #ifdef SPI_ATK_DEBUG
 static GStaticMutex recursion_check_guard = G_STATIC_MUTEX_INIT;
@@ -324,7 +324,7 @@ child_added_listener (GSignalInvocationHint * signal_hint,
 
   const gchar *detail = NULL;
 
-  g_static_rec_mutex_lock (&cache_mutex);
+  g_rec_mutex_lock (&cache_mutex);
 
   /* 
    * Ensure that only accessibles already in the cache
@@ -351,7 +351,7 @@ child_added_listener (GSignalInvocationHint * signal_hint,
           child = g_value_get_pointer (param_values + 2);
           if (!child)
             {
-              g_static_rec_mutex_unlock (&cache_mutex);
+              g_rec_mutex_unlock (&cache_mutex);
               return;
             }
 
@@ -366,7 +366,7 @@ child_added_listener (GSignalInvocationHint * signal_hint,
 #endif
     }
 
-  g_static_rec_mutex_unlock (&cache_mutex);
+  g_rec_mutex_unlock (&cache_mutex);
 
   return TRUE;
 }
@@ -379,7 +379,7 @@ toplevel_added_listener (AtkObject * accessible,
 {
   SpiCache *cache = spi_global_cache;
 
-  g_static_rec_mutex_lock (&cache_mutex);
+  g_rec_mutex_lock (&cache_mutex);
 
   g_return_if_fail (ATK_IS_OBJECT (accessible));
 
@@ -407,7 +407,7 @@ toplevel_added_listener (AtkObject * accessible,
 #endif
     }
 
-  g_static_rec_mutex_unlock (&cache_mutex);
+  g_rec_mutex_unlock (&cache_mutex);
 }
 
 /*---------------------------------------------------------------------------*/
