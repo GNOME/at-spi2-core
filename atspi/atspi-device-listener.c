@@ -115,7 +115,7 @@ id_is_free (guint id)
 }
 
 static AtspiDeviceEvent *
-atspi_device_event_copy (AtspiDeviceEvent *src)
+atspi_device_event_copy (const AtspiDeviceEvent *src)
 {
   AtspiDeviceEvent *dst = g_new0 (AtspiDeviceEvent, 1);
   dst->type = src->type;
@@ -247,7 +247,7 @@ AtspiDeviceListener *
 atspi_device_listener_new_simple (AtspiDeviceListenerSimpleCB callback,
                            GDestroyNotify callback_destroyed)
 {
-  return atspi_device_listener_new (device_remove_datum, callback_destroyed, callback);
+  return atspi_device_listener_new (device_remove_datum, callback, callback_destroyed);
 }
 
 /**
