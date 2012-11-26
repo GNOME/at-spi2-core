@@ -109,44 +109,32 @@ libatspi_la_SOURCES =		\
 #atspi-constants.h: $(top_srcdir)/xml/spec.xml $(top_srcdir)/tools/c-constants-gen.py
 #	python $(top_srcdir)/tools/c-constants-gen.py Atspi $(top_srcdir)/xml/spec.xml atspi-constants
 
-if HAVE_INTROSPECTION
-INTROSPECTION_FILES = $(libatspi_la_SOURCES)
+-include $(INTROSPECTION_MAKEFILE)
+INTROSPECTION_GIRS =
+INTROSPECTION_SCANNER_ARGS = --add-include-path=$(srcdir) --warn-all
+INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
 
-Atspi-2.0.gir: $(INTROSPECTION_SCANNER) \
-		libatspi.la \
-		$(INTROSPECTION_FILES)
-	$(AM_V_GEN)$(INTROSPECTION_SCANNER) -v \
-		--namespace Atspi \
-		--nsversion=2.0 \
-		-I$(top_builddir) \
-		-I$(top_srcdir) \
-		--include=GLib-2.0 \
-		--include=GObject-2.0 \
-		--libtool="$(top_builddir)/libtool" \
-		--library=libatspi.la \
-		--library=$(top_builddir)/dbind/libdbind.la \
-		--pkg dbus-1 \
-		--pkg-export atspi-2 \
-		--c-include "atspi/atspi.h" \
-		--warn-all \
-		--output $@ \
-		$(addprefix $(srcdir)/, $(INTROSPECTION_FILES))
+if HAVE_INTROSPECTION
+
+Atspi-2.0.gir: libatspi.la
+Atspi_2_0_gir_INCLUDES = GLib-2.0 GObject-2.0
+Atspi_2_0_gir_PACKAGES = dbus-1
+Atspi_2_0_gir_EXPORT_PACKAGES = atspi-2
+Atspi_2_0_gir_CFLAGS = -I$(top_builddir) -I$(top_srcdir)
+Atspi_2_0_gir_LIBS = libatspi.la $(top_builddir)/dbind/libdbind.la
+Atspi_2_0_gir_FILES = $(libatspi_la_SOURCES)
+Atspi_2_0_gir_SCANNERFLAGS = --namespace Atspi --nsversion=2.0
+INTROSPECTION_SCANNER_ARGS += --c-include='atspi/atspi.h'
+INTROSPECTION_GIRS += Atspi-2.0.gir
 
 girdir = $(datadir)/gir-1.0
-gir_DATA = Atspi-2.0.gir
+gir_DATA = $(INTROSPECTION_GIRS)
 
-%.typelib: %.gir $(INTROSPECTION_COMPILER)
-	$(AM_V_GEN)$(top_builddir)/libtool --mode=execute \
-	    $(INTROSPECTION_COMPILER) \
-	        --includedir=$(srcdir) \
-	        --includedir=. \
-	        $(INTROSPECTION_COMPILER_OPTS) $< -o $(@F)
-
-typelibsdir = $(libdir)/girepository-1.0/
-typelibs_DATA = $(gir_DATA:.gir=.typelib)
+typelibdir = $(libdir)/girepository-1.0
+typelib_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)
 
 CLEANFILES = \
     $(gir_DATA) \
-    $(typelibs_DATA)
+    $(typelib_DATA)
 
 endif
