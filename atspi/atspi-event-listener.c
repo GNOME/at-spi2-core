@@ -802,6 +802,9 @@ detail_matches_listener (const char *event_detail, const char *listener_detail)
   if (!listener_detail)
     return TRUE;
 
+  if (!event_detail)
+    return (listener_detail ? FALSE : TRUE);
+
   return !(listener_detail [strcspn (listener_detail, ":")] == '\0'
                ? strncmp (listener_detail, event_detail,
                           strcspn (event_detail, ":"))
