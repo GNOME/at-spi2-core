@@ -290,9 +290,10 @@ handle_disconnection (DBusConnection *bus, DBusMessage *message, void *user_data
           for (i = 0; i < reg->apps->len; i++)
             {
               SpiReference *ref  = g_ptr_array_index (reg->apps, i);
-              while (!g_strcmp0 (old, ref->name))
+              if (!g_strcmp0 (old, ref->name))
                 {
                   remove_application (reg, bus, i);
+                  i--;
                 }
             } 
 
