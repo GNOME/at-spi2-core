@@ -1179,7 +1179,7 @@ reset_hung_process (DBusPendingCall *pending, void *data)
     if (!strcmp (l->data, dest))
     {
       g_free (l->data);
-      hung_processes = g_slist_remove (hung_processes, data);
+      hung_processes = g_slist_remove (hung_processes, l->data);
       break;
     }
   }
