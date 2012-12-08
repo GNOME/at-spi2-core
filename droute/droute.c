@@ -126,6 +126,7 @@ path_free (DRoutePath *path, gpointer user_data)
     g_free(g_ptr_array_free     (path->introspection, FALSE));
     g_hash_table_destroy (path->methods);
     g_hash_table_destroy (path->properties);
+    g_free (path);
 }
 
 static void *
@@ -154,6 +155,7 @@ void
 droute_free (DRouteContext *cnx)
 {
     g_ptr_array_foreach (cnx->registered_paths, (GFunc) path_free, NULL);
+    g_ptr_array_free (cnx->registered_paths, TRUE);
     g_free (cnx);
 }
 
