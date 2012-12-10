@@ -1,3 +1,19 @@
+What's new in at-spi2-core 2.6.3:
+
+* Fix a crash when receiving a malformed event.
+
+* Fix atspi_accessible_get_index_in_parent when the parent is not cached
+    
+* Fix crash in atspi_device_listener_new_simple.
+
+* registry: Fix a crash when removing hung processes.
+
+* registry: Fix deregistering of applications.
+
+* registry: Fix crash handling DeregisterKeystrokeListener
+
+* Fix some compiler warnings.
+
 What's new in at-spi2-core 2.6.2:
 
 * Don't output a warning when a p2p connection isn't available.
