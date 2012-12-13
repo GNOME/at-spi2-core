@@ -862,7 +862,7 @@ spi_display_name (void)
  *
  * Connects to the accessibility registry and initializes the SPI.
  *
- * Returns: 0 on success, otherwise an integer error code.  
+ * Returns: 0 on success, 1 if already initialized, or an integer error code.  
  **/
 int
 atspi_init (void)

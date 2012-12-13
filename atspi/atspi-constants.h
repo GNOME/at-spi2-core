@@ -639,19 +639,20 @@ typedef enum {
  * @ATSPI_KEY_PRESS: Emulates the pressing of a hardware keyboard key.
  * @ATSPI_KEY_RELEASE: Emulates the release of a hardware keyboard key.
  * @ATSPI_KEY_PRESSRELEASE: Emulates the pressing and immediate releasing
- * ofa hardware keyboard key.
+ * of a hardware keyboard key.
  * @ATSPI_KEY_SYM: A symbolic key event is generated, without specifying a
  * hardware key. Note: if the keysym is not present in the current keyboard
  * map, the #AtspiDeviceEventController instance has a limited ability to 
  * generate such keysyms on-the-fly. Reliability of GenerateKeyboardEvent 
  * calls using out-of-keymap keysyms will vary from system to system, and on 
- * the number of different out-of-keymap being generated in quick succession. 
+ * the number of different out-of-keymap keysyms being generated in quick
+ * succession. 
  * In practice this is rarely significant, since the keysyms of interest to 
  * AT clients and keyboard emulators are usually part of the current keymap, 
- * i.e. present on the system keyboard for the current locale (even if a 
- * physical hardware keyboard is not connected.
+ * i.e., present on the system keyboard for the current locale (even if a 
+ * physical hardware keyboard is not connected).
  * @ATSPI_KEY_STRING: A string is converted to its equivalent keyboard events
- * and emitted. If the string consists of complex character or composed
+ * and emitted. If the string consists of complex characters or composed
  * characters which are not in the current keymap, string emission is
  * subject to the out-of-keymap limitations described for
  * @ATSPI_KEY_SYM. In practice this limitation primarily effects
