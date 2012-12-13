@@ -152,6 +152,7 @@ G_BEGIN_DECLS
  *@ATK_ROLE_IMAGE_MAP: An image map object. Usually a graphic with multiple hotspots, where each hotspot can be activated resulting in the loading of another document or section of a document. @Since: ATK-2.1.0
  *@ATK_ROLE_NOTIFICATION: A transitory object designed to present a message to the user, typically at the desktop level rather than inside a particular application.  @Since: ATK-2.1.0
  *@ATK_ROLE_INFO_BAR: An object designed to present a message to the user within an existing window. @Since: ATK-2.1.0
+ *@ATK_ROLE_LEVEL_BAR: A bar that serves as a level indicator to, for instance, show the strength of a password or the state of a battery.  @Since: ATK-2.7.3
  *@ATK_ROLE_LAST_DEFINED: not a valid role, used for finding end of the enumeration
  * 
  * Describes the role of an object
@@ -263,6 +264,7 @@ typedef enum
   ATK_ROLE_IMAGE_MAP,
   ATK_ROLE_NOTIFICATION,
   ATK_ROLE_INFO_BAR,
+  ATK_ROLE_LEVEL_BAR,
   ATK_ROLE_LAST_DEFINED
 } AtkRole;
 
