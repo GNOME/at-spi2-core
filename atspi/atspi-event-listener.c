@@ -117,7 +117,7 @@ callback_unref (gpointer callback)
 
 /**
  * atspi_event_listener_new:
- * @callback: (scope notified): An #AtspiEventListenerSimpleCB to be called
+ * @callback: (scope notified): An #AtspiEventListenerCB to be called
  * when an event is fired.
  * @user_data: (closure): data to pass to the callback.
  * @callback_destroyed: A #GDestroyNotify called when the listener is freed

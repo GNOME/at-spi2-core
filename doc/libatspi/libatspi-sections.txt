@@ -371,6 +371,7 @@ AtspiEventListenerSimpleCB
 AtspiEventListener
 AtspiEventListenerClass
 atspi_event_listener_get_type
+atspi_event_listener_new
 atspi_event_listener_new_simple
 atspi_event_listener_register
 atspi_event_listener_register_from_callback
