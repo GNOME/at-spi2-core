@@ -68,9 +68,10 @@ interface and content.
 
 </para>
 
-@callback:
-@callback_destroyed:
-@Returns:
+@callback: 
+@user_data: 
+@callback_destroyed: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atspi_event_listener_new_simple ##### -->

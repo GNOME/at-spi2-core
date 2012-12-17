@@ -89,7 +89,7 @@ atspi_action_get_description (AtspiAction *obj, int i, GError **error)
  *        keybinding string is the "keyboard shortcut" which invokes the 
  *        action without posting any menus. 
  *        Meta-keys are indicated by the conventional strings
- *        "<Control>", "<Alt>", "<Shift>", "<Mod2>",
+ *        "&lt;Control&gt;", "&lt;Alt&gt;", "&lt;Shift&gt;", "&lt;Mod2&gt;",
  *        etc. (we use the same string as gtk_accelerator_name() in 
  *        gtk+-2.X.
  *

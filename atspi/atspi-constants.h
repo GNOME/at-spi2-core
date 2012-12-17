@@ -190,7 +190,7 @@ typedef enum {
  * enumeration.
  *
  * Enumeration used by #AtspiMatchRule to specify
- * how to interpret #AtspiAccesible objects.
+ * how to interpret #AtspiAccessible objects.
  *
  **/
 typedef enum {
