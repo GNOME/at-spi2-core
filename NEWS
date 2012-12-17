@@ -1,3 +1,11 @@
+What's new in at-spi2-atk 2.7.3:
+
+* re-register if the registry goes away and later returns.
+
+* Stop using deprecated glib functions.
+
+* Fix a few memory leaks.
+
 What's new in at-spi2-atk 2.7.2:
 
 * atk-adaptor: don't emit a critical in case the bridge was not initialized
