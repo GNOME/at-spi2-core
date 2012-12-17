@@ -1,3 +1,13 @@
+Changes in version 2.7.3:
+==========================
+*
+* Bug 689907: Problems with the management of
+*  ATK_STATE_SELECTABLE/ATK_STATE_SELECTED states at AtkObject
+* Bug 686746: Port introspection fixes from Vala
+* Bug 689952: Add introspection support for Windows MSVC builds
+* Other Visual C++ configuration files:
+*  * Use MultiByte character set
+
 Changes in version 2.7.2:
 ==========================
 *
