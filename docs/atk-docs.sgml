@@ -28,6 +28,7 @@
   <!ENTITY atk-AtkUtil SYSTEM "xml/atkutil.xml">
   <!ENTITY atk-AtkValue SYSTEM "xml/atkvalue.xml">
   <!ENTITY atk-AtkWindow SYSTEM "xml/atkwindow.xml">
+  <!ENTITY atk-AtkVersion SYSTEM "xml/atkversion.xml">
   <!ENTITY version SYSTEM "version.xml">
 ]>
 
@@ -67,6 +68,11 @@
     &atk-AtkUtil;
     &atk-AtkValue;
     &atk-AtkWindow;
+  </chapter>
+
+  <chapter id="atk">
+    <title>Utilities</title>
+    &atk-AtkVersion;
   </chapter>
 
   <index id="api-index-full">

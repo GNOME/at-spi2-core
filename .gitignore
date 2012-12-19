@@ -37,3 +37,4 @@ Makefile.in
 /missing
 /mkinstalldirs
 /stamp-h1
+atkversion.h

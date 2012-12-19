@@ -654,3 +654,17 @@ ATK_TYPE_WINDOW
 AtkWindowClass
 atk_window_get_type
 </SECTION>
+
+<SECTION>
+<FILE>atkversion</FILE>
+<TITLE>Versioning Utilities</TITLE>
+atk_get_major_version
+atk_get_minor_version
+atk_get_micro_version
+atk_get_binary_age
+atk_get_interface_age
+ATK_MAJOR_VERSION
+ATK_MINOR_VERSION
+ATK_MICRO_VERSION
+ATK_CHECK_VERSION
+</SECTION>

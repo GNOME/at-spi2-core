@@ -222,6 +222,7 @@ atk.pc
 atk-uninstalled.pc
 atk/Makefile
 atk/atk.rc
+atk/atkversion.h
 tests/Makefile
 build/Makefile
 build/win32/Makefile
