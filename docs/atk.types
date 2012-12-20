@@ -23,3 +23,4 @@ atk_table_get_type
 atk_text_get_type
 atk_util_get_type
 atk_value_get_type
+atk_window_get_type

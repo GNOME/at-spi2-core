@@ -639,3 +639,18 @@ ATK_TYPE_SOCKET
 AtkSocketClass
 atk_socket_get_type
 </SECTION>
+
+<SECTION>
+<FILE>atkwindow</FILE>
+<TITLE>AtkWindow</TITLE>
+AtkWindow
+<SUBSECTION Standard>
+ATK_IS_WINDOW
+ATK_IS_WINDOW_CLASS
+ATK_WINDOW
+ATK_WINDOW_CLASS
+ATK_WINDOW_GET_CLASS
+ATK_TYPE_WINDOW
+AtkWindowClass
+atk_window_get_type
+</SECTION>

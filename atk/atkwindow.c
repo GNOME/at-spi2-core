@@ -20,6 +20,18 @@
 #include "atkwindow.h"
 #include "atkmarshal.h"
 
+/**
+ * SECTION:atkwindow
+ * @Short_description: The ATK Interface provided by UI components that represent a top-level window.
+ * @Title: AtkWindow
+ * @See_also: #AtkObject
+ *
+ * #AtkWindow should be implemented by the UI elements that represent
+ * a top-level window, such as the main window of an application or
+ * dialog.
+ *
+ */
+
 enum {
   ACTIVATE,
   CREATE,
@@ -58,14 +70,95 @@ atk_window_default_init (AtkWindowIface *iface)
 
   if (!initialized)
     {
+      /**
+       * AtkWindow::activate:
+       * @object: the object which received the signal
+       *
+       * The signal #AtkWindow::activate is emitted when a window
+       * becomes the active window of the application or session.
+       *
+       * Since: 2.1.5
+       */
       atk_window_signals[ACTIVATE] = atk_window_add_signal ("activate");
+      /**
+       * AtkWindow::create:
+       * @object: the object which received the signal
+       *
+       * The signal #AtkWindow::create is emitted when a new window
+       * is created.
+       *
+       * Since: 2.1.5
+       */
       atk_window_signals[CREATE] = atk_window_add_signal ("create");
+      /**
+       * AtkWindow::deactivate:
+       * @object: the object which received the signal
+       *
+       * The signal #AtkWindow::deactivate is emitted when a window is
+       * no longer the active window of the application or session.
+       *
+       * Since: 2.1.5
+       */
       atk_window_signals[DEACTIVATE] = atk_window_add_signal ("deactivate");
+      /**
+       * AtkWindow::destroy:
+       * @object: the object which received the signal
+       *
+       * The signal #AtkWindow::destroy is emitted when a window is
+       * destroyed.
+       *
+       * Since: 2.1.5
+       */
       atk_window_signals[DESTROY] = atk_window_add_signal ("destroy");
+      /**
+       * AtkWindow::maximize:
+       * @object: the object which received the signal
+       *
+       * The signal #AtkWindow::maximize is emitted when a window
+       * is maximized.
+       *
+       * Since: 2.1.5
+       */
       atk_window_signals[MAXIMIZE] = atk_window_add_signal ("maximize");
+      /**
+       * AtkWindow::minimize:
+       * @object: the object which received the signal
+       *
+       * The signal #AtkWindow::minimize is emitted when a window
+       * is minimized.
+       *
+       * Since: 2.1.5
+       */
       atk_window_signals[MINIMIZE] = atk_window_add_signal ("minimize");
+      /**
+       * AtkWindow::move:
+       * @object: the object which received the signal
+       *
+       * The signal #AtkWindow::move is emitted when a window
+       * is moved.
+       *
+       * Since: 2.1.5
+       */
       atk_window_signals[MOVE] = atk_window_add_signal ("move");
+      /**
+       * AtkWindow::resize:
+       * @object: the object which received the signal
+       *
+       * The signal #AtkWindow::resize is emitted when a window
+       * is resized.
+       *
+       * Since: 2.1.5
+       */
       atk_window_signals[RESIZE] = atk_window_add_signal ("resize");
+      /**
+       * AtkWindow::restore:
+       * @object: the object which received the signal
+       *
+       * The signal #AtkWindow::restore is emitted when a window
+       * is restored.
+       *
+       * Since: 2.1.5
+       */
       atk_window_signals[RESTORE] = atk_window_add_signal ("restore");
 
       initialized = TRUE;
