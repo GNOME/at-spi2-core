@@ -104,7 +104,7 @@ atspi_accessible_init (AtspiAccessible *accessible)
 {
 #ifdef DEBUG_REF_COUNTS
   accessible_count++;
-  printf("at-spi: init: %d objects\n", accessible_count);
+  g_print("at-spi: init: %d objects\n", accessible_count);
 #endif
 }
 
@@ -114,6 +114,8 @@ atspi_accessible_dispose (GObject *object)
   AtspiAccessible *accessible = ATSPI_ACCESSIBLE (object);
   AtspiEvent e;
   AtspiAccessible *parent;
+  GList *children;
+  GList *l;
 
   /* TODO: Only fire if object not already marked defunct */
   memset (&e, 0, sizeof (e));
@@ -148,6 +150,20 @@ atspi_accessible_dispose (GObject *object)
     g_object_unref (parent);
     accessible->accessible_parent = NULL;
   }
+
+  children = accessible->children;
+  accessible->children = NULL;
+  for (l = children; l; l = l->next)
+  {
+    AtspiAccessible *child = l->data;
+    if (child && child->accessible_parent == accessible)
+    {
+      g_object_unref (accessible);
+      child->accessible_parent = NULL;
+    }
+    g_object_unref (child);
+  }
+  g_list_free (children);
 
   G_OBJECT_CLASS (atspi_accessible_parent_class) ->dispose (object);
 }

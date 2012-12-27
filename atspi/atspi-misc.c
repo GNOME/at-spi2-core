@@ -124,10 +124,13 @@ _atspi_bus ()
 
 #define APP_IS_REGISTRY(app) (!strcmp (app->bus_name, atspi_bus_registry))
 
+static AtspiAccessible *desktop;
+
 static void
 cleanup ()
 {
   GHashTable *refs;
+  GList *l;
 
   refs = live_refs;
   live_refs = NULL;
@@ -142,6 +145,20 @@ cleanup ()
       dbus_connection_unref (bus);
       bus = NULL;
     }
+
+  if (!desktop)
+    return;
+  for (l = desktop->children; l;)
+  {
+    GList *next = l->next;
+    AtspiAccessible *child = l->data;
+    g_object_run_dispose (G_OBJECT (child->parent.app));
+    g_object_run_dispose (G_OBJECT (child));
+    l = next;
+  }
+  g_object_run_dispose (G_OBJECT (desktop->parent.app));
+  g_object_unref (desktop);
+  desktop = NULL;
 }
 
 static gboolean atspi_inited = FALSE;
@@ -247,6 +264,7 @@ ref_accessible (const char *app_name, const char *path)
     {
       app->root = _atspi_accessible_new (app, atspi_path_root);
       app->root->accessible_parent = atspi_get_desktop (0);
+      app->root->accessible_parent->children = g_list_append (app->root->accessible_parent->children, g_object_ref (app->root));
     }
     return g_object_ref (app->root);
   }
@@ -259,8 +277,7 @@ ref_accessible (const char *app_name, const char *path)
   a = _atspi_accessible_new (app, path);
   if (!a)
     return NULL;
-  g_hash_table_insert (app->hash, g_strdup (a->parent.path), a);
-  g_object_ref (a);	/* for the hash */
+  g_hash_table_insert (app->hash, g_strdup (a->parent.path), g_object_ref (a));
   return a;
 }
 
@@ -354,6 +371,18 @@ handle_name_owner_changed (DBusConnection *bus, DBusMessage *message, void *user
     else if (!new[0])
       registry_lost = TRUE;
   }
+  else
+  {
+    AtspiAccessible *desktop = atspi_get_desktop (0);
+    GList *l;
+    for (l = desktop->children; l; l = l->next)
+    {
+      AtspiAccessible *child = l->data;
+      if (!strcmp (child->parent.app->bus_name, old))
+        g_object_run_dispose (G_OBJECT (child->parent.app));
+    }
+    g_object_unref (desktop);
+  }
   return DBUS_HANDLER_RESULT_HANDLED;
 }
 
@@ -361,16 +390,10 @@ static gboolean
 add_app_to_desktop (AtspiAccessible *a, const char *bus_name)
 {
   AtspiAccessible *obj = ref_accessible (bus_name, atspi_path_root);
-  if (obj)
-  {
-    a->children = g_list_append (a->children, obj);
-    return TRUE;
-  }
-  else
-  {
-    g_warning ("AT-SPI: Error calling getRoot for %s", bus_name);
-  }
-  return FALSE;
+  /* The app will be added to the desktop as a side-effect of calling
+   * ref_accessible */
+  g_object_unref (obj);
+  return (obj != NULL);
 }
 
 static void
@@ -418,8 +441,6 @@ remove_app_from_desktop (AtspiAccessible *a, const char *bus_name)
   unref_object_and_descendants (child);
   return TRUE;
 }
-
-static AtspiAccessible *desktop;
 
 void
 get_reference_from_iter (DBusMessageIter *iter, const char **app_name, const char **path)
@@ -560,8 +581,9 @@ ref_accessible_desktop (AtspiApplication *app)
   {
     return NULL;
   }
-  g_hash_table_insert (app->hash, desktop->parent.path, desktop);
-  g_object_ref (desktop);	/* for the hash */
+  g_hash_table_insert (app->hash, g_strdup (desktop->parent.path),
+                       g_object_ref (desktop));
+  app->root = g_object_ref (desktop);
   desktop->name = g_strdup ("main");
   message = dbus_message_new_method_call (atspi_bus_registry,
 	atspi_path_root,
@@ -597,17 +619,20 @@ ref_accessible_desktop (AtspiApplication *app)
   if (bus_name_dup)
     g_hash_table_insert (app_hash, bus_name_dup, app);
 
-  return desktop;
+  return g_object_ref (desktop);
 }
 
 AtspiAccessible *
 _atspi_ref_accessible (const char *app, const char *path)
 {
   AtspiApplication *a = get_application (app);
-  if (!a) return NULL;
+  if (!a)
+    return NULL;
   if ( APP_IS_REGISTRY(a))
   {
-    return a->root = ref_accessible_desktop (a);
+    if (!a->root)
+      g_object_unref (ref_accessible_desktop (a));	/* sets a->root */
+    return g_object_ref (a->root);
   }
   return ref_accessible (app, path);
 }

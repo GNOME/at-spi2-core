@@ -43,6 +43,8 @@ atspi_application_dispose (GObject *object)
 
   if (application->bus)
   {
+    if (application->bus != _atspi_bus ())
+      dbus_connection_close (application->bus);
     dbus_connection_unref (application->bus);
     application->bus = NULL;
   }
@@ -52,6 +54,12 @@ atspi_application_dispose (GObject *object)
     g_hash_table_foreach (application->hash, dispose_accessible, NULL);
     g_hash_table_unref (application->hash);
     application->hash = NULL;
+  }
+
+  if (application->root)
+  {
+    g_object_unref (application->root);
+    application->root = NULL;
   }
 
   G_OBJECT_CLASS (atspi_application_parent_class)->dispose (object);
