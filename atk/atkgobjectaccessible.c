@@ -18,6 +18,8 @@
  */
 
 #include <atk/atkgobjectaccessible.h>
+#include <atk/atkregistry.h>
+#include <atk/atkutil.h>
 
 static void       atk_gobject_accessible_class_init       (AtkGObjectAccessibleClass   *klass);
 static void       atk_real_gobject_accessible_initialize  (AtkObject         *atk_obj,
