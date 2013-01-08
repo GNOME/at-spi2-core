@@ -1,15 +1,28 @@
 #!/bin/sh
 # Run this to generate all the initial makefiles, etc.
 
-srcdir=`dirname $0`
-test -z "$srcdir" && srcdir=.
+test -n "$srcdir" || srcdir=`dirname "$0"`
+test -n "$srcdir" || srcdir=.
 
-PKG_NAME="atk"
-REQUIRED_AUTOMAKE_VERSION=1.7
+olddir=`pwd`
+cd "$srcdir"
 
-which gnome-autogen.sh || {
-    echo "You need to install gnome-common from the GNOME CVS"
-    exit 1
-}
+GTKDOCIZE=`which gtkdocize`
+if test -z $GTKDOCIZE; then
+        echo "*** No GTK-Doc found, please install it ***"
+        exit 1
+fi
 
-USE_GNOME2_MACROS=1 . gnome-autogen.sh
+AUTORECONF=`which autoreconf`
+if test -z $AUTORECONF; then
+        echo "*** No autoreconf found, please install it ***"
+        exit 1
+fi
+
+mkdir -p m4
+
+gtkdocize || exit $?
+autoreconf --force --install --verbose || exit $?
+
+cd "$olddir"
+test -n "$NOCONFIGURE" || "$srcdir/configure" "$@"
