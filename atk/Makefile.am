@@ -57,7 +57,7 @@ atk_sources = 	\
 	atktext.c		\
 	atkutil.c		\
 	atkmisc.c		\
-	atkvalue.c \
+	atkvalue.c 		\
 	atkversion.c 		\
 	atkwindow.c
 
@@ -68,7 +68,6 @@ libatk_1_0_la_SOURCES = 	\
 libatkincludedir=$(includedir)/atk-1.0/atk
 
 atk_headers = \
-        atk.h			\
         atkaction.h		\
         atkcomponent.h		\
         atkdocument.h		\
@@ -100,8 +99,9 @@ atk_headers = \
         atkwindow.h
 
 libatkinclude_HEADERS =		\
+        atk.h			\
 	$(atk_headers)		\
-	atkversion.h		\
+	$(top_builddir)/atk/atkversion.h \
 	atk-enum-types.h
 
 
@@ -158,6 +158,7 @@ introspection_sources = \
     $(atk_headers)	\
     $(atk_sources)
 introspection_generated_sources = \
+    $(top_builddir)/atk/atkversion.h 	\
     atk-enum-types.c	\
     atk-enum-types.h
 
