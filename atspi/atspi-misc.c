@@ -1173,6 +1173,17 @@ out:
     /* TODO: Set gerror */
     dbus_error_free (&err);
   }
+
+  if (dbus_message_get_type (reply) == DBUS_MESSAGE_TYPE_ERROR)
+  {
+    const char *err_str = NULL;
+    dbus_message_get_args (reply, NULL, DBUS_TYPE_STRING, &err_str, DBUS_TYPE_INVALID);
+    if (err_str)
+      g_set_error_literal (error, ATSPI_ERROR, ATSPI_ERROR_IPC, err_str);
+    dbus_message_unref (reply);
+    return NULL;
+  }
+
   return reply;
 }
 
