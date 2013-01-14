@@ -799,6 +799,7 @@ atspi_accessible_get_application (AtspiAccessible *obj, GError **error)
       if (root)
       {
         g_object_unref (obj);
+        g_object_unref (parent);
         if (atspi_accessible_get_role (root, NULL) == ATSPI_ROLE_DESKTOP_FRAME)
         {
           g_object_unref (root);
@@ -809,7 +810,11 @@ atspi_accessible_get_application (AtspiAccessible *obj, GError **error)
     }
     if (!parent || parent == obj ||
         atspi_accessible_get_role (parent, NULL) == ATSPI_ROLE_DESKTOP_FRAME)
+  {
+    if (parent)
+      g_object_unref (parent);
     return obj;
+  }
     g_object_unref (obj);
     obj = parent;
   }
