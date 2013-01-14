@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.7.4:
+
+* Fix some ref count leaks.
+
+* Some functions that return accessibles now propagate errors.
+
 What's new in at-spi2-core 2.7.3:
 
 * Atspi_accessible_get_index_in_parent no longer returns -1 if the object's
