@@ -1,3 +1,10 @@
+Changes in version 2.7.4:
+==========================
+*
+* Bug 690379: Atk lacks any kind of version utilities
+* Fixed out of tree builds caused by fix of bug 690379
+* Bug 656750: AtkWindow requires documentation
+
 Changes in version 2.7.3:
 ==========================
 *
