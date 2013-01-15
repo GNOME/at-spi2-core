@@ -1174,7 +1174,7 @@ out:
     dbus_error_free (&err);
   }
 
-  if (dbus_message_get_type (reply) == DBUS_MESSAGE_TYPE_ERROR)
+  if (reply && dbus_message_get_type (reply) == DBUS_MESSAGE_TYPE_ERROR)
   {
     const char *err_str = NULL;
     dbus_message_get_args (reply, NULL, DBUS_TYPE_STRING, &err_str, DBUS_TYPE_INVALID);
