@@ -357,7 +357,7 @@ handle_name_owner_changed (DBusConnection *bus, DBusMessage *message, void *user
                               DBUS_TYPE_STRING, &new,
                               DBUS_TYPE_INVALID))
   {
-    return;
+    return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
   }
 
   if (!strcmp (name, "org.a11y.atspi.Registry"))

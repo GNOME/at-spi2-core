@@ -84,8 +84,6 @@ G_DEFINE_TYPE(SpiRegistry, spi_registry, G_TYPE_OBJECT)
 static void
 spi_registry_class_init (SpiRegistryClass *klass)
 {
-  GObjectClass * object_class = (GObjectClass *) klass;
-
   spi_registry_parent_class = g_type_class_ref (G_TYPE_OBJECT);
 }
 
@@ -226,7 +224,6 @@ needs_mouse_poll (char **event)
 static void
 remove_events (SpiRegistry *registry, const char *bus_name, const char *event)
 {
-  event_data *evdata;
   gchar **remove_data;
   GList *list;
   gboolean mouse_found = FALSE;
@@ -340,7 +337,6 @@ ensure_proper_format (const char *name)
 static DBusHandlerResult
 signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-  SpiRegistry *registry = SPI_REGISTRY (user_data);
   guint res = DBUS_HANDLER_RESULT_HANDLED;
   const gint   type    = dbus_message_get_type (message);
   const char *iface = dbus_message_get_interface (message);
@@ -460,7 +456,6 @@ impl_GetAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
 static DBusMessage *
 impl_GetExtents (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  dbus_uint32_t coord_type;
   dbus_int32_t x = 0, y = 0, width = 1024, height = 768;
   DBusMessage *reply;
   DBusMessageIter iter, iter_struct;
@@ -608,6 +603,7 @@ impl_get_ToolkitName (DBusMessageIter * iter, void *user_data)
   return return_v_string (iter, "at-spi-registry");
 }
 
+static dbus_bool_t
 impl_get_ToolkitVersion (DBusMessageIter * iter, void *user_data)
 {
   return return_v_string (iter, "2.0");
@@ -953,7 +949,6 @@ impl_Introspect_root (DBusConnection * bus,
 {
   GString *output;
   gchar *final;
-  gint i;
 
   const gchar *pathstr = SPI_DBUS_PATH_ROOT;
 
@@ -982,7 +977,6 @@ impl_Introspect_registry (DBusConnection * bus,
 {
   GString *output;
   gchar *final;
-  gint i;
 
   const gchar *pathstr = SPI_DBUS_PATH_REGISTRY;
 

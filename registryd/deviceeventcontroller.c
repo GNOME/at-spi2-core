@@ -1002,7 +1002,6 @@ append_keystroke_listener (DBusMessageIter *iter, DEControllerKeyListener *liste
 {
   dbus_uint32_t d_uint;
   DBusMessageIter iter_struct, iter_subarray, iter_substruct;
-  GList *l;
   GSList *kl;
 
   if (!dbus_message_iter_open_container (iter, DBUS_TYPE_STRUCT, NULL,
@@ -1210,7 +1209,6 @@ time_elapsed (struct timeval *origin)
 static void
 reset_hung_process_from_ping (DBusPendingCall *pending, void *data)
 {
-  gchar *bus_name = data;
   GSList *l;
 
   for (l = hung_processes; l; l = l->next)
@@ -2436,7 +2434,6 @@ impl_get_keystroke_listeners (DBusConnection *bus,
 				  void *user_data)
 {
   SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
-  DEControllerKeyListener *dec_listener;
   DBusMessageIter iter, iter_array;
   DBusMessage *reply = dbus_message_new_method_return (message);
   GList *l;
@@ -2461,7 +2458,6 @@ impl_get_device_event_listeners (DBusConnection *bus,
 				  void *user_data)
 {
   SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
-  DEControllerKeyListener *dec_listener;
   DBusMessageIter iter, iter_array;
   GList *l;
   DBusMessage *reply = dbus_message_new_method_return (message);
@@ -2773,7 +2769,6 @@ static DBusMessage * impl_generate_keyboard_event (DBusConnection *bus, DBusMess
   dbus_int32_t keycode;
   char *keystring;
   dbus_uint32_t synth_type;
-  gint err;
   KeySym keysym;
   DEControllerPrivateData *priv;
   DBusMessage *reply = NULL;
@@ -3133,7 +3128,6 @@ impl_Introspect (DBusConnection * bus,
 {
   GString *output;
   gchar *final;
-  gint i;
 
   const gchar *pathstr = SPI_DBUS_PATH_DEC;
 
@@ -3162,7 +3156,6 @@ handle_dec_method_from_idle (DBusConnection *bus, DBusMessage *message, void *us
 {
   const gchar *iface   = dbus_message_get_interface (message);
   const gchar *member  = dbus_message_get_member (message);
-  const gint   type    = dbus_message_get_type (message);
   DBusHandlerResult result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
   DBusMessage *reply = NULL;
 

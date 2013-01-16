@@ -75,4 +75,5 @@ main()
   if (!child_pid)
     execlp ("gedit", "gedit", NULL);
   atspi_event_main ();
+  return 0;
 }
