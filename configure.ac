@@ -215,6 +215,8 @@ if test "x$enable_rebuilds" = "xyes" && \
 fi
 AC_SUBST(REBUILD)
 
+GNOME_COMPILE_WARNINGS([maximum])
+
 AC_CONFIG_FILES([
 Makefile
 po/Makefile.in
