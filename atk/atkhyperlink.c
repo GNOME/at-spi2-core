@@ -17,6 +17,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#undef ATK_DISABLE_DEPRECATED
 #include "atkhyperlink.h"
 #include "atkintl.h"
 
