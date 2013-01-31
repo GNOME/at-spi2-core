@@ -276,7 +276,8 @@ static const char roles[] =
   "grouping\0"
   "image map\0"
   "notification\0"
-  "info bar\0";
+  "info bar\0"
+  "level bar\0";
 
 static const guint16 roles_offsets[] = {
   0, 8, 26, 32, 42, 48, 57, 64, 
@@ -291,7 +292,7 @@ static const guint16 roles_offsets[] = {
   751, 757, 769, 782, 791, 810, 816, 822, 
   830, 845, 853, 858, 866, 883, 888, 893,
   913, 923, 933, 954, 976, 990, 1003, 1018,
-  1026, 1035, 1044, 1054, 1067
+  1026, 1035, 1044, 1054, 1067, 1075
 };
 
 /* This is a static assertion */
