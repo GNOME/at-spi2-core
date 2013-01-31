@@ -455,6 +455,7 @@ init_role_lookup_table (AtspiRole * role_table)
   role_table[ATK_ROLE_IMAGE_MAP] = ATSPI_ROLE_IMAGE_MAP;
   role_table[ATK_ROLE_NOTIFICATION] = ATSPI_ROLE_NOTIFICATION;
   role_table[ATK_ROLE_INFO_BAR] = ATSPI_ROLE_INFO_BAR;
+  role_table[ATK_ROLE_LEVEL_BAR] = ATSPI_ROLE_LEVEL_BAR;
   return TRUE;
 }
 
