@@ -1065,6 +1065,9 @@ typedef enum {
  * particular application.
  * @ATSPI_ROLE_INFO_BAR: An object designed to present a message to the user
  * within an existing window.
+ *@ATSPI_ROLE_LEVEL_BAR: A bar that serves as a level indicator to, for
+ * instance, show the strength of a password or the state of a battery. 
+ * Since: 2.8
  * @ATSPI_ROLE_LAST_DEFINED: Not a valid role, used for finding end of
  * enumeration.
  *
@@ -1176,6 +1179,7 @@ typedef enum {
     ATSPI_ROLE_IMAGE_MAP,
     ATSPI_ROLE_NOTIFICATION,
     ATSPI_ROLE_INFO_BAR,
+    ATSPI_ROLE_LEVEL_BAR,
     ATSPI_ROLE_LAST_DEFINED,
 } AtspiRole;
 

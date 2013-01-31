@@ -301,7 +301,8 @@ static const char *role_names [] =
   "grouping",
   "image map",
   "notification",
-  "info bar"
+  "info bar",
+  "level bar"
 };
 
 #define MAX_ROLES (sizeof (role_names) / sizeof (char *))
