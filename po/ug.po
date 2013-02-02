@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk 2.12 \n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=atk&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-02-26 01:57+0000\n"
-"PO-Revision-Date: 2005-06-17 13:10+0000\n"
-"Last-Translator: Sahran <sahran.ug@gmail.com>\n"
+"POT-Creation-Date: 2012-02-26 02:21+0000\n"
+"PO-Revision-Date: 2013-02-02 13:24+0900\n"
+"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Gnome Uighur Translation Project <gnome-uighur@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +21,7 @@ msgstr "تاللانغان ئۇلانما"
 
 #: ../atk/atkhyperlink.c:104
 msgid "Specifies whether the AtkHyperlink object is selected"
-msgstr "AtkHyperlink ئوبيېكت تاللانغان تاللانمىغانلىقىنى كۆرسەت"
+msgstr "AtkHyperlink نەڭىنىڭ تاللانغان تاللانمىغانلىقىنى كۆرسىتىدۇ"
 
 #: ../atk/atkhyperlink.c:110
 msgid "Number of Anchors"
@@ -29,7 +29,7 @@ msgstr "لەڭگەر سانى"
 
 #: ../atk/atkhyperlink.c:111
 msgid "The number of anchors associated with the AtkHyperlink object"
-msgstr "AtkHyperlink بىلەن باغلىنىشلىق بولغان  anchor لارنىڭ سانى"
+msgstr "AtkHyperlink بىلەن باغلىنىشلىق بولغان لەڭگەرلەرنىڭ سانى"
 
 #: ../atk/atkhyperlink.c:119
 msgid "End index"
@@ -37,7 +37,7 @@ msgstr "ئاخىرلىشىش ئىندېكسى"
 
 #: ../atk/atkhyperlink.c:120
 msgid "The end index of the AtkHyperlink object"
-msgstr "AtkHyperlink ئوبيېكتنىڭ ئاخىرلىشىش ئىندېكسى"
+msgstr "AtkHyperlink نەڭىنىڭ ئاخىرلىشىش ئىندېكسى"
 
 #: ../atk/atkhyperlink.c:128
 msgid "Start index"
@@ -45,7 +45,7 @@ msgstr "باشلىنىش ئىندېكسى"
 
 #: ../atk/atkhyperlink.c:129
 msgid "The start index of the AtkHyperlink object"
-msgstr "AtkHyperlink ئوبيېكتىنىڭ باشلىنىش ئىندېكسى"
+msgstr "AtkHyperlink نەڭىنىڭ باشلىنىش ئىندېكسى"
 
 #: ../atk/atkobject.c:74
 msgid "invalid"
@@ -81,7 +81,7 @@ msgstr "تاللاش كۆزنەكچىسى"
 
 #: ../atk/atkobject.c:82
 msgid "check menu item"
-msgstr "تىزىملىك تۈرىنى تاللا"
+msgstr "تاللىغىلى بولىدىغان تىزىملىك تۇرى"
 
 #: ../atk/atkobject.c:83
 msgid "color chooser"
@@ -93,7 +93,7 @@ msgstr "ئىستون قېشى"
 
 #: ../atk/atkobject.c:85
 msgid "combo box"
-msgstr "بىرىكمە رامكا"
+msgstr "بىرىكمە كۆزنەكچىسى"
 
 #: ../atk/atkobject.c:86
 msgid "dateeditor"
@@ -101,7 +101,7 @@ msgstr "چېسلا تەھرىرلىگۈچ"
 
 #: ../atk/atkobject.c:87
 msgid "desktop icon"
-msgstr "ئۈستەلئۈستى سىنبەلگە"
+msgstr "ئۈستەلئۈستى سىنبەلگىسى"
 
 #: ../atk/atkobject.c:88
 msgid "desktop frame"
@@ -121,7 +121,7 @@ msgstr "مۇندەرىجە پەنجىرىسى"
 
 #: ../atk/atkobject.c:92
 msgid "drawing area"
-msgstr "سىزمىچىلىق دائىرىسى"
+msgstr "سىزىش دائىرىسى"
 
 #: ../atk/atkobject.c:93
 msgid "file chooser"
@@ -146,7 +146,7 @@ msgstr "ئەينەك پەنجىرە"
 
 #: ../atk/atkobject.c:99
 msgid "html container"
-msgstr "HTML ساندۇقى"
+msgstr "HTML قاچىسى"
 
 #: ../atk/atkobject.c:100
 msgid "icon"
@@ -198,19 +198,19 @@ msgstr "بەتكۈچ"
 
 #: ../atk/atkobject.c:112
 msgid "page tab list"
-msgstr "بەتكۈچ تىزىملىكى"
+msgstr "بەتكۈچ تىزىمى"
 
 #: ../atk/atkobject.c:113
 msgid "panel"
-msgstr "تاختا"
+msgstr "پەنجىرە"
 
 #: ../atk/atkobject.c:114
 msgid "password text"
-msgstr "ئىم تېكىست"
+msgstr "ئىم تېكىستى"
 
 #: ../atk/atkobject.c:115
 msgid "popup menu"
-msgstr "قاڭقىش تىزىملىكى"
+msgstr "سەكرىمە تىزىملىك"
 
 #: ../atk/atkobject.c:116
 msgid "progress bar"
@@ -222,7 +222,7 @@ msgstr "بېسىلما توپچا"
 
 #: ../atk/atkobject.c:118
 msgid "radio button"
-msgstr "تاق تاللاش توپچا"
+msgstr "تاق تاللاش توپچىسى"
 
 #: ../atk/atkobject.c:119
 msgid "radio menu item"
@@ -234,7 +234,7 @@ msgstr "يىلتىز پەنجىرە"
 
 #: ../atk/atkobject.c:121
 msgid "row header"
-msgstr "قۇر ماۋزۇسى"
+msgstr "قۇر قېشى"
 
 #: ../atk/atkobject.c:122
 msgid "scroll bar"
@@ -298,11 +298,11 @@ msgstr "ئالماشتۇرغۇچ توپچا"
 
 #: ../atk/atkobject.c:137
 msgid "tool bar"
-msgstr "قورال بالدىقى"
+msgstr "قورال بالداق"
 
 #: ../atk/atkobject.c:138
 msgid "tool tip"
-msgstr "قورال ئەسكەرتىشى"
+msgstr "كۆرسەتمە"
 
 #: ../atk/atkobject.c:139
 msgid "tree"
@@ -346,7 +346,7 @@ msgstr "پروگرامما"
 
 #: ../atk/atkobject.c:149
 msgid "autocomplete"
-msgstr "ئۆزلۈكىدىن تاماملا"
+msgstr "ئۆزلۈكىدىن تاماملاش"
 
 #: ../atk/atkobject.c:150
 msgid "edit bar"
@@ -354,11 +354,11 @@ msgstr "تەھرىرلەش بالدىقى"
 
 #: ../atk/atkobject.c:151
 msgid "embedded component"
-msgstr "سىڭدۈرمە دېتال"
+msgstr "سىڭدۈرمە بۆلەك"
 
 #: ../atk/atkobject.c:152
 msgid "entry"
-msgstr "كىرگۈز"
+msgstr "كىرگۈ"
 
 #: ../atk/atkobject.c:153
 msgid "chart"
@@ -386,7 +386,7 @@ msgstr "دائىرە"
 
 #: ../atk/atkobject.c:159
 msgid "redundant object"
-msgstr "ئارتۇقچە ئوبيېكت"
+msgstr "ئارتۇقچە نەڭ"
 
 #: ../atk/atkobject.c:160
 msgid "form"
@@ -401,37 +401,30 @@ msgid "input method window"
 msgstr "كىرگۈزگۈچ كۆزنىكى"
 
 #: ../atk/atkobject.c:163
-#| msgid "table row header"
 msgid "table row"
 msgstr "جەدۋەل قۇرى"
 
 #: ../atk/atkobject.c:164
-#| msgid "tree table"
 msgid "tree item"
 msgstr "شاخسىمان تۇر"
 
 #: ../atk/atkobject.c:165
-#| msgid "document frame"
 msgid "document spreadsheet"
 msgstr "پۈتۈك جەدۋىلى"
 
 #: ../atk/atkobject.c:166
-#| msgid "document frame"
 msgid "document presentation"
 msgstr "پۈتۈك سۇنۇلمىسى"
 
 #: ../atk/atkobject.c:167
-#| msgid "document frame"
 msgid "document text"
 msgstr "پۈتۈك تېكىستى"
 
 #: ../atk/atkobject.c:168
-#| msgid "document frame"
 msgid "document web"
 msgstr "پۈتۈك تورتۇراسى"
 
 #: ../atk/atkobject.c:169
-#| msgid "document frame"
 msgid "document email"
 msgstr "پۈتۈك ئېلخېتى"
 
@@ -440,7 +433,6 @@ msgid "comment"
 msgstr "ئىزاھات"
 
 #: ../atk/atkobject.c:171
-#| msgid "list"
 msgid "list box"
 msgstr "تىزىم كۆزنەكچىسى"
 
@@ -449,17 +441,14 @@ msgid "grouping"
 msgstr "گۇرۇپپىلاش"
 
 #: ../atk/atkobject.c:173
-#| msgid "image"
 msgid "image map"
 msgstr "سۈرەت خەرىتىسى"
 
 #: ../atk/atkobject.c:174
-#| msgid "animation"
 msgid "notification"
 msgstr "ئۇقتۇرۇش"
 
 #: ../atk/atkobject.c:175
-#| msgid "menu bar"
 msgid "info bar"
 msgstr "ئۇچۇر بالدىقى"
 
@@ -469,23 +458,23 @@ msgstr "زىيارەتچان ئاتى"
 
 #: ../atk/atkobject.c:515
 msgid "Object instance's name formatted for assistive technology access"
-msgstr "قوشۇمچە تېخنىكىلىق ساقلاش ئۈچۈن ئوبيېكت ئەمەلىي مىسال ئاتى فورماتلاندى"
+msgstr "نەڭ ئۈلگىسىنىڭ ئاتى ياردەمچى تېخنىكا زىيارىتى ئۈچۈن پىچىلغان"
 
 #: ../atk/atkobject.c:521
 msgid "Accessible Description"
-msgstr "قوشۇمچە چۈشەندۈرۈلۈشى"
+msgstr "زىيارەتچان چۈشەندۈرۈلۈش"
 
 #: ../atk/atkobject.c:522
 msgid "Description of an object, formatted for assistive technology access"
-msgstr "ئوبيېكت چۈشەندۈرۈشى، قوشۇمچە تېخنىكىلىق ساقلاش ئۈچۈن  فورماتلاندى"
+msgstr "نەڭنىڭ چۈشەندۈرۈشى، ياردەمچى تېخنىكا زىيارىتى ئۈچۈن پىچىلغان"
 
 #: ../atk/atkobject.c:528
 msgid "Accessible Parent"
-msgstr "زىيارەتچان ئاتا  كونترول"
+msgstr "زىيارەتچان ئاتا تىزگىن"
 
 #: ../atk/atkobject.c:529
 msgid "Is used to notify that the parent has changed"
-msgstr "ئاتا كونترولنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+msgstr "ئاتا تىزگىننىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
 
 #: ../atk/atkobject.c:535
 msgid "Accessible Value"
@@ -497,11 +486,11 @@ msgstr "مەزكۇر قىممەتنىڭ ئۆزگەرگەنلىكىنى خەۋە�
 
 #: ../atk/atkobject.c:544
 msgid "Accessible Role"
-msgstr "زىيارەتچان رولى"
+msgstr "زىيارەتچان رول"
 
 #: ../atk/atkobject.c:545
 msgid "The accessible role of this object"
-msgstr "مەزكۇر ئوبيېكتنىڭ زىيارەتچان رولى"
+msgstr "مەزكۇر نەڭنىڭ زىيارەتچان رولى"
 
 #: ../atk/atkobject.c:553
 msgid "Accessible Layer"
@@ -509,7 +498,7 @@ msgstr "زىيارەتچان قەۋەت"
 
 #: ../atk/atkobject.c:554
 msgid "The accessible layer of this object"
-msgstr "مەزكۇر ئوبيېكتنىڭ زىيارەتچان قەۋىتى"
+msgstr "مەزكۇر نەڭنىڭ زىيارەتچان قەۋىتى"
 
 #: ../atk/atkobject.c:562
 msgid "Accessible MDI Value"
@@ -517,11 +506,11 @@ msgstr "زىيارەتچان MDI قىممىتى"
 
 #: ../atk/atkobject.c:563
 msgid "The accessible MDI value of this object"
-msgstr "مەزكۇر ئوبيېكتنىڭ زىيارەتچان MDI قىممىتى"
+msgstr "مەزكۇر نەڭنىڭ زىيارەتچان MDI قىممىتى"
 
 #: ../atk/atkobject.c:571
 msgid "Accessible Table Caption"
-msgstr "زىيارەتچان جەدۋەل تېمىسى"
+msgstr "زىيارەتچان جەدۋەل ماۋزۇسى"
 
 #: ../atk/atkobject.c:572
 msgid ""
@@ -563,7 +552,7 @@ msgstr "جەدۋەل قۇرىنىڭ چۈشەندۈرۈشىنىڭ ئۆزگەرگ�
 
 #: ../atk/atkobject.c:606
 msgid "Accessible Table Summary"
-msgstr "زىيارەتچان جەدۋەل خۇلاسىسى"
+msgstr "زىيارەتچان جەدۋەل ئۈزۈندىسى"
 
 #: ../atk/atkobject.c:607
 msgid "Is used to notify that the table summary has changed"
@@ -571,16 +560,16 @@ msgstr "جەدۋەل ئۈزۈندىسىنىڭ ئۆزگەرگەنلىكىنى خ�
 
 #: ../atk/atkobject.c:613
 msgid "Accessible Table Caption Object"
-msgstr "زىيارەتچان جەدۋەل تېما ئوبيېكتى"
+msgstr "زىيارەتچان جەدۋەل ماۋزۇ نەڭى"
 
 #: ../atk/atkobject.c:614
 msgid "Is used to notify that the table caption has changed"
-msgstr "جەدۋەل تېمىسىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+msgstr "جەدۋەل ماۋزۇسىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
 
 #: ../atk/atkobject.c:620
 msgid "Number of Accessible Hypertext Links"
-msgstr "زىيارەتچان مول تېكىست ئۇلانمىسىنىڭ سانى"
+msgstr "زىيارەتچان مول تېكىست ئۇلانمىلىرىنىڭ سانى"
 
 #: ../atk/atkobject.c:621
 msgid "The number of links which the current AtkHypertext has"
-msgstr "ھازىرقى AtkHypertext  نىڭ ئۇلىنىشلىرىنىڭ سانى"
+msgstr "ھازىرقى AtkHypertext  ئۇلانمىلىرىنىڭ سانى"
