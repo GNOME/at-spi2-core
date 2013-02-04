@@ -1,3 +1,12 @@
+Changes in version 2.7.5:
+==========================
+*
+* build: Use GNOME_COMPILE_WARNINGS
+* atkhyperlink: Ensure we get even deprecated prototypes
+* Bug 651343: add ATK_ROLE_LEVEL_BAR
+* Prepare Visual Studio 2010 projects for Visual Studio 2012
+* Updated Uyghur translations
+
 Changes in version 2.7.4:
 ==========================
 *
