@@ -75,3 +75,42 @@ The directories within this package are arranged as follows:
         keeps a register of accessible applications and presents
         this to clients (ATs).
         It is also responsible for delivering device events.
+
+    dbind
+
+        Library to ease making D-Bus method calls, contains
+        marshalling code to convert function arguments
+        and a provided D-Bus signature into a D-Bus message.
+
+        Used by libatspi.
+
+    atspi
+
+        C library for use by ATs. Wraps the various D-Bus calls, provides
+        an interface for listening to events, and caches some information about
+        accessible objects. Also contains some functions used by at-spi2-atk.
+
+    bus
+
+        A server that sits on the session bus and provides an interface
+        allowing applications to find the accessibility bus daemon, launching
+        it as needed. The accessibility bus is separate from the session bus
+        because it may in fact span user sessions if a user, for instance,
+        runs an application that escalates to run as root. The accessibility
+        bus is thus tied to the X session rather than the D-Bus session.
+
+    doc
+
+        Contains infrastructure for creating libatspi documentation.
+
+    test
+
+        Contains files that may be useful for testing AT-SPI.
+
+   m4
+
+        Some macros used for building the module.
+
+    po
+
+        Infrastructure used for translation.
