@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.7.5:
+
+* Add ATSPI_ROLE_LEVEL_BAR to correspond to the new atk role.
+
+* Fix various compiler warnings.
+
 What's new in at-spi2-core 2.7.4:
 
 * Fix some ref count leaks.
