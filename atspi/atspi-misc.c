@@ -101,8 +101,8 @@ _atspi_get_iface_num (const char *iface)
   return -1;
 }
 
-static GHashTable *
-get_live_refs (void)
+GHashTable *
+_atspi_get_live_refs (void)
 {
   if (!live_refs) 
     {
@@ -709,7 +709,6 @@ static DBusHandlerResult
 handle_add_accessible (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   DBusMessageIter iter;
-  const char *sender = dbus_message_get_sender (message);
 
   if (strcmp (dbus_message_get_signature (message), cache_signal_type) != 0)
   {
@@ -773,7 +772,7 @@ _atspi_process_deferred_messages (gpointer data)
   if (in_process_deferred_messages)
     return TRUE;
   in_process_deferred_messages = 1;
-  while (closure = g_queue_pop_head (deferred_messages))
+  while ((closure = g_queue_pop_head (deferred_messages)))
   {
     process_deferred_message (closure);
     dbus_message_unref (closure->message);
@@ -904,7 +903,7 @@ atspi_init (void)
 
   g_type_init ();
 
-  get_live_refs();
+  _atspi_get_live_refs();
 
   bus = atspi_get_a11y_bus ();
   if (!bus)
@@ -1009,7 +1008,6 @@ static GSList *hung_processes;
 static void
 remove_hung_process (DBusPendingCall *pending, void *data)
 {
-  gchar *bus_name = data;
 
   hung_processes = g_slist_remove (hung_processes, data);
   g_free (data);
@@ -1466,7 +1464,7 @@ get_accessibility_bus_address_x11 (void)
 		      &nitems, &leftover, &data_x11);
   XCloseDisplay (bridge_display);
 
-  data = g_strdup (data_x11);
+  data = g_strdup ((gchar *)data_x11);
   XFree (data_x11);
   return data;
 }
@@ -1538,7 +1536,6 @@ a11y_bus_free (void *data)
 DBusConnection *
 atspi_get_a11y_bus (void)
 {
-  DBusConnection *bus = NULL;
   DBusError error;
   char *address;
 
@@ -1612,3 +1609,20 @@ atspi_set_timeout (gint val, gint startup_time)
   method_call_timeout = val;
   app_startup_time = startup_time;
 }
+
+#ifdef DEBUG_REF_COUNTS
+static void
+print_disposed (gpointer key, gpointer value, gpointer data)
+{
+  AtspiAccessible *accessible = key;
+  if (accessible->parent.app)
+    return;
+  g_print ("disposed: %s %d\n", accessible->name, accessible->role);
+}
+
+void
+debug_disposed ()
+{
+  g_hash_table_foreach (live_refs, print_disposed, NULL);
+}
+#endif

@@ -155,6 +155,7 @@ typedef enum
 extern GMainLoop *atspi_main_loop;
 extern gboolean atspi_no_cache;
 
+GHashTable *_atspi_get_live_refs ();
 G_END_DECLS
 
 #endif	/* _ATSPI_MISC_PRIVATE_H_ */

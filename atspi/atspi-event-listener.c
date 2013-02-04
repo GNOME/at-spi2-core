@@ -556,7 +556,6 @@ atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
 {
   EventListenerEntry *e;
   DBusError d_error;
-  DBusMessage *message, *reply;
   GPtrArray *matchrule_array;
   gint i;
 

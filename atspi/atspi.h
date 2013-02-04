@@ -50,4 +50,5 @@
 #include "atspi-value.h"
 
 #include "atspi-gmain.h"
+#define DEBUG_REF_COUNTS 1	/* TODO: remove before committing */
 #endif

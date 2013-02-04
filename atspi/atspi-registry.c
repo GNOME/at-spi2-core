@@ -101,7 +101,6 @@ static gboolean
 notify_keystroke_listener (DeviceListenerEntry *e)
 {
   gchar *path = _atspi_device_listener_get_path (e->listener);
-  gint                                i;
   dbus_uint32_t d_modmask = e->modmask;
   dbus_uint32_t d_event_types = e->event_types;
   AtspiEventListenerMode     listener_mode;
@@ -120,7 +119,7 @@ notify_keystroke_listener (DeviceListenerEntry *e)
                                atspi_path_dec, atspi_interface_dec,
                                "RegisterKeystrokeListener", &d_error,
                                "oa(iisi)uu(bbb)=>b", path, e->key_set,
-                               e->modmask, e->event_types, &listener_mode,
+                               d_modmask, d_event_types, &listener_mode,
                                &retval);
   if (dbus_error_is_set (&d_error))
     {

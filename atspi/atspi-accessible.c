@@ -104,6 +104,7 @@ atspi_accessible_init (AtspiAccessible *accessible)
 {
 #ifdef DEBUG_REF_COUNTS
   accessible_count++;
+  g_hash_table_insert (_atspi_get_live_refs (), accessible, NULL);
   g_print("at-spi: init: %d objects\n", accessible_count);
 #endif
 }
@@ -180,6 +181,7 @@ atspi_accessible_finalize (GObject *object)
 
 #ifdef DEBUG_REF_COUNTS
   accessible_count--;
+  g_hash_table_remove (_atspi_get_live_refs (), accessible);
   g_print ("at-spi: finalize: %d objects\n", accessible_count);
 #endif
 
