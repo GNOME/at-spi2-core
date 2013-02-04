@@ -181,7 +181,7 @@ spi_dbus_signal_new (const char *path,
                      dbus_int32_t detail2)
 {
   DBusMessage *sig;
-  DBusMessageIter iter, sub;
+  DBusMessageIter iter;
   gchar *cname, *t;
 
   if (!klass) klass = "";

@@ -609,7 +609,7 @@ query_exec (MatchRulePrivate * mrp, AtspiCollectionSortOrder sortby,
 }
 
 static gboolean
-bitarray_to_seq (int *array, int array_count, int **ret)
+bitarray_to_seq (dbus_uint32_t *array, int array_count, int **ret)
 {
   int out_size = 4;
   int out_count = 0;

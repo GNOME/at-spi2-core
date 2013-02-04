@@ -347,12 +347,11 @@ child_added_listener (GSignalInvocationHint * signal_hint,
       if (detail && !strncmp (detail, "add", 3))
         {
           gpointer child;
-          int index = g_value_get_uint (param_values + 1);
           child = g_value_get_pointer (param_values + 2);
           if (!child)
             {
               g_rec_mutex_unlock (&cache_mutex);
-              return;
+              return TRUE;
             }
 
           g_object_ref (child);
