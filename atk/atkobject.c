@@ -340,7 +340,8 @@ static void            atk_object_real_remove_property_change_handler
                                                     guint           handler_id);
 static void            atk_object_notify           (GObject         *obj,
                                                     GParamSpec      *pspec);
-
+static const gchar*    atk_object_real_get_object_locale
+                                                   (AtkObject       *object);
 
 static guint atk_object_signals[LAST_SIGNAL] = { 0, };
 
@@ -497,6 +498,7 @@ atk_object_class_init (AtkObjectClass *klass)
          atk_object_real_connect_property_change_handler;
   klass->remove_property_change_handler = 
          atk_object_real_remove_property_change_handler;
+  klass->get_object_locale = atk_object_real_get_object_locale;
 
   /*
    * We do not define default signal handlers here
@@ -1558,6 +1560,39 @@ atk_role_get_localized_name (AtkRole role)
 
   return atk_role_get_name (role);
 }
+
+static const gchar*
+atk_object_real_get_object_locale (AtkObject *object)
+{
+  return setlocale (LC_MESSAGES, NULL);
+}
+
+/**
+ * atk_object_get_object_locale:
+ * @accessible: an #AtkObject
+ *
+ * Gets a UTF-8 string indicating the POSIX-style LC_MESSAGES locale
+ * of @accessible.
+ *
+ * Since: 2.7.90
+ *
+ * Returns: a UTF-8 string indicating the POSIX-style LC_MESSAGES
+ *          locale of @accessible.
+ **/
+const gchar*
+atk_object_get_object_locale (AtkObject *accessible)
+{
+  AtkObjectClass *klass;
+
+  g_return_val_if_fail (ATK_IS_OBJECT (accessible), NULL);
+
+  klass = ATK_OBJECT_GET_CLASS (accessible);
+  if (klass->get_object_locale)
+    return (klass->get_object_locale) (accessible);
+  else
+    return NULL;
+}
+
 
 /**
  * atk_role_for_name:

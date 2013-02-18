@@ -531,8 +531,10 @@ void                      (* initialize)                         (AtkObject     
    * Since ATK 1.12
    */
   AtkAttributeSet* 	  (*get_attributes)            (AtkObject                  *accessible);
+
+  const gchar*            (*get_object_locale)         (AtkObject                  *accessible);
+
   AtkFunction             pad1;
-  AtkFunction             pad2;
 };
 
 GType            atk_object_get_type   (void);
@@ -613,6 +615,7 @@ gboolean              atk_object_remove_relationship           (AtkObject      *
 								AtkRelationType relationship,
 								AtkObject      *target);
 const gchar*          atk_role_get_localized_name              (AtkRole     role);
+const gchar*          atk_object_get_object_locale             (AtkObject   *accessible);
 
 /* */
 
