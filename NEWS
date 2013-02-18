@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.7.90:
+
+* Removed a debug print that was accidentally included in 2.7.5.
+
 What's new in at-spi2-core 2.7.5:
 
 * Add ATSPI_ROLE_LEVEL_BAR to correspond to the new atk role.
