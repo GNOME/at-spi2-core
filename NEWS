@@ -1,3 +1,7 @@
+What's new in at-spi2-atk 2.7.90:
+
+* Bump atk dependency to 2.7.5 (BGO#693189).
+
 What's new in at-spi2-atk 2.7.5:
 
 * Support ATSPI_ROLE_LEVEL_BAR to correspond to the new atk role.
