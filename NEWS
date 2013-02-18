@@ -1,3 +1,10 @@
+Changes in version 2.7.90:
+==========================
+*
+* Bug 694117
+*  * atkobject: add atk_object_get_object_locale
+*  * atkdocument: deprecate atk_document_get_locale
+
 Changes in version 2.7.5:
 ==========================
 *
