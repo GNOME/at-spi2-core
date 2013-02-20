@@ -51,7 +51,7 @@
 				ModuleDefinitionFile="..\..\..\atk\atk.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
-				ImportLibrary="$(OutDir)\$(ProjectName)-$(AtkApiVersion).lib"
+				ImportLibrary="$(OutDir)\$(ProjectName)-$(ApiVersion).lib"
 				TargetMachine="1"
 			/>
 		</Configuration>
@@ -90,7 +90,7 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="$(OutDir)\$(ProjectName)-$(AtkApiVersion).lib"
+				ImportLibrary="$(OutDir)\$(ProjectName)-$(ApiVersion).lib"
 				TargetMachine="1"
 			/>
 		</Configuration>
@@ -126,7 +126,7 @@
 				ModuleDefinitionFile="..\..\..\atk\atk.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
-				ImportLibrary="$(TargetDir)$(ProjectName)-$(AtkApiVersion).lib"
+				ImportLibrary="$(TargetDir)$(ProjectName)-$(ApiVersion).lib"
 				TargetMachine="17"
 			/>
 		</Configuration>
@@ -161,7 +161,7 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="$(TargetDir)$(ProjectName)-$(AtkApiVersion).lib"
+				ImportLibrary="$(TargetDir)$(ProjectName)-$(ApiVersion).lib"
 				TargetMachine="17"
 			/>
 		</Configuration>

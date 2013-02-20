@@ -8,14 +8,14 @@
 	>
 	<Tool
 		Name="VCCLCompilerTool"
-		AdditionalIncludeDirectories="..\..\..;..\..\..\atk;$(AtkEtcInstallRoot)\include;$(AtkEtcInstallRoot)\include\glib-2.0;$(AtkEtcInstallRoot)\lib\glib-2.0\include\"
+		AdditionalIncludeDirectories="..\..\..;..\..\..\atk;$(GLibEtcInstallRoot)\include;$(GLibEtcInstallRoot)\include\glib-2.0;$(GLibEtcInstallRoot)\lib\glib-2.0\include\"
 		PreprocessorDefinitions="HAVE_CONFIG_H;G_DISABLE_SINGLE_INCLUDES"
 		ForcedIncludeFiles="msvc_recommended_pragmas.h"
 	/>
 	<Tool
 		Name="VCLinkerTool"
 		AdditionalDependencies="glib-2.0.lib gobject-2.0.lib gmodule-2.0.lib intl.lib"
-		AdditionalLibraryDirectories="$(AtkEtcInstallRoot)\lib"
+		AdditionalLibraryDirectories="$(GLibEtcInstallRoot)\lib"
 	/>
 	<Tool
 		Name="VCPreBuildEventTool"
@@ -24,15 +24,27 @@ if exist ..\..\..\config.h goto DONE_CONFIG_H&#x0D;&#x0A;
 copy ..\..\..\config.h.win32 ..\..\..\config.h&#x0D;&#x0A;
 :DONE_CONFIG_H&#x0D;&#x0A;
 if exist ..\..\..\atk\atkmarshal.h goto GEN_MARS_C&#x0D;&#x0A;
-$(AtkEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal ..\..\..\atk\atkmarshal.list --header >..\..\..\atk\atkmarshal.h&#x0D;&#x0A;
+$(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal ..\..\..\atk\atkmarshal.list --header >..\..\..\atk\atkmarshal.h&#x0D;&#x0A;
 :GEN_MARS_C&#x0D;&#x0A;
 if exist ..\..\..\atk\atkmarshal.c goto END&#x0D;&#x0A;
-$(AtkEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal ..\..\..\atk\atkmarshal.list --body >..\..\..\atk\atkmarshal.c&#x0D;&#x0A;
+$(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal ..\..\..\atk\atkmarshal.list --body >..\..\..\atk\atkmarshal.c&#x0D;&#x0A;
 :END&#x0D;&#x0A;
 "
 	/>
 	<UserMacro
-		Name="AtkApiVersion"
+		Name="VSVer"
+		Value="9"
+	/>
+	<UserMacro
+		Name="GLibEtcInstallRoot"
+		Value="..\..\..\..\vs$(VSVER)\$(PlatformName)"
+	/>
+	<UserMacro
+		Name="GlibEtcInstallRootFromBuildWin32"
+		Value="..\..\..\vs$(VSVer)\$(PlatformName)"
+	/>
+	<UserMacro
+		Name="ApiVersion"
 		Value="1.0"
 	/>
 	<UserMacro
@@ -46,43 +58,56 @@ mkdir $(OutDir)&#x0D;&#x0A;
 mkdir $(OutDir)\bin&#x0D;&#x0A;
 copy $(SolutionDir)$(ConfigurationName)\$(PlatformName)\bin\*.dll $(OutDir)\bin&#x0D;&#x0A;
 
-mkdir $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atk.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkaction.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkcomponent.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkdocument.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkeditabletext.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkgobjectaccessible.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkhyperlink.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkhyperlinkimpl.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkhypertext.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atknoopobject.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atknoopobjectfactory.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkobject.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkobjectfactory.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkplug.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkimage.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkregistry.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkrelation.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkrelationtype.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkrelationset.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkselection.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atksocket.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkstate.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkstateset.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkstreamablecontent.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atktable.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atktext.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkutil.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkmisc.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkvalue.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkwindow.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkversion.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atk-enum-types.h $(OutDir)\include\atk-$(AtkApiVersion)\atk&#x0D;&#x0A;
+mkdir $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atk.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkaction.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkcomponent.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkdocument.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkeditabletext.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkgobjectaccessible.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkhyperlink.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkhyperlinkimpl.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkhypertext.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atknoopobject.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atknoopobjectfactory.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkobject.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkobjectfactory.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkplug.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkimage.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkregistry.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkrelation.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkrelationtype.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkrelationset.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkselection.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atksocket.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkstate.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkstateset.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkstreamablecontent.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atktable.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atktext.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkutil.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkmisc.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkvalue.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkwindow.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkversion.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atk-enum-types.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
 
 mkdir $(OutDir)\lib&#x0D;&#x0A;
-copy $(SolutionDir)$(ConfigurationName)\$(PlatformName)\bin\*-$(AtkApiVersion).lib $(OutDir)\lib&#x0D;&#x0A;
+copy $(SolutionDir)$(ConfigurationName)\$(PlatformName)\bin\*-$(ApiVersion).lib $(OutDir)\lib&#x0D;&#x0A;
 "
+	/>
+	<UserMacro
+		Name="DoGenGir"
+		Value="
+set VSVER=$(VSVer)&#x0D;&#x0A;
+set CONF=$(ConfigurationName)&#x0D;&#x0A;
+set PLAT=$(PlatformName)&#x0D;&#x0A;
+set BASEDIR=$(GlibEtcInstallRootFromBuildWin32)&#x0D;&#x0A;
+
+cd ..&#x0D;&#x0A;
+call gengir.bat&#x0D;&#x0A;
+cd vs$(VSVer)&#x0D;&#x0A;
+		      "
 	/>
 	<UserMacro
 		Name="GenerateAtkDef"
@@ -101,25 +126,21 @@ copy $(SolutionDir)$(ConfigurationName)\$(PlatformName)\bin\*-$(AtkApiVersion).l
 		Value="-1.0-0"
 	/>
 	<UserMacro
-		Name="AtkSeparateVS9DllPrefix"
+		Name="AtkSeparateVSDllPrefix"
 		Value=""
 	/>
 	<UserMacro
-		Name="AtkSeparateVS9DllSuffix"
-		Value="-1-vs9"
+		Name="AtkSeparateVSDllSuffix"
+		Value="-1-vs$(VSVER)"
 	/>
 	<!-- Change these two to AtkLibtoolCompatibleDllPrefix and
 	AtkLibtoolCompatibleDllSuffix if that is what you want -->
 	<UserMacro
 		Name="AtkDllPrefix"
-		Value="$(AtkSeparateVS9DllPrefix)"
+		Value="$(AtkSeparateVSDllPrefix)"
 	/>
 	<UserMacro
 		Name="AtkDllSuffix"
-		Value="$(AtkSeparateVS9DllSuffix)"
-	/>
-	<UserMacro
-		Name="AtkEtcInstallRoot"
-		Value="..\..\..\..\vs9\$(PlatformName)"
+		Value="$(AtkSeparateVSDllSuffix)"
 	/>
 </VisualStudioPropertySheet>
