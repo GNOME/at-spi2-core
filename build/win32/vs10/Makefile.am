@@ -6,4 +6,5 @@ EXTRA_DIST = \
 	atk.vcxprojin \
 	atk.vcxproj.filters \
 	atk.vcxproj.filtersin \
-	install.vcxproj
+	install.vcxproj	\
+	gengir.vcxproj

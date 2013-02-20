@@ -4,4 +4,5 @@ EXTRA_DIST = \
 	atk.vsprops \
 	atk.vcproj \
 	atk.vcprojin \
-	install.vcproj
+	install.vcproj	\
+	gengir.vcproj

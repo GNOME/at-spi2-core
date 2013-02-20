@@ -46,6 +46,9 @@ set LIB=%BINDIR%;%BASEDIR%\lib;%LIB%
 set PATH=%BINDIR%;%BASEDIR%\bin;%PATH%;%MINGWDIR%\bin
 set PYTHONPATH=%BASEDIR%\lib\gobject-introspection;%BINDIR%
 
+echo Create filelist for generating ATK .gir's...
+call python gen-file-list-atk.py
+
 echo Setup .bat for generating ATK .gir's...
 
 rem =================================================================================================
@@ -81,8 +84,9 @@ rem Now generate the .gir's
 rem =======================
 CALL atk_gir.bat
 
-rem Clean up the .bat for generating the .gir files...
+rem Clean up the .bat/filelist for generating the .gir files...
 del atk_gir.bat
+del atk_list
 
 rem Now compile the generated .gir files
 %BASEDIR%\bin\g-ir-compiler --includedir=. --debug --verbose Atk-1.0.gir -o Atk-1.0.typelib
