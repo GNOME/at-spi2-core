@@ -26,6 +26,7 @@
 #include <string.h>
 
 static gboolean enable_caching = FALSE;
+static guint quark_locale;
 
 static void
 atspi_action_interface_init (AtspiAction *action)
@@ -196,6 +197,8 @@ atspi_accessible_class_init (AtspiAccessibleClass *klass)
 
   object_class->dispose = atspi_accessible_dispose;
   object_class->finalize = atspi_accessible_finalize;
+
+  quark_locale = g_quark_from_string ("accessible-locale");
 }
 
 /* TODO: Generate following from spec? */
@@ -1599,4 +1602,36 @@ _atspi_accessible_add_cache (AtspiAccessible *accessible, AtspiCache flag)
   AtspiCache mask = _atspi_accessible_get_cache_mask (accessible);
 
   accessible->cached_properties |= flag & mask;
+}
+
+/**
+ * atspi_accessible_get_locale:
+ * @accessible: an #AtspiAccessible
+ *
+ * Gets a UTF-8 string indicating the POSIX-style LC_MESSAGES locale
+ * of @accessible.
+ *
+ * Since: 2.7.91
+ *
+ * Returns: a UTF-8 string indicating the POSIX-style LC_MESSAGES
+ *          locale of @accessible.
+ **/
+const gchar*
+atspi_accessible_get_object_locale (AtspiAccessible *accessible, GError **error)
+{
+  gchar *locale;
+
+  g_return_val_if_fail (accessible != NULL, NULL);
+
+  locale = g_object_get_qdata (G_OBJECT (accessible), quark_locale);
+  if (!locale)
+  {
+    if (!_atspi_dbus_get_property (accessible, atspi_interface_accessible,
+                                   "Locale", error, "s", &locale))
+      return NULL;
+    if (locale)
+      g_object_set_qdata_full (G_OBJECT (accessible), quark_locale, locale,
+                               g_free);
+  }
+  return locale;
 }

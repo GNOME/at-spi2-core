@@ -132,6 +132,8 @@ AtspiValue * atspi_accessible_get_value (AtspiAccessible *obj);
 
 GArray * atspi_accessible_get_interfaces (AtspiAccessible *obj);
 
+const gchar* atspi_accessible_get_object_locale (AtspiAccessible *accessible, GError **error);
+
 void atspi_accessible_set_cache_mask (AtspiAccessible *accessible, AtspiCache mask);
 
 void atspi_accessible_clear_cache (AtspiAccessible *accessible);
