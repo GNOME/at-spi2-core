@@ -52,6 +52,16 @@ impl_get_Description (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
+impl_get_Locale (DBusMessageIter * iter, void *user_data)
+{
+  AtkObject *object = (AtkObject *) user_data;
+
+  g_return_val_if_fail (ATK_IS_OBJECT (user_data), FALSE);
+
+  return droute_return_v_string (iter, atk_object_get_object_locale (object));
+}
+
+static dbus_bool_t
 impl_get_Parent (DBusMessageIter * iter, void *user_data)
 {
   AtkObject *obj = (AtkObject *) user_data;
@@ -511,6 +521,7 @@ static DRouteMethod methods[] = {
 static DRouteProperty properties[] = {
   {impl_get_Name, NULL, "Name"},
   {impl_get_Description, NULL, "Description"},
+  {impl_get_Locale, NULL, "Locale"},
   {impl_get_Parent, NULL, "Parent"},
   {impl_get_ChildCount, NULL, "ChildCount"},
   {NULL, NULL, NULL}
