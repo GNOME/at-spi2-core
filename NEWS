@@ -1,3 +1,7 @@
+What's new in at-spi2-atk 2.7.91:
+
+* Add Locale property (BGO#694368).
+
 What's new in at-spi2-atk 2.7.90:
 
 * Bump atk dependency to 2.7.5 (BGO#693189).
