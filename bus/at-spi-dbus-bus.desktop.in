@@ -6,4 +6,4 @@ OnlyShowIn=GNOME;Unity;
 NoDisplay=true
 AutostartCondition=GSETTINGS org.gnome.desktop.interface toolkit-accessibility
 X-GNOME-AutoRestart=true
-#X-GNOME-Autostart-Phase=Initialization
+X-GNOME-Autostart-Phase=Initialization
