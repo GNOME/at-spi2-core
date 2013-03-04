@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.7.91:
+
+* Add atspi_accessible_get_object_locale (BGO#694368).
+
+* Start the bus launcher in the initialization phase (BGO#694984).
+
 What's new in at-spi2-core 2.7.90:
 
 * Removed a debug print that was accidentally included in 2.7.5.
