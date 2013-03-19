@@ -1,0 +1,578 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Victor Ibragimov <victor.ibragimov@gmail.com>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Tajik Gnome\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=atk&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2013-02-19 11:07+0000\n"
+"PO-Revision-Date: 2013-01-19 17:25+0500\n"
+"Last-Translator: Victor Ibragimov <victor.ibragimov@gmail.com>\n"
+"Language-Team: \n"
+"Language: Tajik\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: ../atk/atkhyperlink.c:104
+msgid "Selected Link"
+msgstr "Пайванди интихобшуда"
+
+#: ../atk/atkhyperlink.c:105
+msgid "Specifies whether the AtkHyperlink object is selected"
+msgstr ""
+
+#: ../atk/atkhyperlink.c:111
+msgid "Number of Anchors"
+msgstr ""
+
+#: ../atk/atkhyperlink.c:112
+msgid "The number of anchors associated with the AtkHyperlink object"
+msgstr ""
+
+#: ../atk/atkhyperlink.c:120
+msgid "End index"
+msgstr ""
+
+#: ../atk/atkhyperlink.c:121
+msgid "The end index of the AtkHyperlink object"
+msgstr ""
+
+#: ../atk/atkhyperlink.c:129
+msgid "Start index"
+msgstr ""
+
+#: ../atk/atkhyperlink.c:130
+msgid "The start index of the AtkHyperlink object"
+msgstr ""
+
+#: ../atk/atkobject.c:75
+msgid "invalid"
+msgstr "беэътимод"
+
+#: ../atk/atkobject.c:76
+msgid "accelerator label"
+msgstr ""
+
+#: ../atk/atkobject.c:77
+msgid "alert"
+msgstr "ҳушдор"
+
+#: ../atk/atkobject.c:78
+msgid "animation"
+msgstr "аниматсия"
+
+#: ../atk/atkobject.c:79
+msgid "arrow"
+msgstr "тир"
+
+#: ../atk/atkobject.c:80
+msgid "calendar"
+msgstr "тақвим"
+
+#: ../atk/atkobject.c:81
+msgid "canvas"
+msgstr ""
+
+#: ../atk/atkobject.c:82
+msgid "check box"
+msgstr ""
+
+#: ../atk/atkobject.c:83
+msgid "check menu item"
+msgstr ""
+
+#: ../atk/atkobject.c:84
+msgid "color chooser"
+msgstr ""
+
+#: ../atk/atkobject.c:85
+msgid "column header"
+msgstr ""
+
+#: ../atk/atkobject.c:86
+msgid "combo box"
+msgstr ""
+
+#: ../atk/atkobject.c:87
+msgid "dateeditor"
+msgstr ""
+
+#: ../atk/atkobject.c:88
+msgid "desktop icon"
+msgstr ""
+
+#: ../atk/atkobject.c:89
+msgid "desktop frame"
+msgstr ""
+
+#: ../atk/atkobject.c:90
+msgid "dial"
+msgstr ""
+
+#: ../atk/atkobject.c:91
+msgid "dialog"
+msgstr "равзанаи гуфтугӯ"
+
+#: ../atk/atkobject.c:92
+msgid "directory pane"
+msgstr ""
+
+#: ../atk/atkobject.c:93
+msgid "drawing area"
+msgstr ""
+
+#: ../atk/atkobject.c:94
+msgid "file chooser"
+msgstr ""
+
+#: ../atk/atkobject.c:95
+msgid "filler"
+msgstr ""
+
+#. I know it looks wrong but that is what Java returns
+#: ../atk/atkobject.c:97
+msgid "fontchooser"
+msgstr ""
+
+#: ../atk/atkobject.c:98
+msgid "frame"
+msgstr "чорчӯба"
+
+#: ../atk/atkobject.c:99
+msgid "glass pane"
+msgstr ""
+
+#: ../atk/atkobject.c:100
+msgid "html container"
+msgstr ""
+
+#: ../atk/atkobject.c:101
+msgid "icon"
+msgstr "нишона"
+
+#: ../atk/atkobject.c:102
+msgid "image"
+msgstr "тасвир"
+
+#: ../atk/atkobject.c:103
+msgid "internal frame"
+msgstr ""
+
+#: ../atk/atkobject.c:104
+msgid "label"
+msgstr "барчасп"
+
+#: ../atk/atkobject.c:105
+msgid "layered pane"
+msgstr ""
+
+#: ../atk/atkobject.c:106
+msgid "list"
+msgstr "рӯйхат"
+
+#: ../atk/atkobject.c:107
+msgid "list item"
+msgstr ""
+
+#: ../atk/atkobject.c:108
+msgid "menu"
+msgstr "меню"
+
+#: ../atk/atkobject.c:109
+msgid "menu bar"
+msgstr "навори меню"
+
+#: ../atk/atkobject.c:110
+msgid "menu item"
+msgstr ""
+
+#: ../atk/atkobject.c:111
+msgid "option pane"
+msgstr ""
+
+#: ../atk/atkobject.c:112
+msgid "page tab"
+msgstr ""
+
+#: ../atk/atkobject.c:113
+msgid "page tab list"
+msgstr ""
+
+#: ../atk/atkobject.c:114
+msgid "panel"
+msgstr "лавҳа"
+
+#: ../atk/atkobject.c:115
+msgid "password text"
+msgstr ""
+
+#: ../atk/atkobject.c:116
+msgid "popup menu"
+msgstr ""
+
+#: ../atk/atkobject.c:117
+msgid "progress bar"
+msgstr "навори вазъият"
+
+#: ../atk/atkobject.c:118
+msgid "push button"
+msgstr ""
+
+#: ../atk/atkobject.c:119
+msgid "radio button"
+msgstr "тугмачаи фаъолкунӣ"
+
+#: ../atk/atkobject.c:120
+msgid "radio menu item"
+msgstr ""
+
+#: ../atk/atkobject.c:121
+msgid "root pane"
+msgstr ""
+
+#: ../atk/atkobject.c:122
+msgid "row header"
+msgstr ""
+
+#: ../atk/atkobject.c:123
+msgid "scroll bar"
+msgstr ""
+
+#: ../atk/atkobject.c:124
+msgid "scroll pane"
+msgstr ""
+
+#: ../atk/atkobject.c:125
+msgid "separator"
+msgstr "ҷудокунанда"
+
+#: ../atk/atkobject.c:126
+msgid "slider"
+msgstr ""
+
+#: ../atk/atkobject.c:127
+msgid "split pane"
+msgstr ""
+
+#: ../atk/atkobject.c:128
+msgid "spin button"
+msgstr ""
+
+#: ../atk/atkobject.c:129
+msgid "statusbar"
+msgstr ""
+
+#: ../atk/atkobject.c:130
+msgid "table"
+msgstr "ҷадвал"
+
+#: ../atk/atkobject.c:131
+msgid "table cell"
+msgstr "катаки ҷадвал"
+
+#: ../atk/atkobject.c:132
+msgid "table column header"
+msgstr ""
+
+#: ../atk/atkobject.c:133
+msgid "table row header"
+msgstr ""
+
+#: ../atk/atkobject.c:134
+msgid "tear off menu item"
+msgstr ""
+
+#: ../atk/atkobject.c:135
+msgid "terminal"
+msgstr ""
+
+#: ../atk/atkobject.c:136
+msgid "text"
+msgstr "матн"
+
+#: ../atk/atkobject.c:137
+msgid "toggle button"
+msgstr ""
+
+#: ../atk/atkobject.c:138
+msgid "tool bar"
+msgstr ""
+
+#: ../atk/atkobject.c:139
+msgid "tool tip"
+msgstr ""
+
+#: ../atk/atkobject.c:140
+msgid "tree"
+msgstr "дарахт"
+
+#: ../atk/atkobject.c:141
+msgid "tree table"
+msgstr ""
+
+#: ../atk/atkobject.c:142
+msgid "unknown"
+msgstr "номаълум"
+
+#: ../atk/atkobject.c:143
+msgid "viewport"
+msgstr ""
+
+#: ../atk/atkobject.c:144
+msgid "window"
+msgstr "равзана"
+
+#: ../atk/atkobject.c:145
+msgid "header"
+msgstr "сарварақ"
+
+#: ../atk/atkobject.c:146
+msgid "footer"
+msgstr "поварақ"
+
+#: ../atk/atkobject.c:147
+msgid "paragraph"
+msgstr "банд"
+
+#: ../atk/atkobject.c:148
+msgid "ruler"
+msgstr ""
+
+#: ../atk/atkobject.c:149
+msgid "application"
+msgstr "барнома"
+
+#: ../atk/atkobject.c:150
+msgid "autocomplete"
+msgstr "пуркунии худкор"
+
+#: ../atk/atkobject.c:151
+msgid "edit bar"
+msgstr ""
+
+#: ../atk/atkobject.c:152
+msgid "embedded component"
+msgstr ""
+
+#: ../atk/atkobject.c:153
+msgid "entry"
+msgstr "ворида"
+
+#: ../atk/atkobject.c:154
+msgid "chart"
+msgstr "диаграмма"
+
+#: ../atk/atkobject.c:155
+msgid "caption"
+msgstr "зернавис"
+
+#: ../atk/atkobject.c:156
+msgid "document frame"
+msgstr ""
+
+#: ../atk/atkobject.c:157
+msgid "heading"
+msgstr "сарлавҳа"
+
+#: ../atk/atkobject.c:158
+msgid "page"
+msgstr "саҳифа"
+
+#: ../atk/atkobject.c:159
+msgid "section"
+msgstr "қисмат"
+
+#: ../atk/atkobject.c:160
+msgid "redundant object"
+msgstr ""
+
+#: ../atk/atkobject.c:161
+msgid "form"
+msgstr "шакл"
+
+#: ../atk/atkobject.c:162
+msgid "link"
+msgstr "пайванд"
+
+#: ../atk/atkobject.c:163
+msgid "input method window"
+msgstr ""
+
+#: ../atk/atkobject.c:164
+msgid "table row"
+msgstr ""
+
+#: ../atk/atkobject.c:165
+msgid "tree item"
+msgstr ""
+
+#: ../atk/atkobject.c:166
+msgid "document spreadsheet"
+msgstr ""
+
+#: ../atk/atkobject.c:167
+msgid "document presentation"
+msgstr ""
+
+#: ../atk/atkobject.c:168
+msgid "document text"
+msgstr ""
+
+#: ../atk/atkobject.c:169
+msgid "document web"
+msgstr ""
+
+#: ../atk/atkobject.c:170
+msgid "document email"
+msgstr ""
+
+#: ../atk/atkobject.c:171
+msgid "comment"
+msgstr "шарҳ"
+
+#: ../atk/atkobject.c:172
+msgid "list box"
+msgstr ""
+
+#: ../atk/atkobject.c:173
+msgid "grouping"
+msgstr ""
+
+#: ../atk/atkobject.c:174
+msgid "image map"
+msgstr ""
+
+#: ../atk/atkobject.c:175
+msgid "notification"
+msgstr "огоҳӣ"
+
+#: ../atk/atkobject.c:176
+msgid "info bar"
+msgstr "навори маълумот"
+
+#: ../atk/atkobject.c:518
+msgid "Accessible Name"
+msgstr ""
+
+#: ../atk/atkobject.c:519
+msgid "Object instance's name formatted for assistive technology access"
+msgstr ""
+
+#: ../atk/atkobject.c:525
+msgid "Accessible Description"
+msgstr ""
+
+#: ../atk/atkobject.c:526
+msgid "Description of an object, formatted for assistive technology access"
+msgstr ""
+
+#: ../atk/atkobject.c:532
+msgid "Accessible Parent"
+msgstr ""
+
+#: ../atk/atkobject.c:533
+msgid "Is used to notify that the parent has changed"
+msgstr ""
+
+#: ../atk/atkobject.c:539
+msgid "Accessible Value"
+msgstr ""
+
+#: ../atk/atkobject.c:540
+msgid "Is used to notify that the value has changed"
+msgstr ""
+
+#: ../atk/atkobject.c:548
+msgid "Accessible Role"
+msgstr ""
+
+#: ../atk/atkobject.c:549
+msgid "The accessible role of this object"
+msgstr ""
+
+#: ../atk/atkobject.c:557
+msgid "Accessible Layer"
+msgstr ""
+
+#: ../atk/atkobject.c:558
+msgid "The accessible layer of this object"
+msgstr ""
+
+#: ../atk/atkobject.c:566
+msgid "Accessible MDI Value"
+msgstr ""
+
+#: ../atk/atkobject.c:567
+msgid "The accessible MDI value of this object"
+msgstr ""
+
+#: ../atk/atkobject.c:575
+msgid "Accessible Table Caption"
+msgstr ""
+
+#: ../atk/atkobject.c:576
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr ""
+
+#: ../atk/atkobject.c:582
+msgid "Accessible Table Column Header"
+msgstr ""
+
+#: ../atk/atkobject.c:583
+msgid "Is used to notify that the table column header has changed"
+msgstr ""
+
+#: ../atk/atkobject.c:589
+msgid "Accessible Table Column Description"
+msgstr ""
+
+#: ../atk/atkobject.c:590
+msgid "Is used to notify that the table column description has changed"
+msgstr ""
+
+#: ../atk/atkobject.c:596
+msgid "Accessible Table Row Header"
+msgstr ""
+
+#: ../atk/atkobject.c:597
+msgid "Is used to notify that the table row header has changed"
+msgstr ""
+
+#: ../atk/atkobject.c:603
+msgid "Accessible Table Row Description"
+msgstr ""
+
+#: ../atk/atkobject.c:604
+msgid "Is used to notify that the table row description has changed"
+msgstr ""
+
+#: ../atk/atkobject.c:610
+msgid "Accessible Table Summary"
+msgstr ""
+
+#: ../atk/atkobject.c:611
+msgid "Is used to notify that the table summary has changed"
+msgstr ""
+
+#: ../atk/atkobject.c:617
+msgid "Accessible Table Caption Object"
+msgstr ""
+
+#: ../atk/atkobject.c:618
+msgid "Is used to notify that the table caption has changed"
+msgstr ""
+
+#: ../atk/atkobject.c:624
+msgid "Number of Accessible Hypertext Links"
+msgstr ""
+
+#: ../atk/atkobject.c:625
+msgid "The number of links which the current AtkHypertext has"
+msgstr ""
