@@ -25,7 +25,7 @@
   </method>
 
   <method name="GetActions">
-    <arg direction="out" name="index" type="a(sss)"/>
+    <arg direction="out" type="a(sss)"/>
     <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiActionArray"/>
   </method>
 
