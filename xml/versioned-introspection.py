@@ -39,7 +39,7 @@ HTEMPLATE = \
 
 DECTEMPLATE = \
 """
-const char *%s;
+extern const char *%s;
 """
 
 DEFTEMPLATE = \
