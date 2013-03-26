@@ -1,0 +1,24 @@
+# Friulian translation for at-spi2-core.
+# Copyright (C) 2013 at-spi2-core's COPYRIGHT HOLDER
+# This file is distributed under the same license as the at-spi2-core package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi2-core gnome-3-8\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
+"spi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2013-03-25 22:55+0000\n"
+"PO-Revision-Date: 2013-03-26 13:08+0100\n"
+"Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
+"Language-Team: Friulian <fur@li.org>\n"
+"Language: fur\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: ../atspi/atspi-component.c:313 ../atspi/atspi-misc.c:1062
+#: ../atspi/atspi-value.c:111
+msgid "The application no longer exists"
+msgstr "Le aplicazion no esist plui"
