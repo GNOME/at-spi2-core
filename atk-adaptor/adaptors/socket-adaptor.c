@@ -173,11 +173,8 @@ impl_Embedded (DBusConnection *bus,
     {
       return droute_invalid_arguments_error (message);
     }
-  id = g_object_get_data (G_OBJECT (object), "dbus-plug-parent");
-  if (id)
-    g_free (id);
   id = g_strconcat (dbus_message_get_sender (message), ":", path, NULL);
-  g_object_set_data (G_OBJECT (object), "dbus-plug-parent", id);
+  g_object_set_data_full (G_OBJECT (object), "dbus-plug-parent", id, (GDestroyNotify)g_free);
 
   if (ATK_IS_COMPONENT (object))
     {
