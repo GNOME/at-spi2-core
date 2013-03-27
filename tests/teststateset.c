@@ -34,7 +34,7 @@ test_state_set (void)
   state_set1 = atk_state_set_new ();
 
   b_val = atk_state_set_is_empty (state_set1);  
-  if (b_val)
+  if (!b_val)
   {
     g_print ("New state set is not empty\n");
     return FALSE;
@@ -48,7 +48,7 @@ test_state_set (void)
   }
 
   b_val = atk_state_set_is_empty (state_set1);  
-  if (!b_val)
+  if (b_val)
   {
     g_print ("New state set is empty when it should not be\n");
     return FALSE;
