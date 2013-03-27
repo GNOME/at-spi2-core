@@ -173,7 +173,7 @@ test_role (void)
 
   name = atk_role_get_name (ATK_ROLE_PAGE_TAB);
   g_return_val_if_fail (name, FALSE);
-  if (strcmp (name, "page-tab") != 0)
+  if (strcmp (name, "page tab") != 0)
     {
       g_print ("Unexpected name for ATK_ROLE_PAGE_TAB %s\n", name);
       return FALSE;
@@ -181,16 +181,16 @@ test_role (void)
 
   name = atk_role_get_name (ATK_ROLE_LAYERED_PANE);
   g_return_val_if_fail (name, FALSE);
-  if (strcmp (name, "layered-pane") != 0)
+  if (strcmp (name, "layered pane") != 0)
     {
       g_print ("Unexpected name for ATK_ROLE_LAYERED_PANE %s\n", name);
       return FALSE;
     }
 
-  role1 = atk_role_for_name ("list-item");
+  role1 = atk_role_for_name ("list item");
   if (role1 != ATK_ROLE_LIST_ITEM)
     {
-      g_print ("Unexpected role for list-item\n");
+      g_print ("Unexpected role for list item\n");
       return FALSE;
     }
 
