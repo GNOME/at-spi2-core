@@ -88,6 +88,9 @@ tally_event_reply ()
 {
   static int replies_received = 0;
 
+  if (!spi_global_app_data)
+    return;
+
   replies_received++;
   if (replies_received == 3)
   {
