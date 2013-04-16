@@ -54,6 +54,7 @@ atk_sources = 	\
 	atkstateset.c		\
 	atkstreamablecontent.c	\
 	atktable.c		\
+	atktablecell.c		\
 	atktext.c		\
 	atkutil.c		\
 	atkmisc.c		\
@@ -92,6 +93,7 @@ atk_headers = \
         atkstateset.h		\
         atkstreamablecontent.h	\
         atktable.h		\
+        atktablecell.h		\
         atktext.h		\
         atkutil.h		\
         atkmisc.h		\

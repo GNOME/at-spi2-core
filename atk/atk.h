@@ -47,6 +47,7 @@
 #include <atk/atkstateset.h>
 #include <atk/atkstreamablecontent.h>
 #include <atk/atktable.h>
+#include <atk/atktablecell.h>
 #include <atk/atktext.h>
 #include <atk/atkutil.h>
 #include <atk/atkmisc.h>
