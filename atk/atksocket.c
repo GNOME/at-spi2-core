@@ -21,6 +21,7 @@
 #include "atksocket.h"
 
 static void atk_socket_class_init (AtkSocketClass *klass);
+static void atk_socket_finalize   (GObject *obj);
 
 static void atk_component_interface_init (AtkComponentIface *iface);
 
@@ -36,7 +37,21 @@ atk_socket_init (AtkSocket* obj)
 static void
 atk_socket_class_init (AtkSocketClass* klass)
 {
+  GObjectClass *obj_class = G_OBJECT_CLASS (klass);
+
+  obj_class->finalize = atk_socket_finalize;
+
   klass->embed = NULL;
+}
+
+static void
+atk_socket_finalize (GObject *_obj)
+{
+  AtkSocket *obj = ATK_SOCKET (obj);
+
+  g_free (obj->embedded_plug_id);
+
+  G_OBJECT_CLASS (atk_socket_parent_class)->finalize (_obj);
 }
 
 static void atk_component_interface_init (AtkComponentIface *iface)
