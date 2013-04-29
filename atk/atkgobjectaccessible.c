@@ -140,7 +140,13 @@ atk_real_gobject_accessible_initialize (AtkObject  *atk_obj,
 static void
 atk_gobject_accessible_dispose (gpointer  data)
 {
+  GObject *object;
+
   g_return_if_fail (ATK_IS_GOBJECT_ACCESSIBLE (data));
+
+  object = atk_gobject_accessible_get_object (data);
+  if (object)
+      g_object_set_qdata (object, quark_accessible_object, NULL);
 
   g_object_set_qdata (G_OBJECT (data), quark_object, NULL);
   atk_object_notify_state_change (ATK_OBJECT (data), ATK_STATE_DEFUNCT,
