@@ -53,15 +53,13 @@ static DBusMessage *
 impl_GetLink (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkHypertext *hypertext = (AtkHypertext *) user_data;
-  DBusError error;
   dbus_int32_t linkIndex;
   AtkHyperlink *link;
 
   g_return_val_if_fail (ATK_IS_HYPERTEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &linkIndex, DBUS_TYPE_INVALID))
+      (message, NULL, DBUS_TYPE_INT32, &linkIndex, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -77,16 +75,14 @@ impl_GetLinkIndex (DBusConnection * bus, DBusMessage * message,
                    void *user_data)
 {
   AtkHypertext *hypertext = (AtkHypertext *) user_data;
-  DBusError error;
   dbus_int32_t characterIndex;
   dbus_int32_t rv;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_HYPERTEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &characterIndex, DBUS_TYPE_INVALID))
+      (message, NULL, DBUS_TYPE_INT32, &characterIndex, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }

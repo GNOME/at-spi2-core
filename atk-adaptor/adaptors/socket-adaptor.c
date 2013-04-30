@@ -117,7 +117,7 @@ atspi_plug_component_get_position (AtkComponent *component, gint *x, gint *y,
   dbus_message_unref (message);
   if (!reply)
     return;
-  if (!dbus_message_get_args (reply, &error, DBUS_TYPE_INT32, &x_dbus,
+  if (!dbus_message_get_args (reply, NULL, DBUS_TYPE_INT32, &x_dbus,
                               DBUS_TYPE_INT32, &y_dbus, DBUS_TYPE_INVALID))
     {
       g_warning ("GetPosition failed: %s", error.message);
@@ -146,7 +146,7 @@ atspi_plug_component_get_size (AtkComponent *component,
   dbus_message_unref (message);
   if (!reply)
     return;
-  if (!dbus_message_get_args (reply, &error, DBUS_TYPE_INT32, &width_dbus,
+  if (!dbus_message_get_args (reply, NULL, DBUS_TYPE_INT32, &width_dbus,
                               DBUS_TYPE_INT32, &height_dbus, DBUS_TYPE_INVALID))
     {
       g_warning ("GetSize failed: %s", error.message);

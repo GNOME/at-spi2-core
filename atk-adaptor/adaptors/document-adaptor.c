@@ -55,16 +55,14 @@ impl_GetAttributeValue (DBusConnection * bus, DBusMessage * message,
                         void *user_data)
 {
   AtkDocument *document = (AtkDocument *) user_data;
-  DBusError error;
   gchar *attributename;
   const gchar *atr;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_DOCUMENT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_STRING, &attributename, DBUS_TYPE_INVALID))
+      (message, NULL, DBUS_TYPE_STRING, &attributename, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }

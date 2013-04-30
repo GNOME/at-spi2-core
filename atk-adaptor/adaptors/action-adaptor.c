@@ -43,16 +43,14 @@ impl_get_description (DBusConnection * bus, DBusMessage * message,
                       void *user_data)
 {
   AtkAction *action = (AtkAction *) user_data;
-  DBusError error;
   DBusMessage *reply;
   dbus_int32_t index;
   const char *desc;
 
-  dbus_error_init (&error);
   g_return_val_if_fail (ATK_IS_ACTION (user_data),
                         droute_not_yet_handled_error (message));
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+      (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -72,16 +70,14 @@ static DBusMessage *
 impl_get_name (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   DBusMessage *reply;
-  DBusError error;
   dbus_int32_t index;
   const char *name;
   AtkAction *action = (AtkAction *) user_data;
 
-  dbus_error_init (&error);
   g_return_val_if_fail (ATK_IS_ACTION (user_data),
                         droute_not_yet_handled_error (message));
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+      (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -101,16 +97,14 @@ static DBusMessage *
 impl_get_localized_name (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   DBusMessage *reply;
-  DBusError error;
   dbus_int32_t index;
   const char *name;
   AtkAction *action = (AtkAction *) user_data;
 
-  dbus_error_init (&error);
   g_return_val_if_fail (ATK_IS_ACTION (user_data),
                         droute_not_yet_handled_error (message));
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+      (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -131,16 +125,14 @@ impl_get_keybinding (DBusConnection * bus, DBusMessage * message,
                      void *user_data)
 {
   DBusMessage *reply;
-  DBusError error;
   dbus_int32_t index;
   const char *kb;
   AtkAction *action = (AtkAction *) user_data;
 
-  dbus_error_init (&error);
   g_return_val_if_fail (ATK_IS_ACTION (user_data),
                         droute_not_yet_handled_error (message));
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+      (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -211,16 +203,14 @@ static DBusMessage *
 impl_DoAction (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkAction *action = (AtkAction *) user_data;
-  DBusError error;
   dbus_int32_t index;
   dbus_bool_t rv = TRUE;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_ACTION (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+      (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }

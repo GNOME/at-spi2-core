@@ -274,10 +274,7 @@ register_application (SpiBridge * app)
 {
   DBusMessage *message;
   DBusMessageIter iter;
-  DBusError error;
   DBusPendingCall *pending;
-
-  dbus_error_init (&error);
 
   g_free (app->desktop_name);
   g_free (app->desktop_path);
@@ -320,10 +317,7 @@ deregister_application (SpiBridge * app)
 {
   DBusMessage *message;
   DBusMessageIter iter;
-  DBusError error;
   const char *uname;
-
-  dbus_error_init (&error);
 
   message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
                                           ATSPI_DBUS_PATH_REGISTRY,
@@ -717,7 +711,7 @@ spi_atk_create_socket (SpiBridge *app)
 {
 #ifndef DISABLE_P2P
   DBusServer *server;
-  DBusError err;
+  DBusError error;
 
   if (getuid () != 0)
   {
@@ -740,12 +734,12 @@ spi_atk_create_socket (SpiBridge *app)
   if (!spi_global_app_data->app_bus_addr)
     return -1;
 
-  dbus_error_init(&err);
-  server = dbus_server_listen(spi_global_app_data->app_bus_addr, &err);
+  dbus_error_init(&error);
+  server = dbus_server_listen(spi_global_app_data->app_bus_addr, &error);
   if (server == NULL)
   {
-    g_warning ("atk-bridge: Couldn't listen on dbus server: %s", err.message);
-    dbus_error_init (&err);
+    g_warning ("atk-bridge: Couldn't listen on dbus server: %s", error.message);
+    dbus_error_free (&error);
     spi_global_app_data->app_bus_addr [0] = '\0';
     g_main_context_unref (spi_global_app_data->main_context);
     spi_global_app_data->main_context = NULL;
@@ -949,6 +943,7 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
   else
     get_registered_event_listeners (spi_global_app_data);
 
+  dbus_error_free (&error);
   return 0;
 }
 

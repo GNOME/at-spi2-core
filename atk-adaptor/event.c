@@ -140,7 +140,6 @@ Accessibility_DeviceEventController_NotifyListenersSync (const
                                                          * key_event)
 {
   DBusMessage *message;
-  DBusError error;
   dbus_bool_t consumed = FALSE;
 
   message =
@@ -149,7 +148,6 @@ Accessibility_DeviceEventController_NotifyListenersSync (const
                                   ATSPI_DBUS_INTERFACE_DEC,
                                   "NotifyListenersSync");
 
-  dbus_error_init (&error);
   if (spi_dbus_marshal_deviceEvent (message, key_event))
     {
       DBusMessage *reply =
@@ -158,8 +156,12 @@ Accessibility_DeviceEventController_NotifyListenersSync (const
         {
           DBusError error;
           dbus_error_init (&error);
-          dbus_message_get_args (reply, &error, DBUS_TYPE_BOOLEAN, &consumed,
-                                 DBUS_TYPE_INVALID);
+          if (!dbus_message_get_args (reply, &error, DBUS_TYPE_BOOLEAN,
+              &consumed, DBUS_TYPE_INVALID))
+            {
+              /* TODO: print a warning */
+              dbus_error_free (&error);
+            }
           dbus_message_unref (reply);
         }
     }

@@ -144,15 +144,13 @@ impl_GetChildAtIndex (DBusConnection * bus,
 {
   AtkObject *object = (AtkObject *) user_data;
   DBusMessage *reply;
-  DBusError error;
   dbus_int32_t i;
   AtkObject *child;
 
-  dbus_error_init (&error);
   g_return_val_if_fail (ATK_IS_OBJECT (user_data),
                         droute_not_yet_handled_error (message));
   if (!dbus_message_get_args 
-       (message, &error, DBUS_TYPE_INT32, &i, DBUS_TYPE_INVALID))
+       (message, NULL, DBUS_TYPE_INT32, &i, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }

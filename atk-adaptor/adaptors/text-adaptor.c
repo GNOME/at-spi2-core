@@ -67,14 +67,12 @@ impl_GetText (DBusConnection * bus, DBusMessage * message, void *user_data)
   AtkText *text = (AtkText *) user_data;
   dbus_int32_t startOffset, endOffset;
   gchar *txt;
-  DBusError error;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &startOffset, DBUS_TYPE_INT32,
+      (message, NULL, DBUS_TYPE_INT32, &startOffset, DBUS_TYPE_INT32,
        &endOffset, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
@@ -98,14 +96,12 @@ impl_SetCaretOffset (DBusConnection * bus, DBusMessage * message,
   AtkText *text = (AtkText *) user_data;
   dbus_int32_t offset;
   dbus_bool_t rv;
-  DBusError error;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_INVALID))
+      (message, NULL, DBUS_TYPE_INT32, &offset, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -129,14 +125,12 @@ impl_GetTextBeforeOffset (DBusConnection * bus, DBusMessage * message,
   gchar *txt;
   dbus_int32_t startOffset, endOffset;
   gint intstart_offset = 0, intend_offset = 0;
-  DBusError error;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_UINT32, &type,
+      (message, NULL, DBUS_TYPE_INT32, &offset, DBUS_TYPE_UINT32, &type,
        DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
@@ -168,14 +162,12 @@ impl_GetTextAtOffset (DBusConnection * bus, DBusMessage * message,
   gchar *txt;
   dbus_int32_t startOffset, endOffset;
   gint intstart_offset = 0, intend_offset = 0;
-  DBusError error;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_UINT32, &type,
+      (message, NULL, DBUS_TYPE_INT32, &offset, DBUS_TYPE_UINT32, &type,
        DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
@@ -208,14 +200,12 @@ impl_GetTextAfterOffset (DBusConnection * bus, DBusMessage * message,
   gchar *txt;
   dbus_int32_t startOffset, endOffset;
   gint intstart_offset = 0, intend_offset = 0;
-  DBusError error;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_UINT32, &type,
+      (message, NULL, DBUS_TYPE_INT32, &offset, DBUS_TYPE_UINT32, &type,
        DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
@@ -245,14 +235,12 @@ impl_GetCharacterAtOffset (DBusConnection * bus, DBusMessage * message,
   AtkText *text = (AtkText *) user_data;
   dbus_int32_t offset;
   dbus_int32_t ch;
-  DBusError error;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_INVALID))
+      (message, NULL, DBUS_TYPE_INT32, &offset, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -277,7 +265,6 @@ impl_GetAttributeValue (DBusConnection * bus, DBusMessage * message,
   dbus_bool_t defined;
   gint intstart_offset = 0, intend_offset = 0;
   char *rv = NULL;
-  DBusError error;
   DBusMessage *reply;
   AtkAttributeSet *set;
   GSList *cur_attr;
@@ -285,9 +272,8 @@ impl_GetAttributeValue (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_STRING,
+      (message, NULL, DBUS_TYPE_INT32, &offset, DBUS_TYPE_STRING,
        &attributeName, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
@@ -332,16 +318,14 @@ impl_GetAttributes (DBusConnection * bus, DBusMessage * message,
   dbus_int32_t offset;
   dbus_int32_t startOffset, endOffset;
   gint intstart_offset, intend_offset;
-  DBusError error;
   DBusMessage *reply;
   AtkAttributeSet *set;
   DBusMessageIter iter;
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_INVALID))
+      (message, NULL, DBUS_TYPE_INT32, &offset, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -369,14 +353,12 @@ impl_GetDefaultAttributes (DBusConnection * bus, DBusMessage * message,
                            void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
-  DBusError error;
   DBusMessage *reply;
   AtkAttributeSet *set;
   DBusMessageIter iter;
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
 
   set = atk_text_get_default_attributes (text);
   reply = dbus_message_new_method_return (message);
@@ -398,14 +380,12 @@ impl_GetCharacterExtents (DBusConnection * bus, DBusMessage * message,
   dbus_uint32_t coordType;
   dbus_int32_t x, y, width, height;
   gint ix = 0, iy = 0, iw = 0, ih = 0;
-  DBusError error;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_UINT32,
+      (message, NULL, DBUS_TYPE_INT32, &offset, DBUS_TYPE_UINT32,
        &coordType, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
@@ -434,14 +414,12 @@ impl_GetOffsetAtPoint (DBusConnection * bus, DBusMessage * message,
   dbus_int32_t x, y;
   dbus_uint32_t coordType;
   dbus_int32_t rv;
-  DBusError error;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
+      (message, NULL, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
        DBUS_TYPE_UINT32, &coordType, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
@@ -484,14 +462,12 @@ impl_GetSelection (DBusConnection * bus, DBusMessage * message,
   dbus_int32_t selectionNum;
   dbus_int32_t startOffset, endOffset;
   gint intstart_offset = 0, intend_offset = 0;
-  DBusError error;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &selectionNum, DBUS_TYPE_INVALID))
+      (message, NULL, DBUS_TYPE_INT32, &selectionNum, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -517,14 +493,12 @@ impl_AddSelection (DBusConnection * bus, DBusMessage * message,
   AtkText *text = (AtkText *) user_data;
   dbus_int32_t startOffset, endOffset;
   dbus_bool_t rv;
-  DBusError error;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &startOffset, DBUS_TYPE_INT32,
+      (message, NULL, DBUS_TYPE_INT32, &startOffset, DBUS_TYPE_INT32,
        &endOffset, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
@@ -546,14 +520,12 @@ impl_RemoveSelection (DBusConnection * bus, DBusMessage * message,
   AtkText *text = (AtkText *) user_data;
   dbus_int32_t selectionNum;
   dbus_bool_t rv;
-  DBusError error;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &selectionNum, DBUS_TYPE_INVALID))
+      (message, NULL, DBUS_TYPE_INT32, &selectionNum, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -574,14 +546,12 @@ impl_SetSelection (DBusConnection * bus, DBusMessage * message,
   AtkText *text = (AtkText *) user_data;
   dbus_int32_t selectionNum, startOffset, endOffset;
   dbus_bool_t rv;
-  DBusError error;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &selectionNum, DBUS_TYPE_INT32,
+      (message, NULL, DBUS_TYPE_INT32, &selectionNum, DBUS_TYPE_INT32,
        &startOffset, DBUS_TYPE_INT32, &endOffset, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
@@ -605,14 +575,12 @@ impl_GetRangeExtents (DBusConnection * bus, DBusMessage * message,
   dbus_uint32_t coordType;
   AtkTextRectangle rect;
   dbus_int32_t x, y, width, height;
-  DBusError error;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &startOffset, DBUS_TYPE_INT32,
+      (message, NULL, DBUS_TYPE_INT32, &startOffset, DBUS_TYPE_INT32,
        &endOffset, DBUS_TYPE_UINT32, &coordType, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
@@ -643,7 +611,6 @@ impl_GetBoundedRanges (DBusConnection * bus, DBusMessage * message,
   AtkText *text = (AtkText *) user_data;
   dbus_int32_t x, y, width, height;
   dbus_uint32_t coordType, xClipType, yClipType;
-  DBusError error;
   AtkTextRange **range_list = NULL;
   AtkTextRectangle rect;
   DBusMessage *reply;
@@ -651,9 +618,8 @@ impl_GetBoundedRanges (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
+      (message, NULL, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
        DBUS_TYPE_INT32, &height, DBUS_TYPE_INT32, &width, DBUS_TYPE_UINT32,
        &coordType, DBUS_TYPE_UINT32, &xClipType, DBUS_TYPE_UINT32, &yClipType,
        DBUS_TYPE_INVALID))
@@ -713,7 +679,6 @@ static DBusMessage *
 impl_GetAttributeRun (DBusConnection * bus, DBusMessage * message,
                       void *user_data)
 {
-  DBusError error;
   AtkText *text = (AtkText *) user_data;
   dbus_int32_t offset;
   dbus_bool_t includeDefaults;
@@ -725,9 +690,8 @@ impl_GetAttributeRun (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_BOOLEAN,
+      (message, NULL, DBUS_TYPE_INT32, &offset, DBUS_TYPE_BOOLEAN,
        &includeDefaults, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);

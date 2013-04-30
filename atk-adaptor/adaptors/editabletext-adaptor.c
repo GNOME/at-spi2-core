@@ -35,14 +35,12 @@ impl_SetTextContents (DBusConnection * bus, DBusMessage * message,
   AtkEditableText *editable = (AtkEditableText *) user_data;
   const char *newContents;
   dbus_bool_t rv;
-  DBusError error;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_STRING, &newContents, DBUS_TYPE_INVALID))
+      (message, NULL, DBUS_TYPE_STRING, &newContents, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -65,15 +63,13 @@ impl_InsertText (DBusConnection * bus, DBusMessage * message, void *user_data)
   dbus_int32_t position, length;
   char *text;
   dbus_bool_t rv;
-  DBusError error;
   DBusMessage *reply;
   gint ip;
 
   g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &position, DBUS_TYPE_STRING, &text,
+      (message, NULL, DBUS_TYPE_INT32, &position, DBUS_TYPE_STRING, &text,
        DBUS_TYPE_INT32, &length, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
@@ -96,13 +92,11 @@ impl_CopyText (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkEditableText *editable = (AtkEditableText *) user_data;
   dbus_int32_t startPos, endPos;
-  DBusError error;
 
   g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &startPos, DBUS_TYPE_INT32, &endPos,
+      (message, NULL, DBUS_TYPE_INT32, &startPos, DBUS_TYPE_INT32, &endPos,
        DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
@@ -116,15 +110,13 @@ impl_CutText (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkEditableText *editable = (AtkEditableText *) user_data;
   dbus_int32_t startPos, endPos;
-  DBusError error;
   dbus_bool_t rv;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &startPos, DBUS_TYPE_INT32, &endPos,
+      (message, NULL, DBUS_TYPE_INT32, &startPos, DBUS_TYPE_INT32, &endPos,
        DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
@@ -146,15 +138,13 @@ impl_DeleteText (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkEditableText *editable = (AtkEditableText *) user_data;
   dbus_int32_t startPos, endPos;
-  DBusError error;
   dbus_bool_t rv;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &startPos, DBUS_TYPE_INT32, &endPos,
+      (message, NULL, DBUS_TYPE_INT32, &startPos, DBUS_TYPE_INT32, &endPos,
        DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
@@ -176,15 +166,13 @@ impl_PasteText (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkEditableText *editable = (AtkEditableText *) user_data;
   dbus_int32_t position;
-  DBusError error;
   dbus_bool_t rv;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &position, DBUS_TYPE_INVALID))
+      (message, NULL, DBUS_TYPE_INT32, &position, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }

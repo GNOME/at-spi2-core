@@ -54,15 +54,13 @@ impl_GetSelectedChild (DBusConnection * bus, DBusMessage * message,
 {
   AtkSelection *selection = (AtkSelection *) user_data;
   DBusMessage *reply;
-  DBusError error;
   dbus_int32_t selectedChildIndex;
   AtkObject *atk_object;
 
   g_return_val_if_fail (ATK_IS_SELECTION (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &selectedChildIndex,
+      (message, NULL, DBUS_TYPE_INT32, &selectedChildIndex,
        DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
@@ -80,16 +78,14 @@ impl_SelectChild (DBusConnection * bus, DBusMessage * message,
                   void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
-  DBusError error;
   dbus_int32_t childIndex;
   dbus_bool_t rv;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_SELECTION (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &childIndex, DBUS_TYPE_INVALID))
+      (message, NULL, DBUS_TYPE_INT32, &childIndex, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -108,16 +104,14 @@ impl_DeselectSelectedChild (DBusConnection * bus, DBusMessage * message,
                             void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
-  DBusError error;
   dbus_int32_t selectedChildIndex;
   dbus_bool_t rv;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_SELECTION (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &selectedChildIndex,
+      (message, NULL, DBUS_TYPE_INT32, &selectedChildIndex,
        DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
@@ -137,16 +131,14 @@ impl_IsChildSelected (DBusConnection * bus, DBusMessage * message,
                       void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
-  DBusError error;
   dbus_int32_t childIndex;
   dbus_bool_t rv;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_SELECTION (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &childIndex, DBUS_TYPE_INVALID))
+      (message, NULL, DBUS_TYPE_INT32, &childIndex, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -204,7 +196,6 @@ impl_DeselectChild (DBusConnection * bus, DBusMessage * message,
                     void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
-  DBusError error;
   dbus_int32_t selectedChildIndex;
   dbus_bool_t rv = FALSE;
   gint i, nselected;
@@ -212,9 +203,8 @@ impl_DeselectChild (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_SELECTION (user_data),
                         droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &selectedChildIndex,
+      (message, NULL, DBUS_TYPE_INT32, &selectedChildIndex,
        DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);

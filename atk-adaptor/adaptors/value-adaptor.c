@@ -156,7 +156,6 @@ impl_SetCurrentValue (DBusConnection * bus, DBusMessage * message,
 {
   AtkValue *value = (AtkValue *) user_data;
   dbus_bool_t rv;
-  DBusError error;
   DBusMessage *reply;
   gdouble dub = 0;
   GValue new_value = { 0 };
@@ -164,9 +163,8 @@ impl_SetCurrentValue (DBusConnection * bus, DBusMessage * message,
   g_return_val_if_fail (ATK_IS_VALUE (value),
                         droute_not_yet_handled_error (message));
 
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_DOUBLE, &dub, DBUS_TYPE_INVALID))
+      (message, NULL, DBUS_TYPE_DOUBLE, &dub, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }

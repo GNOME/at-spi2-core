@@ -36,16 +36,14 @@ impl_contains (DBusConnection * bus, DBusMessage * message, void *user_data)
   AtkComponent *component = (AtkComponent *) user_data;
   dbus_int32_t x, y;
   dbus_uint32_t coord_type;
-  DBusError error;
   dbus_bool_t retval;
   DBusMessage *reply;
 
   g_return_val_if_fail (ATK_IS_COMPONENT (user_data),
                         droute_not_yet_handled_error (message));
 
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
+      (message, NULL, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
        DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
@@ -69,15 +67,13 @@ impl_GetAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
   dbus_int32_t x, y;
   dbus_uint32_t coord_type;
   DBusMessage *reply;
-  DBusError error;
   AtkObject *child;
 
   g_return_val_if_fail (ATK_IS_COMPONENT (user_data),
                         droute_not_yet_handled_error (message));
 
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
+      (message, NULL, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
        DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
@@ -96,16 +92,14 @@ static DBusMessage *
 impl_GetExtents (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
-  DBusError error;
   dbus_uint32_t coord_type;
   gint ix, iy, iwidth, iheight;
 
   g_return_val_if_fail (ATK_IS_COMPONENT (user_data),
                         droute_not_yet_handled_error (message));
 
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
+      (message, NULL, DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -119,7 +113,6 @@ impl_GetPosition (DBusConnection * bus, DBusMessage * message,
                   void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
-  DBusError error;
   dbus_uint32_t coord_type;
   gint ix = 0, iy = 0;
   dbus_int32_t x, y;
@@ -128,9 +121,8 @@ impl_GetPosition (DBusConnection * bus, DBusMessage * message,
   g_return_val_if_fail (ATK_IS_COMPONENT (user_data),
                         droute_not_yet_handled_error (message));
 
-  dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
+      (message, NULL, DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
