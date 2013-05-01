@@ -47,9 +47,10 @@ atk_socket_class_init (AtkSocketClass* klass)
 static void
 atk_socket_finalize (GObject *_obj)
 {
-  AtkSocket *obj = ATK_SOCKET (obj);
+  AtkSocket *obj = ATK_SOCKET (_obj);
 
   g_free (obj->embedded_plug_id);
+  obj->embedded_plug_id = NULL;
 
   G_OBJECT_CLASS (atk_socket_parent_class)->finalize (_obj);
 }
