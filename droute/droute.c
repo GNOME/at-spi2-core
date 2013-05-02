@@ -265,7 +265,12 @@ impl_prop_GetAll (DBusMessage *message,
     dbus_error_init (&error);
     if (!dbus_message_get_args
                 (message, &error, DBUS_TYPE_STRING, &iface, DBUS_TYPE_INVALID))
-        return dbus_message_new_error (message, DBUS_ERROR_FAILED, error.message);
+      {
+        DBusMessage *ret;
+        ret = dbus_message_new_error (message, DBUS_ERROR_FAILED, error.message);
+        dbus_error_free (&error);
+        return ret;
+      }
 
     reply = dbus_message_new_method_return (message);
     if (!reply)
@@ -321,17 +326,26 @@ impl_prop_GetSet (DBusMessage *message,
                                 DBUS_TYPE_STRING,
                                 &(pair.two),
                                 DBUS_TYPE_INVALID))
-        return dbus_message_new_error (message, DBUS_ERROR_FAILED, error.message);
+      {
+        DBusMessage *ret;
+        ret = dbus_message_new_error (message, DBUS_ERROR_FAILED, error.message);
+        dbus_error_free (&error);
+      }
 
     _DROUTE_DEBUG ("DRoute (handle prop): %s|%s on %s\n", pair.one, pair.two, pathstr);
 
     prop_funcs = (PropertyPair *) g_hash_table_lookup (path->properties, &pair);
     if (!prop_funcs)
+      {
+        DBusMessage *ret;
 #ifdef DBUS_ERROR_UNKNOWN_PROPERTY
-        return dbus_message_new_error (message, DBUS_ERROR_UNKNOWN_PROPERTY, "Property unavailable");
+        ret = dbus_message_new_error (message, DBUS_ERROR_UNKNOWN_PROPERTY, "Property unavailable");
 #else
-        return dbus_message_new_error (message, DBUS_ERROR_FAILED, "Property unavailable");
+        ret = dbus_message_new_error (message, DBUS_ERROR_FAILED, "Property unavailable");
 #endif
+        dbus_error_free (&error);
+        return ret;
+      }
 
     datum = path_get_datum (path, pathstr);
     if (!datum)
