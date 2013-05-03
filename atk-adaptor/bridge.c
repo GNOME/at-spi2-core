@@ -235,6 +235,14 @@ register_reply (DBusPendingCall *pending, void *user_data)
 
   reply = dbus_pending_call_steal_reply (pending);
   dbus_pending_call_unref (pending);
+
+  if (!spi_global_app_data)
+    {
+      if (reply)
+         dbus_message_unref (reply);
+      return;
+    }
+
   if (reply)
     {
       gchar *app_name, *obj_path;
