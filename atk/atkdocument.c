@@ -152,7 +152,7 @@ atk_document_get_document (AtkDocument *document)
  *          atk_image_get_image_locale.
  *
  * Deprecated: This method is deprecated since ATK version
- * 2.7.90. Please use atk_object_get_object_locale instead.
+ * 2.7.90. Please use atk_object_get_object_locale() instead.
  *
  * Returns: a UTF-8 string indicating the POSIX-style LC_MESSAGES
  *          locale of the document content as a whole, or NULL if
