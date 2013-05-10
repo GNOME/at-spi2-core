@@ -27,6 +27,7 @@ libatspiinclude_HEADERS = \
 	atspi-device-listener-private.h \
 	atspi-document.h \
 	atspi-editabletext.h \
+	atspi-enum-types.h \
 	atspi-event-listener.h \
 	atspi-event-listener-private.h \
 atspi-gmain.c \
@@ -48,6 +49,7 @@ atspi-gmain.h \
 	atspi-value.h
 
 libatspi_la_SOURCES =		\
+	$(BUILT_SOURCES) \
 	$(libatspiinclude_HEADERS) \
 	atspi.h	\
 	atspi-accessible.c \
@@ -102,12 +104,24 @@ libatspi_la_SOURCES =		\
 	atspi-value.c \
 	atspi-value.h
 
-#BUILT_SOURCES = atspi-constants.h
+BUILT_SOURCES = \
+	atspi-enum-types.c \
+	atspi-enum-types.h
 
 #CLEANFILES = atspi-constants.h
 
 #atspi-constants.h: $(top_srcdir)/xml/spec.xml $(top_srcdir)/tools/c-constants-gen.py
 #	python $(top_srcdir)/tools/c-constants-gen.py Atspi $(top_srcdir)/xml/spec.xml atspi-constants
+
+ENUM_TYPES = \
+	atspi-constants.h \
+	atspi-types.h
+
+atspi-enum-types.h: atspi-enum-types.h.template $(ENUM_TYPES) $(GLIB_MKENUMS)
+	$(AM_V_GEN) (cd $(srcdir) && $(GLIB_MKENUMS) --template atspi-enum-types.h.template $(ENUM_TYPES)) > $@
+
+atspi-enum-types.c: atspi-enum-types.c.template $(ENUM_TYPES) $(GLIB_MKENUMS)
+	$(AM_V_GEN) (cd $(srcdir) && $(GLIB_MKENUMS) --template atspi-enum-types.c.template $(ENUM_TYPES)) > $@
 
 -include $(INTROSPECTION_MAKEFILE)
 INTROSPECTION_GIRS =
@@ -115,7 +129,6 @@ INTROSPECTION_SCANNER_ARGS = --add-include-path=$(srcdir) --warn-all
 INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
 
 if HAVE_INTROSPECTION
-
 Atspi-2.0.gir: libatspi.la
 Atspi_2_0_gir_INCLUDES = GLib-2.0 GObject-2.0
 Atspi_2_0_gir_PACKAGES = dbus-1

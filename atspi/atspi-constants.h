@@ -1192,8 +1192,8 @@ typedef enum {
 
 typedef enum
 {
-  ATSPI_CACHE_NONE     = 0,
-  ATSPI_CACHE_PARENT   = 1 << 0,
+     ATSPI_CACHE_NONE     = 0,
+     ATSPI_CACHE_PARENT   = 1 << 0,
   ATSPI_CACHE_CHILDREN    = 1 << 1,
   ATSPI_CACHE_NAME        = 1 << 2,
   ATSPI_CACHE_DESCRIPTION = 1 << 3,

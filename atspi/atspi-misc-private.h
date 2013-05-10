@@ -156,6 +156,8 @@ extern GMainLoop *atspi_main_loop;
 extern gboolean atspi_no_cache;
 
 GHashTable *_atspi_get_live_refs ();
+
+gchar *_atspi_name_compat (gchar *in);
 G_END_DECLS
 
 #endif	/* _ATSPI_MISC_PRIVATE_H_ */

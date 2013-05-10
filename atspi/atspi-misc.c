@@ -1626,3 +1626,17 @@ debug_disposed ()
   g_hash_table_foreach (live_refs, print_disposed, NULL);
 }
 #endif
+
+gchar *
+_atspi_name_compat (gchar *name)
+{
+  gchar *p = name;
+
+  while (*p)
+  {
+    if (*p == '-')
+      *p = ' ';
+    p++;
+  }
+  return name;
+}
