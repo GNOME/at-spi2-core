@@ -7,6 +7,8 @@ at_spi2_registryd_CFLAGS =	\
 	$(GOBJ_CFLAGS)		\
 	$(ATK_CFLAGS)		\
 	-I$(top_srcdir)		\
+	-I$(top_builddir)	\
+	-I$(top_builddir)/atspi	\
 	-DATSPI_INTROSPECTION_PATH=\"$(pkgdatadir)/$(DEFAULT_ATSPI_INTROSPECTION_PATH)\"
 
 at_spi2_registryd_LDADD =	\
