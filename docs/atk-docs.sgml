@@ -70,7 +70,7 @@
     &atk-AtkWindow;
   </chapter>
 
-  <chapter id="atk">
+  <chapter id="utilities">
     <title>Utilities</title>
     &atk-AtkVersion;
   </chapter>
