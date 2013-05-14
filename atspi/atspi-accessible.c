@@ -501,7 +501,7 @@ atspi_accessible_get_role_name (AtspiAccessible *obj, GError **error)
 
   if (value)
     {
-      retval = value->value_nick;
+      retval = g_strdup (value->value_nick);
     }
 
   if (retval)
