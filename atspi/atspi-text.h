@@ -89,11 +89,19 @@ gchar * atspi_text_get_text (AtspiText *obj, gint start_offset, gint end_offset,
 
 gint atspi_text_get_caret_offset (AtspiText *obj, GError **error);
 
+#ifndef ATSPI_DISABLE_DEPRECATED
 GHashTable *atspi_text_get_attributes (AtspiText *obj, gint offset, gint *start_offset, gint *end_offset, GError **error);
+#endif
+
+GHashTable *atspi_text_get_text_attributes (AtspiText *obj, gint offset, gint *start_offset, gint *end_offset, GError **error);
 
 GHashTable *atspi_text_get_attribute_run (AtspiText *obj, gint offset, gboolean include_defaults, gint *start_offset, gint *end_offset, GError **error);
 
+#ifndef ATSPI_DISABLE_DEPRECATED
 gchar * atspi_text_get_attribute_value (AtspiText *obj, gint offset, gchar *attribute_name, GError **error);
+#endif
+
+gchar * atspi_text_get_text_attribute_value (AtspiText *obj, gint offset, gchar *attribute_name, GError **error);
 
 GHashTable * atspi_text_get_default_attributes (AtspiText *obj, GError **error);
 

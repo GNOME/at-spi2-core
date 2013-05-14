@@ -53,11 +53,32 @@ atspi_document_get_locale (AtspiDocument *obj, GError **error)
  *
  * Returns: a string corresponding to the value of the specified attribute, or
  * an empty string if the attribute is unspecified for the object.
+ *
+ * Deprecated: 2.10: Use atspi_document_get_document_attribute_value instead.
+ * Rename to: atspi_document_get_document_attribute_value
  **/
 gchar *
 atspi_document_get_attribute_value (AtspiDocument *obj,
 				      gchar *attribute,
 				      GError **error)
+{
+  return atspi_document_get_document_attribute_value (obj, attribute, error);
+}
+				      
+/**
+ * atspi_document_get_document_attribute_value:
+ * @obj: a pointer to the #AtspiDocument object on which to operate.
+ * @attribute: a string indicating the name of a specific attribute.
+ *
+ * Gets the value of a single attribute, if specified for the document as a whole.
+ *
+ * Returns: a string corresponding to the value of the specified attribute, or
+ * an empty string if the attribute is unspecified for the object.
+ **/
+gchar *
+atspi_document_get_document_attribute_value (AtspiDocument *obj,
+				             gchar *attribute,
+				             GError **error)
 {
   gchar *retval = NULL;
 
@@ -81,9 +102,28 @@ atspi_document_get_attribute_value (AtspiDocument *obj,
  * 
  * Returns: (element-type gchar* gchar*) (transfer full): a #GHashTable
  *          containing the constant attributes of the document, as name-value pairs.
+ *
+ * Deprecated: 2.10: Use atspi_document_get_document_attributes instead.
+ * Rename to: atspi_document_get_document_attributes
  **/
 GHashTable *
 atspi_document_get_attributes (AtspiDocument *obj, GError **error)
+{
+  return atspi_document_get_document_attributes (obj, error);
+}
+
+/**
+ * atspi_document_get_document_attributes:
+ * @obj: a pointer to the #AtspiDocument object on which to operate.
+ * 
+ * Gets all constant attributes for the document as a whole. For attributes
+ * that change within the document content, see @atspi_text_get_attribute_run instead.
+ * 
+ * Returns: (element-type gchar* gchar*) (transfer full): a #GHashTable
+ *          containing the constant attributes of the document, as name-value pairs.
+ **/
+GHashTable *
+atspi_document_get_document_attributes (AtspiDocument *obj, GError **error)
 {
   DBusMessage *message;
 

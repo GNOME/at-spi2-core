@@ -154,9 +154,40 @@ atspi_text_get_caret_offset (AtspiText *obj, GError **error)
  *
  * Returns: (element-type gchar* gchar*) (transfer full): a #GHashTable
  * describing the attributes at the given character offset.
+ *
+ * Deprecated: 2.10: Use atspi_text_get_text_attributes instead.
+ * Rename to: atspi_text_get_text_attributes
  **/
 GHashTable *
 atspi_text_get_attributes (AtspiText *obj,
+			   gint offset,
+			   gint *start_offset,
+			   gint *end_offset,
+			   GError **error)
+{
+  return atspi_text_get_text_attributes (obj, offset, start_offset, end_offset, error);
+}
+
+/**
+ * atspi_text_get_text_attributes:
+ * @obj: a pointer to the #AtspiText object to query.
+ * @offset: a #gint indicating the offset from which the attribute
+ *        search is based.
+ * @start_offset: (out): a #gint pointer indicating the start of the desired text
+ *                range.
+ * @end_offset: (out): a #gint pointer indicating the first character past the desired
+ *              range.
+ *
+ * Gets the attributes applied to a range of text from an #AtspiText
+ * object. The text attributes correspond to CSS attributes
+ * where possible.
+ * <em>DEPRECATED</em>
+ *
+ * Returns: (element-type gchar* gchar*) (transfer full): a #GHashTable
+ * describing the attributes at the given character offset.
+ **/
+GHashTable *
+atspi_text_get_text_attributes (AtspiText *obj,
 			   gint offset,
 			   gint *start_offset,
 			   gint *end_offset,
@@ -258,12 +289,36 @@ atspi_text_get_attribute_run (AtspiText *obj,
  *
  * Returns: the value of a given attribute at the given offset, or NULL if
  * not present.
+ *
+ * Deprecated: 2.10: Use atspi_text_get_text_attribute_value instead.
+ * Rename to: atspi_text_get_text_attribute_value
  **/
 gchar *
 atspi_text_get_attribute_value (AtspiText *obj,
                                 gint offset,
                                 gchar *attribute_value,
                                 GError **error)
+{
+  return atspi_text_get_text_attribute_value (obj, offset, attribute_value,
+                                              error);
+}
+
+/**
+ * atspi_text_get_text_attribute_value:
+ * @obj: a pointer to the #AtspiText object to query.
+ * @offset: The character offset at which to query the attribute.
+ * @attribute_name: The attribute to query.
+ *
+ * Gets the value of a named attribute at a given offset.
+ *
+ * Returns: the value of a given attribute at the given offset, or NULL if
+ * not present.
+ **/
+gchar *
+atspi_text_get_text_attribute_value (AtspiText *obj,
+                                     gint offset,
+                                     gchar *attribute_value,
+                                     GError **error)
 {
   gchar *retval = NULL;
 

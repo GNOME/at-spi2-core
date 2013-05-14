@@ -1082,9 +1082,28 @@ atspi_accessible_is_value (AtspiAccessible *obj)
  *
  * Returns: (transfer full): a pointer to an #AtspiAction interface
  *          instance, or NULL if @obj does not implement #AtspiAction.
+ *
+ * Deprecated: 2.10: Use atspi_accessible_get_action_iface instead.
+ * Rename to: atspi_accessible_get_action_iface
  **/
 AtspiAction *
 atspi_accessible_get_action (AtspiAccessible *accessible)
+{
+  return (_atspi_accessible_is_a (accessible, atspi_interface_action) ?
+          g_object_ref (ATSPI_ACTION (accessible)) : NULL);  
+}
+
+/**
+ * atspi_accessible_get_action_iface:
+ * @obj: a pointer to the #AtspiAccessible instance to query.
+ *
+ * Gets the #AtspiAction interface for an #AtspiAccessible.
+ *
+ * Returns: (transfer full): a pointer to an #AtspiAction interface
+ *          instance, or NULL if @obj does not implement #AtspiAction.
+ **/
+AtspiAction *
+atspi_accessible_get_action_iface (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_action) ?
           g_object_ref (ATSPI_ACTION (accessible)) : NULL);  
@@ -1098,9 +1117,28 @@ atspi_accessible_get_action (AtspiAccessible *accessible)
  *
  * Returns: (transfer full): a pointer to an #AtspiCollection interface
  *          instance, or NULL if @obj does not implement #AtspiCollection.
+ *
+ * Deprecated: 2.10: Use atspi_accessible_get_collection_iface instead.
+ * Rename to: atspi_accessible_get_collection_iface
  **/
 AtspiCollection *
 atspi_accessible_get_collection (AtspiAccessible *accessible)
+{
+  return (_atspi_accessible_is_a (accessible, atspi_interface_collection) ?
+          g_object_ref (ATSPI_COLLECTION (accessible)) : NULL);  
+}
+
+/**
+ * atspi_accessible_get_collection_iface:
+ * @obj: a pointer to the #AtspiAccessible instance to query.
+ *
+ * Gets the #AtspiCollection interface for an #AtspiAccessible.
+ *
+ * Returns: (transfer full): a pointer to an #AtspiCollection interface
+ *          instance, or NULL if @obj does not implement #AtspiCollection.
+ **/
+AtspiCollection *
+atspi_accessible_get_collection_iface (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_collection) ?
           g_object_ref (ATSPI_COLLECTION (accessible)) : NULL);  
@@ -1114,9 +1152,28 @@ atspi_accessible_get_collection (AtspiAccessible *accessible)
  *
  * Returns: (transfer full): a pointer to an #AtspiComponent interface
  *          instance, or NULL if @obj does not implement #AtspiComponent.
+ *
+ * Deprecated: 2.10: Use atspi_accessible_get_component_iface instead.
+ * Rename to: atspi_accessible_get_component_iface
  **/
 AtspiComponent *
 atspi_accessible_get_component (AtspiAccessible *obj)
+{
+  return (_atspi_accessible_is_a (obj, atspi_interface_component) ?
+          g_object_ref (ATSPI_COMPONENT (obj)) : NULL);
+}
+
+/**
+ * atspi_accessible_get_component_iface:
+ * @obj: a pointer to the #AtspiAccessible instance to query.
+ *
+ * Gets the #AtspiComponent interface for an #AtspiAccessible.
+ *
+ * Returns: (transfer full): a pointer to an #AtspiComponent interface
+ *          instance, or NULL if @obj does not implement #AtspiComponent.
+ **/
+AtspiComponent *
+atspi_accessible_get_component_iface (AtspiAccessible *obj)
 {
   return (_atspi_accessible_is_a (obj, atspi_interface_component) ?
           g_object_ref (ATSPI_COMPONENT (obj)) : NULL);
@@ -1130,9 +1187,28 @@ atspi_accessible_get_component (AtspiAccessible *obj)
  *
  * Returns: (transfer full): a pointer to an #AtspiDocument interface
  *          instance, or NULL if @obj does not implement #AtspiDocument.
+ *
+ * Deprecated: 2.10: Use atspi_accessible_get_document_iface instead.
+ * Rename to: atspi_accessible_get_document_iface
  **/
 AtspiDocument *
 atspi_accessible_get_document (AtspiAccessible *accessible)
+{
+  return (_atspi_accessible_is_a (accessible, atspi_interface_document) ?
+          g_object_ref (ATSPI_DOCUMENT (accessible)) : NULL);  
+}
+
+/**
+ * atspi_accessible_get_document_iface:
+ * @obj: a pointer to the #AtspiAccessible instance to query.
+ *
+ * Gets the #AtspiDocument interface for an #AtspiAccessible.
+ *
+ * Returns: (transfer full): a pointer to an #AtspiDocument interface
+ *          instance, or NULL if @obj does not implement #AtspiDocument.
+ **/
+AtspiDocument *
+atspi_accessible_get_document_iface (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_document) ?
           g_object_ref (ATSPI_DOCUMENT (accessible)) : NULL);  
@@ -1146,9 +1222,28 @@ atspi_accessible_get_document (AtspiAccessible *accessible)
  *
  * Returns: (transfer full): a pointer to an #AtspiEditableText interface
  *          instance, or NULL if @obj does not implement #AtspiEditableText.
+ *
+ * Deprecated: 2.10: Use atspi_accessible_get_editable_text_iface instead.
+ * Rename to: atspi_accessible_get_editable_text_iface
  **/
 AtspiEditableText *
 atspi_accessible_get_editable_text (AtspiAccessible *accessible)
+{
+  return (_atspi_accessible_is_a (accessible, atspi_interface_editable_text) ?
+          g_object_ref (ATSPI_EDITABLE_TEXT (accessible)) : NULL);  
+}
+
+/**
+ * atspi_accessible_get_editable_text_iface:
+ * @obj: a pointer to the #AtspiAccessible instance to query.
+ *
+ * Gets the #AtspiEditableText interface for an #AtspiAccessible.
+ *
+ * Returns: (transfer full): a pointer to an #AtspiEditableText interface
+ *          instance, or NULL if @obj does not implement #AtspiEditableText.
+ **/
+AtspiEditableText *
+atspi_accessible_get_editable_text_iface (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_editable_text) ?
           g_object_ref (ATSPI_EDITABLE_TEXT (accessible)) : NULL);  
@@ -1178,9 +1273,28 @@ atspi_accessible_get_hyperlink (AtspiAccessible *accessible)
  *
  * Returns: (transfer full): a pointer to an #AtspiHypertext interface
  *          instance, or NULL if @obj does not implement #AtspiHypertext.
+ *
+ * Deprecated: 2.10: Use atspi_accessible_get_hypertext_iface instead.
+ * Rename to: atspi_accessible_get_hypertext_iface
  **/
 AtspiHypertext *
 atspi_accessible_get_hypertext (AtspiAccessible *accessible)
+{
+  return (_atspi_accessible_is_a (accessible, atspi_interface_hypertext) ?
+          g_object_ref (ATSPI_HYPERTEXT (accessible)) : NULL);  
+}
+
+/**
+ * atspi_accessible_get_hypertext_iface:
+ * @obj: a pointer to the #AtspiAccessible instance to query.
+ *
+ * Gets the #AtspiHypertext interface for an #AtspiAccessible.
+ *
+ * Returns: (transfer full): a pointer to an #AtspiHypertext interface
+ *          instance, or NULL if @obj does not implement #AtspiHypertext.
+ **/
+AtspiHypertext *
+atspi_accessible_get_hypertext_iface (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_hypertext) ?
           g_object_ref (ATSPI_HYPERTEXT (accessible)) : NULL);  
@@ -1194,9 +1308,28 @@ atspi_accessible_get_hypertext (AtspiAccessible *accessible)
  *
  * Returns: (transfer full): a pointer to an #AtspiImage interface instance, or
  *          NULL if @obj does not implement #AtspiImage.
+ *
+ * Deprecated: 2.10: Use atspi_accessible_get_image_iface instead.
+ * Rename to: atspi_accessible_get_image_iface
  **/
 AtspiImage *
 atspi_accessible_get_image (AtspiAccessible *accessible)
+{
+  return (_atspi_accessible_is_a (accessible, atspi_interface_image) ?
+          g_object_ref (ATSPI_IMAGE (accessible)) : NULL);  
+}
+
+/**
+ * atspi_accessible_get_image_iface:
+ * @obj: a pointer to the #AtspiAccessible instance to query.
+ *
+ * Gets the #AtspiImage interface for an #AtspiAccessible.
+ *
+ * Returns: (transfer full): a pointer to an #AtspiImage interface instance, or
+ *          NULL if @obj does not implement #AtspiImage.
+ **/
+AtspiImage *
+atspi_accessible_get_image_iface (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_image) ?
           g_object_ref (ATSPI_IMAGE (accessible)) : NULL);  
@@ -1210,9 +1343,28 @@ atspi_accessible_get_image (AtspiAccessible *accessible)
  *
  * Returns: (transfer full): a pointer to an #AtspiSelection interface
  *          instance, or NULL if @obj does not implement #AtspiSelection.
+ *
+ * Deprecated: 2.10: Use atspi_accessible_get_selection_iface instead.
+ * Rename to: atspi_accessible_get_selection_iface
  **/
 AtspiSelection *
 atspi_accessible_get_selection (AtspiAccessible *accessible)
+{
+  return (_atspi_accessible_is_a (accessible, atspi_interface_selection) ?
+          g_object_ref (ATSPI_SELECTION (accessible)) : NULL);  
+}
+
+/**
+ * atspi_accessible_get_selection_iface:
+ * @obj: a pointer to the #AtspiAccessible instance to query.
+ *
+ * Gets the #AtspiSelection interface for an #AtspiAccessible.
+ *
+ * Returns: (transfer full): a pointer to an #AtspiSelection interface
+ *          instance, or NULL if @obj does not implement #AtspiSelection.
+ **/
+AtspiSelection *
+atspi_accessible_get_selection_iface (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_selection) ?
           g_object_ref (ATSPI_SELECTION (accessible)) : NULL);  
@@ -1244,9 +1396,28 @@ atspi_accessible_get_streamable_content (AtspiAccessible *accessible)
  *
  * Returns: (transfer full): a pointer to an #AtspiTable interface instance, or
  *          NULL if @obj does not implement #AtspiTable.
+ *
+ * Deprecated: 2.10: Use atspi_accessible_get_table_iface instead.
+ * Rename to: atspi_accessible_get_table_iface
  **/
 AtspiTable *
 atspi_accessible_get_table (AtspiAccessible *obj)
+{
+  return (_atspi_accessible_is_a (obj, atspi_interface_table) ?
+          g_object_ref (ATSPI_TABLE (obj)) : NULL);  
+}
+
+/**
+ * atspi_accessible_get_table_iface:
+ * @obj: a pointer to the #AtspiAccessible instance to query.
+ *
+ * Gets the #AtspiTable interface for an #AtspiAccessible.
+ *
+ * Returns: (transfer full): a pointer to an #AtspiTable interface instance, or
+ *          NULL if @obj does not implement #AtspiTable.
+ **/
+AtspiTable *
+atspi_accessible_get_table_iface (AtspiAccessible *obj)
 {
   return (_atspi_accessible_is_a (obj, atspi_interface_table) ?
           g_object_ref (ATSPI_TABLE (obj)) : NULL);  
@@ -1260,9 +1431,28 @@ atspi_accessible_get_table (AtspiAccessible *obj)
  *
  * Returns: (transfer full): a pointer to an #AtspiText interface instance, or
  *          NULL if @obj does not implement #AtspiText.
+ *
+ * Deprecated: 2.10: Use atspi_accessible_get_text_iface instead.
+ * Rename to: atspi_accessible_get_text_iface
  **/
 AtspiText *
 atspi_accessible_get_text (AtspiAccessible *obj)
+{
+  return (_atspi_accessible_is_a (obj, atspi_interface_text) ?
+          g_object_ref (ATSPI_TEXT (obj)) : NULL);
+}
+
+/**
+ * atspi_accessible_get_text_iface:
+ * @obj: a pointer to the #AtspiAccessible instance to query.
+ *
+ * Gets the #AtspiTable interface for an #AtspiAccessible.
+ *
+ * Returns: (transfer full): a pointer to an #AtspiText interface instance, or
+ *          NULL if @obj does not implement #AtspiText.
+ **/
+AtspiText *
+atspi_accessible_get_text_iface (AtspiAccessible *obj)
 {
   return (_atspi_accessible_is_a (obj, atspi_interface_text) ?
           g_object_ref (ATSPI_TEXT (obj)) : NULL);
@@ -1276,9 +1466,28 @@ atspi_accessible_get_text (AtspiAccessible *obj)
  *
  * Returns: (transfer full): a pointer to an #AtspiValue interface instance, or
  *          NULL if @obj does not implement #AtspiValue.
+ *
+ * Deprecated: 2.10: Use atspi_accessible_get_value_iface instead.
+ * Rename to: atspi_accessible_get_value_iface
  **/
 AtspiValue *
 atspi_accessible_get_value (AtspiAccessible *accessible)
+{
+  return (_atspi_accessible_is_a (accessible, atspi_interface_value) ?
+          g_object_ref (ATSPI_VALUE (accessible)) : NULL);  
+}
+
+/**
+ * atspi_accessible_get_value_iface:
+ * @obj: a pointer to the #AtspiAccessible instance to query.
+ *
+ * Gets the #AtspiTable interface for an #AtspiAccessible.
+ *
+ * Returns: (transfer full): a pointer to an #AtspiValue interface instance, or
+ *          NULL if @obj does not implement #AtspiValue.
+ **/
+AtspiValue *
+atspi_accessible_get_value_iface (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_value) ?
           g_object_ref (ATSPI_VALUE (accessible)) : NULL);  

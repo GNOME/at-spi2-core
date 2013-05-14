@@ -45,18 +45,23 @@ struct _AtspiAction
   GTypeInterface parent;
 };
 
-gint atspi_action_get_n_actions (AtspiAction *obj, GError **error);
+gchar * atspi_action_get_action_description (AtspiAction *obj, int i, GError **error);
 
-gchar * atspi_action_get_description (AtspiAction *obj, int i, GError **error);
+gchar * atspi_action_get_action_name (AtspiAction *obj, gint i, GError **error);
+
+gint atspi_action_get_n_actions (AtspiAction *obj, GError **error);
 
 gchar * atspi_action_get_key_binding (AtspiAction *obj, gint i, GError **error);
 
-gchar * atspi_action_get_name (AtspiAction *obj, gint i, GError **error);
 
 gchar * atspi_action_get_localized_name (AtspiAction *obj, gint i, GError **error);
 
 gboolean atspi_action_do_action (AtspiAction *obj, gint i, GError **error);
 
+#ifndef ATSPI_DISABLE_DEPRECATED
+gchar * atspi_action_get_description (AtspiAction *obj, gint i, GError **error);
+gchar * atspi_action_get_name (AtspiAction *obj, gint i, GError **error);
+#endif
 G_END_DECLS
 
 #endif	/* _ATSPI_ACTION_H_ */
