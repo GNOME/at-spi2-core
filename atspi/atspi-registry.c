@@ -348,7 +348,7 @@ atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
  *             the events.
  * @event_types: an #AtspiDeviceEventMask mask indicating which
  *             types of key events are requested (%ATSPI_KEY_PRESSED, etc.).
- * @filter: Unused parameter.
+ * @filter: (allow-none): Unused parameter.
  * @error: (allow-none): a pointer to a %NULL #GError pointer, or %NULL
  *             
  * Registers a listener for device events, for instance button events.
@@ -386,7 +386,7 @@ atspi_register_device_event_listener (AtspiDeviceListener  *listener,
  * atspi_deregister_device_event_listener:
  * @listener: a pointer to the #AtspiDeviceListener for which
  *            device events are requested.
- * @filter: Unused parameter.
+ * @filter: (allow-none): Unused parameter.
  * @error: (allow-none): a pointer to a %NULL #GError pointer, or %NULL
  *
  * Removes a device event listener from the registry's listener queue,
