@@ -20,6 +20,32 @@
 #include "atk.h"
 #include "atksocket.h"
 
+/**
+ * SECTION:atksocket
+ * @Short_description: Container for AtkPlug objects from other processes
+ * @Title: AtkSocket
+ * @See_also: #AtkPlug
+ *
+ * Together with #AtkPlug, #AtkSocket provides the ability to embed
+ * accessibles from one process into another in a fashion that is
+ * transparent to assistive technologies. #AtkSocket works as the
+ * container of #AtkPlug, embedding it using the method
+ * atk_socket_embed(). Any accessible contained in the #AtkPlug will
+ * appear to the assistive technologies as being inside the
+ * application that created the #AtkSocket.
+ *
+ * The communication between a #AtkSocket and a #AtkPlug is done by
+ * the IPC layer of the accessibility framework, normally implemented
+ * by the D-Bus based implementation of AT-SPI (at-spi2). If that is
+ * the case, at-spi-atk2 is the responsible to implement the abstract
+ * methods atk_plug_get_id() and atk_socket_embed(), so an ATK
+ * implementor shouldn't reimplement them. The process that contains
+ * the #AtkPlug is responsible to send the ID returned by
+ * atk_plug_id() to the process that contains the #AtkSocket, so it
+ * could call the method atk_socket_embed() in order to embed it.
+ *
+ */
+
 static void atk_socket_class_init (AtkSocketClass *klass);
 static void atk_socket_finalize   (GObject *obj);
 
@@ -78,13 +104,16 @@ atk_socket_new (void)
  * @obj: an #AtkSocket
  * @plug_id: the ID of an #AtkPlug
  *
- * Embeds the children of an #AtkPlug as the children of the #AtkSocket.  The
- * plug may be in the same process or in a different process.
- * THe class item used by this function should be filled in by the IPC layer
- * (ie, at-spi2-atk).  The implementor of the AtkSocket should call this
- * function and pass the id for the plug as returned by atk_plug_get_id.
- * It is the responsibility of the application to pass the plug id on to
- * the process implementing the AtkSocket as needed.
+ * Embeds the children of an #AtkPlug as the children of the
+ * #AtkSocket. The plug may be in the same process or in a different
+ * process.
+ *
+ * The class item used by this function should be filled in by the IPC
+ * layer (usually at-spi2-atk). The implementor of the AtkSocket
+ * should call this function and pass the id for the plug as returned
+ * by atk_plug_get_id().  It is the responsibility of the application
+ * to pass the plug id on to the process implementing the #AtkSocket
+ * as needed.
  *
  * Since: 1.30
  **/
