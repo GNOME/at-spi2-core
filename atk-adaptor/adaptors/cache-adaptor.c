@@ -154,8 +154,11 @@ append_cache_item (AtkObject * obj, gpointer data)
             AtkObject *child;
 
             child = atk_object_ref_accessible_child (obj, i);
-            spi_object_append_reference (&iter_sub_array, child);
-            g_object_unref (G_OBJECT (child));
+            if (child)
+              {
+                spi_object_append_reference (&iter_sub_array, child);
+                g_object_unref (G_OBJECT (child));
+              }
           }
       }
     if (ATK_IS_SOCKET (obj) && atk_socket_is_occupied (ATK_SOCKET (obj)))
