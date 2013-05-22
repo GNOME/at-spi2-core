@@ -488,24 +488,14 @@ atspi_accessible_get_role (AtspiAccessible *obj, GError **error)
 gchar *
 atspi_accessible_get_role_name (AtspiAccessible *obj, GError **error)
 {
-  AtspiRole role = atspi_accessible_get_role (obj, error);
-  char *retval = NULL;
-  GTypeClass *type_class;
-  GEnumValue *value;
-  const gchar *name = NULL;
+  gchar *retval = NULL;
+  AtspiRole role;
 
-  type_class = g_type_class_ref (ATSPI_TYPE_ROLE);
-  g_return_val_if_fail (G_IS_ENUM_CLASS (type_class), NULL);
+  g_return_val_if_fail (obj != NULL, NULL);
 
-  value = g_enum_get_value (G_ENUM_CLASS (type_class), role);
-
-  if (value)
-    {
-      retval = g_strdup (value->value_nick);
-    }
-
-  if (retval)
-    return _atspi_name_compat (g_strdup (retval));
+  role = atspi_accessible_get_role (obj, error);
+  if (role >= 0 && role < ATSPI_ROLE_COUNT && role != ATSPI_ROLE_EXTENDED)
+    return atspi_role_get_name (role);
 
   _atspi_dbus_call (obj, atspi_interface_accessible, "GetRoleName", error, "=>s", &retval);
 

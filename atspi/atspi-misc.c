@@ -1640,3 +1640,36 @@ _atspi_name_compat (gchar *name)
   }
   return name;
 }
+
+/**
+ * atspi_role_get_name:
+ * @role: an #AtspiRole object to query.
+ *
+ * Gets a localizable string that indicates the name of an #AtspiRole.
+ * <em>DEPRECATED.</em>
+ *
+ * Returns: a localizable string name for an #AtspiRole enumerated type.
+ **/
+gchar *
+atspi_role_get_name (AtspiRole role)
+{
+  gchar *retval = NULL;
+  GTypeClass *type_class;
+  GEnumValue *value;
+  const gchar *name = NULL;
+
+  type_class = g_type_class_ref (ATSPI_TYPE_ROLE);
+  g_return_val_if_fail (G_IS_ENUM_CLASS (type_class), NULL);
+
+  value = g_enum_get_value (G_ENUM_CLASS (type_class), role);
+
+  if (value)
+    {
+      retval = g_strdup (value->value_nick);
+    }
+
+  if (retval)
+    return _atspi_name_compat (g_strdup (retval));
+
+  return NULL;
+}
