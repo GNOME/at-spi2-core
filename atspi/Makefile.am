@@ -128,6 +128,10 @@ INTROSPECTION_GIRS =
 INTROSPECTION_SCANNER_ARGS = --add-include-path=$(srcdir) --warn-all
 INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
 
+EXTRA_DIST = \
+	atspi-enum-types.c.template \
+	atspi-enum-types.h.template
+
 if HAVE_INTROSPECTION
 Atspi-2.0.gir: libatspi.la
 Atspi_2_0_gir_INCLUDES = GLib-2.0 GObject-2.0
