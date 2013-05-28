@@ -1,3 +1,17 @@
+What's new in at-spi2-core 2.9.2:
+
+* Fix D-Bus introspection for GetActions.
+
+* Use glib-mkenums to generate enum types, and use these generated types
+  for role and state names, rather than static tables.
+
+* Annotate filter in atspi_register_device_event_listener with allow-none
+  (BGO#700237).
+
+* Rename various functions to avoid name collisions (BGO#700243). The old
+  functions are deprecated in favor of the renamed functions and renamed
+  for introspection.
+
 What's new in at-spi2-core 2.7.91:
 
 * Add atspi_accessible_get_object_locale (BGO#694368).
