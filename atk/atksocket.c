@@ -45,9 +45,9 @@
  * could call the method atk_socket_embed() in order to embed it.
  *
  * For the same reasons, an implementor doesn't need to implement
- * atk_object_get_n_children() and atk_object_ref_child(). All the
- * logic related to those functions will be implemented by the IPC
- * layer.
+ * atk_object_get_n_accessible_children() and
+ * atk_object_ref_accessible_child(). All the logic related to those
+ * functions will be implemented by the IPC layer.
  */
 
 static void atk_socket_class_init (AtkSocketClass *klass);
