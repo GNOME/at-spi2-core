@@ -1,3 +1,19 @@
+Changes in version 2.9.2:
+==========================
+*
+* Leak management:
+  * Bug 699262: Nullify the gobject cache accessible when the accessble is finalized.
+  * Bug 699368: Fix typo - parameter is _obj not obj. Set feed to NULL
+  * Bug 699256: Free 'embedded_plug_id' when destroyed
+* Tests:
+  * Bug 696466: Fix logic when testing for empty state set
+  * Bug 696409: fix hyphenation on testrelation.c
+* Documentation:
+  * Include atk_object_get_object_locale documentation
+  * Fix having a repeated id on the main doc template
+  * Bug 700800: Improve documentation for AtkPlug and AtkSocket
+
+
 Changes in version 2.8.0:
 ==========================
 *
