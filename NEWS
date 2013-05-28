@@ -1,3 +1,13 @@
+What's new in at-spi2-atk 2.9.2:
+
+* Fix a memory leak in the socket adaptor (BGO#696733).
+
+* Fix various DBusError leaks (BGO#698951).
+
+* Fix crash when a main loop is shut down repeatedly (BGO#699554).
+
+* Suppress a warning if an app returns NULL when referencing a child.
+
 What's new in at-spi2-atk 2.7.91:
 
 * Add Locale property (BGO#694368).
