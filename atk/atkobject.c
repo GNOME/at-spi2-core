@@ -1223,9 +1223,11 @@ atk_implementor_ref_accessible (AtkImplementor *implementor)
  *
  * Since: 1.12
  *
- * Returns: (transfer none): an #AtkAttributeSet consisting of all explicit
- * properties/annotations applied to the object, or an empty set if the object
- * has no name-value pair attributes assigned to it.
+ * Returns: (transfer full): an #AtkAttributeSet consisting of all
+ * explicit properties/annotations applied to the object, or an empty
+ * set if the object has no name-value pair attributes assigned to
+ * it. This #atkattributeset should be freed by a call to
+ * atk_attribute_set_free().
  */
 AtkAttributeSet *
 atk_object_get_attributes (AtkObject                  *accessible)
