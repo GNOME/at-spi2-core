@@ -29,6 +29,7 @@
 G_BEGIN_DECLS
 
 int atspi_init (void);
+gboolean atspi_is_initialized (void);
 
 void atspi_event_main ();
 

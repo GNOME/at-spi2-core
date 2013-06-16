@@ -941,6 +941,19 @@ atspi_init (void)
 }
 
 /**
+ * atspi_is_initialized:
+ *
+ * Indicates whether AT-SPI has been initialized.
+ *
+ * Returns: %True if initialized; %False otherwise.
+ */
+gboolean
+atspi_is_initialized ()
+{
+  return atspi_inited;
+}
+
+/**
  * atspi_event_main:
  *
  * Starts/enters the main event loop for the AT-SPI services.
