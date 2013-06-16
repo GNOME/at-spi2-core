@@ -110,7 +110,7 @@ DBusMessage *reply;
 reply = dbus_message_new_method_return(msg);
 if (reply)
     {
-      const char *retval = (g_getenv ("AT_SPI_CLIENT") ?
+      const char *retval = (atspi_is_initialized () ?
                             "":
                             spi_global_app_data->app_bus_addr);
       if (!retval)
