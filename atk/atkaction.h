@@ -66,7 +66,6 @@ struct _AtkActionIface
                                                 const gchar       *desc);
   const gchar*            (*get_localized_name)(AtkAction         *action,
 						gint              i);
-  AtkFunction             pad2;
 };
 
 GType atk_action_get_type (void);

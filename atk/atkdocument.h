@@ -59,11 +59,6 @@ struct _AtkDocumentIface
   gboolean              ( *set_document_attribute) (AtkDocument         *document,
                                                     const gchar         *attribute_name,
                                                     const gchar         *attribute_value);
-  
-  AtkFunction pad1;
-  AtkFunction pad2;
-  AtkFunction pad3;
-  AtkFunction pad4;
 };
 
 GType  atk_document_get_type             (void);

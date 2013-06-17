@@ -60,9 +60,6 @@ struct _AtkImageIface
   gboolean              ( *set_image_description) (AtkImage              *image,
                                                    const gchar           *description);
   const gchar*          ( *get_image_locale)      (AtkImage              *image);
-
-  AtkFunction           pad1;
-	
 };
 
 GType  atk_image_get_type             (void);

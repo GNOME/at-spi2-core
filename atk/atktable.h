@@ -132,11 +132,6 @@ struct _AtkTableIface
   void              (* row_reordered)            (AtkTable      *table);
   void              (* column_reordered)         (AtkTable      *table);
   void              (* model_changed)            (AtkTable      *table);
-
-  AtkFunction       pad1;
-  AtkFunction       pad2;
-  AtkFunction       pad3;
-  AtkFunction       pad4;
 };
 
 GType atk_table_get_type (void);

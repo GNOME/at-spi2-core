@@ -65,9 +65,6 @@ struct _AtkSelectionIface
   /* signal handlers */
   
   void         (*selection_changed)     (AtkSelection   *selection);
-
-  AtkFunction  pad1;
-  AtkFunction  pad2;
 };
 
 GType atk_selection_get_type (void);

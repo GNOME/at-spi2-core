@@ -61,7 +61,6 @@ struct _AtkValueIface
                                   const GValue *value);
   void     (* get_minimum_increment) (AtkValue   *obj,
 				      GValue     *value);
-  AtkFunction pad1;
 };
 
 GType            atk_value_get_type (void);

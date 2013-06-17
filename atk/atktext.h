@@ -275,9 +275,6 @@ struct _AtkTextIface
                                                    AtkCoordType     coord_type,
                                                    AtkTextClipType  x_clip_type,
                                                    AtkTextClipType  y_clip_type);
- 
-
-  AtkFunction    pad4;
 };
 
 GType            atk_text_get_type (void);

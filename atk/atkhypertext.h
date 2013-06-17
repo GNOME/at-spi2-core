@@ -60,10 +60,6 @@ struct _AtkHypertextIface
    */
   void         (* link_selected)            (AtkHypertext       *hypertext,
                                              gint               link_index);
-
-  AtkFunction pad1;
-  AtkFunction pad2;
-  AtkFunction pad3;
 };
 GType atk_hypertext_get_type (void);
 

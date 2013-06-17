@@ -70,9 +70,6 @@ struct _AtkEditableTextIface
                                    gint             end_pos);
   void   (* paste_text)           (AtkEditableText  *text,
                                    gint             position);
-
-  AtkFunction                     pad1;
-  AtkFunction                     pad2;
 };
 GType atk_editable_text_get_type (void);
 

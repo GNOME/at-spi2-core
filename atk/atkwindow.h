@@ -44,8 +44,6 @@ typedef struct _AtkWindowIface AtkWindowIface;
 struct _AtkWindowIface
 {
   GTypeInterface parent;
-
-  gpointer       _padding_dummy[16];
 };
 
 GType atk_window_get_type (void);
