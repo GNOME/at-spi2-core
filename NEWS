@@ -1,3 +1,15 @@
+Changes in version 2.9.3:
+==========================
+*
+* Bug 697968: Deprecate atk_text_get_text_{before,after}_offset()
+  * Deprecated atk_text_get_text_{before,after}_offset()
+  * Deprecated ATK_TEXT_BOUNDARY_WORD_END,
+    ATK_TEXT_BOUNDARY_SENTENCE_END and ATK_TEXT_BOUNDARY_LINE_END on
+    the documentation.
+  * Updated atk_text_get_text_{at,before,after}_offset() documentation
+* Bug 701503: Fix documentation for atk_object_get_attributes()
+* Removed pads from interfaces
+
 Changes in version 2.9.2:
 ==========================
 *
