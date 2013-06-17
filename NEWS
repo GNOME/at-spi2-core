@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.9.3:
+
+* Add atspi_is_initialized (BGO#681276).
+
 What's new in at-spi2-core 2.9.2:
 
 * Fix D-Bus introspection for GetActions.
