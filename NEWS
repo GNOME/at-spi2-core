@@ -1,3 +1,7 @@
+What's new in at-spi2-atk 2.9.3:
+
+* Fix for BGO#681276 (reentrancy issues with gnome-shell).
+
 What's new in at-spi2-atk 2.9.2:
 
 * Fix a memory leak in the socket adaptor (BGO#696733).
