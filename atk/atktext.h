@@ -192,6 +192,13 @@ typedef enum {
     ATK_TEXT_CLIP_BOTH
 } AtkTextClipType;
 
+/**
+ * AtkTextIface:
+ * @get_text_after_offset: Gets specified text. This virtual function
+ *   is deprecated and it should not be overridden.
+ * @get_text_before_offset: Gets specified text. This virtual function
+ *   is deprecated and it should not be overridden.
+ */
 struct _AtkTextIface
 {
   GTypeInterface parent;
@@ -292,6 +299,7 @@ gchar*        atk_text_get_text                           (AtkText          *tex
                                                            gint             end_offset);
 gunichar      atk_text_get_character_at_offset            (AtkText          *text,
                                                            gint             offset);
+G_DEPRECATED_FOR(atk_text_get_text_at_offset)
 gchar*        atk_text_get_text_after_offset              (AtkText          *text,
                                                            gint             offset,
                                                            AtkTextBoundary  boundary_type,
@@ -302,6 +310,7 @@ gchar*        atk_text_get_text_at_offset                 (AtkText          *tex
                                                            AtkTextBoundary  boundary_type,
 							   gint             *start_offset,
 							   gint             *end_offset);
+G_DEPRECATED_FOR(atk_text_get_text_at_offset)
 gchar*        atk_text_get_text_before_offset             (AtkText          *text,
                                                            gint             offset,
                                                            AtkTextBoundary  boundary_type,
