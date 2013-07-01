@@ -67,6 +67,7 @@ switch_main_context (GMainContext *cnx)
   if (spi_global_app_data->server)
     atspi_dbus_server_setup_with_g_main (spi_global_app_data->server, cnx);
   atspi_dbus_connection_setup_with_g_main (spi_global_app_data->bus, cnx);
+  atspi_set_main_context (cnx);
   for (list = spi_global_app_data->direct_connections; list; list = list->next)
     atspi_dbus_connection_setup_with_g_main (list->data, cnx);
 }
