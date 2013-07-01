@@ -35,6 +35,7 @@
 #include <string.h>
 
 static void handle_get_items (DBusPendingCall *pending, void *user_data);
+gboolean _atspi_process_deferred_messages (gpointer data);
 
 static DBusConnection *bus = NULL;
 static GHashTable *live_refs = NULL;
@@ -42,6 +43,7 @@ static gint method_call_timeout = 800;
 static gint app_startup_time = 15000;
 
 GMainLoop *atspi_main_loop;
+GMainContext *atspi_main_context;
 gboolean atspi_no_cache;
 
 const char *atspi_path_dec = ATSPI_DBUS_PATH_DEC;
@@ -798,7 +800,13 @@ defer_message (DBusConnection *connection, DBusMessage *message, void *user_data
   g_queue_push_tail (deferred_messages, closure);
 
   if (process_deferred_messages_id == -1)
-    process_deferred_messages_id = g_idle_add (_atspi_process_deferred_messages, NULL);
+  {
+    GSource *source = g_idle_source_new ();
+    g_source_set_callback (source, _atspi_process_deferred_messages, NULL, NULL);
+    process_deferred_messages_id = g_source_attach (source, atspi_main_context);
+    g_source_unref (source);
+  }
+
   return DBUS_HANDLER_RESULT_HANDLED;
 }
 
@@ -1621,6 +1629,22 @@ atspi_set_timeout (gint val, gint startup_time)
 {
   method_call_timeout = val;
   app_startup_time = startup_time;
+}
+
+/*
+ * atspi_set_main_context:
+ * @cnx: The #GmainContext to use.
+ *
+ * Sets the main loop context that AT-SPI should assume is in use when
+ * setting an idle callback.
+ * This function should be called by application-side implementors (ie,
+ * at-spi2-atk) when it is desirable to re-enter the main loop.
+ */
+void
+atspi_set_main_context (GMainContext *cnx)
+{
+  atspi_main_context = cnx;
+  atspi_dbus_connection_setup_with_g_main (atspi_get_a11y_bus (), cnx);
 }
 
 #ifdef DEBUG_REF_COUNTS

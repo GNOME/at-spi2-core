@@ -43,6 +43,9 @@ atspi_get_a11y_bus ();
 void
 atspi_set_timeout (gint val, gint startup_time);
 
+void
+atspi_set_main_context (GMainContext *cnx);
+
 gchar * atspi_role_get_name (AtspiRole role);
 G_END_DECLS
 
