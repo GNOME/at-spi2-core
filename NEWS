@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.9.4:
+
+* Add atspi_set_main_context (mainly for use by at-spi2-atk).
+
 What's new in at-spi2-core 2.9.3:
 
 * Add atspi_is_initialized (BGO#681276).
