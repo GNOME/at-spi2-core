@@ -1,3 +1,8 @@
+What's new in at-spi2-atk 2.9.4:
+
+* Fix a deadlock for apps that also register AT-SPI key event listeners
+  (ie, the Orca preferences dialog works again).
+
 What's new in at-spi2-atk 2.9.3:
 
 * Fix for BGO#681276 (reentrancy issues with gnome-shell).
