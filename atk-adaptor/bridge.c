@@ -106,7 +106,7 @@ get_events_reply (DBusPendingCall *pending, void *user_data)
   DBusMessage *reply = dbus_pending_call_steal_reply (pending);
   DBusMessageIter iter, iter_array, iter_struct;
 
-  if (!reply)
+  if (!reply || !spi_global_app_data)
     goto done;
 
   if (strcmp (dbus_message_get_signature (reply), "a(ss)") != 0)
