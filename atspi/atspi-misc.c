@@ -1706,7 +1706,7 @@ atspi_role_get_name (AtspiRole role)
     }
 
   if (retval)
-    return _atspi_name_compat (g_strdup (retval));
+    return _atspi_name_compat (retval);
 
   return NULL;
 }
