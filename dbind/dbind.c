@@ -76,10 +76,12 @@ dbind_send_and_allow_reentry (DBusConnection * bus, DBusMessage * message, DBusE
   closure = g_new0 (SpiReentrantCallClosure, 1);
   closure->reply = NULL;
   atspi_dbus_connection_setup_with_g_main(bus, NULL);
-  if (!dbus_connection_send_with_reply (bus, message, &pending, dbind_timeout))
+  if (!dbus_connection_send_with_reply (bus, message, &pending, dbind_timeout)
+      || !pending)
+    {
+      g_free (closure);
       return NULL;
-  if (!pending)
-    return NULL;
+    }
   dbus_pending_call_set_notify (pending, set_reply, (void *) closure, g_free);
 
   closure->reply = NULL;
@@ -89,11 +91,15 @@ dbind_send_and_allow_reentry (DBusConnection * bus, DBusMessage * message, DBusE
     {
       if (!dbus_connection_read_write_dispatch (bus, dbind_timeout))
         {
+          //dbus_pending_call_set_notify (pending, NULL, NULL, NULL);
+          dbus_pending_call_cancel (pending);
           dbus_pending_call_unref (pending);
           return NULL;
         }
       if (time_elapsed (&tv) > dbind_timeout)
         {
+          //dbus_pending_call_set_notify (pending, NULL, NULL, NULL);
+          dbus_pending_call_cancel (pending);
           dbus_pending_call_unref (pending);
           dbus_set_error_const (error, "org.freedesktop.DBus.Error.NoReply",
                                 "timeout from dbind");
