@@ -141,7 +141,7 @@ atspi_event_listener_new (AtspiEventListenerCB callback,
 }
 
 /**
- * atspi_event_listener_new_simple:
+ * atspi_event_listener_new_simple: (skip)
  * @callback: (scope notified): An #AtspiEventListenerSimpleCB to be called
  * when an event is fired.
  * @callback_destroyed: A #GDestroyNotify called when the listener is freed

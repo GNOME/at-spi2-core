@@ -230,7 +230,7 @@ atspi_device_listener_new (AtspiDeviceListenerCB callback,
 }
 
 /**
- * atspi_device_listener_new_simple:
+ * atspi_device_listener_new_simple: (skip)
  * @callback: (scope notified): an #AtspiDeviceListenerCB callback function,
  *            or NULL.
  * @callback_destroyed: A #GDestroyNotify called when the listener is freed
