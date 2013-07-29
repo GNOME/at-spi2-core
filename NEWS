@@ -1,3 +1,13 @@
+What's new in at-spi2-core 2.9.5:
+
+* Fix possible memory leak when D-Bus calls time out.
+
+* Fix a memory leak in atspi_accessible_get_role_name that was introduced
+  earlier in the 2.9 cycle with the enum refactor.
+
+* A couple of functions not intended for introspection are now marked
+  as skip.
+
 What's new in at-spi2-core 2.9.4:
 
 * Add atspi_set_main_context (mainly for use by at-spi2-atk).
