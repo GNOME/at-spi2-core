@@ -163,8 +163,8 @@ G_BEGIN_DECLS
  **/
 typedef enum
 {
-  ATK_ROLE_INVALID = 0, 
-  ATK_ROLE_ACCEL_LABEL,
+  ATK_ROLE_INVALID = 0,
+  ATK_ROLE_ACCEL_LABEL,      /*<nick=accelerator-label>*/
   ATK_ROLE_ALERT,
   ATK_ROLE_ANIMATION,
   ATK_ROLE_ARROW,
@@ -267,8 +267,6 @@ typedef enum
   ATK_ROLE_LEVEL_BAR,
   ATK_ROLE_LAST_DEFINED
 } AtkRole;
-
-AtkRole                  atk_role_register        (const gchar *name);
 
 /**
  *AtkLayer:
@@ -603,6 +601,7 @@ gboolean              atk_object_remove_relationship           (AtkObject      *
 								AtkRelationType relationship,
 								AtkObject      *target);
 const gchar*          atk_role_get_localized_name              (AtkRole     role);
+AtkRole               atk_role_register                        (const gchar *name);
 const gchar*          atk_object_get_object_locale             (AtkObject   *accessible);
 
 G_END_DECLS

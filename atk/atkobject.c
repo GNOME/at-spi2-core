@@ -35,7 +35,7 @@
 #include "atk-enum-types.h"
 #include "atkintl.h"
 
-static GPtrArray *extra_roles = NULL;
+static GPtrArray *role_names = NULL;
 
 enum
 {
@@ -175,129 +175,6 @@ enum {
   N_("notification")
   N_("info bar")
 #endif /* 0 */
-
-static const char roles[] =
-  "invalid\0"
-  "accelerator label\0"
-  "alert\0"
-  "animation\0"
-  "arrow\0"
-  "calendar\0"
-  "canvas\0"
-  "check box\0"
-  "check menu item\0"
-  "color chooser\0"
-  "column header\0"
-  "combo box\0"
-  "dateeditor\0"
-  "desktop icon\0"
-  "desktop frame\0"
-  "dial\0"
-  "dialog\0"
-  "directory pane\0"
-  "drawing area\0"
-  "file chooser\0"
-  "filler\0"
-  "fontchooser\0"
-  "frame\0"
-  "glass pane\0"
-  "html container\0"
-  "icon\0"
-  "image\0"
-  "internal frame\0"
-  "label\0"
-  "layered pane\0"
-  "list\0"
-  "list item\0"
-  "menu\0"
-  "menu bar\0"
-  "menu item\0"
-  "option pane\0"
-  "page tab\0"
-  "page tab list\0"
-  "panel\0"
-  "password text\0"
-  "popup menu\0"
-  "progress bar\0"
-  "push button\0"
-  "radio button\0"
-  "radio menu item\0"
-  "root pane\0"
-  "row header\0"
-  "scroll bar\0"
-  "scroll pane\0"
-  "separator\0"
-  "slider\0"
-  "split pane\0"
-  "spin button\0"
-  "statusbar\0"
-  "table\0"
-  "table cell\0"
-  "table column header\0"
-  "table row header\0"
-  "tear off menu item\0"
-  "terminal\0"
-  "text\0"
-  "toggle button\0"
-  "tool bar\0"
-  "tool tip\0"
-  "tree\0"
-  "tree table\0"
-  "unknown\0"
-  "viewport\0"
-  "window\0"
-  "header\0"
-  "footer\0"
-  "paragraph\0"
-  "ruler\0"
-  "application\0"
-  "autocomplete\0"
-  "edit bar\0"
-  "embedded component\0"
-  "entry\0"
-  "chart\0"
-  "caption\0"
-  "document frame\0"
-  "heading\0"
-  "page\0"
-  "section\0"
-  "redundant object\0"
-  "form\0"
-  "link\0"
-  "input method window\0"
-  "table row\0"
-  "tree item\0"
-  "document spreadsheet\0"
-  "document presentation\0"
-  "document text\0"
-  "document web\0"
-  "document email\0"
-  "comment\0"
-  "list box\0"
-  "grouping\0"
-  "image map\0"
-  "notification\0"
-  "info bar\0"
-  "level bar\0";
-
-static const guint16 roles_offsets[] = {
-  0, 8, 26, 32, 42, 48, 57, 64, 
-  74, 90, 104, 118, 128, 139, 152, 166, 
-  171, 178, 193, 206, 219, 226, 238, 244, 
-  255, 270, 275, 281, 296, 302, 315, 320, 
-  330, 335, 344, 354, 366, 375, 389, 395, 
-  409, 420, 433, 445, 458, 474, 484, 495, 
-  506, 518, 528, 535, 546, 558, 568, 574, 
-  585, 605, 622, 641, 650, 655, 669, 678, 
-  687, 692, 703, 711, 720, 727, 734, 741, 
-  751, 757, 769, 782, 791, 810, 816, 822, 
-  830, 845, 853, 858, 866, 883, 888, 893,
-  913, 923, 933, 954, 976, 990, 1003, 1018,
-  1026, 1035, 1044, 1054, 1067, 1076
-};
-
-/* This is a static assertion */
-typedef int _assert_roles_num[(G_N_ELEMENTS (roles_offsets) == ATK_ROLE_LAST_DEFINED) ? 1 : -1];
 
 static void            atk_object_class_init        (AtkObjectClass  *klass);
 static void            atk_object_init              (AtkObject       *accessible,
@@ -441,6 +318,48 @@ gettext_initialization (void)
 #endif
     }
 #endif
+}
+
+static void
+compact_role_name (gchar *role_name)
+{
+  gchar *p = role_name;
+
+  while (*p)
+    {
+      if (*p == '-')
+        *p = ' ';
+      p++;
+    }
+}
+
+static void
+initialize_role_names ()
+{
+  GTypeClass *enum_class;
+  GEnumValue *enum_value;
+  int i;
+  gchar *role_name = NULL;
+
+  if (role_names)
+    return;
+
+  role_names = g_ptr_array_new ();
+  enum_class = g_type_class_ref (ATK_TYPE_ROLE);
+  if (!G_IS_ENUM_CLASS(enum_class))
+    return;
+
+  for (i = 0; i < ATK_ROLE_LAST_DEFINED; i++)
+    {
+      enum_value = g_enum_get_value (G_ENUM_CLASS (enum_class), i);
+      role_name = g_strdup (enum_value->value_nick);
+      // We want the role names to be in the format "check button" and not "check-button"
+      compact_role_name (role_name);
+      g_ptr_array_add (role_names, role_name);
+    }
+
+  g_type_class_unref (enum_class);
+
 }
 
 GType
@@ -867,11 +786,11 @@ atk_object_ref_relation_set (AtkObject *accessible)
 AtkRole
 atk_role_register (const gchar *name)
 {
-  if (!extra_roles)
-    extra_roles = g_ptr_array_new ();
+  if (!role_names)
+    initialize_role_names ();
 
-  g_ptr_array_add (extra_roles, g_strdup (name));
-  return extra_roles->len + ATK_ROLE_LAST_DEFINED;
+  g_ptr_array_add (role_names, g_strdup (name));
+  return role_names->len - 1;
 }
 
 /**
@@ -1529,18 +1448,13 @@ atk_object_notify (GObject     *obj,
 const gchar*
 atk_role_get_name (AtkRole role)
 {
-  if (role >= 0 && role < ATK_ROLE_LAST_DEFINED)
-    return roles + roles_offsets[role];
+  g_return_val_if_fail (role >= 0, NULL);
 
-  if (extra_roles)
-    {
-      gint n = role;
+  if (!role_names)
+    initialize_role_names ();
 
-      n -= ATK_ROLE_LAST_DEFINED + 1;
-
-      if (n >= 0 && n < extra_roles->len)
-        return g_ptr_array_index (extra_roles, n);
-    }
+  if (role < role_names->len)
+    return g_ptr_array_index (role_names, role);
 
   return NULL;
 }
@@ -1558,10 +1472,7 @@ atk_role_get_localized_name (AtkRole role)
 {
   gettext_initialization ();
 
-  if (role >= 0 && role < ATK_ROLE_LAST_DEFINED)
-    return dgettext (GETTEXT_PACKAGE, roles + roles_offsets[role]);
-
-  return atk_role_get_name (role);
+  return dgettext (GETTEXT_PACKAGE, atk_role_get_name (role));
 }
 
 static const gchar*
@@ -1603,8 +1514,7 @@ atk_object_get_object_locale (AtkObject *accessible)
  *
  * Get the #AtkRole type corresponding to a rolew name.
  *
- * Returns: the #AtkRole enumerated type corresponding to the specified
-name,
+ * Returns: the #AtkRole enumerated type corresponding to the specified name,
  *          or #ATK_ROLE_INVALID if no matching role is found.
  **/
 AtkRole
@@ -1615,28 +1525,22 @@ atk_role_for_name (const gchar *name)
 
   g_return_val_if_fail (name, ATK_ROLE_INVALID);
 
-  for (i = 0; i < G_N_ELEMENTS (roles_offsets); i++)
-    {
-      if (strcmp (name, roles + roles_offsets[i]) == 0)
-        return (AtkRole) i;
-    }
+  if (!role_names)
+    initialize_role_names ();
 
-  if (extra_roles)
+  for (i = 0; i < role_names->len; i++)
     {
-      for (i = 0; i < extra_roles->len; i++)
+      gchar *role_name = (gchar *)g_ptr_array_index (role_names, i);
+
+      g_return_val_if_fail (role_name, ATK_ROLE_INVALID);
+
+      if (strcmp (name, role_name) == 0)
         {
-          gchar *extra_role = (gchar *)g_ptr_array_index (extra_roles, i);
-
-          g_return_val_if_fail (extra_role, ATK_ROLE_INVALID);
-
-          if (strcmp (name, extra_role) == 0)
-            {
-              role = i + 1 + ATK_ROLE_LAST_DEFINED;
-              break;
-            }
+          role = i;
+          break;
         }
     }
-  
+
   return role;
 }
 
