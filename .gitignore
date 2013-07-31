@@ -38,3 +38,6 @@ Makefile.in
 /mkinstalldirs
 /stamp-h1
 atkversion.h
+tests/testrelation
+tests/testrole
+tests/teststateset
