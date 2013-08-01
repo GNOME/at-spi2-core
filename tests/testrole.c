@@ -26,49 +26,50 @@ test_role (void)
 {
   AtkRole role1, role2;
   const gchar *name;
+  gboolean result = TRUE;
 
   name = atk_role_get_name (ATK_ROLE_PAGE_TAB);
-  g_return_val_if_fail (name, FALSE);
-  if (strcmp (name, "page tab") != 0)
+  if (!name || strcmp (name, "page tab") != 0)
     {
-      g_print ("Unexpected name for ATK_ROLE_PAGE_TAB %s\n", name);
-      return FALSE;
+      g_print ("Unexpected name for ATK_ROLE_PAGE_TAB."
+               " Expected 'page tab', received '%s'\n", name);
+      result = FALSE;
     }
 
   name = atk_role_get_name (ATK_ROLE_LAYERED_PANE);
-  g_return_val_if_fail (name, FALSE);
-  if (strcmp (name, "layered pane") != 0)
+  if (!name || strcmp (name, "layered pane") != 0)
     {
-      g_print ("Unexpected name for ATK_ROLE_LAYERED_PANE %s\n", name);
-      return FALSE;
+      g_print ("Unexpected name for ATK_ROLE_LAYERED_PANE."
+               " Expected 'layered pane', received '%s'\n", name);
+      result = FALSE;
     }
 
   role1 = atk_role_for_name ("list item");
   if (role1 != ATK_ROLE_LIST_ITEM)
     {
-      g_print ("Unexpected role for list item\n");
-      return FALSE;
+      g_print ("Unexpected role for list item."
+               " Expected %i, received %i\n", ATK_ROLE_LIST_ITEM, role1);
+      result = FALSE;
     }
 
   role1 = atk_role_register ("test-role");
   name = atk_role_get_name (role1);
-  g_return_val_if_fail (name, FALSE);
-  if (strcmp (name, "test-role") != 0)
+  if (!name || strcmp (name, "test-role") != 0)
     {
-      g_print ("Unexpected name for test-role %s\n", name);
-      return FALSE;
+      g_print ("Unexpected name for test-role. Expected 'test-role', received '%s'\n", name);
+      result = FALSE;
     }
   role2 = atk_role_for_name ("test-role");
   if (role1 != role2)
   {
-    g_print ("Unexpected role for test-role\n");
-    return FALSE;
+    g_print ("Unexpected role for test-role. Expected %i, received %i\n", role1, role2);
+    result = FALSE;
   }
   role2 = atk_role_for_name ("TEST_ROLE");
   if (role2 != 0)
     {
-      g_print ("Unexpected role for TEST_ROLE\n");
-      return FALSE;
+      g_print ("Unexpected role for TEST_ROLE. Expected %i, received %i\n", 0, role2);
+      result = FALSE;
     }
   /*
    * Check that a non-existent role returns NULL
@@ -77,9 +78,9 @@ test_role (void)
   if (name)
     {
       g_print ("Unexpected name for undefined role %s\n", name);
-      return FALSE;
+      result = FALSE;
     }
-  return TRUE;
+  return result;
 }
 
 static void
@@ -92,6 +93,12 @@ print_roles()
   for (role = ATK_ROLE_INVALID; role < ATK_ROLE_LAST_DEFINED; role++)
     g_print ("(%i, %s, %s)\n", role,
              atk_role_get_name(role), atk_role_get_localized_name(role));
+
+  g_print("(Role, name, localized name) for the extra roles:\n");
+  for (;atk_role_get_name(role) != NULL; role++)
+    g_print ("(%i, %s, %s)\n", role,
+             atk_role_get_name(role), atk_role_get_localized_name(role));
+
 }
 
 int
@@ -101,9 +108,10 @@ main (int argc, char **argv)
 
   g_print ("Starting Role test suite\n");
 
+  b_ret = test_role ();
+
   print_roles();
 
-  b_ret = test_role ();
   if (b_ret)
     g_print ("Role tests succeeded\n");
   else
