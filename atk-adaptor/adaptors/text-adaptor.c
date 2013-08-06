@@ -254,6 +254,100 @@ impl_GetCharacterAtOffset (DBusConnection * bus, DBusMessage * message,
   return reply;
 }
 
+static gchar *
+get_text_for_legacy_implementations(AtkText *text,
+                                    gint offset,
+                                    AtkTextGranularity granularity,
+                                    gint *start_offset,
+                                    gint *end_offset)
+{
+  gchar *txt = 0;
+  AtkTextBoundary boundary = 0;
+  switch (granularity) {
+  case ATK_TEXT_GRANULARITY_CHAR:
+    boundary = ATK_TEXT_BOUNDARY_CHAR;
+    break;
+
+  case ATK_TEXT_GRANULARITY_WORD:
+    boundary = ATK_TEXT_BOUNDARY_WORD_START;
+    break;
+
+  case ATK_TEXT_GRANULARITY_SENTENCE:
+    boundary = ATK_TEXT_BOUNDARY_SENTENCE_START;
+    break;
+
+  case ATK_TEXT_GRANULARITY_LINE:
+    boundary = ATK_TEXT_BOUNDARY_LINE_START;
+    break;
+
+  case ATK_TEXT_GRANULARITY_PARAGRAPH:
+    /* This is not implemented in previous versions of ATK */
+    txt = g_strdup("");
+    break;
+
+  default:
+    g_assert_not_reached();
+  }
+
+  if (!txt)
+    {
+      txt =
+        atk_text_get_text_at_offset (text, offset, boundary,
+                                     start_offset, end_offset);
+    }
+
+  return txt;
+}
+
+static DBusMessage *
+impl_GetStringAtOffset (DBusConnection * bus, DBusMessage * message,
+                        void *user_data)
+{
+  AtkText *text = (AtkText *) user_data;
+  dbus_int32_t offset;
+  dbus_uint32_t granularity;
+  gchar *txt = 0;
+  dbus_int32_t startOffset, endOffset;
+  gint intstart_offset = 0, intend_offset = 0;
+  DBusMessage *reply;
+
+  g_return_val_if_fail (ATK_IS_TEXT (user_data),
+                        droute_not_yet_handled_error (message));
+  if (!dbus_message_get_args
+      (message, NULL, DBUS_TYPE_INT32, &offset, DBUS_TYPE_UINT32, &granularity,
+       DBUS_TYPE_INVALID))
+    {
+      return droute_invalid_arguments_error (message);
+    }
+
+  txt =
+    atk_text_get_string_at_offset (text, offset, (AtkTextGranularity) granularity,
+                                   &intstart_offset, &intend_offset);
+
+  /* Accessibility layers implementing an older version of ATK (even if
+   * a new enough version of libatk is installed) might return NULL due
+   * not to provide an implementation for get_string_at_offset(), so we
+   * try with the legacy implementation if that's the case. */
+  if (!txt)
+    txt = get_text_for_legacy_implementations(text, offset,
+                                              (AtkTextGranularity) granularity,
+                                              &intstart_offset, &intend_offset);
+
+  startOffset = intstart_offset;
+  endOffset = intend_offset;
+  txt = validate_allocated_string (txt);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_STRING, &txt,
+                                DBUS_TYPE_INT32, &startOffset,
+                                DBUS_TYPE_INT32, &endOffset,
+                                DBUS_TYPE_INVALID);
+    }
+  g_free (txt);
+  return reply;
+}
+
 static DBusMessage *
 impl_GetAttributeValue (DBusConnection * bus, DBusMessage * message,
                         void *user_data)
@@ -757,6 +851,7 @@ static DRouteMethod methods[] = {
   {impl_GetTextBeforeOffset, "GetTextBeforeOffset"},
   {impl_GetTextAtOffset, "GetTextAtOffset"},
   {impl_GetTextAfterOffset, "GetTextAfterOffset"},
+  {impl_GetStringAtOffset, "GetStringAtOffset"},
   {impl_GetCharacterAtOffset, "GetCharacterAtOffset"},
   {impl_GetAttributeValue, "GetAttributeValue"},
   {impl_GetAttributes, "GetAttributes"},
