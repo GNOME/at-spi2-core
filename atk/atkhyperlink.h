@@ -97,10 +97,9 @@ gboolean         atk_hyperlink_is_valid             (AtkHyperlink     *link_);
 gboolean         atk_hyperlink_is_inline             (AtkHyperlink     *link_);
 
 gint		 atk_hyperlink_get_n_anchors        (AtkHyperlink     *link_);
-#ifndef ATK_DISABLE_DEPRECATED
+
 G_DEPRECATED
 gboolean         atk_hyperlink_is_selected_link     (AtkHyperlink     *link_);
-#endif /* ATK_DISABLE_DEPRECATED */
 
 G_END_DECLS
 
