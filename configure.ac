@@ -73,12 +73,23 @@ AC_SUBST(DL_LIBS)
 
 AC_PATH_XTRA
 
+AC_ARG_ENABLE(x11,
+              [AS_HELP_STRING([--disable-x11],
+                              [disable the X11 backend])],,
+			      [enable_x11=auto])
+
 if test x$no_x = xyes ; then
-	AC_MSG_ERROR([X development libraries not found])
-else
+	AC_MSG_WARN([X development libraries not found])
+  AM_CONDITIONAL(USE_X11, false)
+elif test x$enable_x11 = xauto; then
 	X_LIBS="$X_LIBS $X_PRE_LIBS -lX11 $X_EXTRA_LIBS"
+  AC_DEFINE(HAVE_X11, 1, [Define to use X11])
+  AM_CONDITIONAL(USE_X11, true)
+else
+  AM_CONDITIONAL(USE_X11, false)
 fi
 AC_SUBST(X_LIBS)
+AC_SUBST(HAVE_X11)
 
 save_LIBS="$LIBS"
 LIBS=""
@@ -122,6 +133,10 @@ AC_ARG_ENABLE(xevie,
 	[AS_HELP_STRING([--enable-xevie],
 		[Build with XEViE support [default=yes]])],
 	enable_xevie="$enableval", enable_xevie=yes)
+
+if test -z "$backend_set"; then
+  enable_x11_backend=yes
+fi
 
 if test x$enable_xevie = xyes ; then
 	have_xevie=

@@ -793,7 +793,7 @@ struct codepair {
   { 0x0ef7, 0x318e }, /*               Hangul_AraeAE ㆎ HANGUL LETTER ARAEAE */
  };
 
-KeySym ucs2keysym (long ucs)
+long ucs2keysym (long ucs)
 {
     int min = 0;
     int max = sizeof(keysymtab) / sizeof(struct codepair) - 1;
@@ -821,7 +821,7 @@ KeySym ucs2keysym (long ucs)
     return ucs | 0x01000000;
 }
 
-long keysym2ucs(KeySym keysym)
+long keysym2ucs(long keysym)
 {
     int min = 0;
     int max = sizeof(keysymtab) / sizeof(struct codepair) - 1;

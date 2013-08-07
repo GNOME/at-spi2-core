@@ -28,10 +28,6 @@ at_spi2_registryd_SOURCES =	\
 	de-marshaller.h         \
 	de-marshaller.c         \
 	de-types.h              \
-	display.h		\
-	display.c		\
-	event-source.h          \
-	event-source.c          \
 	keymasks.h              \
 	paths.h                 \
 	registry-main.c		\
@@ -45,6 +41,20 @@ at_spi2_registryd_SOURCES =	\
 	reentrant-list.h	\
 	ucs2keysym.c
 
+X11_SOURCES = \
+	deviceeventcontroller-x11.c \
+	display.h		\
+	display.c		\
+	event-source.c \
+	event-source.h
+
+if USE_X11
+at_spi2_registryd_SOURCES += $(X11_SOURCES)
+EXTRA_DIST = 
+else
+EXTRA_DIST = $(X11_SOURCES)
+endif
+
 servicedir       = $(DBUS_SERVICES_DIR)
 service_in_files = org.a11y.atspi.Registry.service.in
 service_DATA     = $(service_in_files:.service.in=.service)
@@ -54,4 +64,4 @@ $(service_DATA): $(service_in_files) Makefile
 
 
 DISTCLEANFILES = org.a11y.atspi.Registry.service
-EXTRA_DIST = org.a11y.atspi.Registry.service.in
+EXTRA_DIST += org.a11y.atspi.Registry.service.in

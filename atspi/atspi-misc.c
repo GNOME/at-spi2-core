@@ -29,7 +29,9 @@
  */
 
 #include "atspi-private.h"
+#ifdef HAVE_X11
 #include "X11/Xlib.h"
+#endif
 #include "atspi-gmain.h"
 #include <stdio.h>
 #include <string.h>
@@ -1451,6 +1453,7 @@ _atspi_error_quark (void)
 /*
  * Gets the IOR from the XDisplay.
  */
+#ifdef HAVE_X11
 static char *
 get_accessibility_bus_address_x11 (void)
 {
@@ -1489,6 +1492,7 @@ get_accessibility_bus_address_x11 (void)
   XFree (data_x11);
   return data;
 }
+#endif
 
 static char *
 get_accessibility_bus_address_dbus (void)
@@ -1558,7 +1562,7 @@ DBusConnection *
 atspi_get_a11y_bus (void)
 {
   DBusError error;
-  char *address;
+  char *address = NULL;
 
   if (a11y_bus && dbus_connection_get_is_connected (a11y_bus))
     return a11y_bus;
@@ -1567,7 +1571,9 @@ atspi_get_a11y_bus (void)
     if (!dbus_connection_allocate_data_slot (&a11y_dbus_slot))
       g_warning ("at-spi: Unable to allocate D-Bus slot");
 
+#ifdef HAVE_X11
   address = get_accessibility_bus_address_x11 ();
+#endif
   if (!address)
     address = get_accessibility_bus_address_dbus ();
   if (!address)

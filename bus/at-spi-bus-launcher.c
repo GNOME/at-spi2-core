@@ -30,8 +30,10 @@
 #include <stdio.h>
 
 #include <gio/gio.h>
+#ifdef HAVE_X11
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
+#endif
 
 typedef enum {
   A11Y_BUS_STATE_IDLE = 0,
@@ -187,6 +189,7 @@ ensure_a11y_bus (A11yBusLauncher *app)
   app->a11y_bus_address = g_strchomp (g_strdup (addr_buf));
   g_debug ("a11y bus address: %s", app->a11y_bus_address);
 
+#ifdef HAVE_X11
   {
     Display *display = XOpenDisplay (NULL);
     if (display)
@@ -201,6 +204,7 @@ ensure_a11y_bus (A11yBusLauncher *app)
         XCloseDisplay (display);
       }
   }
+#endif
 
   return TRUE;
   
@@ -492,6 +496,7 @@ init_sigterm_handling (A11yBusLauncher *app)
 static gboolean
 already_running ()
 {
+#ifdef HAVE_X11
   Atom AT_SPI_BUS;
   Atom actual_type;
   Display *bridge_display;
@@ -530,6 +535,9 @@ already_running ()
 
   XCloseDisplay (bridge_display);
   return result;
+#else
+  return FALSE;
+#endif
 }
 
 static GSettings *
@@ -643,6 +651,7 @@ main (int    argc,
    * GDM is launching a login on an X server it was using before,
    * we don't want early login processes to pick up the stale address.
    */
+#ifdef HAVE_X11
   {
     Display *display = XOpenDisplay (NULL);
     if (display)
@@ -656,6 +665,7 @@ main (int    argc,
         XCloseDisplay (display);
       }
   }
+#endif
 
   if (_global_app->a11y_launch_error_message)
     {

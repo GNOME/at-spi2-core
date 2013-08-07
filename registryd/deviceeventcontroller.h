@@ -24,12 +24,15 @@
 #ifndef SPI_DEVICE_EVENT_CONTROLLER_H_
 #define SPI_DEVICE_EVENT_CONTROLLER_H_
 
+#ifdef HAVE_X11
 #include <X11/Xlib.h>
+#endif
 #include <dbus/dbus.h>
 
 typedef struct _SpiDEController SpiDEController;
 
 #include "registry.h"
+#include "de-types.h"
 
 G_BEGIN_DECLS
 
@@ -47,18 +50,99 @@ struct _SpiDEController {
 	GList          *key_listeners;
 	GList          *mouse_listeners;
 	GList          *keygrabs_list;
-	Display        *xevie_display;
 	GQueue *message_queue;
 	guint message_queue_idle;
+  gpointer priv;
 };
+
+typedef enum {
+  SPI_DEVICE_TYPE_KBD,
+  SPI_DEVICE_TYPE_MOUSE,
+  SPI_DEVICE_TYPE_LAST_DEFINED
+} SpiDeviceTypeCategory;
+
+typedef struct {
+  char *bus_name;
+  char *path;
+  SpiDeviceTypeCategory type;
+  gulong types;
+} DEControllerListener;
+
+typedef struct {
+  DEControllerListener listener;
+
+ GSList *keys;
+  Accessibility_ControllerEventMask mask;
+  Accessibility_EventListenerMode  *mode;	
+} DEControllerKeyListener;
+
+typedef struct
+{
+  gint (*get_keycode) (SpiDEController *controller,
+                       gint keysym,
+                       gchar *key_str,
+                       gboolean fix,
+                       guint *modmask);
+
+  guint (*mouse_check) (SpiDEController *controller, 
+	                gint *x,
+	                gint *y,
+	                gboolean *moved);
+
+  gboolean (*register_global_keygrabs) (SpiDEController         *controller,
+					DEControllerKeyListener *key_listener);
+
+  void (*deregister_global_keygrabs) (SpiDEController         *controller,
+				      DEControllerKeyListener *key_listener);
+
+  gboolean (*synth_keycode_press) (SpiDEController *controller,
+		                   guint keycode);
+
+  gboolean (*synth_keycode_release) (SpiDEController *controller,
+		                   guint keycode);
+
+  gboolean (*lock_modifiers) (SpiDEController *controller,
+                              unsigned modifiers);
+
+  gboolean (*unlock_modifiers) (SpiDEController *controller,
+                                unsigned modifiers);
+
+  gboolean (*synth_keystring) (SpiDEController *controller,
+                               guint synth_type,
+                               gint keycode,
+                               const char *keystring);
+
+  gboolean (*grab_key) (SpiDEController *controller,
+                        guint key_val,
+                        Accessibility_ControllerEventMask mod_mask);
+
+  void (*ungrab_key) (SpiDEController *controller,
+                      guint key_val,
+                      Accessibility_ControllerEventMask mod_mask);
+
+  void (*emit_modifier_event) (SpiDEController *controller,
+			       guint prev_mask,
+			       guint current_mask);
+
+  void (*generate_mouse_event) (SpiDEController *controller,
+                                gint x,
+                                gint y,
+                                const char *eventName);
+
+  void (*init) (SpiDEController *controller);
+  void (*finalize) (SpiDEController *controller);
+} SpiDEControllerPlat;
 
 typedef struct {
   GObjectClass parent_class;
+  SpiDEControllerPlat plat;
 } SpiDEControllerClass;
 
 GType            spi_device_event_controller_get_type (void);
 SpiDEController *spi_device_event_controller_new      (SpiRegistry    *registry,
                                                        DBusConnection *bus);
+
+gboolean spi_clear_error_state (void);
 
 void spi_device_event_controller_start_poll_mouse (SpiRegistry *registry);
 void spi_device_event_controller_stop_poll_mouse (void);
@@ -66,6 +150,26 @@ void spi_device_event_controller_stop_poll_mouse (void);
 void spi_remove_device_listeners (SpiDEController *controller, const char *bus_name);
 
 SpiDEController *spi_registry_dec_new (SpiRegistry *reg, DBusConnection *bus);
+
+gboolean
+spi_controller_notify_mouselisteners (SpiDEController                 *controller,
+				      const Accessibility_DeviceEvent *event);
+
+gboolean
+spi_controller_notify_keylisteners (SpiDEController                 *controller,
+				    Accessibility_DeviceEvent       *key_event,
+				    dbus_bool_t                    is_system_global);
+
+gboolean spi_controller_update_key_grabs               (SpiDEController           *controller,
+							       Accessibility_DeviceEvent *recv);
+
+gboolean spi_dec_synth_keysym (SpiDEController *controller, long keysym);
+
+void spi_dec_dbus_emit(SpiDEController *controller, const char *interface, const char *name, const char *minor, int a1, int a2);
+
+#ifdef HAVE_X11
+void spi_dec_setup_x11 (SpiDEControllerClass *klass);
+#endif
 G_END_DECLS
 
 #endif /* DEVICEEVENTCONTROLLER_H_ */
