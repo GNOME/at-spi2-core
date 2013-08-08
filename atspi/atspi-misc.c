@@ -870,7 +870,7 @@ spi_display_name (void)
     {
       display_env = g_getenv ("DISPLAY");
       if (!display_env || !display_env[0])
-        canonical_display_name = g_strdup (":0");
+        return NULL;
       else
         {
           gchar *display_p, *screen_p;
@@ -1468,11 +1468,12 @@ get_accessibility_bus_address_x11 (void)
   char *display_name;
 
   display_name = spi_display_name ();
-  if (display_name != NULL)
-    {
-      bridge_display = XOpenDisplay (display_name);
-      g_free (display_name);
-    }
+  if (!display_name)
+    return NULL;
+
+  bridge_display = XOpenDisplay (display_name);
+  g_free (display_name);
+
   if (!bridge_display)
     {
       g_warning ("Could not open X display");
