@@ -394,6 +394,7 @@ atk_table_get_type
 AtkText
 AtkTextIface
 AtkTextBoundary
+AtkTextGranularity
 AtkTextClipType
 AtkTextRange
 AtkTextRectangle
@@ -405,6 +406,7 @@ atk_text_get_character_at_offset
 atk_text_get_text_after_offset
 atk_text_get_text_at_offset
 atk_text_get_text_before_offset
+atk_text_get_string_at_offset
 atk_text_get_caret_offset
 atk_text_get_character_extents
 atk_text_get_run_attributes
@@ -432,10 +434,12 @@ ATK_TYPE_TEXT
 ATK_TEXT_GET_IFACE
 ATK_TYPE_TEXT_ATTRIBUTE
 ATK_TYPE_TEXT_BOUNDARY
+ATK_TYPE_TEXT_GRANULARITY
 ATK_TYPE_TEXT_CLIP_TYPE
 atk_text_get_type
 atk_text_attribute_get_type
 atk_text_boundary_get_type
+atk_text_granularity_get_type
 atk_text_clip_type_get_type
 </SECTION>
 

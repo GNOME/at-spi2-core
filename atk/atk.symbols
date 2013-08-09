@@ -220,6 +220,7 @@
 	atk_text_attribute_get_value
 	atk_text_attribute_register
 	atk_text_boundary_get_type
+	atk_text_granularity_get_type
 	atk_text_clip_type_get_type
 	atk_text_free_ranges
 	atk_text_get_bounded_ranges
@@ -237,6 +238,7 @@
 	atk_text_get_text_after_offset
 	atk_text_get_text_at_offset
 	atk_text_get_text_before_offset
+	atk_text_get_string_at_offset
 	atk_text_get_type
 	atk_text_range_get_type
 	atk_text_remove_selection
