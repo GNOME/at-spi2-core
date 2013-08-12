@@ -209,6 +209,9 @@ typedef enum {
  *   is deprecated and it should not be overridden.
  * @get_text_before_offset: Gets specified text. This virtual function
  *   is deprecated and it should not be overridden.
+ * @text_changed: the signal handler which is executed when there is a
+ *   text change. This virtual function is deprecated sice 2.9.4 and
+ *   it should not be overriden.
  */
 struct _AtkTextIface
 {

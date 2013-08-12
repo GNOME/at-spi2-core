@@ -199,7 +199,10 @@ atk_text_base_init (AtkTextIface *class)
        * object which implements the AtkText interface changes, This
        * signal will have a detail which is either "insert" or
        * "delete" which identifies whether the text change was an
-       * insertion or a deletion
+       * insertion or a deletion.
+       *
+       * Deprecated: Since 2.9.4. Use #AtkObject::text-insert or
+       * #AtkObject::text-remove instead.
        */
       atk_text_signals[TEXT_CHANGED] =
 	g_signal_new ("text_changed",
