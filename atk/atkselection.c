@@ -19,6 +19,25 @@
 
 #include "atkselection.h"
 
+/**
+ * SECTION:atkselection
+ * @Short_description: The ATK interface implemented by container
+ *  objects whose #AtkObject children can be selected.
+ * @Title:AtkSelection
+ *
+ * #AtkSelection should be implemented by UI components with children
+ * which are exposed by #atk_object_ref_child and
+ * #atk_object_get_n_children, if the use of the parent UI component
+ * ordinarily involves selection of one or more of the objects
+ * corresponding to those #AtkObject children - for example,
+ * selectable lists.
+ *
+ * Note that other types of "selection" (for instance text selection)
+ * are accomplished a other ATK interfaces - #AtkSelection is limited
+ * to the selection/deselection of children.
+ */
+
+
 enum {
   SELECTION_CHANGED,
   LAST_SIGNAL
@@ -55,6 +74,13 @@ atk_selection_base_init (gpointer *g_class)
 
   if (! initialized)
     {
+      /**
+       * AtkSelection::selection-changed:
+       * @atkselection: the object which received the signal.
+       *
+       * The "selection-changed" signal is emitted by an object which
+       * implements AtkSelection interface when the selection changes.
+       */
       atk_selection_signals[SELECTION_CHANGED] =
         g_signal_new ("selection_changed",
                       ATK_TYPE_SELECTION,

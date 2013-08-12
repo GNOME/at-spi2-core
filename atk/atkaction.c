@@ -19,6 +19,32 @@
 
 #include "atkaction.h"
 
+/**
+ * SECTION:atkaction
+ * @Short_description: The ATK interface provided by UI components
+ * which the user can activate/interact with.
+ * @Title:AtkAction
+ *
+ * #AtkAction should be implemented by instances of #AtkObject classes
+ * with which the user can interact directly, i.e. buttons,
+ * checkboxes, scrollbars, e.g. components which are not "passive"
+ * providers of UI information.
+ *
+ * Exceptions: when the user interaction is already covered by another
+ * appropriate interface such as #AtkEditableText (insert/delete text,
+ * etc.) or #AtkValue (set value) then these actions should not be
+ * exposed by #AtkAction as well.
+ *
+ * Though most UI interactions on components should be invocable via
+ * keyboard as well as mouse, there will generally be a close mapping
+ * between "mouse actions" that are possible on a component and the
+ * AtkActions.  Where mouse and keyboard actions are redundant in
+ * effect, #AtkAction should expose only one action rather than
+ * exposing redundant actions if possible.  By convention we have been
+ * using "mouse centric" terminology for #AtkAction names.
+ *
+ */
+
 GType
 atk_action_get_type (void)
 {
@@ -98,8 +124,8 @@ atk_action_get_n_actions  (AtkAction *obj)
  *
  * Returns a description of the specified action of the object.
  *
- * Returns a description string, or %NULL
- * if @action does not implement this interface.
+ * Returns: a description string, or %NULL if @action does not
+ * implement this interface.
  **/
 const gchar*
 atk_action_get_description (AtkAction *obj,
@@ -137,8 +163,8 @@ atk_action_get_description (AtkAction *obj,
  * i.e. the result of some actions via atk_action_do_action() may be
  * NIL.
  *
- * Returns a name string, or %NULL
- * if @action does not implement this interface.
+ * Returns: a name string, or %NULL if @action does not implement this
+ * interface.
  **/
 const gchar*
 atk_action_get_name (AtkAction *obj,
@@ -163,8 +189,8 @@ atk_action_get_name (AtkAction *obj,
  *
  * Returns the localized name of the specified action of the object.
  *
- * Returns a name string, or %NULL
- * if @action does not implement this interface.
+ * Returns: a name string, or %NULL if @action does not implement this
+ * interface.
  **/
 const gchar*
 atk_action_get_localized_name (AtkAction *obj,
@@ -210,8 +236,8 @@ atk_action_get_localized_name (AtkAction *obj,
  * for the German locale. If, hypothetically, this menu item lacked a mnemonic,
  * it would be represented by ";;Ctrl+N" and ";;Strg+N" respectively.
  *
- * Returns the keybinding which can be used to activate this action, or %NULL
- * if there is no keybinding for this action.
+ * Returns: the keybinding which can be used to activate this action,
+ * or %NULL if there is no keybinding for this action.
  *
  **/
 const gchar*

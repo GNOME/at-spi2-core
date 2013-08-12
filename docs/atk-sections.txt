@@ -2,6 +2,7 @@
 <FILE>atkaction</FILE>
 <TITLE>AtkAction</TITLE>
 AtkAction
+AtkActionIface
 atk_action_do_action
 atk_action_get_n_actions
 atk_action_get_description
@@ -10,7 +11,6 @@ atk_action_get_localized_name
 atk_action_get_keybinding
 atk_action_set_description
 <SUBSECTION Standard>
-AtkActionIface
 ATK_ACTION
 ATK_IS_ACTION
 ATK_TYPE_ACTION
@@ -22,6 +22,9 @@ atk_action_get_type
 <FILE>atkcomponent</FILE>
 <TITLE>AtkComponent</TITLE>
 AtkComponent
+AtkComponentIface
+AtkFocusHandler
+AtkRectangle
 atk_component_add_focus_handler
 atk_component_contains
 atk_component_get_extents
@@ -37,14 +40,11 @@ atk_component_set_position
 atk_component_set_size
 atk_component_get_alpha
 <SUBSECTION Standard>
-AtkComponentIface
 ATK_COMPONENT
 ATK_IS_COMPONENT
 ATK_TYPE_COMPONENT
 ATK_TYPE_RECTANGLE
 ATK_COMPONENT_GET_IFACE
-AtkFocusHandler
-AtkRectangle
 atk_component_get_type
 atk_rectangle_get_type
 </SECTION>
@@ -53,6 +53,7 @@ atk_rectangle_get_type
 <FILE>atkdocument</FILE>
 <TITLE>AtkDocument</TITLE>
 AtkDocument
+AtkDocumentIface
 atk_document_get_document_type
 atk_document_get_document
 atk_document_get_attribute_value
@@ -60,7 +61,6 @@ atk_document_set_attribute_value
 atk_document_get_attributes
 atk_document_get_locale
 <SUBSECTION Standard>
-AtkDocumentIface
 ATK_DOCUMENT
 ATK_IS_DOCUMENT
 ATK_TYPE_DOCUMENT
@@ -392,6 +392,7 @@ atk_table_get_type
 <FILE>atktext</FILE>
 <TITLE>AtkText</TITLE>
 AtkText
+AtkTextIface
 AtkTextBoundary
 AtkTextClipType
 AtkTextRange
@@ -425,7 +426,6 @@ atk_text_attribute_get_name
 atk_text_attribute_for_name
 atk_text_attribute_get_value
 <SUBSECTION Standard>
-AtkTextIface
 ATK_TEXT
 ATK_IS_TEXT
 ATK_TYPE_TEXT

@@ -21,6 +21,22 @@
 
 #include "atk.h"
 
+/**
+ * SECTION:atkrelationset
+ * @Short_description: A set of AtkRelations, normally the set of
+ *  AtkRelations which an AtkObject has.
+ * @Title:AtkRelationSet
+ *
+ * The AtkRelationSet held by an object establishes its relationships
+ * with objects beyond the normal "parent/child" hierarchical
+ * relationships that all user interface objects have.
+ * AtkRelationSets establish whether objects are labelled or
+ * controlled by other components, share group membership with other
+ * components (for instance within a radio-button group), or share
+ * content which "flows" between them, among other types of possible
+ * relationships.
+ */
+
 static gpointer parent_class = NULL;
 
 static void atk_relation_set_class_init (AtkRelationSetClass  *klass);

@@ -22,6 +22,15 @@
 #include "atkobject.h"
 #include "atkstateset.h"
 
+/**
+ * SECTION:atkstateset
+ * @Short_description: An AtkStateSet determines a component's state set.
+ * @Title:AtkStateSet
+ *
+ * An AtkStateSet determines a component's state set. It is composed
+ * of a set of AtkStates.
+ */
+
 #define ATK_STATE(state_enum)             ((AtkState)((guint64)1 << ((state_enum)%64)))
 
 struct _AtkRealStateSet

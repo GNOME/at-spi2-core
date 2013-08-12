@@ -19,6 +19,22 @@
 
 #include "atkdocument.h"
 
+/**
+ * SECTION:atkdocument
+ * @Short_description: The ATK interface which represents the toplevel
+ *  container for document content.
+ * @Title:AtkDocument
+ *
+ * The AtkDocument interface should be supported by any object whose
+ * content is a representation or view of a document.  The AtkDocument
+ * interface should appear on the toplevel container for the document
+ * content; however AtkDocument instances may be nested (i.e. an
+ * AtkDocument may be a descendant of another AtkDocument) in those
+ * cases where one document contains "embedded content" which can
+ * reasonably be considered a document in its own right.
+ *
+ */
+
 enum {
   LOAD_COMPLETE,
   RELOAD,
@@ -56,6 +72,20 @@ atk_document_base_init (AtkDocumentIface *class)
   static gboolean initialized = FALSE;
   if (!initialized)
     {
+      /**
+       * AtkDocument::load-complete:
+       * @atkdocument: the object which received the signal.
+       *
+       * The 'load-complete' signal is emitted when a pending load of
+       * a static document has completed.  This signal is to be
+       * expected by ATK clients if and when AtkDocument implementors
+       * expose ATK_STATE_BUSY.  If the state of an AtkObject which
+       * implements AtkDocument does not include ATK_STATE_BUSY, it
+       * should be safe for clients to assume that the AtkDocument's
+       * static contents are fully loaded into the container.
+       * (Dynamic document contents should be exposed via other
+       * signals.)
+       */
       atk_document_signals[LOAD_COMPLETE] =
         g_signal_new ("load_complete",
                       ATK_TYPE_DOCUMENT,
@@ -64,6 +94,16 @@ atk_document_base_init (AtkDocumentIface *class)
                       (GSignalAccumulator) NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);
+      /**
+       * AtkDocument::reload:
+       * @atkdocument: the object which received the signal.
+       *
+       * The 'reload' signal is emitted when the contents of a
+       * document is refreshed from its source.  Once 'reload' has
+       * been emitted, a matching 'load-complete' or 'load-stopped'
+       * signal should follow, which clients may await before
+       * interrogating ATK for the latest document content.
+       */
       atk_document_signals[RELOAD] =
         g_signal_new ("reload",
                       ATK_TYPE_DOCUMENT,
@@ -72,6 +112,18 @@ atk_document_base_init (AtkDocumentIface *class)
                       (GSignalAccumulator) NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);
+
+      /**
+       * AtkDocument::load-stopped:
+       * @atkdocument: the object which received the signal.
+       *
+       * The 'load-stopped' signal is emitted when a pending load of
+       * document contents is cancelled, paused, or otherwise
+       * interrupted by the user or application logic.  It should not
+       * however be emitted while waiting for a resource (for instance
+       * while blocking on a file or network read) unless a
+       * user-significant timeout has occurred.
+       */
       atk_document_signals[LOAD_STOPPED] =
         g_signal_new ("load_stopped",
                       ATK_TYPE_DOCUMENT,

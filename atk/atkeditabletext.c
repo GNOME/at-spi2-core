@@ -19,6 +19,22 @@
 
 #include "atkeditabletext.h"
 
+/**
+ * SECTION:atkeditabletext
+ * @Short_description: The ATK interface implemented by components
+ *  containing user-editable text content.
+ * @Title:AtkEditableText
+ *
+ * #AtkEditableText should be implemented by UI components which
+ * contain text which the user can edit, via the #AtkObject
+ * corresponding to that component (see #AtkObject).
+ *
+ * #AtkEditableText is a subclass of #AtkText, and as such, an object
+ * which implements #AtkEditableText is by definition an #AtkText
+ * implementor as well.
+ *
+ * See also: #AtkText
+ */
 
 GType
 atk_editable_text_get_type (void)

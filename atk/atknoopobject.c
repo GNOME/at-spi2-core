@@ -20,6 +20,19 @@
 #include "atk.h"
 #include "atknoopobject.h"
 
+/**
+ * SECTION:atknoopobject
+ * @Short_description: An AtkObject which purports to implement all ATK interfaces.
+ * @Title:AtkNoOpObject
+ *
+ * An AtkNoOpObject is an AtkObject which purports to implement all
+ * ATK interfaces. It is the type of AtkObject which is created if an
+ * accessible object is requested for an object type for which no
+ * factory type is specified.
+ *
+ */
+
+
 static void atk_no_op_object_class_init (AtkNoOpObjectClass *klass);
 
 static gpointer parent_class = NULL;

@@ -23,6 +23,33 @@
 
 #include <string.h>
 
+/**
+ * SECTION:atktext
+ * @Short_description: The ATK interface implemented by components
+ *  with text content.
+ * @Title:AtkText
+ *
+ * #AtkText should be implemented by #AtkObjects on behalf of widgets
+ * that have text content which is either attributed or otherwise
+ * non-trivial.  #AtkObjects whose text content is simple,
+ * unattributed, and very brief may expose that content via
+ * #atk_object_get_name instead; however if the text is editable,
+ * multi-line, typically longer than three or four words, attributed,
+ * selectable, or if the object already uses the 'name' ATK property
+ * for other information, the #AtkText interface should be used to
+ * expose the text content.  In the case of editable text content,
+ * #AtkEditableText (a subtype of the #AtkText interface) should be
+ * implemented instead.
+ *
+ *  #AtkText provides not only traversal facilities and change
+ * notification for text content, but also caret tracking and glyph
+ * bounding box calculations.  Note that the text strings are exposed
+ * as UTF-8, and are therefore potentially multi-byte, and
+ * caret-to-byte offset mapping makes no assumptions about the
+ * character length; also bounding box glyph-to-offset mapping may be
+ * complex for languages which use ligatures.
+ */
+
 static GPtrArray *extra_attributes = NULL;
 
 enum {
@@ -162,6 +189,18 @@ atk_text_base_init (AtkTextIface *class)
       class->get_range_extents = atk_text_real_get_range_extents; 
       class->get_bounded_ranges = atk_text_real_get_bounded_ranges; 
 
+      /**
+       * AtkText::text-changed:
+       * @atktext: the object which received the signal.
+       * @arg1: The position (character offset) of the insertion or deletion.
+       * @arg2: The length (in characters) of text inserted or deleted.
+       *
+       * The "text-changed" signal is emitted when the text of the
+       * object which implements the AtkText interface changes, This
+       * signal will have a detail which is either "insert" or
+       * "delete" which identifies whether the text change was an
+       * insertion or a deletion
+       */
       atk_text_signals[TEXT_CHANGED] =
 	g_signal_new ("text_changed",
 		      ATK_TYPE_TEXT,
@@ -172,6 +211,16 @@ atk_text_base_init (AtkTextIface *class)
 		      G_TYPE_NONE,
 		      2, G_TYPE_INT, G_TYPE_INT);
 
+      /**
+       * AtkText::text-insert:
+       * @atktext: the object which received the signal.
+       * @arg1: The position (character offset) of the insertion.
+       * @arg2: The length (in characters) of text inserted.
+       * @arg3: The text inserted
+       *
+       * The "text-insert" signal is emitted when a new text is
+       * inserted.
+       */
       atk_text_signals[TEXT_INSERT] =
 	g_signal_new ("text_insert",
 		      ATK_TYPE_TEXT,
@@ -182,6 +231,16 @@ atk_text_base_init (AtkTextIface *class)
 		      G_TYPE_NONE,
 		      3, G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING);
 
+      /**
+       * AtkText::text-remove:
+       * @atktext: the object which received the signal.
+       * @arg1: The position (character offset) of the removal.
+       * @arg2: The length (in characters) of text removed.
+       * @arg3: The text inserted
+       *
+       * The "text-remove" signal is emitted when a new text is
+       * removed.
+       */
       atk_text_signals[TEXT_REMOVE] =
 	g_signal_new ("text_remove",
 		      ATK_TYPE_TEXT,
@@ -192,6 +251,17 @@ atk_text_base_init (AtkTextIface *class)
 		      G_TYPE_NONE,
 		      3, G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING);
 
+      /**
+       * AtkText::text-update:
+       * @atktext: the object which received the signal.
+       * @arg1: unknown
+       * @arg2: unknown
+       * @arg3: unknown
+       * @arg4: unknown
+       *
+       * The "text-update" signal is emitted when a new text is
+       * updated.
+       */
       atk_text_signals[TEXT_UPDATE] =
 	g_signal_new ("text_update",
 		      ATK_TYPE_TEXT,
@@ -202,6 +272,16 @@ atk_text_base_init (AtkTextIface *class)
 		      G_TYPE_NONE,
 		      4, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING);
 
+
+      /**
+       * AtkText::text-caret-moved:
+       * @atktext: the object which received the signal.
+       * @arg1: The new position of the text caret.
+       *
+       * The "text-caret-moved" signal is emitted when the caret
+       * position of the text of an object which implements AtkText
+       * changes.
+       */
       atk_text_signals[TEXT_CARET_MOVED] =
 	g_signal_new ("text_caret_moved",
 		      ATK_TYPE_TEXT,
@@ -211,6 +291,14 @@ atk_text_base_init (AtkTextIface *class)
 		      g_cclosure_marshal_VOID__INT,
 		      G_TYPE_NONE,
 		      1, G_TYPE_INT);
+
+      /**
+       * AtkText::text-selection-changed:
+       * @atktext: the object which received the signal.
+       *
+       * The "text-selection-changed" signal is emitted when the
+       * selected text of an object which implements AtkText changes.
+       */
       atk_text_signals[TEXT_SELECTION_CHANGED] =
         g_signal_new ("text_selection_changed",
                       ATK_TYPE_TEXT,
@@ -219,6 +307,14 @@ atk_text_base_init (AtkTextIface *class)
                       (GSignalAccumulator) NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);
+      /**
+       * AtkText::text-attributes-changed:
+       * @atktext: the object which received the signal.
+       *
+       * The "text-attributes-changed" signal is emitted when the text
+       * attributes of the text of an object which implements AtkText
+       * changes.
+       */
       atk_text_signals[TEXT_ATTRIBUTES_CHANGED] =
         g_signal_new ("text_attributes_changed",
                       ATK_TYPE_TEXT,

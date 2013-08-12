@@ -21,6 +21,15 @@
 #include "atknoopobject.h"
 #include "atknoopobjectfactory.h"
 
+/**
+ * SECTION:atknoopobjectfactory
+ * @Short_description: The AtkObjectFactory which creates an AtkNoOpObject.
+ * @Title:AtkNoOpObjectFactory
+ *
+ * The AtkObjectFactory which creates an AtkNoOpObject. An instance of
+ * this is created by an AtkRegistry if no factory type has not been
+ * specified to create an accessible object of a particular type.
+ */
 static void atk_no_op_object_factory_class_init (
                               AtkNoOpObjectFactoryClass        *klass);
 

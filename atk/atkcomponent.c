@@ -20,6 +20,25 @@
 
 #include "atkcomponent.h"
 
+/**
+ * SECTION:atkcomponent
+ * @Short_description: The ATK interface provided by UI components
+ * which occupy a physical area on the screen.
+ * which the user can activate/interact with.
+ * @Title:AtkComponent
+ *
+ * #AtkComponent should be implemented by most if not all UI elements
+ * with an actual on-screen presence, i.e. components which can be
+ * said to have a screen-coordinate bounding box.  Virtually all
+ * widgets will need to have #AtkComponent implementations provided
+ * for their corresponding #AtkObject class.  In short, only UI
+ * elements which are *not* GUI elements will omit this ATK interface.
+ *
+ * A possible exception might be textual information with a
+ * transparent background, in which case text glyph bounding box
+ * information is provided by #AtkText.
+ */
+
 enum {
   BOUNDS_CHANGED,
   LAST_SIGNAL
@@ -80,6 +99,15 @@ atk_component_base_init (AtkComponentIface *class)
       class->get_position = atk_component_real_get_position;
       class->get_size = atk_component_real_get_size;
 
+
+      /**
+       * AtkComponent::bounds-changed:
+       * @atkcomponent: the object which received the signal.
+       * @arg1: The AtkRectangle giving the new position and size.
+       *
+       * The 'bounds-changed" signal is emitted when the bposition or
+       * size of the component changes.
+       */
       atk_component_signals[BOUNDS_CHANGED] =
         g_signal_new ("bounds_changed",
                       ATK_TYPE_COMPONENT,

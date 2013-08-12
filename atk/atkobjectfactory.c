@@ -20,6 +20,19 @@
 #include "atkobjectfactory.h"
 #include "atknoopobjectfactory.h"
 
+/**
+ * SECTION:atkobjectfactory
+ * @Short_description: The base object class for a factory used to
+ *  create accessible objects for objects of a specific GType.
+ * @Title:AtkObjectFactory
+ *
+ * This class is the base object class for a factory used to create an
+ * accessible object for a specific GType. The function
+ * atk_registry_set_factory_type() is normally called to store in the
+ * registry the factory type to be used to create an accessible of a
+ * particular GType.
+ */
+
 static void atk_object_factory_class_init   (AtkObjectFactoryClass        *klass);
 
 static gpointer    parent_class = NULL;

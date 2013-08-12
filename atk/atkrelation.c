@@ -23,6 +23,17 @@
 #include "atkrelation.h"
 #include "atk-enum-types.h"
 
+/**
+ * SECTION:atkrelation
+ * @Short_description: An object used to describe a relation between a
+ *  object and one or more other objects.
+ * @Title:AtkRelation
+ *
+ * An AtkRelation describes a relation between an object and one or
+ * more other objects. The actual relations that an object has with
+ * other objects are defined as an AtkRelationSet, which is a set of
+ * AtkRelations.
+ */
 enum {
   PROP_0,
 
@@ -341,7 +352,7 @@ atk_relation_add_target (AtkRelation *relation,
  *
  * Remove the specified AtkObject from the target for the relation.
  *
- * Returns TRUE if the removal is successful.
+ * Returns: TRUE if the removal is successful.
  **/
 
 gboolean

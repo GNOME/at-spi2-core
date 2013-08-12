@@ -8,6 +8,8 @@ DOC_MODULE=atk
 # The top-level SGML file.
 DOC_MAIN_SGML_FILE=atk-docs.sgml
 
+# Extra options to supply to gtkdoc-scan
+SCAN_OPTIONS=--deprecated-guards=G_DISABLE_DEPRECATED
 # The directory containing the source code (if it contains documentation).
 DOC_SOURCE_DIR=../atk
 

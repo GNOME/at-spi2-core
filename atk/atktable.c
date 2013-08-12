@@ -20,6 +20,32 @@
 #include "atktable.h"
 #include "atkmarshal.h"
 
+/**
+ * SECTION:atktable
+ * @Short_description: The ATK interface implemented for UI components
+ *  which contain tabular or row/column information.
+ * @Title:AtkTable
+ *
+ * #AtkTable should be implemented by components which present
+ * elements ordered via rows and columns.  It may also be used to
+ * present tree-structured information if the nodes of the trees can
+ * be said to contain multiple "columns".  Individual elements of an
+ * #AtkTable are typically referred to as "cells", and these cells are
+ * exposed by #AtkTable as child #AtkObjects of the #AtkTable.  Both
+ * row/column and child-index-based access to these children is
+ * provided.
+ *
+ * Children of #AtkTable are frequently "lightweight" objects, that
+ * is, they may not have backing widgets in the host UI toolkit.  They
+ * are therefore often transient.
+ * Since tables are often very complex, #AtkTable includes provision
+ * for offering simplified summary information, as well as row and
+ * column headers and captions.  Headers and captions are #AtkObjects
+ * which may implement other interfaces (#AtkText, #AtkImage, etc.) as
+ * appropriate.  #AtkTable summaries may themselves be (simplified)
+ * #AtkTables, etc.
+ */
+
 enum {
   ROW_INSERTED,
   ROW_DELETED,
@@ -63,6 +89,15 @@ atk_table_base_init (gpointer *g_class)
   
   if (!initialized)
     {
+      /**
+       * AtkTable::row-inserted:
+       * @atktable: the object which received the signal.
+       * @arg1: The index of the first row inserted.
+       * @arg2: The number of rows inserted.
+       *
+       * The "row-inserted" signal is emitted by an object which
+       * implements the AtkTable interface when a row is inserted.
+       */
       atk_table_signals[ROW_INSERTED] =
 	g_signal_new ("row_inserted",
 		      ATK_TYPE_TABLE,
@@ -72,6 +107,15 @@ atk_table_base_init (gpointer *g_class)
 		      atk_marshal_VOID__INT_INT,
 		      G_TYPE_NONE,
 		      2, G_TYPE_INT, G_TYPE_INT);
+      /**
+       * AtkTable::column-inserted:
+       * @atktable: the object which received the signal.
+       * @arg1: The index of the column inserted.
+       * @arg2: The number of colums inserted.
+       *
+       * The "column-inserted" signal is emitted by an object which
+       * implements the AtkTable interface when a column is inserted.
+       */
       atk_table_signals[COLUMN_INSERTED] =
 	g_signal_new ("column_inserted",
 		      ATK_TYPE_TABLE,
@@ -81,6 +125,15 @@ atk_table_base_init (gpointer *g_class)
 		      atk_marshal_VOID__INT_INT,
 		      G_TYPE_NONE,
 		      2, G_TYPE_INT, G_TYPE_INT);
+      /**
+       * AtkTable::row-deleted:
+       * @atktable: the object which received the signal.
+       * @arg1: The index of the first row deleted.
+       * @arg2: The number of rows deleted.
+       *
+       * The "row-deleted" signal is emitted by an object which
+       * implements the AtkTable interface when a row is deleted.
+       */
       atk_table_signals[ROW_DELETED] =
 	g_signal_new ("row_deleted",
 		      ATK_TYPE_TABLE,
@@ -90,6 +143,15 @@ atk_table_base_init (gpointer *g_class)
 		      atk_marshal_VOID__INT_INT,
 		      G_TYPE_NONE,
 		      2, G_TYPE_INT, G_TYPE_INT);
+      /**
+       * AtkTable::column-deleted:
+       * @atktable: the object which received the signal.
+       * @arg1: The index of the first column deleted.
+       * @arg2: The number of columns deleted.
+       *
+       * The "column-deleted" signal is emitted by an object which
+       * implements the AtkTable interface when a column is deleted.
+       */
       atk_table_signals[COLUMN_DELETED] =
 	g_signal_new ("column_deleted",
 		      ATK_TYPE_TABLE,
@@ -99,6 +161,14 @@ atk_table_base_init (gpointer *g_class)
 		      atk_marshal_VOID__INT_INT,
 		      G_TYPE_NONE,
 		      2, G_TYPE_INT, G_TYPE_INT);
+      /**
+       * AtkTable::row-reordered:
+       * @atktable: the object which received the signal.
+       *
+       * The "row-reordered" signal is emitted by an object which
+       * implements the AtkTable interface when the rows are
+       * reordered.
+       */
       atk_table_signals[ROW_REORDERED] =
 	g_signal_new ("row_reordered",
 		      ATK_TYPE_TABLE,
@@ -108,6 +178,14 @@ atk_table_base_init (gpointer *g_class)
 		      g_cclosure_marshal_VOID__VOID,
 		      G_TYPE_NONE,
 		      0);
+      /**
+       * AtkTable::column-reordered:
+       * @atktable: the object which received the signal.
+       *
+       * The "column-reordered" signal is emitted by an object which
+       * implements the AtkTable interface when the columns are
+       * reordered.
+       */
       atk_table_signals[COLUMN_REORDERED] =
 	g_signal_new ("column_reordered",
 		      ATK_TYPE_TABLE,
@@ -117,6 +195,15 @@ atk_table_base_init (gpointer *g_class)
 		      g_cclosure_marshal_VOID__VOID,
 		      G_TYPE_NONE,
 		      0);
+
+      /**
+       * AtkTable::model-changed:
+       * @atktable: the object which received the signal.
+       *
+       * The "model-changed" signal is emitted by an object which
+       * implements the AtkTable interface when the model displayed by
+       * the table changes.
+       */
       atk_table_signals[MODEL_CHANGED] =
         g_signal_new ("model_changed",
                       ATK_TYPE_TABLE,

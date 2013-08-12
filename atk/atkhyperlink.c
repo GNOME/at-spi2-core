@@ -21,6 +21,20 @@
 #include "atkhyperlink.h"
 #include "atkintl.h"
 
+/**
+ * SECTION:atkhyperlink
+ * @Short_description: An ATK object which encapsulates a link or set
+ *  of links in a hypertext document.
+ * @Title:AtkHyperlink
+ *
+ * An ATK object which encapsulates a link or set of links (for
+ * instance in the case of client-side image maps) in a hypertext
+ * document.  It may implement the AtkAction interface.  AtkHyperlink
+ * may also be used to refer to inline embedded content, since it
+ * allows specification of a start and end offset within the host
+ * AtkHypertext object.
+ */
+
 enum
 {
   LINK_ACTIVATED,
@@ -132,6 +146,13 @@ atk_hyperlink_class_init (AtkHyperlinkClass *klass)
                                                      G_MAXINT,
                                                      0,
                                                      G_PARAM_READABLE));
+
+  /**
+   * AtkHyperlink::link-activated:
+   * @atkhyperlink: the object which received the signal.
+   *
+   * The signal link-activated is emitted when a link is activated.
+   */
   atk_hyperlink_signals[LINK_ACTIVATED] =
     g_signal_new ("link_activated",
                   G_TYPE_FROM_CLASS (klass),

@@ -19,6 +19,27 @@
 
 #include "atkimage.h"
 
+/**
+ * SECTION:atkimage
+ * @Short_description: The ATK Interface implemented by components
+ *  which expose image or pixmap content on-screen.
+ * @Title:AtkImage
+ *
+ * #AtkImage should be implemented by #AtkObject subtypes on behalf of
+ * components which display image/pixmap information onscreen, and
+ * which provide information (other than just widget borders, etc.)
+ * via that image content.  For instance, icons, buttons with icons,
+ * toolbar elements, and image viewing panes typically should
+ * implement #AtkImage.
+ *
+ * #AtkImage primarily provides two types of information: coordinate
+ * information (useful for screen review mode of screenreaders, and
+ * for use by onscreen magnifiers), and descriptive information.  The
+ * descriptive information is provided for alternative, text-only
+ * presentation of the most significant information present in the
+ * image.
+ */
+
 GType
 atk_image_get_type (void)
 {
@@ -189,7 +210,9 @@ atk_image_get_image_position (AtkImage *image,
  *
  * Since ATK 1.12
  *
- * Returns a string corresponding to the POSIX LC_MESSAGES locale used by the image description, or NULL if the image does not specify a locale. 
+ * Returns: a string corresponding to the POSIX LC_MESSAGES locale
+ * used by the image description, or NULL if the image does not
+ * specify a locale.
  *
  */
 const gchar*

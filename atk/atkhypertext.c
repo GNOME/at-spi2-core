@@ -19,6 +19,22 @@
 
 #include "atkhypertext.h"
 
+/**
+ * SECTION:atkhypertext
+ * @Short_description: The ATK interface which provides standard
+ *  mechanism for manipulating hyperlinks.
+ * @Title:AtkHypertext
+ *
+ * An interface used for objects which implement linking between
+ * multiple resource or content locations, or multiple 'markers'
+ * within a single document.  A Hypertext instance is associated with
+ * one or more Hyperlinks, which are associated with particular
+ * offsets within the Hypertext's included content.  While this
+ * interface is derived from Text, there is no requirement that
+ * Hypertext instances have textual content; they may implement Image
+ * as well, and Hyperlinks need not have non-zero text offsets.
+ */
+
 enum {
   LINK_SELECTED,
   LAST_SIGNAL
@@ -56,6 +72,15 @@ atk_hypertext_base_init (AtkHypertextIface *class)
 
   if (!initialized)
     {
+      /**
+       * AtkHypertext::link-selected:
+       * @atkhypertext: the object which received the signal.
+       * @arg1: the index of the hyperlink which is selected
+       *
+       * The "link-selected" signal is emitted by an AtkHyperText
+       * object when one of the hyperlinks associated with the object
+       * is selected.
+       */
       atk_hypertext_signals[LINK_SELECTED] =
         g_signal_new ("link_selected",
                       ATK_TYPE_HYPERTEXT,

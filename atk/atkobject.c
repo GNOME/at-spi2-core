@@ -35,6 +35,34 @@
 #include "atk-enum-types.h"
 #include "atkintl.h"
 
+/**
+ * SECTION:atkobject
+ * @Short_description: The base object class for the Accessibility Toolkit API.
+ * @Title:AtkObject
+ *
+ * This class is the primary class for accessibility support via the
+ * Accessibility ToolKit (ATK).  Objects which are instances of
+ * #AtkObject (or instances of AtkObject-derived types) are queried
+ * for properties which relate basic (and generic) properties of a UI
+ * component such as name and description.  Instances of #AtkObject
+ * may also be queried as to whether they implement other ATK
+ * interfaces (e.g. #AtkAction, #AtkComponent, etc.), as appropriate
+ * to the role which a given UI component plays in a user interface.
+ *
+ * All UI components in an application which provide useful
+ * information or services to the user must provide corresponding
+ * #AtkObject instances on request (in GTK+, for instance, usually on
+ * a call to #gtk_widget_get_accessible ()), either via ATK support
+ * built into the toolkit for the widget class or ancestor class, or
+ * in the case of custom widgets, if the inherited #AtkObject
+ * implementation is insufficient, via instances of a new #AtkObject
+ * subclass.
+ *
+ * See also: #AtkObjectFactory, #AtkRegistry.  (GTK+ users see also
+ * #GtkAccessible).
+ *
+ */
+
 static GPtrArray *role_names = NULL;
 
 enum
@@ -546,6 +574,17 @@ atk_object_class_init (AtkObjectClass *klass)
                                                         G_MAXINT,
                                                         0,
                                                         G_PARAM_READABLE));
+
+  /**
+   * AtkObject::children-changed:
+   * @atkobject: the object which received the signal.
+   * @arg1: The index of the added or removed child
+   * @arg2: A gpointer to the child AtkObject which was added or removed
+   *
+   * The signal "children-changed" is emitted when a child is added or
+   * removed form an object. It supports two details: "add" and
+   * "remove"
+   */
   atk_object_signals[CHILDREN_CHANGED] =
     g_signal_new ("children_changed",
 		  G_TYPE_FROM_CLASS (klass),
@@ -576,6 +615,15 @@ atk_object_class_init (AtkObjectClass *klass)
 		  g_cclosure_marshal_VOID__BOOLEAN,
 		  G_TYPE_NONE,
 		  1, G_TYPE_BOOLEAN);
+  /**
+   * AtkObject::property-change:
+   * @atkobject: the object which received the signal.
+   * @arg1: The new value of the property which changed.
+   *
+   * The signal "property-change" is emitted when an object's property
+   * value changes. The detail identifies the name of the property
+   * whose value has changed.
+   */
   atk_object_signals[PROPERTY_CHANGE] =
     g_signal_new ("property_change",
                   G_TYPE_FROM_CLASS (klass),
@@ -585,6 +633,17 @@ atk_object_class_init (AtkObjectClass *klass)
                   g_cclosure_marshal_VOID__POINTER,
                   G_TYPE_NONE, 1,
                   G_TYPE_POINTER);
+
+  /**
+   * AtkObject::state-change:
+   * @atkobject: the object which received the signal.
+   * @arg1: The name of the state which has changed
+   * @arg2: A boolean which indicates whether the state has been set or unset.
+   *
+   * The "state-change" signal is emitted when an object's state
+   * changes.  The detail value identifies the state type which has
+   * changed.
+   */
   atk_object_signals[STATE_CHANGE] =
     g_signal_new ("state_change",
                   G_TYPE_FROM_CLASS (klass),
@@ -595,6 +654,14 @@ atk_object_class_init (AtkObjectClass *klass)
                   G_TYPE_NONE, 2,
                   G_TYPE_STRING,
                   G_TYPE_BOOLEAN);
+
+  /**
+   * AtkObject::visible-data-changed:
+   * @atkobject: the object which received the signal.
+   *
+   * The "visible-data-changed" signal is emitted when the visual
+   * appearance of the object changed.
+   */
   atk_object_signals[VISIBLE_DATA_CHANGED] =
     g_signal_new ("visible_data_changed",
                   G_TYPE_FROM_CLASS (klass),
@@ -603,6 +670,17 @@ atk_object_class_init (AtkObjectClass *klass)
                   (GSignalAccumulator) NULL, NULL,
                   g_cclosure_marshal_VOID__VOID,
                   G_TYPE_NONE, 0);
+
+  /**
+   * AtkObject::active-descendant-changed:
+   * @atkobject: the object which received the signal.
+   * @arg1: the newly focused object.
+   *
+   * The "active-descendant-changed" signal is emitted by an object
+   * which has the state ATK_STATE_MANAGES_DESCENDANTS when the focus
+   * object in the object changes. For instance, a table will emit the
+   * signal when the cell in the table which has focus changes.
+   */
   atk_object_signals[ACTIVE_DESCENDANT_CHANGED] =
     g_signal_new ("active_descendant_changed",
 		  G_TYPE_FROM_CLASS (klass),
@@ -1564,7 +1642,7 @@ atk_role_for_name (const gchar *name)
  *
  * Adds a relationship of the specified type with the specified target.
  *
- * Returns TRUE if the relationship is added.
+ * Returns: TRUE if the relationship is added.
  **/
 gboolean
 atk_object_add_relationship (AtkObject       *object,
@@ -1597,7 +1675,7 @@ atk_object_add_relationship (AtkObject       *object,
  *
  * Removes a relationship of the specified type with the specified target.
  *
- * Returns TRUE if the relationship is removed.
+ * Returns: TRUE if the relationship is removed.
  **/
 gboolean
 atk_object_remove_relationship (AtkObject       *object,

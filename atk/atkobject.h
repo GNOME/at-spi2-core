@@ -372,6 +372,16 @@ struct _AtkPropertyValues
 
 typedef struct _AtkPropertyValues        AtkPropertyValues;
 
+/**
+ * AtkFunction:
+ * @user_data: custom data defined by the user
+ *
+ * An AtkFunction is a function definition used for padding which has
+ * been added to class and interface structures to allow for expansion
+ * in the future.
+ *
+ * Returns: not used
+ */
 typedef gboolean (*AtkFunction)          (gpointer user_data);
 /*
  * For most properties the old_value field of AtkPropertyValues will
@@ -384,6 +394,16 @@ typedef gboolean (*AtkFunction)          (gpointer user_data);
  * and the property change handler will be called for the object which
  * received the focus with the new_value containing an AtkState value
  * corresponding to focused.
+ */
+
+/**
+ * AtkPropertyChangeHandler:
+ * @obj: atkobject which property changes
+ * @vals: values changed
+ *
+ * An AtkPropertyChangeHandler is a function which is executed when an
+ * AtkObject's property changes value. It is specified in a call to
+ * atk_object_connect_property_change_handler().
  */
 typedef void (*AtkPropertyChangeHandler) (AtkObject* obj, AtkPropertyValues* vals);
 
@@ -545,6 +565,13 @@ void                      (* initialize)                         (AtkObject     
 
 GType            atk_object_get_type   (void);
 
+/**
+ * AtkImplementorIface:
+ *
+ * The AtkImplementor interface is implemented by objects for which
+ * AtkObject peers may be obtained via calls to
+ * iface->(ref_accessible)(implementor);
+ */
 struct _AtkImplementorIface
 {
   GTypeInterface parent;
