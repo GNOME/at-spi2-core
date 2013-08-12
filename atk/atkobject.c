@@ -555,6 +555,18 @@ atk_object_class_init (AtkObjectClass *klass)
 		  g_cclosure_marshal_VOID__UINT_POINTER,
 		  G_TYPE_NONE,
 		  2, G_TYPE_UINT, G_TYPE_POINTER);
+
+  /**
+   * AtkObject::focus-event:
+   * @atkobject: the object which received the signal
+   * @arg1: a boolean value which indicates whether the object gained
+   * or lost focus.
+   *
+   * The signal "focus-event" is emitted when an object gained or lost
+   * focus.
+   *
+   * Deprecated: Since 2.9.4. Use #AtkObject::state-change signal instead.
+   */
   atk_object_signals[FOCUS_EVENT] =
     g_signal_new ("focus_event",
 		  G_TYPE_FROM_CLASS (klass),

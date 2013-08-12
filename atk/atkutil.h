@@ -166,9 +166,13 @@ typedef enum {
   ATK_XY_WINDOW
 }AtkCoordType;
 
+G_DEPRECATED
 guint    atk_add_focus_tracker     (AtkEventListener      focus_tracker);
+G_DEPRECATED
 void     atk_remove_focus_tracker  (guint                tracker_id);
+G_DEPRECATED
 void     atk_focus_tracker_init    (AtkEventListenerInit  init);
+G_DEPRECATED
 void     atk_focus_tracker_notify  (AtkObject            *object);
 guint	atk_add_global_event_listener (GSignalEmissionHook listener,
 				       const gchar        *event_type);

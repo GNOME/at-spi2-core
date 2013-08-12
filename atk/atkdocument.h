@@ -46,6 +46,11 @@ typedef struct _AtkDocument AtkDocument;
 #endif
 typedef struct _AtkDocumentIface AtkDocumentIface;
 
+/**
+ * AtkDocumentIface:
+ * @get_document_locale: gets locale. This virtual function is
+ * deprecated since 2.7.90 and it should not be overriden.
+ */
 struct _AtkDocumentIface
 {
   GTypeInterface parent;

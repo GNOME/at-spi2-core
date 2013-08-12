@@ -47,7 +47,21 @@ typedef struct _AtkComponent AtkComponent;
 #endif
 typedef struct _AtkComponentIface  AtkComponentIface;
 
-typedef void (*AtkFocusHandler) (AtkObject*, gboolean);
+/**
+ * AtkFocusHandler:
+ * @object: the #AtkObject that receives/lose the focus
+ * @focus_in: TRUE if the object receives the focus
+ *
+ * The type of callback function used for
+ * atk_component_add_focus_handler() and
+ * atk_component_remove_focus_handler()
+ *
+ * Deprecated: This type is deprecated since ATK version 2.9.4. as
+ * atk_component_add_focus_handler() and
+ * atk_component_remove_focus_handler() are deprecated. See those
+ * methods for more information.
+ */
+typedef void (*AtkFocusHandler) (AtkObject* object, gboolean focus_in);
 
 typedef struct _AtkRectangle       AtkRectangle;
 
@@ -62,6 +76,17 @@ struct _AtkRectangle
 GType atk_rectangle_get_type (void);
 
 #define ATK_TYPE_RECTANGLE (atk_rectangle_get_type ())
+
+/**
+ * AtkComponentIface:
+ * @add_focus_handler: This virtual function is deprecated since 2.9.4
+ * and it should not be overriden. See
+ * atk_component_add_focus_handler() for more information.
+ * @remove_focus_handler: This virtual function is deprecated since
+ * 2.9.4 and it should not be overriden. See
+ * atk_component_remove_focus_handler() for more information.
+ */
+
 struct _AtkComponentIface
 {
   GTypeInterface parent;
@@ -122,7 +147,7 @@ struct _AtkComponentIface
 GType atk_component_get_type (void);
 
 /* convenience functions */
-
+G_DEPRECATED
 guint                atk_component_add_focus_handler      (AtkComponent    *component,
                                                            AtkFocusHandler handler);
 gboolean              atk_component_contains               (AtkComponent    *component,
@@ -149,6 +174,7 @@ void                  atk_component_get_size               (AtkComponent    *com
 AtkLayer              atk_component_get_layer              (AtkComponent    *component);
 gint                  atk_component_get_mdi_zorder         (AtkComponent    *component);
 gboolean              atk_component_grab_focus             (AtkComponent    *component);
+G_DEPRECATED
 void                  atk_component_remove_focus_handler   (AtkComponent    *component,
                                                             guint           handler_id);
 gboolean              atk_component_set_extents            (AtkComponent    *component,

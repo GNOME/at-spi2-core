@@ -400,6 +400,14 @@ struct _AtkObject
   AtkLayer layer;
 };
 
+
+/**
+ * AtkObjectClass:
+ * @focus_event: The signal handler which is executed when there is a
+ *   focus event for an object. This virtual function is deprecated
+ *   since 2.9.4 and it should not be overriden. Use
+ *   state-changed:focused signal instead.
+ */
 struct _AtkObjectClass
 {
   GObjectClass parent;
