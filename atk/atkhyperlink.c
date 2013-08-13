@@ -17,7 +17,6 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#undef ATK_DISABLE_DEPRECATED
 #include "atkhyperlink.h"
 #include "atkintl.h"
 
@@ -112,6 +111,16 @@ atk_hyperlink_class_init (AtkHyperlinkClass *klass)
 
   klass->link_activated = NULL;
 
+  /**
+   * AtkHyperlink:selected-link:
+   *
+   * Selected link
+   *
+   * Deprecated: Since 1.8. As atk_hyperlink_is_selected_link is
+   * deprecated this property is deprecated as well. Please use
+   * ATK_STATE_SELECTED to indicate when a hyperlink within a
+   * Hypertext container is selected.
+   */
   g_object_class_install_property (gobject_class,
                                    PROP_SELECTED_LINK,
                                    g_param_spec_boolean ("selected-link",
@@ -184,7 +193,8 @@ atk_hyperlink_real_get_property (GObject    *object,
   switch (prop_id)
     {
     case PROP_SELECTED_LINK:
-      g_value_set_boolean (value, atk_hyperlink_is_selected_link (link));
+      // This property is deprecated, also the method to get the value
+      g_value_set_boolean (value, FALSE);
       break;
     case PROP_NUMBER_ANCHORS:
       g_value_set_int (value,  atk_hyperlink_get_n_anchors (link));
