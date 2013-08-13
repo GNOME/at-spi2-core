@@ -219,7 +219,7 @@ atk_text_base_init (AtkTextIface *class)
        * @atktext: the object which received the signal.
        * @arg1: The position (character offset) of the insertion.
        * @arg2: The length (in characters) of text inserted.
-       * @arg3: The text inserted
+       * @arg3: The new text inserted
        *
        * The "text-insert" signal is emitted when a new text is
        * inserted.
@@ -239,7 +239,7 @@ atk_text_base_init (AtkTextIface *class)
        * @atktext: the object which received the signal.
        * @arg1: The position (character offset) of the removal.
        * @arg2: The length (in characters) of text removed.
-       * @arg3: The text inserted
+       * @arg3: The old text removed
        *
        * The "text-remove" signal is emitted when a new text is
        * removed.
