@@ -65,6 +65,16 @@ typedef void (*AtkFocusHandler) (AtkObject* object, gboolean focus_in);
 
 typedef struct _AtkRectangle       AtkRectangle;
 
+/**
+ * AtkRectangle:
+ * @x: X coordinate of the left side of the rectangle.
+ * @y: Y coordinate of the top side of the rectangle.
+ * @width: width of the rectangle.
+ * @height: height of the rectangle.
+ *
+ * A data structure for holding a rectangle. Those coordinates are
+ * relative to the component top-level parent.
+ */
 struct _AtkRectangle
 {
   gint x;
