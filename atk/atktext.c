@@ -378,7 +378,7 @@ atk_text_get_character_at_offset (AtkText      *text,
  * Gets the specified text.
  *
  * Deprecated: This method is deprecated since ATK version
- * 2.9.3. Please use atk_text_get_at_offset() instead.
+ * 2.9.3. Please use atk_text_get_string_at_offset() instead.
  *
  * Returns: a newly allocated string containing the text after @offset bounded
  *   by the specified @boundary_type. Use g_free() to free the returned string.
@@ -450,6 +450,9 @@ atk_text_get_text_after_offset (AtkText          *text,
  * string is from the line start at or before the offset to the line
  * start after the offset.
  *
+ * Deprecated: This method is deprecated since ATK version
+ * 2.9.4. Please use atk_text_get_string_at_offset() instead.
+ *
  * Returns: a newly allocated string containing the text at @offset bounded by
  *   the specified @boundary_type. Use g_free() to free the returned string.
  **/
@@ -495,7 +498,7 @@ atk_text_get_text_at_offset (AtkText          *text,
  * Gets the specified text.
  *
  * Deprecated: This method is deprecated since ATK version
- * 2.9.3. Please use atk_text_get_at_offset() instead.
+ * 2.9.3. Please use atk_text_get_string_at_offset() instead.
  *
  * Returns: a newly allocated string containing the text before @offset bounded
  *   by the specified @boundary_type. Use g_free() to free the returned string.

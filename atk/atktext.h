@@ -348,19 +348,19 @@ gchar*        atk_text_get_text                           (AtkText          *tex
                                                            gint             end_offset);
 gunichar      atk_text_get_character_at_offset            (AtkText          *text,
                                                            gint             offset);
-G_DEPRECATED_FOR(atk_text_get_text_at_offset)
+G_DEPRECATED_FOR(atk_text_get_string_at_offset)
 gchar*        atk_text_get_text_after_offset              (AtkText          *text,
                                                            gint             offset,
                                                            AtkTextBoundary  boundary_type,
 							   gint             *start_offset,
 							   gint	            *end_offset);
-G_DEPRECATED_FOR(atk_text_get_text_at_offset)
+G_DEPRECATED_FOR(atk_text_get_string_at_offset)
 gchar*        atk_text_get_text_at_offset                 (AtkText          *text,
                                                            gint             offset,
                                                            AtkTextBoundary  boundary_type,
 							   gint             *start_offset,
 							   gint             *end_offset);
-G_DEPRECATED_FOR(atk_text_get_text_at_offset)
+G_DEPRECATED_FOR(atk_text_get_string_at_offset)
 gchar*        atk_text_get_text_before_offset             (AtkText          *text,
                                                            gint             offset,
                                                            AtkTextBoundary  boundary_type,
