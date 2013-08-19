@@ -1,3 +1,35 @@
+Changes in version 2.9.4:
+==========================
+*
+* Deprecations:
+  * Bug 649575: Deprecate AtkObject::focus-event signal and all
+    related methods
+  * Bug 653291: Deprecate 'text-changed' signal (in favour of
+    'text-insert' and 'text-remove').
+  * Bug 573539: Deprecate 'link-selected' property (at AtkHyperlink)
+  * Bug 705580: Implement atk_text_get_string_at_offset and deprecate
+    old API
+  * Remove 'text-update' signal (without deprecation, as was not used
+    and can be removed without breaking ABI/API)
+* Documentation:
+  * Removed unneeded comments at atk_implementor_ref_accessible and
+    about glib usage.
+  * Bug 684665: removing several .sgml files and fixing gtk-doc
+    warnings
+  * Bug 684705: little update on 'text-insert' and 'text-remove'
+    documentation
+  * Bug 491998: add documentation for AtkRectangle
+* Tests:
+  * Refactor test suite: no longer a loadable module but an standalone
+    executable.
+  * Split testrelation into testrelation and testrole.
+  * Execute all role tests, doesn't matter if one fails
+* Bugfixing and miscellanea:
+  * Bug 704092: Fix and off-by-one in role names
+  * Bug 705290: Use generated enum type for AtkRole to get the role name
+  * Drop use of ATK_DISABLE_DEPRECATED guards in ATK
+
+
 Changes in version 2.9.3:
 ==========================
 *
