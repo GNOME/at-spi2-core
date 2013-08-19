@@ -1,3 +1,12 @@
+What's new in at-spi2-core 2.9.90:
+
+* Separate out X-dependent functionality, allow building without X11 (albeit
+  with various things not working), and don't query/use X if DISPLAY is not
+  set (BGO#682199, BGO#701378).
+
+* Add atspi_text_get_string_at_offset, and deprecate
+  atspi_text_get_text_at_offset.
+
 What's new in at-spi2-core 2.9.5:
 
 * Fix possible memory leak when D-Bus calls time out.
