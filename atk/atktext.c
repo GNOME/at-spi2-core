@@ -59,7 +59,6 @@ enum {
   TEXT_ATTRIBUTES_CHANGED,
   TEXT_INSERT,
   TEXT_REMOVE,
-  TEXT_UPDATE,
   LAST_SIGNAL
 };
 
@@ -253,28 +252,6 @@ atk_text_base_init (AtkTextIface *class)
 		      atk_marshal_VOID__INT_INT_STRING,
 		      G_TYPE_NONE,
 		      3, G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING);
-
-      /**
-       * AtkText::text-update:
-       * @atktext: the object which received the signal.
-       * @arg1: unknown
-       * @arg2: unknown
-       * @arg3: unknown
-       * @arg4: unknown
-       *
-       * The "text-update" signal is emitted when a new text is
-       * updated.
-       */
-      atk_text_signals[TEXT_UPDATE] =
-	g_signal_new ("text_update",
-		      ATK_TYPE_TEXT,
-		      G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
-		      0,
-		      (GSignalAccumulator) NULL, NULL,
-		      atk_marshal_VOID__INT_INT_INT_STRING,
-		      G_TYPE_NONE,
-		      4, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING);
-
 
       /**
        * AtkText::text-caret-moved:
