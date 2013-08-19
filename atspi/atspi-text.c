@@ -422,6 +422,80 @@ atspi_text_get_text_before_offset (AtspiText *obj,
 }
 
 /**
+ * atspi_text_get_string_at_offset:
+ * @text: an #AtspiText
+ * @offset: position
+ * @granularity: An #AtspiTextGranularity
+ * @start_offset: (out): the start offset of the returned string, or -1
+ *                if an error has occurred (e.g. invalid offset, not implemented)
+ * @end_offset: (out): the offset of the first character after the returned string,
+ *              or -1 if an error has occurred (e.g. invalid offset, not implemented)
+ *
+ * Gets a portion of the text exposed through an #AtspiText according to a given @offset
+ * and a specific @granularity, along with the start and end offsets defining the
+ * boundaries of such a portion of text.
+ *
+ * If @granularity is ATSPI_TEXT_GRANULARITY_CHAR the character at the
+ * offset is returned.
+ *
+ * If @granularity is ATSPI_TEXT_GRANULARITY_WORD the returned string
+ * is from the word start at or before the offset to the word start after
+ * the offset.
+ *
+ * The returned string will contain the word at the offset if the offset
+ * is inside a word and will contain the word before the offset if the
+ * offset is not inside a word.
+ *
+ * If @granularity is ATSPI_TEXT_GRANULARITY_SENTENCE the returned string
+ * is from the sentence start at or before the offset to the sentence
+ * start after the offset.
+ *
+ * The returned string will contain the sentence at the offset if the offset
+ * is inside a sentence and will contain the sentence before the offset
+ * if the offset is not inside a sentence.
+ *
+ * If @granularity is ATSPI_TEXT_GRANULARITY_LINE the returned string
+ * is from the line start at or before the offset to the line
+ * start after the offset.
+ *
+ * If @granularity is ATSPI_TEXT_GRANULARITY_PARAGRAPH the returned string
+ * is from the start of the paragraph at or before the offset to the start
+ * of the following paragraph after the offset.
+ *
+ * Since: 2.9.90
+ *
+ * Returns: a newly allocated string containing the text at the @offset bounded
+ *   by the specified @granularity. Use g_free() to free the returned string.
+ *   Returns %NULL if the offset is invalid or no implementation is available.
+ **/
+AtspiTextRange *
+atspi_text_get_string_at_offset (AtspiText *obj,
+                                 gint offset,
+                                 AtspiTextGranularity granularity,
+                                 GError **error)
+{
+  dbus_int32_t d_offset = offset;
+  dbus_uint32_t d_granularity = granularity;
+  dbus_int32_t d_start_offset = -1, d_end_offset = -1;
+  AtspiTextRange *range = g_new0 (AtspiTextRange, 1);
+
+  range->start_offset = range->end_offset = -1;
+  if (!obj)
+    return range;
+
+  _atspi_dbus_call (obj, atspi_interface_text, "GetStringAtOffset", error,
+                    "iu=>sii", d_offset, d_granularity, &range->content,
+                    &d_start_offset, &d_end_offset);
+
+  range->start_offset = d_start_offset;
+  range->end_offset = d_end_offset;
+  if (!range->content)
+    range->content = g_strdup ("");
+
+  return range;
+}
+
+/**
  * atspi_text_get_text_at_offset:
  * @obj: a pointer to the #AtspiText object on which to operate.
  * @offset: a #gint indicating the offset from which the delimiter
@@ -435,6 +509,8 @@ atspi_text_get_text_before_offset (AtspiText *obj,
  * Returns: an #AtspiTextRange containing a UTF-8 string representing the
  *          delimited text, whose delimiting boundaries bracket the
  *          current offset, or an empty string if no such text exists.
+ *
+ * Deprecated: 2.10: Use atspi_text_get_string_at_offset.
  **/
 AtspiTextRange *
 atspi_text_get_text_at_offset (AtspiText *obj,

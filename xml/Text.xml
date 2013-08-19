@@ -6,6 +6,14 @@
 
   <property name="CaretOffset" type="i" access="read"/>
 
+  <method name="GetStringAtOffset">
+    <arg direction="in" name="offset" type="i"/>
+    <arg direction="in" name="granularity" type="u"/>
+    <arg direction="out" type="s"/>
+    <arg direction="out" name="startOffset" type="i"/>
+    <arg direction="out" name="endOffset" type="i"/>
+  </method>
+
   <method name="GetText">
     <arg direction="in" name="startOffset" type="i"/>
     <arg direction="in" name="endOffset" type="i"/>

@@ -331,6 +331,8 @@ typedef enum {
  * #atspi_text_get_text_at_offset, #atspi_text_get_text_after_offset, and
  * #atspi_text_get_text_before_offset.
  *
+ * This enumerationis deprecated since 2.9.90 and should not be used. Use
+ * AtspiTextGranularity with #atspi_text_get_string_at_offset instead.
  **/
 typedef enum {
     ATSPI_TEXT_BOUNDARY_CHAR,
@@ -341,6 +343,34 @@ typedef enum {
     ATSPI_TEXT_BOUNDARY_LINE_START,
     ATSPI_TEXT_BOUNDARY_LINE_END,
 } AtspiTextBoundaryType;
+
+/**
+ *AtspiTextGranularity:
+ *@ATSPI_TEXT_GRANULARITY_CHAR: Granularity is defined by the boundaries between characters
+ * (including non-printing characters)
+ *@ATSPI_TEXT_GRANULARITY_WORD: Granularity is defined by the boundaries of a word,
+ * starting at the beginning of the current word and finishing at the beginning of
+ * the following one, if present.
+ *@ATSPI_TEXT_GRANULARITY_SENTENCE: Granularity is defined by the boundaries of a sentence,
+ * starting at the beginning of the current sentence and finishing at the beginning of
+ * the following one, if present.
+ *@ATSPI_TEXT_GRANULARITY_LINE: Granularity is defined by the boundaries of a line,
+ * starting at the beginning of the current line and finishing at the beginning of
+ * the following one, if present.
+ *@ATSPI_TEXT_GRANULARITY_PARAGRAPH: Granularity is defined by the boundaries of a paragraph,
+ * starting at the beginning of the current paragraph and finishing at the beginning of
+ * the following one, if present.
+ *
+ * Text granularity types used for specifying the granularity of the region of
+ * text we are interested in.
+ **/
+typedef enum {
+  ATSPI_TEXT_GRANULARITY_CHAR,
+  ATSPI_TEXT_GRANULARITY_WORD,
+  ATSPI_TEXT_GRANULARITY_SENTENCE,
+  ATSPI_TEXT_GRANULARITY_LINE,
+  ATSPI_TEXT_GRANULARITY_PARAGRAPH
+} AtspiTextGranularity;
 
 /**
  * ATSPI_TEXT_BOUNDARY_TYPE_COUNT:
