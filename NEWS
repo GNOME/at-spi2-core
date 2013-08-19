@@ -1,3 +1,11 @@
+What's new in at-spi2-atk 2.9.90:
+
+* Implement GetStringAtOffset (BGO#705581).
+
+What's new in at-spi2-atk 2.9.5:
+
+* Fix another crash when we're initialized and shut down repeatedly.
+
 What's new in at-spi2-atk 2.9.4:
 
 * Fix a deadlock for apps that also register AT-SPI key event listeners
