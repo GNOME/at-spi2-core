@@ -71,7 +71,13 @@ dbind_send_and_allow_reentry (DBusConnection * bus, DBusMessage * message, DBusE
 
   if (unique_name && destination &&
       strcmp (destination, unique_name) != 0)
-    return dbus_connection_send_with_reply_and_block (bus, message, dbind_timeout, error);
+    {
+      ret = dbus_connection_send_with_reply_and_block (bus, message,
+                                                       dbind_timeout, error);
+      if (g_main_depth () == 0)
+      while (dbus_connection_dispatch (bus) == DBUS_DISPATCH_DATA_REMAINS);
+      return ret;
+    }
 
   closure = g_new0 (SpiReentrantCallClosure, 1);
   closure->reply = NULL;

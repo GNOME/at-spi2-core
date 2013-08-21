@@ -1518,6 +1518,8 @@ get_accessibility_bus_address_dbus (void)
 						     message,
 						     -1,
 						     &error);
+  if (g_main_depth () == 0)
+    while (dbus_connection_dispatch (session_bus) == DBUS_DISPATCH_DATA_REMAINS);
   dbus_message_unref (message);
 
   if (!reply)
