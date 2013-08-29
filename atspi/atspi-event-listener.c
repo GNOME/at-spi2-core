@@ -617,7 +617,7 @@ _atspi_reregister_event_listeners ()
 }
 
 /**
- * atspi_event_listener_register_no_data:
+ * atspi_event_listener_register_no_data: (skip)
  * @callback: (scope notified): the #AtspiEventListenerSimpleCB to be
  *            registered against an event type.
  * @callback_destroyed: A #GDestroyNotify called when the callback is destroyed.
@@ -752,7 +752,7 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
 }
 
 /**
- * atspi_event_listener_deregister_no_data:
+ * atspi_event_listener_deregister_no_data: (skip)
  * @callback: (scope call): the #AtspiEventListenerSimpleCB registered against
  *            an event type.
  * @event_type: a string specifying the event type for which this
