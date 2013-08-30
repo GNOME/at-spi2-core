@@ -40,15 +40,11 @@
 				DebugInformationFormat="4"
 			/>
 			<Tool
-				Name="VCPreLinkEventTool"
-				CommandLine="$(GenerateAtkDef)"
-			/>
-			<Tool
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)\$(AtkDllPrefix)$(ProjectName)$(AtkDllSuffix).dll"
 				LinkIncremental="2"
 				IgnoreDefaultLibraryNames=""
-				ModuleDefinitionFile="..\..\..\atk\atk.def"
+				ModuleDefinitionFile="$(IntDir)\atk.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				ImportLibrary="$(OutDir)\$(ProjectName)-$(ApiVersion).lib"
@@ -77,15 +73,11 @@
 				DebugInformationFormat="3"
 			/>
 			<Tool
-				Name="VCPreLinkEventTool"
-				CommandLine="$(GenerateAtkDef)"
-			/>
-			<Tool
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)\$(AtkDllPrefix)$(ProjectName)$(AtkDllSuffix).dll"
 				LinkIncremental="1"
 				IgnoreDefaultLibraryNames=""
-				ModuleDefinitionFile="..\..\..\atk\atk.def"
+				ModuleDefinitionFile="$(IntDir)\atk.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -115,15 +107,11 @@
 				DebugInformationFormat="3"
 			/>
 			<Tool
-				Name="VCPreLinkEventTool"
-				CommandLine="$(GenerateAtkDef)"
-			/>
-			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies=""
 				OutputFile="$(OutDir)\$(AtkDllPrefix)$(ProjectName)$(AtkDllSuffix).dll"
 				LinkIncremental="2"
-				ModuleDefinitionFile="..\..\..\atk\atk.def"
+				ModuleDefinitionFile="$(IntDir)\atk.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				ImportLibrary="$(TargetDir)$(ProjectName)-$(ApiVersion).lib"
@@ -148,15 +136,11 @@
 				DebugInformationFormat="3"
 			/>
 			<Tool
-				Name="VCPreLinkEventTool"
-				CommandLine="$(GenerateAtkDef)"
-			/>
-			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies=""
 				OutputFile="$(OutDir)\$(AtkDllPrefix)$(ProjectName)$(AtkDllSuffix).dll"
 				LinkIncremental="2"
-				ModuleDefinitionFile="..\..\..\atk\atk.def"
+				ModuleDefinitionFile="$(IntDir)\atk.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -187,6 +171,74 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<File RelativePath="..\..\..\atk\atkmarshal.list">
+				<FileConfiguration Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Generating Marshalling Sources..."
+						CommandLine="$(GenMarshalSrc)"
+						Outputs="..\..\..\atk\atkmarshal.h;..\..\..\atk\atkmarshal.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Generating Marshalling Sources..."
+						CommandLine="$(GenMarshalSrc)"
+						Outputs="..\..\..\atk\atkmarshal.h;..\..\..\atk\atkmarshal.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration Name="Debug|x64">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Generating Marshalling Sources..."
+						CommandLine="$(GenMarshalSrc)"
+						Outputs="..\..\..\atk\atkmarshal.h;..\..\..\atk\atkmarshal.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration Name="Release|x64">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Generating Marshalling Sources..."
+						CommandLine="$(GenMarshalSrc)"
+						Outputs="..\..\..\atk\atkmarshal.h;..\..\..\atk\atkmarshal.c"
+					/>
+				</FileConfiguration>
+			</File>
+			<File RelativePath="..\..\..\atk\atk.symbols">
+				<FileConfiguration Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Generating atk.def..."
+						CommandLine="$(GenerateAtkDef)"
+						Outputs="$(IntDir)\atk.def"
+					/>
+				</FileConfiguration>
+				<FileConfiguration Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Generating atk.def..."
+						CommandLine="$(GenerateAtkDef)"
+						Outputs="$(IntDir)\atk.def"
+					/>
+				</FileConfiguration>
+				<FileConfiguration Name="Debug|x64">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Generating atk.def..."
+						CommandLine="$(GenerateAtkDef)"
+						Outputs="$(IntDir)\atk.def"
+					/>
+				</FileConfiguration>
+				<FileConfiguration Name="Release|x64">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Generating atk.def..."
+						CommandLine="$(GenerateAtkDef)"
+						Outputs="$(IntDir)\atk.def"
+					/>
+				</FileConfiguration>
+			</File>
 			<File RelativePath="..\..\..\atk\atk.rc" />
 		</Filter>
 	</Files>

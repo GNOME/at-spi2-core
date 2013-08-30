@@ -23,12 +23,6 @@
 if exist ..\..\..\config.h goto DONE_CONFIG_H&#x0D;&#x0A;
 copy ..\..\..\config.h.win32 ..\..\..\config.h&#x0D;&#x0A;
 :DONE_CONFIG_H&#x0D;&#x0A;
-if exist ..\..\..\atk\atkmarshal.h goto GEN_MARS_C&#x0D;&#x0A;
-$(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal ..\..\..\atk\atkmarshal.list --header >..\..\..\atk\atkmarshal.h&#x0D;&#x0A;
-:GEN_MARS_C&#x0D;&#x0A;
-if exist ..\..\..\atk\atkmarshal.c goto END&#x0D;&#x0A;
-$(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal ..\..\..\atk\atkmarshal.list --body >..\..\..\atk\atkmarshal.c&#x0D;&#x0A;
-:END&#x0D;&#x0A;
 "
 	/>
 	<UserMacro
@@ -37,11 +31,11 @@ $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal ..\..\..\atk\atkm
 	/>
 	<UserMacro
 		Name="GLibEtcInstallRoot"
-		Value="..\..\..\..\vs$(VSVER)\$(PlatformName)"
+		Value="$(SolutionDir)\..\..\..\..\vs$(VSVER)\$(PlatformName)"
 	/>
 	<UserMacro
-		Name="GlibEtcInstallRootFromBuildWin32"
-		Value="..\..\..\vs$(VSVer)\$(PlatformName)"
+		Name="DefDir"
+		Value="$(SolutionDir)$(ConfigurationName)\$(PlatformName)\obj\$(ProjectName)"
 	/>
 	<UserMacro
 		Name="ApiVersion"
@@ -97,12 +91,29 @@ copy $(SolutionDir)$(ConfigurationName)\$(PlatformName)\bin\*-$(ApiVersion).lib 
 "
 	/>
 	<UserMacro
+		Name="GenMarshalSrc"
+		Value="
+if exist ..\..\..\atk\atkmarshal.h goto DONE_GEN_MARS_H&#x0D;&#x0A;
+cd ..\..\..\atk&#x0D;&#x0A;
+$(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal atkmarshal.list --header &gt; atkmarshal.h&#x0D;&#x0A;
+cd $(SolutionDir)&#x0D;&#x0A;
+
+:DONE_GEN_MARS_H&#x0D;&#x0A;
+if exist ..\..\..\atk\atkmarshal.c goto DONE_GEN_MARS_C&#x0D;&#x0A;
+cd ..\..\..\atk&#x0D;&#x0A;
+$(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal atkmarshal.list --body &gt; atkmarshal.c&#x0D;&#x0A;
+cd $(SolutionDir)&#x0D;&#x0A;
+
+:DONE_GEN_MARS_C&#x0D;&#x0A;
+		      "
+	/>
+	<UserMacro
 		Name="DoGenGir"
 		Value="
 set VSVER=$(VSVer)&#x0D;&#x0A;
 set CONF=$(ConfigurationName)&#x0D;&#x0A;
 set PLAT=$(PlatformName)&#x0D;&#x0A;
-set BASEDIR=$(GlibEtcInstallRootFromBuildWin32)&#x0D;&#x0A;
+set BASEDIR=$(GLibEtcInstallRoot)&#x0D;&#x0A;
 
 cd ..&#x0D;&#x0A;
 call gengir.bat&#x0D;&#x0A;
@@ -111,7 +122,10 @@ cd vs$(VSVer)&#x0D;&#x0A;
 	/>
 	<UserMacro
 		Name="GenerateAtkDef"
-		Value="echo EXPORTS &gt;&quot;..\..\..\atk\atk.def&quot; &amp;&amp; cl /EP ..\..\..\atk\atk.symbols &gt;&gt;&quot;..\..\..\atk\atk.def&quot;"
+		Value="
+echo EXPORTS &gt; $(DefDir)\atk.def&#x0D;&#x0A;
+cl /EP ..\..\..\atk\atk.symbols &gt;&gt; $(DefDir)\atk.def
+		      "
 	/>
 	<UserMacro
 		Name="AtkDefines"
