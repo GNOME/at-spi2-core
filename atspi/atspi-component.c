@@ -362,9 +362,9 @@ atspi_component_set_extents (AtspiComponent *obj,
  * @ctype: the coordinate system in which the position is specified.
  *         (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
  *
- * Returns: #TRUE if successful; #FALSE otherwise.
- *
  * Moves the component to the specified position.
+ *
+ * Returns: #TRUE if successful; #FALSE otherwise.
  **/
 gboolean
 atspi_component_set_position (AtspiComponent *obj,
@@ -391,9 +391,9 @@ atspi_component_set_position (AtspiComponent *obj,
  * @width: the width to which the component should be resized.
  * @height: the height to which the component should be resized.
  *
- * Returns: #TRUE if successful; #FALSE otherwise.
- *
  * Resizes the specified component to the given coordinates.
+ *
+ * Returns: #TRUE if successful; #FALSE otherwise.
  **/
 gboolean
 atspi_component_set_size (AtspiComponent *obj,

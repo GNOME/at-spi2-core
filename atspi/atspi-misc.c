@@ -1586,23 +1586,23 @@ atspi_get_a11y_bus (void)
 
 /**
  * atspi_set_timeout:
- *  @val: The timeout value, in milliseconds, or -1 to disable the timeout.
- *  @startup_time: The amount of time, in milliseconds, to allow to pass
- *  before enforcing timeouts on an application. Can be used to prevent
- *  timeout exceptions if an application is likely to block for an extended
- *  period of time on initialization. -1 can be passed to disable this
- *  behavior.
+ * @val: The timeout value, in milliseconds, or -1 to disable the timeout.
+ * @startup_time: The amount of time, in milliseconds, to allow to pass
+ * before enforcing timeouts on an application. Can be used to prevent
+ * timeout exceptions if an application is likely to block for an extended
+ * period of time on initialization. -1 can be passed to disable this
+ * behavior.
  *
- *  Set the timeout used for method calls. If this is not set explicitly,
- *  a default of 0.8 ms is used.
- *  Note that at-spi2-registryd currently uses a timeout of 3 seconds when
- *  sending a keyboard event notification. This means that, if an AT makes
- *  a call in response to the keyboard notification and the application
- *  being called does not respond before the timeout is reached,
- *  at-spi2-registryd will time out on the keyboard event notification and
- *  pass the key onto the application (ie, reply to indicate that the key
- *  was not consumed), so this may make it undesirable to set a timeout
- *  larger than 3 seconds.
+ * Set the timeout used for method calls. If this is not set explicitly,
+ * a default of 0.8 ms is used.
+ * Note that at-spi2-registryd currently uses a timeout of 3 seconds when
+ * sending a keyboard event notification. This means that, if an AT makes
+ * a call in response to the keyboard notification and the application
+ * being called does not respond before the timeout is reached,
+ * at-spi2-registryd will time out on the keyboard event notification and
+ * pass the key onto the application (ie, reply to indicate that the key
+ * was not consumed), so this may make it undesirable to set a timeout
+ * larger than 3 seconds.
  *
  * By default, the normal timeout is set to 800 ms, and the application startup
  * timeout is set to 15 seconds.
