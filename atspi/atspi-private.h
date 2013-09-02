@@ -25,6 +25,7 @@
 #ifndef _ATSPI_PRIVATE_H_
 #define _ATSPI_PRIVATE_H_
 
+#include <config.h>
 #include "atspi-device-listener-private.h"
 #include "atspi-event-listener-private.h"
 #include "atspi-matchrule-private.h"
