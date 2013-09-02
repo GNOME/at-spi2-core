@@ -68,14 +68,19 @@ dbind_send_and_allow_reentry (DBusConnection * bus, DBusMessage * message, DBusE
   const char *destination = dbus_message_get_destination (message);
   struct timeval tv;
   DBusMessage *ret;
+  static gboolean in_dispatch = FALSE;
 
   if (unique_name && destination &&
       strcmp (destination, unique_name) != 0)
     {
       ret = dbus_connection_send_with_reply_and_block (bus, message,
                                                        dbind_timeout, error);
-      if (g_main_depth () == 0)
-      while (dbus_connection_dispatch (bus) == DBUS_DISPATCH_DATA_REMAINS);
+      if (g_main_depth () == 0 && !in_dispatch)
+      {
+        in_dispatch = TRUE;
+        while (dbus_connection_dispatch (bus) == DBUS_DISPATCH_DATA_REMAINS);
+        in_dispatch = FALSE;
+      }
       return ret;
     }
 
