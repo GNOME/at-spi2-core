@@ -1,3 +1,12 @@
+What's new in at-spi2-core 2.9.91:
+
+* Fix a performance issue when running for a long time without a main
+  loop, such as with a dogtail script (BGO#701145).
+
+* Remove an unneeded unref that was causing a warning (BGO#706893).
+
+* Skip some functions that were not introspectable (BGO#707010).
+
 What's new in at-spi2-core 2.9.90:
 
 * Separate out X-dependent functionality, allow building without X11 (albeit
