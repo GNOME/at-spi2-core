@@ -88,8 +88,8 @@ timeout_reply (void *data)
 {
   SpiReentrantCallClosure *closure = data;
 
-  if (!dbus_connection_get_is_connected (closure->bus))
-    g_main_loop_quit (closure->loop);
+  switch_main_context (NULL);
+  g_main_loop_quit (closure->loop);
   closure->timeout = -1;
   return FALSE;
 }
@@ -121,6 +121,8 @@ send_and_allow_reentry (DBusConnection * bus, DBusMessage * message)
     g_source_destroy (source);
   
   g_main_loop_unref (closure.loop);
+  if (!closure.reply)
+    dbus_pending_call_cancel (pending);
   return closure.reply;
 }
 
