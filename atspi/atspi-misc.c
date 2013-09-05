@@ -733,7 +733,7 @@ typedef struct
   void *data;
 } BusDataClosure;
 
-static guint process_deferred_messages_source = NULL;
+static GSource *process_deferred_messages_source = NULL;
 
 static void
 process_deferred_message (BusDataClosure *closure)
