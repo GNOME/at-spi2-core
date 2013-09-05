@@ -86,7 +86,6 @@ dbind_send_and_allow_reentry (DBusConnection * bus, DBusMessage * message, DBusE
 
   closure = g_new0 (SpiReentrantCallClosure, 1);
   closure->reply = NULL;
-  atspi_dbus_connection_setup_with_g_main(bus, NULL);
   if (!dbus_connection_send_with_reply (bus, message, &pending, dbind_timeout)
       || !pending)
     {
