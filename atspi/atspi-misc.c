@@ -733,7 +733,7 @@ typedef struct
   void *data;
 } BusDataClosure;
 
-static guint process_deferred_messages_id = -1;
+static guint process_deferred_messages_source = NULL;
 
 static void
 process_deferred_message (BusDataClosure *closure)
@@ -785,7 +785,10 @@ _atspi_process_deferred_messages (gpointer data)
   }
   /* If data is NULL, assume that we were called from GLib */
   if (!data)
-    process_deferred_messages_id = -1;
+  {
+    g_source_unref (process_deferred_messages_source);
+    process_deferred_messages_source = NULL;
+  }
   in_process_deferred_messages = 0;
   return FALSE;
 }
@@ -801,12 +804,12 @@ defer_message (DBusConnection *connection, DBusMessage *message, void *user_data
 
   g_queue_push_tail (deferred_messages, closure);
 
-  if (process_deferred_messages_id == -1)
+  if (process_deferred_messages_source == NULL)
   {
-    GSource *source = g_idle_source_new ();
-    g_source_set_callback (source, _atspi_process_deferred_messages, NULL, NULL);
-    process_deferred_messages_id = g_source_attach (source, atspi_main_context);
-    g_source_unref (source);
+    process_deferred_messages_source = g_idle_source_new ();
+    g_source_set_callback (process_deferred_messages_source,
+                           _atspi_process_deferred_messages, NULL, NULL);
+    g_source_attach (process_deferred_messages_source, atspi_main_context);
   }
 
   return DBUS_HANDLER_RESULT_HANDLED;
@@ -1650,6 +1653,16 @@ atspi_set_timeout (gint val, gint startup_time)
 void
 atspi_set_main_context (GMainContext *cnx)
 {
+  if (atspi_main_context == cnx)
+    return;
+  if (process_deferred_messages_source != NULL)
+  {
+    g_source_destroy (process_deferred_messages_source);
+    process_deferred_messages_source = g_idle_source_new ();
+    g_source_set_callback (process_deferred_messages_source,
+                           _atspi_process_deferred_messages, NULL, NULL);
+    g_source_attach (process_deferred_messages_source, cnx);
+  }
   atspi_main_context = cnx;
   atspi_dbus_connection_setup_with_g_main (atspi_get_a11y_bus (), cnx);
 }
