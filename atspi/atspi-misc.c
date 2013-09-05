@@ -37,7 +37,6 @@
 #include <string.h>
 
 static void handle_get_items (DBusPendingCall *pending, void *user_data);
-gboolean _atspi_process_deferred_messages (gpointer data);
 
 static DBusConnection *bus = NULL;
 static GHashTable *live_refs = NULL;
@@ -767,8 +766,8 @@ process_deferred_message (BusDataClosure *closure)
 
 static GQueue *deferred_messages = NULL;
 
-gboolean
-_atspi_process_deferred_messages (gpointer data)
+static gboolean
+process_deferred_messages (void)
 {
   static int in_process_deferred_messages = 0;
   BusDataClosure *closure;
@@ -783,14 +782,18 @@ _atspi_process_deferred_messages (gpointer data)
     dbus_connection_unref (closure->bus);
     g_free (closure);
   }
-  /* If data is NULL, assume that we were called from GLib */
-  if (!data)
-  {
-    g_source_unref (process_deferred_messages_source);
-    process_deferred_messages_source = NULL;
-  }
   in_process_deferred_messages = 0;
   return FALSE;
+}
+
+static gboolean
+process_deferred_messages_callback (gpointer data)
+{
+  if (process_deferred_messages ())
+    return G_SOURCE_CONTINUE;
+
+  process_deferred_messages_source = NULL;
+  return G_SOURCE_REMOVE;
 }
 
 static DBusHandlerResult
@@ -808,7 +811,7 @@ defer_message (DBusConnection *connection, DBusMessage *message, void *user_data
   {
     process_deferred_messages_source = g_idle_source_new ();
     g_source_set_callback (process_deferred_messages_source,
-                           _atspi_process_deferred_messages, NULL, NULL);
+                           process_deferred_messages_callback, NULL, NULL);
     g_source_attach (process_deferred_messages_source, atspi_main_context);
   }
 
@@ -1134,7 +1137,7 @@ _atspi_dbus_call (gpointer obj, const char *interface, const char *method, GErro
                                            type, args);
   va_end (args);
   check_for_hang (NULL, &err, aobj->app->bus, aobj->app->bus_name);
-  _atspi_process_deferred_messages ((gpointer)TRUE);
+  process_deferred_messages ();
   if (dbus_error_is_set (&err))
   {
     g_set_error(error, ATSPI_ERROR, ATSPI_ERROR_IPC, "%s", err.message);
@@ -1191,7 +1194,7 @@ out:
   va_end (args);
   if (msg)
     dbus_message_unref (msg);
-  _atspi_process_deferred_messages ((gpointer)TRUE);
+  process_deferred_messages ();
   if (dbus_error_is_set (&err))
   {
     /* TODO: Set gerror */
@@ -1242,7 +1245,7 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
   reply = dbind_send_and_allow_reentry (aobj->app->bus, message, &err);
   check_for_hang (reply, &err, aobj->app->bus, aobj->app->bus_name);
   dbus_message_unref (message);
-  _atspi_process_deferred_messages ((gpointer)TRUE);
+  process_deferred_messages ();
   if (!reply)
   {
     // TODO: throw exception
@@ -1305,7 +1308,7 @@ _atspi_dbus_send_with_reply_and_block (DBusMessage *message, GError **error)
   dbus_error_init (&err);
   set_timeout (app);
   reply = dbind_send_and_allow_reentry (bus, message, &err);
-  _atspi_process_deferred_messages ((gpointer)TRUE);
+  process_deferred_messages ();
   dbus_message_unref (message);
   if (dbus_error_is_set (&err))
   {
@@ -1660,7 +1663,7 @@ atspi_set_main_context (GMainContext *cnx)
     g_source_destroy (process_deferred_messages_source);
     process_deferred_messages_source = g_idle_source_new ();
     g_source_set_callback (process_deferred_messages_source,
-                           _atspi_process_deferred_messages, NULL, NULL);
+                           process_deferred_messages_callback, NULL, NULL);
     g_source_attach (process_deferred_messages_source, cnx);
   }
   atspi_main_context = cnx;

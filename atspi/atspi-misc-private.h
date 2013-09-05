@@ -106,8 +106,6 @@ GArray *_atspi_dbus_return_attribute_array_from_message (DBusMessage *message);
 
 GArray *_atspi_dbus_attribute_array_from_iter (DBusMessageIter *iter);
 
-gboolean _atspi_process_deferred_messages (gpointer data);
-
 void _atspi_dbus_set_interfaces (AtspiAccessible *accessible, DBusMessageIter *iter);
 
 void _atspi_dbus_set_state (AtspiAccessible *accessible, DBusMessageIter *iter);
