@@ -578,7 +578,9 @@ atk_object_class_init (AtkObjectClass *klass)
   /**
    * AtkObject::children-changed:
    * @atkobject: the object which received the signal.
-   * @arg1: The index of the added or removed child
+   * @arg1: The index of the added or removed child. The value can be
+   * -1. This is used if the value is not known by the implementor
+   * when the child is added or irrelevant.
    * @arg2: A gpointer to the child AtkObject which was added or removed
    *
    * The signal "children-changed" is emitted when a child is added or
