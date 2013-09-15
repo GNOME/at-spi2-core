@@ -672,14 +672,38 @@ read_mr (DBusMessageIter * iter, MatchRulePrivate * mrp)
   while (dbus_message_iter_get_arg_type (&iter_dict) != DBUS_TYPE_INVALID)
     {
       const char *key, *val;
+      const char *p, *q;
       dbus_message_iter_recurse (&iter_dict, &iter_dict_entry);
       dbus_message_iter_get_basic (&iter_dict_entry, &key);
       dbus_message_iter_next (&iter_dict_entry);
       dbus_message_iter_get_basic (&iter_dict_entry, &val);
-      attr = g_new (AtkAttribute, 1);
-      attr->name = g_strdup (key);
-      attr->value = g_strdup (val);
-      mrp->attributes = g_slist_prepend (mrp->attributes, attr);
+      p = q = val;
+      for (;;)
+      {
+        if (*q == '\0' || (*q == ':' && (q == val || q[-1] != '\\')))
+        {
+          char *tmp;
+          attr = g_new (AtkAttribute, 1);
+          attr->name = g_strdup (key);
+          attr->value = g_strdup (p);
+          attr->value[q - p] = '\0';
+          tmp = attr->value;
+          while (*tmp != '\0')
+          {
+            if (*tmp == '\\')
+              memmove (tmp, tmp + 1, strlen (tmp));
+            else
+              tmp++;
+          }
+          mrp->attributes = g_slist_prepend (mrp->attributes, attr);
+          if (*q == '\0')
+            break;
+          else
+            p = ++q;
+        }
+        else
+          q++;
+      }
       dbus_message_iter_next (&iter_dict);
     }
   dbus_message_iter_next (&iter_struct);
