@@ -81,7 +81,10 @@ atspi_match_rule_class_init (AtspiMatchRuleClass *klass)
  * @statematchtype: An #AtspiCollectionMatchType specifying how to interpret
  *          @states.
  * @attributes: (element-type gchar* gchar*): A #GHashTable specifying
- *          attributes to match.
+ *          attributes to match. To specify multiple attribute values,
+ *          separate each value with a :: If an attribute value contains a :,
+ *          then it can be escaped by preceding it with a \. A backslash can
+ *          likewise be escaped by inserting a double backslash.
  * @attributematchtype: An #AtspiCollectionMatchType specifying how to
  *          interpret @attributes.
  * @interfaces: (element-type gchar*): An array of interfaces to match, or
