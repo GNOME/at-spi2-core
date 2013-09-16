@@ -1,3 +1,11 @@
+What's new in at-spi2-atk 2.9.92:
+
+* Properly clean up when timing out when motifying keystroke listeners
+  (BGO#707218).
+
+* Allow lists of attribute values when reading collection match rules
+  (BGO#700865).
+
 What's new in at-spi2-atk 2.9.90:
 
 * Implement GetStringAtOffset (BGO#705581).
