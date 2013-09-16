@@ -1,3 +1,8 @@
+What's new in at-spi2-core 2.9.92:
+
+* Fix multiple deadlocks with keystroke listeners (BGO#707218).
+
+
 What's new in at-spi2-core 2.9.91:
 
 * Fix a performance issue when running for a long time without a main
