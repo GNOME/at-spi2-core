@@ -24,6 +24,7 @@
 
 #include <atk/atk.h>
 #include <droute/droute.h>
+#include "bridge.h"
 #include "introspection.h"
 
 #include "spi-dbus.h"
@@ -201,6 +202,6 @@ static DRouteMethod methods[] = {
 void
 spi_initialize_editabletext (DRoutePath * path)
 {
-  droute_path_add_interface (path,
-                             ATSPI_DBUS_INTERFACE_EDITABLE_TEXT, spi_org_a11y_atspi_EditableText, methods, NULL);
+  spi_atk_add_interface (path,
+                         ATSPI_DBUS_INTERFACE_EDITABLE_TEXT, spi_org_a11y_atspi_EditableText, methods, NULL);
 };

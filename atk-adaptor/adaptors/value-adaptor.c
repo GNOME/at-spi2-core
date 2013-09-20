@@ -26,6 +26,7 @@
 
 #include <atk/atk.h>
 #include <droute/droute.h>
+#include "bridge.h"
 
 #include "spi-dbus.h"
 #include "introspection.h"
@@ -40,6 +41,7 @@ impl_get_MinimumValue (DBusMessageIter * iter, void *user_data)
 
   g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
 
+  g_value_init (&src, G_TYPE_DOUBLE);
   atk_value_get_minimum_value (value, &src);
   g_value_init (&dest, G_TYPE_DOUBLE);
 
@@ -64,6 +66,7 @@ impl_get_MaximumValue (DBusMessageIter * iter, void *user_data)
 
   g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
 
+  g_value_init (&src, G_TYPE_DOUBLE);
   atk_value_get_maximum_value (value, &src);
   g_value_init (&dest, G_TYPE_DOUBLE);
 
@@ -84,6 +87,7 @@ impl_get_MinimumIncrement (DBusMessageIter * iter, void *user_data)
 
   g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
 
+  g_value_init (&src, G_TYPE_DOUBLE);
   atk_value_get_minimum_increment (value, &src);
   g_value_init (&dest, G_TYPE_DOUBLE);
 
@@ -104,6 +108,7 @@ impl_get_CurrentValue (DBusMessageIter * iter, void *user_data)
 
   g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
 
+  g_value_init (&src, G_TYPE_DOUBLE);
   atk_value_get_current_value (value, &src);
   g_value_init (&dest, G_TYPE_DOUBLE);
 
@@ -198,6 +203,6 @@ static DRouteProperty properties[] = {
 void
 spi_initialize_value (DRoutePath * path)
 {
-  droute_path_add_interface (path,
-                             ATSPI_DBUS_INTERFACE_VALUE, spi_org_a11y_atspi_Value, methods, properties);
+  spi_atk_add_interface (path,
+                         ATSPI_DBUS_INTERFACE_VALUE, spi_org_a11y_atspi_Value, methods, properties);
 };

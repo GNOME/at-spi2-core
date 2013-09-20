@@ -24,6 +24,7 @@
 
 #include <atk/atk.h>
 #include <droute/droute.h>
+#include "bridge.h"
 #include <string.h>
 
 #include "spi-dbus.h"
@@ -359,6 +360,34 @@ impl_SetPosition (DBusConnection * bus, DBusMessage * message, void *user_data)
   return reply;
 }
 
+static dbus_bool_t
+impl_get_ScreenExtents (DBusMessageIter * iter, void *user_data)
+{
+  AtkComponent *component = (AtkComponent *) user_data;
+  DBusMessageIter iter_variant, iter_struct;
+  gint ix = -1, iy = -1, iwidth = -1, iheight = -1;
+  dbus_uint32_t x, y, width, height;
+
+  g_return_val_if_fail (ATK_IS_COMPONENT (user_data), FALSE);
+
+  atk_component_get_extents (component, &ix, &iy, &iwidth, &iheight, ATK_XY_SCREEN);
+  x = ix;
+  y = iy;
+  width = iwidth;
+  height = iheight;
+  dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, "(uuuu)",
+                                    &iter_variant);
+  dbus_message_iter_open_container (&iter_variant, DBUS_TYPE_STRUCT, NULL,
+                                    &iter_struct);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT32, &x);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT32, &y);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT32, &width);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT32, &height);
+  dbus_message_iter_close_container (&iter_variant, &iter_struct);
+  dbus_message_iter_close_container (iter, &iter_variant);
+  return TRUE;
+}
+
 static DBusMessage *
 impl_SetSize (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
@@ -407,9 +436,13 @@ static DRouteMethod methods[] = {
   {NULL, NULL}
 };
 
+static DRouteProperty properties[] = {
+  {impl_get_ScreenExtents, NULL, "ScreenExtents"},
+  {NULL, NULL, NULL}
+};
 void
 spi_initialize_component (DRoutePath * path)
 {
-  droute_path_add_interface (path,
-                             ATSPI_DBUS_INTERFACE_COMPONENT, spi_org_a11y_atspi_Component, methods, NULL);
+  spi_atk_add_interface (path,
+                         ATSPI_DBUS_INTERFACE_COMPONENT, spi_org_a11y_atspi_Component, methods, properties);
 };

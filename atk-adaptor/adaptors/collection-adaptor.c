@@ -26,6 +26,7 @@
 
 #include <atk/atk.h>
 #include <droute/droute.h>
+#include "bridge.h"
 
 #include "bitarray.h"
 #include "spi-dbus.h"
@@ -1070,6 +1071,224 @@ impl_GetMatchesTo (DBusConnection * bus, DBusMessage * message,
     }
 }
 
+static void
+append_accessible_properties (DBusMessageIter *iter, AtkObject *obj,
+                              GArray *properties)
+{
+  DBusMessageIter iter_struct, iter_dict, iter_dict_entry;
+  AtkStateSet *set;
+  gint i;
+  gint count;
+
+  dbus_message_iter_open_container (iter, DBUS_TYPE_STRUCT, NULL, &iter_struct);
+  spi_object_append_reference (&iter_struct, obj);
+  dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "{sv}", &iter_dict);
+  if (properties && properties->len)
+  {
+    gint i;
+    for (i = 0; i < properties->len; i++)
+    {
+      gchar *prop = g_array_index (properties, char *, i);
+      DRoutePropertyFunction func;
+      GType type;
+      func = _atk_bridge_find_property_func (prop, &type);
+      if (func && G_TYPE_CHECK_INSTANCE_TYPE (obj, type))
+      {
+        dbus_message_iter_open_container (&iter_dict, DBUS_TYPE_DICT_ENTRY,
+                                          NULL, &iter_dict_entry);
+        dbus_message_iter_append_basic (&iter_dict_entry, DBUS_TYPE_STRING, &prop);
+        func (&iter_dict_entry, obj);
+        dbus_message_iter_close_container (&iter_dict, &iter_dict_entry);
+      }
+    }
+  }
+  else
+  {
+    GHashTableIter hi;
+    gpointer key, value;
+    g_hash_table_iter_init (&hi, spi_global_app_data->property_hash);
+    while (g_hash_table_iter_next (&hi, &key, &value))
+    {
+      const DRouteProperty *prop = value;
+      GType type = _atk_bridge_type_from_iface (key);
+      if (!G_TYPE_CHECK_INSTANCE_TYPE (obj, type))
+        continue;
+      for (;prop->name; prop++)
+      {
+        const char *p = key + strlen (key);
+        gchar *property_name;
+        while (p[-1] != '.')
+          p--;
+        if (!strcmp (p, "Accessible"))
+          property_name = g_strdup (prop->name);
+        else
+          property_name = g_strconcat (p, ".", prop->name, NULL);
+        dbus_message_iter_open_container (&iter_dict, DBUS_TYPE_DICT_ENTRY,
+                                          NULL, &iter_dict_entry);
+        dbus_message_iter_append_basic (&iter_dict_entry, DBUS_TYPE_STRING, &property_name);
+        g_free (property_name);
+        prop->get (&iter_dict_entry, obj);
+        dbus_message_iter_close_container (&iter_dict, &iter_dict_entry);
+      }
+    }
+  }
+  dbus_message_iter_close_container (&iter_struct, &iter_dict);
+  dbus_message_iter_close_container (iter, &iter_struct);
+
+  set = atk_object_ref_state_set (obj);
+  if (set)
+  {
+    gboolean md = atk_state_set_contains_state (set, ATK_STATE_MANAGES_DESCENDANTS);
+    g_object_unref (set);
+    if (md)
+      return;
+  }
+  count = atk_object_get_n_accessible_children (obj);
+  for (i = 0; i < count; i++)
+  {
+    AtkObject *child = atk_object_ref_accessible_child (obj, i);
+    if (child)
+    {
+      append_accessible_properties (iter, child, properties);
+      g_object_unref (child);
+    }
+  }
+}
+
+static void
+skip (const char **p)
+{
+  const char *sig = *p;
+  gint nest = (*sig != 'a');
+
+  sig++;
+  while (*sig)
+  {
+    if (*sig == '(' || *sig == '{')
+      nest++;
+    else if (*sig == ')' || *sig == '}')
+      nest--;
+    sig++;
+  }
+  *p = sig;
+}
+ 
+static gboolean
+types_match (DBusMessageIter *iter, char c)
+{
+  char t = dbus_message_iter_get_arg_type (iter);
+
+  if (t == 'r' && c == '(')
+    return TRUE;
+  else if (t != c)
+    return FALSE;
+}
+
+static void
+walk (DBusMessageIter *iter, const char *sig, gboolean array)
+{
+  while (*sig && *sig != ')' && *sig != '}')
+  {
+    if (array && dbus_message_iter_get_arg_type (iter) == DBUS_TYPE_INVALID)
+    break;
+    if (!types_match (iter, *sig))
+    {
+      g_error ("Expected %s, got %c", sig, dbus_message_iter_get_arg_type (iter));
+    }
+    switch (*sig)
+    {
+    case 's':
+      {
+        const char *str;
+        DBusError error;
+        dbus_error_init (&error);
+        dbus_message_iter_get_basic (iter, &str);
+        g_print ("%s\n", str);
+        if (!dbus_validate_utf8 (str, &error))
+          g_error ("Bad UTF-8 string");
+      }
+      break;
+    case 'a':
+      {
+        DBusMessageIter iter_array;
+        dbus_message_iter_recurse (iter, &iter_array);
+        walk (&iter_array, sig + 1, TRUE);
+        skip (&sig);
+      }
+      break;
+    case DBUS_TYPE_STRUCT:
+    case DBUS_TYPE_DICT_ENTRY:
+      {
+        DBusMessageIter iter_struct;
+        dbus_message_iter_recurse (iter, &iter_struct);
+        walk (&iter_struct, sig + 1, FALSE);
+        skip (&sig);
+      }   
+    }
+    dbus_message_iter_next (iter);
+    if (!array)
+      sig++;
+  }
+  if (dbus_message_iter_get_arg_type (iter) != DBUS_TYPE_INVALID)
+    g_error ("Unexpected data '%c'", dbus_message_iter_get_arg_type (iter));
+}
+
+static void
+walkm (DBusMessage *message)
+{
+  DBusMessageIter iter;
+  const char *sig = dbus_message_get_signature (message);
+
+  g_print ("sig: %s\n", sig);
+  dbus_message_iter_init (message, &iter);
+  walk (&iter, sig, FALSE);
+}
+
+static DBusMessage *
+impl_GetTree (DBusConnection * bus,
+              DBusMessage * message, void *user_data)
+{
+  AtkObject *object = (AtkObject *) user_data;
+  DBusMessage *reply;
+  DBusMessageIter iter, iter_array;
+  MatchRulePrivate rule;
+  GArray *properties;
+
+  g_return_val_if_fail (ATK_IS_OBJECT (user_data),
+                        droute_not_yet_handled_error (message));
+
+  if (strcmp (dbus_message_get_signature (message), "(aiia{ss}iaiiasib)as") != 0)
+    return droute_invalid_arguments_error (message);
+
+  properties = g_array_new (TRUE, TRUE, sizeof (char *));
+  dbus_message_iter_init (message, &iter);
+  if (!read_mr (&iter, &rule))
+    {
+      return spi_dbus_general_error (message);
+    }
+
+  dbus_message_iter_recurse (&iter, &iter_array);
+  while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
+  {
+    const char *prop;
+    dbus_message_iter_get_basic (&iter_array, &prop);
+    g_array_append_val (properties, prop);
+    dbus_message_iter_next (&iter_array);
+  }
+
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_iter_init_append (reply, &iter);
+      dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "((so)a{sv})",
+                                        &iter_array);
+      append_accessible_properties (&iter_array, object, properties);
+      dbus_message_iter_close_container (&iter, &iter_array);
+    }
+//walkm (reply);
+  return reply;
+}
+
 static DBusMessage *
 impl_GetMatches (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
@@ -1113,6 +1332,7 @@ impl_GetMatches (DBusConnection * bus, DBusMessage * message, void *user_data)
 static DRouteMethod methods[] = {
   {impl_GetMatchesFrom, "GetMatchesFrom"},
   {impl_GetMatchesTo, "GetMatchesTo"},
+  {impl_GetTree, "GetTree"},
   {impl_GetMatches, "GetMatches"},
   {NULL, NULL}
 };
@@ -1120,6 +1340,6 @@ static DRouteMethod methods[] = {
 void
 spi_initialize_collection (DRoutePath * path)
 {
-  droute_path_add_interface (path,
-                             ATSPI_DBUS_INTERFACE_COLLECTION, spi_org_a11y_atspi_Collection, methods, NULL);
+  spi_atk_add_interface (path,
+                         ATSPI_DBUS_INTERFACE_COLLECTION, spi_org_a11y_atspi_Collection, methods, NULL);
 };

@@ -60,25 +60,24 @@ static gboolean inited = FALSE;
 
 /*---------------------------------------------------------------------------*/
 
-static void
+static event_data *
 add_event (const char *bus_name, const char *event)
 {
   event_data *evdata;
   gchar **data;
 
   spi_atk_add_client (bus_name);
-  evdata = (event_data *) g_malloc (sizeof (*evdata));
-  if (!evdata)
-    return;
+  evdata = g_new0 (event_data, 1);
   data = g_strsplit (event, ":", 3);
   if (!data)
     {
       g_free (evdata);
-      return;
+      return NULL;
     }
   evdata->bus_name = g_strdup (bus_name);
   evdata->data = data;
   spi_global_app_data->events = g_list_append (spi_global_app_data->events, evdata);
+  return evdata;
 }
 
 static GSList *clients = NULL;
@@ -100,6 +99,135 @@ tally_event_reply ()
   }
 }
 
+GType
+_atk_bridge_type_from_iface (const char *iface)
+{
+  if (!strcmp (iface, ATSPI_DBUS_INTERFACE_ACCESSIBLE))
+    return ATK_TYPE_OBJECT;
+  if (!strcmp (iface, ATSPI_DBUS_INTERFACE_ACTION))
+    return ATK_TYPE_ACTION;
+  if (!strcmp (iface, ATSPI_DBUS_INTERFACE_COMPONENT))
+    return ATK_TYPE_COMPONENT;
+  if (!strcmp (iface, ATSPI_DBUS_INTERFACE_DOCUMENT))
+    return ATK_TYPE_DOCUMENT;
+  if (!strcmp (iface, ATSPI_DBUS_INTERFACE_HYPERTEXT))
+    return ATK_TYPE_HYPERTEXT;
+  if (!strcmp (iface, ATSPI_DBUS_INTERFACE_HYPERLINK))
+    return ATK_TYPE_HYPERLINK;
+  if (!strcmp (iface, ATSPI_DBUS_INTERFACE_IMAGE))
+    return ATK_TYPE_IMAGE;
+  if (!strcmp (iface, ATSPI_DBUS_INTERFACE_SELECTION))
+    return ATK_TYPE_SELECTION;
+  if (!strcmp (iface, ATSPI_DBUS_INTERFACE_TABLE))
+    return ATK_TYPE_TABLE;
+  if (!strcmp (iface, ATSPI_DBUS_INTERFACE_TEXT))
+    return ATK_TYPE_TEXT;
+  if (!strcmp (iface, ATSPI_DBUS_INTERFACE_VALUE))
+    return ATK_TYPE_VALUE;
+  return 0;
+}
+
+DRoutePropertyFunction
+_atk_bridge_find_property_func (const char *property, GType *type)
+{
+  const char *iface;
+  const char *member;
+  DRouteProperty *dp;
+
+  if (!strncasecmp (property, "action.", 7))
+  {
+    iface = ATSPI_DBUS_INTERFACE_ACTION;
+    member = property + 7;
+  }
+  else if (!strncasecmp (property, "component.", 10))
+  {
+    iface = ATSPI_DBUS_INTERFACE_COMPONENT;
+    member = property + 10;
+  }
+  else if (!strncasecmp (property, "selection.", 10))
+  {
+    iface = ATSPI_DBUS_INTERFACE_SELECTION;
+    member = property + 10;
+  }
+  else if (!strncasecmp (property, "table.", 6))
+  {
+    iface = ATSPI_DBUS_INTERFACE_TABLE;
+    member = property + 6;
+  }
+  else if (!strncasecmp (property, "text.", 5))
+  {
+    iface = ATSPI_DBUS_INTERFACE_TEXT;
+    member = property + 5;
+  }
+  else if (!strncasecmp (property, "value.", 6))
+  {
+    iface = ATSPI_DBUS_INTERFACE_VALUE;
+    member = property + 6;
+  }
+  else
+  {
+    iface = ATSPI_DBUS_INTERFACE_ACCESSIBLE;
+    member = property;
+  }
+
+  *type = _atk_bridge_type_from_iface (iface);
+
+  dp = g_hash_table_lookup (spi_global_app_data->property_hash, iface);
+
+  if (!dp)
+    return NULL;
+
+  for (;dp->name; dp++)
+  {
+    if (!strcasecmp (dp->name, member))
+    {
+      return dp->get;
+    }
+  }
+  return NULL;
+}
+
+static void
+add_property_to_event (event_data *evdata, const char *property)
+{
+  AtspiPropertyDefinition *prop = g_new0 (AtspiPropertyDefinition, 1);
+  prop->func = _atk_bridge_find_property_func (property, &prop->type);
+  if (!prop->func)
+  {
+    g_warning ("atk-bridge: Request for unknown property '%s'", property);
+    g_free (prop);
+    return;
+  }
+
+  prop->name = g_strdup (property);
+  evdata->properties = g_slist_append (evdata->properties, prop);
+}
+
+static void
+add_event_from_iter (DBusMessageIter *iter)
+{
+  const char *bus_name, *event;
+  event_data *evdata;
+
+  dbus_message_iter_get_basic (iter, &bus_name);
+  dbus_message_iter_next (iter);
+  dbus_message_iter_get_basic (iter, &event);
+  dbus_message_iter_next (iter);
+  evdata = add_event (bus_name, event);
+  if (dbus_message_iter_get_arg_type (iter) == DBUS_TYPE_ARRAY)
+  {
+    DBusMessageIter iter_sub_array;
+    dbus_message_iter_recurse (iter, &iter_sub_array);
+    while (dbus_message_iter_get_arg_type (&iter_sub_array) != DBUS_TYPE_INVALID)
+    {
+      const char *property;
+      dbus_message_iter_get_basic (&iter_sub_array, &property);
+      add_property_to_event (evdata, property);
+       dbus_message_iter_next (&iter_sub_array);
+    }
+  }
+}
+
 static void
 get_events_reply (DBusPendingCall *pending, void *user_data)
 {
@@ -109,7 +237,8 @@ get_events_reply (DBusPendingCall *pending, void *user_data)
   if (!reply || !spi_global_app_data)
     goto done;
 
-  if (strcmp (dbus_message_get_signature (reply), "a(ss)") != 0)
+  if (strcmp (dbus_message_get_signature (reply), "a(ss)") != 0 &&
+      strcmp (dbus_message_get_signature (reply), "a(ssas)") != 0)
     {
       g_warning ("atk-bridge: GetRegisteredEvents returned message with unknown signature");
       goto done;
@@ -119,12 +248,8 @@ get_events_reply (DBusPendingCall *pending, void *user_data)
   dbus_message_iter_recurse (&iter, &iter_array);
   while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
     {
-      char *bus_name, *event;
       dbus_message_iter_recurse (&iter_array, &iter_struct);
-      dbus_message_iter_get_basic (&iter_struct, &bus_name);
-      dbus_message_iter_next (&iter_struct);
-      dbus_message_iter_get_basic (&iter_struct, &event);
-      add_event (bus_name, event);
+      add_event_from_iter (&iter_struct);
       dbus_message_iter_next (&iter_array);
     }
 
@@ -568,14 +693,26 @@ static void
 handle_event_listener_registered (DBusConnection *bus, DBusMessage *message,
                                   void *user_data)
 {
-  const char *name;
-  char *sender;
+  DBusMessageIter iter;
+  const char *signature = dbus_message_get_signature (message);
 
-  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &sender,
-    DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID))
+  if (strcmp (signature, "ssas") != 0)
+  {
+    g_warning ("got RegisterEvent with invalid signature '%s'", signature);
     return;
+  }
 
-  add_event (sender, name);
+  dbus_message_iter_init (message, &iter);
+  add_event_from_iter (&iter);
+}
+
+static void
+free_property_definition (void *data)
+{
+  AtspiPropertyDefinition *pd = data;
+
+  g_free (pd->name);
+  g_free (pd);
 }
 
 static void
@@ -599,6 +736,7 @@ remove_events (const char *bus_name, const char *event)
           GList *events = spi_global_app_data->events;
           g_strfreev (evdata->data);
           g_free (evdata->bus_name);
+          g_slist_free_full (evdata->properties, free_property_definition);
           g_free (evdata);
           if (list->prev)
             {
@@ -1066,4 +1204,23 @@ spi_atk_remove_client (const char *bus_name)
   }
 }
 
+void
+spi_atk_add_interface (DRoutePath *path,
+                       const char *name,
+                       const char *introspect,
+                       const DRouteMethod   *methods,
+                       const DRouteProperty *properties)
+{
+  droute_path_add_interface (path, name, introspect, methods, properties);
+
+  if (properties)
+  {
+    if (!spi_global_app_data->property_hash)
+      spi_global_app_data->property_hash = g_hash_table_new_full (g_str_hash,
+                                                                  g_str_equal,
+                                                                  g_free, NULL);
+    g_hash_table_insert (spi_global_app_data->property_hash, g_strdup (name),
+                         (gpointer) properties);
+  }
+}
 /*END------------------------------------------------------------------------*/

@@ -24,12 +24,14 @@
 
 #include <atk/atk.h>
 #include <droute/droute.h>
+#include "bridge.h"
 
 #include "atspi/atspi.h"
 #include "spi-dbus.h"
 #include "accessible-stateset.h"
 #include "object.h"
 #include "introspection.h"
+#include <string.h>
 
 static dbus_bool_t
 impl_get_Name (DBusMessageIter * iter, void *user_data)
@@ -472,6 +474,26 @@ impl_GetAttributes (DBusConnection * bus,
   return reply;
 }
 
+static dbus_bool_t
+impl_get_Attributes (DBusMessageIter * iter, void *user_data)
+{
+  DBusMessageIter iter_variant;
+  AtkObject *object = (AtkObject *) user_data;
+  AtkAttributeSet *attributes;
+
+  g_return_val_if_fail (ATK_IS_OBJECT (user_data), FALSE);
+
+  attributes = atk_object_get_attributes (object);
+
+  dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, "a{ss}", &iter_variant);
+  spi_object_append_attribute_set (&iter_variant, attributes);
+  dbus_message_iter_close_container (iter, &iter_variant);
+
+  atk_attribute_set_free (attributes);
+
+  return TRUE;
+}
+
 static DBusMessage *
 impl_GetApplication (DBusConnection * bus,
                      DBusMessage * message, void *user_data)
@@ -522,14 +544,15 @@ static DRouteProperty properties[] = {
   {impl_get_Locale, NULL, "Locale"},
   {impl_get_Parent, NULL, "Parent"},
   {impl_get_ChildCount, NULL, "ChildCount"},
+  {impl_get_Attributes, NULL, "Attributes"},
   {NULL, NULL, NULL}
 };
 
 void
 spi_initialize_accessible (DRoutePath * path)
 {
-  droute_path_add_interface (path,
-                             ATSPI_DBUS_INTERFACE_ACCESSIBLE,
-                             spi_org_a11y_atspi_Accessible,	
-                             methods, properties);
+  spi_atk_add_interface (path,
+                         ATSPI_DBUS_INTERFACE_ACCESSIBLE,
+                         spi_org_a11y_atspi_Accessible,	
+                         methods, properties);
 };

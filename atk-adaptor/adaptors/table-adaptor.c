@@ -24,6 +24,7 @@
 
 #include <atk/atk.h>
 #include <droute/droute.h>
+#include "bridge.h"
 
 #include "spi-dbus.h"
 #include "object.h"
@@ -667,6 +668,6 @@ static DRouteProperty properties[] = {
 void
 spi_initialize_table (DRoutePath * path)
 {
-  droute_path_add_interface (path,
-                             ATSPI_DBUS_INTERFACE_TABLE, spi_org_a11y_atspi_Table, methods, properties);
+  spi_atk_add_interface (path,
+                         ATSPI_DBUS_INTERFACE_TABLE, spi_org_a11y_atspi_Table, methods, properties);
 };

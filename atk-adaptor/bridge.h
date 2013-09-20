@@ -33,11 +33,20 @@ typedef struct _SpiBridgeClass SpiBridgeClass;
 
 G_BEGIN_DECLS
 
+typedef struct _AtspiPropertyDefinition AtspiPropertyDefinition;
+struct _AtspiPropertyDefinition
+{
+  char *name;
+  GType type;
+  DRoutePropertyFunction func;
+};
+
 typedef struct _event_data event_data;
 struct _event_data
 {
   gchar *bus_name;
   gchar **data;
+  GSList *properties;
 };
 
 struct _SpiBridge
@@ -63,6 +72,7 @@ gchar *app_tmp_dir;
 gchar *app_bus_addr;
   GList *events;
   gboolean events_initialized;
+  GHashTable *property_hash;
 };
 
 extern SpiBridge *spi_global_app_data;
@@ -72,6 +82,16 @@ void spi_atk_remove_client (const char *bus_name);
 
 int spi_atk_create_socket (SpiBridge *app);
 
+void spi_atk_add_interface (DRoutePath *path,
+                            const char *name,
+                            const char *introspect,
+                            const DRouteMethod   *methods,
+                            const DRouteProperty *properties);
+
+DRoutePropertyFunction _atk_bridge_find_property_func (const char *property,
+                                                       GType *type);
+
+GType _atk_bridge_type_from_iface (const char *iface);
 G_END_DECLS
 
 #endif /* BRIDGE_H */
