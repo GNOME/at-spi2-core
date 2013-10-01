@@ -39,6 +39,7 @@ enum {
   LOAD_COMPLETE,
   RELOAD,
   LOAD_STOPPED,
+  PAGE_CHANGED,
   LAST_SIGNAL
 };
 
@@ -132,6 +133,27 @@ atk_document_base_init (AtkDocumentIface *class)
                       (GSignalAccumulator) NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);
+
+      /**
+       * AtkDocument::page-changed:
+       * @atkdocument: the object on which the signal was emitted
+       * @page_number: the new page number. If this value is unknown
+       * or not applicable, -1 should be provided.
+       *
+       * The 'page-changed' signal is emitted when the current page of
+       * a document changes, e.g. pressing page up/down in a document
+       * viewer.
+       *
+       * Since: 2.12
+       */
+      atk_document_signals[PAGE_CHANGED] =
+        g_signal_new ("page_changed",
+                      ATK_TYPE_DOCUMENT,
+                      G_SIGNAL_RUN_LAST,
+                      0,
+                      (GSignalAccumulator) NULL, NULL,
+                      g_cclosure_marshal_VOID__INT,
+                      G_TYPE_NONE, 1, G_TYPE_INT);
 
       initialized = TRUE;
     }
