@@ -12,12 +12,14 @@ AM_CPPFLAGS = -I$(top_srcdir)	\
 DEPS = \
 	$(libatk)
 
-noinst_PROGRAMS = testrole  \
+noinst_PROGRAMS = testdocument \
+		  testrole  \
 		  testrelation  \
 		  teststateset
 
 LDADD = $(libatk) $(DEP_LIBS)
 
+testdocument_SOURCES = testdocument.c
 testrole_SOURCES = testrole.c
 testrelation_SOURCES = testrelation.c
 teststateset_SOURCES = teststateset.c
