@@ -202,6 +202,8 @@ enum {
   N_("image map")
   N_("notification")
   N_("info bar")
+  N_("level bar")
+  N_("title bar")
 #endif /* 0 */
 
 static void            atk_object_class_init        (AtkObjectClass  *klass);
