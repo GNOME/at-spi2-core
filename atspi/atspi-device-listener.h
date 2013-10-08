@@ -32,6 +32,8 @@
 
 G_BEGIN_DECLS
 
+GType atspi_device_event_get_type (void);
+
 /**
  * AtspiDeviceListenerCB:
  * @stroke: (transfer full): The #AtspiDeviceEvent for which notification is

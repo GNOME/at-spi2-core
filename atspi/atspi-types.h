@@ -91,7 +91,14 @@ struct _AtspiEvent
 };
 
 /**
- * ATSPI_TYPE_RECT:
+ * ATSPI_TYPE_DEVICE_EVENT:
+ * 
+ * The #GType for a boxed type holding a #AtspiDeviceEvent.
+ */
+#define	ATSPI_TYPE_DEVICE_EVENT (atspi_device_event_get_type ())
+
+/**
+ * ATSPI_TYPE_EVENT:
  * 
  * The #GType for a boxed type holding a #AtspiEvent.
  */
