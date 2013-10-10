@@ -580,8 +580,6 @@ main (int    argc,
   gboolean screen_reader_set = FALSE;
   gint i;
 
-  g_type_init ();
-
   if (already_running ())
     return 0;
 

@@ -860,8 +860,6 @@ atspi_init (void)
 
   atspi_inited = TRUE;
 
-  g_type_init ();
-
   _atspi_get_live_refs();
 
   bus = atspi_get_a11y_bus ();

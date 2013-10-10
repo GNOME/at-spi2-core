@@ -199,8 +199,6 @@ main (int argc, char **argv)
   GError *err = NULL;
   int ret;
 
-  g_type_init();
-
   /*Parse command options*/
   opt = g_option_context_new(NULL);
   g_option_context_add_main_entries(opt, optentries, NULL);
