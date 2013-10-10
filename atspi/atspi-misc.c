@@ -1506,6 +1506,9 @@ a11y_bus_free (void *data)
     }
 }
 
+/**
+ * atspi_get_a11y_bus: (skip)
+ */
 DBusConnection *
 atspi_get_a11y_bus (void)
 {

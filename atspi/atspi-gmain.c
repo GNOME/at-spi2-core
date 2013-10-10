@@ -517,7 +517,7 @@ connection_setup_new_from_old (GMainContext    *context,
  */
 
 /**
- * atspi_dbus_connection_setup_with_g_main:
+ * atspi_dbus_connection_setup_with_g_main: (skip)
  * @connection: the connection
  * @context: the #GMainContext or #NULL for default context
  *
@@ -595,7 +595,7 @@ atspi_dbus_connection_setup_with_g_main (DBusConnection *connection,
 }
 
 /**
- * atspi_dbus_server_setup_with_g_main:
+ * atspi_dbus_server_setup_with_g_main: (skip)
  * @server: the server
  * @context: the #GMainContext or #NULL for default
  *
