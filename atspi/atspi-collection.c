@@ -261,6 +261,7 @@ atspi_collection_get_matches_from (AtspiCollection *collection,
 /**
  * atspi_collection_get_active_descendant:
  *
+* Returns: (transfer full): The active descendant of the given object.
  * Not yet implemented.
  **/
 AtspiAccessible *

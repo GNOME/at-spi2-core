@@ -83,7 +83,8 @@ atspi_get_desktop (gint i)
  * this implementation always returns a #Garray with a single
  * #AtspiAccessible desktop.
  *
- * Returns: (transfer full): a #GArray of desktops.
+ * Returns: (element-type AtspiAccessible*) (transfer full): a #GArray of
+ * desktops.
  **/
 GArray *
 atspi_get_desktop_list ()

@@ -399,52 +399,6 @@ add_app_to_desktop (AtspiAccessible *a, const char *bus_name)
   return (obj != NULL);
 }
 
-static void
-send_children_changed (AtspiAccessible *parent, AtspiAccessible *child, gboolean add)
-{
-  AtspiEvent e;
-
-  memset (&e, 0, sizeof (e));
-  e.type = (add? "object:children-changed:add": "object:children-changed:remove");
-  e.source = parent;
-  e.detail1 = g_list_index (parent->children, child);
-  e.detail2 = 0;
-  _atspi_send_event (&e);
-}
-
-static void
-unref_object_and_descendants (AtspiAccessible *obj)
-{
-  GList *l;
-
-  for (l = obj->children; l; l = l->next)
-  {
-    unref_object_and_descendants (l->data);
-  }
-  g_object_unref (obj);
-}
-
-static gboolean
-remove_app_from_desktop (AtspiAccessible *a, const char *bus_name)
-{
-  GList *l;
-  AtspiAccessible *child;
-
-  for (l = a->children; l; l = l->next)
-  {
-    child = l->data;
-    if (!strcmp (bus_name, child->parent.app->bus_name)) break;
-  }
-  if (!l)
-  {
-    return FALSE;
-  }
-  send_children_changed (a, child, FALSE);
-  a->children = g_list_remove (a->children, child);
-  unref_object_and_descendants (child);
-  return TRUE;
-}
-
 void
 get_reference_from_iter (DBusMessageIter *iter, const char **app_name, const char **path)
 {
@@ -848,17 +802,6 @@ atspi_dbus_filter (DBusConnection *bus, DBusMessage *message, void *data)
   }
   return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 }
-
-static const char *signal_interfaces[] =
-{
-  "org.a11y.atspi.Event.Object",
-  "org.a11y.atspi.Event.Window",
-  "org.a11y.atspi.Event.Mouse",
-  "org.a11y.atspi.Event.Terminal",
-  "org.a11y.atspi.Event.Document",
-  "org.a11y.atspi.Event.Focus",
-  NULL
-};
 
 /*
  * Returns a 'canonicalized' value for DISPLAY,
@@ -1616,6 +1559,14 @@ atspi_get_a11y_bus (void)
 }
 
 /**
+ * atspi_set_timeout:
+ *  @val: The timeout value, in milliseconds, or -1 to disable the timeout.
+ *  @startup_time: The amount of time, in milliseconds, to allow to pass
+ *  before enforcing timeouts on an application. Can be used to prevent
+ *  timeout exceptions if an application is likely to block for an extended
+ *  period of time on initialization. -1 can be passed to disable this
+ *  behavior.
+ *
  *  Set the timeout used for method calls. If this is not set explicitly,
  *  a default of 0.8 ms is used.
  *  Note that at-spi2-registryd currently uses a timeout of 3 seconds when
@@ -1626,13 +1577,6 @@ atspi_get_a11y_bus (void)
  *  pass the key onto the application (ie, reply to indicate that the key
  *  was not consumed), so this may make it undesirable to set a timeout
  *  larger than 3 seconds.
- *
- *  @val: The timeout value, in milliseconds, or -1 to disable the timeout.
- *  @startup_time: The amount of time, in milliseconds, to allow to pass
- *  before enforcing timeouts on an application. Can be used to prevent
- *  timeout exceptions if an application is likely to block for an extended
- *  period of time on initialization. -1 can be passed to disable this
- *  behavior.
  *
  * By default, the normal timeout is set to 800 ms, and the application startup
  * timeout is set to 15 seconds.
@@ -1716,7 +1660,6 @@ atspi_role_get_name (AtspiRole role)
   gchar *retval = NULL;
   GTypeClass *type_class;
   GEnumValue *value;
-  const gchar *name = NULL;
 
   type_class = g_type_class_ref (ATSPI_TYPE_ROLE);
   g_return_val_if_fail (G_IS_ENUM_CLASS (type_class), NULL);

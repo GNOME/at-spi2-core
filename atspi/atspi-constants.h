@@ -1031,7 +1031,7 @@ typedef enum {
  * contains a view of document content. #AtspiDocument frames may occur within
  * another #AtspiDocument instance, in which case the second  document may be
  * said to be embedded in the containing instance.  HTML frames are often
- * @ATSPI_ROLE_DOCUMENT_FRAME:  Either this object, or a singleton descendant, 
+ * ATSPI_ROLE_DOCUMENT_FRAME:  Either this object, or a singleton descendant, 
  * should implement the #AtspiDocument interface.
  * @ATSPI_ROLE_HEADING: The object serves as a heading for content which
  * follows it in a document. The 'heading level' of the heading, if

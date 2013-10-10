@@ -34,14 +34,6 @@
 #define N_(x) x
 
 /**
- * @defgroup DBusGLibInternals GLib bindings implementation details
- * @ingroup  DBusInternals
- * @brief Implementation details of GLib bindings
- *
- * @{
- */
-
-/**
  * DBusGMessageQueue:
  * A GSource subclass for dispatching DBusConnection messages.
  * We need this on top of the IO handlers, because sometimes
