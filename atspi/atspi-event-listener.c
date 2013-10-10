@@ -50,7 +50,7 @@ atspi_event_listener_class_init (AtspiEventListenerClass *klass)
 }
 
 static void
-remove_datum (const AtspiEvent *event, void *user_data)
+remove_datum (AtspiEvent *event, void *user_data)
 {
   AtspiEventListenerSimpleCB cb = user_data;
   cb (event);

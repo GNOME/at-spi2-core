@@ -65,6 +65,7 @@ on_event (AtspiEvent *event, void *data)
   g_boxed_free (ATSPI_TYPE_EVENT, event);
 }
 
+int
 main()
 {
   atspi_init ();

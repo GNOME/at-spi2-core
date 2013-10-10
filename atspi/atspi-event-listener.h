@@ -42,7 +42,7 @@ GType atspi_event_get_type (void);
  * A function prototype for callbacks via which clients are notified of AT-SPI events.
  * 
  **/
-typedef void       (*AtspiEventListenerCB)     (const AtspiEvent     *event,
+typedef void       (*AtspiEventListenerCB)     (AtspiEvent     *event,
 						     void                      *user_data);
 
 /**
