@@ -79,7 +79,7 @@ typedef struct _AtspiDeviceListenerClass AtspiDeviceListenerClass;
 struct _AtspiDeviceListenerClass
 {
   GObjectClass parent_class;
-  gboolean (*device_event) (AtspiDeviceListener *, const AtspiDeviceEvent *);
+  gboolean (*device_event) (AtspiDeviceListener *listener, const AtspiDeviceEvent *event);
 };
 
 GType atspi_device_listener_get_type (void);

@@ -45,6 +45,7 @@ spi_re_entrant_list_delete_link (GList * const *element_ptr)
   GList     *next;
   GList     *element;
   gboolean   first_item;
+  GList *dummy; /* suppress warning */
 
   g_return_if_fail (element_ptr != NULL);
 
@@ -54,7 +55,7 @@ spi_re_entrant_list_delete_link (GList * const *element_ptr)
   next = element->next;
   first_item = (element->prev == NULL);
 
-  g_list_remove_link (NULL, element);
+  dummy = g_list_remove_link (NULL, element);
 
   for (l = working_list; l; l = l->next)
     {

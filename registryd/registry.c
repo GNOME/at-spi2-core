@@ -362,7 +362,7 @@ impl_Embed (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   SpiRegistry *reg = SPI_REGISTRY (user_data);
   DBusMessageIter iter, iter_struct;
-  gchar *app_name, *obj_path;
+  const gchar *app_name, *obj_path;
 
   DBusMessage *reply = NULL;
   DBusMessageIter reply_iter;

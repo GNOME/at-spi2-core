@@ -512,10 +512,6 @@ connection_setup_new_from_old (GMainContext    *context,
 
 /** @} */ /* End of GLib bindings internals */
 
-/** @addtogroup DBusGLib
- * @{
- */
-
 /**
  * atspi_dbus_connection_setup_with_g_main: (skip)
  * @connection: the connection

@@ -731,7 +731,7 @@ spi_controller_register_with_devices (SpiDEController *controller)
       {
 	  if (priv->xkb_desc->map->key_sym_map[i].kt_index[0] == XkbOneLevelIndex)
 	  { 
-	      if (XKeycodeToKeysym (spi_get_display (), i, 0) != 0)
+	      if (XkbKeycodeToKeysym (spi_get_display (), i, 0, 0) != 0)
 	      {
 		  /* don't use this one if there's a grab client! */
 
@@ -762,7 +762,7 @@ spi_controller_register_with_devices (SpiDEController *controller)
       if (reserved) 
       {
 	  priv->reserved_keycode = reserved;
-	  priv->reserved_keysym = XKeycodeToKeysym (spi_get_display (), reserved, 0);
+	  priv->reserved_keysym = XkbKeycodeToKeysym (spi_get_display (), reserved, 0, 0);
       }
       else
       { 
