@@ -1,3 +1,8 @@
+What's new in at-spi2-core 2.10.1:
+
+* Fix a leak introduced in 2.9.92 that adversely affected performance
+  (BGO#709625).
+
 What's new in at-spi2-core 2.9.92:
 
 * Fix multiple deadlocks with keystroke listeners (BGO#707218).
