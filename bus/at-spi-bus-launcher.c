@@ -523,7 +523,7 @@ already_running ()
     GDBusConnection *bus;
     const gchar *old_session = g_getenv ("DBUS_SESSION_BUS_ADDRESS");
     /* TODO: Is there a better way to connect? This is really hacky */
-    g_setenv ("DBUS_SESSION_BUS_ADDRESS", data, TRUE);
+    g_setenv ("DBUS_SESSION_BUS_ADDRESS", (const gchar *)data, TRUE);
     bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
     g_setenv ("DBUS_SESSION_BUS_ADDRESS", old_session, TRUE);
     if (bus != NULL)
