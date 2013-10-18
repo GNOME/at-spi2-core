@@ -155,6 +155,8 @@ G_BEGIN_DECLS
  *@ATK_ROLE_LEVEL_BAR: A bar that serves as a level indicator to, for instance, show the strength of a password or the state of a battery.  @Since: ATK-2.7.3
  *@ATK_ROLE_TITLE_BAR: A bar that serves as the title of a window or a
  * dialog. @Since: ATK-2.12
+ *@ATK_ROLE_BLOCK_QUOTE: An object which contains a text section
+ * that is quoted from another source.  @Since: ATK-2.12
  *@ATK_ROLE_LAST_DEFINED: not a valid role, used for finding end of the enumeration
  *
  * Describes the role of an object
@@ -268,6 +270,7 @@ typedef enum
   ATK_ROLE_INFO_BAR,
   ATK_ROLE_LEVEL_BAR,
   ATK_ROLE_TITLE_BAR,
+  ATK_ROLE_BLOCK_QUOTE,
   ATK_ROLE_LAST_DEFINED
 } AtkRole;
 
