@@ -112,6 +112,7 @@ display_source_new (Display *display)
 {
   GSource *source = g_source_new (&event_funcs, sizeof (DisplaySource));
   DisplaySource *display_source = (DisplaySource *) source;
+  g_source_set_name (source, "[at-spi2-core] display_source_funcs");
   
   display_source->display = display;
   

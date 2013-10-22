@@ -53,13 +53,17 @@ on_event (AtspiEvent *event, void *data)
     if (strstr (event->type, "add"))
     {
       AtspiAccessible *desktop = atspi_get_desktop (0);
+      guint id;
       basic (desktop);
       g_object_unref (desktop);
-      g_timeout_add (3000, kill_child, NULL);
+      id = g_timeout_add (3000, kill_child, NULL);
+      g_source_set_name_by_id (id, "[at-spi2-core] kill_child");
     }
     else
     {
-      g_idle_add (end, NULL);
+      guint id;
+      id = g_idle_add (end, NULL);
+      g_source_set_name_by_id (id, "[at-spi2-core] end");
     }
   }
   g_boxed_free (ATSPI_TYPE_EVENT, event);

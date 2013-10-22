@@ -380,7 +380,9 @@ spi_dec_poll_mouse_idle (gpointer data)
     return TRUE;
   else
     {
-      g_timeout_add (20, spi_dec_poll_mouse_moving, data);	    
+      guint id;
+      id = g_timeout_add (20, spi_dec_poll_mouse_moving, data);
+      g_source_set_name_by_id (id, "[at-spi2-core] spi_dec_poll_mouse_moving");
       return FALSE;	    
     }
 }
@@ -394,7 +396,9 @@ spi_dec_poll_mouse_moving (gpointer data)
     return TRUE;
   else
     {
-      g_timeout_add (100, spi_dec_poll_mouse_idle, data);	    
+      guint id;
+      id = g_timeout_add (100, spi_dec_poll_mouse_idle, data);
+      g_source_set_name_by_id (id, "[at-spi2-core] check_release");
       return FALSE;
     }
 }
@@ -824,8 +828,11 @@ spi_controller_register_device_listener (SpiDEController      *controller,
       if (!have_mouse_listener)
         {
           have_mouse_listener = TRUE;
-          if (!have_mouse_event_listener)
-            g_timeout_add (100, spi_dec_poll_mouse_idle, controller);
+          if (!have_mouse_event_listener) {
+            guint id;
+            id = g_timeout_add (100, spi_dec_poll_mouse_idle, controller);
+            g_source_set_name_by_id (id, "[at-spi2-core] spi_dec_poll_mouse_idle");
+          }
         }
       spi_dbus_add_disconnect_match (controller->bus, listener->bus_name);
       notify_mouse_listener (controller, listener, TRUE);
@@ -1988,8 +1995,10 @@ handle_dec_method (DBusConnection *bus, DBusMessage *message, void *user_data)
   dbus_message_ref (message);
   g_queue_push_tail (saved_controller->message_queue, message);
   g_queue_push_tail (saved_controller->message_queue, user_data);
-  if (!saved_controller->message_queue_idle)
+  if (!saved_controller->message_queue_idle) {
     saved_controller->message_queue_idle = g_idle_add (message_queue_dispatch, NULL);
+    g_source_set_name_by_id (saved_controller->message_queue_idle, "[at-spi2-core] message_queue_dispatch");
+  }
   return DBUS_HANDLER_RESULT_HANDLED;
 }
 
@@ -2020,8 +2029,11 @@ spi_device_event_controller_start_poll_mouse (SpiRegistry *registry)
   if (!have_mouse_event_listener)
     {
       have_mouse_event_listener = TRUE;
-      if (!have_mouse_listener)
-      g_timeout_add (100, spi_dec_poll_mouse_idle, registry->dec);
+      if (!have_mouse_listener) {
+        guint id;
+        id = g_timeout_add (100, spi_dec_poll_mouse_idle, registry->dec);
+        g_source_set_name_by_id (id, "[at-spi2-core] spi_dec_poll_mouse_idle");
+      }
     }
 }
 

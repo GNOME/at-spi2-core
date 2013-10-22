@@ -237,6 +237,7 @@ spi_dec_x11_get_keycode (SpiDEController *controller,
 			 * Long-term fix is to extend the X keymap here instead of replace entries.
 			 */
 			priv->reserved_reset_timeout = g_timeout_add (500, spi_dec_reset_reserved, priv);
+			g_source_set_name_by_id (priv->reserved_reset_timeout, "[at-spi2-core] spi_dec_reset_reserved");
 		}		
 		if (modmask)
 			*modmask = 0;
@@ -1373,6 +1374,7 @@ wait_for_release_event (XEvent          *event,
 {
   pressed_event = spi_keystroke_from_x_key_event ((XKeyEvent *) event);
   check_release_handler = g_timeout_add (CHECK_RELEASE_DELAY, check_release, &pressed_event);
+  g_source_set_name_by_id (check_release_handler, "[at-spi2-core] check_release");
 }
 
 static void
