@@ -157,8 +157,11 @@ register_client (void)
                                                      startup_id),
                                       0, 1000, NULL, &error);
         if (! res) {
-                g_warning ("Failed to register client: %s", error->message);
-                g_error_free (error);
+                const char *message = (error && error->message ? error->message
+                                       : "no error");
+                g_warning ("Failed to register client: %s", message);
+                if (error)
+                  g_error_free (error);
                 return FALSE;
         }
         g_variant_get (res, "(o)", &client_id);
