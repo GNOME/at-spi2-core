@@ -1098,6 +1098,14 @@ typedef enum {
  *@ATSPI_ROLE_LEVEL_BAR: A bar that serves as a level indicator to, for
  * instance, show the strength of a password or the state of a battery. 
  * Since: 2.8
+ *@ATSPI_ROLE_TITLE_BAR: A bar that serves as the title of a window or a
+ * dialog. @Since: 2.12
+ *@ATSPI_ROLE_BLOCK_QUOTE: An object which contains a text section
+ * that is quoted from another source.  @Since: 2.12
+ *@ATSPI_ROLE_AUDIO: An object which represents an audio
+ * element. @Since: 2.12
+ *@ATSPI_ROLE_VIDEO: An object which represents a video
+ * element. @Since: 2.12
  * @ATSPI_ROLE_LAST_DEFINED: Not a valid role, used for finding end of
  * enumeration.
  *
@@ -1210,6 +1218,10 @@ typedef enum {
     ATSPI_ROLE_NOTIFICATION,
     ATSPI_ROLE_INFO_BAR,
     ATSPI_ROLE_LEVEL_BAR,
+    ATSPI_ROLE_TITLE_BAR,
+    ATSPI_ROLE_BLOCK_QUOTE,
+    ATSPI_ROLE_AUDIO,
+    ATSPI_ROLE_VIDEO,
     ATSPI_ROLE_LAST_DEFINED,
 } AtspiRole;
 
