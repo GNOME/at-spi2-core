@@ -31,7 +31,7 @@
 #include "introspection.h"
 
 static DBusMessage *
-impl_contains (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_Contains (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   dbus_int32_t x, y;
@@ -390,7 +390,7 @@ impl_SetSize (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DRouteMethod methods[] = {
-  {impl_contains, "contains"},
+  {impl_Contains, "Contains"},
   {impl_GetAccessibleAtPoint, "GetAccessibleAtPoint"},
   {impl_GetExtents, "GetExtents"},
   {impl_GetPosition, "GetPosition"},
