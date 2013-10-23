@@ -84,7 +84,7 @@ atspi_component_contains (AtspiComponent *obj,
 
   g_return_val_if_fail (obj != NULL, FALSE);
 
-  _atspi_dbus_call (obj, atspi_interface_component, "Contains", error, "iin=>b", d_x, d_y, d_ctype, &retval);
+  _atspi_dbus_call (obj, atspi_interface_component, "Contains", error, "iiu=>b", d_x, d_y, d_ctype, &retval);
 
   return retval;
 }
