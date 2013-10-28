@@ -1,3 +1,11 @@
+Changes in version 2.11.1:
+==========================
+*
+* Bug 684667: Improve AtkObject::children-changed documentation
+* Bug 709351: new role ATK_ROLE_TITLE_BAR
+* Bug 710463: new role ATK_ROLE_BLOCK_QUOTE
+* Updated Spanish translation
+
 Changes in version 2.10.0:
 ==========================
 *
