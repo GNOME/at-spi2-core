@@ -1,3 +1,7 @@
+What's new in at-spi2-atk 2.11.1:
+
+* Fix Contains method for components (BGO#710730).
+
 What's new in at-spi2-atk 2.9.92:
 
 * Properly clean up when timing out when motifying keystroke listeners
