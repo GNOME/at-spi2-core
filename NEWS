@@ -1,3 +1,13 @@
+What's new in at-spi2-core 2.11.1:
+
+* Fix a gsource leak that adversely impacted performance (BGO#709625).
+
+* Hopefully fix a rare crash when starting at-spi2-registryd (BGO#710689).
+
+* Fix atspi_component_contains (BGO#710730).
+    
+* Fix some compiler warnings and build issues.
+
 What's new in at-spi2-core 2.9.92:
 
 * Fix multiple deadlocks with keystroke listeners (BGO#707218).
