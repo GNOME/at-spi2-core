@@ -456,6 +456,11 @@ init_role_lookup_table (AtspiRole * role_table)
   role_table[ATK_ROLE_NOTIFICATION] = ATSPI_ROLE_NOTIFICATION;
   role_table[ATK_ROLE_INFO_BAR] = ATSPI_ROLE_INFO_BAR;
   role_table[ATK_ROLE_LEVEL_BAR] = ATSPI_ROLE_LEVEL_BAR;
+  role_table[ATK_ROLE_TITLE_BAR] = ATSPI_ROLE_TITLE_BAR;
+  role_table[ATK_ROLE_BLOCK_QUOTE] = ATSPI_ROLE_BLOCK_QUOTE;
+  role_table[ATK_ROLE_AUDIO] = ATSPI_ROLE_AUDIO;
+  role_table[ATK_ROLE_VIDEO] = ATSPI_ROLE_VIDEO;
+
   return TRUE;
 }
 
