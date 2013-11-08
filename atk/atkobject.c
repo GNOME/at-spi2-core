@@ -205,6 +205,8 @@ enum {
   N_("level bar")
   N_("title bar")
   N_("block quote")
+  N_("audio")
+  N_("video")
 #endif /* 0 */
 
 static void            atk_object_class_init        (AtkObjectClass  *klass);

@@ -156,7 +156,9 @@ G_BEGIN_DECLS
  *@ATK_ROLE_TITLE_BAR: A bar that serves as the title of a window or a
  * dialog. @Since: ATK-2.12
  *@ATK_ROLE_BLOCK_QUOTE: An object which contains a text section
- * that is quoted from another source.  @Since: ATK-2.12
+ * that is quoted from another source. @Since: ATK-2.12
+ *@ATK_ROLE_AUDIO: An object which represents an audio element. @Since: ATK-2.12
+ *@ATK_ROLE_VIDEO: An object which represents a video element. @Since: ATK-2.12
  *@ATK_ROLE_LAST_DEFINED: not a valid role, used for finding end of the enumeration
  *
  * Describes the role of an object
@@ -271,6 +273,8 @@ typedef enum
   ATK_ROLE_LEVEL_BAR,
   ATK_ROLE_TITLE_BAR,
   ATK_ROLE_BLOCK_QUOTE,
+  ATK_ROLE_AUDIO,
+  ATK_ROLE_VIDEO,
   ATK_ROLE_LAST_DEFINED
 } AtkRole;
 
