@@ -1,3 +1,10 @@
+What's new in at-spi2-core 2.10.2:
+
+* Fix atspi_component_contains (BGO#710730).
+    
+* Hopefully fix a crash when unable to register with the session manager
+  (BGO#710689).
+
 What's new in at-spi2-core 2.10.1:
 
 * Fix a leak introduced in 2.9.92 that adversely affected performance
