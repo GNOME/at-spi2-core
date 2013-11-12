@@ -48,8 +48,20 @@ typedef struct _AtkDocumentIface AtkDocumentIface;
 
 /**
  * AtkDocumentIface:
+ * @get_document_type: gets a string indicating the document
+ *   type. This virtual function is deprecated since 2.12 and it
+ *   should not be overriden.
+ * @get_document: a #GObject instance that implements
+ *   AtkDocumentIface. This virtual method is deprecated since 2.12
+ *   and it should not be overriden.
  * @get_document_locale: gets locale. This virtual function is
- * deprecated since 2.7.90 and it should not be overriden.
+ *   deprecated since 2.7.90 and it should not be overriden.
+ * @get_document_attributes: gets an AtkAttributeSet which describes
+ *   document-wide attributes as name-value pairs.
+ * @get_document_attribute_value: returns a string value assocciated
+ *   with the named attribute for this document, or NULL
+ * @set_document_attribute: sets the value of an attribute. Returns
+ *   TRUE on success, FALSE otherwise
  */
 struct _AtkDocumentIface
 {
@@ -68,7 +80,10 @@ struct _AtkDocumentIface
 
 GType  atk_document_get_type             (void);
 
+G_DEPRECATED
 const gchar*          atk_document_get_document_type (AtkDocument   *document);
+
+G_DEPRECATED
 gpointer atk_document_get_document (AtkDocument   *document);
 
 G_DEPRECATED

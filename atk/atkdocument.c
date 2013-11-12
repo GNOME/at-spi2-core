@@ -165,6 +165,9 @@ atk_document_base_init (AtkDocumentIface *class)
  *
  * Gets a string indicating the document type.
  *
+ * Deprecated: Since 2.12. Please use atk_document_get_attributes() to
+ * ask for the document type if it applies.
+ *
  * Returns: a string indicating the document type
  **/
 const gchar*
@@ -193,6 +196,10 @@ atk_document_get_document_type (AtkDocument *document)
  * Gets a %gpointer that points to an instance of the DOM.  It is
  * up to the caller to check atk_document_get_type to determine
  * how to cast this pointer.
+ *
+ * Deprecated: Since 2.12. @document is already a representation of
+ * the document. Use it directly, or one of his children, as an
+ * instance of the DOM.
  *
  * Returns: (transfer none): a %gpointer that points to an instance of the DOM.
  **/
