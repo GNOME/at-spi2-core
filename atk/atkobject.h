@@ -311,20 +311,29 @@ typedef enum
  * AtkAttributeSet:
  *
  * This is a singly-linked list (a #GSList) of #AtkAttribute. It is
- * used by atk_text_get_run_attributes(), atk_text_get_default_attributes()
- * and atk_editable_text_set_run_attributes()
+ * used by atk_text_get_run_attributes(),
+ * atk_text_get_default_attributes(),
+ * atk_editable_text_set_run_attributes(),
+ * atk_document_get_attributes() and atk_object_get_attributes()
  **/
 typedef GSList AtkAttributeSet;
 
 /**
  * AtkAttribute:
- * @name: The attribute name. Call atk_text_attr_get_name()
- * @value: the value of the attribute, represented as a string. 
- * Call atk_text_attr_get_value() for those which are strings.
- * For values which are numbers, the string representation of the number 
- * is in value.
+ * @name: The attribute name.
+ * @value: the value of the attribute, represented as a string.
  *
- * A string name/value pair representing a text attribute. 
+ * AtkAttribute is a string name/value pair representing a generic
+ * attribute. This can be used to expose additional information from
+ * an accessible object as a whole (see atk_object_get_attributes())
+ * or an document (see atk_document_get_attributes()). In the case of
+ * text attributes (see atk_text_get_default_attributes()),
+ * #AtkTextAttribute enum defines all the possible text attribute
+ * names. You can use atk_text_attribute_get_name() to get the string
+ * name from the enum value. See also atk_text_attribute_for_name()
+ * and atk_text_attribute_get_value() for more information.
+ *
+ * A string name/value pair representing a generic attribute.
  **/
 typedef struct _AtkAttribute AtkAttribute;
 

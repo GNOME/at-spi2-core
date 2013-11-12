@@ -162,6 +162,8 @@ AtkRole
 atk_role_register
 AtkLayer
 AtkImplementor
+AtkAttribute
+AtkAttributeSet
 AtkPropertyValues
 AtkFunction
 AtkPropertyChangeHandler
@@ -398,8 +400,6 @@ AtkTextGranularity
 AtkTextClipType
 AtkTextRange
 AtkTextRectangle
-AtkAttribute
-AtkAttributeSet
 AtkTextAttribute
 atk_text_get_text
 atk_text_get_character_at_offset
