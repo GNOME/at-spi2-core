@@ -1,3 +1,25 @@
+Changes in version 2.11.2:
+==========================
+*
+* AtkRole:
+  * Bug 709106: add media (audio and video) roles
+  * Bug 712586: new ATK roles for ARIA roles (plus rating)
+    * This includes: ATK_ROLE_DEFINITION, ATK_ROLE_ARTICLE,
+      ATK_ROLE_LANDMARK, ATK_ROLE_LOG, ATK_ROLE_MARQUEE,
+      ATK_ROLE_MATH, ATK_ROLE_RATING, ATK_ROLE_TIMER,
+* AtkState:
+  * Bug 712576: add ATK_STATE_CHECKABLE
+  * Bug 712581: add ATK_STATE_HAS_POPUP
+* AtkDocument:
+  * Bug 709106: add page-changed-signal
+  * Deprecated atk_document_get_document and
+    atk_document_get_document_type
+  * Added testdocument on tests directory
+* Documentation:
+  * Update documentation for selected_link method and property
+  * Improve documentation of AtkAttribute and AtkAttributeSet
+* Updated Galician and Spanish translations
+
 Changes in version 2.11.1:
 ==========================
 *
