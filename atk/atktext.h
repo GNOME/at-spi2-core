@@ -32,7 +32,7 @@ G_BEGIN_DECLS
 
 /**
  *AtkTextAttribute:
- *@ATK_TEXT_ATTR_INVALID: Invalid attribute
+ *@ATK_TEXT_ATTR_INVALID: Invalid attribute, like bad spelling or grammar.
  *@ATK_TEXT_ATTR_LEFT_MARGIN: The pixel width of the left margin
  *@ATK_TEXT_ATTR_RIGHT_MARGIN: The pixel width of the right margin
  *@ATK_TEXT_ATTR_INDENT: The number of pixels that the text is indented
@@ -45,7 +45,7 @@ G_BEGIN_DECLS
  *@ATK_TEXT_ATTR_RISE: Number of pixels that the characters are risen above the baseline
  *@ATK_TEXT_ATTR_UNDERLINE: "none", "single", "double", "low", or "error"
  *@ATK_TEXT_ATTR_STRIKETHROUGH: "true" or "false" whether the text is strikethrough 
- *@ATK_TEXT_ATTR_SIZE: The size of the characters. 
+ *@ATK_TEXT_ATTR_SIZE: The size of the characters in points. eg: 10
  *@ATK_TEXT_ATTR_SCALE: The scale of the characters. The value is a string representation of a double 
  *@ATK_TEXT_ATTR_WEIGHT: The weight of the characters.
  *@ATK_TEXT_ATTR_LANGUAGE: The language used
