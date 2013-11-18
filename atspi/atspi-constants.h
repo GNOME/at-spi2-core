@@ -1106,6 +1106,35 @@ typedef enum {
  * element. @Since: 2.12
  *@ATSPI_ROLE_VIDEO: An object which represents a video
  * element. @Since: 2.12
+ *@ATSPI_ROLE_DEFINITION: A definition of a term or concept. @Since: 2.12
+ *@ATSPI_ROLE_ARTICLE: A section of a page that consists of a
+ * composition that forms an independent part of a document, page, or
+ * site. Examples: A blog entry, a news story, a forum post. @Since:
+ * 2.12
+ *@ATSPI_ROLE_LANDMARK: A region of a web page intended as a
+ * navigational landmark. This is designed to allow Assistive
+ * Technologies to provide quick navigation among key regions within a
+ * document. @Since: 2.12
+ *@ATSPI_ROLE_LOG: A text widget or container holding log content, such
+ * as chat history and error logs. In this role there is a
+ * relationship between the arrival of new items in the log and the
+ * reading order. The log contains a meaningful sequence and new
+ * information is added only to the end of the log, not at arbitrary
+ * points. @Since: 2.12
+ *@ATSPI_ROLE_MARQUEE: A container where non-essential information
+ * changes frequently. Common usages of marquee include stock tickers
+ * and ad banners. The primary difference between a marquee and a log
+ * is that logs usually have a meaningful order or sequence of
+ * important content changes. @Since: 2.12
+ *@ATSPI_ROLE_MATH: A text widget or container that holds a mathematical
+ * expression. @Since: 2.12
+ *@ATSPI_ROLE_RATING: A widget whose purpose is to display a rating,
+ * such as the number of stars associated with a song in a media
+ * player. Objects of this role should also implement
+ * AtspiValue. @Since: 2.12
+ *@ATSPI_ROLE_TIMER: An object containing a numerical counter which
+ * indicates an amount of elapsed time from a start point, or the time
+ * remaining until an end point. @Since: 2.12
  * @ATSPI_ROLE_LAST_DEFINED: Not a valid role, used for finding end of
  * enumeration.
  *
@@ -1222,6 +1251,14 @@ typedef enum {
     ATSPI_ROLE_BLOCK_QUOTE,
     ATSPI_ROLE_AUDIO,
     ATSPI_ROLE_VIDEO,
+    ATSPI_ROLE_DEFINITION,
+    ATSPI_ROLE_ARTICLE,
+    ATSPI_ROLE_LANDMARK,
+    ATSPI_ROLE_LOG,
+    ATSPI_ROLE_MARQUEE,
+    ATSPI_ROLE_MATH,
+    ATSPI_ROLE_RATING,
+    ATSPI_ROLE_TIMER,
     ATSPI_ROLE_LAST_DEFINED,
 } AtspiRole;
 
