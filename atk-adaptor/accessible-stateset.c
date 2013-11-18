@@ -131,7 +131,10 @@ spi_init_state_type_tables (void)
   atk_state_types[ATSPI_STATE_IS_DEFAULT] = ATK_STATE_DEFAULT;
   accessible_state_types[ATK_STATE_VISITED] = ATSPI_STATE_VISITED;
   atk_state_types[ATSPI_STATE_VISITED] = ATK_STATE_VISITED;
-
+  accessible_state_types[ATK_STATE_HAS_POPUP] = ATSPI_STATE_HAS_POPUP;
+  atk_state_types[ATSPI_STATE_HAS_POPUP] = ATK_STATE_HAS_POPUP;
+  accessible_state_types[ATK_STATE_CHECKABLE] = ATSPI_STATE_CHECKABLE;
+  atk_state_types[ATSPI_STATE_CHECKABLE] = ATK_STATE_CHECKABLE;
 
   return TRUE;
 }
