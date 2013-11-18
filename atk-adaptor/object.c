@@ -460,6 +460,14 @@ init_role_lookup_table (AtspiRole * role_table)
   role_table[ATK_ROLE_BLOCK_QUOTE] = ATSPI_ROLE_BLOCK_QUOTE;
   role_table[ATK_ROLE_AUDIO] = ATSPI_ROLE_AUDIO;
   role_table[ATK_ROLE_VIDEO] = ATSPI_ROLE_VIDEO;
+  role_table[ATK_ROLE_DEFINITION] = ATSPI_ROLE_DEFINITION;
+  role_table[ATK_ROLE_ARTICLE] = ATSPI_ROLE_ARTICLE;
+  role_table[ATK_ROLE_LANDMARK] = ATSPI_ROLE_LANDMARK;
+  role_table[ATK_ROLE_LOG] = ATSPI_ROLE_LOG;
+  role_table[ATK_ROLE_MARQUEE] = ATSPI_ROLE_MARQUEE;
+  role_table[ATK_ROLE_MATH] = ATSPI_ROLE_MATH;
+  role_table[ATK_ROLE_RATING] = ATSPI_ROLE_RATING;
+  role_table[ATK_ROLE_TIMER] = ATSPI_ROLE_TIMER;
 
   return TRUE;
 }
