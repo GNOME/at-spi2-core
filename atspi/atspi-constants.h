@@ -553,6 +553,14 @@ typedef enum {
  * @ATSPI_STATE_VISITED: This state indicates that the object (typically a
  * hyperlink) has already been activated or invoked, with the result that
  * some backing data has been downloaded or rendered.
+ *@ATSPI_STATE_CHECKABLE: Indicates this object has the potential to
+ *  be checked, such as a checkbox or toggle-able table cell. @Since:
+ *  2.12
+ *@ATSPI_STATE_HAS_POPUP: Indicates that the object has a popup
+ * context menu or sub-level menu which may or may not be
+ * showing. This means that activation renders conditional content.
+ * Note that ordinary tooltips are not considered popups in this
+ * context. @Since: 2.12
  * @ATSPI_STATE_LAST_DEFINED: This value of the enumeration should not be used
  * as a parameter, it indicates the number of items in the #AtspiStateType
  * enumeration.
@@ -604,6 +612,8 @@ typedef enum {
     ATSPI_STATE_SELECTABLE_TEXT,
     ATSPI_STATE_IS_DEFAULT,
     ATSPI_STATE_VISITED,
+    ATSPI_STATE_CHECKABLE,
+    ATSPI_STATE_HAS_POPUP,
     ATSPI_STATE_LAST_DEFINED,
 } AtspiStateType;
 
