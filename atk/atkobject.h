@@ -159,6 +159,35 @@ G_BEGIN_DECLS
  * that is quoted from another source. @Since: ATK-2.12
  *@ATK_ROLE_AUDIO: An object which represents an audio element. @Since: ATK-2.12
  *@ATK_ROLE_VIDEO: An object which represents a video element. @Since: ATK-2.12
+ *@ATK_ROLE_DEFINITION: A definition of a term or concept. @Since: ATK-2.12
+ *@ATK_ROLE_ARTICLE: A section of a page that consists of a
+ * composition that forms an independent part of a document, page, or
+ * site. Examples: A blog entry, a news story, a forum post. @Since:
+ * ATK-2.12
+ *@ATK_ROLE_LANDMARK: A region of a web page intended as a
+ * navigational landmark. This is designed to allow Assistive
+ * Technologies to provide quick navigation among key regions within a
+ * document. @Since: ATK-2.12
+ *@ATK_ROLE_LOG: A text widget or container holding log content, such
+ * as chat history and error logs. In this role there is a
+ * relationship between the arrival of new items in the log and the
+ * reading order. The log contains a meaningful sequence and new
+ * information is added only to the end of the log, not at arbitrary
+ * points. @Since: ATK-2.12
+ *@ATK_ROLE_MARQUEE: A container where non-essential information
+ * changes frequently. Common usages of marquee include stock tickers
+ * and ad banners. The primary difference between a marquee and a log
+ * is that logs usually have a meaningful order or sequence of
+ * important content changes. @Since: ATK-2.12
+ *@ATK_ROLE_MATH: A text widget or container that holds a mathematical
+ * expression. @Since: ATK-2.12
+ *@ATK_ROLE_RATING: A widget whose purpose is to display a rating,
+ * such as the number of stars associated with a song in a media
+ * player. Objects of this role should also implement
+ * AtkValue. @Since: ATK-2.12
+ *@ATK_ROLE_TIMER: An object containing a numerical counter which
+ * indicates an amount of elapsed time from a start point, or the time
+ * remaining until an end point. @Since: ATK-2.12
  *@ATK_ROLE_LAST_DEFINED: not a valid role, used for finding end of the enumeration
  *
  * Describes the role of an object
@@ -275,6 +304,14 @@ typedef enum
   ATK_ROLE_BLOCK_QUOTE,
   ATK_ROLE_AUDIO,
   ATK_ROLE_VIDEO,
+  ATK_ROLE_DEFINITION,
+  ATK_ROLE_ARTICLE,
+  ATK_ROLE_LANDMARK,
+  ATK_ROLE_LOG,
+  ATK_ROLE_MARQUEE,
+  ATK_ROLE_MATH,
+  ATK_ROLE_RATING,
+  ATK_ROLE_TIMER,
   ATK_ROLE_LAST_DEFINED
 } AtkRole;
 
