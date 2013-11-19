@@ -1,3 +1,7 @@
+What's new in at-spi2-atk 2.11.2:
+
+* Add new roles and states to track atk (BGO#710464, BGO#712608, BGO#712609).
+
 What's new in at-spi2-atk 2.11.1:
 
 * Fix Contains method for components (BGO#710730).
