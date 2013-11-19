@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.11.2:
+
+* Add new roles and states to track atk (BGO#710464, BGO#712608, BGO#712609).
+
 What's new in at-spi2-core 2.11.1:
 
 * Fix a gsource leak that adversely impacted performance (BGO#709625).
