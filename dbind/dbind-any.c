@@ -640,6 +640,10 @@ dbind_any_demarshal (DBusMessageIter *iter,
         (*type)++;
 
         break;
+    case DBUS_TYPE_VARIANT:
+        /* skip; unimplemented for now */
+        (*type)++;
+        break;
     }
     case DBUS_TYPE_STRUCT:
     case DBUS_TYPE_DICT_ENTRY:

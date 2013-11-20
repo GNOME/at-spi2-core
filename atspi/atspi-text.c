@@ -753,7 +753,7 @@ atspi_text_get_bounded_ranges (AtspiText *obj,
   dbus_int32_t d_x = x, d_y = y, d_width = width, d_height = height;
   dbus_uint32_t d_type = type;
   dbus_uint32_t d_clipTypeX = clipTypeX, d_clipTypeY = clipTypeY;
-  GArray *range_seq;
+  GArray *range_seq = NULL;
 
   g_return_val_if_fail (obj != NULL, NULL);
 
