@@ -738,7 +738,8 @@ impl_GetBoundedRanges (DBusConnection * bus, DBusMessage * message,
       (&iter, DBUS_TYPE_ARRAY, "(iisv)", &array))
     {
       int len;
-      for (len = 0; len < MAXRANGELEN && range_list[len]; ++len)
+      int count = (range_list ? MAXRANGELEN : 0);
+      for (len = 0; len < count && range_list[len]; ++len)
         {
           if (dbus_message_iter_open_container
               (&array, DBUS_TYPE_STRUCT, NULL, &struc))
@@ -762,10 +763,16 @@ impl_GetBoundedRanges (DBusConnection * bus, DBusMessage * message,
                   dbus_message_iter_close_container (&struc, &variant);
                 }
               dbus_message_iter_close_container (&array, &struc);
+              g_free (range_list[len]->content);
+              g_free (range_list[len]);
             }
         }
       dbus_message_iter_close_container (&iter, &array);
     }
+
+  if (range_list)
+    g_free (range_list);
+
   return reply;
 }
 
