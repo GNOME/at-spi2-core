@@ -133,6 +133,48 @@ atspi_document_get_document_attributes (AtspiDocument *obj, GError **error)
   return _atspi_dbus_return_hash_from_message (message);
 }
 
+/**
+ * atspi_document_get_page_count:
+ * @obj: a pointer to the #AtspiDocument object to query.
+ *
+ * Gets the page count of an #AccessibleDocument object.
+ *
+ * Returns: a #gint indicating the page count of an
+ * #AccessibleDocument object.
+ **/
+gint
+atspi_document_get_page_count (AtspiDocument *obj, GError **error)
+{
+  dbus_int32_t retval = 0;
+
+  g_return_val_if_fail (obj != NULL, -1);
+
+  _atspi_dbus_get_property (obj, atspi_interface_document, "PageCount", error, "i", &retval);
+
+  return retval;
+}
+
+/**
+ * atspi_document_get_current_page_number:
+ * @obj: a pointer to the #AtspiDocument object to query.
+ *
+ * Gets the current page number of an #AccessibleDocument object.
+ *
+ * Returns: a #gint indicating the current page number in the
+ * #AccessibleDocument object.
+ **/
+gint
+atspi_document_get_current_page_number (AtspiDocument *obj, GError **error)
+{
+  dbus_int32_t retval = 0;
+
+  g_return_val_if_fail (obj != NULL, -1);
+
+  _atspi_dbus_get_property (obj, atspi_interface_document, "CurrentPageNumber", error, "i", &retval);
+
+  return retval;
+}
+
 static void
 atspi_document_base_init (AtspiDocument *klass)
 {

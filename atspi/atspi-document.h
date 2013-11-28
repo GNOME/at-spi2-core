@@ -59,6 +59,10 @@ GHashTable * atspi_document_get_attributes (AtspiDocument *obj, GError **error);
 
 GHashTable * atspi_document_get_document_attributes (AtspiDocument *obj, GError **error);
 
+gint atspi_document_get_page_count (AtspiDocument *obj, GError **error);
+gint atspi_document_get_current_page_number (AtspiDocument *obj, GError **error);
+
+
 G_END_DECLS
 
 #endif	/* _ATSPI_DOCUMENT_H_ */

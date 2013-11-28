@@ -2,6 +2,10 @@
 <node name="/node">
 <interface name="org.a11y.atspi.Document">
 
+  <property name="CurrentPageNumber" type="i" access="read"/>
+
+  <property name="PageCount" type="i" access="read"/>
+
   <method name="GetLocale">
     <arg direction="out" type="s"/>
   </method>
