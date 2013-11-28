@@ -17,7 +17,7 @@ dnl set ATK_BINARY_AGE _and_ ATK_INTERFACE_AGE to 0.
 dnl The triplet 
 m4_define([atk_major_version], [2])
 m4_define([atk_minor_version], [11])
-m4_define([atk_micro_version], [2])
+m4_define([atk_micro_version], [3])
 m4_define([atk_version],
           [atk_major_version.atk_minor_version.atk_micro_version])
 

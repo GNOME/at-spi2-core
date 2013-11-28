@@ -1,3 +1,10 @@
+Changes in version 2.11.3:
+==========================
+*
+* Bug 709214: Need API to get the document's current page number and
+*  page count
+* Updated Greek translation
+
 Changes in version 2.11.2:
 ==========================
 *
