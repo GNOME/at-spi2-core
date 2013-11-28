@@ -62,6 +62,8 @@ typedef struct _AtkDocumentIface AtkDocumentIface;
  *   with the named attribute for this document, or NULL
  * @set_document_attribute: sets the value of an attribute. Returns
  *   TRUE on success, FALSE otherwise
+ * @get_current_page_number: gets the current page number. Since 2.12
+ * @get_page_count: gets the page count of the document. Since 2.12
  */
 struct _AtkDocumentIface
 {
@@ -76,6 +78,8 @@ struct _AtkDocumentIface
   gboolean              ( *set_document_attribute) (AtkDocument         *document,
                                                     const gchar         *attribute_name,
                                                     const gchar         *attribute_value);
+  gint                  ( *get_current_page_number) (AtkDocument *document);
+  gint                  ( *get_page_count) (AtkDocument *document);
 };
 
 GType  atk_document_get_type             (void);
@@ -95,6 +99,8 @@ const gchar*          atk_document_get_attribute_value (AtkDocument *document,
 gboolean              atk_document_set_attribute_value (AtkDocument *document,
                                                         const gchar *attribute_name,
                                                         const gchar *attribute_value);
+gint                  atk_document_get_current_page_number (AtkDocument *document);
+gint                  atk_document_get_page_count      (AtkDocument *document);
 
 G_END_DECLS
 

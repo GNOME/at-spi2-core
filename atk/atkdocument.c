@@ -360,3 +360,59 @@ atk_document_set_attribute_value (AtkDocument *document,
       return FALSE;
     }
 }
+
+/**
+ * atk_document_get_current_page_number:
+ * @document: the #AtkDocument
+ *
+ * Since: 2.12
+ *
+ * Returns: current page number inside @document. -1 if not
+ * implemented, not know by the implementor or irrelevant.
+ */
+gint
+atk_document_get_current_page_number (AtkDocument *document)
+{
+  AtkDocumentIface *iface;
+
+  g_return_val_if_fail (ATK_IS_DOCUMENT (document), FALSE);
+
+  iface = ATK_DOCUMENT_GET_IFACE (document);
+
+  if (iface->get_current_page_number)
+    {
+      return (iface->get_current_page_number) (document);
+    }
+  else
+    {
+      return -1;
+    }
+}
+
+/**
+ * atk_document_get_page_count:
+ * @document: the #AtkDocument
+ *
+ * Since: 2.12
+ *
+ * Returns: total page count of @document. -1 if not implemented, not
+ * know by the implementor or irrelevant.
+ */
+gint
+atk_document_get_page_count (AtkDocument *document)
+{
+  AtkDocumentIface *iface;
+
+  g_return_val_if_fail (ATK_IS_DOCUMENT (document), FALSE);
+
+  iface = ATK_DOCUMENT_GET_IFACE (document);
+
+  if (iface->get_page_count)
+    {
+      return (iface->get_page_count) (document);
+    }
+  else
+    {
+      return -1;
+    }
+}
