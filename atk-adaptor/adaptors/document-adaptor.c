@@ -29,6 +29,22 @@
 #include "object.h"
 #include "introspection.h"
 
+static dbus_bool_t
+impl_get_CurrentPageNumber (DBusMessageIter * iter, void *user_data)
+{
+  AtkDocument *document = (AtkDocument *) user_data;
+  g_return_val_if_fail (ATK_IS_DOCUMENT (user_data), FALSE);
+  return droute_return_v_int32 (iter, atk_document_get_current_page_number (document));
+}
+
+static dbus_bool_t
+impl_get_PageCount (DBusMessageIter * iter, void *user_data)
+{
+  AtkDocument *document = (AtkDocument *) user_data;
+  g_return_val_if_fail (ATK_IS_DOCUMENT (user_data), FALSE);
+  return droute_return_v_int32 (iter, atk_document_get_page_count (document));
+}
+
 static DBusMessage *
 impl_GetLocale (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
@@ -111,9 +127,15 @@ static DRouteMethod methods[] = {
   {NULL, NULL}
 };
 
+static DRouteProperty properties[] = {
+  {impl_get_CurrentPageNumber, NULL, "CurrentPageNumber"},
+  {impl_get_PageCount, NULL, "PageCount"},
+  {NULL, NULL, NULL}
+};
+
 void
 spi_initialize_document (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             ATSPI_DBUS_INTERFACE_DOCUMENT, spi_org_a11y_atspi_Document, methods, NULL);
+                             ATSPI_DBUS_INTERFACE_DOCUMENT, spi_org_a11y_atspi_Document, methods, properties);
 };

@@ -686,6 +686,7 @@ window_event_listener (GSignalInvocationHint * signal_hint,
  * Gtk:AtkDocument:load-complete ->  document:load-complete
  * Gtk:AtkDocument:load-stopped  ->  document:load-stopped
  * Gtk:AtkDocument:reload        ->  document:reload
+ * Gtk:AtkDocument:page-changed  ->  document:page-changed
  */
 static gboolean
 document_event_listener (GSignalInvocationHint * signal_hint,
@@ -695,13 +696,18 @@ document_event_listener (GSignalInvocationHint * signal_hint,
   AtkObject *accessible;
   GSignalQuery signal_query;
   const gchar *name, *s;
+  gint detail1 = 0;
 
   g_signal_query (signal_hint->signal_id, &signal_query);
   name = signal_query.signal_name;
 
+  if (n_param_values > 0) // on the case of page-changed
+    if (G_VALUE_TYPE (&param_values[1]) == G_TYPE_INT)
+      detail1 = g_value_get_int (&param_values[1]);
+
   accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
   s = atk_object_get_name (accessible);
-  emit_event (accessible, ITF_EVENT_DOCUMENT, name, "", 0, 0,
+  emit_event (accessible, ITF_EVENT_DOCUMENT, name, "", detail1, 0,
               DBUS_TYPE_STRING_AS_STRING, s, append_basic);
 
   return TRUE;
@@ -1159,6 +1165,8 @@ spi_atk_register_event_listeners (void)
   add_signal_listener (document_event_listener, "Gtk:AtkDocument:reload");
   add_signal_listener (document_event_listener,
                        "Gtk:AtkDocument:load-stopped");
+  add_signal_listener (document_event_listener,
+                       "Gtk:AtkDocument:page-changed");
   /* TODO Fake this event on the client side */
   add_signal_listener (state_event_listener, "Gtk:AtkObject:state-change");
   /* TODO */
