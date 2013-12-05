@@ -179,6 +179,9 @@
 	<signal name="AttributesChanged"><arg direction="in" type="(suuv)"/>
           <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
         </signal>
+	<signal name="PageChanged"><arg direction="in" type="(suuv)"/>
+          <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+        </signal>
 </interface>
 
 <interface name="org.a11y.atspi.Event.Focus">
