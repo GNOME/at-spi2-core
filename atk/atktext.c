@@ -1090,7 +1090,6 @@ atk_text_get_range_extents (AtkText          *text,
  *
  * Returns: (array zero-terminated=1): Array of AtkTextRange. The last
  *          element of the array returned by this function will be NULL.
- * Virtual: get_bounded_ranges
  **/
 AtkTextRange**
 atk_text_get_bounded_ranges (AtkText          *text,

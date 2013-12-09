@@ -238,7 +238,6 @@ atk_document_get_document (AtkDocument *document)
  * Returns: a UTF-8 string indicating the POSIX-style LC_MESSAGES
  *          locale of the document content as a whole, or NULL if
  *          the document content does not specify a locale.
- * Virtual: get_document_locale
  **/
 const gchar *
 atk_document_get_locale (AtkDocument *document)
@@ -272,7 +271,6 @@ atk_document_get_locale (AtkDocument *document)
  * Returns: (transfer none): An AtkAttributeSet containing the explicitly
  *          set name-value-pair attributes associated with this document
  *          as a whole.
- * Virtual: get_document_attributes
  **/
 AtkAttributeSet *
 atk_document_get_attributes (AtkDocument *document)
@@ -304,7 +302,6 @@ atk_document_get_attributes (AtkDocument *document)
  * Returns: a string value associated with the named attribute for this
  *    document, or NULL if a value for #attribute_name has not been specified
  *    for this document.
- * Virtual: get_document_attribute_value
  */
 const gchar *
 atk_document_get_attribute_value (AtkDocument *document, 
@@ -338,7 +335,6 @@ atk_document_get_attribute_value (AtkDocument *document,
  * Returns: TRUE if #value is successfully associated with #attribute_name
  *          for this document, FALSE otherwise (e.g. if the document does not
  *          allow the attribute to be modified).
- * Virtual: set_document_attribute
  */
 gboolean
 atk_document_set_attribute_value (AtkDocument *document, 
