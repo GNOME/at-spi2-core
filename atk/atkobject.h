@@ -188,6 +188,20 @@ G_BEGIN_DECLS
  *@ATK_ROLE_TIMER: An object containing a numerical counter which
  * indicates an amount of elapsed time from a start point, or the time
  * remaining until an end point. @Since: ATK-2.12
+ *@ATK_ROLE_DESCRIPTION_LIST: An object that represents a list of
+ * term-value groups. A term-value group represents a individual
+ * description and consist of one or more names
+ * (ATK_ROLE_DESCRIPTION_TERM) followed by one or more values
+ * (ATK_ROLE_DESCRIPTION_VALUE). For each list, there should not be
+ * more than one group with the same term name. @Since: ATK-2.12
+ *@ATK_ROLE_DESCRIPTION_TERM: An object that represents the term, or
+ * name, part of a term-description group in a description
+ * list. @Since: ATK-2.12
+ *@ATK_ROLE_DESCRIPTION_VALUE: An object that represents the
+ * description, definition or value of a term-description group in a
+ * description list. The values within a group are alternatives,
+ * meaning that you can have several ATK_ROLE_DESCRIPTION_VALUE for a
+ * given ATK_ROLE_DESCRIPTION_TERM. @Since: ATK-2.12
  *@ATK_ROLE_LAST_DEFINED: not a valid role, used for finding end of the enumeration
  *
  * Describes the role of an object
@@ -312,6 +326,9 @@ typedef enum
   ATK_ROLE_MATH,
   ATK_ROLE_RATING,
   ATK_ROLE_TIMER,
+  ATK_ROLE_DESCRIPTION_LIST,
+  ATK_ROLE_DESCRIPTION_TERM,
+  ATK_ROLE_DESCRIPTION_VALUE,
   ATK_ROLE_LAST_DEFINED
 } AtkRole;
 
