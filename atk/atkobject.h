@@ -477,6 +477,8 @@ typedef gboolean (*AtkFunction)          (gpointer user_data);
  * An AtkPropertyChangeHandler is a function which is executed when an
  * AtkObject's property changes value. It is specified in a call to
  * atk_object_connect_property_change_handler().
+ *
+ * Deprecated: Since 2.12.
  */
 typedef void (*AtkPropertyChangeHandler) (AtkObject* obj, AtkPropertyValues* vals);
 
@@ -496,6 +498,13 @@ struct _AtkObject
 
 /**
  * AtkObjectClass:
+ * @connect_property_change_handler: specifies a function to be called
+ *   when a property changes value. This virtual function is
+ *   deprecated since 2.12 and it should not be overriden. Connect
+ *   directly to property-change or notify signal instead.
+ * @remove_property_change_handler: removes a property changed handler
+ *   as returned by @connect_property_change_handler. This virtual
+ *   function is deprecated sice 2.12 and it should not be overriden.
  * @focus_event: The signal handler which is executed when there is a
  *   focus event for an object. This virtual function is deprecated
  *   since 2.9.4 and it should not be overriden. Use
@@ -687,8 +696,10 @@ void                    atk_object_set_role                       (AtkObject *ac
                                                                    AtkRole   role);
 
 
+G_DEPRECATED
 guint                atk_object_connect_property_change_handler  (AtkObject                      *accessible,
                                                                   AtkPropertyChangeHandler       *handler);
+G_DEPRECATED
 void                 atk_object_remove_property_change_handler   (AtkObject                      *accessible,
                                                                   guint                          handler_id);
 

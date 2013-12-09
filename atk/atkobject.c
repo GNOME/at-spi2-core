@@ -242,13 +242,6 @@ static void            atk_object_real_set_parent  (AtkObject       *object,
                                                     AtkObject       *parent);
 static void            atk_object_real_set_role    (AtkObject       *object,
                                                     AtkRole         role);
-static guint           atk_object_real_connect_property_change_handler
-                                                   (AtkObject       *obj,
-                                                    AtkPropertyChangeHandler
-                                                                    *handler);
-static void            atk_object_real_remove_property_change_handler
-                                                   (AtkObject       *obj,
-                                                    guint           handler_id);
 static void            atk_object_notify           (GObject         *obj,
                                                     GParamSpec      *pspec);
 static const gchar*    atk_object_real_get_object_locale
@@ -447,10 +440,6 @@ atk_object_class_init (AtkObjectClass *klass)
   klass->set_description = atk_object_real_set_description;
   klass->set_parent = atk_object_real_set_parent;
   klass->set_role = atk_object_real_set_role;
-  klass->connect_property_change_handler = 
-         atk_object_real_connect_property_change_handler;
-  klass->remove_property_change_handler = 
-         atk_object_real_remove_property_change_handler;
   klass->get_object_locale = atk_object_real_get_object_locale;
 
   /*
@@ -1165,7 +1154,8 @@ atk_object_set_role (AtkObject *accessible,
  * @accessible: an #AtkObject
  * @handler: a function to be called when a property changes its value
  *
- * Specifies a function to be called when a property changes value.
+ * Deprecated: Since 2.12. Connect directly to property-change or
+ * notify signals.
  *
  * Returns: a #guint which is the handler id used in 
  * atk_object_remove_property_change_handler()
@@ -1190,7 +1180,9 @@ atk_object_connect_property_change_handler (AtkObject *accessible,
  * atk_object_remove_property_change_handler:
  * @accessible: an #AtkObject
  * @handler_id: a guint which identifies the handler to be removed.
- * 
+ *
+ * Deprecated: Since 2.12.
+ *
  * Removes a property change handler.
  **/
 void
@@ -1497,26 +1489,6 @@ atk_object_real_set_role (AtkObject *object,
                           AtkRole   role)
 {
   object->role = role;
-}
-
-static guint
-atk_object_real_connect_property_change_handler (AtkObject                *obj,
-                                                 AtkPropertyChangeHandler *handler)
-{
-  return g_signal_connect_closure_by_id (obj,
-                                         atk_object_signals[PROPERTY_CHANGE],
-                                         0,
-                                         g_cclosure_new (
-                                         G_CALLBACK (handler), NULL,
-                                         (GClosureNotify) NULL),
-                                         FALSE);
-}
-
-static void
-atk_object_real_remove_property_change_handler (AtkObject           *obj,
-                                          guint               handler_id)
-{
-  g_signal_handler_disconnect (obj, handler_id);
 }
 
 /**
