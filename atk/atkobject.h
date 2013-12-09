@@ -645,6 +645,7 @@ AtkObject*              atk_implementor_ref_accessible            (AtkImplemento
 const gchar*            atk_object_get_name                       (AtkObject *accessible);
 const gchar*            atk_object_get_description                (AtkObject *accessible);
 AtkObject*              atk_object_get_parent                     (AtkObject *accessible);
+AtkObject*              atk_object_peek_parent                    (AtkObject *accessible);
 gint                    atk_object_get_n_accessible_children      (AtkObject *accessible);
 AtkObject*              atk_object_ref_accessible_child           (AtkObject *accessible,
                                                                    gint        i);

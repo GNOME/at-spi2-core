@@ -482,7 +482,7 @@ atk_object_class_init (AtkObjectClass *klass)
                                    PROP_PARENT,
                                    g_param_spec_object (atk_object_name_property_parent,
                                                         _("Accessible Parent"),
-                                                        _("Is used to notify that the parent has changed"),
+                                                        _("Parent of the current accessible as returned by atk_object_get_parent()"),
                                                         ATK_TYPE_OBJECT,
                                                         G_PARAM_READWRITE));
   g_object_class_install_property (gobject_class,
@@ -783,10 +783,17 @@ atk_object_get_description (AtkObject *accessible)
  * atk_object_get_parent:
  * @accessible: an #AtkObject
  *
- * Gets the accessible parent of the accessible.
+ * Gets the accessible parent of the accessible. By default this is
+ * the one assigned with atk_object_set_parent(), but it is assumed
+ * that ATK implementors have ways to get the parent of the object
+ * without the need of assigning it manually with
+ * atk_object_set_parent(), and will return it with this method.
  *
- * Returns: (transfer none): a #AtkObject representing the accessible parent
- * of the accessible
+ * If you are only interested on the parent assigned with
+ * atk_object_set_parent(), use atk_object_peek_parent().
+ *
+ * Returns: (transfer none): an #AtkObject representing the accessible
+ * parent of the accessible
  **/
 AtkObject*
 atk_object_get_parent (AtkObject *accessible)
@@ -800,6 +807,27 @@ atk_object_get_parent (AtkObject *accessible)
     return (klass->get_parent) (accessible);
   else
     return NULL;
+}
+
+/**
+ * atk_object_peek_parent:
+ * @accessible: an #AtkObject
+ *
+ * Gets the accessible parent of the accessible, if it has been
+ * manually assigned with atk_object_set_parent. Otherwise, this
+ * function returns %NULL.
+ *
+ * This method is intended as an utility for ATK implementors, and not
+ * to be exposed to accessible tools. See atk_object_get_parent() for
+ * further reference.
+ *
+ * Returns: (transfer none): an #AtkObject representing the accessible
+ * parent of the accessible if assigned
+ **/
+AtkObject*
+atk_object_peek_parent (AtkObject *accessible)
+{
+  return accessible->accessible_parent;
 }
 
 /**
@@ -1084,7 +1112,7 @@ atk_object_set_description (AtkObject   *accessible,
  * @accessible: an #AtkObject
  * @parent: an #AtkObject to be set as the accessible parent
  *
- * Sets the accessible parent of the accessible.
+ * Sets the accessible parent of the accessible. @parent can be NULL.
  **/
 void
 atk_object_set_parent (AtkObject *accessible,
@@ -1406,7 +1434,7 @@ atk_object_real_get_description (AtkObject *object)
 static AtkObject*
 atk_object_real_get_parent (AtkObject       *object)
 {
-  return object->accessible_parent;
+  return atk_object_peek_parent (object);
 }
 
 static AtkRole
