@@ -69,7 +69,7 @@ atk_plug_new (void)
 
 /**
  * atk_plug_get_id:
- * @obj: an #AtkPlug
+ * @plug: an #AtkPlug
  *
  * Gets the unique ID of an #AtkPlug object, which can be used to
  * embed inside of an #AtkSocket using atk_socket_embed().
@@ -85,16 +85,16 @@ atk_plug_new (void)
  * Since: 1.30
  **/
 gchar*
-atk_plug_get_id (AtkPlug* obj)
+atk_plug_get_id (AtkPlug* plug)
 {
   AtkPlugClass *klass;
 
-  g_return_val_if_fail (ATK_IS_PLUG (obj), NULL);
+  g_return_val_if_fail (ATK_IS_PLUG (plug), NULL);
 
   klass = g_type_class_peek (ATK_TYPE_PLUG);
 
   if (klass && klass->get_object_id)
-    return (klass->get_object_id) (obj);
+    return (klass->get_object_id) (plug);
   else
     return NULL;
 }

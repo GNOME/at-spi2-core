@@ -343,7 +343,7 @@ atk_hyperlink_is_valid (AtkHyperlink *link)
  *           content inline.  Ordinary HTML links will usually return
  *           %FALSE, but an inline &lt;src&gt; HTML element will return
  *           %TRUE.
-a *
+ *
  * Returns: whether or not this link displays its content inline.
  *
  **/
