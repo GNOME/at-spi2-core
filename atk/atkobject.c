@@ -896,13 +896,29 @@ atk_object_ref_relation_set (AtkObject *accessible)
  * atk_role_register:
  * @name: a character string describing the new role.
  *
- * Registers the role specified by @name.
+ * Registers the role specified by @name. @name must be a meaningful
+ * name. So it should not be empty, or consisting on whitespaces.
  *
- * Returns: an #AtkRole for the new role.
+ * Returns: an #AtkRole for the new role if added
+ * properly. ATK_ROLE_INVALID in case of error.
  **/
 AtkRole
 atk_role_register (const gchar *name)
 {
+  gboolean valid = FALSE;
+  gint i = 0;
+  glong length = g_utf8_strlen (name, -1);
+
+  for (i=0; i < length; i++) {
+    if (name[i]!=' ') {
+      valid = TRUE;
+      break;
+    }
+  }
+
+  if (!valid)
+    return ATK_ROLE_INVALID;
+
   if (!role_names)
     initialize_role_names ();
 

@@ -80,6 +80,23 @@ test_role (void)
       g_print ("Unexpected name for undefined role %s\n", name);
       result = FALSE;
     }
+
+  role1 = atk_role_register ("");
+  if (role1 != ATK_ROLE_INVALID)
+    {
+      g_print ("atk_role_register allowed to register empty string, but this is "
+               "an invalid role name\n");
+      result = FALSE;
+    }
+
+  role1 = atk_role_register ("   ");
+  if (role1 != ATK_ROLE_INVALID)
+    {
+      g_print ("atk_role_register allowed to register all whitespace string, but "
+               "that is an invalid role name \n");
+      result = FALSE;
+    }
+
   return result;
 }
 
