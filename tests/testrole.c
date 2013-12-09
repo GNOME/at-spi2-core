@@ -52,23 +52,10 @@ test_role (void)
       result = FALSE;
     }
 
-  role1 = atk_role_register ("test-role");
-  name = atk_role_get_name (role1);
-  if (!name || strcmp (name, "test-role") != 0)
-    {
-      g_print ("Unexpected name for test-role. Expected 'test-role', received '%s'\n", name);
-      result = FALSE;
-    }
-  role2 = atk_role_for_name ("test-role");
-  if (role1 != role2)
-  {
-    g_print ("Unexpected role for test-role. Expected %i, received %i\n", role1, role2);
-    result = FALSE;
-  }
   role2 = atk_role_for_name ("TEST_ROLE");
-  if (role2 != 0)
+  if (role2 != ATK_ROLE_INVALID)
     {
-      g_print ("Unexpected role for TEST_ROLE. Expected %i, received %i\n", 0, role2);
+      g_print ("Unexpected role for TEST_ROLE. Expected %i, received %i\n", ATK_ROLE_INVALID, role2);
       result = FALSE;
     }
   /*
@@ -78,22 +65,6 @@ test_role (void)
   if (name)
     {
       g_print ("Unexpected name for undefined role %s\n", name);
-      result = FALSE;
-    }
-
-  role1 = atk_role_register ("");
-  if (role1 != ATK_ROLE_INVALID)
-    {
-      g_print ("atk_role_register allowed to register empty string, but this is "
-               "an invalid role name\n");
-      result = FALSE;
-    }
-
-  role1 = atk_role_register ("   ");
-  if (role1 != ATK_ROLE_INVALID)
-    {
-      g_print ("atk_role_register allowed to register all whitespace string, but "
-               "that is an invalid role name \n");
       result = FALSE;
     }
 

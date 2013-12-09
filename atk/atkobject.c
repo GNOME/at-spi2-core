@@ -899,6 +899,10 @@ atk_object_ref_relation_set (AtkObject *accessible)
  * Registers the role specified by @name. @name must be a meaningful
  * name. So it should not be empty, or consisting on whitespaces.
  *
+ * Deprecated: Since 2.12. If your application/toolkit doesn't find a
+ * suitable role for a specific object defined at #AtkRole, please
+ * submit a bug in order to add a new role to the specification.
+ *
  * Returns: an #AtkRole for the new role if added
  * properly. ATK_ROLE_INVALID in case of error.
  **/

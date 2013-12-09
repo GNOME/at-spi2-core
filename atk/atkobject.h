@@ -721,6 +721,7 @@ gboolean              atk_object_remove_relationship           (AtkObject      *
 								AtkRelationType relationship,
 								AtkObject      *target);
 const gchar*          atk_role_get_localized_name              (AtkRole     role);
+G_DEPRECATED
 AtkRole               atk_role_register                        (const gchar *name);
 const gchar*          atk_object_get_object_locale             (AtkObject   *accessible);
 
