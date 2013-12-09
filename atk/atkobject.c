@@ -207,6 +207,17 @@ enum {
   N_("block quote")
   N_("audio")
   N_("video")
+  N_("definition")
+  N_("article")
+  N_("landmark")
+  N_("log")
+  N_("marquee")
+  N_("math")
+  N_("rating")
+  N_("timer")
+  N_("description list")
+  N_("description term")
+  N_("description value")
 #endif /* 0 */
 
 static void            atk_object_class_init        (AtkObjectClass  *klass);
