@@ -628,11 +628,22 @@ atk_object_class_init (AtkObjectClass *klass)
   /**
    * AtkObject::property-change:
    * @atkobject: the object which received the signal.
-   * @arg1: The new value of the property which changed.
+   * @arg1: an #AtkPropertyValues containing the new value of the
+   *   property which changed.
    *
    * The signal "property-change" is emitted when an object's property
-   * value changes. The detail identifies the name of the property
-   * whose value has changed.
+   * value changes. @arg1 contains an #AtkPropertyValues with the name
+   * and the new value of the property whose value has changed. Note
+   * that, as with GObject notify, getting this signal does not
+   * guarantee that the value of the property has actually changed; it
+   * may also be emitted when the setter of the property is called to
+   * reinstate the previous value.
+   *
+   * Toolkit implementor note: ATK implementors should use
+   * g_object_notify() to emit property-changed
+   * notifications. #AtkObject::property-changed is needed by the
+   * implementation of atk_add_global_event_listener() because GObject
+   * notify doesn't support emission hooks.
    */
   atk_object_signals[PROPERTY_CHANGE] =
     g_signal_new ("property_change",

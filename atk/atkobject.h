@@ -420,20 +420,13 @@ typedef struct _AtkStateSet               AtkStateSet;
 
 /**
  * AtkPropertyValues:
- * @property_name: The name of the ATK property which is being presented or which has been changed.
- * @old_value: The old property value, NULL; in some contexts this value is undefined (see note below).
+ * @property_name: The name of the ATK property which has changed.
+ * @old_value: NULL. This field is not used anymore.
  * @new_value: The new value of the named property.
  *
- * Note: for most properties the old_value field of #AtkPropertyValues
- * will not contain a valid value.
- *
- * Currently, the only property for which old_value is used is
- * accessible-state; for instance if there is a focus state the
- * property change handler will be called for the object which lost the focus
- * with the old_value containing an #AtkState value corresponding to focused
- * and the property change handler will be called for the object which
- * received the focus with the new_value containing an #AtkState value
- * corresponding to focused.
+ * Note: @old_value field of #AtkPropertyValues will not contain a
+ * valid value. This is a field defined with the purpose of contain
+ * the previous value of the property, but is not used anymore.
  *
  **/
 struct _AtkPropertyValues
