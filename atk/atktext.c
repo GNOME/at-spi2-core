@@ -1066,10 +1066,8 @@ atk_text_get_range_extents (AtkText          *text,
 
   g_return_if_fail (ATK_IS_TEXT (text));
   g_return_if_fail (rect);
+  g_return_if_fail (start_offset >= 0 && start_offset < end_offset);
 
-  if (start_offset < 0 || start_offset >= end_offset)
-    return;
- 
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->get_range_extents)
