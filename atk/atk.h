@@ -27,6 +27,7 @@
 #include <atk/atkcomponent.h>
 #include <atk/atkdocument.h>
 #include <atk/atkeditabletext.h>
+#include <atk/atk-enum-types.h>
 #include <atk/atkgobjectaccessible.h>
 #include <atk/atkhyperlink.h>
 #include <atk/atkhyperlinkimpl.h>

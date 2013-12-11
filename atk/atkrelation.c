@@ -19,9 +19,7 @@
 
 #include <string.h>
 #include <glib-object.h>
-#include "atkobject.h"
-#include "atkrelation.h"
-#include "atk-enum-types.h"
+#include "atk.h"
 
 /**
  * SECTION:atkrelation

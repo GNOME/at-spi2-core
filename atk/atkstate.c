@@ -17,8 +17,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "atkstate.h"
-#include "atk-enum-types.h"
+#include "atk.h"
 
 #include <string.h>
 

@@ -32,7 +32,6 @@
 
 #include "atk.h"
 #include "atkmarshal.h"
-#include "atk-enum-types.h"
 #include "atkintl.h"
 
 /**
