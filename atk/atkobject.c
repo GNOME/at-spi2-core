@@ -520,6 +520,14 @@ atk_object_class_init (AtkObjectClass *klass)
                                                         G_MAXINT,
                                                         G_MININT,
                                                         G_PARAM_READABLE));
+
+  /**
+   * AtkObject:accessible-table-caption:
+   *
+   * Table caption.
+   *
+   * Deprecated: Since 1.3. Use table-caption-object instead.
+   */
   g_object_class_install_property (gobject_class,
                                    PROP_TABLE_CAPTION,
                                    g_param_spec_string (atk_object_name_property_table_caption,
@@ -527,6 +535,14 @@ atk_object_class_init (AtkObjectClass *klass)
                                                         _("Is used to notify that the table caption has changed; this property should not be used. accessible-table-caption-object should be used instead"),
                                                         NULL,
                                                         G_PARAM_READWRITE));
+  /**
+   * AtkObject:accessible-table-column-header:
+   *
+   * Accessible table column header.
+   *
+   * Deprecated: Since 2.12. Use atk_table_get_column_header() and
+   * atk_table_set_column_header() instead.
+   */
   g_object_class_install_property (gobject_class,
                                    PROP_TABLE_COLUMN_HEADER,
                                    g_param_spec_object (atk_object_name_property_table_column_header,
@@ -534,6 +550,15 @@ atk_object_class_init (AtkObjectClass *klass)
                                                         _("Is used to notify that the table column header has changed"),
                                                         ATK_TYPE_OBJECT,
                                                         G_PARAM_READWRITE));
+
+  /**
+   * AtkObject:accessible-table-column-description:
+   *
+   * Accessible table column description.
+   *
+   * Deprecated: Since 2.12. Use atk_table_get_column_description()
+   * and atk_table_set_column_description() instead.
+   */
   g_object_class_install_property (gobject_class,
                                    PROP_TABLE_COLUMN_DESCRIPTION,
                                    g_param_spec_string (atk_object_name_property_table_column_description,
@@ -541,6 +566,15 @@ atk_object_class_init (AtkObjectClass *klass)
                                                         _("Is used to notify that the table column description has changed"),
                                                         NULL,
                                                         G_PARAM_READWRITE));
+
+  /**
+   * AtkObject:accessible-table-row-header:
+   *
+   * Accessible table row header.
+   *
+   * Deprecated: Since 2.12. Use atk_table_get_row_header() and
+   * atk_table_set_row_header() instead.
+   */
   g_object_class_install_property (gobject_class,
                                    PROP_TABLE_ROW_HEADER,
                                    g_param_spec_object (atk_object_name_property_table_row_header,
@@ -548,6 +582,14 @@ atk_object_class_init (AtkObjectClass *klass)
                                                         _("Is used to notify that the table row header has changed"),
                                                         ATK_TYPE_OBJECT,
                                                         G_PARAM_READWRITE));
+  /**
+   * AtkObject:accessible-table-row-description:
+   *
+   * Accessible table row description.
+   *
+   * Deprecated: Since 2.12. Use atk_table_get_row_description() and
+   * atk_table_set_row_description() instead.
+   */
   g_object_class_install_property (gobject_class,
                                    PROP_TABLE_ROW_DESCRIPTION,
                                    g_param_spec_string (atk_object_name_property_table_row_description,
