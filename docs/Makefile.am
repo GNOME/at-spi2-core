@@ -22,7 +22,7 @@ IGNORE_HFILES =	atkmarshal.h atkintl.h
 
 # CFLAGS and LDFLAGS for compiling scan program. Only needed
 # if $(DOC_MODULE).types is non-empty.
-INCLUDES = 			\
+AM_CPPFLAGS = 			\
 	-I$(top_srcdir)		\
 	-I$(top_builddir)	\
 	$(DEP_CFLAGS)

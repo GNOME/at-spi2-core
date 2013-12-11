@@ -13,7 +13,7 @@ else
 no_undefined =
 endif
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	-I$(top_srcdir)		\
 	-DG_DISABLE_DEPRECATED	\
 	-DATK_DISABLE_DEPRECATED	\
@@ -164,7 +164,7 @@ introspection_generated_sources = \
 
 Atk-1.0.gir: libatk-1.0.la Makefile
 Atk_1_0_gir_INCLUDES = GObject-2.0
-Atk_1_0_gir_CFLAGS = $(INCLUDES)
+Atk_1_0_gir_CFLAGS = $(AM_CPPFLAGS)
 Atk_1_0_gir_LIBS = libatk-1.0.la
 Atk_1_0_gir_SCANNERFLAGS = --pkg-export atk --warn-all --c-include "atk/atk.h"
 Atk_1_0_gir_FILES = \
@@ -232,7 +232,7 @@ dist-hook: ../build/win32/vs9/atk.vcproj ../build/win32/vs10/atk.vcxproj ../buil
 	done >libatk.sourcefiles
 	$(CPP) -P - <$(top_srcdir)/build/win32/vs9/atk.vcprojin >$@
 	rm libatk.sourcefiles
-	
+
 ../build/win32/vs10/atk.vcxproj: ../build/win32/vs10/atk.vcxprojin
 	for F in $(libatk_1_0_la_SOURCES); do \
 		case $$F in \
@@ -242,7 +242,7 @@ dist-hook: ../build/win32/vs9/atk.vcproj ../build/win32/vs10/atk.vcxproj ../buil
 	done >libatk.vs10.sourcefiles
 	$(CPP) -P - <$(top_srcdir)/build/win32/vs10/atk.vcxprojin >$@
 	rm libatk.vs10.sourcefiles
-	
+
 ../build/win32/vs10/atk.vcxproj.filters: ../build/win32/vs10/atk.vcxproj.filtersin
 	for F in $(libatk_1_0_la_SOURCES); do \
 		case $$F in \
