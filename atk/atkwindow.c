@@ -77,7 +77,7 @@ atk_window_default_init (AtkWindowIface *iface)
        * The signal #AtkWindow::activate is emitted when a window
        * becomes the active window of the application or session.
        *
-       * Since: 2.1.5
+       * Since: 2.2
        */
       atk_window_signals[ACTIVATE] = atk_window_add_signal ("activate");
       /**
@@ -87,7 +87,7 @@ atk_window_default_init (AtkWindowIface *iface)
        * The signal #AtkWindow::create is emitted when a new window
        * is created.
        *
-       * Since: 2.1.5
+       * Since: 2.2
        */
       atk_window_signals[CREATE] = atk_window_add_signal ("create");
       /**
@@ -97,7 +97,7 @@ atk_window_default_init (AtkWindowIface *iface)
        * The signal #AtkWindow::deactivate is emitted when a window is
        * no longer the active window of the application or session.
        *
-       * Since: 2.1.5
+       * Since: 2.2
        */
       atk_window_signals[DEACTIVATE] = atk_window_add_signal ("deactivate");
       /**
@@ -107,7 +107,7 @@ atk_window_default_init (AtkWindowIface *iface)
        * The signal #AtkWindow::destroy is emitted when a window is
        * destroyed.
        *
-       * Since: 2.1.5
+       * Since: 2.2
        */
       atk_window_signals[DESTROY] = atk_window_add_signal ("destroy");
       /**
@@ -117,7 +117,7 @@ atk_window_default_init (AtkWindowIface *iface)
        * The signal #AtkWindow::maximize is emitted when a window
        * is maximized.
        *
-       * Since: 2.1.5
+       * Since: 2.2
        */
       atk_window_signals[MAXIMIZE] = atk_window_add_signal ("maximize");
       /**
@@ -127,7 +127,7 @@ atk_window_default_init (AtkWindowIface *iface)
        * The signal #AtkWindow::minimize is emitted when a window
        * is minimized.
        *
-       * Since: 2.1.5
+       * Since: 2.2
        */
       atk_window_signals[MINIMIZE] = atk_window_add_signal ("minimize");
       /**
@@ -137,7 +137,7 @@ atk_window_default_init (AtkWindowIface *iface)
        * The signal #AtkWindow::move is emitted when a window
        * is moved.
        *
-       * Since: 2.1.5
+       * Since: 2.2
        */
       atk_window_signals[MOVE] = atk_window_add_signal ("move");
       /**
@@ -147,7 +147,7 @@ atk_window_default_init (AtkWindowIface *iface)
        * The signal #AtkWindow::resize is emitted when a window
        * is resized.
        *
-       * Since: 2.1.5
+       * Since: 2.2
        */
       atk_window_signals[RESIZE] = atk_window_add_signal ("resize");
       /**
@@ -157,7 +157,7 @@ atk_window_default_init (AtkWindowIface *iface)
        * The signal #AtkWindow::restore is emitted when a window
        * is restored.
        *
-       * Since: 2.1.5
+       * Since: 2.2
        */
       atk_window_signals[RESTORE] = atk_window_add_signal ("restore");
 

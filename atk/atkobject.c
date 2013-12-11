@@ -1619,7 +1619,7 @@ atk_object_real_get_object_locale (AtkObject *object)
  * Gets a UTF-8 string indicating the POSIX-style LC_MESSAGES locale
  * of @accessible.
  *
- * Since: 2.7.90
+ * Since: 2.8
  *
  * Returns: a UTF-8 string indicating the POSIX-style LC_MESSAGES
  *          locale of @accessible.

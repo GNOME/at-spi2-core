@@ -577,7 +577,7 @@ atk_text_get_text_before_offset (AtkText          *text,
  * is from the start of the paragraph at or before the offset to the start
  * of the following paragraph after the offset.
  *
- * Since: 2.9.4
+ * Since: 2.10
  *
  * Returns: a newly allocated string containing the text at the @offset bounded
  *   by the specified @granularity. Use g_free() to free the returned string.

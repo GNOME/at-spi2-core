@@ -96,14 +96,14 @@
   <index id="api-index-1-6" role="1.6">
     <title>Index of new symbols in 1.6</title>
   </index>
+  <index id="api-index-1-9" role="1.9">
+    <title>Index of new symbols in 1.9</title>
+  </index>
   <index id="api-index-1-12" role="1.12">
     <title>Index of new symbols in 1.12</title>
   </index>
   <index id="api-index-1-13" role="1.13">
     <title>Index of new symbols in 1.13</title>
-  </index>
-  <index id="api-index-1-18" role="1.18">
-    <title>Index of new symbols in 1.18</title>
   </index>
   <index id="api-index-1-20" role="1.20">
     <title>Index of new symbols in 1.20</title>
@@ -111,20 +111,17 @@
   <index id="api-index-1-22" role="1.22">
     <title>Index of new symbols in 1.22</title>
   </index>
-  <index id="api-index-1-24" role="1.24">
-    <title>Index of new symbols in 1.24</title>
-  </index>
-  <index id="api-index-1-26" role="1.26">
-    <title>Index of new symbols in 1.26</title>
-  </index>
-  <index id="api-index-1-28" role="1.28">
-    <title>Index of new symbols in 1.28</title>
-  </index>
   <index id="api-index-1-30" role="1.30">
     <title>Index of new symbols in 1.30</title>
   </index>
-  <index id="api-index-1-32" role="1.32">
-    <title>Index of new symbols in 1.32</title>
+  <index id="api-index-2-2" role="2.2">
+    <title>Index of new symbols in 2.2</title>
+  </index>
+  <index id="api-index-2-8" role="2.8">
+    <title>Index of new symbols in 2.8</title>
+  </index>
+  <index id="api-index-2-10" role="2.10">
+    <title>Index of new symbols in 2.10</title>
   </index>
 
 </book>

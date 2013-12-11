@@ -44,7 +44,7 @@
  *
  * Returns: the major version number of the ATK library
  *
- * Since: 2.7.4
+ * Since: 2.8
  */
 guint
 atk_get_major_version (void)
@@ -65,7 +65,7 @@ atk_get_major_version (void)
  *
  * Returns: the minor version number of the ATK library
  *
- * Since: 2.7.4
+ * Since: 2.8
  */
 guint
 atk_get_minor_version (void)
@@ -86,7 +86,7 @@ atk_get_minor_version (void)
  *
  * Returns: the micro version number of the ATK library
  *
- * Since: 2.7.4
+ * Since: 2.8
  */
 guint
 atk_get_micro_version (void)
@@ -102,7 +102,7 @@ atk_get_micro_version (void)
  *
  * Returns: the binary age of the ATK library
  *
- * Since: 2.7.4
+ * Since: 2.8
  */
 guint
 atk_get_binary_age (void)
@@ -118,7 +118,7 @@ atk_get_binary_age (void)
  *
  * Returns: the interface age of the ATK library
  *
- * Since: 2.7.4
+ * Since: 2.8
  */
 guint
 atk_get_interface_age (void)
