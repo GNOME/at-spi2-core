@@ -17,10 +17,13 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include "config.h"
+
 #include <string.h>
 #include <locale.h>
 
 #include <glib-object.h>
+#include <glib/gi18n-lib.h>
 
 #ifdef G_OS_WIN32
 #define STRICT
@@ -32,7 +35,6 @@
 
 #include "atk.h"
 #include "atkmarshal.h"
-#include "atkintl.h"
 
 /**
  * SECTION:atkobject

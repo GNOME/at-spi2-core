@@ -17,8 +17,9 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include "config.h"
 #include "atkhyperlink.h"
-#include "atkintl.h"
+#include <glib/gi18n-lib.h>
 
 /**
  * SECTION:atkhyperlink
@@ -395,7 +396,7 @@ atk_hyperlink_get_n_anchors (AtkHyperlink *link)
  * Please use ATK_STATE_FOCUSABLE for all links, and ATK_STATE_FOCUSED
  * for focused links.
  *
- * Returns: True is the AtkHyperlink is selected, False otherwise
+ * Returns: True if the AtkHyperlink is selected, False otherwise
  **/
 gboolean
 atk_hyperlink_is_selected_link (AtkHyperlink *link)
