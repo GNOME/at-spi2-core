@@ -137,6 +137,26 @@ struct _AtkUtil
   GObject parent;
 };
 
+/**
+ * AtkUtilClass:
+ * @add_global_event_listener: adds the specified function to the list
+ *  of functions to be called when an ATK event occurs. ATK
+ *  implementors are discouraged from reimplementing this method.
+ * @remove_global_event_listener: removes the specified function to
+ *  the list of functions to be called when an ATK event occurs. ATK
+ *  implementors are discouraged from reimplementing this method.
+ * @add_key_event_listener: adds the specified function to the list of
+ *  functions to be called when a key event occurs.
+ * @remove_key_event_listener: remove the specified function to the
+ *  list of functions to be called when a key event occurs.
+ * @get_root: gets the root accessible container for the current
+ *  application.
+ * @get_toolkit_name: gets name string for the GUI toolkit
+ *  implementing ATK for this application.
+ * @get_toolkit_version: gets version string for the GUI toolkit
+ *  implementing ATK for this application.
+ *
+ */
 struct _AtkUtilClass
 {
    GObjectClass parent;

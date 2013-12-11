@@ -536,6 +536,7 @@ ATK_STREAMABLE_CONTENT_GET_IFACE
 <FILE>atkutil</FILE>
 <TITLE>AtkUtil</TITLE>
 AtkUtil
+AtkUtilClass
 AtkCoordType
 atk_add_focus_tracker
 atk_remove_focus_tracker

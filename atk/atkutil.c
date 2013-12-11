@@ -369,10 +369,12 @@ atk_util_real_remove_global_event_listener (guint remove_listener)
  *   ATK:AtkText:text-selection-changed
  *   ATK:AtkText:text-insert:system
  *
- * Toolkit implementor note: Atk provides a default implementation for
- * this virtual method, and that implementation should be enough for
- * most of the cases. You should have a really good reason to
- * reimplement this method.
+ * Toolkit implementor note: ATK provides a default implementation for
+ * this virtual method. ATK implementors are discouraged from
+ * reimplementing this method.
+ *
+ * Toolkit implementor note: this method is not intended to be used by
+ * ATK implementors but by ATK consumers.
  *
  * Returns: added event listener id, or 0 on failure.
  **/
@@ -403,10 +405,12 @@ atk_add_global_event_listener (GSignalEmissionHook listener,
  * @listener_id is the value returned by #atk_add_global_event_listener
  * when you registered that event listener.
  *
- * Toolkit implementor note: Atk provides a default implementation for
- * this virtual method, and that implementation should be enough for
- * most of the cases. You should have a really good reason to
- * reimplement this method.
+ * Toolkit implementor note: ATK provides a default implementation for
+ * this virtual method. ATK implementors are discouraged from
+ * reimplementing this method.
+ *
+ * Toolkit implementor note: this method is not intended to be used by
+ * ATK implementors but by ATK consumers.
  *
  * Removes the specified event listener
  **/
