@@ -19,6 +19,15 @@
 
 #include "atkmisc.h"
 
+/**
+ * SECTION:atkmisc
+ * @Short_description: A set of ATK utility functions for thread locking
+ * @Title:AtkMisc
+ *
+ * A set of utility functions for thread locking. This interface and
+ * all his related methods are deprecated since 2.12.
+ */
+
 static void atk_misc_class_init (AtkMiscClass *klass);
 
 GType
@@ -61,6 +70,8 @@ atk_misc_class_init (AtkMiscClass *klass)
  * (This method is implemented by the toolkit ATK implementation layer;
  *  for instance, for GTK+, GAIL implements this via GDK_THREADS_ENTER).
  *
+ * Deprecated: Since 2.12.
+ *
  * Since: 1.13
  *
  **/
@@ -94,6 +105,8 @@ atk_misc_threads_enter (AtkMisc *misc)
  * (This method is implemented by the toolkit ATK implementation layer;
  *  for instance, for GTK+, GAIL implements this via GDK_THREADS_LEAVE).
  *
+ * Deprecated: Since 2.12.
+ *
  * Since: 1.13
  *
  **/
@@ -121,6 +134,8 @@ AtkMisc *atk_misc_instance = NULL;
  * Obtain the singleton instance of AtkMisc for this application.
  * 
  * Since: 1.13
+ *
+ * Deprecated: Since 2.12.
  *
  * Returns: The singleton instance of AtkMisc for this application.
  *

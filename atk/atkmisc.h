@@ -74,9 +74,20 @@ struct _AtkMisc
  * Singleton instance - only the ATK implementation layer for
  * a given GUI toolkit/application instance should touch this
  * symbol directly.
+ *
+ * Deprecated: Since 2.12.
  */
 ATK_VAR AtkMisc *atk_misc_instance;
 
+/**
+ * AtkMiscClass:
+ * @threads_enter: This virtual function is deprecated since 2.12 and
+ *   it should not be overriden.
+ * @threads_leave: This virtual function is deprecated sice 2.12 and
+ *   it should not be overriden.
+ *
+ * Usage of AtkMisc is deprecated since 2.12 and heavily discouraged.
+ */
 struct _AtkMiscClass
 {
    GObjectClass parent;
@@ -86,25 +97,11 @@ struct _AtkMiscClass
 };
 GType atk_misc_get_type (void);
 
-/*
- * Wrapper for thread lock, i.e. take the thread mutex for the GUI toolkit, 
- * if one exists.  
- * (This method is implemented by the toolkit ATK implementation layer;
- *  for instance, for GTK+, GAIL implements this via GDK_THREADS_ENTER).
- */
+G_DEPRECATED
 void     atk_misc_threads_enter  (AtkMisc *misc);
-
-/*
- * Wrapper for thread lock, i.e. release the thread mutex for the GUI toolkit, 
- * if one exists.  
- * (This method is implemented by the toolkit ATK implementation layer;
- *  for instance, for GTK+, GAIL implements this via GDK_THREADS_LEAVE).
- */
+G_DEPRECATED
 void     atk_misc_threads_leave  (AtkMisc *misc);
-
-/*
- * Obtain (singleton) instance of AtkMisc.
- */
+G_DEPRECATED
 const AtkMisc *atk_misc_get_instance (void);
 
 G_END_DECLS

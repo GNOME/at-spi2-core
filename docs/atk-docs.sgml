@@ -10,6 +10,7 @@
   <!ENTITY atk-AtkHyperlinkImpl SYSTEM "xml/atkhyperlinkimpl.xml">
   <!ENTITY atk-AtkHypertext SYSTEM "xml/atkhypertext.xml">
   <!ENTITY atk-AtkImage SYSTEM "xml/atkimage.xml">
+  <!ENTITY atk-AtkMisc SYSTEM "xml/atkmisc.xml">
   <!ENTITY atk-AtkNoOpObject SYSTEM "xml/atknoopobject.xml">
   <!ENTITY atk-AtkNoOpObjectFactory SYSTEM "xml/atknoopobjectfactory.xml">
   <!ENTITY atk-AtkPlug SYSTEM "xml/atkplug.xml">
@@ -73,6 +74,11 @@
   <chapter id="utilities">
     <title>Utilities</title>
     &atk-AtkVersion;
+  </chapter>
+
+  <chapter id="deprecated">
+    <title>Deprecated Interfaces</title>
+    &atk-AtkMisc;
   </chapter>
 
   <index id="api-index-full">
