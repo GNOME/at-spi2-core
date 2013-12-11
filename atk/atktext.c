@@ -205,7 +205,7 @@ atk_text_base_init (AtkTextIface *class)
       atk_text_signals[TEXT_CHANGED] =
 	g_signal_new ("text_changed",
 		      ATK_TYPE_TEXT,
-		      G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
+		      G_SIGNAL_RUN_LAST,
 		      G_STRUCT_OFFSET (AtkTextIface, text_changed), 
 		      (GSignalAccumulator) NULL, NULL,
 		      atk_marshal_VOID__INT_INT,
@@ -225,7 +225,7 @@ atk_text_base_init (AtkTextIface *class)
       atk_text_signals[TEXT_INSERT] =
 	g_signal_new ("text_insert",
 		      ATK_TYPE_TEXT,
-		      G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
+		      G_SIGNAL_RUN_LAST,
 		      0,
 		      (GSignalAccumulator) NULL, NULL,
 		      atk_marshal_VOID__INT_INT_STRING,
@@ -245,7 +245,7 @@ atk_text_base_init (AtkTextIface *class)
       atk_text_signals[TEXT_REMOVE] =
 	g_signal_new ("text_remove",
 		      ATK_TYPE_TEXT,
-		      G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
+		      G_SIGNAL_RUN_LAST,
 		      0,
 		      (GSignalAccumulator) NULL, NULL,
 		      atk_marshal_VOID__INT_INT_STRING,
