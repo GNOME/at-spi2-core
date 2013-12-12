@@ -1,8 +1,12 @@
-EXTRA_DIST = \
-	README.txt \
-	atk.sln \
-	atk.vsprops \
-	atk.vcproj \
-	atk.vcprojin \
+EXTRA_DIST =	\
+	README.txt	\
+	atk.sln	\
+	atk.vcproj	\
+	atk.vcprojin	\
 	install.vcproj	\
-	gengir.vcproj
+	gengir.vcproj	\
+	atk-build-defines.vsprops	\
+	atk-gen-src.vsprops	\
+	atk-gengir.vsprops	\
+	atk-install.vsprops	\
+	atk-version-paths.vsprops

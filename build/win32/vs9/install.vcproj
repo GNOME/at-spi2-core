@@ -23,7 +23,7 @@
 			OutputDirectory="$(GLibEtcInstallRoot)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="10"
-			InheritedPropertySheets=".\atk.vsprops"
+			InheritedPropertySheets=".\atk-install.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
@@ -34,7 +34,7 @@
 		<Configuration
 			Name="Debug|x64"
 			OutputDirectory="$(GLibEtcInstallRoot)"
-			InheritedPropertySheets=".\atk.vsprops"
+			InheritedPropertySheets=".\atk-install.vsprops"
 			ConfigurationType="10"
 			CharacterSet="2"
 			DeleteExtensionsOnClean=""
@@ -49,7 +49,7 @@
 			OutputDirectory="$(GLibEtcInstallRoot)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="10"
-			InheritedPropertySheets=".\atk.vsprops"
+			InheritedPropertySheets=".\atk-install.vsprops"
 			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
@@ -61,7 +61,7 @@
 		<Configuration
 			Name="Release|x64"
 			OutputDirectory="$(GLibEtcInstallRoot)"
-			InheritedPropertySheets=".\atk.vsprops"
+			InheritedPropertySheets=".\atk-install.vsprops"
 			ConfigurationType="10"
 			CharacterSet="2"
 			WholeProgramOptimization="1"

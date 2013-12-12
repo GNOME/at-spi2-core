@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="atkgensrcprops"
+	InheritedPropertySheets=".\atk-build-defines.vsprops"
+	>
+	<UserMacro
+		Name="GenConfigH"
+		Value="
+if exist ..\..\..\config.h goto DONE_CONFIG_H&#x0D;&#x0A;
+copy ..\..\..\config.h.win32 ..\..\..\config.h&#x0D;&#x0A;
+:DONE_CONFIG_H&#x0D;&#x0A;
+		      "
+	/>
+	<UserMacro
+		Name="GenMarshalSrc"
+		Value="
+cd ..\..\..\atk&#x0D;&#x0A;
+$(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal atkmarshal.list --header &gt; atkmarshal.h&#x0D;&#x0A;
+$(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal atkmarshal.list --body &gt; atkmarshal.c&#x0D;&#x0A;
+cd $(SolutionDir)&#x0D;&#x0A;
+		      "
+	/>
+	<UserMacro
+		Name="GenerateAtkDef"
+		Value="
+echo EXPORTS &gt; $(DefDir)\atk.def&#x0D;&#x0A;
+cl /EP ..\..\..\atk\atk.symbols &gt;&gt; $(DefDir)\atk.def
+		      "
+	/>
+</VisualStudioPropertySheet>

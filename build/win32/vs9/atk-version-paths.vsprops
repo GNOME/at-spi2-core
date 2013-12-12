@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="atkversionpathsprops"
+	>
+	<UserMacro
+		Name="VSVer"
+		Value="9"
+	/>
+	<UserMacro
+		Name="GLibEtcInstallRoot"
+		Value="$(SolutionDir)\..\..\..\..\vs$(VSVER)\$(PlatformName)"
+	/>
+	<UserMacro
+		Name="DefDir"
+		Value="$(SolutionDir)$(ConfigurationName)\$(PlatformName)\obj\$(ProjectName)"
+	/>
+	<UserMacro
+		Name="ApiVersion"
+		Value="1.0"
+	/>
+	<UserMacro
+		Name="AtkLibtoolCompatibleDllPrefix"
+		Value="lib"
+	/>
+	<UserMacro
+		Name="AtkLibtoolCompatibleDllSuffix"
+		Value="-$(ApiVersion)-0"
+	/>
+	<UserMacro
+		Name="AtkSeparateVSDllPrefix"
+		Value=""
+	/>
+	<UserMacro
+		Name="AtkSeparateVSDllSuffix"
+		Value="-1-vs$(VSVER)"
+	/>
+	<!-- Change these two to AtkLibtoolCompatibleDllPrefix and
+	AtkLibtoolCompatibleDllSuffix if that is what you want -->
+	<UserMacro
+		Name="AtkDllPrefix"
+		Value="$(AtkSeparateVSDllPrefix)"
+	/>
+	<UserMacro
+		Name="AtkDllSuffix"
+		Value="$(AtkSeparateVSDllSuffix)"
+	/>
+</VisualStudioPropertySheet>
