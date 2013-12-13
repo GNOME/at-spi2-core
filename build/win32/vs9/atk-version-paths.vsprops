@@ -13,6 +13,10 @@
 		Value="$(SolutionDir)\..\..\..\..\vs$(VSVER)\$(PlatformName)"
 	/>
 	<UserMacro
+		Name="CopyDir"
+		Value="$(GLibEtcInstallRoot)"
+	/>
+	<UserMacro
 		Name="DefDir"
 		Value="$(SolutionDir)$(ConfigurationName)\$(PlatformName)\obj\$(ProjectName)"
 	/>

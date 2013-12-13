@@ -8,46 +8,46 @@
 	<UserMacro
 		Name="AtkDoInstall"
 		Value="
-mkdir $(OutDir)&#x0D;&#x0A;
-mkdir $(OutDir)\bin&#x0D;&#x0A;
-copy $(SolutionDir)$(ConfigurationName)\$(PlatformName)\bin\*.dll $(OutDir)\bin&#x0D;&#x0A;
+mkdir $(CopyDir)&#x0D;&#x0A;
+mkdir $(CopyDir)\bin&#x0D;&#x0A;
+copy $(SolutionDir)$(ConfigurationName)\$(PlatformName)\bin\*.dll $(CopyDir)\bin&#x0D;&#x0A;
 
-mkdir $(OutDir)\lib&#x0D;&#x0A;
-copy $(SolutionDir)$(ConfigurationName)\$(PlatformName)\bin\*-$(ApiVersion).lib $(OutDir)\lib&#x0D;&#x0A;
+mkdir $(CopyDir)\lib&#x0D;&#x0A;
+copy $(SolutionDir)$(ConfigurationName)\$(PlatformName)\bin\*-$(ApiVersion).lib $(CopyDir)\lib&#x0D;&#x0A;
 
-mkdir $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atk.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkaction.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkcomponent.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkdocument.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkeditabletext.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkgobjectaccessible.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkhyperlink.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkhyperlinkimpl.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkhypertext.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atknoopobject.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atknoopobjectfactory.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkobject.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkobjectfactory.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkplug.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkimage.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkregistry.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkrelation.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkrelationtype.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkrelationset.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkselection.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atksocket.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkstate.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkstateset.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkstreamablecontent.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atktable.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atktext.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkutil.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkmisc.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkvalue.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkwindow.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atkversion.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-copy ..\..\..\atk\atk-enum-types.h $(OutDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+mkdir $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atk.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkaction.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkcomponent.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkdocument.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkeditabletext.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkgobjectaccessible.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkhyperlink.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkhyperlinkimpl.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkhypertext.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atknoopobject.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atknoopobjectfactory.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkobject.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkobjectfactory.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkplug.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkimage.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkregistry.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkrelation.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkrelationtype.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkrelationset.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkselection.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atksocket.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkstate.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkstateset.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkstreamablecontent.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atktable.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atktext.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkutil.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkmisc.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkvalue.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkwindow.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atkversion.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
+copy ..\..\..\atk\atk-enum-types.h $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
 "
 	/>
 </VisualStudioPropertySheet>
