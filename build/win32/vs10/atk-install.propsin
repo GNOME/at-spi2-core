@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets">
+    <Import Project="atk-build-defines.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros">
+    <AtkDoInstall>
+mkdir $(CopyDir)\bin
+
+copy $(SolutionDir)$(Configuration)\$(Platform)\bin\*.dll $(CopyDir)\bin
+
+
+mkdir $(CopyDir)\lib
+
+copy $(SolutionDir)$(Configuration)\$(Platform)\bin\*-$(ApiVersion).lib $(CopyDir)\lib
+
+
+mkdir $(CopyDir)\include\atk-$(ApiVersion)\atk
+
+#include "atk.vs10instfiles"
+    </AtkDoInstall>
+  </PropertyGroup>
+  <ItemGroup>
+    <BuildMacro Include="AtkDoInstall">
+      <Value>$(AtkDoInstall)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>
