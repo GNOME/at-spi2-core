@@ -3,5 +3,6 @@ SUBDIRS = \
 
 EXTRA_DIST =	\
 	atk_msvc_files.py	\
-	msvcfiles.py
+	msvcfiles.py	\
+	testsrules_msvc.mak
 

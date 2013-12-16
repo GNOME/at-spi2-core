@@ -1,0 +1,48 @@
+!include ..\build\testsrules_msvc.mak
+
+BUILD_PATH = ..\build\win32\vs$(VSVER)\$(CFG)\$(PLAT)\bin
+LDFLAGS_PATH = /libpath:$(BUILD_PATH) /libpath:..\..\vs$(VSVER)\$(PLAT)\lib
+
+TEST_ATK_LIBS = atk-$(ATK_API_VERSION).lib $(GLIB_LIBS)
+
+LDFLAGS =	\
+	$(LDFLAGS_PATH)	\
+	$(LDFLAGS_ARCH)
+
+CFLAGS =	\
+	$(CFLAGS_ADD) /DSRCDIR=\".\" /I..	\
+	/I..\..\vs$(VSVER)\$(PLAT)\include\glib-2.0	\
+	/I..\..\vs$(VSVER)\$(PLAT)\lib\glib-2.0\include	\
+	/I..\..\vs$(VSVER)\$(PLAT)\include\glib-2.0
+
+EMPTY_ITEM =
+
+test_programs = \
+#include "test_progs"
+	$(EMPTY_ITEM)
+
+!if "$(VALID_CFGSET)" == "FALSE"
+all:
+	!@-echo You need to run "nmake -f testpango_vc.mak CFG=release" or
+	!@-echo "nmake -f testglib_vc.mak CFG=debug" to use this Makefile to
+	!@-echo build the test programs.
+
+clean:
+	@-del /q/f *$(EXEEXT).manifest
+	@-del /q/f *$(EXEEXT)
+	@-del /q/f *.idb
+	@-del /q/f *.obj
+	@-del /q/f *.pdb
+!else
+all: $(test_programs)
+
+.c$(EXEEXT):
+	$(CC) $(CFLAGS) $< $(LD_CFLAGS) $(LDFLAGS) $(TEST_ATK_LIBS)
+
+clean:
+	@-del /q/f *$(EXEEXT).manifest
+	@-del /q/f *$(EXEEXT)
+	@-del /q/f *.idb
+	@-del /q/f *.obj
+	@-del /q/f *.pdb
+!endif
