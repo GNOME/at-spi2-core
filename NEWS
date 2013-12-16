@@ -1,3 +1,47 @@
+Changes in version 2.11.4:
+==========================
+*
+* AtkRole:
+  * Bug 720065: add roles for description lists
+* Deprecations:
+  * Bug 476674: deprecate table properties that depend on the
+    row/column number
+  * Bug 652798: kill AtkMisc
+  * Deprecate connect/remove_property_change_handler
+  * Deprecate atk_role_register
+* Documentation:
+  * Bug 644747: improve documentation for AtkObject::property-change
+  * Improved AtkUtil documentation
+  * Updated new symbols sections on documentation
+  * Not using GTK-Doc tag "Virtual" anymore, as is deprecated
+* Building:
+  * Bug 644756: remove atkintl.h in favour of gi18n-lib.h from glib
+  * Bug 652965: include atk-enum-types.h on atk.h
+  * Fixed some gobject-introspection warnings
+  * Replace INCLUDES for AM_CPPFLAGS to silence automake deprecation
+    warnings.
+* Visual C++ Studio files:
+  * Add a PlatformToolsetTag on gengir MSVC Project
+  * Split the Property Sheets
+  * Update Visual C++ 2008 "install" phase
+  * Bug 690145: use Python to Generate the MSVC Projects
+* Miscellanea:
+  * Bug 572489: atk_text_range_extents should use g_return_if_fail
+  * Bug 653293: remove G_SIGNAL_DETAILED from atktext signals that
+    doesn't use details
+  * Bug 720095: add atk_object_peek_parent
+  * Updated AUTHORS and doap files
+  * Added role names on source file in order to be translated
+
+Contributors:
+   Chun-wei Fan, Kjartan Maraas, Alejandro Piñeiro Iglesias, Colin
+   Walters, Yue Wang
+
+Translations:
+  Fran Diéguez (gl), Michael Jayt (zh_CN), Daniel Mustieles (es),
+  Fábio Nogueira (pt_BR)
+
+
 Changes in version 2.11.3:
 ==========================
 *
