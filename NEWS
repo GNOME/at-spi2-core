@@ -1,3 +1,9 @@
+What's new in at-spi2-atk 2.11.3:
+
+ * Fix atspi_text_get_bounded_ranges
+
+* document: add support to current page and page count (BGO#719508).
+
 What's new in at-spi2-atk 2.11.2:
 
 * Add new roles and states to track atk (BGO#710464, BGO#712608, BGO#712609).
