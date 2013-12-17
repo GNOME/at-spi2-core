@@ -10,7 +10,7 @@ LDFLAGS =	\
 	$(LDFLAGS_ARCH)
 
 CFLAGS =	\
-	$(CFLAGS_ADD) /DSRCDIR=\".\" /I..	\
+	$(CFLAGS_ADD) /DG_DISABLE_DEPRECATED /I..	\
 	/I..\..\vs$(VSVER)\$(PLAT)\include\glib-2.0	\
 	/I..\..\vs$(VSVER)\$(PLAT)\lib\glib-2.0\include	\
 	/I..\..\vs$(VSVER)\$(PLAT)\include\glib-2.0
@@ -23,8 +23,8 @@ test_programs = \
 
 !if "$(VALID_CFGSET)" == "FALSE"
 all:
-	!@-echo You need to run "nmake -f testpango_vc.mak CFG=release" or
-	!@-echo "nmake -f testglib_vc.mak CFG=debug" to use this Makefile to
+	!@-echo You need to run "nmake -f testatk_vc.mak CFG=release" or
+	!@-echo "nmake -f testatk_vc.mak CFG=debug" to use this Makefile to
 	!@-echo build the test programs.
 
 clean:
