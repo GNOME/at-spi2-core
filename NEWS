@@ -1,3 +1,15 @@
+Changes in version 2.11.5:
+==========================
+*
+* MSVC Builds: Rework Introspection Build and other miscellaneous
+  fixes
+
+Contributors:
+  Chun-wei Fan
+
+Translations:
+  Yosef Or Boczko (he), Dimitris Spingos (el), Peter Vágner (sk)
+
 Changes in version 2.11.4:
 ==========================
 *
