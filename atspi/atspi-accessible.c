@@ -1626,8 +1626,12 @@ atspi_accessible_get_process_id (AtspiAccessible *accessible, GError **error)
   dbus_error_init (&d_error);
   reply = dbus_connection_send_with_reply_and_block (bus, message, -1, &d_error);
   dbus_message_unref (message);
-  dbus_message_get_args (reply, NULL, DBUS_TYPE_UINT32, &pid, DBUS_TYPE_INVALID);
-  dbus_message_unref (reply);
+  if (reply)
+  {
+    if (!strcmp (dbus_message_get_signature (reply), "u"))
+      dbus_message_get_args (reply, NULL, DBUS_TYPE_UINT32, &pid, DBUS_TYPE_INVALID);
+    dbus_message_unref (reply);
+  }
   if (dbus_error_is_set (&d_error))
     {
       g_warning ("GetConnectionUnixProcessID failed: %s", d_error.message);
