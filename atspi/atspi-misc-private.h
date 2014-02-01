@@ -147,7 +147,8 @@ GQuark _atspi_error_quark (void);
 typedef enum
 {
   ATSPI_ERROR_APPLICATION_GONE,
-  ATSPI_ERROR_IPC
+  ATSPI_ERROR_IPC,
+  ATSPI_ERROR_SYNC_NOT_ALLOWED,
 } AtspiError;
 
 extern GMainLoop *atspi_main_loop;
@@ -156,6 +157,14 @@ extern gboolean atspi_no_cache;
 GHashTable *_atspi_get_live_refs ();
 
 gchar *_atspi_name_compat (gchar *in);
+
+void _atspi_dbus_update_cache_from_dict (AtspiAccessible *accessible, DBusMessageIter *iter);
+
+gboolean _atspi_get_allow_sync ();
+
+gboolean _atspi_set_allow_sync (gboolean val);
+
+void _atspi_set_error_no_sync (GError **error);
 G_END_DECLS
 
 #endif	/* _ATSPI_MISC_PRIVATE_H_ */

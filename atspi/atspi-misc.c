@@ -42,6 +42,7 @@ static DBusConnection *bus = NULL;
 static GHashTable *live_refs = NULL;
 static gint method_call_timeout = 800;
 static gint app_startup_time = 15000;
+static gboolean allow_sync = TRUE;
 
 GMainLoop *atspi_main_loop;
 GMainContext *atspi_main_context;
@@ -1071,6 +1072,12 @@ _atspi_dbus_call (gpointer obj, const char *interface, const char *method, GErro
   if (!check_app (aobj->app, error))
     return FALSE;
 
+  if (!allow_sync)
+  {
+    _atspi_set_error_no_sync (error);
+    return FALSE;
+  }
+
   va_start (args, type);
   dbus_error_init (&err);
   set_timeout (aobj->app);
@@ -1171,6 +1178,12 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
 
   if (!check_app (aobj->app, error))
     return FALSE;
+
+  if (!allow_sync)
+  {
+    _atspi_set_error_no_sync (error);
+    return FALSE;
+  }
 
   message = dbus_message_new_method_call (aobj->app->bus_name,
                                           aobj->path,
@@ -1346,6 +1359,11 @@ _atspi_dbus_set_interfaces (AtspiAccessible *accessible, DBusMessageIter *iter)
   DBusMessageIter iter_array;
 
   accessible->interfaces = 0;
+  if (strcmp (dbus_message_iter_get_signature (iter), "as") != 0)
+  {
+    g_warning ("_atspi_dbus_set_interfaces: Passed iterator with invalid signature %s", dbus_message_iter_get_signature (iter));
+    return;
+  }
   dbus_message_iter_recurse (iter, &iter_array);
   while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
   {
@@ -1678,4 +1696,83 @@ atspi_role_get_name (AtspiRole role)
     return _atspi_name_compat (retval);
 
   return NULL;
+}
+
+void
+_atspi_dbus_update_cache_from_dict (AtspiAccessible *accessible, DBusMessageIter *iter)
+{
+  GHashTable *cache = _atspi_accessible_ref_cache (accessible);
+  DBusMessageIter iter_dict, iter_dict_entry, iter_struct, iter_variant;
+
+  dbus_message_iter_recurse (iter, &iter_dict);
+  while (dbus_message_iter_get_arg_type (&iter_dict) != DBUS_TYPE_INVALID)
+  {
+    const char *key;
+    GValue *val = NULL;
+    dbus_message_iter_recurse (&iter_dict, &iter_dict_entry);
+    dbus_message_iter_get_basic (&iter_dict_entry, &key);
+    dbus_message_iter_next (&iter_dict_entry);
+    dbus_message_iter_recurse (&iter_dict_entry, &iter_variant);
+    if (!strcmp (key, "interfaces"))
+    {
+      _atspi_dbus_set_interfaces (accessible, &iter_variant);
+    }
+    else if (!strcmp (key, "Attributes"))
+    {
+      val = g_new0 (GValue, 1);;
+      g_value_init (val, G_TYPE_HASH_TABLE);
+      if (strcmp (dbus_message_iter_get_signature (&iter_variant),
+                                                   "a{ss}") != 0)
+        break;
+      g_value_take_boxed (val, _atspi_dbus_hash_from_iter (&iter_variant));
+    }
+    else if (!strcmp (key, "Component.ScreenExtents"))
+    {
+      dbus_int32_t d_int;
+      AtspiRect extents;
+      val = g_new0 (GValue, 1);;
+      g_value_init (val, ATSPI_TYPE_RECT);
+      if (strcmp (dbus_message_iter_get_signature (&iter_variant),
+                                                   "(iiii)") != 0)
+        break;
+      dbus_message_iter_recurse (&iter_variant, &iter_struct);
+      dbus_message_iter_get_basic (&iter_struct, &d_int);
+      extents.x = d_int;
+      dbus_message_iter_next (&iter_struct);
+      dbus_message_iter_get_basic (&iter_struct, &d_int);
+      extents.y = d_int;
+      dbus_message_iter_next (&iter_struct);
+      dbus_message_iter_get_basic (&iter_struct, &d_int);
+      extents.width = d_int;
+      dbus_message_iter_next (&iter_struct);
+      dbus_message_iter_get_basic (&iter_struct, &d_int);
+      extents.height = d_int;
+      g_value_set_boxed (val, &extents);
+    }
+    if (val)
+      g_hash_table_insert (cache, g_strdup (key), val); 
+    dbus_message_iter_next (&iter_dict);
+  }
+}
+
+gboolean
+_atspi_get_allow_sync ()
+{
+  return allow_sync;
+}
+
+gboolean
+_atspi_set_allow_sync (gboolean val)
+{
+  gboolean ret = allow_sync;
+
+  allow_sync = val;
+  return ret;
+}
+
+void
+_atspi_set_error_no_sync (GError **error)
+{
+  g_set_error_literal (error, ATSPI_ERROR, ATSPI_ERROR_SYNC_NOT_ALLOWED,
+                        _("Attempted synchronous call where prohibited"));
 }

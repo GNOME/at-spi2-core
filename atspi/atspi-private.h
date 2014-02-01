@@ -34,6 +34,7 @@
 #include "glib/gi18n.h"
 
 #include "atspi.h"
+#include "atspi-accessible-private.h"
 
 G_BEGIN_DECLS
 void _atspi_reregister_device_listeners ();

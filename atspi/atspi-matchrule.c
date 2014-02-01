@@ -122,9 +122,6 @@ atspi_match_rule_new (AtspiStateSet *states,
   AtspiMatchRule *rule = g_object_new (ATSPI_TYPE_MATCH_RULE, NULL);
   int i;
 
-  if (!rule)
-    return NULL;
-
   if (states)
     rule->states = g_object_ref (states);
   rule->statematchtype = statematchtype;
@@ -219,7 +216,8 @@ _atspi_match_rule_marshal (AtspiMatchRule *rule, DBusMessageIter *iter)
   if (!dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "{ss}",
                                          &iter_dict))
     return FALSE;
-  g_hash_table_foreach (rule->attributes, append_entry, &iter_dict);
+  if (rule->attributes)
+    g_hash_table_foreach (rule->attributes, append_entry, &iter_dict);
   dbus_message_iter_close_container (&iter_struct, &iter_dict);
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32, &d_attributematchtype);
 

@@ -35,6 +35,7 @@ struct event_data
 {
   gchar *bus_name;
   gchar **data;
+  GSList *properties;
 };
 
 static void
@@ -244,6 +245,7 @@ remove_events (SpiRegistry *registry, const char *bus_name, const char *event)
         {
           g_strfreev (evdata->data);
           g_free (evdata->bus_name);
+          g_slist_free_full (evdata->properties, g_free);
           g_free (evdata);
           registry->events = g_list_remove (registry->events, evdata);
         }
@@ -832,19 +834,34 @@ impl_register_event (DBusConnection *bus, DBusMessage *message, void *user_data)
   gchar **data;
   DBusMessage *signal;
   const char *sender = dbus_message_get_sender (message);
+  DBusMessageIter iter, iter_array;
+  const char *signature = dbus_message_get_signature (message);
 
-  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &orig_name,
-    DBUS_TYPE_INVALID))
+  if (strcmp (signature, "sas") != 0)
+  {
+    g_warning ("got RegisterEvent with invalid signature '%s'", signature);
     return NULL;
+  }
 
+  dbus_message_iter_init (message, &iter);
+  dbus_message_iter_get_basic (&iter, &orig_name);
+  dbus_message_iter_next (&iter);
+  dbus_message_iter_recurse (&iter, &iter_array);
   name = ensure_proper_format (orig_name);
 
-  evdata = (event_data *) g_malloc (sizeof (*evdata));
-  if (!evdata)
-    return NULL;
+  evdata = g_new0 (event_data, 1);
   data = g_strsplit (name, ":", 3);
   evdata->bus_name = g_strdup (sender);
   evdata->data = data;
+
+  while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
+  {
+    const char *property;
+    dbus_message_iter_get_basic (&iter_array, &property);
+    evdata->properties = g_slist_append (evdata->properties,
+                                         g_strdup (property));
+    dbus_message_iter_next (&iter_array);
+  }
   registry->events = g_list_append (registry->events, evdata);
 
   if (needs_mouse_poll (evdata->data))
@@ -855,10 +872,22 @@ impl_register_event (DBusConnection *bus, DBusMessage *message, void *user_data)
   signal = dbus_message_new_signal (SPI_DBUS_PATH_REGISTRY,
                                     SPI_DBUS_INTERFACE_REGISTRY,
                                     "EventListenerRegistered");
-  dbus_message_append_args (signal, DBUS_TYPE_STRING, &sender,
-                            DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID);
-  dbus_connection_send (bus, signal, NULL);
-  dbus_message_unref (signal);
+  if (signal)
+  {
+    GSList *ls = evdata->properties;
+    dbus_message_iter_init_append (signal, &iter);
+    dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &sender);
+    dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &name);
+    dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "s", &iter_array);
+    while (ls)
+    {
+      dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_STRING, &ls->data);
+      ls = g_slist_next (ls);
+    }
+    dbus_message_iter_close_container (&iter, &iter_array);
+    dbus_connection_send (bus, signal, NULL);
+    dbus_message_unref (signal);
+  }
 
   g_free (name);
   return dbus_message_new_method_return (message);

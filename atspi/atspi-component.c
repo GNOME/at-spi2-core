@@ -28,6 +28,7 @@
  */
 
 #include "atspi-private.h"
+#include "atspi-accessible-private.h"
 
 void
 atspi_rect_free (AtspiRect *rect)
@@ -136,9 +137,20 @@ atspi_component_get_extents (AtspiComponent *obj,
 {
   dbus_uint32_t d_ctype = ctype;
   AtspiRect bbox;
+  AtspiAccessible *accessible;
 
   bbox.x = bbox.y = bbox.width = bbox.height = -1;
   g_return_val_if_fail (obj != NULL, atspi_rect_copy (&bbox));
+
+  accessible = ATSPI_ACCESSIBLE (obj);
+  if (accessible->priv->cache && ctype == ATSPI_COORD_TYPE_SCREEN)
+  {
+    GValue *val = g_hash_table_lookup (accessible->priv->cache, "Component.ScreenExtents");
+    if (val)
+    {
+      return g_value_dup_boxed (val);
+    }
+  }
 
   _atspi_dbus_call (obj, atspi_interface_component, "GetExtents", error, "u=>(iiii)", d_ctype, &bbox);
   return atspi_rect_copy (&bbox);

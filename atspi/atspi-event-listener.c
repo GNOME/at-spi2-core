@@ -23,6 +23,7 @@
  */
 
 #include "atspi-private.h"
+#include "atspi-accessible-private.h"
 #include <string.h>
 #include <ctype.h>
 
@@ -35,6 +36,7 @@ typedef struct
   char *category;
   char *name;
   char *detail;
+  GArray *properties;
 } EventListenerEntry;
 
 G_DEFINE_TYPE (AtspiEventListener, atspi_event_listener, G_TYPE_OBJECT)
@@ -513,22 +515,49 @@ atspi_event_listener_register (AtspiEventListener *listener,
                                                       event_type, error);
 }
 
+/**
+ * atspi_event_listener_register_full:
+ * @listener: The #AtspiEventListener to register against an event type.
+ * @event_type: a character string indicating the type of events for which
+ *            notification is requested.  See #atspi_event_listener_register
+ * for a description of the format and legal event types.
+* @properties: (element-type gchar*) (transfer none) (allow-none): a list of
+ *             properties that should be sent along with the event. The
+ *             properties are valued for the duration of the event callback.k
+ *             TODO: Document.
+ *
+ * Adds an in-process callback function to an existing #AtspiEventListener.
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
+ **/
+gboolean
+atspi_event_listener_register_full (AtspiEventListener *listener,
+				             const gchar              *event_type,
+				             GArray *properties,
+				             GError **error)
+{
+  /* TODO: Keep track of which events have been registered, so that we
+ * deregister all of them when the event listener is destroyed */
+
+  return atspi_event_listener_register_from_callback_full (listener->callback,
+                                                           listener->user_data,
+                                                           listener->cb_destroyed,
+                                                           event_type,
+                                                           properties,
+                                                           error);
+}
+
 static gboolean
 notify_event_registered (EventListenerEntry *e)
 {
-  DBusMessage *message, *reply;
 
-  message = dbus_message_new_method_call (atspi_bus_registry,
-	atspi_path_registry,
-	atspi_interface_registry,
-	"RegisterEvent");
-  if (!message)
-    return FALSE;
-  dbus_message_append_args (message, DBUS_TYPE_STRING, &e->event_type, DBUS_TYPE_INVALID);
-  reply = _atspi_dbus_send_with_reply_and_block (message, NULL);
+  dbind_method_call_reentrant (_atspi_bus (), atspi_bus_registry,
+	                       atspi_path_registry,
+	                       atspi_interface_registry,
+	                       "RegisterEvent",
+	                       NULL, "sas", e->event_type,
+                               e->properties);
 
-  if (reply)
-    dbus_message_unref (reply);
   return TRUE;
 }
 
@@ -553,6 +582,38 @@ atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
 				             GDestroyNotify callback_destroyed,
 				             const gchar              *event_type,
 				             GError **error)
+{
+  return atspi_event_listener_register_from_callback_full (callback,
+                                                           user_data,
+                                                           callback_destroyed,
+                                                           event_type, NULL,
+                                                           error);
+}
+
+static GArray *
+copy_event_properties (GArray *src)
+{
+  gint i;
+
+  GArray *dst = g_array_new (FALSE, FALSE, sizeof (char *));
+
+  if (!src)
+    return dst;
+  for (i = 0; i < src->len; i++)
+    {
+      gchar *dup = g_strdup (g_array_index (src, char *, i));
+    g_array_append_val (dst, dup);
+    }
+  return dst;
+}
+
+gboolean
+atspi_event_listener_register_from_callback_full (AtspiEventListenerCB callback,
+				                  void *user_data,
+				                  GDestroyNotify callback_destroyed,
+				                  const gchar              *event_type,
+				                  GArray *properties,
+				                  GError **error)
 {
   EventListenerEntry *e;
   DBusError d_error;
@@ -582,6 +643,7 @@ atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
     g_free (e);
     return FALSE;
   }
+  e->properties = copy_event_properties (properties);
   event_listeners = g_list_prepend (event_listeners, e);
   for (i = 0; i < matchrule_array->len; i++)
   {
@@ -871,8 +933,10 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   AtspiEvent e;
   dbus_int32_t detail1, detail2;
   char *p;
+  GHashTable *cache = NULL;
 
-  if (strcmp (signature, "siiv(so)") != 0)
+  if (strcmp (signature, "siiv(so)") != 0 &&
+      strcmp (signature, "siiva{sv}") != 0)
   {
     g_warning ("Got invalid signature %s for signal %s from interface %s\n", signature, member, category);
     return DBUS_HANDLER_RESULT_HANDLED;
@@ -958,6 +1022,13 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
     break;
   }
 
+  dbus_message_iter_next (&iter);
+  if (dbus_message_iter_get_arg_type (&iter) == DBUS_TYPE_ARRAY)
+  {
+    /* new form -- parse properties sent with event */
+    _atspi_dbus_update_cache_from_dict (e.source, &iter);
+  }
+
   if (!strncmp (e.type, "object:children-changed", 23))
   {
     cache_process_children_changed (&e);
@@ -977,6 +1048,9 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   }
 
   _atspi_send_event (&e);
+
+  if (cache)
+    _atspi_accessible_unref_cache (e.source);
 
   g_free (converted_type);
   g_free (name);

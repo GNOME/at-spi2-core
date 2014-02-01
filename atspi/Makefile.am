@@ -54,6 +54,7 @@ libatspi_la_SOURCES =		\
 	atspi.h	\
 	atspi-accessible.c \
 	atspi-accessible.h \
+	atspi-accessible-private.h \
 	atspi-action.c \
 	atspi-action.h \
 	atspi-application.c \

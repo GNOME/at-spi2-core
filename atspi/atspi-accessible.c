@@ -23,6 +23,7 @@
  */
 
 #include "atspi-private.h"
+#include "atspi-accessible-private.h"
 #include <string.h>
 
 static gboolean enable_caching = FALSE;
@@ -84,6 +85,7 @@ atspi_value_interface_init (AtspiValue *value)
 }
 
 G_DEFINE_TYPE_WITH_CODE (AtspiAccessible, atspi_accessible, ATSPI_TYPE_OBJECT,
+                         G_ADD_PRIVATE (AtspiAccessible)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_ACTION, atspi_action_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_COLLECTION, atspi_collection_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_COMPONENT, atspi_component_interface_init)
@@ -108,6 +110,8 @@ atspi_accessible_init (AtspiAccessible *accessible)
   g_hash_table_insert (_atspi_get_live_refs (), accessible, NULL);
   g_print("at-spi: init: %d objects\n", accessible_count);
 #endif
+
+  accessible->priv = atspi_accessible_get_instance_private (accessible);
 }
 
 static void
@@ -592,6 +596,13 @@ atspi_accessible_get_attributes (AtspiAccessible *obj, GError **error)
 
     g_return_val_if_fail (obj != NULL, NULL);
 
+  if (obj->priv->cache)
+  {
+    GValue *val = g_hash_table_lookup (obj->priv->cache, "Attributes");
+    if (val)
+      return g_value_dup_boxed (val);
+  }
+
   if (!_atspi_accessible_test_cache (obj, ATSPI_CACHE_ATTRIBUTES))
   {
     message = _atspi_dbus_call_partial (obj, atspi_interface_accessible,
@@ -632,15 +643,16 @@ atspi_accessible_get_attributes_as_array (AtspiAccessible *obj, GError **error)
 
     g_return_val_if_fail (obj != NULL, NULL);
 
-  if (_atspi_accessible_get_cache_mask (obj) & ATSPI_CACHE_ATTRIBUTES)
+  if (obj->priv->cache)
   {
-    GArray *array = g_array_new (TRUE, TRUE, sizeof (gchar *));
-    GHashTable *attributes = atspi_accessible_get_attributes (obj, error);
-    if (!attributes)
-      return NULL;
-    g_hash_table_foreach (attributes, add_to_attribute_array, &array);
-    g_hash_table_unref (attributes);
-    return array;
+    GValue *val = g_hash_table_lookup (obj->priv->cache, "Attributes");
+    if (val)
+    {
+      GArray *array = g_array_new (TRUE, TRUE, sizeof (gchar *));
+      GHashTable *attributes = g_value_get_boxed (val);
+      g_hash_table_foreach (attributes, add_to_attribute_array, &array);
+      return array;
+    }
   }
 
   message = _atspi_dbus_call_partial (obj, atspi_interface_accessible, "GetAttributes", error, "");
@@ -1671,7 +1683,8 @@ _atspi_accessible_test_cache (AtspiAccessible *accessible, AtspiCache flag)
   AtspiCache result = accessible->cached_properties & mask & flag;
   if (accessible->states && atspi_state_set_contains (accessible->states, ATSPI_STATE_TRANSIENT))
     return FALSE;
-  return (result != 0 && (atspi_main_loop || enable_caching) &&
+  return (result != 0 && (atspi_main_loop || enable_caching ||
+                          flag == ATSPI_CACHE_INTERFACES) &&
           !atspi_no_cache);
 }
 
@@ -1713,4 +1726,39 @@ atspi_accessible_get_object_locale (AtspiAccessible *accessible, GError **error)
                                g_free);
   }
   return locale;
+}
+
+void
+free_value (gpointer data)
+{
+  GValue *value = data;
+
+  g_value_unset (value);
+  g_free (value);
+}
+
+GHashTable *
+_atspi_accessible_ref_cache (AtspiAccessible *accessible)
+{
+  AtspiAccessiblePrivate *priv = accessible->priv;
+
+  priv->cache_ref_count++;
+  if (priv->cache)
+    return g_hash_table_ref (priv->cache);
+  priv->cache = g_hash_table_new_full (g_str_hash, g_str_equal, g_free,
+                                       free_value);
+  return priv->cache;
+}
+
+void
+_atspi_accessible_unref_cache (AtspiAccessible *accessible)
+{
+  AtspiAccessiblePrivate *priv = accessible->priv;
+
+  if (priv->cache)
+  {
+    g_hash_table_unref (priv->cache);
+    if (--priv->cache_ref_count == 0)
+      priv->cache = NULL;
+  }
 }
