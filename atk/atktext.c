@@ -220,12 +220,14 @@ atk_text_base_init (AtkTextIface *class)
        * @arg3: The new text inserted
        *
        * The "text-insert" signal is emitted when a new text is
-       * inserted.
+       * inserted. If the signal was not triggered by the user
+       * (e.g. typing or pasting text), the "system" detail should be
+       * included.
        */
       atk_text_signals[TEXT_INSERT] =
 	g_signal_new ("text_insert",
 		      ATK_TYPE_TEXT,
-		      G_SIGNAL_RUN_LAST,
+		      G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
 		      0,
 		      (GSignalAccumulator) NULL, NULL,
 		      atk_marshal_VOID__INT_INT_STRING,
@@ -240,12 +242,14 @@ atk_text_base_init (AtkTextIface *class)
        * @arg3: The old text removed
        *
        * The "text-remove" signal is emitted when a new text is
-       * removed.
+       * removed. If the signal was not triggered by the user
+       * (e.g. typing or pasting text), the "system" detail should be
+       * included.
        */
       atk_text_signals[TEXT_REMOVE] =
 	g_signal_new ("text_remove",
 		      ATK_TYPE_TEXT,
-		      G_SIGNAL_RUN_LAST,
+		      G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
 		      0,
 		      (GSignalAccumulator) NULL, NULL,
 		      atk_marshal_VOID__INT_INT_STRING,
