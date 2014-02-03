@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.11.5:
+
+* Add atspi_event_listener_register_full, and cache data requested by it
+  for the duration of the event callback (BGO#708695).
+
+* Fix a crash when atspi_accessible_get_process_id is called for an
+  application that is no longer present.
+
 What's new in at-spi2-core 2.11.3:
 
  * Fix atspi_text_get_bounded_ranges
