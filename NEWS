@@ -1,3 +1,7 @@
+What's new in at-spi2-atk 2.11.5:
+
+* Allow sending of properties with events upon request (BGO#708695).
+
 What's new in at-spi2-atk 2.11.3:
 
  * Fix atspi_text_get_bounded_ranges
