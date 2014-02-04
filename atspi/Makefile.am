@@ -6,6 +6,8 @@ libatspi_la_CFLAGS = $(DBUS_CFLAGS) \
 		    $(DBIND_CFLAGS)     \
 		    $(GLIB_CFLAGS)     \
 		    -I$(top_srcdir)/registryd \
+		    -I$(top_builddir)/registryd \
+                    -I$(top_builddir) \
                     -I$(top_srcdir)
 
 libatspi_la_LIBADD = $(DBUS_LIBS) \
