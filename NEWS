@@ -1,3 +1,19 @@
+Changes in version 2.11.6:
+==========================
+*
+* AtkText:
+  * Bug 723292: Getting the localized role name fails for
+    ATK_ROLE_EDITBAR
+  * Bug 653293: text-insert and text-remove are again detailed
+    signals. Document it.
+
+Contributors:
+  Alejandro Piñeiro Iglesias
+
+Translations:
+  Aurimas Černius (lt), Marek Černocký (cs), Tong Hui (zh_CN),
+  Chao-Hsiung Liao (zh_HK)
+
 Changes in version 2.11.5:
 ==========================
 *
@@ -8,7 +24,7 @@ Contributors:
   Chun-wei Fan
 
 Translations:
-  Yosef Or Boczko (he), Dimitris Spingos (el), Peter V�gner (sk)
+  Yosef Or Boczko (he), Dimitris Spingos (el), Peter Vágner (sk)
 
 Changes in version 2.11.4:
 ==========================
@@ -46,12 +62,12 @@ Changes in version 2.11.4:
   * Added role names on source file in order to be translated
 
 Contributors:
-   Chun-wei Fan, Kjartan Maraas, Alejandro Pi�eiro Iglesias, Colin
+   Chun-wei Fan, Kjartan Maraas, Alejandro Piñeiro Iglesias, Colin
    Walters, Yue Wang
 
 Translations:
-  Fran Di�guez (gl), Michael Jayt (zh_CN), Daniel Mustieles (es),
-  F�bio Nogueira (pt_BR)
+  Fran Diéguez (gl), Michael Jayt (zh_CN), Daniel Mustieles (es),
+  Fábio Nogueira (pt_BR)
 
 
 Changes in version 2.11.3:
@@ -329,7 +345,7 @@ Changes in version 2.0.1:
 * Bug 649307: Clarify AtkPlug and AtkSocket docs
 * Bug 551489: Fix doc of atk_text_get_text_before_offset
 * Bug 588083: Information about return value of some AtkText methods can be clearer
-* Added Alejandro Pi�eiro Iglesias as maintainer
+* Added Alejandro Piñeiro Iglesias as maintainer
 * Updated .gitignore
 * VS 2008/2010 support update
 * New Zulu translation added, Esperanto and Catalan updated
