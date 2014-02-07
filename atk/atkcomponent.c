@@ -302,6 +302,8 @@ atk_component_get_extents    (AtkComponent    *component,
  *
  * Gets the position of @component in the form of 
  * a point specifying @component's top-left corner.
+ *
+ * Deprecated: Since 2.12. Use atk_component_get_extents() instead.
  **/
 void
 atk_component_get_position   (AtkComponent    *component,
@@ -337,6 +339,8 @@ atk_component_get_position   (AtkComponent    *component,
  * @height: address of #gint to put height of @component
  *
  * Gets the size of the @component in terms of width and height.
+ *
+ * Deprecated: Since 2.12. Use atk_component_get_extents() instead.
  **/
 void
 atk_component_get_size       (AtkComponent    *component,

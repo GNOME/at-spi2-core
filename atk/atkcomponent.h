@@ -92,6 +92,10 @@ GType atk_rectangle_get_type (void);
  * @add_focus_handler: This virtual function is deprecated since 2.9.4
  * and it should not be overriden. See
  * atk_component_add_focus_handler() for more information.
+ * @get_position: This virtual function is deprecated since 2.12 and
+ * it should not be overriden. Use @get_extents instead.
+ * @get_size: This virtual function is deprecated since 2.12 and it
+ * should not be overriden. Use @get_extents instead.
  * @remove_focus_handler: This virtual function is deprecated since
  * 2.9.4 and it should not be overriden. See
  * atk_component_remove_focus_handler() for more information.
@@ -174,10 +178,12 @@ void                  atk_component_get_extents            (AtkComponent    *com
                                                             gint            *width,
                                                             gint            *height,
                                                             AtkCoordType    coord_type);
+G_DEPRECATED
 void                  atk_component_get_position           (AtkComponent    *component,
                                                             gint            *x,
                                                             gint            *y,
                                                             AtkCoordType    coord_type);
+G_DEPRECATED
 void                  atk_component_get_size               (AtkComponent    *component,
                                                             gint            *width,
                                                             gint            *height);
