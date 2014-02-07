@@ -192,6 +192,10 @@ atk_component_remove_focus_handler (AtkComponent    *component,
  *
  * Checks whether the specified point is within the extent of the @component.
  *
+ * Toolkit implementor note: ATK provides a default implementation for
+ * this virtual method. In general there are little reason to
+ * re-implement it.
+ *
  * Returns: %TRUE or %FALSE indicating whether the specified point is within
  * the extent of the @component or not
  **/
