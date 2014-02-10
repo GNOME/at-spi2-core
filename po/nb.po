@@ -1,14 +1,14 @@
 # Norwegian bokmål translation of at-spi2-core.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Kjartan Maraas <kmaraas@gnome.org>, 2011-2012.
+# Kjartan Maraas <kmaraas@gnome.org>, 2011-2014.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: at-spi2-core 3.3.x\n"
+"Project-Id-Version: at-spi2-core 2.1.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-24 14:56+0100\n"
-"PO-Revision-Date: 2012-01-24 14:57+0100\n"
+"POT-Creation-Date: 2014-02-10 08:06+0100\n"
+"PO-Revision-Date: 2014-02-10 08:07+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: \n"
@@ -16,7 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../atspi/atspi-component.c:313 ../atspi/atspi-misc.c:985
+#: ../atspi/atspi-component.c:325 ../atspi/atspi-misc.c:1034
 #: ../atspi/atspi-value.c:111
 msgid "The application no longer exists"
 msgstr "Programmet eksisterer ikke lenger"
+
+#: ../atspi/atspi-misc.c:1777
+msgid "Attempted synchronous call where prohibited"
+msgstr "Forsøkt synkront kall ble hindret"
