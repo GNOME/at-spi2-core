@@ -30,20 +30,30 @@
  * elements ordered via rows and columns.  It may also be used to
  * present tree-structured information if the nodes of the trees can
  * be said to contain multiple "columns".  Individual elements of an
- * #AtkTable are typically referred to as "cells", and these cells are
- * exposed by #AtkTable as child #AtkObjects of the #AtkTable.  Both
- * row/column and child-index-based access to these children is
- * provided.
+ * #AtkTable are typically referred to as "cells". Those cells should
+ * implement the interface #AtkTableCell, but #Atk doesn't require
+ * them to be direct children of the current #AtkTable. They can be
+ * grand-children, grand-grand-children etc. #AtkTable provides the
+ * API needed to get a individual cell based on the row and column
+ * numbers.
  *
  * Children of #AtkTable are frequently "lightweight" objects, that
  * is, they may not have backing widgets in the host UI toolkit.  They
  * are therefore often transient.
+ *
  * Since tables are often very complex, #AtkTable includes provision
  * for offering simplified summary information, as well as row and
  * column headers and captions.  Headers and captions are #AtkObjects
  * which may implement other interfaces (#AtkText, #AtkImage, etc.) as
  * appropriate.  #AtkTable summaries may themselves be (simplified)
  * #AtkTables, etc.
+ *
+ * Note for implementors: in the past, #AtkTable required that all the
+ * cells should be direct children of #AtkTable, and provided some
+ * index based methods to request the cells. The practice showed that
+ * that forcing made #AtkTable implementation complex, and hard to
+ * expose other kind of children, like rows or captions. Right now,
+ * index-based methods are deprecated.
  */
 
 enum {
@@ -223,10 +233,11 @@ atk_table_base_init (gpointer *g_class)
  * @row: a #gint representing a row in @table
  * @column: a #gint representing a column in @table
  *
- * Get a reference to the table cell at @row, @column.
+ * Get a reference to the table cell at @row, @column. This cell
+ * should implement the interface #AtkTableCell
  *
- * Returns: (transfer full): a AtkObject* representing the referred to
- * accessible
+ * Returns: (transfer full): an #AtkObject representing the referred
+ * to accessible
  **/
 AtkObject*
 atk_table_ref_at (AtkTable *table,
@@ -253,7 +264,11 @@ atk_table_ref_at (AtkTable *table,
  * @row: a #gint representing a row in @table
  * @column: a #gint representing a column in @table
  *
- * Gets a #gint representing the index at the specified @row and @column.
+ * Gets a #gint representing the index at the specified @row and
+ * @column.
+ *
+ * Deprecated: Since 2.12. Use atk_table_ref_at() in order to get the
+ * accessible that represents the cell at (@row, @column)
  *
  * Returns: a #gint representing the index at specified position.
  * The value -1 is returned if the object at row,column is not a child
@@ -285,8 +300,10 @@ atk_table_get_index_at (AtkTable *table,
  *
  * Gets a #gint representing the row at the specified @index_.
  *
+ * Deprecated: since 2.12.
+ *
  * Returns: a gint representing the row at the specified index,
- * or -1 if the table does not implement this interface
+ * or -1 if the table does not implement this method.
  **/
 gint
 atk_table_get_row_at_index (AtkTable *table,
@@ -309,10 +326,12 @@ atk_table_get_row_at_index (AtkTable *table,
  * @table: a GObject instance that implements AtkTableInterface
  * @index_: a #gint representing an index in @table
  *
- * Gets a #gint representing the column at the specified @index_. 
+ * Gets a #gint representing the column at the specified @index_.
+ *
+ * Deprecated: Since 2.12.
  *
  * Returns: a gint representing the column at the specified index,
- * or -1 if the table does not implement this interface
+ * or -1 if the table does not implement this method.
  **/
 gint
 atk_table_get_column_at_index (AtkTable *table,

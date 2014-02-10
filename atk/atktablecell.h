@@ -28,11 +28,6 @@
 
 G_BEGIN_DECLS
 
-/*
- * AtkTableCell gives access to the cells of a two-dimentional table.
- */
-
-
 #define ATK_TYPE_TABLE_CELL                    (atk_table_cell_get_type ())
 #define ATK_IS_TABLE_CELL(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATK_TYPE_TABLE_CELL)
 #define ATK_TABLE_CELL(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATK_TYPE_TABLE_CELL, AtkTableCell)
@@ -48,31 +43,31 @@ struct _AtkTableCellIface
 {
   GTypeInterface parent;
 
-  gint        (*get_column_span)       (AtkTableCell *cell);
-  GPtrArray * (*get_column_header_cells) (AtkTableCell *cell);
-  gboolean        (*get_position)            (AtkTableCell *cell,
-                                              gint         *row,
-                                              gint         *column);
-  gint        (*get_row_span)          (AtkTableCell *cell);
-GPtrArray *   (*get_row_header_cells)    (AtkTableCell *cell);
-  gboolean    (*get_row_column_span)  (AtkTableCell *cell,
-                                          gint         *row,
-                                          gint         *column,
-                                          gint         *row_span,
-                                          gint         *column_span);
-  AtkObject * (*get_table)               (AtkTableCell *cell);
+  gint          (*get_column_span)         (AtkTableCell *cell);
+  GPtrArray *   (*get_column_header_cells) (AtkTableCell *cell);
+  gboolean      (*get_position)            (AtkTableCell *cell,
+                                            gint         *row,
+                                            gint         *column);
+  gint          (*get_row_span)            (AtkTableCell *cell);
+  GPtrArray *   (*get_row_header_cells)    (AtkTableCell *cell);
+  gboolean      (*get_row_column_span)     (AtkTableCell *cell,
+                                            gint         *row,
+                                            gint         *column,
+                                            gint         *row_span,
+                                            gint         *column_span);
+  AtkObject *   (*get_table)               (AtkTableCell *cell);
 };
 
 GType atk_table_cell_get_type (void);
 
-gint        atk_table_cell_get_column_span       (AtkTableCell *cell);
+gint        atk_table_cell_get_column_span         (AtkTableCell *cell);
 GPtrArray * atk_table_cell_get_column_header_cells (AtkTableCell *cell);
-gboolean     atk_table_cell_get_position           (AtkTableCell *cell,
+gboolean    atk_table_cell_get_position            (AtkTableCell *cell,
                                                     gint         *row,
                                                     gint         *column);
-gint        atk_table_cell_get_row_span          (AtkTableCell *cell);
+gint        atk_table_cell_get_row_span            (AtkTableCell *cell);
 GPtrArray * atk_table_cell_get_row_header_cells    (AtkTableCell *cell);
-gboolean    atk_table_cell_get_row_column_span  (AtkTableCell *cell,
+gboolean    atk_table_cell_get_row_column_span     (AtkTableCell *cell,
                                                     gint         *row,
                                                     gint         *column,
                                                     gint         *row_span,

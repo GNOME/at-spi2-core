@@ -28,12 +28,6 @@
 
 G_BEGIN_DECLS
 
-/*
- * AtkTable describes a user-interface component that presents data in
- * two-dimensional table format.
- */
-
-
 #define ATK_TYPE_TABLE                    (atk_table_get_type ())
 #define ATK_IS_TABLE(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATK_TYPE_TABLE)
 #define ATK_TABLE(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATK_TYPE_TABLE, AtkTable)
@@ -139,11 +133,14 @@ GType atk_table_get_type (void);
 AtkObject*        atk_table_ref_at               (AtkTable         *table,
                                                   gint             row,
                                                   gint             column);
+G_DEPRECATED_FOR(atk_table_ref_at)
 gint              atk_table_get_index_at         (AtkTable         *table,
                                                   gint             row,
                                                   gint             column);
+G_DEPRECATED
 gint              atk_table_get_column_at_index  (AtkTable         *table,
                                                   gint             index_);
+G_DEPRECATED
 gint              atk_table_get_row_at_index     (AtkTable         *table,
                                                   gint             index_);
 gint              atk_table_get_n_columns        (AtkTable         *table);

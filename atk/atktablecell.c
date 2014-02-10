@@ -19,14 +19,28 @@
 
 #include "atktablecell.h"
 
+
+/**
+ * SECTION:atktablecell
+ * @Short_description: The ATK interface implemented for a cell inside
+ * a two-dimentional #AtkTable
+ * @Title:AtkTableCell
+ *
+ * Being #AtkTable a component which present elements ordered via rows
+ * and columns, an #AtkTableCell is the interface which each of those
+ * elements, so "cells" should implement.
+ *
+ * See also #AtkTable.
+ */
+
 typedef AtkTableCellIface AtkTableCellInterface;
 G_DEFINE_INTERFACE (AtkTableCell, atk_table_cell, ATK_TYPE_OBJECT)
 
 static gboolean atk_table_cell_real_get_row_column_span (AtkTableCell *cell,
-                                                            gint         *row,
-                                                            gint         *column,
-                                                            gint         *row_span,
-                                                            gint         *column_span);
+                                                         gint         *row,
+                                                         gint         *column,
+                                                         gint         *row_span,
+                                                         gint         *column_span);
 
 static void
 atk_table_cell_default_init (AtkTableCellInterface *iface)
@@ -85,8 +99,8 @@ atk_table_cell_get_column_header_cells (AtkTableCell *cell)
 /**
  * atk_table_cell_get_position:
  * @cell: a GObject instance that implements AtkTableCellIface
- * row: (out): the row of the given cell.
- * column: (out): the column of the given cell.
+ * @row: (out): the row of the given cell.
+ * @column: (out): the column of the given cell.
  *
  * Retrieves the tabular position of this cell.
  *
@@ -181,10 +195,10 @@ atk_table_cell_get_row_header_cells (AtkTableCell *cell)
  */
 gboolean
 atk_table_cell_get_row_column_span (AtkTableCell *cell,
-                                       gint *row,
-                                       gint *column,
-                                       gint *row_span,
-                                       gint *column_span)
+                                    gint         *row,
+                                    gint         *column,
+                                    gint         *row_span,
+                                    gint         *column_span)
 {
   AtkTableCellIface *iface;
   gint local_row = 0, local_column = 0;
@@ -234,10 +248,10 @@ atk_table_cell_get_table (AtkTableCell *cell)
 
 static gboolean
 atk_table_cell_real_get_row_column_span (AtkTableCell *cell,
-                                            gint         *row,
-                                            gint         *column,
-                                            gint         *row_span,
-                                            gint         *column_span)
+                                         gint         *row,
+                                         gint         *column,
+                                         gint         *row_span,
+                                         gint         *column_span)
 {
   atk_table_cell_get_position (cell, row, column);
   *row_span = atk_table_cell_get_row_span (cell);

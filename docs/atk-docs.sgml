@@ -25,6 +25,7 @@
   <!ENTITY atk-AtkStateSet SYSTEM "xml/atkstateset.xml">
   <!ENTITY atk-AtkStreamableContent SYSTEM "xml/atkstreamablecontent.xml">
   <!ENTITY atk-AtkTable SYSTEM "xml/atktable.xml">
+  <!ENTITY atk-AtkTableCell SYSTEM "xml/atktablecell.xml">
   <!ENTITY atk-AtkText SYSTEM "xml/atktext.xml">
   <!ENTITY atk-AtkUtil SYSTEM "xml/atkutil.xml">
   <!ENTITY atk-AtkValue SYSTEM "xml/atkvalue.xml">
@@ -65,6 +66,7 @@
     &atk-AtkStateSet;
     &atk-AtkStreamableContent;
     &atk-AtkTable;
+    &atk-AtkTableCell;
     &atk-AtkText;
     &atk-AtkUtil;
     &atk-AtkValue;

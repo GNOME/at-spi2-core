@@ -392,6 +392,26 @@ atk_table_get_type
 </SECTION>
 
 <SECTION>
+<FILE>atktablecell</FILE>
+<TITLE>AtkTableCell</TITLE>
+AtkTableCell
+atk_table_cell_get_column_span
+atk_table_cell_get_column_header_cells
+atk_table_cell_get_position
+atk_table_cell_get_row_span
+atk_table_cell_get_row_header_cells
+atk_table_cell_get_row_column_span
+atk_table_cell_get_table
+<SUBSECTION Standard>
+AtkTableCellIface
+ATK_TABLE_CELL
+ATK_IS_TABLE_CELL
+ATK_TYPE_TABLE_CELL
+ATK_TABLE_CELL_GET_IFACE
+atk_table_cell_get_type
+</SECTION>
+
+<SECTION>
 <FILE>atktext</FILE>
 <TITLE>AtkText</TITLE>
 AtkText

@@ -21,6 +21,7 @@ atk_selection_get_type
 atk_state_set_get_type
 atk_streamable_content_get_type
 atk_table_get_type
+atk_table_cell_get_type
 atk_text_get_type
 atk_util_get_type
 atk_value_get_type
