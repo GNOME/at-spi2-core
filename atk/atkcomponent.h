@@ -178,12 +178,12 @@ void                  atk_component_get_extents            (AtkComponent    *com
                                                             gint            *width,
                                                             gint            *height,
                                                             AtkCoordType    coord_type);
-G_DEPRECATED
+G_DEPRECATED_FOR(atk_component_get_extents)
 void                  atk_component_get_position           (AtkComponent    *component,
                                                             gint            *x,
                                                             gint            *y,
                                                             AtkCoordType    coord_type);
-G_DEPRECATED
+G_DEPRECATED_FOR(atk_component_get_extents)
 void                  atk_component_get_size               (AtkComponent    *component,
                                                             gint            *width,
                                                             gint            *height);
