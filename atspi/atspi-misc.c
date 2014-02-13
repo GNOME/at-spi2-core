@@ -747,7 +747,6 @@ process_deferred_messages_callback (gpointer data)
   if (process_deferred_messages ())
     return G_SOURCE_CONTINUE;
 
-  g_source_unref (process_deferred_messages_source);
   process_deferred_messages_source = NULL;
   return G_SOURCE_REMOVE;
 }
@@ -769,6 +768,7 @@ defer_message (DBusConnection *connection, DBusMessage *message, void *user_data
     g_source_set_callback (process_deferred_messages_source,
                            process_deferred_messages_callback, NULL, NULL);
     g_source_attach (process_deferred_messages_source, atspi_main_context);
+    g_source_unref (process_deferred_messages_source);
   }
 
   return DBUS_HANDLER_RESULT_HANDLED;
@@ -1608,9 +1608,9 @@ atspi_set_timeout (gint val, gint startup_time)
   app_startup_time = startup_time;
 }
 
-/*
+/**
  * atspi_set_main_context:
- * @cnx: The #GmainContext to use.
+ * @cnx: The #GMainContext to use.
  *
  * Sets the main loop context that AT-SPI should assume is in use when
  * setting an idle callback.
@@ -1625,11 +1625,11 @@ atspi_set_main_context (GMainContext *cnx)
   if (process_deferred_messages_source != NULL)
   {
     g_source_destroy (process_deferred_messages_source);
-    g_source_unref (process_deferred_messages_source);
     process_deferred_messages_source = g_idle_source_new ();
     g_source_set_callback (process_deferred_messages_source,
                            process_deferred_messages_callback, NULL, NULL);
     g_source_attach (process_deferred_messages_source, cnx);
+    g_source_unref (process_deferred_messages_source);
   }
   atspi_main_context = cnx;
   atspi_dbus_connection_setup_with_g_main (atspi_get_a11y_bus (), cnx);
