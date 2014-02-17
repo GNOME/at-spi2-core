@@ -100,25 +100,3 @@ dbus_bool_t spi_dbus_demarshal_deviceEvent(DBusMessage *message, Accessibility_D
   e->modifiers = modifiers;
   return TRUE;
 }
-
-/*
- * This is a rather annoying function needed to replace
- * NULL values of strings with the empty string. Null string
- * values can be created by the atk_object_get_name or text selection
- */
-static const void *
-provide_defaults(const gint type,
-		 const void *val)
-{
-  switch (type)
-    {
-      case DBUS_TYPE_STRING:
-      case DBUS_TYPE_OBJECT_PATH:
-	   if (!val)
-	      return "";
-	   else
-	      return val;
-      default:
-	   return val;
-    }
-}

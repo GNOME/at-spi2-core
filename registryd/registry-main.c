@@ -47,7 +47,6 @@ static GOptionEntry optentries[] =
   {NULL}
 };
 
-static GDBusConnection *bus_connection = NULL;
 static GDBusProxy      *sm_proxy = NULL;
 static char            *client_id = NULL;
 static GDBusProxy      *client_proxy = NULL;
@@ -57,8 +56,6 @@ static GDBusProxy      *client_proxy = NULL;
 #define SM_DBUS_INTERFACE "org.gnome.SessionManager"
 
 #define SM_CLIENT_DBUS_INTERFACE "org.gnome.SessionManager.ClientPrivate"
-
-static void registry_session_init (const char *previous_client_id, const char *exe);
 
 static void
 on_session_over (GDBusProxy *proxy,
@@ -85,12 +82,6 @@ session_manager_connect (void)
                           G_CALLBACK (on_session_over), NULL);
 
         return (sm_proxy != NULL);
-}
-
-static void
-stop_cb (gpointer data)
-{
-        g_main_loop_quit (mainloop);
 }
 
 static gboolean
