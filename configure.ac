@@ -220,6 +220,7 @@ dbind/dbind-config.h
 	bus/Makefile
 doc/Makefile
 doc/libatspi/Makefile
+doc/libatspi/libatspi-docs.sgml
 test/Makefile
 atspi-2.pc
 atspi-2-uninstalled.pc
