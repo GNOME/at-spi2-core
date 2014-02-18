@@ -56,6 +56,8 @@ atk_table_cell_default_init (AtkTableCellInterface *iface)
  *
  * Returns: a gint representing the number of columns occupied by this cell,
  * or 0 if the cell does not implement this method.
+ *
+ * Since: 2.12
  */
 gint
 atk_table_cell_get_column_span (AtkTableCell *cell)
@@ -80,6 +82,8 @@ atk_table_cell_get_column_span (AtkTableCell *cell)
  *
  * Returns: (element-type AtkObject) (transfer full): a GPtrArray of AtkObjects
  * representing the column header cells.
+ *
+ * Since: 2.12
  */
 GPtrArray *
 atk_table_cell_get_column_header_cells (AtkTableCell *cell)
@@ -105,6 +109,8 @@ atk_table_cell_get_column_header_cells (AtkTableCell *cell)
  * Retrieves the tabular position of this cell.
  *
  * Returns: TRUE if successful; FALSE otherwise.
+ *
+ * Since: 2.12
  */
 gboolean
 atk_table_cell_get_position (AtkTableCell *cell,
@@ -137,6 +143,8 @@ atk_table_cell_get_position (AtkTableCell *cell,
  *
  * Returns: a gint representing the number of rows occupied by this cell,
  * or 0 if the cell does not implement this method.
+ *
+ * Since: 2.12
  */
 gint
 atk_table_cell_get_row_span (AtkTableCell *cell)
@@ -161,6 +169,8 @@ atk_table_cell_get_row_span (AtkTableCell *cell)
  *
  * Returns: (element-type AtkObject) (transfer full): a GPtrArray of AtkObjects
  * representing the row header cells.
+ *
+ * Since: 2.12
  */
 GPtrArray *
 atk_table_cell_get_row_header_cells (AtkTableCell *cell)
@@ -192,6 +202,8 @@ atk_table_cell_get_row_header_cells (AtkTableCell *cell)
  * on the object.
  *
  * Returns: TRUE if successful; FALSE otherwise.
+ *
+ * Since: 2.12
  */
 gboolean
 atk_table_cell_get_row_column_span (AtkTableCell *cell,
@@ -230,6 +242,8 @@ atk_table_cell_get_row_column_span (AtkTableCell *cell,
  * Returns a reference to the accessible of the containing table.
  *
  * Returns: (transfer full): the atk object for the containing table.
+ *
+ * Since: 2.12
  */
 AtkObject *
 atk_table_cell_get_table (AtkTableCell *cell)

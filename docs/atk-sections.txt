@@ -398,6 +398,7 @@ atk_table_get_type
 <FILE>atktablecell</FILE>
 <TITLE>AtkTableCell</TITLE>
 AtkTableCell
+AtkTableCellIface
 atk_table_cell_get_column_span
 atk_table_cell_get_column_header_cells
 atk_table_cell_get_position

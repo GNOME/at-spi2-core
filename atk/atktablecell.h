@@ -39,6 +39,23 @@ typedef struct _AtkTableCell AtkTableCell;
 #endif
 typedef struct _AtkTableCellIface AtkTableCellIface;
 
+/**
+ * AtkTableCellIface:
+ * @get_column_span: virtual function that returns the number of
+ * columns occupied by this cell accessible. @Since: 2.12
+ * @get_column_header_cells: virtual function that returns the column
+ * headers as an array of cell accessibles. @Since: 2.12
+ * @get_position: virtual function that retrieves the tabular position
+ * of this cell. @Since: 2.12
+ * @get_row_span: virtual function that returns the number of rows
+ * occupied by this cell. @Since: 2.12
+ * @get_row_header_cells: virtual function that returns the row
+ * headers as an array of cell accessibles. @Since: 2.12
+ * @get_row_column_span: virtual function that get the row an column
+ * indexes and span of this cell. @Since: 2.12
+ * @get_table: virtual function that returns a reference to the
+ * accessible of the containing table. @Since: 2.12
+ */
 struct _AtkTableCellIface
 {
   GTypeInterface parent;
