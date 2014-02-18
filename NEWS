@@ -1,3 +1,29 @@
+Changes in version 2.11.90:
+==========================
+*
+* AtkComponent:
+  * Deprecate get_position and get_size in favor of get_extents.
+* AtkTable:
+  * Deprecate all index-based methods (atk_table_get_index_at,
+    atk_table_get_column_at_index, atk_table_get_row_at_index).
+* AtkTableCell:
+  * Bug 651353: Add AtkTableCell
+* Documentation:
+  * Document that atk_component_contains has a default implementation.
+  * Document AtkTableCell.
+  * Update AtkTable documentation after AtkTableCell addition.
+  * Document AtkRegistry (already existed but not properly included on
+    the documentation).
+  * API reference categorized (now easier to read).
+  * ATK overview added.
+  * Added some previously forgotten symbols (thanks to atk-unused.txt)
+
+Contributors:
+  Mike Gorse, Alejandro Piñeiro Iglesias
+
+Translations:
+  Jorge Pérez Pérez (an), Kjartan Maraas (nb), Andika Triwidada (id)
+
 Changes in version 2.11.6:
 ==========================
 *
