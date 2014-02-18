@@ -40,41 +40,56 @@
     <releaseinfo>for ATK &version;</releaseinfo>
   </bookinfo>
 
-  <chapter id="atk">
-    <title>ATK Library</title>
+  <chapter id="atkobject">
+    <title>Base accessibility object</title>
+    &atk-AtkObject;
+  </chapter>
 
+  <chapter id="toolkit">
+    <title>Event and toolkit support</title>
+    &atk-AtkUtil;
+  </chapter>
+
+  <chapter id="interfaces">
+    <title>ATK Interfaces</title>
     &atk-AtkAction;
     &atk-AtkComponent;
     &atk-AtkDocument;
     &atk-AtkEditabletext;
-    &atk-AtkGObjectAccessible;
-    &atk-AtkHyperlink;
     &atk-AtkHyperlinkImpl;
     &atk-AtkHypertext;
     &atk-AtkImage;
-    &atk-AtkNoOpObject;
-    &atk-AtkNoOpObjectFactory;
-    &atk-AtkObject;
-    &atk-AtkObjectFactory;
-    &atk-AtkPlug;
-    &atk-AtkRegistry;
-    &atk-AtkRelation;
-    &atk-AtkRelationSet;
     &atk-AtkSelection;
-    &atk-AtkSocket;
-    &atk-AtkState;
-    &atk-AtkStateSet;
     &atk-AtkStreamableContent;
     &atk-AtkTable;
     &atk-AtkTableCell;
     &atk-AtkText;
-    &atk-AtkUtil;
     &atk-AtkValue;
     &atk-AtkWindow;
   </chapter>
 
+  <chapter id="data">
+    <title>Basic accessible data types</title>
+    &atk-AtkRelation;
+    &atk-AtkRelationSet;
+    &atk-AtkState;
+    &atk-AtkStateSet;
+  </chapter>
+
+  <chapter id="accessibles">
+    <title>Custom accessible objects</title>
+    &atk-AtkGObjectAccessible;
+    &atk-AtkHyperlink;
+    &atk-AtkNoOpObject;
+    &atk-AtkPlug;
+    &atk-AtkSocket;
+  </chapter>
+
   <chapter id="utilities">
     <title>Utilities</title>
+    &atk-AtkNoOpObjectFactory;
+    &atk-AtkObjectFactory;
+    &atk-AtkRegistry;
     &atk-AtkVersion;
   </chapter>
 
