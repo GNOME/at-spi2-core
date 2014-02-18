@@ -60,6 +60,8 @@ atk_document_get_attribute_value
 atk_document_set_attribute_value
 atk_document_get_attributes
 atk_document_get_locale
+atk_document_get_current_page_number
+atk_document_get_page_count
 <SUBSECTION Standard>
 ATK_DOCUMENT
 ATK_IS_DOCUMENT
@@ -267,6 +269,7 @@ atk_relation_get_relation_type
 atk_relation_get_target
 atk_relation_add_target
 atk_relation_remove_target
+atk_relation_set_contains_target
 <SUBSECTION Standard>
 ATK_RELATION
 ATK_IS_RELATION
@@ -462,6 +465,7 @@ atk_text_attribute_get_type
 atk_text_boundary_get_type
 atk_text_granularity_get_type
 atk_text_clip_type_get_type
+atk_text_range_get_type
 </SECTION>
 
 <SECTION>
@@ -676,7 +680,7 @@ ATK_IS_WINDOW
 ATK_IS_WINDOW_CLASS
 ATK_WINDOW
 ATK_WINDOW_CLASS
-ATK_WINDOW_GET_CLASS
+ATK_WINDOW_GET_IFACE
 ATK_TYPE_WINDOW
 AtkWindowClass
 atk_window_get_type
@@ -685,6 +689,8 @@ atk_window_get_type
 <SECTION>
 <FILE>atkversion</FILE>
 <TITLE>Versioning Utilities</TITLE>
+ATK_BINARY_AGE
+ATK_INTERFACE_AGE
 atk_get_major_version
 atk_get_minor_version
 atk_get_micro_version

@@ -40,6 +40,11 @@
     <releaseinfo>for ATK &version;</releaseinfo>
   </bookinfo>
 
+  <chapter id="overview">
+    <title>Overview</title>
+    Atk is cool
+  </chapter>
+
   <chapter id="atkobject">
     <title>Base accessibility object</title>
     &atk-AtkObject;
