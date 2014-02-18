@@ -42,6 +42,7 @@ void spi_initialize_image (DRoutePath * path);
 void spi_initialize_selection (DRoutePath * path);
 void spi_initialize_socket (DRoutePath * path);
 void spi_initialize_table (DRoutePath * path);
+void spi_initialize_table_cell (DRoutePath * path);
 void spi_initialize_text (DRoutePath * path);
 void spi_initialize_value (DRoutePath * path);
 void spi_initialize_cache (DRoutePath * path);

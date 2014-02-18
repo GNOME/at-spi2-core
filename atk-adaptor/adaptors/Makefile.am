@@ -29,5 +29,6 @@ libatk_bridge_adaptors_la_SOURCES =\
 	selection-adaptor.c	\
 	socket-adaptor.c	\
 	table-adaptor.c		\
+	table-cell-adaptor.c		\
 	text-adaptor.c		\
 	value-adaptor.c

@@ -272,6 +272,12 @@ spi_object_append_interfaces (DBusMessageIter * iter, AtkObject * obj)
       dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
     }
 
+  if (ATK_IS_TABLE_CELL (obj))
+    {
+      itf = ATSPI_DBUS_INTERFACE_TABLE_CELL;
+      dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
+    }
+
   if (ATK_IS_VALUE (obj))
     {
       itf = ATSPI_DBUS_INTERFACE_VALUE;

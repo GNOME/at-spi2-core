@@ -1066,6 +1066,7 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
   spi_initialize_selection (accpath);
   spi_initialize_socket (accpath);
   spi_initialize_table (accpath);
+  spi_initialize_table_cell (accpath);
   spi_initialize_text (accpath);
   spi_initialize_value (accpath);
 

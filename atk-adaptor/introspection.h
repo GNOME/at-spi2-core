@@ -35,6 +35,8 @@ extern const char *spi_org_a11y_atspi_Selection;
 
 extern const char *spi_org_a11y_atspi_Table;
 
+extern const char *spi_org_a11y_atspi_TableCell;
+
 extern const char *spi_org_a11y_atspi_Text;
 
 extern const char *spi_org_a11y_atspi_EditableText;
@@ -42,6 +44,8 @@ extern const char *spi_org_a11y_atspi_EditableText;
 extern const char *spi_org_a11y_atspi_Cache;
 
 extern const char *spi_org_a11y_atspi_Value;
+
+extern const char *spi_org_a11y_atspi_Registry;
 
 extern const char *spi_org_a11y_atspi_DeviceEventController;
 
