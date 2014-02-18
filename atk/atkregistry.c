@@ -20,6 +20,21 @@
 #include "atkregistry.h"
 #include "atknoopobjectfactory.h"
 
+/**
+ * SECTION:atkregistry
+ * @Short_description: An object used to store the GType of the
+ * factories used to create an accessible object for an object of a
+ * particular GType.
+ * @Title:AtkRegistry
+ *
+ * The AtkRegistry is normally used to create appropriate ATK "peers"
+ * for user interface components.  Application developers usually need
+ * only interact with the AtkRegistry by associating appropriate ATK
+ * implementation classes with GObject classes via the
+ * atk_registry_set_factory_type call, passing the appropriate GType
+ * for application custom widget classes.
+ */
+
 static AtkRegistry *default_registry = NULL;
 
 static void              atk_registry_init           (AtkRegistry      *instance,
