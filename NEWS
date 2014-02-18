@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.11.90:
+
+* bus-launcher: Do not use g_setenv when initializing the bus (bgo#724070).
+    
+* Fix a critical when processing deferred messages (bgo#724292).
+
+* Add AtspitableCell, tracking the new atk interface
+
 What's new in at-spi2-core 2.11.5:
 
 * Add atspi_event_listener_register_full, and cache data requested by it
