@@ -46,6 +46,7 @@
 #include "atspi-selection.h"
 #include "atspi-stateset.h"
 #include "atspi-table.h"
+#include "atspi-table-cell.h"
 #include "atspi-text.h"
 #include "atspi-value.h"
 

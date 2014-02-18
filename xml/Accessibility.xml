@@ -11,6 +11,7 @@
   <xi:include href="Image.xml" parse="xml"/>
   <xi:include href="Selection.xml" parse="xml"/>
   <xi:include href="Table.xml" parse="xml"/>
+  <xi:include href="TableCell.xml" parse="xml"/>
   <xi:include href="Text.xml" parse="xml"/>
   <xi:include href="EditableText.xml" parse="xml"/>
   <xi:include href="Cache.xml" parse="xml"/>

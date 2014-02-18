@@ -1322,6 +1322,7 @@ typedef enum
 #define ATSPI_DBUS_INTERFACE_IMAGE "org.a11y.atspi.Image"
 #define ATSPI_DBUS_INTERFACE_SELECTION "org.a11y.atspi.Selection"
 #define ATSPI_DBUS_INTERFACE_TABLE "org.a11y.atspi.Table"
+#define ATSPI_DBUS_INTERFACE_TABLE_CELL "org.a11y.atspi.TableCell"
 #define ATSPI_DBUS_INTERFACE_TEXT "org.a11y.atspi.Text"
 #define ATSPI_DBUS_INTERFACE_VALUE "org.a11y.atspi.Value"
 #define ATSPI_DBUS_INTERFACE_SOCKET "org.a11y.atspi.Socket"

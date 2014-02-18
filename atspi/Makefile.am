@@ -46,6 +46,7 @@ atspi-gmain.h \
 	atspi-selection.h \
 	atspi-stateset.h \
 	atspi-table.h \
+	atspi-table-cell.h \
 	atspi-text.h \
 	atspi-types.h \
 	atspi-value.h
@@ -100,6 +101,7 @@ libatspi_la_SOURCES =		\
 	atspi-stateset.c \
 	atspi-stateset.h \
 	atspi-table.c \
+	atspi-table-cell.c \
 	atspi-table.h \
 	atspi-text.c \
 	atspi-text.h \

@@ -75,6 +75,11 @@ atspi_table_interface_init (AtspiTable *table)
 }
 
 static void
+atspi_table_cell_interface_init (AtspiTableCell *cell)
+{
+}
+
+static void
 atspi_text_interface_init (AtspiText *text)
 {
 }
@@ -95,6 +100,7 @@ G_DEFINE_TYPE_WITH_CODE (AtspiAccessible, atspi_accessible, ATSPI_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_IMAGE, atspi_image_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_SELECTION, atspi_selection_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_TABLE, atspi_table_interface_init)
+                         G_IMPLEMENT_INTERFACE (ATSPI_TYPE_TABLE_CELL, atspi_table_cell_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_TEXT, atspi_text_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_VALUE, atspi_value_interface_init))
 
@@ -1020,6 +1026,23 @@ atspi_accessible_is_table (AtspiAccessible *obj)
 }
 
 /**
+ * atspi_accessible_is_table_cell:
+ * @obj: a pointer to the #AtspiAccessible instance to query.
+ *
+ * Query whether the specified #AtspiAccessible implements the
+ * #AtspiTableCell interface.
+ *
+ * Returns: #TRUE if @obj implements the #AtspiTable interface,
+ *          #FALSE otherwise.
+**/
+gboolean
+atspi_accessible_is_table_cell (AtspiAccessible *obj)
+{
+  return _atspi_accessible_is_a (obj,
+			      atspi_interface_table_cell);
+}
+
+/**
  * atspi_accessible_is_streamable_content:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
@@ -1425,6 +1448,22 @@ atspi_accessible_get_table_iface (AtspiAccessible *obj)
 }
 
 /**
+ * atspi_accessible_get_table_cell:
+ * @obj: a pointer to the #AtspiAccessible instance to query.
+ *
+ * Gets the #AtspiTableCell interface for an #AtspiAccessible.
+ *
+ * Returns: (transfer full): a pointer to an #AtspiTableCell interface instance,
+ *          or NULL if @obj does not implement #AtspiTable.
+ **/
+AtspiTableCell *
+atspi_accessible_get_table_cell (AtspiAccessible *obj)
+{
+  return (_atspi_accessible_is_a (obj, atspi_interface_table_cell) ?
+          g_object_ref (ATSPI_TABLE_CELL (obj)) : NULL);  
+}
+
+/**
  * atspi_accessible_get_text:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
@@ -1541,6 +1580,8 @@ atspi_accessible_get_interfaces (AtspiAccessible *obj)
     append_const_val (ret, "Selection");
   if (atspi_accessible_is_table (obj))
     append_const_val (ret, "Table");
+  if (atspi_accessible_is_table_cell (obj))
+    append_const_val (ret, "TableCell");
   if (atspi_accessible_is_text (obj))
     append_const_val (ret, "Text");
   if (atspi_accessible_is_value (obj))

@@ -65,6 +65,7 @@ extern const char *atspi_interface_image;
 extern const char *atspi_interface_registry;
 extern const char *atspi_interface_selection;
 extern const char *atspi_interface_table;
+extern const char *atspi_interface_table_cell;
 extern const char *atspi_interface_text;
 extern const char *atspi_interface_cache;
 extern const char *atspi_interface_value;

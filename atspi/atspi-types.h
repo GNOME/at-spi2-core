@@ -40,6 +40,7 @@ typedef struct _AtspiHypertext AtspiHypertext;
 typedef struct _AtspiImage AtspiImage;
 typedef struct _AtspiSelection AtspiSelection;
 typedef struct _AtspiTable AtspiTable;
+typedef struct _AtspiTableCell AtspiTableCell;
 typedef struct _AtspiText AtspiText;
 typedef struct _AtspiValue AtspiValue;
 

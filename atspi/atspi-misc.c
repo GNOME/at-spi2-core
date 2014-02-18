@@ -68,6 +68,7 @@ const char *atspi_interface_image = ATSPI_DBUS_INTERFACE_IMAGE;
 const char *atspi_interface_registry = ATSPI_DBUS_INTERFACE_REGISTRY;
 const char *atspi_interface_selection = ATSPI_DBUS_INTERFACE_SELECTION;
 const char *atspi_interface_table = ATSPI_DBUS_INTERFACE_TABLE;
+const char *atspi_interface_table_cell = ATSPI_DBUS_INTERFACE_TABLE_CELL;
 const char *atspi_interface_text = ATSPI_DBUS_INTERFACE_TEXT;
 const char *atspi_interface_cache = ATSPI_DBUS_INTERFACE_CACHE;
 const char *atspi_interface_value = ATSPI_DBUS_INTERFACE_VALUE;
@@ -87,6 +88,7 @@ static const char *interfaces[] =
   "org.a11y.atspi.LoginHelper",
   ATSPI_DBUS_INTERFACE_SELECTION,
   ATSPI_DBUS_INTERFACE_TABLE,
+  ATSPI_DBUS_INTERFACE_TABLE_CELL,
   ATSPI_DBUS_INTERFACE_TEXT,
   ATSPI_DBUS_INTERFACE_VALUE,
   NULL

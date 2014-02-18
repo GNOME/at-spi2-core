@@ -128,6 +128,8 @@ AtspiSelection * atspi_accessible_get_selection (AtspiAccessible *obj);
 
 AtspiTable * atspi_accessible_get_table (AtspiAccessible *obj);
 
+AtspiTableCell * atspi_accessible_get_table_cell (AtspiAccessible *obj);
+
 AtspiText * atspi_accessible_get_text (AtspiAccessible *obj);
 
 AtspiValue * atspi_accessible_get_value (AtspiAccessible *obj);
