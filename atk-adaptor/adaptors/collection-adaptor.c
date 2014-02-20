@@ -830,7 +830,7 @@ inorder (AtkObject * collection, MatchRulePrivate * mrp,
                                 NULL, TRUE, TRUE);
 
   /* Next, we look through the right subtree */
-  while ((max == 0 || kount < max) && obj != collection)
+  while ((max == 0 || kount < max) && obj && obj != collection)
     {
       AtkObject *parent = atk_object_get_parent (obj);
       i = atk_object_get_index_in_parent (obj);
