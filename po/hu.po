@@ -3,542 +3,608 @@
 # This file is distributed under the same license as the atk package.
 #
 #
+#
 # Andras Timar <timar at gnome dot hu>, 2002, 2003.
 # Laszlo Dvornik <dvornik at gnome dot hu>, 2004.
 # Szabolcs Varga <shirokuma at shirokuma dot hu>, 2005.
-# Gabor Kelemen <kelemeng at gnome dot hu>, 2005, 2006, 2008, 2009, 2011.
+# Gabor Kelemen <kelemeng at gnome dot hu>, 2005, 2006, 2008, 2009, 2011, 2014.
 # Balázs Meskó <meskobalazs at gmail dot com>, 2011.
 # Attila Hammer <hammera at pickup dot hu>, 2012.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: atk master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=atk&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-02-15 11:58+0000\n"
-"PO-Revision-Date: 2012-02-23 08:03+0200\n"
-"Last-Translator: Attila Hammer <hammera at pickup dot hu>\n"
+"POT-Creation-Date: 2014-02-01 18:35+0000\n"
+"PO-Revision-Date: 2014-02-23 03:51+0100\n"
+"Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
-"X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../atk/atkhyperlink.c:103
+#: ../atk/atkhyperlink.c:128
 msgid "Selected Link"
 msgstr "Kijelölt hivatkozás"
 
-#: ../atk/atkhyperlink.c:104
+#: ../atk/atkhyperlink.c:129
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr "Megadja, hogy ki van-e jelölve az AtkHyperlink objektum"
 
-#: ../atk/atkhyperlink.c:110
+#: ../atk/atkhyperlink.c:135
 msgid "Number of Anchors"
 msgstr "Horgonyok száma"
 
-#: ../atk/atkhyperlink.c:111
+#: ../atk/atkhyperlink.c:136
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr "Az AtkHyperlink objektumhoz rendelt horgonyok száma"
 
-#: ../atk/atkhyperlink.c:119
+#: ../atk/atkhyperlink.c:144
 msgid "End index"
 msgstr "Befejező index"
 
-#: ../atk/atkhyperlink.c:120
+#: ../atk/atkhyperlink.c:145
 msgid "The end index of the AtkHyperlink object"
 msgstr "Az AtkHyperlink objektum befejező indexe"
 
-#: ../atk/atkhyperlink.c:128
+#: ../atk/atkhyperlink.c:153
 msgid "Start index"
 msgstr "Kezdő index"
 
-#: ../atk/atkhyperlink.c:129
+#: ../atk/atkhyperlink.c:154
 msgid "The start index of the AtkHyperlink object"
 msgstr "Az AtkHyperlink objektum kezdő indexe"
 
-#: ../atk/atkobject.c:74
+#: ../atk/atkobject.c:104
 msgid "invalid"
 msgstr "érvénytelen"
 
-#: ../atk/atkobject.c:75
+#: ../atk/atkobject.c:105
 msgid "accelerator label"
 msgstr "gyorsítócímke"
 
 # Megjegyzés: ez a szöveg nem jelenik meg a képernyőn, viszont ez inkább nem értesítést jelent?
-#: ../atk/atkobject.c:76
+#: ../atk/atkobject.c:106
 msgid "alert"
 msgstr "értesítés"
 
-#: ../atk/atkobject.c:77
+#: ../atk/atkobject.c:107
 msgid "animation"
 msgstr "animáció"
 
-#: ../atk/atkobject.c:78
+#: ../atk/atkobject.c:108
 msgid "arrow"
 msgstr "nyíl"
 
-#: ../atk/atkobject.c:79
+#: ../atk/atkobject.c:109
 msgid "calendar"
 msgstr "naptár"
 
-#: ../atk/atkobject.c:80
+#: ../atk/atkobject.c:110
 msgid "canvas"
 msgstr "rajzvászon"
 
-#: ../atk/atkobject.c:81
+#: ../atk/atkobject.c:111
 msgid "check box"
 msgstr "jelölőnégyzet"
 
 # Megjegyzés: korábban az Orkában ezt jelölőelemnek fordítottuk, megváltoztathatjuk itt? Ez a szöveg nem jelenik meg a képernyőn. Használhatnánk esetleg a
 # jelölőmenü vezérlőelem megnevezést, ez rövidebb.
-#: ../atk/atkobject.c:82
+#: ../atk/atkobject.c:112
 msgid "check menu item"
 msgstr "jelölőelem"
 
-#: ../atk/atkobject.c:83
+#: ../atk/atkobject.c:113
 msgid "color chooser"
 msgstr "színválasztó"
 
-#: ../atk/atkobject.c:84
+#: ../atk/atkobject.c:114
 msgid "column header"
 msgstr "oszlopfejléc"
 
 # Megjegyzés: Korábban okrában ezt kombinált listamezőnek fordítottuk, igazodva a többi képernyőolvasóhoz (JAWS, NVDA). Ez a szöveg nem jelenik meg a képernyőn.
-#: ../atk/atkobject.c:85
+#: ../atk/atkobject.c:115
 msgid "combo box"
 msgstr "kombinált listamező"
 
-#: ../atk/atkobject.c:86
+#: ../atk/atkobject.c:116
 msgid "dateeditor"
 msgstr "dátumszerkesztő"
 
-#: ../atk/atkobject.c:87
+#: ../atk/atkobject.c:117
 msgid "desktop icon"
 msgstr "asztali ikon"
 
-#: ../atk/atkobject.c:88
+#: ../atk/atkobject.c:118
 msgid "desktop frame"
 msgstr "asztali keret"
 
-#: ../atk/atkobject.c:89
+#: ../atk/atkobject.c:119
 msgid "dial"
 msgstr "tárcsa"
 
-#: ../atk/atkobject.c:90
+#: ../atk/atkobject.c:120
 msgid "dialog"
 msgstr "párbeszédablak"
 
-#: ../atk/atkobject.c:91
+#: ../atk/atkobject.c:121
 msgid "directory pane"
 msgstr "könyvtár-ablaktábla"
 
-#: ../atk/atkobject.c:92
+#: ../atk/atkobject.c:122
 msgid "drawing area"
 msgstr "rajzterület"
 
-#: ../atk/atkobject.c:93
+#: ../atk/atkobject.c:123
 msgid "file chooser"
 msgstr "fájlválasztó"
 
-#: ../atk/atkobject.c:94
+#: ../atk/atkobject.c:124
 msgid "filler"
 msgstr "kitöltő"
 
 #. I know it looks wrong but that is what Java returns
-#: ../atk/atkobject.c:96
+#: ../atk/atkobject.c:126
 msgid "fontchooser"
 msgstr "betűkészlet-választó"
 
-#: ../atk/atkobject.c:97
+#: ../atk/atkobject.c:127
 msgid "frame"
 msgstr "keret"
 
-#: ../atk/atkobject.c:98
+#: ../atk/atkobject.c:128
 msgid "glass pane"
 msgstr "üveg-ablaktábla"
 
-#: ../atk/atkobject.c:99
+#: ../atk/atkobject.c:129
 msgid "html container"
 msgstr "html-konténer"
 
-#: ../atk/atkobject.c:100
+#: ../atk/atkobject.c:130
 msgid "icon"
 msgstr "ikon"
 
-#: ../atk/atkobject.c:101
+#: ../atk/atkobject.c:131
 msgid "image"
 msgstr "kép"
 
-#: ../atk/atkobject.c:102
+#: ../atk/atkobject.c:132
 msgid "internal frame"
 msgstr "belső keret"
 
-#: ../atk/atkobject.c:103
+#: ../atk/atkobject.c:133
 msgid "label"
 msgstr "címke"
 
-#: ../atk/atkobject.c:104
+#: ../atk/atkobject.c:134
 msgid "layered pane"
 msgstr "réteges ablaktábla"
 
-#: ../atk/atkobject.c:105
+#: ../atk/atkobject.c:135
 msgid "list"
 msgstr "lista"
 
-#: ../atk/atkobject.c:106
+#: ../atk/atkobject.c:136
 msgid "list item"
 msgstr "listaelem"
 
-#: ../atk/atkobject.c:107
+#: ../atk/atkobject.c:137
 msgid "menu"
 msgstr "menü"
 
-#: ../atk/atkobject.c:108
+#: ../atk/atkobject.c:138
 msgid "menu bar"
 msgstr "menüsor"
 
-#: ../atk/atkobject.c:109
+#: ../atk/atkobject.c:139
 msgid "menu item"
 msgstr "menüelem"
 
-#: ../atk/atkobject.c:110
+#: ../atk/atkobject.c:140
 msgid "option pane"
 msgstr "beállítás-ablaktábla"
 
 # Megjegyzés: korábban Orkában ezt a vezérlőelemet lapfülre fordítottuk, igazodva más képernyőolvasókhoz (JAWS, NVDA). Ez a szöveg nem jelenik meg a képernyőn.
-#: ../atk/atkobject.c:111
+#: ../atk/atkobject.c:141
 msgid "page tab"
 msgstr "lapfül"
 
 # Ezt inkább érdemesebb laplistára fordítani, mivel más ernyőolvasók is ezt használják, korábban az Orkában is ezt a fordítást használtuk. Ez a szöveg nem jelenik meg a képernyőn.
-#: ../atk/atkobject.c:112
+#: ../atk/atkobject.c:142
 msgid "page tab list"
 msgstr "laplista"
 
-#: ../atk/atkobject.c:113
+#: ../atk/atkobject.c:143
 msgid "panel"
 msgstr "panel"
 
 # A jelszó beviteli mező mindig egy szerkesztőmezőként jelenik meg, más ernyőolvasók ezt a fordítást használják. Ez a szöveg nem jelenik meg a képernyőn.
-#: ../atk/atkobject.c:114
+#: ../atk/atkobject.c:144
 msgid "password text"
 msgstr "jelszó szerkesztőmező"
 
-#: ../atk/atkobject.c:115
+#: ../atk/atkobject.c:145
 msgid "popup menu"
 msgstr "helyi menü"
 
-#: ../atk/atkobject.c:116
+#: ../atk/atkobject.c:146
 msgid "progress bar"
 msgstr "folyamatjelző"
 
 # Korábban erre a vezérlőelemre Orkában a gomb fordítást használtuk, igazodva más képernyőolvasókhoz (JAWS, NVDA). Ez a szöveg nem jelenik meg a képernyőn.
-#: ../atk/atkobject.c:117
+#: ../atk/atkobject.c:147
 msgid "push button"
 msgstr "gomb"
 
-#: ../atk/atkobject.c:118
+#: ../atk/atkobject.c:148
 msgid "radio button"
 msgstr "választógomb"
 
-#: ../atk/atkobject.c:119
+#: ../atk/atkobject.c:149
 msgid "radio menu item"
 msgstr "választógomb-elem"
 
-#: ../atk/atkobject.c:120
+#: ../atk/atkobject.c:150
 msgid "root pane"
 msgstr "gyökér-ablaktábla"
 
-#: ../atk/atkobject.c:121
+#: ../atk/atkobject.c:151
 msgid "row header"
 msgstr "sorfejléc"
 
-#: ../atk/atkobject.c:122
+#: ../atk/atkobject.c:152
 msgid "scroll bar"
 msgstr "gördítősáv"
 
-#: ../atk/atkobject.c:123
+#: ../atk/atkobject.c:153
 msgid "scroll pane"
 msgstr "gördíthető ablaktábla"
 
-#: ../atk/atkobject.c:124
+#: ../atk/atkobject.c:154
 msgid "separator"
 msgstr "elválasztó"
 
-#: ../atk/atkobject.c:125
+#: ../atk/atkobject.c:155
 msgid "slider"
 msgstr "csúszka"
 
-#: ../atk/atkobject.c:126
+#: ../atk/atkobject.c:156
 msgid "split pane"
 msgstr "felosztott ablaktábla"
 
 # Megjegyzés: korábban Orkában a léptetőgomb fordítást használtuk, igazodva más képernyőolvasókhoz (JAWS, NVDA). Ez a szöveg nem jelenik meg a képernyőn.
-#: ../atk/atkobject.c:127
+#: ../atk/atkobject.c:157
 msgid "spin button"
 msgstr "léptetőgomb"
 
-#: ../atk/atkobject.c:128
+#: ../atk/atkobject.c:158
 msgid "statusbar"
 msgstr "állapotsor"
 
-#: ../atk/atkobject.c:129
+#: ../atk/atkobject.c:159
 msgid "table"
 msgstr "táblázat"
 
-#: ../atk/atkobject.c:130
+#: ../atk/atkobject.c:160
 msgid "table cell"
 msgstr "táblázatcella"
 
-#: ../atk/atkobject.c:131
+#: ../atk/atkobject.c:161
 msgid "table column header"
 msgstr "táblázat-oszlopfejléc"
 
-#: ../atk/atkobject.c:132
+#: ../atk/atkobject.c:162
 msgid "table row header"
 msgstr "táblázat-sorfejléc"
 
-#: ../atk/atkobject.c:133
+#: ../atk/atkobject.c:163
 msgid "tear off menu item"
 msgstr "leválasztható menüelem"
 
-#: ../atk/atkobject.c:134
+#: ../atk/atkobject.c:164
 msgid "terminal"
 msgstr "terminál"
 
 # Korábban erre a vezérlőelemre Orkában a szerkesztőmező fordítást használtuk, igazodva más képernyőolvasókhoz (JAWS, NVDA). Ez a szöveg nem jelenik meg a képernyőn.
-#: ../atk/atkobject.c:135
+#: ../atk/atkobject.c:165
 msgid "text"
 msgstr "szerkesztőmező"
 
-#: ../atk/atkobject.c:136
+#: ../atk/atkobject.c:166
 msgid "toggle button"
 msgstr "kapcsológomb"
 
-#: ../atk/atkobject.c:137
+#: ../atk/atkobject.c:167
 msgid "tool bar"
 msgstr "eszköztár"
 
-#: ../atk/atkobject.c:138
+#: ../atk/atkobject.c:168
 msgid "tool tip"
 msgstr "buboréksúgó"
 
-#: ../atk/atkobject.c:139
+#: ../atk/atkobject.c:169
 msgid "tree"
 msgstr "fa"
 
-#: ../atk/atkobject.c:140
+#: ../atk/atkobject.c:170
 msgid "tree table"
 msgstr "fatáblázat"
 
-#: ../atk/atkobject.c:141
+#: ../atk/atkobject.c:171
 msgid "unknown"
 msgstr "ismeretlen"
 
-#: ../atk/atkobject.c:142
+#: ../atk/atkobject.c:172
 msgid "viewport"
 msgstr "munkalap"
 
-#: ../atk/atkobject.c:143
+#: ../atk/atkobject.c:173
 msgid "window"
 msgstr "ablak"
 
-#: ../atk/atkobject.c:144
+#: ../atk/atkobject.c:174
 msgid "header"
 msgstr "élőfej"
 
-#: ../atk/atkobject.c:145
+#: ../atk/atkobject.c:175
 msgid "footer"
 msgstr "élőláb"
 
-#: ../atk/atkobject.c:146
+#: ../atk/atkobject.c:176
 msgid "paragraph"
 msgstr "bekezdés"
 
-#: ../atk/atkobject.c:147
+#: ../atk/atkobject.c:177
 msgid "ruler"
 msgstr "vonalzó"
 
-#: ../atk/atkobject.c:148
+#: ../atk/atkobject.c:178
 msgid "application"
 msgstr "alkalmazás"
 
-#: ../atk/atkobject.c:149
+#: ../atk/atkobject.c:179
 msgid "autocomplete"
 msgstr "automatikus kiegészítés"
 
-#: ../atk/atkobject.c:150
+#: ../atk/atkobject.c:180
 msgid "edit bar"
 msgstr "szerkesztősáv"
 
-#: ../atk/atkobject.c:151
+#: ../atk/atkobject.c:181
 msgid "embedded component"
 msgstr "beágyazott komponens"
 
 # Megjegyzés: Itt a gtk.entry vezérlőelemet jelölik, ezt korábban szerkesztőmezőként fordítottuk. Ez a szöveg nem fog megjelenni a képernyőn.
-#: ../atk/atkobject.c:152
+#: ../atk/atkobject.c:182
 msgid "entry"
 msgstr "szerkesztőmező"
 
-#: ../atk/atkobject.c:153
+#: ../atk/atkobject.c:183
 msgid "chart"
 msgstr "diagram"
 
-#: ../atk/atkobject.c:154
+#: ../atk/atkobject.c:184
 msgid "caption"
 msgstr "felirat"
 
-#: ../atk/atkobject.c:155
+#: ../atk/atkobject.c:185
 msgid "document frame"
 msgstr "dokumentumkeret"
 
-#: ../atk/atkobject.c:156
+#: ../atk/atkobject.c:186
 msgid "heading"
 msgstr "címsor"
 
-#: ../atk/atkobject.c:157
+#: ../atk/atkobject.c:187
 msgid "page"
 msgstr "oldal"
 
-#: ../atk/atkobject.c:158
+#: ../atk/atkobject.c:188
 msgid "section"
 msgstr "szakasz"
 
-#: ../atk/atkobject.c:159
+#: ../atk/atkobject.c:189
 msgid "redundant object"
 msgstr "redundáns objektum"
 
-#: ../atk/atkobject.c:160
+#: ../atk/atkobject.c:190
 msgid "form"
 msgstr "űrlap"
 
-#: ../atk/atkobject.c:161
+#: ../atk/atkobject.c:191
 msgid "link"
 msgstr "hivatkozás"
 
-#: ../atk/atkobject.c:162
+#: ../atk/atkobject.c:192
 msgid "input method window"
 msgstr "bemeneti módszer ablak"
 
-#: ../atk/atkobject.c:163
+#: ../atk/atkobject.c:193
 msgid "table row"
 msgstr "táblázatsor"
 
-#: ../atk/atkobject.c:164
+#: ../atk/atkobject.c:194
 msgid "tree item"
 msgstr "faelem"
 
-#: ../atk/atkobject.c:165
+#: ../atk/atkobject.c:195
 msgid "document spreadsheet"
 msgstr "táblázat dokumentum"
 
-#: ../atk/atkobject.c:166
+#: ../atk/atkobject.c:196
 msgid "document presentation"
 msgstr "bemutató dokumentum"
 
-#: ../atk/atkobject.c:167
+#: ../atk/atkobject.c:197
 msgid "document text"
 msgstr "szöveges dokumentum"
 
-#: ../atk/atkobject.c:168
+#: ../atk/atkobject.c:198
 msgid "document web"
 msgstr "webes dokumentum"
 
-#: ../atk/atkobject.c:169
+#: ../atk/atkobject.c:199
 msgid "document email"
 msgstr "e-mail dokumentum"
 
-#: ../atk/atkobject.c:170
+#: ../atk/atkobject.c:200
 msgid "comment"
 msgstr "megjegyzés"
 
-#: ../atk/atkobject.c:171
+#: ../atk/atkobject.c:201
 msgid "list box"
 msgstr "listadoboz"
 
-#: ../atk/atkobject.c:172
+#: ../atk/atkobject.c:202
 msgid "grouping"
 msgstr "csoportosítás"
 
-#: ../atk/atkobject.c:173
+#: ../atk/atkobject.c:203
 msgid "image map"
 msgstr "kép"
 
-#: ../atk/atkobject.c:174
+#: ../atk/atkobject.c:204
 msgid "notification"
 msgstr "értesítés"
 
-#: ../atk/atkobject.c:175
+#: ../atk/atkobject.c:205
 msgid "info bar"
 msgstr "információs sor"
 
-#: ../atk/atkobject.c:514
+#: ../atk/atkobject.c:206
+msgid "level bar"
+msgstr "szintsáv"
+
+#: ../atk/atkobject.c:207
+msgid "title bar"
+msgstr "címsor"
+
+#: ../atk/atkobject.c:208
+msgid "block quote"
+msgstr "idézetblokk"
+
+#: ../atk/atkobject.c:209
+msgid "audio"
+msgstr "hang"
+
+#: ../atk/atkobject.c:210
+msgid "video"
+msgstr "videó"
+
+#: ../atk/atkobject.c:211
+msgid "definition"
+msgstr "definíció"
+
+#: ../atk/atkobject.c:212
+msgid "article"
+msgstr "cikk"
+
+#: ../atk/atkobject.c:213
+msgid "landmark"
+msgstr "jelölő"
+
+#: ../atk/atkobject.c:214
+msgid "log"
+msgstr "napló"
+
+#: ../atk/atkobject.c:215
+msgid "marquee"
+msgstr "futó szöveg"
+
+#: ../atk/atkobject.c:216
+msgid "math"
+msgstr "matematikai kifejezés"
+
+#: ../atk/atkobject.c:217
+msgid "rating"
+msgstr "értékelés"
+
+#: ../atk/atkobject.c:218
+msgid "timer"
+msgstr "időzítő"
+
+#: ../atk/atkobject.c:219
+msgid "description list"
+msgstr "leíráslista"
+
+#: ../atk/atkobject.c:220
+msgid "description term"
+msgstr "leírt kifejezés"
+
+#: ../atk/atkobject.c:221
+msgid "description value"
+msgstr "leíró érték"
+
+#: ../atk/atkobject.c:471
 msgid "Accessible Name"
 msgstr "Akadálymentes név"
 
-#: ../atk/atkobject.c:515
+#: ../atk/atkobject.c:472
 msgid "Object instance's name formatted for assistive technology access"
 msgstr ""
 "Az objektumpéldány neve az akadálymentesítési technológiás hozzáféréshez "
 "formázva"
 
-#: ../atk/atkobject.c:521
+#: ../atk/atkobject.c:478
 msgid "Accessible Description"
 msgstr "Akadálymentes leírás"
 
-#: ../atk/atkobject.c:522
+#: ../atk/atkobject.c:479
 msgid "Description of an object, formatted for assistive technology access"
 msgstr ""
 "Az objektumpéldány leírása, a akadálymentesítési technológiás hozzáféréshez "
 "formázva"
 
-#: ../atk/atkobject.c:528
+#: ../atk/atkobject.c:485
 msgid "Accessible Parent"
 msgstr "Akadálymentes szülő"
 
-#: ../atk/atkobject.c:529
-msgid "Is used to notify that the parent has changed"
-msgstr "Értesítésre szolgál, ha a szülő módosult"
+#: ../atk/atkobject.c:486
+msgid "Parent of the current accessible as returned by atk_object_get_parent()"
+msgstr ""
+"A pillanatnyi akadálymentes objektumról visszaadott szülőobjektum az "
+"atk_object_get_parent() függvény használatával"
 
-#: ../atk/atkobject.c:535
+#: ../atk/atkobject.c:492
 msgid "Accessible Value"
 msgstr "Akadálymentes érték"
 
-#: ../atk/atkobject.c:536
+#: ../atk/atkobject.c:493
 msgid "Is used to notify that the value has changed"
 msgstr "Értesítésre szolgál, ha az érték módosult"
 
-#: ../atk/atkobject.c:544
+#: ../atk/atkobject.c:501
 msgid "Accessible Role"
 msgstr "Akadálymentes szerep"
 
-#: ../atk/atkobject.c:545
+#: ../atk/atkobject.c:502
 msgid "The accessible role of this object"
 msgstr "Az objektum akadálymentes szerepe"
 
-#: ../atk/atkobject.c:553
+#: ../atk/atkobject.c:510
 msgid "Accessible Layer"
 msgstr "Akadálymentes réteg"
 
-#: ../atk/atkobject.c:554
+#: ../atk/atkobject.c:511
 msgid "The accessible layer of this object"
 msgstr "Az objektum akadálymentes rétege"
 
-#: ../atk/atkobject.c:562
+#: ../atk/atkobject.c:519
 msgid "Accessible MDI Value"
 msgstr "Akadálymentes MDI-érték"
 
-#: ../atk/atkobject.c:563
+#: ../atk/atkobject.c:520
 msgid "The accessible MDI value of this object"
 msgstr "Az objektum akadálymentes MDI-értéke"
 
-#: ../atk/atkobject.c:571
+#: ../atk/atkobject.c:536
 msgid "Accessible Table Caption"
 msgstr "Akadálymentes táblázatcím"
 
-#: ../atk/atkobject.c:572
+#: ../atk/atkobject.c:537
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -547,58 +613,61 @@ msgstr ""
 "szabad használni, helyette az accessible-table-caption-object tulajdonság "
 "használandó"
 
-#: ../atk/atkobject.c:578
+#: ../atk/atkobject.c:551
 msgid "Accessible Table Column Header"
 msgstr "Akadálymentes táblázat-oszlopfejléc"
 
-#: ../atk/atkobject.c:579
+#: ../atk/atkobject.c:552
 msgid "Is used to notify that the table column header has changed"
 msgstr "Értesítésre szolgál, ha a táblázat oszlopfejléc módosult"
 
-#: ../atk/atkobject.c:585
+#: ../atk/atkobject.c:567
 msgid "Accessible Table Column Description"
 msgstr "Akadálymentes táblázat-oszlopleírás"
 
-#: ../atk/atkobject.c:586
+#: ../atk/atkobject.c:568
 msgid "Is used to notify that the table column description has changed"
 msgstr "Értesítésre szolgál, ha a táblázat oszlopleírás módosult"
 
-#: ../atk/atkobject.c:592
+#: ../atk/atkobject.c:583
 msgid "Accessible Table Row Header"
 msgstr "Akadálymentes táblázat-sorfejléc"
 
-#: ../atk/atkobject.c:593
+#: ../atk/atkobject.c:584
 msgid "Is used to notify that the table row header has changed"
 msgstr "Értesítésre szolgál, ha a táblázat sorfejléc módosult"
 
-#: ../atk/atkobject.c:599
+#: ../atk/atkobject.c:598
 msgid "Accessible Table Row Description"
 msgstr "Akadálymentes táblázat-sorleírás"
 
-#: ../atk/atkobject.c:600
+#: ../atk/atkobject.c:599
 msgid "Is used to notify that the table row description has changed"
 msgstr "Értesítésre szolgál, ha a táblázat sorleírás módosult"
 
-#: ../atk/atkobject.c:606
+#: ../atk/atkobject.c:605
 msgid "Accessible Table Summary"
 msgstr "Akadálymentes táblázat-összefoglalás"
 
-#: ../atk/atkobject.c:607
+#: ../atk/atkobject.c:606
 msgid "Is used to notify that the table summary has changed"
 msgstr "Értesítésre szolgál, ha a táblázat-összefoglalás módosult"
 
-#: ../atk/atkobject.c:613
+#: ../atk/atkobject.c:612
 msgid "Accessible Table Caption Object"
 msgstr "Akadálymentes táblázatcím objektum"
 
-#: ../atk/atkobject.c:614
+#: ../atk/atkobject.c:613
 msgid "Is used to notify that the table caption has changed"
 msgstr "Értesítésre szolgál, ha a táblázatcím módosult"
 
-#: ../atk/atkobject.c:620
+#: ../atk/atkobject.c:619
 msgid "Number of Accessible Hypertext Links"
 msgstr "Az akadálymentes hiperszöveg-hivatkozások száma"
 
-#: ../atk/atkobject.c:621
+#: ../atk/atkobject.c:620
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Az aktuális AtkHypertext hivatkozásainak száma"
+
+#~ msgid "Is used to notify that the parent has changed"
+#~ msgstr "Értesítésre szolgál, ha a szülő módosult"
