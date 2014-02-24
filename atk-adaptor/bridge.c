@@ -696,7 +696,8 @@ handle_event_listener_registered (DBusConnection *bus, DBusMessage *message,
   DBusMessageIter iter;
   const char *signature = dbus_message_get_signature (message);
 
-  if (strcmp (signature, "ssas") != 0)
+  if (strcmp (signature, "ssas") != 0 &&
+      strcmp (signature, "ss") != 0)
   {
     g_warning ("got RegisterEvent with invalid signature '%s'", signature);
     return;
