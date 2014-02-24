@@ -837,7 +837,8 @@ impl_register_event (DBusConnection *bus, DBusMessage *message, void *user_data)
   DBusMessageIter iter, iter_array;
   const char *signature = dbus_message_get_signature (message);
 
-  if (strcmp (signature, "sas") != 0)
+  if (strcmp (signature, "sas") != 0 &&
+      strcmp (signature, "s") != 0)
   {
     g_warning ("got RegisterEvent with invalid signature '%s'", signature);
     return NULL;
@@ -846,7 +847,6 @@ impl_register_event (DBusConnection *bus, DBusMessage *message, void *user_data)
   dbus_message_iter_init (message, &iter);
   dbus_message_iter_get_basic (&iter, &orig_name);
   dbus_message_iter_next (&iter);
-  dbus_message_iter_recurse (&iter, &iter_array);
   name = ensure_proper_format (orig_name);
 
   evdata = g_new0 (event_data, 1);
@@ -854,13 +854,17 @@ impl_register_event (DBusConnection *bus, DBusMessage *message, void *user_data)
   evdata->bus_name = g_strdup (sender);
   evdata->data = data;
 
-  while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
+  if (dbus_message_iter_get_arg_type (&iter) == DBUS_TYPE_ARRAY)
   {
-    const char *property;
-    dbus_message_iter_get_basic (&iter_array, &property);
-    evdata->properties = g_slist_append (evdata->properties,
-                                         g_strdup (property));
-    dbus_message_iter_next (&iter_array);
+    dbus_message_iter_recurse (&iter, &iter_array);
+    while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
+    {
+      const char *property;
+      dbus_message_iter_get_basic (&iter_array, &property);
+      evdata->properties = g_slist_append (evdata->properties,
+                                           g_strdup (property));
+      dbus_message_iter_next (&iter_array);
+    }
   }
   registry->events = g_list_append (registry->events, evdata);
 

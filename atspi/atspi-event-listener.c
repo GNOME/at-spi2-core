@@ -551,12 +551,19 @@ static gboolean
 notify_event_registered (EventListenerEntry *e)
 {
 
-  dbind_method_call_reentrant (_atspi_bus (), atspi_bus_registry,
-	                       atspi_path_registry,
-	                       atspi_interface_registry,
-	                       "RegisterEvent",
-	                       NULL, "sas", e->event_type,
-                               e->properties);
+  if (e->properties)
+    dbind_method_call_reentrant (_atspi_bus (), atspi_bus_registry,
+	                         atspi_path_registry,
+	                         atspi_interface_registry,
+	                         "RegisterEvent",
+	                         NULL, "sas", e->event_type,
+                                 e->properties);
+  else
+    dbind_method_call_reentrant (_atspi_bus (), atspi_bus_registry,
+	                         atspi_path_registry,
+	                         atspi_interface_registry,
+	                         "RegisterEvent",
+	                         NULL, "s", e->event_type);
 
   return TRUE;
 }
