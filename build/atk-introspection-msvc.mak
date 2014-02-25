@@ -1,10 +1,5 @@
 # NMake Makefile to build Introspection Files for ATK
 
-# Change or pass in as a variable/env var if needed
-DLLNAME = atk-1-vs$(VSVER)
-
-# Please do not change anything after this line
-
 !include testsrules_msvc.mak
 
 APIVERSION = 1.0
@@ -29,7 +24,7 @@ Atk-$(APIVERSION).gir: atk_list
 	@set LIB=win32\vs$(VSVER)\$(CFG)\$(PLAT)\bin;$(BASEDIR)\lib;$(LIB)
 	$(PYTHON2) $(G_IR_SCANNER) --verbose -I.. --add-include-path=.. \
 	--namespace=Atk --nsversion=$(APIVERSION) --include=GObject-2.0	\
-	--no-libtool --pkg=glib-2.0 --library=$(DLLNAME)	\
+	--no-libtool --pkg=glib-2.0 --library=atk-1.0	\
 	--reparse-validate --add-include-path=$(G_IR_INCLUDEDIR)	\
 	--pkg-export atk --warn-all --c-include "atk/atk.h"	\
 	-DATK_DISABLE_DEPRECATED -DATK_COMPILATION -DATK_LOCALEDIR=\"/dummy/share/locale\"	\
