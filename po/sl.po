@@ -2,113 +2,101 @@
 # Copyright (C) 2011 at-spi2-core's COPYRIGHT HOLDER
 # This file is distributed under the same license as the at-spi2-core package.
 #
-# Ime priimek <email>, 2011.
+# Ime priimek <email>, 2011-2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-core master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-spi&component=general\n"
-"POT-Creation-Date: 2011-03-08 20:04+0000\n"
-"PO-Revision-Date: 2011-03-09 17:47+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
+"spi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2014-02-28 15:45+0000\n"
+"PO-Revision-Date: 2014-02-28 23:11+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
+"Language: sl_SI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
-"X-Poedit-Country: SLOVENIA\n"
-"X-Poedit-Language: Slovenian\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: Poedit 1.5.4\n"
 
-#: ../atspi/atspi-misc.c:290
-#, c-format
-msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
-msgstr "AT-SPI: neznan podpis %s za predmet RemoveAccessible"
-
-#: ../atspi/atspi-misc.c:327
-#, c-format
-msgid "AT-SPI: Error calling getRoot for %s: %s"
-msgstr "AT-SPI: napaka klicanja predmeta getRoot za %s: %s"
-
-#: ../atspi/atspi-misc.c:485
-#, c-format
-msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
-msgstr "AT-SPI: napaka v predmetu GetItems, pošiljatelj=%s, napaka=%s"
-
-#: ../atspi/atspi-misc.c:587
-#, c-format
-msgid "AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange signature %s"
-msgstr "AT-SPI: predmet called_atatspi_dbus_return_accessible_from_message je izveden z nenavadnim podpisom %s"
-
-#: ../atspi/atspi-misc.c:616
-#, c-format
-msgid "AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange signature %s"
-msgstr "AT-SPI: predmet called _atspi_dbus_return_hyperlink_from_message je izveden z nenavadnim podpisom %s"
-
-#: ../atspi/atspi-misc.c:641
-#, c-format
-msgid "AT-SPI: AddAccessible with unknown signature %s\n"
-msgstr "AT-SPI: predmet AddAccessible je izveden z neznanim podpisom %s\n"
-
-#: ../atspi/atspi-misc.c:826
-msgid "AT-SPI: Could not get the display\n"
-msgstr "AT-SPI: ni mogoče pridobiti zaslona\n"
-
-#: ../atspi/atspi-misc.c:844
-msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
-msgstr "AT-SPI: vodila dostopnosti ni mogoče najti; uporabljeno bo vodilo seje.\n"
-
-#: ../atspi/atspi-misc.c:848
-#: ../atspi/atspi-misc.c:857
-#, c-format
-msgid "AT-SPI: Couldn't connect to bus: %s\n"
-msgstr "AT-SPI: ni se mogoče povezati z vodilom: %s\n"
-
-#: ../atspi/atspi-misc.c:864
-#, c-format
-msgid "AT-SPI: Couldn't register with bus: %s\n"
-msgstr "AT-SPI: ni se mogoče vpisati na vodilu: %s\n"
-
-#: ../atspi/atspi-misc.c:1002
-#: ../atspi/atspi-misc.c:1053
-#: ../atspi/atspi-misc.c:1094
+#: ../atspi/atspi-component.c:325 ../atspi/atspi-misc.c:1036
+#: ../atspi/atspi-value.c:111
 msgid "The application no longer exists"
 msgstr "Program ne obstaja več"
 
-#: ../atspi/atspi-misc.c:1130
-#, c-format
-msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
-msgstr "AT-SPI: pričakovana vrednost med pridobivanjem %s z vmesnika %s; pridobljeno %s\n"
+#: ../atspi/atspi-misc.c:1779
+msgid "Attempted synchronous call where prohibited"
+msgstr "Poskus usklajevanja klicev je prepovedan"
 
-#: ../atspi/atspi-misc.c:1136
-#, c-format
-msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
-msgstr "atspi_dbus_get_property: neveljavna vrsta: pričakovana je vrednost %s, pridobljena pa %c\n"
+#~ msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
+#~ msgstr "AT-SPI: neznan podpis %s za predmet RemoveAccessible"
 
-#: ../atspi/atspi-misc.c:1279
-#, c-format
-msgid "AT-SPI: Unknown interface %s"
-msgstr "AT-SPI: neznan vmesnik %s"
+#~ msgid "AT-SPI: Error calling getRoot for %s: %s"
+#~ msgstr "AT-SPI: napaka klicanja predmeta getRoot za %s: %s"
 
-#: ../atspi/atspi-misc.c:1299
-#, c-format
-msgid "AT-SPI: expected 2 values in states array; got %d\n"
-msgstr "AT-SPI: pričakovani sta 2 vrednosti v polju stanj; pridobljeno %d\n"
+#~ msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
+#~ msgstr "AT-SPI: napaka v predmetu GetItems, pošiljatelj=%s, napaka=%s"
 
-#: ../atspi/atspi-accessible.c:997
-msgid "Streamable content not implemented"
-msgstr "Ni podpore za pretočno vsebino"
+#~ msgid ""
+#~ "AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
+#~ "signature %s"
+#~ msgstr ""
+#~ "AT-SPI: predmet called_atatspi_dbus_return_accessible_from_message je "
+#~ "izveden z nenavadnim podpisom %s"
 
-#: ../atspi/atspi-event-listener.c:510
-msgid "called atspi_event_listener_register_from_callback with a NULL event_type"
-msgstr "predmet atspi_event_listener_register_from_callback je klican s prazno vrednostjo možnosti event_type"
+#~ msgid ""
+#~ "AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
+#~ "signature %s"
+#~ msgstr ""
+#~ "AT-SPI: predmet called _atspi_dbus_return_hyperlink_from_message je "
+#~ "izveden z nenavadnim podpisom %s"
 
-#: ../atspi/atspi-event-listener.c:777
-#, c-format
-msgid "Got invalid signature %s for signal %s from interface %s\n"
-msgstr "Pridobljen neveljaven podpis %s za signal %s z vmesnika %s\n"
+#~ msgid "AT-SPI: AddAccessible with unknown signature %s\n"
+#~ msgstr "AT-SPI: predmet AddAccessible je izveden z neznanim podpisom %s\n"
+
+#~ msgid "AT-SPI: Could not get the display\n"
+#~ msgstr "AT-SPI: ni mogoče pridobiti zaslona\n"
+
+#~ msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
+#~ msgstr ""
+#~ "AT-SPI: vodila dostopnosti ni mogoče najti; uporabljeno bo vodilo seje.\n"
+
+#~ msgid "AT-SPI: Couldn't connect to bus: %s\n"
+#~ msgstr "AT-SPI: ni se mogoče povezati z vodilom: %s\n"
+
+#~ msgid "AT-SPI: Couldn't register with bus: %s\n"
+#~ msgstr "AT-SPI: ni se mogoče vpisati na vodilu: %s\n"
+
+#~ msgid ""
+#~ "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
+#~ msgstr ""
+#~ "AT-SPI: pričakovana vrednost med pridobivanjem %s z vmesnika %s; "
+#~ "pridobljeno %s\n"
+
+#~ msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
+#~ msgstr ""
+#~ "atspi_dbus_get_property: neveljavna vrsta: pričakovana je vrednost %s, "
+#~ "pridobljena pa %c\n"
+
+#~ msgid "AT-SPI: Unknown interface %s"
+#~ msgstr "AT-SPI: neznan vmesnik %s"
+
+#~ msgid "AT-SPI: expected 2 values in states array; got %d\n"
+#~ msgstr "AT-SPI: pričakovani sta 2 vrednosti v polju stanj; pridobljeno %d\n"
+
+#~ msgid "Streamable content not implemented"
+#~ msgstr "Ni podpore za pretočno vsebino"
+
+#~ msgid ""
+#~ "called atspi_event_listener_register_from_callback with a NULL event_type"
+#~ msgstr ""
+#~ "predmet atspi_event_listener_register_from_callback je klican s prazno "
+#~ "vrednostjo možnosti event_type"
+
+#~ msgid "Got invalid signature %s for signal %s from interface %s\n"
+#~ msgstr "Pridobljen neveljaven podpis %s za signal %s z vmesnika %s\n"
 
 #~ msgid "AT-SPI: Got error: %s\n"
 #~ msgstr "AT-SPI: pridobljena napaka: %s\n"
-
