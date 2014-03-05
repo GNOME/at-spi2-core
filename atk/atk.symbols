@@ -122,6 +122,13 @@
 	atk_object_set_role
 	atk_plug_get_type
 	atk_rectangle_get_type
+        atk_range_get_type
+        atk_range_copy
+        atk_range_free
+        atk_range_get_lower_limit
+        atk_range_get_upper_limit
+        atk_range_get_description
+        atk_range_new
 	atk_registry_get_factory
 	atk_registry_get_factory_type
 	atk_registry_get_type

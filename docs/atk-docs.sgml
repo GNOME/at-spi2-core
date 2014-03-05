@@ -16,6 +16,7 @@
   <!ENTITY atk-AtkPlug SYSTEM "xml/atkplug.xml">
   <!ENTITY atk-AtkObject SYSTEM "xml/atkobject.xml">
   <!ENTITY atk-AtkObjectFactory SYSTEM "xml/atkobjectfactory.xml">
+  <!ENTITY atk-AtkRange SYSTEM "xml/atkrange.xml">
   <!ENTITY atk-AtkRegistry SYSTEM "xml/atkregistry.xml">
   <!ENTITY atk-AtkRelation SYSTEM "xml/atkrelation.xml">
   <!ENTITY atk-AtkRelationSet SYSTEM "xml/atkrelationset.xml">
@@ -93,6 +94,7 @@
 
   <chapter id="data">
     <title>Basic accessible data types</title>
+    &atk-AtkRange;
     &atk-AtkRelation;
     &atk-AtkRelationSet;
     &atk-AtkState;

@@ -478,6 +478,11 @@ atk_value_get_maximum_value
 atk_value_get_minimum_value
 atk_value_set_current_value
 atk_value_get_minimum_increment
+atk_value_get_value_and_text
+atk_value_get_range
+atk_value_get_increment
+atk_value_get_sub_ranges
+atk_value_set_value
 <SUBSECTION Standard>
 AtkValueIface
 ATK_VALUE
@@ -701,4 +706,17 @@ ATK_MAJOR_VERSION
 ATK_MINOR_VERSION
 ATK_MICRO_VERSION
 ATK_CHECK_VERSION
+</SECTION>
+
+<SECTION>
+<FILE>atkrange</FILE>
+<TITLE>AtkRange</TITLE>
+ATK_TYPE_RANGE
+atk_range_copy
+atk_range_free
+atk_range_get_lower_limit
+atk_range_get_upper_limit
+atk_range_get_description
+atk_range_new
+atk_range_get_type
 </SECTION>

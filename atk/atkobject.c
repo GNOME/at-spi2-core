@@ -35,6 +35,7 @@
 
 #include "atk.h"
 #include "atkmarshal.h"
+#include "atkprivate.h"
 
 /**
  * SECTION:atkobject
@@ -298,78 +299,7 @@ DllMain (HINSTANCE hinstDLL,
   return TRUE;
 }
 
-static const char *
-get_atk_locale_dir (void)
-{
-  static gchar *atk_localedir = NULL;
-
-  if (!atk_localedir)
-    {
-      const gchar *p;
-      gchar *root, *temp;
-      
-      /* ATK_LOCALEDIR might end in either /lib/locale or
-       * /share/locale. Scan for that slash.
-       */
-      p = ATK_LOCALEDIR + strlen (ATK_LOCALEDIR);
-      while (*--p != '/')
-	;
-      while (*--p != '/')
-	;
-
-      root = g_win32_get_package_installation_directory_of_module (atk_dll);
-      temp = g_build_filename (root, p, NULL);
-      g_free (root);
-
-      /* atk_localedir is passed to bindtextdomain() which isn't
-       * UTF-8-aware.
-       */
-      atk_localedir = g_win32_locale_filename_from_utf8 (temp);
-      g_free (temp);
-    }
-  return atk_localedir;
-}
-
-#undef ATK_LOCALEDIR
-
-#define ATK_LOCALEDIR get_atk_locale_dir()
-
 #endif
-
-static void
-gettext_initialization (void)
-{
-#ifdef ENABLE_NLS
-  static gboolean gettext_initialized = FALSE;
-
-  if (!gettext_initialized)
-    {
-      const char *dir = g_getenv ("ATK_ALT_LOCALEDIR");
-
-      gettext_initialized = TRUE;
-      if (dir == NULL)
-        dir = ATK_LOCALEDIR;
-
-      bindtextdomain (GETTEXT_PACKAGE, dir);
-#ifdef HAVE_BIND_TEXTDOMAIN_CODESET
-      bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-#endif
-    }
-#endif
-}
-
-static void
-compact_role_name (gchar *role_name)
-{
-  gchar *p = role_name;
-
-  while (*p)
-    {
-      if (*p == '-')
-        *p = ' ';
-      p++;
-    }
-}
 
 static void
 initialize_role_names ()
@@ -392,7 +322,7 @@ initialize_role_names ()
       enum_value = g_enum_get_value (G_ENUM_CLASS (enum_class), i);
       role_name = g_strdup (enum_value->value_nick);
       // We want the role names to be in the format "check button" and not "check-button"
-      compact_role_name (role_name);
+      _compact_name (role_name);
       g_ptr_array_add (role_names, role_name);
     }
 
@@ -463,7 +393,7 @@ atk_object_class_init (AtkObjectClass *klass)
   klass->visible_data_changed = NULL;
   klass->active_descendant_changed = NULL;
 
-  gettext_initialization ();
+  _gettext_initialization ();
 
   g_object_class_install_property (gobject_class,
                                    PROP_NAME,
@@ -486,6 +416,16 @@ atk_object_class_init (AtkObjectClass *klass)
                                                         _("Parent of the current accessible as returned by atk_object_get_parent()"),
                                                         ATK_TYPE_OBJECT,
                                                         G_PARAM_READWRITE));
+
+  /**
+   * AtkObject:accessible-value:
+   *
+   * Numeric value of this object, in case being and AtkValue.
+   *
+   * Deprecated: Since 2.12. Use atk_value_get_value_and_text() to get
+   * the value, and value-changed signal to be notified on their value
+   * changes.
+   */
   g_object_class_install_property (gobject_class,
                                    PROP_VALUE,
                                    g_param_spec_double (atk_object_name_property_value,
@@ -1655,7 +1595,7 @@ atk_role_get_name (AtkRole role)
 const gchar*
 atk_role_get_localized_name (AtkRole role)
 {
-  gettext_initialization ();
+  _gettext_initialization ();
 
   return dgettext (GETTEXT_PACKAGE, atk_role_get_name (role));
 }

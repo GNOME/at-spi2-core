@@ -37,6 +37,7 @@
 #include <atk/atknoopobjectfactory.h>
 #include <atk/atkobjectfactory.h>
 #include <atk/atkplug.h>
+#include <atk/atkrange.h>
 #include <atk/atkregistry.h>
 #include <atk/atkrelation.h>
 #include <atk/atkrelationset.h>

@@ -31,7 +31,7 @@ GTKDOC_LIBS = $(top_builddir)/atk/libatk-$(ATK_API_VERSION).la \
               $(DEP_LIBS)
 
 # gtkdoc-mkdb related varaibles
-MKDB_OPTIONS =
+MKDB_OPTIONS =--sgml-mode
 content_files =		\
 	version.xml
 HTML_IMAGES =

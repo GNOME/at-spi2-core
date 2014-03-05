@@ -353,11 +353,11 @@ atk_util_real_remove_global_event_listener (guint remove_listener)
  * when an ATK event of type event_type occurs.
  *
  * The format of event_type is the following:
- *  "ATK:<atk_type>:<atk_event>:<atk_event_detail>
+ *  "ATK:&lt;atk_type&gt;:&lt;atk_event&gt;:&lt;atk_event_detail&gt;
  *
- * Where "ATK" works as the namespace, <atk_interface> is the name of
- * the ATK type (interface or object), <atk_event> is the name of the
- * signal defined on that interface and <atk_event_detail> is the
+ * Where "ATK" works as the namespace, &lt;atk_interface&gt; is the name of
+ * the ATK type (interface or object), &lt;atk_event&gt; is the name of the
+ * signal defined on that interface and &lt;atk_event_detail&gt; is the
  * gsignal detail of that signal. You can find more info about gsignal
  * details here:
  * http://developer.gnome.org/gobject/stable/gobject-Signals.html
