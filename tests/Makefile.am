@@ -15,7 +15,8 @@ DEPS = \
 noinst_PROGRAMS = testdocument \
 		  testrole  \
 		  testrelation  \
-		  teststateset
+		  teststateset  \
+		  testvalue
 
 LDADD = $(libatk) $(DEP_LIBS)
 
@@ -23,6 +24,7 @@ testdocument_SOURCES = testdocument.c
 testrole_SOURCES = testrole.c
 testrelation_SOURCES = testrelation.c
 teststateset_SOURCES = teststateset.c
+teststateset_SOURCES = testvalue.c
 
 testatk_vc.mak: testatk_vc.makin $(top_srcdir)/build/atk_msvc_files.py $(top_srcdir)/build/msvcfiles.py
 	$(PYTHON) $(top_srcdir)/build/atk_msvc_files.py -t nmake-exe
