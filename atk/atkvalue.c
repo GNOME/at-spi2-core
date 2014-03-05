@@ -183,6 +183,24 @@ enum {
   LAST_SIGNAL
 };
 
+/* These are listed here for extraction by intltool */
+#if 0
+N_("very weak")
+N_("weak")
+N_("acceptable")
+N_("strong")
+N_("very strong")
+N_("very low")
+N_("medium")
+N_("high")
+N_("very high")
+N_("very bad")
+N_("bad")
+N_("good")
+N_("very good")
+N_("best")
+#endif
+
 static void atk_value_base_init (AtkValueIface *class);
 
 static guint atk_value_signals[LAST_SIGNAL] = {0};
