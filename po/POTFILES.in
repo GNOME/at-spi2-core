@@ -2,3 +2,4 @@
 # Please keep this file sorted alphabetically.
 atk/atkhyperlink.c
 atk/atkobject.c
+atk/atkvalue.c
