@@ -185,19 +185,112 @@ enum {
 
 /* These are listed here for extraction by intltool */
 #if 0
+/* Translators: This string describes a range within value-related
+ * widgets such as a password-strength meter. Note that what such a
+ * widget presents is controlled by application developers. Thus
+ * assistive technologies such as screen readers are expected to
+ * present this string alone or as a token in a list.
+ */
 N_("very weak")
+/* Translators: This string describes a range within value-related
+ * widgets such as a password-strength meter. Note that what such a
+ * widget presents is controlled by application developers. Thus
+ * assistive technologies such as screen readers are expected to
+ * present this string alone or as a token in a list.
+ */
 N_("weak")
+/* Translators: This string describes a range within value-related
+ * widgets such as a password-strength meter. Note that what such a
+ * widget presents is controlled by application developers. Thus
+ * assistive technologies such as screen readers are expected to
+ * present this string alone or as a token in a list.
+ */
 N_("acceptable")
+/* Translators: This string describes a range within value-related
+ * widgets such as a password-strength meter. Note that what such a
+ * widget presents is controlled by application developers. Thus
+ * assistive technologies such as screen readers are expected to
+ * present this string alone or as a token in a list.
+ */
 N_("strong")
+/* Translators: This string describes a range within value-related
+ * widgets such as a password-strength meter. Note that what such a
+ * widget presents is controlled by application developers. Thus
+ * assistive technologies such as screen readers are expected to
+ * present this string alone or as a token in a list.
+ */
 N_("very strong")
+/* Translators: This string describes a range within value-related
+ * widgets such as a volume slider. Note that what such a widget
+ * presents (e.g. temperature, volume, price) is controlled by
+ * application developers. Thus assistive technologies such as screen
+ * readers are expected to present this string alone or as a token in
+ * a list.
+ */
 N_("very low")
+/* Translators: This string describes a range within value-related
+ * widgets such as a volume slider. Note that what such a widget
+ * presents (e.g. temperature, volume, price) is controlled by
+ * application developers. Thus assistive technologies such as screen
+ * readers are expected to present this string alone or as a token in
+ * a list.
+ */
 N_("medium")
+/* Translators: This string describes a range within value-related
+ * widgets such as a volume slider. Note that what such a widget
+ * presents (e.g. temperature, volume, price) is controlled by
+ * application developers. Thus assistive technologies such as screen
+ * readers are expected to present this string alone or as a token in
+ * a list.
+ */
 N_("high")
+/* Translators: This string describes a range within value-related
+ * widgets such as a volume slider. Note that what such a widget
+ * presents (e.g. temperature, volume, price) is controlled by
+ * application developers. Thus assistive technologies such as screen
+ * readers are expected to present this string alone or as a token in
+ * a list.
+ */
 N_("very high")
+/* Translators: This string describes a range within value-related
+ * widgets such as a hard drive usage. Note that what such a widget
+ * presents (e.g. hard drive usage, network traffic) is controlled by
+ * application developers. Thus assistive technologies such as screen
+ * readers are expected to present this string alone or as a token in
+ * a list.
+ */
 N_("very bad")
+/* Translators: This string describes a range within value-related
+ * widgets such as a hard drive usage. Note that what such a widget
+ * presents (e.g. hard drive usage, network traffic) is controlled by
+ * application developers. Thus assistive technologies such as screen
+ * readers are expected to present this string alone or as a token in
+ * a list.
+ */
 N_("bad")
+/* Translators: This string describes a range within value-related
+ * widgets such as a hard drive usage. Note that what such a widget
+ * presents (e.g. hard drive usage, network traffic) is controlled by
+ * application developers. Thus assistive technologies such as screen
+ * readers are expected to present this string alone or as a token in
+ * a list.
+ */
 N_("good")
+/* Translators: This string describes a range within value-related
+ * widgets such as a hard drive usage. Note that what such a widget
+ * presents (e.g. hard drive usage, network traffic) is controlled by
+ * application developers. Thus assistive technologies such as screen
+ * readers are expected to present this string alone or as a token in
+ * a list.
+ */
 N_("very good")
+/* Translators: This string describes a range within value-related
+ * widgets such as a hard drive usage. Note that what such a widget
+ * presents (e.g. hard drive usage, network traffic) is controlled by
+ * application developers. Thus assistive technologies such as screen
+ * readers are expected to present this string alone or as a token in
+ * a list.
+ */
 N_("best")
 #endif
 
