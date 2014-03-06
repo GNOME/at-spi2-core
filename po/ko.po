@@ -1,518 +1,583 @@
 # atk ko.po
 # This file is distributed under the same license as the atk package.
 # Nam SungHyun <namsh@kldp.org>, 2002
-# Changwoo Ryu <cwryu@debian.org>, 2004, 2006, 2008, 2009, 2011.
+# Changwoo Ryu <cwryu@debian.org>, 2004, 2006, 2008, 2009, 2011, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=atk&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-08-16 17:08+0000\n"
-"PO-Revision-Date: 2011-09-04 05:37+0900\n"
+"POT-Creation-Date: 2014-03-06 15:47+0000\n"
+"PO-Revision-Date: 2014-03-07 01:43+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr@googlegroups.com>\n"
+"Language: Korean\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../atk/atkhyperlink.c:103
+#: ../atk/atkhyperlink.c:128
 msgid "Selected Link"
 msgstr "링크 선택"
 
-#: ../atk/atkhyperlink.c:104
+#: ../atk/atkhyperlink.c:129
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr "해당 AtkHyperlink 오브젝트를 선택했는 지 여부를 지정합니다"
 
-#: ../atk/atkhyperlink.c:110
+#: ../atk/atkhyperlink.c:135
 msgid "Number of Anchors"
 msgstr "연결 개수"
 
-#: ../atk/atkhyperlink.c:111
+#: ../atk/atkhyperlink.c:136
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr "AtkHyperlink 오브젝트에 연동된 연결의 개수"
 
-#: ../atk/atkhyperlink.c:119
+#: ../atk/atkhyperlink.c:144
 msgid "End index"
 msgstr "끝 인덱스"
 
-#: ../atk/atkhyperlink.c:120
+#: ../atk/atkhyperlink.c:145
 msgid "The end index of the AtkHyperlink object"
 msgstr "AtkHyperlink 오브젝트의 끝 인덱스"
 
-#: ../atk/atkhyperlink.c:128
+#: ../atk/atkhyperlink.c:153
 msgid "Start index"
 msgstr "시작 인덱스"
 
-#: ../atk/atkhyperlink.c:129
+#: ../atk/atkhyperlink.c:154
 msgid "The start index of the AtkHyperlink object"
 msgstr "AtkHyperlink 오브젝트의 시작 인덱스"
 
-#: ../atk/atkobject.c:74
+#: ../atk/atkobject.c:105
 msgid "invalid"
 msgstr "잘못됨"
 
-#: ../atk/atkobject.c:75
+#: ../atk/atkobject.c:106
 msgid "accelerator label"
 msgstr "단축키 레이블"
 
-#: ../atk/atkobject.c:76
+#: ../atk/atkobject.c:107
 msgid "alert"
 msgstr "경보"
 
-#: ../atk/atkobject.c:77
+#: ../atk/atkobject.c:108
 msgid "animation"
 msgstr "에니메이션"
 
-#: ../atk/atkobject.c:78
+#: ../atk/atkobject.c:109
 msgid "arrow"
 msgstr "화살표"
 
-#: ../atk/atkobject.c:79
+#: ../atk/atkobject.c:110
 msgid "calendar"
 msgstr "달력"
 
-#: ../atk/atkobject.c:80
+#: ../atk/atkobject.c:111
 msgid "canvas"
 msgstr "캔버스"
 
-#: ../atk/atkobject.c:81
+#: ../atk/atkobject.c:112
 msgid "check box"
 msgstr "확인란"
 
-#: ../atk/atkobject.c:82
+#: ../atk/atkobject.c:113
 msgid "check menu item"
 msgstr "확인 메뉴 항목"
 
-#: ../atk/atkobject.c:83
+#: ../atk/atkobject.c:114
 msgid "color chooser"
 msgstr "색 선택창"
 
-#: ../atk/atkobject.c:84
+#: ../atk/atkobject.c:115
 msgid "column header"
 msgstr "열 헤더"
 
-#: ../atk/atkobject.c:85
+#: ../atk/atkobject.c:116
 msgid "combo box"
 msgstr "콤보 상자"
 
-#: ../atk/atkobject.c:86
+#: ../atk/atkobject.c:117
 msgid "dateeditor"
 msgstr "날짜 편집기"
 
-#: ../atk/atkobject.c:87
+#: ../atk/atkobject.c:118
 msgid "desktop icon"
 msgstr "바탕 화면 아이콘"
 
-#: ../atk/atkobject.c:88
+#: ../atk/atkobject.c:119
 msgid "desktop frame"
 msgstr "바탕 화면 프레임"
 
-#: ../atk/atkobject.c:89
+#: ../atk/atkobject.c:120
 msgid "dial"
 msgstr "다이얼"
 
-#: ../atk/atkobject.c:90
+#: ../atk/atkobject.c:121
 msgid "dialog"
 msgstr "대화상자"
 
-#: ../atk/atkobject.c:91
+#: ../atk/atkobject.c:122
 msgid "directory pane"
 msgstr "디렉터리 창"
 
-#: ../atk/atkobject.c:92
+#: ../atk/atkobject.c:123
 msgid "drawing area"
 msgstr "그리기 영역"
 
-#: ../atk/atkobject.c:93
+#: ../atk/atkobject.c:124
 msgid "file chooser"
 msgstr "파일 선택창"
 
-#: ../atk/atkobject.c:94
+#: ../atk/atkobject.c:125
 msgid "filler"
 msgstr "채우기"
 
 #. I know it looks wrong but that is what Java returns
-#: ../atk/atkobject.c:96
+#: ../atk/atkobject.c:127
 msgid "fontchooser"
 msgstr "글꼴 선택창"
 
-#: ../atk/atkobject.c:97
+#: ../atk/atkobject.c:128
 msgid "frame"
 msgstr "프레임"
 
-#: ../atk/atkobject.c:98
+#: ../atk/atkobject.c:129
 msgid "glass pane"
 msgstr "투명 창"
 
-#: ../atk/atkobject.c:99
+#: ../atk/atkobject.c:130
 msgid "html container"
 msgstr "HTML 컨테이너"
 
-#: ../atk/atkobject.c:100
+#: ../atk/atkobject.c:131
 msgid "icon"
 msgstr "아이콘"
 
-#: ../atk/atkobject.c:101
+#: ../atk/atkobject.c:132
 msgid "image"
 msgstr "그림"
 
-#: ../atk/atkobject.c:102
+#: ../atk/atkobject.c:133
 msgid "internal frame"
 msgstr "내부 프레임"
 
-#: ../atk/atkobject.c:103
+#: ../atk/atkobject.c:134
 msgid "label"
 msgstr "레이블"
 
-#: ../atk/atkobject.c:104
+#: ../atk/atkobject.c:135
 msgid "layered pane"
 msgstr "계층 창"
 
-#: ../atk/atkobject.c:105
+#: ../atk/atkobject.c:136
 msgid "list"
 msgstr "목록"
 
-#: ../atk/atkobject.c:106
+#: ../atk/atkobject.c:137
 msgid "list item"
 msgstr "목록 항목"
 
-#: ../atk/atkobject.c:107
+#: ../atk/atkobject.c:138
 msgid "menu"
 msgstr "메뉴"
 
-#: ../atk/atkobject.c:108
+#: ../atk/atkobject.c:139
 msgid "menu bar"
 msgstr "메뉴 모음"
 
-#: ../atk/atkobject.c:109
+#: ../atk/atkobject.c:140
 msgid "menu item"
 msgstr "메뉴 항목"
 
-#: ../atk/atkobject.c:110
+#: ../atk/atkobject.c:141
 msgid "option pane"
 msgstr "옵션 창"
 
-#: ../atk/atkobject.c:111
+#: ../atk/atkobject.c:142
 msgid "page tab"
 msgstr "페이지 탭"
 
-#: ../atk/atkobject.c:112
+#: ../atk/atkobject.c:143
 msgid "page tab list"
 msgstr "페이지 탭 목록"
 
-#: ../atk/atkobject.c:113
+#: ../atk/atkobject.c:144
 msgid "panel"
 msgstr "패널"
 
-#: ../atk/atkobject.c:114
+#: ../atk/atkobject.c:145
 msgid "password text"
 msgstr "암호 텍스트"
 
-#: ../atk/atkobject.c:115
+#: ../atk/atkobject.c:146
 msgid "popup menu"
 msgstr "팝업 메뉴"
 
-#: ../atk/atkobject.c:116
+#: ../atk/atkobject.c:147
 msgid "progress bar"
 msgstr "진행률 표시줄"
 
-#: ../atk/atkobject.c:117
+#: ../atk/atkobject.c:148
 msgid "push button"
 msgstr "푸쉬 단추"
 
-#: ../atk/atkobject.c:118
+#: ../atk/atkobject.c:149
 msgid "radio button"
 msgstr "라디오 단추"
 
-#: ../atk/atkobject.c:119
+#: ../atk/atkobject.c:150
 msgid "radio menu item"
 msgstr "라디오 메뉴 항목"
 
-#: ../atk/atkobject.c:120
+#: ../atk/atkobject.c:151
 msgid "root pane"
 msgstr "루트 창"
 
-#: ../atk/atkobject.c:121
+#: ../atk/atkobject.c:152
 msgid "row header"
 msgstr "열 헤더"
 
-#: ../atk/atkobject.c:122
+#: ../atk/atkobject.c:153
 msgid "scroll bar"
 msgstr "스크롤 막대"
 
-#: ../atk/atkobject.c:123
+#: ../atk/atkobject.c:154
 msgid "scroll pane"
 msgstr "스크롤 창"
 
-#: ../atk/atkobject.c:124
+#: ../atk/atkobject.c:155
 msgid "separator"
 msgstr "구분선"
 
-#: ../atk/atkobject.c:125
+#: ../atk/atkobject.c:156
 msgid "slider"
 msgstr "슬라이더"
 
-#: ../atk/atkobject.c:126
+#: ../atk/atkobject.c:157
 msgid "split pane"
 msgstr "나눔 창"
 
-#: ../atk/atkobject.c:127
+#: ../atk/atkobject.c:158
 msgid "spin button"
 msgstr "스핀 단추"
 
-#: ../atk/atkobject.c:128
+#: ../atk/atkobject.c:159
 msgid "statusbar"
 msgstr "상태 표시줄"
 
-#: ../atk/atkobject.c:129
+#: ../atk/atkobject.c:160
 msgid "table"
 msgstr "테이블"
 
-#: ../atk/atkobject.c:130
+#: ../atk/atkobject.c:161
 msgid "table cell"
 msgstr "테이블 셀"
 
-#: ../atk/atkobject.c:131
+#: ../atk/atkobject.c:162
 msgid "table column header"
 msgstr "테이블 열 헤더"
 
-#: ../atk/atkobject.c:132
+#: ../atk/atkobject.c:163
 msgid "table row header"
 msgstr "테이블 행 헤더"
 
-#: ../atk/atkobject.c:133
+#: ../atk/atkobject.c:164
 msgid "tear off menu item"
 msgstr "떼어내기 메뉴 항목"
 
-#: ../atk/atkobject.c:134
+#: ../atk/atkobject.c:165
 msgid "terminal"
 msgstr "터미널"
 
-#: ../atk/atkobject.c:135
+#: ../atk/atkobject.c:166
 msgid "text"
 msgstr "텍스트"
 
-#: ../atk/atkobject.c:136
+#: ../atk/atkobject.c:167
 msgid "toggle button"
 msgstr "토글 단추"
 
-#: ../atk/atkobject.c:137
+#: ../atk/atkobject.c:168
 msgid "tool bar"
 msgstr "도구 모음"
 
-#: ../atk/atkobject.c:138
+#: ../atk/atkobject.c:169
 msgid "tool tip"
 msgstr "도구 설명"
 
-#: ../atk/atkobject.c:139
+#: ../atk/atkobject.c:170
 msgid "tree"
 msgstr "트리"
 
-#: ../atk/atkobject.c:140
+#: ../atk/atkobject.c:171
 msgid "tree table"
 msgstr "트리 테이블"
 
-#: ../atk/atkobject.c:141
+#: ../atk/atkobject.c:172
 msgid "unknown"
 msgstr "알 수 없음"
 
-#: ../atk/atkobject.c:142
+#: ../atk/atkobject.c:173
 msgid "viewport"
 msgstr "뷰포트"
 
-#: ../atk/atkobject.c:143
+#: ../atk/atkobject.c:174
 msgid "window"
 msgstr "창"
 
-#: ../atk/atkobject.c:144
+#: ../atk/atkobject.c:175
 msgid "header"
 msgstr "머리글"
 
-#: ../atk/atkobject.c:145
+#: ../atk/atkobject.c:176
 msgid "footer"
 msgstr "바닥글"
 
-#: ../atk/atkobject.c:146
+#: ../atk/atkobject.c:177
 msgid "paragraph"
 msgstr "단락"
 
-#: ../atk/atkobject.c:147
+#: ../atk/atkobject.c:178
 msgid "ruler"
 msgstr "눈금자"
 
-#: ../atk/atkobject.c:148
+#: ../atk/atkobject.c:179
 msgid "application"
 msgstr "응용프로그램"
 
-#: ../atk/atkobject.c:149
+#: ../atk/atkobject.c:180
 msgid "autocomplete"
 msgstr "자동 완성"
 
-#: ../atk/atkobject.c:150
+#: ../atk/atkobject.c:181
 msgid "edit bar"
 msgstr "편집 막대"
 
-#: ../atk/atkobject.c:151
+#: ../atk/atkobject.c:182
 msgid "embedded component"
 msgstr "포함된 컴포넌트"
 
-#: ../atk/atkobject.c:152
+#: ../atk/atkobject.c:183
 msgid "entry"
 msgstr "입력창"
 
-#: ../atk/atkobject.c:153
+#: ../atk/atkobject.c:184
 msgid "chart"
 msgstr "표"
 
-#: ../atk/atkobject.c:154
+#: ../atk/atkobject.c:185
 msgid "caption"
 msgstr "캡션"
 
-#: ../atk/atkobject.c:155
+#: ../atk/atkobject.c:186
 msgid "document frame"
 msgstr "문서 프레임"
 
-#: ../atk/atkobject.c:156
+#: ../atk/atkobject.c:187
 msgid "heading"
 msgstr "머리글"
 
-#: ../atk/atkobject.c:157
+#: ../atk/atkobject.c:188
 msgid "page"
 msgstr "쪽"
 
-#: ../atk/atkobject.c:158
+#: ../atk/atkobject.c:189
 msgid "section"
 msgstr "절"
 
-#: ../atk/atkobject.c:159
+#: ../atk/atkobject.c:190
 msgid "redundant object"
 msgstr "추가 객체"
 
-#: ../atk/atkobject.c:160
+#: ../atk/atkobject.c:191
 msgid "form"
 msgstr "폼"
 
-#: ../atk/atkobject.c:161
+#: ../atk/atkobject.c:192
 msgid "link"
 msgstr "링크"
 
-#: ../atk/atkobject.c:162
+#: ../atk/atkobject.c:193
 msgid "input method window"
 msgstr "입력기 창"
 
-#: ../atk/atkobject.c:163
+#: ../atk/atkobject.c:194
 msgid "table row"
 msgstr "테이블 행"
 
-#: ../atk/atkobject.c:164
+#: ../atk/atkobject.c:195
 msgid "tree item"
 msgstr "트리 항목"
 
-#: ../atk/atkobject.c:165
+#: ../atk/atkobject.c:196
 msgid "document spreadsheet"
 msgstr "문서 스프레드시트"
 
-#: ../atk/atkobject.c:166
+#: ../atk/atkobject.c:197
 msgid "document presentation"
 msgstr "문서 프리젠테이션"
 
-#: ../atk/atkobject.c:167
+#: ../atk/atkobject.c:198
 msgid "document text"
 msgstr "문서 텍스트"
 
-#: ../atk/atkobject.c:168
+#: ../atk/atkobject.c:199
 msgid "document web"
 msgstr "문서 웹"
 
-#: ../atk/atkobject.c:169
+#: ../atk/atkobject.c:200
 msgid "document email"
 msgstr "문서 전자 메일"
 
-#: ../atk/atkobject.c:170
+#: ../atk/atkobject.c:201
 msgid "comment"
 msgstr "주석"
 
-#: ../atk/atkobject.c:171
+#: ../atk/atkobject.c:202
 msgid "list box"
 msgstr "목록 상자"
 
-#: ../atk/atkobject.c:172
+#: ../atk/atkobject.c:203
 msgid "grouping"
 msgstr "모음"
 
-#: ../atk/atkobject.c:173
+#: ../atk/atkobject.c:204
 msgid "image map"
 msgstr "그림 맵"
 
-#: ../atk/atkobject.c:174
+#: ../atk/atkobject.c:205
 msgid "notification"
 msgstr "알림"
 
-#: ../atk/atkobject.c:175
+#: ../atk/atkobject.c:206
 msgid "info bar"
 msgstr "정보 모음"
 
-#: ../atk/atkobject.c:514
+#: ../atk/atkobject.c:207
+msgid "level bar"
+msgstr "단계 표시 막대"
+
+#: ../atk/atkobject.c:208
+msgid "title bar"
+msgstr "제목 표시줄"
+
+#: ../atk/atkobject.c:209
+msgid "block quote"
+msgstr "블럭 인용"
+
+#: ../atk/atkobject.c:210
+msgid "audio"
+msgstr "오디오"
+
+#: ../atk/atkobject.c:211
+msgid "video"
+msgstr "비디오"
+
+#: ../atk/atkobject.c:212
+msgid "definition"
+msgstr "정의"
+
+#: ../atk/atkobject.c:213
+msgid "article"
+msgstr "글"
+
+#: ../atk/atkobject.c:214
+msgid "landmark"
+msgstr "랜드마크"
+
+#: ../atk/atkobject.c:215
+msgid "log"
+msgstr "기록"
+
+#: ../atk/atkobject.c:216
+msgid "marquee"
+msgstr "그늘"
+
+#: ../atk/atkobject.c:217
+msgid "math"
+msgstr "수학"
+
+#: ../atk/atkobject.c:218
+msgid "rating"
+msgstr "평가"
+
+#: ../atk/atkobject.c:219
+msgid "timer"
+msgstr "타미어"
+
+#: ../atk/atkobject.c:220
+msgid "description list"
+msgstr "설명 목록"
+
+#: ../atk/atkobject.c:221
+msgid "description term"
+msgstr "설명 용어"
+
+#: ../atk/atkobject.c:222
+msgid "description value"
+msgstr "설명 값"
+
+#: ../atk/atkobject.c:401
 msgid "Accessible Name"
 msgstr "접근성 이름"
 
-#: ../atk/atkobject.c:515
+#: ../atk/atkobject.c:402
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "접근성 기술로 접근할 때 사용할 오브젝트 인스턴스의 이름"
 
-#: ../atk/atkobject.c:521
+#: ../atk/atkobject.c:408
 msgid "Accessible Description"
 msgstr "접근성 설명"
 
-#: ../atk/atkobject.c:522
+#: ../atk/atkobject.c:409
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "접근성 기술로 접근할 때 사용할 오브젝트의 설명"
 
-#: ../atk/atkobject.c:528
+#: ../atk/atkobject.c:415
 msgid "Accessible Parent"
 msgstr "접근성 상위"
 
-#: ../atk/atkobject.c:529
-msgid "Is used to notify that the parent has changed"
-msgstr "상위 오브젝트가 바뀐 걸 알릴 때 쓰입니다"
+#: ../atk/atkobject.c:416
+msgid "Parent of the current accessible as returned by atk_object_get_parent()"
+msgstr "atk_object_get_parent()가 리턴한 현재 접근성 값의 상위 위젯"
 
-#: ../atk/atkobject.c:535
+#: ../atk/atkobject.c:432
 msgid "Accessible Value"
 msgstr "접근성 값"
 
-#: ../atk/atkobject.c:536
+#: ../atk/atkobject.c:433
 msgid "Is used to notify that the value has changed"
 msgstr "값이 바뀐 걸 알릴 때 쓰입니다"
 
-#: ../atk/atkobject.c:544
+#: ../atk/atkobject.c:441
 msgid "Accessible Role"
 msgstr "접근 역할"
 
-#: ../atk/atkobject.c:545
+#: ../atk/atkobject.c:442
 msgid "The accessible role of this object"
 msgstr "이 오브젝트의 접근성 역할"
 
-#: ../atk/atkobject.c:553
+#: ../atk/atkobject.c:450
 msgid "Accessible Layer"
 msgstr "접근성 레이어"
 
-#: ../atk/atkobject.c:554
+#: ../atk/atkobject.c:451
 msgid "The accessible layer of this object"
 msgstr "이 오브젝트의 접근성 레이어"
 
-#: ../atk/atkobject.c:562
+#: ../atk/atkobject.c:459
 msgid "Accessible MDI Value"
 msgstr "접근성 MDI 값"
 
-#: ../atk/atkobject.c:563
+#: ../atk/atkobject.c:460
 msgid "The accessible MDI value of this object"
 msgstr "이 오브젝트의 접근성 MDI 값"
 
-#: ../atk/atkobject.c:571
+#: ../atk/atkobject.c:476
 msgid "Accessible Table Caption"
 msgstr "접근성 테이블 캡션"
 
-#: ../atk/atkobject.c:572
+#: ../atk/atkobject.c:477
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -520,58 +585,207 @@ msgstr ""
 "테이블 캡션이 바뀐 걸 알릴 때 쓰입니다; 이 속성은 사용하지 않아야 합니다. 대"
 "신에 accessible-table-caption-object를 사용해야 합니다"
 
-#: ../atk/atkobject.c:578
+#: ../atk/atkobject.c:491
 msgid "Accessible Table Column Header"
 msgstr "접근성 테이블 열 머리말"
 
-#: ../atk/atkobject.c:579
+#: ../atk/atkobject.c:492
 msgid "Is used to notify that the table column header has changed"
 msgstr "테이블 열 머리말이 바뀐 걸 알릴 때 쓰입니다"
 
-#: ../atk/atkobject.c:585
+#: ../atk/atkobject.c:507
 msgid "Accessible Table Column Description"
 msgstr "접근성 테이블 열 설명"
 
-#: ../atk/atkobject.c:586
+#: ../atk/atkobject.c:508
 msgid "Is used to notify that the table column description has changed"
 msgstr "테이블 열 설명이 바뀐 걸 알릴 때 쓰입니다"
 
-#: ../atk/atkobject.c:592
+#: ../atk/atkobject.c:523
 msgid "Accessible Table Row Header"
 msgstr "접근성 테이블 행 머리말"
 
-#: ../atk/atkobject.c:593
+#: ../atk/atkobject.c:524
 msgid "Is used to notify that the table row header has changed"
 msgstr "테이블 행 머리말이 바뀐 걸 알릴 때 쓰입니다"
 
-#: ../atk/atkobject.c:599
+#: ../atk/atkobject.c:538
 msgid "Accessible Table Row Description"
 msgstr "접근성 테이블 행 설명"
 
-#: ../atk/atkobject.c:600
+#: ../atk/atkobject.c:539
 msgid "Is used to notify that the table row description has changed"
 msgstr "테이블 행 설명이 바뀐 걸 알릴 때 쓰입니다"
 
-#: ../atk/atkobject.c:606
+#: ../atk/atkobject.c:545
 msgid "Accessible Table Summary"
 msgstr "접근성 테이블 요약"
 
-#: ../atk/atkobject.c:607
+#: ../atk/atkobject.c:546
 msgid "Is used to notify that the table summary has changed"
 msgstr "테이블 요약이 바뀐 걸 알릴 때 쓰입니다"
 
-#: ../atk/atkobject.c:613
+#: ../atk/atkobject.c:552
 msgid "Accessible Table Caption Object"
 msgstr "접근성 테이블 캡션 오브젝트"
 
-#: ../atk/atkobject.c:614
+#: ../atk/atkobject.c:553
 msgid "Is used to notify that the table caption has changed"
 msgstr "테이블 캡션이 바뀐 걸 알릴 때 쓰입니다"
 
-#: ../atk/atkobject.c:620
+#: ../atk/atkobject.c:559
 msgid "Number of Accessible Hypertext Links"
 msgstr "접근성 하이퍼텍스트 링크 개수"
 
-#: ../atk/atkobject.c:621
+#: ../atk/atkobject.c:560
 msgid "The number of links which the current AtkHypertext has"
 msgstr "현재 AtkHyperlink에 들어 있는 링크의 개수"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:194
+msgid "very weak"
+msgstr "매우 취약"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:201
+msgid "weak"
+msgstr "취약"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:208
+msgid "acceptable"
+msgstr "가능"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:215
+msgid "strong"
+msgstr "강력"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:222
+msgid "very strong"
+msgstr "매우 강력"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:230
+msgid "very low"
+msgstr "매우 낮음"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:238
+msgid "medium"
+msgstr "중간"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:246
+msgid "high"
+msgstr "높음"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:254
+msgid "very high"
+msgstr "매우 높음"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:262
+msgid "very bad"
+msgstr "매우 나쁨"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:270
+msgid "bad"
+msgstr "나쁨"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:278
+msgid "good"
+msgstr "좋음"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:286
+msgid "very good"
+msgstr "매우 좋음"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:294
+msgid "best"
+msgstr "최고"
