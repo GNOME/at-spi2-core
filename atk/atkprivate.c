@@ -32,6 +32,27 @@
 
 #ifdef G_OS_WIN32
 
+#define STRICT
+#include <windows.h>
+#undef STRICT
+
+static HMODULE atk_dll;
+
+BOOL WINAPI
+DllMain(HINSTANCE hinstDLL,
+DWORD     fdwReason,
+LPVOID    lpvReserved)
+{
+	switch (fdwReason)
+	{
+	case DLL_PROCESS_ATTACH:
+		atk_dll = (HMODULE)hinstDLL;
+		break;
+	}
+
+	return TRUE;
+}
+
 static const char *
 get_atk_locale_dir (void)
 {

@@ -25,14 +25,6 @@
 #include <glib-object.h>
 #include <glib/gi18n-lib.h>
 
-#ifdef G_OS_WIN32
-#define STRICT
-#include <windows.h>
-#undef STRICT
-#undef FOCUS_EVENT		/* <windows.h> pollutes the namespace
-				 * like a six hundred pound gorilla */
-#endif
-
 #include "atk.h"
 #include "atkmarshal.h"
 #include "atkprivate.h"
@@ -279,27 +271,6 @@ static const gchar* const atk_object_name_property_table_row_header = "accessibl
 static const gchar* const atk_object_name_property_table_summary = "accessible-table-summary";
 static const gchar* const atk_object_name_property_table_caption_object = "accessible-table-caption-object";
 static const gchar* const atk_object_name_property_hypertext_num_links = "accessible-hypertext-nlinks";
-
-#ifdef G_OS_WIN32
-
-static HMODULE atk_dll;
-
-BOOL WINAPI
-DllMain (HINSTANCE hinstDLL,
-	 DWORD     fdwReason,
-	 LPVOID    lpvReserved)
-{
-  switch (fdwReason)
-    {
-    case DLL_PROCESS_ATTACH:
-      atk_dll = (HMODULE) hinstDLL;
-      break;
-    }
-
-  return TRUE;
-}
-
-#endif
 
 static void
 initialize_role_names ()
