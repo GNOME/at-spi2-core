@@ -45,6 +45,7 @@ atk_sources = 	\
 	atkobject.c		\
 	atkobjectfactory.c	\
 	atkplug.c		\
+	atkprivate.h		\
 	atkprivate.c		\
 	atkrange.c		\
 	atkregistry.c		\
