@@ -39,18 +39,18 @@
 static HMODULE atk_dll;
 
 BOOL WINAPI
-DllMain(HINSTANCE hinstDLL,
-DWORD     fdwReason,
-LPVOID    lpvReserved)
+DllMain (HINSTANCE hinstDLL,
+         DWORD     fdwReason,
+         LPVOID    lpvReserved)
 {
-	switch (fdwReason)
-	{
-	case DLL_PROCESS_ATTACH:
-		atk_dll = (HMODULE)hinstDLL;
-		break;
-	}
+  switch (fdwReason)
+    {
+    case DLL_PROCESS_ATTACH:
+      atk_dll = (HMODULE) hinstDLL;
+      break;
+    }
 
-	return TRUE;
+  return TRUE;
 }
 
 static const char *
