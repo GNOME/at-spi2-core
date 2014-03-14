@@ -11,516 +11,586 @@ msgstr ""
 "Project-Id-Version: atk trunk\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=atk&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-07-20 16:58+0000\n"
-"PO-Revision-Date: 2011-07-23 18:39+0400\n"
-"Last-Translator: Yuri Kozlov <yuray@komyakino.ru>\n"
+"POT-Creation-Date: 2014-03-14 15:47+0000\n"
+"PO-Revision-Date: 2014-03-14 21:12+0300\n"
+"Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 1.5.4\n"
 
-#: ../atk/atkhyperlink.c:103
+#: ../atk/atkhyperlink.c:128
 msgid "Selected Link"
 msgstr "Выбранная ссылка"
 
-#: ../atk/atkhyperlink.c:104
+#: ../atk/atkhyperlink.c:129
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr "Определяет, выделен ли объект AtkHyperlink"
 
-#: ../atk/atkhyperlink.c:110
+#: ../atk/atkhyperlink.c:135
 msgid "Number of Anchors"
 msgstr "Число якорей"
 
-#: ../atk/atkhyperlink.c:111
+#: ../atk/atkhyperlink.c:136
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr "Число якорей, связанных с текущим объектом AtkHypertext"
 
-#: ../atk/atkhyperlink.c:119
+#: ../atk/atkhyperlink.c:144
 msgid "End index"
 msgstr "Конец индекса"
 
-#: ../atk/atkhyperlink.c:120
+#: ../atk/atkhyperlink.c:145
 msgid "The end index of the AtkHyperlink object"
 msgstr "Конец индекса объекта AtkHyperlink"
 
-#: ../atk/atkhyperlink.c:128
+#: ../atk/atkhyperlink.c:153
 msgid "Start index"
 msgstr "Начало индекса"
 
-#: ../atk/atkhyperlink.c:129
+#: ../atk/atkhyperlink.c:154
 msgid "The start index of the AtkHyperlink object"
 msgstr "Начало индекса объекта AtkHyperlink"
 
-#: ../atk/atkobject.c:74
+#: ../atk/atkobject.c:97
 msgid "invalid"
 msgstr "недопустима"
 
-#: ../atk/atkobject.c:75
+#: ../atk/atkobject.c:98
 msgid "accelerator label"
 msgstr "метка ускорителя"
 
-#: ../atk/atkobject.c:76
+#: ../atk/atkobject.c:99
 msgid "alert"
 msgstr "тревога"
 
-#: ../atk/atkobject.c:77
+#: ../atk/atkobject.c:100
 msgid "animation"
 msgstr "анимация"
 
-#: ../atk/atkobject.c:78
+#: ../atk/atkobject.c:101
 msgid "arrow"
 msgstr "стрелка"
 
-#: ../atk/atkobject.c:79
+#: ../atk/atkobject.c:102
 msgid "calendar"
 msgstr "календарь"
 
-#: ../atk/atkobject.c:80
+#: ../atk/atkobject.c:103
 msgid "canvas"
 msgstr "канва"
 
-#: ../atk/atkobject.c:81
+#: ../atk/atkobject.c:104
 msgid "check box"
 msgstr "кнопка-флажок"
 
-#: ../atk/atkobject.c:82
+#: ../atk/atkobject.c:105
 msgid "check menu item"
 msgstr "элемент-флажок меню"
 
-#: ../atk/atkobject.c:83
+#: ../atk/atkobject.c:106
 msgid "color chooser"
 msgstr "выбор цвета"
 
-#: ../atk/atkobject.c:84
+#: ../atk/atkobject.c:107
 msgid "column header"
 msgstr "заголовок столбца"
 
-#: ../atk/atkobject.c:85
+#: ../atk/atkobject.c:108
 msgid "combo box"
 msgstr "выпадающий список с возможностью ввода"
 
-#: ../atk/atkobject.c:86
+#: ../atk/atkobject.c:109
 msgid "dateeditor"
 msgstr "редактор даты"
 
-#: ../atk/atkobject.c:87
+#: ../atk/atkobject.c:110
 msgid "desktop icon"
 msgstr "значок рабочего стола"
 
-#: ../atk/atkobject.c:88
+#: ../atk/atkobject.c:111
 msgid "desktop frame"
 msgstr "рамка рабочего стола"
 
-#: ../atk/atkobject.c:89
+#: ../atk/atkobject.c:112
 msgid "dial"
 msgstr "набор номера"
 
-#: ../atk/atkobject.c:90
+#: ../atk/atkobject.c:113
 msgid "dialog"
 msgstr "диалог"
 
-#: ../atk/atkobject.c:91
+#: ../atk/atkobject.c:114
 msgid "directory pane"
 msgstr "панель каталога"
 
-#: ../atk/atkobject.c:92
+#: ../atk/atkobject.c:115
 msgid "drawing area"
 msgstr "область рисования"
 
-#: ../atk/atkobject.c:93
+#: ../atk/atkobject.c:116
 msgid "file chooser"
 msgstr "выбор файлов"
 
-#: ../atk/atkobject.c:94
+#: ../atk/atkobject.c:117
 msgid "filler"
 msgstr "заполнитель"
 
 #. I know it looks wrong but that is what Java returns
-#: ../atk/atkobject.c:96
+#: ../atk/atkobject.c:119
 msgid "fontchooser"
 msgstr "выбор шрифта"
 
-#: ../atk/atkobject.c:97
+#: ../atk/atkobject.c:120
 msgid "frame"
 msgstr "рамка"
 
-#: ../atk/atkobject.c:98
+#: ../atk/atkobject.c:121
 msgid "glass pane"
 msgstr "прозрачная панель"
 
-#: ../atk/atkobject.c:99
+#: ../atk/atkobject.c:122
 msgid "html container"
 msgstr "содержимое с языком html"
 
-#: ../atk/atkobject.c:100
+#: ../atk/atkobject.c:123
 msgid "icon"
 msgstr "значок"
 
-#: ../atk/atkobject.c:101
+#: ../atk/atkobject.c:124
 msgid "image"
 msgstr "изображение"
 
-#: ../atk/atkobject.c:102
+#: ../atk/atkobject.c:125
 msgid "internal frame"
 msgstr "внутренняя рамка"
 
-#: ../atk/atkobject.c:103
+#: ../atk/atkobject.c:126
 msgid "label"
 msgstr "метка"
 
-#: ../atk/atkobject.c:104
+#: ../atk/atkobject.c:127
 msgid "layered pane"
 msgstr "панель с уровнями"
 
-#: ../atk/atkobject.c:105
+#: ../atk/atkobject.c:128
 msgid "list"
 msgstr "список"
 
-#: ../atk/atkobject.c:106
+#: ../atk/atkobject.c:129
 msgid "list item"
 msgstr "элемент списка"
 
-#: ../atk/atkobject.c:107
+#: ../atk/atkobject.c:130
 msgid "menu"
 msgstr "меню"
 
-#: ../atk/atkobject.c:108
+#: ../atk/atkobject.c:131
 msgid "menu bar"
 msgstr "строка меню"
 
-#: ../atk/atkobject.c:109
+#: ../atk/atkobject.c:132
 msgid "menu item"
 msgstr "элемент меню"
 
-#: ../atk/atkobject.c:110
+#: ../atk/atkobject.c:133
 msgid "option pane"
 msgstr "панель опций"
 
-#: ../atk/atkobject.c:111
+#: ../atk/atkobject.c:134
 msgid "page tab"
 msgstr "вкладка страницы"
 
-#: ../atk/atkobject.c:112
+#: ../atk/atkobject.c:135
 msgid "page tab list"
 msgstr "список вкладок страницы"
 
-#: ../atk/atkobject.c:113
+#: ../atk/atkobject.c:136
 msgid "panel"
 msgstr "панель"
 
-#: ../atk/atkobject.c:114
+#: ../atk/atkobject.c:137
 msgid "password text"
 msgstr "пароль"
 
-#: ../atk/atkobject.c:115
+#: ../atk/atkobject.c:138
 msgid "popup menu"
 msgstr "всплывающее меню"
 
-#: ../atk/atkobject.c:116
+#: ../atk/atkobject.c:139
 msgid "progress bar"
 msgstr "индикатор выполнения"
 
-#: ../atk/atkobject.c:117
+#: ../atk/atkobject.c:140
 msgid "push button"
 msgstr "нажимаемая кнопка"
 
-#: ../atk/atkobject.c:118
+#: ../atk/atkobject.c:141
 msgid "radio button"
 msgstr "радио-кнопка"
 
-#: ../atk/atkobject.c:119
+#: ../atk/atkobject.c:142
 msgid "radio menu item"
 msgstr "радио-элемент меню"
 
-#: ../atk/atkobject.c:120
+#: ../atk/atkobject.c:143
 msgid "root pane"
 msgstr "корневая панель"
 
-#: ../atk/atkobject.c:121
+#: ../atk/atkobject.c:144
 msgid "row header"
 msgstr "заголовок строки"
 
-#: ../atk/atkobject.c:122
+#: ../atk/atkobject.c:145
 msgid "scroll bar"
 msgstr "полоса прокрутки"
 
-#: ../atk/atkobject.c:123
+#: ../atk/atkobject.c:146
 msgid "scroll pane"
 msgstr "панель прокрутки"
 
-#: ../atk/atkobject.c:124
+#: ../atk/atkobject.c:147
 msgid "separator"
 msgstr "разделитель"
 
-#: ../atk/atkobject.c:125
+#: ../atk/atkobject.c:148
 msgid "slider"
 msgstr "бегунок"
 
-#: ../atk/atkobject.c:126
+#: ../atk/atkobject.c:149
 msgid "split pane"
 msgstr "двойная панель"
 
-#: ../atk/atkobject.c:127
+#: ../atk/atkobject.c:150
 msgid "spin button"
 msgstr "кнопка вращения"
 
-#: ../atk/atkobject.c:128
+#: ../atk/atkobject.c:151
 msgid "statusbar"
 msgstr "строка состояния"
 
-#: ../atk/atkobject.c:129
+#: ../atk/atkobject.c:152
 msgid "table"
 msgstr "таблица"
 
-#: ../atk/atkobject.c:130
+#: ../atk/atkobject.c:153
 msgid "table cell"
 msgstr "ячейка таблицы"
 
-#: ../atk/atkobject.c:131
+#: ../atk/atkobject.c:154
 msgid "table column header"
 msgstr "заголовок столбца таблицы"
 
-#: ../atk/atkobject.c:132
+#: ../atk/atkobject.c:155
 msgid "table row header"
 msgstr "заголовок строки таблицы"
 
-#: ../atk/atkobject.c:133
+#: ../atk/atkobject.c:156
 msgid "tear off menu item"
 msgstr "неразрывный элемент меню"
 
-#: ../atk/atkobject.c:134
+#: ../atk/atkobject.c:157
 msgid "terminal"
 msgstr "терминал"
 
-#: ../atk/atkobject.c:135
+#: ../atk/atkobject.c:158
 msgid "text"
 msgstr "текст"
 
-#: ../atk/atkobject.c:136
+#: ../atk/atkobject.c:159
 msgid "toggle button"
 msgstr "кнопка-переключатель"
 
-#: ../atk/atkobject.c:137
+#: ../atk/atkobject.c:160
 msgid "tool bar"
 msgstr "панель инструментов"
 
-#: ../atk/atkobject.c:138
+#: ../atk/atkobject.c:161
 msgid "tool tip"
 msgstr "подсказка"
 
-#: ../atk/atkobject.c:139
+#: ../atk/atkobject.c:162
 msgid "tree"
 msgstr "дерево"
 
-#: ../atk/atkobject.c:140
+#: ../atk/atkobject.c:163
 msgid "tree table"
 msgstr "таблица в виде дерева"
 
-#: ../atk/atkobject.c:141
+#: ../atk/atkobject.c:164
 msgid "unknown"
 msgstr "неизвестна"
 
-#: ../atk/atkobject.c:142
+#: ../atk/atkobject.c:165
 msgid "viewport"
 msgstr "область просмотра"
 
-#: ../atk/atkobject.c:143
+#: ../atk/atkobject.c:166
 msgid "window"
 msgstr "окно"
 
-#: ../atk/atkobject.c:144
+#: ../atk/atkobject.c:167
 msgid "header"
 msgstr "заголовок"
 
-#: ../atk/atkobject.c:145
+#: ../atk/atkobject.c:168
 msgid "footer"
 msgstr "подвал"
 
-#: ../atk/atkobject.c:146
+#: ../atk/atkobject.c:169
 msgid "paragraph"
 msgstr "абзац"
 
-#: ../atk/atkobject.c:147
+#: ../atk/atkobject.c:170
 msgid "ruler"
 msgstr "линейка"
 
-#: ../atk/atkobject.c:148
+#: ../atk/atkobject.c:171
 msgid "application"
 msgstr "приложение"
 
-#: ../atk/atkobject.c:149
+#: ../atk/atkobject.c:172
 msgid "autocomplete"
 msgstr "автодополнение"
 
-#: ../atk/atkobject.c:150
+#: ../atk/atkobject.c:173
 msgid "edit bar"
 msgstr "строка редактирования"
 
-#: ../atk/atkobject.c:151
+#: ../atk/atkobject.c:174
 msgid "embedded component"
 msgstr "внедрённый компонент"
 
-#: ../atk/atkobject.c:152
+#: ../atk/atkobject.c:175
 msgid "entry"
 msgstr "запись"
 
-#: ../atk/atkobject.c:153
+#: ../atk/atkobject.c:176
 msgid "chart"
 msgstr "диаграмма"
 
-#: ../atk/atkobject.c:154
+#: ../atk/atkobject.c:177
 msgid "caption"
 msgstr "заголовок"
 
-#: ../atk/atkobject.c:155
+#: ../atk/atkobject.c:178
 msgid "document frame"
 msgstr "рамка документа"
 
-#: ../atk/atkobject.c:156
+#: ../atk/atkobject.c:179
 msgid "heading"
 msgstr "заголовок"
 
-#: ../atk/atkobject.c:157
+#: ../atk/atkobject.c:180
 msgid "page"
 msgstr "страница"
 
-#: ../atk/atkobject.c:158
+#: ../atk/atkobject.c:181
 msgid "section"
 msgstr "раздел"
 
-#: ../atk/atkobject.c:159
+#: ../atk/atkobject.c:182
 msgid "redundant object"
-msgstr "Избыточный объект"
+msgstr "избыточный объект"
 
-#: ../atk/atkobject.c:160
+#: ../atk/atkobject.c:183
 msgid "form"
 msgstr "форма"
 
-#: ../atk/atkobject.c:161
+#: ../atk/atkobject.c:184
 msgid "link"
 msgstr "ссылка"
 
-#: ../atk/atkobject.c:162
+#: ../atk/atkobject.c:185
 msgid "input method window"
 msgstr "окно метода ввода"
 
-#: ../atk/atkobject.c:163
+#: ../atk/atkobject.c:186
 msgid "table row"
 msgstr "строка таблицы"
 
-#: ../atk/atkobject.c:164
+#: ../atk/atkobject.c:187
 msgid "tree item"
 msgstr "элемент дерева"
 
-#: ../atk/atkobject.c:165
+#: ../atk/atkobject.c:188
 msgid "document spreadsheet"
 msgstr "документ электронной таблицы"
 
-#: ../atk/atkobject.c:166
+#: ../atk/atkobject.c:189
 msgid "document presentation"
 msgstr "документ презентации"
 
-#: ../atk/atkobject.c:167
+#: ../atk/atkobject.c:190
 msgid "document text"
 msgstr "текстовый документ"
 
-#: ../atk/atkobject.c:168
+#: ../atk/atkobject.c:191
 msgid "document web"
 msgstr "веб-документ"
 
-#: ../atk/atkobject.c:169
+#: ../atk/atkobject.c:192
 msgid "document email"
 msgstr "документ электронного сообщения"
 
-#: ../atk/atkobject.c:170
+#: ../atk/atkobject.c:193
 msgid "comment"
 msgstr "комментарий"
 
-#: ../atk/atkobject.c:171
+#: ../atk/atkobject.c:194
 msgid "list box"
 msgstr "списочный блок"
 
-#: ../atk/atkobject.c:172
+#: ../atk/atkobject.c:195
 msgid "grouping"
 msgstr "группировка"
 
-#: ../atk/atkobject.c:173
+#: ../atk/atkobject.c:196
 msgid "image map"
 msgstr "карта изображения"
 
-#: ../atk/atkobject.c:174
+#: ../atk/atkobject.c:197
 msgid "notification"
 msgstr "уведомление"
 
-#: ../atk/atkobject.c:175
+#: ../atk/atkobject.c:198
 msgid "info bar"
 msgstr "информационная полоса"
 
-#: ../atk/atkobject.c:514
+# см. например GtkLevelBar
+#: ../atk/atkobject.c:199
+#| msgid "scroll bar"
+msgid "level bar"
+msgstr "индикатор выполнения"
+
+#: ../atk/atkobject.c:200
+#| msgid "tool bar"
+msgid "title bar"
+msgstr "панель заголовка"
+
+#: ../atk/atkobject.c:201
+msgid "block quote"
+msgstr "блок цитирования"
+
+#: ../atk/atkobject.c:202
+msgid "audio"
+msgstr "звук"
+
+#: ../atk/atkobject.c:203
+msgid "video"
+msgstr "видео"
+
+#: ../atk/atkobject.c:204
+#| msgid "animation"
+msgid "definition"
+msgstr "определение"
+
+#: ../atk/atkobject.c:205
+msgid "article"
+msgstr "статья"
+
+#: ../atk/atkobject.c:206
+msgid "landmark"
+msgstr ""
+
+#: ../atk/atkobject.c:207
+#| msgid "dialog"
+msgid "log"
+msgstr "журнал"
+
+#: ../atk/atkobject.c:208
+msgid "marquee"
+msgstr ""
+
+#: ../atk/atkobject.c:209
+msgid "math"
+msgstr ""
+
+#: ../atk/atkobject.c:210
+msgid "rating"
+msgstr "оценка"
+
+#: ../atk/atkobject.c:211
+msgid "timer"
+msgstr "таймер"
+
+#: ../atk/atkobject.c:212
+msgid "description list"
+msgstr ""
+
+#: ../atk/atkobject.c:213
+msgid "description term"
+msgstr ""
+
+#: ../atk/atkobject.c:214
+msgid "description value"
+msgstr ""
+
+#: ../atk/atkobject.c:372
 msgid "Accessible Name"
 msgstr "Облегчённое имя"
 
-#: ../atk/atkobject.c:515
+#: ../atk/atkobject.c:373
 msgid "Object instance's name formatted for assistive technology access"
 msgstr ""
 "Имя экземпляра объекта для доступа с использованием облегчающих технологий"
 
-#: ../atk/atkobject.c:521
+#: ../atk/atkobject.c:379
 msgid "Accessible Description"
 msgstr "Облегчённое описание"
 
-#: ../atk/atkobject.c:522
+#: ../atk/atkobject.c:380
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Описание объекта для доступа с использованием облегчающих технологий"
 
-#: ../atk/atkobject.c:528
+#: ../atk/atkobject.c:386
 msgid "Accessible Parent"
 msgstr "Облегчённый предок"
 
-#: ../atk/atkobject.c:529
-msgid "Is used to notify that the parent has changed"
-msgstr "Используется для уведомления, что предок изменился"
+#: ../atk/atkobject.c:387
+msgid "Parent of the current accessible as returned by atk_object_get_parent()"
+msgstr ""
 
-#: ../atk/atkobject.c:535
+#: ../atk/atkobject.c:403
 msgid "Accessible Value"
 msgstr "Облегчённое значение"
 
-#: ../atk/atkobject.c:536
+#: ../atk/atkobject.c:404
 msgid "Is used to notify that the value has changed"
 msgstr "Используется для уведомления, что значение изменилось"
 
-#: ../atk/atkobject.c:544
+#: ../atk/atkobject.c:412
 msgid "Accessible Role"
 msgstr "Облегчённая роль"
 
-#: ../atk/atkobject.c:545
+#: ../atk/atkobject.c:413
 msgid "The accessible role of this object"
 msgstr "Роль этого объекта в облегчающих технологиях"
 
-#: ../atk/atkobject.c:553
+#: ../atk/atkobject.c:421
 msgid "Accessible Layer"
 msgstr "Облегчённый уровень"
 
-#: ../atk/atkobject.c:554
+#: ../atk/atkobject.c:422
 msgid "The accessible layer of this object"
 msgstr "Уровень этого объекта в облегчающих технологиях"
 
-#: ../atk/atkobject.c:562
+#: ../atk/atkobject.c:430
 msgid "Accessible MDI Value"
 msgstr "Облегчённое значение MDI"
 
-#: ../atk/atkobject.c:563
+#: ../atk/atkobject.c:431
 msgid "The accessible MDI value of this object"
 msgstr "Значение MDI этого объекта в облегчающих технологиях"
 
-#: ../atk/atkobject.c:571
+#: ../atk/atkobject.c:447
 msgid "Accessible Table Caption"
 msgstr "Облегчённый заголовок таблицы"
 
-#: ../atk/atkobject.c:572
+#: ../atk/atkobject.c:448
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -529,62 +599,216 @@ msgstr ""
 "свойство не должно использоваться. Вместо него должно использоваться "
 "свойство accessible-table-caption-object."
 
-#: ../atk/atkobject.c:578
+#: ../atk/atkobject.c:462
 msgid "Accessible Table Column Header"
 msgstr "Облегчённый заголовок столбца таблицы"
 
-#: ../atk/atkobject.c:579
+#: ../atk/atkobject.c:463
 msgid "Is used to notify that the table column header has changed"
 msgstr ""
 "Используется для уведомления о том, что заголовок столбца таблицы изменился"
 
-#: ../atk/atkobject.c:585
+#: ../atk/atkobject.c:478
 msgid "Accessible Table Column Description"
 msgstr "Облегчённое описание столбца таблицы"
 
-#: ../atk/atkobject.c:586
+#: ../atk/atkobject.c:479
 msgid "Is used to notify that the table column description has changed"
 msgstr ""
 "Используется для уведомления о том, что описание столбца таблицы изменилось"
 
-#: ../atk/atkobject.c:592
+#: ../atk/atkobject.c:494
 msgid "Accessible Table Row Header"
 msgstr "Облегчённый заголовок строки таблицы"
 
-#: ../atk/atkobject.c:593
+#: ../atk/atkobject.c:495
 msgid "Is used to notify that the table row header has changed"
 msgstr ""
 "Используется для уведомления о том, что заголовок строки таблицы изменился"
 
-#: ../atk/atkobject.c:599
+#: ../atk/atkobject.c:509
 msgid "Accessible Table Row Description"
 msgstr "Облегчённое описание строки таблицы"
 
-#: ../atk/atkobject.c:600
+#: ../atk/atkobject.c:510
 msgid "Is used to notify that the table row description has changed"
 msgstr ""
 "Используется для уведомления о том, что описание строки таблицы изменилось"
 
-#: ../atk/atkobject.c:606
+#: ../atk/atkobject.c:516
 msgid "Accessible Table Summary"
 msgstr "Облегчённая сводка таблицы"
 
-#: ../atk/atkobject.c:607
+#: ../atk/atkobject.c:517
 msgid "Is used to notify that the table summary has changed"
 msgstr "Используется для уведомления о том, что сводка таблицы изменилась"
 
-#: ../atk/atkobject.c:613
+#: ../atk/atkobject.c:523
 msgid "Accessible Table Caption Object"
 msgstr "Облегчённый объект заголовка таблицы"
 
-#: ../atk/atkobject.c:614
+#: ../atk/atkobject.c:524
 msgid "Is used to notify that the table caption has changed"
 msgstr "Используется для уведомления о том, что заголовок таблицы изменился"
 
-#: ../atk/atkobject.c:620
+#: ../atk/atkobject.c:530
 msgid "Number of Accessible Hypertext Links"
 msgstr "Число облегчённых гипертекстовых ссылок"
 
-#: ../atk/atkobject.c:621
+#: ../atk/atkobject.c:531
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Число ссылок, которые имеет текущий объект AtkHypertext"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:194
+msgid "very weak"
+msgstr "очень слабо"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:201
+msgid "weak"
+msgstr "слабо"
+
+# средне
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:208
+#| msgid "table"
+msgid "acceptable"
+msgstr "приемлемо"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:215
+msgid "strong"
+msgstr "надёжно"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:222
+msgid "very strong"
+msgstr "очень надёжно"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:230
+msgid "very low"
+msgstr "очень низко"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:238
+msgid "medium"
+msgstr "средне"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:246
+msgid "high"
+msgstr "высоко"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:254
+msgid "very high"
+msgstr "очень высоко"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:262
+msgid "very bad"
+msgstr "очень плохо"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:270
+msgid "bad"
+msgstr "плохо"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:278
+msgid "good"
+msgstr "хорошо"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:286
+msgid "very good"
+msgstr "очень хорошо"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:294
+msgid "best"
+msgstr "лучше не бывает"
+
+#~ msgid "Is used to notify that the parent has changed"
+#~ msgstr "Используется для уведомления, что предок изменился"
