@@ -995,6 +995,11 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   }
   e.type = converted_type;
   e.source = _atspi_ref_accessible (dbus_message_get_sender(message), dbus_message_get_path(message));
+  if (e.source == NULL)
+  {
+    g_warning ("Got no valid source accessible for signal for signal %s from interface %s\n", member, category);
+    return DBUS_HANDLER_RESULT_HANDLED;
+  }
 
   dbus_message_iter_recurse (&iter, &iter_variant);
   switch (dbus_message_iter_get_arg_type (&iter_variant))
