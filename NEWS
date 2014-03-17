@@ -1,3 +1,27 @@
+Changes in version 2.11.92:
+==========================
+*
+* AtkValue:
+  * Bug 684576: AtkValue heavily refactored. Available now so
+    implementors could start migration on next cycle.
+  * Bug 726216: update atk.symbols, autotools for missing symbols and
+    files
+* AtkTableCell:
+  * Added symbols to be exported at atk.symbols
+
+Contributors:
+  Chun-wei Fan, Alejandro Piñeiro Iglesias
+
+Translations
+
+  Aurimas Černius (lt), Marek Černocký (cs), Fran Diéguez (gl), Piotr
+  Drąg (po), Rafael Ferreira (pt_BR), Attila Hammer (hu), Sphinx Jiang
+  (zh_CN), Chao-Hsiung Liao (zh_HK), Duarte Loreto (pt), Kjartan
+  Maraas (nb), Rūdolfs Mazurs (lv), Daniel Mustieles (es), Yuri
+  Myasoedov (ru), Claude Paroz (fr), Changwoo Ryu (ko), Мирослав
+  Николић (sr)
+
+
 Changes in version 2.11.90:
 ==========================
 *
