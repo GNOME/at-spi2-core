@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.11.92:
+
+* Fix a crash with MediaElch and Onboard (bgo#726243).
+
+* Various i18n updates.
+
 What's new in at-spi2-core 2.11.91:
 
 * Improve compatibility with at-spi2-registryd <= 3.10.
