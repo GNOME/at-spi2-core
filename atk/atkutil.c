@@ -17,9 +17,10 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include "config.h"
+
 #include "atkutil.h"
 #include "atkmarshal.c"
-#include "config.h"
 
 /**
  * SECTION:atkutil

@@ -17,6 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include "config.h"
+
 #include <atk/atkgobjectaccessible.h>
 #include <atk/atkregistry.h>
 #include <atk/atkutil.h>
