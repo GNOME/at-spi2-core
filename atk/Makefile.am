@@ -19,7 +19,8 @@ AM_CPPFLAGS = \
 	-DATK_DISABLE_DEPRECATED	\
 	-DATK_COMPILATION	\
 	-DATK_LOCALEDIR="\"$(datadir)/locale\""	\
-	$(DEP_CFLAGS)
+	$(DEP_CFLAGS)	\
+	$(ATK_HIDDEN_VISIBILITY_CFLAGS)
 
 lib_LTLIBRARIES = libatk-1.0.la
 
@@ -191,41 +192,13 @@ endif
 
 if OS_WIN32
 libatk_1_0_la_LDFLAGS += -export-symbols atk.def -no-undefined -Wl,atk-win32-res.o
-libatk_1_0_la_DEPENDENCIES = atk-win32-res.o atk.def
-
-install-def-file:
-	$(INSTALL) atk.def $(DESTDIR)$(libdir)/atk-1.0.def
-uninstall-def-file:
-	-rm $(DESTDIR)$(libdir)/atk-1.0.def
-else
-install-def-file:
-uninstall-def-file:
+libatk_1_0_la_DEPENDENCIES = atk-win32-res.o
 endif
 
 atk-win32-res.o: atk.rc
 	$(WINDRES) $< $@
 
-if MS_LIB_AVAILABLE
-noinst_DATA = atk-$(ATK_API_VERSION).lib
-
-install-ms-lib:
-	$(INSTALL) atk-$(ATK_API_VERSION).lib $(DESTDIR)$(libdir)
-
-uninstall-ms-lib:
-	-rm $(DESTDIR)$(libdir)/atk-$(ATK_API_VERSION).lib
-else
-install-ms-lib:
-uninstall-ms-lib:
-endif
-
-atk.def: atk.symbols
-	(echo -e EXPORTS; $(CPP) -P -DINCLUDE_VARIABLES -DG_OS_WIN32 -DALL_FILES - <$(srcdir)/atk.symbols | sed -e '/^$$/d' -e 's/^/	/' -e 's/G_GNUC_[^ ]*//g') > atk.def
-
-atk-$(ATK_API_VERSION).lib: libatk-$(ATK_API_VERSION).la atk.def
-	lib -machine:$(LIB_EXE_MACHINE_FLAG) -name:libatk-$(ATK_API_VERSION)-$(LT_CURRENT_MINUS_AGE).dll -def:atk.def -out:$@
-
-
-EXTRA_DIST = atk.symbols atk.rc.in atkmarshal.list atk.rc atkversion.h.in
+EXTRA_DIST = atk.rc.in atkmarshal.list atk.rc atkversion.h.in
 
 DISTCLEANFILES = \
   stamp-atkmarshal.h stamp-atkmarshal.c \
@@ -235,7 +208,3 @@ distclean-local:
 	if test $(srcdir) = .; then :; else \
 	  rm -f atkmarshal.h atkmarshal.c atk-enum-types.h atk-enum-types.c; \
 	fi
-
-install-data-local: install-ms-lib install-def-file
-
-uninstall-local: uninstall-ms-lib uninstall-def-file
