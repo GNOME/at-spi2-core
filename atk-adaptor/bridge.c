@@ -57,6 +57,7 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data);
 SpiBridge *spi_global_app_data = NULL;
 
 static gboolean inited = FALSE;
+static gboolean atexit_added = FALSE;
 
 /*---------------------------------------------------------------------------*/
 
@@ -446,6 +447,27 @@ register_application (SpiBridge * app)
 /*---------------------------------------------------------------------------*/
 
 static void
+remove_socket ()
+{
+  if (!spi_global_app_data)
+    return;
+
+  if (spi_global_app_data->app_bus_addr)
+  {
+    unlink (spi_global_app_data->app_bus_addr);
+    g_free (spi_global_app_data->app_bus_addr);
+    spi_global_app_data->app_bus_addr = NULL;
+  }
+
+  if (spi_global_app_data->app_tmp_dir)
+  {
+    rmdir (spi_global_app_data->app_tmp_dir);
+    g_free (spi_global_app_data->app_tmp_dir);
+    spi_global_app_data->app_tmp_dir = NULL;
+  }
+}
+
+static void
 deregister_application (SpiBridge * app)
 {
   DBusMessage *message;
@@ -466,19 +488,7 @@ deregister_application (SpiBridge * app)
   if (message)
     dbus_message_unref (message);
 
-  if (app->app_bus_addr)
-  {
-    unlink (app->app_bus_addr);
-    g_free (app->app_bus_addr);
-    app->app_bus_addr = NULL;
-  }
-
-  if (app->app_tmp_dir)
-  {
-    rmdir (app->app_tmp_dir);
-    g_free (app->app_tmp_dir);
-    app->app_tmp_dir = NULL;
-  }
+  remove_socket ();
 
   g_free (app->desktop_name);
   app->desktop_name = NULL;
@@ -1090,6 +1100,10 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
     register_application (spi_global_app_data);
   else
     get_registered_event_listeners (spi_global_app_data);
+
+  if (!atexit_added)
+    atexit (remove_socket);
+  atexit_added = TRUE;
 
   dbus_error_free (&error);
   return 0;
