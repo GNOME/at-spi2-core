@@ -1651,12 +1651,13 @@ atspi_accessible_clear_cache (AtspiAccessible *accessible)
 /**
  * atspi_accessible_get_process_id:
  * @accessible: The #AtspiAccessible to query.
+ * @error: a pointer to a %NULL #GError pointer
  *
  * Returns the process id associated with the given accessible.  Mainly
  * added for debugging; it is a shortcut to explicitly querying the
  * accessible's app->bus_name and then calling GetConnectionUnixProcessID.
  *
- * Returns: The process ID, or -1 if defunct.
+ * Returns: The process ID or undetermined value if @error is set.
  **/
 guint
 atspi_accessible_get_process_id (AtspiAccessible *accessible, GError **error)
@@ -1667,7 +1668,10 @@ atspi_accessible_get_process_id (AtspiAccessible *accessible, GError **error)
   DBusError d_error;
 
   if (!accessible->parent.app || !accessible->parent.app->bus_name)
-    return -1;
+    {
+      g_set_error_literal(error, ATSPI_ERROR, ATSPI_ERROR_IPC, "Process is defunct");
+      return -1;
+    }
 
   message = dbus_message_new_method_call ("org.freedesktop.DBus",
                                           "/org/freedesktop/DBus",
@@ -1687,7 +1691,7 @@ atspi_accessible_get_process_id (AtspiAccessible *accessible, GError **error)
   }
   if (dbus_error_is_set (&d_error))
     {
-      g_warning ("GetConnectionUnixProcessID failed: %s", d_error.message);
+      g_set_error_literal(error, ATSPI_ERROR, ATSPI_ERROR_IPC, "Process is defunct");
       dbus_error_free (&d_error);
     }
   return pid;
