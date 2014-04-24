@@ -274,6 +274,7 @@ build/Makefile
 build/win32/Makefile
 build/win32/vs9/Makefile
 build/win32/vs10/Makefile
+build/win32/vs11/Makefile
 docs/Makefile
 docs/version.xml
 atk.spec
