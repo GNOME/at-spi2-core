@@ -56,10 +56,15 @@ struct _AtkObjectFactoryClass
   AtkFunction pad2;
 };
 
+ATK_AVAILABLE_IN_ALL
 GType atk_object_factory_get_type(void);
 
+
+ATK_AVAILABLE_IN_ALL
 AtkObject* atk_object_factory_create_accessible (AtkObjectFactory *factory, GObject *obj);
+ATK_AVAILABLE_IN_ALL
 void       atk_object_factory_invalidate (AtkObjectFactory *factory);
+ATK_AVAILABLE_IN_ALL
 GType      atk_object_factory_get_accessible_type (AtkObjectFactory *factory);
 
 G_END_DECLS

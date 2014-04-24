@@ -119,35 +119,43 @@ struct _AtkValueIface
 
 };
 
+ATK_AVAILABLE_IN_ALL
 GType            atk_value_get_type (void);
 
-G_DEPRECATED_FOR(atk_value_get_value_and_text)
+ATK_DEPRECATED_IN_2_12_FOR(atk_value_get_value_and_text)
 void      atk_value_get_current_value (AtkValue     *obj,
                                        GValue       *value);
 
-G_DEPRECATED_FOR(atk_value_get_range)
+ATK_DEPRECATED_IN_2_12_FOR(atk_value_get_range)
 void     atk_value_get_maximum_value  (AtkValue     *obj,
                                        GValue       *value);
-G_DEPRECATED_FOR(atk_value_get_range)
+ATK_DEPRECATED_IN_2_12_FOR(atk_value_get_range)
 void     atk_value_get_minimum_value  (AtkValue     *obj,
                                        GValue       *value);
-G_DEPRECATED_FOR(atk_value_set_value)
+ATK_DEPRECATED_IN_2_12_FOR(atk_value_set_value)
 gboolean atk_value_set_current_value  (AtkValue     *obj,
                                        const GValue *value);
-G_DEPRECATED_FOR(atk_value_get_increment)
+ATK_DEPRECATED_IN_2_12_FOR(atk_value_get_increment)
 void     atk_value_get_minimum_increment  (AtkValue     *obj,
 					   GValue       *value);
 
+ATK_AVAILABLE_IN_2_12
 void      atk_value_get_value_and_text (AtkValue *obj,
                                         gdouble *value,
                                         gchar  **text);
+ATK_AVAILABLE_IN_2_12
 AtkRange* atk_value_get_range          (AtkValue *obj);
+ATK_AVAILABLE_IN_2_12
 gdouble   atk_value_get_increment      (AtkValue *obj);
+ATK_AVAILABLE_IN_2_12
 GSList*   atk_value_get_sub_ranges     (AtkValue *obj);
+ATK_AVAILABLE_IN_2_12
 void      atk_value_set_value          (AtkValue     *obj,
                                         const gdouble new_value);
 /* AtkValueType methods */
+ATK_AVAILABLE_IN_ALL
 const gchar* atk_value_type_get_name           (AtkValueType value_type);
+ATK_AVAILABLE_IN_ALL
 const gchar* atk_value_type_get_localized_name (AtkValueType value_type);
 
 G_END_DECLS

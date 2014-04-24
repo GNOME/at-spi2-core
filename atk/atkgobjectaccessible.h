@@ -47,6 +47,7 @@ struct _AtkGObjectAccessible
   AtkObject parent;
 };
 
+ATK_AVAILABLE_IN_ALL
 GType atk_gobject_accessible_get_type (void);
 
 struct _AtkGObjectAccessibleClass
@@ -57,7 +58,9 @@ struct _AtkGObjectAccessibleClass
   AtkFunction pad2;
 };
 
+ATK_AVAILABLE_IN_ALL
 AtkObject *atk_gobject_accessible_for_object      (GObject           *obj);
+ATK_AVAILABLE_IN_ALL
 GObject   *atk_gobject_accessible_get_object      (AtkGObjectAccessible *obj);
 
 G_END_DECLS

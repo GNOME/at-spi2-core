@@ -25,6 +25,7 @@
 #define __ATK_MISC_H__
 
 #include <glib-object.h>
+#include <atk/atkversion.h>
 
 /* We prefix variable declarations so they can
  * properly get exported in Windows DLLs.
@@ -36,7 +37,7 @@
 #    else /* !ATK_STATIC_COMPILATION */
 #      ifdef ATK_COMPILATION
 #        ifdef DLL_EXPORT
-#          define ATK_VAR __declspec(dllexport)
+#          define ATK_VAR _ATK_EXTERN
 #        else /* !DLL_EXPORT */
 #          define ATK_VAR extern
 #        endif /* !DLL_EXPORT */
@@ -45,7 +46,7 @@
 #      endif /* !ATK_COMPILATION */
 #    endif /* !ATK_STATIC_COMPILATION */
 #  else /* !G_PLATFORM_WIN32 */
-#    define ATK_VAR extern
+#    define ATK_VAR _ATK_EXTERN
 #  endif /* !G_PLATFORM_WIN32 */
 #endif /* ATK_VAR */
 
@@ -95,13 +96,15 @@ struct _AtkMiscClass
    void   (* threads_leave)                     (AtkMisc *misc);
    gpointer vfuncs[32]; /* future bincompat */
 };
+
+ATK_DEPRECATED_IN_2_12
 GType atk_misc_get_type (void);
 
-G_DEPRECATED
+ATK_DEPRECATED_IN_2_12
 void     atk_misc_threads_enter  (AtkMisc *misc);
-G_DEPRECATED
+ATK_DEPRECATED_IN_2_12
 void     atk_misc_threads_leave  (AtkMisc *misc);
-G_DEPRECATED
+ATK_DEPRECATED_IN_2_12
 const AtkMisc *atk_misc_get_instance (void);
 
 G_END_DECLS

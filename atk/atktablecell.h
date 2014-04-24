@@ -75,20 +75,28 @@ struct _AtkTableCellIface
   AtkObject *   (*get_table)               (AtkTableCell *cell);
 };
 
+ATK_AVAILABLE_IN_2_12
 GType atk_table_cell_get_type (void);
 
+ATK_AVAILABLE_IN_2_12
 gint        atk_table_cell_get_column_span         (AtkTableCell *cell);
+ATK_AVAILABLE_IN_2_12
 GPtrArray * atk_table_cell_get_column_header_cells (AtkTableCell *cell);
+ATK_AVAILABLE_IN_2_12
 gboolean    atk_table_cell_get_position            (AtkTableCell *cell,
                                                     gint         *row,
                                                     gint         *column);
+ATK_AVAILABLE_IN_2_12
 gint        atk_table_cell_get_row_span            (AtkTableCell *cell);
+ATK_AVAILABLE_IN_2_12
 GPtrArray * atk_table_cell_get_row_header_cells    (AtkTableCell *cell);
+ATK_AVAILABLE_IN_2_12
 gboolean    atk_table_cell_get_row_column_span     (AtkTableCell *cell,
                                                     gint         *row,
                                                     gint         *column,
                                                     gint         *row_span,
                                                     gint         *column_span);
+ATK_AVAILABLE_IN_2_12
 AtkObject * atk_table_cell_get_table               (AtkTableCell *cell);
 
 G_END_DECLS

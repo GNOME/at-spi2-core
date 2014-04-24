@@ -55,23 +55,33 @@ struct _AtkRelationSetClass
   AtkFunction pad2;
 };
 
+ATK_AVAILABLE_IN_ALL
 GType atk_relation_set_get_type (void);
 
+ATK_AVAILABLE_IN_ALL
 AtkRelationSet* atk_relation_set_new                  (void);
+ATK_AVAILABLE_IN_ALL
 gboolean        atk_relation_set_contains             (AtkRelationSet  *set,
                                                        AtkRelationType relationship);
+ATK_AVAILABLE_IN_ALL
 gboolean        atk_relation_set_contains_target      (AtkRelationSet  *set,
                                                        AtkRelationType relationship,
                                                        AtkObject       *target);
+ATK_AVAILABLE_IN_ALL
 void            atk_relation_set_remove               (AtkRelationSet  *set,
                                                        AtkRelation     *relation);
+ATK_AVAILABLE_IN_ALL
 void            atk_relation_set_add                  (AtkRelationSet  *set,
                                                        AtkRelation     *relation);
+ATK_AVAILABLE_IN_ALL
 gint            atk_relation_set_get_n_relations      (AtkRelationSet  *set);
+ATK_AVAILABLE_IN_ALL
 AtkRelation*    atk_relation_set_get_relation         (AtkRelationSet  *set,
                                                        gint            i);
+ATK_AVAILABLE_IN_ALL
 AtkRelation*    atk_relation_set_get_relation_by_type (AtkRelationSet  *set,
                                                        AtkRelationType relationship);
+ATK_AVAILABLE_IN_ALL
 void            atk_relation_set_add_relation_by_type (AtkRelationSet  *set,
                                                        AtkRelationType relationship,
                                                        AtkObject       *target);

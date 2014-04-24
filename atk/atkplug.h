@@ -24,6 +24,8 @@
 #ifndef __ATK_PLUG_H__
 #define __ATK_PLUG_H__
 
+#include <atk/atkversion.h>
+
 G_BEGIN_DECLS
 
 #define ATK_TYPE_PLUG               (atk_plug_get_type ())
@@ -41,6 +43,7 @@ struct _AtkPlug
   AtkObject parent;
 };
 
+ATK_AVAILABLE_IN_ALL
 GType atk_plug_get_type (void);
 
 struct _AtkPlugClass
@@ -53,7 +56,9 @@ struct _AtkPlugClass
   gchar* (* get_object_id) (AtkPlug* obj);
 };
 
+ATK_AVAILABLE_IN_ALL
 AtkObject*    atk_plug_new     (void);
+ATK_AVAILABLE_IN_ALL
 gchar*        atk_plug_get_id  (AtkPlug* plug);
 
 G_END_DECLS

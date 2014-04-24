@@ -61,11 +61,15 @@ struct _AtkHypertextIface
   void         (* link_selected)            (AtkHypertext       *hypertext,
                                              gint               link_index);
 };
+ATK_AVAILABLE_IN_ALL
 GType atk_hypertext_get_type (void);
 
+ATK_AVAILABLE_IN_ALL
 AtkHyperlink* atk_hypertext_get_link       (AtkHypertext *hypertext,
                                             gint          link_index);
+ATK_AVAILABLE_IN_ALL
 gint          atk_hypertext_get_n_links    (AtkHypertext *hypertext);
+ATK_AVAILABLE_IN_ALL
 gint          atk_hypertext_get_link_index (AtkHypertext *hypertext,
                                             gint          char_index);
 

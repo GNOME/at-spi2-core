@@ -82,24 +82,30 @@ struct _AtkDocumentIface
   gint                  ( *get_page_count) (AtkDocument *document);
 };
 
+ATK_AVAILABLE_IN_ALL
 GType  atk_document_get_type             (void);
 
-G_DEPRECATED
+ATK_DEPRECATED_IN_2_12
 const gchar*          atk_document_get_document_type (AtkDocument   *document);
 
-G_DEPRECATED
+ATK_DEPRECATED_IN_2_12
 gpointer atk_document_get_document (AtkDocument   *document);
 
-G_DEPRECATED
+ATK_DEPRECATED_IN_2_8_FOR(atk_object_get_object_locale)
 const gchar*          atk_document_get_locale (AtkDocument *document);
 
+ATK_AVAILABLE_IN_ALL
 AtkAttributeSet*      atk_document_get_attributes (AtkDocument *document);
+ATK_AVAILABLE_IN_ALL
 const gchar*          atk_document_get_attribute_value (AtkDocument *document,
                                                         const gchar *attribute_name);
+ATK_AVAILABLE_IN_ALL
 gboolean              atk_document_set_attribute_value (AtkDocument *document,
                                                         const gchar *attribute_name,
                                                         const gchar *attribute_value);
+ATK_AVAILABLE_IN_2_12
 gint                  atk_document_get_current_page_number (AtkDocument *document);
+ATK_AVAILABLE_IN_2_12
 gint                  atk_document_get_page_count      (AtkDocument *document);
 
 G_END_DECLS

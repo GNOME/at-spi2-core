@@ -25,6 +25,8 @@
 #define __ATK_OBJECT_H__
 
 #include <glib-object.h>
+
+#include <atk/atkversion.h>
 #include <atk/atkstate.h>
 #include <atk/atkrelationtype.h>
 
@@ -638,6 +640,7 @@ void                      (* initialize)                         (AtkObject     
   AtkFunction             pad1;
 };
 
+ATK_AVAILABLE_IN_ALL
 GType            atk_object_get_type   (void);
 
 /**
@@ -653,69 +656,94 @@ struct _AtkImplementorIface
 
   AtkObject*   (*ref_accessible) (AtkImplementor *implementor);
 };
-GType atk_implementor_get_type (void);
 
+ATK_AVAILABLE_IN_ALL
+GType atk_implementor_get_type (void);
+ATK_AVAILABLE_IN_ALL
 AtkObject*              atk_implementor_ref_accessible            (AtkImplementor *implementor);
 
 /*
  * Properties directly supported by AtkObject
  */
 
+ATK_AVAILABLE_IN_ALL
 const gchar*            atk_object_get_name                       (AtkObject *accessible);
+ATK_AVAILABLE_IN_ALL
 const gchar*            atk_object_get_description                (AtkObject *accessible);
+ATK_AVAILABLE_IN_ALL
 AtkObject*              atk_object_get_parent                     (AtkObject *accessible);
+ATK_AVAILABLE_IN_ALL
 AtkObject*              atk_object_peek_parent                    (AtkObject *accessible);
+ATK_AVAILABLE_IN_ALL
 gint                    atk_object_get_n_accessible_children      (AtkObject *accessible);
+ATK_AVAILABLE_IN_ALL
 AtkObject*              atk_object_ref_accessible_child           (AtkObject *accessible,
                                                                    gint        i);
+ATK_AVAILABLE_IN_ALL
 AtkRelationSet*         atk_object_ref_relation_set               (AtkObject *accessible);
+ATK_AVAILABLE_IN_ALL
 AtkRole                 atk_object_get_role                       (AtkObject *accessible);
 
-G_DEPRECATED_FOR(atk_component_get_layer)
+ATK_DEPRECATED_FOR(atk_component_get_layer)
 AtkLayer                atk_object_get_layer                      (AtkObject *accessible);
-G_DEPRECATED_FOR(atk_component_get_mdi_zorder)
+ATK_DEPRECATED_FOR(atk_component_get_mdi_zorder)
 gint                    atk_object_get_mdi_zorder                 (AtkObject *accessible);
 
+ATK_AVAILABLE_IN_ALL
 AtkAttributeSet*        atk_object_get_attributes                 (AtkObject *accessible);
+ATK_AVAILABLE_IN_ALL
 AtkStateSet*            atk_object_ref_state_set                  (AtkObject *accessible);
+ATK_AVAILABLE_IN_ALL
 gint                    atk_object_get_index_in_parent            (AtkObject *accessible);
+ATK_AVAILABLE_IN_ALL
 void                    atk_object_set_name                       (AtkObject *accessible,
                                                                    const gchar *name);
+ATK_AVAILABLE_IN_ALL
 void                    atk_object_set_description                (AtkObject *accessible,
                                                                    const gchar *description);
+ATK_AVAILABLE_IN_ALL
 void                    atk_object_set_parent                     (AtkObject *accessible,
                                                                    AtkObject *parent);
+ATK_AVAILABLE_IN_ALL
 void                    atk_object_set_role                       (AtkObject *accessible,
                                                                    AtkRole   role);
 
 
-G_DEPRECATED
+ATK_DEPRECATED_IN_2_12
 guint                atk_object_connect_property_change_handler  (AtkObject                      *accessible,
                                                                   AtkPropertyChangeHandler       *handler);
-G_DEPRECATED
+ATK_DEPRECATED_IN_2_12
 void                 atk_object_remove_property_change_handler   (AtkObject                      *accessible,
                                                                   guint                          handler_id);
 
+ATK_AVAILABLE_IN_ALL
 void                 atk_object_notify_state_change              (AtkObject                      *accessible,
                                                                   AtkState                       state,
                                                                   gboolean                       value);
+ATK_AVAILABLE_IN_ALL
 void                 atk_object_initialize                       (AtkObject                     *accessible,
                                                                   gpointer                      data);
-                                    
+
+ATK_AVAILABLE_IN_ALL
 const gchar*          atk_role_get_name      (AtkRole         role);
+ATK_AVAILABLE_IN_ALL
 AtkRole               atk_role_for_name      (const gchar     *name);
 
 
 /* NEW in 1.1: convenience API */
+ATK_AVAILABLE_IN_ALL
 gboolean              atk_object_add_relationship              (AtkObject      *object,
 								AtkRelationType relationship,
 								AtkObject      *target);
+ATK_AVAILABLE_IN_ALL
 gboolean              atk_object_remove_relationship           (AtkObject      *object,
 								AtkRelationType relationship,
 								AtkObject      *target);
+ATK_AVAILABLE_IN_ALL
 const gchar*          atk_role_get_localized_name              (AtkRole     role);
-G_DEPRECATED
+ATK_DEPRECATED_IN_2_12
 AtkRole               atk_role_register                        (const gchar *name);
+ATK_AVAILABLE_IN_2_8
 const gchar*          atk_object_get_object_locale             (AtkObject   *accessible);
 
 G_END_DECLS

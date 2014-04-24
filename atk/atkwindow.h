@@ -46,6 +46,7 @@ struct _AtkWindowIface
   GTypeInterface parent;
 };
 
+ATK_AVAILABLE_IN_2_2
 GType atk_window_get_type (void);
 G_END_DECLS
 

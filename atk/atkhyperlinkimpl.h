@@ -57,8 +57,10 @@ struct _AtkHyperlinkImplIface
   AtkHyperlink*  (* get_hyperlink) (AtkHyperlinkImpl *impl);
 };
 
+ATK_AVAILABLE_IN_ALL
 GType            atk_hyperlink_impl_get_type (void);
 
+ATK_AVAILABLE_IN_ALL
 AtkHyperlink    *atk_hyperlink_impl_get_hyperlink (AtkHyperlinkImpl *impl);
 
 G_END_DECLS

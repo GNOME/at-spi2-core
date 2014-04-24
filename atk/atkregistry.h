@@ -52,15 +52,20 @@ typedef struct _AtkRegistry             AtkRegistry;
 typedef struct _AtkRegistryClass        AtkRegistryClass;
 
 
+ATK_AVAILABLE_IN_ALL
 GType             atk_registry_get_type         (void);
+ATK_AVAILABLE_IN_ALL
 void              atk_registry_set_factory_type (AtkRegistry *registry,
                                                  GType type,
                                                  GType factory_type);
+ATK_AVAILABLE_IN_ALL
 GType             atk_registry_get_factory_type (AtkRegistry *registry,
 						 GType type);
+ATK_AVAILABLE_IN_ALL
 AtkObjectFactory* atk_registry_get_factory      (AtkRegistry *registry,
                                                  GType type);
 
+ATK_AVAILABLE_IN_ALL
 AtkRegistry*      atk_get_default_registry      (void);
 
 G_END_DECLS

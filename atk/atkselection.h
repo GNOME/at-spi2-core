@@ -67,24 +67,32 @@ struct _AtkSelectionIface
   void         (*selection_changed)     (AtkSelection   *selection);
 };
 
+ATK_AVAILABLE_IN_ALL
 GType atk_selection_get_type (void);
 
+ATK_AVAILABLE_IN_ALL
 gboolean     atk_selection_add_selection        (AtkSelection   *selection,
                                                  gint           i);
 
+ATK_AVAILABLE_IN_ALL
 gboolean     atk_selection_clear_selection      (AtkSelection   *selection);
 
+ATK_AVAILABLE_IN_ALL
 AtkObject*   atk_selection_ref_selection        (AtkSelection   *selection,
                                                  gint           i);
 
+ATK_AVAILABLE_IN_ALL
 gint         atk_selection_get_selection_count  (AtkSelection   *selection);
 
+ATK_AVAILABLE_IN_ALL
 gboolean     atk_selection_is_child_selected    (AtkSelection   *selection,
                                                  gint           i);
 
+ATK_AVAILABLE_IN_ALL
 gboolean     atk_selection_remove_selection     (AtkSelection   *selection,
                                                  gint           i);
 
+ATK_AVAILABLE_IN_ALL
 gboolean     atk_selection_select_all_selection (AtkSelection   *selection);
 
 G_END_DECLS

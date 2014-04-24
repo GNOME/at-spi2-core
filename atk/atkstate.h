@@ -25,6 +25,7 @@
 #define __ATK_STATE_H__
 
 #include <glib-object.h>
+#include <atk/atkversion.h>
 
 G_BEGIN_DECLS
 
@@ -176,9 +177,12 @@ typedef enum
 
 typedef guint64      AtkState;
 
+ATK_AVAILABLE_IN_ALL
 AtkStateType atk_state_type_register            (const gchar *name);
 
+ATK_AVAILABLE_IN_ALL
 const gchar*          atk_state_type_get_name   (AtkStateType type);
+ATK_AVAILABLE_IN_ALL
 AtkStateType          atk_state_type_for_name   (const gchar  *name);
 
 G_END_DECLS

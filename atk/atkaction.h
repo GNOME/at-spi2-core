@@ -68,6 +68,7 @@ struct _AtkActionIface
 						gint              i);
 };
 
+ATK_AVAILABLE_IN_ALL
 GType atk_action_get_type (void);
 
 /*
@@ -81,21 +82,27 @@ GType atk_action_get_type (void);
  * provided in a support library
  */
 
+ATK_AVAILABLE_IN_ALL
 gboolean   atk_action_do_action                (AtkAction         *action,
                                             gint              i);
+ATK_AVAILABLE_IN_ALL
 gint   atk_action_get_n_actions            (AtkAction *action);
+ATK_AVAILABLE_IN_ALL
 const gchar*          atk_action_get_description  (AtkAction         *action,
                                                    gint              i);
+ATK_AVAILABLE_IN_ALL
 const gchar*          atk_action_get_name         (AtkAction         *action,
                                                    gint              i);
+ATK_AVAILABLE_IN_ALL
 const gchar*          atk_action_get_keybinding   (AtkAction         *action,
                                                    gint              i);
+ATK_AVAILABLE_IN_ALL
 gboolean              atk_action_set_description  (AtkAction         *action,
                                                    gint              i,
                                                    const gchar       *desc);
 
 /* NEW in ATK 1.1: */
-
+ATK_AVAILABLE_IN_ALL
 const gchar* atk_action_get_localized_name (AtkAction       *action,
 						     gint            i);
 

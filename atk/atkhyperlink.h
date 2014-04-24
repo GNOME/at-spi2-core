@@ -80,25 +80,33 @@ struct _AtkHyperlinkClass
   AtkFunction      pad1;
 };
 
+ATK_AVAILABLE_IN_ALL
 GType            atk_hyperlink_get_type             (void);
 
+ATK_AVAILABLE_IN_ALL
 gchar*           atk_hyperlink_get_uri              (AtkHyperlink     *link_,
                                                      gint             i);
 
+ATK_AVAILABLE_IN_ALL
 AtkObject*       atk_hyperlink_get_object           (AtkHyperlink     *link_,
                                                      gint             i);
 
+ATK_AVAILABLE_IN_ALL
 gint             atk_hyperlink_get_end_index        (AtkHyperlink     *link_);
 
+ATK_AVAILABLE_IN_ALL
 gint             atk_hyperlink_get_start_index      (AtkHyperlink     *link_);
 
+ATK_AVAILABLE_IN_ALL
 gboolean         atk_hyperlink_is_valid             (AtkHyperlink     *link_);
 
+ATK_AVAILABLE_IN_ALL
 gboolean         atk_hyperlink_is_inline             (AtkHyperlink     *link_);
 
+ATK_AVAILABLE_IN_ALL
 gint		 atk_hyperlink_get_n_anchors        (AtkHyperlink     *link_);
 
-G_DEPRECATED
+ATK_DEPRECATED
 gboolean         atk_hyperlink_is_selected_link     (AtkHyperlink     *link_);
 
 G_END_DECLS

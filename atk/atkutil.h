@@ -170,6 +170,7 @@ struct _AtkUtilClass
    const gchar* (* get_toolkit_name)             (void);
    const gchar* (* get_toolkit_version)          (void);
 };
+ATK_AVAILABLE_IN_ALL
 GType atk_util_get_type (void);
 
 /**
@@ -186,25 +187,34 @@ typedef enum {
   ATK_XY_WINDOW
 }AtkCoordType;
 
-G_DEPRECATED
+ATK_DEPRECATED_IN_2_10
 guint    atk_add_focus_tracker     (AtkEventListener      focus_tracker);
-G_DEPRECATED
+ATK_DEPRECATED_IN_2_10
 void     atk_remove_focus_tracker  (guint                tracker_id);
-G_DEPRECATED
+ATK_DEPRECATED_IN_2_10
 void     atk_focus_tracker_init    (AtkEventListenerInit  init);
-G_DEPRECATED
+ATK_DEPRECATED_IN_2_10
 void     atk_focus_tracker_notify  (AtkObject            *object);
+ATK_AVAILABLE_IN_ALL
 guint	atk_add_global_event_listener (GSignalEmissionHook listener,
 				       const gchar        *event_type);
+ATK_AVAILABLE_IN_ALL
 void	atk_remove_global_event_listener (guint listener_id);
+ATK_AVAILABLE_IN_ALL
 guint	atk_add_key_event_listener (AtkKeySnoopFunc listener, gpointer data);
+ATK_AVAILABLE_IN_ALL
 void	atk_remove_key_event_listener (guint listener_id);
 
+ATK_AVAILABLE_IN_ALL
 AtkObject* atk_get_root(void);
+ATK_AVAILABLE_IN_ALL
 AtkObject* atk_get_focus_object (void);
 
+ATK_AVAILABLE_IN_ALL
 const gchar *atk_get_toolkit_name (void);
+ATK_AVAILABLE_IN_ALL
 const gchar *atk_get_toolkit_version (void);
+ATK_AVAILABLE_IN_ALL
 const gchar *atk_get_version (void);
 
 /* --- GType boilerplate --- */
@@ -305,6 +315,7 @@ static void     type_name##_class_intern_init (gpointer klass) \
   type_name##_class_init ((TypeName##Class*) klass); \
 } \
 \
+ATK_AVAILABLE_IN_ALL \
 GType \
 type_name##_get_type (void) \
 { \

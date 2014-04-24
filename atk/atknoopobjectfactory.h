@@ -48,8 +48,10 @@ struct _AtkNoOpObjectFactoryClass
   AtkObjectFactoryClass parent_class;
 };
 
+ATK_AVAILABLE_IN_ALL
 GType atk_no_op_object_factory_get_type(void);
 
+ATK_AVAILABLE_IN_ALL
 AtkObjectFactory *atk_no_op_object_factory_new(void);
 
 G_END_DECLS

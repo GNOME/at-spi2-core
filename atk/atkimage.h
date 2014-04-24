@@ -62,21 +62,27 @@ struct _AtkImageIface
   const gchar*          ( *get_image_locale)      (AtkImage              *image);
 };
 
+ATK_AVAILABLE_IN_ALL
 GType  atk_image_get_type             (void);
 
+ATK_AVAILABLE_IN_ALL
 const gchar* atk_image_get_image_description (AtkImage   *image);
 
+ATK_AVAILABLE_IN_ALL
 void     atk_image_get_image_size        (AtkImage           *image,
                                           gint               *width,
                                           gint               *height);
 
+ATK_AVAILABLE_IN_ALL
 gboolean atk_image_set_image_description (AtkImage           *image,
                                           const gchar       *description);
+ATK_AVAILABLE_IN_ALL
 void     atk_image_get_image_position    (AtkImage	     *image,
                                           gint               *x,
 					  gint	             *y,
     					  AtkCoordType	     coord_type);
 
+ATK_AVAILABLE_IN_ALL
 const gchar* atk_image_get_image_locale (AtkImage   *image);
 
 G_END_DECLS

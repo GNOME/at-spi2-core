@@ -97,6 +97,7 @@ typedef enum
   ATK_TEXT_ATTR_LAST_DEFINED
 } AtkTextAttribute;
 
+ATK_AVAILABLE_IN_ALL
 AtkTextAttribute         atk_text_attribute_register   (const gchar *name);
 
 
@@ -208,6 +209,7 @@ struct _AtkTextRange {
   gchar* content;
 };
 
+ATK_AVAILABLE_IN_ALL
 GType atk_text_range_get_type (void);
 
 /**
@@ -333,6 +335,7 @@ struct _AtkTextIface
                                                    gint               *end_offset);
 };
 
+ATK_AVAILABLE_IN_ALL
 GType            atk_text_get_type (void);
 
 
@@ -343,35 +346,40 @@ GType            atk_text_get_type (void);
  *                         editable text only)
  */
 
+ATK_AVAILABLE_IN_ALL
 gchar*        atk_text_get_text                           (AtkText          *text,
                                                            gint             start_offset,
                                                            gint             end_offset);
+ATK_AVAILABLE_IN_ALL
 gunichar      atk_text_get_character_at_offset            (AtkText          *text,
                                                            gint             offset);
-G_DEPRECATED_FOR(atk_text_get_string_at_offset)
+ATK_DEPRECATED_IN_2_10_FOR(atk_text_get_string_at_offset)
 gchar*        atk_text_get_text_after_offset              (AtkText          *text,
                                                            gint             offset,
                                                            AtkTextBoundary  boundary_type,
 							   gint             *start_offset,
 							   gint	            *end_offset);
-G_DEPRECATED_FOR(atk_text_get_string_at_offset)
+ATK_DEPRECATED_IN_2_10_FOR(atk_text_get_string_at_offset)
 gchar*        atk_text_get_text_at_offset                 (AtkText          *text,
                                                            gint             offset,
                                                            AtkTextBoundary  boundary_type,
 							   gint             *start_offset,
 							   gint             *end_offset);
-G_DEPRECATED_FOR(atk_text_get_string_at_offset)
+ATK_DEPRECATED_IN_2_10_FOR(atk_text_get_string_at_offset)
 gchar*        atk_text_get_text_before_offset             (AtkText          *text,
                                                            gint             offset,
                                                            AtkTextBoundary  boundary_type,
 							   gint             *start_offset,
 							   gint	            *end_offset);
+ATK_AVAILABLE_IN_2_10
 gchar*        atk_text_get_string_at_offset               (AtkText            *text,
                                                            gint               offset,
                                                            AtkTextGranularity granularity,
                                                            gint               *start_offset,
                                                            gint               *end_offset);
+ATK_AVAILABLE_IN_ALL
 gint          atk_text_get_caret_offset                   (AtkText          *text);
+ATK_AVAILABLE_IN_ALL
 void          atk_text_get_character_extents              (AtkText          *text,
                                                            gint             offset,
                                                            gint             *x,
@@ -379,47 +387,64 @@ void          atk_text_get_character_extents              (AtkText          *tex
                                                            gint             *width,
                                                            gint             *height,
                                                            AtkCoordType	    coords);
+ATK_AVAILABLE_IN_ALL
 AtkAttributeSet* atk_text_get_run_attributes              (AtkText	    *text,
 						           gint	  	    offset,
 						           gint             *start_offset,
 						           gint	 	    *end_offset);
+ATK_AVAILABLE_IN_ALL
 AtkAttributeSet* atk_text_get_default_attributes          (AtkText	    *text);
+ATK_AVAILABLE_IN_ALL
 gint          atk_text_get_character_count                (AtkText          *text);
+ATK_AVAILABLE_IN_ALL
 gint          atk_text_get_offset_at_point                (AtkText          *text,
                                                            gint             x,
                                                            gint             y,
                                                            AtkCoordType	    coords);
+ATK_AVAILABLE_IN_ALL
 gint          atk_text_get_n_selections			  (AtkText          *text);
+ATK_AVAILABLE_IN_ALL
 gchar*        atk_text_get_selection			  (AtkText          *text,
 							   gint		    selection_num,
 							   gint             *start_offset,
 							   gint             *end_offset);
+ATK_AVAILABLE_IN_ALL
 gboolean      atk_text_add_selection                      (AtkText          *text,
 							   gint             start_offset,
 							   gint             end_offset);
+ATK_AVAILABLE_IN_ALL
 gboolean      atk_text_remove_selection                   (AtkText          *text,
 							   gint		    selection_num);
+ATK_AVAILABLE_IN_ALL
 gboolean      atk_text_set_selection                      (AtkText          *text,
 							   gint		    selection_num,
 							   gint             start_offset,
 							   gint             end_offset);
+ATK_AVAILABLE_IN_ALL
 gboolean      atk_text_set_caret_offset                   (AtkText          *text,
                                                            gint             offset);
+ATK_AVAILABLE_IN_ALL
 void          atk_text_get_range_extents                  (AtkText          *text,
 
                                                            gint             start_offset,
                                                            gint             end_offset,
                                                            AtkCoordType     coord_type,
                                                            AtkTextRectangle *rect);
+ATK_AVAILABLE_IN_ALL
 AtkTextRange**  atk_text_get_bounded_ranges               (AtkText          *text,
                                                            AtkTextRectangle *rect,
                                                            AtkCoordType     coord_type,
                                                            AtkTextClipType  x_clip_type,
                                                            AtkTextClipType  y_clip_type);
+ATK_AVAILABLE_IN_ALL
 void          atk_text_free_ranges                        (AtkTextRange     **ranges);
+ATK_AVAILABLE_IN_ALL
 void 	      atk_attribute_set_free                      (AtkAttributeSet  *attrib_set);
+ATK_AVAILABLE_IN_ALL
 const gchar*  atk_text_attribute_get_name                 (AtkTextAttribute attr);
+ATK_AVAILABLE_IN_ALL
 AtkTextAttribute       atk_text_attribute_for_name        (const gchar      *name);
+ATK_AVAILABLE_IN_ALL
 const gchar*  atk_text_attribute_get_value                (AtkTextAttribute attr,
                                                            gint             index_);
 
