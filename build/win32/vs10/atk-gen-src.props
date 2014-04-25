@@ -20,11 +20,6 @@ $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal atkmarshal.list -
 
 cd $(SolutionDir)
     </GenMarshalSrc>
-    <GenerateAtkDef>
-echo EXPORTS &gt; $(DefDir)\atk.def
-
-cl /EP ..\..\..\atk\atk.symbols &gt;&gt; $(DefDir)\atk.def
-    </GenerateAtkDef>
   </PropertyGroup>
   <PropertyGroup>
     <_PropertySheetDisplayName>atkgensrcprops</_PropertySheetDisplayName>
@@ -35,9 +30,6 @@ cl /EP ..\..\..\atk\atk.symbols &gt;&gt; $(DefDir)\atk.def
     </BuildMacro>
     <BuildMacro Include="GenMarshalSrc">
       <Value>$(GenMarshalSrc)</Value>
-    </BuildMacro>
-    <BuildMacro Include="GenerateAtkDef">
-      <Value>$(GenerateAtkDef)</Value>
     </BuildMacro>
   </ItemGroup>
 </Project>

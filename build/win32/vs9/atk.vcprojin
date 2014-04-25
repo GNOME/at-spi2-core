@@ -44,7 +44,6 @@
 				OutputFile="$(OutDir)\$(AtkDllPrefix)$(ProjectName)$(AtkDllSuffix).dll"
 				LinkIncremental="2"
 				IgnoreDefaultLibraryNames=""
-				ModuleDefinitionFile="$(IntDir)\atk.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				ImportLibrary="$(OutDir)\$(ProjectName)-$(ApiVersion).lib"
@@ -77,7 +76,6 @@
 				OutputFile="$(OutDir)\$(AtkDllPrefix)$(ProjectName)$(AtkDllSuffix).dll"
 				LinkIncremental="1"
 				IgnoreDefaultLibraryNames=""
-				ModuleDefinitionFile="$(IntDir)\atk.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -111,7 +109,6 @@
 				AdditionalDependencies=""
 				OutputFile="$(OutDir)\$(AtkDllPrefix)$(ProjectName)$(AtkDllSuffix).dll"
 				LinkIncremental="2"
-				ModuleDefinitionFile="$(IntDir)\atk.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				ImportLibrary="$(TargetDir)$(ProjectName)-$(ApiVersion).lib"
@@ -140,7 +137,6 @@
 				AdditionalDependencies=""
 				OutputFile="$(OutDir)\$(AtkDllPrefix)$(ProjectName)$(AtkDllSuffix).dll"
 				LinkIncremental="2"
-				ModuleDefinitionFile="$(IntDir)\atk.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -236,40 +232,6 @@
 						Description="Generating Marshalling Sources..."
 						CommandLine="$(GenMarshalSrc)"
 						Outputs="..\..\..\atk\atkmarshal.h;..\..\..\atk\atkmarshal.c"
-					/>
-				</FileConfiguration>
-			</File>
-			<File RelativePath="..\..\..\atk\atk.symbols">
-				<FileConfiguration Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Generating atk.def..."
-						CommandLine="$(GenerateAtkDef)"
-						Outputs="$(IntDir)\atk.def"
-					/>
-				</FileConfiguration>
-				<FileConfiguration Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Generating atk.def..."
-						CommandLine="$(GenerateAtkDef)"
-						Outputs="$(IntDir)\atk.def"
-					/>
-				</FileConfiguration>
-				<FileConfiguration Name="Debug|x64">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Generating atk.def..."
-						CommandLine="$(GenerateAtkDef)"
-						Outputs="$(IntDir)\atk.def"
-					/>
-				</FileConfiguration>
-				<FileConfiguration Name="Release|x64">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Generating atk.def..."
-						CommandLine="$(GenerateAtkDef)"
-						Outputs="$(IntDir)\atk.def"
 					/>
 				</FileConfiguration>
 			</File>

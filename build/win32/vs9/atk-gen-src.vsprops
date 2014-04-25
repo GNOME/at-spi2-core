@@ -22,11 +22,4 @@ $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal atkmarshal.list -
 cd $(SolutionDir)&#x0D;&#x0A;
 		      "
 	/>
-	<UserMacro
-		Name="GenerateAtkDef"
-		Value="
-echo EXPORTS &gt; $(DefDir)\atk.def&#x0D;&#x0A;
-cl /EP ..\..\..\atk\atk.symbols &gt;&gt; $(DefDir)\atk.def
-		      "
-	/>
 </VisualStudioPropertySheet>

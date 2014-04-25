@@ -20,7 +20,6 @@
   <ItemGroup>
     <CustomBuild Include="..\..\..\config.h.win32"><Filter>Resource Files</Filter></CustomBuild>
     <CustomBuild Include="..\..\..\atk\atkmarshal.list"><Filter>Resource Files</Filter></CustomBuild>
-    <CustomBuild Include="..\..\..\atk\atk.symbols"><Filter>Resource Files</Filter></CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\atk\atk.rc">
