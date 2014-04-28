@@ -2,8 +2,8 @@ What's new in at-spi2-core 2.13.1:
 
 * Add GError setter in atspi_accessible_get_process_id function
 
-* registryd: Wait for session manager to start before registering with
-  it (bgo#728934).
+* registryd: Wait for gnome-session before registering if it is not
+  running yet (bgo#728934).
 
 What's new in at-spi2-core 2.11.92:
 
