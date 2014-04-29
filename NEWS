@@ -1,3 +1,16 @@
+Changes in version 2.13.1:
+==========================
+*
+* Bug 728031: Use visibility attributes/__declspec (dllexport) to
+  export public symbols
+* Bug 691991: Add Simple Support for Visual Studio 2012
+
+Contributors:
+  Chun-wei Fan
+
+Translation
+  Inaki Larranaga Murgoitio (eu), Matej Urbančič (sl), marablack3 (el)
+
 Changes in version 2.12.0:
 ==========================
 
