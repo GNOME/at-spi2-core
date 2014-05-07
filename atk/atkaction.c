@@ -126,8 +126,8 @@ atk_action_get_n_actions  (AtkAction *obj)
  *
  * Returns a description of the specified action of the object.
  *
- * Returns: a description string, or %NULL if @action does not
- * implement this interface.
+ * Returns: (nullable): a description string, or %NULL if @action does
+ * not implement this interface.
  **/
 const gchar*
 atk_action_get_description (AtkAction *obj,
@@ -165,8 +165,8 @@ atk_action_get_description (AtkAction *obj,
  * i.e. the result of some actions via atk_action_do_action() may be
  * NIL.
  *
- * Returns: a name string, or %NULL if @action does not implement this
- * interface.
+ * Returns: (nullable): a name string, or %NULL if @action does not
+ * implement this interface.
  **/
 const gchar*
 atk_action_get_name (AtkAction *obj,
@@ -191,8 +191,8 @@ atk_action_get_name (AtkAction *obj,
  *
  * Returns the localized name of the specified action of the object.
  *
- * Returns: a name string, or %NULL if @action does not implement this
- * interface.
+ * Returns: (nullable): a name string, or %NULL if @action does not
+ * implement this interface.
  **/
 const gchar*
 atk_action_get_localized_name (AtkAction *obj,
@@ -238,8 +238,8 @@ atk_action_get_localized_name (AtkAction *obj,
  * for the German locale. If, hypothetically, this menu item lacked a mnemonic,
  * it would be represented by ";;Ctrl+N" and ";;Strg+N" respectively.
  *
- * Returns: the keybinding which can be used to activate this action,
- * or %NULL if there is no keybinding for this action.
+ * Returns: (nullable): the keybinding which can be used to activate
+ * this action, or %NULL if there is no keybinding for this action.
  *
  **/
 const gchar*

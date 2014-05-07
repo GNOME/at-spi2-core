@@ -555,9 +555,9 @@ atk_value_get_value_and_text (AtkValue *obj,
  *
  * Gets the range of this object.
  *
- * Returns: (transfer full): a newly allocated #AtkRange that
- * represents the minimum, maximum and descriptor (if available) of
- * @obj. NULL if that range is not defined.
+ * Returns: (nullable) (transfer full): a newly allocated #AtkRange
+ * that represents the minimum, maximum and descriptor (if available)
+ * of @obj. NULL if that range is not defined.
  *
  * Since: 2.12
  **/

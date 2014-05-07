@@ -584,9 +584,10 @@ atk_text_get_text_before_offset (AtkText          *text,
  *
  * Since: 2.10
  *
- * Returns: a newly allocated string containing the text at the @offset bounded
- *   by the specified @granularity. Use g_free() to free the returned string.
- *   Returns %NULL if the offset is invalid or no implementation is available.
+ * Returns: (nullable): a newly allocated string containing the text
+ *   at the @offset bounded by the specified @granularity. Use
+ *   g_free() to free the returned string.  Returns %NULL if the
+ *   offset is invalid or no implementation is available.
  **/
 gchar* atk_text_get_string_at_offset (AtkText *text,
                                       gint offset,
@@ -1263,8 +1264,9 @@ atk_text_attribute_for_name (const gchar *name)
  *
  * Gets the value for the index of the #AtkTextAttribute
  *
- * Returns: a string containing the value; this string should not be freed;
- * NULL is returned if there are no values maintained for the attr value. 
+ * Returns: (nullable): a string containing the value; this string
+ * should not be freed; %NULL is returned if there are no values
+ * maintained for the attr value.
  **/
 const gchar*
 atk_text_attribute_get_value (AtkTextAttribute attr,

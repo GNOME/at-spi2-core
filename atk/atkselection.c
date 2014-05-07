@@ -160,8 +160,9 @@ atk_selection_clear_selection (AtkSelection *obj)
  * use type checking/interface checking macros or the
  * atk_get_accessible_value() convenience method.
  *
- * Returns: (transfer full): an #AtkObject representing the selected
- * accessible , or %NULL if @selection does not implement this interface.
+ * Returns: (nullable) (transfer full): an #AtkObject representing the
+ * selected accessible, or %NULL if @selection does not implement this
+ * interface.
  **/
 AtkObject*
 atk_selection_ref_selection (AtkSelection *obj,

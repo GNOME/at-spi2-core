@@ -158,8 +158,8 @@ atk_streamable_content_get_stream (AtkStreamableContent *streamable,
  * Note that it is possible for get_uri to return NULL but for
  * get_stream to work nonetheless, since not all GIOChannels connect to URIs.
  *
- * Returns:  Returns a string representing a URI, or NULL if no corresponding URI
- * can be constructed.
+ * Returns: (nullable): Returns a string representing a URI, or %NULL
+ * if no corresponding URI can be constructed.
  *
  * Since: 1.12
  **/

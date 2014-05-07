@@ -357,8 +357,8 @@ atk_table_get_column_at_index (AtkTable *table,
  *
  * Gets the caption for the @table.
  *
- * Returns: (transfer none): a AtkObject* representing the table caption, or
- * %NULL if value does not implement this interface.
+ * Returns: (nullable) (transfer none): a AtkObject* representing the
+ * table caption, or %NULL if value does not implement this interface.
  **/
 AtkObject*
 atk_table_get_caption (AtkTable *table)
@@ -461,8 +461,9 @@ atk_table_get_column_extent_at (AtkTable *table,
  *
  * Gets the column header of a specified column in an accessible table.
  *
- * Returns: (transfer none): a AtkObject* representing the specified column
- * header, or %NULL if value does not implement this interface.
+ * Returns: (nullable) (transfer none): a AtkObject* representing the
+ * specified column header, or %NULL if value does not implement this
+ * interface.
  **/
 AtkObject*
 atk_table_get_column_header (AtkTable *table, gint column)
@@ -510,8 +511,8 @@ atk_table_get_n_rows (AtkTable *table)
  *
  * Gets the description text of the specified row in the table
  *
- * Returns: a gchar* representing the row description, or %NULL
- * if value does not implement this interface.
+ * Returns: (nullable) a gchar* representing the row description, or
+ * %NULL if value does not implement this interface.
  **/
 const gchar*
 atk_table_get_row_description (AtkTable *table,
@@ -565,8 +566,9 @@ atk_table_get_row_extent_at (AtkTable *table,
  *
  * Gets the row header of a specified row in an accessible table.
  *
- * Returns: (transfer none): a AtkObject* representing the specified row
- * header, or %NULL if value does not implement this interface.
+ * Returns: (nullable) (transfer none): a AtkObject* representing the
+ * specified row header, or %NULL if value does not implement this
+ * interface.
  **/
 AtkObject*
 atk_table_get_row_header (AtkTable *table, gint row)

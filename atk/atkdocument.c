@@ -301,9 +301,9 @@ atk_document_get_attributes (AtkDocument *document)
  *
  * Since: 1.12
  *
- * Returns: a string value associated with the named attribute for this
- *    document, or NULL if a value for #attribute_name has not been specified
- *    for this document.
+ * Returns: (nullable): a string value associated with the named
+ *    attribute for this document, or NULL if a value for
+ *    #attribute_name has not been specified for this document.
  */
 const gchar *
 atk_document_get_attribute_value (AtkDocument *document, 
