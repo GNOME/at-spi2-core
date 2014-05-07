@@ -56,8 +56,8 @@ atspi_hypertext_get_n_links (AtspiHypertext *obj, GError **error)
  *
  * Gets the #AtspiHyperlink object at a specified index.
  *
- * Returns: (transfer full): the #AtspiHyperlink object specified by
- *          @link_index.
+ * Returns: (nullable) (transfer full): the #AtspiHyperlink object
+ *          specified by @link_index.
  **/
 AtspiHyperlink *
 atspi_hypertext_get_link (AtspiHypertext *obj, gint link_index, GError **error)

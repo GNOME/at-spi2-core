@@ -287,8 +287,8 @@ atspi_text_get_attribute_run (AtspiText *obj,
  *
  * Gets the value of a named attribute at a given offset.
  *
- * Returns: the value of a given attribute at the given offset, or NULL if
- * not present.
+ * Returns: (nullable): the value of a given attribute at the given
+ * offset, or %NULL if not present.
  *
  * Deprecated: 2.10: Use atspi_text_get_text_attribute_value instead.
  * Rename to: atspi_text_get_text_attribute_value
@@ -311,7 +311,7 @@ atspi_text_get_attribute_value (AtspiText *obj,
  *
  * Gets the value of a named attribute at a given offset.
  *
- * Returns: the value of a given attribute at the given offset, or NULL if
+ * Returns: (nullable): the value of a given attribute at the given offset, or %NULL if
  * not present.
  **/
 gchar *

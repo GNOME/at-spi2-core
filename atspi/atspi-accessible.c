@@ -267,9 +267,10 @@ const char *str_parent = "Parent";
  *
  * Gets an #AtspiAccessible object's parent container.
  *
- * Returns: (transfer full): a pointer to the #AtspiAccessible object which
- *          contains the given #AtspiAccessible instance, or NULL if the @obj
- *          has no parent container.
+ * Returns: (nullable) (transfer full): a pointer to the
+ *          #AtspiAccessible object which contains the given
+ *          #AtspiAccessible instance, or NULL if the @obj has no
+ *          parent container.
  *
  **/
 AtspiAccessible *

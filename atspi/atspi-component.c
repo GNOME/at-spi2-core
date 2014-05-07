@@ -100,9 +100,10 @@ atspi_component_contains (AtspiComponent *obj,
  *
  * Gets the accessible child at a given coordinate within an #AtspiComponent.
  *
- * Returns: (transfer full): a pointer to an #AtspiAccessible child of the
- *          specified component which contains the point (@x, @y), or NULL if
- *         no child contains the point.
+ * Returns: (nullable) (transfer full): a pointer to an
+ *          #AtspiAccessible child of the specified component which
+ *          contains the point (@x, @y), or NULL if no child contains
+ *          the point.
  **/
 AtspiAccessible *
 atspi_component_get_accessible_at_point (AtspiComponent *obj,
