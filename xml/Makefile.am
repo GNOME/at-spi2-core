@@ -37,3 +37,5 @@ XML_SPEC = $(filter %.xml,$(EXTRA_DIST))
 spec.xml: $(XML_SPEC)
 	xsltproc --xinclude $(top_srcdir)/tools/identity.xsl Accessibility.xml >spec.xml
 
+
+-include $(top_srcdir)/git.mk

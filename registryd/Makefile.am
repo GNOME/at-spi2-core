@@ -65,3 +65,5 @@ $(service_DATA): $(service_in_files) Makefile
 
 DISTCLEANFILES = org.a11y.atspi.Registry.service
 EXTRA_DIST += org.a11y.atspi.Registry.service.in
+
+-include $(top_srcdir)/git.mk

@@ -160,3 +160,5 @@ CLEANFILES = \
     $(typelib_DATA)
 
 endif
+
+-include $(top_srcdir)/git.mk

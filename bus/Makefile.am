@@ -28,3 +28,5 @@ org.a11y.Bus.service: org.a11y.Bus.service.in
 EXTRA_DIST += org.a11y.Bus.service.in
 CLEANFILES += org.a11y.Bus.service
 
+
+-include $(top_srcdir)/git.mk

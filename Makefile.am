@@ -19,3 +19,13 @@ pkgconfig_DATA = atspi-2.pc
 DISTCLEANFILES = \
 	atspi-2-uninstalled.pc \
 	atspi-2.pc
+
+MAINTAINERCLEANFILES = \
+	$(GITIGNORE_MAINTAINERCLEANFILES_TOPLEVEL) \
+	$(GITIGNORE_MAINTAINERCLEANFILES_MAKEFILE_IN) \
+	$(GITIGNORE_MAINTAINERCLEANFILES_M4_LIBTOOL) \
+	gtk-doc.make \
+	m4/gtk-doc.m4 \
+	m4/intltool.m4
+
+-include $(top_srcdir)/git.mk
