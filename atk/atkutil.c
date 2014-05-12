@@ -377,6 +377,13 @@ atk_util_real_remove_global_event_listener (guint remove_listener)
  * Toolkit implementor note: this method is not intended to be used by
  * ATK implementors but by ATK consumers.
  *
+ * ATK consumers note: as this method adds a listener for a given ATK
+ * type, that type should be already registered on the GType system
+ * before calling this method. A simple way to do that is creating an
+ * instance of #AtkNoOpObject. This class implements all ATK
+ * interfaces, so creating the instance will register all ATK types as
+ * a collateral effect.
+ *
  * Returns: added event listener id, or 0 on failure.
  **/
 guint
