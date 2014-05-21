@@ -171,7 +171,7 @@ introspection_generated_sources = \
 
 Atk-1.0.gir: libatk-1.0.la Makefile
 Atk_1_0_gir_INCLUDES = GObject-2.0
-Atk_1_0_gir_CFLAGS = $(AM_CPPFLAGS)
+Atk_1_0_gir_CFLAGS = $(AM_CPPFLAGS) -I ..
 Atk_1_0_gir_LIBS = libatk-1.0.la
 Atk_1_0_gir_SCANNERFLAGS = --pkg-export atk --warn-all --c-include "atk/atk.h"
 Atk_1_0_gir_FILES = \
