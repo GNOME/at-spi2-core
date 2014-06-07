@@ -65,9 +65,6 @@
 
 #include "introspection.h"
 
-KeySym ucs2keysym (long ucs);
-long keysym2ucs(KeySym keysym); 
-
 static void spi_dec_x11_emit_modifier_event (SpiDEController *controller,
 			     guint prev_mask,
 			     guint current_mask);
@@ -1149,7 +1146,7 @@ spi_dec_x11_unlock_modifiers (SpiDEController *controller, unsigned modifiers)
 static KeySym
 keysym_for_unichar (SpiDEController *controller, gunichar unichar)
 {
-	return ucs2keysym ((long) unichar);
+	return (KeySym) ucs2keysym ((long) unichar);
 }
 
 static gboolean

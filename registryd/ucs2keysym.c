@@ -32,6 +32,7 @@
  */
 
 #include <X11/X.h>
+#include "deviceeventcontroller.h"	/* for prototype */
 
 struct codepair {
   unsigned short keysym;

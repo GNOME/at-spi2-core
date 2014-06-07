@@ -50,9 +50,6 @@
 
 #include "introspection.h"
 
-long ucs2keysym (long ucs);
-long keysym2ucs(long keysym); 
-
 #define CHECK_RELEASE_DELAY 20
 #define BIT(c, x)       (c[x/8]&(1<<(x%8)))
 static SpiDEController *saved_controller;
