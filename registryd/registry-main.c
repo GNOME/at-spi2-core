@@ -77,11 +77,26 @@ on_session_signal (GDBusProxy *proxy,
 static gboolean
 session_manager_connect (void)
 {
+        GVariant *res;
+        gboolean is_running;
 
         sm_proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION, 0, NULL,
                                               SM_DBUS_NAME,
                                               SM_DBUS_PATH,
                                               SM_DBUS_INTERFACE, NULL, NULL);
+
+        res = g_dbus_proxy_call_sync (sm_proxy,
+                                 "IsSessionRunning", NULL,
+                                  0, 1000, NULL, NULL);
+
+        if (res) {
+                g_variant_get (res, "(b)", &is_running);
+                g_variant_unref (res);
+                if (is_running) {
+                        if (!register_client ())
+                                g_warning ("Unable to register client with session manager");
+                }
+        }
 
         g_signal_connect (G_OBJECT (sm_proxy), "g-signal",
                           G_CALLBACK (on_session_signal), NULL);
@@ -140,6 +155,9 @@ register_client (void)
         GVariant *res;
         const char *startup_id;
         const char *app_id;
+
+        if (client_proxy)
+                return TRUE;
 
         startup_id = g_getenv ("DESKTOP_AUTOSTART_ID");
         if (!startup_id)
