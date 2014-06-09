@@ -4,15 +4,17 @@
     <Import Project="atk-build-defines.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros">
+    <BinDir>$(SolutionDir)$(Configuration)\$(Platform)\bin</BinDir>
+    <InstalledDlls>$(BinDir)\$(AtkDllPrefix)atk(AtkDllSuffix).dll</InstalledDlls>
     <AtkDoInstall>
 mkdir $(CopyDir)\bin
 
-copy $(SolutionDir)$(Configuration)\$(Platform)\bin\*.dll $(CopyDir)\bin
+copy $(BinDir)\*.dll $(CopyDir)\bin
 
 
 mkdir $(CopyDir)\lib
 
-copy $(SolutionDir)$(Configuration)\$(Platform)\bin\*-$(ApiVersion).lib $(CopyDir)\lib
+copy $(BinDir)\*-$(ApiVersion).lib $(CopyDir)\lib
 
 
 mkdir $(CopyDir)\include\atk-$(ApiVersion)\atk
@@ -21,6 +23,12 @@ mkdir $(CopyDir)\include\atk-$(ApiVersion)\atk
     </AtkDoInstall>
   </PropertyGroup>
   <ItemGroup>
+    <BuildMacro Include="BinDir">
+      <Value>$(BinDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="InstalledDlls">
+      <Value>$(InstalledDlls)</Value>
+    </BuildMacro>
     <BuildMacro Include="AtkDoInstall">
       <Value>$(AtkDoInstall)</Value>
     </BuildMacro>
