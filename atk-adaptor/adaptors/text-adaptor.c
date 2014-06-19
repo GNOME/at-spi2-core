@@ -799,15 +799,16 @@ impl_GetAttributeRun (DBusConnection * bus, DBusMessage * message,
       return droute_invalid_arguments_error (message);
     }
 
-  attributes =
-    atk_text_get_run_attributes (text, offset, &intstart_offset,
-                                 &intend_offset);
-
   if (includeDefaults)
     {
       attributes = g_slist_concat (attributes,
                                    atk_text_get_default_attributes (text));
     }
+
+  attributes = g_slist_concat (attributes,
+                               atk_text_get_run_attributes (text, offset,
+                                                            &intstart_offset,
+                                                            &intend_offset));
 
   reply = dbus_message_new_method_return (message);
   if (!reply)
