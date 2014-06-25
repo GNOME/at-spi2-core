@@ -1,3 +1,6 @@
+# We build atspi-gmain.c which is located in a different directory.
+AUTOMAKE_OPTIONS = subdir-objects
+
 noinst_LTLIBRARIES = libdbind.la
 
 AM_CPPFLAGS = \
