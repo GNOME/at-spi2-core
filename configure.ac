@@ -192,14 +192,16 @@ AC_SUBST(LIBTOOL_EXPORT_OPTIONS)
 dnl find sizes & alignments
 orig_CPPFLAGS=$CPPFLAGS
 CPPFLAGS="$CPPFLAGS $DBUS_CFLAGS"
-DBIND_CHECK_ALIGNOF(char)
-DBIND_CHECK_ALIGNOF(dbus_bool_t)
-DBIND_CHECK_ALIGNOF(dbus_int16_t)
-DBIND_CHECK_ALIGNOF(dbus_int32_t)
-DBIND_CHECK_ALIGNOF(dbus_int64_t)
-DBIND_CHECK_ALIGNOF(double)
-DBIND_CHECK_ALIGNOF(dbind_pointer)
-DBIND_CHECK_ALIGNOF(dbind_struct)
+AC_CHECK_ALIGNOF(char)
+AC_CHECK_ALIGNOF(dbus_bool_t, [#include <dbus/dbus.h>])
+AC_CHECK_ALIGNOF(dbus_int16_t, [#include <dbus/dbus.h>])
+AC_CHECK_ALIGNOF(dbus_int32_t, [#include <dbus/dbus.h>])
+AC_CHECK_ALIGNOF(dbus_int64_t, [#include <dbus/dbus.h>])
+AC_CHECK_ALIGNOF(double, [#include <dbus/dbus.h>])
+AC_CHECK_ALIGNOF(dbind_pointer, [AC_INCLUDES_DEFAULT
+typedef void *dbind_pointer;])
+AC_CHECK_ALIGNOF(dbind_struct, [AC_INCLUDES_DEFAULT
+typedef struct {char s1;} dbind_struct;])
 
 GTK_DOC_CHECK([1.09])
 
