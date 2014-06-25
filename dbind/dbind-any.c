@@ -22,7 +22,6 @@
 #include <glib.h>
 
 #include "config.h"
-#include "dbind-config.h"
 #include "dbind-any.h"
 
 #undef DEBUG
@@ -79,30 +78,30 @@ dbind_find_c_alignment_r (const char **type)
 
         switch (t) {
     case DBUS_TYPE_BYTE:
-        return DBIND_ALIGNOF_CHAR;
+        return ALIGNOF_CHAR;
     case DBUS_TYPE_BOOLEAN:
-        return DBIND_ALIGNOF_DBUS_BOOL_T;
+        return ALIGNOF_DBUS_BOOL_T;
     case DBUS_TYPE_INT16:
     case DBUS_TYPE_UINT16:
-        return DBIND_ALIGNOF_DBUS_INT16_T;
+        return ALIGNOF_DBUS_INT16_T;
     case DBUS_TYPE_INT32:
     case DBUS_TYPE_UINT32:
-        return DBIND_ALIGNOF_DBUS_INT32_T;
+        return ALIGNOF_DBUS_INT32_T;
     case DBUS_TYPE_INT64:
     case DBUS_TYPE_UINT64:
-        return DBIND_ALIGNOF_DBUS_INT64_T;
+        return ALIGNOF_DBUS_INT64_T;
     case DBUS_TYPE_DOUBLE:
-        return DBIND_ALIGNOF_DOUBLE;
+        return ALIGNOF_DOUBLE;
     /* ptr types */
     case DBUS_TYPE_STRING:
     case DBUS_TYPE_OBJECT_PATH:
     case DBUS_TYPE_SIGNATURE:
     case DBUS_TYPE_ARRAY:
-        return DBIND_ALIGNOF_DBIND_POINTER;
+        return ALIGNOF_DBIND_POINTER;
     case DBUS_STRUCT_BEGIN_CHAR:
       /* TODO: I think this would break with a nested struct */
-#if DBIND_ALIGNOF_DBIND_STRUCT > 1
-                retval = MAX (retval, DBIND_ALIGNOF_DBIND_STRUCT);
+#if ALIGNOF_DBIND_STRUCT > 1
+                retval = MAX (retval, ALIGNOF_DBIND_STRUCT);
 #endif
         while (**type != DBUS_STRUCT_END_CHAR) {
             int elem_align = dbind_find_c_alignment_r (type);
@@ -111,8 +110,8 @@ dbind_find_c_alignment_r (const char **type)
         (*type)++;
         return retval;
     case DBUS_DICT_ENTRY_BEGIN_CHAR:
-#if DBIND_ALIGNOF_DBIND_STRUCT > 1
-                retval = MAX (retval, DBIND_ALIGNOF_DBIND_STRUCT);
+#if ALIGNOF_DBIND_STRUCT > 1
+                retval = MAX (retval, ALIGNOF_DBIND_STRUCT);
 #endif
         while (**type != DBUS_DICT_ENTRY_END_CHAR) {
             int elem_align = dbind_find_c_alignment_r (type);
@@ -123,7 +122,7 @@ dbind_find_c_alignment_r (const char **type)
     case DBUS_TYPE_STRUCT:
     case DBUS_TYPE_DICT_ENTRY:
         warn_braces ();
-        return DBIND_ALIGNOF_DBIND_POINTER;
+        return ALIGNOF_DBIND_POINTER;
     case '\0':
         g_assert_not_reached();
         break;

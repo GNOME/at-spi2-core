@@ -213,7 +213,6 @@ CPPFLAGS=$orig_CPPFLAGS
 AC_CONFIG_FILES([Makefile po/Makefile.in
 	xml/Makefile
 	dbind/Makefile
-dbind/dbind-config.h
 	atspi/Makefile
 	registryd/Makefile
 	bus/Makefile
