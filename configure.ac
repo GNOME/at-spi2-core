@@ -28,6 +28,7 @@ AM_INIT_AUTOMAKE([1.9 -Wall foreign no-dist-gzip dist-xz])
 AM_SILENT_RULES([yes])
 
 AC_PROG_CC
+AM_PROG_AR
 LT_INIT([disable-static])
 PKG_PROG_PKG_CONFIG
 
