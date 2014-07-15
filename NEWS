@@ -1,4 +1,4 @@
-Changes in version 2.13.2:
+Changes in version 2.13.3:
 ==========================
 *
 * Bug 729752: introspection: add many missing Returns: (nullable) annotations
@@ -17,6 +17,14 @@ Contributors:
 
 Translation:
   genodeftest (de), Pau Iranzo (ca), Carles Ferrando (ca@valencia), Yosef Or Boczko (he)
+
+Changes in version 2.13.2:
+==========================
+
+During GNOME 3.13.2 cycle an ATK 2.13.2 release was rolled out. But
+unfourtunately, it was not pushed on master, so got lost. All their
+changes are included on 2.13.3.
+
 
 Changes in version 2.13.1:
 ==========================
