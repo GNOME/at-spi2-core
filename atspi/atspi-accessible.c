@@ -190,6 +190,8 @@ atspi_accessible_finalize (GObject *object)
   if (accessible->attributes)
     g_hash_table_unref (accessible->attributes);
 
+    _atspi_accessible_unref_cache (accessible);
+
 #ifdef DEBUG_REF_COUNTS
   accessible_count--;
   g_hash_table_remove (_atspi_get_live_refs (), accessible);
