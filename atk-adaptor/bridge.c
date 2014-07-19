@@ -452,9 +452,10 @@ remove_socket ()
   if (!spi_global_app_data)
     return;
 
-  if (spi_global_app_data->app_bus_addr)
+  if (spi_global_app_data->app_bus_addr &&
+      !strncmp (spi_global_app_data->app_bus_addr, "unix:path=", 10))
   {
-    unlink (spi_global_app_data->app_bus_addr);
+    unlink (spi_global_app_data->app_bus_addr + 10);
     g_free (spi_global_app_data->app_bus_addr);
     spi_global_app_data->app_bus_addr = NULL;
   }
