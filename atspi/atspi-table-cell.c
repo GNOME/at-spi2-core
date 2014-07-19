@@ -179,6 +179,7 @@ atspi_table_cell_get_position (AtspiTableCell *obj,
   DBusMessage *reply;
   DBusMessageIter iter, iter_struct, iter_variant;
   dbus_int32_t d_row = -1, d_column = -1;
+  char *iter_sig;
 
   g_return_val_if_fail (obj != NULL, -1);
 
@@ -193,9 +194,14 @@ atspi_table_cell_get_position (AtspiTableCell *obj,
     return FALSE;
 
   dbus_message_iter_recurse (&iter, &iter_variant);
+  iter_sig = dbus_message_iter_get_signature (&iter_variant);
   /* TODO: Also report error here */
-  if (strcmp (dbus_message_iter_get_signature (&iter_variant), "(ii)") != 0)
+  if (strcmp (iter_sig, "(ii)") != 0)
+  {
+    dbus_free (iter_sig);
     return FALSE;
+  }
+  dbus_free (iter_sig);
 
   dbus_message_iter_recurse (&iter_variant, &iter_struct);
   dbus_message_iter_get_basic (&iter_struct, &d_row);

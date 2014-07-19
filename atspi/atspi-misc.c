@@ -1359,13 +1359,16 @@ void
 _atspi_dbus_set_interfaces (AtspiAccessible *accessible, DBusMessageIter *iter)
 {
   DBusMessageIter iter_array;
+  char *iter_sig = dbus_message_iter_get_signature (iter);
 
   accessible->interfaces = 0;
-  if (strcmp (dbus_message_iter_get_signature (iter), "as") != 0)
+  if (strcmp (iter_sig, "as") != 0)
   {
     g_warning ("_atspi_dbus_set_interfaces: Passed iterator with invalid signature %s", dbus_message_iter_get_signature (iter));
+    dbus_free (iter_sig);
     return;
   }
+  dbus_free (iter_sig);
   dbus_message_iter_recurse (iter, &iter_array);
   while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
   {
@@ -1721,22 +1724,30 @@ _atspi_dbus_update_cache_from_dict (AtspiAccessible *accessible, DBusMessageIter
     }
     else if (!strcmp (key, "Attributes"))
     {
+      char *iter_sig = dbus_message_iter_get_signature (&iter_variant);
       val = g_new0 (GValue, 1);;
       g_value_init (val, G_TYPE_HASH_TABLE);
-      if (strcmp (dbus_message_iter_get_signature (&iter_variant),
-                                                   "a{ss}") != 0)
+      if (strcmp (iter_sig, "a{ss}") != 0)
+      {
+        dbus_free (iter_sig);
         break;
+      }
+      dbus_free (iter_sig);
       g_value_take_boxed (val, _atspi_dbus_hash_from_iter (&iter_variant));
     }
     else if (!strcmp (key, "Component.ScreenExtents"))
     {
       dbus_int32_t d_int;
       AtspiRect extents;
+      char *iter_sig = dbus_message_iter_get_signature (&iter_variant);
       val = g_new0 (GValue, 1);;
       g_value_init (val, ATSPI_TYPE_RECT);
-      if (strcmp (dbus_message_iter_get_signature (&iter_variant),
-                                                   "(iiii)") != 0)
+      if (strcmp (iter_sig, "(iiii)") != 0)
+      {
+        dbus_free (iter_sig);
         break;
+      }
+      dbus_free (iter_sig);
       dbus_message_iter_recurse (&iter_variant, &iter_struct);
       dbus_message_iter_get_basic (&iter_struct, &d_int);
       extents.x = d_int;
