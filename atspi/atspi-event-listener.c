@@ -1038,7 +1038,7 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   if (dbus_message_iter_get_arg_type (&iter) == DBUS_TYPE_ARRAY)
   {
     /* new form -- parse properties sent with event */
-    _atspi_dbus_update_cache_from_dict (e.source, &iter);
+    cache = _atspi_dbus_update_cache_from_dict (e.source, &iter);
   }
 
   if (!strncmp (e.type, "object:children-changed", 23))

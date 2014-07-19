@@ -1705,7 +1705,7 @@ atspi_role_get_name (AtspiRole role)
   return NULL;
 }
 
-void
+GHashTable *
 _atspi_dbus_update_cache_from_dict (AtspiAccessible *accessible, DBusMessageIter *iter)
 {
   GHashTable *cache = _atspi_accessible_ref_cache (accessible);
@@ -1768,6 +1768,8 @@ _atspi_dbus_update_cache_from_dict (AtspiAccessible *accessible, DBusMessageIter
       g_hash_table_insert (cache, g_strdup (key), val); 
     dbus_message_iter_next (&iter_dict);
   }
+
+  return cache;
 }
 
 gboolean

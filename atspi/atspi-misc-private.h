@@ -159,7 +159,7 @@ GHashTable *_atspi_get_live_refs ();
 
 gchar *_atspi_name_compat (gchar *in);
 
-void _atspi_dbus_update_cache_from_dict (AtspiAccessible *accessible, DBusMessageIter *iter);
+GHashTable *_atspi_dbus_update_cache_from_dict (AtspiAccessible *accessible, DBusMessageIter *iter);
 
 gboolean _atspi_get_allow_sync ();
 
