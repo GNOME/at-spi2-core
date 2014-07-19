@@ -1697,6 +1697,8 @@ atspi_role_get_name (AtspiRole role)
       retval = g_strdup (value->value_nick);
     }
 
+  g_type_class_unref (type_class);
+
   if (retval)
     return _atspi_name_compat (retval);
 

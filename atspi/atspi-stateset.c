@@ -90,13 +90,14 @@ atspi_state_set_set_by_name (AtspiStateSet *set, const gchar *name, gboolean ena
   GTypeClass *type_class;
   GEnumValue *value;
 
-  type_class = g_type_class_ref (ATSPI_TYPE_STATE_TYPE);
-
   if (set->accessible &&
       !(set->accessible->cached_properties & ATSPI_CACHE_STATES))
     return;
 
+  type_class = g_type_class_ref (ATSPI_TYPE_STATE_TYPE);
+
   value = g_enum_get_value_by_nick (G_ENUM_CLASS (type_class), name);
+
   if (!value)
   {
     g_warning ("AT-SPI: Attempt to set unknown state '%s'", name);
@@ -106,6 +107,8 @@ atspi_state_set_set_by_name (AtspiStateSet *set, const gchar *name, gboolean ena
     set->states |= ((gint64)1 << value->value);
   else
     set->states &= ~((gint64)1 << value->value);
+
+  g_type_class_unref (type_class);
 }
 
 static void
