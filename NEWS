@@ -1,3 +1,13 @@
+What's new in at-spi2-core 2.13.4:
+
+* Ensure that we register with the session manager only once (bgo#728934).
+
+* Fix ucs2keysym prototype (bgo#730897).
+
+* introspection: add some missing Returns: (nullable) annotations
+
+* Fix various memory leaks.
+
 What's new in at-spi2-core 2.13.1:
 
 * Add GError setter in atspi_accessible_get_process_id function
