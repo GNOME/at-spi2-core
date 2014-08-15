@@ -9,14 +9,15 @@ msgstr ""
 "Project-Id-Version: atk 1.5.4\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=atk&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-06-25 02:47+0000\n"
-"PO-Revision-Date: 2011-09-19 13:22+0100\n"
-"Last-Translator: Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
+"POT-Creation-Date: 2014-08-06 14:46+0000\n"
+"PO-Revision-Date: 2014-08-07 00:39+0100\n"
+"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: ../atk/atkhyperlink.c:128
 msgid "Selected Link"
@@ -112,7 +113,7 @@ msgstr "Desktop-Rahmen"
 
 #: ../atk/atkobject.c:112
 msgid "dial"
-msgstr "wählen"
+msgstr "Drehknopf"
 
 #: ../atk/atkobject.c:113
 msgid "dialog"
@@ -261,7 +262,7 @@ msgstr "geteilte Leiste"
 
 #: ../atk/atkobject.c:150
 msgid "spin button"
-msgstr "Spin-Knopf"
+msgstr "Einstellknopf"
 
 #: ../atk/atkobject.c:151
 msgid "statusbar"
@@ -329,11 +330,11 @@ msgstr "Fenster"
 
 #: ../atk/atkobject.c:167
 msgid "header"
-msgstr "Kopfzeilen"
+msgstr "Kopfzeile"
 
 #: ../atk/atkobject.c:168
 msgid "footer"
-msgstr "Fußzeilen"
+msgstr "Fußzeile"
 
 #: ../atk/atkobject.c:169
 msgid "paragraph"
@@ -411,25 +412,30 @@ msgstr "Tabellenzeile"
 msgid "tree item"
 msgstr "Baumobjekt"
 
+# Bug 728557
 #: ../atk/atkobject.c:188
 msgid "document spreadsheet"
-msgstr "Arbeitsblatt dokumentieren"
+msgstr "Tabellendokument"
 
+# Bug 728557
 #: ../atk/atkobject.c:189
 msgid "document presentation"
-msgstr " Präsentation dokumentieren"
+msgstr "Präsentation"
 
+# Bug 728557
 #: ../atk/atkobject.c:190
 msgid "document text"
-msgstr "Text dokumentieren"
+msgstr "Textdokument"
 
+# Bug 728557
 #: ../atk/atkobject.c:191
 msgid "document web"
-msgstr "Webseite dokumentieren"
+msgstr "Internetseite"
 
+# Bug 728557
 #: ../atk/atkobject.c:192
 msgid "document email"
-msgstr "E-Mail dokumentieren"
+msgstr "E-Mail"
 
 #: ../atk/atkobject.c:193
 msgid "comment"
@@ -456,16 +462,12 @@ msgid "info bar"
 msgstr "Statusleiste"
 
 #: ../atk/atkobject.c:199
-#, fuzzy
-#| msgid "scroll bar"
 msgid "level bar"
-msgstr "Rollbalken"
+msgstr "Pegelbalken"
 
 #: ../atk/atkobject.c:200
-#, fuzzy
-#| msgid "tool bar"
 msgid "title bar"
-msgstr "Werkzeugleiste"
+msgstr "Titelleiste"
 
 #: ../atk/atkobject.c:201
 msgid "block quote"
@@ -480,10 +482,8 @@ msgid "video"
 msgstr "Video"
 
 #: ../atk/atkobject.c:204
-#, fuzzy
-#| msgid "animation"
 msgid "definition"
-msgstr "Animation"
+msgstr "Definition"
 
 #: ../atk/atkobject.c:205
 msgid "article"
@@ -491,21 +491,19 @@ msgstr "Artikel"
 
 #: ../atk/atkobject.c:206
 msgid "landmark"
-msgstr ""
+msgstr "Orientierungshilfe"
 
 #: ../atk/atkobject.c:207
-#, fuzzy
-#| msgid "dialog"
 msgid "log"
-msgstr "Dialog"
+msgstr "Protokoll"
 
 #: ../atk/atkobject.c:208
 msgid "marquee"
-msgstr ""
+msgstr "Markise"
 
 #: ../atk/atkobject.c:209
 msgid "math"
-msgstr ""
+msgstr "Mathematik"
 
 #: ../atk/atkobject.c:210
 msgid "rating"
@@ -513,19 +511,19 @@ msgstr "Bewertung"
 
 #: ../atk/atkobject.c:211
 msgid "timer"
-msgstr ""
+msgstr "Rückwärtszähler"
 
 #: ../atk/atkobject.c:212
 msgid "description list"
-msgstr ""
+msgstr "Beschreibungsliste"
 
 #: ../atk/atkobject.c:213
 msgid "description term"
-msgstr ""
+msgstr "Beschreibungsbegriff"
 
 #: ../atk/atkobject.c:214
 msgid "description value"
-msgstr ""
+msgstr "Beschreibungswert"
 
 #: ../atk/atkobject.c:372
 msgid "Accessible Name"
@@ -553,6 +551,8 @@ msgstr "Barrierefreies Eltern-Element"
 #: ../atk/atkobject.c:387
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr ""
+"Eltern-Element des aktuellen barrierefreien wie von atk_object_get_parent() "
+"zurückgegeben"
 
 #: ../atk/atkobject.c:403
 msgid "Accessible Value"
@@ -726,7 +726,7 @@ msgstr "sehr stark"
 #.
 #: ../atk/atkvalue.c:230
 msgid "very low"
-msgstr "sehr gering"
+msgstr "sehr niedrig"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a volume slider. Note that what such a widget
@@ -737,7 +737,7 @@ msgstr "sehr gering"
 #.
 #: ../atk/atkvalue.c:238
 msgid "medium"
-msgstr "mäßig"
+msgstr "mittel"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a volume slider. Note that what such a widget
@@ -814,7 +814,7 @@ msgstr "sehr gut"
 #.
 #: ../atk/atkvalue.c:294
 msgid "best"
-msgstr "ideal"
+msgstr "am besten"
 
 #~ msgid "Is used to notify that the parent has changed"
 #~ msgstr ""
