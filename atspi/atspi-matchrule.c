@@ -55,10 +55,14 @@ static void
 atspi_match_rule_finalize (GObject *object)
 {
   AtspiMatchRule *rule = ATSPI_MATCH_RULE (object);
+  gint i;
 
-  /* TODO: Check that interfaces don't leak */
   if (rule->interfaces)
+  {
+    for (i = 0; i < rule->interfaces->len; i++)
+      g_free (g_array_index (rule->interfaces, gchar *, i));
     g_array_free (rule->interfaces, TRUE);
+  }
 
   if (rule->attributes)
     g_hash_table_unref (rule->attributes);
@@ -142,7 +146,14 @@ atspi_match_rule_new (AtspiStateSet *states,
   rule->attributematchtype = attributematchtype;
 
   if (interfaces)
-    rule->interfaces = g_array_ref (interfaces);
+  {
+    rule->interfaces = g_array_new (TRUE, TRUE, sizeof (gchar *));
+    for (i = 0; i < interfaces->len; i++)
+    {
+      gchar *val = g_strdup (g_array_index (interfaces, gchar *, i));
+      rule->interfaces = g_array_append_val (rule->interfaces, val);
+    }
+  }
   rule->interfacematchtype = interfacematchtype;
 
   if (roles)
