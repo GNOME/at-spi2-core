@@ -147,7 +147,7 @@ atspi_table_cell_get_row_span (AtspiTableCell *obj, GError **error)
  *
  * Returns: (element-type AtspiAccessible) (transfer full): a GPtrArray of
  * AtspiAccessibles representing the row header cells.
- *  */
+ */
 GPtrArray *
 atspi_table_cell_get_row_header_cells (AtspiTableCell *obj, GError **error)
 {
