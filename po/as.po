@@ -6,579 +6,804 @@
 # SUNARAM PATIR <lkpatir@yahoo.co.in>, 2004.
 # Amitakhya Phukan <aphukan@redhat.com>, 2007.
 # Amitakhya Phukan <aphukan@fedoraproject.org>, 2009.
-# Nilamdyuti Goswami <ngoswami@redhat.com>, 2011.
+# Nilamdyuti Goswami <ngoswami@redhat.com>, 2011, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: as\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=atk&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-08-16 17:41+0000\n"
-"PO-Revision-Date: 2011-08-17 17:23+0530\n"
+"POT-Creation-Date: 2014-08-18 14:47+0000\n"
+"PO-Revision-Date: 2014-08-18 21:01+0530\n"
 "Last-Translator: Nilamdyuti Goswami <ngoswami@redhat.com>\n"
-"Language-Team: as_IN <kde-i18n-doc@kde.org>\n"
+"Language-Team: Assamese <kde-i18n-doc@kde.org>\n"
+"Language: as\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n!=1)\n"
 
-#: ../atk/atkhyperlink.c:103
+#: ../atk/atkhyperlink.c:128
 msgid "Selected Link"
 msgstr "নিৰ্বাচিত লিঙ্ক"
 
-#: ../atk/atkhyperlink.c:104
+#: ../atk/atkhyperlink.c:129
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr "AtkHyperlink object নিৰ্বাচিত হয় নে নহয় উল্লেখ কৰে"
 
-#: ../atk/atkhyperlink.c:110
+#: ../atk/atkhyperlink.c:135
 msgid "Number of Anchors"
 msgstr "সুত্ৰধাৰসমূহৰ সংখ্যা"
 
-#: ../atk/atkhyperlink.c:111
+#: ../atk/atkhyperlink.c:136
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr "AtkHyperlink অবজেক্টৰ লগত জড়িত সুত্ৰধাৰসমূহৰ সংখ্যা"
 
-#: ../atk/atkhyperlink.c:119
+#: ../atk/atkhyperlink.c:144
 msgid "End index"
 msgstr "শেষ সূচী"
 
-#: ../atk/atkhyperlink.c:120
+#: ../atk/atkhyperlink.c:145
 msgid "The end index of the AtkHyperlink object"
 msgstr "AtkHyperlink অবজেক্টৰ শেষ সূচী"
 
-#: ../atk/atkhyperlink.c:128
+#: ../atk/atkhyperlink.c:153
 msgid "Start index"
 msgstr "আৰম্ভণি সূচী"
 
-#: ../atk/atkhyperlink.c:129
+#: ../atk/atkhyperlink.c:154
 msgid "The start index of the AtkHyperlink object"
 msgstr "AtkHyperlink অবজেক্টৰ আৰম্ভণি সূচী"
 
-#: ../atk/atkobject.c:74
+#: ../atk/atkobject.c:97
 msgid "invalid"
 msgstr "অবৈধ"
 
-#: ../atk/atkobject.c:75
+#: ../atk/atkobject.c:98
 msgid "accelerator label"
 msgstr "ত্বৰক লেবেল"
 
-#: ../atk/atkobject.c:76
+#: ../atk/atkobject.c:99
 msgid "alert"
 msgstr "সতৰ্ক"
 
-#: ../atk/atkobject.c:77
+#: ../atk/atkobject.c:100
 msgid "animation"
 msgstr "জীৱন্তকৰণ"
 
-#: ../atk/atkobject.c:78
+#: ../atk/atkobject.c:101
 msgid "arrow"
 msgstr "কাঁড়"
 
-#: ../atk/atkobject.c:79
+#: ../atk/atkobject.c:102
 msgid "calendar"
 msgstr "কেলেন্ডাৰ"
 
-#: ../atk/atkobject.c:80
+#: ../atk/atkobject.c:103
 msgid "canvas"
 msgstr "চিত্ৰপট"
 
-#: ../atk/atkobject.c:81
+#: ../atk/atkobject.c:104
 msgid "check box"
 msgstr "চেক বাকচ"
 
-#: ../atk/atkobject.c:82
+#: ../atk/atkobject.c:105
 msgid "check menu item"
 msgstr "চেক তালিকা বস্তু"
 
-#: ../atk/atkobject.c:83
+#: ../atk/atkobject.c:106
 msgid "color chooser"
 msgstr "ৰং নিৰ্বাচক"
 
-#: ../atk/atkobject.c:84
+#: ../atk/atkobject.c:107
 msgid "column header"
 msgstr "স্তম্ভ হেডাৰ"
 
-#: ../atk/atkobject.c:85
+#: ../atk/atkobject.c:108
 msgid "combo box"
 msgstr "কম্বো বাকচ"
 
-#: ../atk/atkobject.c:86
+#: ../atk/atkobject.c:109
 msgid "dateeditor"
 msgstr "তাৰিখ সম্পাদক"
 
-#: ../atk/atkobject.c:87
+#: ../atk/atkobject.c:110
 msgid "desktop icon"
 msgstr "ডেস্কটপ আইকন"
 
-#: ../atk/atkobject.c:88
+#: ../atk/atkobject.c:111
 msgid "desktop frame"
 msgstr "ডেস্কটপ ফ্ৰেইম"
 
-#: ../atk/atkobject.c:89
+#: ../atk/atkobject.c:112
 msgid "dial"
 msgstr "ডায়েল"
 
-#: ../atk/atkobject.c:90
+#: ../atk/atkobject.c:113
 msgid "dialog"
 msgstr "ডাইলগ"
 
-#: ../atk/atkobject.c:91
+#: ../atk/atkobject.c:114
 msgid "directory pane"
 msgstr "ডাইৰেকটৰি পেইন"
 
-#: ../atk/atkobject.c:92
+#: ../atk/atkobject.c:115
 msgid "drawing area"
 msgstr "অংকন স্থান"
 
-#: ../atk/atkobject.c:93
+#: ../atk/atkobject.c:116
 msgid "file chooser"
-msgstr "নথিপত্ৰ নিৰ্বাচক"
+msgstr "ফাইল নিৰ্বাচক"
 
-#: ../atk/atkobject.c:94
+#: ../atk/atkobject.c:117
 msgid "filler"
 msgstr "পূৰণকাৰী"
 
 #. I know it looks wrong but that is what Java returns
-#: ../atk/atkobject.c:96
+#: ../atk/atkobject.c:119
 msgid "fontchooser"
 msgstr "আখৰ নিৰ্বাচক"
 
-#: ../atk/atkobject.c:97
+#: ../atk/atkobject.c:120
 msgid "frame"
 msgstr "ফ্ৰেইম"
 
-#: ../atk/atkobject.c:98
+#: ../atk/atkobject.c:121
 msgid "glass pane"
 msgstr "গ্লাচ পেইন"
 
-#: ../atk/atkobject.c:99
+#: ../atk/atkobject.c:122
 msgid "html container"
 msgstr "html ধাৰক"
 
-#: ../atk/atkobject.c:100
+#: ../atk/atkobject.c:123
 msgid "icon"
 msgstr "আইকন"
 
-#: ../atk/atkobject.c:101
+#: ../atk/atkobject.c:124
 msgid "image"
 msgstr "ছবি"
 
-#: ../atk/atkobject.c:102
+#: ../atk/atkobject.c:125
 msgid "internal frame"
 msgstr "অভ্যন্তৰীক ফ্ৰেইম"
 
-#: ../atk/atkobject.c:103
+#: ../atk/atkobject.c:126
 msgid "label"
 msgstr "লেবেল"
 
-#: ../atk/atkobject.c:104
+#: ../atk/atkobject.c:127
 msgid "layered pane"
 msgstr "স্তৰীয় পেইন"
 
-#: ../atk/atkobject.c:105
+#: ../atk/atkobject.c:128
 msgid "list"
 msgstr "তালিকা"
 
-#: ../atk/atkobject.c:106
+#: ../atk/atkobject.c:129
 msgid "list item"
 msgstr "তালিকা বস্তু"
 
-#: ../atk/atkobject.c:107
+#: ../atk/atkobject.c:130
 msgid "menu"
 msgstr "মেনু"
 
-#: ../atk/atkobject.c:108
+#: ../atk/atkobject.c:131
 msgid "menu bar"
 msgstr "মেনু বাৰ"
 
-#: ../atk/atkobject.c:109
+#: ../atk/atkobject.c:132
 msgid "menu item"
 msgstr "মেনুৰ বস্তু"
 
-#: ../atk/atkobject.c:110
+#: ../atk/atkobject.c:133
 msgid "option pane"
 msgstr "বিকল্পৰ পেইন"
 
-#: ../atk/atkobject.c:111
+#: ../atk/atkobject.c:134
 msgid "page tab"
 msgstr "পৃষ্ঠা টেব"
 
-#: ../atk/atkobject.c:112
+#: ../atk/atkobject.c:135
 msgid "page tab list"
 msgstr "পৃষ্ঠা টেব তালিকা"
 
-#: ../atk/atkobject.c:113
+#: ../atk/atkobject.c:136
 msgid "panel"
 msgstr "পেনেল"
 
-#: ../atk/atkobject.c:114
+#: ../atk/atkobject.c:137
 msgid "password text"
-msgstr "পাছৱাৰ্ড লিখনী"
+msgstr "পাছৱৰ্ড লিখনি"
 
-#: ../atk/atkobject.c:115
+#: ../atk/atkobject.c:138
 msgid "popup menu"
 msgstr "পপআপ মেনু"
 
-#: ../atk/atkobject.c:116
+#: ../atk/atkobject.c:139
 msgid "progress bar"
 msgstr "প্ৰগতি বাৰ"
 
-#: ../atk/atkobject.c:117
+#: ../atk/atkobject.c:140
 msgid "push button"
 msgstr "টিপা বুটাম"
 
-#: ../atk/atkobject.c:118
+#: ../atk/atkobject.c:141
 msgid "radio button"
 msgstr "ৰেডিঅ' বুটাম"
 
-#: ../atk/atkobject.c:119
+#: ../atk/atkobject.c:142
 msgid "radio menu item"
 msgstr "ৰেডিঅ' মেনুৰ বস্তু"
 
-#: ../atk/atkobject.c:120
+#: ../atk/atkobject.c:143
 msgid "root pane"
 msgstr "ৰুট পেইন"
 
-#: ../atk/atkobject.c:121
+#: ../atk/atkobject.c:144
 msgid "row header"
 msgstr "শাৰী হেডাৰ"
 
-#: ../atk/atkobject.c:122
+#: ../atk/atkobject.c:145
 msgid "scroll bar"
 msgstr "স্ক্ৰল বাৰ"
 
-#: ../atk/atkobject.c:123
+#: ../atk/atkobject.c:146
 msgid "scroll pane"
 msgstr "স্ক্ৰল পেইন"
 
-#: ../atk/atkobject.c:124
+#: ../atk/atkobject.c:147
 msgid "separator"
 msgstr "বিভাজক"
 
-#: ../atk/atkobject.c:125
+#: ../atk/atkobject.c:148
 msgid "slider"
 msgstr "স্লাইডাৰ"
 
-#: ../atk/atkobject.c:126
+#: ../atk/atkobject.c:149
 msgid "split pane"
 msgstr "বিভাজিত পেইন"
 
-#: ../atk/atkobject.c:127
+#: ../atk/atkobject.c:150
 msgid "spin button"
 msgstr "ঘূৰ্ণন বুটাম"
 
-#: ../atk/atkobject.c:128
+#: ../atk/atkobject.c:151
 msgid "statusbar"
 msgstr "অৱস্থাবাৰ"
 
-#: ../atk/atkobject.c:129
+#: ../atk/atkobject.c:152
 msgid "table"
 msgstr "টেবুল"
 
-#: ../atk/atkobject.c:130
+#: ../atk/atkobject.c:153
 msgid "table cell"
 msgstr "টেবুল কোষ"
 
-#: ../atk/atkobject.c:131
+#: ../atk/atkobject.c:154
 msgid "table column header"
 msgstr "টেবুল স্তম্ভ হেডাৰ"
 
-#: ../atk/atkobject.c:132
+#: ../atk/atkobject.c:155
 msgid "table row header"
 msgstr "টেবুল শাৰী হেডাৰ"
 
-#: ../atk/atkobject.c:133
+#: ../atk/atkobject.c:156
 msgid "tear off menu item"
 msgstr "বিদাৰিত মেনুৰ বস্তু"
 
-#: ../atk/atkobject.c:134
+#: ../atk/atkobject.c:157
 msgid "terminal"
 msgstr "টাৰ্মিনেল"
 
-#: ../atk/atkobject.c:135
+#: ../atk/atkobject.c:158
 msgid "text"
-msgstr "লিখনী"
+msgstr "লিখনি"
 
-#: ../atk/atkobject.c:136
+#: ../atk/atkobject.c:159
 msgid "toggle button"
 msgstr "অদল বদল বুটাম"
 
-#: ../atk/atkobject.c:137
+#: ../atk/atkobject.c:160
 msgid "tool bar"
 msgstr "সঁজুলি বাৰ"
 
-#: ../atk/atkobject.c:138
+#: ../atk/atkobject.c:161
 msgid "tool tip"
 msgstr "সঁজুলিৰ উপদেশ"
 
-#: ../atk/atkobject.c:139
+#: ../atk/atkobject.c:162
 msgid "tree"
 msgstr "ট্ৰি"
 
-#: ../atk/atkobject.c:140
+#: ../atk/atkobject.c:163
 msgid "tree table"
 msgstr "ট্ৰিৰ টেবুল"
 
-#: ../atk/atkobject.c:141
+#: ../atk/atkobject.c:164
 msgid "unknown"
 msgstr "অজ্ঞাত"
 
-#: ../atk/atkobject.c:142
+#: ../atk/atkobject.c:165
 msgid "viewport"
 msgstr "ভিউপ'ৰ্ট"
 
-#: ../atk/atkobject.c:143
+#: ../atk/atkobject.c:166
 msgid "window"
 msgstr "উইন্ডো"
 
-#: ../atk/atkobject.c:144
+#: ../atk/atkobject.c:167
 msgid "header"
 msgstr "হেডাৰ"
 
-#: ../atk/atkobject.c:145
+#: ../atk/atkobject.c:168
 msgid "footer"
 msgstr "পাদটীকা"
 
-#: ../atk/atkobject.c:146
+#: ../atk/atkobject.c:169
 msgid "paragraph"
 msgstr "দফা"
 
-#: ../atk/atkobject.c:147
+#: ../atk/atkobject.c:170
 msgid "ruler"
 msgstr "ৰুলাৰ"
 
-#: ../atk/atkobject.c:148
+#: ../atk/atkobject.c:171
 msgid "application"
 msgstr "অনুপ্ৰয়োগ"
 
-#: ../atk/atkobject.c:149
+#: ../atk/atkobject.c:172
 msgid "autocomplete"
 msgstr "স্ব-সম্পূৰ্ণ"
 
-#: ../atk/atkobject.c:150
+#: ../atk/atkobject.c:173
 msgid "edit bar"
 msgstr "সম্পাদন বাৰ"
 
-#: ../atk/atkobject.c:151
+#: ../atk/atkobject.c:174
 msgid "embedded component"
 msgstr "অন্তৰ্ভুক্ত উপাদান"
 
-#: ../atk/atkobject.c:152
+#: ../atk/atkobject.c:175
 msgid "entry"
 msgstr "প্ৰবিষ্টি"
 
-#: ../atk/atkobject.c:153
+#: ../atk/atkobject.c:176
 msgid "chart"
 msgstr "ৰেখাচিত্ৰ"
 
-#: ../atk/atkobject.c:154
+#: ../atk/atkobject.c:177
 msgid "caption"
 msgstr "কেপষণ"
 
-#: ../atk/atkobject.c:155
+#: ../atk/atkobject.c:178
 msgid "document frame"
 msgstr "দস্তাবেজৰ ফ্ৰেইম"
 
-#: ../atk/atkobject.c:156
+#: ../atk/atkobject.c:179
 msgid "heading"
 msgstr "হেডিং"
 
-#: ../atk/atkobject.c:157
+#: ../atk/atkobject.c:180
 msgid "page"
 msgstr "পৃষ্ঠা"
 
-#: ../atk/atkobject.c:158
+#: ../atk/atkobject.c:181
 msgid "section"
 msgstr "বিভাগ"
 
-#: ../atk/atkobject.c:159
+#: ../atk/atkobject.c:182
 msgid "redundant object"
 msgstr "ত্ৰুটিপূৰ্ণ অবজেক্ট"
 
-#: ../atk/atkobject.c:160
+#: ../atk/atkobject.c:183
 msgid "form"
 msgstr "বিন্যাস"
 
-#: ../atk/atkobject.c:161
+#: ../atk/atkobject.c:184
 msgid "link"
 msgstr "লিঙ্ক"
 
-#: ../atk/atkobject.c:162
+#: ../atk/atkobject.c:185
 msgid "input method window"
 msgstr "ইনপুট পদ্ধতিৰ উইন্ডো"
 
-#: ../atk/atkobject.c:163
+#: ../atk/atkobject.c:186
 msgid "table row"
 msgstr "টেবুল শাৰী"
 
-#: ../atk/atkobject.c:164
+#: ../atk/atkobject.c:187
 msgid "tree item"
 msgstr "ট্ৰিৰ বস্তু"
 
-#: ../atk/atkobject.c:165
+#: ../atk/atkobject.c:188
 msgid "document spreadsheet"
 msgstr "দস্তাবেজ স্প্ৰেডশিট"
 
-#: ../atk/atkobject.c:166
+#: ../atk/atkobject.c:189
 msgid "document presentation"
 msgstr "দস্তাবেজ পৰিৱেশন"
 
-#: ../atk/atkobject.c:167
+#: ../atk/atkobject.c:190
 msgid "document text"
-msgstr "দস্তাবেজ লিখনী"
+msgstr "দস্তাবেজ লিখনি"
 
-#: ../atk/atkobject.c:168
+#: ../atk/atkobject.c:191
 msgid "document web"
 msgstr "দস্তাবেজ ৱেব"
 
-#: ../atk/atkobject.c:169
+#: ../atk/atkobject.c:192
 msgid "document email"
 msgstr "দস্তাবেজ ই-মেইল"
 
-#: ../atk/atkobject.c:170
+#: ../atk/atkobject.c:193
 msgid "comment"
 msgstr "মন্তব্য"
 
-#: ../atk/atkobject.c:171
+#: ../atk/atkobject.c:194
 msgid "list box"
 msgstr "তালিকা বাকচ"
 
-#: ../atk/atkobject.c:172
+#: ../atk/atkobject.c:195
 msgid "grouping"
 msgstr "দলীকৰণ"
 
-#: ../atk/atkobject.c:173
+#: ../atk/atkobject.c:196
 msgid "image map"
 msgstr "ছবি মানচিত্ৰ"
 
-#: ../atk/atkobject.c:174
+#: ../atk/atkobject.c:197
 msgid "notification"
 msgstr "অধিসূচনা"
 
-#: ../atk/atkobject.c:175
+#: ../atk/atkobject.c:198
 msgid "info bar"
 msgstr "তথ্য বাৰ"
 
-#: ../atk/atkobject.c:514
+#: ../atk/atkobject.c:199
+#| msgid "scroll bar"
+msgid "level bar"
+msgstr "স্তৰ বাৰ"
+
+#: ../atk/atkobject.c:200
+#| msgid "tool bar"
+msgid "title bar"
+msgstr "শীৰ্ষক বাৰ"
+
+#: ../atk/atkobject.c:201
+msgid "block quote"
+msgstr "ব্লক কৌট"
+
+#: ../atk/atkobject.c:202
+msgid "audio"
+msgstr "অডিঅ'"
+
+#: ../atk/atkobject.c:203
+msgid "video"
+msgstr "ভিডিঅ'"
+
+#: ../atk/atkobject.c:204
+#| msgid "animation"
+msgid "definition"
+msgstr "বিৱৰণ"
+
+#: ../atk/atkobject.c:205
+msgid "article"
+msgstr "অধ্যায়"
+
+#: ../atk/atkobject.c:206
+msgid "landmark"
+msgstr "লেণ্ডমাৰ্ক"
+
+#: ../atk/atkobject.c:207
+#| msgid "dialog"
+msgid "log"
+msgstr "লগ"
+
+#: ../atk/atkobject.c:208
+msgid "marquee"
+msgstr "মাৰ্ক"
+
+#: ../atk/atkobject.c:209
+msgid "math"
+msgstr "মেথ"
+
+#: ../atk/atkobject.c:210
+msgid "rating"
+msgstr "ৰেটিং"
+
+#: ../atk/atkobject.c:211
+msgid "timer"
+msgstr "টাইমাৰ"
+
+#: ../atk/atkobject.c:212
+msgid "description list"
+msgstr "বিৱৰণৰ তালিকা"
+
+#: ../atk/atkobject.c:213
+msgid "description term"
+msgstr "বিৱৰণ সংজ্ঞা"
+
+#: ../atk/atkobject.c:214
+msgid "description value"
+msgstr "বিৱৰণ মান"
+
+#: ../atk/atkobject.c:372
 msgid "Accessible Name"
 msgstr "অভিগম  নাম"
 
-#: ../atk/atkobject.c:515
+#: ../atk/atkobject.c:373
 msgid "Object instance's name formatted for assistive technology access"
-msgstr "সহায়ক প্ৰযুক্তিবিদ্যাৰ অভিগম্যতাৰ বাবে অবজেক্ট উদাহৰণৰ নাম ফৰমেট কৰা হ'ল"
+msgstr ""
+"সহায়ক প্ৰযুক্তিবিদ্যাৰ অভিগম্যতাৰ বাবে অবজেক্ট উদাহৰণৰ নাম ফৰমেট কৰা হ'ল"
 
-#: ../atk/atkobject.c:521
+#: ../atk/atkobject.c:379
 msgid "Accessible Description"
 msgstr "অভিগম বিৱৰণ"
 
-#: ../atk/atkobject.c:522
+#: ../atk/atkobject.c:380
 msgid "Description of an object, formatted for assistive technology access"
-msgstr "এটা অবজেক্টৰ বিৱৰণ, সহায়ক প্ৰযুক্তিবিদ্যাৰ অভিগম্যতাৰ বাবে ফৰমেট কৰা হ'ল"
+msgstr ""
+"এটা অবজেক্টৰ বিৱৰণ, সহায়ক প্ৰযুক্তিবিদ্যাৰ অভিগম্যতাৰ বাবে ফৰমেট কৰা হ'ল"
 
-#: ../atk/atkobject.c:528
+#: ../atk/atkobject.c:386
 msgid "Accessible Parent"
 msgstr "অভিগম উপধায়ক"
 
-#: ../atk/atkobject.c:529
-msgid "Is used to notify that the parent has changed"
-msgstr "উপধায়ক সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়"
+#: ../atk/atkobject.c:387
+msgid "Parent of the current accessible as returned by atk_object_get_parent()"
+msgstr "atk_object_get_parent() দ্বাৰা প্ৰদান কৰা ধৰণে বৰ্তমান অভিগম্যৰ উপধায়ক"
 
-#: ../atk/atkobject.c:535
+#: ../atk/atkobject.c:403
 msgid "Accessible Value"
 msgstr "অভিগম মান"
 
-#: ../atk/atkobject.c:536
+#: ../atk/atkobject.c:404
 msgid "Is used to notify that the value has changed"
 msgstr "মান সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়"
 
-#: ../atk/atkobject.c:544
+#: ../atk/atkobject.c:412
 msgid "Accessible Role"
 msgstr "অভিগম ভূমিকা"
 
-#: ../atk/atkobject.c:545
+#: ../atk/atkobject.c:413
 msgid "The accessible role of this object"
 msgstr "এইটো অবজেক্টৰ অভিগম ভূমিকা"
 
-#: ../atk/atkobject.c:553
+#: ../atk/atkobject.c:421
 msgid "Accessible Layer"
 msgstr "অভিগম স্তৰ"
 
-#: ../atk/atkobject.c:554
+#: ../atk/atkobject.c:422
 msgid "The accessible layer of this object"
 msgstr "এই অবজেক্টৰ অভিগম্য স্তৰ"
 
-#: ../atk/atkobject.c:562
+#: ../atk/atkobject.c:430
 msgid "Accessible MDI Value"
 msgstr "অভিগম্য  MDI মান"
 
-#: ../atk/atkobject.c:563
+#: ../atk/atkobject.c:431
 msgid "The accessible MDI value of this object"
 msgstr "এইটো অবজেক্টৰ অভিগম্য  MDI মান"
 
-#: ../atk/atkobject.c:571
+#: ../atk/atkobject.c:447
 msgid "Accessible Table Caption"
 msgstr "অভিগম টেবুল কেপষণ"
 
-#: ../atk/atkobject.c:572
+#: ../atk/atkobject.c:448
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
-"টেবুল কেপষণ সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়;  এই বৈশিষ্টটো ব্যৱহাৰ কৰা উচিত নহয় "
+"টেবুল কেপষণ সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়;  এই বৈশিষ্টটো ব্যৱহাৰ কৰা উচিত "
+"নহয় "
 "। ইয়াৰ সলনি অভিগম-টেবুল-কেপষণ-অবজেক্ট ব্যৱহাৰ কৰা উচিত"
 
-#: ../atk/atkobject.c:578
+#: ../atk/atkobject.c:462
 msgid "Accessible Table Column Header"
 msgstr "অভিগম টেবুল স্তম্ভ হেডাৰ"
 
-#: ../atk/atkobject.c:579
+#: ../atk/atkobject.c:463
 msgid "Is used to notify that the table column header has changed"
 msgstr "টেবুল স্তম্ভ হেডাৰ সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়"
 
-#: ../atk/atkobject.c:585
+#: ../atk/atkobject.c:478
 msgid "Accessible Table Column Description"
 msgstr "অভিগম টেবুল স্তম্ভ বিৱৰণ"
 
-#: ../atk/atkobject.c:586
+#: ../atk/atkobject.c:479
 msgid "Is used to notify that the table column description has changed"
 msgstr "টেবুল স্তম্ভ বিৱৰণ সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়"
 
-#: ../atk/atkobject.c:592
+#: ../atk/atkobject.c:494
 msgid "Accessible Table Row Header"
 msgstr "অভিগম টেবুল শাৰী হেডাৰ"
 
-#: ../atk/atkobject.c:593
+#: ../atk/atkobject.c:495
 msgid "Is used to notify that the table row header has changed"
 msgstr "টেবুল শাৰী হেডাৰ সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়"
 
-#: ../atk/atkobject.c:599
+#: ../atk/atkobject.c:509
 msgid "Accessible Table Row Description"
 msgstr "অভিগম টেবুল শাৰী বিৱৰণ"
 
-#: ../atk/atkobject.c:600
+#: ../atk/atkobject.c:510
 msgid "Is used to notify that the table row description has changed"
 msgstr "টেবুল শাৰী বিৱৰণ সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়"
 
-#: ../atk/atkobject.c:606
+#: ../atk/atkobject.c:516
 msgid "Accessible Table Summary"
 msgstr "অভিগম টেবুল সাৰাংশ"
 
-#: ../atk/atkobject.c:607
+#: ../atk/atkobject.c:517
 msgid "Is used to notify that the table summary has changed"
 msgstr "টেবুল সাৰাংশ সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়"
 
-#: ../atk/atkobject.c:613
+#: ../atk/atkobject.c:523
 msgid "Accessible Table Caption Object"
 msgstr "অভিগম্য টেবুল কেপষণ বস্তু"
 
-#: ../atk/atkobject.c:614
+#: ../atk/atkobject.c:524
 msgid "Is used to notify that the table caption has changed"
 msgstr "টেবুল কেপষণ সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়"
 
-#: ../atk/atkobject.c:620
+#: ../atk/atkobject.c:530
 msgid "Number of Accessible Hypertext Links"
 msgstr "অভিগম্য হাইপাৰটেক্সট লিঙ্কসমূহৰ সংখ্যা"
 
-#: ../atk/atkobject.c:621
+#: ../atk/atkobject.c:531
 msgid "The number of links which the current AtkHypertext has"
 msgstr "বৰ্তমান AtkHypertext -ৰ লিঙ্কৰ সংখ্যা"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:194
+msgid "very weak"
+msgstr "অতি দুৰ্বল"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:201
+msgid "weak"
+msgstr "দূৰ্বল"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:208
+#| msgid "table"
+msgid "acceptable"
+msgstr "গ্ৰহণযোগ্য"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:215
+msgid "strong"
+msgstr "শক্তিশালী"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:222
+msgid "very strong"
+msgstr "অতি শক্তিশালী"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:230
+msgid "very low"
+msgstr "অতি কম"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:238
+msgid "medium"
+msgstr "মধ্যম"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:246
+msgid "high"
+msgstr "উচ্চ"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:254
+msgid "very high"
+msgstr "অতি উচ্চ"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:262
+msgid "very bad"
+msgstr "অতি বেয়া"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:270
+msgid "bad"
+msgstr "বেয়া"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:278
+msgid "good"
+msgstr "ভাল"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:286
+msgid "very good"
+msgstr "খুব ভাল"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:294
+msgid "best"
+msgstr "উত্তম"
+
+#~ msgid "Is used to notify that the parent has changed"
+#~ msgstr "উপধায়ক সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়"
