@@ -1,3 +1,17 @@
+Changes in version 2.13.90:
+===========================
+*
+* GObject-introspection: some small changes needed by the MINGW project.
+* Doap file updated See [1]
+
+Contributors:
+  Alexpux, Piotr Drąg, Olav Vitters
+
+Translations:
+Christian Kirbach (de), Lasse Liehu (fi), ngoswami (as)
+
+[1] https://mail.gnome.org/archives/release-team/2014-July/msg00045.html
+
 Changes in version 2.13.3:
 ==========================
 *
