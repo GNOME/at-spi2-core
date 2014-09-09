@@ -6,13 +6,14 @@
 # Dmitry G. Mastrukov <dmitry@taurussoft.org>, 2002-2003.
 # Leonid Kanter <leon@asplinux.ru>, 2006.
 # Yuri Kozlov <yuray@komyakino.ru>, 2010, 2011.
+# Yuri Myasoedov <ymyasoedov@yandex.ru>, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: atk trunk\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=atk&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-03-14 15:47+0000\n"
-"PO-Revision-Date: 2014-03-14 21:12+0300\n"
+"POT-Creation-Date: 2014-09-09 02:47+0000\n"
+"PO-Revision-Date: 2014-09-09 17:12+0300\n"
 "Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -462,12 +463,10 @@ msgstr "информационная полоса"
 
 # см. например GtkLevelBar
 #: ../atk/atkobject.c:199
-#| msgid "scroll bar"
 msgid "level bar"
 msgstr "индикатор выполнения"
 
 #: ../atk/atkobject.c:200
-#| msgid "tool bar"
 msgid "title bar"
 msgstr "панель заголовка"
 
@@ -484,7 +483,6 @@ msgid "video"
 msgstr "видео"
 
 #: ../atk/atkobject.c:204
-#| msgid "animation"
 msgid "definition"
 msgstr "определение"
 
@@ -494,20 +492,19 @@ msgstr "статья"
 
 #: ../atk/atkobject.c:206
 msgid "landmark"
-msgstr ""
+msgstr "ориентир"
 
 #: ../atk/atkobject.c:207
-#| msgid "dialog"
 msgid "log"
 msgstr "журнал"
 
 #: ../atk/atkobject.c:208
 msgid "marquee"
-msgstr ""
+msgstr "бегущая строка"
 
 #: ../atk/atkobject.c:209
 msgid "math"
-msgstr ""
+msgstr "математическое выражение"
 
 #: ../atk/atkobject.c:210
 msgid "rating"
@@ -519,15 +516,15 @@ msgstr "таймер"
 
 #: ../atk/atkobject.c:212
 msgid "description list"
-msgstr ""
+msgstr "список описаний"
 
 #: ../atk/atkobject.c:213
 msgid "description term"
-msgstr ""
+msgstr "терм описания"
 
 #: ../atk/atkobject.c:214
 msgid "description value"
-msgstr ""
+msgstr "значение описания"
 
 #: ../atk/atkobject.c:372
 msgid "Accessible Name"
@@ -553,6 +550,7 @@ msgstr "Облегчённый предок"
 #: ../atk/atkobject.c:387
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr ""
+"Родитель текущего облегчённого объекта, возвращаемый atk_object_get_parent()"
 
 #: ../atk/atkobject.c:403
 msgid "Accessible Value"
@@ -687,7 +685,6 @@ msgstr "слабо"
 #. * present this string alone or as a token in a list.
 #.
 #: ../atk/atkvalue.c:208
-#| msgid "table"
 msgid "acceptable"
 msgstr "приемлемо"
 
@@ -809,6 +806,3 @@ msgstr "очень хорошо"
 #: ../atk/atkvalue.c:294
 msgid "best"
 msgstr "лучше не бывает"
-
-#~ msgid "Is used to notify that the parent has changed"
-#~ msgstr "Используется для уведомления, что предок изменился"
