@@ -215,9 +215,11 @@ handle_get_bus_address (DBusPendingCall *pending, void *user_data)
                                           "/org/a11y/atspi/cache",
                                           atspi_interface_cache, "GetItems");
 
-   dbus_connection_send_with_reply (app->bus, message, &new_pending, 2000);
-  dbus_pending_call_set_notify (new_pending, handle_get_items, app, NULL);
+  dbus_connection_send_with_reply (app->bus, message, &new_pending, 2000);
   dbus_message_unref (message);
+  if (!new_pending)
+    return;
+  dbus_pending_call_set_notify (new_pending, handle_get_items, app, NULL);
 }
 
 static AtspiApplication *
@@ -247,9 +249,14 @@ get_application (const char *bus_name)
   message = dbus_message_new_method_call (bus_name, atspi_path_root,
                                           atspi_interface_application, "GetApplicationBusAddress");
 
-   dbus_connection_send_with_reply (app->bus, message, &pending, 2000);
-  dbus_pending_call_set_notify (pending, handle_get_bus_address, app, NULL);
+  dbus_connection_send_with_reply (app->bus, message, &pending, 2000);
   dbus_message_unref (message);
+  if (!pending)
+  {
+    g_hash_table_remove (app_hash, bus_name_dup);
+    return NULL;
+  }
+  dbus_pending_call_set_notify (pending, handle_get_bus_address, app, NULL);
   return app;
 }
 
