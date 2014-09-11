@@ -384,17 +384,11 @@ handle_name_owner_changed (DBusConnection *bus, DBusMessage *message, void *user
     else if (!new[0])
       registry_lost = TRUE;
   }
-  else
+  else if (app_hash)
   {
-    AtspiAccessible *desktop = atspi_get_desktop (0);
-    GList *l;
-    for (l = desktop->children; l; l = l->next)
-    {
-      AtspiAccessible *child = l->data;
-      if (!strcmp (child->parent.app->bus_name, old))
-        g_object_run_dispose (G_OBJECT (child->parent.app));
-    }
-    g_object_unref (desktop);
+    AtspiApplication *app = g_hash_table_lookup (app_hash, old);
+    if (app)
+      g_object_run_dispose (G_OBJECT (app));
   }
   return DBUS_HANDLER_RESULT_HANDLED;
 }
