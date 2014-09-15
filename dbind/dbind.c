@@ -162,7 +162,6 @@ dbind_method_call_reentrant_va (DBusConnection *cnx,
 
     if (dbus_message_get_type (reply) == DBUS_MESSAGE_TYPE_ERROR)
     {
-      const char *name = dbus_message_get_error_name (reply);
       goto out;
     }
     /* demarshal */
@@ -246,6 +245,7 @@ dbind_method_call_reentrant (DBusConnection *cnx,
 
 /*---------------------------------------------------------------------------*/
 
+/* TODO: opt_error is unused; should be removed */
 dbus_bool_t
 dbind_emit_signal_va (DBusConnection *cnx,
                       const char     *path,
@@ -258,16 +258,7 @@ dbind_emit_signal_va (DBusConnection *cnx,
     dbus_bool_t success = FALSE;
     DBusMessage *msg = NULL;
     DBusMessageIter iter;
-    DBusError *err, real_err;
     const char *p;
-
-    dbus_error_init (&real_err);
-
-    if (opt_error)
-        err = opt_error;
-    else {
-        err = &real_err;
-    }
 
     msg = dbus_message_new_signal (path, interface, signal);
     if (!msg)
@@ -285,9 +276,6 @@ out:
 
     if (msg)
         dbus_message_unref (msg);
-
-    if (dbus_error_is_set (&real_err))
-        dbus_error_free (&real_err);
 
     return success;
 }
