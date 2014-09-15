@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.13.92:
+
+* Fix alignment checks when cross-compiling (bgo#736653).
+
 What's new in at-spi2-core 2.13.90:
 
 * Fix crash when testing interfaces with collections (bgo#734805).
