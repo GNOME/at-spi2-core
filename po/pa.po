@@ -2,99 +2,81 @@
 # Copyright (C) 2011 at-spi2-core's COPYRIGHT HOLDER
 # This file is distributed under the same license as the at-spi2-core package.
 #
-# A S Alam <aalam@users.sf.net>, 2011.
+# A S Alam <aalam@users.sf.net>, 2011, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-core master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
-"cgi?product=at-spi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-03-18 16:31+0000\n"
-"PO-Revision-Date: 2011-03-27 09:47+0530\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
+"spi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2014-02-03 23:50+0000\n"
+"PO-Revision-Date: 2014-09-21 08:49-0500\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
+"Language: pa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pa\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.5\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../atspi/atspi-misc.c:291
-#, c-format
-msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
-msgstr "AT-SPI: RemoveAccessible ਲਈ ਅਣਜਾਣ %s ਦਸਤਖਤ"
-
-#: ../atspi/atspi-misc.c:328
-#, c-format
-msgid "AT-SPI: Error calling getRoot for %s: %s"
-msgstr "AT-SPI: %s ਲਈ getRoot ਦੌਰਾਨ ਗਲਤੀ: %s"
-
-#: ../atspi/atspi-misc.c:486
-#, c-format
-msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
-msgstr "AT-SPI: GetItems ਵਿੱਚ ਗਲਤੀਆਂ, sender=%s, ਗਲਤੀ=%s"
-
-#: ../atspi/atspi-misc.c:588
-#, c-format
-msgid ""
-"AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
-"signature %s"
-msgstr ""
-"AT-SPI: Called _atspi_dbus_return_accessible_from_message ਅਜੀਬ ਦਸਤਖਤ %s ਨਾਲ"
-
-#: ../atspi/atspi-misc.c:617
-#, c-format
-msgid ""
-"AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
-"signature %s"
-msgstr ""
-"AT-SPI: _atspi_dbus_return_hyperlink_from_message ਅਜੀਬ ਦਸਤਖਤ %s ਨਾਲ ਕਾਲ ਕੀਤਾ"
-
-#: ../atspi/atspi-misc.c:642
-#, c-format
-msgid "AT-SPI: AddAccessible with unknown signature %s\n"
-msgstr "AT-SPI: ਅਣਜਾਣ ਦਸਤਖਤ %s ਨਾਲ AddAccessible\n"
-
-#: ../atspi/atspi-misc.c:935 ../atspi/atspi-misc.c:986
-#: ../atspi/atspi-misc.c:1027
+#: ../atspi/atspi-component.c:325 ../atspi/atspi-misc.c:1034
+#: ../atspi/atspi-value.c:111
 msgid "The application no longer exists"
 msgstr "ਐਪਲੀਕੇਸ਼ਨ ਹੁਣ ਮੌਜੂਦ ਨਹੀਂ ਹੈ"
 
-#: ../atspi/atspi-misc.c:1063
-#, c-format
-msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
-msgstr ""
-"AT-SPI: ਵੇਰੀਏਟ ਦੀ ਲੋੜ ਸੀ, ਜੋ ਕਿ %2$s ਇੰਟਰਫੇਸ ਤੋਂ %1$s ਲੈ ਸਕਦਾ; ਮਿਲਿਆ %3$s\n"
+#: ../atspi/atspi-misc.c:1777
+msgid "Attempted synchronous call where prohibited"
+msgstr "ਸੈਕਰੋਨਾਈਸ ਕਾਲ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਗਈ, ਜਿੱਥੇ ਪਾਬੰਦੀ ਹੈ"
 
-#: ../atspi/atspi-misc.c:1069
-#, c-format
-msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
-msgstr "atspi_dbus_get_property: ਗਲਤ ਕਿਸਮ: ਲੋੜ ਸੀ %s, ਮਿਲਿਆ %c\n"
+#~ msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
+#~ msgstr "AT-SPI: RemoveAccessible ਲਈ ਅਣਜਾਣ %s ਦਸਤਖਤ"
 
-#: ../atspi/atspi-misc.c:1212
-#, c-format
-msgid "AT-SPI: Unknown interface %s"
-msgstr "AT-SPI: ਅਣਜਾਣ ਇੰਟਰਫੇਸ %s"
+#~ msgid "AT-SPI: Error calling getRoot for %s: %s"
+#~ msgstr "AT-SPI: %s ਲਈ getRoot ਦੌਰਾਨ ਗਲਤੀ: %s"
 
-#: ../atspi/atspi-misc.c:1232
-#, c-format
-msgid "AT-SPI: expected 2 values in states array; got %d\n"
-msgstr "AT-SPI: states ਅਰੇ 'ਚ 2 ਮੁੱਲ ਚਾਹੀਦੇ ਸਨ; ਮਿਲੇ %d\n"
+#~ msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
+#~ msgstr "AT-SPI: GetItems ਵਿੱਚ ਗਲਤੀਆਂ, sender=%s, ਗਲਤੀ=%s"
 
-#: ../atspi/atspi-accessible.c:997
-msgid "Streamable content not implemented"
-msgstr "ਸਟਰੀਮ-ਯੋਗ ਸਮੱਗਰੀ ਹਾਲੇ ਸਥਾਪਤ ਨਹੀਂ"
+#~ msgid ""
+#~ "AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
+#~ "signature %s"
+#~ msgstr ""
+#~ "AT-SPI: Called _atspi_dbus_return_accessible_from_message ਅਜੀਬ ਦਸਤਖਤ %s "
+#~ "ਨਾਲ"
 
-#: ../atspi/atspi-event-listener.c:510
-msgid ""
-"called atspi_event_listener_register_from_callback with a NULL event_type"
-msgstr ""
-"atspi_event_listener_register_from_callback NULL event_type ਨਾਲ ਕਾਲ ਕੀਤਾ"
+#~ msgid ""
+#~ "AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
+#~ "signature %s"
+#~ msgstr ""
+#~ "AT-SPI: _atspi_dbus_return_hyperlink_from_message ਅਜੀਬ ਦਸਤਖਤ %s ਨਾਲ ਕਾਲ "
+#~ "ਕੀਤਾ"
 
-#: ../atspi/atspi-event-listener.c:777
-#, c-format
-msgid "Got invalid signature %s for signal %s from interface %s\n"
-msgstr "ਇੰਟਰਫੇਸ %3$s ਤੋਂ %2$s ਸਿਗਨਲ ਲਈ ਗਲਤ ਦਸਤਖਤ %1$s ਮਿਲਿਆ\n"
+#~ msgid "AT-SPI: AddAccessible with unknown signature %s\n"
+#~ msgstr "AT-SPI: ਅਣਜਾਣ ਦਸਤਖਤ %s ਨਾਲ AddAccessible\n"
+
+#~ msgid ""
+#~ "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
+#~ msgstr "AT-SPI: ਵੇਰੀਏਟ ਦੀ ਲੋੜ ਸੀ, ਜੋ ਕਿ %2$s ਇੰਟਰਫੇਸ ਤੋਂ %1$s ਲੈ ਸਕਦਾ; ਮਿਲਿਆ %3$s\n"
+
+#~ msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
+#~ msgstr "atspi_dbus_get_property: ਗਲਤ ਕਿਸਮ: ਲੋੜ ਸੀ %s, ਮਿਲਿਆ %c\n"
+
+#~ msgid "AT-SPI: Unknown interface %s"
+#~ msgstr "AT-SPI: ਅਣਜਾਣ ਇੰਟਰਫੇਸ %s"
+
+#~ msgid "AT-SPI: expected 2 values in states array; got %d\n"
+#~ msgstr "AT-SPI: states ਅਰੇ 'ਚ 2 ਮੁੱਲ ਚਾਹੀਦੇ ਸਨ; ਮਿਲੇ %d\n"
+
+#~ msgid "Streamable content not implemented"
+#~ msgstr "ਸਟਰੀਮ-ਯੋਗ ਸਮੱਗਰੀ ਹਾਲੇ ਸਥਾਪਤ ਨਹੀਂ"
+
+#~ msgid ""
+#~ "called atspi_event_listener_register_from_callback with a NULL event_type"
+#~ msgstr ""
+#~ "atspi_event_listener_register_from_callback NULL event_type ਨਾਲ ਕਾਲ ਕੀਤਾ"
+
+#~ msgid "Got invalid signature %s for signal %s from interface %s\n"
+#~ msgstr "ਇੰਟਰਫੇਸ %3$s ਤੋਂ %2$s ਸਿਗਨਲ ਲਈ ਗਲਤ ਦਸਤਖਤ %1$s ਮਿਲਿਆ\n"
 
 #~ msgid "AT-SPI: Could not get the display\n"
 #~ msgstr "AT-SPI: ਡਿਸਪਲੇਅ ਨਹੀਂ ਮਿਲਿਆ\n"
