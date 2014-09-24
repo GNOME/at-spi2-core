@@ -1067,11 +1067,22 @@ children_changed_event_listener (GSignalInvocationHint * signal_hint,
 
   AtkObject *accessible, *ao=NULL;
   gpointer child;
+  AtkStateSet *set;
+  gboolean ret;
 
   g_signal_query (signal_hint->signal_id, &signal_query);
   name = signal_query.signal_name;
 
+  /* If the accessible is on STATE_MANAGES_DESCENDANTS state,
+     children-changed signal are not forwarded. */
   accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
+  set = atk_object_ref_state_set (accessible);
+  ret = atk_state_set_contains_state (set, ATK_STATE_MANAGES_DESCENDANTS);
+  g_object_unref (set);
+
+  if (ret)
+    return TRUE;
+
   minor = g_quark_to_string (signal_hint->detail);
 
   detail1 = g_value_get_uint (param_values + 1);
