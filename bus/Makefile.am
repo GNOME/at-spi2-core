@@ -20,7 +20,7 @@ at-spi-dbus-bus.desktop: at-spi-dbus-bus.desktop.in
 EXTRA_DIST += at-spi-dbus-bus.desktop.in
 CLEANFILES += at-spi-dbus-bus.desktop
 
-dbusservicedir=$(datadir)/dbus-1/services
+dbusservicedir=$(DBUS_SERVICES_DIR)
 dbusservice_DATA = org.a11y.Bus.service
 
 org.a11y.Bus.service: org.a11y.Bus.service.in

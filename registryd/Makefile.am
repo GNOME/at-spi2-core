@@ -55,7 +55,7 @@ else
 EXTRA_DIST = $(X11_SOURCES)
 endif
 
-servicedir       = $(DBUS_SERVICES_DIR)
+servicedir=$(datadir)/dbus-1/accessibility-services
 service_in_files = org.a11y.atspi.Registry.service.in
 service_DATA     = $(service_in_files:.service.in=.service)
 
