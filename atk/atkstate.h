@@ -91,14 +91,13 @@ G_BEGIN_DECLS
  * notifications to listening clients, for instance notifications of visibility
  * changes and activation of their contained child objects, without the client 
  * having previously requested references to those children.
- *@ATK_STATE_INDETERMINATE: Indicates that a check box is in a state other than checked or not checked.
- * This usually means that the boolean value reflected or 
- * controlled by the object does not apply consistently to the entire current context.
- * For example, a checkbox for the "Bold" attribute of text may have STATE_INDETERMINATE
- * if the currently selected text contains a mixture of weight attributes.  
- * In many cases interacting with a STATE_INDETERMINATE object will cause 
- * the context's corresponding boolean attribute to be homogenized, whereupon the object
- * will lose STATE_INDETERMINATE and a corresponding state-changed event will be fired.
+ *@ATK_STATE_INDETERMINATE: Indicates that the value, or some other quantifiable
+ * property, of this AtkObject cannot be fully determined. In the case of a large
+ * data set in which the total number of items in that set is unknown (e.g. 1 of
+ * 999+), implementors should expose the currently-known set size (999) along
+ * with this state. In the case of a check box, this state should be used to
+ * indicate that the check box is a tri-state check box which is currently
+ * neither checked nor unchecked.
  *@ATK_STATE_TRUNCATED: Indicates that an object is truncated, e.g. a text value in a speradsheet cell.
  *@ATK_STATE_REQUIRED: Indicates that explicit user interaction with an object is required by the user interface, e.g. a required field in a "web-form" interface.
  *@ATK_STATE_INVALID_ENTRY: Indicates that the object has encountered an error condition due to failure of input validation. For instance, a form control may acquire this state in response to invalid or malformed user input.
