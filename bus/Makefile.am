@@ -25,8 +25,14 @@ dbusservice_DATA = org.a11y.Bus.service
 
 org.a11y.Bus.service: org.a11y.Bus.service.in
 	sed -e $(substitutions) $< > $@.tmp && mv $@.tmp $@
-EXTRA_DIST += org.a11y.Bus.service.in
-CLEANFILES += org.a11y.Bus.service
 
+accessibility.conf: accessibility.conf.in
+	sed -e "s|[@]DATADIR[@]|$(datadir)|" $(srcdir)/$@.in > $@
+
+EXTRA_DIST += org.a11y.Bus.service.in \
+	accessibility.conf.in
+
+DISTCLEANFILES = org.a11y.Bus.service \
+	accessibility.conf
 
 -include $(top_srcdir)/git.mk

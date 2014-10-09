@@ -3,6 +3,7 @@
 
   <type>accessibility</type>
 
+<servicedir>@DATADIR@/dbus-1/accessibility-services</servicedir>
   <auth>EXTERNAL</auth>
 
   <listen>unix:tmpdir=/tmp</listen>
