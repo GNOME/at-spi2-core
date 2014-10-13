@@ -1,3 +1,8 @@
+What's new in at-spi2-atk 2.14.1:
+
+* Aggressively filter out children-changed signals for objects with
+  MANAGES_DESCENDANTS (bgo#728319).
+
 What's new in at-spi2-atk 2.13.4:
 
 * Fix typo in .pc file (bgo#721719).
