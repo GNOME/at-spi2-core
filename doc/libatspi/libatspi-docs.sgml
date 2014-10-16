@@ -33,6 +33,7 @@
     <xi:include href="xml/atspi-editabletext.xml"/>
     <xi:include href="xml/atspi-value.xml"/>
     <xi:include href="xml/atspi-table.xml"/>
+    <xi:include href="xml/atspi-table-cell.xml"/>
     <xi:include href="xml/atspi-selection.xml"/>
     <xi:include href="xml/atspi-event-listener.xml"/>
     <xi:include href="xml/atspi-hypertext.xml"/>
