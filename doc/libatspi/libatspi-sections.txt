@@ -345,6 +345,23 @@ atspi_table_get_type
 ATSPI_TABLE_GET_IFACE
 </SECTION>
 
+<FILE>atspi-table-cell</FILE>
+AtspiTableCell
+atspi_table_cell_get_column_span
+atspi_table_cell_get_column_header_cells
+atspi_table_cell_get_column_index
+atspi_table_cell_get_row_span
+atspi_table_cell_get_row_header_cells
+atspi_table_cell_get_position
+atspi_table_cell_get_row_column_span
+atspi_table_cell_get_table
+<SUBSECTION Standard>
+ATSPI_TABLE
+ATSPI_IS_TABLE
+ATSPI_TYPE_TABLE
+atspi_table_get_type
+ATSPI_TABLE_GET_IFACE
+</SECTION>
 <SECTION>
 <FILE>atspi-selection</FILE>
 AtspiSelection
@@ -459,6 +476,7 @@ AtspiHypertext
 AtspiImage
 AtspiSelection
 AtspiTable
+AtspiTableCell
 AtspiText
 AtspiValue
 AtspiControllerEventMask
@@ -572,6 +590,7 @@ atspi_interface_image
 atspi_interface_registry
 atspi_interface_selection
 atspi_interface_table
+atspi_interface_table_cell
 atspi_interface_text
 atspi_interface_cache
 atspi_interface_value
