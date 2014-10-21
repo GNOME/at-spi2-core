@@ -124,6 +124,7 @@ G_BEGIN_DECLS
  * menu or sub-level menu which may or may not be showing. This means
  * that activation renders conditional content.  Note that ordinary
  * tooltips are not considered popups in this context. @Since: ATK-2.12
+ *@ATK_STATE_HAS_TOOLTIP: Indicates this object has a tooltip. @Since: ATK-2.16
  *@ATK_STATE_LAST_DEFINED: Not a valid state, used for finding end of enumeration
  *
  *The possible types of states of an object
@@ -171,6 +172,7 @@ typedef enum
   ATK_STATE_VISITED,
   ATK_STATE_CHECKABLE,
   ATK_STATE_HAS_POPUP,
+  ATK_STATE_HAS_TOOLTIP,
   ATK_STATE_LAST_DEFINED
 } AtkStateType;
 
