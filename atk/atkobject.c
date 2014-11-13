@@ -1200,7 +1200,10 @@ atk_object_remove_property_change_handler  (AtkObject *accessible,
  * @state: an #AtkState whose state is changed
  * @value: a gboolean which indicates whether the state is being set on or off
  * 
- * Emits a state-change signal for the specified state. 
+ * Emits a state-change signal for the specified state.
+ *
+ * Note that as a general rule when the state of an existing object changes,
+ * emitting a notification is expected.
  **/
 void
 atk_object_notify_state_change (AtkObject *accessible,

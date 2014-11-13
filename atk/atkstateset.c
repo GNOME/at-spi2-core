@@ -26,11 +26,12 @@
 
 /**
  * SECTION:atkstateset
- * @Short_description: An AtkStateSet determines a component's state set.
+ * @Short_description: An AtkStateSet contains the states of an object.
  * @Title:AtkStateSet
  *
- * An AtkStateSet determines a component's state set. It is composed
- * of a set of AtkStates.
+ * An AtkStateSet is a read-only representation of the full set of #AtkStates
+ * that apply to an object at a given time. This set is not meant to be
+ * modified, but rather created when #atk_object_ref_state_set() is called.
  */
 
 #define ATK_STATE(state_enum)             ((AtkState)((guint64)1 << ((state_enum)%64)))
@@ -115,8 +116,13 @@ atk_state_set_is_empty (AtkStateSet   *set)
  * @set: an #AtkStateSet
  * @type: an #AtkStateType
  *
- * Add a new state for the specified type to the current state set if
- * it is not already present.
+ * Adds the state of the specified type to the state set if it is not already
+ * present.
+ *
+ * Note that because an #AtkStateSet is a read-only object, this method should
+ * be used to add a state to a newly-created set which will then be returned by
+ * #atk_object_ref_state_set. It should not be used to modify the existing state
+ * of an object. See also #atk_object_notify_state_change.
  *
  * Returns: %TRUE if  the state for @type is not already in @set.
  **/
@@ -143,7 +149,12 @@ atk_state_set_add_state (AtkStateSet   *set,
  * @types: (array length=n_types): an array of #AtkStateType
  * @n_types: The number of elements in the array
  *
- * Add the states for the specified types to the current state set.
+ * Adds the states of the specified types to the state set.
+ *
+ * Note that because an #AtkStateSet is a read-only object, this method should
+ * be used to add states to a newly-created set which will then be returned by
+ * #atk_object_ref_state_set. It should not be used to modify the existing state
+ * of an object. See also #atk_object_notify_state_change.
  **/
 void
 atk_state_set_add_states (AtkStateSet   *set,
@@ -239,6 +250,11 @@ atk_state_set_contains_states (AtkStateSet   *set,
  * @type: an #AtkType
  *
  * Removes the state for the specified type from the state set.
+ *
+ * Note that because an #AtkStateSet is a read-only object, this method should
+ * be used to remove a state to a newly-created set which will then be returned
+ * by #atk_object_ref_state_set. It should not be used to modify the existing
+ * state of an object. See also #atk_object_notify_state_change.
  *
  * Returns: %TRUE if @type was the state type is in @set.
  **/

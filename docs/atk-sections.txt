@@ -211,7 +211,6 @@ ATK_IS_IMPLEMENTOR
 ATK_IMPLEMENTOR
 ATK_TYPE_ROLE
 ATK_TYPE_LAYER
-AtkStateSet
 atk_implementor_get_type
 atk_object_get_type
 atk_role_get_type

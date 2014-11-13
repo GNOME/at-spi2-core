@@ -25,12 +25,12 @@
 
 /**
  * SECTION:atkstate
- * @Short_description: An AtkState describes a component's particular state.
+ * @Short_description: An AtkState describes a single state of an object.
  * @Title:AtkState
  *
- * An AtkState describes a component's particular state. The actual
- * state of an component is described by its AtkStateSet, which is a
- * set of AtkStates.
+ * An AtkState describes a single state of an object. The full set of states
+ * that apply to an object at a given time are contained in its #AtkStateSet.
+ * See also #atk_object_ref_state_set and #atk_object_notify_state_change.
  */
 
 static guint last_type = ATK_STATE_LAST_DEFINED;
