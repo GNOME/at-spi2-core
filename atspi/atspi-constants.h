@@ -412,7 +412,13 @@ typedef enum {
  * @ATSPI_STATE_INVALID: Indicates an invalid state - probably an error 
  * condition.
  * @ATSPI_STATE_ACTIVE: Indicates a window is currently the active window, or
- * is an active subelement within a container or table.
+ * an object is the active subelement within a container or table.
+ * @ATSPI_STATE_ACTIVE should not be used for objects which have
+ * @ATSPI_STATE_FOCUSABLE or @ATSPI_STATE_SELECTABLE: Those objects should use
+ * @ATSPI_STATE_FOCUSED and @ATSPI_STATE_SELECTED respectively.
+ * @ATSPI_STATE_ACTIVE is a means to indicate that an object which is not
+ * focusable and not selectable is the currently-active item within its
+ * parent container.
  * @ATSPI_STATE_ARMED: Indicates that the object is armed.
  * @ATSPI_STATE_BUSY: Indicates the current object is busy, i.e. onscreen
  * representation is in the process of changing, or       the object is
