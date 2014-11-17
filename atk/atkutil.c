@@ -200,7 +200,10 @@ atk_remove_focus_tracker (guint            tracker_id)
  *
  * Deprecated: This method is deprecated since ATK version
  * 2.9.4. Focus tracking has been dropped as a feature to be
- * implemented by ATK itself.
+ * implemented by ATK itself. As #AtkObject::focus-event was
+ * deprecated in favor of a #AtkObject::state-change signal, in order
+ * to notify a focus change on your implementation, you can use
+ * atk_object_notify_state_change() instead.
  *
  **/
 void
