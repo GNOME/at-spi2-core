@@ -988,8 +988,13 @@ typedef enum {
  * @ATSPI_ROLE_TEAROFF_MENU_ITEM: Object allows menu to be removed from menubar
  * and shown in its own window.
  * @ATSPI_ROLE_TERMINAL: An object that emulates a terminal.
- * @ATSPI_ROLE_TEXT: An object that presents text to the user, of nonspecific
- * type.
+ * @ATSPI_ROLE_TEXT: An interactive widget that supports multiple lines of text
+ * and optionally accepts user input, but whose purpose is not to solicit user
+ * input. Thus @ATSPI_ROLE_TEXT is appropriate for the text view in a plain text
+ * editor but inappropriate for an input field in a dialog box or web form. For
+ * widgets whose purpose is to solicit input from the user, see @ATSPI_ROLE_ENTRY
+ * and @ATSPI_ROLE_PASSWORD_TEXT. For generic objects which display a brief amount
+ * of textual information, see @ATSPI_ROLE_STATIC.
  * @ATSPI_ROLE_TOGGLE_BUTTON: A specialized push button that can be checked or
  * unchecked, but does not procide a separate indicator for the current
  * state.
@@ -1151,6 +1156,19 @@ typedef enum {
  *@ATSPI_ROLE_TIMER: An object containing a numerical counter which
  * indicates an amount of elapsed time from a start point, or the time
  * remaining until an end point. @Since: 2.12
+ *@ATSPI_ROLE_STATIC: A generic non-container object whose purpose is to display
+ * a brief amount of information to the user and whose role is known by the
+ * implementor but lacks semantic value for the user. Examples in which
+ * @ATSPI_ROLE_STATIC is appropriate include the message displayed in a message
+ * box and an image used as an alternative means to display text.
+ * @ATSPI_ROLE_STATIC should not be applied to widgets which are traditionally
+ * interactive, objects which display a significant amount of content, or any
+ * object which has an accessible relation pointing to another object. The
+ * displayed information, as a general rule, should be exposed through the
+ * accessible name of the object. For labels which describe another widget, see
+ * @ATSPI_ROLE_LABEL. For text views, see @ATSPI_ROLE_TEXT. For generic
+ * containers, see @ATSPI_ROLE_PANEL. For objects whose role is not known by the
+ * implementor, see @ATSPI_ROLE_UNKNOWN. @Since: 2.16.
  * @ATSPI_ROLE_LAST_DEFINED: Not a valid role, used for finding end of
  * enumeration.
  *
@@ -1275,6 +1293,7 @@ typedef enum {
     ATSPI_ROLE_MATH,
     ATSPI_ROLE_RATING,
     ATSPI_ROLE_TIMER,
+    ATSPI_ROLE_STATIC,
     ATSPI_ROLE_LAST_DEFINED,
 } AtspiRole;
 

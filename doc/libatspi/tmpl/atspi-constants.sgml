@@ -452,6 +452,7 @@ Constant definitions needed by multiple interfaces.
 @ATSPI_ROLE_MATH: 
 @ATSPI_ROLE_RATING: 
 @ATSPI_ROLE_TIMER: 
+@ATSPI_ROLE_STATIC: 
 @ATSPI_ROLE_LAST_DEFINED: 
 
 <!-- ##### MACRO ATSPI_ROLE_COUNT ##### -->
