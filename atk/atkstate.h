@@ -33,7 +33,7 @@ G_BEGIN_DECLS
  *AtkStateType:
  *@ATK_STATE_INVALID: Indicates an invalid state - probably an error condition.
  *@ATK_STATE_ACTIVE: Indicates a window is currently the active window, or an object is the active subelement within a container or table. ATK_STATE_ACTIVE should not be used for objects which have ATK_STATE_FOCUSABLE or ATK_STATE_SELECTABLE: Those objects should use ATK_STATE_FOCUSED and ATK_STATE_SELECTED respectively. ATK_STATE_ACTIVE is a means to indicate that an object which is not focusable and not selectable is the currently-active item within its parent container.
- *@ATK_STATE_ARMED: Indicates that the object is 'armed', i.e. will be activated by if a pointer button-release event occurs within its bounds.  Buttons often enter this state when a pointer click occurs within their bounds, as a precursor to activation.
+ *@ATK_STATE_ARMED: Indicates that the object is 'armed', i.e. will be activated by if a pointer button-release event occurs within its bounds.  Buttons often enter this state when a pointer click occurs within their bounds, as a precursor to activation. ATK_STATE_ARMED has been deprecated since ATK-2.16 and should not be used in newly-written code.
  *@ATK_STATE_BUSY:  Indicates the current object is busy, i.e. onscreen representation is in the process of changing, or the object is temporarily unavailable for interaction due to activity already in progress.  This state may be used by implementors of Document to indicate that content loading is underway.  It also may indicate other 'pending' conditions; clients may wish to interrogate this object when the ATK_STATE_BUSY flag is removed.
  *@ATK_STATE_CHECKED: Indicates this object is currently checked, for instance a checkbox is 'non-empty'.
  *@ATK_STATE_DEFUNCT: Indicates that this object no longer has a valid backing widget (for instance, if its peer object has been destroyed)
@@ -49,7 +49,7 @@ G_BEGIN_DECLS
  *@ATK_STATE_MULTI_LINE: Indicates this (text) object can contain multiple lines of text
  *@ATK_STATE_MULTISELECTABLE: Indicates this object allows more than one of its children to be selected at the same time, or in the case of text objects, that the object supports non-contiguous text selections.
  *@ATK_STATE_OPAQUE: Indicates this object paints every pixel within its rectangular region.
- *@ATK_STATE_PRESSED: Indicates this object is currently pressed; c.f. ATK_STATE_ARMED
+ *@ATK_STATE_PRESSED: Indicates this object is currently pressed.
  *@ATK_STATE_RESIZABLE: Indicates the size of this object is not fixed
  *@ATK_STATE_SELECTABLE: Indicates this object is the child of an object that allows its children to be selected and that this child is one of those children that can be selected
  *@ATK_STATE_SELECTED: Indicates this object is the child of an object that allows its children to be selected and that this child is one of those children that has been selected
