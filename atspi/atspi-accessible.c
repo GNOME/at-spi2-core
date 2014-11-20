@@ -428,7 +428,7 @@ typedef struct
  * Gets the set of #AtspiRelation objects which describes this #AtspiAccessible object's
  * relationships with other #AtspiAccessible objects.
  *
- * Returns: (element-type AtspiAccessible*) (transfer full): a #GArray of
+ * Returns: (element-type AtspiRelation*) (transfer full): a #GArray of
  *          #AtspiRelation pointers or NULL on exception.
  **/
 GArray *
