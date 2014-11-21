@@ -32,16 +32,6 @@
 
 G_BEGIN_DECLS
 
-/*
- * AtkObject represents the minimum information all accessible objects
- * return. This information includes accessible name, accessible
- * description, role and state of the object, as well information about
- * its parent and children. It is also possible to obtain more specific
- * accessibility information about a component if it supports one or more
- * of the following interfaces:
- */
-
-
 /**
  *AtkRole:
  *@ATK_ROLE_INVALID: Invalid role
