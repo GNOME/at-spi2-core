@@ -1,3 +1,23 @@
+Changes in version 2.15.2:
+==========================
+*
+* AtkState:
+   * Bug 739981: Add ATK_ROLE_STATIC and clarify ATK_ROLE_TEXT
+   * Bug 740152: Document the deprecation of ATK_STATE_ARMED
+* Documentation:
+   * Bug 740044: Fix some unclear language regarding ATK_STATE_ACTIVE
+   * Bug 740066: Improve documentation related to AtkState and
+     AtkStateSet
+   * Extend atk_focus_tracker_notify deprecation documentation
+   * Remove some in-code documentation, that is already part of the
+     docs
+
+Contributors:
+Joanmarie Diggs, Alejandro Piñeiro
+
+Translations:
+Anders Jonsson (sv)
+
 Changes in version 2.15.1:
 ==========================
 *
