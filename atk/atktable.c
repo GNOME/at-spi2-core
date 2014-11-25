@@ -511,7 +511,7 @@ atk_table_get_n_rows (AtkTable *table)
  *
  * Gets the description text of the specified row in the table
  *
- * Returns: (nullable) a gchar* representing the row description, or
+ * Returns: (nullable): a gchar* representing the row description, or
  * %NULL if value does not implement this interface.
  **/
 const gchar*
