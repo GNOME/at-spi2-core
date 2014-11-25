@@ -138,7 +138,7 @@ atspi_text_get_caret_offset (AtspiText *obj, GError **error)
 }
 
 /**
- * atspi_text_get_attributes: (rename-to atspi_text_get_text_attributes)
+ * atspi_text_get_attributes:
  * @obj: a pointer to the #AtspiText object to query.
  * @offset: a #gint indicating the offset from which the attribute
  *        search is based.
@@ -156,6 +156,7 @@ atspi_text_get_caret_offset (AtspiText *obj, GError **error)
  * describing the attributes at the given character offset.
  *
  * Deprecated: 2.10: Use atspi_text_get_text_attributes instead.
+ * Rename to: atspi_text_get_text_attributes
  **/
 GHashTable *
 atspi_text_get_attributes (AtspiText *obj,
@@ -279,7 +280,7 @@ atspi_text_get_attribute_run (AtspiText *obj,
 }
 
 /**
- * atspi_text_get_attribute_value: (rename-to atspi_text_get_text_attribute_value)
+ * atspi_text_get_attribute_value:
  * @obj: a pointer to the #AtspiText object to query.
  * @offset: The character offset at which to query the attribute.
  * @attribute_name: The attribute to query.
@@ -290,6 +291,7 @@ atspi_text_get_attribute_run (AtspiText *obj,
  * offset, or %NULL if not present.
  *
  * Deprecated: 2.10: Use atspi_text_get_text_attribute_value instead.
+ * Rename to: atspi_text_get_text_attribute_value
  **/
 gchar *
 atspi_text_get_attribute_value (AtspiText *obj,

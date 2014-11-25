@@ -45,7 +45,7 @@ atspi_document_get_locale (AtspiDocument *obj, GError **error)
 }
 
 /**
- * atspi_document_get_attribute_value: (rename-to atspi_document_get_document_attribute_value)
+ * atspi_document_get_attribute_value:
  * @obj: a pointer to the #AtspiDocument object on which to operate.
  * @attribute: a string indicating the name of a specific attribute.
  *
@@ -55,6 +55,7 @@ atspi_document_get_locale (AtspiDocument *obj, GError **error)
  * an empty string if the attribute is unspecified for the object.
  *
  * Deprecated: 2.10: Use atspi_document_get_document_attribute_value instead.
+ * Rename to: atspi_document_get_document_attribute_value
  **/
 gchar *
 atspi_document_get_attribute_value (AtspiDocument *obj,
@@ -93,7 +94,7 @@ atspi_document_get_document_attribute_value (AtspiDocument *obj,
 				      
 
 /**
- * atspi_document_get_attributes: (rename-to atspi_document_get_document_attributes)
+ * atspi_document_get_attributes:
  * @obj: a pointer to the #AtspiDocument object on which to operate.
  * 
  * Gets all constant attributes for the document as a whole. For attributes
@@ -103,6 +104,7 @@ atspi_document_get_document_attribute_value (AtspiDocument *obj,
  *          containing the constant attributes of the document, as name-value pairs.
  *
  * Deprecated: 2.10: Use atspi_document_get_document_attributes instead.
+ * Rename to: atspi_document_get_document_attributes
  **/
 GHashTable *
 atspi_document_get_attributes (AtspiDocument *obj, GError **error)

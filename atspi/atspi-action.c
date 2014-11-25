@@ -44,7 +44,7 @@ atspi_action_get_n_actions (AtspiAction *obj, GError **error)
 }
 
 /**
- * atspi_action_get_description: (rename-to atspi_action_get_action_description)
+ * atspi_action_get_description:
  * @obj: a pointer to the #AtspiAction implementor to query.
  * @i: an integer indicating which action to query.
  *
@@ -54,6 +54,7 @@ atspi_action_get_n_actions (AtspiAction *obj, GError **error)
  * Returns: a UTF-8 string describing the '@i-th' invocable action.
  *
  * Deprecated: 2.10: Use atspi_action_get_action_description instead.
+ * Rename to: atspi_action_get_action_description
  **/
 gchar *
 atspi_action_get_description (AtspiAction *obj, int i, GError **error)
@@ -128,7 +129,7 @@ atspi_action_get_key_binding (AtspiAction *obj, gint i, GError **error)
 }
 
 /**
- * atspi_action_get_name: (rename-to atspi_action_get_action_name)
+ * atspi_action_get_name:
  * @obj: a pointer to the #AtspiAction implementor to query.
  * @i: an integer indicating which action to query.
  *
@@ -138,6 +139,7 @@ atspi_action_get_key_binding (AtspiAction *obj, gint i, GError **error)
  * Returns: the non-localized name of the action, as a UTF-8 string.
  *
  * Deprecated: 2.10: Use atspi_action_get_action_name instead.
+ * Rename to: atspi_action_get_action_name
  **/
 gchar *
 atspi_action_get_name (AtspiAction *obj, gint i, GError **error)
