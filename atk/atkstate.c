@@ -93,6 +93,8 @@ atk_state_type_get_name (AtkStateType type)
         }
     }
 
+  g_type_class_unref (type_class);
+
   return name;
 }
 
