@@ -1103,7 +1103,7 @@ atspi_accessible_is_value (AtspiAccessible *obj)
 }
 
 /**
- * atspi_accessible_get_action:
+ * atspi_accessible_get_action: (rename-to atspi_accessible_get_action_iface)
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiAction interface for an #AtspiAccessible.
@@ -1112,7 +1112,6 @@ atspi_accessible_is_value (AtspiAccessible *obj)
  *          instance, or NULL if @obj does not implement #AtspiAction.
  *
  * Deprecated: 2.10: Use atspi_accessible_get_action_iface instead.
- * Rename to: atspi_accessible_get_action_iface
  **/
 AtspiAction *
 atspi_accessible_get_action (AtspiAccessible *accessible)
@@ -1138,7 +1137,7 @@ atspi_accessible_get_action_iface (AtspiAccessible *accessible)
 }
 
 /**
- * atspi_accessible_get_collection:
+ * atspi_accessible_get_collection: (rename-to atspi_accessible_get_collection_iface)
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiCollection interface for an #AtspiAccessible.
@@ -1147,7 +1146,6 @@ atspi_accessible_get_action_iface (AtspiAccessible *accessible)
  *          instance, or NULL if @obj does not implement #AtspiCollection.
  *
  * Deprecated: 2.10: Use atspi_accessible_get_collection_iface instead.
- * Rename to: atspi_accessible_get_collection_iface
  **/
 AtspiCollection *
 atspi_accessible_get_collection (AtspiAccessible *accessible)
@@ -1173,7 +1171,7 @@ atspi_accessible_get_collection_iface (AtspiAccessible *accessible)
 }
 
 /**
- * atspi_accessible_get_component:
+ * atspi_accessible_get_component: (rename-to atspi_accessible_get_component_iface)
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiComponent interface for an #AtspiAccessible.
@@ -1182,7 +1180,6 @@ atspi_accessible_get_collection_iface (AtspiAccessible *accessible)
  *          instance, or NULL if @obj does not implement #AtspiComponent.
  *
  * Deprecated: 2.10: Use atspi_accessible_get_component_iface instead.
- * Rename to: atspi_accessible_get_component_iface
  **/
 AtspiComponent *
 atspi_accessible_get_component (AtspiAccessible *obj)
@@ -1208,7 +1205,7 @@ atspi_accessible_get_component_iface (AtspiAccessible *obj)
 }
 
 /**
- * atspi_accessible_get_document:
+ * atspi_accessible_get_document: (rename-to atspi_accessible_get_document_iface)
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiDocument interface for an #AtspiAccessible.
@@ -1217,7 +1214,6 @@ atspi_accessible_get_component_iface (AtspiAccessible *obj)
  *          instance, or NULL if @obj does not implement #AtspiDocument.
  *
  * Deprecated: 2.10: Use atspi_accessible_get_document_iface instead.
- * Rename to: atspi_accessible_get_document_iface
  **/
 AtspiDocument *
 atspi_accessible_get_document (AtspiAccessible *accessible)
@@ -1243,7 +1239,7 @@ atspi_accessible_get_document_iface (AtspiAccessible *accessible)
 }
 
 /**
- * atspi_accessible_get_editable_text:
+ * atspi_accessible_get_editable_text: (rename-to atspi_accessible_get_editable_text_iface)
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiEditableText interface for an #AtspiAccessible.
@@ -1252,7 +1248,6 @@ atspi_accessible_get_document_iface (AtspiAccessible *accessible)
  *          instance, or NULL if @obj does not implement #AtspiEditableText.
  *
  * Deprecated: 2.10: Use atspi_accessible_get_editable_text_iface instead.
- * Rename to: atspi_accessible_get_editable_text_iface
  **/
 AtspiEditableText *
 atspi_accessible_get_editable_text (AtspiAccessible *accessible)
@@ -1294,7 +1289,7 @@ atspi_accessible_get_hyperlink (AtspiAccessible *accessible)
 }
 
 /**
- * atspi_accessible_get_hypertext:
+ * atspi_accessible_get_hypertext: (rename-to atspi_accessible_get_hypertext_iface)
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiHypertext interface for an #AtspiAccessible.
@@ -1303,7 +1298,6 @@ atspi_accessible_get_hyperlink (AtspiAccessible *accessible)
  *          instance, or NULL if @obj does not implement #AtspiHypertext.
  *
  * Deprecated: 2.10: Use atspi_accessible_get_hypertext_iface instead.
- * Rename to: atspi_accessible_get_hypertext_iface
  **/
 AtspiHypertext *
 atspi_accessible_get_hypertext (AtspiAccessible *accessible)
@@ -1329,7 +1323,7 @@ atspi_accessible_get_hypertext_iface (AtspiAccessible *accessible)
 }
 
 /**
- * atspi_accessible_get_image:
+ * atspi_accessible_get_image: (rename-to atspi_accessible_get_image_iface)
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiImage interface for an #AtspiAccessible.
@@ -1338,7 +1332,6 @@ atspi_accessible_get_hypertext_iface (AtspiAccessible *accessible)
  *          NULL if @obj does not implement #AtspiImage.
  *
  * Deprecated: 2.10: Use atspi_accessible_get_image_iface instead.
- * Rename to: atspi_accessible_get_image_iface
  **/
 AtspiImage *
 atspi_accessible_get_image (AtspiAccessible *accessible)
@@ -1364,7 +1357,7 @@ atspi_accessible_get_image_iface (AtspiAccessible *accessible)
 }
 
 /**
- * atspi_accessible_get_selection:
+ * atspi_accessible_get_selection: (rename-to atspi_accessible_get_selection_iface)
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiSelection interface for an #AtspiAccessible.
@@ -1373,7 +1366,6 @@ atspi_accessible_get_image_iface (AtspiAccessible *accessible)
  *          instance, or NULL if @obj does not implement #AtspiSelection.
  *
  * Deprecated: 2.10: Use atspi_accessible_get_selection_iface instead.
- * Rename to: atspi_accessible_get_selection_iface
  **/
 AtspiSelection *
 atspi_accessible_get_selection (AtspiAccessible *accessible)
@@ -1417,7 +1409,7 @@ atspi_accessible_get_streamable_content (AtspiAccessible *accessible)
 #endif
 
 /**
- * atspi_accessible_get_table:
+ * atspi_accessible_get_table: (rename-to atspi_accessible_get_table_iface)
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiTable interface for an #AtspiAccessible.
@@ -1426,7 +1418,6 @@ atspi_accessible_get_streamable_content (AtspiAccessible *accessible)
  *          NULL if @obj does not implement #AtspiTable.
  *
  * Deprecated: 2.10: Use atspi_accessible_get_table_iface instead.
- * Rename to: atspi_accessible_get_table_iface
  **/
 AtspiTable *
 atspi_accessible_get_table (AtspiAccessible *obj)
@@ -1468,7 +1459,7 @@ atspi_accessible_get_table_cell (AtspiAccessible *obj)
 }
 
 /**
- * atspi_accessible_get_text:
+ * atspi_accessible_get_text: (rename-to atspi_accessible_get_text_iface)
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiTable interface for an #AtspiAccessible.
@@ -1477,7 +1468,6 @@ atspi_accessible_get_table_cell (AtspiAccessible *obj)
  *          NULL if @obj does not implement #AtspiText.
  *
  * Deprecated: 2.10: Use atspi_accessible_get_text_iface instead.
- * Rename to: atspi_accessible_get_text_iface
  **/
 AtspiText *
 atspi_accessible_get_text (AtspiAccessible *obj)
@@ -1503,7 +1493,7 @@ atspi_accessible_get_text_iface (AtspiAccessible *obj)
 }
 
 /**
- * atspi_accessible_get_value:
+ * atspi_accessible_get_value: (rename-to atspi_accessible_get_value_iface)
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiTable interface for an #AtspiAccessible.
@@ -1512,7 +1502,6 @@ atspi_accessible_get_text_iface (AtspiAccessible *obj)
  *          NULL if @obj does not implement #AtspiValue.
  *
  * Deprecated: 2.10: Use atspi_accessible_get_value_iface instead.
- * Rename to: atspi_accessible_get_value_iface
  **/
 AtspiValue *
 atspi_accessible_get_value (AtspiAccessible *accessible)
