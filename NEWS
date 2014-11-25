@@ -1,3 +1,13 @@
+What's new in at-spi2-core 2.15.2:
+
+* Make the documentation of ATSPI's STATE_ACTIVE consistent with that of
+  ATK's (bgo#740274).
+
+* Add ATSPI_ROLE_STATIC and update documentation for ATSPI_ROLE_TEXT
+  (bgo#740340).
+
+* gi-annotations: get_relation_set returns a array of AtspiRelation
+
 What's new in at-spi2-core 2.15.1:
 
 * Fix some issues with the accessibility bus configuration (bgo#722738).
