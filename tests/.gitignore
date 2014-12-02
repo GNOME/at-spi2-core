@@ -1,0 +1,8 @@
+.deps/
+.libs/
+app-test
+atk-test
+*.log
+*.o
+*.la
+*.lo

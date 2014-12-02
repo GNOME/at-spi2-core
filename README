@@ -60,6 +60,13 @@ as a module.
 These libraries depend on the at-spi2-core code that contains the daemon for
 registering applications, D-Bus helper libraries and the AT-SPI D-Bus specifications.
 
+Tests
+-----
+
+To run tests execute autogen.sh with '--with-tests=yes' parameter then
+after 'make', type 'make check'.
+Test result is available in tests/atk-test.log
+
 Directory structure
 -------------------
 
@@ -84,3 +91,8 @@ The directories within this package are arranged as follows:
         It is also responsible for servicing requests from
         the registry to register handlers for specific event
         types.
+
+    tests
+
+        Contains tests for atspi.
+        More details in tests/README

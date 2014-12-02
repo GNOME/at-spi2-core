@@ -47,7 +47,7 @@ PKG_CHECK_MODULES(GOBJ, [gobject-2.0 >= 2.0.0])
 AC_SUBST(GOBJ_LIBS)
 AC_SUBST(GOBJ_CFLAGS)
 
-PKG_CHECK_MODULES(GMODULE, [gmodule-2.0 >= 2.0.0])	
+PKG_CHECK_MODULES(GMODULE, [gmodule-2.0 >= 2.0.0])
 AC_SUBST(GMODULE_LIBS)
 AC_SUBST(GMODULE_CFLAGS)
 
@@ -58,6 +58,34 @@ AC_SUBST(ATK_CFLAGS)
 PKG_CHECK_MODULES(ATSPI, [atspi-2 >= 2.15.2])
 AC_SUBST(ATSPI_LIBS)
 AC_SUBST(ATSPI_CFLAGS)
+
+AC_ARG_WITH([tests],
+	[AC_HELP_STRING([--with-tests=yes|no],
+		[choose if test should be enabled.
+		 @<:@default=no@:>@])],
+	[build_tests=${withval}],
+	[build_tests=no])
+
+want_tests="no"
+
+case "${build_tests}" in
+   yes)
+     want_tests="yes"
+     ;;
+   no*)
+     ;;
+   *)
+     AC_MSG_ERROR([Unknown build tests option: --with-tests=${build_tests}])
+     ;;
+esac
+
+
+if test "${want_tests}" = "yes"; then
+	PKG_CHECK_MODULES(XML, [libxml-2.0 >= 2.9.1])
+	AC_SUBST(XML_LIBS)
+	AC_SUBST(XML_CFLAGS)
+fi
+AM_CONDITIONAL([ATSPI_TESTS], [test "${want_tests}" = "yes"])
 
 GLIB_GSETTINGS
 
@@ -93,11 +121,17 @@ fi
 AC_SUBST(P2P_CFLAGS)
 
 AC_CONFIG_FILES([Makefile
-		 atk-bridge-2.0.pc
-		 droute/Makefile
-		 atk-adaptor/Makefile
-		 atk-adaptor/adaptors/Makefile
-		 atk-adaptor/gtk-2.0/Makefile
-		])
+	 atk-bridge-2.0.pc
+	 droute/Makefile
+	 atk-adaptor/Makefile
+	 atk-adaptor/adaptors/Makefile
+	 atk-adaptor/gtk-2.0/Makefile
+	])
+
+
+if test "${want_tests}" = "yes"; then
+	AC_CONFIG_FILES([tests/Makefile])
+	AC_CONFIG_FILES([tests/dummyatk/Makefile])
+fi
 
 AC_OUTPUT
