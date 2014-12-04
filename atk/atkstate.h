@@ -37,7 +37,12 @@ G_BEGIN_DECLS
  *@ATK_STATE_BUSY:  Indicates the current object is busy, i.e. onscreen representation is in the process of changing, or the object is temporarily unavailable for interaction due to activity already in progress.  This state may be used by implementors of Document to indicate that content loading is underway.  It also may indicate other 'pending' conditions; clients may wish to interrogate this object when the ATK_STATE_BUSY flag is removed.
  *@ATK_STATE_CHECKED: Indicates this object is currently checked, for instance a checkbox is 'non-empty'.
  *@ATK_STATE_DEFUNCT: Indicates that this object no longer has a valid backing widget (for instance, if its peer object has been destroyed)
- *@ATK_STATE_EDITABLE: Indicates the user can change the contents of this object
+ *@ATK_STATE_EDITABLE: Indicates that this object can contain text, and that the
+ * user can change the textual contents of this object by editing those contents
+ * directly. For an object which is expected to be editable due to its type, but
+ * which cannot be edited due to the application or platform preventing the user
+ * from doing so, that object's #AtkStateSet should lack ATK_STATE_EDITABLE and
+ * should contain ATK_STATE_READ_ONLY.
  *@ATK_STATE_ENABLED: 	Indicates that this object is enabled, i.e. that it currently reflects some application state. Objects that are "greyed out" may lack this state, and may lack the STATE_SENSITIVE if direct user interaction cannot cause them to acquire STATE_ENABLED. See also: ATK_STATE_SENSITIVE
  *@ATK_STATE_EXPANDABLE: Indicates this object allows progressive disclosure of its children
  *@ATK_STATE_EXPANDED: Indicates this object its expanded - see ATK_STATE_EXPANDABLE above
@@ -125,6 +130,15 @@ G_BEGIN_DECLS
  * that activation renders conditional content.  Note that ordinary
  * tooltips are not considered popups in this context. @Since: ATK-2.12
  *@ATK_STATE_HAS_TOOLTIP: Indicates this object has a tooltip. @Since: ATK-2.16
+ *@ATK_STATE_READ_ONLY: Indicates that a widget which is ENABLED and SENSITIVE
+ * has a value which can be read, but not modified, by the user. Note that this
+ * state should only be applied to widget types whose value is normally directly
+ * user modifiable, such as check boxes, radio buttons, spin buttons, text input
+ * fields, and combo boxes, as a means to convey that the expected interaction
+ * with that widget is not possible. When the expected interaction with a
+ * widget does not include modification by the user, as is the case with
+ * labels and containers, ATK_STATE_READ_ONLY should not be applied. See also
+ * ATK_STATE_EDITABLE. @Since: ATK-2-16
  *@ATK_STATE_LAST_DEFINED: Not a valid state, used for finding end of enumeration
  *
  *The possible types of states of an object
@@ -173,6 +187,7 @@ typedef enum
   ATK_STATE_CHECKABLE,
   ATK_STATE_HAS_POPUP,
   ATK_STATE_HAS_TOOLTIP,
+  ATK_STATE_READ_ONLY,
   ATK_STATE_LAST_DEFINED
 } AtkStateType;
 
