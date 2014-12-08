@@ -2,91 +2,50 @@
 # Copyright (C) 2011 the Free Software Foundation, Inc.
 # This file is distributed under the same license as the at-spi2-core package.
 # Muhammed EKEN <gnome@m-eken.com>, 2011.
-# Muhammet Kara <muhammet.k@gmail.com>, 2011.
+# Muhammet Kara <muhammetk@gmail.com>, 2011, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-core master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
 "spi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-04-18 20:38+0000\n"
-"PO-Revision-Date: 2011-04-23 00:03+0300\n"
-"Last-Translator: Muhammet Kara <muhammet.k@gmail.com>\n"
-"Language-Team: Turkish <gnome-turk@gnome.org>\n"
+"POT-Creation-Date: 2014-02-03 23:50+0000\n"
+"PO-Revision-Date: 2014-12-08 23:31+0200\n"
+"Last-Translator: Muhammet Kara <muhammetk@gmail.com>\n"
+"Language-Team: Türkçe <gnome-turk@gnome.org>\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
-#: ../atspi/atspi-misc.c:290
-#, c-format
-msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
-msgstr "AT-SPI: Bilinmeyen RemoveAccesible imzası %s"
-
-#: ../atspi/atspi-misc.c:327
-#, c-format
-msgid "AT-SPI: Error calling getRoot for %s: %s"
-msgstr "AT-SPI: %s için getRoot çağırma hatası: %s"
-
-#: ../atspi/atspi-misc.c:485
-#, c-format
-msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
-msgstr "AT-SPI: GetItems'te hata, gönderen=%s, hata=%s"
-
-#: ../atspi/atspi-misc.c:587
-#, c-format
-msgid ""
-"AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
-"signature %s"
-msgstr ""
-
-#: ../atspi/atspi-misc.c:616
-#, c-format
-msgid ""
-"AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
-"signature %s"
-msgstr ""
-
-#: ../atspi/atspi-misc.c:641
-#, c-format
-msgid "AT-SPI: AddAccessible with unknown signature %s\n"
-msgstr ""
-
-#: ../atspi/atspi-misc.c:934 ../atspi/atspi-misc.c:985
-#: ../atspi/atspi-misc.c:1026
+#: ../atspi/atspi-component.c:325 ../atspi/atspi-misc.c:1034
+#: ../atspi/atspi-value.c:111
 msgid "The application no longer exists"
 msgstr "Artık böyle bir uygulama bulunmuyor"
 
-#: ../atspi/atspi-misc.c:1062
-#, c-format
-msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
-msgstr ""
+#: ../atspi/atspi-misc.c:1777
+msgid "Attempted synchronous call where prohibited"
+msgstr "Yasak olduğu halde eşzamanlı çağrı yapmaya çalışıldı"
 
-#: ../atspi/atspi-misc.c:1068
-#, c-format
-msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
-msgstr ""
+#~ msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
+#~ msgstr "AT-SPI: Bilinmeyen RemoveAccesible imzası %s"
 
-#: ../atspi/atspi-misc.c:1211
-#, c-format
-msgid "AT-SPI: Unknown interface %s"
-msgstr "AT-SPI: Bilinmeyen arayüz %s"
+#~ msgid "AT-SPI: Error calling getRoot for %s: %s"
+#~ msgstr "AT-SPI: %s için getRoot çağırma hatası: %s"
 
-#: ../atspi/atspi-misc.c:1231
-#, c-format
-msgid "AT-SPI: expected 2 values in states array; got %d\n"
-msgstr "AT-SPI: durumlar dizisinde 2 değer beklenirken %d değer alındı\n"
+#~ msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
+#~ msgstr "AT-SPI: GetItems'te hata, gönderen=%s, hata=%s"
 
-#: ../atspi/atspi-accessible.c:1035
-msgid "Streamable content not implemented"
-msgstr "Akıcı içerik uygulanmamış"
+#~ msgid "AT-SPI: Unknown interface %s"
+#~ msgstr "AT-SPI: Bilinmeyen arayüz %s"
 
-#: ../atspi/atspi-event-listener.c:510
-msgid ""
-"called atspi_event_listener_register_from_callback with a NULL event_type"
-msgstr ""
+#~ msgid "AT-SPI: expected 2 values in states array; got %d\n"
+#~ msgstr "AT-SPI: durumlar dizisinde 2 değer beklenirken %d değer alındı\n"
 
-#: ../atspi/atspi-event-listener.c:777
-#, c-format
-msgid "Got invalid signature %s for signal %s from interface %s\n"
-msgstr "%3$s arayüzünden %2$s sinyali için geçersiz imza %1$s alındı\n"
+#~ msgid "Streamable content not implemented"
+#~ msgstr "Akıcı içerik uygulanmamış"
+
+#~ msgid "Got invalid signature %s for signal %s from interface %s\n"
+#~ msgstr "%3$s arayüzünden %2$s sinyali için geçersiz imza %1$s alındı\n"
