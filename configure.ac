@@ -126,12 +126,9 @@ AC_CONFIG_FILES([Makefile
 	 atk-adaptor/Makefile
 	 atk-adaptor/adaptors/Makefile
 	 atk-adaptor/gtk-2.0/Makefile
+	 tests/Makefile
+	 tests/dummyatk/Makefile
 	])
 
-
-if test "${want_tests}" = "yes"; then
-	AC_CONFIG_FILES([tests/Makefile])
-	AC_CONFIG_FILES([tests/dummyatk/Makefile])
-fi
 
 AC_OUTPUT
