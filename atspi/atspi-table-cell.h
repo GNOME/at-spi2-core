@@ -46,7 +46,7 @@ struct _AtspiTableCell
   GTypeInterface parent;
 };
 
-gint atspi_table_cell_get_column_span (AtspiTableCell *obj, GError *error);
+gint atspi_table_cell_get_column_span (AtspiTableCell *obj, GError **error);
 
 GPtrArray *atspi_table_cell_get_column_header_cells (AtspiTableCell *obj,
                                                      GError **error);

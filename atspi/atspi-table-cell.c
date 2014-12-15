@@ -63,7 +63,7 @@ get_object_array_and_unref (DBusMessage *reply)
  * or 0 if the cell does not implement this method.
  */
 gint
-atspi_table_cell_get_column_span (AtspiTableCell *obj, GError *error)
+atspi_table_cell_get_column_span (AtspiTableCell *obj, GError **error)
 {
   dbus_int32_t retval = -1;
 
