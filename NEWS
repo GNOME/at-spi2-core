@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.15.3:
+
+* Replace deprecated "Rename to" gtk-doc tag.
+
+* Fix atspi_table_cell_get_column_span prototype.
+
 What's new in at-spi2-core 2.15.2:
 
 * Make the documentation of ATSPI's STATE_ACTIVE consistent with that of
