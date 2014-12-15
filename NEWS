@@ -1,3 +1,7 @@
+What's new in at-spi2-atk 2.15.3:
+
+* Add mapping between ATK_ROLE_STATIC and ATSPI_ROLE_STATIC
+
 What's new in at-spi2-atk 2.14.1:
 
 * Aggressively filter out children-changed signals for objects with
