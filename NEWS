@@ -1,3 +1,18 @@
+Changes in version 2.15.3:
+==========================
+*
+* AtkState:
+   * Bug 665598: Add ATK_STATE_READ_ONLY
+* Bugfixing:
+   * Unref STATE_TYPE class ref after using it at state_type_get_name
+   * AtkTable: Added missing ":" on one gi annotation
+
+Contributors:
+Joanmarie Diggs, Alejandro Piñeiro Iglesias
+
+Translations:
+Muhammet Kara (tr)
+
 Changes in version 2.15.2:
 ==========================
 *
