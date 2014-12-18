@@ -1025,7 +1025,6 @@ text_selection_changed_event_listener (GSignalInvocationHint * signal_hint,
   AtkObject *accessible;
   GSignalQuery signal_query;
   const gchar *name, *minor;
-  gint detail1 = 0, detail2 = 0;
 
   g_signal_query (signal_hint->signal_id, &signal_query);
   name = signal_query.signal_name;
@@ -1033,13 +1032,7 @@ text_selection_changed_event_listener (GSignalInvocationHint * signal_hint,
   accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
   minor = g_quark_to_string (signal_hint->detail);
 
-  if (G_VALUE_TYPE (&param_values[1]) == G_TYPE_INT)
-    detail1 = g_value_get_int (&param_values[1]);
-
-  if (G_VALUE_TYPE (&param_values[2]) == G_TYPE_INT)
-    detail2 = g_value_get_int (&param_values[2]);
-
-  emit_event (accessible, ITF_EVENT_OBJECT, name, minor, detail1, detail2,
+  emit_event (accessible, ITF_EVENT_OBJECT, name, minor, 0, 0,
               DBUS_TYPE_STRING_AS_STRING, "", append_basic);
   return TRUE;
 }
