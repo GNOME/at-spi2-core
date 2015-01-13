@@ -124,7 +124,7 @@ _atspi_bus ()
   if (!bus)
     atspi_init ();
   if (!bus)
-    g_error ("AT-SPI: COuldn't connect to accessibility bus. Is at-spi-bus-launcher running?");
+    g_error ("AT-SPI: Couldn't connect to accessibility bus. Is at-spi-bus-launcher running?");
   return bus;
 }
 
