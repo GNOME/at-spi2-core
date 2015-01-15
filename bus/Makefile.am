@@ -1,4 +1,3 @@
-EXTRA_DIST=accessibility.conf
 CLEANFILES=
 
 busconfigdir = $(sysconfdir)/at-spi2
@@ -17,7 +16,7 @@ default_session_DATA = at-spi-dbus-bus.desktop
 substitutions = "s,@libexecdir[@],$(libexecdir),"
 at-spi-dbus-bus.desktop: at-spi-dbus-bus.desktop.in
 	sed -e$ $(substitutions)  $< > $@.tmp && mv $@.tmp $@
-EXTRA_DIST += at-spi-dbus-bus.desktop.in
+EXTRA_DIST = at-spi-dbus-bus.desktop.in
 CLEANFILES += at-spi-dbus-bus.desktop
 
 dbusservicedir=$(DBUS_SERVICES_DIR)
