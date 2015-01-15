@@ -137,6 +137,8 @@ spi_init_state_type_tables (void)
   atk_state_types[ATSPI_STATE_CHECKABLE] = ATK_STATE_CHECKABLE;
   accessible_state_types[ATK_STATE_HAS_TOOLTIP] = ATSPI_STATE_HAS_TOOLTIP;
   atk_state_types[ATSPI_STATE_HAS_TOOLTIP] = ATK_STATE_HAS_TOOLTIP;
+  accessible_state_types[ATK_STATE_READ_ONLY] = ATSPI_STATE_READ_ONLY;
+  atk_state_types[ATSPI_STATE_READ_ONLY] = ATK_STATE_READ_ONLY;
 
   return TRUE;
 }
