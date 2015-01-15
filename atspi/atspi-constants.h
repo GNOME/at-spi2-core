@@ -567,6 +567,9 @@ typedef enum {
  * showing. This means that activation renders conditional content.
  * Note that ordinary tooltips are not considered popups in this
  * context. @Since: 2.12
+ * @ATSPI_STATE_READ_ONLY: Indicates that an object which is ENABLED and
+ * SENSITIVE has a value which can be read, but not modified, by the
+ * user. @Since: 2.16
  * @ATSPI_STATE_LAST_DEFINED: This value of the enumeration should not be used
  * as a parameter, it indicates the number of items in the #AtspiStateType
  * enumeration.
@@ -620,6 +623,7 @@ typedef enum {
     ATSPI_STATE_VISITED,
     ATSPI_STATE_CHECKABLE,
     ATSPI_STATE_HAS_POPUP,
+    ATSPI_STATE_READ_ONLY,
     ATSPI_STATE_LAST_DEFINED,
 } AtspiStateType;
 

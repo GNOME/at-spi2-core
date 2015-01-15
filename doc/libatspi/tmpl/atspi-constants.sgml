@@ -218,6 +218,7 @@ Constant definitions needed by multiple interfaces.
 @ATSPI_STATE_VISITED: 
 @ATSPI_STATE_CHECKABLE: 
 @ATSPI_STATE_HAS_POPUP: 
+@ATSPI_STATE_READ_ONLY: 
 @ATSPI_STATE_LAST_DEFINED: 
 
 <!-- ##### MACRO ATSPI_STATETYPE_COUNT ##### -->
