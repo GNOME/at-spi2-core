@@ -107,15 +107,15 @@ GHashTable * atspi_text_get_default_attributes (AtspiText *obj, GError **error);
 
 gboolean atspi_text_set_caret_offset (AtspiText *obj, gint new_offset, GError **error);
 
+#ifndef ATSPI_DISABLE_DEPRECATED
 AtspiTextRange * atspi_text_get_text_before_offset (AtspiText *obj, gint offset, AtspiTextBoundaryType type, GError **error);
 
-AtspiTextRange * atspi_text_get_string_at_offset (AtspiText *obj, gint offset, AtspiTextGranularity granularity, GError **error);
-
-#ifndef ATSPI_DISABLE_DEPRECATED
 AtspiTextRange * atspi_text_get_text_at_offset (AtspiText *obj, gint offset, AtspiTextBoundaryType type, GError **error);
-#endif
 
 AtspiTextRange * atspi_text_get_text_after_offset (AtspiText *obj, gint offset, AtspiTextBoundaryType type, GError **error);
+#endif
+
+AtspiTextRange * atspi_text_get_string_at_offset (AtspiText *obj, gint offset, AtspiTextGranularity granularity, GError **error);
 
 guint atspi_text_get_character_at_offset (AtspiText *obj, gint offset, GError **error);
 
