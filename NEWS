@@ -1,3 +1,11 @@
+What's new in at-spi2-atk 2.15.4:
+
+* Don't parse non-existent signal arguments from atk.
+
+* Support ATK_STATE_HAS_TOOLTIP (bgo#738953).
+
+* Support ATK_STATE_READ_ONLY (bgo#690008).
+
 What's new in at-spi2-atk 2.15.3:
 
 * Add mapping between ATK_ROLE_STATIC and ATSPI_ROLE_STATIC
