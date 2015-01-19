@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.15.4:
+
+* Add names to every timeout (bgo#710644).
+
+* Remove accessibility.conf from EXTRA_DIST (bgo#742987).
+
+* Add ATSPI_STATE_READONLY (bgo#690004).
+
 What's new in at-spi2-core 2.15.3:
 
 * Replace deprecated "Rename to" gtk-doc tag.
