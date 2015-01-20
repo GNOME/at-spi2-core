@@ -1,3 +1,10 @@
+Changes in version 2.15.4:
+==========================
+*
+* AtkRole:
+   * Bug 742806: Add new roles for fractions, roots, subscripts, and
+     superscripts
+
 Changes in version 2.15.3:
 ==========================
 *
@@ -16,8 +23,9 @@ Muhammet Kara (tr)
 Changes in version 2.15.2:
 ==========================
 *
-* AtkState:
+* AtkRole:
    * Bug 739981: Add ATK_ROLE_STATIC and clarify ATK_ROLE_TEXT
+* AtkState:
    * Bug 740152: Document the deprecation of ATK_STATE_ARMED
 * Documentation:
    * Bug 740044: Fix some unclear language regarding ATK_STATE_ACTIVE
