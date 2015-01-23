@@ -1173,6 +1173,14 @@ typedef enum {
  * @ATSPI_ROLE_LABEL. For text views, see @ATSPI_ROLE_TEXT. For generic
  * containers, see @ATSPI_ROLE_PANEL. For objects whose role is not known by the
  * implementor, see @ATSPI_ROLE_UNKNOWN. @Since: 2.16.
+ *@ATSPI_ROLE_MATH_FRACTION: An object that represents a mathematical fraction.
+ * @Since: 2.16.
+ *@ATSPI_ROLE_MATH_ROOT: An object that represents a mathematical expression
+ * displayed with a radical. @Since: 2.16.
+ *@ATSPI_ROLE_SUBSCRIPT: An object that contains text that is displayed as a
+ * subscript. @Since: 2.16.
+ *@ATSPI_ROLE_SUPERSCRIPT: An object that contains text that is displayed as a
+ * superscript. @Since: 2.16.
  * @ATSPI_ROLE_LAST_DEFINED: Not a valid role, used for finding end of
  * enumeration.
  *
@@ -1298,6 +1306,10 @@ typedef enum {
     ATSPI_ROLE_RATING,
     ATSPI_ROLE_TIMER,
     ATSPI_ROLE_STATIC,
+    ATSPI_ROLE_MATH_FRACTION,
+    ATSPI_ROLE_MATH_ROOT,
+    ATSPI_ROLE_SUBSCRIPT,
+    ATSPI_ROLE_SUPERSCRIPT,
     ATSPI_ROLE_LAST_DEFINED,
 } AtspiRole;
 
@@ -1306,7 +1318,7 @@ typedef enum {
  *
  * One higher than the highest valid value of #AtspiRole.
  */
-#define ATSPI_ROLE_COUNT (90+1)
+#define ATSPI_ROLE_COUNT (121+1)
 
 typedef enum
 {
