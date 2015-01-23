@@ -475,6 +475,10 @@ init_role_lookup_table (AtspiRole * role_table)
   role_table[ATK_ROLE_RATING] = ATSPI_ROLE_RATING;
   role_table[ATK_ROLE_TIMER] = ATSPI_ROLE_TIMER;
   role_table[ATK_ROLE_STATIC] = ATSPI_ROLE_STATIC;
+  role_table[ATK_ROLE_MATH_FRACTION] = ATSPI_ROLE_MATH_FRACTION;
+  role_table[ATK_ROLE_MATH_ROOT] = ATSPI_ROLE_MATH_ROOT;
+  role_table[ATK_ROLE_SUBSCRIPT] = ATSPI_ROLE_SUBSCRIPT;
+  role_table[ATK_ROLE_SUPERSCRIPT] = ATSPI_ROLE_SUPERSCRIPT;
 
   return TRUE;
 }
