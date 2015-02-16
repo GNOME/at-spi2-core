@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.15.90:
+
+* Deprecate atspi_text_get_text_{before,at,after}_offset() (bgo#697969)
+
+* Add roles for fractions, roots, subscripts, and superscripts (bgo#743403).
+
 What's new in at-spi2-core 2.15.4:
 
 * Add names to every timeout (bgo#710644).
