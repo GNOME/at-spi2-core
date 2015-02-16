@@ -1,3 +1,9 @@
+What's new in at-spi2-atk 2.15.90:
+
+* Add roles for fractions, roots, subscripts, and superscripts.
+
+* Add action tests (bgo#743418).
+
 What's new in at-spi2-atk 2.15.4:
 
 * Don't parse non-existent signal arguments from atk.
