@@ -27,19 +27,21 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include "atk_suite.h"
+#include "atk_test_util.h"
 
 static gchar *tdata_list = NULL;
+static gchar *one_test = NULL;
 
 typedef struct _Atk_Test_Case Atk_Test_Case;
 
-struct _Atk_Test_Case
-{
+struct _Atk_Test_Case {
   const char *test_case;
   void (*build)( void);
 };
 
 static const Atk_Test_Case atc[] = {
   { ATK_TEST_PATH_ACCESSIBLE, atk_test_accessible },
+  { ATK_TEST_PATH_ACTION, atk_test_action },
   { NULL, NULL}
 };
 
@@ -59,11 +61,12 @@ atk_suite_build (int argc, char **argv )
 {
   g_test_init (&argc, &argv, NULL);
   atk_test_accessible ();
+  atk_test_action ();
 }
 
-static GOptionEntry optentries[] =
-{
+static GOptionEntry optentries[] = {
   {"list", 'l', 0, G_OPTION_ARG_NONE, &tdata_list, "Display all available test cases", NULL},
+  {"separate", 0, 0, G_OPTION_ARG_STRING, &one_test, "Run only NAME test", "NAME"},
   {NULL}
 };
 
@@ -85,9 +88,28 @@ main(int argc, char **argv)
     return EXIT_SUCCESS;
   }
 
+  clean_exit_on_fail ();
+
+  if (one_test) {
+    if (!g_strcmp0 (one_test, "Accessible")) {
+      g_test_init (&argc, &argv, NULL);
+      atk_test_accessible ();
+      test_result = g_test_run ();
+      return (test_result == 0 ) ? 0 : 255;
+    }
+    if (!g_strcmp0 (one_test, "Action")) {
+      g_test_init (&argc, &argv, NULL);
+      atk_test_action ();
+      test_result = g_test_run ();
+      return (test_result == 0 ) ? 0 : 255;
+    }
+    g_print ("Unknown test name\n");
+    _list_tests ();
+    return EXIT_SUCCESS;
+  }
   atk_suite_build (argc, argv);
   test_result = g_test_run ();
 
-  return ( test_result == 0 ) ? 0 : 255;
+  return (test_result == 0 ) ? 0 : 255;
 
 }

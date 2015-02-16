@@ -72,3 +72,11 @@ AVAILABLE TESTS:
              -accessible_set_cache_mask
              -accessible_clear_cache
              -accessible_get_process_id
+- Action:
+             -get_action_interface
+             -action_get_action_description
+             -action_get_action_name
+             -action_get_n_actions
+             -action_get_key_binding
+             -action_get_localized_name
+             -action_do_action

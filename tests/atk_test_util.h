@@ -2,7 +2,7 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; https://wiki.gnome.org/Accessibility)
  *
- * Copyright (c) 2014 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -20,15 +20,26 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef _ATK_SUITE_H
-#define _ATK_SUITE_H
 
-#include <atspi/atspi.h>
+#ifndef _ATK_TEST_UTIL_H
+#define _ATK_TEST_UTIL_H
 
-#define ATK_TEST_PATH_ACCESSIBLE (const char *)"/Accessible"
-#define ATK_TEST_PATH_ACTION (const char *)"/Action"
+#include <stdio.h>
+#include <unistd.h>
+#include <glib.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <locale.h>
+#include "atk_suite.h"
 
-void atk_test_accessible (void);
-void atk_test_action (void);
+pid_t child_pid;
 
-#endif /* _ATK_SUITE_H */
+void run_app (const char *file_name);
+AtspiAccessible *get_root_obj (const char *file_name);
+void clean_exit_on_fail ();
+
+#endif /* _ATK_TEST_UTIL_H */

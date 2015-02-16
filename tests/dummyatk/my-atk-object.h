@@ -36,6 +36,18 @@
 typedef struct _MyAtkObject MyAtkObject;
 typedef struct _MyAtkObjectClass MyAtkObjectClass;
 
+struct _MyAtkObject {
+  AtkObject parent;
+  AtkStateSet *state_set;
+  AtkRelationSet *relation_set;
+  GPtrArray* children;
+  gint id;
+};
+
+struct _MyAtkObjectClass {
+  AtkObjectClass parent;
+};
+
 GType my_atk_object_get_type ();
 
 void my_atk_object_add_child (MyAtkObject* parent,

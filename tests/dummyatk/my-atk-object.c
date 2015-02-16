@@ -25,21 +25,6 @@
 
 #include "my-atk-object.h"
 
-struct _MyAtkObject
-{
-  AtkObject parent;
-  AtkStateSet *state_set;
-  AtkAttributeSet *attributes;
-  AtkRelationSet *relation_set;
-  GPtrArray* children;
-  gint id;
-};
-
-struct _MyAtkObjectClass
-{
-  AtkObjectClass parent;
-};
-
 GType my_atk_object_get_type (void);
 
 G_DEFINE_TYPE (MyAtkObject,
@@ -66,7 +51,7 @@ void my_atk_object_remove_child (MyAtkObject* parent,
   for (i = parent->children->len - 1; i >= 0; i--) {
     if (g_ptr_array_index (parent->children, i) == child)
       break;
-    }
+  }
   g_return_if_fail (i < 0);
   g_ptr_array_remove_index (parent->children, i);
   g_signal_emit_by_name (parent, "children-changed::remove", i, child);
@@ -140,24 +125,16 @@ static AtkStateSet *my_atk_object_ref_state_set (AtkObject *accessible)
 
 static AtkAttributeSet *my_atk_object_get_attributes (AtkObject *accessible)
 {
-  MyAtkObject *obj = MY_ATK_OBJECT (accessible);
-  AtkAttributeSet *rs = obj->attributes = NULL;
-  AtkAttribute *a, *b, *c;
+  AtkAttributeSet *attributes;
+  AtkAttribute *attr;
 
-  a = g_new (AtkAttribute, 1);
-  b = g_new (AtkAttribute, 1);
-  c = g_new (AtkAttribute, 1);
+  attr = g_malloc (sizeof (AtkAttribute));
+  attr->name = g_strdup ("atspi");
+  attr->value = g_strdup ("test");
 
-  a->name = g_strdup ("foo");
-  a->value = g_strdup ("bar");
-  b->name = g_strdup ("baz");
-  b->value = g_strdup ("qux");
-  c->name = g_strdup ("quux");
-  c->value = g_strdup ("corge");
+  attributes = g_slist_append (NULL, attr);
 
-  rs = g_slist_append (rs, (gpointer) a);
-  rs = g_slist_append (rs, (gpointer) b);
-  rs = g_slist_append (rs, (gpointer) c);
+  return attributes;
 }
 
 static void my_atk_object_init (MyAtkObject *self)

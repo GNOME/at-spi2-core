@@ -23,6 +23,7 @@
 #ifndef MY_ATK_H
 #define MY_ATK_H
 
+#include "my-atk-action.h"
 #include "my-atk-object.h"
 
 #endif /*MY_ATK_H*/

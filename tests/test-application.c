@@ -49,8 +49,8 @@ test_init (gchar *path)
   gchar *td;
 
   if (path == NULL) {
-    g_print("No test data file provided\n");
-    exit(EXIT_FAILURE);
+    g_print ("No test data file provided\n");
+    exit (EXIT_FAILURE);
   }
   tdata_path = path;
 
@@ -88,8 +88,7 @@ setup_atk_util (void)
   g_type_class_unref (klass);
 }
 
-static GOptionEntry optentries[] =
-{
+static GOptionEntry optentries[] = {
   {"test-data-file", 0, 0, G_OPTION_ARG_STRING, &tdata_path, "Path to file of test data", NULL},
   {NULL}
 };
