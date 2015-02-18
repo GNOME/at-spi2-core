@@ -259,8 +259,6 @@ case "$host" in
 esac
 AC_SUBST(ATK_HIDDEN_VISIBILITY_CFLAGS)
 
-GNOME_COMPILE_WARNINGS([maximum])
-
 AC_CONFIG_FILES([
 Makefile
 po/Makefile.in
