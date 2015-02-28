@@ -8,17 +8,22 @@ msgstr ""
 "Project-Id-Version: at-spi2-core\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
 "spi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-10-17 14:37+0000\n"
-"PO-Revision-Date: 2012-10-20 16:34+0100\n"
-"Last-Translator: Peter Mráz <etkinator@gmail.com>\n"
+"POT-Creation-Date: 2015-02-28 03:49+0000\n"
+"PO-Revision-Date: 2015-02-28 13:16+0100\n"
+"Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
+"X-Generator: Poedit 1.7.4\n"
 
-#: ../atspi/atspi-component.c:313 ../atspi/atspi-misc.c:997
+#: ../atspi/atspi-component.c:326 ../atspi/atspi-misc.c:1037
 #: ../atspi/atspi-value.c:111
 msgid "The application no longer exists"
 msgstr "Aplikácia už neexistuje"
+
+#: ../atspi/atspi-misc.c:1795
+msgid "Attempted synchronous call where prohibited"
+msgstr "Pokus o synchrónne volanie tam, kde je zakázané"
