@@ -1,3 +1,17 @@
+Changes in version 2.15.91:
+===========================
+*
+* Building:
+   * Bug 744413: Stop using deprecated GNOME-specific autoconf macros
+     on configure.ac
+   * Stop using deprecated gnome-autogen.sh on autogen.sh
+
+Contributors:
+Javier Jardón
+
+Translations:
+Muhammet Kara (tr), Dušan Kazik (sk)
+
 Changes in version 2.15.4:
 ==========================
 *
