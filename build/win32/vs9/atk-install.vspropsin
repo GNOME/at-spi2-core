@@ -10,10 +10,11 @@
 		Value="
 mkdir $(CopyDir)&#x0D;&#x0A;
 mkdir $(CopyDir)\bin&#x0D;&#x0A;
-copy $(SolutionDir)$(ConfigurationName)\$(PlatformName)\bin\*.dll $(CopyDir)\bin&#x0D;&#x0A;
+copy $(SolutionDir)$(ConfigurationName)\$(PlatformName)\bin\$(AtkDllPrefix)atk$(AtkDllSuffix).dll $(CopyDir)\bin&#x0D;&#x0A;
+copy $(SolutionDir)$(ConfigurationName)\$(PlatformName)\bin\$(AtkDllPrefix)atk$(AtkDllSuffix).pdb $(CopyDir)\bin&#x0D;&#x0A;
 
 mkdir $(CopyDir)\lib&#x0D;&#x0A;
-copy $(SolutionDir)$(ConfigurationName)\$(PlatformName)\bin\*-$(ApiVersion).lib $(CopyDir)\lib&#x0D;&#x0A;
+copy $(SolutionDir)$(ConfigurationName)\$(PlatformName)\bin\atk-$(ApiVersion).lib $(CopyDir)\lib&#x0D;&#x0A;
 
 mkdir $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
 #include "atk.vs9instfiles"
