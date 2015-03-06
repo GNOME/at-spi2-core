@@ -30,10 +30,12 @@
 
 #define ACCESSIBLE_NODE ((const xmlChar *) "accessible")
 #define ACC_ACTION_NODE ((const xmlChar *) "accessible_action")
+#define ACC_COMPONENT_NODE ((const xmlChar *) "accessible_component")
 #define ACTION_NODE ((const xmlChar *) "action")
 #define INTERFACE_NODE  ((const xmlChar *) "interface")
 #define RELATION_NODE ((const xmlChar *) "relation")
 #define STATE_NODE ((const xmlChar *) "state")
+#define COMPONENT_NODE ((const xmlChar *) "component")
 
 #define NAME_ATTR ((const xmlChar *) "name")
 #define DESC_ATTR ((const xmlChar *) "description")
@@ -45,6 +47,13 @@
 #define ACTION_NAME_ATTR ((const xmlChar *) "action_name")
 #define ACTION_DES_ATTR ((const xmlChar *) "action_description")
 #define ACTION_KEY_BIND_ATTR ((const xmlChar *) "key_binding")
+#define COMP_X_ATTR ((const xmlChar *) "x")
+#define COMP_Y_ATTR ((const xmlChar *) "y")
+#define COMP_WIDTH_ATTR ((const xmlChar *) "width")
+#define COMP_HEIGHT_ATTR ((const xmlChar *) "height")
+#define COMP_LAYER_ATTR ((const xmlChar *) "layer")
+#define COMP_ZORDER_ATTR ((const xmlChar *) "zorder")
+#define COMP_ALPHA_ATTR ((const xmlChar *) "alpha")
 
 MyAtkObject *relation_target = NULL;
 
@@ -56,6 +65,7 @@ create_atk_object_from_element (xmlNode *element)
 
   gpointer obj;
   gpointer child_obj;
+  gpointer child_obj2;
   AtkRelationSet *relation_set = NULL;
   AtkObject *array[1];
   AtkRelation *relation;
@@ -74,18 +84,24 @@ create_atk_object_from_element (xmlNode *element)
   xmlChar *action_name;
   xmlChar *action_des;
   xmlChar *action_key_bind;
-
+  gint x_extent, y_extent, w_extent, h_extent;
   name = xmlGetProp (element, NAME_ATTR);
   description = xmlGetProp (element, DESC_ATTR);
   role = xmlGetProp (element, ROLE_ATTR);
   type_text = xmlGetProp (element, TYPE_ATTR);
   GType type = MY_TYPE_ATK_OBJECT;
+  gint layer;
+  gint zorder;
+  gdouble alpha;
 
   if (!xmlStrcmp (element->name, ACCESSIBLE_NODE))
     type = MY_TYPE_ATK_OBJECT;
 
   if (!xmlStrcmp (element->name, ACC_ACTION_NODE))
     type = MY_TYPE_ATK_ACTION;
+
+  if (!xmlStrcmp (element->name, ACC_COMPONENT_NODE))
+    type = MY_TYPE_ATK_COMPONENT;
 
   obj = g_object_new (type,
                       "accessible-name", name,
@@ -96,7 +112,8 @@ create_atk_object_from_element (xmlNode *element)
   child_node = element->xmlChildrenNode;
   while (child_node != NULL) {
     if (!xmlStrcmp (child_node->name, ACCESSIBLE_NODE) ||
-        !xmlStrcmp (child_node->name, ACC_ACTION_NODE)) {
+        !xmlStrcmp (child_node->name, ACC_ACTION_NODE) ||
+        !xmlStrcmp (child_node->name, ACC_COMPONENT_NODE)) {
       child_obj = create_atk_object_from_element (child_node);
       my_atk_object_add_child (obj, child_obj);
     }
@@ -129,6 +146,24 @@ create_atk_object_from_element (xmlNode *element)
         action_des = xmlGetProp (child_node2, ACTION_DES_ATTR);
         action_key_bind = xmlGetProp (child_node2, ACTION_KEY_BIND_ATTR);
         my_atk_action_add_action (child_obj, action_name, action_des, action_key_bind);
+      }
+      if (!xmlStrcmp (child_node2->name, COMPONENT_NODE)) {
+        x_extent = atoi (xmlGetProp (child_node2, COMP_X_ATTR));
+        y_extent = atoi (xmlGetProp (child_node2, COMP_Y_ATTR));
+        w_extent = atoi (xmlGetProp (child_node2, COMP_WIDTH_ATTR));
+        h_extent = atoi (xmlGetProp (child_node2, COMP_HEIGHT_ATTR));
+        layer = atoi (xmlGetProp (child_node2, COMP_LAYER_ATTR));
+        zorder = atoi (xmlGetProp (child_node2, COMP_ZORDER_ATTR));
+        alpha = atof (xmlGetProp (child_node2, COMP_ALPHA_ATTR));
+        atk_component_set_extents (ATK_COMPONENT (child_obj),
+                                   x_extent,
+                                   y_extent,
+                                   w_extent,
+                                   h_extent,
+                                   ATK_XY_SCREEN);
+        my_atk_component_set_layer (ATK_COMPONENT (child_obj), layer);
+        my_atk_component_set_mdi_zorder (ATK_COMPONENT (child_obj), zorder);
+        my_atk_component_set_alpha (ATK_COMPONENT (child_obj), alpha);
       }
       child_node2 = child_node2->next;
     }

@@ -25,5 +25,6 @@
 
 #include "my-atk-action.h"
 #include "my-atk-object.h"
+#include "my-atk-component.h"
 
 #endif /*MY_ATK_H*/

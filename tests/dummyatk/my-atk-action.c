@@ -43,13 +43,12 @@ G_DEFINE_TYPE_WITH_CODE (MyAtkAction,
                          my_atk_action,
                          MY_TYPE_ATK_OBJECT,
                          G_IMPLEMENT_INTERFACE(ATK_TYPE_ACTION,
-                         atk_action_interface_init));
+                             atk_action_interface_init));
 
 #define MY_ATK_ACTION_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), MY_TYPE_ATK_ACTION, MyAtkActionPrivate))
 
-struct _MyAtkActionPrivate
-{
+struct _MyAtkActionPrivate {
   GQueue *action_queue;
   guint action_idle_handler;
   GList  *action_list;

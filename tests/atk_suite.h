@@ -27,8 +27,10 @@
 
 #define ATK_TEST_PATH_ACCESSIBLE (const char *)"/Accessible"
 #define ATK_TEST_PATH_ACTION (const char *)"/Action"
+#define ATK_TEST_PATH_COMP (const char *)"/Component"
 
 void atk_test_accessible (void);
 void atk_test_action (void);
+void atk_test_component (void);
 
 #endif /* _ATK_SUITE_H */

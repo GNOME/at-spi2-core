@@ -80,3 +80,12 @@ AVAILABLE TESTS:
              -action_get_key_binding
              -action_get_localized_name
              -action_do_action
+- Component:
+             -component_contains
+             -component_get_accessible_at_point
+             -component_get_extents
+             -component_get_layer
+             -component_get_mdi_z_order
+             -component_grab_focus
+             -component_get_alpha
+             -component_set_extents

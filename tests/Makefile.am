@@ -25,7 +25,8 @@ atk_test_CPPFLAGS = -DTESTS_BUILD_DIR=\"$(top_builddir)/tests\" \
 
 atk_test_SOURCES = atk_suite.c \
                    atk_test_accessible.c \
-                   atk_test_action.c
+                   atk_test_action.c \
+                   atk_test_component.c
 
 app_test_CFLAGS = -I$(top_builddir) \
                    $(GLIB_CFLAGS) \

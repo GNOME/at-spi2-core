@@ -42,6 +42,7 @@ struct _Atk_Test_Case {
 static const Atk_Test_Case atc[] = {
   { ATK_TEST_PATH_ACCESSIBLE, atk_test_accessible },
   { ATK_TEST_PATH_ACTION, atk_test_action },
+  { ATK_TEST_PATH_COMP, atk_test_component },
   { NULL, NULL}
 };
 
@@ -62,6 +63,7 @@ atk_suite_build (int argc, char **argv )
   g_test_init (&argc, &argv, NULL);
   atk_test_accessible ();
   atk_test_action ();
+  atk_test_component ();
 }
 
 static GOptionEntry optentries[] = {
@@ -102,6 +104,12 @@ main(int argc, char **argv)
       atk_test_action ();
       test_result = g_test_run ();
       return (test_result == 0 ) ? 0 : 255;
+    }
+    if (!g_strcmp0(one_test, "Component")) {
+      g_test_init (&argc, &argv, NULL);
+      atk_test_component ();
+      test_result = g_test_run ();
+      return ( test_result == 0 ) ? 0 : 255;
     }
     g_print ("Unknown test name\n");
     _list_tests ();
