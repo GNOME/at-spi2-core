@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=atk&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-11-12 15:50+0000\n"
+"POT-Creation-Date: 2015-02-26 15:50+0000\n"
 "PO-Revision-Date: 2014-10-13 23:22+0100\n"
 "Last-Translator: Sebastian Rasmussen <sebras@gmail.com>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -304,7 +304,7 @@ msgstr "växlingsknapp"
 
 #: ../atk/atkobject.c:160
 msgid "tool bar"
-msgstr "verktygsrad"
+msgstr "verktygsfält"
 
 #: ../atk/atkobject.c:161
 msgid "tool tip"
