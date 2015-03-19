@@ -568,7 +568,7 @@ atk_object_class_init (AtkObjectClass *klass)
    * The signal "focus-event" is emitted when an object gained or lost
    * focus.
    *
-   * Deprecated: Since 2.9.4. Use #AtkObject::state-change signal instead.
+   * Deprecated: 2.9.4: Use #AtkObject::state-change signal instead.
    */
   atk_object_signals[FOCUS_EVENT] =
     g_signal_new ("focus_event",

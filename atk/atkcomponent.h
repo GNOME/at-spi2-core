@@ -56,9 +56,8 @@ typedef struct _AtkComponentIface  AtkComponentIface;
  * atk_component_add_focus_handler() and
  * atk_component_remove_focus_handler()
  *
- * Deprecated: This type is deprecated since ATK version 2.9.4. as
- * atk_component_add_focus_handler() and
- * atk_component_remove_focus_handler() are deprecated. See those
+ * Deprecated: 2.9.4: Deprecated with atk_component_add_focus_handler()
+ * and atk_component_remove_focus_handler(). See those
  * methods for more information.
  */
 typedef void (*AtkFocusHandler) (AtkObject* object, gboolean focus_in);

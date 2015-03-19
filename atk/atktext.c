@@ -201,7 +201,7 @@ atk_text_base_init (AtkTextIface *class)
        * "delete" which identifies whether the text change was an
        * insertion or a deletion.
        *
-       * Deprecated: Since 2.9.4. Use #AtkObject::text-insert or
+       * Deprecated: 2.9.4: Use #AtkObject::text-insert or
        * #AtkObject::text-remove instead.
        */
       atk_text_signals[TEXT_CHANGED] =
@@ -382,8 +382,7 @@ atk_text_get_character_at_offset (AtkText      *text,
  *
  * Gets the specified text.
  *
- * Deprecated: This method is deprecated since ATK version
- * 2.9.3. Please use atk_text_get_string_at_offset() instead.
+ * Deprecated: 2.9.3: Please use atk_text_get_string_at_offset() instead.
  *
  * Returns: a newly allocated string containing the text after @offset bounded
  *   by the specified @boundary_type. Use g_free() to free the returned string.
@@ -502,8 +501,7 @@ atk_text_get_text_at_offset (AtkText          *text,
  *
  * Gets the specified text.
  *
- * Deprecated: This method is deprecated since ATK version
- * 2.9.3. Please use atk_text_get_string_at_offset() instead.
+ * Deprecated: 2.9.3: Please use atk_text_get_string_at_offset() instead.
  *
  * Returns: a newly allocated string containing the text before @offset bounded
  *   by the specified @boundary_type. Use g_free() to free the returned string.

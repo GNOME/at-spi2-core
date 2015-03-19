@@ -133,9 +133,8 @@ atk_component_base_init (AtkComponentIface *class)
  * when this object receives focus events (in or out). If the handler is
  * already added it is not added again
  *
- * Deprecated: This method is deprecated since ATK version 2.9.4. If
- * you need to track when an object gains or lose the focus, use
- * state-changed:focused notification instead.
+ * Deprecated: 2.9.4: If you need to track when an object gains or
+ * lose the focus, use state-changed:focused notification instead.
  *
  * Returns: a handler id which can be used in atk_component_remove_focus_handler()
  * or zero if the handler was already added.
@@ -165,9 +164,8 @@ atk_component_add_focus_handler (AtkComponent    *component,
  * functions to be executed when this object receives focus events 
  * (in or out).
  *
- * Deprecated: This method is deprecated since ATK version 2.9.4. If
- * you need to track when an object gains or lose the focus, use
- * state-changed:focused notification instead.
+ * Deprecated: 2.9.4: If you need to track when an object gains or
+ * lose the focus, use state-changed:focused notification instead.
  *
  **/
 void

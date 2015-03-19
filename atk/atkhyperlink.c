@@ -117,10 +117,8 @@ atk_hyperlink_class_init (AtkHyperlinkClass *klass)
    *
    * Selected link
    *
-   * Deprecated: Since 1.8. This property is deprecated since ATK
-   * version 1.8. Please use ATK_STATE_FOCUSABLE for all links, and
+   * Deprecated: 1.8: Please use ATK_STATE_FOCUSABLE for all links, and
    * ATK_STATE_FOCUSED for focused links.
-   *
    */
   g_object_class_install_property (gobject_class,
                                    PROP_SELECTED_LINK,
@@ -392,9 +390,8 @@ atk_hyperlink_get_n_anchors (AtkHyperlink *link)
  *
  * Since: 1.4
  *
- * Deprecated: This method is deprecated since ATK version 1.8.
- * Please use ATK_STATE_FOCUSABLE for all links, and ATK_STATE_FOCUSED
- * for focused links.
+ * Deprecated: 1.8: Please use ATK_STATE_FOCUSABLE for all links,
+ * and ATK_STATE_FOCUSED for focused links.
  *
  * Returns: True if the AtkHyperlink is selected, False otherwise
  **/
