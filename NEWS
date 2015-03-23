@@ -1,3 +1,19 @@
+Changes in version 2.16.0:
+==========================
+*
+* Bug 746459: Fix a couple of GTK-Doc comment blocks
+* Visual Studio support
+   * Speed Up Release Builds
+   * Fix and improve .pdb Generation.
+   * "Install" .pdb Files
+
+Contributors:
+Chun-wei Fan  
+
+Translations:
+Josef Andersson (sv), Jiri Grönroos (fi), Baurzhan Muftakhidinov (kk),
+Samir Ribic (bs), Zahari Yurukov (bg)
+
 Changes in version 2.15.91:
 ===========================
 *
