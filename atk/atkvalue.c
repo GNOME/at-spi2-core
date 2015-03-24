@@ -527,7 +527,7 @@ atk_value_set_current_value (AtkValue       *obj,
  *
  * Gets the current value and the human readable text alternative of
  * @obj. @text is a newly created string, that must be freed by the
- * caller. Can be NULL if not descriptor is available.
+ * caller. Can be NULL if no descriptor is available.
  *
  * Since: 2.12
  **/
