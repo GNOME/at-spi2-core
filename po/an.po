@@ -6,17 +6,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
-"cgi?product=atk&keywords=I18N+L10N&component=general\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=atk&key"
+"words=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2015-05-07 14:53+0000\n"
-"PO-Revision-Date: 2014-02-08 18:59+0100\n"
-"Last-Translator: Jorge Pérez Pérez <jorgtum@gmail.com>\n"
+"PO-Revision-Date: 2015-05-07 19:33+0200\n"
+"Last-Translator: Daniel <entaltoaragon@gmail.com>\n"
 "Language-Team: Aragonese <softaragones@googlegroups.com>\n"
 "Language: an\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.3\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1431023608.000000\n"
 
 #: ../atk/atkhyperlink.c:126
 msgid "Selected Link"
@@ -389,7 +391,7 @@ msgstr "sección"
 
 #: ../atk/atkobject.c:182
 msgid "redundant object"
-msgstr "Obchecto redundant"
+msgstr "obchecto redundant"
 
 #: ../atk/atkobject.c:183
 msgid "form"
@@ -489,7 +491,7 @@ msgstr "marca"
 
 #: ../atk/atkobject.c:207
 msgid "log"
-msgstr "Rechistro"
+msgstr "rechistro"
 
 #: ../atk/atkobject.c:208
 msgid "marquee"
@@ -542,7 +544,7 @@ msgstr "Pai accesible"
 
 #: ../atk/atkobject.c:387
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
-msgstr "Pai  de l'accesible actual tal como lo torna atk_object_get_parent()"
+msgstr "Pai de l'accesible actual tal como lo torna atk_object_get_parent()"
 
 #: ../atk/atkobject.c:403
 msgid "Accessible Value"
@@ -655,7 +657,6 @@ msgstr "O numero de vinclos que l'AtkHypertext actual tien"
 #. * present this string alone or as a token in a list.
 #.
 #: ../atk/atkvalue.c:194
-#, fuzzy
 msgid "very weak"
 msgstr "muit feble"
 
@@ -666,7 +667,6 @@ msgstr "muit feble"
 #. * present this string alone or as a token in a list.
 #.
 #: ../atk/atkvalue.c:201
-#, fuzzy
 msgid "weak"
 msgstr "feble"
 
@@ -677,7 +677,6 @@ msgstr "feble"
 #. * present this string alone or as a token in a list.
 #.
 #: ../atk/atkvalue.c:208
-#, fuzzy
 #| msgid "table"
 msgid "acceptable"
 msgstr "acceptable"
@@ -689,7 +688,6 @@ msgstr "acceptable"
 #. * present this string alone or as a token in a list.
 #.
 #: ../atk/atkvalue.c:215
-#, fuzzy
 msgid "strong"
 msgstr "fuerte"
 
@@ -700,7 +698,6 @@ msgstr "fuerte"
 #. * present this string alone or as a token in a list.
 #.
 #: ../atk/atkvalue.c:222
-#, fuzzy
 msgid "very strong"
 msgstr "muit fuerte"
 
@@ -712,7 +709,6 @@ msgstr "muit fuerte"
 #. * a list.
 #.
 #: ../atk/atkvalue.c:230
-#, fuzzy
 msgid "very low"
 msgstr "muit baixo"
 
@@ -724,7 +720,6 @@ msgstr "muit baixo"
 #. * a list.
 #.
 #: ../atk/atkvalue.c:238
-#, fuzzy
 msgid "medium"
 msgstr "meyo"
 
@@ -736,7 +731,6 @@ msgstr "meyo"
 #. * a list.
 #.
 #: ../atk/atkvalue.c:246
-#, fuzzy
 msgid "high"
 msgstr "alto"
 
@@ -748,7 +742,6 @@ msgstr "alto"
 #. * a list.
 #.
 #: ../atk/atkvalue.c:254
-#, fuzzy
 msgid "very high"
 msgstr "muit alto"
 
@@ -760,7 +753,6 @@ msgstr "muit alto"
 #. * a list.
 #.
 #: ../atk/atkvalue.c:262
-#, fuzzy
 msgid "very bad"
 msgstr "muit malo"
 
@@ -772,7 +764,6 @@ msgstr "muit malo"
 #. * a list.
 #.
 #: ../atk/atkvalue.c:270
-#, fuzzy
 msgid "bad"
 msgstr "malo"
 
@@ -784,7 +775,6 @@ msgstr "malo"
 #. * a list.
 #.
 #: ../atk/atkvalue.c:278
-#, fuzzy
 msgid "good"
 msgstr "bueno"
 
@@ -796,7 +786,6 @@ msgstr "bueno"
 #. * a list.
 #.
 #: ../atk/atkvalue.c:286
-#, fuzzy
 msgid "very good"
 msgstr "muit bueno"
 
@@ -808,7 +797,6 @@ msgstr "muit bueno"
 #. * a list.
 #.
 #: ../atk/atkvalue.c:294
-#, fuzzy
 msgid "best"
 msgstr "o millor"
 
