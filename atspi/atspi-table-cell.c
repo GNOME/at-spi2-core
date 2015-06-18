@@ -183,9 +183,9 @@ atspi_table_cell_get_position (AtspiTableCell *obj,
 
   g_return_val_if_fail (obj != NULL, -1);
 
-  reply = _atspi_dbus_call_partial (obj, "org.freedesktop.DBuss.Properties",
-                                    "Get", atspi_interface_table_cell,
-                                    "Position");
+  reply = _atspi_dbus_call_partial (obj, "org.freedesktop.DBus.Properties",
+                                    "Get", NULL, "ss",
+                                    atspi_interface_table_cell, "Position");
 	  
   dbus_message_iter_init (reply, &iter);
 
