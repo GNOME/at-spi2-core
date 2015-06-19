@@ -1,4 +1,4 @@
-SUBDIRS = dummyatk
+SUBDIRS = data dummyatk
 
 noinst_PROGRAMS = atk-test app-test
 TESTS = atk-test
@@ -24,6 +24,7 @@ atk_test_CPPFLAGS = -DTESTS_BUILD_DIR=\"$(top_builddir)/tests\" \
                     -DTESTS_DATA_DIR=\"$(top_srcdir)/tests/data\"
 
 atk_test_SOURCES = atk_suite.c \
+                   atk_suite.h \
                    atk_test_accessible.c \
                    atk_test_action.c \
                    atk_test_component.c
