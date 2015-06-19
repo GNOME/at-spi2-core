@@ -49,8 +49,8 @@
                                    SPI_OBJECT_REFERENCE_SIGNATURE \
                                    SPI_OBJECT_REFERENCE_SIGNATURE \
                                    SPI_OBJECT_REFERENCE_SIGNATURE \
-                                   DBUS_TYPE_ARRAY_AS_STRING \
-                                     SPI_OBJECT_REFERENCE_SIGNATURE \
+                                   DBUS_TYPE_INT32_AS_STRING \
+                                   DBUS_TYPE_INT32_AS_STRING \
                                    DBUS_TYPE_ARRAY_AS_STRING \
                                      DBUS_TYPE_STRING_AS_STRING \
                                    DBUS_TYPE_STRING_AS_STRING \
@@ -66,154 +66,123 @@
  * Marshals the given AtkObject into the provided D-Bus iterator.
  *
  * The object is marshalled including all its client side cache data.
- * The format of the structure is (o(so)a(so)assusau).
+ * The format of the structure is (o(so)iiassusau).
  */
 static void
 append_cache_item (AtkObject * obj, gpointer data)
 {
   DBusMessageIter iter_struct, iter_sub_array;
   dbus_uint32_t states[2];
-  int count;
+  dbus_int32_t count, index;
   AtkStateSet *set;
   DBusMessageIter *iter_array = (DBusMessageIter *) data;
-
   const char *name, *desc;
   dbus_uint32_t role;
 
   set = atk_object_ref_state_set (obj);
-  {
     AtkObject *application, *parent;
 
-    dbus_message_iter_open_container (iter_array, DBUS_TYPE_STRUCT, NULL,
-                                      &iter_struct);
+  dbus_message_iter_open_container (iter_array, DBUS_TYPE_STRUCT, NULL,
+                                    &iter_struct);
 
-    /* Marshall object path */
-    spi_object_append_reference (&iter_struct, obj);
+  /* Marshal object path */
+  spi_object_append_reference (&iter_struct, obj);
 
-    role = spi_accessible_role_from_atk_role (atk_object_get_role (obj));
+  role = spi_accessible_role_from_atk_role (atk_object_get_role (obj));
 
-    /* Marshall application */
-    application = spi_global_app_data->root; 
-    spi_object_append_reference (&iter_struct, application);
+  /* Marshal application */
+  application = spi_global_app_data->root;
+  spi_object_append_reference (&iter_struct, application);
 
-    /* Marshall parent */
-    parent = atk_object_get_parent (obj);
-    if (parent == NULL)
-      {
-        /* TODO, move in to a 'Plug' wrapper. */
-        if (ATK_IS_PLUG (obj))
-          {
-            char *id = g_object_get_data (G_OBJECT (obj), "dbus-plug-parent");
-            char *bus_parent;
-            char *path_parent;
+  /* Marshal parent */
+  parent = atk_object_get_parent (obj);
+  if (parent == NULL)
+    {
+      /* TODO, move in to a 'Plug' wrapper. */
+      if (ATK_IS_PLUG (obj))
+        {
+          char *id = g_object_get_data (G_OBJECT (obj), "dbus-plug-parent");
+          char *bus_parent;
+          char *path_parent;
 
-            if (id)
-              {
-                bus_parent = g_strdup (id);
-                if (bus_parent && (path_parent = g_utf8_strchr (bus_parent + 1, -1, ':')))
-                  {
-                    DBusMessageIter iter_parent;
-                    *(path_parent++) = '\0';
-                    dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_STRUCT, NULL,
-                                                      &iter_parent);
-                    dbus_message_iter_append_basic (&iter_parent, DBUS_TYPE_STRING, &bus_parent);
-                    dbus_message_iter_append_basic (&iter_parent, DBUS_TYPE_OBJECT_PATH, &path_parent);
-                    dbus_message_iter_close_container (&iter_struct, &iter_parent);
-                  }
-                else
-                  {
-                    spi_object_append_null_reference (&iter_struct);
-                  }
-              }
-            else
-              {
-                spi_object_append_null_reference (&iter_struct);
-              }
-          }
-        else if (role != ATSPI_ROLE_APPLICATION)
-          spi_object_append_null_reference (&iter_struct);
-        else
-          spi_object_append_desktop_reference (&iter_struct);
-      }
-    else
-      {
-        spi_object_append_reference (&iter_struct, parent);
-      }
+          if (id)
+            {
+              bus_parent = g_strdup (id);
+              if (bus_parent && (path_parent = g_utf8_strchr (bus_parent + 1, -1, ':')))
+                {
+                  DBusMessageIter iter_parent;
+                  *(path_parent++) = '\0';
+                  dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_STRUCT, NULL,
+                                                    &iter_parent);
+                  dbus_message_iter_append_basic (&iter_parent, DBUS_TYPE_STRING, &bus_parent);
+                  dbus_message_iter_append_basic (&iter_parent, DBUS_TYPE_OBJECT_PATH, &path_parent);
+                  dbus_message_iter_close_container (&iter_struct, &iter_parent);
+                }
+              else
+                {
+                  spi_object_append_null_reference (&iter_struct);
+                }
+            }
+          else
+            {
+              spi_object_append_null_reference (&iter_struct);
+            }
+        }
+      else if (role != ATSPI_ROLE_APPLICATION)
+        spi_object_append_null_reference (&iter_struct);
+      else
+        spi_object_append_desktop_reference (&iter_struct);
+    }
+  else
+    {
+      spi_object_append_reference (&iter_struct, parent);
+    }
 
-    /* Marshall children */
-    dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "(so)",
-                                      &iter_sub_array);
-    if (!atk_state_set_contains_state (set, ATK_STATE_MANAGES_DESCENDANTS) &&
-        !atk_state_set_contains_state (set, ATK_STATE_DEFUNCT))
-      {
-        gint childcount, i;
+  /* Marshal index in parent */
+  index = (atk_state_set_contains_state (set, ATK_STATE_TRANSIENT)
+           ? -1 : atk_object_get_index_in_parent (obj));
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32, &index);
 
-        childcount = atk_object_get_n_accessible_children (obj);
-        for (i = 0; i < childcount; i++)
-          {
-            AtkObject *child;
+  /* marshal child count */
+  count = (atk_state_set_contains_state (set, ATK_STATE_MANAGES_DESCENDANTS) ||
+           atk_state_set_contains_state (set, ATK_STATE_DEFUNCT))
+           ? -1 : atk_object_get_n_accessible_children (obj);
+  if (ATK_IS_SOCKET (obj) && atk_socket_is_occupied (ATK_SOCKET (obj)))
+    count = 1;
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32, &count);
 
-            child = atk_object_ref_accessible_child (obj, i);
-            if (child)
-              {
-                spi_object_append_reference (&iter_sub_array, child);
-                g_object_unref (G_OBJECT (child));
-              }
-          }
-      }
-    if (ATK_IS_SOCKET (obj) && atk_socket_is_occupied (ATK_SOCKET (obj)))
-      {
-        AtkSocket *socket = ATK_SOCKET (obj);
-        gchar *child_name, *child_path;
-        child_name = g_strdup (socket->embedded_plug_id);
-        child_path = g_utf8_strchr (child_name + 1, -1, ':');
-        if (child_path)
-          {
-            DBusMessageIter iter_socket;
-            *(child_path++) = '\0';
-            dbus_message_iter_open_container (&iter_sub_array, DBUS_TYPE_STRUCT, NULL,
-                                              &iter_socket);
-            dbus_message_iter_append_basic (&iter_socket, DBUS_TYPE_STRING, &child_name);
-            dbus_message_iter_append_basic (&iter_socket, DBUS_TYPE_OBJECT_PATH, &child_path);
-            dbus_message_iter_close_container (&iter_sub_array, &iter_socket);
-          }
-        g_free (child_name);
-      }
+  /* Marshal interfaces */
+  dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "s",
+                                    &iter_sub_array);
+  spi_object_append_interfaces (&iter_sub_array, obj);
+  dbus_message_iter_close_container (&iter_struct, &iter_sub_array);
 
-    dbus_message_iter_close_container (&iter_struct, &iter_sub_array);
+  /* Marshal name */
+  name = atk_object_get_name (obj);
+  if (!name)
+    name = "";
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &name);
 
-    /* Marshall interfaces */
-    dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "s",
-                                      &iter_sub_array);
-    spi_object_append_interfaces (&iter_sub_array, obj);
-    dbus_message_iter_close_container (&iter_struct, &iter_sub_array);
+  /* Marshal role */
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT32, &role);
 
-    /* Marshall name */
-    name = atk_object_get_name (obj);
-    if (!name)
-      name = "";
-    dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &name);
+  /* Marshal description */
+  desc = atk_object_get_description (obj);
+  if (!desc)
+    desc = "";
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &desc);
 
-    /* Marshall role */
-    dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT32, &role);
+  /* Marshal state set */
+  spi_atk_state_set_to_dbus_array (set, states);
+  dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "u",
+                                    &iter_sub_array);
+  for (count = 0; count < 2; count++)
+    {
+      dbus_message_iter_append_basic (&iter_sub_array, DBUS_TYPE_UINT32,
+                                      &states[count]);
+    }
+  dbus_message_iter_close_container (&iter_struct, &iter_sub_array);
 
-    /* Marshall description */
-    desc = atk_object_get_description (obj);
-    if (!desc)
-      desc = "";
-    dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &desc);
-
-    /* Marshall state set */
-    spi_atk_state_set_to_dbus_array (set, states);
-    dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "u",
-                                      &iter_sub_array);
-    for (count = 0; count < 2; count++)
-      {
-        dbus_message_iter_append_basic (&iter_sub_array, DBUS_TYPE_UINT32,
-                                        &states[count]);
-      }
-    dbus_message_iter_close_container (&iter_struct, &iter_sub_array);
-  }
   dbus_message_iter_close_container (iter_array, &iter_struct);
   g_object_unref (set);
 }

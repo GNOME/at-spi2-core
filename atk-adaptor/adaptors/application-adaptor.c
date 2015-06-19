@@ -46,7 +46,7 @@ impl_get_Version (DBusMessageIter * iter, void *user_data)
 static dbus_bool_t
 impl_get_AtspiVersion (DBusMessageIter * iter, void *user_data)
 {
-  return droute_return_v_string (iter, "2.0");
+  return droute_return_v_string (iter, "2.1");
 }
 
 static dbus_int32_t id;
