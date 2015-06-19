@@ -49,7 +49,7 @@ struct _AtspiAccessible
 {
   AtspiObject parent;
   AtspiAccessible *accessible_parent;
-  GList *children;
+  GPtrArray *children;
   AtspiRole role;
   gint interfaces;
   char *name;
@@ -163,7 +163,7 @@ const gchar* atspi_accessible_get_object_locale (AtspiAccessible *accessible, GE
 
 void atspi_accessible_set_cache_mask (AtspiAccessible *accessible, AtspiCache mask);
 
-void atspi_accessible_clear_cache (AtspiAccessible *accessible);
+void atspi_accessible_clear_cache (AtspiAccessible *obj);
 
 guint atspi_accessible_get_process_id (AtspiAccessible *accessible, GError **error);
 

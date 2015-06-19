@@ -118,6 +118,8 @@ atspi_accessible_init (AtspiAccessible *accessible)
 #endif
 
   accessible->priv = atspi_accessible_get_instance_private (accessible);
+
+  accessible->children = g_ptr_array_new_with_free_func (g_object_unref);
 }
 
 static void
@@ -126,8 +128,7 @@ atspi_accessible_dispose (GObject *object)
   AtspiAccessible *accessible = ATSPI_ACCESSIBLE (object);
   AtspiEvent e;
   AtspiAccessible *parent;
-  GList *children;
-  GList *l;
+  gint i;
 
   /* TODO: Only fire if object not already marked defunct */
   memset (&e, 0, sizeof (e));
@@ -137,45 +138,32 @@ atspi_accessible_dispose (GObject *object)
   e.detail2 = 0;
   _atspi_send_event (&e);
 
-  if (accessible->states)
-  {
-    g_object_unref (accessible->states);
-    accessible->states = NULL;
-  }
+  g_clear_object (&accessible->states);
 
   parent = accessible->accessible_parent;
-  if (parent && parent->children)
-  {
-    GList*ls = g_list_find (parent->children, accessible);
-    if(ls)
-    {
-      gboolean replace = (ls == parent->children);
-      ls = g_list_remove (ls, accessible);
-      if (replace)
-        parent->children = ls;
-      g_object_unref (object);
-    }
-  }
-
   if (parent)
   {
-    g_object_unref (parent);
     accessible->accessible_parent = NULL;
+    if (parent->children)
+      g_ptr_array_remove (parent->children, accessible);
+    g_object_unref (parent);
   }
 
-  children = accessible->children;
-  accessible->children = NULL;
-  for (l = children; l; l = l->next)
+  if (accessible->children) for (i = accessible->children->len - 1; i >= 0; i--)
   {
-    AtspiAccessible *child = l->data;
+    AtspiAccessible *child = g_ptr_array_index (accessible->children, i);
     if (child && child->accessible_parent == accessible)
     {
-      g_object_unref (accessible);
       child->accessible_parent = NULL;
+      g_object_unref (accessible);
     }
-    g_object_unref (child);
   }
-  g_list_free (children);
+
+  if (accessible->children)
+  {
+    g_ptr_array_free (accessible->children, TRUE);
+    accessible->children = NULL;
+  }
 
   G_OBJECT_CLASS (atspi_accessible_parent_class) ->dispose (object);
 }
@@ -199,8 +187,7 @@ atspi_accessible_finalize (GObject *object)
   g_print ("at-spi: finalize: %d objects\n", accessible_count);
 #endif
 
-  G_OBJECT_CLASS (atspi_accessible_parent_class)
-    ->finalize (object);
+  G_OBJECT_CLASS (atspi_accessible_parent_class)->finalize (object);
 }
 
 static void
@@ -337,7 +324,10 @@ atspi_accessible_get_child_count (AtspiAccessible *obj, GError **error)
     return ret;
   }
 
-  return g_list_length (obj->children);
+  if (!obj->children)
+    return 0;	/* assume it's disposed */
+
+  return obj->children->len;
 }
 
 /**
@@ -356,22 +346,34 @@ atspi_accessible_get_child_at_index (AtspiAccessible *obj,
                             GError **error)
 {
   AtspiAccessible *child;
+  DBusMessage *reply;
 
   g_return_val_if_fail (obj != NULL, NULL);
 
-  if (!_atspi_accessible_test_cache (obj, ATSPI_CACHE_CHILDREN))
+  if (_atspi_accessible_test_cache (obj, ATSPI_CACHE_CHILDREN))
   {
-    DBusMessage *reply;
-    reply = _atspi_dbus_call_partial (obj, atspi_interface_accessible,
-                                     "GetChildAtIndex", error, "i",
-                                     child_index);
-    return _atspi_dbus_return_accessible_from_message (reply);
+    if (!obj->children)
+      return NULL;	/* assume disposed */
+
+    child = g_ptr_array_index (obj->children, child_index);
+    if (child)
+      return g_object_ref (child);
   }
 
-  child = g_list_nth_data (obj->children, child_index);
+  reply = _atspi_dbus_call_partial (obj, atspi_interface_accessible,
+                                   "GetChildAtIndex", error, "i", child_index);
+  child = _atspi_dbus_return_accessible_from_message (reply);
+
   if (!child)
     return NULL;
-  return g_object_ref (child);
+
+  if (_atspi_accessible_test_cache (obj, ATSPI_CACHE_CHILDREN))
+  {
+      if (child_index >= obj->children->len)
+        g_ptr_array_set_size (obj->children, child_index + 1);
+    g_ptr_array_index (obj->children, child_index) = g_object_ref (child);
+  }
+  return child;
 }
 
 /**
@@ -388,31 +390,23 @@ atspi_accessible_get_child_at_index (AtspiAccessible *obj,
 gint
 atspi_accessible_get_index_in_parent (AtspiAccessible *obj, GError **error)
 {
-  GList *l;
   gint i = 0;
+  dbus_int32_t ret = -1;
 
   g_return_val_if_fail (obj != NULL, -1);
-  if (_atspi_accessible_test_cache (obj, ATSPI_CACHE_PARENT) &&
-      !obj->accessible_parent)
-    return -1;
-  if (!obj->accessible_parent ||
-      !_atspi_accessible_test_cache (obj->accessible_parent,
-                                     ATSPI_CACHE_CHILDREN))
+  if (_atspi_accessible_test_cache (obj, ATSPI_CACHE_PARENT))
   {
-    dbus_int32_t ret = -1;
-    _atspi_dbus_call (obj, atspi_interface_accessible,
-                      "GetIndexInParent", NULL, "=>i", &ret);
-    return ret;
+    if (!obj->accessible_parent)
+      return -1;
+
+    for (i = 0; i < obj->accessible_parent->children->len; i++)
+      if (g_ptr_array_index (obj->accessible_parent->children, i) == obj)
+        return i;
   }
 
-  l = obj->accessible_parent->children;
-  while (l)
-  {
-    if (l->data == obj) return i;
-    l = g_list_next (l);
-    i++;
-  }
-  return -1;
+  _atspi_dbus_call (obj, atspi_interface_accessible,
+                    "GetIndexInParent", NULL, "=>i", &ret);
+  return ret;
 }
 
 typedef struct
@@ -1623,21 +1617,21 @@ atspi_accessible_set_cache_mask (AtspiAccessible *accessible, AtspiCache mask)
 
 /**
  * atspi_accessible_clear_cache:
- * @accessible: The #AtspiAccessible whose cache to clear.
+ * @obj: The #AtspiAccessible whose cache to clear.
  *
  * Clears the cached information for the given accessible and all of its
  * descendants.
  */
 void
-atspi_accessible_clear_cache (AtspiAccessible *accessible)
+atspi_accessible_clear_cache (AtspiAccessible *obj)
 {
-  GList *l;
+  gint i;
 
-  if (accessible)
+  if (obj)
   {
-    accessible->cached_properties = ATSPI_CACHE_NONE;
-    for (l = accessible->children; l; l = l->next)
-      atspi_accessible_clear_cache (l->data);
+    obj->cached_properties = ATSPI_CACHE_NONE;
+    for (i = 0; i < obj->children->len; i++)
+      atspi_accessible_clear_cache (g_ptr_array_index (obj->children, i));
   }
 }
 

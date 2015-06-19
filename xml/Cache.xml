@@ -3,12 +3,12 @@
 <interface name="org.a11y.atspi.Cache">
 
   <method name="GetItems">
-    <arg name="nodes" type="a((so)(so)a(so)assusau)" direction="out"/>
+    <arg name="nodes" type="a((so)(so)iiassusau)" direction="out"/>
     <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiAccessibleCacheArray"/>
   </method>
 
   <signal name="AddAccessible">
-    <arg name="nodeAdded" type="((so)(so)a(so)assusau)"/>
+    <arg name="nodeAdded" type="((so)(so)iiassusau)"/>
     <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QSpiAccessibleCacheItem"/>
   </signal>
 

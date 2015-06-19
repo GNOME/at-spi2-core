@@ -4,7 +4,8 @@ interface org.freestandards.atspi.Cache {
 	struct CacheItem {
 		object      path;
 		Reference   parent;
-		Reference[] children;
+		int index_in_parent;
+		int child_count;
 		string[]    interfaces;
 		string      name;
 		Role        role;
