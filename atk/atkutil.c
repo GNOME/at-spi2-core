@@ -121,7 +121,7 @@ atk_focus_tracker_init (AtkEventListenerInit    init)
  *
  * Deprecated: 2.9.4: Focus tracking has been dropped as a feature
  * to be implemented by ATK itself. If you need focus tracking on your
- * implementation, subscribe to the state-changed:focused signal.
+ * implementation, subscribe to the #AtkObject::state-change "focused" signal.
  *
  * Returns: added focus tracker id, or 0 on failure.
  **/
@@ -160,7 +160,7 @@ atk_add_focus_tracker (AtkEventListener   focus_tracker)
  *
  * Deprecated: 2.9.4: Focus tracking has been dropped as a feature
  * to be implemented by ATK itself. If you need focus tracking on your
- * implementation, subscribe to the state-changed:focused signal.
+ * implementation, subscribe to the #AtkObject::state-change "focused" signal.
  *
  * Removes the specified focus tracker from the list of functions
  * to be called when any object receives focus.
