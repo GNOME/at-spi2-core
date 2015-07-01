@@ -2,30 +2,32 @@
 # Copyright © 2011, 2014 at-spi2-core
 # This file is distributed under the same license as the at-spi2-core package.
 # Duarte Loreto <happyguy_pt@hotmail.com>, 2011, 2014.
+# Pedro Albuquerque <palbuquerque73@openmailbox.com>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 3.12\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
 "spi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-02-03 23:50+0000\n"
-"PO-Revision-Date: 2014-03-12 02:00+0000\n"
-"Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
-"Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
+"POT-Creation-Date: 2015-06-08 02:51+0000\n"
+"PO-Revision-Date: 2015-06-24 06:27+0100\n"
+"Last-Translator: Pedro Albuquerque <palbuquerque73@openmailbox.com>\n"
+"Language-Team: Português <palbuquerque73@openmailbox.com>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
-#: ../atspi/atspi-component.c:325 ../atspi/atspi-misc.c:1034
+#: ../atspi/atspi-component.c:326 ../atspi/atspi-misc.c:1037
 #: ../atspi/atspi-value.c:111
 msgid "The application no longer exists"
 msgstr "A aplicação já não existe"
 
-#: ../atspi/atspi-misc.c:1777
+#: ../atspi/atspi-misc.c:1795
 msgid "Attempted synchronous call where prohibited"
-msgstr "Foi tentada uma ligação síncrona onde está é proibida"
+msgstr "Tentada uma chamada síncrona onde é proibida"
 
 #~ msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
 #~ msgstr "AT-SPI: Assinatura %s desconhecida para RemoveAccessible"
