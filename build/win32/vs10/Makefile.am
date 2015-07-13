@@ -5,7 +5,7 @@ EXTRA_DIST =	\
 	atk.vcxprojin	\
 	atk.vcxproj.filters	\
 	atk.vcxproj.filtersin	\
-	install.vcxproj	\
+	atk-install.vcxproj	\
 	atk-build-defines.props	\
 	atk-gen-src.props	\
 	atk-install.props	\
