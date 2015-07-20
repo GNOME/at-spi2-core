@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.17.1:
+
+* Functions shouldn't try to return values (bgo#749330).
+
+* Fix atspi_table_cell_get_position.
+
 What's new in at-spi2-core 2.16.0:
 
 * Fix a couple of gtk-doc warnings (fdo#89678).
