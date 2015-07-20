@@ -1,3 +1,11 @@
+What's new in at-spi2-atk 2.17.1:
+
+* Eliminate some console warnings due to NULL gobjects.
+
+* Tests: fix out-of-source and parallel build (bgo#751137).
+
+* Add some missing files to the distribution (bgo#751138).
+
 What's new in at-spi2-atk 2.15.90:
 
 * Add roles for fractions, roots, subscripts, and superscripts.
