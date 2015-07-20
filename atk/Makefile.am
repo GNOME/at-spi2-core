@@ -205,6 +205,22 @@ DISTCLEANFILES = \
   stamp-atkmarshal.h stamp-atkmarshal.c \
   s-enum-types-h s-enum-types-c
 
+# ---------- MSVC Project Items ---------
+MSVCPROJS = atk
+
+atk_FILES = $(libatk_1_0_la_SOURCES)
+atk_EXCLUDES = atkdummy
+
+atk_HEADERS_DIR = $(libatkincludedir)
+atk_HEADERS_INST = $(libatkinclude_HEADERS) atkversion.h
+atk_HEADERS_EXCLUDES = $(top_builddir)/atk/atkversion.h
+
+include $(top_srcdir)/build/Makefile.msvcproj
+
+dist-hook: \
+	$(top_builddir)/build/win32/vs9/atk.vcproj	\
+	$(top_builddir)/build/win32/vs9/atk.headers
+
 distclean-local:
 	if test $(srcdir) = .; then :; else \
 	  rm -f atkmarshal.h atkmarshal.c atk-enum-types.h atk-enum-types.c; \

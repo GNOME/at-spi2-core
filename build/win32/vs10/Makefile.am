@@ -1,20 +1,22 @@
+GENERATED_ITEMS = \
+	atk.vcxproj	\
+	atk.vcxproj.filters	\
+	atk-install.props
+
 EXTRA_DIST =	\
 	README.txt	\
 	atk.sln	\
-	atk.vcxproj	\
 	atk.vcxprojin	\
-	atk.vcxproj.filters	\
 	atk.vcxproj.filtersin	\
 	atk-install.vcxproj	\
 	atk-build-defines.props	\
 	atk-gen-src.props	\
-	atk-install.props	\
 	atk-install.propsin	\
-	atk-version-paths.props
+	atk-version-paths.props	\
+	$(GENERATED_ITEMS)
 
-atk-install.props atk.vcxproj.filter: atk.vcxproj
+atk-install.props: $(top_srcdir)/build/win32/vs10/atk-install.propsin atk.vs10.headers
+	$(CPP) -P - <$(top_srcdir)/build/win32/vs10/atk-install.propsin >$@
+	rm atk.vs10.headers
 
-atk.vcxproj:
-	$(PYTHON) $(top_srcdir)/build/atk_msvc_files.py -t vs10
-
-DISTCLEANFILES = atk.vcxproj atk.vcxproj.filters atk-install.props
+DISTCLEANFILES = $(GENERATED_ITEMS)

@@ -1,18 +1,20 @@
+GENERATED_ITEMS = \
+	atk.vcproj	\
+	atk-install.vsprops
+
 EXTRA_DIST =	\
 	README.txt	\
 	atk.sln	\
-	atk.vcproj	\
 	atk.vcprojin	\
 	atk-install.vcproj	\
 	atk-build-defines.vsprops	\
 	atk-gen-src.vsprops	\
-	atk-install.vsprops	\
 	atk-install.vspropsin	\
-	atk-version-paths.vsprops
+	atk-version-paths.vsprops	\
+	$(GENERATED_ITEMS)
 
-atk-install.vsprops: atk.vcproj
+atk-install.vsprops: $(top_srcdir)/build/win32/vs9/atk-install.vspropsin atk.headers
+	$(CPP) -P - <$(top_srcdir)/build/win32/vs9/atk-install.vspropsin >$@
+	rm atk.headers
 
-atk.vcproj:
-	$(PYTHON) $(top_srcdir)/build/atk_msvc_files.py -t vs9
-
-DISTCLEANFILES = atk.vcproj atk-install.vsprops
+DISTCLEANFILES = $(GENERATED_ITEMS)

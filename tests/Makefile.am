@@ -26,9 +26,6 @@ testrelation_SOURCES = testrelation.c
 teststateset_SOURCES = teststateset.c
 testvalue_SOURCES = testvalue.c
 
-testatk_vc.mak: testatk_vc.makin $(top_srcdir)/build/atk_msvc_files.py $(top_srcdir)/build/msvcfiles.py
-	$(PYTHON) $(top_srcdir)/build/atk_msvc_files.py -t nmake-exe
-
-EXTRA_DIST = testatk_vc.makin testatk_vc.mak
+EXTRA_DIST = testatk_vc.mak
 
 DISTCLEANFILES = testatk_vc.mak

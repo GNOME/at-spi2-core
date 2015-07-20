@@ -17,7 +17,7 @@ copy $(BinDir)\atk-$(ApiVersion).lib $(CopyDir)\lib
 
 mkdir $(CopyDir)\include\atk-$(ApiVersion)\atk
 
-#include "atk.vs10instfiles"
+#include "atk.vs10.headers"
     </AtkDoInstall>
   </PropertyGroup>
   <ItemGroup>

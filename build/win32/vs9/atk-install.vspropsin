@@ -17,7 +17,7 @@ mkdir $(CopyDir)\lib&#x0D;&#x0A;
 copy $(SolutionDir)$(ConfigurationName)\$(PlatformName)\bin\atk-$(ApiVersion).lib $(CopyDir)\lib&#x0D;&#x0A;
 
 mkdir $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
-#include "atk.vs9instfiles"
+#include "atk.headers"
 "
 	/>
 </VisualStudioPropertySheet>
