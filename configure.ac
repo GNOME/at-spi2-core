@@ -215,20 +215,6 @@ if test "x$enable_rebuilds" = "xyes" && \
 fi
 AC_SUBST(REBUILD)
 
-# option to specify python interpreter to use; this just sets $PYTHON, so that
-# we will fallback to reading $PYTHON if --with-python is not given, and
-# python.m4 will get the expected input.
-# This dependency on Python is for 'make dist', so normal builds would not
-# need Python
-AC_ARG_WITH(python,
-            AS_HELP_STRING([--with-python=PATH],
-                           [Path to Python interpreter; searches $PATH if only a program name is given; if not given, searches for a few standard names such as "python3" or "python2"]),
-            [PYTHON="$withval"], [])
-if test x"$PYTHON" = xyes; then
-  AC_MSG_ERROR([--with-python option requires a path or program argument])
-fi
-AM_PATH_PYTHON(2.5,,PYTHON="/usr/bin/env python2.5")
-
 # Check for the visibility flags
 ATK_HIDDEN_VISIBILITY_CFLAGS=""
 case "$host" in
