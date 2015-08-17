@@ -1,3 +1,25 @@
+Changes in version 2.17.90:
+===========================
+*
+* Documentation:
+  * Replace mentions of 'state-changed' with 'state-change'.
+  * Fixed some tiny typos
+* Build/win32 improvements:
+  * Use Pattern Rules on build/Makefile-newvs.am
+  * Tidying and cleaning .vcxproj.filters generation
+    * Fixes Bug 748176: out-of-tree distcheck fails in build/win32
+  * Removed GCC requirement
+* "install" Projects renamed to "atk-install"
+
+* Misc: set proper file permission to source files
+
+Contributors:
+Murray Cumming, Chun-wei Fan, Simon McVittie, Alejandro Piñeiro
+Iglesias
+
+Translations:
+Pedro Albuquerque (pt), Daniel Martinez (an),
+
 Changes in version 2.16.0:
 ==========================
 *
@@ -8,7 +30,7 @@ Changes in version 2.16.0:
    * "Install" .pdb Files
 
 Contributors:
-Chun-wei Fan  
+Chun-wei Fan
 
 Translations:
 Josef Andersson (sv), Jiri Grönroos (fi), Baurzhan Muftakhidinov (kk),
