@@ -1,3 +1,10 @@
+What's new in at-spi2-core 2.17.90:
+
+* Modified the cache API to specify an object's index and child count
+  rather than its children. This eliminates the need for the application
+  to enumerate its children, improving performance in some places with
+  large lists (bgo#650090).
+
 What's new in at-spi2-core 2.17.1:
 
 * Functions shouldn't try to return values (bgo#749330).
