@@ -3,7 +3,7 @@ SUBDIRS = \
 
 EXTRA_DIST =	\
 	msvcfiles.py	\
-	testsrules_msvc.mak	\
+	detectenv-msvc.mak	\
 	introspection-msvc.mak	\
 	atk-introspection-msvc.mak	\
 	gen-file-list-atk.py

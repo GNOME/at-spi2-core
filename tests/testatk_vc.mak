@@ -1,4 +1,4 @@
-!include ..\build\testsrules_msvc.mak
+!include ..\build\detectenv-msvc.mak
 
 BUILD_PATH = ..\build\win32\vs$(VSVER)\$(CFG)\$(PLAT)\bin
 LDFLAGS_PATH = /libpath:$(BUILD_PATH) /libpath:..\..\vs$(VSVER)\$(PLAT)\lib

@@ -1,6 +1,6 @@
 # NMake Makefile to build Introspection Files for ATK
 
-!include testsrules_msvc.mak
+!include detectenv-msvc.mak
 
 APIVERSION = 1.0
 
