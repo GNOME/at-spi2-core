@@ -217,9 +217,42 @@ atk_HEADERS_EXCLUDES = $(top_builddir)/atk/atkversion.h
 
 include $(top_srcdir)/build/Makefile.msvcproj
 
+if HAVE_INTROSPECTION
+# Introspection Items for MSVC
+MSVC_INTROSPECT_GIRS = Atk-1.0.gir
+
+INTROSPECTION_INTERMEDIATE_ITEMS = \
+	$(top_builddir)/build/win32/Atk-1.0.gir.msvc.introspect	\
+	$(top_builddir)/build/win32/Atk_1_0_gir_list
+
+Atk_1_0_gir_MSVC_EXPORT_PACKAGES = atk
+Atk_1_0_gir_MSVC_INCLUDE_GIRS = $(Atk_1_0_gir_INCLUDES)
+Atk_1_0_gir_MSVC_LIBS = atk-1.0
+Atk_1_0_gir_MSVC_FILES =		\
+	$(introspection_sources)	\
+	atkversion.h			\
+	atk-enum-types.c		\
+	atk-enum-types.h
+
+Atk_1_0_gir_MSVC_CFLAGS =		\
+	-I../..				\
+	-DG_DISABLE_DEPRECATED	\
+	-DATK_DISABLE_DEPRECATED	\
+	-DATK_COMPILATION	\
+	-DATK_LOCALEDIR="\\\"/dummy/share/locale\\\""
+
+Atk_1_0_gir_MSVC_SCANNERFLAGS = --warn-all --c-include "atk/atk.h"
+
+include $(top_srcdir)/build/Makefile.msvc-introspection
+
+else
+INTROSPECTION_INTERMEDIATE_ITEMS =
+endif
+
 dist-hook: \
 	$(top_builddir)/build/win32/vs9/atk.vcproj	\
-	$(top_builddir)/build/win32/vs9/atk.headers
+	$(top_builddir)/build/win32/vs9/atk.headers	\
+	$(INTROSPECTION_INTERMEDIATE_ITEMS)
 
 distclean-local:
 	if test $(srcdir) = .; then :; else \

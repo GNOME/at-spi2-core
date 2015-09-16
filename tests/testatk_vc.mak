@@ -1,5 +1,11 @@
 !include ..\build\detectenv-msvc.mak
 
+LD_CFLAGS = /link
+EXEEXT = .exe
+GLIB_LIBS = gobject-2.0.lib gmodule-2.0.lib glib-2.0.lib
+
+ATK_API_VERSION = 1.0
+
 BUILD_PATH = ..\build\win32\vs$(VSVER)\$(CFG)\$(PLAT)\bin
 LDFLAGS_PATH = /libpath:$(BUILD_PATH) /libpath:..\..\vs$(VSVER)\$(PLAT)\lib
 
