@@ -51,6 +51,8 @@ typedef struct {
   GSettings *a11y_schema;
   GSettings *interface_schema;
 
+  GDBusProxy *client_proxy;
+
   A11yBusState state;
   /* -1 == error, 0 == pending, > 0 == running */
   int a11y_bus_pid;
@@ -74,6 +76,133 @@ static const gchar introspection_xml[] =
   "</interface>"
   "</node>";
 static GDBusNodeInfo *introspection_data = NULL;
+
+static void
+respond_to_end_session (GDBusProxy *proxy)
+{
+  GVariant *parameters;
+
+  parameters = g_variant_new ("(bs)", TRUE, "");
+
+  g_dbus_proxy_call (proxy,
+                     "EndSessionResponse", parameters,
+                     G_DBUS_CALL_FLAGS_NONE,
+                     -1, NULL, NULL, NULL);
+}
+
+static void
+g_signal_cb (GDBusProxy *proxy,
+             gchar      *sender_name,
+             gchar      *signal_name,
+             GVariant   *parameters,
+             gpointer    user_data)
+{
+  A11yBusLauncher *app = user_data;
+
+  if (g_strcmp0 (signal_name, "QueryEndSession") == 0)
+    respond_to_end_session (proxy);
+  else if (g_strcmp0 (signal_name, "EndSession") == 0)
+    respond_to_end_session (proxy);
+  else if (g_strcmp0 (signal_name, "Stop") == 0)
+    g_main_loop_quit (app->loop);
+}
+
+static void
+client_proxy_ready_cb (GObject      *source_object,
+                       GAsyncResult *res,
+                       gpointer      user_data)
+{
+  A11yBusLauncher *app = user_data;
+  GError *error = NULL;
+
+  app->client_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
+
+  if (error != NULL)
+    {
+      g_warning ("Failed to get a client proxy: %s", error->message);
+      g_error_free (error);
+
+      return;
+    }
+
+  g_signal_connect (app->client_proxy, "g-signal",
+                    G_CALLBACK (g_signal_cb), app);
+}
+
+static void
+register_client (A11yBusLauncher *app)
+{
+  GDBusProxyFlags flags;
+  GDBusProxy *sm_proxy;
+  GError *error;
+  const gchar *app_id;
+  const gchar *autostart_id;
+  gchar *client_startup_id;
+  GVariant *parameters;
+  GVariant *variant;
+  gchar *object_path;
+
+  flags = G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES |
+          G_DBUS_PROXY_FLAGS_DO_NOT_CONNECT_SIGNALS;
+
+  error = NULL;
+  sm_proxy = g_dbus_proxy_new_sync (app->session_bus, flags, NULL,
+                                    "org.gnome.SessionManager",
+                                    "/org/gnome/SessionManager",
+                                    "org.gnome.SessionManager",
+                                    NULL, &error);
+
+  if (error != NULL)
+    {
+      g_warning ("Failed to get session manager proxy: %s", error->message);
+      g_error_free (error);
+
+      return;
+    }
+
+  app_id = "at-spi-bus-launcher";
+  autostart_id = g_getenv ("DESKTOP_AUTOSTART_ID");
+
+  if (autostart_id != NULL)
+    {
+      client_startup_id = g_strdup (autostart_id);
+      g_unsetenv ("DESKTOP_AUTOSTART_ID");
+    }
+  else
+    {
+      client_startup_id = g_strdup ("");
+    }
+
+  parameters = g_variant_new ("(ss)", app_id, client_startup_id);
+  g_free (client_startup_id);
+
+  error = NULL;
+  variant = g_dbus_proxy_call_sync (sm_proxy,
+                                    "RegisterClient", parameters,
+                                    G_DBUS_CALL_FLAGS_NONE,
+                                    -1, NULL, &error);
+
+  g_object_unref (sm_proxy);
+
+  if (error != NULL)
+    {
+      g_warning ("Failed to register client: %s", error->message);
+      g_error_free (error);
+
+      return;
+    }
+
+  g_variant_get (variant, "(o)", &object_path);
+  g_variant_unref (variant);
+
+  flags = G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES;
+  g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION, flags, NULL,
+                            "org.gnome.SessionManager", object_path,
+                            "org.gnome.SessionManager.ClientPrivate",
+                            NULL, client_proxy_ready_cb, app);
+
+  g_free (object_path);
+}
 
 static void
 setup_bus_child (gpointer data)
@@ -454,7 +583,8 @@ on_name_acquired (GDBusConnection *connection,
                   gpointer         user_data)
 {
   A11yBusLauncher *app = user_data;
-  (void) app;
+
+  register_client (app);
 }
 
 static int sigterm_pipefd[2];
