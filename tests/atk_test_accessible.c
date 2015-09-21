@@ -207,7 +207,7 @@ atk_test_accessible_get_atspi_version (gpointer fixture, gconstpointer user_data
 {
   AtspiAccessible *obj = get_root_obj (DATA_FILE);
   gchar *atspi_version = atspi_accessible_get_atspi_version (obj, NULL);
-  g_assert_cmpstr (atspi_version, ==, "2.0");
+  g_assert_cmpstr (atspi_version, ==, "2.1");
 }
 
 static void
@@ -347,10 +347,11 @@ atk_test_accessible_set_cache_mask (gpointer fixture, gconstpointer user_data)
 static void
 atk_test_check_cache_cleared (AtspiAccessible *obj)
 {
-  GList *l;
   g_assert_cmpint (obj->cached_properties, ==, ATSPI_CACHE_NONE);
-  for (l = obj->children; l; l = l->next)
-    atk_test_check_cache_cleared( l->data);
+  GPtrArray *array = obj->children;
+  int i;
+  for (i=0; i<array->len; i++)
+    atk_test_check_cache_cleared (g_ptr_array_index (array, i));
 }
 
 static void
@@ -370,76 +371,76 @@ atk_test_accessible_get_process_id (gpointer fixture, gconstpointer user_data)
 }
 
 void
-atk_test_accessible(void )
+atk_test_accessible (void)
 {
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accesible_get_name",
-                     0, NULL, NULL, atk_test_accessible_get_name, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_name, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_description",
-                     0, NULL, NULL, atk_test_accessible_get_description, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_description, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_child_count",
-                     0, NULL, NULL, atk_test_accessible_get_child_count, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_child_count, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_parent",
-                     0, NULL, NULL, atk_test_accessible_get_parent, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_parent, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_child_at_index",
-                     0, NULL, NULL, atk_test_accessible_get_child_at_index, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_child_at_index, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_index_in_parent",
-                     0, NULL, NULL, atk_test_accessible_get_index_in_parent, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_index_in_parent, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_relation_set_1",
-                     0, NULL, NULL, atk_test_accessible_get_relation_set_1, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_relation_set_1, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_relation_set_2",
-                     0, NULL, NULL, atk_test_accessible_get_relation_set_2, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_relation_set_2, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_role",
-                     0, NULL, NULL, atk_test_accessible_get_role, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_role, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_role_name",
-                     0, NULL, NULL, atk_test_accessible_get_role_name, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_role_name, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_localized_role_name",
-                     0, NULL, NULL, atk_test_accessible_get_localized_role_name, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_localized_role_name, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_state_set",
-                     0, NULL, NULL, atk_test_accessible_get_state_set, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_state_set, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_attributes",
-                     0, NULL, NULL, atk_test_accessible_get_attributes, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_attributes, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_attributes_as_array",
-                     0, NULL, NULL, atk_test_accessible_get_attributes_as_array, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_attributes_as_array, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_toolkit_name",
-                     0, NULL, NULL, atk_test_accessible_get_toolkit_name, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_toolkit_name, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_toolkit_version",
-                     0, NULL, NULL, atk_test_accessible_get_toolkit_version, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_toolkit_version, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_atspi_version",
-                     0, NULL, NULL, atk_test_accessible_get_atspi_version, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_atspi_version, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_id",
-                     0, NULL, NULL, atk_test_accessible_get_id, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_id, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_application",
-                     0, NULL, NULL, atk_test_accessible_get_application, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_application, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_action_iface",
-                     0, NULL, NULL, atk_test_accessible_get_action_iface, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_action_iface, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_collection_iface",
-                     0, NULL, NULL, atk_test_accessible_get_collection_iface, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_collection_iface, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_component_iface",
-                     0, NULL, NULL, atk_test_accessible_get_component_iface, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_component_iface, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_document_iface",
-                     0, NULL, NULL, atk_test_accessible_get_document_iface, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_document_iface, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_editable_text_iface",
-                     0, NULL, NULL, atk_test_accessible_get_editable_text_iface, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_editable_text_iface, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_hypertext_iface",
-                     0, NULL, NULL, atk_test_accessible_get_hypertext_iface, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_hypertext_iface, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_image_iface",
-                     0, NULL, NULL, atk_test_accessible_get_image_iface, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_image_iface, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_selection_iface",
-                     0, NULL, NULL, atk_test_accessible_get_selection_iface, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_selection_iface, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_table_iface",
-                     0, NULL, NULL, atk_test_accessible_get_table_iface, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_table_iface, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_text_iface",
-                     0, NULL, NULL, atk_test_accessible_get_text_iface, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_text_iface, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_value_iface",
-                     0, NULL, NULL, atk_test_accessible_get_value_iface, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_value_iface, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_interfaces",
-                     0, NULL, NULL, atk_test_accessible_get_interfaces, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_interfaces, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_object_locale",
-                     0, NULL, NULL, atk_test_accessible_get_object_locale, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_object_locale, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_set_cache_mask",
-                     0, NULL, NULL, atk_test_accessible_set_cache_mask, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_set_cache_mask, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_clear_cache",
-                     0, NULL, NULL, atk_test_accessible_clear_cache, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_clear_cache, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_process_id",
-                     0, NULL, NULL, atk_test_accessible_get_process_id, teardown_accessible_test );
+                     0, NULL, NULL, atk_test_accessible_get_process_id, teardown_accessible_test);
 }
