@@ -272,5 +272,6 @@ atk_table_cell_real_get_row_column_span (AtkTableCell *cell,
   atk_table_cell_get_position (cell, row, column);
   *row_span = atk_table_cell_get_row_span (cell);
   *column_span = atk_table_cell_get_column_span (cell);
-  return (row != 0 && column != 0 && row_span > 0 && column_span > 0);
+
+  return (*row != 0 && *column != 0 && *row_span > 0 && *column_span > 0);
 }
