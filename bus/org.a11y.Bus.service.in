@@ -1,3 +1,4 @@
 [D-BUS Service]
 Name=org.a11y.Bus
 Exec=@libexecdir@/at-spi-bus-launcher
+SystemdService=at-spi-dbus-bus.service
