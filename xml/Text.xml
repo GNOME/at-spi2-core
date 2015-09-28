@@ -58,9 +58,6 @@
     <arg direction="in" name="offset" type="i"/>
     <arg direction="in" name="attributeName" type="s"/>
     <arg direction="out" type="s"/>
-    <arg direction="out" name="startOffset" type="i"/>
-    <arg direction="out" name="endOffset" type="i"/>
-    <arg direction="out" name="defined" type="b"/>
   </method>
 
   <method name="GetAttributes">
