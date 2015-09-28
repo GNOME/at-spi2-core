@@ -110,9 +110,6 @@ namespace org.freestandards.atspi {
 			string  attribute_key;
 		} reply {
 			string  attribute_value;
-			int32   start_offset;
-			int32   end_offset;
-			boolean defined;
 		}	
 
 		/* Deprecated in favor of GetAttributeRun. */

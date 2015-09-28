@@ -319,10 +319,14 @@ atspi_text_get_text_attribute_value (AtspiText *obj,
                                      GError **error)
 {
   gchar *retval = NULL;
+  dbus_int32_t d_i = offset;
 
   g_return_val_if_fail (obj != NULL, NULL);
 
-  _atspi_dbus_call (obj, atspi_interface_text, "GetAttributeValue", error, "i=>s", offset, &retval);
+  _atspi_dbus_call (obj, atspi_interface_text, "GetAttributeValue", error, "is=>s", d_i, (const gchar *)attribute_value, &retval);
+
+  if (!retval)
+    retval = g_strdup ("");
 
   return retval;
 }
