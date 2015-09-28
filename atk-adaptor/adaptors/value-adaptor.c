@@ -40,6 +40,14 @@ impl_get_MinimumValue (DBusMessageIter * iter, void *user_data)
   gdouble dub;
 
   g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
+  AtkValueIface *iface = ATK_VALUE_GET_IFACE (value);
+  if (iface->get_range)
+    {
+      AtkRange *range = atk_value_get_range (value);
+      dub = atk_range_get_lower_limit (range);
+      atk_range_free (range);
+      return droute_return_v_double (iter, dub);
+    }
 
   g_value_init (&src, G_TYPE_DOUBLE);
   atk_value_get_minimum_value (value, &src);
@@ -66,6 +74,15 @@ impl_get_MaximumValue (DBusMessageIter * iter, void *user_data)
 
   g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
 
+  AtkValueIface *iface = ATK_VALUE_GET_IFACE (value);
+  if (iface->get_range)
+    {
+      AtkRange *range = atk_value_get_range (value);
+      dub = atk_range_get_upper_limit (range);
+      atk_range_free (range);
+      return droute_return_v_double (iter, dub);
+    }
+
   g_value_init (&src, G_TYPE_DOUBLE);
   atk_value_get_maximum_value (value, &src);
   g_value_init (&dest, G_TYPE_DOUBLE);
@@ -87,6 +104,13 @@ impl_get_MinimumIncrement (DBusMessageIter * iter, void *user_data)
 
   g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
 
+  AtkValueIface *iface = ATK_VALUE_GET_IFACE (value);
+  if (iface->get_increment)
+    {
+      dub = atk_value_get_increment (value);
+      return droute_return_v_double (iter, dub);
+    }
+
   g_value_init (&src, G_TYPE_DOUBLE);
   atk_value_get_minimum_increment (value, &src);
   g_value_init (&dest, G_TYPE_DOUBLE);
@@ -107,6 +131,14 @@ impl_get_CurrentValue (DBusMessageIter * iter, void *user_data)
   gdouble dub = 0;
 
   g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
+
+  AtkValueIface *iface = ATK_VALUE_GET_IFACE (value);
+  if (iface->get_value_and_text)
+    {
+      gchar *text = NULL;
+      atk_value_get_value_and_text (value, &dub, &text);
+      return droute_return_v_double (iter, dub);
+    }
 
   g_value_init (&src, G_TYPE_DOUBLE);
   atk_value_get_current_value (value, &src);
@@ -137,6 +169,14 @@ impl_set_CurrentValue (DBusMessageIter * iter, void *user_data)
       return FALSE;
     }
   dbus_message_iter_get_basic (&iter_variant, &dub);
+
+  AtkValueIface *iface = ATK_VALUE_GET_IFACE (value);
+  if (iface->set_value)
+    {
+      atk_value_set_value (value, dub);
+      return TRUE;
+    }
+
   g_value_init (&src, G_TYPE_DOUBLE);
   g_value_set_double (&src, dub);
 

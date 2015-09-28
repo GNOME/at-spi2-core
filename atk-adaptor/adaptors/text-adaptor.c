@@ -396,10 +396,7 @@ impl_GetAttributeValue (DBusConnection * bus, DBusMessage * message,
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_STRING, &rv, DBUS_TYPE_INT32,
-                                &startOffset, DBUS_TYPE_INT32, &endOffset,
-                                DBUS_TYPE_BOOLEAN, &defined,
-                                DBUS_TYPE_INVALID);
+      dbus_message_append_args (reply, DBUS_TYPE_STRING, &rv, DBUS_TYPE_INVALID);
     }
   atk_attribute_set_free (set);
   return reply;

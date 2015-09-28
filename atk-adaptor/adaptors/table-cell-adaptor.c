@@ -128,13 +128,16 @@ impl_get_Table (DBusMessageIter * iter, void *user_data)
 {
   AtkTableCell *cell = (AtkTableCell *) user_data;
   AtkObject *table;
+  DBusMessageIter iter_variant;
 
   g_return_val_if_fail (ATK_IS_TABLE_CELL (user_data), FALSE);
 
   table = atk_table_cell_get_table (cell);
   if (!table)
     return FALSE;
-  spi_object_append_reference (iter, table);
+  dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, "(so)", &iter_variant);
+  spi_object_append_reference (&iter_variant, table);
+  dbus_message_iter_close_container (iter, &iter_variant);
   return TRUE;
 }
 
@@ -147,7 +150,7 @@ impl_GetRowColumnSpan (DBusConnection * bus, DBusMessage * message,
   dbus_int32_t d_row, d_column, d_row_span, d_column_span;
   DBusMessage *reply;
 
-  g_return_val_if_fail (ATK_IS_TABLE (user_data),
+  g_return_val_if_fail (ATK_IS_TABLE_CELL (user_data),
                         droute_not_yet_handled_error (message));
   atk_table_cell_get_row_column_span (cell, &row, &column, &row_span,
                                          &column_span);
