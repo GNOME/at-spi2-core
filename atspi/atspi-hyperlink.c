@@ -133,7 +133,8 @@ atspi_hyperlink_get_object (AtspiHyperlink *obj, gint i, GError **error)
 AtspiRange *
 atspi_hyperlink_get_index_range (AtspiHyperlink *obj, GError **error)
 {
-  dbus_int32_t d_start_offset, d_end_offset;
+  dbus_int32_t d_start_offset = -1;
+  dbus_int32_t d_end_offset = -1;
   AtspiRange *ret = g_new (AtspiRange, 1);
 
   ret->start_offset = ret->end_offset = -1;
