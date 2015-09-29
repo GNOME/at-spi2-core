@@ -28,9 +28,19 @@
 #define ATK_TEST_PATH_ACCESSIBLE (const char *)"/Accessible"
 #define ATK_TEST_PATH_ACTION (const char *)"/Action"
 #define ATK_TEST_PATH_COMP (const char *)"/Component"
+#define ATK_TEST_PATH_COLLECTION (const char *)"/Collection"
+#define ATK_TEST_PATH_EDIT_TEXT (const char *)"/Editable_Text"
+#define ATK_TEST_PATH_IMAGE (const char *)"/Image"
+#define ATK_TEST_PATH_TEXT (const char *)"/Text"
+#define ATK_TEST_PATH_VALUE (const char *)"/Value"
 
 void atk_test_accessible (void);
 void atk_test_action (void);
 void atk_test_component (void);
+void atk_test_collection (void);
+void atk_test_editable_text (void);
+void atk_test_image (void);
+void atk_test_text (void);
+void atk_test_value (void);
 
 #endif /* _ATK_SUITE_H */

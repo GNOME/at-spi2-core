@@ -86,35 +86,6 @@ atk_test_component_get_extents (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_component_get_position (gpointer fixture, gconstpointer user_data)
-{
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
-  AtspiAccessible *child = atspi_accessible_get_child_at_index (obj,1, NULL);
-  AtspiComponent *iface = atspi_accessible_get_component_iface (child);
-  g_assert (iface != NULL);
-
-  AtspiPoint *p = atspi_component_get_position (iface, ATSPI_COORD_TYPE_SCREEN, NULL);
-  g_assert_cmpint (p->x, ==, 350);
-  g_assert_cmpint (p->y, ==, 200);
-  g_free (p);
-}
-
-static void
-atk_test_component_get_size (gpointer fixture, gconstpointer user_data)
-{
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
-  AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
-  AtspiComponent *iface = atspi_accessible_get_component_iface (child);
-  g_assert (iface != NULL);
-
-  AtspiPoint *p = atspi_component_get_size (iface, NULL);
-  g_assert (p != NULL);
-  g_assert_cmpint (p->x, ==, 350);
-  g_assert_cmpint (p->y, ==, 200);
-  g_free (p);
-}
-
-static void
 atk_test_component_get_layer (gpointer fixture, gconstpointer user_data)
 {
   AtspiAccessible *obj = get_root_obj (DATA_FILE);
@@ -188,42 +159,6 @@ atk_test_component_set_extents (gpointer fixture, gconstpointer user_data)
   g_free (r);
 }
 
-static void
-atk_test_component_set_position (gpointer fixture, gconstpointer user_data)
-{
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
-  AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
-  AtspiComponent *iface = atspi_accessible_get_component_iface (child);
-  g_assert (iface != NULL);
-
-  gboolean ret = atspi_component_set_position (iface, 350, 250, ATSPI_COORD_TYPE_SCREEN, NULL);
-  g_assert (ret != FALSE);
-
-  AtspiPoint *p = atspi_component_get_position (iface, ATSPI_COORD_TYPE_SCREEN, NULL);
-  g_assert (p != NULL );
-  g_assert_cmpint (p->x, ==, 350);
-  g_assert_cmpint (p->y, ==, 200);
-  g_free (p);
-}
-
-static void
-atk_test_component_set_size (gpointer fixture, gconstpointer user_data)
-{
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
-  AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
-  AtspiComponent *iface = atspi_accessible_get_component_iface (child);
-  g_assert (iface != NULL);
-
-  gboolean ret = atspi_component_set_size (iface, 350, 250, NULL);
-  g_assert (ret != FALSE);
-
-  AtspiPoint *p = atspi_component_get_size (iface, NULL);
-  g_assert (p != NULL);
-  g_assert_cmpint (p->x, ==, 350);
-  g_assert_cmpint (p->y, ==, 200);
-  g_free (p);
-}
-
 void
 atk_test_component (void)
 {
@@ -245,13 +180,4 @@ atk_test_component (void)
                      0, NULL, NULL, atk_test_component_get_alpha, teardown_component_test);
   g_test_add_vtable (ATK_TEST_PATH_COMP "/atk_test_component_set_extents",
                      0, NULL, NULL, atk_test_component_set_extents, teardown_component_test);
-// DEPRICATED
-//  g_test_add_vtable (ATK_TEST_PATH_COMP "/atk_test_component_get_position",
-//                     0, NULL, NULL, atk_test_component_get_position, teardown_component_test);
-//  g_test_add_vtable (ATK_TEST_PATH_COMP "/atk_test_component_get_size",
-//                     0, NULL, NULL, atk_test_component_get_size, teardown_component_test);
-//  g_test_add_vtable (ATK_TEST_PATH_COMP "/atk_test_component_set_position",
-//                     0, NULL, NULL, atk_test_component_set_position, teardown_component_test);
-//  g_test_add_vtable (ATK_TEST_PATH_COMP "/atk_test_component_set_size",
-//                     0, NULL, NULL, atk_test_component_set_size, teardown_component_test);
 }

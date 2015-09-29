@@ -42,6 +42,7 @@ struct _MyAtkObject {
   AtkRelationSet *relation_set;
   GPtrArray* children;
   gint id;
+  gboolean selected;
 };
 
 struct _MyAtkObjectClass {

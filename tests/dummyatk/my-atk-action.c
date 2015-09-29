@@ -220,12 +220,6 @@ my_atk_action_do_action (AtkAction *action, gint i)
 {
   g_return_val_if_fail (MY_IS_ATK_ACTION (action), NULL);
 
-  MyAtkAction *my_action = NULL;
-  MyAtkActionPrivate *priv = NULL;
-
-  my_action = MY_ATK_ACTION (action);
-  priv = my_action->priv;
-
   perform_action (ATK_OBJECT (action));
 
   return FALSE;

@@ -36,7 +36,6 @@ void clean_exit_on_fail ()
 void
 run_app (const char *file_name)
 {
-  int i=0;
   child_pid = fork ();
   if (child_pid == 0) {
     execlp ("./app-test",

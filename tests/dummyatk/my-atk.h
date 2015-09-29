@@ -26,5 +26,9 @@
 #include "my-atk-action.h"
 #include "my-atk-object.h"
 #include "my-atk-component.h"
+#include "my-atk-editable-text.h"
+#include "my-atk-image.h"
+#include "my-atk-text.h"
+#include "my-atk-value.h"
 
 #endif /*MY_ATK_H*/

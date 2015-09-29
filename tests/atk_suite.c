@@ -43,6 +43,11 @@ static const Atk_Test_Case atc[] = {
   { ATK_TEST_PATH_ACCESSIBLE, atk_test_accessible },
   { ATK_TEST_PATH_ACTION, atk_test_action },
   { ATK_TEST_PATH_COMP, atk_test_component },
+  { ATK_TEST_PATH_COLLECTION, atk_test_collection },
+  { ATK_TEST_PATH_EDIT_TEXT, atk_test_editable_text },
+  { ATK_TEST_PATH_IMAGE, atk_test_image },
+  { ATK_TEST_PATH_TEXT, atk_test_text },
+  { ATK_TEST_PATH_VALUE, atk_test_value },
   { NULL, NULL}
 };
 
@@ -64,6 +69,11 @@ atk_suite_build (int argc, char **argv )
   atk_test_accessible ();
   atk_test_action ();
   atk_test_component ();
+  atk_test_collection ();
+  atk_test_editable_text ();
+  atk_test_image ();
+  atk_test_text ();
+  atk_test_value ();
 }
 
 static GOptionEntry optentries[] = {
@@ -105,9 +115,39 @@ main(int argc, char **argv)
       test_result = g_test_run ();
       return (test_result == 0 ) ? 0 : 255;
     }
-    if (!g_strcmp0(one_test, "Component")) {
+    if (!g_strcmp0 (one_test, "Component")) {
       g_test_init (&argc, &argv, NULL);
       atk_test_component ();
+      test_result = g_test_run ();
+      return ( test_result == 0 ) ? 0 : 255;
+    }
+    if (!g_strcmp0 (one_test, "Collection")) {
+      g_test_init (&argc, &argv, NULL);
+      atk_test_collection ();
+      test_result = g_test_run ();
+      return ( test_result == 0 ) ? 0 : 255;
+    }
+    if (!g_strcmp0 (one_test, "Editable_Text")) {
+      g_test_init (&argc, &argv, NULL);
+      atk_test_editable_text ();
+      test_result = g_test_run ();
+      return ( test_result == 0 ) ? 0 : 255;
+    }
+    if (!g_strcmp0 (one_test, "Image")) {
+      g_test_init (&argc, &argv, NULL);
+      atk_test_image ();
+      test_result = g_test_run ();
+      return ( test_result == 0 ) ? 0 : 255;
+    }
+    if (!g_strcmp0 (one_test, "Text")) {
+      g_test_init (&argc, &argv, NULL);
+      atk_test_text ();
+      test_result = g_test_run ();
+      return ( test_result == 0 ) ? 0 : 255;
+    }
+    if (!g_strcmp0 (one_test, "Value")) {
+      g_test_init (&argc, &argv, NULL);
+      atk_test_value ();
       test_result = g_test_run ();
       return ( test_result == 0 ) ? 0 : 255;
     }

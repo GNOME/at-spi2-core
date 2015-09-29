@@ -31,16 +31,25 @@
 #define ACCESSIBLE_NODE ((const xmlChar *) "accessible")
 #define ACC_ACTION_NODE ((const xmlChar *) "accessible_action")
 #define ACC_COMPONENT_NODE ((const xmlChar *) "accessible_component")
+#define ACC_IMAGE_NODE ((const xmlChar *) "accessible_image")
+#define ACC_EDIT_TEXT_NODE ((const xmlChar *) "accessible_editable_text")
+#define ACC_TEXT_NODE ((const xmlChar *) "accessible_text")
+#define ACC_VALUE_NODE ((const xmlChar *) "accessible_value")
 #define ACTION_NODE ((const xmlChar *) "action")
-#define INTERFACE_NODE  ((const xmlChar *) "interface")
 #define RELATION_NODE ((const xmlChar *) "relation")
 #define STATE_NODE ((const xmlChar *) "state")
 #define COMPONENT_NODE ((const xmlChar *) "component")
+#define IMAGE_NODE ((const xmlChar *) "image")
+#define TEXT_NODE ((const xmlChar *) "text_node")
+#define VALUE_NODE ((const xmlChar *) "value_node")
 
 #define NAME_ATTR ((const xmlChar *) "name")
 #define DESC_ATTR ((const xmlChar *) "description")
 #define ROLE_ATTR ((const xmlChar *) "role")
-#define TYPE_ATTR ((const xmlChar *) "type")
+#define MIN_ATTR ((const xmlChar *) "min")
+#define MAX_ATTR ((const xmlChar *) "max")
+#define CURRENT_ATTR ((const xmlChar *) "current")
+#define STEP_ATTR ((const xmlChar *) "step")
 #define RELATION_TYPE_ATTR ((const xmlChar *) "relation_type")
 #define RELATION_TARGET_NAME_ATTR ((const xmlChar *) "target_name")
 #define STATE_TYPE_ATTR ((const xmlChar *) "state_enum")
@@ -54,8 +63,55 @@
 #define COMP_LAYER_ATTR ((const xmlChar *) "layer")
 #define COMP_ZORDER_ATTR ((const xmlChar *) "zorder")
 #define COMP_ALPHA_ATTR ((const xmlChar *) "alpha")
+#define IMAGE_DES_ATTR ((const xmlChar *) "image_description")
+#define IMAGE_LOCALE_ATTR ((const xmlChar *) "image_locale")
+#define TEXT_TEXT_ATTR ((const xmlChar *) "text")
+#define TEXT_BOLD_ATTR ((const xmlChar *) "bold_text")
+#define TEXT_UNDERLINE_ATTR ((const xmlChar *) "underline_text")
+#define TEXT_DUMMY_ATTR ((const xmlChar *) "dummy_text")
 
 MyAtkObject *relation_target = NULL;
+
+static double atof_get_prop (xmlNode *node, const xmlChar *attr)
+{
+  double ret;
+  xmlChar *str = xmlGetProp (node, attr);
+  if (!str)
+    return 0;
+  ret = atof ((const char *)str);
+  xmlFree(str);
+
+  return ret;
+}
+
+static int atoi_get_prop (xmlNode *node, const xmlChar *attr)
+{
+  int ret;
+  xmlChar *str = xmlGetProp (node, attr);
+  if (!str)
+    return 0;
+  ret = atoi ((const char *)str);
+  xmlFree(str);
+
+  return ret;
+}
+
+static AtkAttribute *
+get_atk_attribute (xmlNode *node, const xmlChar *attr)
+{
+  xmlChar *str;
+  AtkAttribute *tmp = g_malloc (sizeof (AtkAttribute));
+
+  if (!tmp)
+    return NULL;
+
+  str = xmlGetProp (node, attr);
+  tmp->name = g_strdup ((const char *)attr);
+  tmp->value = g_strdup ((const char *)str);
+
+  free (str);
+  return tmp;
+}
 
 static gpointer
 create_atk_object_from_element (xmlNode *element)
@@ -64,19 +120,15 @@ create_atk_object_from_element (xmlNode *element)
   xmlNode *child_node2;
 
   gpointer obj;
-  gpointer child_obj;
-  gpointer child_obj2;
+  gpointer child_obj = NULL;
   AtkRelationSet *relation_set = NULL;
   AtkObject *array[1];
   AtkRelation *relation;
   AtkStateSet *state_set = NULL;
   AtkStateType state_type;
-  AtkAction *action;
 
   xmlChar *name;
   xmlChar *description;
-  xmlChar *type_text;
-  xmlChar *relation_type_text;
   xmlChar *state_enum;
   xmlChar *role;
   gint relation_type;
@@ -84,11 +136,15 @@ create_atk_object_from_element (xmlNode *element)
   xmlChar *action_name;
   xmlChar *action_des;
   xmlChar *action_key_bind;
+  xmlChar *image_des;
+  xmlChar *image_locale;
+  xmlChar *text;
+  gint x_size, y_size;
+  gint width, height;
   gint x_extent, y_extent, w_extent, h_extent;
   name = xmlGetProp (element, NAME_ATTR);
   description = xmlGetProp (element, DESC_ATTR);
   role = xmlGetProp (element, ROLE_ATTR);
-  type_text = xmlGetProp (element, TYPE_ATTR);
   GType type = MY_TYPE_ATK_OBJECT;
   gint layer;
   gint zorder;
@@ -103,25 +159,39 @@ create_atk_object_from_element (xmlNode *element)
   if (!xmlStrcmp (element->name, ACC_COMPONENT_NODE))
     type = MY_TYPE_ATK_COMPONENT;
 
+  if (!xmlStrcmp (element->name, ACC_EDIT_TEXT_NODE))
+    type = MY_TYPE_ATK_EDITABLE_TEXT;
+
+  if (!xmlStrcmp (element->name, ACC_IMAGE_NODE))
+    type = MY_TYPE_ATK_IMAGE;
+
+  if (!xmlStrcmp (element->name, ACC_TEXT_NODE))
+    type = MY_TYPE_ATK_TEXT;
+
+  if (!xmlStrcmp (element->name, ACC_VALUE_NODE))
+    type = MY_TYPE_ATK_VALUE;
+
   obj = g_object_new (type,
                       "accessible-name", name,
                       "accessible-description", description,
-                      "accessible-role", atk_role_for_name (role),
+                      "accessible-role", atk_role_for_name ((const gchar *)role),
                       NULL);
-
   child_node = element->xmlChildrenNode;
   while (child_node != NULL) {
     if (!xmlStrcmp (child_node->name, ACCESSIBLE_NODE) ||
         !xmlStrcmp (child_node->name, ACC_ACTION_NODE) ||
-        !xmlStrcmp (child_node->name, ACC_COMPONENT_NODE)) {
+        !xmlStrcmp (child_node->name, ACC_COMPONENT_NODE) ||
+        !xmlStrcmp (child_node->name, ACC_EDIT_TEXT_NODE) ||
+        !xmlStrcmp (child_node->name, ACC_IMAGE_NODE) ||
+        !xmlStrcmp (child_node->name, ACC_TEXT_NODE) ||
+        !xmlStrcmp (child_node->name, ACC_VALUE_NODE)) {
       child_obj = create_atk_object_from_element (child_node);
       my_atk_object_add_child (obj, child_obj);
     }
     child_node2 = child_node->xmlChildrenNode;
     while (child_node2 != NULL) {
       if (!xmlStrcmp (child_node2->name, RELATION_NODE)) {
-        relation_type_text = xmlGetProp (child_node2, RELATION_TYPE_ATTR);
-        relation_type = atoi (relation_type_text);
+        relation_type = atoi_get_prop (child_node2, RELATION_TYPE_ATTR);
         relation_target_name = xmlGetProp (child_node2, RELATION_TARGET_NAME_ATTR);
         relation_set = atk_object_ref_relation_set (ATK_OBJECT (child_obj));
         array[0] = ATK_OBJECT (obj);
@@ -131,12 +201,11 @@ create_atk_object_from_element (xmlNode *element)
         g_object_unref (relation);
         g_object_unref (relation_set);
         xmlFree (relation_target_name);
-        xmlFree (relation_type_text);
       }
       if (!xmlStrcmp (child_node2->name, STATE_NODE)) {
         state_set = atk_object_ref_state_set (ATK_OBJECT (child_obj));
         state_enum = xmlGetProp (child_node2, STATE_TYPE_ATTR);
-        state_type = atk_state_type_for_name (state_enum);
+        state_type = atk_state_type_for_name ((const gchar *)state_enum);
         atk_state_set_add_state (state_set, state_type);
         g_object_unref (state_set);
         xmlFree (state_enum);
@@ -145,16 +214,18 @@ create_atk_object_from_element (xmlNode *element)
         action_name = xmlGetProp (child_node2, ACTION_NAME_ATTR);
         action_des = xmlGetProp (child_node2, ACTION_DES_ATTR);
         action_key_bind = xmlGetProp (child_node2, ACTION_KEY_BIND_ATTR);
-        my_atk_action_add_action (child_obj, action_name, action_des, action_key_bind);
+        my_atk_action_add_action (child_obj, (const gchar *)action_name,
+                                  (const gchar *)action_des,
+                                  (const gchar *)action_key_bind);
       }
       if (!xmlStrcmp (child_node2->name, COMPONENT_NODE)) {
-        x_extent = atoi (xmlGetProp (child_node2, COMP_X_ATTR));
-        y_extent = atoi (xmlGetProp (child_node2, COMP_Y_ATTR));
-        w_extent = atoi (xmlGetProp (child_node2, COMP_WIDTH_ATTR));
-        h_extent = atoi (xmlGetProp (child_node2, COMP_HEIGHT_ATTR));
-        layer = atoi (xmlGetProp (child_node2, COMP_LAYER_ATTR));
-        zorder = atoi (xmlGetProp (child_node2, COMP_ZORDER_ATTR));
-        alpha = atof (xmlGetProp (child_node2, COMP_ALPHA_ATTR));
+        x_extent = atoi_get_prop (child_node2, COMP_X_ATTR);
+        y_extent = atoi_get_prop (child_node2, COMP_Y_ATTR);
+        w_extent = atoi_get_prop (child_node2, COMP_WIDTH_ATTR);
+        h_extent = atoi_get_prop (child_node2, COMP_HEIGHT_ATTR);
+        layer = atoi_get_prop (child_node2, COMP_LAYER_ATTR);
+        zorder = atoi_get_prop (child_node2, COMP_ZORDER_ATTR);
+        alpha = atof_get_prop (child_node2, COMP_ALPHA_ATTR);
         atk_component_set_extents (ATK_COMPONENT (child_obj),
                                    x_extent,
                                    y_extent,
@@ -164,6 +235,47 @@ create_atk_object_from_element (xmlNode *element)
         my_atk_component_set_layer (ATK_COMPONENT (child_obj), layer);
         my_atk_component_set_mdi_zorder (ATK_COMPONENT (child_obj), zorder);
         my_atk_component_set_alpha (ATK_COMPONENT (child_obj), alpha);
+      }
+      if (!xmlStrcmp (child_node2->name, IMAGE_NODE)) {
+        image_des = xmlGetProp (child_node2, IMAGE_DES_ATTR);
+        x_size = atoi_get_prop (child_node2, COMP_X_ATTR);
+        y_size = atoi_get_prop (child_node2, COMP_Y_ATTR);
+        width = atoi_get_prop (child_node2, COMP_WIDTH_ATTR);
+        height = atoi_get_prop (child_node2, COMP_HEIGHT_ATTR);
+        image_locale = xmlGetProp (child_node2, IMAGE_LOCALE_ATTR);
+
+        my_atk_set_image (ATK_IMAGE (child_obj),
+                          (const gchar *)image_des,
+                          x_size,
+                          y_size,
+                          width,
+                          height,
+                          (const gchar *)image_locale);
+      }
+      if (!xmlStrcmp (child_node2->name, TEXT_NODE)) {
+        text = xmlGetProp (child_node2, TEXT_TEXT_ATTR);
+        AtkAttributeSet *attrSet = NULL;
+        AtkAttribute *a1 = get_atk_attribute (child_node2, TEXT_BOLD_ATTR);
+        AtkAttribute *a2 = get_atk_attribute (child_node2, TEXT_UNDERLINE_ATTR);
+        AtkAttribute *a3 = get_atk_attribute (child_node2, TEXT_DUMMY_ATTR);
+        attrSet = g_slist_append(NULL, a1);
+        attrSet = g_slist_append(attrSet, a2);
+        attrSet = g_slist_append(attrSet, a3);
+        my_atk_set_text (ATK_TEXT (child_obj),
+                         (const gchar *)text,
+                         atoi_get_prop (child_node2, COMP_X_ATTR),
+                         atoi_get_prop (child_node2, COMP_Y_ATTR),
+                         atoi_get_prop (child_node2, COMP_WIDTH_ATTR),
+                         atoi_get_prop (child_node2, COMP_HEIGHT_ATTR),
+                         attrSet);
+      }
+      if (!xmlStrcmp (child_node2->name, VALUE_NODE)) {
+
+        my_atk_set_value (ATK_VALUE(child_obj),
+                          atof_get_prop (child_node2, MIN_ATTR),
+                          atof_get_prop (child_node2, CURRENT_ATTR),
+                          atof_get_prop (child_node2, MAX_ATTR),
+                          atof_get_prop (child_node2, STEP_ATTR));
       }
       child_node2 = child_node2->next;
     }

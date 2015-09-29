@@ -11,7 +11,8 @@ atk_test_CFLAGS = $(DBUS_CFLAGS) \
                   -I$(top_srcdir)/tests/dummyatk/ \
                   -I$(top_builddir)/tests/dummyatk/.libs \
                   -I$(top_builddir)/tests/dummyatk/.deps \
-                  -I$(top_srcdir)
+                  -I$(top_srcdir) \
+                  -Wall
 
 atk_test_LDADD = libxmlloader.la \
                  libtestutils.la \
@@ -27,13 +28,19 @@ atk_test_SOURCES = atk_suite.c \
                    atk_suite.h \
                    atk_test_accessible.c \
                    atk_test_action.c \
-                   atk_test_component.c
+                   atk_test_component.c \
+                   atk_test_collection.c \
+                   atk_test_editable_text.c \
+                   atk_test_image.c \
+                   atk_test_text.c \
+                   atk_test_value.c
 
 app_test_CFLAGS = -I$(top_builddir) \
                    $(GLIB_CFLAGS) \
                    $(ATK_CFLAGS) \
                    -I$(top_srcdir)/tests/dummyatk \
-                   -I$(top_srcdir)/atk-adaptor
+                   -I$(top_srcdir)/atk-adaptor \
+                   -Wall
 
 app_test_LDADD = libxmlloader.la \
                  libtestutils.la \
@@ -48,7 +55,8 @@ libxmlloader_la_CFLAGS = $(GLIB_CFLAGS) \
                          $(GOBJ_CFLAGS)  \
                          $(XML_CFLAGS) \
                          $(ATK_CFLAGS) \
-                         -I$(top_srcdir)/tests/dummyatk/
+                         -I$(top_srcdir)/tests/dummyatk/ \
+                         -Wall
 
 libxmlloader_la_LIBADD = $(GLIB_LIBS) \
                          $(XML_LIBS) \
@@ -61,7 +69,8 @@ libxmlloader_la_SOURCES = atk-object-xml-loader.c\
 
 libtestutils_la_CFLAGS = -I$(top_builddir) \
                          $(GLIB_CFLAGS) \
-                         $(ATSPI_CFLAGS)
+                         $(ATSPI_CFLAGS) \
+                         -Wall
 
 libtestutils_la_LIBADD = $(GLIB_LIBS) \
                          $(ATSPI_LIBS)
