@@ -44,8 +44,15 @@ static const Atk_Test_Case atc[] = {
   { ATK_TEST_PATH_ACTION, atk_test_action },
   { ATK_TEST_PATH_COMP, atk_test_component },
   { ATK_TEST_PATH_COLLECTION, atk_test_collection },
+  { ATK_TEST_PATH_DOC, atk_test_document },
   { ATK_TEST_PATH_EDIT_TEXT, atk_test_editable_text },
+  { ATK_TEST_PATH_HYPERLINK, atk_test_hyperlink },
+  { ATK_TEST_PATH_HYPERTEXT, atk_test_hypertext },
   { ATK_TEST_PATH_IMAGE, atk_test_image },
+  { ATK_TEST_PATH_SELECTION, atk_test_selection },
+  { ATK_TEST_PATH_STATE_SET, atk_test_state_set },
+  { ATK_TEST_PATH_TABLE, atk_test_table },
+  { ATK_TEST_PATH_TABLE_CELL, atk_test_table_cell },
   { ATK_TEST_PATH_TEXT, atk_test_text },
   { ATK_TEST_PATH_VALUE, atk_test_value },
   { NULL, NULL}
@@ -70,8 +77,16 @@ atk_suite_build (int argc, char **argv )
   atk_test_action ();
   atk_test_component ();
   atk_test_collection ();
+  atk_test_document ();
+
   atk_test_editable_text ();
+  atk_test_hyperlink ();
+  atk_test_hypertext ();
   atk_test_image ();
+  atk_test_selection ();
+  atk_test_state_set ();
+  atk_test_table ();
+  atk_test_table_cell ();
   atk_test_text ();
   atk_test_value ();
 }
@@ -127,15 +142,57 @@ main(int argc, char **argv)
       test_result = g_test_run ();
       return ( test_result == 0 ) ? 0 : 255;
     }
+    if (!g_strcmp0 (one_test, "Document")) {
+      g_test_init (&argc, &argv, NULL);
+      atk_test_document ();
+      test_result = g_test_run ();
+      return ( test_result == 0 ) ? 0 : 255;
+    }
     if (!g_strcmp0 (one_test, "Editable_Text")) {
       g_test_init (&argc, &argv, NULL);
       atk_test_editable_text ();
       test_result = g_test_run ();
       return ( test_result == 0 ) ? 0 : 255;
     }
+    if (!g_strcmp0 (one_test, "Hyperlink")) {
+      g_test_init (&argc, &argv, NULL);
+      atk_test_hyperlink ();
+      test_result = g_test_run ();
+      return ( test_result == 0 ) ? 0 : 255;
+    }
+    if (!g_strcmp0 (one_test, "Hypertext")) {
+      g_test_init (&argc, &argv, NULL);
+      atk_test_hypertext ();
+      test_result = g_test_run ();
+      return ( test_result == 0 ) ? 0 : 255;
+    }
     if (!g_strcmp0 (one_test, "Image")) {
       g_test_init (&argc, &argv, NULL);
       atk_test_image ();
+      test_result = g_test_run ();
+      return ( test_result == 0 ) ? 0 : 255;
+    }
+    if (!g_strcmp0 (one_test, "Selection")) {
+      g_test_init (&argc, &argv, NULL);
+      atk_test_selection ();
+      test_result = g_test_run ();
+      return ( test_result == 0 ) ? 0 : 255;
+    }
+    if (!g_strcmp0 (one_test, "State_Set")) {
+      g_test_init (&argc, &argv, NULL);
+      atk_test_state_set ();
+      test_result = g_test_run ();
+      return ( test_result == 0 ) ? 0 : 255;
+    }
+    if (!g_strcmp0 (one_test, "Table")) {
+      g_test_init (&argc, &argv, NULL);
+      atk_test_table ();
+      test_result = g_test_run ();
+      return ( test_result == 0 ) ? 0 : 255;
+    }
+    if (!g_strcmp0 (one_test, "Table_Cell")) {
+      g_test_init (&argc, &argv, NULL);
+      atk_test_table_cell ();
       test_result = g_test_run ();
       return ( test_result == 0 ) ? 0 : 255;
     }

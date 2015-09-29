@@ -31,17 +31,30 @@
 #define ACCESSIBLE_NODE ((const xmlChar *) "accessible")
 #define ACC_ACTION_NODE ((const xmlChar *) "accessible_action")
 #define ACC_COMPONENT_NODE ((const xmlChar *) "accessible_component")
+#define ACC_DOCUMENT_NODE ((const xmlChar *) "accessible_document")
+#define ACC_HYPERLINK_NODE ((const xmlChar *) "accessible_hyperlink")
+#define ACC_HYPERTEXT_NODE ((const xmlChar *) "accessible_hypertext")
 #define ACC_IMAGE_NODE ((const xmlChar *) "accessible_image")
+#define ACC_TABLE_NODE ((const xmlChar *) "accessible_table")
+#define ACC_TABLE_CELL_NODE ((const xmlChar *) "accessible_table_cell")
 #define ACC_EDIT_TEXT_NODE ((const xmlChar *) "accessible_editable_text")
 #define ACC_TEXT_NODE ((const xmlChar *) "accessible_text")
+#define ACC_SELECTION_NODE ((const xmlChar *) "accessible_selection")
 #define ACC_VALUE_NODE ((const xmlChar *) "accessible_value")
 #define ACTION_NODE ((const xmlChar *) "action")
+#define DOCUMENT_NODE ((const xmlChar *) "document")
+#define INTERFACE_NODE  ((const xmlChar *) "interface")
 #define RELATION_NODE ((const xmlChar *) "relation")
 #define STATE_NODE ((const xmlChar *) "state")
 #define COMPONENT_NODE ((const xmlChar *) "component")
+#define HYPERLINK_NODE ((const xmlChar *) "hyperlink")
+#define HYPERTEXT_NODE ((const xmlChar *) "hypertext")
 #define IMAGE_NODE ((const xmlChar *) "image")
+#define TABLE_NODE ((const xmlChar *) "table")
+#define TABLE_CELL_NODE ((const xmlChar *) "table_cell")
 #define TEXT_NODE ((const xmlChar *) "text_node")
 #define VALUE_NODE ((const xmlChar *) "value_node")
+#define SELECT_NODE ((const xmlChar *) "select_node")
 
 #define NAME_ATTR ((const xmlChar *) "name")
 #define DESC_ATTR ((const xmlChar *) "description")
@@ -50,6 +63,12 @@
 #define MAX_ATTR ((const xmlChar *) "max")
 #define CURRENT_ATTR ((const xmlChar *) "current")
 #define STEP_ATTR ((const xmlChar *) "step")
+#define COL_HEADER_ATTR ((const xmlChar *) "col_header")
+#define ROW_HEADER_ATTR ((const xmlChar *) "row_header")
+#define COL_DESC_ATTR ((const xmlChar *) "col_desc")
+#define ROW_DESC_ATTR ((const xmlChar *) "row_desc")
+#define SELECTED_ATTR ((const xmlChar *) "selected")
+#define SELECTED_COL_ATTR ((const xmlChar *) "selected_col")
 #define RELATION_TYPE_ATTR ((const xmlChar *) "relation_type")
 #define RELATION_TARGET_NAME_ATTR ((const xmlChar *) "target_name")
 #define STATE_TYPE_ATTR ((const xmlChar *) "state_enum")
@@ -69,6 +88,16 @@
 #define TEXT_BOLD_ATTR ((const xmlChar *) "bold_text")
 #define TEXT_UNDERLINE_ATTR ((const xmlChar *) "underline_text")
 #define TEXT_DUMMY_ATTR ((const xmlChar *) "dummy_text")
+#define START_ATTR ((const xmlChar *) "start")
+#define END_ATTR ((const xmlChar *) "end")
+#define LINK_ATTR ((const xmlChar *) "link")
+#define CELL_X_ATTR ((const xmlChar *) "cell_x")
+#define CELL_Y_ATTR ((const xmlChar *) "cell_y")
+#define ROW_SPAN_ATTR ((const xmlChar *) "row_span")
+#define COLUMN_SPAN_ATTR ((const xmlChar *) "column_span")
+#define SELECT_ATTR ((const xmlChar *) "selected")
+#define PAGE_ATTR ((const xmlChar *) "page_no")
+#define PAGE_NUM_ATTR ((const xmlChar *) "page_number")
 
 MyAtkObject *relation_target = NULL;
 
@@ -159,17 +188,36 @@ create_atk_object_from_element (xmlNode *element)
   if (!xmlStrcmp (element->name, ACC_COMPONENT_NODE))
     type = MY_TYPE_ATK_COMPONENT;
 
+  if (!xmlStrcmp (element->name, ACC_DOCUMENT_NODE))
+    type = MY_TYPE_ATK_DOCUMENT;
+
   if (!xmlStrcmp (element->name, ACC_EDIT_TEXT_NODE))
     type = MY_TYPE_ATK_EDITABLE_TEXT;
+
+  if (!xmlStrcmp (element->name, ACC_HYPERLINK_NODE))
+    type = MY_TYPE_ATK_HYPERTEXT;
+
+  if (!xmlStrcmp (element->name, ACC_HYPERTEXT_NODE))
+    type = MY_TYPE_ATK_HYPERTEXT;
 
   if (!xmlStrcmp (element->name, ACC_IMAGE_NODE))
     type = MY_TYPE_ATK_IMAGE;
 
+  if (!xmlStrcmp (element->name, ACC_SELECTION_NODE))
+    type = MY_TYPE_ATK_SELECTION;
+
   if (!xmlStrcmp (element->name, ACC_TEXT_NODE))
     type = MY_TYPE_ATK_TEXT;
 
+  if (!xmlStrcmp (element->name, ACC_TABLE_NODE))
+    type = MY_TYPE_ATK_TABLE;
+
+  if (!xmlStrcmp (element->name, ACC_TABLE_CELL_NODE))
+    type = MY_TYPE_ATK_TABLE_CELL;
+
   if (!xmlStrcmp (element->name, ACC_VALUE_NODE))
     type = MY_TYPE_ATK_VALUE;
+
 
   obj = g_object_new (type,
                       "accessible-name", name,
@@ -181,8 +229,14 @@ create_atk_object_from_element (xmlNode *element)
     if (!xmlStrcmp (child_node->name, ACCESSIBLE_NODE) ||
         !xmlStrcmp (child_node->name, ACC_ACTION_NODE) ||
         !xmlStrcmp (child_node->name, ACC_COMPONENT_NODE) ||
+        !xmlStrcmp (child_node->name, ACC_DOCUMENT_NODE) ||
         !xmlStrcmp (child_node->name, ACC_EDIT_TEXT_NODE) ||
+        !xmlStrcmp (child_node->name, ACC_HYPERLINK_NODE) ||
+        !xmlStrcmp (child_node->name, ACC_HYPERTEXT_NODE) ||
         !xmlStrcmp (child_node->name, ACC_IMAGE_NODE) ||
+        !xmlStrcmp (child_node->name, ACC_SELECTION_NODE) ||
+        !xmlStrcmp (child_node->name, ACC_TABLE_NODE) ||
+        !xmlStrcmp (child_node->name, ACC_TABLE_CELL_NODE) ||
         !xmlStrcmp (child_node->name, ACC_TEXT_NODE) ||
         !xmlStrcmp (child_node->name, ACC_VALUE_NODE)) {
       child_obj = create_atk_object_from_element (child_node);
@@ -236,6 +290,23 @@ create_atk_object_from_element (xmlNode *element)
         my_atk_component_set_mdi_zorder (ATK_COMPONENT (child_obj), zorder);
         my_atk_component_set_alpha (ATK_COMPONENT (child_obj), alpha);
       }
+      if (!xmlStrcmp (child_node2->name, DOCUMENT_NODE)) {
+        my_atk_set_document (ATK_DOCUMENT(child_obj),
+                             atoi_get_prop (child_node2, PAGE_ATTR),
+                             atoi_get_prop (child_node2, PAGE_NUM_ATTR));
+      }
+      if (!xmlStrcmp (child_node2->name, HYPERLINK_NODE)) {
+        xmlChar *text = xmlGetProp (child_node2, TEXT_TEXT_ATTR);
+
+        my_atk_set_hypertext (ATK_HYPERTEXT (child_obj), (const gchar *)text);
+        xmlFree (text);
+      }
+      if (!xmlStrcmp (child_node2->name, HYPERTEXT_NODE)) {
+        xmlChar *text = xmlGetProp (child_node2, TEXT_TEXT_ATTR);
+
+        my_atk_set_hypertext (ATK_HYPERTEXT (child_obj), (const gchar *)text);
+        xmlFree (text);
+      }
       if (!xmlStrcmp (child_node2->name, IMAGE_NODE)) {
         image_des = xmlGetProp (child_node2, IMAGE_DES_ATTR);
         x_size = atoi_get_prop (child_node2, COMP_X_ATTR);
@@ -269,8 +340,14 @@ create_atk_object_from_element (xmlNode *element)
                          atoi_get_prop (child_node2, COMP_HEIGHT_ATTR),
                          attrSet);
       }
+      if (!xmlStrcmp (child_node2->name, TABLE_CELL_NODE)) {
+        my_atk_set_table_cell (ATK_TABLE_CELL (child_obj),
+                               atoi_get_prop (child_node2, CELL_X_ATTR),
+                               atoi_get_prop (child_node2, CELL_Y_ATTR),
+                               atoi_get_prop (child_node2, ROW_SPAN_ATTR),
+                               atoi_get_prop (child_node2, COLUMN_SPAN_ATTR));
+      }
       if (!xmlStrcmp (child_node2->name, VALUE_NODE)) {
-
         my_atk_set_value (ATK_VALUE(child_obj),
                           atof_get_prop (child_node2, MIN_ATTR),
                           atof_get_prop (child_node2, CURRENT_ATTR),

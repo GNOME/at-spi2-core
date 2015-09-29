@@ -31,7 +31,14 @@ atk_test_SOURCES = atk_suite.c \
                    atk_test_component.c \
                    atk_test_collection.c \
                    atk_test_editable_text.c \
+                   atk_test_document.c \
+                   atk_test_hyperlink.c \
+                   atk_test_hypertext.c \
                    atk_test_image.c \
+                   atk_test_selection.c \
+                   atk_test_state_set.c \
+                   atk_test_table.c \
+                   atk_test_table_cell.c \
                    atk_test_text.c \
                    atk_test_value.c
 

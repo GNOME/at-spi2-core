@@ -108,6 +108,76 @@ AVAILABLE TESTS:
              -image_get_image_position
              -image_get_image_extents
              -image_get_image_locale
+- HyperLink
+             -hyperlink_get_n_anchors
+             -hyperlink_get_uri
+             -hyperlink_get_object
+             -hyperlink_get_index_range
+             -hyperlink_get_start_index
+             -hyperlink_get_end_index
+             -hyperlink_is_valid
+- HyperText
+             -hypertext_get_n_links
+             -hypertext_get_link
+             -hypertext_get_link_index
+- Relation
+             -relation_get_relation_type
+             -relation_get_n_targets
+             -relation_get_target
+- Selection
+             -selection_get_n_selected_children
+             -selection_get_selected_child
+             -selection_select_child
+             -selection_deselect_selected
+             -selection_deselect_child
+             -selection_is_child_selected
+             -selection_select_all
+             -selection_clear_selection
+- State Set
+             -state_set_new
+             -state_set_set_by_name
+             -state_set_add
+             -state_set_compare
+             -state_set_contains
+             -state_set_equals
+             -state_set_get_states
+             -state_set_is_empty
+             -state_set_remove
+- Table
+             -table_get_caption
+             -table_get_summary
+             -table_get_n_rows
+             -table_get_n_columns
+             -table_get_accessible_at
+             -table_get_index_at
+             -table_get_row_at_index
+             -table_get_column_at_index
+             -table_get_row_description
+             -table_get_column_description
+             -table_get_row_extent_at
+             -table_get_column_extent_at
+             -table_get_row_header
+             -table_get_column_header
+             -table_get_n_selected_rows
+             -table_get_selected_rows
+             -table_get_selected_columns
+             -table_get_n_selected_columns
+             -table_is_row_selected
+             -table_is_column_selected
+             -table_add_row_selection
+             -table_add_column_selection
+             -table_remove_row_selection
+             -table_remove_column_selection
+             -table_get_row_column_extents_at_index
+             -table_is_selected
+- Table Cell
+             -table_cell_get_column_span
+             -table_cell_get_column_header_cells
+             -table_cell_get_column_index
+             -table_cell_get_row_span
+             -table_cell_get_row_header_cells
+             -table_cell_get_row_column_span
+             -table_cell_get_table
 - Text:
              -text_get_character_count
              -text_get_text
