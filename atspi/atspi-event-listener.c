@@ -207,7 +207,7 @@ cache_process_children_changed (AtspiEvent *event)
     return;
 
   child = g_value_get_object (&event->any_data);
-  if (child)
+  if (child == NULL)
     return;
 
   if (!strncmp (event->type, "object:children-changed:add", 27))
