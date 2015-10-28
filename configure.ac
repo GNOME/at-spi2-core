@@ -127,8 +127,8 @@ save_LIBS="$LIBS"
 LIBS=""
 AC_ARG_ENABLE(xevie,
 	[AS_HELP_STRING([--enable-xevie],
-		[Build with XEViE support [default=yes]])],
-	enable_xevie="$enableval", enable_xevie=yes)
+		[Build with XEViE support [default=no]])],
+	enable_xevie="$enableval", enable_xevie=no)
 
 if test -z "$backend_set"; then
   enable_x11_backend=yes
