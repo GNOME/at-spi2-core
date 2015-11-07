@@ -1,3 +1,10 @@
+What's new in at-spi2-core 2.18.2:
+
+* Really don't crash if we get a children-changed event with a
+  non-existent child (bgo#755951).
+
+* Fixed crash during removal of last application in registryd (bgo#756513).
+    
 What's new in at-spi2-core 2.18.1:
 
 * Don't crash if we get a children-changed event with a non-existent
