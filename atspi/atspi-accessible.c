@@ -399,11 +399,15 @@ atspi_accessible_get_index_in_parent (AtspiAccessible *obj, GError **error)
     if (!obj->accessible_parent)
       return -1;
 
+    if (!_atspi_accessible_test_cache (obj->accessible_parent, ATSPI_CACHE_CHILDREN) || !obj->accessible_parent->children)
+        goto dbus;
+
     for (i = 0; i < obj->accessible_parent->children->len; i++)
       if (g_ptr_array_index (obj->accessible_parent->children, i) == obj)
         return i;
   }
 
+dbus:
   _atspi_dbus_call (obj, atspi_interface_accessible,
                     "GetIndexInParent", NULL, "=>i", &ret);
   return ret;
