@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.18.3:
+
+* get_index_in_parent: Don't crash if the parent is defunct.
+
 What's new in at-spi2-core 2.18.2:
 
 * Really don't crash if we get a children-changed event with a
