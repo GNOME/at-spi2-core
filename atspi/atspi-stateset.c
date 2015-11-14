@@ -102,11 +102,11 @@ atspi_state_set_set_by_name (AtspiStateSet *set, const gchar *name, gboolean ena
   {
     g_warning ("AT-SPI: Attempt to set unknown state '%s'", name);
   }
-
-  if (enabled)
-    set->states |= ((gint64)1 << value->value);
   else
-    set->states &= ~((gint64)1 << value->value);
+    if (enabled)
+      set->states |= ((gint64)1 << value->value);
+    else
+      set->states &= ~((gint64)1 << value->value);
 
   g_type_class_unref (type_class);
 }
