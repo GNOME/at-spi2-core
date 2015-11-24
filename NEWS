@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.19.2:
+
+* Disable xevie by default--it probably doesn't do anything anyhow.
+
+* get_index_in_parent: Don't crash if parent is defunct.
+
+* Don't crash when trying to set an invalid state (bgo#757915).
+
 What's new in at-spi2-core 2.19.1:
 
 * Don't crash if we get a children-changed event with a non-existent
