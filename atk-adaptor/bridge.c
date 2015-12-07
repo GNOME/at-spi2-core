@@ -661,7 +661,10 @@ user_check (DBusConnection *bus, unsigned long uid, void *data)
   if (uid == getuid () || uid == geteuid ())
     return TRUE;
   if (getuid () == 0)
-    return get_ancestral_uid (getpid ()) == uid;
+  {
+    guint ancestor = get_ancestral_uid (getpid ());
+    return (ancestor == uid || ancestor == 1 || ancestor == 0);
+  }
   return FALSE;
 }
 
