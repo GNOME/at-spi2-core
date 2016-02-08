@@ -1588,7 +1588,8 @@ atspi_get_a11y_bus (void)
 
   if (!a11y_bus)
     {
-      g_warning ("Couldn't connect to accessibility bus: %s", error.message);
+      if (!g_getenv("SSH_CONNECTION"))
+        g_warning ("Couldn't connect to accessibility bus: %s", error.message);
       dbus_error_free (&error);
       return NULL;
     }
