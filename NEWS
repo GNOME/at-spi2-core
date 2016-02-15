@@ -1,3 +1,7 @@
+What's new in at-spi2-atk 2.19.90:
+
+* ALways accept connections as root if unable to find an owning user.
+
 What's new in at-spi2-atk 2.19.2:
 
 * Test fixes for atk-adaptor and cache changes.
