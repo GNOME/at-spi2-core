@@ -1,3 +1,20 @@
+Changes in version 2.19.90:
+===========================
+*
+* Bug 755548: atktablecell: use content of the pointer instead of
+  pointer itself
+* Bug 760323: Use upstream gettext intead glib-gettext
+* Build/MSVC/win32 improvements:
+  * Makefile-newvs.am: Update Comments for Usage
+  * Make Makefile.msvcproj A Bit More Generic
+  * Fix build/win32/vs10/atk-install.vcxproj
+
+Contributors:
+Chun-wei Fan, Javier Jardón, Alejandro Piñeiro Iglesias
+
+Translations:
+Aurimas Černius(lt), Trần Ngọc Quân (vi), Kristjan SCHMIDT (eo)
+
 Changes in version 2.18.0:
 ===========================
 *
