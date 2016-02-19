@@ -84,20 +84,6 @@ atk_registry_class_init (AtkRegistryClass *klass)
   object_class->finalize = atk_registry_finalize;
 }
 
-#if 0
-/*
- * Cannot define a class_finalize function when calling
- * g_type_register_static()
- */
-static void
-atk_registry_class_finalize (GObjectClass *klass)
-{
-  g_return_if_fail (ATK_IS_REGISTRY_CLASS (klass));
-
-  g_object_unref (G_OBJECT (default_registry));
-}
-#endif
-
 static void
 atk_registry_init (AtkRegistry *instance, AtkRegistryClass *klass)
 {
