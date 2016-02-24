@@ -62,6 +62,45 @@
 
 /*---------------------------------------------------------------------------*/
 
+static const char *
+get_toolkit_name (AtkObject *obj)
+{
+  static const char *toolkit_name = NULL;
+
+  if (!toolkit_name)
+    toolkit_name = atk_get_toolkit_name ();
+
+  /* TODO: query object attributes */
+  return toolkit_name;
+}
+
+static gboolean
+should_call_index_in_parent (AtkObject *obj, AtkStateSet *set)
+{
+  if (atk_state_set_contains_state (set, ATK_STATE_TRANSIENT))
+    return FALSE;
+
+  if (!strcmp (get_toolkit_name (obj), "gtk") &&
+      atk_object_get_role (obj) == ATK_ROLE_MENU_ITEM)
+    return FALSE;
+
+  return TRUE;
+}
+
+static gboolean
+should_cache_children (AtkObject *obj, AtkStateSet *set)
+{
+  if (atk_state_set_contains_state (set, ATK_STATE_MANAGES_DESCENDANTS) ||
+      atk_state_set_contains_state (set, ATK_STATE_DEFUNCT))
+    return FALSE;
+
+  if (!strcmp (get_toolkit_name (obj), "gtk") &&
+      atk_object_get_role (obj) == ATK_ROLE_MENU)
+    return FALSE;
+
+  return TRUE;
+}
+
 /*
  * Marshals the given AtkObject into the provided D-Bus iterator.
  *
@@ -139,14 +178,14 @@ append_cache_item (AtkObject * obj, gpointer data)
     }
 
   /* Marshal index in parent */
-  index = (atk_state_set_contains_state (set, ATK_STATE_TRANSIENT)
-           ? -1 : atk_object_get_index_in_parent (obj));
+  index = (should_call_index_in_parent (obj, set)
+           ? atk_object_get_index_in_parent (obj) : -1);
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32, &index);
 
   /* marshal child count */
-  count = (atk_state_set_contains_state (set, ATK_STATE_MANAGES_DESCENDANTS) ||
-           atk_state_set_contains_state (set, ATK_STATE_DEFUNCT))
-           ? -1 : atk_object_get_n_accessible_children (obj);
+  count = (should_cache_children (obj, set)
+           ? atk_object_get_n_accessible_children (obj) : -1);
+
   if (ATK_IS_SOCKET (obj) && atk_socket_is_occupied (ATK_SOCKET (obj)))
     count = 1;
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32, &count);
