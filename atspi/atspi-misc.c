@@ -201,7 +201,8 @@ handle_get_bus_address (DBusPendingCall *pending, void *user_data)
       }
       else
       {
-        g_warning ("Unable to open bus connection: %s", error.message);
+        if (!strcmp (error.name, DBUS_ERROR_FILE_NOT_FOUND))
+          g_warning ("Unable to open bus connection: %s", error.message);
         dbus_error_free (&error);
       }
     }
@@ -529,9 +530,16 @@ handle_get_items (DBusPendingCall *pending, void *user_data)
   {
     const char *sender = dbus_message_get_sender (reply);
     const char *error = NULL;
-    dbus_message_get_args (reply, NULL, DBUS_TYPE_STRING, &error,
-                           DBUS_TYPE_INVALID);
-    g_warning ("AT-SPI: Error in GetItems, sender=%s, error=%s", sender, error);
+    if (!strcmp (dbus_message_get_error_name (reply),
+                 DBUS_ERROR_SERVICE_UNKNOWN))
+    {
+    }
+    else
+    {
+      dbus_message_get_args (reply, NULL, DBUS_TYPE_STRING, &error,
+                             DBUS_TYPE_INVALID);
+      g_warning ("AT-SPI: Error in GetItems, sender=%s, error=%s", sender, error);
+    }
     dbus_message_unref (reply);
     dbus_pending_call_unref (pending);
     return;
