@@ -1,3 +1,7 @@
+What's new in at-spi2-atk 2.19.91:
+
+* Avoid lagging with large gtk menus (bgo#754048).
+
 What's new in at-spi2-atk 2.19.90:
 
 * Always accept connections as root if unable to find an owning user.
