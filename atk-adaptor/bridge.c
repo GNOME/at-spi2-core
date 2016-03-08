@@ -873,16 +873,20 @@ spi_atk_create_socket (SpiBridge *app)
 #ifndef DISABLE_P2P
   DBusServer *server;
   DBusError error;
+  const gchar *user_runtime_dir = g_get_user_runtime_dir ();
+
+  if (g_mkdir_with_parents (user_runtime_dir, 0700) != 0)
+    return -1;
 
   if (getuid () != 0)
   {
-    app->app_tmp_dir = g_build_filename (g_get_user_runtime_dir (),
+    app->app_tmp_dir = g_build_filename (user_runtime_dir,
                                          "at-spi2-XXXXXX", NULL);
     if (!g_mkdtemp (app->app_tmp_dir))
     {
       g_free (app->app_tmp_dir);
       app->app_tmp_dir = NULL;
-      return FALSE;
+      return -1;
     }
   }
 
@@ -890,7 +894,7 @@ spi_atk_create_socket (SpiBridge *app)
     app->app_bus_addr = g_strdup_printf ("unix:path=%s/socket", app->app_tmp_dir);
   else
     app->app_bus_addr = g_strdup_printf ("unix:path=%s/at-spi2-socket-%d",
-                                         g_get_user_runtime_dir (), getpid ());
+                                         user_runtime_dir, getpid ());
 
   if (!spi_global_app_data->app_bus_addr)
     return -1;
