@@ -902,8 +902,6 @@ spi_atk_create_socket (SpiBridge *app)
     g_warning ("atk-bridge: Couldn't listen on dbus server: %s", error.message);
     dbus_error_free (&error);
     spi_global_app_data->app_bus_addr [0] = '\0';
-    g_main_context_unref (spi_global_app_data->main_context);
-    spi_global_app_data->main_context = NULL;
     return -1;
   }
 
