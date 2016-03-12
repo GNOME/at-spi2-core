@@ -272,11 +272,17 @@ ensure_a11y_bus (A11yBusLauncher *app)
   char *argv[] = { DBUS_DAEMON, NULL, "--nofork", "--print-address", "3", NULL };
   char addr_buf[2048];
   GError *error = NULL;
+  const char *config_path = NULL;
 
   if (app->a11y_bus_pid != 0)
     return FALSE;
-  
-  argv[1] = g_strdup_printf ("--config-file=%s/at-spi2/accessibility.conf", SYSCONFDIR);
+
+  if (g_file_test (SYSCONFDIR"/at-spi2/accessibility.conf", G_FILE_TEST_EXISTS))
+      config_path = "--config-file="SYSCONFDIR"/at-spi2/accessibility.conf";
+  else
+      config_path = "--config-file="DATADIR"/defaults/at-spi2/accessibility.conf";
+
+  argv[1] = config_path;
 
   if (pipe (app->pipefd) < 0)
     g_error ("Failed to create pipe: %s", strerror (errno));

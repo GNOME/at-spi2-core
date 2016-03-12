@@ -1,11 +1,12 @@
 CLEANFILES=
 
-busconfigdir = $(sysconfdir)/at-spi2
+busconfigdir = $(datadir)/defaults/at-spi2
 busconfig_DATA = accessibility.conf
 
 libexec_PROGRAMS = at-spi-bus-launcher
 at_spi_bus_launcher_SOURCES = at-spi-bus-launcher.c
 at_spi_bus_launcher_CPPFLAGS = -DSYSCONFDIR=\"$(sysconfdir)\" \
+                               -DDATADIR=\"$(datadir)\" \
                                -DDBUS_DAEMON=\"$(DBUS_DAEMON)\"
 at_spi_bus_launcher_CFLAGS = $(GIO_CFLAGS)
 at_spi_bus_launcher_LDADD = $(GIO_LIBS) $(X_LIBS)
