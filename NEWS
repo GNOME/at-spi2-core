@@ -1,3 +1,10 @@
+What's new in at-spi2-atk 2.19.92:
+
+* Don't drop the main context when p2p socket configuration fails
+  (bgo#763273).
+
+* Make sure the runtime directory exists (bgo#763274).
+
 What's new in at-spi2-atk 2.19.91:
 
 * Avoid lagging with large gtk menus (bgo#754048).
