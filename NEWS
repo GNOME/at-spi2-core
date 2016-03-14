@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.19.92:
+
+* Support a stateless configuration by default (bgo#763540).
+
 What's new in at-spi2-core 2.19.91:
 
 * Don't display warnings when connecting to an app that no longer exists.
