@@ -1,3 +1,20 @@
+Changes in version 2.19.92:
+===========================
+*
+* Build improvements:
+   * Bug 763212: Fix gettext domain after recent changes
+   * Fix builddir ≠ srcdir in autogen.sh
+   * MSVC builds: Re-arrange include paths
+* Cleaning:
+   * atkregistry: remove code not being compiled
+
+Contributors:
+Chun-wei Fan, Kalev Lember, Alejandro Piñeiro Iglesias, Philip
+Withnall
+
+Translations:
+Anders Jonsson (sv), Cédric Valmary (oc)
+
 Changes in version 2.19.90:
 ===========================
 *
