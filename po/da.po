@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-19 22:26+0100\n"
-"PO-Revision-Date: 2014-03-18 13:47+0100\n"
+"POT-Creation-Date: 2016-03-20 04:46+0100\n"
+"PO-Revision-Date: 2016-03-20 04:45+0100\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -21,35 +21,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: ../atk/atkhyperlink.c:128
+#: ../atk/atkhyperlink.c:126
 msgid "Selected Link"
 msgstr "Valgt henvisning"
 
-#: ../atk/atkhyperlink.c:129
+#: ../atk/atkhyperlink.c:127
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr "Angiver om AtkHyperlink-objektet er valgt"
 
-#: ../atk/atkhyperlink.c:135
+#: ../atk/atkhyperlink.c:133
 msgid "Number of Anchors"
 msgstr "Antal ankre"
 
-#: ../atk/atkhyperlink.c:136
+#: ../atk/atkhyperlink.c:134
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr "Antallet af ankre der er associeret med AtkHyperlink-objektet"
 
-#: ../atk/atkhyperlink.c:144
+#: ../atk/atkhyperlink.c:142
 msgid "End index"
 msgstr "Slutindeks"
 
-#: ../atk/atkhyperlink.c:145
+#: ../atk/atkhyperlink.c:143
 msgid "The end index of the AtkHyperlink object"
 msgstr "Slutindeks for AtkHyperlink-objektet"
 
-#: ../atk/atkhyperlink.c:153
+#: ../atk/atkhyperlink.c:151
 msgid "Start index"
 msgstr "Startindeks"
 
-#: ../atk/atkhyperlink.c:154
+#: ../atk/atkhyperlink.c:152
 msgid "The start index of the AtkHyperlink object"
 msgstr "Startindeks for AtkHyperlink-objektet"
 
@@ -200,11 +200,11 @@ msgstr "indstillingspanel"
 
 #: ../atk/atkobject.c:134
 msgid "page tab"
-msgstr "sidefane"
+msgstr "sidefaneblad"
 
 #: ../atk/atkobject.c:135
 msgid "page tab list"
-msgstr "sidefaneliste"
+msgstr "sidefanebladsliste"
 
 #: ../atk/atkobject.c:136
 msgid "panel"
@@ -265,7 +265,7 @@ msgstr "delt panel"
 # dækker betydningen
 #: ../atk/atkobject.c:150
 msgid "spin button"
-msgstr "talindtastning"
+msgstr "rulleknap"
 
 #: ../atk/atkobject.c:151
 msgid "statusbar"
