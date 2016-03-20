@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-20 04:46+0100\n"
-"PO-Revision-Date: 2016-03-20 04:45+0100\n"
+"POT-Creation-Date: 2016-03-20 23:01+0100\n"
+"PO-Revision-Date: 2016-03-20 22:03+0100\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -119,7 +119,7 @@ msgstr "opkald"
 
 #: ../atk/atkobject.c:113
 msgid "dialog"
-msgstr "vindue"
+msgstr "dialog"
 
 #: ../atk/atkobject.c:114
 msgid "directory pane"
@@ -433,7 +433,7 @@ msgstr "dokumentweb"
 
 #: ../atk/atkobject.c:192
 msgid "document email"
-msgstr "dokument-e-post"
+msgstr "dokument-e-mail"
 
 #: ../atk/atkobject.c:193
 msgid "comment"
