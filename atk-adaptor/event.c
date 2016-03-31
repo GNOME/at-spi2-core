@@ -689,11 +689,9 @@ do_debug_thing (AtkObject *accessible)
     parent = atk_object_get_parent (accessible);
     if (!ATK_IS_COMPONENT (accessible))
     {
-      g_print ("%s isn't a component\n", g_type_name_from_instance(accessible));
     return;
   }
     atk_component_get_extents (ATK_COMPONENT (accessible), &x, &y, &width, &height, ATK_XY_SCREEN);
-    g_print ("extents for %s (%s): %d %d %d %d\n", atk_object_get_name(accessible), g_type_name_from_instance(accessible), x, y, width, height);
     accessible = parent;
   } while (accessible);
 }
