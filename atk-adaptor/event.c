@@ -388,7 +388,7 @@ signal_is_needed (AtkObject *obj, const gchar *klass, const gchar *major,
   if (!spi_global_app_data->events_initialized)
     return TRUE;
 
-  data [0] = ensure_proper_format (klass + 21);
+  data [0] = ensure_proper_format (klass[0] ? klass + 21 : klass);
   data [1] = ensure_proper_format (major);
   data [2] = ensure_proper_format (minor);
   data [3] = NULL;
