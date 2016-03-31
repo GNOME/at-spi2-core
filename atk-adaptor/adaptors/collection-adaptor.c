@@ -1180,8 +1180,8 @@ types_match (DBusMessageIter *iter, char c)
 
   if (t == 'r' && c == '(')
     return TRUE;
-  else if (t != c)
-    return FALSE;
+  else
+    return (t == c);
 }
 
 static void
