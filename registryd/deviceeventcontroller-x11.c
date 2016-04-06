@@ -1165,8 +1165,6 @@ spi_dec_x11_synth_keystring (SpiDEController *controller, guint synth_type, gint
 	const gchar *c;
 	KeySym keysym;
 
-	maxlen = strlen (keystring) + 1;
-	keysyms = g_new0 (KeySym, maxlen);
 	if (!(keystring && *keystring && g_utf8_validate (keystring, -1, &c))) { 
 		retval = FALSE;
 	} 
@@ -1174,6 +1172,9 @@ spi_dec_x11_synth_keystring (SpiDEController *controller, guint synth_type, gint
 #ifdef SPI_DEBUG
 		fprintf (stderr, "[keystring synthesis attempted on %s]\n", keystring);
 #endif
+		maxlen = strlen (keystring) + 1;
+		keysyms = g_new0 (KeySym, maxlen);
+
 		while (keystring && (unichar = g_utf8_get_char (keystring))) {
 			char bytes[6];
 			gint mbytes;
@@ -1207,8 +1208,9 @@ spi_dec_x11_synth_keystring (SpiDEController *controller, guint synth_type, gint
 			}
 		}
 		XSynchronize (spi_get_display (), FALSE);
+
+		g_free (keysyms);
 	}
-	g_free (keysyms);
 
 	if (synth_type == Accessibility_KEY_SYM) {
 		keysym = keycode;
