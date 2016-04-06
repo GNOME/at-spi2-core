@@ -1006,6 +1006,9 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   if (e.source == NULL)
   {
     g_warning ("Got no valid source accessible for signal for signal %s from interface %s\n", member, category);
+    g_free (converted_type);
+    g_free (name);
+    g_free (detail);
     return DBUS_HANDLER_RESULT_HANDLED;
   }
 
