@@ -653,10 +653,10 @@ atk_text_get_caret_offset (AtkText *text)
  * atk_text_get_character_extents:
  * @text: an #AtkText
  * @offset: The offset of the text character for which bounding information is required.
- * @x: Pointer for the x cordinate of the bounding box
- * @y: Pointer for the y cordinate of the bounding box
- * @width: Pointer for the width of the bounding box
- * @height: Pointer for the height of the bounding box
+ * @x: (out) (optional): Pointer for the x cordinate of the bounding box
+ * @y: (out) (optional): Pointer for the y cordinate of the bounding box
+ * @width: (out) (optional): Pointer for the width of the bounding box
+ * @height: (out) (optional): Pointer for the height of the bounding box
  * @coords: specify whether coordinates are relative to the screen or widget window 
  *
  * Get the bounding box containing the glyph representing the character at 
@@ -1053,7 +1053,7 @@ atk_text_set_caret_offset (AtkText *text,
  * @end_offset: The offset of the text character after the last character 
  *        for which boundary information is required.
  * @coord_type: Specify whether coordinates are relative to the screen or widget window.
- * @rect: A pointer to a AtkTextRectangle which is filled in by this function.
+ * @rect: (out): A pointer to a AtkTextRectangle which is filled in by this function.
  *
  * Get the bounding box for text within the specified range.
  *

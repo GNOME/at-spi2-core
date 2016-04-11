@@ -91,8 +91,8 @@ atk_image_get_image_description (AtkImage *image)
 /**
  * atk_image_get_image_size:
  * @image: a #GObject instance that implements AtkImageIface
- * @width: filled with the image width, or -1 if the value cannot be obtained.
- * @height: filled with the image height, or -1 if the value cannot be obtained.
+ * @width: (out) (optional): filled with the image width, or -1 if the value cannot be obtained.
+ * @height: (out) (optional): filled with the image height, or -1 if the value cannot be obtained.
  *
  * Get the width and height in pixels for the specified image.
  * The values of @width and @height are returned as -1 if the
@@ -164,8 +164,8 @@ atk_image_set_image_description (AtkImage        *image,
 /**
  * atk_image_get_image_position:
  * @image: a #GObject instance that implements AtkImageIface
- * @x: address of #gint to put x coordinate position; otherwise, -1 if value cannot be obtained.
- * @y: address of #gint to put y coordinate position; otherwise, -1 if value cannot be obtained.
+ * @x: (out) (optional): address of #gint to put x coordinate position; otherwise, -1 if value cannot be obtained.
+ * @y: (out) (optional): address of #gint to put y coordinate position; otherwise, -1 if value cannot be obtained.
  * @coord_type: specifies whether the coordinates are relative to the screen
  * or to the components top level window
  * 

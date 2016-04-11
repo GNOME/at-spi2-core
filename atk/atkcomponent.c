@@ -249,10 +249,10 @@ atk_component_ref_accessible_at_point (AtkComponent    *component,
 /**
  * atk_component_get_extents:
  * @component: an #AtkComponent
- * @x: address of #gint to put x coordinate
- * @y: address of #gint to put y coordinate
- * @width: address of #gint to put width
- * @height: address of #gint to put height
+ * @x: (out) (optional): address of #gint to put x coordinate
+ * @y: (out) (optional): address of #gint to put y coordinate
+ * @width: (out) (optional): address of #gint to put width
+ * @height: (out) (optional): address of #gint to put height
  * @coord_type: specifies whether the coordinates are relative to the screen
  * or to the components top level window
  *
@@ -299,8 +299,8 @@ atk_component_get_extents    (AtkComponent    *component,
 /**
  * atk_component_get_position:
  * @component: an #AtkComponent
- * @x: address of #gint to put x coordinate position
- * @y: address of #gint to put y coordinate position
+ * @x: (out) (optional): address of #gint to put x coordinate position
+ * @y: (out) (optional): address of #gint to put y coordinate position
  * @coord_type: specifies whether the coordinates are relative to the screen
  * or to the components top level window
  *
@@ -339,8 +339,8 @@ atk_component_get_position   (AtkComponent    *component,
 /**
  * atk_component_get_size:
  * @component: an #AtkComponent
- * @width: address of #gint to put width of @component
- * @height: address of #gint to put height of @component
+ * @width: (out) (optional): address of #gint to put width of @component
+ * @height: (out) (optional): address of #gint to put height of @component
  *
  * Gets the size of the @component in terms of width and height.
  *

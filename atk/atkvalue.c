@@ -363,7 +363,7 @@ atk_value_base_init (AtkValueIface *class)
 /**
  * atk_value_get_current_value:
  * @obj: a GObject instance that implements AtkValueIface
- * @value: a #GValue representing the current accessible value
+ * @value: (out): a #GValue representing the current accessible value
  *
  * Gets the value of this object.
  *
@@ -395,7 +395,7 @@ atk_value_get_current_value (AtkValue *obj,
 /**
  * atk_value_get_maximum_value:
  * @obj: a GObject instance that implements AtkValueIface
- * @value: a #GValue representing the maximum accessible value
+ * @value: (out): a #GValue representing the maximum accessible value
  *
  * Gets the maximum value of this object.
  *
@@ -426,7 +426,7 @@ atk_value_get_maximum_value  (AtkValue *obj,
 /**
  * atk_value_get_minimum_value:
  * @obj: a GObject instance that implements AtkValueIface
- * @value: a #GValue representing the minimum accessible value
+ * @value: (out): a #GValue representing the minimum accessible value
  *
  * Gets the minimum value of this object.
  *
@@ -457,7 +457,7 @@ atk_value_get_minimum_value (AtkValue *obj,
 /**
  * atk_value_get_minimum_increment:
  * @obj: a GObject instance that implements AtkValueIface
- * @value: a #GValue representing the minimum increment by which the accessible value may be changed
+ * @value: (out): a #GValue representing the minimum increment by which the accessible value may be changed
  *
  * Gets the minimum increment by which the value of this object may be changed.  If zero,
  * the minimum increment is undefined, which may mean that it is limited only by the 
@@ -707,7 +707,7 @@ initialize_value_type_names ()
 
 /**
  * atk_value_type_get_name:
- * @role: The #AtkValueType whose name is required
+ * @value_type: The #AtkValueType whose name is required
  *
  * Gets the description string describing the #AtkValueType @value_type.
  *
