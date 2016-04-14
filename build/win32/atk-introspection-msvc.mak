@@ -31,4 +31,3 @@ all:
 clean:
 	@-del /f/q Atk-$(APIVERSION).typelib
 	@-del /f/q Atk-$(APIVERSION).gir
-	@-del /f/q *.pyc
