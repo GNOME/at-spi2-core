@@ -723,10 +723,10 @@ main (int    argc,
     {
       if (!strcmp (argv[i], "--launch-immediately"))
         _global_app->launch_immediately = TRUE;
-      else if (sscanf (argv[i], "--a11y=%d", &_global_app->a11y_enabled) == 2)
+      else if (sscanf (argv[i], "--a11y=%d", &_global_app->a11y_enabled) == 1)
         a11y_set = TRUE;
       else if (sscanf (argv[i], "--screen-reader=%d",
-                       &_global_app->screen_reader_enabled) == 2)
+                       &_global_app->screen_reader_enabled) == 1)
         screen_reader_set = TRUE;
     else
       g_error ("usage: %s [--launch-immediately] [--a11y=0|1] [--screen-reader=0|1]", argv[0]);
