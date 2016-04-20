@@ -40,7 +40,7 @@
 			DeleteExtensionsOnClean=""
 			>
 			<Tool
-				Name="VCPreBuildEventTool"
+				Name="VCPostBuildEventTool"
 				CommandLine="$(AtkDoInstall)"
 			/>
 		</Configuration>
@@ -68,7 +68,7 @@
 			DeleteExtensionsOnClean=""
 			>
 			<Tool
-				Name="VCPreBuildEventTool"
+				Name="VCPostBuildEventTool"
 				CommandLine="$(AtkDoInstall)"
 			/>
 		</Configuration>
