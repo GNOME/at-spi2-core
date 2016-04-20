@@ -30,4 +30,7 @@ EXTRA_DIST =	\
 	detectenv-msvc.mak	\
 	introspection-msvc.mak	\
 	atk-introspection-msvc.mak	\
+	atkpc.py	\
+	pc_base.py	\
+	replace.py	\
 	$(GENERATED_ITEMS)

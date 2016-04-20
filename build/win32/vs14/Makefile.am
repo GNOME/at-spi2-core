@@ -4,6 +4,7 @@ EXTRA_DIST = \
 	atk.vcxproj \
 	atk.vcxproj.filters \
 	atk-install.vcxproj	\
+	atk-install.vcxproj.filters	\
 	atk-build-defines.props	\
 	atk-install.props	\
 	atk-version-paths.props	\

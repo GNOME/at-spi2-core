@@ -14,6 +14,8 @@
     <AtkSeparateVSDllSuffix>-1-vs$(VSVer)</AtkSeparateVSDllSuffix>
     <AtkDllPrefix>$(AtkSeparateVSDllPrefix)</AtkDllPrefix>
     <AtkDllSuffix>$(AtkSeparateVSDllSuffix)</AtkDllSuffix>
+    <PythonPath>c:\python34</PythonPath>
+    <PythonPathX64>$(PythonPath).x64</PythonPathX64>
   </PropertyGroup>
   <PropertyGroup>
     <_PropertySheetDisplayName>atkversionpathsprops</_PropertySheetDisplayName>
@@ -54,6 +56,12 @@
     </BuildMacro>
     <BuildMacro Include="AtkDllSuffix">
       <Value>$(AtkDllSuffix)</Value>
+    </BuildMacro>
+    <BuildMacro Include="PythonPath">
+      <Value>$(PythonPath)</Value>
+    </BuildMacro>
+    <BuildMacro Include="PythonPathX64">
+      <Value>$(PythonPathX64)</Value>
     </BuildMacro>
   </ItemGroup>
 </Project>

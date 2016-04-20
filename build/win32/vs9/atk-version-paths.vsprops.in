@@ -58,4 +58,12 @@
 		Name="AtkDllSuffix"
 		Value="$(AtkSeparateVSDllSuffix)"
 	/>
+	<UserMacro
+		Name="PythonPath"
+		Value="c:\python27"
+	/>
+	<UserMacro
+		Name="PythonPathX64"
+		Value="$(PythonPath).x64"
+	/>
 </VisualStudioPropertySheet>

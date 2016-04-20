@@ -87,17 +87,35 @@
   <ItemGroup>
     <CustomBuild Include="..\..\..\config.h.win32">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Installing Build Results...</Message>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(AtkPCFiles)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(AtkDoInstall)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(InstalledDlls);%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Installing Build Results...</Message>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(AtkPCFiles)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(AtkDoInstall)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(InstalledDlls);%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Installing Build Results...</Message>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(AtkPCFiles)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(AtkDoInstall)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(InstalledDlls);%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Installing Build Results...</Message>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(AtkPCFiles)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(AtkDoInstall)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(InstalledDlls);%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\atk.pc.in">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Generating atk.pc...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(AtkGenPC)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(AtkPCFiles);%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating atk.pc...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(AtkGenPCX64)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(AtkPCFiles);%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Generating atk.pc...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(AtkGenPC)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(AtkPCFiles);%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating atk.pc...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(AtkGenPCX64)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(AtkPCFiles);%(Outputs)</Outputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
