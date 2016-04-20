@@ -257,7 +257,9 @@ tests/Makefile
 build/Makefile
 build/win32/Makefile
 build/win32/vs9/Makefile
+build/win32/vs9/atk-version-paths.vsprops
 build/win32/vs10/Makefile
+build/win32/vs10/atk-version-paths.props
 build/win32/vs11/Makefile
 build/win32/vs12/Makefile
 build/win32/vs14/Makefile

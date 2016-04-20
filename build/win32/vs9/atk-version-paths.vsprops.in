@@ -9,20 +9,28 @@
 		Value="9"
 	/>
 	<UserMacro
+		Name="ApiVersion"
+		Value="1.0"
+	/>
+	<UserMacro
+		Name="AtkMajorVersion"
+		Value="@ATK_MAJOR_VERSION@"
+	/>
+	<UserMacro
+		Name="AtkMinorVersion"
+		Value="@ATK_MINOR_VERSION@"
+	/>
+	<UserMacro
+		Name="AtkMicroVersion"
+		Value="@ATK_MICRO_VERSION@"
+	/>
+	<UserMacro
 		Name="GLibEtcInstallRoot"
 		Value="$(SolutionDir)\..\..\..\..\vs$(VSVER)\$(PlatformName)"
 	/>
 	<UserMacro
 		Name="CopyDir"
 		Value="$(GLibEtcInstallRoot)"
-	/>
-	<UserMacro
-		Name="DefDir"
-		Value="$(SolutionDir)$(ConfigurationName)\$(PlatformName)\obj\$(ProjectName)"
-	/>
-	<UserMacro
-		Name="ApiVersion"
-		Value="1.0"
 	/>
 	<UserMacro
 		Name="AtkLibtoolCompatibleDllPrefix"
