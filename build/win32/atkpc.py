@@ -17,7 +17,7 @@ def main(argv):
     base_pc = BasePCItems()
     
     base_pc.setup(argv)
-    pkg_replace_items = {'@GLIB_PACKAGES@': 'gobject-2.0,glib-2.0',
+    pkg_replace_items = {'@GLIB_PACKAGES@': 'gobject-2.0 glib-2.0',
                          '@ATK_API_VERSION@': '1.0'}
 
     pkg_replace_items.update(base_pc.base_replace_items)
