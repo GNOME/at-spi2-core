@@ -1,3 +1,13 @@
+What's new in at-spi2-core 2.21.1:
+
+* registryd: avoid crashing with a NULL keystring (bgo#764688).
+
+* Plug a memory leak in AtspiEventListener (bgo#764688).
+
+* Fix parsing of at-spi-bus-launcher command line arguments (bgo#765220).
+
+* Build clean-ups.
+
 What's new in at-spi2-core 2.19.92:
 
 * Support a stateless configuration by default (bgo#763540).
