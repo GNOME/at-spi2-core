@@ -1,0 +1,30 @@
+# Scottish Gaelic translation for at-spi2-core.
+# Copyright (C) 2016 at-spi2-core's COPYRIGHT HOLDER
+# This file is distributed under the same license as the at-spi2-core package.
+# GunChleoc <fios@foramnagaidhlig.net>, 2016.
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi2-core master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
+"spi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-04-28 02:57+0000\n"
+"PO-Revision-Date: 2016-04-28 14:53+0100\n"
+"Last-Translator: GunChleoc <fios@foramnagaidhlig.net>\n"
+"Language-Team: Fòram na Gàidhlig\n"
+"Language: gd\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
+"(n > 2 && n < 20) ? 2 : 3;\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Project-Style: gnome\n"
+
+#: ../atspi/atspi-component.c:326 ../atspi/atspi-misc.c:1072
+#: ../atspi/atspi-value.c:111
+msgid "The application no longer exists"
+msgstr "Chan eil an aplacaid seo ann tuilleadh"
+
+#: ../atspi/atspi-misc.c:1831
+msgid "Attempted synchronous call where prohibited"
+msgstr "Chaidh gairm shioncronaichte a dhiùltadh"
