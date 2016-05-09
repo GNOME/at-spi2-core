@@ -75,54 +75,56 @@ AC_ARG_ENABLE(x11,
                               [disable the X11 backend])],,
 			      [enable_x11=auto])
 
-if test x$no_x = xyes ; then
-	AC_MSG_WARN([X development libraries not found])
-  AM_CONDITIONAL(USE_X11, false)
-elif test x$enable_x11 = xauto; then
-	X_LIBS="$X_LIBS $X_PRE_LIBS -lX11 $X_EXTRA_LIBS"
-  AC_DEFINE(HAVE_X11, 1, [Define to use X11])
-  AM_CONDITIONAL(USE_X11, true)
+if test x$enable_x11 = xno; then
+	AM_CONDITIONAL(USE_X11, false)
+elif test x$no_x = xyes ; then
+	AC_MSG_ERROR([X development libraries not found])
 else
-  AM_CONDITIONAL(USE_X11, false)
-fi
-AC_SUBST(X_LIBS)
-AC_SUBST(HAVE_X11)
+	AM_CONDITIONAL(USE_X11, true)
+	X_LIBS="$X_LIBS $X_PRE_LIBS -lX11 $X_EXTRA_LIBS"
+	AC_SUBST(X_LIBS)
+	AC_DEFINE(HAVE_X11, 1, [Define to use X11])
+	AC_SUBST(HAVE_X11)
 
-save_LIBS="$LIBS"
-LIBS=""
-CPPFLAGS="$CPPFLAGS $X_CFLAGS"
-AC_CHECK_LIB(Xtst, XTestFakeKeyEvent, XTST_LIBS=-lXtst,[
-	AC_MSG_ERROR([Couldn't find the Xtst library. Check config.log])],
-	$X_LIBS)
-AC_SUBST(XTST_LIBS)
-LIBS="$LIBS $save_LIBS"
-
-save_LIBS="$LIBS"
-LIBS=""
-AC_CHECK_LIB(X11, XkbQueryExtension, have_xkb="maybe", have_xkb="no", $X_LIBS)
-if test "x$have_xkb" = "xmaybe"; then 
-	AC_CHECK_HEADER([X11/XKBlib.h], have_xkb=yes)
-fi
-if test "x$have_xkb" = "xyes"; then
-	AC_DEFINE([HAVE_XKB], [], [Xkb is present])
-fi
-LIBS="$LIBS $save_LIBS"
-
-save_LIBS="$LIBS"
-LIBS=""
-AC_CHECK_LIB(Xi, XOpenDevice, have_xinput="maybe", have_xinput="no", $X_LIBS)
-if test "x$have_xinput" = "xmaybe"; then
+	dnl Check for Xtst
 	save_LIBS="$LIBS"
-	LIBS="$LIBS $X_LIBS"
-	AC_CHECK_HEADER([X11/extensions/XInput.h], [have_xinput="yes"])
-	LIBS="$save_LIBS"
+	LIBS=""
+	CPPFLAGS="$CPPFLAGS $X_CFLAGS"
+	AC_CHECK_LIB(Xtst, XTestFakeKeyEvent, XTST_LIBS=-lXtst,[
+		AC_MSG_ERROR([Couldn't find the Xtst library. Check config.log])],
+		$X_LIBS)
+	AC_SUBST(XTST_LIBS)
+	LIBS="$LIBS $save_LIBS"
+
+	dnl Check for XkbQueryExtension
+	save_LIBS="$LIBS"
+	LIBS=""
+	AC_CHECK_LIB(X11, XkbQueryExtension, have_xkb="maybe", have_xkb="no", $X_LIBS)
+	if test "x$have_xkb" = "xmaybe"; then 
+		AC_CHECK_HEADER([X11/XKBlib.h], have_xkb=yes)
+	fi
+	if test "x$have_xkb" = "xyes"; then
+		AC_DEFINE([HAVE_XKB], [], [Xkb is present])
+	fi
+	LIBS="$LIBS $save_LIBS"
+
+	dnl Check for Xi
+	save_LIBS="$LIBS"
+	LIBS=""
+	AC_CHECK_LIB(Xi, XOpenDevice, have_xinput="maybe", have_xinput="no", $X_LIBS)
+	if test "x$have_xinput" = "xmaybe"; then
+		save_LIBS="$LIBS"
+		LIBS="$LIBS $X_LIBS"
+		AC_CHECK_HEADER([X11/extensions/XInput.h], [have_xinput="yes"])
+		LIBS="$save_LIBS"
+	fi
+	if test "x$have_xinput" != "xyes"; then
+		AC_MSG_ERROR([Couldn't find the XInput library. Check config.log for details])
+	fi
+	XINPUT_LIBS="-lXi"
+	AC_SUBST(XINPUT_LIBS)
+	LIBS="$LIBS $save_LIBS"
 fi
-if test "x$have_xinput" != "xyes"; then
-	AC_MSG_ERROR([Couldn't find the XInput library. Check config.log for details])
-fi
-XINPUT_LIBS="-lXi"
-AC_SUBST(XINPUT_LIBS)
-LIBS="$LIBS $save_LIBS"
 
 save_LIBS="$LIBS"
 LIBS=""
