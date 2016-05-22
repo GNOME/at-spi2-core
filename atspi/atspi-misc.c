@@ -606,12 +606,13 @@ ref_accessible_desktop (AtspiApplication *app)
     get_reference_from_iter (&iter_array, &app_name, &path);
     add_app_to_desktop (desktop, app_name);
   }
-  dbus_message_unref (reply);
 
   /* Record the alternate name as an alias for org.a11y.atspi.Registry */
   bus_name_dup = g_strdup (dbus_message_get_sender (reply));
   if (bus_name_dup)
     g_hash_table_insert (app_hash, bus_name_dup, app);
+
+  dbus_message_unref (reply);
 
   return g_object_ref (desktop);
 }
