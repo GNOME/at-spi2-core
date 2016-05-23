@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.21.2:
+
+* Allow building without Xtst, Xi with --disable-x11
+
+* ref_accessible_desktop: don't unref reply until we're finished with it
+
+* Updated translations.
+
 What's new in at-spi2-core 2.21.1:
 
 * registryd: avoid crashing with a NULL keystring (bgo#764688).
