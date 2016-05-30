@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: at-spi2-core master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
 "spi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-04-29 14:58+0000\n"
-"PO-Revision-Date: 2016-05-05 21:50+0200\n"
+"POT-Creation-Date: 2016-05-23 23:38+0000\n"
+"PO-Revision-Date: 2016-05-29 20:29+0200\n"
 "Last-Translator: Cédric Valmary (totenoc.eu) <cvalmary@yahoo.fr>\n"
 "Language-Team: Tot En Òc\n"
 "Language: oc\n"
@@ -21,11 +21,11 @@ msgstr ""
 "X-Generator: Virtaal 0.7.1\n"
 "X-Project-Style: gnome\n"
 
-#: ../atspi/atspi-component.c:326 ../atspi/atspi-misc.c:1072
+#: ../atspi/atspi-component.c:326 ../atspi/atspi-misc.c:1073
 #: ../atspi/atspi-value.c:111
 msgid "The application no longer exists"
 msgstr "L'aplicacion existís pas mai"
 
-#: ../atspi/atspi-misc.c:1831
+#: ../atspi/atspi-misc.c:1832
 msgid "Attempted synchronous call where prohibited"
 msgstr "La temptativa d'apèl sincròn es interdita"
