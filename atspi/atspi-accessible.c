@@ -1634,8 +1634,9 @@ atspi_accessible_clear_cache (AtspiAccessible *obj)
   if (obj)
   {
     obj->cached_properties = ATSPI_CACHE_NONE;
-    for (i = 0; i < obj->children->len; i++)
-      atspi_accessible_clear_cache (g_ptr_array_index (obj->children, i));
+    if (obj->children)
+      for (i = 0; i < obj->children->len; i++)
+        atspi_accessible_clear_cache (g_ptr_array_index (obj->children, i));
   }
 }
 
