@@ -389,7 +389,7 @@ handle_name_owner_changed (DBusConnection *bus, DBusMessage *message, void *user
   else if (app_hash)
   {
     AtspiApplication *app = g_hash_table_lookup (app_hash, old);
-    if (app)
+    if (app && !strcmp (app->bus_name, old))
       g_object_run_dispose (G_OBJECT (app));
   }
   return DBUS_HANDLER_RESULT_HANDLED;
