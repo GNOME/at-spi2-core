@@ -1,3 +1,9 @@
+What's new in at-spi2-atk 2.21.4:
+
+* emit_event: Fix out-of-bounds memory access if class is NULL.
+
+* Collection: fix missing return value (bgo#758934).
+
 What's new in at-spi2-atk 2.19.92:
 
 * Don't drop the main context when p2p socket configuration fails
