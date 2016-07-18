@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.21.4:
+
+* Fixed a crash in atspi_accessible_clear_cache.
+
+* Fixed a crash caused by at-spi2-registryd dying.
+
+* Fixed some session management issues in at-spi-bus-launcher.
+
 What's new in at-spi2-core 2.21.2:
 
 * Allow building without Xtst, Xi with --disable-x11
