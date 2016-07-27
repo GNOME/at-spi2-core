@@ -225,7 +225,7 @@ is_session_running_ready_cb (GObject      *source_object,
   A11yBusLauncher *app = user_data;
 	GVariant   *values;
 	GError     *error = NULL;
-        gboolean is_running;
+        gboolean is_running = FALSE;
 
 	proxy = G_DBUS_PROXY (source_object);
 	values = g_dbus_proxy_call_finish (proxy, res, &error);
