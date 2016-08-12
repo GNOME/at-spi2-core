@@ -1,3 +1,25 @@
+Changes in version 2.21.90
+==========================
+*
+* Bug 764883: Add some missing argument (out) annotations
+* Add Language headers to po files
+* MSVC/win32
+   * MSVC Builds: Add a Common Autotools Module for Introspection (Bug 764983)
+   * MSVC Builds: Generate the Introspection Build Commands (Bug 764983)
+   * Clean up atk-introspection-msvc.mak
+   * Visual Studio builds: Include version info in property sheets
+   * Visual Studio builds: Generate atk.pc
+   * Visual Studio 2008 builds: Ensure pc file is generated before "install"
+   * Visual Studio builds: Make .pc generation more flexible
+   * build/win32/pc_base.py: Allow custom options
+   * build/win32/atkpc.py: Fix dependent package string
+
+Contributors:
+Piotr Drąg, Chun-wei Fan, Rico Tzschichholz
+
+Translations:
+GNOME Translation Robot (gd), Cédric Valmary (oc)
+
 Changes in version 2.20.00:
 ===========================
 
