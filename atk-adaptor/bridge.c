@@ -987,8 +987,10 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
   if (inited && !load_bridge)
     g_warning ("ATK Bridge is disabled but a11y has already been enabled.");
 
-  if (inited || !load_bridge)
+  if (inited)
     return 0;
+  if (!load_bridge)
+    return -1;
 
   inited = TRUE;
 
