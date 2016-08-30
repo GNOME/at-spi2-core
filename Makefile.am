@@ -14,3 +14,4 @@ pkgconfig_DATA = atk-bridge-2.0.pc
 
 EXTRA_DIST = $(gtk_modules_DATA) atk-bridge-2.0.pc.in
 
+DISTCHECK_CONFIGURE_FLAGS = --with-tests=yes
