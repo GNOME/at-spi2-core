@@ -1,3 +1,14 @@
+Changes in version 2.22.0
+==========================
+*
+* Add more options to XGETTEXT_OPTIONS in po/Makevars
+
+Contributors:
+Piotr Drąg (po)
+
+Translations:
+Piotr Drąg (po), David King (en_GB)
+
 Changes in version 2.21.90
 ==========================
 *
