@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.2.0:
+
+* at-spi-bus-launcher: fix uninitialized variable.
+
+* Fix return value error in session_manager_connect (bgo#768881).
+
+* Updated translations.
+
 What's new in at-spi2-core 2.21.4:
 
 * Fixed a crash in atspi_accessible_clear_cache.
