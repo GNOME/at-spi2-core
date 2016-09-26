@@ -1,3 +1,8 @@
+What's new in at-spi2-atk 2.22.0:
+
+* Remove some inadverrtently-committed debugging code.
+
+What's new in at-spi2-atk 2.21.91:
 What's new in at-spi2-atk 2.21.91:
 
 * atk_bridge_adaptor_init: return -1 if NO_AT_BRIDGE is set (bgo#770574).
