@@ -370,7 +370,7 @@ atk_object_class_init (AtkObjectClass *klass)
                                    PROP_NAME,
                                    g_param_spec_string (atk_object_name_property_name,
                                                         _("Accessible Name"),
-                                                        _("Object instance\'s name formatted for assistive technology access"),
+                                                        _("Object instance’s name formatted for assistive technology access"),
                                                         NULL,
                                                         G_PARAM_READWRITE));
   g_object_class_install_property (gobject_class,
