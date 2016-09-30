@@ -64,7 +64,7 @@
 
   </chapter>
 
-  <chapter id="atkobject">
+  <chapter id="base-object">
     <title>Base accessibility object</title>
     &atk-AtkObject;
   </chapter>
