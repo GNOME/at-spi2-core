@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the at-spi2-core package.
 # Claude Paroz <claude@2xlibre.net>, 2011.
 # Cédric Valmary (Tot en òc) <cvalmary@yahoo.fr>, 2015.
+# Cédric VALMARY <cvalmary@yahoo.fr>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-core master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
 "spi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-02-18 15:55+0000\n"
-"PO-Revision-Date: 2015-05-24 10:44+0200\n"
-"Last-Translator: Cédric Valmary (Tot en òc) <cvalmary@yahoo.fr>\n"
+"POT-Creation-Date: 2016-05-19 14:55+0000\n"
+"PO-Revision-Date: 2016-10-03 09:52+0200\n"
+"Last-Translator: Cédric VALMARY <cvalmary@yahoo.fr>\n"
 "Language-Team: Tot en òc (totenoc.eu)\n"
 "Language: oc\n"
 "MIME-Version: 1.0\n"
@@ -20,11 +21,98 @@ msgstr ""
 "X-Generator: Virtaal 0.7.1\n"
 "X-Project-Style: gnome\n"
 
-#: ../atspi/atspi-component.c:326 ../atspi/atspi-misc.c:1064
-#: ../atspi/atspi-value.c:111
+#: ../atspi/atspi-misc.c:295
+#, c-format
+msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
+msgstr "AT-SPI : signatura %s desconeguda per RemoveAccessible"
+
+#: ../atspi/atspi-misc.c:332
+#, c-format
+msgid "AT-SPI: Error calling getRoot for %s: %s"
+msgstr "AT-SPI : error al moment de l'apèl a getRoot per %s : %s"
+
+#: ../atspi/atspi-misc.c:490
+#, c-format
+msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
+msgstr "AT-SPI : error dins GetItems, expeditor=%s, error=%s"
+
+#: ../atspi/atspi-misc.c:592
+#, c-format
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
+"signature %s"
+msgstr ""
+"AT-SPI : apèl a _atspi_dbus_return_accessible_from_message amb una signatura "
+"%s estranha"
+
+#: ../atspi/atspi-misc.c:621
+#, c-format
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
+"signature %s"
+msgstr ""
+"AT-SPI : apèl a _atspi_dbus_return_hyperlink_from_message amb una signatura %"
+"s estranha"
+
+#: ../atspi/atspi-misc.c:646
+#, c-format
+msgid "AT-SPI: AddAccessible with unknown signature %s\n"
+msgstr "AT-SPI : AddAccessible amb una signatura %s desconeguda\n"
+
+#: ../atspi/atspi-misc.c:938 ../atspi/atspi-misc.c:989
+#: ../atspi/atspi-misc.c:1031
 msgid "The application no longer exists"
 msgstr "L'aplicacion existís pas mai"
 
-#: ../atspi/atspi-misc.c:1823
-msgid "Attempted synchronous call where prohibited"
-msgstr "La temptativa d'apèl sincròn es interdicha"
+#: ../atspi/atspi-misc.c:1067
+#, c-format
+msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
+msgstr ""
+"AT-SPI : un tipe variant èra esperat al moment de l'obtencion de %s sus "
+"l'interfàcia %s ; %s obtengut\n"
+
+#: ../atspi/atspi-misc.c:1073
+#, c-format
+msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
+msgstr "atspi_dbus_get_property : tipe erronèu : %s esperat, %c obtengut\n"
+
+#: ../atspi/atspi-misc.c:1216
+#, c-format
+msgid "AT-SPI: Unknown interface %s"
+msgstr "AT-SPI : interfàcia %s desconeguda"
+
+#: ../atspi/atspi-misc.c:1236
+#, c-format
+msgid "AT-SPI: expected 2 values in states array; got %d\n"
+msgstr ""
+"AT-SPI : 2 valors èran esperadas dins lo tablèu « states » ; %d obtenguts\n"
+
+#: ../atspi/atspi-accessible.c:1060
+msgid "Streamable content not implemented"
+msgstr "Contengut de tipe flux non implementat"
+
+#: ../atspi/atspi-event-listener.c:510
+msgid ""
+"called atspi_event_listener_register_from_callback with a NULL event_type"
+msgstr ""
+"atspi_event_listener_register_from_callback apelat amb un event_type de "
+"valor NULL"
+
+#: ../atspi/atspi-event-listener.c:777
+#, c-format
+msgid "Got invalid signature %s for signal %s from interface %s\n"
+msgstr ""
+"Signatura %s invalida obtenguda pel senhal %s a partir de l'interfàcia %s\n"
+
+#~ msgid "AT-SPI: Could not get the display\n"
+#~ msgstr "AT-SPI : impossible d'accedir a l'afichatge\n"
+
+#~ msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
+#~ msgstr ""
+#~ "AT-SPI : bus d'accessibilitat introbable, utilizacion del bus de session.\n"
+
+#~ msgid "AT-SPI: Couldn't connect to bus: %s\n"
+#~ msgstr "AT-SPI : impossible de se connectar al bus : %s\n"
+
+#~ msgid "AT-SPI: Couldn't register with bus: %s\n"
+#~ msgstr "AT-SPI : impossible de s'enregistrar sul bus : %s\n"
