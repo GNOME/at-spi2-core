@@ -522,7 +522,7 @@ msgid "Accessible Name"
 msgstr "접근성 이름"
 
 #: ../atk/atkobject.c:402
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr "접근성 기술로 접근할 때 사용할 오브젝트 인스턴스의 이름"
 
 #: ../atk/atkobject.c:408

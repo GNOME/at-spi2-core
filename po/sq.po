@@ -413,7 +413,7 @@ msgid "Accessible Name"
 msgstr "Emri açesibël"
 
 #: ../atk/atkobject.c:489
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr ""
 "Emri i instancës së objektit i formatuar për të qenë i shfrytëzueshëm nga "
 "teknollogjitë asistuese"

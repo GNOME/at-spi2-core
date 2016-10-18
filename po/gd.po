@@ -529,7 +529,7 @@ msgid "Accessible Name"
 msgstr "Ainm so-ruigsinneach"
 
 #: ../atk/atkobject.c:373
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr ""
 "An t-ainm air ionstans an oibseict fòrmatadh a chum teicneolas so-"
 "ruigsinneachd"

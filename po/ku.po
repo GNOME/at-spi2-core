@@ -411,7 +411,7 @@ msgid "Accessible Name"
 msgstr "Navê Gihiştbar"
 
 #: atk/atkobject.c:489
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr ""
 "Navê hêmana bireserê, ji bo gihiştina teknolojiya alîkar hate teşekirin"
 

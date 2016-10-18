@@ -409,7 +409,7 @@ msgid "Accessible Name"
 msgstr "لاسرسی نوم"
 
 #: atk/atkobject.c:489
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr "د څيز د بېلګې نوم چې د مرستندويه ټېکنالوجۍ لاسرس لپاره بڼول شوې وي"
 
 #: atk/atkobject.c:495

@@ -472,7 +472,7 @@ msgid "Accessible Name"
 msgstr "ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದಾದ ಹೆಸರು"
 
 #: ../atk/atkobject.c:515
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr ""
 "ಸಹಾಯಕ ತಂತ್ರಜ್ಞಾನ ನಿಲುಕಣೆ(ಅಸ್ಸಿಸ್ಟಿವ್ ಟೆಕ್ನೊಲಜಿ ಅಕ್ಸೆಸ್) ಗೆ ಹೊಂದುವಂತೆ "
 "ಬದಲಾಯಿಸಲಾದ "

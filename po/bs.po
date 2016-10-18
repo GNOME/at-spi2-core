@@ -520,7 +520,7 @@ msgid "Accessible Name"
 msgstr "Dostupno ime"
 
 #: ../atk/atkobject.c:373
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr "Ime primjerka objekta je formatirano za dostup uz pomoćnu tehnologiju"
 
 #: ../atk/atkobject.c:379

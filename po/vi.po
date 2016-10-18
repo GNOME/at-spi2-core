@@ -530,7 +530,7 @@ msgid "Accessible Name"
 msgstr "Tên truy cập được"
 
 #: ../atk/atkobject.c:373
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr ""
 "Tên của thể hiện đối tượng được định dạng cho truy cập kĩ thuật để giúp đỡ"
 

@@ -553,7 +553,7 @@ msgid "Accessible Name"
 msgstr "Esteetön nimi"
 
 #: ../atk/atkobject.c:373
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr "Olion ilmentymän nimi muotoiltuna apuvälinesovelluksia varten"
 
 #: ../atk/atkobject.c:379

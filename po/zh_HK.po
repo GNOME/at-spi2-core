@@ -524,7 +524,7 @@ msgid "Accessible Name"
 msgstr "輔助鍵名稱"
 
 #: ../atk/atkobject.c:402
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr "已格式化的物件實體名稱，便於輔助技術存取"
 
 #: ../atk/atkobject.c:408

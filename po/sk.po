@@ -548,7 +548,7 @@ msgstr "Prístupný názov"
 
 # property blurb
 #: ../atk/atkobject.c:373
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr "Názov inštancie objektu naformátovaný pre prístupnosť cez zjednodušenie ovládania"
 
 # property name

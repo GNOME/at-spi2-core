@@ -483,7 +483,7 @@ msgid "Accessible Name"
 msgstr "அணுகக்கூடிய பெயர்"
 
 #: ../atk/atkobject.c:515
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr "தொழில்நுட்ப அணுகலுக்காக நிகழ்வின் பெயர் வடிவமைக்கப்பட்டது"
 
 #: ../atk/atkobject.c:521

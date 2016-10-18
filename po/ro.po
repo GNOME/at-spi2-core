@@ -405,7 +405,7 @@ msgid "Accessible Name"
 msgstr "Nume accesibil"
 
 #: atk/atkobject.c:489
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr "Numele instanței obiectului formatat pentru accesul asistat"
 
 #: atk/atkobject.c:495

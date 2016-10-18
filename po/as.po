@@ -533,7 +533,7 @@ msgid "Accessible Name"
 msgstr "অভিগম  নাম"
 
 #: ../atk/atkobject.c:373
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr ""
 "সহায়ক প্ৰযুক্তিবিদ্যাৰ অভিগম্যতাৰ বাবে অবজেক্ট উদাহৰণৰ নাম ফৰমেট কৰা হ'ল"
 

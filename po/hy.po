@@ -406,7 +406,7 @@ msgid "Accessible Name"
 msgstr "Մատչելիացված անուն"
 
 #: ../atk/atkobject.c:489
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr "Օբյեկտի օրինակի նկարագրություն, որն օգտագործվում է մատչելիացման տեխնոլոգիաների միջոցով հասանելիության համար"
 
 #: ../atk/atkobject.c:495

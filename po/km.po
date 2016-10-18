@@ -461,7 +461,7 @@ msgid "Accessible Name"
 msgstr "ឈ្មោះ​ដែល​អាច​ចូល​ដំណើរការ​បាន"
 
 #: ../atk/atkobject.c:515
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr ""
 "ឈ្មោះ​របស់​វត្ថុ​ត្រូវ​បាន​ធ្វើ​ទ្រង់ទ្រាយ​សម្រាប់​ការ​ចូលដំណើរការ​បច្ចេកទេស"
 "​ជា​ជំនួយ"

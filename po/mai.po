@@ -410,7 +410,7 @@ msgid "Accessible Name"
 msgstr "पँहुचयोग्य नाम"
 
 #: atk/atkobject.c:489
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr "असिस्टिव तकनॉलाज़ी पहुँच लेल फॉर्मेटेड ऑब्जेक्ट इंस्टैन्स क' नाम"
 
 #: atk/atkobject.c:495

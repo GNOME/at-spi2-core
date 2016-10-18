@@ -647,7 +647,7 @@ msgid "Accessible Name"
 msgstr "Nome accessibile"
 
 #: ../atk/atkobject.c:373
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr ""
 "Il nome dell'istanza dell'oggetto formattato per l'accesso tramite "
 "tecnologia assistiva"

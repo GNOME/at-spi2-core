@@ -418,7 +418,7 @@ msgid "Accessible Name"
 msgstr "Enw Hygyrchol"
 
 #: atk/atkobject.c:489
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr ""
 "Enw'r enghraifft gwrthrych wedi ei fformadu er mwyn ei ddefnyddio gyda "
 "technoleg hygyrchol"

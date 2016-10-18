@@ -462,7 +462,7 @@ msgid "Accessible Name"
 msgstr "アクセス可能な名前"
 
 #: ../atk/atkobject.c:438
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr "支援技術アクセス形式のオブジェクト・インスタンス名"
 
 #: ../atk/atkobject.c:444

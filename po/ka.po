@@ -410,7 +410,7 @@ msgid "Accessible Name"
 msgstr "დამხმარე სახელი"
 
 #: atk/atkobject.c:489
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr "ობიექტის დამხმარე ფსევდონიმი დამხმარე ტექნოლოგიებისთვის"
 
 #: atk/atkobject.c:495

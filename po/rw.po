@@ -594,7 +594,7 @@ msgstr ""
 
 #: atk/atkobject.c:489
 #, fuzzy
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr "Izina: Byahanaguwe kugirango"
 
 #: atk/atkobject.c:495

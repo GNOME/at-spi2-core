@@ -420,7 +420,7 @@ msgid "Accessible Name"
 msgstr "Toegankelijke naam"
 
 #: atk/atkobject.c:489
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr "Naam van dit object, speciaal opgemaakt voor toegankelijkstechnologie"
 
 #: atk/atkobject.c:495

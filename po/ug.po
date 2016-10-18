@@ -458,7 +458,7 @@ msgid "Accessible Name"
 msgstr "زىيارەتچان ئاتى"
 
 #: ../atk/atkobject.c:515
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr "نەڭ ئۈلگىسىنىڭ ئاتى ياردەمچى تېخنىكا زىيارىتى ئۈچۈن پىچىلغان"
 
 #: ../atk/atkobject.c:521

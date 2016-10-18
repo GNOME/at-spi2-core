@@ -543,7 +543,7 @@ msgid "Accessible Name"
 msgstr "Akadálymentes név"
 
 #: ../atk/atkobject.c:402
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr ""
 "Az objektumpéldány neve az akadálymentesítési technológiás hozzáféréshez "
 "formázva"

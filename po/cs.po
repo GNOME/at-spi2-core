@@ -531,7 +531,7 @@ msgid "Accessible Name"
 msgstr "Zpřístupněný název"
 
 #: ../atk/atkobject.c:402
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr ""
 "Název instance objektu formátovaný pro použití technologiemi zpřístupnění"
 

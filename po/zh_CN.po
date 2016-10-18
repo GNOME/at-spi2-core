@@ -532,7 +532,7 @@ msgid "Accessible Name"
 msgstr "容易理解的名称"
 
 #: ../atk/atkobject.c:402
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr "为辅助技术识别而格式化的对象实例名"
 
 #: ../atk/atkobject.c:408

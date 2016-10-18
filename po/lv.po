@@ -535,7 +535,7 @@ msgid "Accessible Name"
 msgstr "Pieejamais vārds"
 
 #: ../atk/atkobject.c:402
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr "Objekta instances nosaukums noformēts atbalsta tehnoloģiju pieejai"
 
 #: ../atk/atkobject.c:408

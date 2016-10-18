@@ -527,7 +527,7 @@ msgid "Accessible Name"
 msgstr "Izen erabilgarria"
 
 #: ../atk/atkobject.c:373
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr ""
 "Objektuaren instatziaren izena, erabilgarritasunaren laguntza-"
 "euskarriarentzako formateatuta"

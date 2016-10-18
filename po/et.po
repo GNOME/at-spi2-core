@@ -355,7 +355,7 @@ msgstr "inforiba"
 msgid "Accessible Name"
 msgstr "Kasutatav nimi"
 
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr "Objekti nimetus vormindatuna abistava tehnikaga kasutamiseks"
 
 msgid "Accessible Description"

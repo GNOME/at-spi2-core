@@ -478,7 +478,7 @@ msgid "Accessible Name"
 msgstr "પ્રાપ્ત થઇ શકે તેવુ નામ"
 
 #: ../atk/atkobject.c:515
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr "સહાયક તકનીકને પ્રાપ્ત કરવા માટે વસ્તુના નમૂનાના નામનુ બંધારણ કર્યુ"
 
 #: ../atk/atkobject.c:521

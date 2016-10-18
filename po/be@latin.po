@@ -410,7 +410,7 @@ msgid "Accessible Name"
 msgstr "Nazva abjektu dastupnaści"
 
 #: atk/atkobject.c:489
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr "Nazva ekzemplaru abjektu, farmatavanaja dla technalohii dastupnaści"
 
 #: atk/atkobject.c:495

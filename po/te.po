@@ -475,7 +475,7 @@ msgid "Accessible Name"
 msgstr "అందుబాటులోని పేరు"
 
 #: ../atk/atkobject.c:515
-msgid "Object instance's name formatted for assistive technology access"
+msgid "Object instance’s name formatted for assistive technology access"
 msgstr "సహాయక సాంకేతికత అందుబాటుకు ఆకృతీకరించబడిన వస్తువు యొక్క సంకేత పేరు"
 
 #: ../atk/atkobject.c:521
