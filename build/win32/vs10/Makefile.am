@@ -17,6 +17,9 @@ EXTRA_DIST =	\
 	$(GENERATED_ITEMS)
 
 atk-install.props: $(top_srcdir)/build/win32/vs10/atk-install.propsin atk.vs10.headers
+	-$(RM) $(top_builddir)/build/win32/vs11/atk-install.props
+	-$(RM) $(top_builddir)/build/win32/vs12/atk-install.props
+	-$(RM) $(top_builddir)/build/win32/vs14/atk-install.props
 	$(CPP) -P - <$(top_srcdir)/build/win32/vs10/atk-install.propsin >$@
 	rm atk.vs10.headers
 
