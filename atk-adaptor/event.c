@@ -398,10 +398,10 @@ signal_is_needed (AtkObject *obj, const gchar *klass, const gchar *major,
    * this instead, so that we don't send these if no one is listening */
   if (!g_strcmp0 (data [1], "ChildrenChanged") ||
       ((!g_strcmp0 (data [1], "PropertyChange")) &&
-       (!g_strcmp0 (data [2], "accessible-name") ||
-        !g_strcmp0 (data [2], "accessible-description") ||
-        !g_strcmp0 (data [2], "accessible-parent") ||
-        !g_strcmp0 (data [2], "accessible-role"))) ||
+       (!g_strcmp0 (data [2], "AccessibleName") ||
+        !g_strcmp0 (data [2], "AccessibleDescription") ||
+        !g_strcmp0 (data [2], "AccessibleParent") ||
+        !g_strcmp0 (data [2], "AccessibleRole"))) ||
       !g_strcmp0 (data [1], "StateChanged"))
   {
     if (minor && !g_strcmp0 (minor, "defunct"))
