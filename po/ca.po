@@ -78,7 +78,7 @@ msgstr "calendari"
 
 #: ../atk/atkobject.c:103
 msgid "canvas"
-msgstr "canvas"
+msgstr "llenç"
 
 #: ../atk/atkobject.c:104
 msgid "check box"
