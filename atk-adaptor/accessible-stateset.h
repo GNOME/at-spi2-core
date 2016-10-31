@@ -21,7 +21,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef ACCESSSIBLE_STATE_SET_H_
+#ifndef ACCESSIBLE_STATE_SET_H_
 #define ACCESSIBLE_STATE_SET_H_
 
 #include <atk/atkstateset.h>
