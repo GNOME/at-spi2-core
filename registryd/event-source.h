@@ -23,11 +23,13 @@
 #ifndef SPI_EVENT_SOURCE_H_
 #define SPI_EVENT_SOURCE_H_
 
+#ifdef HAVE_X11
 #include <X11/Xlib.h>
 
 void spi_events_init (Display *display);
+void spi_set_filter (void (*filter) (XEvent*, void*), void* data);
+#endif /* HAVE_X11 */
 void spi_events_uninit ();
 void spi_set_events (long event_mask);
-void spi_set_filter (void (*filter) (XEvent*, void*), void* data);
 
 #endif /* SPI_EVENT_SOURCE_H_ */
