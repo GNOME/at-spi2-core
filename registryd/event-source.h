@@ -23,6 +23,8 @@
 #ifndef SPI_EVENT_SOURCE_H_
 #define SPI_EVENT_SOURCE_H_
 
+#include <config.h>
+
 #ifdef HAVE_X11
 #include <X11/Xlib.h>
 
