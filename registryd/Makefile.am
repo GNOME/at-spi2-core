@@ -28,7 +28,7 @@ at_spi2_registryd_SOURCES =	\
 	de-marshaller.h         \
 	de-marshaller.c         \
 	de-types.h              \
-	keymasks.h              \
+	keymasks.h 		\
 	paths.h                 \
 	registry-main.c		\
 	registry.c		\
@@ -38,15 +38,15 @@ at_spi2_registryd_SOURCES =	\
 	deviceeventcontroller.c	\
 	deviceeventcontroller.h	\
 	reentrant-list.c	\
-	reentrant-list.h	\
-	ucs2keysym.c
+	reentrant-list.h
 
 X11_SOURCES = \
 	deviceeventcontroller-x11.c \
-	display.h		\
-	display.c		\
+	display.h \
+	display.c \
 	event-source.c \
-	event-source.h
+	event-source.h \
+	ucs2keysym.c
 
 if USE_X11
 at_spi2_registryd_SOURCES += $(X11_SOURCES)
