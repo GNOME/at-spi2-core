@@ -23,14 +23,12 @@
 #ifndef SPI_DISPLAY_H_
 #define SPI_DISPLAY_H_
 
-#if HAVE_X11
 #include <X11/Xlib.h>
 
 Display *spi_set_display (const char *display_name);
 Display *spi_get_display ();
 
 Window spi_get_root_window ();
-#endif /* HAVE_X11 */
 
 void spi_x_error_trap (void);
 int spi_x_error_release (void);

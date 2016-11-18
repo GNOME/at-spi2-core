@@ -634,7 +634,7 @@ handle_keygrab (SpiDEController         *controller,
   grab_mask.mod_mask = key_listener->mask;
   if (g_slist_length (key_listener->keys) == 0) /* special case means AnyKey/AllKeys */
     {
-      grab_mask.key_val = 0L;  /* AnyKey */
+      grab_mask.key_val = AnyKey;
 #ifdef SPI_DEBUG
       fprintf (stderr, "AnyKey grab!");
 #endif
@@ -1751,7 +1751,7 @@ impl_generate_keyboard_event (DBusConnection *bus, DBusMessage *message, void *u
 	       * in our arg list; it can contain either
 	       * a keycode or a keysym.
 	       */
-	      spi_dec_synth_keysym (controller, keycode);
+	      spi_dec_synth_keysym (controller, (KeySym) keycode);
 	      break;
       case Accessibility_KEY_STRING:
 	      if (!spi_dec_plat_synth_keystring (controller, synth_type, keycode, keystring))
