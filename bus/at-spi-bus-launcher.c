@@ -205,6 +205,17 @@ register_client (A11yBusLauncher *app)
 }
 
 static void
+name_appeared_handler (GDBusConnection *connection,
+                       const gchar     *name,
+                       const gchar     *name_owner,
+                       gpointer         user_data)
+{
+  A11yBusLauncher *app = user_data;
+
+  register_client (app);
+}
+
+static void
 setup_bus_child (gpointer data)
 {
   A11yBusLauncher *app = data;
@@ -588,9 +599,11 @@ on_name_acquired (GDBusConnection *connection,
                   const gchar     *name,
                   gpointer         user_data)
 {
-  A11yBusLauncher *app = user_data;
-
-  register_client (app);
+  g_bus_watch_name (G_BUS_TYPE_SESSION,
+                    "org.gnome.SessionManager",
+                    G_BUS_NAME_WATCHER_FLAGS_NONE,
+                    name_appeared_handler, NULL,
+                    user_data, NULL);
 }
 
 static int sigterm_pipefd[2];
