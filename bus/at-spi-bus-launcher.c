@@ -254,7 +254,7 @@ session_manager_connect (A11yBusLauncher *app)
       g_warning ("Failed to get session manager proxy: %s", error->message);
       g_error_free (error);
 
-      return FALSE;
+      return;
     }
  
         g_dbus_proxy_call (sm_proxy,
