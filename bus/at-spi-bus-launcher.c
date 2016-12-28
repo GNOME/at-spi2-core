@@ -61,11 +61,6 @@ typedef struct {
   char *a11y_launch_error_message;
 } A11yBusLauncher;
 
-#define SM_DBUS_NAME      "org.gnome.SessionManager"
-#define SM_DBUS_PATH      "/org/gnome/SessionManager"
-#define SM_DBUS_INTERFACE "org.gnome.SessionManager"
-
-#define SM_CLIENT_DBUS_INTERFACE "org.gnome.SessionManager.ClientPrivate"
 static A11yBusLauncher *_global_app = NULL;
 
 static const gchar introspection_xml[] =
@@ -134,12 +129,11 @@ client_proxy_ready_cb (GObject      *source_object,
                     G_CALLBACK (g_signal_cb), app);
 }
 
-static GDBusProxy *sm_proxy;
-
 static void
 register_client (A11yBusLauncher *app)
 {
   GDBusProxyFlags flags;
+  GDBusProxy *sm_proxy;
   GError *error;
   const gchar *app_id;
   const gchar *autostart_id;
@@ -147,12 +141,24 @@ register_client (A11yBusLauncher *app)
   GVariant *parameters;
   GVariant *variant;
   gchar *object_path;
-  static gboolean session_registered = FALSE;
 
-  if (session_registered)
-    return;
+  flags = G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES |
+          G_DBUS_PROXY_FLAGS_DO_NOT_CONNECT_SIGNALS;
 
   error = NULL;
+  sm_proxy = g_dbus_proxy_new_sync (app->session_bus, flags, NULL,
+                                    "org.gnome.SessionManager",
+                                    "/org/gnome/SessionManager",
+                                    "org.gnome.SessionManager",
+                                    NULL, &error);
+
+  if (error != NULL)
+    {
+      g_warning ("Failed to get session manager proxy: %s", error->message);
+      g_error_free (error);
+
+      return;
+    }
 
   app_id = "at-spi-bus-launcher";
   autostart_id = g_getenv ("DESKTOP_AUTOSTART_ID");
@@ -196,75 +202,6 @@ register_client (A11yBusLauncher *app)
                             NULL, client_proxy_ready_cb, app);
 
   g_free (object_path);
-
-  session_registered = TRUE;
-}
-
-static void
-on_session_signal (GDBusProxy *proxy,
-                   gchar      *sender_name,
-                   gchar      *signal_name,
-                   GVariant   *parameters,
-                   gpointer    user_data)
-{
-  A11yBusLauncher *app = user_data;
-
-        if (g_strcmp0 (signal_name, "SessionOver") == 0) {
-                g_main_loop_quit (app->loop);
-        } else if (g_strcmp0 (signal_name, "SessionRunning") == 0) {
-                register_client (app);
-        }
-}
-
-static void
-is_session_running_ready_cb (GObject      *source_object,
-		  	GAsyncResult *res,
-		  	gpointer      user_data)
-{
-	GDBusProxy *proxy;
-  A11yBusLauncher *app = user_data;
-	GVariant   *values;
-	GError     *error = NULL;
-        gboolean is_running;
-
-	proxy = G_DBUS_PROXY (source_object);
-	values = g_dbus_proxy_call_finish (proxy, res, &error);
-        if (values) {
-                g_variant_get (values, "(b)", &is_running);
-                g_variant_unref (values);
-        }
-                if (is_running) {
-                        register_client (app);
-                }
-        }
-
-static gboolean
-session_manager_connect (A11yBusLauncher *app)
-{
-        GVariant *res;
-  GError *error = NULL;
-
-        sm_proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION, 0, NULL,
-                                              SM_DBUS_NAME,
-                                              SM_DBUS_PATH,
-                                              SM_DBUS_INTERFACE, NULL, &error);
-
-  if (error != NULL)
-    {
-      g_warning ("Failed to get session manager proxy: %s", error->message);
-      g_error_free (error);
-
-      return;
-    }
- 
-        g_dbus_proxy_call (sm_proxy,
-                           "IsSessionRunning", NULL,
-                            0, 1000, NULL, is_session_running_ready_cb, app);
-
-        g_signal_connect (G_OBJECT (sm_proxy), "g-signal",
-                          G_CALLBACK (on_session_signal), app);
-
-        return (sm_proxy != NULL);
 }
 
 static void
@@ -653,7 +590,7 @@ on_name_acquired (GDBusConnection *connection,
 {
   A11yBusLauncher *app = user_data;
 
-  session_manager_connect (app);
+  register_client (app);
 }
 
 static int sigterm_pipefd[2];
