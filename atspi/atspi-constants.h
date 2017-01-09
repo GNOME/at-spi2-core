@@ -1017,7 +1017,7 @@ typedef enum {
  * onscreen viewport.
  * @ATSPI_ROLE_WINDOW: A top level window with no title or border.
  * @ATSPI_ROLE_EXTENDED: means that the role for this item is known, but not
- * included in the core enumeration.
+ * included in the core enumeration. Deprecated since 2.24.
  * @ATSPI_ROLE_HEADER: An object that serves as a document header.
  * @ATSPI_ROLE_FOOTER: An object that serves as a document footer.
  * @ATSPI_ROLE_PARAGRAPH: An object which is contains a single paragraph of
