@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="big5"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="9.00"
+	Name="atk-install"
+	ProjectGUID="{00702787-1566-484D-991F-3E7E459BB909}"
+	RootNamespace="atkinstall"
+	TargetFrameworkVersion="196613"
+	>
+	<Platforms>
+		<Platform
+			Name="Win32"
+		/>
+		<Platform
+			Name="x64"
+		/>
+	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory="$(GLibEtcInstallRoot)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="10"
+			InheritedPropertySheets=".\atk-install.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="$(AtkDoInstall)"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug|x64"
+			OutputDirectory="$(GLibEtcInstallRoot)"
+			InheritedPropertySheets=".\atk-install.vsprops"
+			ConfigurationType="10"
+			CharacterSet="2"
+			DeleteExtensionsOnClean=""
+			>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="$(AtkDoInstall)"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="$(GLibEtcInstallRoot)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="10"
+			InheritedPropertySheets=".\atk-install.vsprops"
+			CharacterSet="2"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="$(AtkDoInstall)"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|x64"
+			OutputDirectory="$(GLibEtcInstallRoot)"
+			InheritedPropertySheets=".\atk-install.vsprops"
+			ConfigurationType="10"
+			CharacterSet="2"
+			WholeProgramOptimization="1"
+			DeleteExtensionsOnClean=""
+			>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="$(AtkDoInstall)"
+			/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<Filter
+			Name="Resource Files"
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
+			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+			>
+			<File RelativePath="..\..\atk.pc.in">
+				<FileConfiguration Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Generating atk.pc..."
+						CommandLine="$(AtkGenPC)"
+						Outputs="..\atk.pc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Generating atk.pc..."
+						CommandLine="$(AtkGenPC)"
+						Outputs="..\atk.pc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration Name="Debug|x64">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Generating atk.pc..."
+						CommandLine="$(AtkGenPCX64)"
+						Outputs="..\atk.pc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration Name="Release|x64">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Generating atk.pc..."
+						CommandLine="$(AtkGenPCX64)"
+						Outputs="..\atk.pc"
+					/>
+				</FileConfiguration>
+			</File>
+		</Filter>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>
