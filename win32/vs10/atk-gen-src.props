@@ -4,7 +4,7 @@
     <Import Project="atk-build-defines.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros">
-    <GenConfigH>if exist ..\..\config.h copy ..\..\config.h.win32 ..\..\config.h</GenConfigH>
+    <GenConfigH>if not exist ..\..\config.h copy ..\..\config.h.win32 ..\..\config.h</GenConfigH>
     <GenMarshalSrc>
 cd ..\..\atk
 
