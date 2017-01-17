@@ -1,3 +1,15 @@
+What's new in at-spi2-core 2.23.4:
+
+* Don't pull in X headers if x11 is disabled (bgo#773710).
+
+* at-spi-bus-launcher: session management fixes (bgo#774441).
+
+
+* events: add recently added page changed event (bgo#719898).
+
+* roles: EXTENDED roles are deprecated (bgo#W720123).
+    
+
 What's new in at-spi2-core 2.2.0:
 
 * at-spi-bus-launcher: fix uninitialized variable.
