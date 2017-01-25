@@ -58,6 +58,7 @@ atspi_application_dispose (GObject *object)
 
   if (application->root)
   {
+    g_clear_object (&application->root->parent.app);
     g_object_unref (application->root);
     application->root = NULL;
   }
