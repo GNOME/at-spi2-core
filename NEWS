@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.23.90:
+
+* Fix an occasional crash when an application is closed (bgo#767074).
+
 What's new in at-spi2-core 2.23.4:
 
 * Don't pull in X headers if x11 is disabled (bgo#773710).
