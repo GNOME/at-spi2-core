@@ -206,6 +206,10 @@ GTK_DOC_CHECK([1.13])
 AC_PROG_AWK
 AC_CHECK_PROGS(PERL, perl5 perl)
 
+# Check whether MSVC toolset is explicitly set
+AM_CONDITIONAL(MSVC_BASE_NO_TOOLSET_SET, [test x$MSVC_BASE_TOOLSET = x])
+AM_CONDITIONAL(MSVC_NO_TOOLSET_SET, [test x$MSVC_TOOLSET = x])
+
 REBUILD=\#
 if test "x$enable_rebuilds" = "xyes" && \
 	test -n "$PERL" && \
@@ -262,6 +266,7 @@ win32/vs10/atk-version-paths.props
 win32/vs11/Makefile
 win32/vs12/Makefile
 win32/vs14/Makefile
+win32/vs15/Makefile
 docs/Makefile
 docs/version.xml
 atk.spec
