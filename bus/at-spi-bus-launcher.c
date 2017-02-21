@@ -437,6 +437,9 @@ handle_a11y_enabled_change (A11yBusLauncher *app, gboolean enabled,
                                                 &builder,
                                                 &invalidated_builder),
                                  NULL);
+
+  g_variant_builder_clear (&builder);
+  g_variant_builder_clear (&invalidated_builder);
 }
 
 static void
@@ -475,6 +478,9 @@ handle_screen_reader_enabled_change (A11yBusLauncher *app, gboolean enabled,
                                                 &builder,
                                                 &invalidated_builder),
                                  NULL);
+
+  g_variant_builder_clear (&builder);
+  g_variant_builder_clear (&invalidated_builder);
 }
 
 static gboolean
