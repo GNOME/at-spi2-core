@@ -134,7 +134,7 @@ msgstr "selector de fitxers"
 
 #: ../atk/atkobject.c:117
 msgid "filler"
-msgstr "emplenador"
+msgstr "farciment"
 
 #. I know it looks wrong but that is what Java returns
 #: ../atk/atkobject.c:119
