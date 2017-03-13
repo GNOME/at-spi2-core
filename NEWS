@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.23.92:
+
+* Table cell API fixes (bgo#779835).
+
 What's new in at-spi2-core 2.23.90:
 
 * Fix an occasional crash when an application is closed (bgo#767074).
