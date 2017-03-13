@@ -97,27 +97,6 @@ atspi_table_cell_get_column_header_cells (AtspiTableCell *obj, GError **error)
 }
 
 /**
- * atspi_table_cell_get_column_index:
- * @obj: a GObject instance that implements AtspiTableCellIface
- *
- * Translates this cell accessible into the corresponding column index.
- *
- * Returns: the column index for this cell, or -1 if unimplemented.
- */
-gint
-atspi_table_cell_get_column_index (AtspiTableCell *obj, GError **error)
-{
-  dbus_int32_t retval = -1;
-
-  g_return_val_if_fail (obj != NULL, -1);
-
-  _atspi_dbus_get_property (obj, atspi_interface_table_cell, "ColumnIndex",
-                            error, "i", &retval);
-	  
-  return retval;
-}
-
-/**
  * atspi_table_cell_get_row_span:
  * @obj: a GObject instance that implements AtspiTableCellIface
  *
@@ -174,7 +153,7 @@ gint
 atspi_table_cell_get_position (AtspiTableCell *obj,
                                gint *row,
                                gint *column,
-                               GError *error)
+                               GError **error)
 {
   DBusMessage *reply;
   DBusMessageIter iter, iter_struct, iter_variant;

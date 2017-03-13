@@ -58,7 +58,10 @@ gint atspi_table_cell_get_row_span (AtspiTableCell *obj, GError **error);
 GPtrArray *atspi_table_cell_get_row_header_cells (AtspiTableCell *obj,
                                                   GError **error);
 
-gint atspi_table_cell_get_row_index (AtspiTableCell *obj, GError **error);
+gint atspi_table_cell_get_position (AtspiTableCell *obj,
+                                    gint           *row,
+                                    gint           *column,
+                                    GError        **error);
 
 void atspi_table_cell_get_row_column_span (AtspiTableCell *obj,
                                               gint *row,
