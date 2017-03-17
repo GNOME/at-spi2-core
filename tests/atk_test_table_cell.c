@@ -76,22 +76,6 @@ atk_test_table_cell_get_column_header_cells (gpointer fixture, gconstpointer use
 */
 
 static void
-atk_test_table_cell_get_column_index (gpointer fixture, gconstpointer user_data)
-{
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
-  g_assert (_obj);
-  AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
-
-  AtspiAccessible *cell = atspi_accessible_get_child_at_index (child, 10, NULL);
-  AtspiTableCell *obj = atspi_accessible_get_table_cell (cell);
-  g_assert (obj);
-
-  /* ATK Table Cell interface do not implement that func */
-  g_assert_cmpint (-1, ==, atspi_table_cell_get_column_index (obj, NULL));
-}
-
-static void
 atk_test_table_cell_get_row_span (gpointer fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = get_root_obj (DATA_FILE);
@@ -189,8 +173,6 @@ atk_test_table_cell (void)
     g_test_add_vtable (ATK_TEST_PATH_TABLE_CELL "/atk_test_table_cell_get_column_header_cells",
                        0, NULL, NULL, atk_test_table_cell_get_column_header_cells, teardown_table_cell_test);
   */
-  g_test_add_vtable (ATK_TEST_PATH_TABLE_CELL "/atk_test_table_cell_get_column_index",
-                     0, NULL, NULL, atk_test_table_cell_get_column_index, teardown_table_cell_test);
   g_test_add_vtable (ATK_TEST_PATH_TABLE_CELL "/atk_test_table_cell_get_row_span",
                      0, NULL, NULL, atk_test_table_cell_get_row_span, teardown_table_cell_test);
   /*
