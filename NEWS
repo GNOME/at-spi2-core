@@ -1,3 +1,15 @@
+Changes in version 2.24.0
+==========================
+*
+* Build, MSVC
+   * Support Visual Studio 2017
+
+Contributors:
+Chun-wei Fan
+
+Translations:
+Ask Hjorth Larsen (da), Jordi Mas (ca)
+
 Changes in version 2.23.4
 ==========================
 *
@@ -12,7 +24,7 @@ Changes in version 2.23.4
    * Use Unicode apostrophe in a translatable string
 
 Contributors:
-Murray Cumming, Piotr Drąg, Alejandro Piñeiro Iglesias, 
+Murray Cumming, Piotr Drąg,  Chun-wei Fan, Alejandro Piñeiro Iglesias
 
 Translations:
 gogo (hr), Jordi Mas (ca), Fabio Tomat (fur)
