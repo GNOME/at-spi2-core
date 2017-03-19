@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.2.1:
+
+* Fix an occasional crash when removing an application (bgo#767074).
+
+* Fix atspi_table_cell_get_position (bgo#779835).
+
 What's new in at-spi2-core 2.2.0:
 
 * at-spi-bus-launcher: fix uninitialized variable.
