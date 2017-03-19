@@ -174,7 +174,7 @@ gint
 atspi_table_cell_get_position (AtspiTableCell *obj,
                                gint *row,
                                gint *column,
-                               GError *error)
+                               GError **error)
 {
   DBusMessage *reply;
   DBusMessageIter iter, iter_struct, iter_variant;
