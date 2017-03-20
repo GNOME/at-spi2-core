@@ -1,3 +1,8 @@
+What's new in at-spi2-atk 2.24.0:
+
+* test: remove atk_table_cell_get_column_index test, as the
+  at-spi2-core function no longer exists (and never worked anyhow).
+
 What's new in at-spi2-atk 2.22.0:
 
 * Remove some inadverrtently-committed debugging code.
