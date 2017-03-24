@@ -140,6 +140,28 @@ atk_test_table_cell_get_row_column_span (gpointer fixture, gconstpointer user_da
 }
 
 static void
+atk_test_table_cell_get_position (gpointer fixture, gconstpointer user_data)
+{
+  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  g_assert (_obj);
+  AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
+  g_assert (child);
+
+  AtspiAccessible *cell = atspi_accessible_get_child_at_index (child, 9, NULL);
+  AtspiTableCell *obj = atspi_accessible_get_table_cell (cell);
+  g_assert (cell);
+
+  gint row = 10;
+  gint column = 10;
+
+  atspi_table_cell_get_position (obj, &row, &column, NULL);
+
+  /* TODO: not a very good test for the app to return (-1, -1) */
+  g_assert_cmpint (row, ==, -1);
+  g_assert_cmpint (column, ==, -1);
+}
+
+static void
 atk_test_table_cell_get_table (gpointer fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = get_root_obj (DATA_FILE);
@@ -181,6 +203,8 @@ atk_test_table_cell (void)
   */
   g_test_add_vtable (ATK_TEST_PATH_TABLE_CELL "/atk_test_table_cell_get_row_column_span",
                      0, NULL, NULL, atk_test_table_cell_get_row_column_span, teardown_table_cell_test);
+  g_test_add_vtable (ATK_TEST_PATH_TABLE_CELL "/atk_test_table_cell_get_position",
+                     0, NULL, NULL, atk_test_table_cell_get_position, teardown_table_cell_test);
   g_test_add_vtable (ATK_TEST_PATH_TABLE_CELL "/atk_test_table_cell_get_table",
                      0, NULL, NULL, atk_test_table_cell_get_table, teardown_table_cell_test);
 

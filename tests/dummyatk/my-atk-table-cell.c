@@ -134,7 +134,7 @@ my_atk_tablecell_get_position (AtkTableCell *obj, gint *row , gint *column)
   *row = self->xy[0];
   *column = self->xy[1];
 
-  return FALSE;
+  return TRUE;
 }
 
 static GPtrArray *

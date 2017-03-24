@@ -114,8 +114,8 @@ impl_get_Position (DBusMessageIter * iter, void *user_data)
 
   d_row = row;
   d_column = column;
-  dbus_message_iter_open_container (iter, DBUS_TYPE_STRUCT, "(ii)", &iter_variant);
-  dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_STRUCT, NULL, &iter_struct);
+  dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, "(ii)", &iter_variant);
+  dbus_message_iter_open_container (&iter_variant, DBUS_TYPE_STRUCT, NULL, &iter_struct);
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32, &row);
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32, &column);
   dbus_message_iter_close_container (&iter_variant, &iter_struct);
