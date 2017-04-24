@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.25.1:
+
+* atspi_table_cell_get_position: don't crash on error.
+
 What's new in at-spi2-core 2.23.92:
 
 * Table cell API fixes (bgo#779835).
