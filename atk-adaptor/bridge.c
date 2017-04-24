@@ -748,22 +748,17 @@ remove_events (const char *bus_name, const char *event)
       if (!g_strcmp0 (evdata->bus_name, bus_name) &&
           spi_event_is_subtype (evdata->data, remove_data))
         {
+          GList *next;
           GList *events = spi_global_app_data->events;
+
           g_strfreev (evdata->data);
           g_free (evdata->bus_name);
           g_slist_free_full (evdata->properties, free_property_definition);
           g_free (evdata);
-          if (list->prev)
-            {
-              GList *next = list->next;
-              list->prev = g_list_remove (list->prev, evdata);
-              list = next;
-            }
-          else
-            {
-              spi_global_app_data->events = g_list_remove (events, evdata);
-              list = spi_global_app_data->events;
-            }
+
+          next = list->next;
+          spi_global_app_data->events = g_list_delete_link (events, list);
+          list = next;
         }
       else
         {
