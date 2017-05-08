@@ -268,11 +268,12 @@ atspi_accessible_get_parent (AtspiAccessible *obj, GError **error)
 {
   g_return_val_if_fail (obj != NULL, NULL);
 
-  if (obj->parent.app &&
-      !_atspi_accessible_test_cache (obj, ATSPI_CACHE_PARENT))
+  if (!_atspi_accessible_test_cache (obj, ATSPI_CACHE_PARENT))
   {
     DBusMessage *message, *reply;
     DBusMessageIter iter, iter_variant;
+    if (!obj->parent.app)
+      return NULL;
     message = dbus_message_new_method_call (obj->parent.app->bus_name,
                                             obj->parent.path,
                                             DBUS_INTERFACE_PROPERTIES, "Get");
