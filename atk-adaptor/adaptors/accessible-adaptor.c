@@ -182,7 +182,8 @@ impl_GetChildAtIndex (DBusConnection * bus,
     }
   child = atk_object_ref_accessible_child (object, i);
   reply = spi_object_return_reference (message, child);
-  g_object_unref (child);
+  if (child)
+    g_object_unref (child);
 
   return reply;
 }

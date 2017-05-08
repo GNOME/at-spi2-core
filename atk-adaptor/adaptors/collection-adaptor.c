@@ -494,9 +494,12 @@ sort_order_canonical (MatchRulePrivate * mrp, GList * ls,
     {
       AtkObject *child = atk_object_ref_accessible_child (obj, i);
 
-      g_object_unref (child);
+      if (!child)
+        continue;
+
       if (prev && child == pobj)
         {
+          g_object_unref (child);
           return kount;
         }
 
@@ -517,6 +520,7 @@ sort_order_canonical (MatchRulePrivate * mrp, GList * ls,
         kount = sort_order_canonical (mrp, ls, kount,
                                       max, child, 0, TRUE,
                                       pobj, recurse, traverse);
+      g_object_unref (child);
     }
   return kount;
 }
@@ -559,19 +563,23 @@ sort_order_rev_canonical (MatchRulePrivate * mrp, GList * ls,
          and get it's last descendant.
          First, get the previous sibling */
       nextobj = atk_object_ref_accessible_child (parent, indexinparent - 1);
-      g_object_unref (nextobj);
 
       /* Now, drill down the right side to the last descendant */
-      while (atk_object_get_n_accessible_children (nextobj) > 0)
+      while (nextobj && atk_object_get_n_accessible_children (nextobj) > 0)
         {
-          nextobj = atk_object_ref_accessible_child (nextobj,
+	  AtkObject *follow;
+
+          follow = atk_object_ref_accessible_child (nextobj,
                                                      atk_object_get_n_accessible_children
                                                      (nextobj) - 1);
           g_object_unref (nextobj);
+	  nextobj = follow;
         }
       /* recurse with the last descendant */
       kount = sort_order_rev_canonical (mrp, ls, kount, max,
                                         nextobj, TRUE, pobj);
+      if (nextobj)
+	 g_object_unref (nextobj);
     }
   else if (max == 0 || kount < max)
     {
