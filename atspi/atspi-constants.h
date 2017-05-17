@@ -1181,6 +1181,18 @@ typedef enum {
  * subscript. @Since: 2.16.
  *@ATSPI_ROLE_SUPERSCRIPT: An object that contains text that is displayed as a
  * superscript. @Since: 2.16.
+ *@ATSPI_ROLE_DESCRIPTION_LIST: An object that represents a list of term-value
+ * groups. A term-value group represents an individual description and consist
+ * of one or more names (@ATSPI_ROLE_DESCRIPTION_TERM) followed by one or more
+ * values (@ATSPI_ROLE_DESCRIPTION_VALUE). For each list, there should not be
+ * more than one group with the same term name. @Since: 2.26.
+ *@ATSPI_ROLE_DESCRIPTION_TERM: An object that represents the term, or name,
+ * part of a term-description group in a description list. @Since: 2.26.
+ *@ATSPI_ROLE_DESCRIPTION_VALUE: An object that represents the description,
+ * definition, or value of a term-description group in a description list.
+ * The values within a group are alternatives, meaning that you can have
+ * several @ATSPI_ROLE_DESCRIPTION_VALUE objects for a given
+ * @ATSPI_ROLE_DESCRIPTION_TERM. @Since: 2.26.
  * @ATSPI_ROLE_LAST_DEFINED: Not a valid role, used for finding end of
  * enumeration.
  *
@@ -1310,6 +1322,9 @@ typedef enum {
     ATSPI_ROLE_MATH_ROOT,
     ATSPI_ROLE_SUBSCRIPT,
     ATSPI_ROLE_SUPERSCRIPT,
+    ATSPI_ROLE_DESCRIPTION_LIST,
+    ATSPI_ROLE_DESCRIPTION_TERM,
+    ATSPI_ROLE_DESCRIPTION_VALUE,
     ATSPI_ROLE_LAST_DEFINED,
 } AtspiRole;
 
@@ -1318,7 +1333,7 @@ typedef enum {
  *
  * One higher than the highest valid value of #AtspiRole.
  */
-#define ATSPI_ROLE_COUNT (121+1)
+#define ATSPI_ROLE_COUNT (124+1)
 
 typedef enum
 {
