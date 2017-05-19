@@ -1193,6 +1193,7 @@ typedef enum {
  * The values within a group are alternatives, meaning that you can have
  * several @ATSPI_ROLE_DESCRIPTION_VALUE objects for a given
  * @ATSPI_ROLE_DESCRIPTION_TERM. @Since: 2.26.
+ *@ATSPI_ROLE_FOOTNOTE: An object that contains the text of a footnote. @Since: 2.26.
  * @ATSPI_ROLE_LAST_DEFINED: Not a valid role, used for finding end of
  * enumeration.
  *
@@ -1325,6 +1326,7 @@ typedef enum {
     ATSPI_ROLE_DESCRIPTION_LIST,
     ATSPI_ROLE_DESCRIPTION_TERM,
     ATSPI_ROLE_DESCRIPTION_VALUE,
+    ATSPI_ROLE_FOOTNOTE,
     ATSPI_ROLE_LAST_DEFINED,
 } AtspiRole;
 
@@ -1333,7 +1335,7 @@ typedef enum {
  *
  * One higher than the highest valid value of #AtspiRole.
  */
-#define ATSPI_ROLE_COUNT (124+1)
+#define ATSPI_ROLE_COUNT (125+1)
 
 typedef enum
 {
