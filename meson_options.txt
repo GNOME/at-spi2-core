@@ -1,0 +1,4 @@
+option('enable_docs',
+       description: 'Build API reference for ATK using GTK-Doc',
+       type: 'boolean',
+       value: false)
