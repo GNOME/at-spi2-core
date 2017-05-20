@@ -72,6 +72,7 @@ atk_sources = \
 
 libatk_1_0_la_SOURCES = 	\
 	$(atk_sources)		\
+	atkmarshal.c		\
 	atk-enum-types.c
 
 libatkincludedir=$(includedir)/atk-1.0/atk

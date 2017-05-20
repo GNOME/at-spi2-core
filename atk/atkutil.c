@@ -20,7 +20,7 @@
 #include "config.h"
 
 #include "atkutil.h"
-#include "atkmarshal.c"
+#include "atkmarshal.h"
 
 /**
  * SECTION:atkutil
