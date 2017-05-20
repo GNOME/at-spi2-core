@@ -10,15 +10,18 @@ DOC_MAIN_SGML_FILE=atk-docs.sgml
 
 # Extra options to supply to gtkdoc-scan
 SCAN_OPTIONS=--deprecated-guards=G_DISABLE_DEPRECATED
+
 # The directory containing the source code (if it contains documentation).
-DOC_SOURCE_DIR=../atk
+DOC_SOURCE_DIR=$(top_srcdir)/atk $(top_builddir)/atk
 
 # Used for dependencies
 HFILE_GLOB = $(top_srcdir)/atk/*.h
 CFILE_GLOB = $(top_srcdir)/atk/*.c
 
 # Header files to ignore when scanning
-IGNORE_HFILES =	atkmarshal.h atkintl.h
+IGNORE_HFILES =	\
+	atkmarshal.h \
+	atkintl.h
 
 # CFLAGS and LDFLAGS for compiling scan program. Only needed
 # if $(DOC_MODULE).types is non-empty.
