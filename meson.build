@@ -32,7 +32,7 @@ atk_libexecdir = join_paths(atk_prefix, get_option('libexecdir'))
 atk_conf = configuration_data()
 
 atk_conf.set_quoted('VERSION', meson.project_version())
-atk_conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
+atk_conf.set_quoted('GETTEXT_PACKAGE', 'atk10')
 
 # Maintain version scheme with libtool
 atk_soversion = 0
