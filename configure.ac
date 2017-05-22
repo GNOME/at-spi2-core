@@ -253,7 +253,6 @@ AC_CONFIG_FILES([
 Makefile
 po/Makefile.in
 atk.pc
-atk-uninstalled.pc
 atk/Makefile
 atk/atk.rc
 atk/atkversion.h

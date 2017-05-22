@@ -5,7 +5,6 @@ SUBDIRS = atk tests docs po win32
 
 EXTRA_DIST = 			\
 	MAINTAINERS		\
-	atk-uninstalled.pc.in	\
 	atk.pc.in		\
 	atk-zip.sh.in   	\
 	m4/introspection.m4	\
@@ -17,6 +16,5 @@ pkgconfig_DATA = atk.pc
 DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc --enable-introspection
 
 DISTCLEANFILES =		\
-	atk-uninstalled.pc	\
 	atk.pc			\
 	atk-zip.sh
