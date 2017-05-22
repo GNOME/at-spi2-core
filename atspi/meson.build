@@ -1,0 +1,78 @@
+atspi_sources = [
+  'atspi-accessible.c',
+  'atspi-action.c',
+  'atspi-application.c',
+  'atspi-collection.c',
+  'atspi-component.c',
+  'atspi-device-listener.c',
+  'atspi-document.c',
+  'atspi-editabletext.c',
+  'atspi-event-listener.c',
+  'atspi-gmain.c',
+  'atspi-hyperlink.c',
+  'atspi-hypertext.c',
+  'atspi-image.c',
+  'atspi-matchrule.c',
+  'atspi-misc.c',
+  'atspi-object.c',
+  'atspi-registry.c',
+  'atspi-relation.c',
+  'atspi-selection.c',
+  'atspi-stateset.c',
+  'atspi-table.c',
+  'atspi-table-cell.c',
+  'atspi-text.c',
+  'atspi-value.c',
+]
+
+atspi_headers = [
+  'atspi.h',
+  'atspi-accessible.h',
+  'atspi-action.h',
+  'atspi-application.h',
+  'atspi-collection.h',
+  'atspi-component.h',
+  'atspi-constants.h',
+  'atspi-device-listener.h',
+  'atspi-document.h',
+  'atspi-editabletext.h',
+  'atspi-enum-types.h',
+  'atspi-event-listener.h',
+  'atspi-gmain.h',
+  'atspi-hyperlink.h',
+  'atspi-hypertext.h',
+  'atspi-image.h',
+  'atspi-matchrule.h',
+  'atspi-misc.h',
+  'atspi-object.h',
+  'atspi-private.h',
+  'atspi-registry.h',
+  'atspi-relation.h',
+  'atspi-selection.h',
+  'atspi-stateset.h',
+  'atspi-table.h',
+  'atspi-table-cell.h',
+  'atspi-text.h',
+  'atspi-types.h',
+  'atspi-value.h',
+]
+
+atspi_includedir = join_paths(get_option('includedir'), 'at-spi-2.0', 'atspi')
+
+atspi_enums = gnome.mkenums('atspi-enum-types',
+                            sources: [ 'atspi-constants.h', 'atspi-types.h' ],
+                            c_template: 'atspi-enum-types.c.template',
+                            h_template: 'atspi-enum-types.h.template',
+                            install_dir: atspi_includedir,
+                            install_header: true)
+atspi_enum_h = atspi_enums[1]
+
+atspi = shared_library('atspi', atspi_sources + atspi_enums,
+                       include_directories: [ root_inc, registryd_inc ],
+                       dependencies: [ libdbus_dep, gobject_dep, dbind_dep ],
+                       install: true)
+
+atspi_dep = declare_dependency(link_with: atspi,
+                               sources: atspi_enum_h,
+                               include_directories: root_inc,
+                               dependencies: [ libdbus_dep, gobject_dep, ])

@@ -1,0 +1,16 @@
+option('dbus_services_dir',
+       description: 'Location of the DBus services',
+       type: 'string',
+       value: 'default')
+option('dbus_daemon',
+       description: 'The path of the DBus daemon',
+       type: 'string',
+       value: 'default')
+option('systemd_user_dir',
+       description: 'Location of the systemd user services',
+       type: 'string',
+       value: 'default')
+option('enable_docs',
+       description: 'Generate API reference for atspi (requires GTK-Doc)',
+       type: 'boolean',
+       value: false)
