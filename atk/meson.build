@@ -112,6 +112,7 @@ atk_inc = include_directories('.')
 libatk = shared_library('atk-@0@'.format(atk_api_version),
                         sources: atk_sources + atk_enums + atk_marshals,
                         soversion: atk_soversion,
+                        version: atk_libversion,
                         install: true,
                         dependencies: gobject_dep,
                         include_directories: [ root_inc, atk_inc ],
