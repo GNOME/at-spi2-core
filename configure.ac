@@ -44,10 +44,10 @@ AC_INIT([atk],
         [atk])
 
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_SRCDIR([ChangeLog])
+AC_CONFIG_SRCDIR([README])
 AC_CONFIG_MACRO_DIR([m4])
 
-AM_INIT_AUTOMAKE([1.10 -Wno-portability])
+AM_INIT_AUTOMAKE([1.11 foreign -Wno-portability no-dist-gzip dist-xz tar-ustar])
 
 # Support silent build rules, requires at least automake-1.11. Disable
 # by either passing --disable-silent-rules to configure or passing V=1
