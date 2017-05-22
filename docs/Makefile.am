@@ -1,18 +1,16 @@
 ## Process this file with automake to produce Makefile.in
 
-AUTOMAKE_OPTIONS = 1.6
-
 # The name of the module.
-DOC_MODULE=atk
+DOC_MODULE = atk
 
 # The top-level SGML file.
-DOC_MAIN_SGML_FILE=atk-docs.sgml
+DOC_MAIN_SGML_FILE = atk-docs.xml
 
 # Extra options to supply to gtkdoc-scan
-SCAN_OPTIONS=--deprecated-guards=G_DISABLE_DEPRECATED
+SCAN_OPTIONS = --deprecated-guards=ATK_DISABLE_DEPRECATED
 
 # The directory containing the source code (if it contains documentation).
-DOC_SOURCE_DIR=$(top_srcdir)/atk $(top_builddir)/atk
+DOC_SOURCE_DIR = $(top_srcdir)/atk $(top_builddir)/atk
 
 # Used for dependencies
 HFILE_GLOB = $(top_srcdir)/atk/*.h
@@ -28,18 +26,21 @@ IGNORE_HFILES =	\
 AM_CPPFLAGS = 			\
 	-I$(top_srcdir)		\
 	-I$(top_builddir)	\
+	-DATK_DISABLE_DEPRECATION_WARNINGS \
 	$(DEP_CFLAGS)
 
-GTKDOC_LIBS = $(top_builddir)/atk/libatk-$(ATK_API_VERSION).la \
-              $(DEP_LIBS)
+GTKDOC_LIBS = \
+	$(top_builddir)/atk/libatk-$(ATK_API_VERSION).la \
+	$(DEP_LIBS)
 
 # gtkdoc-mkdb related varaibles
-MKDB_OPTIONS =--sgml-mode
-content_files =		\
-	version.xml
+MKDB_OPTIONS =
+
+content_files =
+
 HTML_IMAGES =
 
 include $(top_srcdir)/gtk-doc.make
 
 # Other files to distribute
-EXTRA_DIST += version.xml.in
+#EXTRA_DIST +=

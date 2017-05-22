@@ -1,44 +1,16 @@
 <?xml version="1.0"?>
-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-          "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
-  <!ENTITY atk-AtkAction SYSTEM "xml/atkaction.xml">
-  <!ENTITY atk-AtkComponent SYSTEM "xml/atkcomponent.xml">
-  <!ENTITY atk-AtkDocument SYSTEM "xml/atkdocument.xml">
-  <!ENTITY atk-AtkEditabletext SYSTEM "xml/atkeditabletext.xml">
-  <!ENTITY atk-AtkGObjectAccessible SYSTEM "xml/atkgobjectaccessible.xml">
-  <!ENTITY atk-AtkHyperlink SYSTEM "xml/atkhyperlink.xml">
-  <!ENTITY atk-AtkHyperlinkImpl SYSTEM "xml/atkhyperlinkimpl.xml">
-  <!ENTITY atk-AtkHypertext SYSTEM "xml/atkhypertext.xml">
-  <!ENTITY atk-AtkImage SYSTEM "xml/atkimage.xml">
-  <!ENTITY atk-AtkMisc SYSTEM "xml/atkmisc.xml">
-  <!ENTITY atk-AtkNoOpObject SYSTEM "xml/atknoopobject.xml">
-  <!ENTITY atk-AtkNoOpObjectFactory SYSTEM "xml/atknoopobjectfactory.xml">
-  <!ENTITY atk-AtkPlug SYSTEM "xml/atkplug.xml">
-  <!ENTITY atk-AtkObject SYSTEM "xml/atkobject.xml">
-  <!ENTITY atk-AtkObjectFactory SYSTEM "xml/atkobjectfactory.xml">
-  <!ENTITY atk-AtkRange SYSTEM "xml/atkrange.xml">
-  <!ENTITY atk-AtkRegistry SYSTEM "xml/atkregistry.xml">
-  <!ENTITY atk-AtkRelation SYSTEM "xml/atkrelation.xml">
-  <!ENTITY atk-AtkRelationSet SYSTEM "xml/atkrelationset.xml">
-  <!ENTITY atk-AtkSelection SYSTEM "xml/atkselection.xml">
-  <!ENTITY atk-AtkSocket SYSTEM "xml/atksocket.xml">
-  <!ENTITY atk-AtkState SYSTEM "xml/atkstate.xml">
-  <!ENTITY atk-AtkStateSet SYSTEM "xml/atkstateset.xml">
-  <!ENTITY atk-AtkStreamableContent SYSTEM "xml/atkstreamablecontent.xml">
-  <!ENTITY atk-AtkTable SYSTEM "xml/atktable.xml">
-  <!ENTITY atk-AtkTableCell SYSTEM "xml/atktablecell.xml">
-  <!ENTITY atk-AtkText SYSTEM "xml/atktext.xml">
-  <!ENTITY atk-AtkUtil SYSTEM "xml/atkutil.xml">
-  <!ENTITY atk-AtkValue SYSTEM "xml/atkvalue.xml">
-  <!ENTITY atk-AtkWindow SYSTEM "xml/atkwindow.xml">
-  <!ENTITY atk-AtkVersion SYSTEM "xml/atkversion.xml">
-  <!ENTITY version SYSTEM "version.xml">
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+  <!ENTITY % gtkdocentities SYSTEM "xml/gtkdocentities.ent">
+  %gtkdocentities;
 ]>
 
 <book>
   <bookinfo>
     <title>ATK - Accessibility Toolkit</title>
-    <releaseinfo>for ATK &version;</releaseinfo>
+    <releaseinfo>for ATK &package_version;</releaseinfo>
   </bookinfo>
 
   <chapter id="overview">
@@ -66,61 +38,61 @@
 
   <chapter id="base-object">
     <title>Base accessibility object</title>
-    &atk-AtkObject;
+    <xi:include href="xml/atkobject.xml"/>
   </chapter>
 
   <chapter id="toolkit">
     <title>Event and toolkit support</title>
-    &atk-AtkUtil;
+    <xi:include href="xml/atkutil.xml"/>
   </chapter>
 
   <chapter id="interfaces">
     <title>ATK Interfaces</title>
-    &atk-AtkAction;
-    &atk-AtkComponent;
-    &atk-AtkDocument;
-    &atk-AtkEditabletext;
-    &atk-AtkHyperlinkImpl;
-    &atk-AtkHypertext;
-    &atk-AtkImage;
-    &atk-AtkSelection;
-    &atk-AtkStreamableContent;
-    &atk-AtkTable;
-    &atk-AtkTableCell;
-    &atk-AtkText;
-    &atk-AtkValue;
-    &atk-AtkWindow;
+    <xi:include href="xml/atkaction.xml"/>
+    <xi:include href="xml/atkcomponent.xml"/>
+    <xi:include href="xml/atkdocument.xml"/>
+    <xi:include href="xml/atkeditabletext.xml"/>
+    <xi:include href="xml/atkhyperlinkimpl.xml"/>
+    <xi:include href="xml/atkhypertext.xml"/>
+    <xi:include href="xml/atkimage.xml"/>
+    <xi:include href="xml/atkselection.xml"/>
+    <xi:include href="xml/atkstreamablecontent.xml"/>
+    <xi:include href="xml/atktable.xml"/>
+    <xi:include href="xml/atktablecell.xml"/>
+    <xi:include href="xml/atktext.xml"/>
+    <xi:include href="xml/atkvalue.xml"/>
+    <xi:include href="xml/atkwindow.xml"/>
   </chapter>
 
   <chapter id="data">
     <title>Basic accessible data types</title>
-    &atk-AtkRange;
-    &atk-AtkRelation;
-    &atk-AtkRelationSet;
-    &atk-AtkState;
-    &atk-AtkStateSet;
+    <xi:include href="xml/atkrange.xml"/>
+    <xi:include href="xml/atkrelation.xml"/>
+    <xi:include href="xml/atkrelationset.xml"/>
+    <xi:include href="xml/atkstate.xml"/>
+    <xi:include href="xml/atkstateset.xml"/>
   </chapter>
 
   <chapter id="accessibles">
     <title>Custom accessible objects</title>
-    &atk-AtkGObjectAccessible;
-    &atk-AtkHyperlink;
-    &atk-AtkNoOpObject;
-    &atk-AtkPlug;
-    &atk-AtkSocket;
+    <xi:include href="xml/atkgobjectaccessible.xml"/>
+    <xi:include href="xml/atkhyperlink.xml"/>
+    <xi:include href="xml/atknoopobject.xml"/>
+    <xi:include href="xml/atkplug.xml"/>
+    <xi:include href="xml/atksocket.xml"/>
   </chapter>
 
   <chapter id="utilities">
     <title>Utilities</title>
-    &atk-AtkNoOpObjectFactory;
-    &atk-AtkObjectFactory;
-    &atk-AtkRegistry;
-    &atk-AtkVersion;
+    <xi:include href="xml/atknoopobjectfactory.xml"/>
+    <xi:include href="xml/atkobjectfactory.xml"/>
+    <xi:include href="xml/atkregistry.xml"/>
+    <xi:include href="xml/atkversion.xml"/>
   </chapter>
 
   <chapter id="deprecated">
     <title>Deprecated Interfaces</title>
-    &atk-AtkMisc;
+    <xi:include href="xml/atkmisc.xml"/>
   </chapter>
 
   <index id="api-index-full">
@@ -168,5 +140,7 @@
   <index id="api-index-2-12" role="2.12">
     <title>Index of new symbols in 2.12</title>
   </index>
+
+  <xi:include href="xml/annotation-glossary.xml"><xi:fallback/></xi:include>
 </book>
 

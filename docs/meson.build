@@ -1,18 +1,11 @@
 subdir('xml')
 
-version_xml_conf = configuration_data()
-version_xml_conf.set('ATK_VERSION', meson.project_version())
-configure_file(input: 'version.xml.in',
-               output: 'version.xml',
-               configuration: version_xml_conf)
-
 private_headers = [
   'atkmarshal.h',
   'atkintl.h',
 ]
 
 content_files = [
-  'version.xml',
 ]
 
 html_images = [
@@ -23,7 +16,7 @@ glib_docpath = join_paths(glib_prefix, 'share', 'gtk-doc', 'html')
 docpath = join_paths(atk_datadir, 'gtk-doc', 'html')
 
 gnome.gtkdoc('atk',
-             main_xml: 'atk-docs.sgml',
+             main_xml: 'atk-docs.xml',
              src_dir: [
                join_paths(meson.source_root(), 'atk'),
                join_paths(meson.build_root(), 'atk'),
@@ -37,7 +30,6 @@ gnome.gtkdoc('atk',
                '--ignore-headers=' + ' '.join(private_headers),
              ],
              mkdb_args: [
-               '--sgml-mode',
                '--output-format=xml',
              ],
              fixxref_args: [
