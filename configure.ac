@@ -195,7 +195,7 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, ["$GETTEXT_PACKAGE"],
   [Define the gettext package to be used])
 
 # Introspection support
-GOBJECT_INTROSPECTION_CHECK([0.6.7])
+GOBJECT_INTROSPECTION_CHECK([1.32.0])
 
 # Documentation support
 GTK_DOC_CHECK([1.13])

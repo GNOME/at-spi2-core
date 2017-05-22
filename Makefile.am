@@ -17,7 +17,6 @@ meson_dist_files = \
 EXTRA_DIST = 			\
 	MAINTAINERS		\
 	atk.pc.in		\
-	m4/introspection.m4	\
 	config.h.win32		\
 	$(meson_dist_files)
 
