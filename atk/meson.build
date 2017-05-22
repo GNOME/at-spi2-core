@@ -101,7 +101,8 @@ atk_enum_h = atk_enums[1]
 atk_cflags = [
   '-DG_LOG_DOMAIN="Atk"',
   '-DG_LOG_USE_STRUCTURED=1',
-  '-DATK_DISABLE_DEPRECATED',
+  '-DGLIB_DISABLE_DEPRECATION_WARNINGS',
+  '-DATK_DISABLE_DEPRECATION_WARNINGS',
   '-DATK_COMPILATION',
   '-DATK_LOCALEDIR="@0@"'.format(join_paths(atk_datadir, 'locale')),
 ]
