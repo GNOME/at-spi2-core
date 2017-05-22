@@ -1146,7 +1146,7 @@ atk_object_set_role (AtkObject *accessible,
 }
 
 /**
- * atk_object_connect_property_change_handler:
+ * atk_object_connect_property_change_handler: (skip)
  * @accessible: an #AtkObject
  * @handler: a function to be called when a property changes its value
  *

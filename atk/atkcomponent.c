@@ -125,7 +125,7 @@ atk_component_base_init (AtkComponentIface *class)
 
 
 /**
- * atk_component_add_focus_handler:
+ * atk_component_add_focus_handler: (skip)
  * @component: The #AtkComponent to attach the @handler to
  * @handler: The #AtkFocusHandler to be attached to @component
  *

@@ -92,7 +92,7 @@ struct _FocusTracker {
 };
 
 /**
- * atk_focus_tracker_init:
+ * atk_focus_tracker_init: (skip)
  * @init: Function to be called for focus tracker initialization
  *
  * Specifies the function to be called for focus tracker initialization.
@@ -112,7 +112,7 @@ atk_focus_tracker_init (AtkEventListenerInit    init)
 }
 
 /**
- * atk_add_focus_tracker:
+ * atk_add_focus_tracker: (skip)
  * @focus_tracker: Function to be added to the list of functions to be called
  * when an object receives focus.
  *
@@ -344,7 +344,7 @@ atk_util_real_remove_global_event_listener (guint remove_listener)
 
 
 /**
- * atk_add_global_event_listener:
+ * atk_add_global_event_listener: (skip)
  * @listener: the listener to notify
  * @event_type: the type of event for which notification is requested
  *
@@ -430,7 +430,7 @@ atk_remove_global_event_listener (guint listener_id)
 }
 
 /**
- * atk_add_key_event_listener:
+ * atk_add_key_event_listener: (skip)
  * @listener: the listener to notify
  * @data: a #gpointer that points to a block of data that should be sent to the registered listeners,
  *        along with the event notification, when it occurs.  
