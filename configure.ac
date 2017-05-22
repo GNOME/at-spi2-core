@@ -161,29 +161,16 @@ fi
 changequote([,])dnl
 
 GLIB_REQUIRED_VERSION=2.31.2
-GLIB_PACKAGES="gobject-2.0"
-AC_SUBST(GLIB_PACKAGES)
 AC_SUBST(GLIB_REQUIRED_VERSION)
 
-dnl This PATH_GLIB is somewhat redundant, but does a sanity compile and 
-dnl importantly defines the GLIB_GENMARSHAL variable for subst into the
-dnl Makefile
-AM_PATH_GLIB_2_0($GLIB_REQUIRED_VERSION, :,
-  AC_MSG_ERROR([
-*** GLIB $GLIB_REQUIRED_VERSION or better is required. The latest version of 
-*** GLIB is always available from ftp://ftp.gtk.org/. If GLIB is installed
-*** but not in the same location as pkg-config add the location of the file 
-*** glib-2.0.pc to the environment variable PKG_CONFIG_PATH.]),
-  gobject)
+PKG_CHECK_MODULES(DEP, [gobject-2.0 >= $GLIB_REQUIRED_VERSION])
+AC_SUBST(DEP_CFLAGS)
+AC_SUBST(DEP_LIBS)
 
-PKG_CHECK_MODULES(DEP, glib-2.0 >= $GLIB_REQUIRED_VERSION $GLIB_PACKAGES, ,
-  AC_MSG_ERROR([
-        *** GLib not found. You can find it on ftp://ftp.gtk.org
-        *** Errors follow:
-            $DEP_PKG_ERRORS]))
-
-# Rerun PKG_CONFIG to add gthread-2.0 cflags, but not libs
-DEP_CFLAGS=`$PKG_CONFIG --cflags $GLIB_PACKAGES gthread-2.0`
+GLIB_MKENUMS=`$PKG_CONFIG --variable=glib_mkenums glib-2.0`
+GLIB_GENMARSHAL=`$PKG_CONFIG --variable=glib_genmarshal glib-2.0`
+AC_SUBST(GLIB_MKENUMS)
+AC_SUBST(GLIB_GENMARSHAL)
 
 # i18n stuff
 AM_GNU_GETTEXT_VERSION([0.19.2])

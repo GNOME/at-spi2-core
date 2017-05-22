@@ -103,7 +103,6 @@ pkgconf.set('exec_prefix', atk_prefix)
 pkgconf.set('libdir', atk_libdir)
 pkgconf.set('includedir', atk_includedir)
 pkgconf.set('VERSION', meson.project_version())
-pkgconf.set('GLIB_PACKAGES', 'gobject-2.0')
 pkgconf.set('ATK_API_VERSION', atk_api_version)
 pkgconf.set('srcdir', '.')
 

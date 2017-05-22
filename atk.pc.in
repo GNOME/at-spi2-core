@@ -6,6 +6,6 @@ includedir=@includedir@
 Name: Atk
 Description: Accessibility Toolkit
 Version: @VERSION@
-Requires: @GLIB_PACKAGES@
+Requires: gobject-2.0
 Libs: -L${libdir} -latk-@ATK_API_VERSION@
 Cflags: -I${includedir}/atk-1.0
