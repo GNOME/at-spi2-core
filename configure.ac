@@ -269,7 +269,6 @@ win32/vs14/Makefile
 win32/vs15/Makefile
 docs/Makefile
 docs/version.xml
-atk.spec
 atk-zip.sh
 config.h.win32
 ])
