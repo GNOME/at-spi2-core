@@ -1,44 +1,59 @@
-This directory contains the ATK library.
+ATK - The Accessibility Toolkit
+===============================
 
 For more information about ATK and accessibility in GNOME, see:
- http://projects.gnome.org/accessibility
+
+  https://wiki.gnome.org/Accessibility
 
 Dependencies
-============
+------------
 
-ATK requires GLib >= 2.31.2. Information about GLib is available from
-http://www.gtk.org/.
+ATK requires GLib >= 2.32. Information about GLib is available from:
+
+  https://www.gtk.org
 
 Getting the source code
-=======================
+-----------------------
 
 You can get the source code of each ATK release as a tarball:
-https://download.gnome.org/sources/atk/
+
+  https://download.gnome.org/sources/atk/
 
 You can also clone the ATK master branch from GNOME repository:
-https://git.gnome.org/browse/atk
+
+  https://git.gnome.org/browse/atk
 
 Building
-========
+--------
 
-To buid ATK from a release tarball, the usual is using autotool, as:
+To buid ATK from a release tarball you can use Autotools:
 
-  $ ./configure
-  $ make
-  # make install
+    $ ./configure
+    $ make
+    # make install
 
-To build ATK from a Git clone, run the autogen.sh script instead of
-the configure one. Before running autogen.sh or configure, make sure
-you have libtool in your path.
+Alternatively, you can use Meson and Ninja:
 
-Note that autogen.sh runs configure for you.  If you wish to pass
-options like --prefix=/usr to configure you can give those options
-to autogen.sh and they will be passed on to configure.
+    $ meson _build .
+    $ ninja -C _build
+    # ninja -C _build install
+
+To build ATK from a Git clone using Autotools, run the autogen.sh script
+instead of the configure one; before running autogen.sh or configure, make
+sure you have libtool in your path. If you use Meson, no changes are
+necessary.
+
+Note that autogen.sh runs the configure script for you. If you wish to pass
+options like --prefix=/usr to configure you can give those options to
+autogen.sh and they will be passed on to configure; if you wish to run
+autogen.sh without running the configure script, export the NOCONFIGURE
+environment variable.
 
 How to report bugs
-==================
+------------------
 
 Bugs should be reported to the GNOME bug tracking system:
+
   http://bugzilla.gnome.org/enter_bug.cgi?product=atk
 
 You will need to create an account for yourself.
