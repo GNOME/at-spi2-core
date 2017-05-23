@@ -123,7 +123,7 @@ libatk = shared_library('atk-@0@'.format(atk_api_version),
 libatk_dep = declare_dependency(link_with: libatk,
                                 include_directories: atk_inc,
                                 dependencies: gobject_dep,
-                                sources: atk_enums)
+                                sources: atk_enum_h)
 
 if not meson.is_cross_build()
   gnome.generate_gir(libatk,
