@@ -811,12 +811,41 @@ typedef enum {
  * @ATSPI_ROLE_FRAME object may still be the active window.
  * @ATSPI_RELATION_PARENT_WINDOW_OF: This is the reciprocal relation to
  * @ATSPI_RELATION_POPUP_FOR.
- * @ATSPI_RELATION_DESCRIPTION_FOR: Indicates that an object provides
- * descriptive information about another object; more verbose than
- * @ATSPI_RELATION_LABEL_FOR.
- * @ATSPI_RELATION_DESCRIBED_BY: Indicates that another object provides
- * descriptive information about this object; more verbose than
- * @ATSPI_RELATION_LABELLED_BY.
+ * @ATSPI_RELATION_DESCRIBED_BY: Reciprocal of %ATSPI_RELATION_DESCRIPTION_FOR.
+ * Indicates that one or more target objects provide descriptive information
+ * about this object. This relation type is most appropriate for information
+ * that is not essential as its presentation may be user-configurable and/or
+ * limited to an on-demand mechanism such as an assistive technology command.
+ * For brief, essential information such as can be found in a widget's on-screen
+ * label, use %ATSPI_RELATION_LABELLED_BY. For an on-screen error message, use
+ * %ATSPI_RELATION_ERROR_MESSAGE. For lengthy extended descriptive information
+ * contained in an on-screen object, consider using %ATSPI_RELATION_DETAILS as
+ * assistive technologies may provide a means for the user to navigate to
+ * objects containing detailed descriptions so that their content can be more
+ * closely reviewed.
+ * @ATSPI_RELATION_DESCRIPTION_FOR: Reciprocal of %ATSPI_RELATION_DESCRIBED_BY.
+ * Indicates that this object provides descriptive information about the target
+ * object(s). See also %ATSPI_RELATION_DETAILS_FOR and %ATSPI_RELATION_ERROR_FOR.
+ * @ATSPI_RELATION_DETAILS: Reciprocal of %ATSPI_RELATION_DETAILS_FOR. Indicates
+ * that this object has a detailed or extended description, the contents of
+ * which can be found in the target object(s). This relation type is most
+ * appropriate for information that is sufficiently lengthy as to make
+ * navigation to the container of that information desirable. For less verbose
+ * information suitable for announcement only, see %ATSPI_RELATION_DESCRIBED_BY.
+ * If the detailed information describes an error condition,
+ * %ATSPI_RELATION_ERROR_FOR should be used instead. @Since: 2.26.
+ * @ATSPI_RELATION_DETAILS_FOR: Reciprocal of %ATSPI_RELATION_DETAILS. Indicates
+ * that this object provides a detailed or extended description about the target
+ * object(s). See also %ATSPI_RELATION_DESCRIPTION_FOR and
+ * %ATSPI_RELATION_ERROR_FOR. @Since: 2.26.
+ * @ATSPI_RELATION_ERROR_MESSAGE: Reciprocal of %ATSPI_RELATION_ERROR_FOR.
+ * Indicates that this object has one or more errors, the nature of which is
+ * described in the contents of the target object(s). Objects that have this
+ * relation type should also contain %ATSPI_STATE_INVALID_ENTRY in their
+ * #AtspiStateSet. @Since: 2.26.
+ * @ATSPI_RELATION_ERROR_FOR: Reciprocal of %ATSPI_RELATION_ERROR_MESSAGE.
+ * Indicates that this object contains an error message describing an invalid
+ * condition in the target object(s). @Since: 2.26.
  * @ATSPI_RELATION_LAST_DEFINED: Do not use as a parameter value, used to
  * determine the size of the enumeration. 
  *
@@ -860,6 +889,10 @@ typedef enum {
     ATSPI_RELATION_PARENT_WINDOW_OF,
     ATSPI_RELATION_DESCRIPTION_FOR,
     ATSPI_RELATION_DESCRIBED_BY,
+    ATSPI_RELATION_DETAILS,
+    ATSPI_RELATION_DETAILS_FOR,
+    ATSPI_RELATION_ERROR_MESSAGE,
+    ATSPI_RELATION_ERROR_FOR,
     ATSPI_RELATION_LAST_DEFINED,
 } AtspiRelationType;
 
@@ -868,7 +901,7 @@ typedef enum {
  *
  * One higher than the highest valid value of #AtspiRelationType.
  **/
-#define ATSPI_RELATIONTYPE_COUNT (19+1)
+#define ATSPI_RELATIONTYPE_COUNT (23+1)
 
 /**
  * AtspiRole:
