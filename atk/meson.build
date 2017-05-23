@@ -34,6 +34,7 @@ atk_sources = [
 ]
 
 atk_headers = [
+  'atk.h',
   'atkaction.h',
   'atkcomponent.h',
   'atkdocument.h',
