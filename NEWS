@@ -1,3 +1,10 @@
+What's new in at-spi2-atk 2.25.2:
+
+* Fix use after free when returned objects hold only one ref (bgo#781716).
+
+* Add some missing roles to correspond with atk (description list,
+  description term, description value, and footnote).
+
 What's new in at-spi2-atk 2.25.1:
 
 * Fix position getter for table cells.
