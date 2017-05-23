@@ -104,7 +104,8 @@ return_v_string (DBusMessageIter * iter, const gchar * str)
   if (!dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, "s",
                                     &variant))
     return FALSE;
-    dbus_message_iter_append_basic (&variant, DBUS_TYPE_STRING, &str);
+
+  dbus_message_iter_append_basic (&variant, DBUS_TYPE_STRING, &str);
   dbus_message_iter_close_container (iter, &variant);
   return TRUE;
 }

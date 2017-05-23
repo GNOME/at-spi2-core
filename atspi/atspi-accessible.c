@@ -173,13 +173,14 @@ atspi_accessible_finalize (GObject *object)
 {
   AtspiAccessible *accessible = ATSPI_ACCESSIBLE (object);
 
-    g_free (accessible->description);
-    g_free (accessible->name);
+  g_free (accessible->description);
+  g_free (accessible->name);
+
   if (accessible->attributes)
     g_hash_table_unref (accessible->attributes);
 
-    if (accessible->priv->cache)
-      g_hash_table_destroy (accessible->priv->cache);
+  if (accessible->priv->cache)
+    g_hash_table_destroy (accessible->priv->cache);
 
 #ifdef DEBUG_REF_COUNTS
   accessible_count--;
