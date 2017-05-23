@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.25.2:
+
+* attempt to fix an occasional crash when an application disappears
+  (bgo#767074).
+
+* Add some missing roles to correspond with atk (description list,
+  description term, description value, and footnote).
+
 What's new in at-spi2-core 2.25.1:
 
 * atspi_table_cell_get_position: don't crash on error.
