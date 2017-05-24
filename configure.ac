@@ -185,7 +185,6 @@ AC_CONFIG_FILES([
         doc/libatspi/version.xml
         test/Makefile
         atspi-2.pc
-        atspi-2-uninstalled.pc
 ])
 
 AC_OUTPUT
