@@ -2,18 +2,22 @@ lib_LTLIBRARIES = libatspi.la
 
 libatspi_la_LDFLAGS = @LDFLAGS@ @LT_VERSION_INFO@ @LIBTOOL_EXPORT_OPTIONS@ -no-undefined
 
-libatspi_la_CFLAGS = $(DBUS_CFLAGS) \
-		    $(DBIND_CFLAGS)     \
-		    $(GLIB_CFLAGS)     \
-		    -I$(top_srcdir)/registryd \
-		    -I$(top_builddir)/registryd \
-                    -I$(top_builddir) \
-                    -I$(top_srcdir)
+libatspi_la_CFLAGS = \
+	$(DBUS_CFLAGS) \
+	$(DBIND_CFLAGS) \
+	$(GLIB_CFLAGS) \
+	-I$(top_srcdir)/registryd \
+	-I$(top_builddir)/registryd \
+	-I$(top_builddir) \
+	-I$(top_srcdir)
 
-libatspi_la_LIBADD = $(DBUS_LIBS) \
+libatspi_la_LIBADD = \
+	$(DBUS_LIBS) \
 	$(GOBJ_LIBS) \
 	$(X11_LIBS) \
 	$(top_builddir)/dbind/libdbind.la
+
+libatspi_la_DEPENDENCIES = $(top_builddir)/dbind/libdbind.la
 
 libatspiincludedir = $(includedir)/at-spi-2.0/atspi
 
