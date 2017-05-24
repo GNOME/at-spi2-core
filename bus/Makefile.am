@@ -9,7 +9,7 @@ at_spi_bus_launcher_CPPFLAGS = -DSYSCONFDIR=\"$(sysconfdir)\" \
                                -DDATADIR=\"$(datadir)\" \
                                -DDBUS_DAEMON=\"$(DBUS_DAEMON)\"
 at_spi_bus_launcher_CFLAGS = $(GIO_CFLAGS)
-at_spi_bus_launcher_LDADD = $(GIO_LIBS) $(X_LIBS)
+at_spi_bus_launcher_LDADD = $(GIO_LIBS) $(X11_LIBS)
 
 default_sessiondir = $(sysconfdir)/xdg/autostart
 default_session_DATA = at-spi-dbus-bus.desktop

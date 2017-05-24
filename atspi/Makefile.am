@@ -12,7 +12,7 @@ libatspi_la_CFLAGS = $(DBUS_CFLAGS) \
 
 libatspi_la_LIBADD = $(DBUS_LIBS) \
 	$(GOBJ_LIBS) \
-	$(X_LIBS) \
+	$(X11_LIBS) \
 	$(top_builddir)/dbind/libdbind.la
 
 libatspiincludedir = $(includedir)/at-spi-2.0/atspi
