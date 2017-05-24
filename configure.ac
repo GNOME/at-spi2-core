@@ -37,6 +37,7 @@ AC_CONFIG_HEADERS([config.h])
 dnl translation of at-spi strings
 IT_PROG_INTLTOOL([0.40.0])
 
+AC_PROG_SED
 
 GETTEXT_PACKAGE="${PACKAGE}"
 AC_SUBST(GETTEXT_PACKAGE)

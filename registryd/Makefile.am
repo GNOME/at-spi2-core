@@ -59,7 +59,7 @@ service_in_files = org.a11y.atspi.Registry.service.in
 service_DATA     = $(service_in_files:.service.in=.service)
 
 $(service_DATA): $(service_in_files) Makefile
-	sed -e "s|[@]LIBEXECDIR[@]|$(libexecdir)|" $(srcdir)/$@.in > $@
+	$(AM_V_GEN)$(SED) -e "s|[@]LIBEXECDIR[@]|$(libexecdir)|" $(srcdir)/$@.in > $@
 
 DISTCLEANFILES = org.a11y.atspi.Registry.service
 EXTRA_DIST += org.a11y.atspi.Registry.service.in
