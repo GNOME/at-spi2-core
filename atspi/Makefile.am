@@ -111,12 +111,12 @@ ENUM_TYPES = \
 	atspi-constants.h \
 	atspi-types.h
 
-atspi-enum-types.h: atspi-enum-types.h.template $(ENUM_TYPES) $(GLIB_MKENUMS)
+atspi-enum-types.h: atspi-enum-types.h.template $(ENUM_TYPES)
 	$(AM_V_GEN) $(GLIB_MKENUMS) --template $(srcdir)/atspi-enum-types.h.template $(addprefix $(srcdir)/, $(ENUM_TYPES)) > $@.tmp \
 	&& (cmp -s $@.tmp $@ || cp -f $@.tmp $@) \
 	&& rm -f $@.tmp
 
-atspi-enum-types.c: atspi-enum-types.c.template $(ENUM_TYPES) $(GLIB_MKENUMS)
+atspi-enum-types.c: atspi-enum-types.c.template $(ENUM_TYPES)
 	$(AM_V_GEN) $(GLIB_MKENUMS) --template $(srcdir)/atspi-enum-types.c.template $(addprefix $(srcdir)/, $(ENUM_TYPES)) > $@.tmp \
 	&& (cmp -s $@.tmp $@ || cp -f $@.tmp $@) \
 	&& rm -f $@.tmp

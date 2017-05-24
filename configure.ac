@@ -52,6 +52,10 @@ PKG_CHECK_MODULES(GLIB, [glib-2.0 >= 2.36.0])
 AC_SUBST(GLIB_LIBS)
 AC_SUBST(GLIB_CFLAGS)
 
+# Use pkg-config to find the glib-mkenums script
+GLIB_MKENUMS=`$PKG_CONFIG --variable=glib_mkenums glib-2.0`
+AC_SUBST(GLIB_MKENUMS)
+
 PKG_CHECK_MODULES(GOBJ, [gobject-2.0 >= 2.0.0])
 AC_SUBST(GOBJ_LIBS)
 AC_SUBST(GOBJ_CFLAGS)
@@ -142,9 +146,7 @@ else
 fi
 AC_SUBST(DBUS_SERVICES_DIR)
 
-AC_PATH_PROG(GLIB_MKENUMS, glib-mkenums)
-
-GOBJECT_INTROSPECTION_CHECK([0.9.6])
+GOBJECT_INTROSPECTION_CHECK([1.32.0])
 
 AC_SUBST(LIBTOOL_EXPORT_OPTIONS)
 
@@ -162,12 +164,14 @@ typedef void *dbind_pointer;])
 AC_CHECK_ALIGNOF(dbind_struct, [AC_INCLUDES_DEFAULT
 typedef struct {char s1;} dbind_struct;])
 
-GTK_DOC_CHECK([1.09])
+GTK_DOC_CHECK([1.25])
 
 if test "x$GCC" = xyes; then
 	CFLAGS="$CFLAGS -Werror-implicit-function-declaration"
 fi
+
 CPPFLAGS=$orig_CPPFLAGS 
+
 AC_CONFIG_FILES([
         Makefile
         po/Makefile.in
