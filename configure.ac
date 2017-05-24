@@ -28,19 +28,21 @@ AM_INIT_AUTOMAKE([1.9 -Wall foreign no-dist-gzip dist-xz])
 AM_SILENT_RULES([yes])
 
 AC_PROG_CC
-AM_PROG_AR
 LT_INIT([disable-static])
 PKG_PROG_PKG_CONFIG
 
 AC_CONFIG_HEADERS([config.h])
 
-dnl translation of at-spi strings
-IT_PROG_INTLTOOL([0.40.0])
-
 AC_PROG_SED
+
+AM_GNU_GETTEXT_VERSION([0.19.8])
+AM_GNU_GETTEXT([external])
 
 GETTEXT_PACKAGE="${PACKAGE}"
 AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE],
+                   ["$GETTEXT_PACKAGE"],
+                   [The prefix for our gettext translation domains.])
 
 PKG_CHECK_MODULES(DBUS, [dbus-1 >= 1.0])
 AC_SUBST(DBUS_LIBS)
@@ -166,18 +168,20 @@ if test "x$GCC" = xyes; then
 	CFLAGS="$CFLAGS -Werror-implicit-function-declaration"
 fi
 CPPFLAGS=$orig_CPPFLAGS 
-AC_CONFIG_FILES([Makefile po/Makefile.in
+AC_CONFIG_FILES([
+        Makefile
+        po/Makefile.in
 	xml/Makefile
 	dbind/Makefile
 	atspi/Makefile
 	registryd/Makefile
 	bus/Makefile
-doc/Makefile
-doc/libatspi/Makefile
-doc/libatspi/version.xml
-test/Makefile
-atspi-2.pc
-atspi-2-uninstalled.pc
+        doc/Makefile
+        doc/libatspi/Makefile
+        doc/libatspi/version.xml
+        test/Makefile
+        atspi-2.pc
+        atspi-2-uninstalled.pc
 ])
 
 AC_OUTPUT
