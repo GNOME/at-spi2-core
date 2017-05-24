@@ -126,39 +126,9 @@ else
 	LIBS="$LIBS $save_LIBS"
 fi
 
-save_LIBS="$LIBS"
-LIBS=""
-AC_ARG_ENABLE(xevie,
-	[AS_HELP_STRING([--enable-xevie],
-		[Build with XEViE support [default=no]])],
-	enable_xevie="$enableval", enable_xevie=no)
-
 if test -z "$backend_set"; then
   enable_x11_backend=yes
 fi
-
-if test x$enable_xevie = xyes ; then
-	have_xevie=
-	AC_CHECK_LIB(Xext, XevieStart, have_xevie="yes", have_xevie="no", $X_LIBS)
-
-	if test "x$have_xevie" = "xyes"; then
-		XEVIE_LIBS="-lXext"
-		AC_DEFINE([HAVE_XEVIE], [], [Xevie is present])
-	else
-	   AC_CHECK_LIB(Xevie, XevieQueryVersion, have_xevie="maybe",,$X_LIBS)
-	   if test "x$have_xevie" = "xmaybe"; then
-	      AC_CHECK_HEADER(X11/extensions/Xevie.h, have_xevie=yes, [],
-	      [[#include <X11/Xlib.h>
-]])
-	      if test "x$have_xevie" = "xyes"; then
-	      	      XEVIE_LIBS="-lXext -lXevie"	       
-		      AC_DEFINE([HAVE_XEVIE], [], [Xevie is present])
-	      fi
-	   fi	
-	fi
-	AC_SUBST(XEVIE_LIBS)
-fi
-LIBS="$LIBS $save_LIBS"
 
 AC_ARG_WITH([dbus_daemondir],
 	[AS_HELP_STRING([--with-dbus-daemondir=<directory>],
