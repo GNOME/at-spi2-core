@@ -1,3 +1,53 @@
+Changes in version 2.25.2
+=========================
+
+* Bugfixing:
+   * Bug 781715: Crash under atk_gobject_accessible_dispose()
+* Build (general/autotools):
+   * Add ATK_UNAVAILABLE macro
+   * Use template files for the ATK enumerations
+   * Convert atkversion.h.in to UTF-8 encoding
+   * Include the marshallers header, not the source
+   * Add buildir to the docs directories
+   * Update deprecation warnings symbols
+   * Simplify GObject dependency discovery
+* Build (meson):
+   * Bug 782871: Add meson build system
+   * Dist the Meson files
+   * Use the appropriate soversion
+   * Use the appropriate GETTEXT_PACKAGE
+   * Install atk.h
+   * Only depend on generated header
+* Build (win32):
+   * win32: Fix replacing items in files with UTF-8 content
+* Cleaning:
+   * Remove atk.spec.in
+   * Remove uninstalled pkg-config file
+   * Remove unused script for bundling ATK on Windows
+   * Remove ChangeLog
+   * Remove local introspection.m4
+* Docs:
+   * Modernise the API reference:
+      * Use XInclude
+      * Stop using SGML mode with XML files
+      * Drop version.xml and use the gtk-doc package entities
+   * Update the README mentioning Meson, Ninja, and cleaning a little
+   * Remove empty overrides file
+* Gobject introspection:
+   * Mark unbindable functions as 'skip
+* Misc:
+   * Update git ignore file
+* New Relations and Roles:
+   * Bug 748384: Add ATK_ROLE_FOOTNOTE
+   * Bug 781587: Add error-message, error-for, details and details-for-relation
+* Translation support:
+   * Update po/Makevars (copyright and bug address)
+
+Contributors:
+Emmanuele Bassi, Milan Crha, Joanmarie Diggs, Piotr Drąg, Chun-wei Fan
+
+Translations:
+Yuras Shumovich (be)
 Changes in version 2.24.0
 ==========================
 *
