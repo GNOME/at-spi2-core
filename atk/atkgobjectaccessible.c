@@ -37,7 +37,7 @@
 static void       atk_gobject_accessible_class_init       (AtkGObjectAccessibleClass   *klass);
 static void       atk_real_gobject_accessible_initialize  (AtkObject         *atk_obj,
                                                            gpointer          data);
-static void       atk_gobject_accessible_dispose          (gpointer          data);
+static void       atk_gobject_accessible_object_gone_cb   (gpointer          data);
 
 static GQuark quark_accessible_object = 0;
 static GQuark quark_object = 0;
@@ -88,8 +88,7 @@ atk_gobject_accessible_for_object (GObject *obj)
   g_return_val_if_fail (G_IS_OBJECT (obj), NULL);
   /* See if we have a cached accessible for this object */
 
-  accessible = g_object_get_qdata (obj,
-				   quark_accessible_object);
+  accessible = quark_accessible_object ? g_object_get_qdata (obj, quark_accessible_object) : NULL;
 
   if (!accessible)
     {
@@ -146,12 +145,12 @@ atk_real_gobject_accessible_initialize (AtkObject  *atk_obj,
   atk_obj->layer = ATK_LAYER_WIDGET;
 
   g_object_weak_ref (data,
-                     (GWeakNotify) atk_gobject_accessible_dispose,
+                     (GWeakNotify) atk_gobject_accessible_object_gone_cb,
                      atk_gobj);
 }
 
 static void
-atk_gobject_accessible_dispose (gpointer  data)
+atk_gobject_accessible_object_gone_cb (gpointer  data)
 {
   GObject *object;
 
@@ -168,15 +167,38 @@ atk_gobject_accessible_dispose (gpointer  data)
 }
 
 static void
+atk_gobject_accessible_dispose (GObject *atk_obj)
+{
+   GObject *obj = atk_gobject_accessible_get_object (ATK_GOBJECT_ACCESSIBLE (atk_obj));
+
+   if (obj) {
+      g_object_set_qdata (obj, quark_accessible_object, NULL);
+      g_object_weak_unref (obj,
+                           (GWeakNotify) atk_gobject_accessible_object_gone_cb,
+                           atk_obj);
+
+      g_object_set_qdata (atk_obj, quark_object, NULL);
+      atk_object_notify_state_change (ATK_OBJECT (atk_obj), ATK_STATE_DEFUNCT,
+                                      TRUE); 
+   }
+
+   G_OBJECT_CLASS (parent_class)->dispose (atk_obj);
+}
+
+static void
 atk_gobject_accessible_class_init (AtkGObjectAccessibleClass *klass)
 { 
   AtkObjectClass *class;
+  GObjectClass *object_class;
 
   class = ATK_OBJECT_CLASS (klass);
 
   parent_class = g_type_class_peek_parent (klass);
 
   class->initialize = atk_real_gobject_accessible_initialize;
+
+  object_class = G_OBJECT_CLASS (klass);
+  object_class->dispose = atk_gobject_accessible_dispose;
 
   if (!quark_accessible_object)
     quark_accessible_object = g_quark_from_static_string ("accessible-object");
