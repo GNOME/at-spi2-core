@@ -200,7 +200,7 @@ endif
 atk-win32-res.o: atk.rc
 	$(WINDRES) $< $@
 
-EXTRA_DIST += atk.rc.in
+EXTRA_DIST += atk.rc.in atk.rc
 
 # ---------- MSVC Project Items ---------
 MSVCPROJS = atk
