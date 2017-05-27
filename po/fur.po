@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=atk&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-11-11 09:43+0000\n"
-"PO-Revision-Date: 2017-01-05 14:33+0100\n"
+"POT-Creation-Date: 2017-03-12 16:16+0000\n"
+"PO-Revision-Date: 2017-05-27 23:32+0200\n"
+"Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <fur@li.org>\n"
 "Language: fur\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 1.8.12\n"
 
 #: atk/atkhyperlink.c:126
 msgid "Selected Link"
@@ -112,7 +112,7 @@ msgstr "curnîs de scrivanie"
 
 #: atk/atkobject.c:112
 msgid "dial"
-msgstr ""
+msgstr "cuadrant circolâr"
 
 #: atk/atkobject.c:113
 msgid "dialog"
@@ -261,7 +261,7 @@ msgstr "ricuadri dividût"
 
 #: atk/atkobject.c:150
 msgid "spin button"
-msgstr ""
+msgstr "boton che al zire"
 
 #: atk/atkobject.c:151
 msgid "statusbar"
@@ -321,7 +321,7 @@ msgstr "no cognossût"
 
 #: atk/atkobject.c:165
 msgid "viewport"
-msgstr ""
+msgstr "aree de viodude"
 
 #: atk/atkobject.c:166
 msgid "window"
@@ -365,11 +365,11 @@ msgstr "cjamp inseriment"
 
 #: atk/atkobject.c:176
 msgid "chart"
-msgstr ""
+msgstr "diagram"
 
 #: atk/atkobject.c:177
 msgid "caption"
-msgstr ""
+msgstr "didascalie"
 
 #: atk/atkobject.c:178
 msgid "document frame"
@@ -465,7 +465,7 @@ msgstr "sbare dal titul"
 
 #: atk/atkobject.c:201
 msgid "block quote"
-msgstr ""
+msgstr "bloc di citazion"
 
 #: atk/atkobject.c:202
 msgid "audio"
@@ -485,7 +485,7 @@ msgstr "articul"
 
 #: atk/atkobject.c:206
 msgid "landmark"
-msgstr ""
+msgstr "pont di riferiment"
 
 #: atk/atkobject.c:207
 msgid "log"
@@ -493,7 +493,7 @@ msgstr "regjistri"
 
 #: atk/atkobject.c:208
 msgid "marquee"
-msgstr ""
+msgstr "tendon"
 
 #: atk/atkobject.c:209
 msgid "math"
@@ -505,7 +505,7 @@ msgstr "valutazion"
 
 #: atk/atkobject.c:211
 msgid "timer"
-msgstr ""
+msgstr "timer"
 
 #: atk/atkobject.c:212
 msgid "description list"
