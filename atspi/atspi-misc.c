@@ -198,6 +198,7 @@ handle_get_bus_address (DBusPendingCall *pending, void *user_data)
             dbus_connection_unref (app->bus);
           }
         app->bus = bus;
+        atspi_dbus_connection_setup_with_g_main(bus, g_main_context_default());
       }
       else
       {
@@ -1019,7 +1020,6 @@ static GSList *hung_processes;
 static void
 remove_hung_process (DBusPendingCall *pending, void *data)
 {
-
   hung_processes = g_slist_remove (hung_processes, data);
   g_free (data);
   dbus_pending_call_unref (pending);
@@ -1676,6 +1676,17 @@ atspi_set_main_context (GMainContext *cnx)
   }
   atspi_main_context = cnx;
   atspi_dbus_connection_setup_with_g_main (atspi_get_a11y_bus (), cnx);
+
+  if (desktop)
+  {
+    gint i;
+    for (i = desktop->children->len - 1; i >= 0; i--)
+    {
+      AtspiAccessible *child = g_ptr_array_index (desktop->children, i);
+      if (child->parent.app && child->parent.app->bus)
+        atspi_dbus_connection_setup_with_g_main (child->parent.app->bus, cnx);
+    }
+  }
 }
 
 #ifdef DEBUG_REF_COUNTS
