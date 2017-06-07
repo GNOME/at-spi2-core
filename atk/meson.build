@@ -78,7 +78,7 @@ atk_version_conf.set('ATK_MICRO_VERSION', atk_micro_version)
 atk_version_conf.set('ATK_BINARY_AGE', atk_binary_age)
 atk_version_conf.set('ATK_INTERFACE_AGE', atk_interface_age)
 
-configure_file(input: 'atkversion.h.in',
+atk_version_h = configure_file(input: 'atkversion.h.in',
                output: 'atkversion.h',
                configuration: atk_version_conf,
                install: true,
@@ -127,7 +127,7 @@ libatk_dep = declare_dependency(link_with: libatk,
 
 if not meson.is_cross_build()
   gnome.generate_gir(libatk,
-                     sources: atk_sources + atk_headers + [ atk_enum_h ],
+                     sources: atk_sources + atk_headers + [ atk_enum_h ] + [ atk_version_h ],
                      namespace: 'Atk',
                      nsversion: atk_api_version,
                      identifier_prefix: 'Atk',
