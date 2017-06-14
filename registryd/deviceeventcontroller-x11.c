@@ -43,12 +43,6 @@
 #define XK_LATIN1
 #include <X11/keysymdef.h>
 
-#ifdef HAVE_XEVIE
-#include <X11/Xproto.h>
-#include <X11/X.h>
-#include <X11/extensions/Xevie.h>
-#endif /* HAVE_XEVIE */
-
 #include <glib.h>
 
 #include <dbus/dbus.h>
@@ -1224,69 +1218,12 @@ spi_dec_x11_synth_keystring (SpiDEController *controller, guint synth_type, gint
 	return retval;
 }
 
-#ifdef HAVE_XEVIE
-static Bool
-isEvent(Display *dpy, XEvent *event, char *arg)
-{
-   return TRUE;
-}
-
-static gboolean
-handle_io (GIOChannel *source,
-           GIOCondition condition,
-           gpointer data) 
-{
-  SpiDEController *controller = (SpiDEController *) data;
-    DEControllerPrivateData *priv = controller->priv;
-  gboolean is_consumed = FALSE;
-  XEvent ev;
-
-  while (XCheckIfEvent(priv->xevie_display, &ev, isEvent, NULL))
-    {
-      if (ev.type == KeyPress || ev.type == KeyRelease)
-        is_consumed = spi_device_event_controller_forward_key_event (controller, &ev);
-
-      if (! is_consumed)
-        XevieSendEvent(priv->xevie_display, &ev, XEVIE_UNMODIFIED);
-    }
-
-  return TRUE;
-}
-#endif /* HAVE_XEVIE */
-
 static void
 spi_dec_x11_init (SpiDEController *controller)
 {
   DEControllerPrivateData *priv = controller->priv;	
-  spi_events_init (spi_get_display());
-#ifdef HAVE_XEVIE
-  GIOChannel *ioc;
-  int fd;
-#endif /* HAVE_XEVIE */
 
   spi_events_init (spi_get_display ());
-#ifdef HAVE_XEVIE
-  priv->xevie_display = XOpenDisplay(NULL);
-
-  if (XevieStart(priv->xevie_display) == TRUE)
-    {
-#ifdef SPI_KEYEVENT_DEBUG
-      fprintf (stderr, "XevieStart() success \n");
-#endif
-      XevieSelectInput(priv->xevie_display, KeyPressMask | KeyReleaseMask);
-
-      fd = ConnectionNumber(priv->xevie_display);
-      ioc = g_io_channel_unix_new (fd);
-      g_io_add_watch (ioc, G_IO_IN | G_IO_HUP, handle_io, controller);
-      g_io_channel_unref (ioc);
-    }
-  else
-    {
-#ifdef SPI_KEYEVENT_DEBUG
-      fprintf (stderr, "XevieStart() failed, only one client is allowed to do event int exception\n");
-#endif
-    }
-#endif /* HAVE_XEVIE */
 
   gettimeofday (&priv->last_press_time, NULL);
   gettimeofday (&priv->last_release_time, NULL);
@@ -1300,22 +1237,13 @@ spi_dec_x11_init (SpiDEController *controller)
 static void
 spi_dec_x11_finalize (SpiDEController *controller)
 {
-		DEControllerPrivateData *priv = controller->priv;
+  DEControllerPrivateData *priv = controller->priv;
+
   /* disconnect any special listeners, get rid of outstanding keygrabs */
   XUngrabKey (spi_get_display (), AnyKey, AnyModifier, DefaultRootWindow (spi_get_display ()));
 
-#ifdef HAVE_XEVIE
-  if (priv->xevie_display != NULL)
-    {
-      XevieEnd(priv->xevie_display);
-#ifdef SPI_KEYEVENT_DEBUG
-      printf("XevieEnd(dpy) finished \n");
-#endif
-    }
-#endif
-
   if (priv->xkb_desc)
-  XkbFreeKeyboard (priv->xkb_desc, 0, True);
+    XkbFreeKeyboard (priv->xkb_desc, 0, True);
   /* TODO: Should free the keymap */
 }
 
@@ -1323,7 +1251,7 @@ static gboolean
 spi_device_event_controller_forward_key_event (SpiDEController *controller,
 					       const XEvent    *event)
 {
-		DEControllerPrivateData *priv = controller->priv;
+  DEControllerPrivateData *priv = controller->priv;
   Accessibility_DeviceEvent key_event;
   gboolean ret;
 

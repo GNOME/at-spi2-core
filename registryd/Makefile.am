@@ -1,11 +1,14 @@
+EXTRA_DIST =
+
 libexec_PROGRAMS = at-spi2-registryd
 
 at_spi2_registryd_CFLAGS =	\
 	$(GLIB_CFLAGS)		\
 	$(GIO_CFLAGS)		\
-	$(DBUS_CFLAGS)	\
+	$(DBUS_CFLAGS)		\
 	$(GOBJ_CFLAGS)		\
 	$(ATK_CFLAGS)		\
+	$(X11_CFLAGS)		\
 	-I$(top_srcdir)		\
 	-I$(top_builddir)	\
 	-I$(top_builddir)/atspi	\
@@ -18,10 +21,7 @@ at_spi2_registryd_LDADD =	\
 	$(DBUS_LIBS)	\
 	$(GOBJ_CFLAGS)		\
 	$(ATK_LIBS)		\
-	$(X_LIBS)		\
-	$(SM_LIBS)		\
-	$(XTST_LIBS)		\
-	$(XEVIE_LIBS)		\
+	$(X11_LIBS)		\
 	$(DL_LIBS)
 
 at_spi2_registryd_SOURCES =	\
@@ -50,9 +50,8 @@ X11_SOURCES = \
 
 if USE_X11
 at_spi2_registryd_SOURCES += $(X11_SOURCES)
-EXTRA_DIST = 
 else
-EXTRA_DIST = $(X11_SOURCES)
+EXTRA_DIST += $(X11_SOURCES)
 endif
 
 servicedir=$(datadir)/dbus-1/accessibility-services
@@ -60,8 +59,7 @@ service_in_files = org.a11y.atspi.Registry.service.in
 service_DATA     = $(service_in_files:.service.in=.service)
 
 $(service_DATA): $(service_in_files) Makefile
-	sed -e "s|[@]LIBEXECDIR[@]|$(libexecdir)|" $(srcdir)/$@.in > $@
-
+	$(AM_V_GEN)$(SED) -e "s|[@]LIBEXECDIR[@]|$(libexecdir)|" $(srcdir)/$@.in > $@
 
 DISTCLEANFILES = org.a11y.atspi.Registry.service
 EXTRA_DIST += org.a11y.atspi.Registry.service.in

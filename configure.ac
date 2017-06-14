@@ -20,26 +20,29 @@ AC_SUBST(LT_CURRENT)
 AC_SUBST(LT_REVISION)
 AC_SUBST(LT_AGE)
 
-AM_INIT_AUTOMAKE([1.9 -Wall foreign no-dist-gzip dist-xz])
+AM_INIT_AUTOMAKE([1.13 -Wall -Wno-portability foreign subdir-objects no-dist-gzip dist-xz])
 
 # Support silent build rules. Disable
 # by either passing --disable-silent-rules to configure or passing V=1
 # to make
 AM_SILENT_RULES([yes])
 
-AC_PROG_CC
-AM_PROG_AR
+AM_PROG_CC_C_O
 LT_INIT([disable-static])
 PKG_PROG_PKG_CONFIG
 
 AC_CONFIG_HEADERS([config.h])
 
-dnl translation of at-spi strings
-IT_PROG_INTLTOOL([0.40.0])
+AC_PROG_SED
 
+AM_GNU_GETTEXT_VERSION([0.19.8])
+AM_GNU_GETTEXT([external])
 
 GETTEXT_PACKAGE="${PACKAGE}"
 AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE],
+                   ["$GETTEXT_PACKAGE"],
+                   [The prefix for our gettext translation domains.])
 
 PKG_CHECK_MODULES(DBUS, [dbus-1 >= 1.0])
 AC_SUBST(DBUS_LIBS)
@@ -48,6 +51,10 @@ AC_SUBST(DBUS_CFLAGS)
 PKG_CHECK_MODULES(GLIB, [glib-2.0 >= 2.36.0])
 AC_SUBST(GLIB_LIBS)
 AC_SUBST(GLIB_CFLAGS)
+
+# Use pkg-config to find the glib-mkenums script
+GLIB_MKENUMS=`$PKG_CONFIG --variable=glib_mkenums glib-2.0`
+AC_SUBST(GLIB_MKENUMS)
 
 PKG_CHECK_MODULES(GOBJ, [gobject-2.0 >= 2.0.0])
 AC_SUBST(GOBJ_LIBS)
@@ -68,97 +75,50 @@ AC_CHECK_LIB(c, dlopen, DL_LIBS="",
 
 AC_SUBST(DL_LIBS)
 
-AC_PATH_XTRA
-
 AC_ARG_ENABLE(x11,
               [AS_HELP_STRING([--disable-x11],
                               [disable the X11 backend])],,
 			      [enable_x11=auto])
 
-if test x$enable_x11 = xno; then
-	AM_CONDITIONAL(USE_X11, false)
-elif test x$no_x = xyes ; then
-	AC_MSG_ERROR([X development libraries not found])
-else
-	AM_CONDITIONAL(USE_X11, true)
-	X_LIBS="$X_LIBS $X_PRE_LIBS -lX11 $X_EXTRA_LIBS"
-	AC_SUBST(X_LIBS)
-	AC_DEFINE(HAVE_X11, 1, [Define to use X11])
-	AC_SUBST(HAVE_X11)
+AS_IF([test "x$enable_x11" = xno], [
+  AM_CONDITIONAL(USE_X11, false)
+], [
+  PKG_CHECK_MODULES(X11, [x11], [
+    AC_DEFINE(HAVE_X11, 1, [Define to use X11])
+    AC_SUBST(HAVE_X11)
+    have_x11=yes
+  ], [
+    AS_IF([test "x$enable_x11" = xyes], [
+      AC_MSG_ERROR([Unable to find X11 development files])
+    ])
+    have_x11=no
+  ])
 
-	dnl Check for Xtst
-	save_LIBS="$LIBS"
-	LIBS=""
-	CPPFLAGS="$CPPFLAGS $X_CFLAGS"
-	AC_CHECK_LIB(Xtst, XTestFakeKeyEvent, XTST_LIBS=-lXtst,[
-		AC_MSG_ERROR([Couldn't find the Xtst library. Check config.log])],
-		$X_LIBS)
-	AC_SUBST(XTST_LIBS)
-	LIBS="$LIBS $save_LIBS"
+  # Check for additional X11 extensions
+  AS_IF([test "x$have_x11" = xyes], [
+    # XTest (mandatory)
+    PKG_CHECK_MODULES(XTST, [xtst])
+    X11_CFLAGS="$X11_CFLAGS $XTST_CFLAGS"
+    X11_LIBS="$X11_LIBS $XTST_LIBS"
 
-	dnl Check for XkbQueryExtension
-	save_LIBS="$LIBS"
-	LIBS=""
-	AC_CHECK_LIB(X11, XkbQueryExtension, have_xkb="maybe", have_xkb="no", $X_LIBS)
-	if test "x$have_xkb" = "xmaybe"; then 
-		AC_CHECK_HEADER([X11/XKBlib.h], have_xkb=yes)
-	fi
-	if test "x$have_xkb" = "xyes"; then
-		AC_DEFINE([HAVE_XKB], [], [Xkb is present])
-	fi
-	LIBS="$LIBS $save_LIBS"
+    # XInput (mandatory)
+    PKG_CHECK_MODULES(XINPUT, [xi])
+    X11_CFLAGS="$X11_CFLAGS $XINPUT_CFLAGS"
+    X11_LIBS="$X11_LIBS $XINPUT_LIBS"
 
-	dnl Check for Xi
-	save_LIBS="$LIBS"
-	LIBS=""
-	AC_CHECK_LIB(Xi, XOpenDevice, have_xinput="maybe", have_xinput="no", $X_LIBS)
-	if test "x$have_xinput" = "xmaybe"; then
-		save_LIBS="$LIBS"
-		LIBS="$LIBS $X_LIBS"
-		AC_CHECK_HEADER([X11/extensions/XInput.h], [have_xinput="yes"])
-		LIBS="$save_LIBS"
-	fi
-	if test "x$have_xinput" != "xyes"; then
-		AC_MSG_ERROR([Couldn't find the XInput library. Check config.log for details])
-	fi
-	XINPUT_LIBS="-lXi"
-	AC_SUBST(XINPUT_LIBS)
-	LIBS="$LIBS $save_LIBS"
-fi
+    # XKB (optional)
+    PKG_CHECK_MODULES(XKB, [xkbcommon-x11], [
+      AC_DEFINE(HAVE_XKB, 1, [Define to use XKB])
+      X11_CFLAGS="$X11_CFLAGS $XKB_CFLAGS"
+      X11_LIBS="$X11_LIBS $XKB_LIBS"
+    ], [])
+  ])
 
-save_LIBS="$LIBS"
-LIBS=""
-AC_ARG_ENABLE(xevie,
-	[AS_HELP_STRING([--enable-xevie],
-		[Build with XEViE support [default=no]])],
-	enable_xevie="$enableval", enable_xevie=no)
+  AC_SUBST(X11_CFLAGS)
+  AC_SUBST(X11_LIBS)
 
-if test -z "$backend_set"; then
-  enable_x11_backend=yes
-fi
-
-if test x$enable_xevie = xyes ; then
-	have_xevie=
-	AC_CHECK_LIB(Xext, XevieStart, have_xevie="yes", have_xevie="no", $X_LIBS)
-
-	if test "x$have_xevie" = "xyes"; then
-		XEVIE_LIBS="-lXext"
-		AC_DEFINE([HAVE_XEVIE], [], [Xevie is present])
-	else
-	   AC_CHECK_LIB(Xevie, XevieQueryVersion, have_xevie="maybe",,$X_LIBS)
-	   if test "x$have_xevie" = "xmaybe"; then
-	      AC_CHECK_HEADER(X11/extensions/Xevie.h, have_xevie=yes, [],
-	      [[#include <X11/Xlib.h>
-]])
-	      if test "x$have_xevie" = "xyes"; then
-	      	      XEVIE_LIBS="-lXext -lXevie"	       
-		      AC_DEFINE([HAVE_XEVIE], [], [Xevie is present])
-	      fi
-	   fi	
-	fi
-	AC_SUBST(XEVIE_LIBS)
-fi
-LIBS="$LIBS $save_LIBS"
+  AM_CONDITIONAL(USE_X11, test "x$have_x11" = xyes)
+])
 
 AC_ARG_WITH([dbus_daemondir],
 	[AS_HELP_STRING([--with-dbus-daemondir=<directory>],
@@ -186,9 +146,7 @@ else
 fi
 AC_SUBST(DBUS_SERVICES_DIR)
 
-AC_PATH_PROG(GLIB_MKENUMS, glib-mkenums)
-
-GOBJECT_INTROSPECTION_CHECK([0.9.6])
+GOBJECT_INTROSPECTION_CHECK([1.32.0])
 
 AC_SUBST(LIBTOOL_EXPORT_OPTIONS)
 
@@ -206,24 +164,27 @@ typedef void *dbind_pointer;])
 AC_CHECK_ALIGNOF(dbind_struct, [AC_INCLUDES_DEFAULT
 typedef struct {char s1;} dbind_struct;])
 
-GTK_DOC_CHECK([1.09])
+GTK_DOC_CHECK([1.25])
 
 if test "x$GCC" = xyes; then
 	CFLAGS="$CFLAGS -Werror-implicit-function-declaration"
 fi
+
 CPPFLAGS=$orig_CPPFLAGS 
-AC_CONFIG_FILES([Makefile po/Makefile.in
+
+AC_CONFIG_FILES([
+        Makefile
+        po/Makefile.in
 	xml/Makefile
 	dbind/Makefile
 	atspi/Makefile
 	registryd/Makefile
 	bus/Makefile
-doc/Makefile
-doc/libatspi/Makefile
-doc/libatspi/version.xml
-test/Makefile
-atspi-2.pc
-atspi-2-uninstalled.pc
+        doc/Makefile
+        doc/libatspi/Makefile
+        doc/libatspi/version.xml
+        test/Makefile
+        atspi-2.pc
 ])
 
 AC_OUTPUT
