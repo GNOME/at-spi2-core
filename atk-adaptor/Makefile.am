@@ -50,4 +50,5 @@ libatk_bridge_2_0_la_LDFLAGS = \
 	$(AM_LDFLAGS)
 
 EXTRA_DIST = Makefile.include \
-	atkbridge.symbols
+	atkbridge.symbols \
+	meson.build

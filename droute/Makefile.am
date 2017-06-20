@@ -28,3 +28,5 @@ droute_test_LDFLAGS  = libdroute.la\
 		       $(DBUS_LIBS) \
 		       $(GLIB_LIBS) \
 		       $(ATSPI_LIBS)
+
+EXTRA_DIST = meson.build

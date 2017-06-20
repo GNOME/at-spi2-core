@@ -84,3 +84,5 @@ libtestutils_la_LIBADD = $(GLIB_LIBS) \
 
 libtestutils_la_SOURCES = atk_test_util.c \
                           atk_test_util.h
+
+EXTRA_DIST = meson.build
