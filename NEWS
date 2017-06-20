@@ -1,3 +1,18 @@
+What's new in at-spi2-core 2.25.3:
+
+* Fix -Wmisleading-indentation warnings.
+
+* Fix memory leak of at-spi-bus-launcher.
+
+* Add error-message, error-for, details, and details-for relation types.
+
+* Poll direct dbus connections in the main loop--fixes processes
+  being marked hung and the hung flag never being removed.
+
+* Add Meson build system (thanks to Emmanuele Bassi).
+
+* Various build fixes (thanks to Emmanuele Bassi).
+
 What's new in at-spi2-core 2.25.2:
 
 * attempt to fix an occasional crash when an application disappears
