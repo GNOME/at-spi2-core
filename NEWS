@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.25.4:
+
+* Fix gir generation with autotools (bgo#783994).
+
 What's new in at-spi2-core 2.25.3:
 
 * Fix -Wmisleading-indentation warnings.
