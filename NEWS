@@ -1,3 +1,9 @@
+What's new in at-spi2-atk 2.25.3:
+
+* Add error-message, error-for, details, and details-for relation types
+
+* Add Meson build system (thanks to Emmanuele Bassi).
+
 What's new in at-spi2-atk 2.25.2:
 
 * Fix use after free when returned objects hold only one ref (bgo#781716).
