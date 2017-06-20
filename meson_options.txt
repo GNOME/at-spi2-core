@@ -1,0 +1,4 @@
+option('disable_p2p',
+       description: 'Disable peer-to-peer DBus connections',
+       type: 'boolean',
+       value: false)
