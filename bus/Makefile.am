@@ -1,6 +1,7 @@
 CLEANFILES =
 DISTCLEANFILES =
-EXTRA_DIST =
+EXTRA_DIST = \
+	meson.build
 
 libexec_PROGRAMS = at-spi-bus-launcher
 at_spi_bus_launcher_SOURCES = at-spi-bus-launcher.c

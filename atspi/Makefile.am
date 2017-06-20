@@ -4,7 +4,8 @@ BUILT_SOURCES =
 
 CLEANFILES =
 DISTCLEANFILES =
-EXTRA_DIST =
+EXTRA_DIST = \
+	meson.build
 
 lib_LTLIBRARIES += libatspi.la
 

@@ -10,7 +10,9 @@ SUBDIRS = po dbind xml atspi bus registryd doc test
 ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 
 EXTRA_DIST = \
-	atspi-2.pc.in
+	atspi-2.pc.in \
+	meson.build \
+	meson_options.txt
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = atspi-2.pc

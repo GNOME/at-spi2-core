@@ -1,4 +1,5 @@
-EXTRA_DIST =
+EXTRA_DIST = \
+	meson.build
 
 libexec_PROGRAMS = at-spi2-registryd
 

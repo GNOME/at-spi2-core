@@ -21,4 +21,7 @@ dbtest_SOURCES = dbtest.c ../atspi/atspi-gmain.c
 dbtest_LDFLAGS = libdbind.la
 dbtest_LDADD = $(DBUS_LIBS)
 
+EXTRA_DIST = \
+	meson.build
+
 -include $(top_srcdir)/git.mk
