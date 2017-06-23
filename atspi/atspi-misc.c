@@ -1533,7 +1533,7 @@ get_accessibility_bus_address_dbus (void)
     g_warning ("Error retrieving accessibility bus address: %s: %s",
                error.name, error.message);
     dbus_error_free (&error);
-    return NULL;
+    goto out;
   }
   
   {
@@ -1545,12 +1545,14 @@ get_accessibility_bus_address_dbus (void)
 				DBUS_TYPE_INVALID))
       {
 	dbus_message_unref (reply);
-	return NULL;
+        goto out;
       }
     address = g_strdup (tmp_address);
     dbus_message_unref (reply);
   }
   
+out:
+  dbus_connection_unref (session_bus);
   return address;
 }
 
