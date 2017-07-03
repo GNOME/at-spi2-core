@@ -261,8 +261,6 @@ atspi_device_listener_new_simple (AtspiDeviceListenerSimpleCB callback,
  *
  * Adds an in-process callback function to an existing #AtspiDeviceListener.
  *
- * Returns: #TRUE if successful, otherwise #FALSE.
- *
  **/
 void
 atspi_device_listener_add_callback (AtspiDeviceListener  *listener,
@@ -286,8 +284,6 @@ atspi_device_listener_add_callback (AtspiDeviceListener  *listener,
  *
  * Removes an in-process callback function from an existing 
  * #AtspiDeviceListener.
- *
- * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
 void

@@ -27,6 +27,7 @@
 
 #include <dbus/dbus.h>
 
+#include "atspi-types.h"
 #include "atspi-accessible.h"
 #include <sys/time.h>
 

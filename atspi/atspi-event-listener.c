@@ -622,6 +622,18 @@ copy_event_properties (GArray *src)
   return dst;
 }
 
+/**
+ * atspi_event_listener_register_from_callback_full:
+ * @callback: (scope async): an #AtspiEventListenerCB function pointer.
+ * @user_data: (closure callback)
+ * @callback_destroyed: (destroy callback)
+ * @event_type:
+ * @properties: (element-type utf8)
+ * @error:
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
+ *
+ **/
 gboolean
 atspi_event_listener_register_from_callback_full (AtspiEventListenerCB callback,
 				                  void *user_data,

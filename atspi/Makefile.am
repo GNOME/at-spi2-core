@@ -137,12 +137,11 @@ INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
 
 if HAVE_INTROSPECTION
 Atspi-2.0.gir: libatspi.la
-Atspi_2_0_gir_INCLUDES = GLib-2.0 GObject-2.0
-Atspi_2_0_gir_PACKAGES = dbus-1
+Atspi_2_0_gir_INCLUDES = DBus-1.0 GLib-2.0 GObject-2.0
 Atspi_2_0_gir_EXPORT_PACKAGES = atspi-2
 Atspi_2_0_gir_CFLAGS = -I$(top_builddir) -I$(top_srcdir)
 Atspi_2_0_gir_LIBS = libatspi.la $(top_builddir)/dbind/libdbind.la
-Atspi_2_0_gir_FILES = $(libatspi_la_SOURCES) $(atspi_headers)
+Atspi_2_0_gir_FILES = $(libatspi_la_SOURCES) $(atspi_headers) atspi-enum-types.c atspi-enum-types.h
 Atspi_2_0_gir_SCANNERFLAGS = --namespace Atspi --nsversion=2.0
 INTROSPECTION_SCANNER_ARGS += --c-include='atspi/atspi.h'
 INTROSPECTION_GIRS += Atspi-2.0.gir
