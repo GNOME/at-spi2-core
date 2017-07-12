@@ -19,15 +19,16 @@ copy $(SolutionDir)$(ConfigurationName)\$(PlatformName)\bin\atk-$(ApiVersion).li
 mkdir $(CopyDir)\include\atk-$(ApiVersion)\atk&#x0D;&#x0A;
 #include "atk.headers"
 
-if exist ..\atk.pc (mkdir $(CopyDir)\lib\pkgconfig &amp; copy ..\atk.pc $(CopyDir)\lib\pkgconfig)&#x0D;&#x0A;
+mkdir $(CopyDir)\lib\pkgconfig&#x0D;&#x0A;
+copy ..\atk.pc $(CopyDir)\lib\pkgconfig&#x0D;&#x0A;
 "
 	/>
 	<UserMacro
 		Name="AtkGenPC"
-		Value="if exist $(PythonPath)\python.exe $(PythonPath)\python.exe ..\atkpc.py --prefix=$(CopyDir) --version=$(AtkMajorVersion).$(AtkMinorVersion).$(AtkMicroVersion)"
+		Value="$(PythonPath)\python.exe ..\atkpc.py --prefix=$(CopyDir) --version=$(AtkMajorVersion).$(AtkMinorVersion).$(AtkMicroVersion)"
 	/>
 	<UserMacro
 		Name="AtkGenPCX64"
-		Value="if exist $(PythonPathX64)\python.exe $(PythonPathX64)\python.exe ..\atkpc.py --prefix=$(CopyDir) --version=$(AtkMajorVersion).$(AtkMinorVersion).$(AtkMicroVersion)"
+		Value="$(PythonPathX64)\python.exe ..\atkpc.py --prefix=$(CopyDir) --version=$(AtkMajorVersion).$(AtkMinorVersion).$(AtkMicroVersion)"
 	/>
 </VisualStudioPropertySheet>

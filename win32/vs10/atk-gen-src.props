@@ -7,13 +7,20 @@
     <GenConfigH>if not exist ..\..\config.h copy ..\..\config.h.win32 ..\..\config.h</GenConfigH>
     <GenMarshalSrc>
 cd ..\..\atk
-
-$(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal atkmarshal.list --header &gt; atkmarshal.h
-
-$(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal atkmarshal.list --body &gt; atkmarshal.c
-
+if exist $(GLibEtcInstallRoot)\bin\glib-genmarshal $(PythonPath)\python $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal atkmarshal.list --header &gt; atkmarshal.h
+if not exist atkmarshal.h $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal atkmarshal.list --header &gt; atkmarshal.h
+if exist $(GLibEtcInstallRoot)\bin\glib-genmarshal $(PythonPath)\python $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal atkmarshal.list --body &gt; atkmarshal.c
+if not exist atkmarshal.c $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal atkmarshal.list --body &gt; atkmarshal.c
 cd $(SolutionDir)
     </GenMarshalSrc>
+    <GenMarshalSrcX64>
+cd ..\..\atk
+if exist $(GLibEtcInstallRoot)\bin\glib-genmarshal $(PythonPathX64)\python $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal atkmarshal.list --header &gt; atkmarshal.h
+if not exist atkmarshal.h $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal atkmarshal.list --header &gt; atkmarshal.h
+if exist $(GLibEtcInstallRoot)\bin\glib-genmarshal $(PythonPathX64)\python $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal atkmarshal.list --body &gt; atkmarshal.c
+if not exist atkmarshal.c $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal atkmarshal.list --body &gt; atkmarshal.c
+cd $(SolutionDir)
+    </GenMarshalSrcX64>
   </PropertyGroup>
   <PropertyGroup>
     <_PropertySheetDisplayName>atkgensrcprops</_PropertySheetDisplayName>
@@ -24,6 +31,9 @@ cd $(SolutionDir)
     </BuildMacro>
     <BuildMacro Include="GenMarshalSrc">
       <Value>$(GenMarshalSrc)</Value>
+    </BuildMacro>
+    <BuildMacro Include="GenMarshalSrcX64">
+      <Value>$(GenMarshalSrcX64)</Value>
     </BuildMacro>
   </ItemGroup>
 </Project>

@@ -16,6 +16,12 @@ atk.vcproj.
 The dependencies for this package are gettext-runtime (libintl), GLib*
 and ZLib.
 
+You will also need a Python 2.7.x or 3.x installation, as Python will be
+used to run glib-genmarshal, which was converted into a Python script from
+a compiled C program, in addition to generating the atk.pc pkg-config
+file for the build.  See PythonPath (32-bit builds) or PythonPathX64 (x64
+builds) in atk-version-paths.vsprops to see that they point to the correct paths.
+
 a) look for all of the dependencies (except GLib*) under
 
    http://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/ (32-bit) -OR-

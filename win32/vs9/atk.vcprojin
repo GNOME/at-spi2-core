@@ -222,7 +222,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Generating Marshalling Sources..."
-						CommandLine="$(GenMarshalSrc)"
+						CommandLine="$(GenMarshalSrcX64)"
 						Outputs="..\..\atk\atkmarshal.h;..\..\atk\atkmarshal.c"
 					/>
 				</FileConfiguration>
@@ -230,7 +230,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Generating Marshalling Sources..."
-						CommandLine="$(GenMarshalSrc)"
+						CommandLine="$(GenMarshalSrcX64)"
 						Outputs="..\..\atk\atkmarshal.h;..\..\atk\atkmarshal.c"
 					/>
 				</FileConfiguration>

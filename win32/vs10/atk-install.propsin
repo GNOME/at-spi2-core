@@ -18,10 +18,11 @@ copy $(BinDir)\atk-$(ApiVersion).lib $(CopyDir)\lib
 mkdir $(CopyDir)\include\atk-$(ApiVersion)\atk
 #include "atk.vs10.headers"
 
-if exist ..\atk.pc (mkdir $(CopyDir)\lib\pkgconfig &amp; copy ..\atk.pc $(CopyDir)\lib\pkgconfig)
+mkdir $(CopyDir)\lib\pkgconfig
+copy ..\atk.pc $(CopyDir)\lib\pkgconfig
     </AtkDoInstall>
-    <AtkGenPC>if exist $(PythonPath)\python.exe $(PythonPath)\python.exe ..\atkpc.py --prefix=$(CopyDir) --version=$(AtkMajorVersion).$(AtkMinorVersion).$(AtkMicroVersion)</AtkGenPC>
-    <AtkGenPCX64>if exist $(PythonPathX64)\python.exe $(PythonPathX64)\python.exe ..\atkpc.py --prefix=$(CopyDir) --version=$(AtkMajorVersion).$(AtkMinorVersion).$(AtkMicroVersion)</AtkGenPCX64>
+    <AtkGenPC>$(PythonPath)\python.exe ..\atkpc.py --prefix=$(CopyDir) --version=$(AtkMajorVersion).$(AtkMinorVersion).$(AtkMicroVersion)</AtkGenPC>
+    <AtkGenPCX64>$(PythonPathX64)\python.exe ..\atkpc.py --prefix=$(CopyDir) --version=$(AtkMajorVersion).$(AtkMinorVersion).$(AtkMicroVersion)</AtkGenPCX64>
     <AtkPCFiles>..\atk.pc</AtkPCFiles>
   </PropertyGroup>
   <ItemGroup>
