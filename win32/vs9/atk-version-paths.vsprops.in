@@ -59,11 +59,11 @@
 		Value="$(AtkSeparateVSDllSuffix)"
 	/>
 	<UserMacro
-		Name="PythonPath"
-		Value="c:\python27"
+		Name="PythonDir"
+		Value="c:\\python27"
 	/>
 	<UserMacro
-		Name="PythonPathX64"
-		Value="$(PythonPath).x64"
+		Name="PythonDirX64"
+		Value="$(PythonDir).x64"
 	/>
 </VisualStudioPropertySheet>

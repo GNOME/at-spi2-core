@@ -19,7 +19,7 @@ and ZLib.
 You will also need a Python 2.7.x or 3.x installation, as Python will be
 used to run glib-genmarshal, which was converted into a Python script from
 a compiled C program, in addition to generating the atk.pc pkg-config
-file for the build.  See PythonPath (32-bit builds) or PythonPathX64 (x64
+file for the build.  See PythonDir (32-bit builds) or PythonDirX64 (x64
 builds) in atk-version-paths.props to see that they point to the correct paths.
 
 

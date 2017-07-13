@@ -21,8 +21,8 @@ mkdir $(CopyDir)\include\atk-$(ApiVersion)\atk
 mkdir $(CopyDir)\lib\pkgconfig
 copy ..\atk.pc $(CopyDir)\lib\pkgconfig
     </AtkDoInstall>
-    <AtkGenPC>$(PythonPath)\python.exe ..\atkpc.py --prefix=$(CopyDir) --version=$(AtkMajorVersion).$(AtkMinorVersion).$(AtkMicroVersion)</AtkGenPC>
-    <AtkGenPCX64>$(PythonPathX64)\python.exe ..\atkpc.py --prefix=$(CopyDir) --version=$(AtkMajorVersion).$(AtkMinorVersion).$(AtkMicroVersion)</AtkGenPCX64>
+    <AtkGenPC>$(PythonDir)\python.exe ..\atkpc.py --prefix=$(CopyDir) --version=$(AtkMajorVersion).$(AtkMinorVersion).$(AtkMicroVersion)</AtkGenPC>
+    <AtkGenPCX64>$(PythonDirX64)\python.exe ..\atkpc.py --prefix=$(CopyDir) --version=$(AtkMajorVersion).$(AtkMinorVersion).$(AtkMicroVersion)</AtkGenPCX64>
     <AtkPCFiles>..\atk.pc</AtkPCFiles>
   </PropertyGroup>
   <ItemGroup>

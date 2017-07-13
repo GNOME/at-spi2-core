@@ -9,13 +9,13 @@
 		Name="GenConfigH"
 		Value="if not exist ..\..\config.h copy ..\..\config.h.win32 ..\..\config.h"
 	/>
-	<UserMacro
+	<UserMacroh
 		Name="GenMarshalSrc"
 		Value="
 cd ..\..\atk&#x0D;&#x0A;
-if exist $(GLibEtcInstallRoot)\bin\glib-genmarshal $(PythonPath)\python $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal --quiet --header --output=atkmarshal.h atkmarshal.list&#x0D;&#x0A;
+if exist $(GLibEtcInstallRoot)\bin\glib-genmarshal $(PythonDir)\python $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal --quiet --header --output=atkmarshal.h atkmarshal.list&#x0D;&#x0A;
 if not exist atkmarshal.h $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal atkmarshal.list --header &gt; atkmarshal.h&#x0D;&#x0A;
-if exist $(GLibEtcInstallRoot)\bin\glib-genmarshal $(PythonPath)\python $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal --quiet --body --output=atkmarshal.c atkmarshal.list&#x0D;&#x0A;
+if exist $(GLibEtcInstallRoot)\bin\glib-genmarshal $(PythonDir)\python $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal --quiet --body --output=atkmarshal.c atkmarshal.list&#x0D;&#x0A;
 if not exist atkmarshal.c $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal atkmarshal.list --body &gt; atkmarshal.c&#x0D;&#x0A;
 cd $(SolutionDir)&#x0D;&#x0A;
 		      "
@@ -24,9 +24,9 @@ cd $(SolutionDir)&#x0D;&#x0A;
                 Name="GenMarshalSrcX64"
                 Value="
 cd ..\..\atk&#x0D;&#x0A;
-if exist $(GLibEtcInstallRoot)\bin\glib-genmarshal $(PythonPathX64)\python $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal --quiet --header --output=atkmarshal.h atkmarshal.list&#x0D;&#x0A;
+if exist $(GLibEtcInstallRoot)\bin\glib-genmarshal $(PythonDirX64)\python $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal --quiet --header --output=atkmarshal.h atkmarshal.list&#x0D;&#x0A;
 if not exist atkmarshal.h $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal atkmarshal.list --header &gt; atkmarshal.h&#x0D;&#x0A;
-if exist $(GLibEtcInstallRoot)\bin\glib-genmarshal $(PythonPathX64)\python $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal --quiet --body --output=atkmarshal.c atkmarshal.list&#x0D;&#x0A;
+if exist $(GLibEtcInstallRoot)\bin\glib-genmarshal $(PythonDirX64)\python $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal --quiet --body --output=atkmarshal.c atkmarshal.list&#x0D;&#x0A;
 if not exist atkmarshal.c $(GLibEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal atkmarshal.list --body &gt; atkmarshal.c&#x0D;&#x0A;
 cd $(SolutionDir)&#x0D;&#x0A;
                       "

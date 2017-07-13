@@ -25,10 +25,10 @@ copy ..\atk.pc $(CopyDir)\lib\pkgconfig&#x0D;&#x0A;
 	/>
 	<UserMacro
 		Name="AtkGenPC"
-		Value="$(PythonPath)\python.exe ..\atkpc.py --prefix=$(CopyDir) --version=$(AtkMajorVersion).$(AtkMinorVersion).$(AtkMicroVersion)"
+		Value="$(PythonDir)\python.exe ..\atkpc.py --prefix=$(CopyDir) --version=$(AtkMajorVersion).$(AtkMinorVersion).$(AtkMicroVersion)"
 	/>
 	<UserMacro
 		Name="AtkGenPCX64"
-		Value="$(PythonPathX64)\python.exe ..\atkpc.py --prefix=$(CopyDir) --version=$(AtkMajorVersion).$(AtkMinorVersion).$(AtkMicroVersion)"
+		Value="$(PythonDirX64)\python.exe ..\atkpc.py --prefix=$(CopyDir) --version=$(AtkMajorVersion).$(AtkMinorVersion).$(AtkMicroVersion)"
 	/>
 </VisualStudioPropertySheet>
