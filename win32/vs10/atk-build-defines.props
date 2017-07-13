@@ -5,6 +5,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros">
     <AtkDefines>ATK_COMPILATION;DLL_EXPORT;ATK_LOCALEDIR="/dummy/share/locale"</AtkDefines>
+    <AtkIntrospectNMakeCmd>cd ..
+set VCInstallDir=$(VCInstallDir)
+nmake -f atk-introspection-msvc.mak CFG=$(Configuration) PREFIX=$(GlibEtcInstallRoot)</AtkIntrospectNMakeCmd>
+    <AtkIntrospectBuiltFiles>$(SolutionDir)\..\Atk-1.0.gir;$(SolutionDir)\..\Atk-1.0.typelib</AtkIntrospectBuiltFiles>
   </PropertyGroup>
   <PropertyGroup>
     <_PropertySheetDisplayName>atkbuilddefinesprops</_PropertySheetDisplayName>
@@ -28,6 +32,12 @@
   <ItemGroup>
     <BuildMacro Include="AtkDefines">
       <Value>$(AtkDefines)</Value>
+    </BuildMacro>
+    <BuildMacro Include="AtkIntrospectNMakeCmd">
+      <Value>$(AtkIntrospectNMakeCmd)</Value>
+    </BuildMacro>
+    <BuildMacro Include="AtkIntrospectBuiltFiles">
+      <Value>$(AtkIntrospectBuiltFiles)</Value>
     </BuildMacro>
   </ItemGroup>
 </Project>

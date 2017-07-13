@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="9.00"
+	Name="atk-introspect"
+	ProjectGUID="{7034D75B-2AC9-4EA6-97A2-DB4F8526EC5A}"
+	Keyword="MakeFileProj"
+	TargetFrameworkVersion="196613"
+	>
+	<Platforms>
+		<Platform
+			Name="Win32"
+		/>
+		<Platform
+			Name="x64"
+		/>
+	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			ConfigurationType="0"
+			InheritedPropertySheets=".\atk-build-defines.vsprops"
+			>
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="$(AtkIntrospectNMakeCmd) $(IntrospectPythonParam)"
+				ReBuildCommandLine="$(AtkIntrospectNMakeCmd) $(IntrospectPythonParam) clean all"
+				CleanCommandLine="$(AtkIntrospectNMakeCmd) $(IntrospectPythonParam) clean"
+				Output="$(AtkIntrospectBuiltFiles)"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug|x64"
+			ConfigurationType="0"
+			InheritedPropertySheets=".\atk-build-defines.vsprops"
+			>
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="$(AtkIntrospectNMakeCmd) $(IntrospectPythonParamX64)"
+				ReBuildCommandLine="$(AtkIntrospectNMakeCmd) $(IntrospectPythonParamX64) clean all"
+				CleanCommandLine="$(AtkIntrospectNMakeCmd) $(IntrospectPythonParamX64) clean"
+				Output="$(AtkIntrospectBuiltFiles)"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			ConfigurationType="0"
+			InheritedPropertySheets=".\atk-build-defines.vsprops"
+			CharacterSet="2"
+			DeleteExtensionsOnClean=""
+			>
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="$(AtkIntrospectNMakeCmd) $(IntrospectPythonParam)"
+				ReBuildCommandLine="$(AtkIntrospectNMakeCmd) $(IntrospectPythonParam) clean all"
+				CleanCommandLine="$(AtkIntrospectNMakeCmd) $(IntrospectPythonParam) clean"
+				Output="$(AtkIntrospectBuiltFiles)"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|x64"
+			ConfigurationType="0"
+			InheritedPropertySheets=".\atk-build-defines.vsprops"
+			>
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="$(AtkIntrospectNMakeCmd) $(IntrospectPythonParamX64)"
+				ReBuildCommandLine="$(AtkIntrospectNMakeCmd) $(IntrospectPythonParamX64) clean all"
+				CleanCommandLine="$(AtkIntrospectNMakeCmd) $(IntrospectPythonParamX64) clean"
+				Output="$(AtkIntrospectBuiltFiles)"
+			/>
+		</Configuration>
+	</Configurations>
+</VisualStudioProject>

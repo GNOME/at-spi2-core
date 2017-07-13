@@ -7,6 +7,7 @@ EXTRA_DIST =	\
 	atk.sln	\
 	atk.vcprojin	\
 	atk-install.vcproj	\
+	atk-introspection.vcproj	\
 	atk-build-defines.vsprops	\
 	atk-gen-src.vsprops	\
 	atk-install.vspropsin	\

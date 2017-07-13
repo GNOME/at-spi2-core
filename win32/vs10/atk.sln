@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "atk", "atk.vcxproj", "{86EACD59-F69F-4AAD-854B-AA03D5447360}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "atk-introspect", "atk-introspect.vcxproj", "{7034D75B-2AC9-4EA6-97A2-DB4F8526EC5A}"
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "atk-install", "atk-install.vcxproj", "{00702787-1566-484D-991F-3E7E459BB909}"
 EndProject
 Global
@@ -21,6 +23,14 @@ Global
 		{86EACD59-F69F-4AAD-854B-AA03D5447360}.Release|Win32.Build.0 = Release|Win32
 		{86EACD59-F69F-4AAD-854B-AA03D5447360}.Release|x64.ActiveCfg = Release|x64
 		{86EACD59-F69F-4AAD-854B-AA03D5447360}.Release|x64.Build.0 = Release|x64
+		{7034D75B-2AC9-4EA6-97A2-DB4F8526EC5A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7034D75B-2AC9-4EA6-97A2-DB4F8526EC5A}.Debug|Win32.Build.0 = Debug|Win32
+		{7034D75B-2AC9-4EA6-97A2-DB4F8526EC5A}.Release|Win32.ActiveCfg = Release|Win32
+		{7034D75B-2AC9-4EA6-97A2-DB4F8526EC5A}.Release|Win32.Build.0 = Release|Win32
+		{7034D75B-2AC9-4EA6-97A2-DB4F8526EC5A}.Debug|x64.ActiveCfg = Debug|x64
+		{7034D75B-2AC9-4EA6-97A2-DB4F8526EC5A}.Debug|x64.Build.0 = Debug|x64
+		{7034D75B-2AC9-4EA6-97A2-DB4F8526EC5A}.Release|x64.ActiveCfg = Release|x64
+		{7034D75B-2AC9-4EA6-97A2-DB4F8526EC5A}.Release|x64.Build.0 = Release|x64
 		{00702787-1566-484D-991F-3E7E459BB909}.Debug|Win32.ActiveCfg = Debug|Win32
 		{00702787-1566-484D-991F-3E7E459BB909}.Debug|Win32.Build.0 = Debug|Win32
 		{00702787-1566-484D-991F-3E7E459BB909}.Debug|x64.ActiveCfg = Debug|x64

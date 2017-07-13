@@ -110,6 +110,10 @@
       <Project>{86eacd59-f69f-4aad-854b-aa03d5447360}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="atk-introspect.vcxproj">
+      <Project>{7034d75b-2ac9-4ea6-97a2-db4f8526ec5a}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

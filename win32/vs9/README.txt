@@ -83,6 +83,20 @@ headers, EXEs, DLLs and LIBs will end up in
 <root>\vs9\<PlatformName>\bin (EXEs/DLLs)
 respectively.
 
+Building introspection files are now integrated in the build process of the
+solution files.  In order for this to work, ensure that PythonDir (32-bit builds)
+or PythonDirX64 (x64 builds) are set at the installation directory of where your
+Python installation is.  Please note the following:
+
+-This Python installation must be the same installation/configuration as the
+ one that was used to build GObject-Introspection.
+
+-g-ir-scanner needs to be found at <root>\vs9\<PlatformName>\bin, and the
+ other Python items needs to be under <root>\vs9\<PlatformName>\lib\gobject-introspection.
+
+-If this fails, the other parts of the build/"install" will still continue to proceed
+ normally, so this is optional.
+
 After the build of ATK, the "install" project will copy build results
 and headers into their appropriate location under <root>\vs9\<PlatformName>.
 For instance, built DLLs go into <root>\vs9\<PlatformName>\bin, built LIBs into

@@ -18,6 +18,9 @@ copy $(BinDir)\atk-$(ApiVersion).lib $(CopyDir)\lib
 mkdir $(CopyDir)\include\atk-$(ApiVersion)\atk
 #include "atk.vs10.headers"
 
+if exist ..\Atk-1.0.gir (mkdir $(CopyDir)\share\gir-1.0 &amp; copy ..\Atk-1.0.gir $(CopyDir)\share\gir-1.0)
+if exist ..\Atk-1.0.typelib (mkdir $(CopyDir)\lib\girepository-1.0 &amp; copy ..\Atk-1.0.gir $(CopyDir)\lib\girepository-1.0)
+
 mkdir $(CopyDir)\lib\pkgconfig
 copy ..\atk.pc $(CopyDir)\lib\pkgconfig
     </AtkDoInstall>
