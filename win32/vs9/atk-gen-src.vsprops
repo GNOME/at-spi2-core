@@ -9,7 +9,7 @@
 		Name="GenConfigH"
 		Value="if not exist ..\..\config.h copy ..\..\config.h.win32 ..\..\config.h"
 	/>
-	<UserMacroh
+	<UserMacro
 		Name="GenMarshalSrc"
 		Value="
 cd ..\..\atk&#x0D;&#x0A;

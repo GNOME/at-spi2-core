@@ -79,13 +79,13 @@ your GLib sources in <root>\ and build it from there, following the
 instructions in <root>\glib<-version>\win32\vs9, so that the required
 headers, EXEs, DLLs and LIBs will end up in
 <root>\vs9\<PlatformName>\include\glib-2.0 (headers)
-<root>\vs9\<PlatformName>\lib (LIBs, also glib-2.0/include/glibocnfig.h)
+<root>\vs9\<PlatformName>\lib (LIBs, also glib-2.0/include/glibconfig.h)
 <root>\vs9\<PlatformName>\bin (EXEs/DLLs)
 respectively.
 
-Building introspection files are now integrated in the build process of the
-solution files.  In order for this to work, ensure that PythonDir (32-bit builds)
-or PythonDirX64 (x64 builds) are set at the installation directory of where your
+Building introspection files is now integrated in the solution files, but this is
+not built by default.  In order for this to work, ensure that PythonDir (32-bit builds)
+and/or PythonDirX64 (x64 builds) are set at the installation directory of where your
 Python installation is.  Please note the following:
 
 -This Python installation must be the same installation/configuration as the
@@ -94,8 +94,8 @@ Python installation is.  Please note the following:
 -g-ir-scanner needs to be found at <root>\vs9\<PlatformName>\bin, and the
  other Python items needs to be under <root>\vs9\<PlatformName>\lib\gobject-introspection.
 
--If this fails, the other parts of the build/"install" will still continue to proceed
- normally, so this is optional.
+-Use the rebuild command on this project, atk-introspect, to re-build or build for other
+ configurations.
 
 After the build of ATK, the "install" project will copy build results
 and headers into their appropriate location under <root>\vs9\<PlatformName>.

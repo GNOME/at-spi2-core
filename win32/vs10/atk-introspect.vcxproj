@@ -68,32 +68,32 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeBuildCommandLine>$(AtkIntrospectNMakeCmd) $(IntrospectPythonParam)</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>$(AtkIntrospectNMakeCmd) $(IntrospectPythonParam) clean all</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>$(AtkIntrospectNMakeCmd) $(IntrospectPythonParam) install-introspection</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>$(AtkIntrospectNMakeCmd) $(IntrospectPythonParam) clean install-introspection</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>$(AtkIntrospectNMakeCmd) $(IntrospectPythonParam) clean</NMakeCleanCommandLine>
     <NMakeOutput>$(AtkIntrospectBuiltFiles)</NMakeOutput>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <NMakeBuildCommandLine>$(AtkIntrospectNMakeCmd) $(IntrospectPythonParam)</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>$(AtkIntrospectNMakeCmd) $(IntrospectPythonParam) clean all</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>$(AtkIntrospectNMakeCmd) $(IntrospectPythonParam) install-introspection</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>$(AtkIntrospectNMakeCmd) $(IntrospectPythonParam) clean install-introspection</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>$(AtkIntrospectNMakeCmd) $(IntrospectPythonParam) clean</NMakeCleanCommandLine>
     <NMakeOutput>$(AtkIntrospectBuiltFiles)</NMakeOutput>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <NMakeBuildCommandLine>$(AtkIntrospectNMakeCmd) $(IntrospectPythonParamX64)</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>$(AtkIntrospectNMakeCmd) $(IntrospectPythonParamX64) clean all</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>$(AtkIntrospectNMakeCmd) $(IntrospectPythonParamX64) install-introspection</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>$(AtkIntrospectNMakeCmd) $(IntrospectPythonParamX64) clean install-introspection</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>$(AtkIntrospectNMakeCmd) $(IntrospectPythonParamX64) clean</NMakeCleanCommandLine>
     <NMakeOutput>$(AtkIntrospectBuiltFiles)</NMakeOutput>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <NMakeBuildCommandLine>$(AtkIntrospectNMakeCmd) $(IntrospectPythonParamX64)</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>$(AtkIntrospectNMakeCmd) $(IntrospectPythonParamX64) clean all</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>$(AtkIntrospectNMakeCmd) $(IntrospectPythonParamX64) install-introspection</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>$(AtkIntrospectNMakeCmd) $(IntrospectPythonParamX64) clean install-introspection</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>$(AtkIntrospectNMakeCmd) $(IntrospectPythonParamX64) clean</NMakeCleanCommandLine>
     <NMakeOutput>$(AtkIntrospectBuiltFiles)</NMakeOutput>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="atk.vcxproj">
-      <Project>{86eacd59-f69f-4aad-854b-aa03d5447360}</Project>
+    <ProjectReference Include="atk-install.vcxproj">
+      <Project>{00702787-1566-484d-991f-3e7e459bb909}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>
