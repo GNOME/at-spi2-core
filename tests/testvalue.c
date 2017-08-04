@@ -119,9 +119,11 @@ test_value_get_value_and_text (AtkValue *value,
                                gdouble *current_value,
                                gchar **description)
 {
+  TestValue *self;
+
   g_return_if_fail (TEST_IS_VALUE (value));
 
-  TestValue *self = TEST_VALUE (value);
+  self = TEST_VALUE (value);
 
   if (current_value != NULL)
     *current_value = self->value;
@@ -133,9 +135,11 @@ test_value_get_value_and_text (AtkValue *value,
 AtkRange*
 test_value_get_range (AtkValue *value)
 {
+  AtkRange *result;
+
   g_return_val_if_fail (TEST_IS_VALUE (value), NULL);
 
-  AtkRange *result = atk_range_new (LOWER_LIMIT,
+  result = atk_range_new (LOWER_LIMIT,
                                     UPPER_LIMIT,
                                     NULL);
 
@@ -153,10 +157,10 @@ test_value_get_increment (AtkValue *value)
 GSList*
 test_value_get_sub_ranges (AtkValue *value)
 {
-  g_return_val_if_fail (TEST_IS_VALUE (value), NULL);
-
   GSList *result = NULL;
   AtkRange *range = NULL;
+
+  g_return_val_if_fail (TEST_IS_VALUE (value), NULL);
 
   /* low */
   range = atk_range_new (LOWER_LIMIT, LOW_THRESHOLD,
@@ -186,9 +190,11 @@ void
 test_value_set_value (AtkValue *value,
                       double new_value)
 {
+  TestValue *self;
+
   g_return_if_fail (TEST_IS_VALUE (value));
 
-  TestValue *self = TEST_VALUE (value);
+  self = TEST_VALUE (value);
 
   if (new_value < LOWER_LIMIT)
     new_value = LOWER_LIMIT;
