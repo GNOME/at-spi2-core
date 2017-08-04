@@ -77,6 +77,7 @@ atk_version_conf.set('ATK_MINOR_VERSION', atk_minor_version)
 atk_version_conf.set('ATK_MICRO_VERSION', atk_micro_version)
 atk_version_conf.set('ATK_BINARY_AGE', atk_binary_age)
 atk_version_conf.set('ATK_INTERFACE_AGE', atk_interface_age)
+atk_version_conf.set('LT_CURRENT_MINUS_AGE', '0')
 
 atk_version_h = configure_file(input: 'atkversion.h.in',
                output: 'atkversion.h',
@@ -107,6 +108,16 @@ atk_cflags = [
   '-DATK_COMPILATION',
   '-DATK_LOCALEDIR="@0@"'.format(join_paths(atk_datadir, 'locale')),
 ]
+
+if host_system == 'windows'
+  atk_win_rc = configure_file(
+    input: 'atk.rc.in',
+    output: 'atk.rc',
+    configuration: atk_version_conf,
+  )
+  atk_win_res = import('windows').compile_resources(atk_win_rc)
+  atk_sources += atk_win_res
+endif
 
 atk_inc = include_directories('.')
 

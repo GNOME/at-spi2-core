@@ -17,7 +17,7 @@ VS_VERSION_INFO VERSIONINFO
 	VALUE "FileDescription", "atk"
 	VALUE "FileVersion", "@ATK_VERSION@.0"
 	VALUE "InternalName", "libatk-1.0-@LT_CURRENT_MINUS_AGE@"
-	VALUE "LegalCopyright", "Copyright © Sun Microsystems Inc."
+	VALUE "LegalCopyright", "Copyright Sun Microsystems Inc."
 	VALUE "OriginalFilename", "libatk-1.0-@LT_CURRENT_MINUS_AGE@.dll"
 	VALUE "ProductName", "atk"
 	VALUE "ProductVersion", "@ATK_VERSION@"
