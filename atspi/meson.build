@@ -36,7 +36,6 @@ atspi_headers = [
   'atspi-device-listener.h',
   'atspi-document.h',
   'atspi-editabletext.h',
-  'atspi-enum-types.h',
   'atspi-event-listener.h',
   'atspi-gmain.h',
   'atspi-hyperlink.h',
@@ -45,7 +44,6 @@ atspi_headers = [
   'atspi-matchrule.h',
   'atspi-misc.h',
   'atspi-object.h',
-  'atspi-private.h',
   'atspi-registry.h',
   'atspi-relation.h',
   'atspi-selection.h',
@@ -57,7 +55,9 @@ atspi_headers = [
   'atspi-value.h',
 ]
 
-atspi_includedir = join_paths(get_option('includedir'), 'at-spi-2.0', 'atspi')
+atspi_includedir = join_paths(get_option('prefix'), get_option('includedir'), 'at-spi-2.0', 'atspi')
+
+install_headers(atspi_headers, subdir: atspi_includedir)
 
 atspi_enums = gnome.mkenums('atspi-enum-types',
                             sources: [ 'atspi-constants.h', 'atspi-types.h' ],

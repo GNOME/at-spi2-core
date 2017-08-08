@@ -23,9 +23,12 @@ at_spi_conf.set('GETTEXT_PACKAGE', meson.project_name())
 root_inc = include_directories('.')
 registryd_inc = include_directories('registryd')
 
-atspi_datadir = join_paths(get_option('prefix'), get_option('datadir'))
-atspi_libexecdir = join_paths(get_option('prefix'), get_option('libexecdir'))
-atspi_sysconfdir = join_paths(get_option('prefix'), get_option('sysconfdir'))
+atspi_prefix = get_option('prefix')
+atspi_datadir = join_paths(atspi_prefix, get_option('datadir'))
+atspi_libexecdir = join_paths(atspi_prefix, get_option('libexecdir'))
+atspi_sysconfdir = join_paths(atspi_prefix, get_option('sysconfdir'))
+atspi_libdir = join_paths(atspi_prefix, get_option('libdir'))
+atspi_includedir = join_paths(atspi_prefix, get_option('includedir'))
 
 if get_option('dbus_services_dir') != 'default'
   dbus_services_dir = get_option('dbus_services_dir')
@@ -106,8 +109,8 @@ configure_file(output: 'config.h', configuration: at_spi_conf)
 pkgconf = configuration_data()
 pkgconf.set('prefix', get_option('prefix'))
 pkgconf.set('exec_prefix', get_option('prefix'))
-pkgconf.set('libdir', get_option('libdir'))
-pkgconf.set('includedir', get_option('includedir'))
+pkgconf.set('libdir', atspi_libdir)
+pkgconf.set('includedir', atspi_includedir)
 pkgconf.set('VERSION', meson.project_version())
 
 configure_file(input: 'atspi-2.pc.in',
