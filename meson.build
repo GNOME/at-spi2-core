@@ -10,6 +10,8 @@ project('at-spi2-core', 'c',
 
 add_project_arguments([ '-D_POSIX_C_SOURCE', '-D_DEFAULT_SOURCE' ], language: 'c')
 
+atspi_gir_ns = 'Atspi'
+
 cc = meson.get_compiler('c')
 host_system = host_machine.system()
 
@@ -85,6 +87,18 @@ endforeach
 
 at_spi_conf.set('ALIGNOF_DBIND_POINTER', cc.alignment('dbind_pointer', prefix: 'typedef void *dbind_pointer;'))
 at_spi_conf.set('ALIGNOF_DBIND_STRUCT', cc.alignment('dbind_struct', prefix: 'typedef struct { char s1; } dbind_struct;'))
+
+# introspection support
+have_gir = false
+
+introspection_option = get_option('enable-introspection')
+if introspection_option != 'no'
+  gir_dep = dependency('gobject-introspection-1.0', version: '>= 0.6.7', required: false)
+
+  if gir_dep.found()
+    have_gir = true
+  endif
+endif
 
 configure_file(output: 'config.h', configuration: at_spi_conf)
 

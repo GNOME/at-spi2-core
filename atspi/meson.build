@@ -76,3 +76,37 @@ atspi_dep = declare_dependency(link_with: atspi,
                                sources: atspi_enum_h,
                                include_directories: root_inc,
                                dependencies: [ libdbus_dep, gobject_dep, ])
+
+if have_gir
+  gir_sources = atspi_sources + atspi_enums + atspi_headers
+
+  gir_incs = [
+    'DBus-1.0',
+    'GLib-2.0',
+    'GObject-2.0'
+  ]
+
+  gir_extra_args = [
+    '--c-include=atspi/atspi.h',
+    '--pkg-export=atspi-2'
+  ]
+
+  gir_dir = join_paths(atspi_datadir, 'gir-1.0')
+  typelib_dir = join_paths(get_option('libdir'), 'girepository-1.0')
+
+  libatspi_gir = gnome.generate_gir(
+    atspi,
+    sources: gir_sources,
+    nsversion: '2.0',
+    namespace: atspi_gir_ns,
+    symbol_prefix: atspi_gir_ns.to_lower(),
+    identifier_prefix: atspi_gir_ns,
+    includes: gir_incs,
+    include_directories: root_inc,
+    install: true,
+    install_dir_gir: gir_dir,
+    install_dir_typelib: typelib_dir,
+    extra_args: gir_extra_args
+  )
+endif
+
