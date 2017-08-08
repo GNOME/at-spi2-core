@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.25.90:
+
+* Fix a couple of introspection issues (bgo#784481).
+
+* atspi_get_a11_bus: don't leak the DBusConnection.
+
+* Meson fixes.
+
 What's new in at-spi2-core 2.25.4:
 
 * Fix gir generation with autotools (bgo#783994).
