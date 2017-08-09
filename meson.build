@@ -40,6 +40,10 @@ atk_libversion = '@0@.@1@.@2@'.format(atk_soversion, (atk_binary_age - atk_inter
 
 add_project_arguments([ '-DG_DISABLE_SINGLE_INCLUDES', '-DATK_DISABLE_SINGLE_INCLUDES' ], language: 'c')
 
+if cc.get_id() == 'msvc'
+  add_project_arguments([ '-FImsvc_recommended_pragmas.h' ], language: 'c')
+endif
+
 # Compiler and linker flags
 common_cflags = []
 common_ldflags = []
