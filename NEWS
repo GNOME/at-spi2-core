@@ -1,3 +1,28 @@
+Changes in version 2.25.90
+==========================
+
+* Bugfixing
+   * 689810: Move include guards out to enable GCC optimisation
+* Build (meson)
+   * Keep the version in sync with Autotools
+   * Add atkversion.h to introspection build
+* Build (visual studio)
+   * Adapt to the Python-field glib-genmarshal
+   * Adapt to new glib-genmarshal command line
+   * Use PythonDir instead of PythonPath
+   * Integrate introspection builds
+   * Don't build introspection by default
+   * Make marshal generation more robust
+* Misc
+   * Update AUTHORS file
+
+Contributors
+  Emmanuele Bassi, Daniel Boles, Chun-wei Fan, Rico Tzschichholz
+
+Translations
+  Pawan Chitrakar (ne), Fabio Tomat (fur)
+
+
 Changes in version 2.25.2
 =========================
 
