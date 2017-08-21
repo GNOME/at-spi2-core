@@ -1,4 +1,4 @@
-AC_INIT([at-spi2-core], [2.25.90], [accessibility-atspi@lists.linux-foundation.org])
+AC_INIT([at-spi2-core], [2.25.91], [accessibility-atspi@lists.linux-foundation.org])
 AC_PREREQ([2.59])
 AC_CONFIG_AUX_DIR(config)
 AC_CONFIG_MACRO_DIR([m4])

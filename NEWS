@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.25.91:
+
+* Meson builds should now be usable.
+
 What's new in at-spi2-core 2.25.90:
 
 * Fix a couple of introspection issues (bgo#784481).
