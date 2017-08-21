@@ -103,6 +103,8 @@ if introspection_option != 'no'
   endif
 endif
 
+xgettext = find_program('xgettext', required : false)
+
 configure_file(output: 'config.h', configuration: at_spi_conf)
 
 # Compat variables for pkgconfig
@@ -129,4 +131,8 @@ subdir('test')
 
 if get_option('enable_docs')
   subdir('doc/libatspi')
+endif
+
+if xgettext.found()
+  subdir('po')
 endif
