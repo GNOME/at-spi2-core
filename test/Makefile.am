@@ -6,3 +6,5 @@ memory_CFLAGS = $(GLIB_CFLAGS) 	$(GOBJ_LIBS) $(DBUS_CFLAGS)
 memory_LDFLAGS = 
 
 -include $(top_srcdir)/git.mk
+
+EXTRA_DIST = meson.build
