@@ -7,8 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-core master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-19 22:27+0100\n"
+"Report-Msgid-Bugs-To: "
+"https://bugzilla.gnome.org/enter_bug.cgi?product=at-spi&keywords=I18N+L10N&component=at-spi2-core\n"
+"POT-Creation-Date: 2017-06-27 21:34+0000\n"
 "PO-Revision-Date: 2014-03-15 14:12+0100\n"
 "Last-Translator: Kris Thomsen <lakristho@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -18,12 +19,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../atspi/atspi-component.c:325 ../atspi/atspi-misc.c:1036
-#: ../atspi/atspi-value.c:111
+#: atspi/atspi-component.c:326 atspi/atspi-misc.c:1073 atspi/atspi-value.c:111
 msgid "The application no longer exists"
 msgstr "Programmet findes ikke længere"
 
-#: ../atspi/atspi-misc.c:1779
+#: atspi/atspi-misc.c:1843
 msgid "Attempted synchronous call where prohibited"
 msgstr "Et forsøgt synkront kald blev forbudt"
 
@@ -56,8 +56,8 @@ msgstr "Et forsøgt synkront kald blev forbudt"
 #~ msgid ""
 #~ "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
 #~ msgstr ""
-#~ "AT-SPI: forventede en variant under hentning af %s fra grænseflade %s; "
-#~ "fik %s\n"
+#~ "AT-SPI: forventede en variant under hentning af %s fra grænseflade %s; fik "
+#~ "%s\n"
 
 #~ msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
 #~ msgstr "atspi_dbus_get_property: Forkert type: forventede %s, fik %c\n"
@@ -74,8 +74,10 @@ msgstr "Et forsøgt synkront kald blev forbudt"
 #~ msgid ""
 #~ "called atspi_event_listener_register_from_callback with a NULL event_type"
 #~ msgstr ""
-#~ "kaldte atspi_event_listener_register_from_callback event_type med en NULL-"
-#~ "værdi"
+#~ "kaldte atspi_event_listener_register_from_callback event_type med en "
+#~ "NULL-værdi"
 
 #~ msgid "Got invalid signature %s for signal %s from interface %s\n"
 #~ msgstr "Modtog ugyldig signatur %s for signalet %s fra grænseflade %s\n"
+
+
