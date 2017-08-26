@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: "
-"http://bugzilla.gnome.org/enter_bug.cgi?product=atk&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-01-18 21:40+0000\n"
+"https://bugzilla.gnome.org/enter_bug.cgi?product=atk&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2017-06-27 21:28+0000\n"
 "PO-Revision-Date: 2016-03-20 22:03+0100\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -802,4 +802,5 @@ msgstr "bedst"
 
 #~ msgid "Is used to notify that the parent has changed"
 #~ msgstr "Bruges til at bekendtgøre at ophavet er ændret"
+
 
