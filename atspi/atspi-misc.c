@@ -1577,6 +1577,7 @@ atspi_get_a11y_bus (void)
 {
   DBusError error;
   char *address = NULL;
+  const char *address_env = NULL;
 
   if (a11y_bus && dbus_connection_get_is_connected (a11y_bus))
     return a11y_bus;
@@ -1585,8 +1586,12 @@ atspi_get_a11y_bus (void)
     if (!dbus_connection_allocate_data_slot (&a11y_dbus_slot))
       g_warning ("at-spi: Unable to allocate D-Bus slot");
 
+  address_env = g_getenv ("AT_SPI_BUS_ADDRESS");
+  if (address_env != NULL && *address_env != 0)
+    address = g_strdup (address_env);
 #ifdef HAVE_X11
-  address = get_accessibility_bus_address_x11 ();
+  if (!address)
+    address = get_accessibility_bus_address_x11 ();
 #endif
   if (!address)
     address = get_accessibility_bus_address_dbus ();
