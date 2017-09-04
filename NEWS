@@ -1,3 +1,10 @@
+What's new in at-spi2-core 2.25.92:
+
+* configure.ac: make xkb optional, as intended.
+
+* Optionally read the bus address from the ATSPI_BUS_ADDRESS environment
+  variable (bgo#787126).
+
 What's new in at-spi2-core 2.25.91:
 
 * Meson builds should now be usable.
