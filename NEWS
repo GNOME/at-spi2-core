@@ -1,3 +1,17 @@
+Changes in version 2.26
+=======================
+
+* Build: meson on Windows, tracked by Bug 785802 (not fully fixed yet):
+   * Force-include msvc_recommended_pragmas.h on MSVC
+   * tests: Fix build on pre-C99
+   * meson: Build .rc file on Windows
+
+Contributors
+   Chun-wei Fan
+
+Translations
+   Ask Hjorth Larsen (da)
+
 Changes in version 2.25.90
 ==========================
 
