@@ -53,8 +53,8 @@ import('gnome')
 pkg_conf = configuration_data()
 pkg_conf.set('prefix', get_option('prefix'))
 pkg_conf.set('exec_prefix', get_option('prefix'))
-pkg_conf.set('libdir', get_option('libdir'))
-pkg_conf.set('includedir', get_option('includedir'))
+pkg_conf.set('libdir', join_paths(get_option('prefix'), get_option('libdir')))
+pkg_conf.set('includedir', join_paths(get_option('prefix'), get_option('includedir')))
 pkg_conf.set('VERSION', meson.project_version())
 
 configure_file(input: 'atk-bridge-2.0.pc.in',
