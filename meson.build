@@ -62,9 +62,7 @@ if x11_dep.found()
   xtest_dep = dependency('xtst')
   x11_deps += xtest_dep
 
-  xkb_dep = dependency('xkbcommon-x11', required: false)
-  if xkb_dep.found()
-    x11_deps += xkb_dep
+  if cc.has_function('XkbGetMap', dependencies: x11_deps)
     at_spi_conf.set('HAVE_XKB', 1)
   endif
 

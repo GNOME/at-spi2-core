@@ -107,10 +107,8 @@ AS_IF([test "x$enable_x11" = xno], [
     X11_LIBS="$X11_LIBS $XINPUT_LIBS"
 
     # XKB (optional)
-    PKG_CHECK_MODULES(XKB, [xkbcommon-x11], [
+    AC_CHECK_LIB(X11, XkbGetMap, [
       AC_DEFINE(HAVE_XKB, 1, [Define to use XKB])
-      X11_CFLAGS="$X11_CFLAGS $XKB_CFLAGS"
-      X11_LIBS="$X11_LIBS $XKB_LIBS"
     ], [:])
   ])
 
