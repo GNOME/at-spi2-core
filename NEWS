@@ -1,3 +1,16 @@
+Changes in version 2.27.1
+=========================
+
+* Build: meson, tracked by bug 785802)
+   * Ad option to disable introspection
+   * Fix .rc generation in Meson builds
+
+* Build (Visual Studio)
+   * Enhance security of x64 binaries
+
+Translations
+  Pawan Chitrakar (ne), Xavi Ivars (ca@valencia), hanniedu (nl)
+
 Changes in version 2.26
 =======================
 
