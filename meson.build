@@ -53,21 +53,25 @@ glib_dep = dependency('glib-2.0', version: glib_req_version)
 gobject_dep = dependency('gobject-2.0', version: gobject_req_version)
 gio_dep = dependency('gio-2.0', version: gio_req_version)
 dl_dep = cc.find_library('dl', required: false)
-x11_dep = dependency('x11', required: false)
 
 x11_deps = []
-if x11_dep.found()
-  x11_deps += x11_dep
+x11_option = get_option('enable-x11')
+if x11_option != 'no'
+  x11_dep = dependency('x11', required: false)
 
-  xtest_dep = dependency('xtst')
-  x11_deps += xtest_dep
+  if x11_dep.found()
+    x11_deps += x11_dep
+    at_spi_conf.set('HAVE_X11', 1)
+    xtest_dep = dependency('xtst')
+    x11_deps += xtest_dep
 
-  if cc.has_function('XkbGetMap', dependencies: x11_deps)
-    at_spi_conf.set('HAVE_XKB', 1)
+    if cc.has_function('XkbGetMap', dependencies: x11_deps)
+      at_spi_conf.set('HAVE_XKB', 1)
+    endif
+
+    xinput_dep = dependency('xi')
+    x11_deps += xinput_dep
   endif
-
-  xinput_dep = dependency('xi')
-  x11_deps += xinput_dep
 endif
 
 # Alignments

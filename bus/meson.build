@@ -45,7 +45,7 @@ endif
 
 executable('at-spi-bus-launcher', 'at-spi-bus-launcher.c',
            include_directories: [ root_inc, include_directories('.') ],
-           dependencies: [ gio_dep ],
+           dependencies: [ gio_dep, x11_deps ],
            c_args: [
              '-DSYSCONFDIR="@0@"'.format(atspi_sysconfdir),
              '-DDATADIR="@0@"'.format(atspi_datadir),

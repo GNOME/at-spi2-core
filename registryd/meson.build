@@ -16,15 +16,18 @@ registryd_deps = [
   dl_dep,
 ]
 
-if x11_dep.found()
-  registryd_sources += [
-    'deviceeventcontroller-x11.c',
-    'display.c',
-    'event-source.c',
-    'ucs2keysym.c',
-  ]
+x11_option = get_option('enable-x11')
+if x11_option != 'no'
+  if x11_dep.found()
+    registryd_sources += [
+      'deviceeventcontroller-x11.c',
+      'display.c',
+      'event-source.c',
+      'ucs2keysym.c',
+    ]
 
-  registryd_deps += x11_deps 
+    registryd_deps += x11_deps 
+  endif
 endif
 
 executable('at-spi2-registryd', registryd_sources,

@@ -69,7 +69,7 @@ atspi_enum_h = atspi_enums[1]
 
 atspi = shared_library('atspi', atspi_sources + atspi_enums,
                        include_directories: [ root_inc, registryd_inc ],
-                       dependencies: [ libdbus_dep, gobject_dep, dbind_dep ],
+                       dependencies: [ libdbus_dep, gobject_dep, dbind_dep, x11_deps ],
                        install: true)
 
 atspi_dep = declare_dependency(link_with: atspi,
