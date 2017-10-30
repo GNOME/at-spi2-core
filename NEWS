@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.26.2:
+
+* dist po/meson.build (bgo#789666).
+
+* Generate correct sonname when building with meson.
+
 What's new in at-spi2-core 2.26.1:
 
 * Remove unused dependency on libxkbcommon.
