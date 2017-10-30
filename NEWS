@@ -1,3 +1,9 @@
+What's new in at-spi2-atk 2.26.1:
+
+* meson: Ensure paths written to .pc file are absolute.
+
+* Package a couple of missing meson.build files.
+
 What's new in at-spi2-atk 2.25.3:
 
 * Add error-message, error-for, details, and details-for relation types
