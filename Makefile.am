@@ -12,7 +12,8 @@ ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 EXTRA_DIST = \
 	atspi-2.pc.in \
 	meson.build \
-	meson_options.txt
+	meson_options.txt \
+        po/meson.build
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = atspi-2.pc
