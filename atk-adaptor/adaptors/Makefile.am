@@ -32,3 +32,5 @@ libatk_bridge_adaptors_la_SOURCES =\
 	table-cell-adaptor.c		\
 	text-adaptor.c		\
 	value-adaptor.c
+
+EXTRA_DIST = meson.build

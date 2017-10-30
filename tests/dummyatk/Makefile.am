@@ -40,3 +40,5 @@ libdummyatk_la_SOURCES = \
 			 my-atk-value.c \
 			 my-atk-value.h \
 			 my-atk.h
+
+EXTRA_DIST = meson.build
