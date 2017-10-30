@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.26.1:
+
+* Remove unused dependency on libxkbcommon.
+
+* Various meson build fixes.
+
+* Updated Dutch and Catalan translations.
+
 What's new in at-spi2-core 2.25.92:
 
 * configure.ac: make xkb optional, as intended.
