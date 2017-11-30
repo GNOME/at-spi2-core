@@ -1219,13 +1219,10 @@ typedef enum {
  * of one or more names (@ATSPI_ROLE_DESCRIPTION_TERM) followed by one or more
  * values (@ATSPI_ROLE_DESCRIPTION_VALUE). For each list, there should not be
  * more than one group with the same term name. @Since: 2.26.
- *@ATSPI_ROLE_DESCRIPTION_TERM: An object that represents the term, or name,
- * part of a term-description group in a description list. @Since: 2.26.
+ *@ATSPI_ROLE_DESCRIPTION_TERM: An object that represents a term or phrase
+ * with a corresponding definition. @Since: 2.26.
  *@ATSPI_ROLE_DESCRIPTION_VALUE: An object that represents the description,
- * definition, or value of a term-description group in a description list.
- * The values within a group are alternatives, meaning that you can have
- * several @ATSPI_ROLE_DESCRIPTION_VALUE objects for a given
- * @ATSPI_ROLE_DESCRIPTION_TERM. @Since: 2.26.
+ * definition, or value of a term. @Since: 2.26.
  *@ATSPI_ROLE_FOOTNOTE: An object that contains the text of a footnote. @Since: 2.26.
  * @ATSPI_ROLE_LAST_DEFINED: Not a valid role, used for finding end of
  * enumeration.
