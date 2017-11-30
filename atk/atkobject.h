@@ -192,14 +192,10 @@ G_BEGIN_DECLS
  * (ATK_ROLE_DESCRIPTION_TERM) followed by one or more values
  * (ATK_ROLE_DESCRIPTION_VALUE). For each list, there should not be
  * more than one group with the same term name. @Since: ATK-2.12
- *@ATK_ROLE_DESCRIPTION_TERM: An object that represents the term, or
- * name, part of a term-description group in a description
- * list. @Since: ATK-2.12
+ *@ATK_ROLE_DESCRIPTION_TERM: An object that represents a term or phrase
+ * with a corresponding definition. @Since: ATK-2.12
  *@ATK_ROLE_DESCRIPTION_VALUE: An object that represents the
- * description, definition or value of a term-description group in a
- * description list. The values within a group are alternatives,
- * meaning that you can have several ATK_ROLE_DESCRIPTION_VALUE for a
- * given ATK_ROLE_DESCRIPTION_TERM. @Since: ATK-2.12
+ * description, definition or value of a term. @Since: ATK-2.12
  *@ATK_ROLE_STATIC: A generic non-container object whose purpose is to display a
  * brief amount of information to the user and whose role is known by the
  * implementor but lacks semantic value for the user. Examples in which
