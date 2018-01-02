@@ -1,3 +1,14 @@
+What's new in at-spi2-core 2.27.1:
+
+* Dropped autotools support.
+
+* documentation: Remove list association from
+  ATSPI_ROLE_DESCRIPTION_{TERM,VALUE} (bgo#791021).
+
+* Fix a potential buffer overflow in at-spi-bus-launcher (bgo#791124).
+
+* Make the build reproducible (bgo#791167).
+
 What's new in at-spi2-core 2.26.1:
 
 * Remove unused dependency on libxkbcommon.
