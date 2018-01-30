@@ -441,6 +441,8 @@ atspi_component_get_layer
 atspi_component_get_mdi_z_order
 atspi_component_grab_focus
 atspi_component_get_alpha
+atspi_component_scroll_to
+atspi_component_scroll_to_point
 <SUBSECTION Standard>
 ATSPI_COMPONENT
 ATSPI_IS_COMPONENT
@@ -524,6 +526,8 @@ AtspiRelationType
 ATSPI_RELATIONTYPE_COUNT
 AtspiRole
 ATSPI_ROLE_COUNT
+AtspiScrollType
+ATSPI_SCROLLTYPE_COUNT
 </SECTION>
 
 <SECTION>

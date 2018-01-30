@@ -412,6 +412,62 @@ atspi_component_set_size (AtspiComponent *obj,
   return ret;
 }
 
+/**
+ * atspi_component_scroll_to:
+ * @obj: a pointer to the #AtspiComponent object on which to operate.
+ * @type: a #AtspiScrollType indicating where the object should be placed on the
+ *        screen.
+ *
+ * Scrolls whatever container of the #AtspiComponent object so it becomes
+ * visible on the screen.
+ *
+ * Returns: #TRUE if successful, #FALSE otherwise.
+ **/
+gboolean
+atspi_component_scroll_to (AtspiComponent *obj,
+                           AtspiScrollType type,
+                           GError **error)
+{
+  dbus_bool_t retval = FALSE;
+
+  g_return_val_if_fail (obj != NULL, FALSE);
+
+  _atspi_dbus_call (obj, atspi_interface_component,
+                    "ScrollTo", error, "u=>b", type, &retval);
+
+  return retval;
+}
+
+/**
+ * atspi_component_scroll_to_point:
+ * @obj: a pointer to the #AtspiComponent object on which to operate.
+ * @coords: a #AtspiCoordType indicating whether the coordinates are relative to
+ *          the screen, to the window, or to the parent object.
+ * @x: the x coordinate of the point to reach
+ * @y: the y coordinate of the point to reach
+ *
+ * Scrolls whatever container of the #AtspiComponent object so it becomes
+ * visible on the screen at a given position.
+ *
+ * Returns: #TRUE if successful, #FALSE otherwise.
+ **/
+gboolean
+atspi_component_scroll_to_point (AtspiComponent *obj,
+                                 AtspiCoordType coords,
+                                 gint x,
+                                 gint y,
+                                 GError **error)
+{
+  dbus_bool_t retval = FALSE;
+
+  g_return_val_if_fail (obj != NULL, FALSE);
+
+  _atspi_dbus_call (obj, atspi_interface_component,
+                    "ScrollToPoint", error, "uii=>b", coords, x, y, &retval);
+
+  return retval;
+}
+
 static void
 atspi_component_base_init (AtspiComponent *klass)
 {

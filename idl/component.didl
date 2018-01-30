@@ -54,7 +54,30 @@ interface org.freestandards.atspi.Component {
 		LAYER_WINDOW,
 		LAYER_LAST_DEFINED
 	}
-	
+
+	/*
+	  Describes where the object should be placed on the window.
+	 */
+	enum uint32 ScrollType {
+		SCROLL_TOP_LEFT = 0,
+		SCROLL_BOTTOM_RIGHT,
+		SCROLL_TOP_EDGE,
+		SCROLL_BOTTOM_EDGE,
+		SCROLL_LEFT_EDGE,
+		SCROLL_RIGHT_EDGE,
+		SCROLL_ANYWHERE
+	}
+
+	/*
+          Specifies whether the coordinates are relative to the screen, to the
+          window, or to the parent object.
+	 */
+	enum uint32 CoordType {
+		COORD_TYPE_SCREEN = 0,
+		COORD_TYPE_WINDOW,
+		COORD_TYPE_PARENT
+	}
+
 	/*
 	  True if the specified point lies within the components bounding box.
          */ 
@@ -135,5 +158,21 @@ interface org.freestandards.atspi.Component {
 	*/
 	method GetAlpha reply {
 		double alpha;
+	}
+
+	/*
+	  Scroll this object so it becomes visible on the screen.
+	 */
+	method ScrollTo {
+		ScrollType type;
+	}
+
+	/*
+	  Scroll this object so it becomes visible on the screen at a given position.
+	 */
+	method ScrollToPoint {
+		CoordType type;
+		int32 x;
+		int32 y;
 	}
 }

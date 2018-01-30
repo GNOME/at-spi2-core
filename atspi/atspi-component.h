@@ -107,6 +107,10 @@ gboolean atspi_component_set_position (AtspiComponent *obj, gint x, gint y, Atsp
 
 gboolean atspi_component_set_size (AtspiComponent *obj, gint width, gint height, GError **error);
 
+gboolean atspi_component_scroll_to (AtspiComponent *obj, AtspiScrollType type, GError **error);
+
+gboolean atspi_component_scroll_to_point (AtspiComponent *obj, AtspiCoordType type, gint x, gint y, GError **error);
+
 G_END_DECLS
 
 #endif	/* _ATSPI_COMPONENT_H_ */

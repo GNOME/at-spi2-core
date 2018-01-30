@@ -53,6 +53,8 @@
   Accessibility::StateType\n
   Accessibility::Event\n
   Accessibility::EventDetails \n
+  Accessibility::ScrollType \n
+  Accessibility::CoordType \n
 
   \section Registry
   Accessibility also includes Accessibility::Registry,
@@ -124,8 +126,10 @@ typedef enum {
 /**
  * AtspiCoordType:
  * @ATSPI_COORD_TYPE_SCREEN: Specifies xy coordinates relative to the screen.
- * @ATSPI_COORD_TYPE_WINDOW: Specifies xy coordinates relative to the widget's 
+ * @ATSPI_COORD_TYPE_WINDOW: Specifies xy coordinates relative to the widget's
  * top-level window.
+ * @ATSPI_COORD_TYPE_PARENT: Specifies xy coordinates relative to the widget's
+ * immediate parent.
  *
  * Enumeration used by #AtspiComponent, #AtspiImage, and #AtspiText interfaces
  * to specify whether coordinates are relative to the window or the screen.
@@ -134,6 +138,7 @@ typedef enum {
 typedef enum {
     ATSPI_COORD_TYPE_SCREEN,
     ATSPI_COORD_TYPE_WINDOW,
+    ATSPI_COORD_TYPE_PARENT,
 } AtspiCoordType;
 
 /**
@@ -141,7 +146,7 @@ typedef enum {
  *
  * One higher than the highest valid value of #AtspiCoordType.
  **/
-#define ATSPI_COORD_TYPE_COUNT (1+1)
+#define ATSPI_COORD_TYPE_COUNT (2+1)
 
 /**
  * AtspiCollectionSortOrder:
@@ -1382,6 +1387,43 @@ typedef enum
   ATSPI_CACHE_DEFAULT = ATSPI_CACHE_PARENT | ATSPI_CACHE_CHILDREN | ATSPI_CACHE_NAME | ATSPI_CACHE_DESCRIPTION | ATSPI_CACHE_STATES | ATSPI_CACHE_ROLE | ATSPI_CACHE_INTERFACES,
   ATSPI_CACHE_UNDEFINED   = 0x40000000,
 } AtspiCache;
+
+/**
+ * AtspiScrollType:
+ * @ATSPI_SCROLL_TOP_LEFT: Scroll the object to the top left corner of the
+ * window.
+ * @ATSPI_SCROLL_BOTTOM_RIGHT: Scroll the object to the bottom right corner of
+ * the window.
+ * @ATSPI_SCROLL_TOP_EDGE: Scroll the object to the top edge of the window.
+ * @ATSPI_SCROLL_BOTTOM_EDGE: Scroll the object to the bottom edge of the
+ * window.
+ * @ATSPI_SCROLL_LEFT_EDGE: Scroll the object to the left edge of the
+ * window.
+ * @ATSPI_SCROLL_RIGHT_EDGE: Scroll the object to the right edge of the
+ * window.
+ * @ATSPI_SCROLL_ANYWHERE: Scroll the object to application-dependent position
+ * on the window.
+ *
+ * Enumeration used by interface #AtspiAccessible to specify where an
+ * #AtspiAccessible object should be placed on the screen when using scroll_to.
+ *
+ */
+typedef enum {
+  ATSPI_SCROLL_TOP_LEFT,
+  ATSPI_SCROLL_BOTTOM_RIGHT,
+  ATSPI_SCROLL_TOP_EDGE,
+  ATSPI_SCROLL_BOTTOM_EDGE,
+  ATSPI_SCROLL_LEFT_EDGE,
+  ATSPI_SCROLL_RIGHT_EDGE,
+  ATSPI_SCROLL_ANYWHERE
+} AtspiScrollType;
+
+/**
+ * ATSPI_SCROLLTYPE_COUNT:
+ *
+ * One higher than the highest valid value of #AtspiScrollType.
+ */
+#define ATSPI_SCROLLTYPE_COUNT (6+1)
 
 #define ATSPI_DBUS_NAME_REGISTRY "org.a11y.atspi.Registry"
 #define ATSPI_DBUS_PATH_REGISTRY "/org/a11y/atspi/registry"

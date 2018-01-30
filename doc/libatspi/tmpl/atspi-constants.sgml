@@ -39,6 +39,26 @@ Constant definitions needed by multiple interfaces.
 
 
 
+<!-- ##### ENUM AtspiScrollType ##### -->
+<para>
+
+</para>
+
+@ATSPI_SCROLL_TOP_LEFT:
+@ATSPI_SCROLL_BOTTOM_RIGHT:
+@ATSPI_SCROLL_TOP_EDGE:
+@ATSPI_SCROLL_BOTTOM_EDGE:
+@ATSPI_SCROLL_LEFT_EDGE:
+@ATSPI_SCROLL_RIGHT_EDGE:
+@ATSPI_SCROLL_ANYWHERE:
+
+<!-- ##### MACRO ATSPI_SCROLLTYPE_COUNT ##### -->
+<para>
+
+</para>
+
+
+
 <!-- ##### ENUM AtspiCoordType ##### -->
 <para>
 
@@ -46,6 +66,7 @@ Constant definitions needed by multiple interfaces.
 
 @ATSPI_COORD_TYPE_SCREEN: 
 @ATSPI_COORD_TYPE_WINDOW: 
+@ATSPI_COORD_TYPE_PARENT:
 
 <!-- ##### MACRO ATSPI_COORD_TYPE_COUNT ##### -->
 <para>
