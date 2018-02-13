@@ -30,8 +30,8 @@ libdbus_req_version = '>= 1.5'
 glib_req_version = '>= 2.32.0'
 gobject_req_version = '>= 2.0.0'
 gmodule_req_version = '>= 2.0.0'
-atk_req_version = '>= 2.15.4'
-atspi_req_version = '>= 2.17.90'
+atk_req_version = '>= 2.29.1'
+atspi_req_version = '>= 2.29.1'
 libxml_req_version = '>= 2.9.1'
 
 libdbus_dep = dependency('dbus-1', version: libdbus_req_version)

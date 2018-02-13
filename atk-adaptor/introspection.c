@@ -260,6 +260,16 @@ const char *spi_org_a11y_atspi_Component =
 "    <arg direction=\"out\" type=\"b\" />"
 "  </method>"
 ""
+"  <method name=\"ScrollTo\">"
+"    <arg direction=\"in\" name=\"type\" type=\"u\"/>"
+"  </method>"
+""
+"  <method name=\"ScrollToPoint\">"
+"    <arg direction=\"in\" name=\"type\" type=\"u\"/>"
+"    <arg direction=\"in\" name=\"x\" type=\"i\"/>"
+"    <arg direction=\"in\" name=\"y\" type=\"i\"/>"
+"  </method>"
+""
 "</interface>"
 "";
 
