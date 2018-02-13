@@ -29,6 +29,36 @@
 
 G_BEGIN_DECLS
 
+/**
+ *AtkScrollType:
+ *@ATK_SCROLL_TOP_LEFT: Scroll the object vertically and horizontally to the top
+ *left corner of the window.
+ *@ATK_SCROLL_BOTTOM_RIGHT: Scroll the object vertically and horizontally to the
+ *bottom right corner of the window.
+ *@ATK_SCROLL_TOP_EDGE: Scroll the object vertically to the top edge of the
+ window.
+ *@ATK_SCROLL_BOTTOM_EDGE: Scroll the object vertically to the bottom edge of
+ *the window.
+ *@ATK_SCROLL_LEFT_EDGE: Scroll the object vertically and horizontally to the
+ *left edge of the window.
+ *@ATK_SCROLL_RIGHT_EDGE: Scroll the object vertically and horizontally to the
+ *right edge of the window.
+ *@ATK_SCROLL_ANYWHERE: Scroll the object vertically and horizontally so that
+ *as much as possible of the object becomes visible. The exact placement is
+ *determined by the application.
+ *
+ * Specifies where an object should be placed on the screen when using scroll_to.
+ **/
+typedef enum {
+  ATK_SCROLL_TOP_LEFT,
+  ATK_SCROLL_BOTTOM_RIGHT,
+  ATK_SCROLL_TOP_EDGE,
+  ATK_SCROLL_BOTTOM_EDGE,
+  ATK_SCROLL_LEFT_EDGE,
+  ATK_SCROLL_RIGHT_EDGE,
+  ATK_SCROLL_ANYWHERE
+} AtkScrollType;
+
 /*
  * The AtkComponent interface should be supported by any object that is 
  * rendered on the screen. The interface provides the standard mechanism 
@@ -156,6 +186,18 @@ struct _AtkComponentIface
   void                     (* bounds_changed)   (AtkComponent   *component,
                                                  AtkRectangle   *bounds);
   gdouble                  (* get_alpha)        (AtkComponent   *component);
+
+  /*
+   * Scrolls this object so it becomes visible on the screen.
+   * Since ATK 2.30
+   */
+  gboolean                (*scroll_to)          (AtkComponent   *component,
+                                                 AtkScrollType   type);
+
+  gboolean                (*scroll_to_point)    (AtkComponent   *component,
+                                                 AtkCoordType    coords,
+                                                 gint            x,
+                                                 gint            y);
 };
 
 ATK_AVAILABLE_IN_ALL
@@ -218,6 +260,16 @@ gboolean              atk_component_set_size               (AtkComponent    *com
                                                             gint            height);
 ATK_AVAILABLE_IN_ALL
 gdouble               atk_component_get_alpha              (AtkComponent    *component);
+
+ATK_AVAILABLE_IN_2_30
+gboolean              atk_component_scroll_to              (AtkComponent    *component,
+                                                            AtkScrollType   type);
+
+ATK_AVAILABLE_IN_2_30
+gboolean              atk_component_scroll_to_point        (AtkComponent    *component,
+                                                            AtkCoordType    coords,
+                                                            gint            x,
+                                                            gint            y);
 
 G_END_DECLS
 

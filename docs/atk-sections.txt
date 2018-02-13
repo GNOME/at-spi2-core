@@ -39,6 +39,8 @@ atk_component_set_extents
 atk_component_set_position
 atk_component_set_size
 atk_component_get_alpha
+atk_component_scroll_to
+atk_component_scroll_to_point
 <SUBSECTION Standard>
 ATK_COMPONENT
 ATK_IS_COMPONENT
@@ -211,6 +213,7 @@ ATK_IS_IMPLEMENTOR
 ATK_IMPLEMENTOR
 ATK_TYPE_ROLE
 ATK_TYPE_LAYER
+ATK_TYPE_SCROLL_TYPE
 atk_implementor_get_type
 atk_object_get_type
 atk_role_get_type
