@@ -3,12 +3,10 @@ dbind_sources = [
   'dbind-any.c',
 ]
 
-dbind = static_library('dbind', dbind_sources,
-                       include_directories: root_inc,
-                       dependencies: [ libdbus_dep, glib_dep ],
-                       c_args: [ '-DG_LOG_DOMAIN="dbind"' ])
-
-dbind_dep = declare_dependency(link_with: dbind)
+dbind_dep = declare_dependency(sources: dbind_sources,
+                               include_directories: root_inc,
+                               compile_args: [ '-DG_LOG_DOMAIN="dbind"' ],
+                               dependencies: [ libdbus_dep, glib_dep ])
 
 test('dbind-test',
      executable('dbind-test', [ 'dbtest.c', '../atspi/atspi-gmain.c' ],
