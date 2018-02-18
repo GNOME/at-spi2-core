@@ -67,7 +67,7 @@ atspi_enums = gnome.mkenums('atspi-enum-types',
                             install_header: true)
 atspi_enum_h = atspi_enums[1]
 
-atspi = shared_library('atspi', atspi_sources + atspi_enums,
+atspi = library('atspi', atspi_sources + atspi_enums,
                        version: soversion,
                        soversion: soversion.split('.')[0],
                        include_directories: [ root_inc, registryd_inc ],
