@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=atk&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2014-03-14 03:47+0000\n"
-"PO-Revision-Date: 2014-03-14 09:29+0100\n"
+"PO-Revision-Date: 2018-02-20 14:11+0100\n"
 "Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "Language: fr\n"
@@ -99,7 +99,7 @@ msgstr "en-tête de colonne"
 
 #: ../atk/atkobject.c:108
 msgid "combo box"
-msgstr "boîte combinée"
+msgstr "liste déroulante"
 
 #: ../atk/atkobject.c:109
 msgid "dateeditor"
