@@ -324,14 +324,14 @@ child_added_listener (GSignalInvocationHint * signal_hint,
 
   const gchar *detail = NULL;
 
-  g_rec_mutex_lock (&cache_mutex);
-
   /* 
    * Ensure that only accessibles already in the cache
    * have their signals processed.
    */
   accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), TRUE);
+
+  g_rec_mutex_lock (&cache_mutex);
 
   if (spi_cache_in (cache, G_OBJECT(accessible)))
     {
@@ -378,9 +378,9 @@ toplevel_added_listener (AtkObject * accessible,
 {
   SpiCache *cache = spi_global_cache;
 
-  g_rec_mutex_lock (&cache_mutex);
-
   g_return_if_fail (ATK_IS_OBJECT (accessible));
+
+  g_rec_mutex_lock (&cache_mutex);
 
   if (spi_cache_in (cache, G_OBJECT(accessible)))
     {
