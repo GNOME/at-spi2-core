@@ -2,7 +2,7 @@
  * 
  * at-spi-bus-launcher: Manage the a11y bus as a child process 
  *
- * Copyright 2011 Red Hat, Inc.
+ * Copyright 2011-2018 Red Hat, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -25,6 +25,11 @@
 #include <unistd.h>
 #include <string.h>
 #include <signal.h>
+#ifdef __linux
+#include <sys/prctl.h>
+#include <sys/socket.h>
+#include <sys/un.h>
+#endif
 #include <sys/wait.h>
 #include <errno.h>
 #include <stdio.h>
@@ -58,6 +63,7 @@ typedef struct {
   int a11y_bus_pid;
   char *a11y_bus_address;
   int pipefd[2];
+  int listenfd;
   char *a11y_launch_error_message;
 } A11yBusLauncher;
 
@@ -215,23 +221,6 @@ name_appeared_handler (GDBusConnection *connection,
   register_client (app);
 }
 
-static void
-setup_bus_child (gpointer data)
-{
-  A11yBusLauncher *app = data;
-  (void) app;
-
-  close (app->pipefd[0]);
-  dup2 (app->pipefd[1], 3);
-  close (app->pipefd[1]);
-
-  /* On Linux, tell the bus process to exit if this process goes away */
-#ifdef __linux
-#include <sys/prctl.h>
-  prctl (PR_SET_PDEATHSIG, 15);
-#endif  
-}
-
 /**
  * unix_read_all_fd_to_string:
  *
@@ -276,24 +265,30 @@ on_bus_exited (GPid     pid,
   g_main_loop_quit (app->loop);
 } 
 
-static gboolean
-ensure_a11y_bus (A11yBusLauncher *app)
+#ifdef DBUS_DAEMON
+static void
+setup_bus_child_daemon (gpointer data)
 {
+  A11yBusLauncher *app = data;
+  (void) app;
+
+  close (app->pipefd[0]);
+  dup2 (app->pipefd[1], 3);
+  close (app->pipefd[1]);
+
+  /* On Linux, tell the bus process to exit if this process goes away */
+#ifdef __linux
+  prctl (PR_SET_PDEATHSIG, 15);
+#endif
+}
+
+static gboolean
+ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
+{
+  char *argv[] = { DBUS_DAEMON, config_path, "--nofork", "--print-address", "3", NULL };
   GPid pid;
-  char *argv[] = { DBUS_DAEMON, NULL, "--nofork", "--print-address", "3", NULL };
   char addr_buf[2048];
   GError *error = NULL;
-  const char *config_path = NULL;
-
-  if (app->a11y_bus_pid != 0)
-    return FALSE;
-
-  if (g_file_test (SYSCONFDIR"/at-spi2/accessibility.conf", G_FILE_TEST_EXISTS))
-      config_path = "--config-file="SYSCONFDIR"/at-spi2/accessibility.conf";
-  else
-      config_path = "--config-file="DATADIR"/defaults/at-spi2/accessibility.conf";
-
-  argv[1] = config_path;
 
   if (pipe (app->pipefd) < 0)
     g_error ("Failed to create pipe: %s", strerror (errno));
@@ -302,7 +297,7 @@ ensure_a11y_bus (A11yBusLauncher *app)
                       argv,
                       NULL,
                       G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
-                      setup_bus_child,
+                      setup_bus_child_daemon,
                       app,
                       &pid,
                       &error))
@@ -335,6 +330,136 @@ ensure_a11y_bus (A11yBusLauncher *app)
   app->a11y_bus_address = g_strchomp (g_strdup (addr_buf));
   g_debug ("a11y bus address: %s", app->a11y_bus_address);
 
+  return TRUE;
+
+error:
+  close (app->pipefd[0]);
+  close (app->pipefd[1]);
+  app->state = A11Y_BUS_STATE_ERROR;
+
+  return FALSE;
+}
+#else
+static gboolean
+ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
+{
+	return FALSE;
+}
+#endif
+
+#ifdef DBUS_BROKER
+static void
+setup_bus_child_broker (gpointer data)
+{
+  A11yBusLauncher *app = data;
+  gchar *pid_str;
+  (void) app;
+
+  dup2 (app->listenfd, 3);
+  close (app->listenfd);
+  g_setenv("LISTEN_FDS", "1", TRUE);
+
+  pid_str = g_strdup_printf("%u", getpid());
+  g_setenv("LISTEN_PID", pid_str, TRUE);
+  g_free(pid_str);
+
+  /* Tell the bus process to exit if this process goes away */
+  prctl (PR_SET_PDEATHSIG, SIGTERM);
+}
+
+static gboolean
+ensure_a11y_bus_broker (A11yBusLauncher *app, char *config_path)
+{
+  char *argv[] = { DBUS_BROKER, config_path, "--scope", "user", NULL };
+  struct sockaddr_un addr = { .sun_family = AF_UNIX };
+  socklen_t addr_len = sizeof(addr);
+  GPid pid;
+  GError *error = NULL;
+
+  if ((app->listenfd = socket (PF_UNIX, SOCK_STREAM | SOCK_NONBLOCK, 0)) < 0)
+    g_error ("Failed to create listening socket: %s", strerror (errno));
+
+  if (bind (app->listenfd, (struct sockaddr *)&addr, sizeof(sa_family_t)) < 0)
+    g_error ("Failed to bind listening socket: %s", strerror (errno));
+
+  if (getsockname (app->listenfd, (struct sockaddr *)&addr, &addr_len) < 0)
+    g_error ("Failed to get socket name for listening socket: %s", strerror(errno));
+
+  if (listen (app->listenfd, 1024) < 0)
+    g_error ("Failed to listen on socket: %s", strerror(errno));
+
+  if (!g_spawn_async (NULL,
+                      argv,
+                      NULL,
+                      G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+                      setup_bus_child_broker,
+                      app,
+                      &pid,
+                      &error))
+    {
+      app->a11y_bus_pid = -1;
+      app->a11y_launch_error_message = g_strdup (error->message);
+      g_clear_error (&error);
+      goto error;
+    }
+
+  close (app->listenfd);
+  app->listenfd = -1;
+
+  g_child_watch_add (pid, on_bus_exited, app);
+  app->a11y_bus_pid = pid;
+  g_debug ("Launched a11y bus, child is %ld", (long) pid);
+  app->state = A11Y_BUS_STATE_RUNNING;
+
+  app->a11y_bus_address = g_strconcat("unix:abstract=", addr.sun_path + 1, NULL);
+  g_debug ("a11y bus address: %s", app->a11y_bus_address);
+
+  return TRUE;
+
+error:
+  close (app->listenfd);
+  app->state = A11Y_BUS_STATE_ERROR;
+
+  return FALSE;
+}
+#else
+static gboolean
+ensure_a11y_bus_broker (A11yBusLauncher *app, char *config_path)
+{
+	return FALSE;
+}
+#endif
+
+static gboolean
+ensure_a11y_bus (A11yBusLauncher *app)
+{
+  char *config_path = NULL;
+  gboolean success = FALSE;
+
+  if (app->a11y_bus_pid != 0)
+    return FALSE;
+
+  if (g_file_test (SYSCONFDIR"/at-spi2/accessibility.conf", G_FILE_TEST_EXISTS))
+      config_path = "--config-file="SYSCONFDIR"/at-spi2/accessibility.conf";
+  else
+      config_path = "--config-file="DATADIR"/defaults/at-spi2/accessibility.conf";
+
+#ifdef WANT_DBUS_BROKER
+    success = ensure_a11y_bus_broker (app, config_path);
+    if (!success)
+      {
+        if (!ensure_a11y_bus_daemon (app, config_path))
+            return FALSE;
+      }
+#else
+    success = ensure_a11y_bus_daemon (app, config_path);
+    if (!success)
+      {
+        if (!ensure_a11y_bus_broker (app, config_path))
+            return FALSE;
+      }
+#endif
+
 #ifdef HAVE_X11
   {
     Display *display = XOpenDisplay (NULL);
@@ -353,13 +478,6 @@ ensure_a11y_bus (A11yBusLauncher *app)
 #endif
 
   return TRUE;
-  
- error:
-  close (app->pipefd[0]);
-  close (app->pipefd[1]);
-  app->state = A11Y_BUS_STATE_ERROR;
-
-  return FALSE;
 }
 
 static void

@@ -31,8 +31,13 @@ configure_file(input: 'at-spi-dbus-bus.service.in',
                install: true,
                install_dir: systemd_user_dir)
 
+launcher_args = [
+             '-DSYSCONFDIR="@0@"'.format(atspi_sysconfdir),
+             '-DDATADIR="@0@"'.format(atspi_datadir),
+           ]
+
 if get_option('dbus_daemon') != 'default'
-  dbus_daemon = get_option('dbus_daemon')
+  launcher_args += '-DDBUS_DAEMON="@0@"'.format(get_option('dbus_daemon'))
 else
   dbus_daemon = find_program('dbus-daemon',
                              '/sbin/dbus-daemon',
@@ -40,16 +45,29 @@ else
                              '/libexec/dbus-daemon',
                              '/usr/libexec/dbus-daemon',
                              '/usr/pkg/bin/dbus-daemon',
-                             required: true).path()
+                             required: false)
+  if dbus_daemon.found()
+    launcher_args += '-DDBUS_DAEMON="@0@"'.format(dbus_daemon.path())
+  endif
+endif
+
+if get_option('dbus_broker') != 'default'
+  launcher_args += '-DDBUS_BROKER="@0@"'.format(get_option('dbus_broker'))
+else
+  dbus_broker = find_program('dbus-broker-launch',
+                             required: false)
+  if dbus_broker.found()
+    launcher_args += '-DDBUS_BROKER="@0@"'.format(dbus_broker.path())
+  endif
+endif
+
+if get_option('default_bus') == 'dbus-broker'
+  launcher_args += '-DWANT_DBUS_BROKER'
 endif
 
 executable('at-spi-bus-launcher', 'at-spi-bus-launcher.c',
            include_directories: [ root_inc, include_directories('.') ],
            dependencies: [ gio_dep, x11_deps ],
-           c_args: [
-             '-DSYSCONFDIR="@0@"'.format(atspi_sysconfdir),
-             '-DDATADIR="@0@"'.format(atspi_datadir),
-             '-DDBUS_DAEMON="@0@"'.format(dbus_daemon),
-           ],
+           c_args: launcher_args,
            install: true,
            install_dir: atspi_libexecdir)
