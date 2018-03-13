@@ -1,5 +1,5 @@
 project('atk', 'c',
-        version: '2.28',
+        version: '2.28.0',
         license: 'LGPLv2.1+',
         default_options: [
           'buildtype=debugoptimized',
