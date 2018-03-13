@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.27.92:
+
+* Support building a static library (bgo#793652).
+\
+* Fix build on FreeBSD (bgo#791608).
+
 What's new in at-spi2-core 2.27.1:
 
 * Dropped autotools support.
