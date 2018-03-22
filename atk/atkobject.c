@@ -1350,7 +1350,7 @@ atk_object_real_get_property (GObject      *object,
       g_value_set_string (value, atk_object_get_description (accessible));
       break;
     case PROP_ROLE:
-      g_value_set_int (value, atk_object_get_role (accessible));
+      g_value_set_enum (value, atk_object_get_role (accessible));
       break;
     case PROP_LAYER:
       if (ATK_IS_COMPONENT (accessible))
