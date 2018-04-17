@@ -130,6 +130,6 @@ subdir('atk')
 subdir('tests')
 subdir('po')
 
-if get_option('enable_docs')
+if get_option('docs')
   subdir('docs')
 endif

@@ -137,9 +137,7 @@ libatk_dep = declare_dependency(link_with: libatk,
                                 dependencies: gobject_dep,
                                 sources: atk_enum_h)
 
-disable_introspection = get_option('disable_introspection')
-
-if not meson.is_cross_build() and not disable_introspection
+if not meson.is_cross_build() and get_option('introspection')
   gnome.generate_gir(libatk,
                      sources: atk_sources + atk_headers + [ atk_enum_h ] + [ atk_version_h ],
                      namespace: 'Atk',

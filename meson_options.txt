@@ -1,8 +1,8 @@
-option('enable_docs',
+option('docs',
        description: 'Build API reference for ATK using GTK-Doc',
        type: 'boolean',
        value: false)
-option('disable_introspection',
-       description: 'Do not build introspection files, even when GObject-Introspection is found',
+option('introspection',
+       description: 'Whether to build introspection files',
        type: 'boolean',
-       value: false)
+       value: true)
