@@ -26,28 +26,20 @@ You can also clone the ATK master branch from GNOME repository:
 Building
 --------
 
-To buid ATK from a release tarball you can use Autotools:
-
-    $ ./configure
-    $ make
-    # make install
-
-Alternatively, you can use Meson and Ninja:
+You can use Meson and Ninja:
 
     $ meson _build .
     $ ninja -C _build
     # ninja -C _build install
 
-To build ATK from a Git clone using Autotools, run the autogen.sh script
-instead of the configure one; before running autogen.sh or configure, make
-sure you have libtool in your path. If you use Meson, no changes are
-necessary.
+Tarball
+-------
 
-Note that autogen.sh runs the configure script for you. If you wish to pass
-options like --prefix=/usr to configure you can give those options to
-autogen.sh and they will be passed on to configure; if you wish to run
-autogen.sh without running the configure script, export the NOCONFIGURE
-environment variable.
+If you want a tarball with the ATK source code, you can also use
+Meson:
+
+  $ meson _build .
+  $ ninja -C _build dist
 
 How to report bugs
 ------------------
