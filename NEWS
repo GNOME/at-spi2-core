@@ -1,3 +1,26 @@
+Changes in version 2.29.1
+=========================
+
+Important note: this is the first release without autotools
+support. From now on only meson would be supported.
+
+* Bugfixing:
+   * Bug 794513: Setting accessible-role does not work
+
+* Build, autotools:
+   * Bug 795315: Remove autotools support
+
+* Build, meson
+   * Bug 795065: Fix linker options on Darwin
+   * Bug 795301: meson: follow meson_options convention
+
+Contributors:
+  Ignacio Casal Quinteiro, Alejandro Piñeiro, Samuel Thibault
+
+Translations:
+  gogo (hr), Cheng-Chia Tseng (zh_TW), Daniel Șerbănescu (ro)
+
+
 Changes in version 2.28.1
 =========================
 
