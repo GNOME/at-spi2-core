@@ -9,6 +9,9 @@ Changes in version 2.28
 * documentation
    * Bug 791020: Remove list association from ATK_ROLE_DESCRIPTION_{TERM,VALUE}
 
+Contributors:
+ Joanmarie Diggs
+
 Translations
  Claude Paroz (fr), GNOME Translation Robot (gd)
 
@@ -21,6 +24,9 @@ Changes in version 2.27.1
 
 * Build (Visual Studio)
    * Enhance security of x64 binaries
+
+Contributors
+  Chun-wei Fan
 
 Translations
   Pawan Chitrakar (ne), Xavi Ivars (ca@valencia), hanniedu (nl)
