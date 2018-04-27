@@ -944,6 +944,8 @@ text_insert_event_listener (GSignalInvocationHint * signal_hint,
 
   if (G_VALUE_TYPE (&param_values[3]) == G_TYPE_STRING)
     text = g_value_get_string (&param_values[3]);
+  else
+    text = "";
 
   emit_event (accessible, ITF_EVENT_OBJECT, name, minor, detail1, detail2,
               DBUS_TYPE_STRING_AS_STRING, text, append_basic);
@@ -993,6 +995,8 @@ text_remove_event_listener (GSignalInvocationHint * signal_hint,
 
   if (G_VALUE_TYPE (&param_values[3]) == G_TYPE_STRING)
     text = g_value_get_string (&param_values[3]);
+  else
+    text = "";
 
   emit_event (accessible, ITF_EVENT_OBJECT, name, minor, detail1, detail2,
               DBUS_TYPE_STRING_AS_STRING, text, append_basic);
