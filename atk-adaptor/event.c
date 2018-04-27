@@ -451,14 +451,6 @@ adapt_minor_for_dbus (const char *source)
   return ret;
 }
 
-static void
-open_variant (DBusMessageIter *iter, const char *name, const char *type,
-              DBusMessageIter *out)
-{
-  dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &name);
-  dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, type, out);
-}
-
 /*
  * Emits an AT-SPI event.
  * AT-SPI events names are split into three parts:
