@@ -112,7 +112,7 @@ static AtkRelationSet *my_atk_object_ref_relation_set (AtkObject* accessible)
   MyAtkObject *obj = MY_ATK_OBJECT (accessible);
   if (obj->relation_set == NULL)
     obj->relation_set = atk_relation_set_new ();
-  return g_object_ref (G_OBJECT (obj->relation_set));
+  return g_object_ref (ATK_RELATION_SET (obj->relation_set));
 }
 
 static AtkStateSet *my_atk_object_ref_state_set (AtkObject *accessible)
@@ -120,7 +120,7 @@ static AtkStateSet *my_atk_object_ref_state_set (AtkObject *accessible)
   MyAtkObject *obj = MY_ATK_OBJECT (accessible);
   if (obj->state_set == NULL)
     obj->state_set = atk_state_set_new ();
-  return g_object_ref (G_OBJECT (obj->state_set));
+  return g_object_ref (ATK_STATE_SET (obj->state_set));
 }
 
 static AtkAttributeSet *my_atk_object_get_attributes (AtkObject *accessible)
