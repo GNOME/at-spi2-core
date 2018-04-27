@@ -17,6 +17,14 @@ host_system = host_machine.system()
 # XXX: for strcasecmp(); should use g_ascii_strcasecmp()
 add_project_arguments([ '-D_DEFAULT_SOURCE', ], language: 'c')
 
+# We are using deprecated API; don't warn if we're building stable
+# releases, to avoid making the build logs less readable. We keep
+# the warnings during development cycles, to remind us we should
+# port away from deprecated API
+if meson.project_version().split('.').get(1).to_int().is_even()
+  add_project_arguments([ '-DATK_DISABLE_DEPRECATION_WARNINGS' ], language: 'c')
+endif
+
 # XXX: Unused
 at_spi_conf = configuration_data()
 at_spi_conf.set('GETTEXT_PACKAGE', meson.project_name())
