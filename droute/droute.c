@@ -330,6 +330,7 @@ impl_prop_GetSet (DBusMessage *message,
         DBusMessage *ret;
         ret = dbus_message_new_error (message, DBUS_ERROR_FAILED, error.message);
         dbus_error_free (&error);
+        return ret;
       }
 
     _DROUTE_DEBUG ("DRoute (handle prop): %s|%s on %s\n", pair.one, pair.two, pathstr);
