@@ -218,7 +218,7 @@ void perform_action (AtkObject *obj)
 static gboolean
 my_atk_action_do_action (AtkAction *action, gint i)
 {
-  g_return_val_if_fail (MY_IS_ATK_ACTION (action), NULL);
+  g_return_val_if_fail (MY_IS_ATK_ACTION (action), FALSE);
 
   perform_action (ATK_OBJECT (action));
 
