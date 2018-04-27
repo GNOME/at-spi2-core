@@ -22,12 +22,12 @@ bugs specific to this module.
 
 A git repository with the latest development code is available at:
 
-	git://git.gnome.org/at-spi2-atk
+	https://git.gnome.org/browse/at-spi2-atk
 
 Code in this repository depends on at-spi2-core resources. The
 at-spi2-core repository can be found at:
 
-	git://git.gnome.org/at-spi2-core
+	https://git.gnome.org/browse/at-spi2-core
 
 More information
 ----------------
@@ -37,15 +37,14 @@ the results of which are available on the GNOME wiki. Keep in
 mind that the D-Bus AT-SPI design documents on this page
 have not been kept up to date.
 
-        http://live.gnome.org/GAP/AtSpiDbusInvestigation/
+        https://wiki.gnome.org/Accessibility/Documentation/GNOME2/ATSPI2-Investigation
 
 Other sources of relevant information about AT-SPI and Accessibility
 include:
 
-        http://live.gnome.org/Accessibility
-        http://www.sun.com/software/star/gnome/accessibility/architecture.xml
-        http://accessibility.kde.org/developer/atk.php
-        http://www.gnome.org/~billh/at-spi-idl/html/
+        https://wiki.gnome.org/Accessibility
+        https://accessibility.kde.org/developer/atk.php
+        https://people.gnome.org/~billh/at-spi-idl/html/
 
 
 
@@ -60,12 +59,43 @@ as a module.
 These libraries depend on the at-spi2-core code that contains the daemon for
 registering applications, D-Bus helper libraries and the AT-SPI D-Bus specifications.
 
+Building this package
+---------------------
+
+In order to build at-spi2-atk you will need:
+
+ - Python 3.5
+ - Meson
+ - Ninja
+
+Additionally, you will need the development files for:
+
+ - libdbus
+ - GLib
+ - GTK+ 3.x
+ - ATK
+ - AT-SPI
+
+To build and install this package, you will typically need to run `meson` to
+configure the build process, and Ninja to run the compilation and installation
+instructions:
+
+    # Configure the build and initialize the build directory
+    meson _build .
+
+    # Enter the build directory
+    cd _build
+
+    # Build the project
+    ninja
+
+    # Install the project
+    sudo ninja install
+
 Tests
 -----
 
-To run tests execute autogen.sh with '--with-tests=yes' parameter then
-after 'make', type 'make check'.
-Test result is available in tests/atk-test.log
+To run the test suite, use `meson test` from the build directory.
 
 Directory structure
 -------------------
