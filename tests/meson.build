@@ -72,6 +72,4 @@ foreach t: tests
                           '-DTESTS_SRC_DIR="@0@"'.format(meson.current_source_dir()),
                           '-DTESTS_DATA_DIR="@0@"'.format(join_paths(meson.current_source_dir(), 'data')),
                         ])
-
-  test(test_name, test_bin)
 endforeach
