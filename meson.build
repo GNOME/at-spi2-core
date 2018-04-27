@@ -56,19 +56,6 @@ else
   p2p_cflags = []
 endif
 
-pkg_conf = configuration_data()
-pkg_conf.set('prefix', get_option('prefix'))
-pkg_conf.set('exec_prefix', get_option('prefix'))
-pkg_conf.set('libdir', join_paths(get_option('prefix'), get_option('libdir')))
-pkg_conf.set('includedir', join_paths(get_option('prefix'), get_option('includedir')))
-pkg_conf.set('VERSION', meson.project_version())
-
-configure_file(input: 'atk-bridge-2.0.pc.in',
-               output: 'atk-bridge-2.0.pc',
-               configuration: pkg_conf,
-               install: true,
-               install_dir: join_paths(get_option('libdir'), 'pkgconfig'))
-
 install_data('at-spi2-atk.desktop',
              install_dir: join_paths(get_option('libdir'), 'gnome-settings-daemon-3.0', 'gtk-modules'))
 

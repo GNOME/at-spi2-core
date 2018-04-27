@@ -47,3 +47,15 @@ atk_bridge_module = shared_module('atk-bridge', 'gtk-2.0/module.c',
                                   c_args: p2p_cflags,
                                   install: true,
                                   install_dir: join_paths(get_option('libdir'), 'gtk-2.0', 'modules'))
+
+pkgconfig = import('pkgconfig')
+pkgconfig.generate(
+  name: 'atk-bridge-2.0',
+  description: 'ATK/D-Bus Bridge',
+  version: meson.project_version(),
+  libraries: libatk_bridge,
+  requires_private: ['gobject-2.0', 'atspi-2'],
+  filebase: 'atk-bridge-2.0',
+  subdirs: 'at-spi2-atk/2.0',
+  install_dir: join_paths(get_option('libdir'), 'pkgconfig'),
+)
