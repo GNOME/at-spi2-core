@@ -478,7 +478,7 @@ emit_event (AtkObject  *obj,
 
   gchar *cname;
   DBusMessage *sig;
-  DBusMessageIter iter, iter_dict, iter_dict_entry, iter_variant, iter_array;
+  DBusMessageIter iter, iter_dict, iter_dict_entry;
   GArray *properties = NULL;
   
   if (!klass) klass = "";

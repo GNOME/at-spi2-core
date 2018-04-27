@@ -356,8 +356,6 @@ impl_GetAttributeValue (DBusConnection * bus, DBusMessage * message,
   AtkText *text = (AtkText *) user_data;
   dbus_int32_t offset;
   char *attributeName;
-  dbus_int32_t startOffset, endOffset;
-  dbus_bool_t defined;
   gint intstart_offset = 0, intend_offset = 0;
   char *rv = NULL;
   DBusMessage *reply;
@@ -376,9 +374,6 @@ impl_GetAttributeValue (DBusConnection * bus, DBusMessage * message,
 
   set = atk_text_get_run_attributes (text, offset,
                                      &intstart_offset, &intend_offset);
-  startOffset = intstart_offset;
-  endOffset = intend_offset;
-  defined = FALSE;
   cur_attr = (GSList *) set;
   while (cur_attr)
     {
@@ -386,7 +381,6 @@ impl_GetAttributeValue (DBusConnection * bus, DBusMessage * message,
       if (!strcmp (at->name, attributeName))
         {
           rv = at->value;
-          defined = TRUE;
           break;
         }
       cur_attr = cur_attr->next;

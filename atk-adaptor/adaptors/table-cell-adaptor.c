@@ -105,19 +105,16 @@ impl_get_Position (DBusMessageIter * iter, void *user_data)
 {
   AtkTableCell *cell = (AtkTableCell *) user_data;
   gint row = -1, column = -1;
-  dbus_int32_t d_row, d_column;
   DBusMessageIter iter_struct, iter_variant;
 
   g_return_val_if_fail (ATK_IS_TABLE_CELL (user_data), FALSE);
   if (!atk_table_cell_get_position (cell, &row, &column))
     return FALSE;
 
-  d_row = row;
-  d_column = column;
   dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, "(ii)", &iter_variant);
   dbus_message_iter_open_container (&iter_variant, DBUS_TYPE_STRUCT, NULL, &iter_struct);
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32, &row);
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32, &column);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32, (dbus_int32_t *) &row);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32, (dbus_int32_t *) &column);
   dbus_message_iter_close_container (&iter_variant, &iter_struct);
   dbus_message_iter_close_container (iter, &iter_variant);
   return TRUE;
