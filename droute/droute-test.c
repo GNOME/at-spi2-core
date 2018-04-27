@@ -258,7 +258,6 @@ do_tests_func (gpointer data)
 
     /* --------------------------------------------------------*/
 
-out:
     g_main_loop_quit (main_loop);
     return FALSE;
 }
