@@ -23,10 +23,12 @@
 
 /* stateset.c : implements the StateSet interface */
 
-#include <config.h>
-#include <stdio.h>
+#include "config.h"
+
 #include "accessible-stateset.h"
 #include "bitarray.h"
+
+#include <stdio.h>
 
 
 static AtspiStateType *accessible_state_types = NULL;

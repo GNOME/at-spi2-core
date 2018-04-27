@@ -22,12 +22,13 @@
 
 /* streamablecontent.c : implements the StreamableContent interface */
 
-#include <config.h>
-#include <stdio.h>
-#include <string.h>
+#include "config.h"
 
 #include <libspi/component.h>
 #include <libspi/streamablecontent.h>
+
+#include <stdio.h>
+#include <string.h>
 
 /* Our parent Gtk object type */
 #define PARENT_TYPE SPI_TYPE_BASE
