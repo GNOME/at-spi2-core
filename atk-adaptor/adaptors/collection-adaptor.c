@@ -1163,6 +1163,7 @@ append_accessible_properties (DBusMessageIter *iter, AtkObject *obj,
   }
 }
 
+#if 0
 static void
 skip (const char **p)
 {
@@ -1251,6 +1252,7 @@ walkm (DBusMessage *message)
   dbus_message_iter_init (message, &iter);
   walk (&iter, sig, FALSE);
 }
+#endif
 
 static DBusMessage *
 impl_GetTree (DBusConnection * bus,
@@ -1293,7 +1295,9 @@ impl_GetTree (DBusConnection * bus,
       append_accessible_properties (&iter_array, object, properties);
       dbus_message_iter_close_container (&iter, &iter_array);
     }
-//walkm (reply);
+#if 0
+  walkm (reply);
+#endif
   return reply;
 }
 
