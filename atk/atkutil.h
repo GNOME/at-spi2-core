@@ -179,7 +179,7 @@ GType atk_util_get_type (void);
  *@ATK_XY_WINDOW: specifies xy coordinates relative to the widget's
  * top-level window
  *@ATK_XY_PARENT: specifies xy coordinates relative to the widget's
- * immediate parent. @Since: ATK-2.30
+ * immediate parent. Since: 2.30
  *
  *Specifies how xy coordinates are to be interpreted. Used by functions such
  *as atk_component_get_position() and atk_text_get_character_extents() 

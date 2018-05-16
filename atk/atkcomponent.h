@@ -48,6 +48,8 @@ G_BEGIN_DECLS
  *determined by the application.
  *
  * Specifies where an object should be placed on the screen when using scroll_to.
+ *
+ * Since: 2.30
  **/
 typedef enum {
   ATK_SCROLL_TOP_LEFT,
@@ -129,8 +131,6 @@ GType atk_rectangle_get_type (void);
  * @remove_focus_handler: This virtual function is deprecated since
  * 2.9.4 and it should not be overriden. See
  * atk_component_remove_focus_handler() for more information.
- *
- * @Since: ATK-2.30
  */
 
 struct _AtkComponentIface
