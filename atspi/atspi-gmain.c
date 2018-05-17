@@ -33,7 +33,7 @@
 #define _(x) dgettext (GETTEXT_PACKAGE, x)
 #define N_(x) x
 
-/**
+/*
  * DBusGMessageQueue:
  * A GSource subclass for dispatching DBusConnection messages.
  * We need this on top of the IO handlers, because sometimes
@@ -41,8 +41,8 @@
  */
 typedef struct
 {
-  GSource source; /**< the parent GSource */
-  DBusConnection *connection; /**< the connection to dispatch */
+  GSource source; /* the parent GSource */
+  DBusConnection *connection; /* the connection to dispatch */
 } DBusGMessageQueue;
 
 static gboolean message_queue_prepare  (GSource     *source,
@@ -95,11 +95,11 @@ message_queue_dispatch (GSource     *source,
 
 typedef struct
 {
-  GMainContext *context;      /**< the main context */
-  GSList *ios;                /**< all IOHandler */
-  GSList *timeouts;           /**< all TimeoutHandler */
-  DBusConnection *connection; /**< NULL if this is really for a server not a connection */
-  GSource *message_queue_source; /**< DBusGMessageQueue */
+  GMainContext *context;      /* the main context */
+  GSList *ios;                /* all IOHandler */
+  GSList *timeouts;           /* all TimeoutHandler */
+  DBusConnection *connection; /* NULL if this is really for a server not a connection */
+  GSource *message_queue_source; /* DBusGMessageQueue */
 } ConnectionSetup;
 
 
@@ -510,7 +510,7 @@ connection_setup_new_from_old (GMainContext    *context,
   return cs;
 }
 
-/** @} */ /* End of GLib bindings internals */
+/* @} */ /* End of GLib bindings internals */
 
 /**
  * atspi_dbus_connection_setup_with_g_main: (skip)
