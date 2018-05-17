@@ -814,6 +814,15 @@ already_running ()
 static GSettings *
 get_schema (const gchar *name)
 {
+#if GLIB_CHECK_VERSION (2, 32, 0)
+  GSettingsSchemaSource *source = g_settings_schema_source_get_default ();
+  GSettingsSchema *schema = g_settings_schema_source_lookup (source, name, FALSE);
+
+  if (schema == NULL)
+    return NULL;
+
+  return g_settings_new_full (schema, NULL, NULL);
+#else
   const char * const *schemas = NULL;
   gint i;
 
@@ -825,6 +834,7 @@ get_schema (const gchar *name)
   }
 
   return NULL;
+#endif
 }
 
 static void
