@@ -1018,8 +1018,10 @@ spi_dec_x11_synth_keycode_press (SpiDEController *controller,
 {
 	unsigned int time = CurrentTime;
 	unsigned int bounce_delay;
+#ifdef THIS_IS_BROKEN 
 	unsigned int elapsed_msec;
 	struct timeval tv;
+#endif
 	DEControllerPrivateData *priv = controller->priv;
 
 	spi_x_error_trap ();
@@ -1028,15 +1030,15 @@ spi_dec_x11_synth_keycode_press (SpiDEController *controller,
 		bounce_delay = xkb_get_bouncekeys_delay (controller); 
                 if (bounce_delay)
 		{
+#ifdef THIS_IS_BROKEN
 			gettimeofday (&tv, NULL);
 			elapsed_msec =
 				(tv.tv_sec - priv->last_release_time.tv_sec) * 1000
 				+ (tv.tv_usec - priv->last_release_time.tv_usec) / 1000;
-#ifdef SPI_XKB_DEBUG			
+# ifdef SPI_XKB_DEBUG
 			fprintf (stderr, "%d ms elapsed (%ld usec)\n", elapsed_msec,
 				 (long) (tv.tv_usec - priv->last_release_time.tv_usec));
-#endif
-#ifdef THIS_IS_BROKEN
+# endif
 			if (elapsed_msec < bounce_delay)
 				time = bounce_delay - elapsed_msec + 1;
 #else
@@ -1062,8 +1064,10 @@ spi_dec_x11_synth_keycode_release (SpiDEController *controller,
 {
 	unsigned int time = CurrentTime;
 	unsigned int slow_delay;
+#ifdef THIS_IS_BROKEN_DUNNO_WHY
 	unsigned int elapsed_msec;
 	struct timeval tv;
+#endif
 	DEControllerPrivateData *priv = controller->priv;
 
 	spi_x_error_trap ();
@@ -1072,15 +1076,15 @@ spi_dec_x11_synth_keycode_release (SpiDEController *controller,
 		slow_delay = xkb_get_slowkeys_delay (controller);
 		if (slow_delay)
 		{
+#ifdef THIS_IS_BROKEN_DUNNO_WHY
 			gettimeofday (&tv, NULL);
 			elapsed_msec =
 				(tv.tv_sec - priv->last_press_time.tv_sec) * 1000
 				+ (tv.tv_usec - priv->last_press_time.tv_usec) / 1000;
-#ifdef SPI_XKB_DEBUG			
+# ifdef SPI_XKB_DEBUG
 			fprintf (stderr, "%d ms elapsed (%ld usec)\n", elapsed_msec,
 				 (long) (tv.tv_usec - priv->last_press_time.tv_usec));
-#endif
-#ifdef THIS_IS_BROKEN_DUNNO_WHY
+# endif
 			if (elapsed_msec < slow_delay)
 				time = slow_delay - elapsed_msec + 1;
 #else
