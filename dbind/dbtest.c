@@ -27,7 +27,7 @@
 #define DESKICE_PATH      "/Novell/ICEDesktop/Daemon"
 #define DESKICE_NAMESPACE "Novell.ICEDesktop.Daemon"
 
-void marshal (DBusMessage *msg, char *type, void *ptr)
+void marshal (DBusMessage *msg, const char *type, void *ptr)
 {
     DBusMessageIter iter;
 
@@ -35,7 +35,7 @@ void marshal (DBusMessage *msg, char *type, void *ptr)
     dbind_any_marshal (&iter, &type, &ptr);
 }
 
-void demarshal (DBusMessage *msg, char *type, void *ptr)
+void demarshal (DBusMessage *msg, const char *type, void *ptr)
 {
     DBusMessageIter iter;
 
@@ -317,8 +317,8 @@ void test_twovals ()
     DBusMessage *msg;
     DBusMessageIter iter;
     TwoVal i, o;
-    char *type_twoval = TYPEOF_TWOVAL;
-    char *type;
+    const char *type_twoval = TYPEOF_TWOVAL;
+    const char *type;
     void *ptr;
 
     msg = dbus_message_new (DBUS_MESSAGE_TYPE_METHOD_CALL);
