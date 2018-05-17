@@ -90,7 +90,8 @@ if have_gir
 
   gir_extra_args = [
     '--c-include=atspi/atspi.h',
-    '--pkg-export=atspi-2'
+    '--pkg-export=atspi-2',
+    '--quiet',
   ]
 
   gir_dir = join_paths(atspi_datadir, 'gir-1.0')
