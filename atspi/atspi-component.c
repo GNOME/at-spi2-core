@@ -445,6 +445,7 @@ atspi_component_scroll_to (AtspiComponent *obj,
  *          the screen, to the window, or to the parent object.
  * @x: the x coordinate of the point to reach
  * @y: the y coordinate of the point to reach
+ * @error: return location for a #GError
  *
  * Scrolls whatever container of the #AtspiComponent object so it becomes
  * visible on the screen at a given position.
