@@ -45,7 +45,7 @@ spi_re_entrant_list_delete_link (GList * const *element_ptr)
   GList     *next;
   GList     *element;
   gboolean   first_item;
-  GList *dummy; /* suppress warning */
+  GList *dummy G_GNUC_UNUSED;
 
   g_return_if_fail (element_ptr != NULL);
 
