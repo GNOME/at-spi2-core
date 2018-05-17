@@ -55,6 +55,7 @@ typedef struct {
   GDBusConnection *session_bus;
   GSettings *a11y_schema;
   GSettings *interface_schema;
+  int name_owner_id;
 
   GDBusProxy *client_proxy;
 
@@ -830,7 +831,6 @@ static void
 gsettings_key_changed (GSettings *gsettings, const gchar *key, void *user_data)
 {
   gboolean new_val = g_settings_get_boolean (gsettings, key);
-  A11yBusLauncher *app = user_data;
 
   if (!strcmp (key, "toolkit-accessibility"))
     handle_a11y_enabled_change (_global_app, new_val, FALSE);
@@ -842,10 +842,6 @@ int
 main (int    argc,
       char **argv)
 {
-  GError *error = NULL;
-  GMainLoop *loop;
-  GDBusConnection *session_bus;
-  int name_owner_id;
   gboolean a11y_set = FALSE;
   gboolean screen_reader_set = FALSE;
   gint i;
@@ -901,14 +897,15 @@ main (int    argc,
   introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
   g_assert (introspection_data != NULL);
 
-  name_owner_id = g_bus_own_name (G_BUS_TYPE_SESSION,
-                                  "org.a11y.Bus",
-                                  G_BUS_NAME_OWNER_FLAGS_ALLOW_REPLACEMENT,
-                                  on_bus_acquired,
-                                  on_name_acquired,
-                                  on_name_lost,
-                                  _global_app,
-                                  NULL);
+  _global_app->name_owner_id =
+    g_bus_own_name (G_BUS_TYPE_SESSION,
+                    "org.a11y.Bus",
+                    G_BUS_NAME_OWNER_FLAGS_ALLOW_REPLACEMENT,
+                    on_bus_acquired,
+                    on_name_acquired,
+                    on_name_lost,
+                    _global_app,
+                    NULL);
 
   g_main_loop_run (_global_app->loop);
 
