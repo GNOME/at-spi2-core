@@ -560,7 +560,7 @@ atk_component_set_size       (AtkComponent    *component,
 }
 
 /**
- * atk_component_scroll_to (AtkComponent *accessible, AtkScrollType type)
+ * atk_component_scroll_to:
  * @component: an #AtkComponent
  * @type: specify where the object should be made visible.
  *
@@ -589,7 +589,8 @@ atk_component_scroll_to (AtkComponent *component, AtkScrollType type)
 }
 
 /**
- * atk_component_scroll_to_point (AtkComponent *accessible, AtkScrollType type, gint x, gint y)
+ * atk_component_scroll_to_point:
+ * @component: an #AtkComponent
  * @coords: specify whether coordinates are relative to the screen or to the
  * parent object.
  * @x: x-position where to scroll to
