@@ -1079,7 +1079,7 @@ atk_text_get_range_extents (AtkText          *text,
 }
 
 /**
- * atk_text_get_bounded_ranges:
+ * atk_text_get_bounded_ranges: (virtual get_bounded_ranges)
  * @text: an #AtkText
  * @rect: An AtkTextRectangle giving the dimensions of the bounding box.
  * @coord_type: Specify whether coordinates are relative to the screen or widget window.

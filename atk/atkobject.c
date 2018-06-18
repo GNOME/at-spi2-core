@@ -539,7 +539,7 @@ atk_object_class_init (AtkObjectClass *klass)
    * @arg1: The index of the added or removed child. The value can be
    * -1. This is used if the value is not known by the implementor
    * when the child is added/removed or irrelevant.
-   * @arg2: A gpointer to the child AtkObject which was added or
+   * @arg2: (type AtkObject): A gpointer to the child AtkObject which was added or
    * removed. If the child was removed, it is possible that it is not
    * available for the implementor. In that case this pointer can be
    * NULL.
@@ -581,8 +581,8 @@ atk_object_class_init (AtkObjectClass *klass)
   /**
    * AtkObject::property-change:
    * @atkobject: the object which received the signal.
-   * @arg1: an #AtkPropertyValues containing the new value of the
-   *   property which changed.
+   * @arg1: (type AtkPropertyValues): an #AtkPropertyValues containing the new
+   * value of the property which changed.
    *
    * The signal "property-change" is emitted when an object's property
    * value changes. @arg1 contains an #AtkPropertyValues with the name
@@ -648,7 +648,7 @@ atk_object_class_init (AtkObjectClass *klass)
   /**
    * AtkObject::active-descendant-changed:
    * @atkobject: the object which received the signal.
-   * @arg1: the newly focused object.
+   * @arg1: (type AtkObject): the newly focused object.
    *
    * The "active-descendant-changed" signal is emitted by an object
    * which has the state ATK_STATE_MANAGES_DESCENDANTS when the focus

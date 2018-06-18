@@ -162,7 +162,7 @@ atk_document_base_init (AtkDocumentIface *class)
 }
 
 /**
- * atk_document_get_document_type:
+ * atk_document_get_document_type: (virtual get_document_type)
  * @document: a #GObject instance that implements AtkDocumentIface
  *
  * Gets a string indicating the document type.
@@ -192,7 +192,7 @@ atk_document_get_document_type (AtkDocument *document)
 }
 
 /**
- * atk_document_get_document:
+ * atk_document_get_document: (virtual get_document)
  * @document: a #GObject instance that implements AtkDocumentIface
  *
  * Gets a %gpointer that points to an instance of the DOM.  It is
@@ -225,7 +225,7 @@ atk_document_get_document (AtkDocument *document)
 }
 
 /**
- * atk_document_get_locale:
+ * atk_document_get_locale: (virtual get_document_locale)
  * @document: a #GObject instance that implements AtkDocumentIface
  *
  * Gets a UTF-8 string indicating the POSIX-style LC_MESSAGES locale
@@ -261,7 +261,7 @@ atk_document_get_locale (AtkDocument *document)
 
 
 /**
- * atk_document_get_attributes:
+ * atk_document_get_attributes: (virtual get_document_attributes)
  * @document: a #GObject instance that implements AtkDocumentIface
  *
  * Gets an AtkAttributeSet which describes document-wide
@@ -293,7 +293,7 @@ atk_document_get_attributes (AtkDocument *document)
 }
 
 /**
- * atk_document_get_attribute_value:
+ * atk_document_get_attribute_value: (virtual get_document_attribute_value)
  * @document: a #GObject instance that implements AtkDocumentIface
  * @attribute_name: a character string representing the name of the attribute
  *            whose value is being queried.
@@ -325,7 +325,7 @@ atk_document_get_attribute_value (AtkDocument *document,
 }
 
 /**
- * atk_document_set_attribute_value:
+ * atk_document_set_attribute_value: (virtual set_document_attribute)
  * @document: a #GObject instance that implements AtkDocumentIface
  * @attribute_name: a character string representing the name of the attribute
  *            whose value is being set.
