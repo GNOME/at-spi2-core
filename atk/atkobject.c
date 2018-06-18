@@ -57,6 +57,9 @@
  *
  */
 
+typedef AtkImplementorIface AtkImplementorInterface;
+G_DEFINE_INTERFACE (AtkImplementor, atk_implementor, G_TYPE_OBJECT)
+
 static GPtrArray *role_names = NULL;
 
 enum
@@ -677,24 +680,9 @@ atk_object_init  (AtkObject        *accessible,
   accessible->role = ATK_ROLE_UNKNOWN;
 }
 
-GType
-atk_implementor_get_type (void)
+static void
+atk_implementor_default_init (AtkImplementorInterface *iface)
 {
-  static GType type = 0;
-
-  if (!type)
-    {
-      static const GTypeInfo typeInfo =
-      {
-        sizeof (AtkImplementorIface),
-        (GBaseInitFunc) NULL,
-        (GBaseFinalizeFunc) NULL,
-      } ;
-
-      type = g_type_register_static (G_TYPE_INTERFACE, "AtkImplementorIface", &typeInfo, 0) ;
-    }
-
-  return type;
 }
 
 /**

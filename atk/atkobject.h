@@ -678,7 +678,7 @@ struct _AtkImplementorIface
 };
 
 ATK_AVAILABLE_IN_ALL
-GType atk_implementor_get_type (void);
+GType atk_implementor_get_type (void) G_GNUC_CONST;
 ATK_AVAILABLE_IN_ALL
 AtkObject*              atk_implementor_ref_accessible            (AtkImplementor *implementor);
 
