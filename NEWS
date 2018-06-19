@@ -1,3 +1,13 @@
+What's new in at-spi2-core 2.29.1:
+
+* Add dbus-broker support to bus launcher.
+
+* Add ScrollTo and ScrollToPoint component interfaces.
+
+* Do not use deprecated GSettings API
+
+* Fix various compiler warnings and documentation annotations.
+
 What's new in at-spi2-core 2.27.92:
 
 * Support building a static library (bgo#793652).
