@@ -570,12 +570,13 @@ atk_component_set_size       (AtkComponent    *component,
  * @component in its parent, this only makes the parents scroll so that the
  * object shows up on the screen, given its current position within the parents.
  *
- * Since: 2.30
- *
  * Returns: whether scrolling was successful.
+ *
+ * Since: 2.30
  */
 gboolean
-atk_component_scroll_to (AtkComponent *component, AtkScrollType type)
+atk_component_scroll_to (AtkComponent  *component,
+                         AtkScrollType  type)
 {
   AtkComponentIface *iface = NULL;
   g_return_val_if_fail (ATK_IS_COMPONENT (component), FALSE);
@@ -584,8 +585,8 @@ atk_component_scroll_to (AtkComponent *component, AtkScrollType type)
 
   if (iface->scroll_to)
     return (iface->scroll_to) (component, type);
-  else
-    return FALSE;
+
+  return FALSE;
 }
 
 /**
@@ -599,12 +600,15 @@ atk_component_scroll_to (AtkComponent *component, AtkScrollType type)
  * Makes an object visible on the screen at a given position by scrolling all
  * necessary parents.
  *
- * Since: 2.30
- *
  * Returns: whether scrolling was successful.
+ *
+ * Since: 2.30
  */
 gboolean
-atk_component_scroll_to_point (AtkComponent *component, AtkCoordType coords, gint x, gint y)
+atk_component_scroll_to_point (AtkComponent *component,
+                               AtkCoordType  coords,
+                               gint          x,
+                               gint          y)
 {
   AtkComponentIface *iface = NULL;
   g_return_val_if_fail (ATK_IS_COMPONENT (component), FALSE);
@@ -613,8 +617,8 @@ atk_component_scroll_to_point (AtkComponent *component, AtkCoordType coords, gin
 
   if (iface->scroll_to_point)
     return (iface->scroll_to_point) (component, coords, x, y);
-  else
-    return FALSE;
+
+  return FALSE;
 }
 
 static gboolean
