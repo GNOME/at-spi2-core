@@ -1,3 +1,18 @@
+Changes in version 2.29.2
+=========================
+
+* Add ScrollTo and ScrollToPoint methods to AtkComponent
+
+* Build:
+ * Require a more recent version fo Meson, 0.46.0
+
+* Misc:
+ * Documentation, introspection, and versioning fixes
+
+Contributors:
+  Samuel Thibault, Michael Catanzaro, Rico Tzschichholz, Corentin Noël,
+  Emmanuele Bassi
+
 Changes in version 2.29.1
 =========================
 
