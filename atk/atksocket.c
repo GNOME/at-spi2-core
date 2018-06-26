@@ -62,7 +62,12 @@ G_DEFINE_TYPE_WITH_CODE (AtkSocket, atk_socket, ATK_TYPE_OBJECT,
 static void
 atk_socket_init (AtkSocket* obj)
 {
+  AtkObject *accessible = ATK_OBJECT (obj);
+
   obj->embedded_plug_id = NULL;
+
+  accessible->role = ATK_ROLE_FILLER;
+  accessible->layer = ATK_LAYER_WIDGET;
 }
 
 static void
@@ -86,22 +91,22 @@ atk_socket_finalize (GObject *_obj)
   G_OBJECT_CLASS (atk_socket_parent_class)->finalize (_obj);
 }
 
-static void atk_component_interface_init (AtkComponentIface *iface)
+static void
+atk_component_interface_init (AtkComponentIface *iface)
 {
 }
 
+/**
+ * atk_socket_new:
+ *
+ * Creates a new #AtkSocket.
+ *
+ * Returns: (transfer full): the newly created #AtkSocket instance
+ */
 AtkObject*
 atk_socket_new (void)
 {
-  AtkObject* accessible;
-  
-  accessible = g_object_new (ATK_TYPE_SOCKET, NULL);
-  g_return_val_if_fail (accessible != NULL, NULL);
-
-  accessible->role = ATK_ROLE_FILLER;
-  accessible->layer = ATK_LAYER_WIDGET;
-  
-  return accessible;
+  return g_object_new (ATK_TYPE_SOCKET, NULL);
 }
 
 /**
