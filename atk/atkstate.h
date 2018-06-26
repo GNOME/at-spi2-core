@@ -79,14 +79,16 @@ G_BEGIN_DECLS
  * notification given when the cached data becomes obsolete.
  *@ATK_STATE_VERTICAL: Indicates the orientation of this object is vertical
  *@ATK_STATE_VISIBLE: Indicates this object is visible, e.g. has been explicitly marked for exposure to the user.
- * @note: STATE_VISIBLE is no guarantee that the object is actually unobscured on the screen, only
+ * **note**: %ATK_STATE_VISIBLE is no guarantee that the object is actually unobscured on the screen, only
  * that it is 'potentially' visible, barring obstruction, being scrolled or clipped out of the 
  * field of view, or having an ancestor container that has not yet made visible.
- * A widget is potentially onscreen if it has both STATE_VISIBLE and STATE_SHOWING.
- * The absence of STATE_VISIBLE and STATE_SHOWING is semantically equivalent to saying 
- * that an object is 'hidden'.  See also STATE_TRUNCATED, which applies if a VISIBLE and SHOWING object
- * lies within a viewport which means that its contents are clipped, e.g. a truncated spreadsheet cell or
- * an image within a scrolling viewport.  Mostly useful for screen-review and magnification algorithms.
+ * A widget is potentially onscreen if it has both %ATK_STATE_VISIBLE and %ATK_STATE_SHOWING.
+ * The absence of %ATK_STATE_VISIBLE and %ATK_STATE_SHOWING is semantically equivalent to saying
+ * that an object is 'hidden'.  See also %ATK_STATE_TRUNCATED, which applies if an object with
+ * %ATK_STATE_VISIBLE and %ATK_STATE_SHOWING set lies within a viewport which means that its
+ * contents are clipped, e.g. a truncated spreadsheet cell or
+ * an image within a scrolling viewport.  Mostly useful for screen-review and magnification
+ * algorithms.
  *@ATK_STATE_MANAGES_DESCENDANTS: Indicates that "active-descendant-changed" event
  * is sent when children become 'active' (i.e. are selected or navigated to onscreen).
  * Used to prevent need to enumerate all children in very large containers, like tables.
@@ -117,7 +119,7 @@ G_BEGIN_DECLS
  *@ATK_STATE_SELECTABLE_TEXT:Indicates that the object in question supports text selection. It should only be exposed on objects which implement the Text interface, in order to distinguish this state from @ATK_STATE_SELECTABLE, which infers that the object in question is a selectable child of an object which implements Selection. While similar, text selection and subelement selection are distinct operations.
  *@ATK_STATE_DEFAULT: Indicates that the object is the "default" active component, i.e. the object which is activated by an end-user press of the "Enter" or "Return" key.  Typically a "close" or "submit" button.
  *@ATK_STATE_ANIMATED: Indicates that the object changes its appearance dynamically as an inherent part of its presentation.  This state may come and go if an object is only temporarily animated on the way to a 'final' onscreen presentation.
- * @note some applications, notably content viewers, may not be able to detect
+ * **note**: some applications, notably content viewers, may not be able to detect
  * all kinds of animated content.  Therefore the absence of this state should not
  * be taken as definitive evidence that the object's visual representation is
  * static; this state is advisory.
