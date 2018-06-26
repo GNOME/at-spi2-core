@@ -121,7 +121,7 @@ if host_system == 'windows'
   atk_sources += atk_win_res
 endif
 
-libatk = library('atk-@0@'.format(atk_api_version),
+libatk = library(atk_api_name,
   sources: atk_sources + atk_enums + atk_marshals,
   soversion: atk_soversion,
   version: atk_libversion,
@@ -156,4 +156,11 @@ libatk_dep = declare_dependency(link_with: libatk,
   include_directories: atk_inc,
   dependencies: glib_dep,
   sources: atk_sources_dep,
+)
+
+pkgconfig.generate(libatk,
+  name: 'Atk',
+  description: 'Accessibility Toolkit',
+  subdirs: atk_api_name,
+  filebase: 'atk',
 )
