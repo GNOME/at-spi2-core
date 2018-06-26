@@ -158,13 +158,14 @@ atk_add_focus_tracker (AtkEventListener   focus_tracker)
  * atk_remove_focus_tracker:
  * @tracker_id: the id of the focus tracker to remove
  *
- * Deprecated: 2.9.4: Focus tracking has been dropped as a feature
- * to be implemented by ATK itself. If you need focus tracking on your
- * implementation, subscribe to the #AtkObject::state-change "focused" signal.
- *
  * Removes the specified focus tracker from the list of functions
  * to be called when any object receives focus.
- **/
+ *
+ * Deprecated: 2.9.4: Focus tracking has been dropped as a feature
+ *   to be implemented by ATK itself. If you need focus tracking on your
+ *   implementation, subscribe to the #AtkObject::state-change "focused"
+ *   signal.
+ */
 void
 atk_remove_focus_tracker (guint            tracker_id)
 {
