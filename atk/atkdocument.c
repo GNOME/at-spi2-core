@@ -296,13 +296,15 @@ atk_document_get_attributes (AtkDocument *document)
  * atk_document_get_attribute_value: (virtual get_document_attribute_value)
  * @document: a #GObject instance that implements AtkDocumentIface
  * @attribute_name: a character string representing the name of the attribute
- *            whose value is being queried.
+ *   whose value is being queried.
  *
- * Since: 1.12
+ * Retrieves the value of the given @attribute_name inside @document.
  *
  * Returns: (nullable): a string value associated with the named
- *    attribute for this document, or NULL if a value for
- *    #attribute_name has not been specified for this document.
+ *    attribute for this document, or %NULL if a value for
+ *    @attribute_name has not been specified for this document.
+ *
+ * Since: 1.12
  */
 const gchar *
 atk_document_get_attribute_value (AtkDocument *document, 
@@ -326,16 +328,18 @@ atk_document_get_attribute_value (AtkDocument *document,
 
 /**
  * atk_document_set_attribute_value: (virtual set_document_attribute)
- * @document: a #GObject instance that implements AtkDocumentIface
+ * @document: a #GObject instance that implements #AtkDocumentIface
  * @attribute_name: a character string representing the name of the attribute
- *            whose value is being set.
- * @attribute_value: a string value to be associated with #attribute_name.
+ *   whose value is being set.
+ * @attribute_value: a string value to be associated with @attribute_name.
+ *
+ * Sets the value for the given @attribute_name inside @document.
  *
  * Since: 1.12
  *
- * Returns: TRUE if #value is successfully associated with #attribute_name
- *          for this document, FALSE otherwise (e.g. if the document does not
- *          allow the attribute to be modified).
+ * Returns: %TRUE if @attribute_value is successfully associated
+ *   with @attribute_name for this @document, and %FALSE if if the
+ *   document does not allow the attribute to be modified
  */
 gboolean
 atk_document_set_attribute_value (AtkDocument *document, 
@@ -362,10 +366,12 @@ atk_document_set_attribute_value (AtkDocument *document,
  * atk_document_get_current_page_number:
  * @document: the #AtkDocument
  *
- * Since: 2.12
+ * Retrieves the current page number inside @document.
  *
- * Returns: current page number inside @document. -1 if not
- * implemented, not know by the implementor or irrelevant.
+ * Returns: the current page number inside @document, or -1 if
+ *   not implemented, not know by the implementor, or irrelevant.
+ *
+ * Since: 2.12
  */
 gint
 atk_document_get_current_page_number (AtkDocument *document)
@@ -390,10 +396,12 @@ atk_document_get_current_page_number (AtkDocument *document)
  * atk_document_get_page_count:
  * @document: the #AtkDocument
  *
- * Since: 2.12
+ * Retrieves the total number of pages inside @document.
  *
- * Returns: total page count of @document. -1 if not implemented, not
- * know by the implementor or irrelevant.
+ * Returns: total page count of @document, or -1 if not implemented,
+ *   not know by the implementor or irrelevant.
+ *
+ * Since: 2.12
  */
 gint
 atk_document_get_page_count (AtkDocument *document)
