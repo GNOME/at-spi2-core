@@ -29,11 +29,6 @@
 G_BEGIN_DECLS
 
 /*
- * The interface AtkAction should be supported by any object that can 
- * perform one or more actions. The interface provides the standard 
- * mechanism for an assistive technology to determine what those actions 
- * are as well as tell the object to perform them. Any object that can 
- * be manipulated should support this interface.
  */
 
 
@@ -48,10 +43,28 @@ typedef struct _AtkAction AtkAction;
 #endif
 typedef struct _AtkActionIface AtkActionIface;
 
+/**
+ * AtkActionIface:
+ * @do_action:
+ * @get_n_actions:
+ * @get_description:
+ * @get_name:
+ * @get_keybinding:
+ * @set_description:
+ * @get_localized_name:
+ *
+ * The #AtkAction interface should be supported by any object that can
+ * perform one or more actions. The interface provides the standard
+ * mechanism for an assistive technology to determine what those actions
+ * are as well as tell the object to perform them. Any object that can
+ * be manipulated should support this interface.
+ */
 struct _AtkActionIface
 {
+  /*< private >*/
   GTypeInterface parent;
 
+  /*< public >*/
   gboolean                (*do_action)         (AtkAction         *action,
                                                 gint              i);
   gint                    (*get_n_actions)     (AtkAction         *action);
