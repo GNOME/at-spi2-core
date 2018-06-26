@@ -1,3 +1,5 @@
+<INCLUDE>atk/atk.h</INCLUDE>
+
 <SECTION>
 <FILE>atkaction</FILE>
 <TITLE>AtkAction</TITLE>
@@ -39,6 +41,7 @@ atk_component_set_extents
 atk_component_set_position
 atk_component_set_size
 atk_component_get_alpha
+AtkScrollType
 atk_component_scroll_to
 atk_component_scroll_to_point
 <SUBSECTION Standard>
@@ -46,9 +49,11 @@ ATK_COMPONENT
 ATK_IS_COMPONENT
 ATK_TYPE_COMPONENT
 ATK_TYPE_RECTANGLE
+ATK_TYPE_SCROLL_TYPE
 ATK_COMPONENT_GET_IFACE
 atk_component_get_type
 atk_rectangle_get_type
+atk_scroll_type_get_type
 </SECTION>
 
 <SECTION>
@@ -411,7 +416,6 @@ atk_table_cell_get_row_header_cells
 atk_table_cell_get_row_column_span
 atk_table_cell_get_table
 <SUBSECTION Standard>
-AtkTableCellIface
 ATK_TABLE_CELL
 ATK_IS_TABLE_CELL
 ATK_TYPE_TABLE_CELL
@@ -479,6 +483,7 @@ atk_text_range_get_type
 <FILE>atkvalue</FILE>
 <TITLE>AtkValue</TITLE>
 AtkValue
+AtkValueType
 atk_value_get_current_value
 atk_value_get_maximum_value
 atk_value_get_minimum_value
@@ -489,6 +494,8 @@ atk_value_get_range
 atk_value_get_increment
 atk_value_get_sub_ranges
 atk_value_set_value
+atk_value_type_get_localized_name
+atk_value_type_get_name
 <SUBSECTION Standard>
 AtkValueIface
 ATK_VALUE
@@ -496,6 +503,8 @@ ATK_IS_VALUE
 ATK_TYPE_VALUE
 ATK_VALUE_GET_IFACE
 atk_value_get_type
+ATK_TYPE_VALUE_TYPE
+atk_value_type_get_type
 </SECTION>
 
 <SECTION>
@@ -572,7 +581,6 @@ ATK_STREAMABLE_CONTENT_GET_IFACE
 <FILE>atkutil</FILE>
 <TITLE>AtkUtil</TITLE>
 AtkUtil
-AtkUtilClass
 AtkCoordType
 atk_add_focus_tracker
 atk_remove_focus_tracker
@@ -712,17 +720,66 @@ ATK_MAJOR_VERSION
 ATK_MINOR_VERSION
 ATK_MICRO_VERSION
 ATK_CHECK_VERSION
+<SUBSECTION>
+ATK_VERSION_2_2
+ATK_VERSION_2_4
+ATK_VERSION_2_6
+ATK_VERSION_2_8
+ATK_VERSION_2_10
+ATK_VERSION_2_12
+ATK_VERSION_2_14
+ATK_VERSION_2_30
+ATK_VERSION_MAX_ALLOWED
+ATK_VERSION_MIN_REQUIRED
+<SUBSECTION Private>
+atk_binary_age
+atk_interface_age
+atk_major_version
+atk_micro_version
+atk_minor_version
+ATK_VERSION_PREV_STABLE
+ATK_VERSION_CUR_STABLE
+ATK_UNAVAILABLE
+ATK_VAR
+ATK_AVAILABLE_IN_ALL
+ATK_AVAILABLE_IN_2_2
+ATK_AVAILABLE_IN_2_4
+ATK_AVAILABLE_IN_2_6
+ATK_AVAILABLE_IN_2_8
+ATK_AVAILABLE_IN_2_10
+ATK_AVAILABLE_IN_2_12
+ATK_AVAILABLE_IN_2_14
+ATK_AVAILABLE_IN_2_30
+ATK_DEPRECATED
+ATK_DEPRECATED_FOR
+ATK_DEPRECATED_IN_2_2
+ATK_DEPRECATED_IN_2_2_FOR
+ATK_DEPRECATED_IN_2_30
+ATK_DEPRECATED_IN_2_30_FOR
+ATK_DEPRECATED_IN_2_4
+ATK_DEPRECATED_IN_2_4_FOR
+ATK_DEPRECATED_IN_2_6
+ATK_DEPRECATED_IN_2_6_FOR
+ATK_DEPRECATED_IN_2_8
+ATK_DEPRECATED_IN_2_8_FOR
+ATK_DEPRECATED_IN_2_10
+ATK_DEPRECATED_IN_2_10_FOR
+ATK_DEPRECATED_IN_2_12
+ATK_DEPRECATED_IN_2_12_FOR
+ATK_DEPRECATED_IN_2_14
+ATK_DEPRECATED_IN_2_14_FOR
 </SECTION>
 
 <SECTION>
 <FILE>atkrange</FILE>
 <TITLE>AtkRange</TITLE>
-ATK_TYPE_RANGE
 atk_range_copy
 atk_range_free
 atk_range_get_lower_limit
 atk_range_get_upper_limit
 atk_range_get_description
 atk_range_new
+<SUBSECTION Standard>
+ATK_TYPE_RANGE
 atk_range_get_type
 </SECTION>
