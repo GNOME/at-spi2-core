@@ -210,11 +210,13 @@ atk_image_get_image_position (AtkImage *image,
  * atk_image_get_image_locale: 
  * @image: An #AtkImage
  *
+ * Retrieves the locale identifier associated to the #AtkImage.
+ *
  * Since: 1.12
  *
  * Returns: (nullable): a string corresponding to the POSIX
- * LC_MESSAGES locale used by the image description, or %NULL if the
- * image does not specify a locale.
+ *   `LC_MESSAGES` locale used by the image description, or
+ *   %NULL if the image does not specify a locale.
  *
  */
 const gchar*
