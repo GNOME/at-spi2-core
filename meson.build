@@ -123,6 +123,7 @@ gnome = import('gnome')
 configure_file(output: 'config.h', configuration: atk_conf)
 
 root_inc = include_directories('.')
+atk_inc = include_directories('atk')
 
 subdir('atk')
 subdir('tests')
