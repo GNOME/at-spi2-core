@@ -137,6 +137,10 @@ gboolean atspi_text_remove_selection (AtspiText *obj, gint selection_num, GError
 
 gboolean atspi_text_set_selection (AtspiText *obj, gint selection_num, gint start_offset, gint end_offset, GError **error);
 
+gboolean atspi_text_scroll_substring_to (AtspiText *obj, gint start_offset, gint end_offset, AtspiScrollType type, GError **error);
+
+gboolean atspi_text_scroll_substring_to_point (AtspiText *obj, gint start_offset, gint end_offset, AtspiCoordType coords, gint x, gint y, GError **error);
+
 G_END_DECLS
 
 #endif	/* _ATSPI_TEXT_H_ */
