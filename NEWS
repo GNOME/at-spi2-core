@@ -1,3 +1,7 @@
+What's new in at-spi2-atk 2.31.1:
+
+* Add ScrollSubstringTo and ScrollSubstringToPoint interfaces.
+
 What's new in at-spi2-atk 2.29.1:
 
 * Fix a case where we could return without unlocking a mutex (bgo#793625).
