@@ -1358,6 +1358,76 @@ atk_text_rectangle_contain (AtkTextRectangle *clip,
   
 }
 
+/**
+ * atk_text_scroll_substring_to (AtkText *accessible, AtkScrollType type)
+ * @text: an #AtkText
+ * @start_offset: start position
+ * @end_offset: end position, or -1 for the end of the string.
+ * @type: specify where the object should be made visible.
+ *
+ * Makes @text visible on the screen by scrolling all necessary parents.
+ *
+ * Contrary to atk_text_set_position, this does not actually move
+ * @text in its parent, this only makes the parents scroll so that the
+ * object shows up on the screen, given its current position within the parents.
+ *
+ * Since: 2.32
+ *
+ * Returns: whether scrolling was successful.
+ */
+gboolean
+atk_text_scroll_substring_to (AtkText       *text,
+                              gint          start_offset,
+                              gint          end_offset,
+                              AtkScrollType type)
+{
+  AtkTextIface *iface = NULL;
+  g_return_val_if_fail (ATK_IS_TEXT (text), FALSE);
+
+  iface = ATK_TEXT_GET_IFACE (text);
+
+  if (iface->scroll_substring_to)
+    return (iface->scroll_substring_to) (text, start_offset, end_offset, type);
+  else
+    return FALSE;
+}
+
+/**
+ * atk_text_scroll_substring_to_point (AtkText *accessible, AtkScrollType type, gint x, gint y)
+ * @text: an #AtkText
+ * @start_offset: start position
+ * @end_offset: end position, or -1 for the end of the string.
+ * @coords: specify whether coordinates are relative to the screen or to the
+ * parent object.
+ * @x: x-position where to scroll to
+ * @y: y-position where to scroll to
+ *
+ * Makes an object visible on the screen at a given position by scrolling all
+ * necessary parents.
+ *
+ * Since: 2.32
+ *
+ * Returns: whether scrolling was successful.
+ */
+gboolean
+atk_text_scroll_substring_to_point (AtkText      *text,
+                                    gint         start_offset,
+                                    gint         end_offset,
+                                    AtkCoordType coords,
+                                    gint         x,
+                                    gint         y)
+{
+  AtkTextIface *iface = NULL;
+  g_return_val_if_fail (ATK_IS_TEXT (text), FALSE);
+
+  iface = ATK_TEXT_GET_IFACE (text);
+
+  if (iface->scroll_substring_to_point)
+    return (iface->scroll_substring_to_point) (text, start_offset, end_offset, coords, x, y);
+  else
+    return FALSE;
+}
+
 static void 
 atk_text_real_get_range_extents (AtkText           *text,
                                  gint              start_offset,
