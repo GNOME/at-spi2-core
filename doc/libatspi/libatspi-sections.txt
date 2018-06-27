@@ -30,6 +30,8 @@ atspi_text_set_selection
 atspi_text_get_string_at_offset
 atspi_text_get_text_attribute_value
 atspi_text_get_text_attributes
+atspi_text_scroll_substring_to
+atspi_text_scroll_substring_to_point
 <SUBSECTION Standard>
 ATSPI_TEXT
 ATSPI_IS_TEXT
