@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.31.2:
+
+* Add ScrollSubstringTo and ScrollSubstringToPoint text interfaces.
+
 What's new in at-spi2-core 2.31.1:
 
 * Bus launcher: fix an issue where the error wasn't cleared on failure.

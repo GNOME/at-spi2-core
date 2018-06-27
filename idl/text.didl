@@ -241,6 +241,22 @@ namespace org.freestandards.atspi {
 		method GetAttributeSet reply {
 			Attributes attributes'
 		}
+
+		/*
+		  Scroll this text range so it becomes visible on the screen.
+		 */
+		method ScrollSubstringTo {
+			ScrollType type;
+		}
+
+		/*
+		  Scroll this text range so it becomes visible on the screen at a given position.
+		 */
+		method ScrollSubstringToPoint {
+			CoordType type;
+			int32 x;
+			int32 y;
+		}
 	}
 
 	/*
