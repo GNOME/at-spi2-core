@@ -317,8 +317,8 @@ atk_text_base_init (AtkTextIface *class)
 /**
  * atk_text_get_text:
  * @text: an #AtkText
- * @start_offset: start position
- * @end_offset: end position, or -1 for the end of the string.
+ * @start_offset: a starting character offset within @text
+ * @end_offset: an ending character offset within @text, or -1 for the end of the string.
  *
  * Gets the specified text.
  *
@@ -349,7 +349,7 @@ atk_text_get_text (AtkText      *text,
 /**
  * atk_text_get_character_at_offset:
  * @text: an #AtkText
- * @offset: position
+ * @offset: a character offset within @text
  *
  * Gets the specified text.
  *
@@ -376,7 +376,7 @@ atk_text_get_character_at_offset (AtkText      *text,
  * @text: an #AtkText
  * @offset: position
  * @boundary_type: An #AtkTextBoundary
- * @start_offset: (out): the start offset of the returned string
+ * @start_offset: (out): the starting character offset of the returned string
  * @end_offset: (out): the offset of the first character after the
  *              returned substring
  *
@@ -425,7 +425,7 @@ atk_text_get_text_after_offset (AtkText          *text,
  * @text: an #AtkText
  * @offset: position
  * @boundary_type: An #AtkTextBoundary
- * @start_offset: (out): the start offset of the returned string
+ * @start_offset: (out): the starting character offset of the returned string
  * @end_offset: (out): the offset of the first character after the
  *              returned substring
  *
@@ -495,7 +495,7 @@ atk_text_get_text_at_offset (AtkText          *text,
  * @text: an #AtkText
  * @offset: position
  * @boundary_type: An #AtkTextBoundary
- * @start_offset: (out): the start offset of the returned string
+ * @start_offset: (out): the starting character offset of the returned string
  * @end_offset: (out): the offset of the first character after the
  *              returned substring
  *
@@ -544,7 +544,7 @@ atk_text_get_text_before_offset (AtkText          *text,
  * @text: an #AtkText
  * @offset: position
  * @granularity: An #AtkTextGranularity
- * @start_offset: (out): the start offset of the returned string, or -1
+ * @start_offset: (out): the starting character offset of the returned string, or -1
  *                if an error has occurred (e.g. invalid offset, not implemented)
  * @end_offset: (out): the offset of the first character after the returned string,
  *              or -1 if an error has occurred (e.g. invalid offset, not implemented)
@@ -630,9 +630,9 @@ gchar* atk_text_get_string_at_offset (AtkText *text,
  * atk_text_get_caret_offset:
  * @text: an #AtkText
  *
- * Gets the offset position of the caret (cursor).
+ * Gets the offset of the position of the caret (cursor).
  *
- * Returns: the offset position of the caret (cursor).
+ * Returns: the character offset of position of the caret (cursor).
  **/
 gint
 atk_text_get_caret_offset (AtkText *text)
@@ -653,8 +653,8 @@ atk_text_get_caret_offset (AtkText *text)
  * atk_text_get_character_extents:
  * @text: an #AtkText
  * @offset: The offset of the text character for which bounding information is required.
- * @x: (out) (optional): Pointer for the x cordinate of the bounding box
- * @y: (out) (optional): Pointer for the y cordinate of the bounding box
+ * @x: (out) (optional): Pointer for the x coordinate of the bounding box
+ * @y: (out) (optional): Pointer for the y coordinate of the bounding box
  * @width: (out) (optional): Pointer for the width of the bounding box
  * @height: (out) (optional): Pointer for the height of the bounding box
  * @coords: specify whether coordinates are relative to the screen or widget window 
@@ -669,7 +669,7 @@ atk_text_get_character_extents (AtkText *text,
                                 gint *y,
                                 gint *width,
                                 gint *height,
-			        AtkCoordType coords)
+                                AtkCoordType coords)
 {
   AtkTextIface *iface;
   gint local_x, local_y, local_width, local_height;
@@ -717,7 +717,7 @@ atk_text_get_character_extents (AtkText *text,
 /**
  * atk_text_get_run_attributes:
  *@text: an #AtkText
- *@offset: the offset at which to get the attributes, -1 means the offset of
+ *@offset: the character offset at which to get the attributes, -1 means the offset of
  *the character to be inserted at the caret location.
  *@start_offset: (out): the address to put the start offset of the range
  *@end_offset: (out): the address to put the end offset of the range
@@ -882,9 +882,9 @@ atk_text_get_n_selections (AtkText *text)
  * start of the text.  The selected region closest to the beginning
  * of the text region is assigned the number 0, etc.  Note that adding,
  * moving or deleting a selected region can change the numbering.
- * @start_offset: (out): passes back the start position of the selected region
- * @end_offset: (out): passes back the end position of (e.g. offset immediately past)
- * the selected region
+ * @start_offset: (out): passes back the starting character offset of the selected region
+ * @end_offset: (out): passes back the ending character offset (offset immediately past)
+ * of the selected region
  *
  * Gets the text from the specified selection.
  *
@@ -926,7 +926,7 @@ atk_text_get_selection (AtkText *text,
 /**
  * atk_text_add_selection:
  * @text: an #AtkText
- * @start_offset: the start position of the selected region
+ * @start_offset: the starting character offset of the selected region
  * @end_offset: the offset of the first character after the selected region.
  *
  * Adds a selection bounded by the specified offsets.
@@ -987,7 +987,7 @@ atk_text_remove_selection (AtkText *text,
  * start of the text.  The selected region closest to the beginning
  * of the text region is assigned the number 0, etc.  Note that adding,
  * moving or deleting a selected region can change the numbering.
- * @start_offset: the new start position of the selection
+ * @start_offset: the new starting character offset of the selection
  * @end_offset: the new end position of (e.g. offset immediately past) 
  * the selection
  *
@@ -1019,7 +1019,7 @@ atk_text_set_selection (AtkText *text,
 /**
  * atk_text_set_caret_offset:
  * @text: an #AtkText
- * @offset: position
+ * @offset: the character offset of the new caret position
  *
  * Sets the caret (cursor) position to the specified @offset.
  *
