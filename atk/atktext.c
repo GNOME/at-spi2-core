@@ -323,7 +323,8 @@ atk_text_base_init (AtkTextIface *class)
  * Gets the specified text.
  *
  * Returns: a newly allocated string containing the text from @start_offset up
- *   to, but not including @end_offset. Use g_free() to free the returned string.
+ *          to, but not including @end_offset. Use g_free() to free the returned
+ *          string.
  **/
 gchar*
 atk_text_get_text (AtkText      *text,
@@ -353,7 +354,7 @@ atk_text_get_text (AtkText      *text,
  *
  * Gets the specified text.
  *
- * Returns: the character at @offset.
+ * Returns: the character at @offset or 0 in the case of failure.
  **/
 gunichar
 atk_text_get_character_at_offset (AtkText      *text,
@@ -385,7 +386,8 @@ atk_text_get_character_at_offset (AtkText      *text,
  * Deprecated: 2.9.3: Please use atk_text_get_string_at_offset() instead.
  *
  * Returns: a newly allocated string containing the text after @offset bounded
- *   by the specified @boundary_type. Use g_free() to free the returned string.
+ *          by the specified @boundary_type. Use g_free() to free the returned
+ *          string.
  **/
 gchar*
 atk_text_get_text_after_offset (AtkText          *text,
@@ -457,8 +459,9 @@ atk_text_get_text_after_offset (AtkText          *text,
  * Deprecated: This method is deprecated since ATK version
  * 2.9.4. Please use atk_text_get_string_at_offset() instead.
  *
- * Returns: a newly allocated string containing the text at @offset bounded by
- *   the specified @boundary_type. Use g_free() to free the returned string.
+ * Returns: a newly allocated string containing the text at @offset bounded
+ *          by the specified @boundary_type. Use g_free() to free the returned
+ *          string.
  **/
 gchar*
 atk_text_get_text_at_offset (AtkText          *text,
@@ -504,7 +507,8 @@ atk_text_get_text_at_offset (AtkText          *text,
  * Deprecated: 2.9.3: Please use atk_text_get_string_at_offset() instead.
  *
  * Returns: a newly allocated string containing the text before @offset bounded
- *   by the specified @boundary_type. Use g_free() to free the returned string.
+ *          by the specified @boundary_type. Use g_free() to free the returned
+ *          string.
  **/
 gchar*
 atk_text_get_text_before_offset (AtkText          *text,
@@ -545,9 +549,9 @@ atk_text_get_text_before_offset (AtkText          *text,
  * @offset: position
  * @granularity: An #AtkTextGranularity
  * @start_offset: (out): the starting character offset of the returned string, or -1
- *                if an error has occurred (e.g. invalid offset, not implemented)
+ *                in the case of error (e.g. invalid offset, not implemented)
  * @end_offset: (out): the offset of the first character after the returned string,
- *              or -1 if an error has occurred (e.g. invalid offset, not implemented)
+ *              or -1 in the case of error (e.g. invalid offset, not implemented)
  *
  * Gets a portion of the text exposed through an #AtkText according to a given @offset
  * and a specific @granularity, along with the start and end offsets defining the
@@ -582,10 +586,10 @@ atk_text_get_text_before_offset (AtkText          *text,
  *
  * Since: 2.10
  *
- * Returns: (nullable): a newly allocated string containing the text
- *   at the @offset bounded by the specified @granularity. Use
- *   g_free() to free the returned string.  Returns %NULL if the
- *   offset is invalid or no implementation is available.
+ * Returns: (nullable): a newly allocated string containing the text at
+ *          the @offset bounded by the specified @granularity. Use g_free()
+ *          to free the returned string.  Returns %NULL if the offset is invalid
+ *          or no implementation is available.
  **/
 gchar* atk_text_get_string_at_offset (AtkText *text,
                                       gint offset,
@@ -632,7 +636,9 @@ gchar* atk_text_get_string_at_offset (AtkText *text,
  *
  * Gets the offset of the position of the caret (cursor).
  *
- * Returns: the character offset of position of the caret (cursor).
+ * Returns: the character offset of the position of the caret or 0  if
+ *          the caret is not located inside the element or in the case of
+ *          any other failure.
  **/
 gint
 atk_text_get_caret_offset (AtkText *text)
@@ -731,8 +737,8 @@ atk_text_get_character_extents (AtkText *text,
  *returned.
  *
  *Returns: (transfer full): an #AtkAttributeSet which contains the attributes
- * explicitly set at @offset. This #AtkAttributeSet should be freed by a call
- * to atk_attribute_set_free().
+ *         explicitly set at @offset. This #AtkAttributeSet should be freed by
+ *         a call to atk_attribute_set_free().
  **/
 AtkAttributeSet* 
 atk_text_get_run_attributes (AtkText          *text,
@@ -775,9 +781,9 @@ atk_text_get_run_attributes (AtkText          *text,
  *attributes that can be returned. Note that other attributes may also be 
  *returned.
  *
- *Returns: (transfer full): an #AtkAttributeSet which contains the default
- * values of attributes.  at @offset. this #atkattributeset should be freed by
- * a call to atk_attribute_set_free().
+ *Returns: (transfer full): an #AtkAttributeSet which contains the default values
+ *          of attributes.  at @offset. this #atkattributeset should be freed by
+ *          a call to atk_attribute_set_free().
  */
 AtkAttributeSet* 
 atk_text_get_default_attributes (AtkText          *text)
@@ -800,7 +806,7 @@ atk_text_get_default_attributes (AtkText          *text)
  *
  * Gets the character count.
  *
- * Returns: the number of characters.
+ * Returns: the number of characters or -1 in case of failure.
  **/
 gint
 atk_text_get_character_count (AtkText *text)
@@ -829,8 +835,8 @@ atk_text_get_character_count (AtkText *text)
  * are interpreted as being relative to the screen or this widget's window
  * depending on @coords.
  *
- * Returns: the offset to the character which is located at
- * the specified @x and @y coordinates.
+ * Returns: the offset to the character which is located at  the specified
+ *          @x and @y coordinates of -1 in case of failure.
  **/
 gint
 atk_text_get_offset_at_point (AtkText *text,
@@ -856,8 +862,7 @@ atk_text_get_offset_at_point (AtkText *text,
  *
  * Gets the number of selected regions.
  *
- * Returns: The number of selected regions, or -1 if a failure
- *   occurred.
+ * Returns: The number of selected regions, or -1 in the case of failure.
  **/
 gint
 atk_text_get_n_selections (AtkText *text)
@@ -889,7 +894,7 @@ atk_text_get_n_selections (AtkText *text)
  * Gets the text from the specified selection.
  *
  * Returns: a newly allocated string containing the selected text. Use g_free()
- *   to free the returned string.
+ *          to free the returned string.
  **/
 gchar*
 atk_text_get_selection (AtkText *text, 
@@ -931,7 +936,7 @@ atk_text_get_selection (AtkText *text,
  *
  * Adds a selection bounded by the specified offsets.
  *
- * Returns: %TRUE if success, %FALSE otherwise
+ * Returns: %TRUE if successful, %FALSE otherwise
  **/
 gboolean
 atk_text_add_selection (AtkText *text, 
@@ -961,7 +966,7 @@ atk_text_add_selection (AtkText *text,
  *
  * Removes the specified selection.
  *
- * Returns: %TRUE if success, %FALSE otherwise
+ * Returns: %TRUE if successful, %FALSE otherwise
  **/
 gboolean
 atk_text_remove_selection (AtkText *text, 
@@ -993,7 +998,7 @@ atk_text_remove_selection (AtkText *text,
  *
  * Changes the start and end offset of the specified selection.
  *
- * Returns: %TRUE if success, %FALSE otherwise
+ * Returns: %TRUE if successful, %FALSE otherwise
  **/
 gboolean
 atk_text_set_selection (AtkText *text, 
@@ -1023,7 +1028,7 @@ atk_text_set_selection (AtkText *text,
  *
  * Sets the caret (cursor) position to the specified @offset.
  *
- * Returns: %TRUE if success, %FALSE otherwise.
+ * Returns: %TRUE if successful, %FALSE otherwise.
  **/
 gboolean
 atk_text_set_caret_offset (AtkText *text,
@@ -1209,8 +1214,8 @@ atk_text_attribute_get_name (AtkTextAttribute attr)
  * Get the #AtkTextAttribute type corresponding to a text attribute name.
  *
  * Returns: the #AtkTextAttribute enumerated type corresponding to the specified
-name,
- *          or #ATK_TEXT_ATTRIBUTE_INVALID if no matching text attribute is found.
+ *          name, or #ATK_TEXT_ATTRIBUTE_INVALID if no matching text attribute
+ *          is found.
  **/
 AtkTextAttribute
 atk_text_attribute_for_name (const gchar *name)
