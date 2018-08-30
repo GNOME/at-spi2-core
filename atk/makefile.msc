@@ -104,7 +104,7 @@ atkmarshal.c : atkmarshal.list
 atk-enum-types.h : $(atk_headers) makefile.msc
 	$(PERL) $(GLIB)\gobject\glib-mkenums \
 		--fhead "#ifndef __ATK_ENUM_TYPES_H__\n#define __ATK_ENUM_TYPES_H__\n" \
-		--fprod "/* enumerations from \"@filename@\" */\n" \
+		--fprod "/* enumerations from \"@basename@\" */\n" \
 		--vhead "GType @enum_name@_get_type (void);\n#define ATK_TYPE_@ENUMSHORT@ (@enum_name@_get_type())\n"         \
 		--ftail "#endif /* __ATK_ENUM_TYPES_H__ */" \
 		$(atk_headers) > atk-enum-types.h
@@ -115,7 +115,7 @@ atk-enum-types.h : $(atk_headers) makefile.msc
 atk-enum-types.c: $(atk_headers) makefile.msc
 	$(PERL) $(GLIB)\gobject\glib-mkenums \
 		--fhead "#include <atk.h>" \
-		--fprod "\n/* enumerations from \"@filename@\" */" \
+		--fprod "\n/* enumerations from \"@basename@\" */" \
 		--vhead "GType\n@enum_name@_get_type (void)\n{\n  static GType etype = 0;\n  if (etype == 0) {\n    static const G@Type@Value values[] = {"     \
 		--vprod "      { @VALUENAME@, \"@VALUENAME@\", \"@valuenick@\" }," \
 		--vtail "      { 0, NULL, NULL }\n    };\n    etype = g_@type@_register_static (\"@EnumName@\", values);\n  }\n  return etype;\n}\n" \
