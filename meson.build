@@ -109,20 +109,6 @@ xgettext = find_program('xgettext', required : false)
 
 configure_file(output: 'config.h', configuration: at_spi_conf)
 
-# Compat variables for pkgconfig
-pkgconf = configuration_data()
-pkgconf.set('prefix', get_option('prefix'))
-pkgconf.set('exec_prefix', get_option('prefix'))
-pkgconf.set('libdir', atspi_libdir)
-pkgconf.set('includedir', atspi_includedir)
-pkgconf.set('VERSION', meson.project_version())
-
-configure_file(input: 'atspi-2.pc.in',
-               output: 'atspi-2.pc',
-               configuration: pkgconf,
-               install: true,
-               install_dir: join_paths(get_option('libdir'), 'pkgconfig'))
-
 gnome = import('gnome')
 
 subdir('dbind')
