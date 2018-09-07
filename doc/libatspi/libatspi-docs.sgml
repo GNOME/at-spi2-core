@@ -42,8 +42,6 @@
     <xi:include href="xml/atspi-types.xml"/>
     <xi:include href="xml/atspi-constants.xml"/>
     <xi:include href="xml/atspi-misc.xml"/>
-    <xi:include href="xml/atspi-misc-private.xml"/>
-    <xi:include href="xml/atspi-listener-private.xml"/>
 
   </chapter>
   <chapter id="object-tree">
