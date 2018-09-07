@@ -1,10 +1,8 @@
 <SECTION>
 <FILE>atspi-text</FILE>
 AtspiRange
-ATSPI_TYPE_RANGE
 atspi_range_copy
 AtspiTextRange
-ATSPI_TYPE_TEXT_RANGE
 atspi_text_get_type
 AtspiText
 atspi_text_range_get_type
@@ -29,12 +27,17 @@ atspi_text_get_selection
 atspi_text_add_selection
 atspi_text_remove_selection
 atspi_text_set_selection
+atspi_text_get_string_at_offset
+atspi_text_get_text_attribute_value
+atspi_text_get_text_attributes
 <SUBSECTION Standard>
 ATSPI_TEXT
 ATSPI_IS_TEXT
 ATSPI_TYPE_TEXT
 atspi_range_get_type
 ATSPI_TEXT_GET_IFACE
+ATSPI_TYPE_RANGE
+ATSPI_TYPE_TEXT_RANGE
 </SECTION>
 
 <SECTION>
@@ -97,6 +100,9 @@ AtspiAction
 atspi_action_get_n_actions
 atspi_action_get_description
 atspi_action_get_key_binding
+atspi_action_get_action_description
+atspi_action_get_action_name
+atspi_action_get_localized_name
 atspi_action_get_name
 atspi_action_do_action
 <SUBSECTION Standard>
@@ -161,6 +167,10 @@ AtspiDocument
 atspi_document_get_locale
 atspi_document_get_attribute_value
 atspi_document_get_attributes
+atspi_document_get_current_page_number
+atspi_document_get_document_attribute_value
+atspi_document_get_document_attributes
+atspi_document_get_page_count
 <SUBSECTION Standard>
 ATSPI_DOCUMENT
 ATSPI_IS_DOCUMENT
@@ -207,6 +217,8 @@ atspi_accessible_get_attributes_as_array
 atspi_accessible_get_locale
 atspi_accessible_get_toolkit_name
 atspi_accessible_get_toolkit_version
+atspi_accessible_get_atspi_version
+atspi_accessible_get_id
 atspi_accessible_get_application
 atspi_accessible_get_action
 atspi_accessible_get_collection
@@ -218,8 +230,24 @@ atspi_accessible_get_hypertext
 atspi_accessible_get_image
 atspi_accessible_get_selection
 atspi_accessible_get_table
+atspi_accessible_get_table_cell
 atspi_accessible_get_text
 atspi_accessible_get_value
+atspi_accessible_get_object_locale 
+atspi_accessible_set_cache_mask 
+atspi_accessible_clear_cache
+atspi_accessible_get_process_id
+atspi_accessible_get_action_iface
+atspi_accessible_get_collection_iface
+atspi_accessible_get_component_iface
+atspi_accessible_get_document_iface
+atspi_accessible_get_editable_text_iface
+atspi_accessible_get_hypertext_iface
+atspi_accessible_get_image_iface
+atspi_accessible_get_selection_iface
+atspi_accessible_get_table_iface
+atspi_accessible_get_text_iface
+atspi_accessible_get_value_iface
 atspi_accessible_get_interfaces
 <SUBSECTION Standard>
 ATSPI_ACCESSIBLE
@@ -229,6 +257,9 @@ atspi_accessible_get_type
 ATSPI_ACCESSIBLE_CLASS
 ATSPI_IS_ACCESSIBLE_CLASS
 ATSPI_ACCESSIBLE_GET_CLASS
+
+<SUBSECTION Private>
+AtspiAccessiblePrivate
 </SECTION>
 
 <SECTION>
@@ -250,6 +281,20 @@ atspi_device_listener_get_type
 ATSPI_DEVICE_LISTENER_CLASS
 ATSPI_IS_DEVICE_LISTENER_CLASS
 ATSPI_DEVICE_LISTENER_GET_CLASS
+</SECTION>
+
+<SECTION>
+<FILE>atspi-hypertext</FILE>
+AtspiHypertext
+atspi_hypertext_get_n_links
+atspi_hypertext_get_link
+atspi_hypertext_get_link_index
+<SUBSECTION Standard>
+ATSPI_HYPERTEXT
+ATSPI_IS_HYPERTEXT
+ATSPI_TYPE_HYPERTEXT
+atspi_hypertext_get_type
+ATSPI_HYPERTEXT_GET_IFACE
 </SECTION>
 
 <SECTION>
@@ -278,7 +323,6 @@ ATSPI_HYPERLINK_GET_CLASS
 <SECTION>
 <FILE>atspi-editabletext</FILE>
 AtspiEditableText
-atspi_editable_text_set_attributes
 atspi_editable_text_insert_text
 atspi_editable_text_copy_text
 atspi_editable_text_cut_text
@@ -290,6 +334,8 @@ ATSPI_IS_EDITABLE_TEXT
 ATSPI_TYPE_EDITABLE_TEXT
 atspi_editable_text_get_type
 ATSPI_EDITABLE_TEXT_GET_IFACE
+<SUBSECTION Private>
+atspi_editable_text_set_attributes
 </SECTION>
 
 <SECTION>
@@ -356,12 +402,13 @@ atspi_table_cell_get_position
 atspi_table_cell_get_row_column_span
 atspi_table_cell_get_table
 <SUBSECTION Standard>
-ATSPI_TABLE
-ATSPI_IS_TABLE
-ATSPI_TYPE_TABLE
-atspi_table_get_type
-ATSPI_TABLE_GET_IFACE
+ATSPI_TABLE_CELL
+ATSPI_IS_TABLE_CELL
+ATSPI_TYPE_TABLE_CELL
+atspi_table_cell_get_type
+ATSPI_TABLE_CELL_GET_IFACE
 </SECTION>
+
 <SECTION>
 <FILE>atspi-selection</FILE>
 AtspiSelection
@@ -393,7 +440,9 @@ atspi_event_listener_new
 atspi_event_listener_new_simple
 atspi_event_listener_register
 atspi_event_listener_register_from_callback
+atspi_event_listener_register_from_callback_full
 atspi_event_listener_register_no_data
+atspi_event_listener_register_full
 atspi_event_listener_deregister
 atspi_event_listener_deregister_from_callback
 atspi_event_listener_deregister_no_data
@@ -405,20 +454,6 @@ atspi_event_get_type
 ATSPI_EVENT_LISTENER_CLASS
 ATSPI_IS_EVENT_LISTENER_CLASS
 ATSPI_EVENT_LISTENER_GET_CLASS
-</SECTION>
-
-<SECTION>
-<FILE>atspi-hypertext</FILE>
-AtspiHypertext
-atspi_hypertext_get_n_links
-atspi_hypertext_get_link
-atspi_hypertext_get_link_index
-<SUBSECTION Standard>
-ATSPI_HYPERTEXT
-ATSPI_IS_HYPERTEXT
-ATSPI_TYPE_HYPERTEXT
-atspi_hypertext_get_type
-ATSPI_HYPERTEXT_GET_IFACE
 </SECTION>
 
 <SECTION>
@@ -443,6 +478,9 @@ atspi_component_grab_focus
 atspi_component_get_alpha
 atspi_component_scroll_to
 atspi_component_scroll_to_point
+atspi_component_set_extents
+atspi_component_set_position
+atspi_component_set_size
 <SUBSECTION Standard>
 ATSPI_COMPONENT
 ATSPI_IS_COMPONENT
@@ -467,20 +505,6 @@ atspi_generate_mouse_event
 
 <SECTION>
 <FILE>atspi-types</FILE>
-AtspiAccessible
-AtspiAction
-AtspiCollection
-AtspiComponent
-AtspiDocument
-AtspiEditableText
-AtspiHyperlink
-AtspiHypertext
-AtspiImage
-AtspiSelection
-AtspiTable
-AtspiTableCell
-AtspiText
-AtspiValue
 AtspiControllerEventMask
 AtspiKeyMaskType
 AtspiKeyEventMask
@@ -489,9 +513,13 @@ AtspiDeviceEvent
 AtspiEventListenerMode
 AtspiKeyDefinition
 AtspiEvent
-ATSPI_TYPE_EVENT
 AtspiKeystrokeListener
 AtspiKeyListenerSyncType
+
+<SUBSECTION Standard>
+ATSPI_TYPE_EVENT
+atspi_device_event_get_type
+atspi_key_listener_sync_type_get_type
 </SECTION>
 
 <SECTION>
@@ -508,6 +536,7 @@ AtspiCollectionTreeTraversalType
 ATSPI_TREETRAVERSALTYPE
 AtspiComponentLayer
 ATSPI_COMPONENTLAYER_COUNT
+AtspiTextGranularity
 AtspiTextBoundaryType
 ATSPI_TEXT_BOUNDARY_TYPE_COUNT
 AtspiTextClipType
@@ -526,42 +555,83 @@ AtspiRelationType
 ATSPI_RELATIONTYPE_COUNT
 AtspiRole
 ATSPI_ROLE_COUNT
+AtspiCache
 AtspiScrollType
 ATSPI_SCROLLTYPE_COUNT
+
+<SUBSECTION Standard>
+atspi_cache_get_type
+atspi_collection_match_type_get_type
+atspi_collection_sort_order_get_type
+atspi_collection_tree_traversal_type_get_type
+atspi_component_layer_get_type
+atspi_coord_type_get_type
+atspi_event_type_get_type
+atspi_key_event_type_get_type
+atspi_key_synth_type_get_type
+atspi_locale_type_get_type
+atspi_modifier_type_get_type
+atspi_modifier_type_get_type
+atspi_relation_type_get_type
+atspi_role_get_type
+atspi_scroll_type_get_type
+atspi_state_type_get_type
+atspi_text_boundary_type_get_type
+atspi_text_clip_type_get_type
+atspi_text_granularity_get_type
+ATSPI_TYPE_CACHE
+ATSPI_TYPE_COLLECTION_MATCH_TYPE
+ATSPI_TYPE_COLLECTION_SORT_ORDER
+ATSPI_TYPE_COLLECTION_TREE_TRAVERSAL_TYPE
+ATSPI_TYPE_COMPONENT_LAYER
+ATSPI_TYPE_COORD_TYPE
+ATSPI_TYPE_DEVICE_EVENT
+ATSPI_TYPE_EVENT_TYPE
+ATSPI_TYPE_KEY_EVENT_TYPE
+ATSPI_TYPE_KEY_LISTENER_SYNC_TYPE
+ATSPI_TYPE_KEY_SYNTH_TYPE
+ATSPI_TYPE_LOCALE_TYPE
+ATSPI_TYPE_MODIFIER_TYPE
+ATSPI_TYPE_RELATION_TYPE
+ATSPI_TYPE_ROLE
+ATSPI_TYPE_SCROLL_TYPE
+ATSPI_TYPE_STATE_TYPE
+ATSPI_TYPE_TEXT_BOUNDARY_TYPE
+ATSPI_TYPE_TEXT_CLIP_TYPE
+ATSPI_TYPE_TEXT_GRANULARITY
 </SECTION>
 
 <SECTION>
 <FILE>atspi-misc</FILE>
 atspi_init
+atspi_is_initialized
+atspi_set_timeout
+atspi_set_main_context
 atspi_event_main
 atspi_event_quit
 atspi_exit
-</SECTION>
 
-<SECTION>
-<FILE>atspi-misc-private</FILE>
-ATSPI_CACHE_PARENT
+<SUBSECTION Private>
+atspi_main_loop
+atspi_get_a11y_bus
+atspi_dbus_connection_setup_with_g_main
+atspi_dbus_server_setup_with_g_main
+atspi_bus_registry
 ATSPI_CACHE_CHILDREN
-ATSPI_CACHE_NAME
 ATSPI_CACHE_DESCRIPTION
-ATSPI_CACHE_STATES
-ATSPI_CACHE_ROLE
 ATSPI_CACHE_INTERFACES
-AtspiReference
-ATSPI_DBUS_NAME_REGISTRY
-ATSPI_DBUS_PATH_REGISTRY
-ATSPI_DBUS_INTERFACE_REGISTRY
-ATSPI_DBUS_PATH_NULL
-ATSPI_DBUS_PATH_ROOT
-ATSPI_DBUS_PATH_DEC
-ATSPI_DBUS_INTERFACE_DEC
-ATSPI_DBUS_INTERFACE_DEVICE_EVENT_LISTENER
-ATSPI_DBUS_INTERFACE_CACHE
+ATSPI_CACHE_NAME
+ATSPI_CACHE_PARENT
+ATSPI_CACHE_ROLE
+ATSPI_CACHE_STATES
 ATSPI_DBUS_INTERFACE_ACCESSIBLE
 ATSPI_DBUS_INTERFACE_ACTION
 ATSPI_DBUS_INTERFACE_APPLICATION
+ATSPI_DBUS_INTERFACE_CACHE
 ATSPI_DBUS_INTERFACE_COLLECTION
 ATSPI_DBUS_INTERFACE_COMPONENT
+ATSPI_DBUS_INTERFACE_DEC
+ATSPI_DBUS_INTERFACE_DEVICE_EVENT_LISTENER
 ATSPI_DBUS_INTERFACE_DOCUMENT
 ATSPI_DBUS_INTERFACE_EDITABLE_TEXT
 ATSPI_DBUS_INTERFACE_EVENT_KEYBOARD
@@ -570,18 +640,22 @@ ATSPI_DBUS_INTERFACE_EVENT_OBJECT
 ATSPI_DBUS_INTERFACE_HYPERLINK
 ATSPI_DBUS_INTERFACE_HYPERTEXT
 ATSPI_DBUS_INTERFACE_IMAGE
+ATSPI_DBUS_INTERFACE_REGISTRY
 ATSPI_DBUS_INTERFACE_SELECTION
+ATSPI_DBUS_INTERFACE_SOCKET
 ATSPI_DBUS_INTERFACE_TABLE
+ATSPI_DBUS_INTERFACE_TABLE_CELL
 ATSPI_DBUS_INTERFACE_TEXT
 ATSPI_DBUS_INTERFACE_VALUE
-ATSPI_DBUS_INTERFACE_SOCKET
-atspi_path_dec
-atspi_path_registry
-atspi_path_root
-atspi_bus_registry
+ATSPI_DBUS_NAME_REGISTRY
+ATSPI_DBUS_PATH_DEC
+ATSPI_DBUS_PATH_NULL
+ATSPI_DBUS_PATH_REGISTRY
+ATSPI_DBUS_PATH_ROOT
 atspi_interface_accessible
 atspi_interface_action
 atspi_interface_application
+atspi_interface_cache
 atspi_interface_collection
 atspi_interface_component
 atspi_interface_dec
@@ -596,12 +670,13 @@ atspi_interface_selection
 atspi_interface_table
 atspi_interface_table_cell
 atspi_interface_text
-atspi_interface_cache
 atspi_interface_value
-</SECTION>
+atspi_no_cache
+atspi_path_dec
+atspi_path_registry
+atspi_path_root
+AtspiReference
+AtspiError
+ATSPI_ERROR
 
-<SECTION>
-<FILE>atspi-listener-private</FILE>
-atspi_dbus_handle_deviceEvent
 </SECTION>
-

@@ -150,14 +150,16 @@ typedef enum {
 
 /**
  * AtspiCollectionSortOrder:
- * @ATSPI_Collection_SORT_ORDER_INVALID:
- * @ATSPI_Collection_SORT_ORDER_CANONICAL:
- * @ATSPI_Collection_SORT_ORDER_FLOW:
- * @ATSPI_Collection_SORT_ORDER_TAB:
- * @ATSPI_Collection_SORT_ORDER_REVERSE_CANONICAL:
- * @ATSPI_Collection_SORT_ORDER_REVERSE_FLOW:
- * @ATSPI_Collection_SORT_ORDER_REVERSE_TAB:
- * @ATSPI_Collection_SORT_ORDER_LAST_DEFINED:
+ * @ATSPI_Collection_SORT_ORDER_INVALID: Invalid sort order
+ * @ATSPI_Collection_SORT_ORDER_CANONICAL: Canonical sort order
+ * @ATSPI_Collection_SORT_ORDER_FLOW: Flow sort order
+ * @ATSPI_Collection_SORT_ORDER_TAB: Tab sort order
+ * @ATSPI_Collection_SORT_ORDER_REVERSE_CANONICAL: Reverse canonical sort order
+ * @ATSPI_Collection_SORT_ORDER_REVERSE_FLOW: Reverse flow sort order
+ * @ATSPI_Collection_SORT_ORDER_REVERSE_TAB: Reverse tab sort order
+ * @ATSPI_Collection_SORT_ORDER_LAST_DEFINED: Used only to determine the end of the
+ * enumeration.
+
  *
  * Enumeration used by interface #AtspiCollection to specify
  * the way #AtspiAccesible objects should be sorted.
@@ -183,14 +185,14 @@ typedef enum {
 
 /**
  * AtspiCollectionMatchType:
- * @ATSPI_Collection_MATCH_INVALID: Indicates an error condition or 
+ * @ATSPI_Collection_MATCH_INVALID: Indicates an error condition or
  * uninitialized value.
  * @ATSPI_Collection_MATCH_ALL: #TRUE if all of the criteria are met.
  * @ATSPI_Collection_MATCH_ANY: #TRUE if any of the criteria are met.
  * @ATSPI_Collection_MATCH_NONE: #TRUE if none of the criteria are met.
  * @ATSPI_Collection_MATCH_EMPTY: Same as @ATSPI_Collection_MATCH_ALL if
- * the criteria is non-empty; for empty criteria this rule requires returned 
- * value to also have empty set. 
+ * the criteria is non-empty; for empty criteria this rule requires returned
+ * value to also have empty set.
  * @ATSPI_Collection_MATCH_LAST_DEFINED: Used only to determine the end of the
  * enumeration.
  *
@@ -216,10 +218,11 @@ typedef enum {
 
 /**
  * AtspiCollectionTreeTraversalType:
- * @ATSPI_Collection_TREE_RESTRICT_CHILDREN:
- * @ATSPI_Collection_TREE_RESTRICT_SIBLING:
- * @ATSPI_Collection_TREE_INORDER:
- * @ATSPI_Collection_TREE_LAST_DEFINED:
+ * @ATSPI_Collection_TREE_RESTRICT_CHILDREN: Restrict children tree traveral
+ * @ATSPI_Collection_TREE_RESTRICT_SIBLING: Restrict sibling tree traversal
+ * @ATSPI_Collection_TREE_INORDER: In-order tree traversal.
+ * @ATSPI_Collection_TREE_LAST_DEFINED: Used only to determine the end of the
+ * enumeration.
  *
  * Enumeration used by interface #AtspiCollection to specify
  * restrictions on #AtspiAccesible objects to be traversed.
@@ -419,7 +422,7 @@ typedef enum {
  * @ATSPI_STATE_ACTIVE: Indicates a window is currently the active window, or
  * an object is the active subelement within a container or table.
  * @ATSPI_STATE_ACTIVE should not be used for objects which have
- * @ATSPI_STATE_FOCUSABLE or @ATSPI_STATE_SELECTABLE: Those objects should use
+ * #ATSPI_STATE_FOCUSABLE or #ATSPI_STATE_SELECTABLE: Those objects should use
  * @ATSPI_STATE_FOCUSED and @ATSPI_STATE_SELECTED respectively.
  * @ATSPI_STATE_ACTIVE is a means to indicate that an object which is not
  * focusable and not selectable is the currently-active item within its
@@ -443,8 +446,8 @@ typedef enum {
  * disclosure of its children.
  * @ATSPI_STATE_EXPANDED: Indicates this object is expanded.
  * @ATSPI_STATE_FOCUSABLE: Indicates this object can accept keyboard focus,
- * which means all       events resulting from typing on the keyboard will
- * normally be passed       to it when it has focus.
+ * which means all events resulting from typing on the keyboard will
+ * normally be passed to it when it has focus.
  * @ATSPI_STATE_FOCUSED: Indicates this object currently has the keyboard
  * focus.
  * @ATSPI_STATE_HAS_TOOLTIP: Indicates that the object has an associated
@@ -641,8 +644,8 @@ typedef enum {
 
 /**
  * AtspiKeyEventType:
- * @ATSPI_KEY_PRESSED:
- * @ATSPI_KEY_RELEASED:
+ * @ATSPI_KEY_PRESSED: Key press event
+ * @ATSPI_KEY_RELEASED: Key release event
  *
  * Deprecated. Should not be used.
  *
@@ -869,7 +872,7 @@ typedef enum {
  * the valuator. Common examples include association of scrollbars with the
  * viewport or panel which they control.
  *
- * 
+ *
  * Enumeration used to specify
  * the type of relation encapsulated in an #AtspiRelation object.
  *
@@ -1159,78 +1162,76 @@ typedef enum {
  * @ATSPI_ROLE_INFO_BAR: An object designed to present a message to the user
  * within an existing window.
  * @ATSPI_ROLE_LEVEL_BAR: A bar that serves as a level indicator to, for
- * instance, show the strength of a password or the state of a battery. 
- *   Since: 2.8
- *@ATSPI_ROLE_TITLE_BAR: A bar that serves as the title of a window or a
- * dialog. @Since: 2.12
- *@ATSPI_ROLE_BLOCK_QUOTE: An object which contains a text section
- * that is quoted from another source.  @Since: 2.12
- *@ATSPI_ROLE_AUDIO: An object which represents an audio
- * element. @Since: 2.12
- *@ATSPI_ROLE_VIDEO: An object which represents a video
- * element. @Since: 2.12
- *@ATSPI_ROLE_DEFINITION: A definition of a term or concept. @Since: 2.12
- *@ATSPI_ROLE_ARTICLE: A section of a page that consists of a
- * composition that forms an independent part of a document, page, or
- * site. Examples: A blog entry, a news story, a forum post. @Since:
- * 2.12
- *@ATSPI_ROLE_LANDMARK: A region of a web page intended as a
- * navigational landmark. This is designed to allow Assistive
- * Technologies to provide quick navigation among key regions within a
- * document. @Since: 2.12
- *@ATSPI_ROLE_LOG: A text widget or container holding log content, such
- * as chat history and error logs. In this role there is a
- * relationship between the arrival of new items in the log and the
- * reading order. The log contains a meaningful sequence and new
- * information is added only to the end of the log, not at arbitrary
- * points. @Since: 2.12
- *@ATSPI_ROLE_MARQUEE: A container where non-essential information
- * changes frequently. Common usages of marquee include stock tickers
- * and ad banners. The primary difference between a marquee and a log
- * is that logs usually have a meaningful order or sequence of
- * important content changes. @Since: 2.12
- *@ATSPI_ROLE_MATH: A text widget or container that holds a mathematical
- * expression. @Since: 2.12
- *@ATSPI_ROLE_RATING: A widget whose purpose is to display a rating,
- * such as the number of stars associated with a song in a media
- * player. Objects of this role should also implement
- * AtspiValue. @Since: 2.12
- *@ATSPI_ROLE_TIMER: An object containing a numerical counter which
- * indicates an amount of elapsed time from a start point, or the time
- * remaining until an end point. @Since: 2.12
- *@ATSPI_ROLE_STATIC: A generic non-container object whose purpose is to display
- * a brief amount of information to the user and whose role is known by the
- * implementor but lacks semantic value for the user. Examples in which
- * @ATSPI_ROLE_STATIC is appropriate include the message displayed in a message
- * box and an image used as an alternative means to display text.
- * @ATSPI_ROLE_STATIC should not be applied to widgets which are traditionally
- * interactive, objects which display a significant amount of content, or any
- * object which has an accessible relation pointing to another object. The
- * displayed information, as a general rule, should be exposed through the
- * accessible name of the object. For labels which describe another widget, see
- * @ATSPI_ROLE_LABEL. For text views, see @ATSPI_ROLE_TEXT. For generic
- * containers, see @ATSPI_ROLE_PANEL. For objects whose role is not known by the
- * implementor, see @ATSPI_ROLE_UNKNOWN. @Since: 2.16.
- *@ATSPI_ROLE_MATH_FRACTION: An object that represents a mathematical fraction.
- * @Since: 2.16.
- *@ATSPI_ROLE_MATH_ROOT: An object that represents a mathematical expression
- * displayed with a radical. @Since: 2.16.
- *@ATSPI_ROLE_SUBSCRIPT: An object that contains text that is displayed as a
- * subscript. @Since: 2.16.
- *@ATSPI_ROLE_SUPERSCRIPT: An object that contains text that is displayed as a
- * superscript. @Since: 2.16.
- *@ATSPI_ROLE_DESCRIPTION_LIST: An object that represents a list of term-value
- * groups. A term-value group represents an individual description and consist
- * of one or more names (@ATSPI_ROLE_DESCRIPTION_TERM) followed by one or more
- * values (@ATSPI_ROLE_DESCRIPTION_VALUE). For each list, there should not be
- * more than one group with the same term name. @Since: 2.26.
- *@ATSPI_ROLE_DESCRIPTION_TERM: An object that represents a term or phrase
- * with a corresponding definition. @Since: 2.26.
- *@ATSPI_ROLE_DESCRIPTION_VALUE: An object that represents the description,
- * definition, or value of a term. @Since: 2.26.
- *@ATSPI_ROLE_FOOTNOTE: An object that contains the text of a footnote. @Since: 2.26.
- * @ATSPI_ROLE_LAST_DEFINED: Not a valid role, used for finding end of
- * enumeration.
+ * instance, show the strength of a password or the state of a battery. @Since: 2.8
+ * @ATSPI_ROLE_TITLE_BAR: A bar that serves as the title of a window or a
+ *  dialog. @Since: 2.12
+ * @ATSPI_ROLE_BLOCK_QUOTE: An object which contains a text section
+ *  that is quoted from another source.  @Since: 2.12
+ * @ATSPI_ROLE_AUDIO: An object which represents an audio
+ *  element. @Since: 2.12
+ * @ATSPI_ROLE_VIDEO: An object which represents a video
+ *  element. @Since: 2.12
+ * @ATSPI_ROLE_DEFINITION: A definition of a term or concept. @Since: 2.12
+ * @ATSPI_ROLE_ARTICLE: A section of a page that consists of a
+ *  composition that forms an independent part of a document, page, or
+ *  site. Examples: A blog entry, a news story, a forum post. @Since:
+ *  2.12
+ * @ATSPI_ROLE_LANDMARK: A region of a web page intended as a
+ *  navigational landmark. This is designed to allow Assistive
+ *  Technologies to provide quick navigation among key regions within a
+ *  document. @Since: 2.12
+ * @ATSPI_ROLE_LOG: A text widget or container holding log content, such
+ *  as chat history and error logs. In this role there is a
+ *  relationship between the arrival of new items in the log and the
+ *  reading order. The log contains a meaningful sequence and new
+ *  information is added only to the end of the log, not at arbitrary
+ *  points. @Since: 2.12
+ * @ATSPI_ROLE_MARQUEE: A container where non-essential information
+ *  changes frequently. Common usages of marquee include stock tickers
+ *  and ad banners. The primary difference between a marquee and a log
+ *  is that logs usually have a meaningful order or sequence of
+ *  important content changes. @Since: 2.12
+ * @ATSPI_ROLE_MATH: A text widget or container that holds a mathematical
+ *  expression. @Since: 2.12
+ * @ATSPI_ROLE_RATING: A widget whose purpose is to display a rating,
+ *  such as the number of stars associated with a song in a media
+ *  player. Objects of this role should also implement
+ *  AtspiValue. @Since: 2.12
+ * @ATSPI_ROLE_TIMER: An object containing a numerical counter which
+ *  indicates an amount of elapsed time from a start point, or the time
+ *  remaining until an end point. @Since: 2.12
+ * @ATSPI_ROLE_STATIC: A generic non-container object whose purpose is to display
+ *  a brief amount of information to the user and whose role is known by the
+ *  implementor but lacks semantic value for the user. Examples in which
+ *  @ATSPI_ROLE_STATIC is appropriate include the message displayed in a message
+ *  box and an image used as an alternative means to display text.
+ *  @ATSPI_ROLE_STATIC should not be applied to widgets which are traditionally
+ *  interactive, objects which display a significant amount of content, or any
+ *  object which has an accessible relation pointing to another object. The
+ *  displayed information, as a general rule, should be exposed through the
+ *  accessible name of the object. For labels which describe another widget, see
+ *  @ATSPI_ROLE_LABEL. For text views, see @ATSPI_ROLE_TEXT. For generic
+ *  containers, see @ATSPI_ROLE_PANEL. For objects whose role is not known by the
+ *  implementor, see @ATSPI_ROLE_UNKNOWN. @Since: 2.16.
+ * @ATSPI_ROLE_MATH_FRACTION: An object that represents a mathematical fraction. @Since: 2.16.
+ * @ATSPI_ROLE_MATH_ROOT: An object that represents a mathematical expression
+ *  displayed with a radical. @Since: 2.16.
+ * @ATSPI_ROLE_SUBSCRIPT: An object that contains text that is displayed as a
+ *  subscript. @Since: 2.16.
+ * @ATSPI_ROLE_SUPERSCRIPT: An object that contains text that is displayed as a
+ *  superscript. @Since: 2.16.
+ * @ATSPI_ROLE_DESCRIPTION_LIST: An object that represents a list of term-value
+ *  groups. A term-value group represents an individual description and consist
+ *  of one or more names (@ATSPI_ROLE_DESCRIPTION_TERM) followed by one or more
+ *  values (@ATSPI_ROLE_DESCRIPTION_VALUE). For each list, there should not be
+ *  more than one group with the same term name. @Since: 2.26.
+ * @ATSPI_ROLE_DESCRIPTION_TERM: An object that represents a term or phrase
+ *  with a corresponding definition. @Since: 2.26.
+ * @ATSPI_ROLE_DESCRIPTION_VALUE: An object that represents the description,
+ *  definition, or value of a term. @Since: 2.26.
+ * @ATSPI_ROLE_FOOTNOTE: An object that contains the text of a footnote. @Since: 2.26.
+ *  @ATSPI_ROLE_LAST_DEFINED: Not a valid role, used for finding end of
+ *  enumeration.
  *
  * Enumeration used by interface #AtspiAccessible to specify the role
  * of an #AtspiAccessible object.
