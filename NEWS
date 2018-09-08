@@ -1,3 +1,19 @@
+Changes in version 2.29.94
+==========================
+
+* Bugfixing:
+   * Issue 1: "atk 2.29.2 is reported not to work any more"
+      * Needed to revert previous change "atkimplementor: use the
+        G_DEFINE_INTERFACE macro to declare it as interface in the
+        introspection"
+
+   * Bug 789619: build: use @basename instead of @filename
+
+   * Bug 794326: fix macOs common_ldflags
+
+Contributors:
+   Alejandro Piñeiro, Jan Tojnar, Samuel Thibault
+
 Changes in version 2.29.92
 ==========================
 
