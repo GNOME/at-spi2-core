@@ -164,7 +164,7 @@ atspi_match_rule_new (AtspiStateSet *states,
       if (role < 128)
         rule->roles [role / 32] |= (1 << (role % 32));
       else
-        g_warning ("Atspi: unexpected role %d\n", role);
+        g_warning ("AT-SPI: unexpected role %d\n", role);
     }
   }
   else

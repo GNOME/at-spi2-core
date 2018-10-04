@@ -36,7 +36,7 @@ atspi_collection_is_ancestor_of (AtspiCollection *collection,
                                  AtspiAccessible *test,
                                  GError **error)
 {
-  g_warning ("Atspi: TODO: Implement is_ancestor_of");
+  g_warning ("AT-SPI: TODO: Implement is_ancestor_of");
   return FALSE;
 }
 
@@ -267,7 +267,7 @@ atspi_collection_get_matches_from (AtspiCollection *collection,
 AtspiAccessible *
 atspi_collection_get_active_descendant (AtspiCollection *collection, GError **error)
 {
-  g_warning ("atspi: TODO: Implement get_active_descendants");
+  g_warning ("AT-SPI: TODO: Implement get_active_descendants");
   return NULL;
 }
 
