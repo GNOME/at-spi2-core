@@ -293,7 +293,9 @@ ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
 
   if (pipe (app->pipefd) < 0)
     g_error ("Failed to create pipe: %s", strerror (errno));
-  
+
+  g_clear_pointer (&app->a11y_launch_error_message, g_free);
+
   if (!g_spawn_async (NULL,
                       argv,
                       NULL,
@@ -388,6 +390,8 @@ ensure_a11y_bus_broker (A11yBusLauncher *app, char *config_path)
 
   if (listen (app->listenfd, 1024) < 0)
     g_error ("Failed to listen on socket: %s", strerror(errno));
+
+  g_clear_pointer (&app->a11y_launch_error_message, g_free);
 
   if (!g_spawn_async (NULL,
                       argv,
