@@ -92,7 +92,7 @@ endforeach
 # Dependencies
 gobject_req_version = '>= 2.31.2'
 
-gobject_dep = dependency('gobject-2.0', version: gobject_req_version)
+gobject_dep = dependency('gobject-2.0', version: gobject_req_version, fallback : ['glib', 'libgobject_dep'])
 
 # Compat variables for pkgconfig
 pkgconf = configuration_data()

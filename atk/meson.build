@@ -133,7 +133,7 @@ libatk = shared_library('atk-@0@'.format(atk_api_version),
                         link_args: common_ldflags)
 
 libatk_dep = declare_dependency(link_with: libatk,
-                                include_directories: atk_inc,
+                                include_directories: [atk_inc, root_inc],
                                 dependencies: gobject_dep,
                                 sources: atk_enum_h)
 
