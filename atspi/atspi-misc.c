@@ -203,7 +203,7 @@ handle_get_bus_address (DBusPendingCall *pending, void *user_data)
       else
       {
         if (!strcmp (error.name, DBUS_ERROR_FILE_NOT_FOUND))
-          g_warning ("Unable to open bus connection: %s", error.message);
+          g_warning ("AT-SPI: Unable to open bus connection: %s", error.message);
         dbus_error_free (&error);
       }
     }
@@ -1258,7 +1258,7 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
   dbus_message_iter_init (reply, &iter);
   if (dbus_message_iter_get_arg_type (&iter) != 'v')
   {
-    g_warning ("AT-SPI: expected a variant when fetching %s from interface %s; got %s\n", name, interface, dbus_message_get_signature (reply));
+    g_warning ("atspi_dbus_get_property: expected a variant when fetching %s from interface %s; got %s\n", name, interface, dbus_message_get_signature (reply));
     goto done;
   }
   dbus_message_iter_recurse (&iter, &iter_variant);
@@ -1530,7 +1530,7 @@ get_accessibility_bus_address_dbus (void)
 
   if (!reply)
   {
-    g_warning ("Error retrieving accessibility bus address: %s: %s",
+    g_warning ("AT-SPI: Error retrieving accessibility bus address: %s: %s",
                error.name, error.message);
     dbus_error_free (&error);
     goto out;
@@ -1584,7 +1584,7 @@ atspi_get_a11y_bus (void)
 
   if (a11y_dbus_slot == -1)
     if (!dbus_connection_allocate_data_slot (&a11y_dbus_slot))
-      g_warning ("at-spi: Unable to allocate D-Bus slot");
+      g_warning ("AT-SPI: Unable to allocate D-Bus slot");
 
   address_env = g_getenv ("AT_SPI_BUS_ADDRESS");
   if (address_env != NULL && *address_env != 0)

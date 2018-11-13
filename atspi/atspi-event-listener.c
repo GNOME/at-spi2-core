@@ -101,7 +101,7 @@ callback_unref (gpointer callback)
   info = g_hash_table_lookup (callbacks, callback);
   if (!info)
   {
-    g_warning ("Atspi: Dereferencing invalid callback %p\n", callback);
+    g_warning ("AT-SPI: Dereferencing invalid callback %p\n", callback);
     return;
   }
   info->ref_count--;
@@ -679,7 +679,7 @@ atspi_event_listener_register_from_callback_full (AtspiEventListenerCB callback,
     dbus_bus_add_match (_atspi_bus(), matchrule, &d_error);
     if (dbus_error_is_set (&d_error))
       {
-        g_warning ("Atspi: Adding match: %s", d_error.message);
+        g_warning ("AT-SPI: Adding match: %s", d_error.message);
         dbus_error_free (&d_error);
         /* TODO: Set error */
       }
@@ -916,7 +916,7 @@ _atspi_send_event (AtspiEvent *e)
 
   if (!convert_event_type_to_dbus (e->type, &category, &name, &detail, NULL))
   {
-    g_warning ("Atspi: Couldn't parse event: %s\n", e->type);
+    g_warning ("AT-SPI: Couldn't parse event: %s\n", e->type);
     return;
   }
   for (l = event_listeners; l; l = g_list_next (l))

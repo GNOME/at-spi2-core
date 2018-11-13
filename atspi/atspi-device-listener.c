@@ -351,13 +351,13 @@ _atspi_dbus_handle_DeviceEvent (DBusConnection *bus, DBusMessage *message, void 
 
   if (strcmp (dbus_message_get_signature (message), "(uiuuisb)") != 0)
   {
-    g_warning ("Atspi: Unknown signature for an event");
+    g_warning ("AT-SPI: Unknown signature for an event");
     goto done;
   }
 
   if (sscanf (path, "/org/a11y/atspi/listeners/%d", &id) != 1)
   {
-    g_warning ("Atspi: Bad listener path: %s\n", path);
+    g_warning ("AT-SPI: Bad listener path: %s\n", path);
     goto done;
   }
 
@@ -379,7 +379,7 @@ _atspi_dbus_handle_DeviceEvent (DBusConnection *bus, DBusMessage *message, void 
     retval = (*klass->device_event) (listener, &event);
     if (retval != 0 && retval != 1)
     {
-      g_warning ("at-spi: device event handler returned %d; should be 0 or 1", retval);
+      g_warning ("AT-SPI: device event handler returned %d; should be 0 or 1", retval);
       retval = 0;
     }
   }
