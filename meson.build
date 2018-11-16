@@ -36,7 +36,9 @@ atk_conf.set_quoted('GETTEXT_PACKAGE', 'atk10')
 
 # Maintain version scheme with libtool
 atk_soversion = 0
-atk_libversion = '@0@.@1@.@2@'.format(atk_soversion, (atk_binary_age - atk_interface_age), atk_interface_age)
+current = atk_binary_age - atk_interface_age
+atk_libversion = '@0@.@1@.@2@'.format(atk_soversion, current, atk_interface_age)
+darwin_versions = ['@0@'.format(current + 1), '@0@.@1@'.format(current + 1, atk_interface_age)]
 
 add_project_arguments([ '-DG_DISABLE_SINGLE_INCLUDES', '-DATK_DISABLE_SINGLE_INCLUDES' ], language: 'c')
 
@@ -75,7 +77,7 @@ endif
 
 # Maintain compatibility with autotools on macOS
 if host_machine.system() == 'darwin'
-  common_ldflags += [ '-compatibility_version', '1', '-current_version', '1.0', ]
+  common_ldflags += [ '-compatibility_version', darwin_versions[0], '-current_version', darwin_versions[1]]
 endif
 
 # Functions
