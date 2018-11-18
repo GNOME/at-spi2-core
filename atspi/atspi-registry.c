@@ -426,8 +426,8 @@ atspi_deregister_device_event_listener (AtspiDeviceListener *listener,
 
 /**
  * atspi_generate_keyboard_event:
- * @keyval: a #gint indicating the keycode or keysym of the key event
- *           being synthesized.
+ * @keyval: a #gint indicating the keycode or keysym or modifier mask of the
+ *           key event being synthesized.
  * @keystring: (allow-none): an (optional) UTF-8 string which, if
  *           @synth_type is %ATSPI_KEY_STRING, indicates a 'composed'
  *           keyboard input string being synthesized; this type of
@@ -436,7 +436,8 @@ atspi_deregister_device_event_listener (AtspiDeviceListener *listener,
  *           input method (such as XIM) were used.
  * @synth_type: an #AtspiKeySynthType flag indicating whether @keyval
  *           is to be interpreted as a keysym rather than a keycode
- *           (%ATSPI_KEY_SYM) or a string (%ATSPI_KEY_STRING), or
+ *           (%ATSPI_KEY_SYM) or a string (%ATSPI_KEY_STRING) or a modifier
+ *           mask (%ATSPI_KEY_LOCKMODIFIERS and %ATSPI_KEY_UNLOCKMODIFIERS), or
  *           whether to synthesize %ATSPI_KEY_PRESS,
  *           %ATSPI_KEY_RELEASE, or both (%ATSPI_KEY_PRESSRELEASE).
  * @error: (allow-none): a pointer to a %NULL #GError pointer, or %NULL

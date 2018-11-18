@@ -47,6 +47,8 @@ typedef enum {
     Accessibility_KEY_PRESSRELEASE,
     Accessibility_KEY_SYM,
     Accessibility_KEY_STRING,
+    Accessibility_KEY_LOCKMODIFIERS,
+    Accessibility_KEY_UNLOCKMODIFIERS,
 } Accessibility_KeySynthType;
 
 typedef struct _Accessibility_DeviceEvent Accessibility_DeviceEvent;

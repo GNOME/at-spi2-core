@@ -6,7 +6,9 @@ interface org.freestandards.atspi.DeviceEventController {
 		KEY_RELEASE,
 		KEY_PRESSRELEASE,
 		KEY_SYM,
-		KEY_STRING
+		KEY_STRING,
+		KEY_LOCKMODIFIERS,
+		KEY_UNLOCKMODIFIERS
 	}
 
         /*

@@ -715,6 +715,8 @@ typedef enum {
  * subject to the out-of-keymap limitations described for
  * @ATSPI_KEY_SYM. In practice this limitation primarily effects
  * Chinese and Japanese locales.
+ * @ATSPI_KEY_LOCKMODIFIERS: Emulates locking a set of modifiers.
+ * @ATSPI_KEY_UNLOCKMODIFIERS: Emulates unlocking a set of modifiers.
  *
  * Enumeration used when synthesizing keyboard input via
  * #atspi_generate_keyboard_event.
@@ -726,6 +728,8 @@ typedef enum {
     ATSPI_KEY_PRESSRELEASE,
     ATSPI_KEY_SYM,
     ATSPI_KEY_STRING,
+    ATSPI_KEY_LOCKMODIFIERS,
+    ATSPI_KEY_UNLOCKMODIFIERS,
 } AtspiKeySynthType;
 
 /**

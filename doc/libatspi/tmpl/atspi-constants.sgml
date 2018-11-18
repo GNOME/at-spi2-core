@@ -291,6 +291,8 @@ Constant definitions needed by multiple interfaces.
 @ATSPI_KEY_PRESSRELEASE: 
 @ATSPI_KEY_SYM: 
 @ATSPI_KEY_STRING: 
+@ATSPI_KEY_LOCKMODIFIERS: 
+@ATSPI_KEY_UNLOCKMODIFIERS: 
 
 <!-- ##### MACRO ATSPI_KEYSYNTHTYPE_COUNT ##### -->
 <para>
