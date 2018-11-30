@@ -92,9 +92,12 @@ foreach f: checked_funcs
 endforeach
 
 # Dependencies
-gobject_req_version = '>= 2.31.2'
+glib_req_version = '>= 2.31.2'
 
-gobject_dep = dependency('gobject-2.0', version: gobject_req_version, fallback : ['glib', 'libgobject_dep'])
+glib_dep = [dependency('glib-2.0', version: glib_req_version,
+                          fallback : ['glib', 'libglib_dep']),
+            dependency('gobject-2.0', version: glib_req_version,
+                          fallback : ['glib', 'libgobject_dep'])]
 
 # Compat variables for pkgconfig
 pkgconf = configuration_data()

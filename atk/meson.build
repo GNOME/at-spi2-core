@@ -127,14 +127,14 @@ libatk = shared_library('atk-@0@'.format(atk_api_version),
                         soversion: atk_soversion,
                         version: atk_libversion,
                         install: true,
-                        dependencies: gobject_dep,
+                        dependencies: glib_dep,
                         include_directories: [ root_inc, atk_inc ],
                         c_args: common_cflags + atk_cflags,
                         link_args: common_ldflags)
 
 libatk_dep = declare_dependency(link_with: libatk,
                                 include_directories: [atk_inc, root_inc],
-                                dependencies: gobject_dep,
+                                dependencies: glib_dep,
                                 sources: atk_enum_h)
 
 if not meson.is_cross_build() and get_option('introspection')
