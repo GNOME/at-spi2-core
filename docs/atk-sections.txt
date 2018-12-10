@@ -271,7 +271,6 @@ atk_relation_get_relation_type
 atk_relation_get_target
 atk_relation_add_target
 atk_relation_remove_target
-atk_relation_set_contains_target
 <SUBSECTION Standard>
 ATK_RELATION
 ATK_IS_RELATION
@@ -291,6 +290,7 @@ AtkRelationClass
 AtkRelationSet
 atk_relation_set_new
 atk_relation_set_contains
+atk_relation_set_contains_target
 atk_relation_set_remove
 atk_relation_set_add
 atk_relation_set_get_n_relations
