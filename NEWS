@@ -1,3 +1,13 @@
+What's new in at-spi2-core 2.31.1:
+
+* Bus launcher: fix an issue where the error wasn't cleared on failure.
+
+* Add support for locking/unlocking modifiers.
+
+* Update error log text for consistency.
+
+* Documentation clean-ups.
+
 What's new in at-spi2-core 2.29.1:
 
 * Add dbus-broker support to bus launcher.
