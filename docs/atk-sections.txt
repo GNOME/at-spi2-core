@@ -454,6 +454,8 @@ atk_text_attribute_register
 atk_text_attribute_get_name
 atk_text_attribute_for_name
 atk_text_attribute_get_value
+atk_text_scroll_substring_to
+atk_text_scroll_substring_to_point
 <SUBSECTION Standard>
 ATK_TEXT
 ATK_IS_TEXT
