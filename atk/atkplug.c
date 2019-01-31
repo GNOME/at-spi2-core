@@ -34,8 +34,6 @@
 
 static void atk_component_interface_init (AtkComponentIface *iface);
 
-static void atk_plug_class_init (AtkPlugClass *klass);
-
 G_DEFINE_TYPE_WITH_CODE (AtkPlug, atk_plug, ATK_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (ATK_TYPE_COMPONENT, atk_component_interface_init))
 
