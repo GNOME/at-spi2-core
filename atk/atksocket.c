@@ -52,7 +52,6 @@
  * functions will be implemented by the IPC layer.
  */
 
-static void atk_socket_class_init (AtkSocketClass *klass);
 static void atk_socket_finalize   (GObject *obj);
 
 static void atk_component_interface_init (AtkComponentIface *iface);
