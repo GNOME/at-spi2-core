@@ -1,10 +1,31 @@
-Changes in version 2.31.1
-=========================
+Changes in version 2.31.90
+==========================
+*
+* AtkText
+   * Add ScrollSubstringTo and ScrollSubstringToPoint methods to AtkText
 
-* Add ScrollSubstringTo and ScrollSubstringToPoint methods to AtkText
+* Build - meson
+   * Make atk work as a subproject
+   * Use an autotools compatible compatibility_version/current_version on macOS
+   * Fix usage of glib as a subproject dependency
+   * Replace shared_library by library
+
+* Build - Visual Studio
+   * Add build instructions for Visual Studio, as now is done via Meson
+
+* Documentation
+   * Move atk_relation_set_contains_target to correct doc section
+   * Improve documentation for AtkText method return values
+
+* Misc
+   * atkplug, atksocket: Fix -Wredundant-decls
 
 Contributors:
-   Samuel Thibault
+   Chun-wei Fan, Nirbheek Chauhan, Fabrice Fontaine, Niclas Moeslund
+   Overby, Christoph Reiter, Martin Robinson, Samuel Thibault
+
+Translations
+   Tiago Casal (pt_BR)
 
 Changes in version 2.29.94
 ==========================
