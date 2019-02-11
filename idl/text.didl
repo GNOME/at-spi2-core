@@ -129,6 +129,7 @@ namespace org.freestandards.atspi {
 		/*
 		  Obtain a bounding box of the character glyph at a particular character offset,
 		  in the given coordinate system.
+		  The returned values are meaningful only if the Text has both STATE_VISIBLE and STATE_SHOWING.
 		 */
 		method GetCharacterExtents {
 			int32     offset;
@@ -192,6 +193,7 @@ namespace org.freestandards.atspi {
 		  Obtain the bounding box which entirely contains the given text range.
 		  Negative values may be obtained in the event that part of the text range is
 		  off-screen.
+		  The returned values are meaningful only if the Text has both STATE_VISIBLE and STATE_SHOWING.
 		 */
 		method GetRangeExtents {
 			int32 start_offset;
