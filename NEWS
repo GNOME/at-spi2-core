@@ -1,3 +1,14 @@
+Changes in version 2.31.92
+==========================
+*
+* Bugfixing:
+   * Issue 1: "atk 2.29.2 is reported not to work any more"
+      * By mistake, 2.31.90 re-introduced this bug, as master didn't
+        have the revert for "atkimplementor: use the
+        G_DEFINE_INTERFACE macro to declare it as interface in the
+        introspection"
+
+
 Changes in version 2.31.90
 ==========================
 *
