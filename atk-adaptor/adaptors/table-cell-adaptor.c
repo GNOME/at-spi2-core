@@ -61,7 +61,7 @@ message_from_object_array (DBusMessage *message, GPtrArray *array)
   }
   dbus_message_iter_close_container (&iter, &iter_array);
   g_ptr_array_unref (array);
-  return message;
+  return reply;
 }
 
 static DBusMessage *
