@@ -34,7 +34,7 @@ get_object_array_and_unref (DBusMessage *reply)
   if (!reply)
     return NULL;
 
-  if (strcmp (dbus_message_get_signature (reply), "(so)") != 0)
+  if (strcmp (dbus_message_get_signature (reply), "a(so)") != 0)
   {
     dbus_message_unref (reply);
     return NULL;
