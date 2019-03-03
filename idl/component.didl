@@ -102,6 +102,7 @@ interface org.freestandards.atspi.Component {
 
 	/*
 	  Obtain the components bounding box, in pixels, relative to the specified coordinate system.
+          The returned values are meaningful only if the Component has both STATE_VISIBLE and STATE_SHOWING.
 	*/
 	method GetExtents {
 		CoordType cood_type;
@@ -111,6 +112,7 @@ interface org.freestandards.atspi.Component {
 
 	/*
 	  Obtain the position of the current component in the specified coordinate system.
+          The returned values are meaningful only if the Component has both STATE_VISIBLE and STATE_SHOWING.
 	*/
 	method GetPosition {
 		CoordType coord_type;
@@ -122,6 +124,7 @@ interface org.freestandards.atspi.Component {
 	/*
 	  Obtain the size in the specified coordinate system.
           Fully contains teh object's visual representation without accounting for viewport clipping.
+          The returned values are meaningful only if the Component has both STATE_VISIBLE and STATE_SHOWING.
         */
 	method GetSize reply {
 		int32 width;

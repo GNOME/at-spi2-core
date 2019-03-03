@@ -10,14 +10,20 @@ interface org.freestandards.atspi.Image {
 	/* A string corresponding to the local used by the image description. */
 	read property string ImageLocale;
 
-	/* Obtain a bounding box which entirely contains the image contents. */
+	/*
+	  Obtain a bounding box which entirely contains the image contents.
+	  The returned values are meaningful only if the Image has both STATE_VISIBLE and STATE_SHOWING.
+	 */
 	method GetImageExtents {
 		CoordType coord_type;
 	} reply {
 		BoundingBox;
 	}
 
-	/* Get the coordinates of the image on the screen */
+	/*
+	  Get the coordinates of the image on the screen
+	  The returned values are meaningful only if the Image has both STATE_VISIBLE and STATE_SHOWING.
+	 */
 	method GetImagePosition {
 		CoordType coord_type;
 	} reply {
@@ -25,7 +31,10 @@ interface org.freestandards.atspi.Image {
 		int32 y;
 	}
 
-	/* Get the size of the current on-screen view of the image. */
+	/*
+	  Get the size of the current on-screen view of the image.
+	  The returned values are meaningful only if the Image has both STATE_VISIBLE and STATE_SHOWING.
+	 */
 	method GetImageSize reply {
 		int32 width;
 		int32 height;

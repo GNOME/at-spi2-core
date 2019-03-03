@@ -76,6 +76,8 @@ namespace org.freestandards.atspi {
 
 		/*
 		  Get the number of rows spanned by the table cell at the specific row and column.
+		  The returned values are meaningful only if the Table has both STATE_VISIBLE and STATE_SHOWING.
+		 */
 		method GetRowExtentAt {
 			int32 row;
 			int32 column;
@@ -85,6 +87,7 @@ namespace org.freestandards.atspi {
 
 		/*
 		  Get the number of columns spanned by the table cell at the specific row and column.
+		  The returned values are meaningful only if the Table has both STATE_VISIBLE and STATE_SHOWING.
 		 */
 		method GetColumnExtentAt {
 			int32 row;
@@ -171,6 +174,7 @@ namespace org.freestandards.atspi {
 		/*
 		  Given a child index determine the row and column indicies and extents
 		  and whether the cell is currently selected.
+		  The returned values are meaningful only if the Table has both STATE_VISIBLE and STATE_SHOWING.
 		 */
 		method GetRowColumnExtentsAtIndex {
 			int32 index;
