@@ -25,6 +25,7 @@
 #include "atspi-private.h"
 #include "atspi-accessible-private.h"
 #include <string.h>
+#include <strings.h>
 #include <ctype.h>
 
 typedef struct
