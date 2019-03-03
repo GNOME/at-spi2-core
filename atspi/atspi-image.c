@@ -49,6 +49,8 @@ atspi_image_get_image_description (AtspiImage *obj, GError **error)
  * @obj: a pointer to the #AtspiImage to query.
  *
  * Gets the size of the image displayed in a specified #AtspiImage object.
+ * The returned values are meaningful only if the Image has both
+ * STATE_VISIBLE and STATE_SHOWING.
  *
  * Returns: a pointer to an #AtspiPoint where x corresponds to
  * the image's width and y corresponds to the image's height.
@@ -78,6 +80,8 @@ atspi_image_get_image_size (AtspiImage *obj, GError **error)
  *
  * Gets the minimum x and y coordinates of the image displayed in a
  *         specified #AtspiImage implementor.
+ * The returned values are meaningful only if the Image has both
+ * STATE_VISIBLE and STATE_SHOWING.
  *
  * Returns: a pointer to an #AtspiPoint where x and y correspond to the
  * minimum coordinates of the displayed image. 
@@ -112,6 +116,8 @@ atspi_image_get_image_position (AtspiImage *obj,
  *
  * Gets the bounding box of the image displayed in a
  *         specified #AtspiImage implementor.
+ * The returned values are meaningful only if the Image has both
+ * STATE_VISIBLE and STATE_SHOWING.
  *
  * Returns: a pointer to an #AtspiRect corresponding to the image's bounding box. The minimum x and y coordinates, 
  * width, and height are specified.

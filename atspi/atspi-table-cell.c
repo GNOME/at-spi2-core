@@ -58,6 +58,8 @@ get_object_array_and_unref (DBusMessage *reply)
  * @obj: a GObject instance that implements AtspiTableCellIface
  *
  * Returns the number of columns occupied by this cell accessible.
+ * The returned values are meaningful only if the table cell has both
+ * STATE_VISIBLE and STATE_SHOWING.
  *
  * Returns: a gint representing the number of columns occupied by this cell,
  * or 0 if the cell does not implement this method.
@@ -101,6 +103,8 @@ atspi_table_cell_get_column_header_cells (AtspiTableCell *obj, GError **error)
  * @obj: a GObject instance that implements AtspiTableCellIface
  *
  * Returns the number of rows occupied by this cell accessible.
+ * The returned values are meaningful only if the table cell has both
+ * STATE_VISIBLE and STATE_SHOWING.
  *
  * Returns: a gint representing the number of rows occupied by this cell,
  * or 0 if the cell does not implement this method.
@@ -206,6 +210,8 @@ atspi_table_cell_get_position (AtspiTableCell *obj,
  * @column_span: (out): the number of columns occupied by this cell.
  *
  * Gets the row and column indexes and extents of this cell accessible.
+ * The returned values are meaningful only if the table cell has both
+ * STATE_VISIBLE and STATE_SHOWING.
  */
 void
 atspi_table_cell_get_row_column_span (AtspiTableCell *obj,

@@ -618,6 +618,8 @@ atspi_text_get_character_at_offset (AtspiText *obj,
  *
  * Gets a bounding box containing the glyph representing
  *        the character at a particular text offset.
+ * The returned values are meaningful only if the Text has both
+ * STATE_VISIBLE and STATE_SHOWING.
  *
  * Returns: An #AtspiRect specifying the position and size of the character.
  *
@@ -690,6 +692,8 @@ atspi_text_get_offset_at_point (AtspiText *obj,
  *        for the returned values.
  *
  * Gets the bounding box for text within a range in an  #AtspiText object.
+ * The returned values are meaningful only if the Text has both
+ * STATE_VISIBLE and STATE_SHOWING.
  *
  * Returns: An #AtspiRect giving the position and size of the specified range
  *          of text.

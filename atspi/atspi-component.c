@@ -129,6 +129,8 @@ atspi_component_get_accessible_at_point (AtspiComponent *obj,
  *         (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
  *
  * Gets the bounding box of the specified #AtspiComponent.
+ * The returned values are meaningful only if the Component has both
+ * STATE_VISIBLE and STATE_SHOWING.
  *
  * Returns: An #AtspiRect giving the accessible's extents.
  **/
@@ -164,6 +166,8 @@ atspi_component_get_extents (AtspiComponent *obj,
  *         (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
  *
  * Gets the minimum x and y coordinates of the specified #AtspiComponent.
+ * The returned values are meaningful only if the Component has both
+ * STATE_VISIBLE and STATE_SHOWING.
  *
  * returns: An #AtspiPoint giving the @obj's position.
  **/
@@ -192,6 +196,8 @@ atspi_component_get_position (AtspiComponent *obj,
  * @obj: a pointer to the #AtspiComponent to query.
  *
  * Gets the size of the specified #AtspiComponent.
+ * The returned values are meaningful only if the Component has both
+ * STATE_VISIBLE and STATE_SHOWING.
  *
  * returns: An #AtspiPoint giving the @obj's size.
  **/

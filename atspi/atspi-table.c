@@ -285,6 +285,8 @@ atspi_table_get_column_description (AtspiTable *obj,
  * Gets the number of rows spanned by the table cell at the specific row
  * and column. (some tables can have cells which span multiple rows
  * and/or columns).
+ * The returned values are meaningful only if the Table has both
+ * STATE_VISIBLE and STATE_SHOWING.
  *
  * Returns: a #gint indicating the number of rows spanned by the specified cell.
  **/
@@ -313,6 +315,8 @@ atspi_table_get_row_extent_at (AtspiTable *obj,
  * Gets the number of columns spanned by the table cell at the specific
  * row and column (some tables can have cells which span multiple
  * rows and/or columns).
+ * The returned values are meaningful only if the Table has both
+ * STATE_VISIBLE and STATE_SHOWING.
  *
  * Returns: a #gint indicating the number of columns spanned by the specified cell.
  **/
@@ -646,6 +650,8 @@ atspi_table_remove_column_selection (AtspiTable *obj,
  * extents, and whether the cell is currently selected.  If
  * the child at index is not a cell (for instance, if it is 
  * a summary, caption, etc.), #FALSE is returned.
+ * The returned values are meaningful only if the Table has both
+ * STATE_VISIBLE and STATE_SHOWING.
  *
  * Example:
  * If the #AtspiTable child at index '6' extends across columns 5 and 6 of
