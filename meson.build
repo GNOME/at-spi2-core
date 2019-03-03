@@ -55,7 +55,7 @@ gio_dep = dependency('gio-2.0', version: gio_req_version)
 dl_dep = cc.find_library('dl', required: false)
 
 x11_deps = []
-x11_option = get_option('enable-x11')
+x11_option = get_option('x11')
 if x11_option != 'no'
   x11_dep = dependency('x11', required: false)
 
@@ -96,7 +96,7 @@ at_spi_conf.set('ALIGNOF_DBIND_STRUCT', cc.alignment('dbind_struct', prefix: 'ty
 # introspection support
 have_gir = false
 
-introspection_option = get_option('enable-introspection')
+introspection_option = get_option('introspection')
 if introspection_option != 'no'
   gir_dep = dependency('gobject-introspection-1.0', version: '>= 0.6.7', required: false)
 
@@ -117,7 +117,7 @@ subdir('bus')
 subdir('registryd')
 subdir('test')
 
-if get_option('enable_docs')
+if get_option('docs')
   subdir('doc/libatspi')
 endif
 

@@ -16,7 +16,7 @@ registryd_deps = [
   dl_dep,
 ]
 
-x11_option = get_option('enable-x11')
+x11_option = get_option('x11')
 if x11_option != 'no'
   if x11_dep.found()
     registryd_sources += [

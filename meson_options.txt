@@ -19,11 +19,17 @@ option('systemd_user_dir',
        description: 'Location of the systemd user services',
        type: 'string',
        value: 'default')
-option('enable_docs',
+option('docs',
        description: 'Generate API reference for atspi (requires GTK-Doc)',
        type: 'boolean',
        value: false)
-
-option('enable-introspection', type: 'combo', choices: ['yes', 'no', 'auto'], value: 'auto', description: 'Enable GObject Introspection (depends on GObject)')
-
-option('enable-x11', type: 'combo', choices: ['yes', 'no', 'auto'], value: 'auto', description: 'Enable X11 support')
+option('introspection',
+       description: 'Enable GObject Introspection (depends on GObject)',
+       type: 'combo',
+       choices: ['yes', 'no', 'auto'],
+       value: 'auto')
+option('x11',
+       description: 'Enable X11 support',
+       type: 'combo',
+       choices: ['yes', 'no', 'auto'],
+       value: 'auto')
