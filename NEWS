@@ -1,3 +1,10 @@
+What's new in at-spi2-core 2.26.3:
+
+* Fix a possible buffer overrun in the case of a very long
+  dbus session address (bgo#791124).
+
+* Fix atspi_table_cell_get_(row|column)_header_cells.
+
 What's new in at-spi2-core 2.26.2:
 
 * dist po/meson.build (bgo#789666).
