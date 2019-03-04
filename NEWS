@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.28.1:
+
+* Fix atspi_table_cell_get_(row|column)_header_cells.
+
 What's new in at-spi2-core 2.27.92:
 
 * Support building a static library (bgo#793652).
