@@ -1,3 +1,7 @@
+What's new in at-spi2-atk 2.31.92:
+
+* Fix a crash when retrieveing headers from table cells.
+
 What's new in at-spi2-atk 2.31.2:
 
 * Add ScrollSubstringTo and ScrollSubstringToPoint interfaces.
