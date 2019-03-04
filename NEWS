@@ -1,4 +1,14 @@
-What's new in at-spi2-core 2.31.2:
+What's new in at-spi2-core 2.31.92:
+
+* Fix atspi_table_cell_get_(row_column)_headers.
+
+* Update documentation to indicate that extents are only meaningful
+  when an object has both STATE_VISIBLE and STATE_SHOWING.
+
+* Use a consistent style for the meson options.
+
+* Fix a compiler warning on BSD.
+
 
 * Add ScrollSubstringTo and ScrollSubstringToPoint text interfaces.
 
