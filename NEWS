@@ -1,3 +1,9 @@
+Changes in version 2.31.93
+==========================
+*
+* AtkText
+   * Fix failure value for atk_text_get_caret_offset
+
 Changes in version 2.31.92
 ==========================
 *
