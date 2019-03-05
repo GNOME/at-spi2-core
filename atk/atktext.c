@@ -636,7 +636,7 @@ gchar* atk_text_get_string_at_offset (AtkText *text,
  *
  * Gets the offset of the position of the caret (cursor).
  *
- * Returns: the character offset of the position of the caret or 0  if
+ * Returns: the character offset of the position of the caret or -1 if
  *          the caret is not located inside the element or in the case of
  *          any other failure.
  **/
@@ -652,7 +652,7 @@ atk_text_get_caret_offset (AtkText *text)
   if (iface->get_caret_offset)
     return (*(iface->get_caret_offset)) (text);
   else
-    return 0;
+    return -1;
 }
 
 /**
