@@ -1359,7 +1359,7 @@ atk_text_rectangle_contain (AtkTextRectangle *clip,
 }
 
 /**
- * atk_text_scroll_substring_to (AtkText *accessible, AtkScrollType type)
+ * atk_text_scroll_substring_to:
  * @text: an #AtkText
  * @start_offset: start position
  * @end_offset: end position, or -1 for the end of the string.
@@ -1393,7 +1393,7 @@ atk_text_scroll_substring_to (AtkText       *text,
 }
 
 /**
- * atk_text_scroll_substring_to_point (AtkText *accessible, AtkScrollType type, gint x, gint y)
+ * atk_text_scroll_substring_to_point:
  * @text: an #AtkText
  * @start_offset: start position
  * @end_offset: end position, or -1 for the end of the string.
