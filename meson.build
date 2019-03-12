@@ -1,5 +1,5 @@
 project('at-spi2-atk', 'c',
-        version: '2.31.92',
+        version: '2.32.0',
         license: 'LGPLv2.1+',
         default_options: [
           'buildtype=debugoptimized',
