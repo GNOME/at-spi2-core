@@ -1,6 +1,6 @@
 What's new in at-spi2-core 2.31.92:
 
-* Fix atspi_table_cell_get_(row_column)_headers.
+* Fix atspi_table_cell_get_(row_column)_header_cells.
 
 * Update documentation to indicate that extents are only meaningful
   when an object has both STATE_VISIBLE and STATE_SHOWING.
