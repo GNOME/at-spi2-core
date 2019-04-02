@@ -957,8 +957,8 @@ spi_atk_activate ()
     }
 }
 
-/*
- * spi_app_init
+/**
+ * atk_bridge_adaptor_init: initializes the atk bridge adaptor
  *
  * The following needs to be initialized.
  *
@@ -967,6 +967,8 @@ spi_atk_activate ()
  * - setup the bus for p2p communication
  * - Application registration with the AT-SPI registry.
  *
+ * Returns: 0 if the bridge gets or was already initialized
+ * succesfully, -1 otherwise
  */
 int
 atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
