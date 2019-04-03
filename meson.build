@@ -92,7 +92,7 @@ foreach f: checked_funcs
 endforeach
 
 # Dependencies
-glib_req_version = '>= 2.31.2'
+glib_req_version = '>= 2.38.0'
 
 glib_dep = [dependency('glib-2.0', version: glib_req_version,
                           fallback : ['glib', 'libglib_dep']),
