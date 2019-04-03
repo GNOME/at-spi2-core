@@ -1767,6 +1767,33 @@ atspi_accessible_get_object_locale (AtspiAccessible *accessible, GError **error)
   return locale;
 }
 
+/**
+ * atspi_accessible_get_accessible_id:
+ * @obj: an #AtspiAccessible
+ *
+ * Gets the accessible id of the accessible.  This is not meant to be presented
+ * to the user, but to be an id which is stable over application development.
+ * Typically, this is the gtkbuilder id.
+ *
+ * Since: 2.34
+ *
+ * Returns: a character string representing the accessible id of the
+ * #AtspiAccessible object or NULL on exception.
+ **/
+gchar*
+atspi_accessible_get_accessible_id (AtspiAccessible *obj, GError **error)
+{
+  gchar *accessible_id;
+
+  g_return_val_if_fail (obj != NULL, NULL);
+
+  if (!_atspi_dbus_get_property (obj, atspi_interface_accessible,
+				 "AccessibleId", error, "s", &accessible_id))
+    return NULL;
+
+  return accessible_id;
+}
+
 void
 free_value (gpointer data)
 {

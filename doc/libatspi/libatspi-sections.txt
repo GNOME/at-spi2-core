@@ -251,6 +251,7 @@ atspi_accessible_get_table_iface
 atspi_accessible_get_text_iface
 atspi_accessible_get_value_iface
 atspi_accessible_get_interfaces
+atspi_accessible_get_accessible_id
 <SUBSECTION Standard>
 ATSPI_ACCESSIBLE
 ATSPI_IS_ACCESSIBLE
