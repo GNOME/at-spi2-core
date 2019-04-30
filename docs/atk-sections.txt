@@ -196,6 +196,8 @@ atk_object_add_relationship
 atk_object_remove_relationship
 atk_object_get_attributes
 atk_object_get_object_locale
+atk_object_get_accessible_id
+atk_object_set_accessible_id
 atk_role_get_name
 atk_role_get_localized_name
 atk_role_for_name

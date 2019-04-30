@@ -78,6 +78,7 @@ enum
   PROP_TABLE_SUMMARY,
   PROP_TABLE_CAPTION_OBJECT,
   PROP_HYPERTEXT_NUM_LINKS,
+  PROP_ACCESSIBLE_ID,
   PROP_LAST         /* gobject convention */
 };
 
@@ -214,6 +215,12 @@ enum {
   N_("description value")
 #endif /* 0 */
 
+typedef struct {
+  gchar *accessible_id;
+} AtkObjectPrivate;
+
+static gint AtkObject_private_offset;
+
 static void            atk_object_class_init        (AtkObjectClass  *klass);
 static void            atk_object_init              (AtkObject       *accessible,
                                                      AtkObjectClass  *klass);
@@ -321,8 +328,17 @@ atk_object_get_type (void)
         (GInstanceInitFunc) atk_object_init,
       } ;
       type = g_type_register_static (G_TYPE_OBJECT, "AtkObject", &typeInfo, 0) ;
+
+      AtkObject_private_offset =
+        g_type_add_instance_private (type, sizeof (AtkObjectPrivate));
     }
   return type;
+}
+
+static inline gpointer
+atk_object_get_instance_private (AtkObject *self)
+{
+  return (G_STRUCT_MEMBER_P (self, AtkObject_private_offset));
 }
 
 static void
@@ -331,6 +347,9 @@ atk_object_class_init (AtkObjectClass *klass)
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
   parent_class = g_type_class_peek_parent (klass);
+
+  if (AtkObject_private_offset != 0)
+    g_type_class_adjust_private_offset (klass, &AtkObject_private_offset);
 
   gobject_class->set_property = atk_object_real_set_property;
   gobject_class->get_property = atk_object_real_get_property;
@@ -670,11 +689,14 @@ static void
 atk_object_init  (AtkObject        *accessible,
                   AtkObjectClass   *klass)
 {
+  AtkObjectPrivate *private = atk_object_get_instance_private (accessible);
+
   accessible->name = NULL;
   accessible->description = NULL;
   accessible->accessible_parent = NULL;
   accessible->relation_set = atk_relation_set_new();
   accessible->role = ATK_ROLE_UNKNOWN;
+  private->accessible_id = NULL;
 }
 
 GType
@@ -1326,6 +1348,9 @@ atk_object_real_set_property (GObject      *object,
       if (ATK_IS_TABLE (accessible))
         atk_table_set_caption (ATK_TABLE (accessible), g_value_get_object (value));
       break;
+    case PROP_ACCESSIBLE_ID:
+      atk_object_set_accessible_id (accessible, g_value_get_string (value));
+      break;
     default:
       break;
     }
@@ -1379,6 +1404,9 @@ atk_object_real_get_property (GObject      *object,
       if (ATK_IS_HYPERTEXT (accessible))
         g_value_set_int (value, atk_hypertext_get_n_links (ATK_HYPERTEXT (accessible)));
       break;
+    case PROP_ACCESSIBLE_ID:
+      g_value_set_string (value, atk_object_get_accessible_id (accessible));
+      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
@@ -1389,10 +1417,12 @@ static void
 atk_object_finalize (GObject *object)
 {
   AtkObject        *accessible;
+  AtkObjectPrivate *private;
 
   g_return_if_fail (ATK_IS_OBJECT (object));
 
   accessible = ATK_OBJECT (object);
+  private = atk_object_get_instance_private (accessible);
 
   g_free (accessible->name);
   g_free (accessible->description);
@@ -1405,6 +1435,8 @@ atk_object_finalize (GObject *object)
 
   if (accessible->accessible_parent)
     g_object_unref (accessible->accessible_parent);
+
+  g_free(private->accessible_id);
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
@@ -1707,6 +1739,45 @@ atk_object_remove_relationship (AtkObject       *object,
         atk_relation_set_remove (object->relation_set, relation);
     }
   return ret;
+}
+
+/**
+ * atk_object_get_accessible_id:
+ * @accessible: an #AtkObject
+ *
+ * Gets the accessible id of the accessible.
+ *
+ * Since: 2.34
+ *
+ * Returns: a character string representing the accessible id of the object, or
+ * NULL if no such string was set.
+ **/
+const gchar*
+atk_object_get_accessible_id (AtkObject *accessible)
+{
+  AtkObjectPrivate *private = atk_object_get_instance_private (accessible);
+  return private->accessible_id;
+}
+
+/**
+ * atk_object_set_accessible_id:
+ * @accessible: an #AtkObject
+ * @name: a character string to be set as the accessible id
+ *
+ * Sets the accessible ID of the accessible.  This is not meant to be presented
+ * to the user, but to be an ID which is stable over application development.
+ * Typically, this is the gtkbuilder ID. Such an ID will be available for
+ * instance to identify a given well-known accessible object for tailored screen
+ * reading, or for automatic regression testing.
+ *
+ * Since: 2.34
+ **/
+void
+atk_object_set_accessible_id (AtkObject *accessible, const gchar *id)
+{
+  AtkObjectPrivate *private = atk_object_get_instance_private (accessible);
+  g_free (private->accessible_id);
+  private->accessible_id = g_strdup (id);
 }
 
 static void
