@@ -42,6 +42,8 @@ static GArray *listener_ids = NULL;
 static gint atk_bridge_key_event_listener_id;
 static gint atk_bridge_focus_tracker_id;
 
+GMainContext *spi_context = NULL;
+
 /*---------------------------------------------------------------------------*/
 
 #define ITF_EVENT_OBJECT   "org.a11y.atspi.Event.Object"
@@ -72,6 +74,34 @@ switch_main_context (GMainContext *cnx)
     atspi_dbus_connection_setup_with_g_main (list->data, cnx);
 }
 
+guint
+spi_idle_add(GSourceFunc    function, gpointer       data)
+{
+  GSource *source;
+  guint id;
+
+  source = g_idle_source_new ();
+  g_source_set_callback (source, function, data, NULL);
+  id = g_source_attach (source, spi_context);
+  g_source_unref (source);
+
+  return id;
+}
+
+guint
+spi_timeout_add_seconds (gint interval, GSourceFunc function, gpointer    data)
+{
+  GSource *source;
+  guint id;
+
+  source = g_timeout_source_new_seconds (interval);
+  g_source_set_callback (source, function, data, NULL);
+  id = g_source_attach (source, spi_context);
+  g_source_unref (source);
+
+  return id;
+}
+
 static void
 set_reply (DBusPendingCall * pending, void *user_data)
 {
@@ -79,7 +109,7 @@ set_reply (DBusPendingCall * pending, void *user_data)
 
   closure->reply = dbus_pending_call_steal_reply (pending);
   dbus_pending_call_unref (pending);
-  switch_main_context (NULL);
+  switch_main_context (spi_context);
   g_main_loop_quit (closure->loop);
 }
 
@@ -88,7 +118,7 @@ timeout_reply (void *data)
 {
   SpiReentrantCallClosure *closure = data;
 
-  switch_main_context (NULL);
+  switch_main_context (spi_context);
   g_main_loop_quit (closure->loop);
   closure->timeout = -1;
   return FALSE;
@@ -108,7 +138,7 @@ send_and_allow_reentry (DBusConnection * bus, DBusMessage * message)
 
   if (!dbus_connection_send_with_reply (bus, message, &pending, 9000) || !pending)
     {
-      switch_main_context (NULL);
+      switch_main_context (spi_context);
       return NULL;
     }
   dbus_pending_call_set_notify (pending, set_reply, (void *) &closure, NULL);
@@ -124,6 +154,13 @@ send_and_allow_reentry (DBusConnection * bus, DBusMessage * message)
   if (!closure.reply)
     dbus_pending_call_cancel (pending);
   return closure.reply;
+}
+
+void
+atk_bridge_set_event_context(GMainContext *cnx)
+{
+  spi_context = cnx;
+  switch_main_context(spi_context);
 }
 
 /*---------------------------------------------------------------------------*/

@@ -25,6 +25,7 @@
 #include <string.h>
 
 #include "accessible-leasing.h"
+#include "event.h"
 
 #ifdef SPI_ATK_DEBUG
 #include "accessible-cache.h"
@@ -161,8 +162,8 @@ add_expiry_timeout (SpiLeasing * leasing)
   /* The current time is implicitly rounded down here by ignoring the us */
   g_get_current_time (&t);
   next_expiry = elem->expiry_s - t.tv_sec;
-  leasing->expiry_func_id = g_timeout_add_seconds (next_expiry,
-                                                   expiry_func, leasing);
+  leasing->expiry_func_id = spi_timeout_add_seconds (next_expiry,
+                                                     expiry_func, leasing);
 }
 
 /*---------------------------------------------------------------------------*/

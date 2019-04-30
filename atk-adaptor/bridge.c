@@ -673,7 +673,7 @@ new_connection_cb (DBusServer *server, DBusConnection *con, void *data)
 {
   dbus_connection_set_unix_user_function (con, user_check, NULL, NULL);
   dbus_connection_ref(con);
-  atspi_dbus_connection_setup_with_g_main(con, NULL);
+  atspi_dbus_connection_setup_with_g_main(con, spi_context);
   droute_intercept_dbus (con);
   droute_context_register (spi_global_app_data->droute, con);
 
@@ -904,7 +904,7 @@ spi_atk_create_socket (SpiBridge *app)
     return -1;
   }
 
-  atspi_dbus_server_setup_with_g_main(server, NULL);
+  atspi_dbus_server_setup_with_g_main(server, spi_context);
   dbus_server_set_new_connection_function(server, new_connection_cb, NULL, NULL);
 
   spi_global_app_data->server = server;

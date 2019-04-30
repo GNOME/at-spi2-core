@@ -31,6 +31,7 @@ G_BEGIN_DECLS
 
 int atk_bridge_adaptor_init (int * argc, char ** argv[]);
 void atk_bridge_adaptor_cleanup (void);
+void atk_bridge_set_event_context(GMainContext *cnx);
 
 G_END_DECLS
 

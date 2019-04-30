@@ -26,6 +26,7 @@
 #include "accessible-cache.h"
 #include "accessible-register.h"
 #include "bridge.h"
+#include "event.h"
 
 SpiCache *spi_global_cache = NULL;
 
@@ -358,7 +359,7 @@ child_added_listener (GSignalInvocationHint * signal_hint,
           g_queue_push_tail (cache->add_traversal, child);
 
           if (cache->add_pending_idle == 0)
-            cache->add_pending_idle = g_idle_add (add_pending_items, cache);
+            cache->add_pending_idle = spi_idle_add (add_pending_items, cache);
         }
 #ifdef SPI_ATK_DEBUG
       recursion_check_unset ();
@@ -400,7 +401,7 @@ toplevel_added_listener (AtkObject * accessible,
       g_queue_push_tail (cache->add_traversal, child);
 
       if (cache->add_pending_idle == 0)
-        cache->add_pending_idle = g_idle_add (add_pending_items, cache);
+        cache->add_pending_idle = spi_idle_add (add_pending_items, cache);
 #ifdef SPI_ATK_DEBUG
       recursion_check_unset ();
 #endif
