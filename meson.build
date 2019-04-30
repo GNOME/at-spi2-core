@@ -38,7 +38,7 @@ libdbus_req_version = '>= 1.5'
 glib_req_version = '>= 2.32.0'
 gobject_req_version = '>= 2.0.0'
 gmodule_req_version = '>= 2.0.0'
-atk_req_version = '>= 2.31.1'
+atk_req_version = '>= 2.33.1'
 atspi_req_version = '>= 2.31.2'
 libxml_req_version = '>= 2.9.1'
 
