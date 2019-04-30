@@ -1,6 +1,6 @@
 What's new in at-spi2-core 2.32.1:
 
-* Fix mesonb uild for meson 0.50.0.
+* Fix meson build for meson 0.50.0.
 
 What's new in at-spi2-core 2.31.92:
 
