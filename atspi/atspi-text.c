@@ -963,7 +963,7 @@ atspi_text_scroll_substring_to_point (AtspiText *obj,
 }
 
 /**
- * atspi_text_notify_read_position:
+ * atspi_text_notify_reading_position:
  * @obj: the #AtspiText object being read.
  * @offset: the offset of the text currently being read.
  *
@@ -972,10 +972,9 @@ atspi_text_scroll_substring_to_point (AtspiText *obj,
  * the screen reader and highlight the text that is currently being read.
  */
 void
-atspi_text_notify_read_position (AtspiText *obj,
-                                gint offset)
+atspi_text_notify_reading_position (AtspiText *obj,
+                                    gint offset)
 {
-  DBusConnection *bus = _atspi_bus ();
   DBusMessage *signal;
   AtspiAccessible *accessible;
   gint len;
@@ -994,14 +993,14 @@ atspi_text_notify_read_position (AtspiText *obj,
   if (!quark_text_len)
     quark_text_len = g_quark_from_string ("accessible-text-len");
 
-  plen = g_object_get_qdata (accessible, quark_text_len);
+  plen = g_object_get_qdata (G_OBJECT (accessible), quark_text_len);
   if (plen)
-    len = (gint)plen;
+    len = (gint) (gint64)plen;
   else
     {
       len = atspi_text_get_character_count (obj, NULL);
-      plen = (gpointer)len;
-      g_object_set_qdata (accessible, quark_text_len, plen);
+      plen = (gpointer) (gint64)len;
+      g_object_set_qdata (G_OBJECT (accessible), quark_text_len, plen);
     }
 
   remaining = (len >= 0 ? len - offset : 0);

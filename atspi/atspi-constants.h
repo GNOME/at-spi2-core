@@ -1463,7 +1463,7 @@ typedef enum {
 #define ATSPI_DBUS_INTERFACE_SOCKET "org.a11y.atspi.Socket"
 
 #define ATSPI_DBUS_PATH_SCREEN_READER "/org/a11y/atspi/screenreader"
-#define ATSPI_DBUS_INTERFACE_SCREEN_READER "org.a11y.Atspi.ScreenReader"
+#define ATSPI_DBUS_INTERFACE_SCREEN_READER "org.a11y.atspi.ScreenReader"
 
 #ifdef __cplusplus
 }

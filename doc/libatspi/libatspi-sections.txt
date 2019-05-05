@@ -32,7 +32,7 @@ atspi_text_get_text_attribute_value
 atspi_text_get_text_attributes
 atspi_text_scroll_substring_to
 atspi_text_scroll_substring_to_point
-atspi_text_notify_read_position
+atspi_text_notify_reading_position
 <SUBSECTION Standard>
 ATSPI_TEXT
 ATSPI_IS_TEXT
