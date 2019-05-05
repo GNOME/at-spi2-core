@@ -1849,3 +1849,50 @@ _atspi_set_error_no_sync (GError **error)
   g_set_error_literal (error, ATSPI_ERROR, ATSPI_ERROR_SYNC_NOT_ALLOWED,
                         _("Attempted synchronous call where prohibited"));
 }
+
+static const char *sr_introspection = "<!DOCTYPE node PUBLIC \"-//freedesktop//DTD D-BUS Object Introspection 1.0//EN\"\n"
+"\"http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd\">\n"
+"<node name=\"/org/a11y/atspi/screenreader\">\n"
+"  <interface name=\"org.a11y.Atspi.ScreenReader\">\n"
+"    <signal name=\"ReadingPosition\">\n"
+"      <arg type=\"i\"/>\n"
+"      <arg type=\"i\"/>\n"
+"    </signal>\n"
+"  </interface>\n"
+"</node>";
+
+static DBusHandlerResult
+screen_reader_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
+{
+  if (dbus_message_is_method_call (message, DBUS_INTERFACE_INTROSPECTABLE,
+      "Introspect"))
+  {
+    DBusMessage *reply = dbus_message_new_method_return (message);
+    dbus_message_append_args (reply, DBUS_TYPE_STRING, &sr_introspection,
+                              DBUS_TYPE_INVALID);
+    dbus_connection_send (bus, reply, NULL);
+    dbus_message_unref (reply);
+    return DBUS_HANDLER_RESULT_HANDLED;
+  }
+  return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+}
+
+gboolean
+_atspi_prepare_screen_reader_interface ()
+{
+  static gint initialized = 0;
+  DBusConnection *a11y_bus = _atspi_bus ();
+
+  if (initialized)
+    return (initialized > 0);
+
+  if (dbus_bus_request_name (a11y_bus, "org.a11y.Atspi.ScreenReader", 0, NULL) < 0)
+  {
+    initialized = -1;
+    return FALSE;
+  }
+
+  initialized = 1;
+  dbus_connection_add_filter (a11y_bus, screen_reader_filter, NULL, NULL);
+  return TRUE;
+}

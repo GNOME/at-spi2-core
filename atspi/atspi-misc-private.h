@@ -166,6 +166,8 @@ gboolean _atspi_get_allow_sync ();
 gboolean _atspi_set_allow_sync (gboolean val);
 
 void _atspi_set_error_no_sync (GError **error);
+
+gboolean _atspi_prepare_screen_reader_interface ();
 G_END_DECLS
 
 #endif	/* _ATSPI_MISC_PRIVATE_H_ */
