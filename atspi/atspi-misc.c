@@ -1601,7 +1601,7 @@ atspi_get_a11y_bus (void)
   if (address_env != NULL && *address_env != 0)
     address = g_strdup (address_env);
 #ifdef HAVE_X11
-  if (!address)
+  if (!address && g_strcmp0 (g_getenv ("XDG_SESSION_TYPE"), "x11") == 0)
     address = get_accessibility_bus_address_x11 ();
 #endif
   if (!address)

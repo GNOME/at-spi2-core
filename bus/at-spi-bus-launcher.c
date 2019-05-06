@@ -466,20 +466,21 @@ ensure_a11y_bus (A11yBusLauncher *app)
 #endif
 
 #ifdef HAVE_X11
-  {
-    Display *display = XOpenDisplay (NULL);
-    if (display)
-      {
-        Atom bus_address_atom = XInternAtom (display, "AT_SPI_BUS", False);
-        XChangeProperty (display,
-                         XDefaultRootWindow (display),
-                         bus_address_atom,
-                         XA_STRING, 8, PropModeReplace,
-                         (guchar *) app->a11y_bus_address, strlen (app->a11y_bus_address));
-        XFlush (display);
-        XCloseDisplay (display);
-      }
-  }
+  if (g_strcmp0 (g_getenv ("XDG_SESSION_TYPE"), "x11") == 0)
+    {
+      Display *display = XOpenDisplay (NULL);
+      if (display)
+        {
+          Atom bus_address_atom = XInternAtom (display, "AT_SPI_BUS", False);
+          XChangeProperty (display,
+                           XDefaultRootWindow (display),
+                           bus_address_atom,
+                           XA_STRING, 8, PropModeReplace,
+                           (guchar *) app->a11y_bus_address, strlen (app->a11y_bus_address));
+          XFlush (display);
+          XCloseDisplay (display);
+        }
+    }
 #endif
 
   return TRUE;
@@ -884,19 +885,20 @@ main (int    argc,
    * we don't want early login processes to pick up the stale address.
    */
 #ifdef HAVE_X11
-  {
-    Display *display = XOpenDisplay (NULL);
-    if (display)
-      {
-        Atom bus_address_atom = XInternAtom (display, "AT_SPI_BUS", False);
-        XDeleteProperty (display,
-                         XDefaultRootWindow (display),
-                         bus_address_atom);
+  if (g_strcmp0 (g_getenv ("XDG_SESSION_TYPE"), "x11") == 0)
+    {
+      Display *display = XOpenDisplay (NULL);
+      if (display)
+        {
+          Atom bus_address_atom = XInternAtom (display, "AT_SPI_BUS", False);
+          XDeleteProperty (display,
+                           XDefaultRootWindow (display),
+                           bus_address_atom);
 
-        XFlush (display);
-        XCloseDisplay (display);
-      }
-  }
+          XFlush (display);
+          XCloseDisplay (display);
+        }
+    }
 #endif
 
   if (_global_app->a11y_launch_error_message)
