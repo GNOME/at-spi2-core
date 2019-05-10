@@ -965,7 +965,8 @@ atspi_text_scroll_substring_to_point (AtspiText *obj,
 /**
  * atspi_text_notify_reading_position:
  * @obj: the #AtspiText object being read.
- * @offset: the offset of the text currently being read.
+ * @startOffset: the offset of the text currently being read.
+ * @endOffset: the offset of the end of the text currently being read.
  *
  * Notifies interested listeners of the specific text that the screen
  * reader is currently reading. This allows a magnifier to synchronize with
@@ -973,15 +974,12 @@ atspi_text_scroll_substring_to_point (AtspiText *obj,
  */
 void
 atspi_text_notify_reading_position (AtspiText *obj,
-                                    gint offset)
+                                    gint startOffset,
+                                    gint endOffset)
 {
   DBusMessage *signal;
   AtspiAccessible *accessible;
-  gint len;
-  static gint quark_text_len = 0;
-  gpointer plen;
   DBusMessageIter iter, iter_struct;
-  gint remaining;
 
   g_return_if_fail (obj != NULL);
 
@@ -989,21 +987,6 @@ atspi_text_notify_reading_position (AtspiText *obj,
 
   if (!_atspi_prepare_screen_reader_interface ())
     return;
-
-  if (!quark_text_len)
-    quark_text_len = g_quark_from_string ("accessible-text-len");
-
-  plen = g_object_get_qdata (G_OBJECT (accessible), quark_text_len);
-  if (plen)
-    len = (gint) (gint64)plen;
-  else
-    {
-      len = atspi_text_get_character_count (obj, NULL);
-      plen = (gpointer) (gint64)len;
-      g_object_set_qdata (G_OBJECT (accessible), quark_text_len, plen);
-    }
-
-  remaining = (len >= 0 ? len - offset : 0);
 
   signal = dbus_message_new_signal (ATSPI_DBUS_PATH_SCREEN_READER,
                                     ATSPI_DBUS_INTERFACE_SCREEN_READER,
@@ -1014,8 +997,8 @@ atspi_text_notify_reading_position (AtspiText *obj,
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &accessible->parent.app->bus_name);
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &accessible->parent.path);
   dbus_message_iter_close_container (&iter, &iter_struct);
-  dbus_message_iter_append_basic (&iter, DBUS_TYPE_INT32, &offset);
-  dbus_message_iter_append_basic (&iter, DBUS_TYPE_INT32, &remaining);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_INT32, &startOffset);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_INT32, &endOffset);
   dbus_connection_send (_atspi_bus (), signal, NULL);
   dbus_message_unref (signal);
 }
