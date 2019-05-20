@@ -466,20 +466,21 @@ ensure_a11y_bus (A11yBusLauncher *app)
 #endif
 
 #ifdef HAVE_X11
-  {
-    Display *display = XOpenDisplay (NULL);
-    if (display)
-      {
-        Atom bus_address_atom = XInternAtom (display, "AT_SPI_BUS", False);
-        XChangeProperty (display,
-                         XDefaultRootWindow (display),
-                         bus_address_atom,
-                         XA_STRING, 8, PropModeReplace,
-                         (guchar *) app->a11y_bus_address, strlen (app->a11y_bus_address));
-        XFlush (display);
-        XCloseDisplay (display);
-      }
-  }
+  if (g_strcmp0 (g_getenv ("XDG_SESSION_TYPE"), "x11") == 0)
+    {
+      Display *display = XOpenDisplay (NULL);
+      if (display)
+        {
+          Atom bus_address_atom = XInternAtom (display, "AT_SPI_BUS", False);
+          XChangeProperty (display,
+                           XDefaultRootWindow (display),
+                           bus_address_atom,
+                           XA_STRING, 8, PropModeReplace,
+                           (guchar *) app->a11y_bus_address, strlen (app->a11y_bus_address));
+          XFlush (display);
+          XCloseDisplay (display);
+        }
+    }
 #endif
 
   return TRUE;
@@ -771,50 +772,6 @@ init_sigterm_handling (A11yBusLauncher *app)
                   app);
 }
 
-static gboolean
-already_running ()
-{
-#ifdef HAVE_X11
-  Atom AT_SPI_BUS;
-  Atom actual_type;
-  Display *bridge_display;
-  int actual_format;
-  unsigned char *data = NULL;
-  unsigned long nitems;
-  unsigned long leftover;
-  gboolean result = FALSE;
-
-  bridge_display = XOpenDisplay (NULL);
-  if (!bridge_display)
-	      return FALSE;
-      
-  AT_SPI_BUS = XInternAtom (bridge_display, "AT_SPI_BUS", False);
-  XGetWindowProperty (bridge_display,
-		      XDefaultRootWindow (bridge_display),
-		      AT_SPI_BUS, 0L,
-		      (long) BUFSIZ, False,
-		      (Atom) 31, &actual_type, &actual_format,
-		      &nitems, &leftover, &data);
-
-  if (data)
-  {
-    GDBusConnection *bus;
-    bus = g_dbus_connection_new_for_address_sync ((const gchar *)data, 0,
-                                                  NULL, NULL, NULL);
-    if (bus != NULL)
-      {
-        result = TRUE;
-        g_object_unref (bus);
-      }
-  }
-
-  XCloseDisplay (bridge_display);
-  return result;
-#else
-  return FALSE;
-#endif
-}
-
 static GSettings *
 get_schema (const gchar *name)
 {
@@ -859,9 +816,6 @@ main (int    argc,
   gboolean a11y_set = FALSE;
   gboolean screen_reader_set = FALSE;
   gint i;
-
-  if (already_running ())
-    return 0;
 
   _global_app = g_slice_new0 (A11yBusLauncher);
   _global_app->loop = g_main_loop_new (NULL, FALSE);
@@ -931,19 +885,20 @@ main (int    argc,
    * we don't want early login processes to pick up the stale address.
    */
 #ifdef HAVE_X11
-  {
-    Display *display = XOpenDisplay (NULL);
-    if (display)
-      {
-        Atom bus_address_atom = XInternAtom (display, "AT_SPI_BUS", False);
-        XDeleteProperty (display,
-                         XDefaultRootWindow (display),
-                         bus_address_atom);
+  if (g_strcmp0 (g_getenv ("XDG_SESSION_TYPE"), "x11") == 0)
+    {
+      Display *display = XOpenDisplay (NULL);
+      if (display)
+        {
+          Atom bus_address_atom = XInternAtom (display, "AT_SPI_BUS", False);
+          XDeleteProperty (display,
+                           XDefaultRootWindow (display),
+                           bus_address_atom);
 
-        XFlush (display);
-        XCloseDisplay (display);
-      }
-  }
+          XFlush (display);
+          XCloseDisplay (display);
+        }
+    }
 #endif
 
   if (_global_app->a11y_launch_error_message)
