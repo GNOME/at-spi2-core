@@ -466,7 +466,7 @@ ensure_a11y_bus (A11yBusLauncher *app)
 #endif
 
 #ifdef HAVE_X11
-  if (g_strcmp0 (g_getenv ("XDG_SESSION_TYPE"), "x11") == 0)
+  if (g_getenv ("WAYLAND_DISPLAY") == NULL)
     {
       Display *display = XOpenDisplay (NULL);
       if (display)
@@ -885,7 +885,7 @@ main (int    argc,
    * we don't want early login processes to pick up the stale address.
    */
 #ifdef HAVE_X11
-  if (g_strcmp0 (g_getenv ("XDG_SESSION_TYPE"), "x11") == 0)
+  if (g_getenv ("WAYLAND_DISPLAY") == NULL)
     {
       Display *display = XOpenDisplay (NULL);
       if (display)

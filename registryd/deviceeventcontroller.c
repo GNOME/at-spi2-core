@@ -1856,7 +1856,7 @@ spi_device_event_controller_class_init (SpiDEControllerClass *klass)
   object_class->finalize = spi_device_event_controller_object_finalize;
 
 #ifdef HAVE_X11
-  if (g_strcmp0 (g_getenv ("XDG_SESSION_TYPE"), "x11") == 0)
+  if (g_getenv ("WAYLAND_DISPLAY") == NULL)
     spi_dec_setup_x11 (klass);
   else
 #endif
