@@ -1,3 +1,11 @@
+What's new in at-spi2-atk 2.33.1:
+
+* Document atk_bridge_adaptor_init error messages.
+
+* Add atk_bridge_set_event_context.
+
+* Add AccessibleId property.
+
 What's new in at-spi2-atk 2.31.92:
 
 * Fix a crash when retrieveing headers from table cells.
