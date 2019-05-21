@@ -1,3 +1,15 @@
+What's new in at-spi2-core 2.33.1:
+
+* Fix mesonb uild for meson 0.50.0.
+
+* Add atspi_accessible_get_accessible_id.
+
+* Add atspi_text_notify_reading_position.
+
+* Check for an actual X11 session before calling X. This will be needed
+  for Mutter in the future because checking $DISPLAY is not sufficient,
+  and xwyland could be automatically started when it isn't wanted.
+
 What's new in at-spi2-core 2.31.92:
 
 * Fix atspi_table_cell_get_(row_column)_header_cells.
