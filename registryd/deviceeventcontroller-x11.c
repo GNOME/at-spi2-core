@@ -140,6 +140,14 @@ keysym_mod_mask (KeySym keysym, KeyCode keycode)
 		 (sym_rtn == keysym)) {
 		retval = Mod3Mask;
 	}
+	else if (XkbLookupKeySym (display, keycode, Mod4Mask, &mods_rtn, &sym_rtn) &&
+		 (sym_rtn == keysym)) {
+		retval = Mod4Mask;
+	}
+	else if (XkbLookupKeySym (display, keycode, Mod5Mask, &mods_rtn, &sym_rtn) &&
+		 (sym_rtn == keysym)) {
+		retval = Mod5Mask;
+	}
 	else if (XkbLookupKeySym (display, keycode, 
 				  ShiftMask | Mod2Mask, &mods_rtn, &sym_rtn) &&
 		 (sym_rtn == keysym)) {
@@ -154,6 +162,11 @@ keysym_mod_mask (KeySym keysym, KeyCode keycode)
 				  ShiftMask | Mod4Mask, &mods_rtn, &sym_rtn) &&
 		 (sym_rtn == keysym)) {
 		retval = (Mod4Mask | ShiftMask);
+	}
+	else if (XkbLookupKeySym (display, keycode,
+				  ShiftMask | Mod5Mask, &mods_rtn, &sym_rtn) &&
+		 (sym_rtn == keysym)) {
+		retval = (Mod5Mask | ShiftMask);
 	}
 	else
 		retval = 0xFFFF;
