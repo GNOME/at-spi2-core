@@ -781,11 +781,11 @@ atk_text_get_run_attributes (AtkText          *text,
  *attributes that can be returned. Note that other attributes may also be 
  *returned.
  *
- *Returns: (transfer full): an #AtkAttributeSet which contains the default values
- *          of attributes.  at @offset. this #atkattributeset should be freed by
+ *Returns: (transfer full): an #AtkAttributeSet which contains the default text
+ *          attributes for this #AtkText. This #AtkAttributeSet should be freed by
  *          a call to atk_attribute_set_free().
  */
-AtkAttributeSet* 
+AtkAttributeSet*
 atk_text_get_default_attributes (AtkText          *text)
 {
   AtkTextIface *iface;
