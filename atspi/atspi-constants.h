@@ -1234,6 +1234,12 @@ typedef enum {
  * @ATSPI_ROLE_DESCRIPTION_VALUE: An object that represents the description,
  *  definition, or value of a term. @Since: 2.26.
  * @ATSPI_ROLE_FOOTNOTE: An object that contains the text of a footnote. @Since: 2.26.
+ * @ATSPI_ROLE_CONTENT_DELETION: Content previously deleted or proposed to be
+ * deleted, e.g. in revision history or a content view providing suggestions
+ * from reviewers. @Since: 2.34.
+ * @ATSPI_ROLE_CONTENT_INSERTION: Content previously inserted or proposed to be
+ * inserted, e.g. in revision history or a content view providing suggestions
+ * from reviewers. @Since: 2.34.
  *  @ATSPI_ROLE_LAST_DEFINED: Not a valid role, used for finding end of
  *  enumeration.
  *
@@ -1367,6 +1373,8 @@ typedef enum {
     ATSPI_ROLE_DESCRIPTION_TERM,
     ATSPI_ROLE_DESCRIPTION_VALUE,
     ATSPI_ROLE_FOOTNOTE,
+    ATSPI_ROLE_CONTENT_DELETION,
+    ATSPI_ROLE_CONTENT_INSERTION,
     ATSPI_ROLE_LAST_DEFINED,
 } AtspiRole;
 
@@ -1375,7 +1383,7 @@ typedef enum {
  *
  * One higher than the highest valid value of #AtspiRole.
  */
-#define ATSPI_ROLE_COUNT (125+1)
+#define ATSPI_ROLE_COUNT (127+1)
 
 typedef enum
 {
