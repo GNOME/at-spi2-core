@@ -44,6 +44,7 @@ else
                              '/usr/sbin/dbus-daemon',
                              '/libexec/dbus-daemon',
                              '/usr/libexec/dbus-daemon',
+                             '/usr/lib/dbus-daemon',
                              '/usr/pkg/bin/dbus-daemon',
                              required: false)
   if dbus_daemon.found()
