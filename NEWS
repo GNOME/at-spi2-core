@@ -1,3 +1,15 @@
+What's new in at-spi2-core 2.33.2:
+
+* Check WAYLAND_DISPLAY, rather than XDG_SESSION_TYPE, to avoid X
+  connections. Fixes breakage if X is started with startx and
+  XDG_SESSION_TYPE is unset.
+
+* X11: also try mod4 and mod5 to generate keysyms.
+
+* Add ATSPI_ROLE_CONTENT_DELETION and ATSPI_ROLE_CONTENT_INSERTION.
+
+* Check for dbus-daemon in /usr/lib (for Solaris).
+
 What's new in at-spi2-core 2.33.1:
 
 * Fix meson build for meson 0.50.0.
