@@ -20,7 +20,8 @@ atk_interface_age = 1
 atk_binary_age = 10000 * atk_major_version + 100 * atk_minor_version + 10 + atk_micro_version
 
 atk_api_version = '1.0'
-atk_api_path = 'atk-@0@/atk'.format(atk_api_version)
+atk_api_name = 'atk-@0@'.format(atk_api_version)
+atk_api_path = '@0@/atk'.format(atk_api_name)
 
 atk_prefix = get_option('prefix')
 atk_libdir = join_paths(atk_prefix, get_option('libdir'))
@@ -99,30 +100,14 @@ glib_dep = [dependency('glib-2.0', version: glib_req_version,
             dependency('gobject-2.0', version: glib_req_version,
                           fallback : ['glib', 'libgobject_dep'])]
 
-# Compat variables for pkgconfig
-pkgconf = configuration_data()
-pkgconf.set('prefix', atk_prefix)
-pkgconf.set('exec_prefix', atk_prefix)
-pkgconf.set('libdir', atk_libdir)
-pkgconf.set('includedir', atk_includedir)
-pkgconf.set('VERSION', meson.project_version())
-pkgconf.set('ATK_API_VERSION', atk_api_version)
-pkgconf.set('srcdir', '.')
-
-foreach pkg: [ 'atk.pc', ]
-  configure_file(input: pkg + '.in',
-                 output: pkg,
-                 configuration: pkgconf,
-                 install: true,
-                 install_dir: join_paths(atk_libdir, 'pkgconfig'))
-endforeach
-
+pkgconfig = import('pkgconfig')
 gnome = import('gnome')
 
 # Internal configuration header
 configure_file(output: 'config.h', configuration: atk_conf)
 
 root_inc = include_directories('.')
+atk_inc = include_directories('atk')
 
 subdir('atk')
 subdir('tests')

@@ -40,6 +40,10 @@ G_DEFINE_TYPE_WITH_CODE (AtkPlug, atk_plug, ATK_TYPE_OBJECT,
 static void
 atk_plug_init (AtkPlug* obj)
 {
+  AtkObject *accessible = ATK_OBJECT (obj);
+
+  accessible->role = ATK_ROLE_FILLER;
+  accessible->layer = ATK_LAYER_WIDGET;
 }
 
 static void
@@ -53,18 +57,19 @@ atk_component_interface_init (AtkComponentIface *iface)
 {
 }
 
-AtkObject*
+/**
+ * atk_plug_new:
+ *
+ * Creates a new #AtkPlug instance.
+ *
+ * Returns: (transfer full): the newly created #AtkPlug
+ *
+ * Since: 1.30
+ */
+AtkObject *
 atk_plug_new (void)
 {
-  AtkObject* accessible;
-  
-  accessible = g_object_new (ATK_TYPE_PLUG, NULL);
-  g_return_val_if_fail (accessible != NULL, NULL);
-
-  accessible->role = ATK_ROLE_FILLER;
-  accessible->layer = ATK_LAYER_WIDGET;
-  
-  return accessible;
+  return g_object_new (ATK_TYPE_PLUG, NULL);
 }
 
 /**

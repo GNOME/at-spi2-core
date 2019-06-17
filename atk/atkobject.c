@@ -1171,12 +1171,14 @@ atk_object_set_role (AtkObject *accessible,
  * @accessible: an #AtkObject
  * @handler: a function to be called when a property changes its value
  *
- * Deprecated: Since 2.12. Connect directly to property-change or
- * notify signals.
+ * Calls @handler on property changes.
  *
  * Returns: a #guint which is the handler id used in 
- * atk_object_remove_property_change_handler()
- **/
+ *   atk_object_remove_property_change_handler()
+ *
+ * Deprecated: 2.12: Connect directly to #AtkObject::property-change or
+ *   the relevant #GObject::notify signal for each desired property.
+ */
 guint
 atk_object_connect_property_change_handler (AtkObject *accessible,
                                             AtkPropertyChangeHandler *handler)
@@ -1198,10 +1200,10 @@ atk_object_connect_property_change_handler (AtkObject *accessible,
  * @accessible: an #AtkObject
  * @handler_id: a guint which identifies the handler to be removed.
  *
- * Deprecated: Since 2.12.
- *
  * Removes a property change handler.
- **/
+ *
+ * Deprecated: 2.12: See atk_object_connect_property_change_handler()
+ */
 void
 atk_object_remove_property_change_handler  (AtkObject *accessible,
                                             guint      handler_id)

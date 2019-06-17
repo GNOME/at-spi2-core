@@ -30,27 +30,27 @@
 G_BEGIN_DECLS
 
 /**
- *AtkScrollType:
- *@ATK_SCROLL_TOP_LEFT: Scroll the object vertically and horizontally to the top
- *left corner of the window.
- *@ATK_SCROLL_BOTTOM_RIGHT: Scroll the object vertically and horizontally to the
- *bottom right corner of the window.
- *@ATK_SCROLL_TOP_EDGE: Scroll the object vertically to the top edge of the
- window.
- *@ATK_SCROLL_BOTTOM_EDGE: Scroll the object vertically to the bottom edge of
- *the window.
- *@ATK_SCROLL_LEFT_EDGE: Scroll the object vertically and horizontally to the
- *left edge of the window.
- *@ATK_SCROLL_RIGHT_EDGE: Scroll the object vertically and horizontally to the
- *right edge of the window.
- *@ATK_SCROLL_ANYWHERE: Scroll the object vertically and horizontally so that
- *as much as possible of the object becomes visible. The exact placement is
- *determined by the application.
+ * AtkScrollType:
+ * @ATK_SCROLL_TOP_LEFT: Scroll the object vertically and horizontally to the top
+ *  left corner of the window.
+ * @ATK_SCROLL_BOTTOM_RIGHT: Scroll the object vertically and horizontally to the
+ *   bottom right corner of the window.
+ * @ATK_SCROLL_TOP_EDGE: Scroll the object vertically to the top edge of the
+ *   window.
+ * @ATK_SCROLL_BOTTOM_EDGE: Scroll the object vertically to the bottom edge of
+ *   the window.
+ * @ATK_SCROLL_LEFT_EDGE: Scroll the object vertically and horizontally to the
+ *   left edge of the window.
+ * @ATK_SCROLL_RIGHT_EDGE: Scroll the object vertically and horizontally to the
+ *   right edge of the window.
+ * @ATK_SCROLL_ANYWHERE: Scroll the object vertically and horizontally so that
+ *   as much as possible of the object becomes visible. The exact placement is
+ *   determined by the application.
  *
  * Specifies where an object should be placed on the screen when using scroll_to.
  *
  * Since: 2.30
- **/
+ */
 typedef enum {
   ATK_SCROLL_TOP_LEFT,
   ATK_SCROLL_BOTTOM_RIGHT,
@@ -60,13 +60,6 @@ typedef enum {
   ATK_SCROLL_RIGHT_EDGE,
   ATK_SCROLL_ANYWHERE
 } AtkScrollType;
-
-/*
- * The AtkComponent interface should be supported by any object that is 
- * rendered on the screen. The interface provides the standard mechanism 
- * for an assistive technology to determine and set the graphical
- * representation of an object.
- */
 
 #define ATK_TYPE_COMPONENT                    (atk_component_get_type ())
 #define ATK_IS_COMPONENT(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATK_TYPE_COMPONENT)
@@ -122,21 +115,40 @@ GType atk_rectangle_get_type (void);
 /**
  * AtkComponentIface:
  * @add_focus_handler: This virtual function is deprecated since 2.9.4
- * and it should not be overriden. See
- * atk_component_add_focus_handler() for more information.
+ *   and it should not be overriden. See atk_component_add_focus_handler()
+ *   for more information.
  * @get_position: This virtual function is deprecated since 2.12 and
- * it should not be overriden. Use @get_extents instead.
+ *   it should not be overriden. Use @AtkComponentIface.get_extents instead.
  * @get_size: This virtual function is deprecated since 2.12 and it
- * should not be overriden. Use @get_extents instead.
+ *   should not be overriden. Use @AtkComponentIface.get_extents instead.
  * @remove_focus_handler: This virtual function is deprecated since
- * 2.9.4 and it should not be overriden. See
- * atk_component_remove_focus_handler() for more information.
+ *   2.9.4 and it should not be overriden. See atk_component_remove_focus_handler()
+ *   for more information.
+ * @contains:
+ * @ref_accessible_at_point:
+ * @get_extents:
+ * @grab_focus:
+ * @set_extents:
+ * @set_position:
+ * @set_size:
+ * @get_layer:
+ * @get_mdi_zorder:
+ * @bounds_changed:
+ * @get_alpha:
+ * @scroll_to:
+ * @scroll_to_point:
+ *
+ * The AtkComponent interface should be supported by any object that is
+ * rendered on the screen. The interface provides the standard mechanism
+ * for an assistive technology to determine and set the graphical
+ * representation of an object.
  */
-
 struct _AtkComponentIface
 {
+  /*< private >*/
   GTypeInterface parent;
 
+  /*< public >*/
   guint          (* add_focus_handler)  (AtkComponent          *component,
                                          AtkFocusHandler        handler);
 
