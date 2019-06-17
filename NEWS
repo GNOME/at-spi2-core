@@ -1,3 +1,57 @@
+Changes in version 2.33.3
+=========================
+
+* Documentation: general documentation cleanup, as part of MR!3,
+  changes include:
+   * Move Deprecated section down on AtkUtil
+   * Update the list of symbols
+   * Annotate the version for AtkTableCellIface
+   * Use Markdown syntax for notes
+   * Use the appropriate syntax for enumerations
+   * Add missing documentation for AtkObject functions
+   * Write description for AtkImage method
+   * Add proper gtk-doc blurbs for AtkDocument, AtkComponentIface and AtkActionIface
+   * Remove atk.types (as we can autogenerate it)
+
+* AtkSocket/AtkPlug
+   * Implement proper constructor for AtkPlug and AtkSocket (MR!3)
+
+* AtkText
+   * Doc: minor doc fix for atk_text_get_default_attributes (MR!20)
+
+* New Roles:
+   * Issue #2: Add ATK_ROLE_CONTENT_INSERTION and ATK_ROLE_CONTENT_DELETION (MR!19)
+
+* Build
+   * Meson: do not guard gir behind a cross_build check. (MR!12)
+   * Meson: refresh the build (part of MR!3)
+   * Meson: use Meson to generate the pkgconfig file (MR!3)
+
+Contributors
+   Emmanuele Bassi, Joanmarie Diggs, Christoph Reiter, Martin Robinson
+
+Translations
+   Charles Monzat (fr)
+
+Changes in version 2.33.1
+=========================
+
+* AtkObject: added accessible_id property (MR!16)
+
+* AtkText
+   * Edit documentation for last methods added in order to fix
+     introspection
+   * Fix failure value for atk_text_get_caret_offset (MR!14)
+
+* Build:
+   * Bumping ATK version without a release as at-spi2-atk master
+     started to depend on last API changes.
+
+Contributors:
+   Emmanuele Bassi, Alejandro Piñeiro, Martin Robinson, Samuel
+   Thibault
+
+
 Changes in version 2.31.93
 ==========================
 *
