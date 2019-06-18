@@ -1,3 +1,10 @@
+What's new in at-spi2-atk 2.33.2:
+
+* Add support for ROLE_CONTENT_DELETION and ROLE_CONTENT_INSERTION
+
+* Fix a build issue where libgobject might not have been linked, resulting in
+  undefined symbols.
+
 What's new in at-spi2-atk 2.33.1:
 
 * Document atk_bridge_adaptor_init error messages.
