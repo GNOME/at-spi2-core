@@ -341,7 +341,7 @@ struct _AtkTextIface
    * position on the screen, with type used as a positioning hint.
    *
    * scroll_substring_to_point lets the client specify a precise target position
-   * on the screen.
+   * on the screen for the top-left of the substring.
    *
    * Since ATK 2.32
    */
