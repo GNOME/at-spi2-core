@@ -89,6 +89,7 @@ struct _AtspiEvent
   gint         detail1;
   gint         detail2;
   GValue any_data;
+  AtspiAccessible *sender;
 };
 
 /**

@@ -882,6 +882,7 @@ atspi_event_copy (AtspiEvent *src)
   dst->detail2 = src->detail2;
   g_value_init (&dst->any_data, G_VALUE_TYPE (&src->any_data));
   g_value_copy (&src->any_data, &dst->any_data);
+  dst->sender = g_object_ref (src->sender);
   return dst;
 }
 
@@ -892,6 +893,7 @@ atspi_event_free (AtspiEvent *event)
   g_free (event->type);
   g_value_unset (&event->any_data);
   g_free (event);
+  g_object_unref (event->sender);
 }
 
 static gboolean
@@ -961,6 +963,7 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
 {
   char *detail = NULL;
   const char *category = dbus_message_get_interface (message);
+  const char *sender = dbus_message_get_sender (message);
   const char *member = dbus_message_get_member (message);
   const char *signature = dbus_message_get_signature (message);
   gchar *name;
@@ -1026,7 +1029,7 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   e.type = converted_type;
   if (strcmp (category, "ScreenReader") != 0)
   {
-    e.source = _atspi_ref_accessible (dbus_message_get_sender(message), dbus_message_get_path(message));
+    e.source = _atspi_ref_accessible (sender, dbus_message_get_path (message));
     if (e.source == NULL)
     {
       g_warning ("Got no valid source accessible for signal %s from interface %s\n", member, category);
@@ -1083,6 +1086,8 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
     /* new form -- parse properties sent with event */
     cache = _atspi_dbus_update_cache_from_dict (e.source, &iter);
   }
+
+  e.sender = _atspi_ref_accessible (sender, ATSPI_DBUS_PATH_ROOT);
 
   if (!strncmp (e.type, "object:children-changed", 23))
   {
