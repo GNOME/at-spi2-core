@@ -140,8 +140,6 @@ gboolean atspi_text_set_selection (AtspiText *obj, gint selection_num, gint star
 gboolean atspi_text_scroll_substring_to (AtspiText *obj, gint start_offset, gint end_offset, AtspiScrollType type, GError **error);
 
 gboolean atspi_text_scroll_substring_to_point (AtspiText *obj, gint start_offset, gint end_offset, AtspiCoordType coords, gint x, gint y, GError **error);
-
-void atspi_text_notify_reading_position (AtspiText *obj, gint startOffset, gint endOffset);
 G_END_DECLS
 
 #endif	/* _ATSPI_TEXT_H_ */

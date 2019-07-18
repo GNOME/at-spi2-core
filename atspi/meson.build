@@ -59,6 +59,13 @@ atspi_includedir = join_paths(get_option('prefix'), get_option('includedir'), 'a
 
 install_headers(atspi_headers, install_dir: atspi_includedir)
 
+# Marshallers
+atspi_marshals = gnome.genmarshal('atspimarshal',
+  sources: 'atspimarshal.list',
+  prefix: 'atspi_marshal',
+)
+atspi_marshal_h = atspi_marshals[1]
+
 atspi_enums = gnome.mkenums('atspi-enum-types',
                             sources: [ 'atspi-constants.h', 'atspi-types.h' ],
                             c_template: 'atspi-enum-types.c.template',
@@ -67,7 +74,7 @@ atspi_enums = gnome.mkenums('atspi-enum-types',
                             install_header: true)
 atspi_enum_h = atspi_enums[1]
 
-atspi = library('atspi', atspi_sources + atspi_enums,
+atspi = library('atspi', atspi_sources + atspi_enums + atspi_marshals,
                        version: soversion,
                        soversion: soversion.split('.')[0],
                        include_directories: [ root_inc, registryd_inc ],

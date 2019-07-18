@@ -383,31 +383,23 @@ convert_event_type_to_dbus (const char *eventType, char **categoryp, char **name
   {
     gchar *matchrule;
     (*matchrule_array) = g_ptr_array_new ();
-    if (!strcmp (eventType, "object:text-reading-position"))
+    matchrule = g_strdup_printf ("type='signal',interface='org.a11y.atspi.Event.%s'", category);
+    if (name && name [0])
     {
-      matchrule = g_strdup ("type='signal',interface='org.a11y.atspi.ScreenReader',member='ReadingPosition',sender='org.a11y.Atspi.ScreenReader'");
-      g_ptr_array_add (*matchrule_array, matchrule);
+             gchar *new_str = g_strconcat (matchrule, ",member='", name, "'", NULL);
+             g_free (matchrule);
+             matchrule = new_str;
+    }
+    if (detail && detail [0])
+    {
+      gchar *new_str = g_strconcat (matchrule, ",arg0='", detail, "'", NULL);
+      g_ptr_array_add (*matchrule_array, new_str);
+      new_str = g_strconcat (matchrule, ",arg0path='", detail, "/'", NULL);
+      g_ptr_array_add (*matchrule_array, new_str);
+      g_free (matchrule);
     }
     else
-    {
-    matchrule = g_strdup_printf ("type='signal',interface='org.a11y.atspi.Event.%s'", category);
-      if (name && name [0])
-      {
-        gchar *new_str = g_strconcat (matchrule, ",member='", name, "'", NULL);
-        g_free (matchrule);
-        matchrule = new_str;
-      }
-      if (detail && detail [0])
-      {
-        gchar *new_str = g_strconcat (matchrule, ",arg0='", detail, "'", NULL);
-        g_ptr_array_add (*matchrule_array, new_str);
-        new_str = g_strconcat (matchrule, ",arg0path='", detail, "/'", NULL);
-        g_ptr_array_add (*matchrule_array, new_str);
-        g_free (matchrule);
-      }
-      else
-        g_ptr_array_add (*matchrule_array, matchrule);
-    }
+      g_ptr_array_add (*matchrule_array, matchrule);
   }
   if (categoryp) *categoryp = category;
   else g_free (category);
@@ -470,7 +462,6 @@ listener_entry_free (EventListenerEntry *e)
  *            object:text-selection-changed
  *            object:text-changed
  *            object:text-caret-moved
- *            object:text-reading-position
  *            object:row-inserted
  *            object:row-reordered
  *            object:row-deleted
@@ -479,6 +470,9 @@ listener_entry_free (EventListenerEntry *e)
  *            object:column-deleted
  *            object:model-changed
  *            object:active-descendant-changed
+ *
+ *  (screen reader events)
+*             screen-reader:region-changed
  *
  *  (window events)
  *
@@ -977,19 +971,8 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   dbus_int32_t detail1, detail2;
   char *p;
   GHashTable *cache = NULL;
-  gboolean is_reading_position = 0;
 
-  if (dbus_message_is_signal (message, ATSPI_DBUS_INTERFACE_SCREEN_READER,
-      "ReadingPosition"))
-  {
-    if (strcmp (signature, "(so)ii") != 0)
-    {
-      g_warning ("Got invalid signature '%s' for ReadingPosition signal", signature);
-      return DBUS_HANDLER_RESULT_HANDLED;
-    }
-    is_reading_position = TRUE;
-  }
-  else if (strcmp (signature, "siiv(so)") != 0 &&
+  if (strcmp (signature, "siiv(so)") != 0 &&
       strcmp (signature, "siiva{sv}") != 0)
   {
    g_warning ("Got invalid signature %s for signal %s from interface %s\n", signature, member, category);
@@ -1007,16 +990,9 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
       return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     }
     category++;
-    if (!strcmp (category, "ScreenReader"))
-      category = "Object"; /* hack -- assume this is ReadingPosition */
   }
-  if (is_reading_position)
-    e.source = _atspi_dbus_return_accessible_from_iter (&iter);
-  else
-  {
-    dbus_message_iter_get_basic (&iter, &detail);
-    dbus_message_iter_next (&iter);
-  }
+  dbus_message_iter_get_basic (&iter, &detail);
+  dbus_message_iter_next (&iter);
   dbus_message_iter_get_basic (&iter, &detail1);
   e.detail1 = detail1;
   dbus_message_iter_next (&iter);
@@ -1025,10 +1001,7 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   dbus_message_iter_next (&iter);
 
   converted_type = convert_name_from_dbus (category, FALSE);
-  if (is_reading_position)
-    name = g_strdup ("text-reading-position");
-  else
-    name = convert_name_from_dbus (member, FALSE);
+  name = convert_name_from_dbus (member, FALSE);
   detail = convert_name_from_dbus (detail, TRUE);
 
   if (strcasecmp  (category, name) != 0)
@@ -1051,58 +1024,64 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
     converted_type = p;
   }
   e.type = converted_type;
-  if (!is_reading_position)
-    e.source = _atspi_ref_accessible (dbus_message_get_sender(message), dbus_message_get_path(message));
-  if (e.source == NULL)
+  if (strcmp (category, "ScreenReader") != 0)
   {
-    g_warning ("Got no valid source accessible for signal %s from interface %s\n", member, category);
-    g_free (converted_type);
-    g_free (name);
-    g_free (detail);
-    return DBUS_HANDLER_RESULT_HANDLED;
+    e.source = _atspi_ref_accessible (dbus_message_get_sender(message), dbus_message_get_path(message));
+    if (e.source == NULL)
+    {
+      g_warning ("Got no valid source accessible for signal %s from interface %s\n", member, category);
+      g_free (converted_type);
+      g_free (name);
+      g_free (detail);
+      return DBUS_HANDLER_RESULT_HANDLED;
+    }
   }
 
-  if (!is_reading_position)
+  dbus_message_iter_recurse (&iter, &iter_variant);
+  switch (dbus_message_iter_get_arg_type (&iter_variant))
   {
-    dbus_message_iter_recurse (&iter, &iter_variant);
-    switch (dbus_message_iter_get_arg_type (&iter_variant))
+    case DBUS_TYPE_STRUCT:
     {
-      case DBUS_TYPE_STRUCT:
+      AtspiRect rect;
+      if (demarshal_rect (&iter_variant, &rect))
       {
-        AtspiRect rect;
-        if (demarshal_rect (&iter_variant, &rect))
+        g_value_init (&e.any_data, ATSPI_TYPE_RECT);
+        g_value_set_boxed (&e.any_data, &rect);
+      }
+      else
+      {
+        AtspiAccessible *accessible;
+ 	accessible = _atspi_dbus_return_accessible_from_iter (&iter_variant);
+        if (!strcmp (category, "ScreenReader"))
         {
-          g_value_init (&e.any_data, ATSPI_TYPE_RECT);
-          g_value_set_boxed (&e.any_data, &rect);
+          e.source = accessible;
         }
         else
         {
-          AtspiAccessible *accessible;
-	  accessible = _atspi_dbus_return_accessible_from_iter (&iter_variant);
           g_value_init (&e.any_data, ATSPI_TYPE_ACCESSIBLE);
           g_value_set_instance (&e.any_data, accessible);
           if (accessible)
             g_object_unref (accessible);	/* value now owns it */
         }
-        break;
       }
-      case DBUS_TYPE_STRING:
-      {
-        dbus_message_iter_get_basic (&iter_variant, &p);
-        g_value_init (&e.any_data, G_TYPE_STRING);
-        g_value_set_string (&e.any_data, p);
-        break;
-      }
-    default:
       break;
     }
-
-    dbus_message_iter_next (&iter);
-    if (dbus_message_iter_get_arg_type (&iter) == DBUS_TYPE_ARRAY)
+    case DBUS_TYPE_STRING:
     {
-      /* new form -- parse properties sent with event */
-      cache = _atspi_dbus_update_cache_from_dict (e.source, &iter);
+      dbus_message_iter_get_basic (&iter_variant, &p);
+      g_value_init (&e.any_data, G_TYPE_STRING);
+      g_value_set_string (&e.any_data, p);
+      break;
     }
+  default:
+    break;
+  }
+
+  dbus_message_iter_next (&iter);
+  if (dbus_message_iter_get_arg_type (&iter) == DBUS_TYPE_ARRAY)
+  {
+    /* new form -- parse properties sent with event */
+    cache = _atspi_dbus_update_cache_from_dict (e.source, &iter);
   }
 
   if (!strncmp (e.type, "object:children-changed", 23))

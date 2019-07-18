@@ -71,7 +71,6 @@ const char *atspi_interface_table = ATSPI_DBUS_INTERFACE_TABLE;
 const char *atspi_interface_table_cell = ATSPI_DBUS_INTERFACE_TABLE_CELL;
 const char *atspi_interface_text = ATSPI_DBUS_INTERFACE_TEXT;
 const char *atspi_interface_cache = ATSPI_DBUS_INTERFACE_CACHE;
-const char *atspi_interface_screen_reader = ATSPI_DBUS_INTERFACE_SCREEN_READER;
 const char *atspi_interface_value = ATSPI_DBUS_INTERFACE_VALUE;
 
 static const char *interfaces[] =
@@ -741,11 +740,6 @@ process_deferred_message (BusDataClosure *closure)
   {
     _atspi_dbus_handle_event (closure->bus, closure->message, closure->data);
   }
-  if (dbus_message_is_signal (closure->message, atspi_interface_screen_reader,
-      "ReadingPosition"))
-  {
-    _atspi_dbus_handle_event (closure->bus, closure->message, closure->data);
-  }
   if (dbus_message_is_method_call (closure->message, atspi_interface_device_event_listener, "NotifyEvent"))
   {
     _atspi_dbus_handle_DeviceEvent (closure->bus,
@@ -840,11 +834,6 @@ atspi_dbus_filter (DBusConnection *bus, DBusMessage *message, void *data)
     return defer_message (bus, message, data);
   }
   if (dbus_message_is_signal (message, atspi_interface_cache, "RemoveAccessible"))
-  {
-    return defer_message (bus, message, data);
-  }
-  if (dbus_message_is_signal (message, atspi_interface_screen_reader,
-      "ReadingPosition"))
   {
     return defer_message (bus, message, data);
   }

@@ -64,6 +64,8 @@ typedef struct _AtspiAccessibleClass AtspiAccessibleClass;
 struct _AtspiAccessibleClass
 {
   AtspiObjectClass parent_class;
+
+  void (*region_changed) (AtspiAccessible *accessible, gint current_offset, gint last_offset);
 };
 
 GType atspi_accessible_get_type (void); 

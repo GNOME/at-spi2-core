@@ -29,6 +29,7 @@
 G_BEGIN_DECLS
 
 #include "atspi-accessible.h"
+#include "atspimarshal.h"
 
 struct _AtspiAccessiblePrivate
 {

@@ -962,47 +962,6 @@ atspi_text_scroll_substring_to_point (AtspiText *obj,
   return retval;
 }
 
-/**
- * atspi_text_notify_reading_position:
- * @obj: the #AtspiText object being read.
- * @startOffset: the offset of the text currently being read.
- * @endOffset: the offset of the end of the text currently being read.
- *
- * Notifies interested listeners of the specific text that the screen
- * reader is currently reading. This allows a magnifier to synchronize with
- * the screen reader and highlight the text that is currently being read.
- */
-void
-atspi_text_notify_reading_position (AtspiText *obj,
-                                    gint startOffset,
-                                    gint endOffset)
-{
-  DBusMessage *signal;
-  AtspiAccessible *accessible;
-  DBusMessageIter iter, iter_struct;
-
-  g_return_if_fail (obj != NULL);
-
-  accessible = ATSPI_ACCESSIBLE(obj);
-
-  if (!_atspi_prepare_screen_reader_interface ())
-    return;
-
-  signal = dbus_message_new_signal (ATSPI_DBUS_PATH_SCREEN_READER,
-                                    ATSPI_DBUS_INTERFACE_SCREEN_READER,
-                                    "ReadingPosition");
-  dbus_message_iter_init_append (signal, &iter);
-  dbus_message_iter_open_container (&iter, DBUS_TYPE_STRUCT, NULL,
-                                    &iter_struct);
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &accessible->parent.app->bus_name);
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &accessible->parent.path);
-  dbus_message_iter_close_container (&iter, &iter_struct);
-  dbus_message_iter_append_basic (&iter, DBUS_TYPE_INT32, &startOffset);
-  dbus_message_iter_append_basic (&iter, DBUS_TYPE_INT32, &endOffset);
-  dbus_connection_send (_atspi_bus (), signal, NULL);
-  dbus_message_unref (signal);
-}
-
 static void
 atspi_text_base_init (AtspiText *klass)
 {
