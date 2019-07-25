@@ -265,10 +265,10 @@ atspi_accessible_class_init (AtspiAccessibleClass *klass)
    * @arg2: an integer specifying the ending offset of the text being read,
    *        if the object is textual.
    *
-   * The signal "region-changed" is emitted by a screen reader to inndicate
+   * The signal "region-changed" is emitted by a screen reader to indicate
    * that it is now reading or tracking a new object, or, a new piece of
    * text within an object. This allows a magnifier to gain the information
-   * needded to highlight the object that the screen reader is reading.
+   * needed to highlight the object that the screen reader is reading.
    */
   atspi_accessible_signals[REGION_CHANGED] =
     g_signal_new ("region_changed",
