@@ -64,6 +64,8 @@ struct _AtspiApplicationClass
 AtspiApplication *
 _atspi_application_new (const char *bus_name);
 
+GType atspi_application_get_type (void);
+
 G_END_DECLS
 
 #endif	/* _ATSPI_APPLICATION_H_ */
