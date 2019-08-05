@@ -1,3 +1,14 @@
+What's new in at-spi2-core 2.33.90:
+
+* Refactor the API for the screen reader to notify listeners of its status.
+
+* Add a sender to the AtspiEvent struct.
+
+* Add missing atspi_application_get_type prototype.
+
+* Support mutter remote desktop interface for synthesizing keyboard/mouse
+  events (likely still needs work).
+
 What's new in at-spi2-core 2.33.2:
 
 * Check WAYLAND_DISPLAY, rather than XDG_SESSION_TYPE, to avoid X
