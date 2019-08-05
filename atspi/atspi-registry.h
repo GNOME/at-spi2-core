@@ -71,6 +71,8 @@ atspi_generate_keyboard_event (glong keyval,
 gboolean
 atspi_generate_mouse_event (glong x, glong y, const gchar *name, GError **error);
 
+void
+atspi_set_reference_window (AtspiAccessible *accessible);
 G_END_DECLS
 
 #endif	/* _ATSPI_REGISTRY_H_ */

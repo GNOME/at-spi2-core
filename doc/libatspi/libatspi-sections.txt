@@ -504,6 +504,7 @@ atspi_register_device_event_listener
 atspi_deregister_device_event_listener
 atspi_generate_keyboard_event
 atspi_generate_mouse_event
+atspi_set_reference_window
 </SECTION>
 
 <SECTION>
