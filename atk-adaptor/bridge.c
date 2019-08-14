@@ -404,8 +404,9 @@ register_reply (DBusPendingCall *pending, void *user_data)
 }
 
 static gboolean
-register_application (SpiBridge * app)
+register_application (gpointer data)
 {
+  SpiBridge * app = data;
   DBusMessage *message;
   DBusMessageIter iter;
   DBusPendingCall *pending;
@@ -441,7 +442,7 @@ register_application (SpiBridge * app)
   if (message)
     dbus_message_unref (message);
 
-  return TRUE;
+  return FALSE;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1102,7 +1103,7 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
 
   /* Register this app by sending a signal out to AT-SPI registry daemon */
   if (!atspi_no_register && (!root || !ATK_IS_PLUG (root)))
-    register_application (spi_global_app_data);
+    g_idle_add (register_application, spi_global_app_data);
   else
     get_registered_event_listeners (spi_global_app_data);
 
