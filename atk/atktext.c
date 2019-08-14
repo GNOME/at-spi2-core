@@ -1062,6 +1062,9 @@ atk_text_set_caret_offset (AtkText *text,
  *
  * Get the bounding box for text within the specified range.
  *
+ * If the extents can not be obtained (e.g. or missing support), the rectangle
+ * fields are set to -1.
+ *
  * Since: 1.3
  **/
 void
@@ -1081,6 +1084,13 @@ atk_text_get_range_extents (AtkText          *text,
 
   if (iface->get_range_extents)
     (*(iface->get_range_extents)) (text, start_offset, end_offset, coord_type, rect);
+  else
+    {
+      rect->x = -1;
+      rect->y = -1;
+      rect->width = -1;
+      rect->height = -1;
+    }
 }
 
 /**

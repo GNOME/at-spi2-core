@@ -258,6 +258,9 @@ atk_component_ref_accessible_at_point (AtkComponent    *component,
  *
  * Gets the rectangle which gives the extent of the @component.
  *
+ * If the extent can not be obtained (e.g. a non-embedded plug or missing
+ * support), all of x, y, width, height are set to -1.
+ *
  **/
 void
 atk_component_get_extents    (AtkComponent    *component,
@@ -294,6 +297,13 @@ atk_component_get_extents    (AtkComponent    *component,
 
   if (iface->get_extents)
     (iface->get_extents) (component, real_x, real_y, real_width, real_height, coord_type);
+  else
+    {
+      *real_x = -1;
+      *real_y = -1;
+      *real_width = -1;
+      *real_height = -1;
+    }
 }
 
 /**
@@ -306,6 +316,9 @@ atk_component_get_extents    (AtkComponent    *component,
  *
  * Gets the position of @component in the form of 
  * a point specifying @component's top-left corner.
+ *
+ * If the position can not be obtained (e.g. a non-embedded plug or missing
+ * support), x and y are set to -1.
  *
  * Deprecated: Since 2.12. Use atk_component_get_extents() instead.
  **/
@@ -334,6 +347,11 @@ atk_component_get_position   (AtkComponent    *component,
 
   if (iface->get_position)
     (iface->get_position) (component, real_x, real_y, coord_type);
+  else
+    {
+      *real_x = -1;
+      *real_y = -1;
+    }
 }
 
 /**
@@ -343,6 +361,9 @@ atk_component_get_position   (AtkComponent    *component,
  * @height: (out) (optional): address of #gint to put height of @component
  *
  * Gets the size of the @component in terms of width and height.
+ *
+ * If the size can not be obtained (e.g. a non-embedded plug or missing
+ * support), width and height are set to -1.
  *
  * Deprecated: Since 2.12. Use atk_component_get_extents() instead.
  **/
@@ -372,6 +393,11 @@ atk_component_get_size       (AtkComponent    *component,
 
   if (iface->get_size)
     (iface->get_size) (component, real_width, real_height);
+  else
+    {
+      *real_width = -1;
+      *real_height = -1;
+    }
 }
 
 /**

@@ -547,6 +547,11 @@ atk_value_get_value_and_text (AtkValue *obj,
     {
       (iface->get_value_and_text) (obj, value, text);
     }
+  else
+    {
+      *value = 0.0;
+      *text = NULL;
+    }
 }
 
 /**
