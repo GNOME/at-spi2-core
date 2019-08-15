@@ -403,8 +403,8 @@ register_reply (DBusPendingCall *pending, void *user_data)
     get_registered_event_listeners (spi_global_app_data);
 }
 
-static gboolean
-register_application (gpointer data)
+gboolean
+_atk_bridge_register_application (gpointer data)
 {
   SpiBridge * app = data;
   DBusMessage *message;
@@ -475,6 +475,13 @@ deregister_application (SpiBridge * app)
   DBusMessage *message;
   DBusMessageIter iter;
   const char *uname;
+
+  if (spi_global_app_data->registration_pending)
+  {
+    g_source_remove (spi_global_app_data->registration_pending);
+    spi_global_app_data->registration_pending = 0;
+    return;
+  }
 
   message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
                                           ATSPI_DBUS_PATH_REGISTRY,
@@ -849,7 +856,7 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
             {
               if (registry_lost && !old[0])
                 {
-                  register_application (spi_global_app_data);
+                  _atk_bridge_register_application (spi_global_app_data);
                   registry_lost = FALSE;
                 }
               else if (!new[0])
@@ -1102,8 +1109,9 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
                               NULL);
 
   /* Register this app by sending a signal out to AT-SPI registry daemon */
-  if (!atspi_no_register && (!root || !ATK_IS_PLUG (root)))
-    g_idle_add (register_application, spi_global_app_data);
+  if (!atspi_no_register && (!root || !ATK_IS_PLUG (root)) &&
+      !spi_global_app_data->registration_pending)
+    spi_global_app_data->registration_pending = spi_idle_add (_atk_bridge_register_application, spi_global_app_data);
   else
     get_registered_event_listeners (spi_global_app_data);
 

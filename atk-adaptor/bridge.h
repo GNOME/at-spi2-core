@@ -73,6 +73,7 @@ gchar *app_bus_addr;
   GList *events;
   gboolean events_initialized;
   GHashTable *property_hash;
+  guint registration_pending;
 };
 
 extern SpiBridge *spi_global_app_data;
@@ -92,6 +93,8 @@ DRoutePropertyFunction _atk_bridge_find_property_func (const char *property,
                                                        GType *type);
 
 GType _atk_bridge_type_from_iface (const char *iface);
+
+gboolean _atk_bridge_register_application (gpointer data);
 G_END_DECLS
 
 #endif /* BRIDGE_H */

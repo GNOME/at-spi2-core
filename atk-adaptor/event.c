@@ -72,6 +72,12 @@ switch_main_context (GMainContext *cnx)
   atspi_set_main_context (cnx);
   for (list = spi_global_app_data->direct_connections; list; list = list->next)
     atspi_dbus_connection_setup_with_g_main (list->data, cnx);
+
+  if (spi_global_app_data->registration_pending)
+  {
+    g_source_remove (spi_global_app_data->registration_pending);
+    spi_global_app_data->registration_pending = spi_idle_add (_atk_bridge_register_application, spi_global_app_data);
+  }
 }
 
 guint
