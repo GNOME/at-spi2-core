@@ -665,6 +665,9 @@ atk_text_get_caret_offset (AtkText *text)
  * @height: (out) (optional): Pointer for the height of the bounding box
  * @coords: specify whether coordinates are relative to the screen or widget window 
  *
+ * If the extent can not be obtained (e.g. missing support), all of x, y, width,
+ * height are set to -1.
+ *
  * Get the bounding box containing the glyph representing the character at 
  *     a particular text offset. 
  **/
@@ -700,10 +703,10 @@ atk_text_get_character_extents (AtkText *text,
   else
     real_height = &local_height;
 
-  *real_x = 0;
-  *real_y = 0;
-  *real_width = 0;
-  *real_height = 0;
+  *real_x = -1;
+  *real_y = -1;
+  *real_width = -1;
+  *real_height = -1;
 
   if (offset < 0)
     return;
