@@ -411,6 +411,8 @@ _atk_bridge_register_application (gpointer data)
   DBusMessageIter iter;
   DBusPendingCall *pending;
 
+  spi_global_app_data->registration_pending = 0;
+
   g_free (app->desktop_name);
   g_free (app->desktop_path);
 
