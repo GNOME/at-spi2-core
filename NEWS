@@ -1,3 +1,12 @@
+What's new in at-spi2-atk 2.33.91:
+
+* Defer registration until the main loop is entered. This fixes an issue
+  where a Python application could import gtk but not enter the main loop,
+  resulting in the application registering with AT-SPI but not responding
+  to queries.
+
+* Make sure return values are initialized for some functions.
+
 What's new in at-spi2-atk 2.33.2:
 
 * Add support for ROLE_CONTENT_DELETION and ROLE_CONTENT_INSERTION
