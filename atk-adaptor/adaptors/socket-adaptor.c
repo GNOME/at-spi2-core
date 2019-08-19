@@ -76,14 +76,24 @@ atspi_plug_component_get_extents (AtkComponent *component, gint *x, gint *y,
                                                      message, -1, &error);
   dbus_message_unref (message);
   if (!reply)
-    return;
+    {
+      *x = -1;
+      *y = -1;
+      *width = -1;
+      *height = -1;
+      return;
+    }
   signature = dbus_message_get_signature (reply);
   if (g_strcmp0 (signature, "(iiii)") != 0)
-  {
-    g_warning ("Got unexpected signature %s from GetExtents\n", signature);
-    dbus_message_unref (reply);
-    return;
-  }
+    {
+      g_warning ("Got unexpected signature %s from GetExtents\n", signature);
+      dbus_message_unref (reply);
+      *x = -1;
+      *y = -1;
+      *width = -1;
+      *height = -1;
+      return;
+    }
   dbus_message_iter_init (reply, &iter);
   dbus_message_iter_recurse (&iter, &iter_struct);
   dbus_message_iter_get_basic (&iter_struct, &tmp);
@@ -116,12 +126,18 @@ atspi_plug_component_get_position (AtkComponent *component, gint *x, gint *y,
                                                      message, -1, &error);
   dbus_message_unref (message);
   if (!reply)
-    return;
+    {
+      *x = -1;
+      *y = -1;
+      return;
+    }
   if (!dbus_message_get_args (reply, NULL, DBUS_TYPE_INT32, &x_dbus,
                               DBUS_TYPE_INT32, &y_dbus, DBUS_TYPE_INVALID))
     {
       g_warning ("GetPosition failed: %s", error.message);
       dbus_error_free (&error);
+      *x = -1;
+      *y = -1;
     }
   else
     {
@@ -145,12 +161,18 @@ atspi_plug_component_get_size (AtkComponent *component,
                                                      message, -1, &error);
   dbus_message_unref (message);
   if (!reply)
-    return;
+    {
+      *width = -1;
+      *height = -1;
+      return;
+    }
   if (!dbus_message_get_args (reply, NULL, DBUS_TYPE_INT32, &width_dbus,
                               DBUS_TYPE_INT32, &height_dbus, DBUS_TYPE_INVALID))
     {
       g_warning ("GetSize failed: %s", error.message);
       dbus_error_free (&error);
+      *width = -1;
+      *height = -1;
     }
   else
     {
