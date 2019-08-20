@@ -56,6 +56,13 @@ static void atk_socket_finalize   (GObject *obj);
 
 static void atk_component_interface_init (AtkComponentIface *iface);
 
+static void atk_socket_component_real_get_extents (AtkComponent *component,
+                                                   gint         *x,
+                                                   gint         *y,
+                                                   gint         *width,
+                                                   gint         *height,
+                                                   AtkCoordType  coord_type);
+
 G_DEFINE_TYPE_WITH_CODE (AtkSocket, atk_socket, ATK_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (ATK_TYPE_COMPONENT, atk_component_interface_init))
 
@@ -94,6 +101,7 @@ atk_socket_finalize (GObject *_obj)
 static void
 atk_component_interface_init (AtkComponentIface *iface)
 {
+  iface->get_extents = atk_socket_component_real_get_extents;
 }
 
 /**
@@ -161,4 +169,31 @@ atk_socket_is_occupied (AtkSocket* obj)
   g_return_val_if_fail (ATK_IS_SOCKET (obj), FALSE);
 
   return (obj->embedded_plug_id != NULL);
+}
+
+static void
+atk_socket_component_real_get_extents (AtkComponent *component,
+                                       gint         *x,
+                                       gint         *y,
+                                       gint         *width,
+                                       gint         *height,
+                                       AtkCoordType  coord_type)
+{
+  AtkObject *parent = atk_object_get_parent (ATK_OBJECT (component));
+
+  if (parent == NULL || !ATK_IS_COMPONENT (parent))
+  {
+    if (x)
+      *x = -1;
+    if (y)
+      *y = -1;
+    if (width)
+      *width = -1;
+    if (height)
+      *height = -1;
+
+    return;
+  }
+
+  atk_component_get_extents (ATK_COMPONENT (parent), x, y, width, height, coord_type);
 }
