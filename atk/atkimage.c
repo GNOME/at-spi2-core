@@ -97,6 +97,9 @@ atk_image_get_image_description (AtkImage *image)
  * Get the width and height in pixels for the specified image.
  * The values of @width and @height are returned as -1 if the
  * values cannot be obtained (for instance, if the object is not onscreen).
+ *
+ * If the size can not be obtained (e.g. missing support), x and y are set
+ * to -1.
  **/
 void
 atk_image_get_image_size (AtkImage *image, 
@@ -171,6 +174,9 @@ atk_image_set_image_description (AtkImage        *image,
  * 
  * Gets the position of the image in the form of a point specifying the
  * images top-left corner.
+ *
+ * If the position can not be obtained (e.g. missing support), x and y are set
+ * to -1.
  **/
 void     
 atk_image_get_image_position (AtkImage *image,
