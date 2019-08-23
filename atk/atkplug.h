@@ -57,9 +57,11 @@ struct _AtkPlugClass
 };
 
 ATK_AVAILABLE_IN_ALL
-AtkObject*    atk_plug_new     (void);
+AtkObject*    atk_plug_new       (void);
+ATK_AVAILABLE_IN_2_36
+void          atk_plug_set_child (AtkPlug *plug, AtkObject *child);
 ATK_AVAILABLE_IN_ALL
-gchar*        atk_plug_get_id  (AtkPlug* plug);
+gchar*        atk_plug_get_id    (AtkPlug* plug);
 
 G_END_DECLS
 

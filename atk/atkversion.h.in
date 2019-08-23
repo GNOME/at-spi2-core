@@ -400,6 +400,20 @@
 # define ATK_AVAILABLE_IN_2_30                 _ATK_EXTERN
 #endif
 
+#if ATK_VERSION_MIN_REQUIRED >= ATK_VERSION_2_36
+# define ATK_DEPRECATED_IN_2_36                ATK_DEPRECATED
+# define ATK_DEPRECATED_IN_2_36_FOR(f)         ATK_DEPRECATED_FOR(f)
+#else
+# define ATK_DEPRECATED_IN_2_36                _ATK_EXTERN
+# define ATK_DEPRECATED_IN_2_36_FOR(f)         _ATK_EXTERN
+#endif
+
+#if ATK_VERSION_MAX_ALLOWED < ATK_VERSION_2_36
+# define ATK_AVAILABLE_IN_2_36                 ATK_UNAVAILABLE(2, 36)
+#else
+# define ATK_AVAILABLE_IN_2_36                 _ATK_EXTERN
+#endif
+
 ATK_AVAILABLE_IN_2_8
 guint atk_get_major_version (void) G_GNUC_CONST;
 ATK_AVAILABLE_IN_2_8
