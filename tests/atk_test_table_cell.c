@@ -181,7 +181,7 @@ atk_test_table_cell_get_table (gpointer fixture, gconstpointer user_data)
 static void
 teardown_table_cell_test (gpointer fixture, gconstpointer user_data)
 {
-  kill (child_pid, SIGTERM);
+  terminate_app ();
 }
 
 void

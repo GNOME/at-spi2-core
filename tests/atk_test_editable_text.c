@@ -28,7 +28,7 @@
 static void
 teardown_editable_text_test (gpointer fixture, gconstpointer user_data)
 {
-  kill (child_pid, SIGTERM);
+  terminate_app ();
 }
 
 static void

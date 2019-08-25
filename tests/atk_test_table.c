@@ -417,7 +417,7 @@ atk_test_table_is_selected (gpointer fixture, gconstpointer user_data)
 static void
 teardown_table_test (gpointer fixture, gconstpointer user_data)
 {
-  kill (child_pid, SIGTERM);
+  terminate_app ();
 }
 
 void

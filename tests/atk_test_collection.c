@@ -29,7 +29,7 @@
 static void
 teardown_collection_test (gpointer fixture, gconstpointer user_data)
 {
-  kill (child_pid, SIGTERM);
+  terminate_app ();
 }
 
 static void
