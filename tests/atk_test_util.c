@@ -38,8 +38,8 @@ run_app (const char *file_name)
 {
   child_pid = fork ();
   if (child_pid == 0) {
-    execlp ("./app-test",
-            "./app-test",
+    execlp (TESTS_BUILD_DIR "/app-test",
+            TESTS_BUILD_DIR "/app-test",
             "--test-data-file",
             file_name,
             NULL);

@@ -7,7 +7,8 @@ xmlloader_dep = declare_dependency(link_with: xmlloader)
 
 testutils = static_library('testutils', [ 'atk_test_util.c' ],
                            dependencies: [ glib_dep, atspi_dep ],
-                           include_directories: [ root_inc, include_directories('.') ])
+                           include_directories: [ root_inc, include_directories('.') ],
+                           c_args: ['-DTESTS_BUILD_DIR="@0@"'.format(meson.current_build_dir()) ] )
 testutils_dep = declare_dependency(link_with: testutils)
 
 # tests:
@@ -72,4 +73,10 @@ foreach t: tests
                           '-DTESTS_SRC_DIR="@0@"'.format(meson.current_source_dir()),
                           '-DTESTS_DATA_DIR="@0@"'.format(join_paths(meson.current_source_dir(), 'data')),
                         ])
+
+  if test_name == 'atk-test'
+    atk_test_bin = test_bin
+  endif
 endforeach
+
+test('atk-test', atk_test_bin, timeout: 300)
