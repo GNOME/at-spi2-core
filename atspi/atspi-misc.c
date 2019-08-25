@@ -531,8 +531,9 @@ handle_get_items (DBusPendingCall *pending, void *user_data)
   {
     const char *sender = dbus_message_get_sender (reply);
     const char *error = NULL;
-    if (!strcmp (dbus_message_get_error_name (reply),
-                 DBUS_ERROR_SERVICE_UNKNOWN))
+    const char *error_name = dbus_message_get_error_name (reply);
+    if (!strcmp (error_name, DBUS_ERROR_SERVICE_UNKNOWN)
+     || !strcmp (error_name, DBUS_ERROR_NO_REPLY))
     {
     }
     else
