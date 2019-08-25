@@ -159,7 +159,8 @@ cleanup ()
   for (i = desktop->children->len - 1; i >= 0; i--)
   {
     AtspiAccessible *child = g_ptr_array_index (desktop->children, i);
-    g_object_run_dispose (G_OBJECT (child->parent.app));
+    if (child->parent.app)
+      g_object_run_dispose (G_OBJECT (child->parent.app));
     g_object_run_dispose (G_OBJECT (child));
   }
 
