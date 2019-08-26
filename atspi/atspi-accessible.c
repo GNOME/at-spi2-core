@@ -163,6 +163,13 @@ static gint accessible_count = 0;
 #endif
 
 static void
+atspi_accessible_unref (GObject *accessible)
+{
+  if (accessible != NULL)
+    g_object_unref(accessible);
+}
+
+static void
 atspi_accessible_init (AtspiAccessible *accessible)
 {
 #ifdef DEBUG_REF_COUNTS
@@ -173,7 +180,7 @@ atspi_accessible_init (AtspiAccessible *accessible)
 
   accessible->priv = atspi_accessible_get_instance_private (accessible);
 
-  accessible->children = g_ptr_array_new_with_free_func (g_object_unref);
+  accessible->children = g_ptr_array_new_with_free_func (atspi_accessible_unref);
 }
 
 static void
