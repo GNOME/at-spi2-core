@@ -43,7 +43,7 @@ atk_test_value_get_minimum_value (gpointer fixture, gconstpointer user_data)
   g_assert (child);
   AtspiValue *obj = atspi_accessible_get_value_iface (child);
   gdouble val = atspi_value_get_minimum_value (obj, NULL);
-  g_assert_cmpfloat (val, ==, 1.1);
+  g_assert_cmpfloat (val, ==, 1.25);
 }
 
 static void
@@ -55,7 +55,7 @@ atk_test_value_get_current_value (gpointer fixture, gconstpointer user_data)
   g_assert (child);
   AtspiValue *obj = atspi_accessible_get_value_iface (child);
   gdouble val = atspi_value_get_current_value (obj, NULL);
-  g_assert_cmpfloat (val, ==, 2.1);
+  g_assert_cmpfloat (val, ==, 2.25);
 }
 
 static void
@@ -67,7 +67,7 @@ atk_test_value_get_maximum_value (gpointer fixture, gconstpointer user_data)
   g_assert (child);
   AtspiValue *obj = atspi_accessible_get_value_iface (child);
   gdouble val = atspi_value_get_maximum_value (obj, NULL);
-  g_assert_cmpfloat (val, ==, 3.1);
+  g_assert_cmpfloat (val, ==, 3.25);
 }
 
 static void
@@ -92,7 +92,7 @@ atk_test_value_get_minimum_increment (gpointer fixture, gconstpointer user_data)
   g_assert (child);
   AtspiValue *obj = atspi_accessible_get_value_iface (child);
   gdouble val = atspi_value_get_minimum_increment (obj, NULL);
-  g_assert_cmpfloat (val, ==, 0.1);
+  g_assert_cmpfloat (val, ==, 0.25);
 }
 
 static void
