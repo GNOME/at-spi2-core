@@ -36,7 +36,7 @@
 #include <locale.h>
 #include "atk_suite.h"
 
-pid_t child_pid;
+extern pid_t child_pid;
 
 void run_app (const char *file_name);
 AtspiAccessible *get_root_obj (const char *file_name);
