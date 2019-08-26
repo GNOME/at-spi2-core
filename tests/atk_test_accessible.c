@@ -373,7 +373,7 @@ atk_test_accessible_get_process_id (gpointer fixture, gconstpointer user_data)
 void
 atk_test_accessible (void)
 {
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accesible_get_name",
+  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_name",
                      0, NULL, NULL, atk_test_accessible_get_name, teardown_accessible_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_description",
                      0, NULL, NULL, atk_test_accessible_get_description, teardown_accessible_test);
