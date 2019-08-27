@@ -70,6 +70,9 @@ get_toolkit_name (AtkObject *obj)
   if (!toolkit_name)
     toolkit_name = atk_get_toolkit_name ();
 
+  if (!toolkit_name)
+    return "no toolkit name set yet";
+
   /* TODO: query object attributes */
   return toolkit_name;
 }
