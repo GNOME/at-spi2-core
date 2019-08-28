@@ -86,8 +86,8 @@ atspi_editable_text_set_text_contents (AtspiEditableText *obj,
  * @position: a #gint indicating the character offset at which to insert
  *       the new text.  
  * @text: a string representing the text to insert, in UTF-8 encoding.
- * @length:  the number of characters of text to insert. If the character
- * count of text is less than or equal to length, the entire contents
+ * @length:  the number of characters of text to insert, in bytes. If the
+ * byte count of text is less than or equal to length, the entire contents
  * of text will be inserted.
  *
  * Inserts text into an #AtspiEditableText object.
