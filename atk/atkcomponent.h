@@ -31,18 +31,18 @@ G_BEGIN_DECLS
 
 /**
  * AtkScrollType:
- * @ATK_SCROLL_TOP_LEFT: Scroll the object vertically and horizontally to the top
- *  left corner of the window.
- * @ATK_SCROLL_BOTTOM_RIGHT: Scroll the object vertically and horizontally to the
- *   bottom right corner of the window.
- * @ATK_SCROLL_TOP_EDGE: Scroll the object vertically to the top edge of the
- *   window.
- * @ATK_SCROLL_BOTTOM_EDGE: Scroll the object vertically to the bottom edge of
- *   the window.
- * @ATK_SCROLL_LEFT_EDGE: Scroll the object vertically and horizontally to the
- *   left edge of the window.
- * @ATK_SCROLL_RIGHT_EDGE: Scroll the object vertically and horizontally to the
- *   right edge of the window.
+ * @ATK_SCROLL_TOP_LEFT: Scroll the object vertically and horizontally to bring
+ *   its top left corner to the top left corner of the window.
+ * @ATK_SCROLL_BOTTOM_RIGHT: Scroll the object vertically and horizontally to
+ *   bring its bottom right corner to the bottom right corner of the window.
+ * @ATK_SCROLL_TOP_EDGE: Scroll the object vertically to bring its top edge to
+ *   the top edge of the window.
+ * @ATK_SCROLL_BOTTOM_EDGE: Scroll the object vertically to bring its bottom
+ *   edge to the bottom edge of the window.
+ * @ATK_SCROLL_LEFT_EDGE: Scroll the object vertically and horizontally to bring
+ *   its left edge to the left edge of the window.
+ * @ATK_SCROLL_RIGHT_EDGE: Scroll the object vertically and horizontally to
+ *   bring its right edge to the right edge of the window.
  * @ATK_SCROLL_ANYWHERE: Scroll the object vertically and horizontally so that
  *   as much as possible of the object becomes visible. The exact placement is
  *   determined by the application.
