@@ -203,6 +203,13 @@ struct _AtkComponentIface
 
   /*
    * Scrolls this object so it becomes visible on the screen.
+   *
+   * scroll_to lets the implementation compute an appropriate target
+   * position on the screen, with type used as a positioning hint.
+   *
+   * scroll_to_point lets the client specify a precise target position
+   * on the screen for the top-left of the object.
+   *
    * Since ATK 2.30
    */
   gboolean                (*scroll_to)          (AtkComponent   *component,

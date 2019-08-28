@@ -623,8 +623,8 @@ atk_component_scroll_to (AtkComponent  *component,
  * @x: x-position where to scroll to
  * @y: y-position where to scroll to
  *
- * Makes an object visible on the screen at a given position by scrolling all
- * necessary parents.
+ * Move the top-left of @component to a given position of the screen by
+ * scrolling all necessary parents.
  *
  * Returns: whether scrolling was successful.
  *
