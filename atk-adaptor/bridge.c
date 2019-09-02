@@ -1023,6 +1023,8 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
   /* Allocate global data and do ATK initializations */
   spi_global_app_data = g_new0 (SpiBridge, 1);
   spi_global_app_data->root = g_object_ref (root);
+  spi_global_app_data->desktop_name = g_strdup (ATSPI_DBUS_NAME_REGISTRY);
+  spi_global_app_data->desktop_path = g_strdup (ATSPI_DBUS_PATH_ROOT);
 
   /* Set up D-Bus connection and register bus name */
   dbus_error_init (&error);
