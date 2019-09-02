@@ -52,7 +52,13 @@ libdbus_dep = dependency('dbus-1', version: libdbus_req_version)
 glib_dep = dependency('glib-2.0', version: glib_req_version)
 gobject_dep = dependency('gobject-2.0', version: gobject_req_version)
 gio_dep = dependency('gio-2.0', version: gio_req_version)
-dl_dep = cc.find_library('dl', required: false)
+if cc.has_function('dlopen')
+  dl_dep = []
+elif cc.has_function('dlopen', args: '-ldl')
+  dl_dep = cc.find_library('dl')
+else
+  error('Could not find a library with the dlopen function')
+endif
 
 x11_deps = []
 x11_option = get_option('x11')
