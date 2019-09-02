@@ -413,9 +413,6 @@ _atk_bridge_register_application (gpointer data)
 
   spi_global_app_data->registration_pending = 0;
 
-  g_free (app->desktop_name);
-  g_free (app->desktop_path);
-
   message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
                                           ATSPI_DBUS_PATH_ROOT,
                                           ATSPI_DBUS_INTERFACE_SOCKET,

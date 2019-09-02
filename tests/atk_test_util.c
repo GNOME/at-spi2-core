@@ -47,6 +47,7 @@ run_app (const char *file_name)
             NULL);
     _exit (EXIT_SUCCESS);
   }
+  if (child_pid) fprintf(stderr, "child_pid %d\n", child_pid);
 }
 
 static AtspiAccessible *try_get_root_obj (AtspiAccessible *obj)
@@ -74,6 +75,7 @@ AtspiAccessible * get_root_obj (const char *file_name)
   struct timespec timeout = { .tv_sec = 0, .tv_nsec = 10 * 1000000 };
   AtspiAccessible *obj = NULL;
 
+  fprintf(stderr, "run_app: %s\n", file_name);
   run_app (file_name);
 
   obj = atspi_get_desktop (0);
