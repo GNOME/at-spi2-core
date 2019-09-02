@@ -1,3 +1,13 @@
+What's new in at-spi2-core 2.33.92:
+
+* Now requires meson 0.50.0.
+* License is now LGPL-2.1+.
+* Meson: only link to libdl when it is necessary.
+* Update installation instructions.
+* Clarify atspi_editable_text_insert_text documentation.
+* Do not warn on no reply from pending get_items call.
+* Eliminate some superfluous runtime warnings.
+
 What's new in at-spi2-core 2.33.90:
 
 * Refactor the API for the screen reader to notify listeners of its status.
