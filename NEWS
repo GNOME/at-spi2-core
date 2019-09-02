@@ -1,3 +1,10 @@
+What's new in at-spi2-atk 2.33.92:
+
+* License is now lGPL-2.1+.
+* Several test fixes (thanks to Samuel THibault).
+* Initialize desktop name/path early; needed since we now defer
+  registration.
+
 What's new in at-spi2-atk 2.33.91:
 
 * Defer registration until the main loop is entered. This fixes an issue
