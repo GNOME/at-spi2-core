@@ -416,11 +416,6 @@ _atk_bridge_register_application (gpointer data)
   g_free (app->desktop_name);
   g_free (app->desktop_path);
 
-  /* These will be overridden when we get a reply, but in practice these
-     defaults should always be correct */
-  app->desktop_name = g_strdup (ATSPI_DBUS_NAME_REGISTRY);
-  app->desktop_path = g_strdup (ATSPI_DBUS_PATH_ROOT);
-
   message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
                                           ATSPI_DBUS_PATH_ROOT,
                                           ATSPI_DBUS_INTERFACE_SOCKET,
