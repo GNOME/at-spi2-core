@@ -892,8 +892,8 @@ atspi_event_free (AtspiEvent *event)
   g_object_unref (event->source);
   g_free (event->type);
   g_value_unset (&event->any_data);
-  g_free (event);
   g_object_unref (event->sender);
+  g_free (event);
 }
 
 static gboolean
