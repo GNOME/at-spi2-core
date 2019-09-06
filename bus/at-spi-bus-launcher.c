@@ -323,6 +323,7 @@ ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
     {
       app->a11y_launch_error_message = g_strdup_printf ("Failed to read address: %s", strerror (errno));
       kill (app->a11y_bus_pid, SIGTERM);
+      app->a11y_bus_pid = -1;
       goto error;
     }
   close (app->pipefd[0]);
