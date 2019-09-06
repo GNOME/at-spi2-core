@@ -63,6 +63,9 @@ typedef struct {
   /* -1 == error, 0 == pending, > 0 == running */
   int a11y_bus_pid;
   char *a11y_bus_address;
+#ifdef HAVE_X11
+  gboolean x11_prop_set;
+#endif
   int pipefd[2];
   int listenfd;
   char *a11y_launch_error_message;
@@ -323,6 +326,7 @@ ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
     {
       app->a11y_launch_error_message = g_strdup_printf ("Failed to read address: %s", strerror (errno));
       kill (app->a11y_bus_pid, SIGTERM);
+      app->a11y_bus_pid = -1;
       goto error;
     }
   close (app->pipefd[0]);
@@ -479,6 +483,7 @@ ensure_a11y_bus (A11yBusLauncher *app)
                            (guchar *) app->a11y_bus_address, strlen (app->a11y_bus_address));
           XFlush (display);
           XCloseDisplay (display);
+          app->x11_prop_set = TRUE;
         }
     }
 #endif
@@ -678,16 +683,6 @@ on_bus_acquired (GDBusConnection *connection,
     }
   app->session_bus = connection;
 
-  if (app->launch_immediately)
-    {
-      ensure_a11y_bus (app);
-      if (app->state == A11Y_BUS_STATE_ERROR)
-        {
-          g_main_loop_quit (app->loop);
-          return;
-        }
-    }
-
   error = NULL;
   registration_id = g_dbus_connection_register_object (connection,
                                                        "/org/a11y/bus",
@@ -729,6 +724,18 @@ on_name_acquired (GDBusConnection *connection,
                   const gchar     *name,
                   gpointer         user_data)
 {
+  A11yBusLauncher *app = user_data;
+
+  if (app->launch_immediately)
+    {
+      ensure_a11y_bus (app);
+      if (app->state == A11Y_BUS_STATE_ERROR)
+        {
+          g_main_loop_quit (app->loop);
+          return;
+        }
+    }
+
   g_bus_watch_name (G_BUS_TYPE_SESSION,
                     "org.gnome.SessionManager",
                     G_BUS_NAME_WATCHER_FLAGS_NONE,
@@ -885,7 +892,7 @@ main (int    argc,
    * we don't want early login processes to pick up the stale address.
    */
 #ifdef HAVE_X11
-  if (g_getenv ("DISPLAY") != NULL && g_getenv ("WAYLAND_DISPLAY") == NULL)
+  if (_global_app->x11_prop_set)
     {
       Display *display = XOpenDisplay (NULL);
       if (display)
