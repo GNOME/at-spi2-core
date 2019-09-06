@@ -683,16 +683,6 @@ on_bus_acquired (GDBusConnection *connection,
     }
   app->session_bus = connection;
 
-  if (app->launch_immediately)
-    {
-      ensure_a11y_bus (app);
-      if (app->state == A11Y_BUS_STATE_ERROR)
-        {
-          g_main_loop_quit (app->loop);
-          return;
-        }
-    }
-
   error = NULL;
   registration_id = g_dbus_connection_register_object (connection,
                                                        "/org/a11y/bus",
@@ -734,6 +724,18 @@ on_name_acquired (GDBusConnection *connection,
                   const gchar     *name,
                   gpointer         user_data)
 {
+  A11yBusLauncher *app = user_data;
+
+  if (app->launch_immediately)
+    {
+      ensure_a11y_bus (app);
+      if (app->state == A11Y_BUS_STATE_ERROR)
+        {
+          g_main_loop_quit (app->loop);
+          return;
+        }
+    }
+
   g_bus_watch_name (G_BUS_TYPE_SESSION,
                     "org.gnome.SessionManager",
                     G_BUS_NAME_WATCHER_FLAGS_NONE,
