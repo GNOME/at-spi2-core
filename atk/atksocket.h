@@ -62,7 +62,7 @@ struct _AtkSocketClass
 ATK_AVAILABLE_IN_ALL
 AtkObject*    atk_socket_new           (void);
 ATK_AVAILABLE_IN_ALL
-void          atk_socket_embed         (AtkSocket* obj, gchar* plug_id);
+void          atk_socket_embed         (AtkSocket* obj, const gchar* plug_id);
 ATK_AVAILABLE_IN_ALL
 gboolean      atk_socket_is_occupied   (AtkSocket* obj);
 

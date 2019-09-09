@@ -136,7 +136,7 @@ atk_socket_new (void)
  * Since: 1.30
  **/
 void
-atk_socket_embed (AtkSocket* obj, gchar* plug_id)
+atk_socket_embed (AtkSocket* obj, const gchar* plug_id)
 {
   AtkSocketClass *klass;
 
