@@ -1,3 +1,28 @@
+Changes in version 2.35.1
+=========================
+
+* AtkComponent, AtkImage, AtkText: Make sure returned values are
+  initialized to some known default value (MR!22, MR!24)
+
+* AtkPlug
+   * Add atk_plug_set_child (MR!27)
+
+* AtkSocket
+   * Make AtkSocket get_extents return parent extents by default (MR!23)
+   * atk_socket_embed: make plug_id parameter const (MR!26)
+   * Make AtkSocketClass (embed) use const for plug_id (MR!31)
+
+* AtkText
+   * Make atk_text_rectangle_union ignore undefined rectangles (MR!25)
+
+* Documentation
+   * Refine *_scroll_to_point documentation (MR!21)
+   * Refine AtkScrollType documentation (MR!12)
+
+Contributors
+  Samuel Thibault
+
+
 Changes in version 2.33.3
 =========================
 
