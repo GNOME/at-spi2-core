@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.34.0:
+
+* Fix a use after free when freeing an event.
+* Clean up handling of the X11 property specifying the bus address (#18).
+* Update doap.
+
 What's new in at-spi2-core 2.33.92:
 
 * Now requires meson 0.50.0.
