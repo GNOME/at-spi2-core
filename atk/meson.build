@@ -163,4 +163,5 @@ pkgconfig.generate(libatk,
   description: 'Accessibility Toolkit',
   subdirs: atk_api_name,
   filebase: 'atk',
+  requires: glib_dep,
 )
