@@ -8,17 +8,13 @@
   <shortdesc xml:lang="en">GTK+ module for bridging AT-SPI to ATK</shortdesc>
   <description xml:lang="en">at-spi2-atk is the library used to bridge ATK to AT-SPI, allowing applications exposing information via ATK to interface with clients that use AT-SPI. This module provides the necessary inter-process communication to allow accessibility-oriented software to operate.</description>
   <homepage rdf:resource="http://www.linuxfoundation.org/en/Accessibility/ATK/AT-SPI/AT-SPI_on_D-Bus"/>
+  <license rdf:resource="http://usefulinc.com/doap/licenses/lgpl" />
+  <bug-database rdf:resource="https://gitlab.gnome.org/GNOME/at-spi2-atk/issues/" />
+  <download-page rdf:resource="http://download.gnome.org/sources/at-spi2-atk/" />
   <mailing-list rdf:resource="https://lists.linux-foundation.org/mailman/listinfo/accessibility-atspi"/>
   <category rdf:resource="http://api.gnome.org/doap-extensions#core" />
   <programming-language>C</programming-language>
 
-  <maintainer>
-    <foaf:Person>
-      <foaf:name>Mark Doffman</foaf:name>
-      <foaf:mbox rdf:resource="mailto:mark.doffman@codethink.co.uk" />
-      <gnome:userid>markdoffman</gnome:userid>
-    </foaf:Person>
-  </maintainer>
   <maintainer>
     <foaf:Person>
       <foaf:name>Mike Gorse</foaf:name>
