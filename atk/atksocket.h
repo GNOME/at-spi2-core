@@ -56,7 +56,7 @@ struct _AtkSocketClass
   /* to be subscribed to by atk-bridge */
 
   /*< protected >*/
-  void (* embed) (AtkSocket *obj, gchar* plug_id);
+  void (* embed) (AtkSocket *obj, const gchar* plug_id);
 };
 
 ATK_AVAILABLE_IN_ALL
