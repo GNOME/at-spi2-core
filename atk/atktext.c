@@ -1391,15 +1391,11 @@ atk_text_rectangle_contain (AtkTextRectangle *clip,
 /**
  * atk_text_scroll_substring_to:
  * @text: an #AtkText
- * @start_offset: start position
- * @end_offset: end position, or -1 for the end of the string.
+ * @start_offset: start offset in the @text
+ * @end_offset: end offset in the @text, or -1 for the end of the text.
  * @type: specify where the object should be made visible.
  *
  * Makes a substring of @text visible on the screen by scrolling all necessary parents.
- *
- * Contrary to atk_text_set_position, this does not actually move
- * @text in its parent, this only makes the parents scroll so that the
- * object shows up on the screen, given its current position within the parents.
  *
  * Since: 2.32
  *
@@ -1425,8 +1421,8 @@ atk_text_scroll_substring_to (AtkText       *text,
 /**
  * atk_text_scroll_substring_to_point:
  * @text: an #AtkText
- * @start_offset: start position
- * @end_offset: end position, or -1 for the end of the string.
+ * @start_offset: start offset in the @text
+ * @end_offset: end offset in the @text, or -1 for the end of the text.
  * @coords: specify whether coordinates are relative to the screen or to the
  * parent object.
  * @x: x-position where to scroll to
