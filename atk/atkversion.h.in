@@ -186,6 +186,16 @@
  */
 #define ATK_VERSION_2_30       (G_ENCODE_VERSION (2, 30))
 
+/**
+ * ATK_VERSION_2_36:
+ *
+ * A macro that evaluates to the 2.36 version of ATK, in a format
+ * that can be used by the C pre-processor.
+ *
+ * Since: 2.36
+ */
+#define ATK_VERSION_2_36       (G_ENCODE_VERSION (2, 36))
+
 /* evaluates to the current stable version; for development cycles,
  * this means the next stable target
  */
