@@ -1,18 +1,19 @@
 # atk ja.po.
-# Copyright (C) 2003,2004,2006,2009 Free Software Foundation Inc.
+# Copyright (C) 2003-2019 Free Software Foundation Inc.
 # This file is distributed under the same license as the atk package.
-# Takeshi AIHANA <takeshi.aihana@gmail.com>, 2003,2004,2006,2009.
+# Takeshi AIHANA <takeshi.aihana@gmail.com>, 2003, 2004, 2006, 2009.
 # Satoru SATOH <ss@gnome.gr.jp>, 2006.
 # Yoji TOYODA <bsyamato@sea.plala.or.jp>, 2012.
 # Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2013.
+# sicklylife <translation@sicklylife.jp>, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/atk/issues\n"
 "POT-Creation-Date: 2018-06-10 15:51+0000\n"
-"PO-Revision-Date: 2013-09-18 22:10+0900\n"
-"Last-Translator: Jiro Matsuzawa <jmatsuzawa@gnome.org>\n"
+"PO-Revision-Date: 2019-09-22 20:30+0900\n"
+"Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -458,16 +459,12 @@ msgid "info bar"
 msgstr "情報バー"
 
 #: atk/atkobject.c:199
-#, fuzzy
-#| msgid "scroll bar"
 msgid "level bar"
-msgstr "スクロールバー"
+msgstr ""
 
 #: atk/atkobject.c:200
-#, fuzzy
-#| msgid "tool bar"
 msgid "title bar"
-msgstr "ツールバー"
+msgstr "タイトルバー"
 
 #: atk/atkobject.c:201
 msgid "block quote"
@@ -482,10 +479,8 @@ msgid "video"
 msgstr ""
 
 #: atk/atkobject.c:204
-#, fuzzy
-#| msgid "animation"
 msgid "definition"
-msgstr "アニメーション"
+msgstr ""
 
 #: atk/atkobject.c:205
 msgid "article"
@@ -496,10 +491,8 @@ msgid "landmark"
 msgstr ""
 
 #: atk/atkobject.c:207
-#, fuzzy
-#| msgid "dialog"
 msgid "log"
-msgstr "ダイアログ"
+msgstr "ログ"
 
 #: atk/atkobject.c:208
 msgid "marquee"
@@ -661,7 +654,7 @@ msgstr "この AtkHypertext オブジェクトが持つリンクの数"
 #.
 #: atk/atkvalue.c:194
 msgid "very weak"
-msgstr ""
+msgstr "非常に弱い"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a password-strength meter. Note that what such a
@@ -671,7 +664,7 @@ msgstr ""
 #.
 #: atk/atkvalue.c:201
 msgid "weak"
-msgstr ""
+msgstr "弱い"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a password-strength meter. Note that what such a
@@ -680,10 +673,8 @@ msgstr ""
 #. * present this string alone or as a token in a list.
 #.
 #: atk/atkvalue.c:208
-#, fuzzy
-#| msgid "table"
 msgid "acceptable"
-msgstr "表"
+msgstr "普通"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a password-strength meter. Note that what such a
@@ -693,7 +684,7 @@ msgstr "表"
 #.
 #: atk/atkvalue.c:215
 msgid "strong"
-msgstr ""
+msgstr "強い"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a password-strength meter. Note that what such a
@@ -703,7 +694,7 @@ msgstr ""
 #.
 #: atk/atkvalue.c:222
 msgid "very strong"
-msgstr ""
+msgstr "非常に強い"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a volume slider. Note that what such a widget
