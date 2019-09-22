@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=atk&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-12 13:35+0000\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/atk/issues\n"
+"POT-Creation-Date: 2018-06-10 15:51+0000\n"
 "PO-Revision-Date: 2013-09-18 22:10+0900\n"
 "Last-Translator: Jiro Matsuzawa <jmatsuzawa@gnome.org>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
@@ -20,559 +20,789 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../atk/atkhyperlink.c:104
+#: atk/atkhyperlink.c:126
 msgid "Selected Link"
 msgstr "選択したリンク"
 
-#: ../atk/atkhyperlink.c:105
+#: atk/atkhyperlink.c:127
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr "AtkHyperlink オブジェクトが選択されているどうかを指定"
 
-#: ../atk/atkhyperlink.c:111
+#: atk/atkhyperlink.c:133
 msgid "Number of Anchors"
 msgstr "アンカーの数"
 
-#: ../atk/atkhyperlink.c:112
+#: atk/atkhyperlink.c:134
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr "AtkHyperlink オブジェクトに対応づけられたアンカーの数"
 
-#: ../atk/atkhyperlink.c:120
+#: atk/atkhyperlink.c:142
 msgid "End index"
 msgstr "終了インデックス"
 
-#: ../atk/atkhyperlink.c:121
+#: atk/atkhyperlink.c:143
 msgid "The end index of the AtkHyperlink object"
 msgstr "AtkHyperlink オブジェクトの終了インデックス"
 
-#: ../atk/atkhyperlink.c:129
+#: atk/atkhyperlink.c:151
 msgid "Start index"
 msgstr "開始インデックス"
 
-#: ../atk/atkhyperlink.c:130
+#: atk/atkhyperlink.c:152
 msgid "The start index of the AtkHyperlink object"
 msgstr "AtkHyperlink オブジェクトの開始インデックス"
 
-#: ../atk/atkobject.c:75
+#: atk/atkobject.c:97
 msgid "invalid"
 msgstr "無効"
 
-#: ../atk/atkobject.c:76
+#: atk/atkobject.c:98
 msgid "accelerator label"
 msgstr "アクセラレータのラベル"
 
-#: ../atk/atkobject.c:77
+#: atk/atkobject.c:99
 msgid "alert"
 msgstr "警告"
 
-#: ../atk/atkobject.c:78
+#: atk/atkobject.c:100
 msgid "animation"
 msgstr "アニメーション"
 
-#: ../atk/atkobject.c:79
+#: atk/atkobject.c:101
 msgid "arrow"
 msgstr "矢印"
 
-#: ../atk/atkobject.c:80
+#: atk/atkobject.c:102
 msgid "calendar"
 msgstr "カレンダー"
 
-#: ../atk/atkobject.c:81
+#: atk/atkobject.c:103
 msgid "canvas"
 msgstr "キャンバス"
 
-#: ../atk/atkobject.c:82
+#: atk/atkobject.c:104
 msgid "check box"
 msgstr "チェックボックス"
 
-#: ../atk/atkobject.c:83
+#: atk/atkobject.c:105
 msgid "check menu item"
 msgstr "チェックメニュー項目"
 
-#: ../atk/atkobject.c:84
+#: atk/atkobject.c:106
 msgid "color chooser"
 msgstr "色の選択"
 
-#: ../atk/atkobject.c:85
+#: atk/atkobject.c:107
 msgid "column header"
 msgstr "列ヘッダー"
 
-#: ../atk/atkobject.c:86
+#: atk/atkobject.c:108
 msgid "combo box"
 msgstr "コンボボックス"
 
-#: ../atk/atkobject.c:87
+#: atk/atkobject.c:109
 msgid "dateeditor"
 msgstr "日付エディター"
 
-#: ../atk/atkobject.c:88
+#: atk/atkobject.c:110
 msgid "desktop icon"
 msgstr "デスクトップアイコン"
 
-#: ../atk/atkobject.c:89
+#: atk/atkobject.c:111
 msgid "desktop frame"
 msgstr "デスクトップフレーム"
 
-#: ../atk/atkobject.c:90
+#: atk/atkobject.c:112
 msgid "dial"
 msgstr "ダイアル"
 
-#: ../atk/atkobject.c:91
+#: atk/atkobject.c:113
 msgid "dialog"
 msgstr "ダイアログ"
 
-#: ../atk/atkobject.c:92
+#: atk/atkobject.c:114
 msgid "directory pane"
 msgstr "ディレクトリペイン"
 
-#: ../atk/atkobject.c:93
+#: atk/atkobject.c:115
 msgid "drawing area"
 msgstr "描画領域"
 
-#: ../atk/atkobject.c:94
+#: atk/atkobject.c:116
 msgid "file chooser"
 msgstr "ファイルの選択"
 
-#: ../atk/atkobject.c:95
+#: atk/atkobject.c:117
 msgid "filler"
 msgstr "フィラー"
 
 #. I know it looks wrong but that is what Java returns
-#: ../atk/atkobject.c:97
+#: atk/atkobject.c:119
 msgid "fontchooser"
 msgstr "フォントの選択"
 
-#: ../atk/atkobject.c:98
+#: atk/atkobject.c:120
 msgid "frame"
 msgstr "フレーム"
 
-#: ../atk/atkobject.c:99
+#: atk/atkobject.c:121
 msgid "glass pane"
 msgstr "ガラスペイン"
 
-#: ../atk/atkobject.c:100
+#: atk/atkobject.c:122
 msgid "html container"
 msgstr "HTML コンテナー"
 
-#: ../atk/atkobject.c:101
+#: atk/atkobject.c:123
 msgid "icon"
 msgstr "アイコン"
 
-#: ../atk/atkobject.c:102
+#: atk/atkobject.c:124
 msgid "image"
 msgstr "画像"
 
-#: ../atk/atkobject.c:103
+#: atk/atkobject.c:125
 msgid "internal frame"
 msgstr "内部フレーム"
 
-#: ../atk/atkobject.c:104
+#: atk/atkobject.c:126
 msgid "label"
 msgstr "ラベル"
 
-#: ../atk/atkobject.c:105
+#: atk/atkobject.c:127
 msgid "layered pane"
 msgstr "階層ペイン"
 
-#: ../atk/atkobject.c:106
+#: atk/atkobject.c:128
 msgid "list"
 msgstr "リスト"
 
-#: ../atk/atkobject.c:107
+#: atk/atkobject.c:129
 msgid "list item"
 msgstr "リストの項目"
 
-#: ../atk/atkobject.c:108
+#: atk/atkobject.c:130
 msgid "menu"
 msgstr "メニュー"
 
-#: ../atk/atkobject.c:109
+#: atk/atkobject.c:131
 msgid "menu bar"
 msgstr "メニューバー"
 
-#: ../atk/atkobject.c:110
+#: atk/atkobject.c:132
 msgid "menu item"
 msgstr "メニューの項目"
 
-#: ../atk/atkobject.c:111
+#: atk/atkobject.c:133
 msgid "option pane"
 msgstr "オプションペイン"
 
-#: ../atk/atkobject.c:112
+#: atk/atkobject.c:134
 msgid "page tab"
 msgstr "ページタブ"
 
-#: ../atk/atkobject.c:113
+#: atk/atkobject.c:135
 msgid "page tab list"
 msgstr "ページタブのリスト"
 
-#: ../atk/atkobject.c:114
+#: atk/atkobject.c:136
 msgid "panel"
 msgstr "パネル"
 
-#: ../atk/atkobject.c:115
+#: atk/atkobject.c:137
 msgid "password text"
 msgstr "パスワード"
 
-#: ../atk/atkobject.c:116
+#: atk/atkobject.c:138
 msgid "popup menu"
 msgstr "ポップアップメニュー"
 
-#: ../atk/atkobject.c:117
+#: atk/atkobject.c:139
 msgid "progress bar"
 msgstr "進捗バー"
 
-#: ../atk/atkobject.c:118
+#: atk/atkobject.c:140
 msgid "push button"
 msgstr "プッシュボタン"
 
-#: ../atk/atkobject.c:119
+#: atk/atkobject.c:141
 msgid "radio button"
 msgstr "ラジオボタン"
 
-#: ../atk/atkobject.c:120
+#: atk/atkobject.c:142
 msgid "radio menu item"
 msgstr "ラジオボタンの項目"
 
-#: ../atk/atkobject.c:121
+#: atk/atkobject.c:143
 msgid "root pane"
 msgstr "ルートペイン"
 
-#: ../atk/atkobject.c:122
+#: atk/atkobject.c:144
 msgid "row header"
 msgstr "行ヘッダー"
 
-#: ../atk/atkobject.c:123
+#: atk/atkobject.c:145
 msgid "scroll bar"
 msgstr "スクロールバー"
 
-#: ../atk/atkobject.c:124
+#: atk/atkobject.c:146
 msgid "scroll pane"
 msgstr "スクロールペイン"
 
-#: ../atk/atkobject.c:125
+#: atk/atkobject.c:147
 msgid "separator"
 msgstr "セパレーター"
 
-#: ../atk/atkobject.c:126
+#: atk/atkobject.c:148
 msgid "slider"
 msgstr "スライダー"
 
-#: ../atk/atkobject.c:127
+#: atk/atkobject.c:149
 msgid "split pane"
 msgstr "分割ペイン"
 
-#: ../atk/atkobject.c:128
+#: atk/atkobject.c:150
 msgid "spin button"
 msgstr "スピンボタン"
 
-#: ../atk/atkobject.c:129
+#: atk/atkobject.c:151
 msgid "statusbar"
 msgstr "ステータスバー"
 
-#: ../atk/atkobject.c:130
+#: atk/atkobject.c:152
 msgid "table"
 msgstr "表"
 
-#: ../atk/atkobject.c:131
+#: atk/atkobject.c:153
 msgid "table cell"
 msgstr "表のセル"
 
-#: ../atk/atkobject.c:132
+#: atk/atkobject.c:154
 msgid "table column header"
 msgstr "表の列ヘッダー"
 
-#: ../atk/atkobject.c:133
+#: atk/atkobject.c:155
 msgid "table row header"
 msgstr "表の行ヘッダー"
 
-#: ../atk/atkobject.c:134
+#: atk/atkobject.c:156
 msgid "tear off menu item"
 msgstr "取り外しメニュー項目"
 
-#: ../atk/atkobject.c:135
+#: atk/atkobject.c:157
 msgid "terminal"
 msgstr "端末"
 
-#: ../atk/atkobject.c:136
+#: atk/atkobject.c:158
 msgid "text"
 msgstr "テキスト"
 
-#: ../atk/atkobject.c:137
+#: atk/atkobject.c:159
 msgid "toggle button"
 msgstr "トグルボタン"
 
-#: ../atk/atkobject.c:138
+#: atk/atkobject.c:160
 msgid "tool bar"
 msgstr "ツールバー"
 
-#: ../atk/atkobject.c:139
+#: atk/atkobject.c:161
 msgid "tool tip"
 msgstr "ツールチップ"
 
-#: ../atk/atkobject.c:140
+#: atk/atkobject.c:162
 msgid "tree"
 msgstr "ツリー"
 
-#: ../atk/atkobject.c:141
+#: atk/atkobject.c:163
 msgid "tree table"
 msgstr "ツリーの表"
 
-#: ../atk/atkobject.c:142
+#: atk/atkobject.c:164
 msgid "unknown"
 msgstr "不明"
 
-#: ../atk/atkobject.c:143
+#: atk/atkobject.c:165
 msgid "viewport"
 msgstr "ビューポート"
 
-#: ../atk/atkobject.c:144
+#: atk/atkobject.c:166
 msgid "window"
 msgstr "ウィンドウ"
 
-#: ../atk/atkobject.c:145
+#: atk/atkobject.c:167
 msgid "header"
 msgstr "ヘッダー"
 
-#: ../atk/atkobject.c:146
+#: atk/atkobject.c:168
 msgid "footer"
 msgstr "フッター"
 
-#: ../atk/atkobject.c:147
+#: atk/atkobject.c:169
 msgid "paragraph"
 msgstr "段落"
 
-#: ../atk/atkobject.c:148
+#: atk/atkobject.c:170
 msgid "ruler"
 msgstr "ルーラー"
 
-#: ../atk/atkobject.c:149
+#: atk/atkobject.c:171
 msgid "application"
 msgstr "アプリケーション"
 
-#: ../atk/atkobject.c:150
+#: atk/atkobject.c:172
 msgid "autocomplete"
 msgstr "自動補完"
 
-#: ../atk/atkobject.c:151
+#: atk/atkobject.c:173
 msgid "edit bar"
 msgstr "編集バー"
 
-#: ../atk/atkobject.c:152
+#: atk/atkobject.c:174
 msgid "embedded component"
 msgstr "組み込みコンポーネント"
 
-#: ../atk/atkobject.c:153
+#: atk/atkobject.c:175
 msgid "entry"
 msgstr "エントリ"
 
-#: ../atk/atkobject.c:154
+#: atk/atkobject.c:176
 msgid "chart"
 msgstr "図"
 
-#: ../atk/atkobject.c:155
+#: atk/atkobject.c:177
 msgid "caption"
 msgstr "タイトル"
 
-#: ../atk/atkobject.c:156
+#: atk/atkobject.c:178
 msgid "document frame"
 msgstr "ドキュメントのフレーム"
 
-#: ../atk/atkobject.c:157
+#: atk/atkobject.c:179
 msgid "heading"
 msgstr "見出し"
 
-#: ../atk/atkobject.c:158
+#: atk/atkobject.c:180
 msgid "page"
 msgstr "ページ"
 
-#: ../atk/atkobject.c:159
+#: atk/atkobject.c:181
 msgid "section"
 msgstr "セクション"
 
-#: ../atk/atkobject.c:160
+#: atk/atkobject.c:182
 msgid "redundant object"
 msgstr "冗長オブジェクト"
 
-#: ../atk/atkobject.c:161
+#: atk/atkobject.c:183
 msgid "form"
 msgstr "フォーム"
 
-#: ../atk/atkobject.c:162
+#: atk/atkobject.c:184
 msgid "link"
 msgstr "リンク"
 
-#: ../atk/atkobject.c:163
+#: atk/atkobject.c:185
 msgid "input method window"
 msgstr "入力メソッドのウィンドウ"
 
-#: ../atk/atkobject.c:164
+#: atk/atkobject.c:186
 msgid "table row"
 msgstr "表の行"
 
-#: ../atk/atkobject.c:165
+#: atk/atkobject.c:187
 msgid "tree item"
 msgstr "ツリーアイテム"
 
-#: ../atk/atkobject.c:166
+#: atk/atkobject.c:188
 msgid "document spreadsheet"
 msgstr "ドキュメントのスプレッドシート"
 
-#: ../atk/atkobject.c:167
+#: atk/atkobject.c:189
 msgid "document presentation"
 msgstr "ドキュメントのプレゼンテーション"
 
-#: ../atk/atkobject.c:168
+#: atk/atkobject.c:190
 msgid "document text"
 msgstr "ドキュメントのテキスト"
 
-#: ../atk/atkobject.c:169
+#: atk/atkobject.c:191
 msgid "document web"
 msgstr "ドキュメントのウェブ"
 
-#: ../atk/atkobject.c:170
+#: atk/atkobject.c:192
 msgid "document email"
 msgstr "ドキュメントの E メール"
 
-#: ../atk/atkobject.c:171
+#: atk/atkobject.c:193
 msgid "comment"
 msgstr "コメント"
 
-#: ../atk/atkobject.c:172
+#: atk/atkobject.c:194
 msgid "list box"
 msgstr "リストボックス"
 
-#: ../atk/atkobject.c:173
+#: atk/atkobject.c:195
 msgid "grouping"
 msgstr "分類"
 
-#: ../atk/atkobject.c:174
+#: atk/atkobject.c:196
 msgid "image map"
 msgstr "画像マップ"
 
-#: ../atk/atkobject.c:175
+#: atk/atkobject.c:197
 msgid "notification"
 msgstr "通知"
 
-#: ../atk/atkobject.c:176
+#: atk/atkobject.c:198
 msgid "info bar"
 msgstr "情報バー"
 
-#: ../atk/atkobject.c:437
+#: atk/atkobject.c:199
+#, fuzzy
+#| msgid "scroll bar"
+msgid "level bar"
+msgstr "スクロールバー"
+
+#: atk/atkobject.c:200
+#, fuzzy
+#| msgid "tool bar"
+msgid "title bar"
+msgstr "ツールバー"
+
+#: atk/atkobject.c:201
+msgid "block quote"
+msgstr ""
+
+#: atk/atkobject.c:202
+msgid "audio"
+msgstr ""
+
+#: atk/atkobject.c:203
+msgid "video"
+msgstr ""
+
+#: atk/atkobject.c:204
+#, fuzzy
+#| msgid "animation"
+msgid "definition"
+msgstr "アニメーション"
+
+#: atk/atkobject.c:205
+msgid "article"
+msgstr ""
+
+#: atk/atkobject.c:206
+msgid "landmark"
+msgstr ""
+
+#: atk/atkobject.c:207
+#, fuzzy
+#| msgid "dialog"
+msgid "log"
+msgstr "ダイアログ"
+
+#: atk/atkobject.c:208
+msgid "marquee"
+msgstr ""
+
+#: atk/atkobject.c:209
+msgid "math"
+msgstr ""
+
+#: atk/atkobject.c:210
+msgid "rating"
+msgstr ""
+
+#: atk/atkobject.c:211
+msgid "timer"
+msgstr ""
+
+#: atk/atkobject.c:212
+msgid "description list"
+msgstr ""
+
+#: atk/atkobject.c:213
+msgid "description term"
+msgstr ""
+
+#: atk/atkobject.c:214
+msgid "description value"
+msgstr ""
+
+#: atk/atkobject.c:372
 msgid "Accessible Name"
 msgstr "アクセス可能な名前"
 
-#: ../atk/atkobject.c:438
+#: atk/atkobject.c:373
 msgid "Object instance’s name formatted for assistive technology access"
 msgstr "支援技術アクセス形式のオブジェクト・インスタンス名"
 
-#: ../atk/atkobject.c:444
+#: atk/atkobject.c:379
 msgid "Accessible Description"
 msgstr "アクセス可能な説明"
 
-#: ../atk/atkobject.c:445
+#: atk/atkobject.c:380
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "支援技術アクセス形式のオブジェクトの説明"
 
-#: ../atk/atkobject.c:451
+#: atk/atkobject.c:386
 msgid "Accessible Parent"
 msgstr "アクセス可能な親オブジェクト"
 
-#: ../atk/atkobject.c:452
-msgid "Is used to notify that the parent has changed"
-msgstr "親が変更されたことを通知するのに使用"
+#: atk/atkobject.c:387
+msgid "Parent of the current accessible as returned by atk_object_get_parent()"
+msgstr ""
 
-#: ../atk/atkobject.c:458
+#: atk/atkobject.c:403
 msgid "Accessible Value"
 msgstr "アクセス可能な値"
 
-#: ../atk/atkobject.c:459
+#: atk/atkobject.c:404
 msgid "Is used to notify that the value has changed"
 msgstr "値が変更されたことを通知するのに使用"
 
-#: ../atk/atkobject.c:467
+#: atk/atkobject.c:412
 msgid "Accessible Role"
 msgstr "アクセス可能なロール"
 
-#: ../atk/atkobject.c:468
+#: atk/atkobject.c:413
 msgid "The accessible role of this object"
 msgstr "このオブジェクトでアクセス可能なロール"
 
-#: ../atk/atkobject.c:476
+#: atk/atkobject.c:420
 msgid "Accessible Layer"
 msgstr "アクセス可能なレイヤー"
 
-#: ../atk/atkobject.c:477
+#: atk/atkobject.c:421
 msgid "The accessible layer of this object"
 msgstr "このオブジェクトでアクセス可能なレイヤー"
 
-#: ../atk/atkobject.c:485
+#: atk/atkobject.c:429
 msgid "Accessible MDI Value"
 msgstr "アクセス可能な MDI 値"
 
-#: ../atk/atkobject.c:486
+#: atk/atkobject.c:430
 msgid "The accessible MDI value of this object"
 msgstr "このオブジェクトでアクセス可能な MDI 値"
 
-#: ../atk/atkobject.c:494
+#: atk/atkobject.c:446
 msgid "Accessible Table Caption"
 msgstr "アクセス可能な表のタイトル"
 
-#: ../atk/atkobject.c:495
-msgid "Is used to notify that the table caption has changed; this property should not be used. accessible-table-caption-object should be used instead"
-msgstr "表のタイトルが変更されたことを通知するのに使用 (このプロパティを使用せずに  accessible-table-caption-object を使用してください)"
+#: atk/atkobject.c:447
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr ""
+"表のタイトルが変更されたことを通知するのに使用 (このプロパティを使用せずに  "
+"accessible-table-caption-object を使用してください)"
 
-#: ../atk/atkobject.c:501
+#: atk/atkobject.c:461
 msgid "Accessible Table Column Header"
 msgstr "アクセス可能な表の列ヘッダー"
 
-#: ../atk/atkobject.c:502
+#: atk/atkobject.c:462
 msgid "Is used to notify that the table column header has changed"
 msgstr "表の列ヘッダーが変更されたことを通知するのに使用"
 
-#: ../atk/atkobject.c:508
+#: atk/atkobject.c:477
 msgid "Accessible Table Column Description"
 msgstr "アクセス可能な表の列の説明"
 
-#: ../atk/atkobject.c:509
+#: atk/atkobject.c:478
 msgid "Is used to notify that the table column description has changed"
 msgstr "表の列の説明が変更されたことを通知するのに使用"
 
-#: ../atk/atkobject.c:515
+#: atk/atkobject.c:493
 msgid "Accessible Table Row Header"
 msgstr "アクセス可能な表の行ヘッダー"
 
-#: ../atk/atkobject.c:516
+#: atk/atkobject.c:494
 msgid "Is used to notify that the table row header has changed"
 msgstr "表の行ヘッダーが変更されたことを通知するのに使用"
 
-#: ../atk/atkobject.c:522
+#: atk/atkobject.c:508
 msgid "Accessible Table Row Description"
 msgstr "アクセス可能な表の行の説明"
 
-#: ../atk/atkobject.c:523
+#: atk/atkobject.c:509
 msgid "Is used to notify that the table row description has changed"
 msgstr "表の行の説明が変更されたことを通知するのに使用"
 
-#: ../atk/atkobject.c:529
+#: atk/atkobject.c:515
 msgid "Accessible Table Summary"
 msgstr "アクセス可能な表のサマリ"
 
-#: ../atk/atkobject.c:530
+#: atk/atkobject.c:516
 msgid "Is used to notify that the table summary has changed"
 msgstr "表のサマリが変更されたことを通知するのに使用"
 
-#: ../atk/atkobject.c:536
+#: atk/atkobject.c:522
 msgid "Accessible Table Caption Object"
 msgstr "アクセス可能な表のタイトルオブジェクト"
 
-#: ../atk/atkobject.c:537
+#: atk/atkobject.c:523
 msgid "Is used to notify that the table caption has changed"
 msgstr "表のタイトルが変更されたことを通知するのに使用"
 
-#: ../atk/atkobject.c:543
+#: atk/atkobject.c:529
 msgid "Number of Accessible Hypertext Links"
 msgstr "アクセス可能な HyperText リンクの数"
 
-#: ../atk/atkobject.c:544
+#: atk/atkobject.c:530
 msgid "The number of links which the current AtkHypertext has"
 msgstr "この AtkHypertext オブジェクトが持つリンクの数"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:194
+msgid "very weak"
+msgstr ""
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:201
+msgid "weak"
+msgstr ""
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:208
+#, fuzzy
+#| msgid "table"
+msgid "acceptable"
+msgstr "表"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:215
+msgid "strong"
+msgstr ""
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:222
+msgid "very strong"
+msgstr ""
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:230
+msgid "very low"
+msgstr ""
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:238
+msgid "medium"
+msgstr ""
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:246
+msgid "high"
+msgstr ""
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:254
+msgid "very high"
+msgstr ""
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:262
+msgid "very bad"
+msgstr ""
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:270
+msgid "bad"
+msgstr ""
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:278
+msgid "good"
+msgstr ""
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:286
+msgid "very good"
+msgstr ""
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:294
+msgid "best"
+msgstr ""
+
+#~ msgid "Is used to notify that the parent has changed"
+#~ msgstr "親が変更されたことを通知するのに使用"
