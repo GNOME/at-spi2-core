@@ -1,3 +1,7 @@
+What's new in at-spi2-atk 2.34.1:
+
+* socket_embed_hook: Make plug_id parameter const.
+
 What's new in at-spi2-atk 2.34.0:
 
 * Updated doap.
