@@ -4,7 +4,7 @@ What's new in at-spi2-atk 2.34.0:
 
 What's new in at-spi2-atk 2.33.92:
 
-* License is now lGPL-2.1+.
+* License is now LGPL-2.1+.
 * Several test fixes (thanks to Samuel THibault).
 * Initialize desktop name/path early; needed since we now defer
   registration.
