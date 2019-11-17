@@ -153,7 +153,7 @@ if get_option('introspection')
 endif
 
 libatk_dep = declare_dependency(link_with: libatk,
-  include_directories: atk_inc,
+  include_directories: [ root_inc, atk_inc ],
   dependencies: glib_dep,
   sources: atk_sources_dep,
 )
