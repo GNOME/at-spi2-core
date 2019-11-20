@@ -5,7 +5,7 @@
 
 /*** BEGIN file-production ***/
 /* enumerations from "@basename@" */
-#include "@filename@"
+#include "@basename@"
 
 /*** END file-production ***/
 
