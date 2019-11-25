@@ -14,21 +14,21 @@ atk_bridge_sources = [
 
 install_headers([ 'atk-bridge.h' ], subdir: join_paths(meson.project_name(), '2.0'))
 
-libatk_bridge = shared_library('atk-bridge-2.0', atk_bridge_sources,
-                               include_directories: root_inc,
-                               dependencies: [
-                                 libatk_bridge_adaptors_dep,
-                                 libdroute_dep,
-                                 libdbus_dep,
-                                 gmodule_dep,
-                                 gobject_dep,
-                                 atk_dep,
-                                 atspi_dep,
-                               ],
-                               c_args: p2p_cflags,
-                               version: atk_bridge_libversion,
-                               soversion: atk_bridge_soversion,
-                               install: true)
+libatk_bridge = library('atk-bridge-2.0', atk_bridge_sources,
+                        include_directories: root_inc,
+                        dependencies: [
+                          libatk_bridge_adaptors_dep,
+                          libdroute_dep,
+                          libdbus_dep,
+                          gmodule_dep,
+                          gobject_dep,
+                          atk_dep,
+                          atspi_dep,
+                        ],
+                        c_args: p2p_cflags,
+                        version: atk_bridge_libversion,
+                        soversion: atk_bridge_soversion,
+                        install: true)
 
 libatk_bridge_dep = declare_dependency(link_with: libatk_bridge,
                                        include_directories: [
