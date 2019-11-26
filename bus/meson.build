@@ -10,25 +10,21 @@ session_dir = join_paths(atspi_sysconfdir, 'xdg/autostart')
 configure_file(input: 'accessibility.conf.in',
                output: 'accessibility.conf',
                configuration: accessibility_conf,
-               install: true,
                install_dir: busconfig_dir)
 
 configure_file(input: 'at-spi-dbus-bus.desktop.in',
                output: 'at-spi-dbus-bus.desktop',
                configuration: libexec_conf,
-               install: true,
                install_dir: session_dir)
 
 configure_file(input: 'org.a11y.Bus.service.in',
                output: 'org.a11y.Bus.service',
                configuration: libexec_conf,
-               install: true,
                install_dir: dbus_services_dir)
 
 configure_file(input: 'at-spi-dbus-bus.service.in',
                output: 'at-spi-dbus-bus.service',
                configuration: libexec_conf,
-               install: true,
                install_dir: systemd_user_dir)
 
 launcher_args = [
