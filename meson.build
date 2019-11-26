@@ -6,7 +6,7 @@ project('at-spi2-core', 'c',
           'warning_level=1',
           'c_std=c99',
         ],
-        meson_version: '>= 0.50.0')
+        meson_version: '>= 0.40.1')
 
 add_project_arguments([ '-D_POSIX_C_SOURCE=200809L', '-D_DEFAULT_SOURCE' ], language: 'c')
 
