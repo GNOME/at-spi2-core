@@ -41,5 +41,4 @@ libexec_conf.set('libexecdir', atspi_libexecdir)
 configure_file(input: 'org.a11y.atspi.Registry.service.in',
                output: 'org.a11y.atspi.Registry.service',
                configuration: libexec_conf,
-               install: true,
                install_dir: join_paths(atspi_datadir, 'dbus-1/accessibility-services'))
