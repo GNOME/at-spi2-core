@@ -34,4 +34,6 @@ gboolean spi_event_is_subtype (gchar **needle, gchar **haystack);
 extern GMainContext *spi_context;
 guint spi_idle_add(GSourceFunc    function, gpointer       data);
 guint spi_timeout_add_seconds (gint interval, GSourceFunc function, gpointer    data);
+guint spi_timeout_add_full (gint priority, guint interval, GSourceFunc function,
+                            gpointer data, GDestroyNotify notify);
 #endif /* EVENT_H */
