@@ -403,8 +403,8 @@ register_reply (DBusPendingCall *pending, void *user_data)
     get_registered_event_listeners (spi_global_app_data);
 }
 
-gboolean
-_atk_bridge_register_application (gpointer data)
+static gboolean
+register_application (gpointer data)
 {
   SpiBridge * app = data;
   DBusMessage *message;
@@ -435,6 +435,31 @@ _atk_bridge_register_application (gpointer data)
 
   if (message)
     dbus_message_unref (message);
+
+  return FALSE;
+}
+
+void
+_atk_bridge_schedule_application_registration (SpiBridge *app)
+{
+  /* We need the callback to be called first thing, before any other of ours
+   * (and possibly of client apps), so use a high priority and a short timeout
+   * to try and be called first by the main loop. */
+  if (!app->registration_pending)
+    app->registration_pending = spi_timeout_add_full (G_PRIORITY_HIGH, 0,
+                                                      register_application,
+                                                      app, NULL);
+}
+
+gboolean
+_atk_bridge_remove_pending_application_registration (SpiBridge *app)
+{
+  if (app->registration_pending)
+  {
+    g_source_remove (app->registration_pending);
+    app->registration_pending = 0;
+    return TRUE;
+  }
 
   return FALSE;
 }
@@ -470,12 +495,8 @@ deregister_application (SpiBridge * app)
   DBusMessageIter iter;
   const char *uname;
 
-  if (spi_global_app_data->registration_pending)
-  {
-    g_source_remove (spi_global_app_data->registration_pending);
-    spi_global_app_data->registration_pending = 0;
+  if (_atk_bridge_remove_pending_application_registration (spi_global_app_data))
     return;
-  }
 
   message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
                                           ATSPI_DBUS_PATH_REGISTRY,
@@ -850,7 +871,7 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
             {
               if (registry_lost && !old[0])
                 {
-                  _atk_bridge_register_application (spi_global_app_data);
+                  register_application (spi_global_app_data);
                   registry_lost = FALSE;
                 }
               else if (!new[0])
@@ -1105,9 +1126,8 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
                               NULL);
 
   /* Register this app by sending a signal out to AT-SPI registry daemon */
-  if (!atspi_no_register && (!root || !ATK_IS_PLUG (root)) &&
-      !spi_global_app_data->registration_pending)
-    spi_global_app_data->registration_pending = spi_idle_add (_atk_bridge_register_application, spi_global_app_data);
+  if (!atspi_no_register && (!root || !ATK_IS_PLUG (root)))
+    _atk_bridge_schedule_application_registration (spi_global_app_data);
   else
     get_registered_event_listeners (spi_global_app_data);
 

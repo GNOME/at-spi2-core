@@ -73,11 +73,8 @@ switch_main_context (GMainContext *cnx)
   for (list = spi_global_app_data->direct_connections; list; list = list->next)
     atspi_dbus_connection_setup_with_g_main (list->data, cnx);
 
-  if (spi_global_app_data->registration_pending)
-  {
-    g_source_remove (spi_global_app_data->registration_pending);
-    spi_global_app_data->registration_pending = spi_idle_add (_atk_bridge_register_application, spi_global_app_data);
-  }
+  if (_atk_bridge_remove_pending_application_registration (spi_global_app_data))
+    _atk_bridge_schedule_application_registration (spi_global_app_data);
 }
 
 guint
@@ -102,6 +99,22 @@ spi_timeout_add_seconds (gint interval, GSourceFunc function, gpointer    data)
 
   source = g_timeout_source_new_seconds (interval);
   g_source_set_callback (source, function, data, NULL);
+  id = g_source_attach (source, spi_context);
+  g_source_unref (source);
+
+  return id;
+}
+
+guint
+spi_timeout_add_full (gint priority, guint interval, GSourceFunc function,
+                      gpointer data, GDestroyNotify notify)
+{
+  GSource *source;
+  guint id;
+
+  source = g_timeout_source_new (interval);
+  g_source_set_priority (source, priority);
+  g_source_set_callback (source, function, data, notify);
   id = g_source_attach (source, spi_context);
   g_source_unref (source);
 

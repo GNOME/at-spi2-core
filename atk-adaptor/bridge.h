@@ -94,7 +94,8 @@ DRoutePropertyFunction _atk_bridge_find_property_func (const char *property,
 
 GType _atk_bridge_type_from_iface (const char *iface);
 
-gboolean _atk_bridge_register_application (gpointer data);
+void _atk_bridge_schedule_application_registration (SpiBridge *app);
+gboolean _atk_bridge_remove_pending_application_registration (SpiBridge *app);
 G_END_DECLS
 
 #endif /* BRIDGE_H */
