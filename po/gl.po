@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: at-spi 2-core\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
 "POT-Creation-Date: 2018-10-05 04:46+0000\n"
-"PO-Revision-Date: 2019-12-25 05:09+0100\n"
+"PO-Revision-Date: 2019-12-25 05:11+0100\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: gnome-l10n-gl@gnome.org\n"
 "Language: gl\n"
@@ -25,57 +25,3 @@ msgstr "A aplicación xa non existe"
 #: atspi/atspi-misc.c:1850
 msgid "Attempted synchronous call where prohibited"
 msgstr "Tentouse unha chamada síncrona onde estaba prohibida"
-
-#~ msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
-#~ msgstr "AT-SPI: Sinatura %s descoñecida para RemoveAccessible"
-
-#~ msgid "AT-SPI: Error calling getRoot for %s: %s"
-#~ msgstr "AT-SPI: Erro ao chamar a getRoot para %s: %s"
-
-#~ msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
-#~ msgstr "AT-SPI: Erro en GetItems, emisor=%s, erro=%s"
-
-#~ msgid "AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange signature %s"
-#~ msgstr "AT-SPI: Chamouse a _atspi_dbus_return_accessible_from_message cunha sinatura estraña %s"
-
-#~ msgid "AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange signature %s"
-#~ msgstr "AT-SPI:  Chamouse a _atspi_dbus_return_hyperlink_from_message cunha sinatura estraña %s"
-
-#~ msgid "AT-SPI: AddAccessible with unknown signature %s\n"
-#~ msgstr "AT-SPI: AddAccessible con sinatura %s descoñecida\n"
-
-#~ msgid "AT-SPI: Could not get the display\n"
-#~ msgstr "AT-SPI: Non é posíbel obter a pantalla\n"
-
-#~ msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
-#~ msgstr "AT-SPI: Non foi posíbel atopar o bus de accesibilidade - Usando o bus de sesión.\n"
-
-#~ msgid "AT-SPI: Couldn't connect to bus: %s\n"
-#~ msgstr "AT-SPI: Non foi posíbel conectarse ao bus: %s\n"
-
-#~ msgid "AT-SPI: Couldn't register with bus: %s\n"
-#~ msgstr "AT-SPI: Non foi posíbel rexistrarse ao bus: %s\n"
-
-#~ msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
-#~ msgstr "AT-SPI: agardábase unha variante ao obter %s desde a interface %s; porén obtívose %s\n"
-
-#~ msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
-#~ msgstr "atspi_dbus_get_property: Tipo incorrecto: esperábase %s, obtívose %c\n"
-
-#~ msgid "AT-SPI: Unknown interface %s"
-#~ msgstr "AT-SPI: Interface %s descoñecida"
-
-#~ msgid "AT-SPI: expected 2 values in states array; got %d\n"
-#~ msgstr "AT-SPI: agardábanse 2 valores na matriz de estados; porén obtivéronse %d\n"
-
-#~ msgid "Streamable content not implemented"
-#~ msgstr "Contido en fluxo non implementado"
-
-#~ msgid "called atspi_event_listener_register_from_callback with a NULL event_type"
-#~ msgstr "chamouse a atspi_event_listener_register_from_callback con un event_type nulo"
-
-#~ msgid "Got invalid signature %s for signal %s from interface %s\n"
-#~ msgstr "Obtívose unha sinatura non válida %s para o sinal %s desde a interface %s\n"
-
-#~ msgid "AT-SPI: Got error: %s\n"
-#~ msgstr "AT-SPI: Obtívose o erro: %s\n"
