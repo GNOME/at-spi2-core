@@ -135,6 +135,14 @@ static const guint8 underline_offsets[] = {
   0, 5, 12, 19, 23
 };
 
+static const char text_position[] =
+  "baseline\0"
+  "super\0"
+  "sub\0";
+static const guint8 text_position_offsets[] = {
+  0, 9, 15,
+};
+
 static void atk_text_base_init (AtkTextIface *class);
 
 static void atk_text_real_get_range_extents  (AtkText          *text,
@@ -1335,6 +1343,9 @@ atk_text_attribute_get_value (AtkTextAttribute attr,
     case ATK_TEXT_ATTR_STYLE:
       g_assert (index >= 0 && index < G_N_ELEMENTS (style_offsets));
       return style + style_offsets[index];
+    case ATK_TEXT_ATTR_TEXT_POSITION:
+      g_assert (index >= 0 && index < G_N_ELEMENTS (text_position_offsets));
+      return text_position + text_position_offsets[index];
     default:
       return NULL;
    }

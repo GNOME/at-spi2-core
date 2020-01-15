@@ -43,7 +43,7 @@ G_BEGIN_DECLS
  *@ATK_TEXT_ATTR_PIXELS_BELOW_LINES: Pixels of blank space to leave below each newline-terminated line.
  *@ATK_TEXT_ATTR_PIXELS_INSIDE_WRAP: Pixels of blank space to leave between wrapped lines inside the same newline-terminated line (paragraph).
  *@ATK_TEXT_ATTR_BG_FULL_HEIGHT: "true" or "false" whether to make the background color for each character the height of the highest font used on the current line, or the height of the font used for the current character.
- *@ATK_TEXT_ATTR_RISE: Number of pixels that the characters are risen above the baseline
+ *@ATK_TEXT_ATTR_RISE: Number of pixels that the characters are risen above the baseline. See also ATK_TEXT_ATTR_TEXT_POSITION.
  *@ATK_TEXT_ATTR_UNDERLINE: "none", "single", "double", "low", or "error"
  *@ATK_TEXT_ATTR_STRIKETHROUGH: "true" or "false" whether the text is strikethrough 
  *@ATK_TEXT_ATTR_SIZE: The size of the characters in points. eg: 10
@@ -61,6 +61,7 @@ G_BEGIN_DECLS
  *@ATK_TEXT_ATTR_STRETCH: The stretch of the text, if set. Values are "ultra_condensed", "extra_condensed", "condensed", "semi_condensed", "normal", "semi_expanded", "expanded", "extra_expanded" or "ultra_expanded"
  *@ATK_TEXT_ATTR_VARIANT: The capitalization variant of the text, if set. Values are "normal" or "small_caps"
  *@ATK_TEXT_ATTR_STYLE: The slant style of the text, if set. Values are "normal", "oblique" or "italic"
+ *@ATK_TEXT_ATTR_TEXT_POSITION: The vertical position with respect to the baseline. Values are "baseline", "super", or "sub". Note that a super or sub text attribute refers to position with respect to the baseline of the prior character.
  *@ATK_TEXT_ATTR_LAST_DEFINED: not a valid text attribute, used for finding end of enumeration
  *
  * Describes the text attributes supported
@@ -95,6 +96,7 @@ typedef enum
   ATK_TEXT_ATTR_STRETCH,
   ATK_TEXT_ATTR_VARIANT,
   ATK_TEXT_ATTR_STYLE,
+  ATK_TEXT_ATTR_TEXT_POSITION,
   ATK_TEXT_ATTR_LAST_DEFINED
 } AtkTextAttribute;
 
