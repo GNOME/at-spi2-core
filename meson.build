@@ -44,7 +44,7 @@ darwin_versions = ['@0@'.format(current + 1), '@0@.@1@'.format(current + 1, atk_
 add_project_arguments([ '-DG_DISABLE_SINGLE_INCLUDES', '-DATK_DISABLE_SINGLE_INCLUDES' ], language: 'c')
 
 if cc.get_id() == 'msvc'
-  add_project_arguments([ '-FImsvc_recommended_pragmas.h' ], language: 'c')
+  add_project_arguments(cc.get_supported_arguments(['-FImsvc_recommended_pragmas.h', '-utf-8']), language: 'c')
 endif
 
 # Compiler and linker flags
