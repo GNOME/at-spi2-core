@@ -1240,6 +1240,18 @@ typedef enum {
  * @ATSPI_ROLE_CONTENT_INSERTION: Content previously inserted or proposed to be
  * inserted, e.g. in revision history or a content view providing suggestions
  * from reviewers. @Since: 2.34.
+ * @ATSPI_ROLE_MARK: A run of content that is marked or highlighted, such as for
+ * reference purposes, or to call it out as having a special purpose. If the
+ * marked content has an associated section in the document elaborating on the
+ * reason for the mark, then %ATSPI_RELATION_DETAILS should be used on the mark
+ * to point to that associated section. In addition, the reciprocal relation
+ * %ATSPI_RELATION_DETAILS_FOR should be used on the associated content section
+ * to point back to the mark. @Since: 2.36.
+ * @ATSPI_ROLE_SUGGESTION: A container for content that is called out as a proposed
+ * change from the current version of the document, such as by a reviewer of the
+ * content. This role should include either %ATSPI_ROLE_CONTENT_DELETION and/or
+ * %ATSPI_ROLE_CONTENT_INSERTION children, in any order, to indicate what the
+ * actual change is. @Since: 2.36
  *  @ATSPI_ROLE_LAST_DEFINED: Not a valid role, used for finding end of
  *  enumeration.
  *
@@ -1375,6 +1387,8 @@ typedef enum {
     ATSPI_ROLE_FOOTNOTE,
     ATSPI_ROLE_CONTENT_DELETION,
     ATSPI_ROLE_CONTENT_INSERTION,
+    ATSPI_ROLE_MARK,
+    ATSPI_ROLE_SUGGESTION,
     ATSPI_ROLE_LAST_DEFINED,
 } AtspiRole;
 
@@ -1383,7 +1397,7 @@ typedef enum {
  *
  * One higher than the highest valid value of #AtspiRole.
  */
-#define ATSPI_ROLE_COUNT (127+1)
+#define ATSPI_ROLE_COUNT (129+1)
 
 typedef enum
 {
