@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.35.1:
+
+* Fix source reproducibility (!25).
+
+* Avoid depending on Meson 0.50 (#20).
+
+* Add ATSPI_ROLE_MARK and ATSPI_ROLE_SUGGESTION (!27).
+
 What's new in at-spi2-core 2.34.0:
 
 * Fix a use after free when freeing an event.
