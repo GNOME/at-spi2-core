@@ -1,18 +1,18 @@
 # atk ja.po.
-# Copyright (C) 2003-2019 Free Software Foundation Inc.
+# Copyright (C) 2003-2013, 2019-2020 Free Software Foundation Inc.
 # This file is distributed under the same license as the atk package.
 # Takeshi AIHANA <takeshi.aihana@gmail.com>, 2003, 2004, 2006, 2009.
 # Satoru SATOH <ss@gnome.gr.jp>, 2006.
 # Yoji TOYODA <bsyamato@sea.plala.or.jp>, 2012.
 # Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2013.
-# sicklylife <translation@sicklylife.jp>, 2019.
+# sicklylife <translation@sicklylife.jp>, 2019-2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/atk/issues\n"
 "POT-Creation-Date: 2020-01-15 13:39+0000\n"
-"PO-Revision-Date: 2019-09-22 20:30+0900\n"
+"PO-Revision-Date: 2020-01-23 23:00+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -460,7 +460,7 @@ msgstr "情報バー"
 
 #: atk/atkobject.c:200
 msgid "level bar"
-msgstr ""
+msgstr "レベルバー"
 
 #: atk/atkobject.c:201
 msgid "title bar"
@@ -468,15 +468,15 @@ msgstr "タイトルバー"
 
 #: atk/atkobject.c:202
 msgid "block quote"
-msgstr ""
+msgstr "ブロック引用"
 
 #: atk/atkobject.c:203
 msgid "audio"
-msgstr ""
+msgstr "オーディオ"
 
 #: atk/atkobject.c:204
 msgid "video"
-msgstr ""
+msgstr "ビデオ"
 
 #: atk/atkobject.c:205
 msgid "definition"
@@ -508,7 +508,7 @@ msgstr ""
 
 #: atk/atkobject.c:212
 msgid "timer"
-msgstr ""
+msgstr "タイマー"
 
 #: atk/atkobject.c:213
 msgid "description list"
