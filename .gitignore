@@ -54,3 +54,6 @@ docs/atk-unused.txt
 docs/html
 docs/tmpl
 docs/xml
+
+# Meson
+/subprojects/*/
