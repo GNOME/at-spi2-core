@@ -528,7 +528,6 @@ atspi_generate_mouse_event (glong x, glong y, const gchar *name, GError **error)
 
 /**
  * atspi_set_reference_window:
- *
  * @accessible: the #AtspiAccessible corresponding to the window to select.
  *              should be a top-level window with a role of
  *              ATSPI_ROLE_APPLICATION.
