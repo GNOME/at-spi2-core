@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.35.92:
+
+* bus-launcher: make session management more robust.
+
 What's new in at-spi2-core 2.35.1:
 
 * Fix source reproducibility (!25).
