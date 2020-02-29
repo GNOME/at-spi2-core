@@ -1,3 +1,13 @@
+What's new in at-spi2-atk 2.34.2:
+
+* Meson: don't hard-code shared_library (!19).
+
+* Mitigate missing window events at startup.
+
+* Set C standard to gnu99 (#10).
+
+* Tests: include sys/time.h (#14).
+
 What's new in at-spi2-atk 2.34.1:
 
 * socket_embed_hook: Make plug_id parameter const.
