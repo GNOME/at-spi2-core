@@ -26,6 +26,7 @@
 
 #include <stdio.h>
 #include <unistd.h>
+#include <sys/time.h>
 #include <glib.h>
 #include <stdio.h>
 #include <stdlib.h>
