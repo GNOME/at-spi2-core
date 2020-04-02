@@ -1,3 +1,29 @@
+Changes in version 2.36
+=========================
+
+* New API
+   * Added ATK_ROLE_MARK and ATK_ROLE_SUGGESTION
+   * Add ATK_TEX_ATTR_TEXT_POSITION to the list of possible AtkText
+     attributes (MR!33)
+
+* Documentation
+   * Updated documentation for atk_text_set_caret_offset (MR!18)
+
+* Building - meson
+   * Fix building atk as subproject
+   * Add Meson wrap file for GLib (MR!37)
+
+* Building - visual studio
+   * Use -utf-8 if available (MR!38)
+
+Contributors
+   Luca Bacci, Joanmarie Diggs, Samuel Thibault
+
+Translations
+
+   Fran Dieguez (gl), Ryuta Fujii (ja), Daniel Korostil (uk), Jwtiyar
+   Nariman (ckb), Umarzuki Bin Mochlis Moktar (ms)
+
 Changes in version 2.35.1
 =========================
 
