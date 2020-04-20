@@ -65,6 +65,7 @@ atk_headers = [
   'atkutil.h',
   'atkvalue.h',
   'atkwindow.h',
+  'atk-autocleanups.h',
 ]
 
 install_headers(atk_headers + ['atk.h'], subdir: atk_api_path)
