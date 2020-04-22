@@ -56,6 +56,8 @@
 #include <atk/atkversion.h>
 #include <atk/atkwindow.h>
 
+#include <atk/atk-autocleanups.h>
+
 #undef __ATK_H_INSIDE__
 
 #endif /* __ATK_H__ */
