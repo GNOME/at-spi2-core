@@ -50,6 +50,7 @@ screen_reader_signal_watcher (GSignalInvocationHint *signal_hint,
   DBusMessageIter iter, iter_struct, iter_variant, iter_array;
   dbus_int32_t detail1, detail2;
   const char *detail = "";
+  gchar *dbus_name;
 
   object = g_value_get_object (param_values + 0);
   g_return_val_if_fail (ATSPI_IS_ACCESSIBLE(object), FALSE);
@@ -60,9 +61,11 @@ screen_reader_signal_watcher (GSignalInvocationHint *signal_hint,
   detail2 = g_value_get_int (param_values + 2);
   accessible = ATSPI_ACCESSIBLE (object);
 
+  dbus_name = _atspi_strdup_and_adjust_for_dbus (name);
   signal = dbus_message_new_signal (ATSPI_DBUS_PATH_SCREEN_READER,
                                     ATSPI_DBUS_INTERFACE_EVENT_SCREEN_READER,
-                                    "RegionChanged");
+                                    dbus_name);
+  g_free (dbus_name);
   dbus_message_iter_init_append (signal, &iter);
   dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &detail);
   dbus_message_iter_append_basic (&iter, DBUS_TYPE_INT32, &detail1);
