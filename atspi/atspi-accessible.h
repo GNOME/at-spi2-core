@@ -66,6 +66,7 @@ struct _AtspiAccessibleClass
   AtspiObjectClass parent_class;
 
   void (*region_changed) (AtspiAccessible *accessible, gint current_offset, gint last_offset);
+  void (*mode_changed) (AtspiAccessible *accessible, gboolean enabled);
 };
 
 GType atspi_accessible_get_type (void); 

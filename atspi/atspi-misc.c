@@ -35,6 +35,7 @@
 #include "atspi-gmain.h"
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 static void handle_get_items (DBusPendingCall *pending, void *user_data);
 
