@@ -316,7 +316,7 @@ atspi_accessible_class_init (AtspiAccessibleClass *klass)
 		  NULL, NULL,
 		  atspi_marshal_VOID__INT_STRING,
 		  G_TYPE_NONE,
-		  1, G_TYPE_INT);
+		  2, G_TYPE_INT, G_TYPE_STRING);
 
   g_signal_add_emission_hook (atspi_accessible_signals[REGION_CHANGED], 0,
                               screen_reader_signal_watcher, NULL,
