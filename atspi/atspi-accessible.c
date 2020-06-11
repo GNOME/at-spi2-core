@@ -299,6 +299,7 @@ atspi_accessible_class_init (AtspiAccessibleClass *klass)
    * AtspiAccessible::mode-changed:
    * @atspiaccessible: the object which received the signal
    * @arg1: a boolean specifying whether the mode is being toggled on or off.
+   * @why: an optional string explaining why the mode changed.
    *
    * The signal "mode-changed" is emitted by a screen reader to indicate
    * that its mode has changed. This signal supports the following details:
