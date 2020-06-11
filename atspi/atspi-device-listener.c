@@ -177,7 +177,9 @@ atspi_device_listener_finalize (GObject *object)
 {
   AtspiDeviceListener *listener = (AtspiDeviceListener *) object;
   GList *l;
-  
+
+  device_listeners = g_list_remove (device_listeners, listener);
+
   for (l = listener->callbacks; l; l = l->next)
     {
       device_event_handler_free (l->data);
