@@ -785,12 +785,9 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
         is_superset (name, e->name) &&
         is_superset (detail, e->detail))
     {
-      gboolean need_replace;
       DBusMessage *message, *reply;
-      need_replace = (l == event_listeners);
-      l = g_list_remove (l, e);
-      if (need_replace)
-        event_listeners = l;
+      l = g_list_next (l);
+      event_listeners = g_list_remove (event_listeners, e);
       for (i = 0; i < matchrule_array->len; i++)
       {
 	char *matchrule = g_ptr_array_index (matchrule_array, i);
@@ -809,7 +806,8 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
 
       listener_entry_free (e);
     }
-    else l = g_list_next (l);
+    else
+      l = g_list_next (l);
   }
   g_free (category);
   g_free (name);
