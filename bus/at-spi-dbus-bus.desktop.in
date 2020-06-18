@@ -4,6 +4,6 @@ Name=AT-SPI D-Bus Bus
 Exec=@libexecdir@/at-spi-bus-launcher --launch-immediately
 OnlyShowIn=GNOME;Unity;
 NoDisplay=true
-AutostartCondition=GSETTINGS org.gnome.desktop.interface toolkit-accessibility
+AutostartCondition=GSettings org.gnome.desktop.interface toolkit-accessibility
 X-GNOME-AutoRestart=true
 X-GNOME-Autostart-Phase=Initialization
