@@ -1741,7 +1741,7 @@ atspi_accessible_set_cache_mask (AtspiAccessible *accessible, AtspiCache mask)
 {
   g_return_if_fail (accessible != NULL);
   g_return_if_fail (accessible->parent.app != NULL);
-  g_return_if_fail (accessible == accessible->parent.app->root);
+  g_return_if_fail (accessible == accessible->parent.app->root || accessible->role == ATSPI_ROLE_APPLICATION);
   accessible->parent.app->cache = mask;
   enable_caching = TRUE;
 }
