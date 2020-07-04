@@ -549,7 +549,7 @@ struct codepair {
   { 0x0afc, 0x2038 }, /*                       caret ‸ CARET */
   { 0x047e, 0x203e }, /*                    overline ‾ OVERLINE */
   { 0x0eff, 0x20a9 }, /*                  Korean_Won ₩ WON SIGN */
-  { 0x13a4, 0x20ac }, /*                        Euro € EURO SIGN */
+  { 0x20ac, 0x20ac }, /*                        Euro € EURO SIGN */
 
   { 0x0ab8, 0x2105 }, /*                      careof ℅ CARE OF */
   { 0x06b0, 0x2116 }, /*                  numerosign № NUMERO SIGN */
