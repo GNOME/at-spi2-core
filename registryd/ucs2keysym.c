@@ -34,6 +34,9 @@
 #include <X11/X.h>
 #include "deviceeventcontroller.h"	/* for prototype */
 
+/* DO NOT UPATE BY HAND!
+ * This table can be regenerated from Xorg's keysymdef.h with the ucs2keysym.sh
+ * script.  */
 struct codepair {
   unsigned short keysym;
   unsigned short ucs;
@@ -603,8 +606,8 @@ struct codepair {
   { 0x0afa, 0x2315 }, /*           telephonerecorder ⌕ TELEPHONE RECORDER */
   { 0x08a4, 0x2320 }, /*                 topintegral ⌠ TOP HALF INTEGRAL */
   { 0x08a5, 0x2321 }, /*                 botintegral ⌡ BOTTOM HALF INTEGRAL */
-  { 0x0abc, 0x2329 }, /*            leftanglebracket 〈 LEFT-POINTING ANGLE BRACKET */
-  { 0x0abe, 0x232a }, /*           rightanglebracket 〉 RIGHT-POINTING ANGLE BRACKET */
+  { 0x0abc, 0x2329 }, /*            leftanglebracket 〈 LEFT-POINTING ANGLE BRACKET, not U+27E8 per xterm source */
+  { 0x0abe, 0x232a }, /*           rightanglebracket 〉 RIGHT-POINTING ANGLE BRACKET, not U+27E9 per xterm source */
   { 0x0bcc, 0x2395 }, /*                        quad ⎕ APL FUNCTIONAL SYMBOL QUAD */
   { 0x08ab, 0x239b }, /*               topleftparens ⎛ LEFT PARENTHESIS UPPER HOOK */
   { 0x08ac, 0x239d }, /*               botleftparens ⎝ LEFT PARENTHESIS LOWER HOOK */
