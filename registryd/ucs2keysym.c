@@ -525,7 +525,6 @@ struct codepair {
   { 0x0ef9, 0x11f0 }, /*  Hangul_J_KkogjiDalrinIeung ᇰ HANGUL JONGSEONG YESIEUNG */
   { 0x0efa, 0x11f9 }, /*        Hangul_J_YeorinHieuh ᇹ HANGUL JONGSEONG YEORINHIEUH */
 
- 
   { 0x0aa2, 0x2002 }, /*                     enspace   EN SPACE */
   { 0x0aa1, 0x2003 }, /*                     emspace   EM SPACE */
   { 0x0aa3, 0x2004 }, /*                    em3space   THREE-PER-EM SPACE */
@@ -581,6 +580,7 @@ struct codepair {
   { 0x08fe, 0x2193 }, /*                   downarrow ↓ DOWNWARDS ARROW */
   { 0x08ce, 0x21d2 }, /*                     implies ⇒ RIGHTWARDS DOUBLE ARROW */
   { 0x08cd, 0x21d4 }, /*                    ifonlyif ⇔ LEFT RIGHT DOUBLE ARROW */
+
   { 0x08ef, 0x2202 }, /*           partialderivative ∂ PARTIAL DIFFERENTIAL */
   { 0x08c5, 0x2207 }, /*                       nabla ∇ NABLA */
   { 0x0bca, 0x2218 }, /*                         jot ∘ RING OPERATOR */
@@ -611,6 +611,7 @@ struct codepair {
   { 0x0bdc, 0x22a3 }, /*                    lefttack ⊣ LEFT TACK */
   { 0x0bc2, 0x22a4 }, /*                    downtack ⊤ DOWN TACK */
   { 0x0bce, 0x22a5 }, /*                      uptack ⊥ UP TACK */
+
   { 0x0bd3, 0x2308 }, /*                     upstile ⌈ LEFT CEILING */
   { 0x0bc4, 0x230a }, /*                   downstile ⌊ LEFT FLOOR */
   { 0x0afa, 0x2315 }, /*           telephonerecorder ⌕ TELEPHONE RECORDER */
@@ -634,6 +635,7 @@ struct codepair {
   { 0x09f0, 0x23bb }, /*              horizlinescan3 ⎻ HORIZONTAL SCAN LINE-3 */
   { 0x09f2, 0x23bc }, /*              horizlinescan7 ⎼ HORIZONTAL SCAN LINE-7 */
   { 0x09f3, 0x23bd }, /*              horizlinescan9 ⎽ HORIZONTAL SCAN LINE-9 */
+
   { 0x09e2, 0x2409 }, /*                          ht ␉ SYMBOL FOR HORIZONTAL TABULATION */
   { 0x09e5, 0x240a }, /*                          lf ␊ SYMBOL FOR LINE FEED */
   { 0x09e9, 0x240b }, /*                          vt ␋ SYMBOL FOR VERTICAL TABULATION */
@@ -676,6 +678,7 @@ struct codepair {
   { 0x0bcf, 0x25cb }, /*                      circle ○ WHITE CIRCLE */
   { 0x0ade, 0x25cf }, /*              emfilledcircle ● BLACK CIRCLE */
   { 0x0ae0, 0x25e6 }, /*            enopencircbullet ◦ WHITE BULLET */
+
   { 0x0ae5, 0x2606 }, /*                    openstar ☆ WHITE STAR */
   { 0x0af9, 0x260e }, /*                   telephone ☎ BLACK TELEPHONE */
   { 0x0aca, 0x2613 }, /*               signaturemark ☓ SALTIRE */
@@ -688,6 +691,7 @@ struct codepair {
   { 0x0aed, 0x2666 }, /*                     diamond ♦ BLACK DIAMOND SUIT */
   { 0x0af6, 0x266d }, /*                 musicalflat ♭ MUSIC FLAT SIGN */
   { 0x0af5, 0x266f }, /*                musicalsharp ♯ MUSIC SHARP SIGN */
+
   { 0x0af3, 0x2713 }, /*                   checkmark ✓ CHECK MARK */
   { 0x0af4, 0x2717 }, /*                 ballotcross ✗ BALLOT X */
   { 0x0ad9, 0x271d }, /*                  latincross ✝ LATIN CROSS */
