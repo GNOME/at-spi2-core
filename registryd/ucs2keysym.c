@@ -606,21 +606,21 @@ struct codepair {
   { 0x0abc, 0x2329 }, /*            leftanglebracket 〈 LEFT-POINTING ANGLE BRACKET */
   { 0x0abe, 0x232a }, /*           rightanglebracket 〉 RIGHT-POINTING ANGLE BRACKET */
   { 0x0bcc, 0x2395 }, /*                        quad ⎕ APL FUNCTIONAL SYMBOL QUAD */
-  { 0x08ab, 0x239b }, /*               topleftparens ⎛ ??? */
-  { 0x08ac, 0x239d }, /*               botleftparens ⎝ ??? */
-  { 0x08ad, 0x239e }, /*              toprightparens ⎞ ??? */
-  { 0x08ae, 0x23a0 }, /*              botrightparens ⎠ ??? */
-  { 0x08a7, 0x23a1 }, /*            topleftsqbracket ⎡ ??? */
-  { 0x08a8, 0x23a3 }, /*            botleftsqbracket ⎣ ??? */
-  { 0x08a9, 0x23a4 }, /*           toprightsqbracket ⎤ ??? */
-  { 0x08aa, 0x23a6 }, /*           botrightsqbracket ⎦ ??? */
-  { 0x08af, 0x23a8 }, /*        leftmiddlecurlybrace ⎨ ??? */
-  { 0x08b0, 0x23ac }, /*       rightmiddlecurlybrace ⎬ ??? */
-  { 0x08a1, 0x23b7 }, /*                 leftradical ⎷ ??? */
-  { 0x09ef, 0x23ba }, /*              horizlinescan1 ⎺ HORIZONTAL SCAN LINE-1 (Unicode 3.2 draft) */
-  { 0x09f0, 0x23bb }, /*              horizlinescan3 ⎻ HORIZONTAL SCAN LINE-3 (Unicode 3.2 draft) */
-  { 0x09f2, 0x23bc }, /*              horizlinescan7 ⎼ HORIZONTAL SCAN LINE-7 (Unicode 3.2 draft) */
-  { 0x09f3, 0x23bd }, /*              horizlinescan9 ⎽ HORIZONTAL SCAN LINE-9 (Unicode 3.2 draft) */
+  { 0x08ab, 0x239b }, /*               topleftparens ⎛ LEFT PARENTHESIS UPPER HOOK */
+  { 0x08ac, 0x239d }, /*               botleftparens ⎝ LEFT PARENTHESIS LOWER HOOK */
+  { 0x08ad, 0x239e }, /*              toprightparens ⎞ RIGHT PARENTHESIS UPPER HOOK */
+  { 0x08ae, 0x23a0 }, /*              botrightparens ⎠ RIGHT PARENTHESIS LOWER HOOK */
+  { 0x08a7, 0x23a1 }, /*            topleftsqbracket ⎡ LEFT SQUARE BRACKET UPPER CORNER */
+  { 0x08a8, 0x23a3 }, /*            botleftsqbracket ⎣ LEFT SQUARE BRACKET LOWER CORNER */
+  { 0x08a9, 0x23a4 }, /*           toprightsqbracket ⎤ RIGHT SQUARE BRACKET UPPER CORNER */
+  { 0x08aa, 0x23a6 }, /*           botrightsqbracket ⎦ RIGHT SQUARE BRACKET LOWER CORNER */
+  { 0x08af, 0x23a8 }, /*        leftmiddlecurlybrace ⎨ LEFT CURLY BRACKET MIDDLE PIECE */
+  { 0x08b0, 0x23ac }, /*       rightmiddlecurlybrace ⎬ RIGHT CURLY BRACKET MIDDLE PIECE */
+  { 0x08a1, 0x23b7 }, /*                 leftradical ⎷ RADICAL SYMBOL BOTTOM */
+  { 0x09ef, 0x23ba }, /*              horizlinescan1 ⎺ HORIZONTAL SCAN LINE-1 */
+  { 0x09f0, 0x23bb }, /*              horizlinescan3 ⎻ HORIZONTAL SCAN LINE-3 */
+  { 0x09f2, 0x23bc }, /*              horizlinescan7 ⎼ HORIZONTAL SCAN LINE-7 */
+  { 0x09f3, 0x23bd }, /*              horizlinescan9 ⎽ HORIZONTAL SCAN LINE-9 */
   { 0x09e2, 0x2409 }, /*                          ht ␉ SYMBOL FOR HORIZONTAL TABULATION */
   { 0x09e3, 0x240c }, /*                          ff ␌ SYMBOL FOR FORM FEED */
   { 0x09e4, 0x240d }, /*                          cr ␍ SYMBOL FOR CARRIAGE RETURN */
