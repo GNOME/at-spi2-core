@@ -594,10 +594,10 @@ struct codepair {
   { 0x08be, 0x2265 }, /*            greaterthanequal ≥ GREATER-THAN OR EQUAL TO */
   { 0x08da, 0x2282 }, /*                  includedin ⊂ SUBSET OF */
   { 0x08db, 0x2283 }, /*                    includes ⊃ SUPERSET OF */
-  { 0x0bdc, 0x22a2 }, /*                    lefttack ⊢ RIGHT TACK */
-  { 0x0bfc, 0x22a3 }, /*                   righttack ⊣ LEFT TACK */
-  { 0x0bce, 0x22a4 }, /*                      uptack ⊤ DOWN TACK */
-  { 0x0bc2, 0x22a5 }, /*                    downtack ⊥ UP TACK */
+  { 0x0bfc, 0x22a2 }, /*                   righttack ⊢ RIGHT TACK */
+  { 0x0bdc, 0x22a3 }, /*                    lefttack ⊣ LEFT TACK */
+  { 0x0bc2, 0x22a4 }, /*                    downtack ⊤ DOWN TACK */
+  { 0x0bce, 0x22a5 }, /*                      uptack ⊥ UP TACK */
   { 0x0bd3, 0x2308 }, /*                     upstile ⌈ LEFT CEILING */
   { 0x0bc4, 0x230a }, /*                   downstile ⌊ LEFT FLOOR */
   { 0x0afa, 0x2315 }, /*           telephonerecorder ⌕ TELEPHONE RECORDER */
