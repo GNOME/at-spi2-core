@@ -824,9 +824,7 @@ long ucs2keysym (long ucs)
 
 long keysym2ucs(long keysym)
 {
-    int min = 0;
-    int max = sizeof(keysymtab) / sizeof(struct codepair) - 1;
-    int mid;
+    int i;
 
     /* first check for Latin-1 characters (1:1 mapping) */
     if ((keysym >= 0x0020 && keysym <= 0x007e) ||
@@ -837,16 +835,10 @@ long keysym2ucs(long keysym)
     if ((keysym & 0xff000000) == 0x01000000)
 	return keysym & 0x00ffffff;
 
-    /* binary search in table */
-    while (max >= min) {
-	mid = (min + max) / 2;
-	if (keysymtab[mid].keysym < keysym)
-	    min = mid + 1;
-	else if (keysymtab[mid].keysym > keysym)
-	    max = mid - 1;
-	else {
+    for (i = 0; i < sizeof(keysymtab) / sizeof(keysymtab[0]); i++) {
+	if (keysymtab[i].keysym == keysym) {
 	    /* found it */
-	    return keysymtab[mid].ucs;
+	    return keysymtab[i].ucs;
 	}
     }
 
