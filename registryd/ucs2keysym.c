@@ -38,6 +38,7 @@ struct codepair {
   unsigned short keysym;
   unsigned short ucs;
 } keysymtab[] = {
+  { 0x0abd, 0x002e }, /*                decimalpoint . FULL STOP */
   { 0x0ba3, 0x003c }, /*                   leftcaret < LESS-THAN SIGN */
   { 0x0ba6, 0x003e }, /*                  rightcaret > GREATER-THAN SIGN */
   { 0x0bc6, 0x005f }, /*                    underbar _ LOW LINE */
@@ -326,6 +327,8 @@ struct codepair {
   { 0x06ac, 0x045c }, /*               Macedonia_kje ќ CYRILLIC SMALL LETTER KJE */
   { 0x06ae, 0x045e }, /*         Byelorussian_shortu ў CYRILLIC SMALL LETTER SHORT U */
   { 0x06af, 0x045f }, /*               Cyrillic_dzhe џ CYRILLIC SMALL LETTER DZHE */
+  { 0x06bd, 0x0490 }, /*   Ukrainian_GHE_WITH_UPTURN Ґ CYRILLIC CAPITAL LETTER GHE WITH UPTURN */
+  { 0x06ad, 0x0491 }, /*   Ukrainian_ghe_with_upturn ґ CYRILLIC SMALL LETTER GHE WITH UPTURN */
 
   { 0x0ce0, 0x05d0 }, /*                hebrew_aleph א HEBREW LETTER ALEF */
   { 0x0ce1, 0x05d1 }, /*                  hebrew_bet ב HEBREW LETTER BET */
@@ -544,6 +547,7 @@ struct codepair {
   { 0x0ae6, 0x2022 }, /*          enfilledcircbullet • BULLET */
   { 0x0aaf, 0x2025 }, /*             doubbaselinedot ‥ TWO DOT LEADER */
   { 0x0aae, 0x2026 }, /*                    ellipsis … HORIZONTAL ELLIPSIS */
+  { 0x0ad5, 0x2030 }, /*                    permille ‰ PER MILLE SIGN */
   { 0x0ad6, 0x2032 }, /*                     minutes ′ PRIME */
   { 0x0ad7, 0x2033 }, /*                     seconds ″ DOUBLE PRIME */
   { 0x0afc, 0x2038 }, /*                       caret ‸ CARET */
@@ -580,9 +584,13 @@ struct codepair {
   { 0x08d6, 0x221a }, /*                     radical √ SQUARE ROOT */
   { 0x08c1, 0x221d }, /*                   variation ∝ PROPORTIONAL TO */
   { 0x08c2, 0x221e }, /*                    infinity ∞ INFINITY */
+  { 0x0ba9, 0x2227 }, /*                     upcaret ∧ LOGICAL AND */
   { 0x08de, 0x2227 }, /*                  logicaland ∧ LOGICAL AND */
+  { 0x0ba8, 0x2228 }, /*                   downcaret ∨ LOGICAL OR */
   { 0x08df, 0x2228 }, /*                   logicalor ∨ LOGICAL OR */
+  { 0x0bc3, 0x2229 }, /*                      upshoe ∩ INTERSECTION */
   { 0x08dc, 0x2229 }, /*                intersection ∩ INTERSECTION */
+  { 0x0bd6, 0x222a }, /*                    downshoe ∪ UNION */
   { 0x08dd, 0x222a }, /*                       union ∪ UNION */
   { 0x08bf, 0x222b }, /*                    integral ∫ INTEGRAL */
   { 0x08c0, 0x2234 }, /*                   therefore ∴ THEREFORE */
@@ -592,7 +600,9 @@ struct codepair {
   { 0x08cf, 0x2261 }, /*                   identical ≡ IDENTICAL TO */
   { 0x08bc, 0x2264 }, /*               lessthanequal ≤ LESS-THAN OR EQUAL TO */
   { 0x08be, 0x2265 }, /*            greaterthanequal ≥ GREATER-THAN OR EQUAL TO */
+  { 0x0bda, 0x2282 }, /*                    leftshoe ⊂ SUBSET OF */
   { 0x08da, 0x2282 }, /*                  includedin ⊂ SUBSET OF */
+  { 0x0bd8, 0x2283 }, /*                   rightshoe ⊃ SUPERSET OF */
   { 0x08db, 0x2283 }, /*                    includes ⊃ SUPERSET OF */
   { 0x0bfc, 0x22a2 }, /*                   righttack ⊢ RIGHT TACK */
   { 0x0bdc, 0x22a3 }, /*                    lefttack ⊣ LEFT TACK */
@@ -626,6 +636,7 @@ struct codepair {
   { 0x09e9, 0x240b }, /*                          vt ␋ SYMBOL FOR VERTICAL TABULATION */
   { 0x09e3, 0x240c }, /*                          ff ␌ SYMBOL FOR FORM FEED */
   { 0x09e4, 0x240d }, /*                          cr ␍ SYMBOL FOR CARRIAGE RETURN */
+  { 0x0aac, 0x2423 }, /*                 signifblank ␣ OPEN BOX */
   { 0x09e8, 0x2424 }, /*                          nl ␤ SYMBOL FOR NEWLINE */
 
   { 0x08a3, 0x2500 }, /*              horizconnector ─ BOX DRAWINGS LIGHT HORIZONTAL */
@@ -659,8 +670,17 @@ struct codepair {
   { 0x0acc, 0x25c1 }, /*            leftopentriangle ◁ WHITE LEFT-POINTING TRIANGLE */
   { 0x09e0, 0x25c6 }, /*                soliddiamond ◆ BLACK DIAMOND */
   { 0x0ace, 0x25cb }, /*                emopencircle ○ WHITE CIRCLE */
+  { 0x0bcf, 0x25cb }, /*                      circle ○ WHITE CIRCLE */
   { 0x0ade, 0x25cf }, /*              emfilledcircle ● BLACK CIRCLE */
   { 0x0ae0, 0x25e6 }, /*            enopencircbullet ◦ WHITE BULLET */
+  { 0x0ae5, 0x2606 }, /*                    openstar ☆ WHITE STAR */
+  { 0x0af9, 0x260e }, /*                   telephone ☎ BLACK TELEPHONE */
+  { 0x0aca, 0x2613 }, /*               signaturemark ☓ SALTIRE */
+  { 0x0aea, 0x261c }, /*                 leftpointer ☜ WHITE LEFT POINTING INDEX */
+  { 0x0aeb, 0x261e }, /*                rightpointer ☞ WHITE RIGHT POINTING INDEX */
+  { 0x0af8, 0x2640 }, /*                femalesymbol ♀ FEMALE SIGN */
+  { 0x0af7, 0x2642 }, /*                  malesymbol ♂ MALE SIGN */
+  { 0x0aec, 0x2663 }, /*                        club ♣ BLACK CLUB SUIT */
   { 0x0aee, 0x2665 }, /*                       heart ♥ BLACK HEART SUIT */
   { 0x0aed, 0x2666 }, /*                     diamond ♦ BLACK DIAMOND SUIT */
   { 0x0af6, 0x266d }, /*                 musicalflat ♭ MUSIC FLAT SIGN */
@@ -669,6 +689,8 @@ struct codepair {
   { 0x0af4, 0x2717 }, /*                 ballotcross ✗ BALLOT X */
   { 0x0ad9, 0x271d }, /*                  latincross ✝ LATIN CROSS */
   { 0x0af0, 0x2720 }, /*                maltesecross ✠ MALTESE CROSS */
+  { 0x0abc, 0x27e8 }, /*            leftanglebracket ⟨ MATHEMATICAL LEFT ANGLE BRACKET */
+  { 0x0abe, 0x27e9 }, /*           rightanglebracket ⟩ MATHEMATICAL RIGHT ANGLE BRACKET */
 
   { 0x04a4, 0x3001 }, /*                  kana_comma 、 IDEOGRAPHIC COMMA */
   { 0x04a1, 0x3002 }, /*               kana_fullstop 。 IDEOGRAPHIC FULL STOP */
