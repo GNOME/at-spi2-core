@@ -78,7 +78,7 @@ main()
   atspi_event_listener_register (listener, "object:children-changed", NULL);
   child_pid = fork ();
   if (!child_pid)
-    execlp ("gedit", "gedit", NULL);
+    execlp ("test/test-application", "test/test-application", NULL);
   atspi_event_main ();
   return 0;
 }
