@@ -61,4 +61,6 @@ install_data('at-spi2-atk.desktop',
 
 subdir('droute')
 subdir('atk-adaptor')
-subdir('tests')
+if get_option('tests')
+  subdir('tests')
+endif
