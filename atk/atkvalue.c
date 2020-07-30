@@ -550,7 +550,8 @@ atk_value_get_value_and_text (AtkValue *obj,
   else
     {
       *value = 0.0;
-      *text = NULL;
+      if (text)
+        *text = NULL;
     }
 }
 
