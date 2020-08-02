@@ -86,7 +86,7 @@ void test_simple ()
     dbind_any_free ("i", &v2); /* nop */
     dbus_message_unref (msg);
 
-    fprintf (stderr, "simple ok\n");
+    printf ("simple ok\n");
 }
 
 void test_array ()
@@ -117,7 +117,7 @@ void test_array ()
     dbind_any_free ("ai", &a2);
     dbus_message_unref (msg);
 
-    fprintf (stderr, "array ok\n");
+    printf ("array ok\n");
 }
 
 /* this taught me that the struct type is a mis-nomer, 
@@ -146,7 +146,7 @@ void test_struct_native ()
     }
     dbus_message_iter_close_container (&iter, &arr);
 
-    fprintf (stderr, "native struct marshalling ok\n");
+    printf ("native struct marshalling ok\n");
     
     dbus_message_unref (msg);
 }
@@ -185,7 +185,7 @@ void test_struct_simple ()
     g_assert (!strcmp (g_array_index (a2, FooBaa, 1).baa, "baA"));
     g_assert (!strcmp (g_array_index (a2, FooBaa, 1).baz, "BaZ"));
     
-    fprintf (stderr, "simple struct ok\n");
+    printf ("simple struct ok\n");
 
     dbind_any_free ("a(sss)", &a2);
     dbus_message_unref (msg);
@@ -248,7 +248,7 @@ void test_struct_complex ()
     g_assert (c2.pad2 == 1);
     g_assert (!strcmp (c1.name, "stroustrup"));
     
-    fprintf (stderr, "complex struct ok\n");
+    printf ("complex struct ok\n");
 
     dbind_any_free (TYPEOF_COMPLEX, &c2);
     dbus_message_unref (msg);
@@ -296,7 +296,7 @@ void test_struct_with_array ()
     g_assert (p[0].pad1 == 2);
     g_assert (g_array_index (p[1].vals, dbus_uint32_t, 1) == 1000000000);
     
-    fprintf (stderr, "struct with array ok\n");
+    printf ("struct with array ok\n");
 
     dbind_any_free (TYPEOF_ARRAYSTRUCT, &a2);
     dbus_message_unref (msg);
@@ -342,7 +342,7 @@ void test_twovals ()
     dbind_any_free ("ii", &o); /* nop */
     dbus_message_unref (msg);
 
-    fprintf (stderr, "two-val ok\n");
+    printf ("two-val ok\n");
 }
 
 void test_marshalling ()
@@ -355,7 +355,7 @@ void test_marshalling ()
     test_struct_with_array ();
     test_twovals ();
 
-    fprintf (stderr, "Marshalling ok\n");
+    printf ("Marshalling ok\n");
 }
 
 void test_teamspaces (DBusConnection *bus)
@@ -403,7 +403,7 @@ void test_helpers ()
     dbind_find_c_alignment ("a(sss)");
     dbind_find_c_alignment ("(s(s)yd(d)s)");
     dbind_find_c_alignment ("a{ss}");
-    fprintf (stderr, "helpers passed\n");
+    printf ("helpers passed\n");
 }
 
 int main (int argc, char **argv)
