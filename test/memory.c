@@ -15,19 +15,24 @@ basic (AtspiAccessible *obj)
   AtspiAccessible *accessible;
   GError *error = NULL;
 
+  printf ("getting name\n");
   str = atspi_accessible_get_name (obj, &error);
   if (str)
     g_free (str);
+  printf ("ok, getting parent\n");
   accessible = atspi_accessible_get_parent (obj, NULL);
   if (accessible)
     g_object_unref (accessible);
+  printf ("ok, getting children\n");
   count = atspi_accessible_get_child_count (obj, &error);
   for (i = 0; i < count; i++)
   {
     accessible = atspi_accessible_get_child_at_index (obj, i, &error);
+    printf ("ok %d\n", i);
     if (accessible)
       g_object_unref (accessible);
   }
+  printf ("ok\n");
 }
 
 static gboolean
