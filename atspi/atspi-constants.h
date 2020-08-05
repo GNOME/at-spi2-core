@@ -121,7 +121,7 @@ typedef enum {
  *
  * One higher than the highest valid value of #AtspiLocaleType.
  **/
-#define ATSPI_LOCALE_TYPE _COUNT(5+1)
+#define ATSPI_LOCALE_TYPE_COUNT (5+1)
 
 /**
  * AtspiCoordType:
@@ -241,7 +241,7 @@ typedef enum {
  * One higher than the highest valid value of
  * #AtspiCollection_TreeTraversalType.
  */
-#define ATSPI_TREETRAVERSALTYPE _COUNT(3+1)
+#define ATSPI_TREETRAVERSALTYPE_COUNT (3+1)
 
 /**
  * AtspiComponentLayer:
