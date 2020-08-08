@@ -7,7 +7,7 @@ What's new in at-spi2-core 2.37.90:
 
 * Meson: de-duplicate deps of 'Requires' in pkgconfig file (!28).
 
-* FIx use after free when an event listener is destroyed.
+* Fix use after free when an event listener is destroyed.
 
 * Make at-spi-dbus-bus.desktop validate (!30).
 
