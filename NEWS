@@ -1,3 +1,9 @@
+What's new in at-spi2-atk 2.37.90:
+
+* Add support for the new mark and suggestion roles (!21).
+
+* Meson: add tests option (!22).
+
 What's new in at-spi2-atk 2.34.2:
 
 * Meson: don't hard-code shared_library (!19).
