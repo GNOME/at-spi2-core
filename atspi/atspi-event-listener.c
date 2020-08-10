@@ -647,6 +647,7 @@ atspi_event_listener_register_from_callback_full (AtspiEventListenerCB callback,
                 callback_destroyed);
   if (!convert_event_type_to_dbus (event_type, &e->category, &e->name, &e->detail, &matchrule_array))
   {
+    g_free (e->event_type);
     g_free (e);
     return FALSE;
   }
