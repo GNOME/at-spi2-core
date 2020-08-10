@@ -597,7 +597,7 @@ copy_event_properties (GArray *src)
   for (i = 0; i < src->len; i++)
     {
       gchar *dup = g_strdup (g_array_index (src, char *, i));
-    g_array_append_val (dst, dup);
+      g_array_append_val (dst, dup);
     }
   return dst;
 }
