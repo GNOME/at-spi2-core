@@ -1404,7 +1404,7 @@ _atspi_dbus_set_interfaces (AtspiAccessible *accessible, DBusMessageIter *iter)
   accessible->interfaces = 0;
   if (strcmp (iter_sig, "as") != 0)
   {
-    g_warning ("_atspi_dbus_set_interfaces: Passed iterator with invalid signature %s", dbus_message_iter_get_signature (iter));
+    g_warning ("_atspi_dbus_set_interfaces: Passed iterator with invalid signature %s", iter_sig);
     dbus_free (iter_sig);
     return;
   }
