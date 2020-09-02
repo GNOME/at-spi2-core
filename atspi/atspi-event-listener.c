@@ -166,6 +166,9 @@ atspi_event_listener_new_simple (AtspiEventListenerSimpleCB callback,
 }
 
 static GList *event_listeners = NULL;
+static GList *pending_removals = NULL;
+static int in_send = 0;
+
 
 static gchar *
 convert_name_from_dbus (const char *name, gboolean path_hack)
@@ -817,7 +820,10 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
     {
       DBusMessage *message, *reply;
       l = g_list_next (l);
-      event_listeners = g_list_remove (event_listeners, e);
+      if (in_send)
+      pending_removals = g_list_append (pending_removals, e);
+      else
+        event_listeners = g_list_remove (event_listeners, e);
       for (i = 0; i < matchrule_array->len; i++)
       {
 	char *matchrule = g_ptr_array_index (matchrule_array, i);
@@ -834,7 +840,8 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
       if (reply)
         dbus_message_unref (reply);
 
-      listener_entry_free (e);
+      if (!in_send)
+        listener_entry_free (e);
     }
     else
       l = g_list_next (l);
@@ -909,6 +916,13 @@ detail_matches_listener (const char *event_detail, const char *listener_detail)
                : strcmp (listener_detail, event_detail));
 }
 
+static void
+resolve_pending_removal (gpointer data)
+{
+  event_listeners = g_list_remove (event_listeners, data);
+  listener_entry_free (data);
+}
+
 void
 _atspi_send_event (AtspiEvent *e)
 {
@@ -929,6 +943,7 @@ _atspi_send_event (AtspiEvent *e)
     g_warning ("AT-SPI: Couldn't parse event: %s\n", e->type);
     return;
   }
+  in_send++;
   for (l = event_listeners; l; l = g_list_next (l))
   {
     EventListenerEntry *entry = l->data;
@@ -945,15 +960,27 @@ _atspi_send_event (AtspiEvent *e)
       }
       if (!l2)
       {
+        for (l2 = pending_removals; l2; l2 = l2->next)
+        {
+        if (l2->data == entry)
+          break;
+        }
+      }
+      if (!l2)
+      {
         entry->callback (atspi_event_copy (e), entry->user_data);
         called_listeners = g_list_prepend (called_listeners, entry);
       }
     }
   }
+  in_send--;
   if (detail) g_free (detail);
   g_free (name);
   g_free (category);
   g_list_free (called_listeners);
+
+  g_list_free_full (pending_removals, resolve_pending_removal);
+  pending_removals = NULL;
 }
 
 DBusHandlerResult
