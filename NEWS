@@ -1,3 +1,13 @@
+What's new in at-spi2-core 2.37.92:
+
+* Fix a possible memory leak if an event name cannot be parsed.
+
+* _atspi_dbus_set_interfaces: fix memory leak when called with an invalid
+  DBus signature.
+
+* Fix a crash if an event listener is removed during an event callback.
+
+
 What's new in at-spi2-core 2.37.90:
 
 * Add a mode-changed signal to allow a screen reader to indicate
