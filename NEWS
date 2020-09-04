@@ -1,3 +1,21 @@
+What's new in at-spi2-core 2.36.1:
+
+* meson: De-duplicate deps of 'Requires' in pkgconfig file
+    
+* Make at-spi-dbus-bus.desktop Validate
+    
+* Fix ucs2keysym line for Euro sign
+    
+* Fix Qt annotations in DBus xml files
+    
+* constants: Fix typos in two _COUNT constants
+
+* Fix a couple of memory leaks.
+
+* Fix use after free when a device listener is destroyed.
+
+* Fix use after free when an event listener is destroyed.
+
 What's new in at-spi2-core 2.35.92:
 
 * bus-launcher: make session management more robust.
