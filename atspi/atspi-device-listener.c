@@ -32,7 +32,7 @@ typedef struct
   GDestroyNotify callback_destroyed;
 } DeviceEventHandler;
 
-GObjectClass *device_parent_class;
+GObjectClass *device_listener_parent_class;
 
 /*
  * Misc. helpers.
@@ -187,7 +187,7 @@ atspi_device_listener_finalize (GObject *object)
   
   g_list_free (listener->callbacks);
 
-  device_parent_class->finalize (object);
+  device_listener_parent_class->finalize (object);
 }
 
 static void
@@ -195,7 +195,7 @@ atspi_device_listener_class_init (AtspiDeviceListenerClass *klass)
 {
   GObjectClass *object_class = (GObjectClass *) klass;
 
-  device_parent_class = g_type_class_peek_parent (klass);
+  device_listener_parent_class = g_type_class_peek_parent (klass);
   object_class->finalize = atspi_device_listener_finalize;
 
   klass->device_event = atspi_device_event_dispatch;
@@ -398,7 +398,8 @@ done:
 
 gchar *
 _atspi_device_listener_get_path (AtspiDeviceListener *listener)
-{  return g_strdup_printf ("/org/a11y/atspi/listeners/%d", listener->id);
+{
+  return g_strdup_printf ("/org/a11y/atspi/listeners/%d", listener->id);
 }
 
 G_DEFINE_BOXED_TYPE (AtspiDeviceEvent,
