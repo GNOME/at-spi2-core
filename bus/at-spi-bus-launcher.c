@@ -39,6 +39,9 @@
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 #endif
+#ifdef DBUS_BROKER
+#include <systemd/sd-login.h>
+#endif
 
 typedef enum {
   A11Y_BUS_STATE_IDLE = 0,
@@ -392,10 +395,25 @@ static gboolean
 ensure_a11y_bus_broker (A11yBusLauncher *app, char *config_path)
 {
   char *argv[] = { DBUS_BROKER, config_path, "--scope", "user", NULL };
+  char *unit;
   struct sockaddr_un addr = { .sun_family = AF_UNIX };
   socklen_t addr_len = sizeof(addr);
   GPid pid;
   GError *error = NULL;
+
+  /* This detects whether we are running under systemd. We only try to
+   * use dbus-broker if we are running under systemd because D-Bus
+   * service activation won't work otherwise.
+   */
+  if (sd_pid_get_user_unit (getpid (), &unit) >= 0)
+    {
+      free (unit);
+    }
+  else
+    {
+      app->state = A11Y_BUS_STATE_ERROR;
+      return FALSE;
+    }
 
   if ((app->listenfd = socket (PF_UNIX, SOCK_STREAM | SOCK_NONBLOCK, 0)) < 0)
     g_error ("Failed to create listening socket: %s", strerror (errno));
