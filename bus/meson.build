@@ -48,13 +48,16 @@ else
   endif
 endif
 
+needs_systemd = false
 if get_option('dbus_broker') != 'default'
   launcher_args += '-DDBUS_BROKER="@0@"'.format(get_option('dbus_broker'))
+  needs_systemd = true
 else
   dbus_broker = find_program('dbus-broker-launch',
                              required: false)
   if dbus_broker.found()
     launcher_args += '-DDBUS_BROKER="@0@"'.format(dbus_broker.path())
+    needs_systemd = true
   endif
 endif
 
@@ -62,9 +65,15 @@ if get_option('default_bus') == 'dbus-broker'
   launcher_args += '-DWANT_DBUS_BROKER'
 endif
 
+if needs_systemd
+  systemd_dep = dependency('libsystemd')
+else
+  systemd_dep = dependency('', required: false)
+endif
+
 executable('at-spi-bus-launcher', 'at-spi-bus-launcher.c',
            include_directories: [ root_inc, include_directories('.') ],
-           dependencies: [ gio_dep, x11_deps ],
+           dependencies: [ gio_dep, systemd_dep, x11_deps ],
            c_args: launcher_args,
            install: true,
            install_dir: atspi_libexecdir)
