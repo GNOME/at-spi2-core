@@ -418,6 +418,7 @@ atspi_accessible_get_parent (AtspiAccessible *obj, GError **error)
     }
     dbus_message_iter_init (reply, &iter);
     dbus_message_iter_recurse (&iter, &iter_variant);
+    g_object_unref (obj->accessible_parent);
     obj->accessible_parent = _atspi_dbus_return_accessible_from_iter (&iter_variant);
     dbus_message_unref (reply);
     _atspi_accessible_add_cache (obj, ATSPI_CACHE_PARENT);
@@ -742,6 +743,8 @@ atspi_accessible_get_attributes (AtspiAccessible *obj, GError **error)
   {
     message = _atspi_dbus_call_partial (obj, atspi_interface_accessible,
                                         "GetAttributes", error, "");
+    g_clear_pointer (&(obj->attributes), g_hash_table_unref);
+
     obj->attributes = _atspi_dbus_return_hash_from_message (message);
     _atspi_accessible_add_cache (obj, ATSPI_CACHE_ATTRIBUTES);
   }
