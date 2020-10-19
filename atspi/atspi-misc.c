@@ -146,15 +146,8 @@ cleanup ()
       g_hash_table_destroy (refs);
     }
 
-  if (bus)
-    {
-      dbus_connection_close (bus);
-      dbus_connection_unref (bus);
-      bus = NULL;
-    }
-
   if (!desktop)
-    return;
+    goto end;
 
   /* TODO: Do we need this code, or should we just dispose the desktop? */
   for (i = desktop->children->len - 1; i >= 0; i--)
@@ -168,6 +161,14 @@ cleanup ()
   g_object_run_dispose (G_OBJECT (desktop->parent.app));
   g_object_unref (desktop);
   desktop = NULL;
+
+end:
+  if (bus)
+    {
+      dbus_connection_close (bus);
+      dbus_connection_unref (bus);
+      bus = NULL;
+    }
 }
 
 static gboolean atspi_inited = FALSE;
