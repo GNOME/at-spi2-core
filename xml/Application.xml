@@ -7,7 +7,7 @@
   <property name="Version" type="s" access="read"/>
 
   <property name="AtspiVersion" type="s" access="read"/>
-  <property name="Id" type="i" access="read"/>
+  <property name="Id" type="i" access="readwrite"/>
 
   <method name="GetLocale">
     <arg direction="in" name="lctype" type="u"/>
