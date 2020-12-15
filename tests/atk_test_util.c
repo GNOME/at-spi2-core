@@ -52,6 +52,7 @@ run_app (const char *file_name)
 
 static AtspiAccessible *try_get_root_obj (AtspiAccessible *obj)
 {
+  gchar *name;
   int i;
 
   gint child_count = atspi_accessible_get_child_count (obj, NULL);
@@ -59,10 +60,15 @@ static AtspiAccessible *try_get_root_obj (AtspiAccessible *obj)
     return NULL;
   }
 
-  for (i=0; i<child_count; i++) {
-    AtspiAccessible *child = atspi_accessible_get_child_at_index (obj,i, NULL);
-    if (child && !strcmp (atspi_accessible_get_name (child, NULL), "root_object"))
-      return child;
+  for (i = 0; i < child_count; i++) {
+    AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, i, NULL);
+    if (child && name = atspi_accessible_get_name (child, NULL)) {
+      if (!strcmp (name, "root_object")) {
+        g_free(name);
+        return child;
+      }
+      g_free(name);
+    }
   }
 
   return NULL;
