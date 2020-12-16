@@ -62,13 +62,16 @@ static AtspiAccessible *try_get_root_obj (AtspiAccessible *obj)
 
   for (i = 0; i < child_count; i++) {
     AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, i, NULL);
-    if (child && name = atspi_accessible_get_name (child, NULL)) {
+    if (!child)
+      continue;
+    if ((name = atspi_accessible_get_name (child, NULL)) != NULL) {
       if (!strcmp (name, "root_object")) {
         g_free(name);
         return child;
       }
       g_free(name);
     }
+    g_object_unref (child);
   }
 
   return NULL;
