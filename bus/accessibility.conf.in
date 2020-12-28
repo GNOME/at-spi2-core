@@ -6,7 +6,7 @@
 <servicedir>@DATADIR@/dbus-1/accessibility-services</servicedir>
   <auth>EXTERNAL</auth>
 
-  <listen>unix:tmpdir=/tmp</listen>
+  <listen>unix:dir=/tmp</listen>
 
   <policy context="default">
     <!-- Allow root to connect -->

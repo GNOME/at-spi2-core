@@ -44,7 +44,7 @@ endif
 
 # Dependencies
 libdbus_req_version = '>= 1.5'
-glib_req_version = '>= 2.32.0'
+glib_req_version = '>= 2.62.0'
 gobject_req_version = '>= 2.0.0'
 gio_req_version = '>= 2.28.0'
 
