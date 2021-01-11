@@ -1,3 +1,17 @@
+What's new in at-spi2-core 2.39.1:
+
+* Don't use gdbus-broker if not running under systemd (#25).
+
+* Unref bus at the end of cleanup.
+
+* Fix XML interfaces (#26).
+
+* Use unix sockets instead of abstract sockets (#28).
+
+* Added a device API to replace the old API for capturing key
+  grabs. This is needed for toolkits that do not report keystrokes
+  to atk, such as gtk 4.
+
 What's new in at-spi2-core 2.37.92:
 
 * Fix a possible memory leak if an event name cannot be parsed.
