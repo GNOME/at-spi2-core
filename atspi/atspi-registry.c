@@ -556,7 +556,7 @@ atspi_key_definition_copy (AtspiKeyDefinition *src)
   dst->keysym = src->keysym;
   if (src->keystring)
     dst->keystring = g_strdup (src->keystring);
-  dst->unused = src->unused;
+  dst->modifiers = src->modifiers;
   return dst;
 }
 

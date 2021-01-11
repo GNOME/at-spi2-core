@@ -78,8 +78,15 @@ struct _AtspiKeyDefinition
   gint keycode;
   gint keysym;
   gchar *keystring;
-  gint unused;
+  guint modifiers;
 };
+
+/**
+ * ATSPI_TYPE_KEY_DEFINITION:
+ * 
+ * The #GType for a boxed type holding a #AtspiKeyDefinition.
+ */
+#define	ATSPI_TYPE_KEY_DEFINITION (atspi_key_definition_get_type ())
 
 typedef struct _AtspiEvent AtspiEvent;
 struct _AtspiEvent

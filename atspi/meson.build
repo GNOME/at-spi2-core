@@ -4,6 +4,8 @@ atspi_sources = [
   'atspi-application.c',
   'atspi-collection.c',
   'atspi-component.c',
+  'atspi-device.c',
+  'atspi-device-legacy.c',
   'atspi-device-listener.c',
   'atspi-document.c',
   'atspi-editabletext.c',
@@ -26,6 +28,13 @@ atspi_sources = [
   'atspi-value.c',
 ]
 
+x11_option = get_option('x11')
+if x11_option != 'no'
+  if x11_dep.found()
+    atspi_sources += ['atspi-device-x11.c']
+  endif
+endif
+
 atspi_headers = [
   'atspi.h',
   'atspi-accessible.h',
@@ -34,7 +43,10 @@ atspi_headers = [
   'atspi-collection.h',
   'atspi-component.h',
   'atspi-constants.h',
+  'atspi-device.h',
+  'atspi-device-legacy.h',
   'atspi-device-listener.h',
+  'atspi-device-x11.h',
   'atspi-document.h',
   'atspi-editabletext.h',
   'atspi-event-listener.h',
