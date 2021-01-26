@@ -554,7 +554,7 @@ msgstr "Valor accessible"
 
 #: ../atk/atkobject.c:404
 msgid "Is used to notify that the value has changed"
-msgstr "S'utilitza per notificar que el valor ha canviat"
+msgstr "S'utilitza per a notificar que el valor ha canviat"
 
 #: ../atk/atkobject.c:412
 msgid "Accessible Role"
@@ -589,7 +589,7 @@ msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
-"S'utilitza per notificar que el títol de la taula ha canviat; aquesta "
+"S'utilitza per a notificar que el títol de la taula ha canviat; aquesta "
 "propietat no s'ha d'utilitzar. S'ha d'utilitzar accessible-table-caption-"
 "object en el seu lloc"
 
@@ -600,7 +600,7 @@ msgstr "Capçalera de columna de taula accessible"
 #: ../atk/atkobject.c:463
 msgid "Is used to notify that the table column header has changed"
 msgstr ""
-"S'utilitza per notificar que la capçalera de la columna de la taula ha "
+"S'utilitza per a notificar que la capçalera de la columna de la taula ha "
 "canviat"
 
 #: ../atk/atkobject.c:478
@@ -610,7 +610,7 @@ msgstr "Descripció de la columna de la taula accessible"
 #: ../atk/atkobject.c:479
 msgid "Is used to notify that the table column description has changed"
 msgstr ""
-"S'utilitza per notificar que la descripció de la columna de la taula ha "
+"S'utilitza per a notificar que la descripció de la columna de la taula ha "
 "canviat"
 
 #: ../atk/atkobject.c:494
@@ -620,7 +620,7 @@ msgstr "Capçalera de la fila de la taula accessible"
 #: ../atk/atkobject.c:495
 msgid "Is used to notify that the table row header has changed"
 msgstr ""
-"S'utilitza per notificar que la capçalera de la fila de la taula ha canviat"
+"S'utilitza per a notificar que la capçalera de la fila de la taula ha canviat"
 
 #: ../atk/atkobject.c:509
 msgid "Accessible Table Row Description"
@@ -629,7 +629,8 @@ msgstr "Descripció de la fila de la taula accessible"
 #: ../atk/atkobject.c:510
 msgid "Is used to notify that the table row description has changed"
 msgstr ""
-"S'utilitza per notificar que la descripció de la fila de la taula ha canviat"
+"S'utilitza per a notificar que la descripció de la fila de la taula ha "
+"canviat"
 
 #: ../atk/atkobject.c:516
 msgid "Accessible Table Summary"
@@ -637,7 +638,7 @@ msgstr "Resum de la taula accessible"
 
 #: ../atk/atkobject.c:517
 msgid "Is used to notify that the table summary has changed"
-msgstr "S'utilitza per notificar que el resum de la taula ha canviat"
+msgstr "S'utilitza per a notificar que el resum de la taula ha canviat"
 
 #: ../atk/atkobject.c:523
 msgid "Accessible Table Caption Object"
@@ -645,7 +646,7 @@ msgstr "Objecte de títol de taula accessible"
 
 #: ../atk/atkobject.c:524
 msgid "Is used to notify that the table caption has changed"
-msgstr "S'utilitza per notificar que el títol de la taula ha canviat"
+msgstr "S'utilitza per a notificar que el títol de la taula ha canviat"
 
 #: ../atk/atkobject.c:530
 msgid "Number of Accessible Hypertext Links"
@@ -660,7 +661,6 @@ msgstr "El nombre d'enllaços que té l'AtkHypertext actual"
 #. * widget presents is controlled by application developers. Thus
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
-#.
 #: ../atk/atkvalue.c:194
 msgid "very weak"
 msgstr "molt dèbil"
@@ -670,7 +670,6 @@ msgstr "molt dèbil"
 #. * widget presents is controlled by application developers. Thus
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
-#.
 #: ../atk/atkvalue.c:201
 msgid "weak"
 msgstr "dèbil"
@@ -680,7 +679,6 @@ msgstr "dèbil"
 #. * widget presents is controlled by application developers. Thus
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
-#.
 #: ../atk/atkvalue.c:208
 msgid "acceptable"
 msgstr "acceptable"
@@ -690,7 +688,6 @@ msgstr "acceptable"
 #. * widget presents is controlled by application developers. Thus
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
-#.
 #: ../atk/atkvalue.c:215
 msgid "strong"
 msgstr "fort"
@@ -700,7 +697,6 @@ msgstr "fort"
 #. * widget presents is controlled by application developers. Thus
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
-#.
 #: ../atk/atkvalue.c:222
 msgid "very strong"
 msgstr "molt fort"
@@ -711,7 +707,6 @@ msgstr "molt fort"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: ../atk/atkvalue.c:230
 msgid "very low"
 msgstr "molt baix"
@@ -722,7 +717,6 @@ msgstr "molt baix"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: ../atk/atkvalue.c:238
 msgid "medium"
 msgstr "mitjà"
@@ -733,7 +727,6 @@ msgstr "mitjà"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: ../atk/atkvalue.c:246
 msgid "high"
 msgstr "alt"
@@ -744,7 +737,6 @@ msgstr "alt"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: ../atk/atkvalue.c:254
 msgid "very high"
 msgstr "molt alt"
@@ -755,7 +747,6 @@ msgstr "molt alt"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: ../atk/atkvalue.c:262
 msgid "very bad"
 msgstr "molt dolent"
@@ -766,7 +757,6 @@ msgstr "molt dolent"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: ../atk/atkvalue.c:270
 msgid "bad"
 msgstr "dolent"
@@ -777,7 +767,6 @@ msgstr "dolent"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: ../atk/atkvalue.c:278
 msgid "good"
 msgstr "bo"
@@ -788,7 +777,6 @@ msgstr "bo"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: ../atk/atkvalue.c:286
 msgid "very good"
 msgstr "molt bo"
@@ -799,7 +787,6 @@ msgstr "molt bo"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: ../atk/atkvalue.c:294
 msgid "best"
 msgstr "el millor"
