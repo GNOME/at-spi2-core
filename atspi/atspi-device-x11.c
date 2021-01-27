@@ -29,7 +29,7 @@
 #include <X11/XKBlib.h>
 
 
-#define ATSPI_VIRTUAL_MODIFIER_MASK 0xffff0000
+#define ATSPI_VIRTUAL_MODIFIER_MASK 0x0000f000
 
 typedef struct _AtspiDeviceX11Private AtspiDeviceX11Private;
 struct _AtspiDeviceX11Private
@@ -39,9 +39,11 @@ struct _AtspiDeviceX11Private
   GSource *source;
   int xi_opcode;
   int device_id;
+  int device_id_alt;
   GSList *modifiers;
   GSList *key_grabs;
   guint virtual_mods_enabled;
+  gboolean keyboard_grabbed;
 };
 
 GObjectClass *device_x11_parent_class;
@@ -149,6 +151,11 @@ static gboolean
 grab_should_be_enabled (AtspiDeviceX11 *x11_device, AtspiX11KeyGrab *grab)
 {
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
+
+  /* If the whole keyboard is grabbed, then all keys are grabbed elsewhere */
+  if (priv->keyboard_grabbed)
+    return FALSE;
+
   guint virtual_mods_used = grab->kd->modifiers & ATSPI_VIRTUAL_MODIFIER_MASK;
   return ((priv->virtual_mods_enabled & virtual_mods_used) == virtual_mods_used);
 }
@@ -169,16 +176,14 @@ grab_has_active_duplicate (AtspiDeviceX11 *x11_device, AtspiX11KeyGrab *grab)
 }
 
 static void
-enable_key_grab (AtspiDeviceX11 *x11_device, AtspiX11KeyGrab *grab)
+grab_key (AtspiDeviceX11 *x11_device, int keycode, int modmask)
 {
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
   XIGrabModifiers xi_modifiers;
   XIEventMask eventmask;
 			unsigned char mask[XIMaskLen (XI_LASTEVENT)] = { 0 };
 
-  g_return_if_fail (priv->display != NULL);
-
-  xi_modifiers.modifiers = grab->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK;
+  xi_modifiers.modifiers = modmask;
   xi_modifiers.status = 0;
 
 			eventmask.deviceid = XIAllDevices;
@@ -188,16 +193,37 @@ enable_key_grab (AtspiDeviceX11 *x11_device, AtspiX11KeyGrab *grab)
 			XISetMask (mask, XI_KeyPress);
 			XISetMask (mask, XI_KeyRelease);
 
+  XIGrabKeycode (priv->display, XIAllMasterDevices, keycode, priv->window, XIGrabModeSync, XIGrabModeAsync, False, &eventmask, 1, &xi_modifiers);
+}
+
+static void
+enable_key_grab (AtspiDeviceX11 *x11_device, AtspiX11KeyGrab *grab)
+{
+  AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
+
+  g_return_if_fail (priv->display != NULL);
+
   if (!grab_has_active_duplicate (x11_device, grab))
-    XIGrabKeycode (priv->display, XIAllMasterDevices, grab->kd->keycode, priv->window, XIGrabModeSync, XIGrabModeAsync, False, &eventmask, 1, &xi_modifiers);
+    grab_key (x11_device, grab->kd->keycode, grab->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK);
   grab->enabled = TRUE;
+}
+
+static void
+ungrab_key (AtspiDeviceX11 *x11_device, int keycode, int modmask)
+{
+  AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
+  XIGrabModifiers xi_modifiers;
+
+  xi_modifiers.modifiers = modmask;
+  xi_modifiers.status = 0;
+
+  XIUngrabKeycode (priv->display, XIAllMasterDevices, keycode, priv->window, sizeof(xi_modifiers), &xi_modifiers);
 }
 
 static void
 disable_key_grab (AtspiDeviceX11 *x11_device, AtspiX11KeyGrab *grab)
 {
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
-  XIGrabModifiers xi_modifiers;
 
   g_return_if_fail (priv->display != NULL);
 
@@ -209,10 +235,24 @@ disable_key_grab (AtspiDeviceX11 *x11_device, AtspiX11KeyGrab *grab)
   if (grab_has_active_duplicate (x11_device, grab))
     return;
 
-  xi_modifiers.modifiers = grab->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK;
-  xi_modifiers.status = 0;
+  ungrab_key (x11_device, grab->kd->keycode, grab->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK);
+}
 
-  XIUngrabKeycode (priv->display, XIAllMasterDevices, grab->kd->keycode, priv->window, sizeof(xi_modifiers), &xi_modifiers);
+static void
+refresh_key_grabs (AtspiDeviceX11 *x11_device)
+{
+  AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
+  GSList *l;
+
+  for (l = priv->key_grabs; l; l = l->next)
+  {
+    AtspiX11KeyGrab *grab = l->data;
+    gboolean new_enabled = grab_should_be_enabled (x11_device, grab);
+    if (new_enabled && !grab->enabled)
+      enable_key_grab (x11_device, grab);
+    else if (grab->enabled && !new_enabled)
+      disable_key_grab (x11_device, grab);
+  }
 }
 
 static void
@@ -220,7 +260,6 @@ set_virtual_modifier (AtspiDeviceX11 *x11_device, gint keycode, gboolean enabled
 {
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
   guint modifier = find_virtual_mapping (x11_device, keycode);
-  GSList *l;
 
   if (!modifier)
     return;
@@ -238,15 +277,7 @@ set_virtual_modifier (AtspiDeviceX11 *x11_device, gint keycode, gboolean enabled
     priv->virtual_mods_enabled &= ~modifier;
   }
 
-  for (l = priv->key_grabs; l; l = l->next)
-  {
-    AtspiX11KeyGrab *grab = l->data;
-    gboolean new_enabled = grab_should_be_enabled (x11_device, grab);
-    if (new_enabled && !grab->enabled)
-      enable_key_grab (x11_device, grab);
-    else if (grab->enabled && !new_enabled)
-      disable_key_grab (x11_device, grab);
-  }
+  refresh_key_grabs (x11_device);
 }
 
 static gboolean
@@ -270,7 +301,7 @@ do_event_dispatch (gpointer user_data)
     case KeyPress:
     case KeyRelease:
       XLookupString(&xevent.xkey, text, sizeof (text), &keysym, &status);
-      atspi_device_notify_key (ATSPI_DEVICE (device), (xevent.type == KeyPress), xevent.xkey.keycode, keysym, xevent.xkey.state & priv->virtual_mods_enabled, text);
+      atspi_device_notify_key (ATSPI_DEVICE (device), (xevent.type == KeyPress), xevent.xkey.keycode, keysym, xevent.xkey.state | priv->virtual_mods_enabled, text);
       break;
     case GenericEvent:
       if (xevent.xcookie.extension == priv->xi_opcode)
@@ -286,11 +317,18 @@ do_event_dispatch (gpointer user_data)
           XLookupString((XKeyEvent *)&keyevent, text, sizeof (text), &keysym, &status);
           if (text[0] < ' ')
             text[0] = '\0';
+          /* The deviceid can change. Would be nice to find a better way of
+             handling this */
+          if (priv->device_id && priv->device_id_alt && xiDevEv->deviceid != priv->device_id && xiDevEv->deviceid != priv->device_id_alt)
+            priv->device_id = priv->device_id_alt = 0;
+          else if (priv->device_id && !priv->device_id_alt && xiDevEv->deviceid != priv->device_id)
+            priv->device_id_alt = xiDevEv->deviceid;
           if (!priv->device_id)
             priv->device_id = xiDevEv->deviceid;
           set_virtual_modifier (device, xiRawEv->detail, xevent.xcookie.evtype == XI_KeyPress);
           if (xiDevEv->deviceid == priv->device_id)
             atspi_device_notify_key (ATSPI_DEVICE (device), (xevent.xcookie.evtype == XI_KeyPress), xiRawEv->detail, keysym, keyevent.xkey.state, text);
+          /* otherwise it's probably a duplicate event from a key grab */
           XFreeEventData (priv->display, &xevent.xcookie);
           break;
         }
@@ -371,9 +409,9 @@ check_virtual_modifier (AtspiDeviceX11 *x11_device, guint modifier)
 static guint
 get_unused_virtual_modifier (AtspiDeviceX11 *x11_device)
 {
-  guint ret = 0x10000;
+  guint ret = 0x1000;
 
-  while (ret)
+  while (ret < 0x10000)
   {
     if (!check_virtual_modifier (x11_device, ret))
       return ret;
@@ -578,16 +616,41 @@ atspi_device_x11_get_locked_modifiers (AtspiDevice *device)
   return state_rec.locked_mods;
 }
 
+static void
+get_keycode_range (AtspiDeviceX11 *x11_device, int *min, int *max)
+{
+  AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
+  XkbDescPtr desc;
+
+  desc = XkbGetMap (priv->display, XkbModifierMapMask, XkbUseCoreKbd);
+  *min = desc->min_key_code;
+  *max = desc->max_key_code;
+  XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
+}
+
 static gboolean
 atspi_device_x11_grab_keyboard (AtspiDevice *device)
 {
   AtspiDeviceX11 *x11_device = ATSPI_DEVICE_X11 (device);
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
-  int result;
+  int min, max;
+  gint i;
 
   g_return_val_if_fail (priv->display != NULL, FALSE);
-  result = XGrabKeyboard (priv->display, priv->window, TRUE, GrabModeAsync, GrabModeSync, CurrentTime);
-  return (result == 0);
+#if 0
+  /* THis seems like the right thing to do, but it fails for me */
+  return (XGrabKeyboard (priv->display, priv->window, TRUE, GrabModeAsync, GrabModeSync, CurrentTime)) == 0;
+#else
+  if (priv->keyboard_grabbed)
+    return TRUE;
+  priv->keyboard_grabbed = TRUE;
+  refresh_key_grabs (x11_device);
+
+  get_keycode_range (x11_device, &min, &max);
+  for (i = min; i < max; i++)
+    grab_key (x11_device, i, 0);
+  return TRUE;
+#endif
 }
 
 static void
@@ -595,9 +658,23 @@ atspi_device_x11_ungrab_keyboard (AtspiDevice *device)
 {
   AtspiDeviceX11 *x11_device = ATSPI_DEVICE_X11 (device);
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
+  int min, max;
+  gint i;
 
   g_return_if_fail (priv->display != NULL);
+#if 0
   XUngrabKeyboard (priv->display, CurrentTime);
+#else
+  if (!priv->keyboard_grabbed)
+    return;
+  priv->keyboard_grabbed = FALSE;
+
+  get_keycode_range (x11_device, &min, &max);
+  for (i = min; i < max; i++)
+    ungrab_key (x11_device, i, 0);
+
+  refresh_key_grabs (x11_device);
+#endif
 }
 
 static void

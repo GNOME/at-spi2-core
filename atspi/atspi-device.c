@@ -99,9 +99,8 @@ atspi_device_class_init (AtspiDeviceClass *klass)
 AtspiDevice *
 atspi_device_new ()
 {
-  //if (!g_getenv ("WAYLAND_DISPLAY") && !g_getenv ("ATSPI_USE_LEGACY_DEVICE"))
 #ifdef HAVE_X11
-  if (!g_getenv ("ATSPI_USE_LEGACY_DEVICE"))
+  if (!g_getenv ("WAYLAND_DISPLAY") && !g_getenv ("ATSPI_USE_LEGACY_DEVICE"))
     return ATSPI_DEVICE (atspi_device_x11_new ());
 #endif
 
