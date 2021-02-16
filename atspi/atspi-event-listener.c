@@ -393,6 +393,12 @@ listener_entry_free (EventListenerEntry *e)
   g_free (e->name);
   if (e->detail) g_free (e->detail);
   callback_unref (callback);
+
+  for (int i=0; i < e->properties->len; i++)
+    g_free (g_array_index (e->properties, char*, i));
+
+  g_array_free (e->properties, TRUE);
+
   g_free (e);
 }
 
@@ -1053,6 +1059,7 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
  	accessible = _atspi_dbus_return_accessible_from_iter (&iter_variant);
         if (!strcmp (category, "ScreenReader"))
         {
+          g_object_unref (e.source);
           e.source = accessible;
         }
         else
@@ -1112,6 +1119,7 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   g_free (name);
   g_free (detail);
   g_object_unref (e.source);
+  g_object_unref (e.sender);
   g_value_unset (&e.any_data);
   return DBUS_HANDLER_RESULT_HANDLED;
 }
