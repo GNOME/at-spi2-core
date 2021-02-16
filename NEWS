@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.39.90:
+
+* Fix build with X11 disabled.
+
+* Various fixes for the new device API used for key monitoring and grabbing.
+
+* Fixed several memory leaks.
+
 What's new in at-spi2-core 2.39.1:
 
 * Don't use gdbus-broker if not running under systemd (#25).
