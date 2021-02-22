@@ -465,7 +465,8 @@ add_accessible_from_iter (DBusMessageIter *iter)
       else
       {
         /* This place is already taken - let's free this place with dignity */
-        g_object_unref (g_ptr_array_index (accessible->accessible_parent->children, index));
+        if (g_ptr_array_index (accessible->accessible_parent->children, index))
+          g_object_unref (g_ptr_array_index (accessible->accessible_parent->children, index));
       }
       g_ptr_array_index (accessible->accessible_parent->children, index) = g_object_ref (accessible);
     }
@@ -1273,7 +1274,7 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
   process_deferred_messages ();
   if (!reply)
   {
-    // TODO: throw exception
+    /* TODO: throw exception */
     goto done;
   }
 
@@ -1300,14 +1301,12 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
   }
   if (!strcmp (type, "(so)"))
   {
-    g_object_unref (*(AtspiAccessible**)data);
     *((AtspiAccessible **)data) = _atspi_dbus_return_accessible_from_iter (&iter_variant);
   }
   else
   {
     if (type [0] == 's')
     {
-      g_free (*(char**)data);
       *(char**) data = NULL;
     }
 

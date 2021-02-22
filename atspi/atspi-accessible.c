@@ -418,7 +418,7 @@ atspi_accessible_get_parent (AtspiAccessible *obj, GError **error)
     }
     dbus_message_iter_init (reply, &iter);
     dbus_message_iter_recurse (&iter, &iter_variant);
-    g_object_unref (obj->accessible_parent);
+    g_clear_object (&obj->accessible_parent);
     obj->accessible_parent = _atspi_dbus_return_accessible_from_iter (&iter_variant);
     dbus_message_unref (reply);
     _atspi_accessible_add_cache (obj, ATSPI_CACHE_PARENT);

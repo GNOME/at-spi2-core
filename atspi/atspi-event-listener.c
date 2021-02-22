@@ -864,7 +864,8 @@ atspi_event_copy (AtspiEvent *src)
   dst->detail2 = src->detail2;
   g_value_init (&dst->any_data, G_VALUE_TYPE (&src->any_data));
   g_value_copy (&src->any_data, &dst->any_data);
-  dst->sender = g_object_ref (src->sender);
+  if (src->sender)
+    dst->sender = g_object_ref (src->sender);
   return dst;
 }
 
@@ -874,7 +875,7 @@ atspi_event_free (AtspiEvent *event)
   g_object_unref (event->source);
   g_free (event->type);
   g_value_unset (&event->any_data);
-  g_object_unref (event->sender);
+  g_clear_object (&event->sender);
   g_free (event);
 }
 
