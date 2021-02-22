@@ -343,7 +343,6 @@ atspi_accessible_get_name (AtspiAccessible *obj, GError **error)
 
   if (!_atspi_accessible_test_cache (obj, ATSPI_CACHE_NAME))
   {
-if (obj->name) printf("free\n");
     g_free (obj->name);
     obj->name = NULL;
     if (!_atspi_dbus_get_property (obj, atspi_interface_accessible, "Name", error,
