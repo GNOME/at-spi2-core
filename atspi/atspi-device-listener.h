@@ -45,7 +45,7 @@ GType atspi_device_event_get_type (void);
  * Returns: #TRUE if the client wishes to consume/preempt the event, preventing it from being
  * relayed to the currently focussed application, #FALSE if the event delivery should proceed as normal.
  **/
-typedef gboolean (*AtspiDeviceListenerCB)    (const AtspiDeviceEvent *stroke,
+typedef gboolean (*AtspiDeviceListenerCB)    (AtspiDeviceEvent *stroke,
 						     void                      *user_data);
 
 /**

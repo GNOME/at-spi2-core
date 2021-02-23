@@ -86,7 +86,7 @@ set_virtual_modifier (AtspiDeviceLegacy *legacy_device, gint keycode, gboolean e
 
 
 gboolean
-key_cb (const AtspiDeviceEvent *event, void *user_data)
+key_cb (AtspiDeviceEvent *event, void *user_data)
 {
   AtspiDeviceLegacy *legacy_device = ATSPI_DEVICE_LEGACY (user_data);
   AtspiDeviceLegacyPrivate *priv = atspi_device_legacy_get_instance_private (legacy_device);
@@ -100,6 +100,7 @@ key_cb (const AtspiDeviceEvent *event, void *user_data)
                                   event->modifiers | priv->virtual_mods_enabled,
                                   event->event_string);
 
+  g_boxed_free (ATSPI_TYPE_DEVICE_EVENT, event);
   return ret;
 }
 
