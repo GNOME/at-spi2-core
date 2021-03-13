@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.39.91:
+
+* Fix a couple of memory leaks.
+
+* Remove const from AtspiDeviceListenerCB prototype (#31).
+
 What's new in at-spi2-core 2.39.90.1:
 
 * Fix a crash introduced in 2.39.90, along with a few warnings (#30).
