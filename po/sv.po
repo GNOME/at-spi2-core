@@ -9,583 +9,582 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=atk&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-02-01 03:57+0000\n"
-"PO-Revision-Date: 2016-02-01 14:36+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/atk/issues\n"
+"POT-Creation-Date: 2020-06-06 13:32+0000\n"
+"PO-Revision-Date: 2021-03-17 01:40+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 2.4.2\n"
 
-#: ../atk/atkhyperlink.c:126
+#: atk/atkhyperlink.c:126
 msgid "Selected Link"
 msgstr "Markerad länk"
 
-#: ../atk/atkhyperlink.c:127
+#: atk/atkhyperlink.c:127
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr "Anger huruvida AtkHyperlink-objektet är markerat"
 
-#: ../atk/atkhyperlink.c:133
+#: atk/atkhyperlink.c:133
 msgid "Number of Anchors"
 msgstr "Antal ankare"
 
-#: ../atk/atkhyperlink.c:134
+#: atk/atkhyperlink.c:134
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr "Antalet ankare som är associerat med AtkHyperlink-objektet"
 
-#: ../atk/atkhyperlink.c:142
+#: atk/atkhyperlink.c:142
 msgid "End index"
 msgstr "Slutindex"
 
-#: ../atk/atkhyperlink.c:143
+#: atk/atkhyperlink.c:143
 msgid "The end index of the AtkHyperlink object"
 msgstr "Slutindexet för AtkHyperlink-objektet"
 
-#: ../atk/atkhyperlink.c:151
+#: atk/atkhyperlink.c:151
 msgid "Start index"
 msgstr "Startindex"
 
-#: ../atk/atkhyperlink.c:152
+#: atk/atkhyperlink.c:152
 msgid "The start index of the AtkHyperlink object"
 msgstr "Startindexet för AtkHyperlink-objektet"
 
-#: ../atk/atkobject.c:97
+#: atk/atkobject.c:98
 msgid "invalid"
 msgstr "ogiltig"
 
-#: ../atk/atkobject.c:98
+#: atk/atkobject.c:99
 msgid "accelerator label"
 msgstr "genvägsetikett"
 
-#: ../atk/atkobject.c:99
+#: atk/atkobject.c:100
 msgid "alert"
 msgstr "varning"
 
-#: ../atk/atkobject.c:100
+#: atk/atkobject.c:101
 msgid "animation"
 msgstr "animering"
 
-#: ../atk/atkobject.c:101
+#: atk/atkobject.c:102
 msgid "arrow"
 msgstr "pil"
 
-#: ../atk/atkobject.c:102
+#: atk/atkobject.c:103
 msgid "calendar"
 msgstr "kalender"
 
-#: ../atk/atkobject.c:103
+#: atk/atkobject.c:104
 msgid "canvas"
 msgstr "rityta"
 
-#: ../atk/atkobject.c:104
+#: atk/atkobject.c:105
 msgid "check box"
 msgstr "kryssruta"
 
-#: ../atk/atkobject.c:105
+#: atk/atkobject.c:106
 msgid "check menu item"
 msgstr "kryssmenypost"
 
-#: ../atk/atkobject.c:106
+#: atk/atkobject.c:107
 msgid "color chooser"
 msgstr "färgväljare"
 
-#: ../atk/atkobject.c:107
+#: atk/atkobject.c:108
 msgid "column header"
 msgstr "kolumnrubrik"
 
-#: ../atk/atkobject.c:108
+#: atk/atkobject.c:109
 msgid "combo box"
 msgstr "komboruta"
 
-#: ../atk/atkobject.c:109
+#: atk/atkobject.c:110
 msgid "dateeditor"
 msgstr "datumredigerare"
 
-#: ../atk/atkobject.c:110
+#: atk/atkobject.c:111
 msgid "desktop icon"
 msgstr "skrivbordsikon"
 
-#: ../atk/atkobject.c:111
+#: atk/atkobject.c:112
 msgid "desktop frame"
 msgstr "skrivbordsram"
 
-#: ../atk/atkobject.c:112
+#: atk/atkobject.c:113
 msgid "dial"
 msgstr "mätare"
 
-#: ../atk/atkobject.c:113
+#: atk/atkobject.c:114
 msgid "dialog"
 msgstr "dialog"
 
-#: ../atk/atkobject.c:114
+#: atk/atkobject.c:115
 msgid "directory pane"
 msgstr "katalogpanel"
 
-#: ../atk/atkobject.c:115
+#: atk/atkobject.c:116
 msgid "drawing area"
 msgstr "rityta"
 
-#: ../atk/atkobject.c:116
+#: atk/atkobject.c:117
 msgid "file chooser"
 msgstr "filväljare"
 
-#: ../atk/atkobject.c:117
+#: atk/atkobject.c:118
 msgid "filler"
 msgstr "ifyllare"
 
 #. I know it looks wrong but that is what Java returns
-#: ../atk/atkobject.c:119
+#: atk/atkobject.c:120
 msgid "fontchooser"
 msgstr "typsnittsväljare"
 
-#: ../atk/atkobject.c:120
+#: atk/atkobject.c:121
 msgid "frame"
 msgstr "ram"
 
-#: ../atk/atkobject.c:121
+#: atk/atkobject.c:122
 msgid "glass pane"
 msgstr "glaspanel"
 
-#: ../atk/atkobject.c:122
+#: atk/atkobject.c:123
 msgid "html container"
 msgstr "html-behållare"
 
-#: ../atk/atkobject.c:123
+#: atk/atkobject.c:124
 msgid "icon"
 msgstr "ikon"
 
-#: ../atk/atkobject.c:124
+#: atk/atkobject.c:125
 msgid "image"
 msgstr "bild"
 
-#: ../atk/atkobject.c:125
+#: atk/atkobject.c:126
 msgid "internal frame"
 msgstr "intern ram"
 
-#: ../atk/atkobject.c:126
+#: atk/atkobject.c:127
 msgid "label"
 msgstr "etikett"
 
-#: ../atk/atkobject.c:127
+#: atk/atkobject.c:128
 msgid "layered pane"
 msgstr "lagerpanel"
 
-#: ../atk/atkobject.c:128
+#: atk/atkobject.c:129
 msgid "list"
 msgstr "lista"
 
-#: ../atk/atkobject.c:129
+#: atk/atkobject.c:130
 msgid "list item"
 msgstr "listpost"
 
-#: ../atk/atkobject.c:130
+#: atk/atkobject.c:131
 msgid "menu"
 msgstr "meny"
 
-#: ../atk/atkobject.c:131
+#: atk/atkobject.c:132
 msgid "menu bar"
 msgstr "menyrad"
 
-#: ../atk/atkobject.c:132
+#: atk/atkobject.c:133
 msgid "menu item"
 msgstr "menypost"
 
-#: ../atk/atkobject.c:133
+#: atk/atkobject.c:134
 msgid "option pane"
 msgstr "alternativpanel"
 
-#: ../atk/atkobject.c:134
+#: atk/atkobject.c:135
 msgid "page tab"
 msgstr "sidflik"
 
-#: ../atk/atkobject.c:135
+#: atk/atkobject.c:136
 msgid "page tab list"
 msgstr "sidflikslist"
 
-#: ../atk/atkobject.c:136
+#: atk/atkobject.c:137
 msgid "panel"
 msgstr "panel"
 
-#: ../atk/atkobject.c:137
+#: atk/atkobject.c:138
 msgid "password text"
 msgstr "lösenordstext"
 
-#: ../atk/atkobject.c:138
+#: atk/atkobject.c:139
 msgid "popup menu"
 msgstr "popupmeny"
 
-#: ../atk/atkobject.c:139
+#: atk/atkobject.c:140
 msgid "progress bar"
 msgstr "förloppsindikator"
 
-#: ../atk/atkobject.c:140
+#: atk/atkobject.c:141
 msgid "push button"
 msgstr "tryckknapp"
 
-#: ../atk/atkobject.c:141
+#: atk/atkobject.c:142
 msgid "radio button"
 msgstr "radioknapp"
 
-#: ../atk/atkobject.c:142
+#: atk/atkobject.c:143
 msgid "radio menu item"
 msgstr "radiomenypost"
 
-#: ../atk/atkobject.c:143
+#: atk/atkobject.c:144
 msgid "root pane"
 msgstr "rotpanel"
 
-#: ../atk/atkobject.c:144
+#: atk/atkobject.c:145
 msgid "row header"
 msgstr "radhuvud"
 
-#: ../atk/atkobject.c:145
+#: atk/atkobject.c:146
 msgid "scroll bar"
 msgstr "rullningslist"
 
-#: ../atk/atkobject.c:146
+#: atk/atkobject.c:147
 msgid "scroll pane"
 msgstr "rullningspanel"
 
-#: ../atk/atkobject.c:147
+#: atk/atkobject.c:148
 msgid "separator"
 msgstr "avskiljare"
 
-#: ../atk/atkobject.c:148
+#: atk/atkobject.c:149
 msgid "slider"
 msgstr "skjutreglage"
 
-#: ../atk/atkobject.c:149
+#: atk/atkobject.c:150
 msgid "split pane"
 msgstr "delad panel"
 
-#: ../atk/atkobject.c:150
+#: atk/atkobject.c:151
 msgid "spin button"
-msgstr "spinnknapp"
+msgstr "stegningsruta"
 
-#: ../atk/atkobject.c:151
+#: atk/atkobject.c:152
 msgid "statusbar"
 msgstr "statusrad"
 
-#: ../atk/atkobject.c:152
+#: atk/atkobject.c:153
 msgid "table"
 msgstr "tabell"
 
-#: ../atk/atkobject.c:153
+#: atk/atkobject.c:154
 msgid "table cell"
 msgstr "tabellcell"
 
-#: ../atk/atkobject.c:154
+#: atk/atkobject.c:155
 msgid "table column header"
 msgstr "tabellkolumnhuvud"
 
-#: ../atk/atkobject.c:155
+#: atk/atkobject.c:156
 msgid "table row header"
 msgstr "tabellradshuvud"
 
-#: ../atk/atkobject.c:156
+#: atk/atkobject.c:157
 msgid "tear off menu item"
 msgstr "avtagbar menypost"
 
-#: ../atk/atkobject.c:157
+#: atk/atkobject.c:158
 msgid "terminal"
 msgstr "terminal"
 
-#: ../atk/atkobject.c:158
+#: atk/atkobject.c:159
 msgid "text"
 msgstr "text"
 
-#: ../atk/atkobject.c:159
+#: atk/atkobject.c:160
 msgid "toggle button"
 msgstr "växlingsknapp"
 
-#: ../atk/atkobject.c:160
+#: atk/atkobject.c:161
 msgid "tool bar"
 msgstr "verktygsfält"
 
-#: ../atk/atkobject.c:161
+#: atk/atkobject.c:162
 msgid "tool tip"
 msgstr "verktygstips"
 
-#: ../atk/atkobject.c:162
+#: atk/atkobject.c:163
 msgid "tree"
 msgstr "träd"
 
-#: ../atk/atkobject.c:163
+#: atk/atkobject.c:164
 msgid "tree table"
 msgstr "trädtabell"
 
-#: ../atk/atkobject.c:164
+#: atk/atkobject.c:165
 msgid "unknown"
 msgstr "okänd"
 
-#: ../atk/atkobject.c:165
+#: atk/atkobject.c:166
 msgid "viewport"
 msgstr "skrivbordsvy"
 
-#: ../atk/atkobject.c:166
+#: atk/atkobject.c:167
 msgid "window"
 msgstr "fönster"
 
-#: ../atk/atkobject.c:167
+#: atk/atkobject.c:168
 msgid "header"
 msgstr "huvud"
 
-#: ../atk/atkobject.c:168
+#: atk/atkobject.c:169
 msgid "footer"
 msgstr "fot"
 
-#: ../atk/atkobject.c:169
+#: atk/atkobject.c:170
 msgid "paragraph"
 msgstr "stycke"
 
-#: ../atk/atkobject.c:170
+#: atk/atkobject.c:171
 msgid "ruler"
 msgstr "linjal"
 
-#: ../atk/atkobject.c:171
+#: atk/atkobject.c:172
 msgid "application"
 msgstr "program"
 
-#: ../atk/atkobject.c:172
+#: atk/atkobject.c:173
 msgid "autocomplete"
 msgstr "komplettera automatiskt"
 
-#: ../atk/atkobject.c:173
+#: atk/atkobject.c:174
 msgid "edit bar"
 msgstr "redigeringsrad"
 
 # Se http://www.nada.kth.se/dataterm/rek.html#a129
-#: ../atk/atkobject.c:174
+#: atk/atkobject.c:175
 msgid "embedded component"
 msgstr "inbyggd komponent"
 
-#: ../atk/atkobject.c:175
+#: atk/atkobject.c:176
 msgid "entry"
 msgstr "post"
 
-#: ../atk/atkobject.c:176
+#: atk/atkobject.c:177
 msgid "chart"
 msgstr "lista"
 
-#: ../atk/atkobject.c:177
+#: atk/atkobject.c:178
 msgid "caption"
 msgstr "rubrik"
 
-#: ../atk/atkobject.c:178
+#: atk/atkobject.c:179
 msgid "document frame"
 msgstr "dokumentram"
 
-#: ../atk/atkobject.c:179
+#: atk/atkobject.c:180
 msgid "heading"
 msgstr "huvud"
 
-#: ../atk/atkobject.c:180
+#: atk/atkobject.c:181
 msgid "page"
 msgstr "sida"
 
-#: ../atk/atkobject.c:181
+#: atk/atkobject.c:182
 msgid "section"
 msgstr "sektion"
 
-#: ../atk/atkobject.c:182
+#: atk/atkobject.c:183
 msgid "redundant object"
 msgstr "redundant objekt"
 
-#: ../atk/atkobject.c:183
+#: atk/atkobject.c:184
 msgid "form"
 msgstr "formulär"
 
-#: ../atk/atkobject.c:184
+#: atk/atkobject.c:185
 msgid "link"
 msgstr "länk"
 
-#: ../atk/atkobject.c:185
+#: atk/atkobject.c:186
 msgid "input method window"
 msgstr "inmatningsmetodfönster"
 
-#: ../atk/atkobject.c:186
+#: atk/atkobject.c:187
 msgid "table row"
 msgstr "tabellrad"
 
-#: ../atk/atkobject.c:187
+#: atk/atkobject.c:188
 msgid "tree item"
 msgstr "trädobjekt"
 
-#: ../atk/atkobject.c:188
+#: atk/atkobject.c:189
 msgid "document spreadsheet"
 msgstr "dokument kalkylark"
 
-#: ../atk/atkobject.c:189
+#: atk/atkobject.c:190
 msgid "document presentation"
 msgstr "dokument presentation"
 
-#: ../atk/atkobject.c:190
+#: atk/atkobject.c:191
 msgid "document text"
 msgstr "dokument text"
 
-#: ../atk/atkobject.c:191
+#: atk/atkobject.c:192
 msgid "document web"
 msgstr "dokument webb"
 
-#: ../atk/atkobject.c:192
+#: atk/atkobject.c:193
 msgid "document email"
 msgstr "dokument e-post"
 
-#: ../atk/atkobject.c:193
+#: atk/atkobject.c:194
 msgid "comment"
 msgstr "kommentar"
 
-#: ../atk/atkobject.c:194
+#: atk/atkobject.c:195
 msgid "list box"
 msgstr "listruta"
 
-#: ../atk/atkobject.c:195
+#: atk/atkobject.c:196
 msgid "grouping"
 msgstr "gruppering"
 
-#: ../atk/atkobject.c:196
+#: atk/atkobject.c:197
 msgid "image map"
 msgstr "bildkarta"
 
-#: ../atk/atkobject.c:197
+#: atk/atkobject.c:198
 msgid "notification"
 msgstr "avisering"
 
-#: ../atk/atkobject.c:198
+#: atk/atkobject.c:199
 msgid "info bar"
 msgstr "informationsrad"
 
-#: ../atk/atkobject.c:199
+#: atk/atkobject.c:200
 msgid "level bar"
 msgstr "nivårad"
 
-#: ../atk/atkobject.c:200
+#: atk/atkobject.c:201
 msgid "title bar"
 msgstr "namnlist"
 
-#: ../atk/atkobject.c:201
+#: atk/atkobject.c:202
 msgid "block quote"
 msgstr "blockcitat"
 
-#: ../atk/atkobject.c:202
+#: atk/atkobject.c:203
 msgid "audio"
 msgstr "ljud"
 
-#: ../atk/atkobject.c:203
+#: atk/atkobject.c:204
 msgid "video"
 msgstr "video"
 
-#: ../atk/atkobject.c:204
+#: atk/atkobject.c:205
 msgid "definition"
 msgstr "definition"
 
-#: ../atk/atkobject.c:205
+#: atk/atkobject.c:206
 msgid "article"
 msgstr "artikel"
 
-#: ../atk/atkobject.c:206
+#: atk/atkobject.c:207
 msgid "landmark"
 msgstr "landmärke"
 
-#: ../atk/atkobject.c:207
+#: atk/atkobject.c:208
 msgid "log"
 msgstr "logg"
 
-#: ../atk/atkobject.c:208
+#: atk/atkobject.c:209
 msgid "marquee"
 msgstr "banderoll"
 
-#: ../atk/atkobject.c:209
+#: atk/atkobject.c:210
 msgid "math"
 msgstr "matematik"
 
-#: ../atk/atkobject.c:210
+#: atk/atkobject.c:211
 msgid "rating"
 msgstr "gradering"
 
-#: ../atk/atkobject.c:211
+#: atk/atkobject.c:212
 msgid "timer"
 msgstr "timer"
 
-#: ../atk/atkobject.c:212
+#: atk/atkobject.c:213
 msgid "description list"
 msgstr "beskrivningslista"
 
-#: ../atk/atkobject.c:213
+#: atk/atkobject.c:214
 msgid "description term"
 msgstr "beskrivningsterm"
 
-#: ../atk/atkobject.c:214
+#: atk/atkobject.c:215
 msgid "description value"
 msgstr "beskrivningsvärde"
 
-#: ../atk/atkobject.c:372
+#: atk/atkobject.c:391
 msgid "Accessible Name"
 msgstr "Tillgängligt namn"
 
-#: ../atk/atkobject.c:373
+#: atk/atkobject.c:392
 msgid "Object instance’s name formatted for assistive technology access"
 msgstr "Objektinstansens namn formaterat för åtkomst av hjälpmedelsteknik"
 
-#: ../atk/atkobject.c:379
+#: atk/atkobject.c:398
 msgid "Accessible Description"
 msgstr "Tillgänglig beskrivning"
 
-#: ../atk/atkobject.c:380
+#: atk/atkobject.c:399
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Beskrivning av ett objekt, formaterat för åtkomst av hjälpmedelsteknik"
 
-#: ../atk/atkobject.c:386
+#: atk/atkobject.c:405
 msgid "Accessible Parent"
 msgstr "Tillgänglig förälder"
 
-#: ../atk/atkobject.c:387
+#: atk/atkobject.c:406
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr ""
 "Förälder för den aktuella tillgängliga som returnerades av "
 "atk_object_get_parent()"
 
-#: ../atk/atkobject.c:403
+#: atk/atkobject.c:422
 msgid "Accessible Value"
 msgstr "Tillgängligt värde"
 
-#: ../atk/atkobject.c:404
+#: atk/atkobject.c:423
 msgid "Is used to notify that the value has changed"
 msgstr "Används för att meddela att värdet har ändrats"
 
-#: ../atk/atkobject.c:412
+#: atk/atkobject.c:431
 msgid "Accessible Role"
 msgstr "Tillgänglig roll"
 
-#: ../atk/atkobject.c:413
+#: atk/atkobject.c:432
 msgid "The accessible role of this object"
 msgstr "Den tillgängliga rollen för detta objekt"
 
-#: ../atk/atkobject.c:421
+#: atk/atkobject.c:439
 msgid "Accessible Layer"
 msgstr "Tillgängligt lager"
 
-#: ../atk/atkobject.c:422
+#: atk/atkobject.c:440
 msgid "The accessible layer of this object"
 msgstr "Det tillgängliga lagret för detta objekt"
 
-#: ../atk/atkobject.c:430
+#: atk/atkobject.c:448
 msgid "Accessible MDI Value"
 msgstr "Tillgängligt MDI-värde"
 
-#: ../atk/atkobject.c:431
+#: atk/atkobject.c:449
 msgid "The accessible MDI value of this object"
 msgstr "Det tillgängliga MDI-värdet för detta objekt"
 
-#: ../atk/atkobject.c:447
+#: atk/atkobject.c:465
 msgid "Accessible Table Caption"
 msgstr "Tillgänglig tabellrubrik"
 
-#: ../atk/atkobject.c:448
+#: atk/atkobject.c:466
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -593,59 +592,59 @@ msgstr ""
 "Används för att meddela att tabellrubriken har ändrats; denna egenskap ska "
 "inte användas. accessible-table-caption-object ska användas istället"
 
-#: ../atk/atkobject.c:462
+#: atk/atkobject.c:480
 msgid "Accessible Table Column Header"
 msgstr "Tillgängligt tabellkolumnhuvud"
 
-#: ../atk/atkobject.c:463
+#: atk/atkobject.c:481
 msgid "Is used to notify that the table column header has changed"
 msgstr "Används för att meddela att tabellkolumnrubriken har ändrats"
 
-#: ../atk/atkobject.c:478
+#: atk/atkobject.c:496
 msgid "Accessible Table Column Description"
 msgstr "Tillgänglig tabellkolumnbeskrivning"
 
-#: ../atk/atkobject.c:479
+#: atk/atkobject.c:497
 msgid "Is used to notify that the table column description has changed"
 msgstr "Används för att meddela att tabellkolumnbeskrivningen har ändrats"
 
-#: ../atk/atkobject.c:494
+#: atk/atkobject.c:512
 msgid "Accessible Table Row Header"
 msgstr "Tillgängligt tabellradshuvud"
 
-#: ../atk/atkobject.c:495
+#: atk/atkobject.c:513
 msgid "Is used to notify that the table row header has changed"
 msgstr "Används för att meddela att tabellradshuvudet har ändrats"
 
-#: ../atk/atkobject.c:509
+#: atk/atkobject.c:527
 msgid "Accessible Table Row Description"
 msgstr "Tillgänglig tabellradsbeskrivning"
 
-#: ../atk/atkobject.c:510
+#: atk/atkobject.c:528
 msgid "Is used to notify that the table row description has changed"
 msgstr "Används för att meddela att tabellradsbeskrivningen har ändrats"
 
-#: ../atk/atkobject.c:516
+#: atk/atkobject.c:534
 msgid "Accessible Table Summary"
 msgstr "Tillgänglig tabellsammanfattning"
 
-#: ../atk/atkobject.c:517
+#: atk/atkobject.c:535
 msgid "Is used to notify that the table summary has changed"
 msgstr "Används för att meddela att tabellsammanfattningen har ändrats"
 
-#: ../atk/atkobject.c:523
+#: atk/atkobject.c:541
 msgid "Accessible Table Caption Object"
 msgstr "Tillgängligt tabellrubriksobjekt"
 
-#: ../atk/atkobject.c:524
+#: atk/atkobject.c:542
 msgid "Is used to notify that the table caption has changed"
 msgstr "Används för att meddela att tabellrubriken har ändrats"
 
-#: ../atk/atkobject.c:530
+#: atk/atkobject.c:548
 msgid "Number of Accessible Hypertext Links"
 msgstr "Antal tillgängliga hypertextlänkar"
 
-#: ../atk/atkobject.c:531
+#: atk/atkobject.c:549
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Antalet länkar som den aktuella AtkHypertext har"
 
@@ -655,7 +654,7 @@ msgstr "Antalet länkar som den aktuella AtkHypertext har"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: ../atk/atkvalue.c:194
+#: atk/atkvalue.c:194
 msgid "very weak"
 msgstr "mycket svagt"
 
@@ -665,7 +664,7 @@ msgstr "mycket svagt"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: ../atk/atkvalue.c:201
+#: atk/atkvalue.c:201
 msgid "weak"
 msgstr "svagt"
 
@@ -675,7 +674,7 @@ msgstr "svagt"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: ../atk/atkvalue.c:208
+#: atk/atkvalue.c:208
 msgid "acceptable"
 msgstr "acceptabelt"
 
@@ -685,7 +684,7 @@ msgstr "acceptabelt"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: ../atk/atkvalue.c:215
+#: atk/atkvalue.c:215
 msgid "strong"
 msgstr "starkt"
 
@@ -695,7 +694,7 @@ msgstr "starkt"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: ../atk/atkvalue.c:222
+#: atk/atkvalue.c:222
 msgid "very strong"
 msgstr "mycket starkt"
 
@@ -706,7 +705,7 @@ msgstr "mycket starkt"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:230
+#: atk/atkvalue.c:230
 msgid "very low"
 msgstr "mycket lågt"
 
@@ -717,7 +716,7 @@ msgstr "mycket lågt"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:238
+#: atk/atkvalue.c:238
 msgid "medium"
 msgstr "medel"
 
@@ -728,7 +727,7 @@ msgstr "medel"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:246
+#: atk/atkvalue.c:246
 msgid "high"
 msgstr "högt"
 
@@ -739,7 +738,7 @@ msgstr "högt"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:254
+#: atk/atkvalue.c:254
 msgid "very high"
 msgstr "mycket högt"
 
@@ -750,7 +749,7 @@ msgstr "mycket högt"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:262
+#: atk/atkvalue.c:262
 msgid "very bad"
 msgstr "mycket dåligt"
 
@@ -761,7 +760,7 @@ msgstr "mycket dåligt"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:270
+#: atk/atkvalue.c:270
 msgid "bad"
 msgstr "dåligt"
 
@@ -772,7 +771,7 @@ msgstr "dåligt"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:278
+#: atk/atkvalue.c:278
 msgid "good"
 msgstr "bra"
 
@@ -783,7 +782,7 @@ msgstr "bra"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:286
+#: atk/atkvalue.c:286
 msgid "very good"
 msgstr "mycket bra"
 
@@ -794,7 +793,7 @@ msgstr "mycket bra"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:294
+#: atk/atkvalue.c:294
 msgid "best"
 msgstr "bäst"
 
