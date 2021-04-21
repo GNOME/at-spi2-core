@@ -798,7 +798,10 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
       DBusMessage *message, *reply;
       l = g_list_next (l);
       if (in_send)
-      pending_removals = g_list_append (pending_removals, e);
+      {
+        pending_removals = g_list_remove (pending_removals, e);
+        pending_removals = g_list_append (pending_removals, e);
+      }
       else
         event_listeners = g_list_remove (event_listeners, e);
       for (i = 0; i < matchrule_array->len; i++)
