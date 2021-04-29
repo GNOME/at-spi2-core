@@ -82,7 +82,7 @@ static unsigned int mouse_button_mask =
   Button1Mask | Button2Mask | Button3Mask | Button4Mask | Button5Mask;
 static unsigned int key_modifier_mask =
   Mod1Mask | Mod2Mask | Mod3Mask | Mod4Mask | Mod5Mask | ShiftMask | LockMask | ControlMask | SPI_KEYMASK_NUMLOCK;
-static unsigned int _numlock_physical_mask = Mod2Mask; /* a guess, will be reset */
+extern unsigned int _numlock_physical_mask;
 
 static XModifierKeymap* xmkeymap = NULL;
 

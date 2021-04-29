@@ -73,7 +73,7 @@ static unsigned int key_modifier_mask =
   SPI_KEYMASK_MOD1 | SPI_KEYMASK_MOD2 | SPI_KEYMASK_MOD3 | SPI_KEYMASK_MOD4 |
   SPI_KEYMASK_MOD5 | SPI_KEYMASK_SHIFT | SPI_KEYMASK_SHIFTLOCK |
   SPI_KEYMASK_CONTROL | SPI_KEYMASK_NUMLOCK;
-static unsigned int _numlock_physical_mask = SPI_KEYMASK_MOD2; /* a guess, will be reset */
+unsigned int _numlock_physical_mask = SPI_KEYMASK_MOD2; /* a guess, will be reset */
 
 static gboolean have_mouse_listener = FALSE;
 static gboolean have_mouse_event_listener = FALSE;
