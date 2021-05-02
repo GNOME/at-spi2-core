@@ -1,11 +1,10 @@
-What's new in at-spi2-core 2.39.91:
 What's new in at-spi2-core 2.40.1:
 
 * Fix double free when removing event listeners (#35).
 
 * Fix numlock detection.
 
-
+What's new in at-spi2-core 2.39.91:
 * Fix a couple of memory leaks.
 
 * Remove const from AtspiDeviceListenerCB prototype (#31).
