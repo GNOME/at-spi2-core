@@ -141,6 +141,7 @@ G_BEGIN_DECLS
  * widget does not include modification by the user, as is the case with
  * labels and containers, ATK_STATE_READ_ONLY should not be applied. See also
  * ATK_STATE_EDITABLE. @Since: ATK-2-16
+ *@ATK_STATE_COLLAPSED: Indicates this object is collapsed. @Since: ATK-2.38
  *@ATK_STATE_LAST_DEFINED: Not a valid state, used for finding end of enumeration
  *
  *The possible types of states of an object
@@ -190,6 +191,7 @@ typedef enum
   ATK_STATE_HAS_POPUP,
   ATK_STATE_HAS_TOOLTIP,
   ATK_STATE_READ_ONLY,
+  ATK_STATE_COLLAPSED,
   ATK_STATE_LAST_DEFINED
 } AtkStateType;
 
