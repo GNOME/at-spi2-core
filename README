@@ -5,32 +5,27 @@ This version of at-spi is a major break from version 1.x.
 It has been completely rewritten to use D-Bus rather than
 ORBIT / CORBA for its transport protocol.
 
-A page including instructions for testing, project status and
-TODO items is kept up to date at:
+An outdated page including instructions for testing, project status and
+TODO items is at:
 
-        http://www.linuxfoundation.org/en/AT-SPI_on_D-Bus
+        https://wiki.linuxfoundation.org/accessibility/atk/at-spi/at-spi_on_d-bus
 
 The mailing list used for general questions is:
 
-        accessibility-atspi@lists.linux-foundation.org
+        https://lists.linuxfoundation.org/mailman/listinfo/accessibility-atspi
 
-For bug reports, feature requests, patches or enhancements please use
-the AT-SPI project on bugzilla.gnome.org. Use the at-spi2-atk component for
-bugs specific to this module.
+For bug reports, feature requests, patches or enhancements please use:
 
-        http://bugzilla.gnome.org
+        https://gitlab.gnome.org/GNOME/at-spi2-atk/
 
 A git repository with the latest development code is available at:
 
-	https://git.gnome.org/browse/at-spi2-atk
+	https://gitlab.gnome.org/GNOME/at-spi2-atk/
 
 Code in this repository depends on at-spi2-core resources. The
 at-spi2-core repository can be found at:
 
-	https://git.gnome.org/browse/at-spi2-core
-
-More information
-----------------
+	https://gitlab.gnome.org/GNOME/at-spi2-atk/
 
 The project was started with a D-Bus performance review
 the results of which are available on the GNOME wiki. Keep in
@@ -43,9 +38,7 @@ Other sources of relevant information about AT-SPI and Accessibility
 include:
 
         https://wiki.gnome.org/Accessibility
-        https://accessibility.kde.org/developer/atk.php
-        https://people.gnome.org/~billh/at-spi-idl/html/
-
+        https://community.kde.org/Accessibility
 
 
 Contents of this package
