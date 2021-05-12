@@ -44,6 +44,7 @@ struct _AtspiDeviceX11Private
   GSList *key_grabs;
   guint virtual_mods_enabled;
   gboolean keyboard_grabbed;
+  unsigned int numlock_physical_mask;
 };
 
 GObjectClass *device_x11_parent_class;
@@ -176,7 +177,7 @@ grab_has_active_duplicate (AtspiDeviceX11 *x11_device, AtspiX11KeyGrab *grab)
 }
 
 static void
-grab_key (AtspiDeviceX11 *x11_device, int keycode, int modmask)
+grab_key_aux (AtspiDeviceX11 *x11_device, int keycode, int modmask)
 {
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
   XIGrabModifiers xi_modifiers;
@@ -197,6 +198,22 @@ grab_key (AtspiDeviceX11 *x11_device, int keycode, int modmask)
 }
 
 static void
+grab_key (AtspiDeviceX11 *x11_device, int keycode, int modmask)
+{
+  AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
+
+  grab_key_aux (x11_device, keycode, modmask);
+  if (!(modmask & LockMask))
+    grab_key_aux (x11_device, keycode, modmask | LockMask);
+  if (!(modmask & priv->numlock_physical_mask))
+  {
+    grab_key_aux (x11_device, keycode, modmask | priv->numlock_physical_mask);
+    if (!(modmask & LockMask))
+      grab_key_aux (x11_device, keycode, modmask | LockMask | priv->numlock_physical_mask);
+  }
+}
+
+static void
 enable_key_grab (AtspiDeviceX11 *x11_device, AtspiX11KeyGrab *grab)
 {
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
@@ -209,7 +226,7 @@ enable_key_grab (AtspiDeviceX11 *x11_device, AtspiX11KeyGrab *grab)
 }
 
 static void
-ungrab_key (AtspiDeviceX11 *x11_device, int keycode, int modmask)
+ungrab_key_aux (AtspiDeviceX11 *x11_device, int keycode, int modmask)
 {
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
   XIGrabModifiers xi_modifiers;
@@ -218,6 +235,22 @@ ungrab_key (AtspiDeviceX11 *x11_device, int keycode, int modmask)
   xi_modifiers.status = 0;
 
   XIUngrabKeycode (priv->display, XIAllMasterDevices, keycode, priv->window, sizeof(xi_modifiers), &xi_modifiers);
+}
+
+static void
+ungrab_key (AtspiDeviceX11 *x11_device, int keycode, int modmask)
+{
+  AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
+
+  ungrab_key_aux (x11_device, keycode, modmask);
+  if (!(modmask & LockMask))
+    ungrab_key_aux (x11_device, keycode, modmask | LockMask);
+  if (!(modmask & priv->numlock_physical_mask))
+  {
+    ungrab_key_aux (x11_device, keycode, modmask | priv->numlock_physical_mask);
+    if (!(modmask & LockMask))
+      ungrab_key_aux (x11_device, keycode, modmask | LockMask | priv->numlock_physical_mask);
+  }
 }
 
 static void
@@ -290,6 +323,7 @@ do_event_dispatch (gpointer user_data)
   char text[10];
   KeySym keysym;
   XComposeStatus status;
+  guint modifiers;
  
   while (XPending (display))
   {
@@ -301,7 +335,13 @@ do_event_dispatch (gpointer user_data)
     case KeyPress:
     case KeyRelease:
       XLookupString(&xevent.xkey, text, sizeof (text), &keysym, &status);
-      atspi_device_notify_key (ATSPI_DEVICE (device), (xevent.type == KeyPress), xevent.xkey.keycode, keysym, xevent.xkey.state | priv->virtual_mods_enabled, text);
+      modifiers = xevent.xkey.state | priv->virtual_mods_enabled;
+      if (modifiers & priv->numlock_physical_mask)
+      {
+        modifiers |= (1 << ATSPI_MODIFIER_NUMLOCK);
+        modifiers &= ~priv->numlock_physical_mask;
+      }
+      atspi_device_notify_key (ATSPI_DEVICE (device), (xevent.type == KeyPress), xevent.xkey.keycode, keysym, modifiers, text);
       break;
     case GenericEvent:
       if (xevent.xcookie.extension == priv->xi_opcode)
@@ -326,8 +366,11 @@ do_event_dispatch (gpointer user_data)
           if (!priv->device_id)
             priv->device_id = xiDevEv->deviceid;
           set_virtual_modifier (device, xiRawEv->detail, xevent.xcookie.evtype == XI_KeyPress);
+          modifiers = keyevent.xkey.state | priv->virtual_mods_enabled;
+          if (modifiers & priv->numlock_physical_mask)
+            modifiers |= (1 << ATSPI_MODIFIER_NUMLOCK);
           if (xiDevEv->deviceid == priv->device_id)
-            atspi_device_notify_key (ATSPI_DEVICE (device), (xevent.xcookie.evtype == XI_KeyPress), xiRawEv->detail, keysym, keyevent.xkey.state, text);
+            atspi_device_notify_key (ATSPI_DEVICE (device), (xevent.xcookie.evtype == XI_KeyPress), xiRawEv->detail, keysym, modifiers, text);
           /* otherwise it's probably a duplicate event from a key grab */
           XFreeEventData (priv->display, &xevent.xcookie);
           break;
@@ -395,6 +438,9 @@ check_virtual_modifier (AtspiDeviceX11 *x11_device, guint modifier)
 {
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
   GSList *l;
+
+  if (modifier == (1 << ATSPI_MODIFIER_NUMLOCK))
+    return TRUE;
 
   for (l = priv->modifiers; l; l = l->next)
   {
@@ -534,6 +580,9 @@ atspi_device_x11_init (AtspiDeviceX11 *device)
       create_event_source (device);
     }
   }
+
+  priv->numlock_physical_mask = XkbKeysymToModifiers (priv->display,
+						      XK_Num_Lock);
 }
 
 static void

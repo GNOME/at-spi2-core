@@ -107,6 +107,19 @@ atspi_device_new ()
   return ATSPI_DEVICE (atspi_device_legacy_new ());
 }
 
+static gboolean
+key_matches_modifiers (guint key_mods, guint grab_mods)
+{
+  /* The presence or lack thereof of locking modifiers should make no
+     difference when testing, but other modifiers should match. If the
+     keypress has modifiers that (a) the grab does not check for and (b) are
+     not lock modifiers, then we reject the match. Alt + left arrow should not
+     match a grab on left arrow, for instance, but whether numlock is on or
+     off would be irrelevant. */
+  key_mods &= ~((1 << ATSPI_MODIFIER_SHIFTLOCK) | (1 << ATSPI_MODIFIER_NUMLOCK));
+  return (key_mods == grab_mods);
+}
+
 gboolean
 atspi_device_notify_key (AtspiDevice *device, gboolean pressed, int keycode, int keysym, gint state, gchar *text)
 {
@@ -123,8 +136,7 @@ atspi_device_notify_key (AtspiDevice *device, gboolean pressed, int keycode, int
   for (l = priv->keygrabs; l; l = l->next)
   {
     AtspiKeyGrab *grab = l->data;
-    //if (keycode == grab->keycode && (grab->modifiers & state) == grab->modifiers)
-    if (keycode == grab->keycode && grab->modifiers == state)
+    if (keycode == grab->keycode && key_matches_modifiers (state, grab->modifiers))
     {
       if (grab->callback)
         grab->callback (device, pressed, keycode, keysym, state, text, grab->callback_data);

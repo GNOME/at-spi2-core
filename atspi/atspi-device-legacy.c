@@ -47,6 +47,7 @@ struct _AtspiDeviceLegacyPrivate
   GSList *modifiers;
   guint virtual_mods_enabled;
   gboolean keyboard_grabbed;
+  unsigned int numlock_physical_mask;
 };
 
 GObjectClass *device_legacy_parent_class;
@@ -91,13 +92,19 @@ key_cb (AtspiDeviceEvent *event, void *user_data)
   AtspiDeviceLegacy *legacy_device = ATSPI_DEVICE_LEGACY (user_data);
   AtspiDeviceLegacyPrivate *priv = atspi_device_legacy_get_instance_private (legacy_device);
   gboolean ret = priv->keyboard_grabbed;
-
+  guint modifiers;
+  
   set_virtual_modifier (legacy_device, event->hw_code,
                         event->type == (AtspiEventType)ATSPI_KEY_PRESS);
+
+  modifiers = event->modifiers | priv->virtual_mods_enabled;
+  if (modifiers & (1 << ATSPI_MODIFIER_NUMLOCK))
+    modifiers &= ~priv->numlock_physical_mask;
+
   ret |= atspi_device_notify_key (ATSPI_DEVICE (legacy_device),
                                   event->type == (AtspiEventType)ATSPI_KEY_PRESS,
                                   event->hw_code, event->id,
-                                  event->modifiers | priv->virtual_mods_enabled,
+                                  modifiers,
                                   event->event_string);
 
   g_boxed_free (ATSPI_TYPE_DEVICE_EVENT, event);
@@ -125,6 +132,9 @@ check_virtual_modifier (AtspiDeviceLegacy *legacy_device, guint modifier)
 {
   AtspiDeviceLegacyPrivate *priv = atspi_device_legacy_get_instance_private (legacy_device);
   GSList *l;
+
+  if (modifier == (1 << ATSPI_MODIFIER_NUMLOCK))
+    return TRUE;
 
   for (l = priv->modifiers; l; l = l->next)
   {
@@ -269,6 +279,8 @@ atspi_device_legacy_init (AtspiDeviceLegacy *device)
   priv->display=XOpenDisplay("");
   if (priv->display)
     priv->window = DefaultRootWindow(priv->display);
+  priv->numlock_physical_mask = XkbKeysymToModifiers (priv->display,
+						      XK_Num_Lock);
 #endif
 
 }
