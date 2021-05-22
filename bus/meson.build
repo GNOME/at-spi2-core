@@ -6,6 +6,7 @@ accessibility_conf.set('DATADIR', atspi_datadir)
 
 busconfig_dir = join_paths(atspi_datadir, 'defaults/at-spi2')
 session_dir = join_paths(atspi_sysconfdir, 'xdg/autostart')
+xwayland_session_dir = join_paths(atspi_sysconfdir, 'xdg/Xwayland-session.d')
 
 configure_file(input: 'accessibility.conf.in',
                output: 'accessibility.conf',
@@ -26,6 +27,13 @@ configure_file(input: 'at-spi-dbus-bus.service.in',
                output: 'at-spi-dbus-bus.service',
                configuration: libexec_conf,
                install_dir: systemd_user_dir)
+
+if x11_dep.found()
+  # Note: It is safe to always install it. However, we only need this on
+  #       systemd enabled machines where Xwayland may be started on-demand.
+  install_data('00-at-spi',
+               install_dir: xwayland_session_dir)
+endif
 
 launcher_args = [
              '-DSYSCONFDIR="@0@"'.format(atspi_sysconfdir),
