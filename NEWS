@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.40.2:
+
+* README: Remove outdated links.
+
+* Key grab fixes for the new API.
+
+* registryd: Add a missing call to va_end.
+
 What's new in at-spi2-core 2.40.1:
 
 * Fix double free when removing event listeners (#35).
