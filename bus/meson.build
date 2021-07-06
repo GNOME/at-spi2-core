@@ -4,6 +4,12 @@ libexec_conf.set('libexecdir', atspi_libexecdir)
 accessibility_conf = configuration_data()
 accessibility_conf.set('DATADIR', atspi_datadir)
 
+if libdbus_dep.version().version_compare('>= 1.12.0')
+  accessibility_conf.set('SOCKET_ADDRESS', 'unix:dir=/tmp')
+else
+  accessibility_conf.set('SOCKET_ADDRESS', 'unix:tmpdir=/tmp')
+endif
+
 busconfig_dir = join_paths(atspi_datadir, 'defaults/at-spi2')
 session_dir = join_paths(atspi_sysconfdir, 'xdg/autostart')
 xwayland_session_dir = join_paths(atspi_sysconfdir, 'xdg/Xwayland-session.d')
