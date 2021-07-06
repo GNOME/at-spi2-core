@@ -6,7 +6,7 @@
 <servicedir>@DATADIR@/dbus-1/accessibility-services</servicedir>
   <auth>EXTERNAL</auth>
 
-  <listen>unix:dir=/tmp</listen>
+  <listen>@SOCKET_ADDRESS@</listen>
 
   <policy context="default">
     <!-- Allow root to connect -->
