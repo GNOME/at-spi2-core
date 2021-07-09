@@ -1055,7 +1055,7 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
       if (dbus_bus_request_name
           (spi_global_app_data->bus, atspi_dbus_name, 0, &error))
         {
-          g_print ("AT-SPI Recieved D-Bus name - %s\n", atspi_dbus_name);
+          g_print ("AT-SPI Received D-Bus name - %s\n", atspi_dbus_name);
         }
       else
         {
