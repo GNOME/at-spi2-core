@@ -16,7 +16,7 @@
   </method>
 
   <method name="GetAttributes">
-    <arg direction="out" type="{ss}"/>
+    <arg direction="out" type="a{ss}"/>
     <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QSpiAttributeSet"/>
   </method>
 
