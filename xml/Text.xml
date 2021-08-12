@@ -157,6 +157,7 @@
     <arg direction="in" name="startOffset" type="i"/>
     <arg direction="in" name="endOffset" type="i"/>
     <arg direction="in" name="type" type="u"/>
+    <arg direction="out" type="b"/>
   </method>
 
   <method name="ScrollSubstringToPoint">
@@ -165,6 +166,7 @@
     <arg direction="in" name="type" type="u"/>
     <arg direction="in" name="x" type="i"/>
     <arg direction="in" name="y" type="i"/>
+    <arg direction="out" type="b"/>
   </method>
 
 </interface>
