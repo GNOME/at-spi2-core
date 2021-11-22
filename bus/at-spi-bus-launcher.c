@@ -84,10 +84,10 @@ static const gchar introspection_xml[] =
   "      <arg type='s' name='address' direction='out'/>"
   "    </method>"
   "  </interface>"
-  "<interface name='org.a11y.Status'>"
-  "<property name='IsEnabled' type='b' access='readwrite'/>"
-  "<property name='ScreenReaderEnabled' type='b' access='readwrite'/>"
-  "</interface>"
+  "  <interface name='org.a11y.Status'>"
+  "    <property name='IsEnabled' type='b' access='readwrite'/>"
+  "    <property name='ScreenReaderEnabled' type='b' access='readwrite'/>"
+  "  </interface>"
   "</node>";
 static GDBusNodeInfo *introspection_data = NULL;
 
