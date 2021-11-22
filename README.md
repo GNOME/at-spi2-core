@@ -1,112 +1,69 @@
-D-Bus AT-SPI
-------------
+# Assistive Technology Service Provider Interface (AT-SPI)
 
-This version of at-spi is a major break from version 1.x.
-It has been completely rewritten to use D-Bus rather than
-ORBIT / CORBA for its transport protocol.
+This repository contains the [DBus][DBus] interface definitions for AT-SPI, the Assistive
+Technology Service Provider Interface — the core of an accessibility stack for free
+software systems.  It also contains the basic daemons of the accessibility stack.
 
-An outdated page including instructions for testing, project status and
-TODO items is at:
+The version control repository and bug tracker are at https://gitlab.gnome.org/GNOME/at-spi2-core/
 
-        https://wiki.linuxfoundation.org/accessibility/atk/at-spi/at-spi_on_d-bus
+The code in this repository is not intended for application programmers.  To write
+accessible applications, look into [ATK][ATK] or your programming language's bindings for
+the `xml` DBus interfaces mentioned below.
 
-The mailing list used for general questions is:
+While this module started within the [GNOME][GNOME] project's umbrella, it is not used
+only in GNOME.  Other sources of relevant information about AT-SPI and Accessibility
+include:
 
-        https://lists.linuxfoundation.org/mailman/listinfo/accessibility-atspi
+* [GNOME Accessibility wiki][gnome-a11y-wiki]
+* [KDE Accessibility wiki][kde-a11y-wiki]
+* [Accessibility documentation for GNOME users][docs-users]
 
-For bug reports, feature requests, patches or enhancements please use:
 
-        https://gitlab.gnome.org/GNOME/at-spi2-core/
+## Summary of this repository's contents
 
-A git repository with the latest development code is available at:
+* `xml` - DBus interfaces for accessibility, described in DBus's XML introspection format.
+  Ideally, your programming language's implementation of DBus makes use of these files to
+  generate callable bindings.
+  
+* `bus` - Launcher for the session's accessibility bus; see its [README.md](bus/README.md)
+  for details.
 
-	https://gitlab.gnome.org/GNOME/at-spi2-core/
+* `registryd` - Daemon that keeps track of accessible applications in the user's session,
+  and lets them talk to each other and to assistive technologies (ATs) like screen
+  readers.
 
-More information
-----------------
+* `atspi` - Hand-written binding for the `xml` DBus interface above, for use from C with
+  [GObject][GObject].  This is not normally what you would use; use a language-specific
+  binding instead.  This module is for use mainly by [`at-spi2-atk`][at-spi2-atk].
 
-The project was started with a D-Bus performance review
-the results of which are available on the GNOME wiki. Keep in
-mind that the D-Bus AT-SPI design documents on this page
-have not been kept up to date.
+* `dbind` - DBus utilities for use by `atspi` above.  `atspi` was written before the more
+  modern C bindings like [GDBusConnection][GDBus] were available, so there is a lot of
+  hand-written IPC here.
+
+## Historical note
+
+Versions 1.x of AT-SPI were based on [CORBA][CORBA] for inter-process communication (IPC),
+using GNOME's ORBit implementation thereof.  During the GNOME 2 and 3 release series,
+CORBA was phased out in favor of [DBus][DBus], a more modern IPC mechanism.
+
+The original CORBA interfaces for AT-SPI were based on Java's implementation of
+accessibility.  Later, these CORBA interfaces were translated to DBus.  This is why the
+interfaces sometimes have a 1990s feeling to them.
+
+The project was started with a D-Bus performance review, the results of which are available
+on the GNOME wiki. Keep in mind that the D-Bus AT-SPI design documents on this page have
+not been kept up to date.
 
         https://wiki.gnome.org/Accessibility/Documentation/GNOME2/ATSPI2-Investigation
 
-Other sources of relevant information about AT-SPI and Accessibility
-include:
 
-        https://wiki.gnome.org/Accessibility
-        https://community.kde.org/Accessibility
-
-
-Contents of this package
-------------------------
-
-This package includes the protocol definitions for the new D-Bus
-at-spi.
-
-Also included is the daemon necessary for forwarding device events
-and registering accessible applicaitions.
-
-
-Directory structure
--------------------
-
-The directories within this package are arranged as follows:
-
-    xml 
-
-        This directory contains XML documents describing
-        the D-Bus protocol in the format used for D-Bus introspection.
-
-    idl
-
-        The D-Bus specification in an idl-like format. This is likely not
-        parseable by any existing tools, is not entirely up-to-date, and may
-        by removed in a future release.
-
-    registryd
-
-        The registry daemon code. The registry daemon
-        keeps a register of accessible applications and presents
-        this to clients (ATs).
-        It is also responsible for delivering device events.
-
-    dbind
-
-        Library to ease making D-Bus method calls, contains
-        marshalling code to convert function arguments
-        and a provided D-Bus signature into a D-Bus message.
-
-        Used by libatspi.
-
-    atspi
-
-        C library for use by ATs. Wraps the various D-Bus calls, provides
-        an interface for listening to events, and caches some information about
-        accessible objects. Also contains some functions used by at-spi2-atk.
-
-    bus
-
-        A server that sits on the session bus and provides an interface
-        allowing applications to find the accessibility bus daemon, launching
-        it as needed. The accessibility bus is separate from the session bus
-        because it may in fact span user sessions if a user, for instance,
-        runs an application that escalates to run as root. The accessibility
-        bus is thus tied to the X session rather than the D-Bus session.
-
-    doc
-
-        Contains infrastructure for creating libatspi documentation.
-
-    test
-
-        Contains files that may be useful for testing AT-SPI.
-
-   m4
-
-        Some macros used for building the module.
-
-    po
-
-        Infrastructure used for translation.
+[CORBA]: https://en.wikipedia.org/wiki/Common_Object_Request_Broker_Architecture
+[DBus]: https://www.freedesktop.org/wiki/Software/dbus/
+[GObject]: https://docs.gtk.org/gobject/
+[at-spi2-atk]: https://gitlab.gnome.org/GNOME/at-spi2-atk
+[GDBus]: https://docs.gtk.org/gio/class.DBusConnection.html
+[ATK]: https://gitlab.gnome.org/GNOME/atk/
+[GNOME]: https://www.gnome.org
+[docs-users]: https://help.gnome.org/users/gnome-help/stable/a11y.html
+[gnome-a11y-wiki]: https://wiki.gnome.org/Accessibility
+[kde-a11y-wiki]: https://community.kde.org/Accessibility
