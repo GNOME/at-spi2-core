@@ -107,7 +107,8 @@ static gboolean eventtype_seq_contains_event (dbus_uint32_t types,
 static gboolean spi_dec_poll_mouse_moving (gpointer data);
 static gboolean spi_dec_poll_mouse_idle (gpointer data);
 
-G_DEFINE_TYPE(SpiDEController, spi_device_event_controller, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_CODE(SpiDEController, spi_device_event_controller, G_TYPE_OBJECT,
+                        G_ADD_PRIVATE (SpiDEController))
 
 static gint
 spi_dec_plat_get_keycode (SpiDEController *controller,
@@ -1868,10 +1869,7 @@ spi_device_event_controller_class_init (SpiDEControllerClass *klass)
 #ifdef HAVE_X11
   if (g_getenv ("DISPLAY") != NULL && g_getenv ("WAYLAND_DISPLAY") == NULL)
     spi_dec_setup_x11 (klass);
-  else
 #endif
-
-  g_type_class_add_private (object_class, sizeof (SpiDEControllerPrivate));
 }
 
 static void
