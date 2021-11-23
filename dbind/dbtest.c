@@ -293,8 +293,8 @@ void test_struct_with_array ()
     demarshal (msg, TYPEOF_ARRAYSTRUCT, &a2);
 
     q = &g_array_index (a2, ArrayStruct, 0);
-    g_assert (p[0].pad1 == 2);
-    g_assert (g_array_index (p[1].vals, dbus_uint32_t, 1) == 1000000000);
+    g_assert (q[0].pad1 == 2);
+    g_assert (g_array_index (q[1].vals, dbus_uint32_t, 1) == 1000000000);
     
     printf ("struct with array ok\n");
 
