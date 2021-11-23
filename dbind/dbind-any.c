@@ -702,7 +702,6 @@ dbind_any_demarshal_va (DBusMessageIter *iter,
         void *ptrarg;
         double doublearg;
         dbus_int64_t int64arg;
-        void *arg = NULL;
 
         switch (*p) {
         case DBUS_TYPE_BYTE:
