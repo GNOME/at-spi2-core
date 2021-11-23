@@ -1869,10 +1869,6 @@ spi_device_event_controller_init (SpiDEController *device_event_controller)
   SpiDEControllerClass *klass;
   klass = SPI_DEVICE_EVENT_CONTROLLER_GET_CLASS (device_event_controller);
 
-  /* TODO: shouldn't be gpointer below */
-  device_event_controller->priv = G_TYPE_INSTANCE_GET_PRIVATE (device_event_controller,
-                                              SPI_DEVICE_EVENT_CONTROLLER_TYPE,
-                                              gpointer);
   device_event_controller->message_queue = g_queue_new ();
   saved_controller = device_event_controller;
 

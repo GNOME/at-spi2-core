@@ -233,7 +233,9 @@ spi_dec_x11_get_keycode (SpiDEController *controller,
 	keycode = XKeysymToKeycode (spi_get_display (), (KeySym) keysym);
 	if (!keycode && fix)
 	{
-		DEControllerPrivateData *priv = controller->priv;
+          DEControllerPrivateData *priv = G_TYPE_INSTANCE_GET_PRIVATE (controller,
+                                                                       SPI_DEVICE_EVENT_CONTROLLER_TYPE,
+                                                                       DEControllerPrivateData);
 		/* if there's no keycode available, fix it */
 		if (replace_map_keysym (priv, priv->reserved_keycode, keysym))
 		{
@@ -258,7 +260,9 @@ spi_dec_x11_get_keycode (SpiDEController *controller,
 static void
 spi_dec_set_unlatch_pending (SpiDEController *controller, unsigned mask)
 {
-  DEControllerPrivateData *priv = controller->priv;
+  DEControllerPrivateData *priv = G_TYPE_INSTANCE_GET_PRIVATE (controller,
+                                                               SPI_DEVICE_EVENT_CONTROLLER_TYPE,
+                                                               DEControllerPrivateData);
 #ifdef SPI_XKB_DEBUG
   if (priv->xkb_latch_mask) fprintf (stderr, "unlatch pending! %x\n", 
 				     priv->xkb_latch_mask);
@@ -471,7 +475,9 @@ spi_dec_init_mouse_listener (SpiDEController *dec)
 static void
 spi_dec_clear_unlatch_pending (SpiDEController *controller)
 {
-  DEControllerPrivateData *priv = controller->priv;
+  DEControllerPrivateData *priv = G_TYPE_INSTANCE_GET_PRIVATE (controller,
+                                                               SPI_DEVICE_EVENT_CONTROLLER_TYPE,
+                                                               DEControllerPrivateData);
   priv->xkb_latch_mask = 0;
 }
 
@@ -563,11 +569,11 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
 static void
 global_filter_fn (XEvent *xevent, void *data)
 {
-  SpiDEController *controller;
-  DEControllerPrivateData *priv;
+  SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER (data);
+  DEControllerPrivateData *priv = G_TYPE_INSTANCE_GET_PRIVATE (controller,
+                                                               SPI_DEVICE_EVENT_CONTROLLER_TYPE,
+                                                               DEControllerPrivateData);
   Display *display = spi_get_display ();
-  controller = SPI_DEVICE_EVENT_CONTROLLER (data);
-  priv = controller->priv;
 
   if (xevent->type == MappingNotify)
     xmkeymap = NULL;
@@ -705,10 +711,11 @@ _spi_controller_device_error_handler (Display *display, XErrorEvent *error)
 static void
 spi_controller_register_with_devices (SpiDEController *controller)
 {
-  DEControllerPrivateData *priv;
+  DEControllerPrivateData *priv = G_TYPE_INSTANCE_GET_PRIVATE (controller,
+                                                               SPI_DEVICE_EVENT_CONTROLLER_TYPE,
+                                                               DEControllerPrivateData);
   int event_base, error_base, major_version, minor_version;
 
-  priv = controller->priv;
   if (XTestQueryExtension (spi_get_display(), &event_base, &error_base, &major_version, &minor_version))
     {
       XTestGrabControl (spi_get_display (), True);
@@ -973,7 +980,9 @@ static unsigned int
 xkb_get_slowkeys_delay (SpiDEController *controller)
 {
   unsigned int retval = 0;
-  DEControllerPrivateData *priv = controller->priv;
+  DEControllerPrivateData *priv = G_TYPE_INSTANCE_GET_PRIVATE (controller,
+                                                               SPI_DEVICE_EVENT_CONTROLLER_TYPE,
+                                                               DEControllerPrivateData);
 #ifdef HAVE_XKB
 #ifdef XKB_HAS_GET_SLOW_KEYS_DELAY	
   retval = XkbGetSlowKeysDelay (spi_get_display (),
@@ -1001,7 +1010,9 @@ static unsigned int
 xkb_get_bouncekeys_delay (SpiDEController *controller)
 {
   unsigned int retval = 0;
-  DEControllerPrivateData *priv = controller->priv;
+  DEControllerPrivateData *priv = G_TYPE_INSTANCE_GET_PRIVATE (controller,
+                                                               SPI_DEVICE_EVENT_CONTROLLER_TYPE,
+                                                               DEControllerPrivateData);
 #ifdef HAVE_XKB
 #ifdef XKB_HAS_GET_BOUNCE_KEYS_DELAY	
   retval = XkbGetBounceKeysDelay (spi_get_display (),
@@ -1027,7 +1038,7 @@ xkb_get_bouncekeys_delay (SpiDEController *controller)
 
 static gboolean
 spi_dec_x11_synth_keycode_press (SpiDEController *controller,
-			 unsigned int keycode)
+                                 unsigned int keycode)
 {
 	unsigned int time = CurrentTime;
 	unsigned int bounce_delay;
@@ -1035,7 +1046,9 @@ spi_dec_x11_synth_keycode_press (SpiDEController *controller,
 	unsigned int elapsed_msec;
 	struct timeval tv;
 #endif
-	DEControllerPrivateData *priv = controller->priv;
+	DEControllerPrivateData *priv = G_TYPE_INSTANCE_GET_PRIVATE (controller,
+                                                                     SPI_DEVICE_EVENT_CONTROLLER_TYPE,
+                                                                     DEControllerPrivateData);
 
 	spi_x_error_trap ();
 	if (keycode == priv->last_release_keycode)
@@ -1081,7 +1094,9 @@ spi_dec_x11_synth_keycode_release (SpiDEController *controller,
 	unsigned int elapsed_msec;
 	struct timeval tv;
 #endif
-	DEControllerPrivateData *priv = controller->priv;
+	DEControllerPrivateData *priv = G_TYPE_INSTANCE_GET_PRIVATE (controller,
+                                                                     SPI_DEVICE_EVENT_CONTROLLER_TYPE,
+                                                                     DEControllerPrivateData);
 
 	spi_x_error_trap ();
 	if (keycode == priv->last_press_keycode)
@@ -1119,7 +1134,9 @@ spi_dec_x11_synth_keycode_release (SpiDEController *controller,
 static gboolean
 spi_dec_x11_lock_modifiers (SpiDEController *controller, unsigned modifiers)
 {
-    DEControllerPrivateData *priv = controller->priv;
+    DEControllerPrivateData *priv = G_TYPE_INSTANCE_GET_PRIVATE (controller,
+                                                                 SPI_DEVICE_EVENT_CONTROLLER_TYPE,
+                                                                 DEControllerPrivateData);
     
     if (priv->have_xkb) {
         return XkbLockModifiers (spi_get_display (), XkbUseCoreKbd, 
@@ -1138,7 +1155,9 @@ spi_dec_x11_lock_modifiers (SpiDEController *controller, unsigned modifiers)
 static gboolean
 spi_dec_x11_unlock_modifiers (SpiDEController *controller, unsigned modifiers)
 {
-    DEControllerPrivateData *priv = controller->priv;
+    DEControllerPrivateData *priv = G_TYPE_INSTANCE_GET_PRIVATE (controller,
+                                                                 SPI_DEVICE_EVENT_CONTROLLER_TYPE,
+                                                                 DEControllerPrivateData);
     
     if (priv->have_xkb) {
         return XkbLockModifiers (spi_get_display (), XkbUseCoreKbd, 
@@ -1238,7 +1257,9 @@ spi_dec_x11_synth_keystring (SpiDEController *controller, guint synth_type, gint
 static void
 spi_dec_x11_init (SpiDEController *controller)
 {
-  DEControllerPrivateData *priv = controller->priv;	
+  DEControllerPrivateData *priv = G_TYPE_INSTANCE_GET_PRIVATE (controller,
+                                                               SPI_DEVICE_EVENT_CONTROLLER_TYPE,
+                                                               DEControllerPrivateData);
 
   spi_events_init (spi_get_display ());
 
@@ -1254,7 +1275,9 @@ spi_dec_x11_init (SpiDEController *controller)
 static void
 spi_dec_x11_finalize (SpiDEController *controller)
 {
-  DEControllerPrivateData *priv = controller->priv;
+  DEControllerPrivateData *priv = G_TYPE_INSTANCE_GET_PRIVATE (controller,
+                                                               SPI_DEVICE_EVENT_CONTROLLER_TYPE,
+                                                               DEControllerPrivateData);
 
   /* disconnect any special listeners, get rid of outstanding keygrabs */
   XUngrabKey (spi_get_display (), AnyKey, AnyModifier, DefaultRootWindow (spi_get_display ()));
@@ -1268,7 +1291,9 @@ static gboolean
 spi_device_event_controller_forward_key_event (SpiDEController *controller,
 					       const XEvent    *event)
 {
-  DEControllerPrivateData *priv = controller->priv;
+  DEControllerPrivateData *priv = G_TYPE_INSTANCE_GET_PRIVATE (controller,
+                                                               SPI_DEVICE_EVENT_CONTROLLER_TYPE,
+                                                               DEControllerPrivateData);
   Accessibility_DeviceEvent key_event;
   gboolean ret;
 
