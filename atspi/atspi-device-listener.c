@@ -53,7 +53,7 @@ device_event_handler_new (AtspiDeviceListenerCB callback,
 }
 
 static gboolean
-device_remove_datum (const AtspiDeviceEvent *event, void *user_data)
+device_remove_datum (AtspiDeviceEvent *event, void *user_data)
 {
   AtspiDeviceListenerSimpleCB cb = user_data;
   return cb (event);

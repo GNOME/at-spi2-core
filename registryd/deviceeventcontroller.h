@@ -52,7 +52,6 @@ struct _SpiDEController {
 	GList          *keygrabs_list;
 	GQueue *message_queue;
 	guint message_queue_idle;
-  gpointer priv;
 };
 
 typedef enum {
