@@ -696,13 +696,8 @@ dbind_any_demarshal_va (DBusMessageIter *iter,
 {
     const char *p = *arg_types;
 
-        /* Pass in args */
+    /* Just consume the in args without doing anything to them */
     for (;*p != '\0' && *p != '=';) {
-        int intarg;
-        void *ptrarg;
-        double doublearg;
-        dbus_int64_t int64arg;
-
         switch (*p) {
         case DBUS_TYPE_BYTE:
         case DBUS_TYPE_BOOLEAN:
@@ -710,14 +705,14 @@ dbind_any_demarshal_va (DBusMessageIter *iter,
         case DBUS_TYPE_UINT16:
         case DBUS_TYPE_INT32:
         case DBUS_TYPE_UINT32:
-            intarg = va_arg (args, int);
+            va_arg (args, int);
             break;
         case DBUS_TYPE_INT64:
         case DBUS_TYPE_UINT64:
-            int64arg = va_arg (args, dbus_int64_t);
+            va_arg (args, dbus_int64_t);
             break;
         case DBUS_TYPE_DOUBLE:
-            doublearg = va_arg (args, double);
+            va_arg (args, double);
             break;
         /* ptr types */
         case DBUS_TYPE_STRING:
@@ -725,18 +720,18 @@ dbind_any_demarshal_va (DBusMessageIter *iter,
         case DBUS_TYPE_SIGNATURE:
         case DBUS_TYPE_ARRAY:
         case DBUS_TYPE_DICT_ENTRY:
-            ptrarg = va_arg (args, void *);
+            va_arg (args, void *);
             break;
         case DBUS_STRUCT_BEGIN_CHAR:
-            ptrarg = va_arg (args, void *);
+            va_arg (args, void *);
             break;
         case DBUS_DICT_ENTRY_BEGIN_CHAR:
-            ptrarg = va_arg (args, void *);
+            va_arg (args, void *);
             break;
 
         case DBUS_TYPE_VARIANT:
             fprintf (stderr, "No variant support yet - very toolkit specific\n");
-            ptrarg = va_arg (args, void *);
+            va_arg (args, void *);
             break;
         default:
             fprintf (stderr, "Unknown / invalid arg type %c\n", *p);
