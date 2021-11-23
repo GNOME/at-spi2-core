@@ -43,15 +43,15 @@
 #include "de-marshaller.h"
 #include "keymasks.h"
 
+#include "deviceeventcontroller.h"
+#include "reentrant-list.h"
+#include "introspection.h"
+
 #ifdef HAVE_X11
+#include "deviceeventcontroller-x11.h"
 #include "display.h"
 #include "event-source.h"
 #endif
-
-#include "deviceeventcontroller.h"
-#include "reentrant-list.h"
-
-#include "introspection.h"
 
 #define CHECK_RELEASE_DELAY 20
 #define BIT(c, x)       (c[x/8]&(1<<(x%8)))
@@ -59,6 +59,16 @@ static SpiDEController *saved_controller;
 
 /* Our parent Gtk object type */
 #define PARENT_TYPE G_TYPE_OBJECT
+
+#ifndef HAVE_X11
+/* If we are using X11, SpiDEControllerPrivate is defined in deviceeventcontroller-x11.h.
+ * Otherwise, there is no private data and so we use a dummy struct.
+ * This is so that G_ADD_PRIVATE() will have a type to work with.
+ */
+typedef struct {
+  int _dummy;
+} SpiDEControllerPrivate;
+#endif
 
 /* A pointer to our parent object class */
 static int spi_error_code = 0;
@@ -1860,7 +1870,8 @@ spi_device_event_controller_class_init (SpiDEControllerClass *klass)
     spi_dec_setup_x11 (klass);
   else
 #endif
-  g_type_class_add_private (object_class, sizeof (long)); /* dummy */
+
+  g_type_class_add_private (object_class, sizeof (SpiDEControllerPrivate));
 }
 
 static void

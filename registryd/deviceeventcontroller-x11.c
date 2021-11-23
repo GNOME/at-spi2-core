@@ -34,11 +34,6 @@
 #include <stdio.h>
 #include <sys/time.h>
 
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
-#include <X11/extensions/XTest.h>
-#include <X11/XKBlib.h>
-
 #define XK_MISCELLANY
 #define XK_LATIN1
 #include <X11/keysymdef.h>
@@ -54,6 +49,7 @@
 #include "display.h"
 #include "event-source.h"
 
+#include "deviceeventcontroller-x11.h"
 #include "deviceeventcontroller.h"
 #include "reentrant-list.h"
 
@@ -89,28 +85,9 @@ static XModifierKeymap* xmkeymap = NULL;
 
 static int (*x_default_error_handler) (Display *display, XErrorEvent *error_event);
 
-typedef struct {
-  Display *xevie_display;
-  unsigned int last_press_keycode;
-  unsigned int last_release_keycode;
-  struct timeval last_press_time;
-  struct timeval last_release_time;
-  int have_xkb;
-  int xkb_major_extension_opcode;
-  int xkb_base_event_code;
-  int xkb_base_error_code;
-  unsigned int xkb_latch_mask;
-  unsigned int pending_xkb_mod_relatch_mask;
-  XkbDescPtr xkb_desc;
-  KeyCode reserved_keycode;
-  KeySym reserved_keysym;
-  guint  reserved_reset_timeout;
-} SpiDEControllerPrivate;
-
 static void     spi_controller_register_with_devices          (SpiDEController           *controller);
 static gboolean spi_device_event_controller_forward_key_event (SpiDEController           *controller,
 							       const XEvent              *event);
-
 
 static SpiDEController *saved_controller;
 
@@ -1436,8 +1413,6 @@ spi_dec_x11_generate_mouse_event (SpiDEController *controller,
 void
 spi_dec_setup_x11 (SpiDEControllerClass *klass)
 {
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
   klass->plat.get_keycode = spi_dec_x11_get_keycode;
   klass->plat.mouse_check = spi_dec_x11_mouse_check;
   klass->plat.synth_keycode_press = spi_dec_x11_synth_keycode_press;
@@ -1452,6 +1427,4 @@ spi_dec_setup_x11 (SpiDEControllerClass *klass)
 
   klass->plat.init = spi_dec_x11_init;
   klass->plat.finalize = spi_dec_x11_finalize;
-
-  g_type_class_add_private (object_class, sizeof (SpiDEControllerPrivate));
 }
