@@ -1056,7 +1056,7 @@ emit_event (DBusConnection *bus,
             const char *path)
 {
   DBusMessage *sig;
-  DBusMessageIter iter, iter_variant;
+  DBusMessageIter iter, iter_variant, iter_array;
   
   sig = dbus_message_new_signal(SPI_DBUS_PATH_ROOT, klass, major);
 
@@ -1071,9 +1071,9 @@ emit_event (DBusConnection *bus,
     append_reference (&iter_variant, name, path);
   dbus_message_iter_close_container (&iter, &iter_variant);
 
-  append_reference (&iter,
-                    dbus_bus_get_unique_name (bus),
-                    SPI_DBUS_PATH_ROOT);
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "{sv}",
+                                    &iter_array);
+  dbus_message_iter_close_container (&iter, &iter_array);
 
   dbus_connection_send(bus, sig, NULL);
   dbus_message_unref(sig);
