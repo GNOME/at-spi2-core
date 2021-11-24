@@ -968,7 +968,6 @@ _atspi_accessible_is_a (AtspiAccessible *accessible,
     dbus_message_iter_init (reply, &iter);
     _atspi_dbus_set_interfaces (accessible, &iter);
     dbus_message_unref (reply);
-    _atspi_accessible_add_cache (accessible, ATSPI_CACHE_INTERFACES);
   }
 
   n = _atspi_get_iface_num (interface_name);
