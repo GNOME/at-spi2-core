@@ -877,43 +877,6 @@ atspi_dbus_filter (DBusConnection *bus, DBusMessage *message, void *data)
   return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 }
 
-/*
- * Returns a 'canonicalized' value for DISPLAY,
- * with the screen number stripped off if present.
- *
- * TODO: Avoid having duplicate functions for this here and in at-spi2-atk
- */
-static gchar *
-spi_display_name (void)
-{
-  char *canonical_display_name = NULL;
-  const gchar *display_env = g_getenv ("AT_SPI_DISPLAY");
-
-  if (!display_env)
-    {
-      display_env = g_getenv ("DISPLAY");
-      if (!display_env || !display_env[0])
-        return NULL;
-      else
-        {
-          gchar *display_p, *screen_p;
-          canonical_display_name = g_strdup (display_env);
-          display_p = g_utf8_strrchr (canonical_display_name, -1, ':');
-          screen_p = g_utf8_strrchr (canonical_display_name, -1, '.');
-          if (screen_p && display_p && (screen_p > display_p))
-            {
-              *screen_p = '\0';
-            }
-        }
-    }
-  else
-    {
-      canonical_display_name = g_strdup (display_env);
-    }
-
-  return canonical_display_name;
-}
-
 /**
  * atspi_init:
  *
@@ -1499,6 +1462,43 @@ _atspi_error_quark (void)
  * Gets the IOR from the XDisplay.
  */
 #ifdef HAVE_X11
+/*
+ * Returns a 'canonicalized' value for DISPLAY,
+ * with the screen number stripped off if present.
+ *
+ * TODO: Avoid having duplicate functions for this here and in at-spi2-atk
+ */
+static gchar *
+spi_display_name (void)
+{
+  char *canonical_display_name = NULL;
+  const gchar *display_env = g_getenv ("AT_SPI_DISPLAY");
+
+  if (!display_env)
+    {
+      display_env = g_getenv ("DISPLAY");
+      if (!display_env || !display_env[0])
+        return NULL;
+      else
+        {
+          gchar *display_p, *screen_p;
+          canonical_display_name = g_strdup (display_env);
+          display_p = g_utf8_strrchr (canonical_display_name, -1, ':');
+          screen_p = g_utf8_strrchr (canonical_display_name, -1, '.');
+          if (screen_p && display_p && (screen_p > display_p))
+            {
+              *screen_p = '\0';
+            }
+        }
+    }
+  else
+    {
+      canonical_display_name = g_strdup (display_env);
+    }
+
+  return canonical_display_name;
+}
+
 static char *
 get_accessibility_bus_address_x11 (void)
 {
