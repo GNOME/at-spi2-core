@@ -410,7 +410,7 @@ add_app_to_desktop (AtspiAccessible *a, const char *bus_name)
   return (obj != NULL);
 }
 
-void
+static void
 get_reference_from_iter (DBusMessageIter *iter, const char **app_name, const char **path)
 {
   DBusMessageIter iter_struct;
