@@ -1,121 +1,51 @@
-D-Bus AT-SPI
-------------
+# AT-SPI2-ATK - implementation of the ATK interfaces in terms of the libatspi2 API
 
-This version of at-spi is a major break from version 1.x.
-It has been completely rewritten to use D-Bus rather than
-ORBIT / CORBA for its transport protocol.
+What is at-spi2-atk?  First let's introduce two of its related modules:
 
-An outdated page including instructions for testing, project status and
-TODO items is at:
+[ATK] is the Accessibility Toolkit, a set of GObject interfaces that can
+be implemented to communicate with assistive technologies (ATs).
 
-        https://wiki.linuxfoundation.org/accessibility/atk/at-spi/at-spi_on_d-bus
+[at-spi2-core] is the Assistive Technology Service Provider Interface, which
+provides two things: a set of DBus interfaces for accessibility, and a
+C language binding to use those interfaces.
 
-The mailing list used for general questions is:
+Applications that provide accessibility through the ATK interfaces
+need a way to translate those interfaces to AT-SPI2 DBus calls.  This
+module, **at-spi2-atk**, provides that translation bridge.  Several
+things use at-spi2-atk:
 
-        https://lists.linuxfoundation.org/mailman/listinfo/accessibility-atspi
+* GTK3 calls ATK directly and assumes that at-spi2-atk is backing it.
 
-For bug reports, feature requests, patches or enhancements please use:
+* GTK2 loads a module at runtime to do the same (`atk-adaptor/gtk-2.0` in this module).
 
-        https://gitlab.gnome.org/GNOME/at-spi2-atk/
+* Chromium.
 
-A git repository with the latest development code is available at:
+* Gnome-shell.
 
-	https://gitlab.gnome.org/GNOME/at-spi2-atk/
+* Any applications that use ATK directly, like Mozilla Firefox, will
+  need at-spi2-atk backing them.
+  
+The version control repository and bug tracker are at https://gitlab.gnome.org/GNOME/at-spi2-atk
 
-Code in this repository depends on at-spi2-core resources. The
-at-spi2-core repository can be found at:
+## Summary of this repository's contents
 
-	https://gitlab.gnome.org/GNOME/at-spi2-atk/
+* `atk-adaptor` - Bridges at-spi and the ATK APIs.  GTK3 and earlier,
+and applications that use ATK like gnome-shell and Chromium, do not
+use the at-spi DBus interfaces directly, so they go through ATK, then
+libatk-bridge (contained here), libatspi, and then finally DBus to the
+accessibility registry daemon.  Yes, this is too much layering!  In contrast,
+GTK4 talks the at-spi DBus interface directly to the registry.
 
-The project was started with a D-Bus performance review
-the results of which are available on the GNOME wiki. Keep in
-mind that the D-Bus AT-SPI design documents on this page
-have not been kept up to date.
-
-        https://wiki.gnome.org/Accessibility/Documentation/GNOME2/ATSPI2-Investigation
-
-Other sources of relevant information about AT-SPI and Accessibility
-include:
-
-        https://wiki.gnome.org/Accessibility
-        https://community.kde.org/Accessibility
+* `tests` - End-to-end tests between a mock user of ATK and a mock
+assistive technology (AT).  The tests simulate communication between a
+real ATK-enabled application and an AT like a screen reader, via the
+registry daemon.
 
 
-Contents of this package
-------------------------
+* `droute` - Utilities for registering objects with a D-Bus connection
+and for routing messages to the implementing object.
 
-This package includes libatk-bridge, a library that bridges ATK to the new
-D-Bus based AT-SPI, as well as a corresponding module for gtk+ 2.x. Gtk+ 3.x
-now links against libatk-bridge directly rather than requiring it to be loaded
-as a module.
 
-These libraries depend on the at-spi2-core code that contains the daemon for
-registering applications, D-Bus helper libraries and the AT-SPI D-Bus specifications.
+[ATK]: https://gitlab.gnome.org/GNOME/atk/
+[at-spi2-core]: https://gitlab.gnome.org/GNOME/at-spi2-core/
 
-Building this package
----------------------
-
-In order to build at-spi2-atk you will need:
-
- - Python 3.5
- - Meson
- - Ninja
-
-Additionally, you will need the development files for:
-
- - libdbus
- - GLib
- - GTK+ 3.x
- - ATK
- - AT-SPI
-
-To build and install this package, you will typically need to run `meson` to
-configure the build process, and Ninja to run the compilation and installation
-instructions:
-
-    # Configure the build and initialize the build directory
-    meson _build .
-
-    # Enter the build directory
-    cd _build
-
-    # Build the project
-    ninja
-
-    # Install the project
-    sudo ninja install
-
-Tests
------
-
-To run the test suite, use `meson test` from the build directory.
-
-Directory structure
--------------------
-
-The directories within this package are arranged as follows:
-
-    droute
-
-        Contains a framework for registering objects
-        with a D-Bus connection and for routing messages to
-        the implementing object.
-
-        Used by the ATK adaptor.
-
-    atk-adaptor
-
-        This directory contains code that bridges 
-        the at-spi to the GTK+ toolkit, and which is
-        loaded at runtime by GTK+-based Gnome applications.
-        The 'bridge' automatically registers GTK+-2.0
-        applications with the accessibility registry, 
-        and relays UI events from application to registry.
-        It is also responsible for servicing requests from
-        the registry to register handlers for specific event
-        types.
-
-    tests
-
-        Contains tests for atspi.
-        More details in tests/README
