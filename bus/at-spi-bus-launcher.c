@@ -851,6 +851,11 @@ get_schema (const gchar *name)
 {
 #if GLIB_CHECK_VERSION (2, 32, 0)
   GSettingsSchemaSource *source = g_settings_schema_source_get_default ();
+  if (!source)
+    {
+      g_error ("Cannot get the default GSettingsSchemaSource - is the gsettings-desktop-schemas package installed?");
+    }
+
   GSettingsSchema *schema = g_settings_schema_source_lookup (source, name, FALSE);
 
   if (schema == NULL)
