@@ -42,6 +42,7 @@
 #ifdef DBUS_BROKER
 #include <systemd/sd-login.h>
 #endif
+#include <sys/stat.h>
 
 typedef enum {
   A11Y_BUS_STATE_IDLE = 0,
@@ -65,6 +66,7 @@ typedef struct {
   A11yBusState state;
   /* -1 == error, 0 == pending, > 0 == running */
   int a11y_bus_pid;
+  char *socket_name;
   char *a11y_bus_address;
 #ifdef HAVE_X11
   gboolean x11_prop_set;
@@ -306,7 +308,7 @@ setup_bus_child_daemon (gpointer data)
 static gboolean
 ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
 {
-  char *argv[] = { DBUS_DAEMON, config_path, "--nofork", "--print-address", "3", NULL };
+  char *argv[] = { DBUS_DAEMON, config_path, "--nofork", "--print-address", "3", NULL, NULL };
   GPid pid;
   char addr_buf[2048];
   GError *error = NULL;
@@ -315,6 +317,9 @@ ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
     g_error ("Failed to create pipe: %s", strerror (errno));
 
   g_clear_pointer (&app->a11y_launch_error_message, g_free);
+
+  if (app->socket_name)
+    argv[5] = g_strconcat ("--address=unix:path=", app->socket_name, NULL);
 
   if (!g_spawn_async (NULL,
                       argv,
@@ -328,9 +333,11 @@ ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
       app->a11y_bus_pid = -1;
       app->a11y_launch_error_message = g_strdup (error->message);
       g_clear_error (&error);
+      g_free (argv[5]);
       goto error;
     }
 
+  g_free (argv[5]);
   close (app->pipefd[1]);
   app->pipefd[1] = -1;
 
@@ -396,10 +403,13 @@ ensure_a11y_bus_broker (A11yBusLauncher *app, char *config_path)
 {
   char *argv[] = { DBUS_BROKER, config_path, "--scope", "user", NULL };
   char *unit;
-  struct sockaddr_un addr = { .sun_family = AF_UNIX };
+  struct sockaddr_un addr = { .sun_family = AF_UNIX, '\0' };
   socklen_t addr_len = sizeof(addr);
   GPid pid;
   GError *error = NULL;
+
+  if (app->socket_name)
+    strcpy (addr.sun_path, app->socket_name);
 
   /* This detects whether we are running under systemd. We only try to
    * use dbus-broker if we are running under systemd because D-Bus
@@ -418,10 +428,11 @@ ensure_a11y_bus_broker (A11yBusLauncher *app, char *config_path)
   if ((app->listenfd = socket (PF_UNIX, SOCK_STREAM | SOCK_NONBLOCK, 0)) < 0)
     g_error ("Failed to create listening socket: %s", strerror (errno));
 
-  if (bind (app->listenfd, (struct sockaddr *)&addr, sizeof(sa_family_t)) < 0)
+  if (bind (app->listenfd, (struct sockaddr *)&addr, addr_len) < 0)
     g_error ("Failed to bind listening socket: %s", strerror (errno));
 
-  if (getsockname (app->listenfd, (struct sockaddr *)&addr, &addr_len) < 0)
+  if (!app->socket_name &&
+      getsockname (app->listenfd, (struct sockaddr *)&addr, &addr_len) < 0)
     g_error ("Failed to get socket name for listening socket: %s", strerror(errno));
 
   if (listen (app->listenfd, 1024) < 0)
@@ -452,7 +463,10 @@ ensure_a11y_bus_broker (A11yBusLauncher *app, char *config_path)
   g_debug ("Launched a11y bus, child is %ld", (long) pid);
   app->state = A11Y_BUS_STATE_RUNNING;
 
-  app->a11y_bus_address = g_strconcat("unix:abstract=", addr.sun_path + 1, NULL);
+  if (app->socket_name)
+    app->a11y_bus_address = g_strconcat("unix:path=", addr.sun_path, NULL);
+  else
+    app->a11y_bus_address = g_strconcat("unix:abstract=", addr.sun_path + 1, NULL);
   g_debug ("a11y bus address: %s", app->a11y_bus_address);
 
   return TRUE;
@@ -476,6 +490,7 @@ ensure_a11y_bus (A11yBusLauncher *app)
 {
   char *config_path = NULL;
   gboolean success = FALSE;
+  const gchar *xdg_runtime_dir;
 
   if (app->a11y_bus_pid != 0)
     return FALSE;
@@ -484,6 +499,26 @@ ensure_a11y_bus (A11yBusLauncher *app)
       config_path = "--config-file="SYSCONFDIR"/at-spi2/accessibility.conf";
   else
       config_path = "--config-file="DATADIR"/defaults/at-spi2/accessibility.conf";
+
+    xdg_runtime_dir = g_get_user_runtime_dir ();
+    if (xdg_runtime_dir)
+      {
+        const gchar *display = g_getenv ("DISPLAY");
+        gchar *at_spi_dir = g_strconcat (xdg_runtime_dir, "/at-spi", NULL);
+        gchar *p;
+        mkdir (at_spi_dir, 0700);
+        app->socket_name = g_strconcat (at_spi_dir, "/bus", display, NULL);
+        g_free (at_spi_dir);
+        p = strchr (app->socket_name, ':');
+        if (p)
+          *p = '_';
+        if (strlen (app->socket_name) >= 100)
+          {
+            g_free (app->socket_name);
+            g_free (at_spi_dir);
+            app->socket_name = NULL;
+          }
+      }
 
 #ifdef WANT_DBUS_BROKER
     success = ensure_a11y_bus_broker (app, config_path);
