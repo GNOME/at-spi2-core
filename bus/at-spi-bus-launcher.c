@@ -286,7 +286,16 @@ on_bus_exited (GPid     pid,
         app->a11y_launch_error_message = g_strdup_printf ("Bus stopped by signal %d", WSTOPSIG (status));
     }
   g_main_loop_quit (app->loop);
-} 
+}
+
+static void
+set_bus_to_exit_if_this_process_dies (void)
+{
+#ifdef __linux__
+  /* Tell the bus process to exit if this process goes away */
+  prctl (PR_SET_PDEATHSIG, SIGTERM);
+#endif
+}
 
 #ifdef DBUS_DAEMON
 static void
@@ -299,10 +308,7 @@ setup_bus_child_daemon (gpointer data)
   dup2 (app->pipefd[1], 3);
   close (app->pipefd[1]);
 
-  /* On Linux, tell the bus process to exit if this process goes away */
-#ifdef __linux__
-  prctl (PR_SET_PDEATHSIG, 15);
-#endif
+  set_bus_to_exit_if_this_process_dies ();
 }
 
 static gboolean
@@ -394,8 +400,7 @@ setup_bus_child_broker (gpointer data)
   g_setenv("LISTEN_PID", pid_str, TRUE);
   g_free(pid_str);
 
-  /* Tell the bus process to exit if this process goes away */
-  prctl (PR_SET_PDEATHSIG, SIGTERM);
+  set_bus_to_exit_if_this_process_dies ();
 }
 
 static gboolean
