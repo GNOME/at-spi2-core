@@ -356,6 +356,7 @@ ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
     {
       app->a11y_launch_error_message = g_strdup_printf ("Failed to read address: %s", strerror (errno));
       kill (app->a11y_bus_pid, SIGTERM);
+      g_spawn_close_pid (app->a11y_bus_pid);
       app->a11y_bus_pid = -1;
       goto error;
     }
@@ -962,7 +963,11 @@ main (int    argc,
   g_main_loop_run (_global_app->loop);
 
   if (_global_app->a11y_bus_pid > 0)
-    kill (_global_app->a11y_bus_pid, SIGTERM);
+    {
+      kill (_global_app->a11y_bus_pid, SIGTERM);
+      g_spawn_close_pid (_global_app->a11y_bus_pid);
+      _global_app->a11y_bus_pid = -1;
+    }
 
   /* Clear the X property if our bus is gone; in the case where e.g. 
    * GDM is launching a login on an X server it was using before,
