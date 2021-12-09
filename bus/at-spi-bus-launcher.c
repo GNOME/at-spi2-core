@@ -250,19 +250,44 @@ name_appeared_handler (GDBusConnection *connection,
  * Read all data from a file descriptor to a C string buffer.
  */
 static gboolean
-unix_read_all_fd_to_string (int      fd,
-                            char    *buf,
-                            ssize_t  max_bytes)
+unix_read_all_fd_to_string (int       fd,
+                            char     *buf,
+                            ssize_t   max_bytes,
+                            char    **error_msg)
 {
-  ssize_t bytes_read;
+  g_assert (max_bytes > 1);
+  *error_msg = NULL;
 
-  while (max_bytes > 1 && (bytes_read = read (fd, buf, MIN (4096, max_bytes - 1))))
+  max_bytes -= 1; /* allow space for nul terminator */
+
+  while (max_bytes > 1)
     {
-      if (bytes_read < 0)
-        return FALSE;
-      buf += bytes_read;
-      max_bytes -= bytes_read;
+      ssize_t bytes_read;
+
+    again:
+      bytes_read = read (fd, buf, max_bytes);
+
+      if (bytes_read == 0)
+        {
+          break;
+        }
+      else if (bytes_read > 0)
+        {
+          buf += bytes_read;
+          max_bytes -= bytes_read;
+        }
+      else if (errno == EINTR)
+        {
+          goto again;
+        }
+      else
+        {
+          int err_save = errno;
+          *error_msg = g_strdup_printf ("Failed to read data from accessibility bus: %s", g_strerror (err_save));
+          return FALSE;
+        }
     }
+
   *buf = '\0';
   return TRUE;
 }
@@ -318,6 +343,7 @@ ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
   GPid pid;
   char addr_buf[2048];
   GError *error = NULL;
+  char *error_from_read;
 
   if (pipe (app->pipefd) < 0)
     g_error ("Failed to create pipe: %s", strerror (errno));
@@ -352,9 +378,10 @@ ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
   app->state = A11Y_BUS_STATE_READING_ADDRESS;
   app->a11y_bus_pid = pid;
   g_debug ("Launched a11y bus, child is %ld", (long) pid);
-  if (!unix_read_all_fd_to_string (app->pipefd[0], addr_buf, sizeof (addr_buf)))
+  error_from_read = NULL;
+  if (!unix_read_all_fd_to_string (app->pipefd[0], addr_buf, sizeof (addr_buf), &error_from_read))
     {
-      app->a11y_launch_error_message = g_strdup_printf ("Failed to read address: %s", strerror (errno));
+      app->a11y_launch_error_message = error_from_read;
       kill (app->a11y_bus_pid, SIGTERM);
       g_spawn_close_pid (app->a11y_bus_pid);
       app->a11y_bus_pid = -1;
