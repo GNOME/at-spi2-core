@@ -65,7 +65,7 @@ typedef struct {
 
   A11yBusState state;
   /* -1 == error, 0 == pending, > 0 == running */
-  int a11y_bus_pid;
+  GPid a11y_bus_pid;
   char *socket_name;
   char *a11y_bus_address;
 #ifdef HAVE_X11
