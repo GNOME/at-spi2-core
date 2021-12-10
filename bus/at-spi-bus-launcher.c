@@ -339,7 +339,18 @@ setup_bus_child_daemon (gpointer data)
 static gboolean
 ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
 {
-  char *argv[] = { DBUS_DAEMON, config_path, "--nofork", "--print-address", "3", NULL, NULL };
+  char *address_param;
+
+  if (app->socket_name)
+    {
+      address_param = g_strconcat ("--address=unix:path=", app->socket_name, NULL);
+    }
+  else
+    {
+      address_param = NULL;
+    }
+
+  char *argv[] = { DBUS_DAEMON, config_path, "--nofork", "--print-address", "3", address_param, NULL };
   GPid pid;
   char addr_buf[2048];
   GError *error = NULL;
@@ -349,9 +360,6 @@ ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
     g_error ("Failed to create pipe: %s", strerror (errno));
 
   g_clear_pointer (&app->a11y_launch_error_message, g_free);
-
-  if (app->socket_name)
-    argv[5] = g_strconcat ("--address=unix:path=", app->socket_name, NULL);
 
   if (!g_spawn_async (NULL,
                       argv,
@@ -365,11 +373,11 @@ ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
       app->a11y_bus_pid = -1;
       app->a11y_launch_error_message = g_strdup (error->message);
       g_clear_error (&error);
-      g_free (argv[5]);
+      g_free (address_param);
       goto error;
     }
 
-  g_free (argv[5]);
+  g_free (address_param);
   close (app->pipefd[1]);
   app->pipefd[1] = -1;
 
