@@ -350,14 +350,16 @@ ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
       address_param = NULL;
     }
 
-  char *argv[] = { DBUS_DAEMON, config_path, "--nofork", "--print-address", "3", address_param, NULL };
+  if (pipe (app->pipefd) < 0)
+    g_error ("Failed to create pipe: %s", strerror (errno));
+
+  char *print_address_fd_param = g_strdup_printf ("%d", app->pipefd[1]);
+
+  char *argv[] = { DBUS_DAEMON, config_path, "--nofork", "--print-address", print_address_fd_param, address_param, NULL };
   GPid pid;
   char addr_buf[2048];
   GError *error = NULL;
   char *error_from_read;
-
-  if (pipe (app->pipefd) < 0)
-    g_error ("Failed to create pipe: %s", strerror (errno));
 
   g_clear_pointer (&app->a11y_launch_error_message, g_free);
 
@@ -374,10 +376,12 @@ ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
       app->a11y_launch_error_message = g_strdup (error->message);
       g_clear_error (&error);
       g_free (address_param);
+      g_free (print_address_fd_param);
       goto error;
     }
 
   g_free (address_param);
+  g_free (print_address_fd_param);
   close (app->pipefd[1]);
   app->pipefd[1] = -1;
 
