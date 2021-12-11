@@ -327,11 +327,6 @@ static void
 setup_bus_child_daemon (gpointer data)
 {
   A11yBusLauncher *app = data;
-  (void) app;
-
-  close (app->pipefd[0]);
-  dup2 (app->pipefd[1], 3);
-  close (app->pipefd[1]);
 
   set_bus_to_exit_if_this_process_dies ();
 }
