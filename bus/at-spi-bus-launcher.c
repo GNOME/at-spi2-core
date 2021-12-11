@@ -356,6 +356,8 @@ ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
   char *print_address_fd_param = g_strdup_printf ("%d", app->pipefd[1]);
 
   char *argv[] = { DBUS_DAEMON, config_path, "--nofork", "--print-address", print_address_fd_param, address_param, NULL };
+  gint source_fds[1] = { app->pipefd[1] };
+  gint target_fds[1] = { app->pipefd[1] };
   GPid pid;
   char addr_buf[2048];
   GError *error = NULL;
@@ -363,14 +365,23 @@ ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
 
   g_clear_pointer (&app->a11y_launch_error_message, g_free);
 
-  if (!g_spawn_async (NULL,
-                      argv,
-                      NULL,
-                      G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
-                      setup_bus_child_daemon,
-                      app,
-                      &pid,
-                      &error))
+  if (!g_spawn_async_with_pipes_and_fds (NULL,
+                                         (const gchar * const *) argv,
+                                         NULL,
+                                         G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+                                         setup_bus_child_daemon,
+                                         app,
+                                         -1, /* stdin_fd */
+                                         -1, /* stdout_fd */
+                                         -1, /* stdout_fd */
+                                         source_fds,
+                                         target_fds,
+                                         1, /* n_fds in source_fds and target_fds */
+                                         &pid,
+                                         NULL, /* stdin_pipe_out */
+                                         NULL, /* stdout_pipe_out */
+                                         NULL, /* stderr_pipe_out */
+                                         &error))
     {
       app->a11y_bus_pid = -1;
       app->a11y_launch_error_message = g_strdup (error->message);
