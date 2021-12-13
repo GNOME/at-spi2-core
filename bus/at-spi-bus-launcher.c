@@ -364,8 +364,8 @@ ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
   if (!g_spawn_async_with_pipes_and_fds (NULL,
                                          (const gchar * const *) argv,
                                          NULL,
-                                         G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
-                                         setup_bus_child_daemon,
+                                         G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_LEAVE_DESCRIPTORS_OPEN,
+                                         NULL, /* child_setup */
                                          app,
                                          -1, /* stdin_fd */
                                          -1, /* stdout_fd */
