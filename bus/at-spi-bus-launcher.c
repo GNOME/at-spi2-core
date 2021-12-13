@@ -323,14 +323,6 @@ set_bus_to_exit_if_this_process_dies (void)
 }
 
 #ifdef DBUS_DAEMON
-static void
-setup_bus_child_daemon (gpointer data)
-{
-  A11yBusLauncher *app = data;
-
-  set_bus_to_exit_if_this_process_dies ();
-}
-
 static gboolean
 ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
 {
