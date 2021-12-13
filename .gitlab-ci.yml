@@ -1,0 +1,214 @@
+variables:
+
+stages:
+#  - style-check
+  - build
+  - analysis
+  - docs
+  - deploy
+
+.only-default:
+  variables:
+    PROJECT_DEPS:
+        gcc
+        dbus-1
+        dbus-1-devel
+        gettext
+        git
+        glib2-devel
+        gobject-introspection-devel
+        gsettings-desktop-schemas
+        itstool
+        libxml2-devel
+        libxkbcommon-devel
+        libXi-devel
+        libXtst-devel
+        meson
+        ninja
+        python38
+        python38-gobject
+  only:
+    - merge_requests
+    - branches
+  except:
+    - tags
+
+# style-check-diff:
+#   extends: .only-default
+#   image: fedora:latest
+#   stage: style-check
+#   script:
+#     - dnf install -y clang-tools-extra curl diffutils git
+#     - sh -x ./.gitlab-ci/run-style-check.sh
+
+# Recipe for setting up the build
+# @PROJECT_DEPS: the dependencies of the project (on openSUSE)
+# @MESON_VERSION: the version of Meson required by the project
+.build-setup:
+  image: opensuse/tumbleweed
+  extends: .only-default
+  before_script:
+    - zypper refresh
+    - zypper install -y ${PROJECT_DEPS} ${EXTRA_DEPS}
+
+# Default build recipe
+# @PROJECT_DEPS: the dependencies of the project (on openSUSE)
+# @MESON_VERSION: the version of Meson required by the project
+# @MESON_EXTRA_FLAGS: extra arguments for the meson setup invocation
+.build-default:
+  image: opensuse/tumbleweed
+  extends: .only-default
+  before_script:
+    - zypper refresh
+    - zypper install -y ${PROJECT_DEPS} ${EXTRA_DEPS}
+  script:
+    - meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
+    - meson compile -C _build
+    - meson install -C _build
+    - dbus-run-session -- .gitlab-ci/run-tests.sh
+  artifacts:
+    reports:
+      junit: "_build/meson-logs/testlog.junit.xml"
+    when: always
+    name: "at-spi2-core-${CI_COMMIT_REF_NAME}"
+    paths:
+      - "${CI_PROJECT_DIR}/_build/meson-logs"
+      - "${CI_PROJECT_DIR}/_build/atspi/Atspi-2.0.gir"
+
+# Inherit to build the API reference via gi-docgen
+# @PROJECT_DEPS: the dependencies of the project (on Fedora)
+# @MESON_VERSION: the version of Meson required by the project
+# @MESON_EXTRA_FLAGS: extra arguments for the meson setup invocation
+# @DOCS_FLAGS: doc-related arguments for the meson setup invocation
+# @DOCS_PATH: the docs output directory under the build directory
+# .gidocgen-build:
+#   image: fedora:latest
+#   before_script:
+#     - export PATH="$HOME/.local/bin:$PATH"
+#     - dnf install -y python3 python3-pip python3-wheel gobject-introspection-devel graphviz ninja-build redhat-rpm-config
+#     - dnf install -y ${PROJECT_DEPS}
+#     - pip3 install --user meson==${MESON_VERSION} gi-docgen jinja2 Markdown markupsafe pygments toml typogrify
+#   script:
+#     - meson setup ${MESON_EXTRA_FLAGS} ${DOCS_FLAGS} _docs .
+#     - meson compile -C _docs
+#     - |
+#       pushd "_docs/${DOCS_PATH}" > /dev/null
+#       tar cf ${CI_PROJECT_NAME}-docs.tar .
+#       popd > /dev/null
+#     - mv _docs/${DOCS_PATH}/${CI_PROJECT_NAME}-docs.tar .
+#   artifacts:
+#     when: always
+#     name: 'Documentation'
+#     expose_as: 'Download the API reference'
+#     paths:
+#       - ${CI_PROJECT_NAME}-docs.tar
+
+opensuse-x86_64:
+  extends: .build-default
+  stage: build
+  needs: []
+  variables:
+    MESON_EXTRA_FLAGS: "--buildtype=debug" # -Dwerror=true
+
+static-scan:
+  extends: .build-setup
+  stage: analysis
+  needs: []
+  variables:
+    EXTRA_DEPS:
+      clang
+      clang-tools
+    MESON_EXTRA_FLAGS: "--buildtype=debug -Dintrospection=no -Ddocs=false"
+  script:
+    - meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _scan_build .
+    - ninja -C _scan_build scan-build
+  artifacts:
+    name: "at-spi2-core-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
+    when: always
+    paths:
+      - "_scan_build/meson-logs/scanbuild"
+
+asan-build:
+  extends: .build-setup
+  stage: analysis
+  needs: []
+  variables:
+    EXTRA_DEPS:
+      clang-tools
+      libasan6
+    MESON_EXTRA_FLAGS: "--buildtype=debug -Db_sanitize=address -Db_lundef=false -Dintrospection=no -Ddocs=false"
+  script:
+    - CC=clang meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
+    - meson compile -C _build
+    - dbus-run-session -- .gitlab-ci/run-tests.sh
+  artifacts:
+    name: "at-spi2-core-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
+    when: always
+    paths:
+      - "_asan_build/meson-logs"
+  allow_failure: true
+
+coverage:
+  extends: .build-setup
+  stage: analysis
+  needs: []
+  variables:
+    EXTRA_DEPS:
+      lcov
+    MESON_EXTRA_FLAGS: "--buildtype=debug -Ddocs=false -Dintrospection=no"
+    CFLAGS: "-coverage -ftest-coverage -fprofile-arcs"
+  script:
+    - meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
+    - meson compile -C _build
+    - meson install -C _build
+    - mkdir -p _coverage
+    - lcov --config-file .gitlab-ci/lcovrc --directory _build --capture --initial --output-file "_coverage/${CI_JOB_NAME}-baseline.lcov"
+    - dbus-run-session -- .gitlab-ci/run-tests.sh
+    - lcov --config-file .gitlab-ci/lcovrc --directory _build --capture --output-file "_coverage/${CI_JOB_NAME}.lcov"
+    - bash -x .gitlab-ci/gen-coverage.sh
+  coverage: '/^\s+lines\.+:\s+([\d.]+\%)\s+/'
+  artifacts:
+    name: "at-spi2-core-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
+    when: always
+    paths:
+      - "_build/meson-logs"
+      - "_coverage"
+
+# reference:
+#   stage: docs
+#   needs: []
+#   extends: .gidocgen-build
+#   variables:
+#     PROJECT_DEPS:
+#       gdk-pixbuf2-devel
+#       geocode-glib-devel
+#       gettext
+#       git
+#       gobject-introspection-devel
+#       itstool
+#       libsoup-devel
+#       libxml2-devel
+#       ninja-build
+#       pylint
+#       python3
+#       python3-gobject
+#       python3-pip
+#       python3-wheel
+#       redhat-rpm-config
+#       vala
+#     MESON_VERSION: "0.55.3"
+#     DOCS_FLAGS: -Dgtk_doc=true
+#     DOCS_PATH: doc/libgweather-4.0
+# 
+# pages:
+#   stage: deploy
+#   needs: ['reference']
+#   script:
+#     - mkdir public && cd public
+#     - tar xf ../${CI_PROJECT_NAME}-docs.tar
+#   artifacts:
+#     paths:
+#       - public
+#   only:
+#     - master
+#     - main
