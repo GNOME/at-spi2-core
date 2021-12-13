@@ -353,6 +353,7 @@ ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
   char *argv[] = { DBUS_DAEMON, config_path, "--nofork", "--print-address", print_address_fd_param, address_param, NULL };
   gint source_fds[1] = { app->pipefd[1] };
   gint target_fds[1] = { app->pipefd[1] };
+  G_STATIC_ASSERT (G_N_ELEMENTS (source_fds) == G_N_ELEMENTS (target_fds));
   GPid pid;
   char addr_buf[2048];
   GError *error = NULL;
@@ -371,7 +372,7 @@ ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
                                          -1, /* stdout_fd */
                                          source_fds,
                                          target_fds,
-                                         1, /* n_fds in source_fds and target_fds */
+                                         G_N_ELEMENTS (source_fds), /* n_fds in source_fds and target_fds */
                                          &pid,
                                          NULL, /* stdin_pipe_out */
                                          NULL, /* stdout_pipe_out */
