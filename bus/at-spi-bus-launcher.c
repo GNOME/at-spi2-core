@@ -313,15 +313,6 @@ on_bus_exited (GPid     pid,
   g_main_loop_quit (app->loop);
 }
 
-static void
-set_bus_to_exit_if_this_process_dies (void)
-{
-#ifdef __linux__
-  /* Tell the bus process to exit if this process goes away */
-  prctl (PR_SET_PDEATHSIG, SIGTERM);
-#endif
-}
-
 #ifdef DBUS_DAEMON
 static gboolean
 ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
@@ -438,8 +429,6 @@ setup_bus_child_broker (gpointer data)
   pid_str = g_strdup_printf("%u", getpid());
   g_setenv("LISTEN_PID", pid_str, TRUE);
   g_free(pid_str);
-
-  set_bus_to_exit_if_this_process_dies ();
 }
 
 static gboolean
