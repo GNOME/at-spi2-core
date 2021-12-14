@@ -1094,6 +1094,8 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
     break;
   }
 
+  g_assert (e.source != NULL);
+
   dbus_message_iter_next (&iter);
   if (dbus_message_iter_get_arg_type (&iter) == DBUS_TYPE_ARRAY)
   {
