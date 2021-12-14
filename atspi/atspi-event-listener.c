@@ -1000,6 +1000,13 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
     }
     category++;
   }
+  else
+  {
+    // TODO: Error
+    // Note that the single caller of this function, process_deferred_message(), ignores the return value.
+    // We should probably free the message if we aren't going to process it after all.
+    return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+  }
   dbus_message_iter_get_basic (&iter, &detail);
   dbus_message_iter_next (&iter);
   dbus_message_iter_get_basic (&iter, &detail1);
