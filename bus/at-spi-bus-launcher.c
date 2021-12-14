@@ -928,7 +928,7 @@ main (int    argc,
   gboolean screen_reader_set = FALSE;
   gint i;
 
-  _global_app = g_slice_new0 (A11yBusLauncher);
+  _global_app = g_new0 (A11yBusLauncher, 1);
   _global_app->loop = g_main_loop_new (NULL, FALSE);
 
   for (i = 1; i < argc; i++)
