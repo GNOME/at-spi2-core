@@ -122,7 +122,13 @@ spi_dec_plat_get_keycode (SpiDEController *controller,
   if (klass->plat.get_keycode)
     return klass->plat.get_keycode (controller, keysym, key_str, fix, modmask);
   else
-    return keysym;
+    {
+      if (modmask)
+        {
+          *modmask = 0;
+        }
+      return keysym;
+    }
 }
 
 static guint
