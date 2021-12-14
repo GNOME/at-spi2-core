@@ -248,8 +248,8 @@ remove_events (SpiRegistry *registry, const char *bus_name, const char *event)
           g_strfreev (evdata->data);
           g_free (evdata->bus_name);
           g_slist_free_full (evdata->properties, g_free);
-          g_free (evdata);
           registry->events = g_list_remove (registry->events, evdata);
+          g_free (evdata);
         }
       else
         {
