@@ -173,6 +173,7 @@ coverage:
     paths:
       - "_build/meson-logs"
       - "_coverage"
+  allow_failure: true
 
 # reference:
 #   stage: docs
