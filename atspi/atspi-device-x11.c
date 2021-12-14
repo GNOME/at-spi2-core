@@ -516,8 +516,8 @@ atspi_device_x11_unmap_modifier (AtspiDevice *device, gint keycode)
     AtspiX11KeyModifier *entry = l->data;
     if (entry->keycode == keycode)
     {
-      g_free (entry);
       priv->modifiers = g_slist_remove (priv->modifiers, entry);
+      g_free (entry);
       return;
     }
   }
