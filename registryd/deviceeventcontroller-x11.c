@@ -383,11 +383,15 @@ spi_dec_x11_mouse_check (SpiDEController *controller,
   Window root_return, child_return;
   Display *display = spi_get_display ();
 
-  if (display != NULL)
-    XQueryPointer(display, DefaultRootWindow (display),
-		  &root_return, &child_return,
-		  x, y,
-		  &win_x_return, &win_y_return, &mask_return);
+  if (display == NULL)
+    {
+      return 0;
+    }
+
+  XQueryPointer(display, DefaultRootWindow (display),
+                &root_return, &child_return,
+                x, y,
+                &win_x_return, &win_y_return, &mask_return);
   /* 
    * Since many clients grab the pointer, and X goes an automatic
    * pointer grab on mouse-down, we often must detect mouse button events
