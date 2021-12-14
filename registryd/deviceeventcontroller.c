@@ -123,7 +123,13 @@ spi_dec_plat_mouse_check (SpiDEController *controller,
   if (klass->plat.mouse_check)
     return klass->plat.mouse_check (controller, x, y, moved);
   else
-    return 0;
+    {
+      if (moved)
+        {
+          *moved = FALSE;
+        }
+      return 0;
+    }
 }
 
 static gboolean
