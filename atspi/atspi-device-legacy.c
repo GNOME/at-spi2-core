@@ -212,8 +212,8 @@ atspi_device_legacy_unmap_modifier (AtspiDevice *device, gint keycode)
     AtspiLegacyKeyModifier *entry = l->data;
     if (entry->keycode == keycode)
     {
-      g_free (entry);
       priv->modifiers = g_slist_remove (priv->modifiers, entry);
+      g_free (entry);
       return;
     }
   }

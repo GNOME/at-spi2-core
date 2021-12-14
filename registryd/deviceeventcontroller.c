@@ -122,7 +122,13 @@ spi_dec_plat_get_keycode (SpiDEController *controller,
   if (klass->plat.get_keycode)
     return klass->plat.get_keycode (controller, keysym, key_str, fix, modmask);
   else
-    return keysym;
+    {
+      if (modmask)
+        {
+          *modmask = 0;
+        }
+      return keysym;
+    }
 }
 
 static guint
@@ -134,7 +140,13 @@ spi_dec_plat_mouse_check (SpiDEController *controller,
   if (klass->plat.mouse_check)
     return klass->plat.mouse_check (controller, x, y, moved);
   else
-    return 0;
+    {
+      if (moved)
+        {
+          *moved = FALSE;
+        }
+      return 0;
+    }
 }
 
 static gboolean
@@ -884,8 +896,8 @@ reset_hung_process (DBusPendingCall *pending, void *data)
   {
     if (!strcmp (l->data, dest))
     {
-      g_free (l->data);
       hung_processes = g_slist_remove (hung_processes, l->data);
+      g_free (l->data);
       break;
     }
   }
@@ -909,8 +921,8 @@ reset_hung_process_from_ping (DBusPendingCall *pending, void *data)
   {
     if (!strcmp (l->data, data))
     {
-      g_free (l->data);
       hung_processes = g_slist_remove (hung_processes, l->data);
+      g_free (l->data);
       break;
     }
   }

@@ -40,7 +40,10 @@ void demarshal (DBusMessage *msg, const char *type, void *ptr)
     DBusMessageIter iter;
 
     if (!dbus_message_iter_init (msg, &iter))
+      {
         fprintf (stderr, "no data in msg\n");
+        g_assert_not_reached ();
+      }
     else
         dbind_any_demarshal (&iter, &type, &ptr);
 }
