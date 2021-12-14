@@ -909,8 +909,8 @@ reset_hung_process_from_ping (DBusPendingCall *pending, void *data)
   {
     if (!strcmp (l->data, data))
     {
-      g_free (l->data);
       hung_processes = g_slist_remove (hung_processes, l->data);
+      g_free (l->data);
       break;
     }
   }
