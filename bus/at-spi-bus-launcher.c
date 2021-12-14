@@ -559,7 +559,6 @@ ensure_a11y_bus (A11yBusLauncher *app)
         if (strlen (app->socket_name) >= 100)
           {
             g_free (app->socket_name);
-            g_free (at_spi_dir);
             app->socket_name = NULL;
           }
       }
