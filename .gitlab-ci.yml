@@ -1,5 +1,14 @@
+# Continuous Integration configuration for at-spi2-core
+#
+# For documentation on how this works, see devel-docs/gitlab-ci.md
+#
+# Full documentation for Gitlab CI: https://docs.gitlab.com/ee/ci/
+#
+# Introduction to Gitlab CI: https://docs.gitlab.com/ee/ci/quick_start/index.html
+
 variables:
 
+# Stages in the CI pipeline in which jobs will be run
 stages:
 #  - style-check
   - build
@@ -7,6 +16,10 @@ stages:
   - docs
   - deploy
 
+# Base definition for jobs.
+#
+# We have the package dependencies to install on top of a stock opensuse/tumbleweed image,
+# and the rules for when to run each job (on merge requests and on personal branches).
 .only-default:
   variables:
     PROJECT_DEPS:
@@ -33,6 +46,10 @@ stages:
   except:
     - tags
 
+# C coding style checker.
+#
+# Disabled for now, since we need to decide to reindent all the code first.
+#
 # style-check-diff:
 #   extends: .only-default
 #   image: fedora:latest
@@ -41,9 +58,11 @@ stages:
 #     - dnf install -y clang-tools-extra curl diffutils git
 #     - sh -x ./.gitlab-ci/run-style-check.sh
 
-# Recipe for setting up the build
+# Template for setting up build jobs.
+#
+# Depends on these variables:
 # @PROJECT_DEPS: the dependencies of the project (on openSUSE)
-# @MESON_VERSION: the version of Meson required by the project
+# @EXTRA_DEPS: Extra dependencies specific to each job (e.g. lcov for the coverage job).
 .build-setup:
   image: opensuse/tumbleweed
   extends: .only-default
@@ -51,9 +70,11 @@ stages:
     - zypper refresh
     - zypper install -y ${PROJECT_DEPS} ${EXTRA_DEPS}
 
-# Default build recipe
+# Template for the default build recipe.
+#
+# Depends on these variables:
 # @PROJECT_DEPS: the dependencies of the project (on openSUSE)
-# @MESON_VERSION: the version of Meson required by the project
+# @EXTRA_DEPS: Extra dependencies specific to each job (e.g. lcov for the coverage job).
 # @MESON_EXTRA_FLAGS: extra arguments for the meson setup invocation
 .build-default:
   image: opensuse/tumbleweed
@@ -77,7 +98,6 @@ stages:
 
 # Inherit to build the API reference via gi-docgen
 # @PROJECT_DEPS: the dependencies of the project (on Fedora)
-# @MESON_VERSION: the version of Meson required by the project
 # @MESON_EXTRA_FLAGS: extra arguments for the meson setup invocation
 # @DOCS_FLAGS: doc-related arguments for the meson setup invocation
 # @DOCS_PATH: the docs output directory under the build directory
@@ -103,6 +123,9 @@ stages:
 #     paths:
 #       - ${CI_PROJECT_NAME}-docs.tar
 
+# Build and run the test suite.
+#
+# Look at .build-default for where the artifacts are stored (build/test logs, built binaries).
 opensuse-x86_64:
   extends: .build-default
   stage: build
@@ -110,6 +133,9 @@ opensuse-x86_64:
   variables:
     MESON_EXTRA_FLAGS: "--buildtype=debug" # -Dwerror=true
 
+# Run static analysis on the code.
+#
+# The logs are part of the compilation stderr.
 static-scan:
   extends: .build-setup
   stage: analysis
@@ -128,6 +154,7 @@ static-scan:
     paths:
       - "_scan_build/meson-logs/scanbuild"
 
+# Build and run with address sanitizer (asan).
 asan-build:
   extends: .build-setup
   stage: analysis
@@ -148,6 +175,9 @@ asan-build:
       - "_asan_build/meson-logs"
   allow_failure: true
 
+# Run the test suite and extract code coverage information.
+#
+# See the _coverage/ artifact for the HTML report.
 coverage:
   extends: .build-setup
   stage: analysis
@@ -175,6 +205,8 @@ coverage:
       - "_coverage"
   allow_failure: true
 
+# Build the reference documentation.
+#
 # reference:
 #   stage: docs
 #   needs: []
@@ -200,7 +232,10 @@ coverage:
 #     MESON_VERSION: "0.55.3"
 #     DOCS_FLAGS: -Dgtk_doc=true
 #     DOCS_PATH: doc/libgweather-4.0
-# 
+#
+#
+# Publish the generated HTML reference documentation.
+#
 # pages:
 #   stage: deploy
 #   needs: ['reference']
