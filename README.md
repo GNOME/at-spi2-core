@@ -40,6 +40,8 @@ include:
   modern C bindings like [GDBusConnection][GDBus] were available, so there is a lot of
   hand-written IPC here.
 
+* Documentation for the Gitlab [Continuous Integration pipeline](devel-docs/gitlab-ci.md).
+
 ## Historical note
 
 Versions 1.x of AT-SPI were based on [CORBA][CORBA] for inter-process communication (IPC),
