@@ -11,7 +11,7 @@ Table of contents:
 
 [[_TOC_]]
 
-## Quick overview
+# Quick overview
 
 By having a [`.gitlab-ci.yml`](../.gitlab-ci.yml) file in the toplevel
 directory of a project, Gitlab knows that it must run a continuous
@@ -52,7 +52,7 @@ where each job's artifacts will be stored.
 
 What's an artifact or a job?  Read on!
 
-## A little glossary
+# A little glossary
 
 **Pipeline** - A collection of **jobs**, which can be run in parallel
 or sequentially.  For example, a pair of "build" and "test" jobs would
@@ -95,7 +95,7 @@ not need to deal with containers directly, but keep in mind that your
 jobs will run inside a container, which is more limited than e.g. a
 shell session on a graphical, development machine.
 
-## The CI pipeline for at-spi2-core
+# The CI pipeline for at-spi2-core
 
 The `.gitlab-ci.yml` file is a more-or-less declarative description
 the CI pipeline, with some `script` sections which are imperative
@@ -142,10 +142,14 @@ The `analysis` stage has these jobs:
 As of 2021/Dec/15 there are some commented-out jobs to generate
 documentation and publish it; this needs to be made to work.
 
-## References
+# References
 
 Full documentation for Gitlab CI: https://docs.gitlab.com/ee/ci/
 
 Introduction to Gitlab CI: https://docs.gitlab.com/ee/ci/quick_start/index.html
+
+at-spi2-core's CI pipeline is mostly [cut-and-pasted from
+libgweather](https://gitlab.gnome.org/GNOME/libgweather/-/blob/main/.gitlab-ci.yml).
+Thanks to Emmanuele Bassi for his advice on how to use it.
 
 [OCI]: https://opencontainers.org/
