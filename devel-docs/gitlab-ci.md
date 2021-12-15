@@ -144,6 +144,37 @@ The `analysis` stage has these jobs:
 As of 2021/Dec/15 there are some commented-out jobs to generate
 documentation and publish it; this needs to be made to work.
 
+# General advice and future work
+
+A failed run of a CI pipeline should trouble you; it either means that
+some test broke, or that something is not completely deterministic.
+Fix it at once.
+
+Try not to accept merge requests that fail the CI, as this will make
+`git bisect` hard in the future.  There are tools like Marge-bot to
+enforce this; ask federico@gnome.org about it.  Read ["The Not Rocket
+Science Rule Of Software
+Engineering"](https://graydon.livejournal.com/186550.html), which can
+be summarized as "automatically maintain a repository of code that
+always passes all the tests" for inspiration.  Marge-bot is an
+implementation of that, and can be used with Gitlab.
+
+If your software can be configured to build with substantial changes,
+the CI pipeline should have jobs that test each of those
+configurations.  For example, at-spi-bus-launcher operates differently
+depending on whether dbus-daemon or dbus-broker are being used.  As of
+2021/Dec/15 the CI only tests dbus-daemon; there should be a test for
+dbus-broker, too.
+
+Although the YAML syntax for `.gitlab-ci.yml` is a bit magic, the
+scripts and configuration are quite amenable to refactoring.  Do it
+often!
+
+Minimizing the amount of time that CI takes to run is a good goal.  It
+reduces energy consumption in the build farm, and allows you to have a
+faster feedback loop.  Instead of installing package dependencies on
+each job, we can move to prebuilt container images.
+
 # References
 
 Full documentation for Gitlab CI: https://docs.gitlab.com/ee/ci/
