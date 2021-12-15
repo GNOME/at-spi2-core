@@ -1,0 +1,26 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Sveinn í Felli <sv1@fellsnet.is>, 2021.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
+"POT-Creation-Date: 2021-12-08 22:05+0000\n"
+"PO-Revision-Date: 2021-12-15 23:05+0000\n"
+"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
+"Language-Team: Icelandic <translation-team-is@lists.sourceforge.org>\n"
+"Language: is\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 19.12.3\n"
+
+#: atspi/atspi-component.c:332 atspi/atspi-misc.c:1105 atspi/atspi-value.c:111
+msgid "The application no longer exists"
+msgstr "Forritið er ekki lengur til"
+
+#: atspi/atspi-misc.c:1888
+msgid "Attempted synchronous call where prohibited"
+msgstr "Reyndi samhæft kall þegar slíkt er bannað"
