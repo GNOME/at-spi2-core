@@ -117,7 +117,9 @@ time.  In our configuration, the `.only-default` template has the
 `.build-setup` template is for the analysis jobs, and it lets them
 declare `EXTRA_DEPS` as an environment variable with the names of
 extra dependencies: for example, the coverage job puts `lcov` in
-`EXTRA_DEPS`.
+`EXTRA_DEPS`.  The commands in `before_script` blocks use these
+environment variables to install the package dependencies, for example
+`zypper install -y ${PROJECT_DEPS}` for an openSUSE job.
 
 The `build` stage has these jobs:
 
