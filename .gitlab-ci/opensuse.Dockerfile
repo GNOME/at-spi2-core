@@ -2,6 +2,8 @@
 #
 # This starts with an openSUSE Tumbleweed image, and installs the dependencies
 # for building and testing at-spi2-core.
+#
+# See README.md for documentation.
 
 FROM opensuse/tumbleweed:latest
 
