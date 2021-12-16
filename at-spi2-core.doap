@@ -29,4 +29,11 @@ wrapper around the DBus interfaces.</description>
       <gnome:userid>mgorse</gnome:userid>
     </foaf:Person>
   </maintainer>
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Federico Mena Quintero</foaf:name>
+      <foaf:mbox rdf:resource="mailto:federico@gnome.org" />
+      <gnome:userid>federico</gnome:userid>
+    </foaf:Person>
+  </maintainer>
 </Project>
