@@ -7,6 +7,8 @@ FROM opensuse/tumbleweed:latest
 
 RUN zypper refresh                              \
  && zypper install -y                           \
+           clang                                \
+           clang-tools                          \
            gcc                                  \
            dbus-1                               \
            dbus-1-devel                         \
@@ -16,10 +18,12 @@ RUN zypper refresh                              \
            gobject-introspection-devel          \
            gsettings-desktop-schemas            \
            itstool                              \
+           libasan6                             \
            libxml2-devel                        \
            libxkbcommon-devel                   \
            libXi-devel                          \
            libXtst-devel                        \
+           lcov                                 \
            meson                                \
            ninja                                \
            python38                             \

@@ -40,16 +40,6 @@ stages:
 #     - dnf install -y clang-tools-extra curl diffutils git
 #     - sh -x ./.gitlab-ci/run-style-check.sh
 
-# Template for setting up build jobs.
-#
-# Depends on these variables:
-# @EXTRA_DEPS: Extra dependencies specific to each job (e.g. lcov for the coverage job).
-.build-setup:
-  image: $OPENSUSE_TUMBLEWEED_IMAGE
-  extends: .only-default
-  before_script:
-    - zypper refresh
-    - zypper install -y ${EXTRA_DEPS}
 
 # Template for the default build recipe.
 #
@@ -113,13 +103,10 @@ opensuse-x86_64:
 #
 # The logs are part of the compilation stderr.
 static-scan:
-  extends: .build-setup
+  image: $OPENSUSE_TUMBLEWEED_IMAGE
   stage: analysis
   needs: []
   variables:
-    EXTRA_DEPS:
-      clang
-      clang-tools
     MESON_EXTRA_FLAGS: "--buildtype=debug -Dintrospection=no -Ddocs=false"
   script:
     - meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _scan_build .
@@ -132,13 +119,10 @@ static-scan:
 
 # Build and run with address sanitizer (asan).
 asan-build:
-  extends: .build-setup
+  image: $OPENSUSE_TUMBLEWEED_IMAGE
   stage: analysis
   needs: []
   variables:
-    EXTRA_DEPS:
-      clang-tools
-      libasan6
     MESON_EXTRA_FLAGS: "--buildtype=debug -Db_sanitize=address -Db_lundef=false -Dintrospection=no -Ddocs=false"
   script:
     - CC=clang meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
@@ -155,12 +139,10 @@ asan-build:
 #
 # See the _coverage/ artifact for the HTML report.
 coverage:
-  extends: .build-setup
+  image: $OPENSUSE_TUMBLEWEED_IMAGE
   stage: analysis
   needs: []
   variables:
-    EXTRA_DEPS:
-      lcov
     MESON_EXTRA_FLAGS: "--buildtype=debug -Ddocs=false -Dintrospection=no"
     CFLAGS: "-coverage -ftest-coverage -fprofile-arcs"
   script:
