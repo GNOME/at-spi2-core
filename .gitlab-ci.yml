@@ -7,6 +7,7 @@
 # Introduction to Gitlab CI: https://docs.gitlab.com/ee/ci/quick_start/index.html
 
 variables:
+  OPENSUSE_TUMBLEWEED_IMAGE: "registry.gitlab.gnome.org/gnome/at-spi2-core/opensuse:latest"
 
 # Stages in the CI pipeline in which jobs will be run
 stages:
@@ -21,25 +22,6 @@ stages:
 # We have the package dependencies to install on top of a stock opensuse/tumbleweed image,
 # and the rules for when to run each job (on merge requests and on personal branches).
 .only-default:
-  variables:
-    PROJECT_DEPS:
-        gcc
-        dbus-1
-        dbus-1-devel
-        gettext
-        git
-        glib2-devel
-        gobject-introspection-devel
-        gsettings-desktop-schemas
-        itstool
-        libxml2-devel
-        libxkbcommon-devel
-        libXi-devel
-        libXtst-devel
-        meson
-        ninja
-        python38
-        python38-gobject
   only:
     - merge_requests
     - branches
@@ -61,27 +43,21 @@ stages:
 # Template for setting up build jobs.
 #
 # Depends on these variables:
-# @PROJECT_DEPS: the dependencies of the project (on openSUSE)
 # @EXTRA_DEPS: Extra dependencies specific to each job (e.g. lcov for the coverage job).
 .build-setup:
-  image: opensuse/tumbleweed
+  image: $OPENSUSE_TUMBLEWEED_IMAGE
   extends: .only-default
   before_script:
     - zypper refresh
-    - zypper install -y ${PROJECT_DEPS} ${EXTRA_DEPS}
+    - zypper install -y ${EXTRA_DEPS}
 
 # Template for the default build recipe.
 #
 # Depends on these variables:
-# @PROJECT_DEPS: the dependencies of the project (on openSUSE)
-# @EXTRA_DEPS: Extra dependencies specific to each job (e.g. lcov for the coverage job).
 # @MESON_EXTRA_FLAGS: extra arguments for the meson setup invocation
 .build-default:
-  image: opensuse/tumbleweed
+  image: $OPENSUSE_TUMBLEWEED_IMAGE
   extends: .only-default
-  before_script:
-    - zypper refresh
-    - zypper install -y ${PROJECT_DEPS} ${EXTRA_DEPS}
   script:
     - meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
     - meson compile -C _build
