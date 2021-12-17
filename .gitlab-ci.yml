@@ -7,6 +7,7 @@
 # Introduction to Gitlab CI: https://docs.gitlab.com/ee/ci/quick_start/index.html
 
 variables:
+  OPENSUSE_TUMBLEWEED_IMAGE: "registry.gitlab.gnome.org/gnome/at-spi2-core/opensuse:latest"
 
 # Stages in the CI pipeline in which jobs will be run
 stages:
@@ -21,25 +22,6 @@ stages:
 # We have the package dependencies to install on top of a stock opensuse/tumbleweed image,
 # and the rules for when to run each job (on merge requests and on personal branches).
 .only-default:
-  variables:
-    PROJECT_DEPS:
-        gcc
-        dbus-1
-        dbus-1-devel
-        gettext
-        git
-        glib2-devel
-        gobject-introspection-devel
-        gsettings-desktop-schemas
-        itstool
-        libxml2-devel
-        libxkbcommon-devel
-        libXi-devel
-        libXtst-devel
-        meson
-        ninja
-        python38
-        python38-gobject
   only:
     - merge_requests
     - branches
@@ -58,30 +40,14 @@ stages:
 #     - dnf install -y clang-tools-extra curl diffutils git
 #     - sh -x ./.gitlab-ci/run-style-check.sh
 
-# Template for setting up build jobs.
-#
-# Depends on these variables:
-# @PROJECT_DEPS: the dependencies of the project (on openSUSE)
-# @EXTRA_DEPS: Extra dependencies specific to each job (e.g. lcov for the coverage job).
-.build-setup:
-  image: opensuse/tumbleweed
-  extends: .only-default
-  before_script:
-    - zypper refresh
-    - zypper install -y ${PROJECT_DEPS} ${EXTRA_DEPS}
 
 # Template for the default build recipe.
 #
 # Depends on these variables:
-# @PROJECT_DEPS: the dependencies of the project (on openSUSE)
-# @EXTRA_DEPS: Extra dependencies specific to each job (e.g. lcov for the coverage job).
 # @MESON_EXTRA_FLAGS: extra arguments for the meson setup invocation
 .build-default:
-  image: opensuse/tumbleweed
+  image: $OPENSUSE_TUMBLEWEED_IMAGE
   extends: .only-default
-  before_script:
-    - zypper refresh
-    - zypper install -y ${PROJECT_DEPS} ${EXTRA_DEPS}
   script:
     - meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
     - meson compile -C _build
@@ -137,13 +103,10 @@ opensuse-x86_64:
 #
 # The logs are part of the compilation stderr.
 static-scan:
-  extends: .build-setup
+  image: $OPENSUSE_TUMBLEWEED_IMAGE
   stage: analysis
   needs: []
   variables:
-    EXTRA_DEPS:
-      clang
-      clang-tools
     MESON_EXTRA_FLAGS: "--buildtype=debug -Dintrospection=no -Ddocs=false"
   script:
     - meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _scan_build .
@@ -156,17 +119,15 @@ static-scan:
 
 # Build and run with address sanitizer (asan).
 asan-build:
-  extends: .build-setup
+  image: $OPENSUSE_TUMBLEWEED_IMAGE
   stage: analysis
   needs: []
   variables:
-    EXTRA_DEPS:
-      clang-tools
-      libasan6
     MESON_EXTRA_FLAGS: "--buildtype=debug -Db_sanitize=address -Db_lundef=false -Dintrospection=no -Ddocs=false"
   script:
     - CC=clang meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
     - meson compile -C _build
+    - meson install -C _build
     - dbus-run-session -- .gitlab-ci/run-tests.sh
   artifacts:
     name: "at-spi2-core-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
@@ -179,12 +140,10 @@ asan-build:
 #
 # See the _coverage/ artifact for the HTML report.
 coverage:
-  extends: .build-setup
+  image: $OPENSUSE_TUMBLEWEED_IMAGE
   stage: analysis
   needs: []
   variables:
-    EXTRA_DEPS:
-      lcov
     MESON_EXTRA_FLAGS: "--buildtype=debug -Ddocs=false -Dintrospection=no"
     CFLAGS: "-coverage -ftest-coverage -fprofile-arcs"
   script:
