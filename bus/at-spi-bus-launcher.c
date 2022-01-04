@@ -322,7 +322,7 @@ ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
   if (app->socket_name)
     {
       gchar *escaped_address = g_dbus_address_escape_value (app->socket_name);
-      address_param = g_strconcat ("--address=unix:path=", app->socket_name, NULL);
+      address_param = g_strconcat ("--address=unix:path=", escaped_address, NULL);
       g_free (escaped_address);
     }
   else
