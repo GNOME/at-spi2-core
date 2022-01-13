@@ -11,6 +11,7 @@ RUN zypper refresh                              \
  && zypper install -y                           \
            clang                                \
            clang-tools                          \
+           findutils                            \
            gcc                                  \
            dbus-1                               \
            dbus-1-devel                         \
