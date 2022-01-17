@@ -211,3 +211,15 @@ coverage:
 #   only:
 #     - master
 #     - main
+
+# Publish the test coverage report
+pages:
+  stage: deploy
+  needs: [ coverage ]
+  script:
+    - echo # dummy - contents were generated in another job
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
