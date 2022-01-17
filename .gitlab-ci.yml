@@ -157,14 +157,16 @@ coverage:
     - dbus-run-session -- .gitlab-ci/run-tests.sh
     - lcov --config-file .gitlab-ci/lcovrc --directory _build --capture --output-file "_coverage/${CI_JOB_NAME}.lcov"
     - bash -x .gitlab-ci/gen-coverage.sh
+    - mkdir -p public/
+    - cp -r _coverage public/coverage
   coverage: '/^\s+lines\.+:\s+([\d.]+\%)\s+/'
   artifacts:
     name: "at-spi2-core-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
+    expire_in: 2 days
     when: always
     paths:
       - "_build/meson-logs"
-      - "_coverage"
-  allow_failure: true
+      - public
 
 # Build the reference documentation.
 #
@@ -209,3 +211,15 @@ coverage:
 #   only:
 #     - master
 #     - main
+
+# Publish the test coverage report
+pages:
+  stage: deploy
+  needs: [ coverage ]
+  script:
+    - echo # dummy - contents were generated in another job
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
