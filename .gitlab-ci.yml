@@ -167,7 +167,6 @@ coverage:
     paths:
       - "_build/meson-logs"
       - public
-  allow_failure: true
 
 # Build the reference documentation.
 #
