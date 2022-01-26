@@ -1702,12 +1702,17 @@ spi_dec_synth_keysym (SpiDEController *controller, long keysym)
 	if (synth_mods != modifiers) {
 		lock_mods = synth_mods & ~modifiers;
 		spi_dec_plat_lock_modifiers (controller, lock_mods);
+		if (modifiers & LockMask)
+			spi_dec_plat_unlock_modifiers (controller, LockMask);
 	}
 	spi_dec_plat_synth_keycode_press (controller, key_synth_code);
 	spi_dec_plat_synth_keycode_release (controller, key_synth_code);
 
-	if (synth_mods != modifiers) 
+	if (synth_mods != modifiers) {
 		spi_dec_plat_unlock_modifiers (controller, lock_mods);
+		if (modifiers & LockMask)
+			spi_dec_plat_lock_modifiers (controller, LockMask);
+	}
 	return TRUE;
 }
 
