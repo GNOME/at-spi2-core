@@ -1675,6 +1675,7 @@ impl_get_device_event_listeners (DBusConnection *bus,
 static unsigned
 get_modifier_state (SpiDEController *controller)
 {
+	spi_dec_poll_mouse_moved (controller);
 	return mouse_mask_state;
 }
 
