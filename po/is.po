@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: atk 2.1.3\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/atk/issues\n"
 "POT-Creation-Date: 2020-06-06 13:32+0000\n"
-"PO-Revision-Date: 2022-01-29 16:08+0000\n"
+"PO-Revision-Date: 2022-01-29 17:32+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <translation-team-is@lists.sourceforge.org>\n"
 "Language: is\n"
@@ -27,7 +27,7 @@ msgstr ""
 
 #: atk/atkhyperlink.c:133
 msgid "Number of Anchors"
-msgstr ""
+msgstr "Fjöldi markstikla"
 
 #: atk/atkhyperlink.c:134
 msgid "The number of anchors associated with the AtkHyperlink object"
@@ -352,11 +352,11 @@ msgstr "sjálfklárun"
 
 #: atk/atkobject.c:174
 msgid "edit bar"
-msgstr ""
+msgstr "breytingastika"
 
 #: atk/atkobject.c:175
 msgid "embedded component"
-msgstr ""
+msgstr "ívafin eining"
 
 #: atk/atkobject.c:176
 msgid "entry"
@@ -372,7 +372,7 @@ msgstr "skýringatexti"
 
 #: atk/atkobject.c:179
 msgid "document frame"
-msgstr ""
+msgstr "rammi skjals"
 
 #: atk/atkobject.c:180
 msgid "heading"
@@ -388,7 +388,7 @@ msgstr "hluti"
 
 #: atk/atkobject.c:183
 msgid "redundant object"
-msgstr ""
+msgstr "afgangshlutur"
 
 #: atk/atkobject.c:184
 msgid "form"
@@ -400,7 +400,7 @@ msgstr "tengill"
 
 #: atk/atkobject.c:186
 msgid "input method window"
-msgstr ""
+msgstr "inntaksaðferðargluggi"
 
 #: atk/atkobject.c:187
 msgid "table row"
@@ -412,24 +412,23 @@ msgstr "atriði í grein"
 
 #: atk/atkobject.c:189
 msgid "document spreadsheet"
-msgstr ""
+msgstr "töflureiknisskjal"
 
 #: atk/atkobject.c:190
 msgid "document presentation"
-msgstr ""
+msgstr "kynningarskjal"
 
 #: atk/atkobject.c:191
-#, fuzzy
 msgid "document text"
-msgstr "Texti skjals"
+msgstr "textaskjal"
 
 #: atk/atkobject.c:192
 msgid "document web"
-msgstr ""
+msgstr "vefskjal"
 
 #: atk/atkobject.c:193
 msgid "document email"
-msgstr ""
+msgstr "tölvupóstskjal"
 
 #: atk/atkobject.c:194
 msgid "comment"
@@ -442,7 +441,7 @@ msgstr "listareitur"
 
 #: atk/atkobject.c:196
 msgid "grouping"
-msgstr ""
+msgstr "hópun"
 
 #: atk/atkobject.c:197
 #| msgid "image"
@@ -459,9 +458,8 @@ msgid "info bar"
 msgstr "upplýsingastika"
 
 #: atk/atkobject.c:200
-#, fuzzy
 msgid "level bar"
-msgstr "skrunstika"
+msgstr "stigastika"
 
 #: atk/atkobject.c:201
 msgid "title bar"
