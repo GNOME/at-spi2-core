@@ -1,572 +1,798 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Sveinn í Felli <sv1@fellsnet.is>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: atk 2.1.3\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-21 15:05+0800\n"
-"PO-Revision-Date: 2003-05-04 11:21--100\n"
-"Last-Translator: Samuel Jon Gunnarsson <sammi@techattack.nu>\n"
-"Language-Team: Icelandic <gnome@techattack.nu>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/atk/issues\n"
+"POT-Creation-Date: 2020-06-06 13:32+0000\n"
+"PO-Revision-Date: 2022-01-29 16:08+0000\n"
+"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
+"Language-Team: Icelandic <translation-team-is@lists.sourceforge.org>\n"
 "Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 19.12.3\n"
 
-#: atk/atkhyperlink.c:103
+#: atk/atkhyperlink.c:126
 msgid "Selected Link"
-msgstr ""
+msgstr "Valinn tengill"
 
-#: atk/atkhyperlink.c:104
+#: atk/atkhyperlink.c:127
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr ""
 
-#: atk/atkhyperlink.c:110
+#: atk/atkhyperlink.c:133
 msgid "Number of Anchors"
 msgstr ""
 
-#: atk/atkhyperlink.c:111
+#: atk/atkhyperlink.c:134
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr ""
 
-#: atk/atkhyperlink.c:119
+#: atk/atkhyperlink.c:142
 msgid "End index"
-msgstr ""
+msgstr "Endaraðnúmer"
 
-#: atk/atkhyperlink.c:120
+#: atk/atkhyperlink.c:143
 msgid "The end index of the AtkHyperlink object"
 msgstr ""
 
-#: atk/atkhyperlink.c:128
+#: atk/atkhyperlink.c:151
 msgid "Start index"
-msgstr ""
+msgstr "Upphafsraðnúmer"
 
-#: atk/atkhyperlink.c:129
+#: atk/atkhyperlink.c:152
 msgid "The start index of the AtkHyperlink object"
 msgstr ""
 
-#: atk/atkobject.c:74
+#: atk/atkobject.c:98
 msgid "invalid"
 msgstr "ógilt"
 
-#: atk/atkobject.c:75
-#, fuzzy
+#: atk/atkobject.c:99
 msgid "accelerator label"
-msgstr "hröðunarmerki"
+msgstr "flýtilykilsmerki"
 
-#: atk/atkobject.c:76
+#: atk/atkobject.c:100
 msgid "alert"
-msgstr "viðvörun"
+msgstr "aðvörun"
 
-#: atk/atkobject.c:77
+#: atk/atkobject.c:101
 msgid "animation"
 msgstr "hreyfimynd"
 
-#: atk/atkobject.c:78
+#: atk/atkobject.c:102
 msgid "arrow"
 msgstr "píla"
 
-#: atk/atkobject.c:79
+#: atk/atkobject.c:103
 msgid "calendar"
 msgstr "dagatal"
 
-#: atk/atkobject.c:80
+#: atk/atkobject.c:104
 msgid "canvas"
 msgstr "strigi"
 
-#: atk/atkobject.c:81
-#, fuzzy
+#: atk/atkobject.c:105
 msgid "check box"
-msgstr "krossabox"
+msgstr "gátreitur"
 
-#: atk/atkobject.c:82
-#, fuzzy
+#: atk/atkobject.c:106
 msgid "check menu item"
-msgstr "krossvalmynds-hlutur"
+msgstr "gátreitur valmyndaratriðis"
 
-#: atk/atkobject.c:83
-#, fuzzy
+#: atk/atkobject.c:107
 msgid "color chooser"
-msgstr "Val á litum"
+msgstr "litaval"
 
-#: atk/atkobject.c:84
-#, fuzzy
+#: atk/atkobject.c:108
 msgid "column header"
-msgstr "dálktitill"
+msgstr "fyrirsögn dálks"
 
-#: atk/atkobject.c:85
-#, fuzzy
+#: atk/atkobject.c:109
 msgid "combo box"
-msgstr "samsett-box"
+msgstr "fjölvalsreitur"
 
-#: atk/atkobject.c:86
-#, fuzzy
+#: atk/atkobject.c:110
 msgid "dateeditor"
 msgstr "dagsetningarritill"
 
-#: atk/atkobject.c:87
-#, fuzzy
+#: atk/atkobject.c:111
 msgid "desktop icon"
 msgstr "skjáborðstáknmynd"
 
-#: atk/atkobject.c:88
-#, fuzzy
+#: atk/atkobject.c:112
 msgid "desktop frame"
 msgstr "skjáborðsrammi"
 
-#: atk/atkobject.c:89
+#: atk/atkobject.c:113
 msgid "dial"
-msgstr "Kvarði"
+msgstr "skífa"
 
-#: atk/atkobject.c:90
+#: atk/atkobject.c:114
 msgid "dialog"
-msgstr "smágluggi"
+msgstr "samskiptagluggi"
 
-#: atk/atkobject.c:91
-#, fuzzy
+#: atk/atkobject.c:115
 msgid "directory pane"
-msgstr "möppu-spjald"
+msgstr "möppuspjald"
 
-#: atk/atkobject.c:92
-#, fuzzy
+#: atk/atkobject.c:116
 msgid "drawing area"
 msgstr "teiknisvæði"
 
-#: atk/atkobject.c:93
-#, fuzzy
+#: atk/atkobject.c:117
 msgid "file chooser"
-msgstr "Skráarveljari"
+msgstr "skráaveljari"
 
-#: atk/atkobject.c:94
+#: atk/atkobject.c:118
 msgid "filler"
 msgstr "áfyllari"
 
 #. I know it looks wrong but that is what Java returns
-#: atk/atkobject.c:96
-#, fuzzy
+#: atk/atkobject.c:120
 msgid "fontchooser"
-msgstr "Val leturgerðar"
+msgstr "leturveljari"
 
-#: atk/atkobject.c:97
+#: atk/atkobject.c:121
 msgid "frame"
 msgstr "rammi"
 
-#: atk/atkobject.c:98
-#, fuzzy
+#: atk/atkobject.c:122
 msgid "glass pane"
-msgstr "gler-spjald"
+msgstr "glerspjald"
 
-#: atk/atkobject.c:99
-#, fuzzy
+#: atk/atkobject.c:123
 msgid "html container"
 msgstr "html-gámur"
 
-#: atk/atkobject.c:100
+#: atk/atkobject.c:124
 msgid "icon"
 msgstr "táknmynd"
 
-#: atk/atkobject.c:101
+#: atk/atkobject.c:125
 msgid "image"
 msgstr "mynd"
 
-#: atk/atkobject.c:102
-#, fuzzy
+#: atk/atkobject.c:126
 msgid "internal frame"
-msgstr "innrirammi"
+msgstr "innri rammi"
 
-#: atk/atkobject.c:103
+#: atk/atkobject.c:127
 msgid "label"
 msgstr "merki"
 
-#: atk/atkobject.c:104
-#, fuzzy
+#: atk/atkobject.c:128
 msgid "layered pane"
-msgstr "lagskipt-spjald"
+msgstr "lagskipt spjald"
 
-#: atk/atkobject.c:105
+#: atk/atkobject.c:129
 msgid "list"
 msgstr "listi"
 
-#: atk/atkobject.c:106
-#, fuzzy
+#: atk/atkobject.c:130
 msgid "list item"
-msgstr "lista-hlutur"
+msgstr "listafærsla"
 
-#: atk/atkobject.c:107
+#: atk/atkobject.c:131
 msgid "menu"
 msgstr "valmynd"
 
-#: atk/atkobject.c:108
-#, fuzzy
+#: atk/atkobject.c:132
 msgid "menu bar"
-msgstr "valmyndastika"
+msgstr "valmyndarstika"
 
-#: atk/atkobject.c:109
-#, fuzzy
+#: atk/atkobject.c:133
 msgid "menu item"
-msgstr "valmyndar-hlutur"
+msgstr "valmyndaratriði"
 
-#: atk/atkobject.c:110
-#, fuzzy
+#: atk/atkobject.c:134
 msgid "option pane"
-msgstr "valmöguleika-spjald"
+msgstr "valkostaspjald"
 
-#: atk/atkobject.c:111
-#, fuzzy
+#: atk/atkobject.c:135
 msgid "page tab"
 msgstr "síðuflipi"
 
-#: atk/atkobject.c:112
-#, fuzzy
+#: atk/atkobject.c:136
 msgid "page tab list"
-msgstr "síðuflipa listi"
+msgstr "síðuflipalisti"
 
-#: atk/atkobject.c:113
+#: atk/atkobject.c:137
 msgid "panel"
 msgstr "tækjaborð"
 
-#: atk/atkobject.c:114
-#, fuzzy
+#: atk/atkobject.c:138
 msgid "password text"
 msgstr "lykilorðstexti"
 
-#: atk/atkobject.c:115
-#, fuzzy
+#: atk/atkobject.c:139
 msgid "popup menu"
-msgstr "stökkvalmynd"
+msgstr "sprettvalmynd"
 
-#: atk/atkobject.c:116
-#, fuzzy
+#: atk/atkobject.c:140
 msgid "progress bar"
-msgstr "Framvindustika"
+msgstr "framvindustika"
 
-#: atk/atkobject.c:117
-#, fuzzy
+#: atk/atkobject.c:141
 msgid "push button"
-msgstr "þrýstihnappur"
+msgstr "ýtihnappur"
 
-#: atk/atkobject.c:118
-#, fuzzy
+#: atk/atkobject.c:142
 msgid "radio button"
-msgstr "Einvalshnappur"
+msgstr "einvalsreitur"
 
-#: atk/atkobject.c:119
-#, fuzzy
+#: atk/atkobject.c:143
 msgid "radio menu item"
-msgstr "radíó-valmynds-hlutur"
+msgstr "einvalsreitur valmyndarfærslu"
 
-#: atk/atkobject.c:120
-#, fuzzy
+#: atk/atkobject.c:144
 msgid "root pane"
-msgstr "rótar-spjald"
+msgstr "rótarspjald"
 
-#: atk/atkobject.c:121
-#, fuzzy
+#: atk/atkobject.c:145
 msgid "row header"
-msgstr "titill á röð"
+msgstr "fyrirsögn raðar"
 
-#: atk/atkobject.c:122
-#, fuzzy
+#: atk/atkobject.c:146
 msgid "scroll bar"
 msgstr "skrunstika"
 
-#: atk/atkobject.c:123
-#, fuzzy
+#: atk/atkobject.c:147
 msgid "scroll pane"
 msgstr "skrunspjald"
 
-#: atk/atkobject.c:124
+#: atk/atkobject.c:148
 msgid "separator"
 msgstr "aðgreinir"
 
-#: atk/atkobject.c:125
+#: atk/atkobject.c:149
 msgid "slider"
 msgstr "rennanlegur hnappur"
 
-#: atk/atkobject.c:126
-#, fuzzy
+#: atk/atkobject.c:150
 msgid "split pane"
-msgstr "kvíslað-spjald"
+msgstr "klofið spjald"
 
-#: atk/atkobject.c:127
-#, fuzzy
+#: atk/atkobject.c:151
 msgid "spin button"
 msgstr "snúningshnappur"
 
-#: atk/atkobject.c:128
+#: atk/atkobject.c:152
 msgid "statusbar"
 msgstr "stöðustika"
 
-#: atk/atkobject.c:129
+#: atk/atkobject.c:153
 msgid "table"
 msgstr "tafla"
 
-#: atk/atkobject.c:130
-#, fuzzy
+#: atk/atkobject.c:154
 msgid "table cell"
-msgstr "hólf-töflu"
+msgstr "töflureitur"
 
-#: atk/atkobject.c:131
-#, fuzzy
+#: atk/atkobject.c:155
 msgid "table column header"
-msgstr "nafn dálks í töflu"
+msgstr "fyrirsögn töfludálks"
 
-#: atk/atkobject.c:132
-#, fuzzy
+#: atk/atkobject.c:156
 msgid "table row header"
-msgstr "nafn röð í töflu"
+msgstr "fyrirsögn töfluraðar"
 
-#: atk/atkobject.c:133
-#, fuzzy
+#: atk/atkobject.c:157
 msgid "tear off menu item"
-msgstr "rífa-af-valmyndarhlut"
+msgstr "rífa-af-valmyndaratriði"
 
-#: atk/atkobject.c:134
+#: atk/atkobject.c:158
 msgid "terminal"
 msgstr "skel"
 
-#: atk/atkobject.c:135
+#: atk/atkobject.c:159
 msgid "text"
 msgstr "texti"
 
-#: atk/atkobject.c:136
-#, fuzzy
+#: atk/atkobject.c:160
 msgid "toggle button"
-msgstr "rofahnappur"
+msgstr "víxlhnappur"
 
-#: atk/atkobject.c:137
-#, fuzzy
+#: atk/atkobject.c:161
 msgid "tool bar"
-msgstr "tækjastika"
+msgstr "verkfærastika"
 
-#: atk/atkobject.c:138
-#, fuzzy
+#: atk/atkobject.c:162
 msgid "tool tip"
-msgstr "vísbending"
+msgstr "vísbending verkfæra"
 
-#: atk/atkobject.c:139
+#: atk/atkobject.c:163
 msgid "tree"
 msgstr "tré"
 
-#: atk/atkobject.c:140
-#, fuzzy
+#: atk/atkobject.c:164
 msgid "tree table"
-msgstr "trétafla"
+msgstr "greinatafla"
 
-#: atk/atkobject.c:141
+#: atk/atkobject.c:165
 msgid "unknown"
 msgstr "óþekkt"
 
-#: atk/atkobject.c:142
+#: atk/atkobject.c:166
 msgid "viewport"
 msgstr "sýningarsvæði"
 
-#: atk/atkobject.c:143
+#: atk/atkobject.c:167
 msgid "window"
 msgstr "gluggi"
 
-#: atk/atkobject.c:144
+#: atk/atkobject.c:168
 msgid "header"
 msgstr "haus"
 
-#: atk/atkobject.c:145
+#: atk/atkobject.c:169
 msgid "footer"
 msgstr "fótur"
 
-#: atk/atkobject.c:146
+#: atk/atkobject.c:170
 msgid "paragraph"
 msgstr "málsgrein"
 
-#: atk/atkobject.c:147
+#: atk/atkobject.c:171
 msgid "ruler"
 msgstr "reglustika"
 
-#: atk/atkobject.c:148
+#: atk/atkobject.c:172
 msgid "application"
 msgstr "forrit"
 
-#: atk/atkobject.c:149
+#: atk/atkobject.c:173
 msgid "autocomplete"
-msgstr ""
+msgstr "sjálfklárun"
 
-#: atk/atkobject.c:150
+#: atk/atkobject.c:174
 msgid "edit bar"
 msgstr ""
 
-#: atk/atkobject.c:151
+#: atk/atkobject.c:175
 msgid "embedded component"
 msgstr ""
 
-#: atk/atkobject.c:152
+#: atk/atkobject.c:176
 msgid "entry"
-msgstr ""
+msgstr "færsla"
 
-#: atk/atkobject.c:153
-#, fuzzy
+#: atk/atkobject.c:177
 msgid "chart"
-msgstr "viðvörun"
+msgstr "kort"
 
-#: atk/atkobject.c:154
-#, fuzzy
+#: atk/atkobject.c:178
 msgid "caption"
-msgstr "forrit"
+msgstr "skýringatexti"
 
-#: atk/atkobject.c:155
+#: atk/atkobject.c:179
 msgid "document frame"
 msgstr ""
 
-#: atk/atkobject.c:156
-#, fuzzy
+#: atk/atkobject.c:180
 msgid "heading"
-msgstr "haus"
+msgstr "fyrirsögn"
 
-#: atk/atkobject.c:157
-#, fuzzy
+#: atk/atkobject.c:181
 msgid "page"
-msgstr "mynd"
+msgstr "síða"
 
-#: atk/atkobject.c:158
+#: atk/atkobject.c:182
 msgid "section"
-msgstr ""
+msgstr "hluti"
 
-#: atk/atkobject.c:159
+#: atk/atkobject.c:183
 msgid "redundant object"
 msgstr ""
 
-#: atk/atkobject.c:160
-#, fuzzy
+#: atk/atkobject.c:184
 msgid "form"
-msgstr "rammi"
+msgstr "innfyllingarform"
 
-#: atk/atkobject.c:161
+#: atk/atkobject.c:185
 msgid "link"
-msgstr ""
+msgstr "tengill"
 
-#: atk/atkobject.c:162
+#: atk/atkobject.c:186
 msgid "input method window"
 msgstr ""
 
-#: atk/atkobject.c:488
-msgid "Accessible Name"
+#: atk/atkobject.c:187
+msgid "table row"
+msgstr "töfluröð"
+
+#: atk/atkobject.c:188
+msgid "tree item"
+msgstr "atriði í grein"
+
+#: atk/atkobject.c:189
+msgid "document spreadsheet"
 msgstr ""
 
-#: atk/atkobject.c:489
+#: atk/atkobject.c:190
+msgid "document presentation"
+msgstr ""
+
+#: atk/atkobject.c:191
+#, fuzzy
+msgid "document text"
+msgstr "Texti skjals"
+
+#: atk/atkobject.c:192
+msgid "document web"
+msgstr ""
+
+#: atk/atkobject.c:193
+msgid "document email"
+msgstr ""
+
+#: atk/atkobject.c:194
+msgid "comment"
+msgstr "athugasemd"
+
+#: atk/atkobject.c:195
+#| msgid "list"
+msgid "list box"
+msgstr "listareitur"
+
+#: atk/atkobject.c:196
+msgid "grouping"
+msgstr ""
+
+#: atk/atkobject.c:197
+#| msgid "image"
+msgid "image map"
+msgstr "myndhlutakort"
+
+#: atk/atkobject.c:198
+#| msgid "animation"
+msgid "notification"
+msgstr "tilkynning"
+
+#: atk/atkobject.c:199
+msgid "info bar"
+msgstr "upplýsingastika"
+
+#: atk/atkobject.c:200
+#, fuzzy
+msgid "level bar"
+msgstr "skrunstika"
+
+#: atk/atkobject.c:201
+msgid "title bar"
+msgstr "titilstika"
+
+#: atk/atkobject.c:202
+msgid "block quote"
+msgstr ""
+
+#: atk/atkobject.c:203
+msgid "audio"
+msgstr "hljóð"
+
+#: atk/atkobject.c:204
+msgid "video"
+msgstr "myndskeið"
+
+#: atk/atkobject.c:205
+#| msgid "animation"
+msgid "definition"
+msgstr "skilgreining"
+
+#: atk/atkobject.c:206
+msgid "article"
+msgstr "grein"
+
+#: atk/atkobject.c:207
+msgid "landmark"
+msgstr ""
+
+#: atk/atkobject.c:208
+#| msgid "dialog"
+msgid "log"
+msgstr "atvikaskrá"
+
+#: atk/atkobject.c:209
+msgid "marquee"
+msgstr "valstrengur"
+
+#: atk/atkobject.c:210
+msgid "math"
+msgstr "stærðfræði"
+
+#: atk/atkobject.c:211
+msgid "rating"
+msgstr "einkunn"
+
+#: atk/atkobject.c:212
+msgid "timer"
+msgstr "niðurtalning"
+
+#: atk/atkobject.c:213
+msgid "description list"
+msgstr ""
+
+#: atk/atkobject.c:214
+msgid "description term"
+msgstr ""
+
+#: atk/atkobject.c:215
+msgid "description value"
+msgstr ""
+
+#: atk/atkobject.c:391
+msgid "Accessible Name"
+msgstr "Heiti í aðgengi"
+
+#: atk/atkobject.c:392
 msgid "Object instance’s name formatted for assistive technology access"
 msgstr ""
 
-#: atk/atkobject.c:495
+#: atk/atkobject.c:398
 msgid "Accessible Description"
-msgstr ""
+msgstr "Lýsing í aðgengi"
 
-#: atk/atkobject.c:496
+#: atk/atkobject.c:399
 msgid "Description of an object, formatted for assistive technology access"
 msgstr ""
 
-#: atk/atkobject.c:502
+#: atk/atkobject.c:405
 msgid "Accessible Parent"
 msgstr ""
 
-#: atk/atkobject.c:503
-msgid "Is used to notify that the parent has changed"
+#: atk/atkobject.c:406
+msgid "Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr ""
 
-#: atk/atkobject.c:509
+#: atk/atkobject.c:422
 msgid "Accessible Value"
 msgstr ""
 
-#: atk/atkobject.c:510
+#: atk/atkobject.c:423
 msgid "Is used to notify that the value has changed"
 msgstr ""
 
-#: atk/atkobject.c:518
+#: atk/atkobject.c:431
 msgid "Accessible Role"
-msgstr ""
+msgstr "Hlutverk í aðgengi"
 
-#: atk/atkobject.c:519
+#: atk/atkobject.c:432
 msgid "The accessible role of this object"
 msgstr ""
 
-#: atk/atkobject.c:527
+#: atk/atkobject.c:439
 msgid "Accessible Layer"
 msgstr ""
 
-#: atk/atkobject.c:528
+#: atk/atkobject.c:440
 msgid "The accessible layer of this object"
 msgstr ""
 
-#: atk/atkobject.c:536
+#: atk/atkobject.c:448
 msgid "Accessible MDI Value"
 msgstr ""
 
-#: atk/atkobject.c:537
+#: atk/atkobject.c:449
 msgid "The accessible MDI value of this object"
 msgstr ""
 
-#: atk/atkobject.c:545
+#: atk/atkobject.c:465
 msgid "Accessible Table Caption"
 msgstr ""
 
-#: atk/atkobject.c:546
+#: atk/atkobject.c:466
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
 
-#: atk/atkobject.c:552
+#: atk/atkobject.c:480
 msgid "Accessible Table Column Header"
 msgstr ""
 
-#: atk/atkobject.c:553
+#: atk/atkobject.c:481
 msgid "Is used to notify that the table column header has changed"
 msgstr ""
 
-#: atk/atkobject.c:559
+#: atk/atkobject.c:496
 msgid "Accessible Table Column Description"
 msgstr ""
 
-#: atk/atkobject.c:560
+#: atk/atkobject.c:497
 msgid "Is used to notify that the table column description has changed"
 msgstr ""
 
-#: atk/atkobject.c:566
+#: atk/atkobject.c:512
 msgid "Accessible Table Row Header"
 msgstr ""
 
-#: atk/atkobject.c:567
+#: atk/atkobject.c:513
 msgid "Is used to notify that the table row header has changed"
 msgstr ""
 
-#: atk/atkobject.c:573
+#: atk/atkobject.c:527
 msgid "Accessible Table Row Description"
 msgstr ""
 
-#: atk/atkobject.c:574
+#: atk/atkobject.c:528
 msgid "Is used to notify that the table row description has changed"
 msgstr ""
 
-#: atk/atkobject.c:580
+#: atk/atkobject.c:534
 msgid "Accessible Table Summary"
 msgstr ""
 
-#: atk/atkobject.c:581
+#: atk/atkobject.c:535
 msgid "Is used to notify that the table summary has changed"
 msgstr ""
 
-#: atk/atkobject.c:587
+#: atk/atkobject.c:541
 msgid "Accessible Table Caption Object"
 msgstr ""
 
-#: atk/atkobject.c:588
+#: atk/atkobject.c:542
 msgid "Is used to notify that the table caption has changed"
 msgstr ""
 
-#: atk/atkobject.c:594
+#: atk/atkobject.c:548
 msgid "Number of Accessible Hypertext Links"
 msgstr ""
 
-#: atk/atkobject.c:595
+#: atk/atkobject.c:549
 msgid "The number of links which the current AtkHypertext has"
 msgstr ""
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:194
+msgid "very weak"
+msgstr "mjög veikt"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:201
+msgid "weak"
+msgstr "veikt"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:208
+#| msgid "table"
+msgid "acceptable"
+msgstr "ásættanlegt"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:215
+msgid "strong"
+msgstr "sterkt"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:222
+msgid "very strong"
+msgstr "mjög sterkt"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:230
+msgid "very low"
+msgstr "mjög lágt"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:238
+msgid "medium"
+msgstr "miðlungs"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:246
+msgid "high"
+msgstr "hátt"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:254
+msgid "very high"
+msgstr "mjög hátt"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:262
+msgid "very bad"
+msgstr "mjög slæmt"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:270
+msgid "bad"
+msgstr "slæmt"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:278
+msgid "good"
+msgstr "gott"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:286
+msgid "very good"
+msgstr "mjög gott"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:294
+msgid "best"
+msgstr "best"
