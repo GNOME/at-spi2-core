@@ -541,6 +541,13 @@ ensure_a11y_bus (A11yBusLauncher *app)
         const gchar *display = g_getenv ("DISPLAY");
         gchar *at_spi_dir = g_strconcat (xdg_runtime_dir, "/at-spi", NULL);
         gchar *p;
+        mkdir (xdg_runtime_dir, 0700);
+        if (!g_path_is_absolute (at_spi_dir))
+        {
+          gchar *new_dir = g_canonicalize_filename (at_spi_dir, NULL);
+          g_free (at_spi_dir);
+          at_spi_dir = new_dir;
+        }
         mkdir (at_spi_dir, 0700);
         app->socket_name = g_strconcat (at_spi_dir, "/bus", display, NULL);
         g_free (at_spi_dir);
