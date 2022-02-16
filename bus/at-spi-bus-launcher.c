@@ -523,17 +523,21 @@ ensure_a11y_bus (A11yBusLauncher *app)
           g_free (at_spi_dir);
           at_spi_dir = new_dir;
         }
-        mkdir (at_spi_dir, 0700);
-        app->socket_name = g_strconcat (at_spi_dir, "/bus", display, NULL);
-        g_free (at_spi_dir);
-        p = strchr (app->socket_name, ':');
-        if (p)
-          *p = '_';
-        if (strlen (app->socket_name) >= 100)
+        if (mkdir (at_spi_dir, 0700) == 0 || errno == EEXIST)
           {
-            g_free (app->socket_name);
-            app->socket_name = NULL;
+            app->socket_name = g_strconcat (at_spi_dir, "/bus", display, NULL);
+            g_free (at_spi_dir);
+            p = strchr (app->socket_name, ':');
+            if (p)
+              *p = '_';
+            if (strlen (app->socket_name) >= 100)
+              {
+                g_free (app->socket_name);
+                app->socket_name = NULL;
+              }
           }
+        else
+          g_free (at_spi_dir);
       }
 
 #ifdef WANT_DBUS_BROKER
