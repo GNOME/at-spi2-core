@@ -419,7 +419,10 @@ ensure_a11y_bus_broker (A11yBusLauncher *app, char *config_path)
   GError *error = NULL;
 
   if (app->socket_name)
-    strcpy (addr.sun_path, app->socket_name);
+    {
+      strcpy (addr.sun_path, app->socket_name);
+      unlink (app->socket_name);
+    }
 
   /* This detects whether we are running under systemd. We only try to
    * use dbus-broker if we are running under systemd because D-Bus
