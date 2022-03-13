@@ -1390,6 +1390,7 @@ impl_register_keystroke_listener (DBusConnection *bus,
     Accessibility_KeyDefinition *kd = (Accessibility_KeyDefinition *)g_malloc(sizeof(Accessibility_KeyDefinition));
     if (!spi_dbus_message_iter_get_struct(&iter_array, DBUS_TYPE_INT32, &kd->keycode, DBUS_TYPE_INT32, &kd->keysym, DBUS_TYPE_STRING, &keystring, DBUS_TYPE_INVALID))
     {
+      g_free(kd);
       break;
     }
     kd->keystring = g_strdup (keystring);
@@ -1600,6 +1601,7 @@ impl_deregister_keystroke_listener (DBusConnection *bus,
 
     if (!spi_dbus_message_iter_get_struct(&iter_array, DBUS_TYPE_INT32, &kd->keycode, DBUS_TYPE_INT32, &kd->keysym, DBUS_TYPE_STRING, &keystring, DBUS_TYPE_INVALID))
     {
+      g_free(kd);
       break;
     }
     kd->keystring = g_strdup (keystring);
