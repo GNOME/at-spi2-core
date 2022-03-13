@@ -438,7 +438,7 @@ ensure_a11y_bus_broker (A11yBusLauncher *app, char *config_path)
 {
   char *argv[] = { DBUS_BROKER, config_path, "--scope", "user", NULL };
   char *unit;
-  struct sockaddr_un addr = { .sun_family = AF_UNIX, '\0' };
+  struct sockaddr_un addr = { .sun_family = AF_UNIX, "" };
   socklen_t addr_len = sizeof(addr);
   GPid pid;
   GError *error = NULL;
