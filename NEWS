@@ -1,3 +1,8 @@
+What's new in at-spi2-core 2.44.0:
+
+* Unlink the socket before binding when using dbus-broker. Fixes regression
+  introduced in 2.43.92 where restarting the bus launcher would fail.
+
 What's new in at-spi2-core 2.43.92:
 
 * The AT-SPI bus now uses the user's XDG_RUNTIME_DIR for its socket.
