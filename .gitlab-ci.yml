@@ -6,11 +6,13 @@
 #
 # Introduction to Gitlab CI: https://docs.gitlab.com/ee/ci/quick_start/index.html
 
-variables:
-  OPENSUSE_TUMBLEWEED_IMAGE: "registry.gitlab.gnome.org/gnome/at-spi2-core/opensuse:latest"
+# Include the parameters we need from Freedesktop CI Templates
+include:
+  - local: 'ci/container_builds.yml'
 
 # Stages in the CI pipeline in which jobs will be run
 stages:
+  - container-build
 #  - style-check
   - build
   - analysis
@@ -18,9 +20,6 @@ stages:
   - deploy
 
 # Base definition for jobs.
-#
-# We have the package dependencies to install on top of a stock opensuse/tumbleweed image,
-# and the rules for when to run each job (on merge requests and on personal branches).
 .only-default:
   only:
     - merge_requests
@@ -41,13 +40,19 @@ stages:
 #     - sh -x ./ci/run-style-check.sh
 
 
-# Template for the default build recipe.
+# Default build recipe.
 #
 # Depends on these variables:
 # @MESON_EXTRA_FLAGS: extra arguments for the meson setup invocation
-.build-default:
-  image: $OPENSUSE_TUMBLEWEED_IMAGE
-  extends: .only-default
+opensuse-x86_64:
+  stage: build
+  extends:
+    - '.only-default'
+    - '.container.opensuse@x86_64'
+    - '.fdo.distribution-image@opensuse'
+  needs: ['opensuse-container@x86_64']
+  variables:
+    MESON_EXTRA_FLAGS: "--buildtype=debug" # -Dwerror=true
   script:
     - meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
     - meson compile -C _build
@@ -55,6 +60,28 @@ stages:
     - mkdir /tmp/test+dir+with+funny+chars
     - export XDG_RUNTIME_DIR=/tmp/test+dir+with+funny+chars # See https://gitlab.gnome.org/GNOME/at-spi2-core/-/issues/48
     - dbus-run-session -- ci/run-tests.sh
+  artifacts:
+    reports:
+      junit: "_build/meson-logs/testlog.junit.xml"
+    when: always
+    name: "at-spi2-core-${CI_COMMIT_REF_NAME}"
+    paths:
+      - "${CI_PROJECT_DIR}/_build/meson-logs"
+      - "${CI_PROJECT_DIR}/_build/atspi/Atspi-2.0.gir"
+
+fedora-x86_64:
+  stage: build
+  extends:
+    - '.only-default'
+    - '.container.fedora@x86_64'
+    - '.fdo.distribution-image@fedora'
+  needs: ['fedora-container@x86_64']
+  variables:
+    MESON_EXTRA_FLAGS: "--buildtype=debug -Ddefault_bus=dbus-broker -Ddbus_broker=/usr/bin/dbus-broker-launch" # -Dwerror=true
+  script:
+    - meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
+    - meson compile -C _build
+    - meson install -C _build
   artifacts:
     reports:
       junit: "_build/meson-logs/testlog.junit.xml"
@@ -94,20 +121,17 @@ stages:
 # Build and run the test suite.
 #
 # Look at .build-default for where the artifacts are stored (build/test logs, built binaries).
-opensuse-x86_64:
-  extends: .build-default
-  stage: build
-  needs: []
-  variables:
-    MESON_EXTRA_FLAGS: "--buildtype=debug" # -Dwerror=true
 
 # Run static analysis on the code.
 #
 # The logs are part of the compilation stderr.
 static-scan:
-  image: $OPENSUSE_TUMBLEWEED_IMAGE
   stage: analysis
-  needs: []
+  extends:
+    - '.only-default'
+    - '.container.opensuse@x86_64'
+    - '.fdo.distribution-image@opensuse'
+  needs: ['opensuse-container@x86_64']
   variables:
     MESON_EXTRA_FLAGS: "--buildtype=debug -Dintrospection=no -Ddocs=false"
   script:
@@ -121,9 +145,12 @@ static-scan:
 
 # Build and run with address sanitizer (asan).
 asan-build:
-  image: $OPENSUSE_TUMBLEWEED_IMAGE
   stage: analysis
-  needs: []
+  extends:
+    - '.only-default'
+    - '.container.opensuse@x86_64'
+    - '.fdo.distribution-image@opensuse'
+  needs: ['opensuse-container@x86_64']
   variables:
     MESON_EXTRA_FLAGS: "--buildtype=debug -Db_sanitize=address -Db_lundef=false -Dintrospection=no -Ddocs=false"
   script:
@@ -142,9 +169,13 @@ asan-build:
 #
 # See the _coverage/ artifact for the HTML report.
 coverage:
-  image: $OPENSUSE_TUMBLEWEED_IMAGE
   stage: analysis
   needs: []
+  extends:
+    - '.only-default'
+    - '.container.opensuse@x86_64'
+    - '.fdo.distribution-image@opensuse'
+  needs: ['opensuse-container@x86_64']
   variables:
     MESON_EXTRA_FLAGS: "--buildtype=debug -Ddocs=false -Dintrospection=no"
     CFLAGS: "-coverage -ftest-coverage -fprofile-arcs"

@@ -1,0 +1,53 @@
+# This file defines the container images that at-spi2-core uses for its CI.
+#
+# Container images are built using the Freedesktop CI Templates infrastructure:
+# https://gitlab.freedesktop.org/freedesktop/ci-templates/
+
+# The SHAs here correspond to commits in the freedesktop/ci-templates repository.
+# It doesn't change often, but you can update to newer SHAs if there are important
+# changes there.
+include:
+  - remote: "https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/3e66ea37e5672bb8f48e3056ba92915b5fc5b888/templates/opensuse.yml"
+  - remote: "https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/3e66ea37e5672bb8f48e3056ba92915b5fc5b888/templates/fedora.yml"
+
+variables:
+  # When branching change the suffix to avoid conflicts with images
+  # from the main branch
+  BASE_TAG: "2022-04-11.0-master"
+
+.container.opensuse@x86_64:
+  stage: "container-build"
+  variables:
+    FDO_DISTRIBUTION_TAG: "x86_64-${BASE_TAG}"
+    FDO_DISTRIBUTION_VERSION: "tumbleweed"
+    FDO_UPSTREAM_REPO: "gnome/at-spi2-core"
+    FDO_DISTRIBUTION_PACKAGES: >-
+      clang clang-tools findutils gcc dbus-1 dbus-1-devel gettext git
+      glib2-devel gobject-introspection-devel
+      gsettings-desktop-schemas itstool libasan6 libxml2-devel
+      libxkbcommon-devel libXi-devel libXtst-devel lcov meson ninja
+      python38 python38-gobject
+
+opensuse-container@x86_64:
+  extends:
+    - .fdo.container-build@opensuse@x86_64
+    - .container.opensuse@x86_64
+  stage: "container-build"
+
+.container.fedora@x86_64:
+  stage: "container-build"
+  variables:
+    FDO_DISTRIBUTION_TAG: "x86_64-${BASE_TAG}"
+    FDO_DISTRIBUTION_VERSION: "35"
+    FDO_UPSTREAM_REPO: "gnome/at-spi2-core"
+    FDO_DISTRIBUTION_PACKAGES: >-
+      clang clang-tools-extra findutils gcc dbus-daemon dbus-devel dbus-tools systemd-devel
+      gettext git glib2-devel gobject-introspection-devel
+      gsettings-desktop-schemas itstool libasan libxml2-devel
+      libxkbcommon-devel libXi-devel libXtst-devel lcov meson procps python38
+
+fedora-container@x86_64:
+  extends:
+    - .fdo.container-build@fedora
+    - .container.fedora@x86_64
+  stage: "container-build"
