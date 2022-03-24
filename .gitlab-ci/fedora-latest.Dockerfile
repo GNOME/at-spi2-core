@@ -1,4 +1,4 @@
-FROM fedora:31
+FROM fedora:latest
 
 RUN dnf -y install \
     at-spi2-atk-devel \
