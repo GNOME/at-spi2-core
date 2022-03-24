@@ -14,7 +14,7 @@ variables:
 
 .default-build:
   script:
-    - .gitlab-ci/setup-build-docker.sh
+    - meson setup ${COMMON_MESON_FLAGS} _build .
     - meson compile -C _build
     - .gitlab-ci/run-tests-docker.sh _build
   artifacts:
@@ -47,7 +47,7 @@ reference:
   variables:
     EXTRA_MESON_FLAGS: "--buildtype=release -Ddocs=true"
   script:
-    - .gitlab-ci/setup-build-docker.sh
+    - meson setup ${COMMON_MESON_FLAGS} _build .
     - ninja -C _build atk-doc
     - mv _build/docs/html _reference
   artifacts:

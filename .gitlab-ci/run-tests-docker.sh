@@ -6,8 +6,6 @@ set +e
 srcdir=$( pwd )
 builddir=$1
 
-export PATH="${HOME}/.local/bin:${PATH}"
-
 meson test -C ${builddir} \
         --print-errorlogs
 
