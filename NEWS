@@ -1,3 +1,19 @@
+Changes in version 2.38
+=======================
+
+* Require Meson 0.56.2
+* Add g_autoptr support for ATK types
+* Add ATK_STATE_COLLAPSED, matching AT-SPI's state
+* Improve support for ATK as a Meson subproject
+* Ensure that atk_value_get_value_and_text() can deal with NULL out arguments
+
+Contributors
+  Antonio Ospite, Philip Withnall, Colomban Wendling
+
+Translation updates
+  Catalan, Galician, Swedish, Belarusian, Persian, Latvian, Spanish
+  Indonesian, Icelandic
+
 Changes in version 2.36
 =========================
 
