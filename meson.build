@@ -6,7 +6,7 @@ project('atk', 'c',
           'warning_level=1',
           'c_std=c99',
         ],
-        meson_version : '>= 0.49.0')
+        meson_version : '>= 0.52')
 
 cc = meson.get_compiler('c')
 host_system = host_machine.system()

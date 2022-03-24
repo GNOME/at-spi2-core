@@ -33,6 +33,6 @@ RUN useradd -u $HOST_USER_ID -ms /bin/bash user
 USER user
 WORKDIR /home/user
 
-RUN pip3 install --user meson==0.49.2
+RUN pip3 install --user meson==0.52
 
 ENV LANG C.utf8
