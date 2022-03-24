@@ -15,7 +15,7 @@
 GType
 @enum_name@_get_type (void)
 {
-  static volatile gsize g_define_type_id__volatile;
+  static gsize g_define_type_id__volatile;
 
   if (g_once_init_enter (&g_define_type_id__volatile))
     {

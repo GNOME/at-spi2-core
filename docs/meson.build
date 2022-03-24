@@ -5,9 +5,9 @@ private_headers = [
   'atkintl.h',
 ]
 
-glib_prefix = dependency('glib-2.0').get_pkgconfig_variable('prefix')
-glib_docpath = join_paths(glib_prefix, 'share', 'gtk-doc', 'html')
-docpath = join_paths(atk_datadir, 'gtk-doc', 'html')
+glib_prefix = dependency('glib-2.0').get_variable(pkgconfig: 'prefix')
+glib_docpath = glib_prefix / 'share/gtk-doc/html'
+docpath = atk_datadir / 'gtk-doc/html'
 
 gnome.gtkdoc('atk',
   main_xml: 'atk-docs.xml',

@@ -1,12 +1,12 @@
 project('atk', 'c',
-        version: '2.37.0',
-        license: 'LGPLv2.1+',
+        version: '2.38.0',
+        license: 'LGPL-2.1-or-later',
         default_options: [
           'buildtype=debugoptimized',
           'warning_level=1',
           'c_std=c99',
         ],
-        meson_version : '>= 0.49.0')
+        meson_version : '>= 0.56.2')
 
 cc = meson.get_compiler('c')
 host_system = host_machine.system()

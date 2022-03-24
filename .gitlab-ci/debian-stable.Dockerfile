@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:stable
 
 RUN apt-get update -qq && apt-get install --no-install-recommends -qq -y \
     ccache \
@@ -32,13 +32,13 @@ RUN apt-get update -qq && apt-get install --no-install-recommends -qq -y \
 # Locale for our build
 RUN locale-gen C.UTF-8 && /usr/sbin/update-locale LANG=C.UTF-8
 
+RUN pip3 install meson==0.56.2
+
 ARG HOST_USER_ID=5555
 ENV HOST_USER_ID ${HOST_USER_ID}
 RUN useradd -u $HOST_USER_ID -ms /bin/bash user
 
 USER user
 WORKDIR /home/user
-
-RUN pip3 install --user meson==0.49.2
 
 ENV LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8
