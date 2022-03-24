@@ -15,7 +15,7 @@ variables:
 .default-build:
   script:
     - .gitlab-ci/setup-build-docker.sh
-    - ninja -C _build
+    - meson compile -C _build
     - .gitlab-ci/run-tests-docker.sh _build
   artifacts:
     when: always
@@ -30,19 +30,19 @@ variables:
 fedora-latest:
   extends: .default-build
   stage: build
-  image: registry.gitlab.gnome.org/gnome/atk/fedora-latest:v1
+  image: registry.gitlab.gnome.org/gnome/atk/fedora-latest:v2
   variables:
     EXTRA_MESON_FLAGS: "-Dbuildtype=debug -Ddefault_library=both"
 
 debian-stable:
   extends: .default-build
   stage: build
-  image: registry.gitlab.gnome.org/gnome/atk/debian-stable:v1
+  image: registry.gitlab.gnome.org/gnome/atk/debian-stable:v2
   variables:
     EXTRA_MESON_FLAGS: "-Dbuildtype=debug -Ddefault_library=both"
 
 reference:
-  image: registry.gitlab.gnome.org/gnome/atk/fedora-latest:v1
+  image: registry.gitlab.gnome.org/gnome/atk/fedora-latest:v2
   stage: docs
   variables:
     EXTRA_MESON_FLAGS: "--buildtype=release -Ddocs=true"
