@@ -32,7 +32,7 @@ RUN apt-get update -qq && apt-get install --no-install-recommends -qq -y \
 # Locale for our build
 RUN locale-gen C.UTF-8 && /usr/sbin/update-locale LANG=C.UTF-8
 
-RUN pip3 install meson==0.52
+RUN pip3 install meson==0.56.2
 
 ARG HOST_USER_ID=5555
 ENV HOST_USER_ID ${HOST_USER_ID}
