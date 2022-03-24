@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:stable
 
 RUN apt-get update -qq && apt-get install --no-install-recommends -qq -y \
     ccache \
