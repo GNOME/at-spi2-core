@@ -1136,10 +1136,14 @@ _atspi_dbus_call_partial (gpointer obj,
                           GError **error,
                           const char *type, ...)
 {
+  DBusMessage *ret;
   va_list args;
 
   va_start (args, type);
-  return _atspi_dbus_call_partial_va (obj, interface, method, error, type, args);
+  ret = _atspi_dbus_call_partial_va (obj, interface, method, error, type, args);
+  va_end (args);
+
+  return ret;
 }
 
 
@@ -1174,7 +1178,6 @@ _atspi_dbus_call_partial_va (gpointer obj,
   reply = dbind_send_and_allow_reentry (aobj->app->bus, msg, &err);
   check_for_hang (reply, &err, aobj->app->bus, aobj->app->bus_name);
 out:
-  va_end (args);
   if (msg)
     dbus_message_unref (msg);
   process_deferred_messages ();
