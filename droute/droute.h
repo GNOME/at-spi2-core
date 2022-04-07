@@ -34,6 +34,7 @@ typedef dbus_bool_t  (*DRoutePropertyFunction) (DBusMessageIter *, void *);
 typedef gchar *(*DRouteIntrospectChildrenFunction) (const char *, void *);
 
 typedef void        *(*DRouteGetDatumFunction) (const char *, void *);
+typedef gboolean    (*DRouteQueryInterfaceFunction) (void *, const char *);
 
 typedef struct _DRouteMethod DRouteMethod;
 struct _DRouteMethod
@@ -75,7 +76,8 @@ droute_add_many (DRouteContext *cnx,
                  const void    *data,
                  DRouteIntrospectChildrenFunction introspect_children_cb,
                  void *introspect_children_data,
-                 const DRouteGetDatumFunction get_datum);
+                 const DRouteGetDatumFunction get_datum,
+                 const DRouteQueryInterfaceFunction query_interface_cb);
 
 void
 droute_path_add_interface (DRoutePath *path,

@@ -980,6 +980,45 @@ spi_atk_activate ()
     }
 }
 
+static gboolean
+spi_object_has_dbus_interface (void *obj, const char *interface)
+{
+  if (!strcmp (interface, ATSPI_DBUS_INTERFACE_ACCESSIBLE))
+    return TRUE;
+  if (!strcmp (interface, ATSPI_DBUS_INTERFACE_ACTION))
+    return ATK_IS_ACTION (obj);
+  if (!strcmp (interface, ATSPI_DBUS_INTERFACE_COLLECTION))
+    return TRUE;
+  if (!strcmp (interface, ATSPI_DBUS_INTERFACE_COMPONENT))
+    return ATK_IS_COMPONENT (obj);
+  if (!strcmp (interface, ATSPI_DBUS_INTERFACE_DOCUMENT))
+    return ATK_IS_DOCUMENT (obj);
+  if (!strcmp (interface, ATSPI_DBUS_INTERFACE_EDITABLE_TEXT))
+    return ATK_IS_EDITABLE_TEXT (obj);
+  if (!strcmp (interface, ATSPI_DBUS_INTERFACE_HYPERLINK))
+    return ATK_IS_HYPERLINK (obj);
+  if (!strcmp (interface, ATSPI_DBUS_INTERFACE_HYPERTEXT))
+    return ATK_IS_HYPERTEXT (obj);
+  if (!strcmp (interface, ATSPI_DBUS_INTERFACE_IMAGE))
+    return ATK_IS_IMAGE (obj);
+  if (!strcmp (interface, ATSPI_DBUS_INTERFACE_SELECTION))
+    return ATK_IS_SELECTION (obj);
+  if (!strcmp (interface, ATSPI_DBUS_INTERFACE_SOCKET))
+    return TRUE;
+  if (!strcmp (interface, ATSPI_DBUS_INTERFACE_TABLE))
+    return ATK_IS_TABLE (obj);
+  if (!strcmp (interface, ATSPI_DBUS_INTERFACE_TABLE_CELL))
+    return ATK_IS_TABLE_CELL (obj);
+  if (!strcmp (interface, ATSPI_DBUS_INTERFACE_TEXT))
+    return ATK_IS_TEXT (obj);
+  if (!strcmp (interface, ATSPI_DBUS_INTERFACE_VALUE))
+    return ATK_IS_VALUE (obj);
+
+  return FALSE;
+
+    return TRUE;
+}
+
 /**
  * atk_bridge_adaptor_init: initializes the atk bridge adaptor
  *
@@ -1090,7 +1129,8 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
                              introspect_children_cb,
                              NULL,
                              (DRouteGetDatumFunction)
-                             spi_global_register_path_to_object);
+                             spi_global_register_path_to_object,
+                             spi_object_has_dbus_interface);
 
 
   /* Register all interfaces with droute and set up application accessible db */

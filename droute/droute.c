@@ -60,6 +60,7 @@ struct _DRoutePath
     void *introspect_children_data;
     void                   *user_data;
     DRouteGetDatumFunction  get_datum;
+    DRouteQueryInterfaceFunction query_interface_cb;
 };
 
 /*---------------------------------------------------------------------------*/
@@ -87,7 +88,8 @@ path_new (DRouteContext *cnx,
           void    *user_data,
           DRouteIntrospectChildrenFunction introspect_children_cb,
           void *introspect_children_data,
-          DRouteGetDatumFunction get_datum)
+          DRouteGetDatumFunction get_datum,
+          DRouteQueryInterfaceFunction query_interface_cb)
 {
     DRoutePath *new_path;
 
@@ -113,6 +115,7 @@ path_new (DRouteContext *cnx,
     new_path->introspect_children_data = introspect_children_data;
     new_path->user_data = user_data;
     new_path->get_datum = get_datum;
+    new_path->query_interface_cb = query_interface_cb;
 
     return new_path;
 }
@@ -177,7 +180,8 @@ droute_add_one (DRouteContext *cnx,
 {
     DRoutePath *new_path;
 
-    new_path = path_new (cnx, path, FALSE, (void *)data, NULL, NULL, NULL);
+    new_path = path_new (cnx, path, FALSE, (void *)data, NULL, NULL, NULL,
+                         NULL);
 
     g_ptr_array_add (cnx->registered_paths, new_path);
     return new_path;
@@ -189,13 +193,14 @@ droute_add_many (DRouteContext *cnx,
                  const void    *data,
                  DRouteIntrospectChildrenFunction introspect_children_cb,
                  void *introspect_children_data,
-                 const DRouteGetDatumFunction get_datum)
+                 const DRouteGetDatumFunction get_datum,
+                 const DRouteQueryInterfaceFunction query_interface_cb)
 {
     DRoutePath *new_path;
 
     new_path = path_new (cnx, path, TRUE, (void *) data,
                          introspect_children_cb, introspect_children_data,
-                         get_datum);
+                         get_datum, query_interface_cb);
 
     g_ptr_array_add (cnx->registered_paths, new_path);
     return new_path;
@@ -272,7 +277,11 @@ impl_prop_GetAll (DBusMessage *message,
         return ret;
       }
 
-    reply = dbus_message_new_method_return (message);
+    if (path->query_interface_cb &&
+        !path->query_interface_cb (datum, iface))
+      return dbus_message_new_error (message, DBUS_ERROR_UNKNOWN_PROPERTY, "Property unavailable");
+
+      reply = dbus_message_new_method_return (message);
     if (!reply)
         oom ();
 
@@ -475,6 +484,7 @@ handle_introspection (DBusConnection *bus,
     GString *output;
     gchar *final;
     gint i;
+    void *datum;
 
     DBusMessage *reply;
 
@@ -487,11 +497,15 @@ handle_introspection (DBusConnection *bus,
 
     g_string_append_printf(output, introspection_node_element, pathstr);
 
-    if (!path->get_datum || path_get_datum (path, pathstr))
+    if (!path->get_datum || (datum = path_get_datum (path, pathstr)) != NULL)
       {
         for (i=0; i < path->introspection->len; i++)
           {
+            gchar *interface = (gchar *) g_ptr_array_index (path->interfaces, i);
             gchar *introspect = (gchar *) g_ptr_array_index (path->introspection, i);
+            if (path->query_interface_cb &&
+                !path->query_interface_cb (datum, interface))
+              continue;
             g_string_append (output, introspect);
           }
       }
