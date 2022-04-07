@@ -170,12 +170,9 @@ impl_GetActions (DBusConnection * bus, DBusMessage * message, void *user_data)
     goto oom;
   for (i = 0; i < count; i++)
     {
-      const char *name = atk_action_get_name (action, i);
       const char *lname = atk_action_get_localized_name (action, i);
       const char *desc = atk_action_get_description (action, i);
       const char *kb = atk_action_get_keybinding (action, i);
-      if (!name)
-        name = "";
       if (!lname)
         lname = "";
       if (!desc)
@@ -185,7 +182,6 @@ impl_GetActions (DBusConnection * bus, DBusMessage * message, void *user_data)
       if (!dbus_message_iter_open_container
           (&iter_array, DBUS_TYPE_STRUCT, NULL, &iter_struct))
         goto oom;
-      dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &name);
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &lname);
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &desc);
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &kb);
