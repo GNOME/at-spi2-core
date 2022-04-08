@@ -41,6 +41,8 @@ extern const char *spi_org_a11y_atspi_Text;
 
 extern const char *spi_org_a11y_atspi_EditableText;
 
+extern const char *spi_org_a11y_atspi_Socket;
+
 extern const char *spi_org_a11y_atspi_Cache;
 
 extern const char *spi_org_a11y_atspi_Value;

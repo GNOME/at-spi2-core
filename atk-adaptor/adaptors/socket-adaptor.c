@@ -225,6 +225,6 @@ spi_initialize_socket (DRoutePath * path)
 {
   droute_path_add_interface (path,
                              ATSPI_DBUS_INTERFACE_SOCKET,
-                             NULL, /* spi_org_a11y_atspi_Socket,	 */
+                             spi_org_a11y_atspi_Socket,
                              methods, NULL);
 };
