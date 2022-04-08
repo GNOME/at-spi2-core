@@ -8,12 +8,12 @@
   </method>
 
   <signal name="AddAccessible">
-    <arg direction="in" name="nodeAdded" type="((so)(so)(so)iiassusau)"/>
+    <arg name="nodeAdded" type="((so)(so)(so)iiassusau)"/>
     <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiAccessibleCacheItem"/>
   </signal>
 
   <signal name="RemoveAccessible">
-    <arg direction="in" name="nodeRemoved" type="(so)"/>
+    <arg name="nodeRemoved" type="(so)"/>
     <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiObjectReference"/>
   </signal>
 

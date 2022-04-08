@@ -15,7 +15,7 @@
   </method>
 
   <signal name="Available">
-    <arg direction="in" name="socket" type="(so)"/>
+    <arg name="socket" type="(so)"/>
     <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiObjectReference"/>
   </signal>
 

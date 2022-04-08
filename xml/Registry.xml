@@ -18,13 +18,13 @@
   </method>
 
   <signal name="EventListenerRegistered">
-    <arg direction="out" name="bus" type="s"/>
-    <arg direction="out" name="path" type="s"/>
+    <arg name="bus" type="s"/>
+    <arg name="path" type="s"/>
   </signal>
 
   <signal name="EventListenerDeregistered">
-    <arg direction="out" name="bus" type="s"/>
-    <arg direction="out" name="path" type="s"/>
+    <arg name="bus" type="s"/>
+    <arg name="path" type="s"/>
   </signal>
 </interface>
 </node>
