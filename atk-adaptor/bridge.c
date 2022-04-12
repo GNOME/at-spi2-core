@@ -715,14 +715,53 @@ static GOptionEntry atspi_option_entries[] = {
   {NULL}
 };
 
+static void
+add_objects_for_introspection (AtkObject *obj, GString *str)
+{
+  gchar *path;
+  AtkStateSet *set;
+  char *p;
+  gint i;
+  gint count;
+
+  if (!obj)
+    return;
+
+  path = spi_register_object_to_path (spi_global_register, G_OBJECT (obj));
+  p = strrchr (path, '/') + 1;
+  g_string_append_printf (str, "<node name=\"%s\"/>\n", p);
+  g_free (path);
+    
+  if (ATK_IS_SOCKET (obj))
+    return;
+
+  set = atk_object_ref_state_set (obj);
+  if (atk_state_set_contains_state (set, ATK_STATE_MANAGES_DESCENDANTS))
+  {
+    g_object_unref (set);
+    return;
+  }
+  g_object_unref (set);
+
+  count = atk_object_get_n_accessible_children (obj);
+  for (i = 0; i < count; i++)
+  {
+    AtkObject *child = atk_object_ref_accessible_child (obj, i);
+    add_objects_for_introspection (child, str);
+    g_object_unref (child);
+  }
+}
+
 static gchar *
 introspect_children_cb (const char *path, void *data)
 {
   if (!strcmp (path, "/org/a11y/atspi/accessible"))
     {
-      return g_strdup ("<node name=\"root\"/>\n");
-      /* TODO: Should we place the whole hierarchy here? */
+      GString *str = g_string_new (NULL);
+      add_objects_for_introspection (spi_global_app_data->root, str);
+      return g_string_free (str, FALSE);
     }
+
   return NULL;
 }
 
