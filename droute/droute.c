@@ -281,7 +281,7 @@ impl_prop_GetAll (DBusMessage *message,
         !path->query_interface_cb (datum, iface))
       return dbus_message_new_error (message, DBUS_ERROR_UNKNOWN_PROPERTY, "Property unavailable");
 
-      reply = dbus_message_new_method_return (message);
+    reply = dbus_message_new_method_return (message);
     if (!reply)
         oom ();
 
@@ -484,7 +484,7 @@ handle_introspection (DBusConnection *bus,
     GString *output;
     gchar *final;
     gint i;
-    void *datum;
+    void *datum = NULL;
 
     DBusMessage *reply;
 
