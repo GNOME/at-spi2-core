@@ -141,10 +141,8 @@ spi_init_state_type_tables (void)
   atk_state_types[ATSPI_STATE_HAS_TOOLTIP] = ATK_STATE_HAS_TOOLTIP;
   accessible_state_types[ATK_STATE_READ_ONLY] = ATSPI_STATE_READ_ONLY;
   atk_state_types[ATSPI_STATE_READ_ONLY] = ATK_STATE_READ_ONLY;
-#if defined(ATK_STATE_COLLAPSED) && defined(ATSPI_STATE_COLLAPSED)
   accessible_state_types[ATK_STATE_COLLAPSED] = ATSPI_STATE_COLLAPSED;
   atk_state_types[ATSPI_STATE_COLLAPSED] = ATK_STATE_COLLAPSED;
-#endif
 
   return TRUE;
 }
