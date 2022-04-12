@@ -348,11 +348,7 @@ impl_prop_GetSet (DBusMessage *message,
     if (!prop_funcs)
       {
         DBusMessage *ret;
-#ifdef DBUS_ERROR_UNKNOWN_PROPERTY
         ret = dbus_message_new_error (message, DBUS_ERROR_UNKNOWN_PROPERTY, "Property unavailable");
-#else
-        ret = dbus_message_new_error (message, DBUS_ERROR_FAILED, "Property unavailable");
-#endif
         dbus_error_free (&error);
         return ret;
       }
@@ -390,12 +386,10 @@ impl_prop_GetSet (DBusMessage *message,
 
         reply = dbus_message_new_method_return (message);
       }
-#ifdef DBUS_ERROR_PROPERTY_READ_ONLY
     else if (!get)
       {
         reply = dbus_message_new_error (message, DBUS_ERROR_PROPERTY_READ_ONLY, "Property is read-only");
       }
-#endif
     else
       {
         reply = dbus_message_new_error (message, DBUS_ERROR_FAILED, "Getter or setter unavailable");
@@ -635,15 +629,9 @@ droute_object_does_not_exist_error (DBusMessage *message)
             dbus_message_get_signature (message),
             dbus_message_get_interface (message),
             dbus_message_get_path (message));
-#ifdef DBUS_ERROR_UNKNOWN_OBJECT
     reply = dbus_message_new_error (message,
                                     DBUS_ERROR_UNKNOWN_OBJECT,
                                     errmsg);
-#else
-    reply = dbus_message_new_error (message,
-                                    DBUS_ERROR_FAILED,
-                                    errmsg);
-#endif
     g_free (errmsg);
     return reply;
 }
