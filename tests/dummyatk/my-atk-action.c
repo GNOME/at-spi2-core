@@ -39,21 +39,19 @@ struct _MyAtkActionInfo {
 
 static void atk_action_interface_init (AtkActionIface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (MyAtkAction,
-                         my_atk_action,
-                         MY_TYPE_ATK_OBJECT,
-                         G_IMPLEMENT_INTERFACE(ATK_TYPE_ACTION,
-                             atk_action_interface_init));
-
-#define MY_ATK_ACTION_GET_PRIVATE(obj) \
-  (G_TYPE_INSTANCE_GET_PRIVATE ((obj), MY_TYPE_ATK_ACTION, MyAtkActionPrivate))
-
 struct _MyAtkActionPrivate {
   GQueue *action_queue;
   guint action_idle_handler;
   GList  *action_list;
   GList *children;
 };
+
+G_DEFINE_TYPE_WITH_CODE (MyAtkAction,
+                         my_atk_action,
+                         MY_TYPE_ATK_OBJECT,
+                         G_IMPLEMENT_INTERFACE(ATK_TYPE_ACTION,
+                             atk_action_interface_init)
+                         G_ADD_PRIVATE (MyAtkAction));
 
 static void
 my_atk_action_initialize (AtkObject *obj, gpointer data)
@@ -63,7 +61,7 @@ my_atk_action_initialize (AtkObject *obj, gpointer data)
 static void
 my_atk_action_init (MyAtkAction *action_obj)
 {
-  MyAtkActionPrivate *priv = MY_ATK_ACTION_GET_PRIVATE (action_obj);
+  MyAtkActionPrivate *priv = my_atk_action_get_instance_private (action_obj);
   action_obj->priv = priv;
   priv->action_queue = NULL;
   priv->action_idle_handler = 0;
@@ -85,8 +83,6 @@ my_atk_action_class_init (MyAtkActionClass *my_class)
   gobject_class->finalize = my_atk_action_finalize;
 
   atk_class->initialize = my_atk_action_initialize;
-
-  g_type_class_add_private (gobject_class, sizeof (MyAtkActionPrivate));
 }
 
 static MyAtkActionInfo *

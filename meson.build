@@ -35,7 +35,7 @@ root_inc = include_directories('.')
 
 # Dependencies
 libdbus_req_version = '>= 1.5'
-glib_req_version = '>= 2.32.0'
+glib_req_version = '>= 2.38.0'
 gobject_req_version = '>= 2.0.0'
 gmodule_req_version = '>= 2.0.0'
 atk_req_version = '>= 2.38.0'
