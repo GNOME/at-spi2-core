@@ -37,7 +37,7 @@ SpiLeasing *spi_global_leasing;
 
 typedef struct _ExpiryElement
 {
-  guint expiry_s;
+  gint64 expiry_s;
   GObject *object;
 } ExpiryElement;
 
@@ -106,12 +106,10 @@ expiry_func (gpointer data)
   SpiLeasing *leasing = SPI_LEASING (data);
 
   ExpiryElement *head, *current;
-  GTimeVal t;
-
-  g_get_current_time (&t);
+  gint64 secs = g_get_monotonic_time () / 1000000;
 
   head = g_queue_peek_head (leasing->expiry_queue);
-  while (head != NULL && head->expiry_s <= t.tv_sec)
+  while (head != NULL && head->expiry_s <= secs)
     {
       current = g_queue_pop_head (leasing->expiry_queue);
 
@@ -149,7 +147,7 @@ static void
 add_expiry_timeout (SpiLeasing * leasing)
 {
   ExpiryElement *elem;
-  GTimeVal t;
+  gint64 secs = g_get_monotonic_time () / 1000000;
   guint next_expiry;
 
   if (leasing->expiry_func_id != 0)
@@ -159,9 +157,7 @@ add_expiry_timeout (SpiLeasing * leasing)
   if (elem == NULL)
     return;
 
-  /* The current time is implicitly rounded down here by ignoring the us */
-  g_get_current_time (&t);
-  next_expiry = elem->expiry_s - t.tv_sec;
+  next_expiry = elem->expiry_s - secs;
   leasing->expiry_func_id = spi_timeout_add_seconds (next_expiry,
                                                      expiry_func, leasing);
 }
@@ -188,13 +184,12 @@ spi_leasing_take (SpiLeasing * leasing, GObject * object)
      Check the next expiry.
    */
 
-  GTimeVal t;
+  gint64 secs = g_get_monotonic_time () / 1000000;
   guint expiry_s;
 
   ExpiryElement *elem;
 
-  g_get_current_time (&t);
-  expiry_s = t.tv_sec + EXPIRY_TIME_S;
+  expiry_s = secs + EXPIRY_TIME_S;
 
   elem = g_slice_new (ExpiryElement);
   elem->expiry_s = expiry_s;
