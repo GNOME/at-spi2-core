@@ -112,20 +112,17 @@ declared for them, as well as a `script` to execute.
 Many jobs need exactly the same kind of setup (same container images,
 mostly same package dependencies), so they use `extends:` to use a
 declared template with all that stuff instead of redeclaring it each
-time.  In our configuration, the `.only-default` template has the
-`PROJECT_DEPS`, with the dependencies that most jobs need.  The
-`.build-setup` template is for the analysis jobs, and it lets them
-declare `EXTRA_DEPS` as an environment variable with the names of
-extra dependencies: for example, the coverage job puts `lcov` in
-`EXTRA_DEPS`.  The commands in `before_script` blocks use these
-environment variables to install the package dependencies, for example
-`zypper install -y ${PROJECT_DEPS}` for an openSUSE job.
+time.
 
 The `build` stage has these jobs:
 
-* `opensuse-x86_64` - Extends the `.build-default` rule,
+* `opensuse-x86_64` - Extends the `.only-default` rule,
   builds/installs the code, and runs the tests.  Generally this is the
   job that one cares about during regular development.
+  
+* `fedora-x86_64` - Same as the previous job, but runs on Fedora
+  instead of openSUSE.  The intention is to run the build
+  configuration for `dbus-broker` here instead of `dbus-daemon`.
 
 The `analysis` stage has these jobs:
 
@@ -141,8 +138,29 @@ The `analysis` stage has these jobs:
   automatically, and to decide which ones would require manual
   testing, or refactoring to allow automated testing.
 
-As of 2021/Dec/15 there are some commented-out jobs to generate
+As of 2022/Apr/19 there are some commented-out jobs to generate
 documentation and publish it; this needs to be made to work.
+
+# CI templates
+
+The task of setting up CI for a particular distro or build
+configuration is rather repetitive.  One has to start with a "bare"
+distro image, then install the build-time dependencies that your
+project requires, then that is slow, then you want to build a
+container image instead of installing packages every time, then you
+want to test another distro, then you want to make those container
+images easily available to your project's forks, and then you start
+pulling your hair.
+
+[Fredesktop CI Templates][ci-templates]
+([documentation][ci-templates-docs]) are a solution to this.  They can
+automatically build container images for various distros, make them
+available to forks of your project, and have some nice amenities to
+reduce the maintenance burden.
+
+At-spi2-core uses CI templates to test its various build
+configurations, since it actually works differently depending on a
+distro's choice of `dbus-daemon` versus `dbus-broker`.
 
 # General advice and future work
 
@@ -162,9 +180,10 @@ implementation of that, and can be used with Gitlab.
 If your software can be configured to build with substantial changes,
 the CI pipeline should have jobs that test each of those
 configurations.  For example, at-spi-bus-launcher operates differently
-depending on whether dbus-daemon or dbus-broker are being used.  As of
-2021/Dec/15 the CI only tests dbus-daemon; there should be a test for
-dbus-broker, too.
+depending on whether `dbus-daemon` or `dbus-broker` are being used.  As of
+2022/Apr/19 the CI only tests `dbus-daemon`; there should be a test for
+dbus-broker, too, in the `fedora-x86_64` job since that is one of the
+distros that uses `dbus-broker`.
 
 Although the YAML syntax for `.gitlab-ci.yml` is a bit magic, the
 scripts and configuration are quite amenable to refactoring.  Do it
@@ -181,8 +200,8 @@ Full documentation for Gitlab CI: https://docs.gitlab.com/ee/ci/
 
 Introduction to Gitlab CI: https://docs.gitlab.com/ee/ci/quick_start/index.html
 
-at-spi2-core's CI pipeline is mostly [cut-and-pasted from
-libgweather](https://gitlab.gnome.org/GNOME/libgweather/-/blob/main/.gitlab-ci.yml).
-Thanks to Emmanuele Bassi for his advice on how to use it.
+Freedesktop CI templates: https://gitlab.freedesktop.org/freedesktop/ci-templates/
 
 [OCI]: https://opencontainers.org/
+[ci-templates]: https://gitlab.freedesktop.org/freedesktop/ci-templates/
+[ci-templates-docs]: https://freedesktop.pages.freedesktop.org/ci-templates/
