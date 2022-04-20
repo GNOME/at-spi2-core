@@ -12,8 +12,8 @@ include:
 
 variables:
   # When branching change the suffix to avoid conflicts with images
-  # from the main branch
-  BASE_TAG: "2022-04-11.0-master"
+  # from the master branch
+  BASE_TAG: "2022-04-19.0-master"
 
 .container.opensuse@x86_64:
   stage: "container-build"
