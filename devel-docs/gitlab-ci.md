@@ -162,6 +162,11 @@ At-spi2-core uses CI templates to test its various build
 configurations, since it actually works differently depending on a
 distro's choice of `dbus-daemon` versus `dbus-broker`.
 
+The prebuilt container images are stored here:
+https://gitlab.gnome.org/GNOME/at-spi2-core/container_registry
+
+They get updated automatically thanks to the CI Templates machinery.
+
 # General advice and future work
 
 A failed run of a CI pipeline should trouble you; it either means that
