@@ -7,7 +7,7 @@ ancestor_horizon=28  # days (4 weeks)
 # Wrap everything in a subshell so we can propagate the exit status.
 (
 
-source .gitlab-ci/search-common-ancestor.sh
+source ci/search-common-ancestor.sh
 
 git diff -U0 --no-color "${newest_common_ancestor_sha}" atspi/*.c bus/*.c dbind/*.c registryd/*.c test/*.c | clang-format-diff -p1 > format-diff.log
 
