@@ -1,3 +1,13 @@
+What's new in at-spi2-core 2.44.1:
+
+* Fix use after free when removing a hung process.
+
+* Fix the build with X11 disabled.
+
+* Fix crash when NULL is passed to some listener-related functions.
+
+* impl_deregister_keystroke_listener: fix memory leak on iteration error.
+
 What's new in at-spi2-core 2.44.0:
 
 * Unlink the socket before binding when using dbus-broker. Fixes regression
