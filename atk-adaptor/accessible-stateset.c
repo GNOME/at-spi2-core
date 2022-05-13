@@ -61,6 +61,8 @@ spi_init_state_type_tables (void)
 
   accessible_state_types[ATK_STATE_ACTIVE] = ATSPI_STATE_ACTIVE;
   atk_state_types[ATSPI_STATE_ACTIVE] = ATK_STATE_ACTIVE;
+  accessible_state_types[ATK_STATE_ANIMATED] = ATSPI_STATE_ANIMATED;
+  atk_state_types[ATSPI_STATE_ANIMATED] = ATK_STATE_ANIMATED;
   accessible_state_types[ATK_STATE_ARMED] = ATSPI_STATE_ARMED;
   atk_state_types[ATSPI_STATE_ARMED] = ATK_STATE_ARMED;
   accessible_state_types[ATK_STATE_BUSY] = ATSPI_STATE_BUSY;
