@@ -86,7 +86,7 @@ main()
   child_pid = fork ();
   if (child_pid == 0)
     {
-      g_assert_no_errno (execlp ("tests/test-application", "tests/test-application", NULL));
+      g_assert_no_errno (execlp ("tests/atspi/test-application", "tests/atspi/test-application", NULL));
     }
   else if (child_pid == -1)
     {

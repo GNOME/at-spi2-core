@@ -9,7 +9,7 @@ ancestor_horizon=28  # days (4 weeks)
 
 source ci/search-common-ancestor.sh
 
-git diff -U0 --no-color "${newest_common_ancestor_sha}" atspi/*.c bus/*.c dbind/*.c registryd/*.c tests/*.c | clang-format-diff -p1 > format-diff.log
+git diff -U0 --no-color "${newest_common_ancestor_sha}" atspi/*.c bus/*.c dbind/*.c registryd/*.c tests/*/*.c | clang-format-diff -p1 > format-diff.log
 
 )
 exit_status=$?
