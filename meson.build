@@ -124,7 +124,7 @@ subdir('dbind')
 subdir('atspi')
 subdir('bus')
 subdir('registryd')
-subdir('test')
+subdir('tests')
 
 if get_option('docs')
   subdir('doc/libatspi')
