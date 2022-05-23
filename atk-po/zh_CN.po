@@ -1,0 +1,804 @@
+# Simplified Chinese translation for atk.
+# Copyright (C) 2003 THE ATK'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the ATK package.
+#
+# Funda Wang <fundawang@en2china.com>, 2003.
+# Wang Xiaozhe <wangxz00@mails.tsinghua.edu.cn>, 2003.
+# QAed by Funda Wang <fundawang@linux.net.cn>, 2004.
+# Ray Wang <wanglei1123@gmail.com>, 2009.
+# YunQiang Su <wzssyqa@gmail.com>, 2011.
+# Tong Hui <tonghuix@gmail.com>, 2014.
+# Sphinx Jiang <yishanj13@gmail.com>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ATK HEAD\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=atk&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2014-03-08 03:47+0000\n"
+"PO-Revision-Date: 2014-03-08 19:20+0800\n"
+"Last-Translator: Sphinx Jiang <yishanj13@gmail.com>\n"
+"Language-Team: Chinese Simplified <i18n-zh@googlegroups.com>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 1.5\n"
+
+#: ../atk/atkhyperlink.c:128
+msgid "Selected Link"
+msgstr "选中链接"
+
+#: ../atk/atkhyperlink.c:129
+msgid "Specifies whether the AtkHyperlink object is selected"
+msgstr "指明 AtkHyperlink 对象是否已被选择"
+
+#: ../atk/atkhyperlink.c:135
+msgid "Number of Anchors"
+msgstr "定位数量"
+
+#: ../atk/atkhyperlink.c:136
+msgid "The number of anchors associated with the AtkHyperlink object"
+msgstr "同 AtkHyperlink 对象相关的定位数量"
+
+#: ../atk/atkhyperlink.c:144
+msgid "End index"
+msgstr "结束索引"
+
+#: ../atk/atkhyperlink.c:145
+msgid "The end index of the AtkHyperlink object"
+msgstr "AtkHyperlink 对象的结束索引"
+
+#: ../atk/atkhyperlink.c:153
+msgid "Start index"
+msgstr "开始索引"
+
+#: ../atk/atkhyperlink.c:154
+msgid "The start index of the AtkHyperlink object"
+msgstr "AtkHyperlink 对象的开始索引"
+
+#: ../atk/atkobject.c:105
+msgid "invalid"
+msgstr "无效"
+
+#: ../atk/atkobject.c:106
+msgid "accelerator label"
+msgstr "加速标签"
+
+#: ../atk/atkobject.c:107
+msgid "alert"
+msgstr "警告"
+
+#: ../atk/atkobject.c:108
+msgid "animation"
+msgstr "动画"
+
+#: ../atk/atkobject.c:109
+msgid "arrow"
+msgstr "箭头"
+
+#: ../atk/atkobject.c:110
+msgid "calendar"
+msgstr "日历"
+
+#: ../atk/atkobject.c:111
+msgid "canvas"
+msgstr "画布"
+
+#: ../atk/atkobject.c:112
+msgid "check box"
+msgstr "复选框"
+
+#: ../atk/atkobject.c:113
+msgid "check menu item"
+msgstr "复选菜单项"
+
+#: ../atk/atkobject.c:114
+msgid "color chooser"
+msgstr "颜色选择器"
+
+#: ../atk/atkobject.c:115
+msgid "column header"
+msgstr "列头"
+
+#: ../atk/atkobject.c:116
+msgid "combo box"
+msgstr "组合框"
+
+#: ../atk/atkobject.c:117
+msgid "dateeditor"
+msgstr "日期编辑器"
+
+#: ../atk/atkobject.c:118
+msgid "desktop icon"
+msgstr "桌面图标"
+
+#: ../atk/atkobject.c:119
+msgid "desktop frame"
+msgstr "桌面框架"
+
+#: ../atk/atkobject.c:120
+msgid "dial"
+msgstr "拨号"
+
+#: ../atk/atkobject.c:121
+msgid "dialog"
+msgstr "对话框"
+
+#: ../atk/atkobject.c:122
+msgid "directory pane"
+msgstr "目录面板"
+
+#: ../atk/atkobject.c:123
+msgid "drawing area"
+msgstr "绘图区"
+
+#: ../atk/atkobject.c:124
+msgid "file chooser"
+msgstr "文件选择器"
+
+#: ../atk/atkobject.c:125
+msgid "filler"
+msgstr "填充器"
+
+#. I know it looks wrong but that is what Java returns
+#: ../atk/atkobject.c:127
+msgid "fontchooser"
+msgstr "字体选择器"
+
+#: ../atk/atkobject.c:128
+msgid "frame"
+msgstr "框架"
+
+#: ../atk/atkobject.c:129
+msgid "glass pane"
+msgstr "玻璃面板"
+
+#: ../atk/atkobject.c:130
+msgid "html container"
+msgstr "HTML 容器"
+
+#: ../atk/atkobject.c:131
+msgid "icon"
+msgstr "图标"
+
+#: ../atk/atkobject.c:132
+msgid "image"
+msgstr "图像"
+
+#: ../atk/atkobject.c:133
+msgid "internal frame"
+msgstr "内部框架"
+
+#: ../atk/atkobject.c:134
+msgid "label"
+msgstr "标签"
+
+#: ../atk/atkobject.c:135
+msgid "layered pane"
+msgstr "布局面板"
+
+#: ../atk/atkobject.c:136
+msgid "list"
+msgstr "列表"
+
+#: ../atk/atkobject.c:137
+msgid "list item"
+msgstr "列表项"
+
+#: ../atk/atkobject.c:138
+msgid "menu"
+msgstr "菜单"
+
+#: ../atk/atkobject.c:139
+msgid "menu bar"
+msgstr "菜单栏"
+
+#: ../atk/atkobject.c:140
+msgid "menu item"
+msgstr "菜单项"
+
+#: ../atk/atkobject.c:141
+msgid "option pane"
+msgstr "选项面板"
+
+#: ../atk/atkobject.c:142
+msgid "page tab"
+msgstr "选项卡"
+
+#: ../atk/atkobject.c:143
+msgid "page tab list"
+msgstr "选项卡列表"
+
+#: ../atk/atkobject.c:144
+msgid "panel"
+msgstr "面板"
+
+#: ../atk/atkobject.c:145
+msgid "password text"
+msgstr "密码文本"
+
+#: ../atk/atkobject.c:146
+msgid "popup menu"
+msgstr "弹出菜单"
+
+#: ../atk/atkobject.c:147
+msgid "progress bar"
+msgstr "进度条"
+
+#: ../atk/atkobject.c:148
+msgid "push button"
+msgstr "按钮"
+
+#: ../atk/atkobject.c:149
+msgid "radio button"
+msgstr "单选钮"
+
+#: ../atk/atkobject.c:150
+msgid "radio menu item"
+msgstr "单选菜单项"
+
+#: ../atk/atkobject.c:151
+msgid "root pane"
+msgstr "根面板"
+
+#: ../atk/atkobject.c:152
+msgid "row header"
+msgstr "行头"
+
+#: ../atk/atkobject.c:153
+msgid "scroll bar"
+msgstr "滚动条"
+
+#: ../atk/atkobject.c:154
+msgid "scroll pane"
+msgstr "滚动面板"
+
+#: ../atk/atkobject.c:155
+msgid "separator"
+msgstr "分隔条"
+
+#: ../atk/atkobject.c:156
+msgid "slider"
+msgstr "滑块"
+
+#: ../atk/atkobject.c:157
+msgid "split pane"
+msgstr "拆分面板"
+
+#: ../atk/atkobject.c:158
+msgid "spin button"
+msgstr "微调钮"
+
+#: ../atk/atkobject.c:159
+msgid "statusbar"
+msgstr "状态栏"
+
+#: ../atk/atkobject.c:160
+msgid "table"
+msgstr "表格"
+
+#: ../atk/atkobject.c:161
+msgid "table cell"
+msgstr "表格单元"
+
+#: ../atk/atkobject.c:162
+msgid "table column header"
+msgstr "表格列头"
+
+#: ../atk/atkobject.c:163
+msgid "table row header"
+msgstr "表格行头"
+
+#: ../atk/atkobject.c:164
+msgid "tear off menu item"
+msgstr "可分离菜单项"
+
+#: ../atk/atkobject.c:165
+msgid "terminal"
+msgstr "终端"
+
+#: ../atk/atkobject.c:166
+msgid "text"
+msgstr "文本"
+
+#: ../atk/atkobject.c:167
+msgid "toggle button"
+msgstr "切换按钮"
+
+#: ../atk/atkobject.c:168
+msgid "tool bar"
+msgstr "工具栏"
+
+#: ../atk/atkobject.c:169
+msgid "tool tip"
+msgstr "工具提示"
+
+#: ../atk/atkobject.c:170
+msgid "tree"
+msgstr "树"
+
+#: ../atk/atkobject.c:171
+msgid "tree table"
+msgstr "树型表格"
+
+#: ../atk/atkobject.c:172
+msgid "unknown"
+msgstr "未知"
+
+#: ../atk/atkobject.c:173
+msgid "viewport"
+msgstr "视区"
+
+#: ../atk/atkobject.c:174
+msgid "window"
+msgstr "窗口"
+
+#: ../atk/atkobject.c:175
+msgid "header"
+msgstr "页眉"
+
+#: ../atk/atkobject.c:176
+msgid "footer"
+msgstr "页脚"
+
+#: ../atk/atkobject.c:177
+msgid "paragraph"
+msgstr "段落"
+
+#: ../atk/atkobject.c:178
+msgid "ruler"
+msgstr "标尺"
+
+#: ../atk/atkobject.c:179
+msgid "application"
+msgstr "应用程序"
+
+#: ../atk/atkobject.c:180
+msgid "autocomplete"
+msgstr "自动补全"
+
+#: ../atk/atkobject.c:181
+msgid "edit bar"
+msgstr "编辑栏"
+
+#: ../atk/atkobject.c:182
+msgid "embedded component"
+msgstr "嵌入组件"
+
+#: ../atk/atkobject.c:183
+msgid "entry"
+msgstr "输入"
+
+#: ../atk/atkobject.c:184
+msgid "chart"
+msgstr "图表"
+
+#: ../atk/atkobject.c:185
+msgid "caption"
+msgstr "题目"
+
+#: ../atk/atkobject.c:186
+msgid "document frame"
+msgstr "文档框架"
+
+#: ../atk/atkobject.c:187
+msgid "heading"
+msgstr "标题"
+
+#: ../atk/atkobject.c:188
+msgid "page"
+msgstr "页面"
+
+#: ../atk/atkobject.c:189
+msgid "section"
+msgstr "节"
+
+#: ../atk/atkobject.c:190
+msgid "redundant object"
+msgstr "冗余对象"
+
+#: ../atk/atkobject.c:191
+msgid "form"
+msgstr "窗体"
+
+#: ../atk/atkobject.c:192
+msgid "link"
+msgstr "链接"
+
+#: ../atk/atkobject.c:193
+msgid "input method window"
+msgstr "输入法窗口"
+
+#: ../atk/atkobject.c:194
+msgid "table row"
+msgstr "表格行"
+
+#: ../atk/atkobject.c:195
+msgid "tree item"
+msgstr "树条目"
+
+#: ../atk/atkobject.c:196
+msgid "document spreadsheet"
+msgstr "电子表格文档"
+
+#: ../atk/atkobject.c:197
+msgid "document presentation"
+msgstr "演示文档"
+
+#: ../atk/atkobject.c:198
+msgid "document text"
+msgstr "字处理文档"
+
+#: ../atk/atkobject.c:199
+msgid "document web"
+msgstr "网页文档"
+
+#: ../atk/atkobject.c:200
+msgid "document email"
+msgstr "电子邮件文档"
+
+#: ../atk/atkobject.c:201
+msgid "comment"
+msgstr "注释"
+
+#: ../atk/atkobject.c:202
+msgid "list box"
+msgstr "列表盒"
+
+#: ../atk/atkobject.c:203
+msgid "grouping"
+msgstr "分组"
+
+#: ../atk/atkobject.c:204
+msgid "image map"
+msgstr "位图"
+
+#: ../atk/atkobject.c:205
+msgid "notification"
+msgstr "通知"
+
+#: ../atk/atkobject.c:206
+msgid "info bar"
+msgstr "信息栏"
+
+#: ../atk/atkobject.c:207
+msgid "level bar"
+msgstr "级别栏"
+
+#: ../atk/atkobject.c:208
+msgid "title bar"
+msgstr "标题栏"
+
+#: ../atk/atkobject.c:209
+msgid "block quote"
+msgstr "块引用"
+
+#: ../atk/atkobject.c:210
+msgid "audio"
+msgstr "音频"
+
+#: ../atk/atkobject.c:211
+msgid "video"
+msgstr "视频"
+
+#: ../atk/atkobject.c:212
+msgid "definition"
+msgstr "定义"
+
+#: ../atk/atkobject.c:213
+msgid "article"
+msgstr "文章"
+
+#: ../atk/atkobject.c:214
+msgid "landmark"
+msgstr "界标"
+
+#: ../atk/atkobject.c:215
+msgid "log"
+msgstr "日志"
+
+#: ../atk/atkobject.c:216
+msgid "marquee"
+msgstr "选取框"
+
+#: ../atk/atkobject.c:217
+msgid "math"
+msgstr "数学"
+
+#: ../atk/atkobject.c:218
+msgid "rating"
+msgstr "评级"
+
+#: ../atk/atkobject.c:219
+msgid "timer"
+msgstr "定时器"
+
+#: ../atk/atkobject.c:220
+msgid "description list"
+msgstr "描述列表"
+
+#: ../atk/atkobject.c:221
+msgid "description term"
+msgstr "描述术语"
+
+#: ../atk/atkobject.c:222
+msgid "description value"
+msgstr "描述值"
+
+#: ../atk/atkobject.c:401
+msgid "Accessible Name"
+msgstr "容易理解的名称"
+
+#: ../atk/atkobject.c:402
+msgid "Object instance’s name formatted for assistive technology access"
+msgstr "为辅助技术识别而格式化的对象实例名"
+
+#: ../atk/atkobject.c:408
+msgid "Accessible Description"
+msgstr "容易理解的解释"
+
+#: ../atk/atkobject.c:409
+msgid "Description of an object, formatted for assistive technology access"
+msgstr "一个对象的解释，为辅助技术识别而格式化"
+
+#: ../atk/atkobject.c:415
+msgid "Accessible Parent"
+msgstr "可访问的父控件"
+
+#: ../atk/atkobject.c:416
+msgid "Parent of the current accessible as returned by atk_object_get_parent()"
+msgstr "atk_object_get_parent() 所返回的当前可访问控件的父类"
+
+#: ../atk/atkobject.c:432
+msgid "Accessible Value"
+msgstr "可访问的值"
+
+#: ../atk/atkobject.c:433
+msgid "Is used to notify that the value has changed"
+msgstr "用来通知值已被改变"
+
+#: ../atk/atkobject.c:441
+msgid "Accessible Role"
+msgstr "可访问的角色"
+
+#: ../atk/atkobject.c:442
+msgid "The accessible role of this object"
+msgstr "此对象的可访问角色"
+
+#: ../atk/atkobject.c:450
+msgid "Accessible Layer"
+msgstr "可访问层"
+
+#: ../atk/atkobject.c:451
+msgid "The accessible layer of this object"
+msgstr "此对象的可访问层"
+
+#: ../atk/atkobject.c:459
+msgid "Accessible MDI Value"
+msgstr "可访问的MDI值"
+
+#: ../atk/atkobject.c:460
+msgid "The accessible MDI value of this object"
+msgstr "此对象的可访问的MDI值"
+
+#: ../atk/atkobject.c:476
+msgid "Accessible Table Caption"
+msgstr "可访问的表格标题"
+
+#: ../atk/atkobject.c:477
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr ""
+"用来通知表格标题已被改变；不应使用此属性。请用 accessible-table-caption-"
+"object 代替"
+
+#: ../atk/atkobject.c:491
+msgid "Accessible Table Column Header"
+msgstr "可访问的表格列头"
+
+#: ../atk/atkobject.c:492
+msgid "Is used to notify that the table column header has changed"
+msgstr "用来通知表格列头已被改变"
+
+#: ../atk/atkobject.c:507
+msgid "Accessible Table Column Description"
+msgstr "可访问的表格列描述"
+
+#: ../atk/atkobject.c:508
+msgid "Is used to notify that the table column description has changed"
+msgstr "用来通知表格列描述已被改变"
+
+#: ../atk/atkobject.c:523
+msgid "Accessible Table Row Header"
+msgstr "可访问的表格行头"
+
+#: ../atk/atkobject.c:524
+msgid "Is used to notify that the table row header has changed"
+msgstr "用来通知表格行头已被改变"
+
+#: ../atk/atkobject.c:538
+msgid "Accessible Table Row Description"
+msgstr "可访问的表格行描述"
+
+#: ../atk/atkobject.c:539
+msgid "Is used to notify that the table row description has changed"
+msgstr "用来通知表格行描述已被改变"
+
+#: ../atk/atkobject.c:545
+msgid "Accessible Table Summary"
+msgstr "可访问的表格摘要"
+
+#: ../atk/atkobject.c:546
+msgid "Is used to notify that the table summary has changed"
+msgstr "用来通知表格摘要已被改变"
+
+#: ../atk/atkobject.c:552
+msgid "Accessible Table Caption Object"
+msgstr "可访问的表格标题对象"
+
+#: ../atk/atkobject.c:553
+msgid "Is used to notify that the table caption has changed"
+msgstr "用来通知表格标题已被改变"
+
+#: ../atk/atkobject.c:559
+msgid "Number of Accessible Hypertext Links"
+msgstr "可访问的超文本链接数"
+
+#: ../atk/atkobject.c:560
+msgid "The number of links which the current AtkHypertext has"
+msgstr "当前 AtkHypertext 拥有的链接数"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:194
+msgid "very weak"
+msgstr "很弱"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:201
+msgid "weak"
+msgstr "弱"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:208
+msgid "acceptable"
+msgstr "可接受的"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:215
+msgid "strong"
+msgstr "强"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:222
+msgid "very strong"
+msgstr "很强"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:230
+msgid "very low"
+msgstr "很低"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:238
+msgid "medium"
+msgstr "中等"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:246
+msgid "high"
+msgstr "高"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:254
+msgid "very high"
+msgstr "很高"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:262
+msgid "very bad"
+msgstr "很差"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:270
+msgid "bad"
+msgstr "差"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:278
+msgid "good"
+msgstr "好"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:286
+msgid "very good"
+msgstr "很好"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:294
+msgid "best"
+msgstr "极好"
+
+#~ msgid "Is used to notify that the parent has changed"
+#~ msgstr "用来通知父控件已被改变"

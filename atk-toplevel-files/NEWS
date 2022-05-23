@@ -1,0 +1,1740 @@
+Changes in version 2.38
+=======================
+
+* Require Meson 0.56.2
+* Add g_autoptr support for ATK types
+* Add ATK_STATE_COLLAPSED, matching AT-SPI's state
+* Improve support for ATK as a Meson subproject
+* Ensure that atk_value_get_value_and_text() can deal with NULL out arguments
+
+Contributors
+  Antonio Ospite, Philip Withnall, Colomban Wendling
+
+Translation updates
+  Catalan, Galician, Swedish, Belarusian, Persian, Latvian, Spanish
+  Indonesian, Icelandic
+
+Changes in version 2.36
+=========================
+
+* New API
+   * Added ATK_ROLE_MARK and ATK_ROLE_SUGGESTION
+   * Add ATK_TEX_ATTR_TEXT_POSITION to the list of possible AtkText
+     attributes (MR!33)
+
+* Documentation
+   * Updated documentation for atk_text_set_caret_offset (MR!18)
+
+* Building - meson
+   * Fix building atk as subproject
+   * Add Meson wrap file for GLib (MR!37)
+
+* Building - visual studio
+   * Use -utf-8 if available (MR!38)
+
+Contributors
+   Luca Bacci, Joanmarie Diggs, Samuel Thibault
+
+Translations
+
+   Fran Dieguez (gl), Ryuta Fujii (ja), Daniel Korostil (uk), Jwtiyar
+   Nariman (ckb), Umarzuki Bin Mochlis Moktar (ms)
+
+Changes in version 2.35.1
+=========================
+
+* AtkComponent, AtkImage, AtkText: Make sure returned values are
+  initialized to some known default value (MR!22, MR!24)
+
+* AtkPlug
+   * Add atk_plug_set_child (MR!27)
+
+* AtkSocket
+   * Make AtkSocket get_extents return parent extents by default (MR!23)
+   * atk_socket_embed: make plug_id parameter const (MR!26)
+   * Make AtkSocketClass (embed) use const for plug_id (MR!31)
+
+* AtkText
+   * Make atk_text_rectangle_union ignore undefined rectangles (MR!25)
+
+* Documentation
+   * Refine *_scroll_to_point documentation (MR!21)
+   * Refine AtkScrollType documentation (MR!12)
+
+Contributors
+  Samuel Thibault
+
+
+Changes in version 2.33.3
+=========================
+
+* Documentation: general documentation cleanup, as part of MR!3,
+  changes include:
+   * Move Deprecated section down on AtkUtil
+   * Update the list of symbols
+   * Annotate the version for AtkTableCellIface
+   * Use Markdown syntax for notes
+   * Use the appropriate syntax for enumerations
+   * Add missing documentation for AtkObject functions
+   * Write description for AtkImage method
+   * Add proper gtk-doc blurbs for AtkDocument, AtkComponentIface and AtkActionIface
+   * Remove atk.types (as we can autogenerate it)
+
+* AtkSocket/AtkPlug
+   * Implement proper constructor for AtkPlug and AtkSocket (MR!3)
+
+* AtkText
+   * Doc: minor doc fix for atk_text_get_default_attributes (MR!20)
+
+* New Roles:
+   * Issue #2: Add ATK_ROLE_CONTENT_INSERTION and ATK_ROLE_CONTENT_DELETION (MR!19)
+
+* Build
+   * Meson: do not guard gir behind a cross_build check. (MR!12)
+   * Meson: refresh the build (part of MR!3)
+   * Meson: use Meson to generate the pkgconfig file (MR!3)
+
+Contributors
+   Emmanuele Bassi, Joanmarie Diggs, Christoph Reiter, Martin Robinson
+
+Translations
+   Charles Monzat (fr)
+
+Changes in version 2.33.1
+=========================
+
+* AtkObject: added accessible_id property (MR!16)
+
+* AtkText
+   * Edit documentation for last methods added in order to fix
+     introspection
+   * Fix failure value for atk_text_get_caret_offset (MR!14)
+
+* Build:
+   * Bumping ATK version without a release as at-spi2-atk master
+     started to depend on last API changes.
+
+Contributors:
+   Emmanuele Bassi, Alejandro Piñeiro, Martin Robinson, Samuel
+   Thibault
+
+
+Changes in version 2.31.93
+==========================
+*
+* AtkText
+   * Fix failure value for atk_text_get_caret_offset
+
+Changes in version 2.31.92
+==========================
+*
+* Bugfixing:
+   * Issue 1: "atk 2.29.2 is reported not to work any more"
+      * By mistake, 2.31.90 re-introduced this bug, as master didn't
+        have the revert for "atkimplementor: use the
+        G_DEFINE_INTERFACE macro to declare it as interface in the
+        introspection"
+
+
+Changes in version 2.31.90
+==========================
+*
+* AtkText
+   * Add ScrollSubstringTo and ScrollSubstringToPoint methods to AtkText
+
+* Build - meson
+   * Make atk work as a subproject
+   * Use an autotools compatible compatibility_version/current_version on macOS
+   * Fix usage of glib as a subproject dependency
+   * Replace shared_library by library
+
+* Build - Visual Studio
+   * Add build instructions for Visual Studio, as now is done via Meson
+
+* Documentation
+   * Move atk_relation_set_contains_target to correct doc section
+   * Improve documentation for AtkText method return values
+
+* Misc
+   * atkplug, atksocket: Fix -Wredundant-decls
+
+Contributors:
+   Chun-wei Fan, Nirbheek Chauhan, Fabrice Fontaine, Niclas Moeslund
+   Overby, Christoph Reiter, Martin Robinson, Samuel Thibault
+
+Translations
+   Tiago Casal (pt_BR)
+
+Changes in version 2.29.94
+==========================
+
+* Bugfixing:
+   * Issue 1: "atk 2.29.2 is reported not to work any more"
+      * Needed to revert previous change "atkimplementor: use the
+        G_DEFINE_INTERFACE macro to declare it as interface in the
+        introspection"
+
+   * Bug 789619: build: use @basename instead of @filename
+
+   * Bug 794326: fix macOs common_ldflags
+
+Contributors:
+   Alejandro Piñeiro, Jan Tojnar, Samuel Thibault
+
+Changes in version 2.29.92
+==========================
+
+* Improved AtkText documentation in relation to character offsets, fix
+  typos and tabs.
+
+Contributors:
+  Martin Robinson
+
+Changes in version 2.29.2
+=========================
+
+* Add ScrollTo and ScrollToPoint methods to AtkComponent
+
+* Build:
+ * Require a more recent version fo Meson, 0.46.0
+
+* Misc:
+ * Documentation, introspection, and versioning fixes
+
+Contributors:
+  Samuel Thibault, Michael Catanzaro, Rico Tzschichholz, Corentin Noël,
+  Emmanuele Bassi
+
+Changes in version 2.29.1
+=========================
+
+Important note: this is the first release without autotools
+support. From now on only meson would be supported.
+
+* Bugfixing:
+   * Bug 794513: Setting accessible-role does not work
+
+* Build, autotools:
+   * Bug 795315: Remove autotools support
+
+* Build, meson
+   * Bug 795065: Fix linker options on Darwin
+   * Bug 795301: meson: follow meson_options convention
+
+Contributors:
+  Ignacio Casal Quinteiro, Alejandro Piñeiro, Samuel Thibault
+
+Translations:
+  gogo (hr), Cheng-Chia Tseng (zh_TW), Daniel Șerbănescu (ro)
+
+
+Changes in version 2.28.1
+=========================
+
+* meson: fix version numbering. Roll new release to include it.
+
+Changes in version 2.28
+=======================
+
+* documentation
+   * Bug 791020: Remove list association from ATK_ROLE_DESCRIPTION_{TERM,VALUE}
+
+Contributors:
+ Joanmarie Diggs
+
+Translations
+ Claude Paroz (fr), GNOME Translation Robot (gd)
+
+Changes in version 2.27.1
+=========================
+
+* Build: meson, tracked by bug 785802)
+   * Ad option to disable introspection
+   * Fix .rc generation in Meson builds
+
+* Build (Visual Studio)
+   * Enhance security of x64 binaries
+
+Contributors
+  Chun-wei Fan
+
+Translations
+  Pawan Chitrakar (ne), Xavi Ivars (ca@valencia), hanniedu (nl)
+
+Changes in version 2.26
+=======================
+
+* Build: meson on Windows, tracked by Bug 785802 (not fully fixed yet):
+   * Force-include msvc_recommended_pragmas.h on MSVC
+   * tests: Fix build on pre-C99
+   * meson: Build .rc file on Windows
+
+Contributors
+   Chun-wei Fan
+
+Translations
+   Ask Hjorth Larsen (da)
+
+Changes in version 2.25.90
+==========================
+
+* Bugfixing
+   * 689810: Move include guards out to enable GCC optimisation
+* Build (meson)
+   * Keep the version in sync with Autotools
+   * Add atkversion.h to introspection build
+* Build (visual studio)
+   * Adapt to the Python-field glib-genmarshal
+   * Adapt to new glib-genmarshal command line
+   * Use PythonDir instead of PythonPath
+   * Integrate introspection builds
+   * Don't build introspection by default
+   * Make marshal generation more robust
+* Misc
+   * Update AUTHORS file
+
+Contributors
+  Emmanuele Bassi, Daniel Boles, Chun-wei Fan, Rico Tzschichholz
+
+Translations
+  Pawan Chitrakar (ne), Fabio Tomat (fur)
+
+
+Changes in version 2.25.2
+=========================
+
+* Bugfixing:
+   * Bug 781715: Crash under atk_gobject_accessible_dispose()
+* Build (general/autotools):
+   * Add ATK_UNAVAILABLE macro
+   * Use template files for the ATK enumerations
+   * Convert atkversion.h.in to UTF-8 encoding
+   * Include the marshallers header, not the source
+   * Add buildir to the docs directories
+   * Update deprecation warnings symbols
+   * Simplify GObject dependency discovery
+* Build (meson):
+   * Bug 782871: Add meson build system
+   * Dist the Meson files
+   * Use the appropriate soversion
+   * Use the appropriate GETTEXT_PACKAGE
+   * Install atk.h
+   * Only depend on generated header
+* Build (win32):
+   * win32: Fix replacing items in files with UTF-8 content
+* Cleaning:
+   * Remove atk.spec.in
+   * Remove uninstalled pkg-config file
+   * Remove unused script for bundling ATK on Windows
+   * Remove ChangeLog
+   * Remove local introspection.m4
+* Docs:
+   * Modernise the API reference:
+      * Use XInclude
+      * Stop using SGML mode with XML files
+      * Drop version.xml and use the gtk-doc package entities
+   * Update the README mentioning Meson, Ninja, and cleaning a little
+   * Remove empty overrides file
+* Gobject introspection:
+   * Mark unbindable functions as 'skip
+* Misc:
+   * Update git ignore file
+* New Relations and Roles:
+   * Bug 748384: Add ATK_ROLE_FOOTNOTE
+   * Bug 781587: Add error-message, error-for, details and details-for-relation
+* Translation support:
+   * Update po/Makevars (copyright and bug address)
+
+Contributors:
+Emmanuele Bassi, Milan Crha, Joanmarie Diggs, Piotr Drąg, Chun-wei Fan
+
+Translations:
+Yuras Shumovich (be)
+Changes in version 2.24.0
+==========================
+*
+* Build, MSVC
+   * Support Visual Studio 2017
+
+Contributors:
+Chun-wei Fan
+
+Translations:
+Ask Hjorth Larsen (da), Jordi Mas (ca)
+
+Changes in version 2.23.4
+==========================
+*
+* Build, MSVC:
+   * Remove atk-install.props's on re-generation
+   * Makefile.msvcproj, Makefile-newvs.am: Update from GLib
+   * Move files to win32
+* Docs:
+   * Fix typo
+   * Bug 772236: change id of the atkobject chapter needed case-insensitive filesystems
+* Misc:
+   * Use Unicode apostrophe in a translatable string
+
+Contributors:
+Murray Cumming, Piotr Drąg,  Chun-wei Fan, Alejandro Piñeiro Iglesias
+
+Translations:
+gogo (hr), Jordi Mas (ca), Fabio Tomat (fur)
+
+Changes in version 2.22.0
+==========================
+*
+* Add more options to XGETTEXT_OPTIONS in po/Makevars
+
+Contributors:
+Piotr Drąg (po)
+
+Translations:
+Piotr Drąg (po), David King (en_GB)
+
+Changes in version 2.21.90
+==========================
+*
+* Bug 764883: Add some missing argument (out) annotations
+* Add Language headers to po files
+* MSVC/win32
+   * MSVC Builds: Add a Common Autotools Module for Introspection (Bug 764983)
+   * MSVC Builds: Generate the Introspection Build Commands (Bug 764983)
+   * Clean up atk-introspection-msvc.mak
+   * Visual Studio builds: Include version info in property sheets
+   * Visual Studio builds: Generate atk.pc
+   * Visual Studio 2008 builds: Ensure pc file is generated before "install"
+   * Visual Studio builds: Make .pc generation more flexible
+   * build/win32/pc_base.py: Allow custom options
+   * build/win32/atkpc.py: Fix dependent package string
+
+Contributors:
+Piotr Drąg, Chun-wei Fan, Rico Tzschichholz
+
+Translations:
+GNOME Translation Robot (gd), Cédric Valmary (oc)
+
+Changes in version 2.20.00:
+===========================
+
+Translations:
+Ask Hjorth Larsen (da)
+
+Changes in version 2.19.92:
+===========================
+*
+* Build improvements:
+   * Bug 763212: Fix gettext domain after recent changes
+   * Fix builddir ≠ srcdir in autogen.sh
+   * MSVC builds: Re-arrange include paths
+* Cleaning:
+   * atkregistry: remove code not being compiled
+
+Contributors:
+Chun-wei Fan, Kalev Lember, Alejandro Piñeiro Iglesias, Philip
+Withnall
+
+Translations:
+Anders Jonsson (sv), Cédric Valmary (oc)
+
+Changes in version 2.19.90:
+===========================
+*
+* Bug 755548: atktablecell: use content of the pointer instead of
+  pointer itself
+* Bug 760323: Use upstream gettext intead glib-gettext
+* Build/MSVC/win32 improvements:
+  * Makefile-newvs.am: Update Comments for Usage
+  * Make Makefile.msvcproj A Bit More Generic
+  * Fix build/win32/vs10/atk-install.vcxproj
+
+Contributors:
+Chun-wei Fan, Javier Jardón, Alejandro Piñeiro Iglesias
+
+Translations:
+Aurimas Černius(lt), Trần Ngọc Quân (vi), Kristjan SCHMIDT (eo)
+
+Changes in version 2.18.0:
+===========================
+*
+* Build: Improvements on MSVC Build infrastructure
+
+Contributors:
+Chun-wei Fan
+
+Translations:
+Chao-Hsiung Liao (zh_TW)
+
+Changes in version 2.17.90:
+===========================
+*
+* Documentation:
+  * Replace mentions of 'state-changed' with 'state-change'.
+  * Fixed some tiny typos
+* Build/win32 improvements:
+  * Use Pattern Rules on build/Makefile-newvs.am
+  * Tidying and cleaning .vcxproj.filters generation
+    * Fixes Bug 748176: out-of-tree distcheck fails in build/win32
+  * Removed GCC requirement
+* "install" Projects renamed to "atk-install"
+
+* Misc: set proper file permission to source files
+
+Contributors:
+Murray Cumming, Chun-wei Fan, Simon McVittie, Alejandro Piñeiro
+Iglesias
+
+Translations:
+Pedro Albuquerque (pt), Daniel Martinez (an),
+
+Changes in version 2.16.0:
+==========================
+*
+* Bug 746459: Fix a couple of GTK-Doc comment blocks
+* Visual Studio support
+   * Speed Up Release Builds
+   * Fix and improve .pdb Generation.
+   * "Install" .pdb Files
+
+Contributors:
+Chun-wei Fan
+
+Translations:
+Josef Andersson (sv), Jiri Grönroos (fi), Baurzhan Muftakhidinov (kk),
+Samir Ribic (bs), Zahari Yurukov (bg)
+
+Changes in version 2.15.91:
+===========================
+*
+* Building:
+   * Bug 744413: Stop using deprecated GNOME-specific autoconf macros
+     on configure.ac
+   * Stop using deprecated gnome-autogen.sh on autogen.sh
+
+Contributors:
+Javier Jardón
+
+Translations:
+Muhammet Kara (tr), Dušan Kazik (sk)
+
+Changes in version 2.15.4:
+==========================
+*
+* AtkRole:
+   * Bug 742806: Add new roles for fractions, roots, subscripts, and
+     superscripts
+
+Contributors:
+Joanmarie Diggs
+
+Changes in version 2.15.3:
+==========================
+*
+* AtkState:
+   * Bug 665598: Add ATK_STATE_READ_ONLY
+* Bugfixing:
+   * Unref STATE_TYPE class ref after using it at state_type_get_name
+   * AtkTable: Added missing ":" on one gi annotation
+
+Contributors:
+Joanmarie Diggs, Alejandro Piñeiro Iglesias
+
+Translations:
+Muhammet Kara (tr)
+
+Changes in version 2.15.2:
+==========================
+*
+* AtkRole:
+   * Bug 739981: Add ATK_ROLE_STATIC and clarify ATK_ROLE_TEXT
+* AtkState:
+   * Bug 740152: Document the deprecation of ATK_STATE_ARMED
+* Documentation:
+   * Bug 740044: Fix some unclear language regarding ATK_STATE_ACTIVE
+   * Bug 740066: Improve documentation related to AtkState and
+     AtkStateSet
+   * Extend atk_focus_tracker_notify deprecation documentation
+   * Remove some in-code documentation, that is already part of the
+     docs
+
+Contributors:
+Joanmarie Diggs, Alejandro Piñeiro
+
+Translations:
+Anders Jonsson (sv)
+
+Changes in version 2.15.1:
+==========================
+*
+* Bug 407539: Add ATK_STATE_HAS_TOOLTIP
+* Documentation:
+   * Updated README file
+   * Bug 737602: Update documentation to reflect an additional use
+     case for STATE_INDETERMINATE
+
+Changes in version 2.14.0:
+==========================
+
+Translations:
+Dušan Kazik (sk), Maria Mavridou (el), Yuri Myasoedov (ru)
+
+
+Changes in version 2.13.90:
+===========================
+*
+* GObject-introspection: some small changes needed by the MINGW project.
+* Doap file updated See [1]
+
+Contributors:
+  Alexpux, Piotr Drąg, Olav Vitters
+
+Translations:
+Christian Kirbach (de), Lasse Liehu (fi), ngoswami (as)
+
+[1] https://mail.gnome.org/archives/release-team/2014-July/msg00045.html
+
+Changes in version 2.13.3:
+==========================
+*
+* Bug 729752: introspection: add many missing Returns: (nullable) annotations
+* Bug 730859: atk/Makefile.am: Stop reading atk.def
+* Fix GIR scanning for srcdir != buildir
+* Visual Studio support
+   * MSVC 2010+ Projects: Update "Installation" Process
+   * Build: Add Build Support for Visual Studio 2013
+   * MSVC 2012/2013 Support: Update Property Sheet Creation
+* Documentation:
+   * Bug 729922: adding further explanation on atk_add_global_event_listener
+
+Contributors:
+  Benjamin Gilbert, Chun-wei Fan, Evan Nemerson, Alejandro Piñeiro
+  Iglesias, Owen W. Taylor
+
+Translation:
+  genodeftest (de), Pau Iranzo (ca), Carles Ferrando (ca@valencia), Yosef Or Boczko (he)
+
+Changes in version 2.13.2:
+==========================
+
+During GNOME 3.13.2 cycle an ATK 2.13.2 release was rolled out. But
+unfourtunately, it was not pushed on master, so got lost. All their
+changes are included on 2.13.3.
+
+
+Changes in version 2.13.1:
+==========================
+*
+* Bug 728031: Use visibility attributes/__declspec (dllexport) to
+  export public symbols
+* Bug 691991: Add Simple Support for Visual Studio 2012
+
+Contributors:
+  Chun-wei Fan
+
+Translation
+  Inaki Larranaga Murgoitio (eu), Matej Urbančič (sl), marablack3 (el)
+
+Changes in version 2.12.0:
+==========================
+
+Translations
+
+A S Alam (pa), Claudio Arseni (it), Ask H. Larsen (da), Kjartan Maraas
+(nb), Andika Triwidada (id)
+
+Changes in version 2.11.92:
+==========================
+*
+* AtkValue:
+  * Bug 684576: AtkValue heavily refactored. Available now so
+    implementors could start migration on next cycle.
+  * Bug 726216: update atk.symbols, autotools for missing symbols and
+    files
+* AtkTableCell:
+  * Added symbols to be exported at atk.symbols
+
+Contributors:
+  Chun-wei Fan, Alejandro Piñeiro Iglesias
+
+Translations
+
+  Aurimas Černius (lt), Marek Černocký (cs), Fran Diéguez (gl), Piotr
+  Drąg (po), Rafael Ferreira (pt_BR), Attila Hammer (hu), Sphinx Jiang
+  (zh_CN), Chao-Hsiung Liao (zh_HK), Duarte Loreto (pt), Kjartan
+  Maraas (nb), Rūdolfs Mazurs (lv), Daniel Mustieles (es), Yuri
+  Myasoedov (ru), Claude Paroz (fr), Changwoo Ryu (ko), Мирослав
+  Николић (sr)
+
+
+Changes in version 2.11.90:
+==========================
+*
+* AtkComponent:
+  * Deprecate get_position and get_size in favor of get_extents.
+* AtkTable:
+  * Deprecate all index-based methods (atk_table_get_index_at,
+    atk_table_get_column_at_index, atk_table_get_row_at_index).
+* AtkTableCell:
+  * Bug 651353: Add AtkTableCell
+* Documentation:
+  * Document that atk_component_contains has a default implementation.
+  * Document AtkTableCell.
+  * Update AtkTable documentation after AtkTableCell addition.
+  * Document AtkRegistry (already existed but not properly included on
+    the documentation).
+  * API reference categorized (now easier to read).
+  * ATK overview added.
+  * Added some previously forgotten symbols (thanks to atk-unused.txt)
+
+Contributors:
+  Mike Gorse, Alejandro Piñeiro Iglesias
+
+Translations:
+  Jorge Pérez Pérez (an), Kjartan Maraas (nb), Andika Triwidada (id)
+
+Changes in version 2.11.6:
+==========================
+*
+* AtkText:
+  * Bug 723292: Getting the localized role name fails for
+    ATK_ROLE_EDITBAR
+  * Bug 653293: text-insert and text-remove are again detailed
+    signals. Document it.
+
+Contributors:
+  Alejandro Piñeiro Iglesias
+
+Translations:
+  Aurimas Černius (lt), Marek Černocký (cs), Tong Hui (zh_CN),
+  Chao-Hsiung Liao (zh_HK)
+
+Changes in version 2.11.5:
+==========================
+*
+* MSVC Builds: Rework Introspection Build and other miscellaneous
+  fixes
+
+Contributors:
+  Chun-wei Fan
+
+Translations:
+  Yosef Or Boczko (he), Dimitris Spingos (el), Peter Vágner (sk)
+
+Changes in version 2.11.4:
+==========================
+*
+* AtkRole:
+  * Bug 720065: add roles for description lists
+* Deprecations:
+  * Bug 476674: deprecate table properties that depend on the
+    row/column number
+  * Bug 652798: kill AtkMisc
+  * Deprecate connect/remove_property_change_handler
+  * Deprecate atk_role_register
+* Documentation:
+  * Bug 644747: improve documentation for AtkObject::property-change
+  * Improved AtkUtil documentation
+  * Updated new symbols sections on documentation
+  * Not using GTK-Doc tag "Virtual" anymore, as is deprecated
+* Building:
+  * Bug 644756: remove atkintl.h in favour of gi18n-lib.h from glib
+  * Bug 652965: include atk-enum-types.h on atk.h
+  * Fixed some gobject-introspection warnings
+  * Replace INCLUDES for AM_CPPFLAGS to silence automake deprecation
+    warnings.
+* Visual C++ Studio files:
+  * Add a PlatformToolsetTag on gengir MSVC Project
+  * Split the Property Sheets
+  * Update Visual C++ 2008 "install" phase
+  * Bug 690145: use Python to Generate the MSVC Projects
+* Miscellanea:
+  * Bug 572489: atk_text_range_extents should use g_return_if_fail
+  * Bug 653293: remove G_SIGNAL_DETAILED from atktext signals that
+    doesn't use details
+  * Bug 720095: add atk_object_peek_parent
+  * Updated AUTHORS and doap files
+  * Added role names on source file in order to be translated
+
+Contributors:
+   Chun-wei Fan, Kjartan Maraas, Alejandro Piñeiro Iglesias, Colin
+   Walters, Yue Wang
+
+Translations:
+  Fran Diéguez (gl), Michael Jayt (zh_CN), Daniel Mustieles (es),
+  Fábio Nogueira (pt_BR)
+
+
+Changes in version 2.11.3:
+==========================
+*
+* Bug 709214: Need API to get the document's current page number and
+*  page count
+* Updated Greek translation
+
+Changes in version 2.11.2:
+==========================
+*
+* AtkRole:
+  * Bug 709106: add media (audio and video) roles
+  * Bug 712586: new ATK roles for ARIA roles (plus rating)
+    * This includes: ATK_ROLE_DEFINITION, ATK_ROLE_ARTICLE,
+      ATK_ROLE_LANDMARK, ATK_ROLE_LOG, ATK_ROLE_MARQUEE,
+      ATK_ROLE_MATH, ATK_ROLE_RATING, ATK_ROLE_TIMER,
+* AtkState:
+  * Bug 712576: add ATK_STATE_CHECKABLE
+  * Bug 712581: add ATK_STATE_HAS_POPUP
+* AtkDocument:
+  * Bug 709106: add page-changed-signal
+  * Deprecated atk_document_get_document and
+    atk_document_get_document_type
+  * Added testdocument on tests directory
+* Documentation:
+  * Update documentation for selected_link method and property
+  * Improve documentation of AtkAttribute and AtkAttributeSet
+* Updated Galician and Spanish translations
+
+Changes in version 2.11.1:
+==========================
+*
+* Bug 684667: Improve AtkObject::children-changed documentation
+* Bug 709351: new role ATK_ROLE_TITLE_BAR
+* Bug 710463: new role ATK_ROLE_BLOCK_QUOTE
+* Updated Spanish translation
+
+Changes in version 2.10.0:
+==========================
+*
+* Documentation:
+  * Bug 684667: improve documentation for AtkObject::children-changed
+    signal
+* Visuall C++ Builds: Use Custom Build Rules
+* Updated Aragonese and Japanese translation.
+
+Changes in version 2.9.4:
+==========================
+*
+* Deprecations:
+  * Bug 649575: Deprecate AtkObject::focus-event signal and all
+    related methods
+  * Bug 653291: Deprecate 'text-changed' signal (in favour of
+    'text-insert' and 'text-remove').
+  * Bug 573539: Deprecate 'link-selected' property (at AtkHyperlink)
+  * Bug 705580: Implement atk_text_get_string_at_offset and deprecate
+    old API
+  * Remove 'text-update' signal (without deprecation, as was not used
+    and can be removed without breaking ABI/API)
+* Documentation:
+  * Removed unneeded comments at atk_implementor_ref_accessible and
+    about glib usage.
+  * Bug 684665: removing several .sgml files and fixing gtk-doc
+    warnings
+  * Bug 684705: little update on 'text-insert' and 'text-remove'
+    documentation
+  * Bug 491998: add documentation for AtkRectangle
+* Tests:
+  * Refactor test suite: no longer a loadable module but an standalone
+    executable.
+  * Split testrelation into testrelation and testrole.
+  * Execute all role tests, doesn't matter if one fails
+* Bugfixing and miscellanea:
+  * Bug 704092: Fix and off-by-one in role names
+  * Bug 705290: Use generated enum type for AtkRole to get the role name
+  * Drop use of ATK_DISABLE_DEPRECATED guards in ATK
+
+
+Changes in version 2.9.3:
+==========================
+*
+* Bug 697968: Deprecate atk_text_get_text_{before,after}_offset()
+  * Deprecated atk_text_get_text_{before,after}_offset()
+  * Deprecated ATK_TEXT_BOUNDARY_WORD_END,
+    ATK_TEXT_BOUNDARY_SENTENCE_END and ATK_TEXT_BOUNDARY_LINE_END on
+    the documentation.
+  * Updated atk_text_get_text_{at,before,after}_offset() documentation
+* Bug 701503: Fix documentation for atk_object_get_attributes()
+* Removed pads from interfaces
+
+Changes in version 2.9.2:
+==========================
+*
+* Leak management:
+  * Bug 699262: Nullify the gobject cache accessible when the accessble is finalized.
+  * Bug 699368: Fix typo - parameter is _obj not obj. Set feed to NULL
+  * Bug 699256: Free 'embedded_plug_id' when destroyed
+* Tests:
+  * Bug 696466: Fix logic when testing for empty state set
+  * Bug 696409: fix hyphenation on testrelation.c
+* Documentation:
+  * Include atk_object_get_object_locale documentation
+  * Fix having a repeated id on the main doc template
+  * Bug 700800: Improve documentation for AtkPlug and AtkSocket
+
+
+Changes in version 2.8.0:
+==========================
+*
+* Updated Visual C++ configuration files
+  * Make entries more consistent with the other GNOME Visual Studio
+    projects.
+  * Enable the building of introspection files for Visual C++ builds
+  * bgo694255: Visual C++ builds: Integrate building of introspection files
+* Updated Slovak, Portuguese and Tadjik translation.
+
+Changes in version 2.7.91:
+==========================
+*
+* atkobject: added a explicit include to locale.h
+
+Changes in version 2.7.90:
+==========================
+*
+* Bug 694117
+*  * atkobject: add atk_object_get_object_locale
+*  * atkdocument: deprecate atk_document_get_locale
+
+Changes in version 2.7.5:
+==========================
+*
+* build: Use GNOME_COMPILE_WARNINGS
+* atkhyperlink: Ensure we get even deprecated prototypes
+* Bug 651343: add ATK_ROLE_LEVEL_BAR
+* Prepare Visual Studio 2010 projects for Visual Studio 2012
+* Updated Uyghur translations
+
+Changes in version 2.7.4:
+==========================
+*
+* Bug 690379: Atk lacks any kind of version utilities
+* Fixed out of tree builds caused by fix of bug 690379
+* Bug 656750: AtkWindow requires documentation
+
+Changes in version 2.7.3:
+==========================
+*
+* Bug 689907: Problems with the management of
+*  ATK_STATE_SELECTABLE/ATK_STATE_SELECTED states at AtkObject
+* Bug 686746: Port introspection fixes from Vala
+* Bug 689952: Add introspection support for Windows MSVC builds
+* Other Visual C++ configuration files:
+*  * Use MultiByte character set
+
+Changes in version 2.7.2:
+==========================
+*
+* Bug 686801: Extend atk_add_global_event_listener in order to support
+*   signal details
+* Updated Thai translation.
+
+Changes in version 2.6.0:
+==========================
+*
+* Updated Japanese and Brazilian Portuguese translations.
+
+Changes in version 2.5.91:
+==========================
+*
+* Bug 635332: Include C header information in GIR
+* Added atk_relation_set_contains_target to atk.symbols. That symbol
+*   was added in commmit a1d5ca86 (bug 672869).
+* Updated Polish, Galician and Latvian translations.
+
+Changes in version 2.5.4:
+=========================
+*
+* Bug 672869: Required a method to check if a relationset contains a
+*   relation taking into account relationship and target
+
+Changes in version 2.5.3:
+=========================
+*
+* Added extra doc on atk_remove_[key/global]_event_listener
+* Fixed compilation with some gcc versions/combination of options
+* Provide a default implementation for
+*   atk_util_[add/remove]_global_event_listner
+* Bug 478587: "accessible-role" - invalid default value
+* Updated Catalan, Catalan (Valencian), Greek, Norwegian, Spanish
+
+Changes in version 2.4.0:
+=========================
+*
+* Bug 593220: Some typos in atktable signals (docs)
+* Updated Hindi and Simplified Chinese translation
+
+
+Changes in version 2.3.95:
+=========================
+*
+* Bug 671857: Add deprecation attributes to deprecated functions
+* Updated Visual Studio configuration files
+* Updated Khmer, Malayalam and Bengali Translations
+
+Changes in version 2.3.93:
+==========================
+*
+* Revert "Using abstract atk_object_get_name to check accessible-name
+*  notification" change made on 2.3.93
+*  Related to mozilla bug: https://bugzilla.mozilla.org/show_bug.cgi?id=733712
+
+Changes in version 2.3.91:
+==========================
+*
+* Bug 665549: add sanity-check of atk_text_get_text
+* Bug 668441: atk_action_get_keybinding docs are confusing and need
+*  updating
+* Using abstract atk_object_get_name to check accessible-name
+*  notification
+* Updated Belarusian, Estonian, Hungarian, Turkish, Norwegian,
+*  Ukranian and Uyghur translations
+
+
+Changes in version 2.3.3:
+=========================
+*
+* Bug 665870: About reducing accessible-name, accessible-description
+*  change notifications
+* Minor documentation updates
+* Updated Visual Studio configuration files
+* Updated Simplified Chinese and Vietnamese translations
+
+Changes in version 2.2.0:
+=========================
+*
+* Updated Gujarati, Oriya, Assamese, Danish, Portuguese, Czech and
+*  Catalan (Valencian) translations
+
+Changes in version 2.1.92:
+==========================
+*
+* Updated Visual Studio files due AtkWindow addition
+* Bug 649577: atk_add_global_event_listener should only accept ATK events
+* Minor documentation updates
+* Updated German, Basque, Japanese, Serbian, Catalan, Tamil, Punjabi,
+*  Asturian, Italian, Polish, British English, Brazilian Portuguese,
+*  Korean, Telugu and Kannada Translation
+
+Changes in version 2.1.5:
+=========================
+*
+* Bug 638924: Add AtkWindow
+* Fixing out of tree compilation on Win32
+* Update README.txt
+* Fixing release number of the new ATK roles added
+* Updated Traditional Chinese, Indonesian, Bulgarian, French,
+*  Hungarian and Swedish translations
+
+Changes in version 2.1.0:
+=========================
+*
+* Bug 654767: shlib downgrade at update atk-1.32.0 to atk-2.0.1
+* Bug 651343: New ATK Roles
+* Added Leon Fan as maintainer
+* Improved Visual C++ 2010 infrastructure
+* Updated Russian, Slovenian, Persian, Hebrew, Lithuanian, Latvian,
+*  Norwegian, Galician, and Spanish translations
+
+Changes in version 2.0.1:
+=========================
+*
+* Bug 652205: Use const instead G_CONST_RETURN
+* Bug 649307: Clarify AtkPlug and AtkSocket docs
+* Bug 551489: Fix doc of atk_text_get_text_before_offset
+* Bug 588083: Information about return value of some AtkText methods can be clearer
+* Added Alejandro Piñeiro Iglesias as maintainer
+* Updated .gitignore
+* VS 2008/2010 support update
+* New Zulu translation added, Esperanto and Catalan updated
+
+Changes in version 2.0.0:
+=========================
+*
+*Translation update.
+
+Changes in version 1.91.92:
+=========================
+*
+*BGO#638377: Add text_insert, text_remove, and text_update signals
+*Reviewed Serbian Translation
+*Fix introspection for atk_text_get_bounded_ranges
+*Visual C++ 2010 Project Files
+*Updated Spanish translation
+
+Changes in version 1.33.6:
+=========================
+*
+*Returns FALSE on atk_object_add_relationship if it is already included
+*Bug 640574: gobject-introspection annotation and documentation fixes
+*Bug 637663: Added atk_streamable_content_get_uri to atk/atk.symbols
+*Add missing Makefiles to AC_CONFIG_FILES
+*Fixes for the MSVC Project Files
+*Update deprecated autoconf macros and use new libtool syntax
+*Documentation fixes
+*Translation updates
+
+Changes in version 1.32.0:
+=========================
+*
+*Fixes: #630097, #621717, #571622, #617851, #616812.
+*Translation update.
+
+
+Changes in version 1.30.0:
+=========================
+*
+*Translation update.
+
+Changes in version 1.29.92:
+=========================
+*
+*Fixes: Bug #608399. Correct the link of accessibility page.
+*Fixes: Bug #606888. Link libatk against libintl.
+*Translation update.
+
+Changes in version 1.29.4:
+==========================
+*
+*Fixes: #592146.
+
+Changes in version 1.29.3:
+==========================
+*
+*Fixes: #601552.
+
+Changes in version 1.29.2:
+==========================
+*
+*Fixes: #569427.
+*Translation update.
+
+Changes in version 1.28.0:
+==========================
+*
+*Translation update.
+
+Changes in version 1.27.90:
+==========================
+*
+*Fixes: #575794, #591105, #489828.
+*Translation update.
+
+Changes in version 1.26.0:
+=========================
+*
+*Fixes: Improve the documentation. Sven Herzberg.
+*Translation update.
+
+Changes in version 1.25.2:
+=========================
+*
+*Fixes: #562204, #505445, #361757, #478620, #560156, #477708, #478595, #478583
+#480126.
+*Translation update.
+
+Changes in version 1.24.0:
+=========================
+*
+*Fixes: #551474.
+*Translation update.
+
+Changes in version 1.23.5:
+=========================
+*
+*Fixes: #535704, #526752.
+
+Changes in version 1.22.0:
+=========================
+*
+*Translation update.
+
+Changes in version 1.21.92:
+=========================
+*
+*Fixes #508846.
+
+Changes in version 1.21.5:
+=========================
+*
+*Fixes #502840, #500978, #477763.
+
+Changes in version 1.20.0:
+=========================
+*
+*Add "si" (Sinhala) to ALL_LINGUAS.
+
+Changes in version 1.19.6:
+=========================
+*
+*Fixes #460851. Add a new API: atk_get_version.
+
+Changes in version 1.19.3:
+=========================
+*
+*Fixes #434784.
+*Remove gnome-doc-utils dependence.
+
+Changes in version 1.19.1:
+=========================
+*
+*Fixes #382328, #418194, #413357.
+
+Changes in version 1.18.0:
+=========================
+*
+*Fixes #408527, #398038, #367627.
+
+Changes in version 1.17.0:
+=========================
+*
+*Fixes #404592.
+
+Changes in version 1.13.2:
+=========================
+*
+*New class which provides miscellaneous utilities.
+*Fixes #329454.
+
+Changes in version 1.12.4:
+=========================
+*
+*Add Li Yuan to MAINTAINERS.
+
+Changes in version 1.12.3: 
+=========================
+*
+* Add missing signals to fix win32 build (Cedric Gustin, bug #355912).
+* New linguas: 'te' (Sunil Mohan Adapa), 'dz', 'ku' (Abel Cheung).
+* Implement AtkDocument signals (Neo Liu)
+* Update docs to include info on AtkDocument signals.
+* Bugfixes: #357847, #340553, #346464, #352227, 
+
+Changes in version 1.12.2: 
+=========================
+* Documentation fixes.
+* New language: Bengali (Runa Bhattacharjee)
+
+Changes in version 1.12.1: 
+=========================
+* Added AtkHyperlinkImpl
+* New language: Bengali India (bn_IN) - Runa Bhattacharjee.
+* Fixed tags in docs so that indices of
+  new and deprecated methods are created.
+* Added "get_uri" method to AtkStreamableContent.
+
+Changes in version 1.12.0: 
+=========================
+
+* Added ATK_ROLE_FORM, ATK_STATE_ANIMATED, ATK_STATE_VISITED, ATK_STATE_DEFAULT
+* Added ATK_RELATION_DESCRIPTION_FOR, ATK_RELATION_DESCRIBED_BY
+
+Changes in version 1.11.4:
+=========================
+
+ * Enhanced documentation: gtk-doc API docs are
+   now at 100% coverage.
+
+ * allow for NULL in-params to AtkImage coordinate APIs. 
+
+ * New langs: Georgian (ka)   Vladimir Sichinava
+              Oriya (or)      Gora Mohanty
+
+Changes in version 1.11.3:
+=========================
+
+ * Fix for localization bug #317458 from Kazuzi IWAMOTO.
+ * Included docs in tarball as appropriate.
+
+Changes in version 1.11.0:
+=========================
+
+  Added new APIs - minor enhancements to AtkImage,
+  AtkDocument, AtkObject, AtkComponent, AtkState.
+
+  Significant API additions:  Added locale attribute to
+  AtkImage instances, and Document instances.  
+  Added the ability to assign weakly-typed attributes to
+  AtkObject as name-value pairs; also added similar
+  name-value pairs to AtkDocument for attributes which are
+  intended to be valid over the entire document.
+
+  Minor documentation fixes (thanks to Bill Abt).
+
+  Added 'tt' (Tatar) locale, Simos Xenitellis  
+
+Changes in version 1.10.3:
+=========================
+
+  Libtool fix.	
+  N.B. : 1.10.2 was released with a buggy libtool!
+
+  in version 1.10.2:
+
+* Minor build fixes incl Win32 (Tor Lillqvist)
+
+* New locales, "ug" (Abduxukur Abdurixit) and "gl" (Ognacio Casal Quinteiro)
+
+Changes in version 1.10.1
+=========================
+
+* added ATK_STATE_REQUIRED; see bug #172663.
+
+* New locale, 'rw'
+
+Changes in version 1.9.1
+========================
+
+* New locale, 'xh'
+
+* Fixed bug #168218 (spec-file ftp dir wrong)
+
+* Fixed #165288 in atk.def file.
+
+* Added description for ATK_RELATION_SUBWINDOW_OF (bug #161562).
+
+Changes in version 1.9.0
+========================
+* Add new functions atk_relation_set_add_relation_by_type and
+atk_relation_add_target. (bug #158722)
+
+* Use gmodule-no-export.pc. (bug #158531) [Matthias Clasen]
+
+* Add new translations: Arabic [Arafat Medini], 
+Thai [Supranee Thirawattanasuk], Assamese [Sunaram Patir]
+
+* Updated translations: Canadian English [Adam Weinberger],
+Italian [Alessio Frusciante], Traditional Chinese [GNOME HK Team],
+Welsh [Dafydd Harries], French [Jean-Michel Ardantz],
+Romanian [Mi\305\237u Moldovan], Catalan [Jordi Mallach]
+ 
+Changes in version 1.8.0
+========================
+* Add translations: Bosnian [Kenan Had\305\276iavdi\304\207],
+Norwegian [Kjartan Marass], Gujarati [Ankit Patel]
+
+* Update translations: Norwegian Nynorsk [\303\205smund Skj\303\246veland],
+Vietnamese [Nguy\341\273\205n Th\303\241i Ng\341\273\215c Duy],
+Turkish [Baris Cicek], German [Hendrik Richter],
+Greek [Nikos Charonitakis], Arabic [Arafat Medini],
+Brazilian Portuguese [Raphael Higino], Nepali [Pawan Chitrakar],
+Danish [Martin Willemoes Hansen], Albanian [Laurent Dhima],
+Finnish [Pauli Virtanen], Azerbaijani [M\311\231tin \306\217mirov] ,
+Polish [Artur Flinta], Panjabi [AmanPreet Singh Alam],
+Serbian [Danilo \305\240egan], Mongolian [Sanlig Badral],
+Russian [Russian team <gnome-cyr@gnome.org>], Dutch [Timo Meinen],
+Ukranian [Maxim Dziumanenko], Canadian English [Adam Weinberger],
+Simplified Chinese [Funda Wang], Basque [I\303\261aki Larra\303\261aga]
+
+Changes in version 1.7.3
+========================
+* Minor updates to documentation.
+
+* Update translations: Hindi [Guntupalli Karunakar], Czech [Miloslav Trmac],
+Portuguese [Duarte Loreto], Japanese [Takeshi AIHANA],
+British [David Lodge], Spanish [Francisco Javier F. Serrador],
+Korean [Changwoo Ryu], Albanian [Laurent Dhima]
+
+Changes in version 1.7.2
+========================
+* Added new role ATK_ROLE_EMBEDDED.. (bug #147989)
+
+* Add support for AtkRectangle and correct definition of
+"bounds-changed" signal.
+
+* Update translations: Nepali [Pawan Chitrakar], Albanian [Laurent Dhima]
+
+Changes in version 1.7.1
+========================
+* Allow locale dir to be not hardcoded into binary. (bug #1289006)
+
+* Add translations: Turkmen [M\303\274hemmet Amut]
+
+* Update translations: Hungarian [Andras Timar],  Bulgarian [Rostislav Raikov]
+
+Changes in version 1.7.0
+========================
+* Add "bounds-changed" signal for AtkComponent. (bug #140476)
+
+* Add new state ATK_STATE_TRUNCATED and new relation 
+ATK_RELATION_PARENT_WINDOW_OF. (bug #133375)
+
+Changes in version 1.6.1
+========================
+* Update to build on Cygwin, (bug #136666) [Roger Leigh]
+
+* Add translations: Gujarati [Gujarati team], 
+Basque [I\303\261aki Larra\303\261aga] Punjabi [Amanpreet Singh Alam],
+Walloon [Pablo Saratxaga], Marathi [Indictrans team]
+
+* Update translations: Norwegian Nynorsk [\303\205smund Skj\303\246veland],
+Brazilian Portuguese [Raphael Higino], British [Gareth Owen],
+Romanian [Mi\305\237u Moldovan], Croatian [Robert Sedak],
+Catalan [Jordi Mallach], Slovak [Stanislav Visnovsky]
+
+Changes in version 1.6.0
+========================
+* Add translation: Serbian Jekavian [Bojan Suzic], Estonian [Priit Laes]
+
+* Update translations: Arabic [Arafat Medini], 
+Spanish [Francisco Javier F. Serrador],
+Lithuanian [\305\275ygimantas Beru\304\215ka], 
+Serbian [Aleksandar Urosevic], Belarusian [Ales Nyakhaychyk]
+
+Changes in version 1.5.5
+========================
+* Add translation: Canadian English [Adam Weinberger]
+
+* Update translations: Italian [Alessio Frusciante], Mongolian [Sanlig Badral],
+Albanian [Laurent Dhima], German [Christian Neumair],
+Greek [Kostas Papadimas], Hindi [Guntupalli Karunkar]
+
+Changes in version 1.5.4
+========================
+* Update translations: Japanese [Takeshi AIHANA], 
+Azerbaijani [M\311\231tin \306\217mirov], Finnish [Pauli Virtanen],
+French [Christophe Merlet], Ukrainian [Maxim Dziumanenko],
+Simplified Chinese [Funda Wang], Arabic [Arafat Medini],
+Albanian [Laurent Dhima]
+
+Changes in version 1.5.3
+========================
+* Corrected library name in atk-uninstalled.pc.in (bug #132283). [Laszlo Peter]
+
+* Corrcted property name for number of links in a AtkHypertext (bug #130022).
+
+* Add translation: Croatian [Robert Sedak]
+
+* Update translations: Japanese [Takeshi AIHANA], Italian [Alessio Frusciante],
+Norwegian [Kjartan Marass], Albanian [Laurent Dhima],
+Russian [Russian team], Polish [GNOME PL team], Welsh [Rhys Jones],
+Swedish [Christian Rose], Serbian [Danilo \305\240egan], 
+Dutch [Tino Meinen], Czech [Miloslav Trmac], Korean [Changwoo Ryu], 
+Spanish [Francicso Javier F. Serrador], Danish [Ole Laursen],
+Portuguese [Duarte Loreto]
+
+Changes in version 1.5.2
+========================
+* Fix crasher bug in atk_text_free_ranges (bug #129837). [Jeff Franks]
+
+* Change name of role from, "accel label" to "accelerator label". (bug #129499)
+
+* Update translations: Czech [MiloSlac Trmac], Portuguese [Duaret Loreto],
+Danish [Ole Laursen], Spanish [Francisco Javier F. Serrador],
+Afrikaans [Stefan Lubbersen], Japanese [Takeshi AIHANA],
+Norwegian [Kjartan Maraas], Greek [Kostas Papadimas], 
+Swedish [Christan Rose], Belarusian [Alex Nyakhaychyk],
+Serbian [Danilo \305\240egan], Arabic [Arafat Mendini],
+Norwegian Nyorsk [\303\205smund Skj\303\246veland], Croatian [Robert Sedak],
+Polish [Artur Flinta], Lithuanian [Tomas Kuliavas],
+Dutch [Vincent van Adrighem], French {Christophe Merlet],
+Mongolian [Sanlig Badral], Korean [Korean], Arabic [Arafat Medini]. 
+
+
+Changes in version 1.5.1
+========================
+* Change role names so that unlocalized names the same as Java role names.
+(bug #125024)
+
+* Set state FOCUSED for object reported as having focus. (bug #127400)
+
+* Add new property "accessible-hypertext-nlinks" for AtkObject. Add new 
+signal link_activated and properties "number-of-anchors", "end-index" and 
+"start-index" for AtkHyperlink. (bug 112390)
+
+* Make nicks and blurbs of properties translatable.
+
+* Add new role ATK_ROLE_EDITBAR. (bug 116007)
+
+* Add translations: Afrikaans [Stefan Lubbersen]
+
+* Update translations: Serbian [Danilo \305\240egan], Czech [Milozlav Trmac],
+Portuguese [Duarte Loreto],  Mongolian [Sanlig Badral], 
+Dutch [Vincent van Adrighem]
+
+Changes in version 1.5.0
+========================
+* Fix memory leaks in AtkRelations (bugs #124877, #125725)
+
+* Add version number to documentation (bug #125758)
+
+* Update translations: Catalan [Jordi Mallach], Kannada [Pramod]
+
+Changes in version 1.4.1
+========================
+* Add translations: Lithuanian [Gedminas Paulauskas], 
+Norwegian [(nynorsk [\303\205smund Skj\303\246veland]
+
+* Update translations: German [Christian Neumair],
+Romanian [Mi\305\237u Moldovan]
+
+* Add description of signals to the documentation [Padraig O'Briain]
+
+* Fix bug which caused building of rpms to fail [Scott Kennedy]
+
+Changes in version 1.4.0
+========================
+* Add translations: Nepali [Pawan Chitrakar]
+
+* Update translations: Spanish [Francisco Javier F.Serrador],
+Welsh [Dafydd Harries]
+
+Changes in version 1.3.6
+========================
+* Add translations: Hindi [Guntupalli Katunakar]
+
+* Update translations: Azerbaijani [Metin Amiroff], 
+Italian [Alessio Frusciante]
+
+Changes in version 1.3.5
+========================
+* Remove po/Makefile.in.in (bug #119053)
+
+* Return correct value for atk_state-set_is_empty (bug #116621)
+
+* Ensure that row and column values in atk_table_ref_at are non-negative.
+
+* Add translations: Tamil [Dinesh N]
+
+* Update translations: Serbian [Prevod.org], Esparanto [Charles Voelger],
+Hungarian [Andras Timar].
+ 
+
+Changes in version 1.3.4
+========================
+* Add translations: Irish [Paul Duffy], Limburgish [Mathieu Van Woerkom]
+
+* Add new relation type ATK_RELATION_POPUP
+
+* Some win32 fixes [Tor Lillqvist]
+
+Changes in version 1.3.3
+========================
+* Add translations: Welsh [Dafydd Harries], Arabic [Arafat Medini]
+
+* Update translations: Traditional Chinese [Abel Cheung]
+
+* Add new role ATK_ROLE_AUTOCOMPLETE and state ATK_STATE_INDETERMINATE.
+
+Changes in version 1.3.2
+========================
+* Add translations: Serbian [Danilo \305\240egan], Portuguese [Duarte Loreto],
+Icelandic [Sam\303\272el J\303\263n Gunnarsson]
+
+* Update translations: Traditional Chinese [Abel Cheung], Polish [Artur Flinta]
+
+
+Changes in version 1.3.1
+========================
+* Allow use of libtool-1.5 (bug #111481) [Ali Akcaagac]
+
+* Added translations: Yiddish [Raphael Finkel], Japanese [Takeshi AIHANA].
+
+
+Changes in version 1.3.0
+========================
+* Use automake-1.7, libtoolize, gtkdocize and glib-gettextize. 
+[James Henstridge]
+
+* Windows fixes [Tor Lillqvist]
+
+* Add translations: Esparanto [Charles Voelger], 
+Belarussian [Dmitry G.Mastrukov], Malayalam [Guntupalli Karunkar], 
+Persian [Roozbeh Pourander], Azerbaijani [Metin Amiroff],
+Bengali [Sayamindu Dasgupta], Kannada [Pramod], Macedonian {Abel Cheung],
+Turkish [Gorkem], Indonesian [Mohammad Damt],
+Traditional Chinese [Abel Cheung], Slovak [Stanislav Visnovsky],
+Brazilian Portuguese [Alexander Folle de Menezes], 
+Romanian [Mi\305\237u Moldovan], Mongolian [Sanlig Badral]
+
+* Make atk_text_get_character_extents() return positive value, even for rtl
+text. (bug #102954) [Padraig O'Briain]
+
+* Add new functions atk_text_get_range_extents and atk_text_get_bounded_ranges.
+(bug #100943) [Padraig]
+
+* Add properties "relation-type" and "target" to AtkRelation. (bug #72426)
+[Padraig]
+
+* Add property "accessible-table-caption-object" to AtkObject. (bug #74814)
+[Padraig]
+
+* Add property "selected-link" to AtkHyperlink and new function
+atk_kyperlink_is_selected_link(); add signal "link-selected" to AtkHyperlink.
+(bug #104621) [Padraig]
+ 
+* Correct creation of object which is not a AtkGObjectAccessible in
+atk_gobject_accessible_from_object. [Padraig and Alex Larsson]
+
+* Do not emit notification for initial setting of role using 
+atk_object_set_role(). (bug #107710) [Padraig]
+
+
+Changes in version 1.2.2
+========================
+* Add translations: Simplified Chinese (zh_CN) [He Qiangqiang],
+Albanian [Laurent Dhima], Finnisg [Pauli Virtanen], 
+Italian [Alession Frusciante], Amharic [Daniel Yacob]
+
+* Allow changing of default installation directory for documentation.
+(bug 102497) [Padraig O'Briain].
+
+Changes in version 1.2.1
+========================
+* Add translations: Catalan [Jordi Mallach], French [Christophe Marlet],
+Latvian [Artis Trops], Korean [Nam SungHyun], Polish [Zbigniew Vhyla],
+Greek [Kostas Papadimas]
+
+Changes in version 1.2.0
+========================
+* Add translations: Russian [Dmitri G. Mastrukov], Ukranian [Yuriy Syrota]
+
+Changes in version 1.1.5
+========================
+* Correct return value for atk_text_get_caret_offset(). (Bug #101020)
+[Padraig O'Briain]
+* Add translations: Vietnamese, Hebrew, Dutch [Pablo Saratxaga], 
+Hungarian [Andras Timar], Bulgarian [Yanko Kaneti]
+* Miscellaneous Fixes [Owen Taylor, manish Singh, Padraig]
+
+Changes in version 1.1.4
+========================
+* Add translations: Norwegian [Kjartan Maraas], German [Christian Neumair],
+Spanish [Pablo Gonzalo del Campo], Danish [Ole Laursen]
+
+Changes in version 1.1.3
+========================
+* Add new role ATK_ROLE_APPLICATION [Bill Haneman]
+* Add tranlatations: Malay language [Hasbullah BIn Pit]
+English [Abi Brady]
+
+Changes in version 1.1.2
+========================
+* Correct implementation of i18n support [Padraig O'Briain]
+* Add Swedish translations [Christian Rose]
+* Fix compiler warnings [Soeren Sandmann]
+* Add signal "active-descendant-changed" to AtkObject [Padraig]
+* Add relation types ATK_RELATION_EMBEDS and ATK_RELATION_EMBEDS_BY  
+[Bill Haneman]
+* Add atk_hyperlink_is_inline() [Bill]
+* Update docs [Bill]
+
+Changes in version 1.1.1
+========================
+* Add new functions atk_object_add_relationship, atk_object_remove_relationship,
+atk_role_get_localized_name, atk_action_get_localized_name; add new roles,
+states and relationships; add text-attributes-changed signal for AtkText
+interface. [Padraig O'Briain]
+
+* Add po directory and update atk_role_get_localized_name() to allow it to
+return localized name [Padraig]
+
+Changes in version 1.1.0
+========================
+* Documentation improvements [Padraig O'Briain]
+* Update autogen.sh to get correct behaviour when both automake 1.4 and 1.6
+are installed [Havoc Pennington]
+* Add implementtaion of atk_object_factory_get_accessible_type() for
+AtkNoOpObjectFactory [Padraig]
+* Add ATK_LAYER_WINDOW {Mark Mc Loughlin]
+
+Changes in version 1.0.3
+========================
+* Documentation improvements [Padraig O'Briain]
+* 64-bit bug fixes [George Lebl]
+
+Changes in version 1.0.2
+========================
+* Fixed bug with focus notification [Padraig O'Briain]
+* Fixed bug in atk_gobject_for_accessible [Padraig]
+
+Changes in version 1.0.1
+========================
+* Bug fixes, optimizations [Padraig O'Briain, Bill Haneman]
+* Fix Win32 DLL name [Tor Lillqvist]
+
+Changes in version 1.0.0
+========================
+* Build fixes [Padraig O'Briain, Tor Lillqvist, James Henstridge]
+* Add structure padding [Padraig]
+
+Changes in version 0.13
+========================
+* Add padding to class structures for future expansion [Padraig O'Briain]
+* Add include guards to atk.h [Morten Welinder]
+* Change argument of atk_component_get_layer(),atk_component_get_mdi_zorder()
+  to be AtkComponent instead of AtkObject [Padraig]
+* Cleanups [Padraig]
+
+Changes in version 0.11 and 0.12
+================================
+* Ansi-fied function prototypes and definitions;
+  i.e.  foo(void) instead of foo() [Jacob Berkman]
+* Deprecated the mis-located AtkObject API for getting
+  layer and mdi-zorder info (should have been in AtkComponent)
+  and put this API into AtkComponent.
+
+Changes in version 0.9 and 0.10
+===============================
+* Win32 build fixes [Hans Breuer]
+* Fix default signal handler name for text_caret_moved signal [Jeff Franks]
+* Doc improvements [Padraig O'Briain]
+* Fix signal prototypes in atkobject.h [Murray Cumming]
+* Fix atk-enum-types.h includes for C++ [Mikael Hermansson]
+* Bug fixes [Michael Meeks, Jeff]
+
+Changes in 0.8
+==============
+* Win32 build fixes [Hans Breuer]
+* Add atk_role_get_name()/atk_rule_for_name() [Padraig O'Briain]
+* Register types for ATK enumerations [Padraig]
+* Allow registration of new txt attribute types [Padraig]
+* Miscellaneous small API additions [Padraig]
+* New test cases [Padraig]
+* Documentation improvements [Padraig]
+
+Other contributors: Darin Adler, Bill Haneman, Xavier Ordoquy, Michael Meeks, 
+  Sebastian Wilhelmi
+
+Changes in 0.7
+==============
+* Some restructuring of how change notification works, use
+  signals not properties in some cases. [Padraig O'Briain, Bill Haneman] 
+* Various small API fixes and improvements [Padraig]
+* Add key event hooks [Bill]
+* Documentation improvements [Padraig]
+* Win32 build improvements [Tor Lillqvist]
+* Bug fixes [Padraig, Bill]
+
+Changes in 0.6
+==============
+* Small improvements to AtkText, AtkRelation, AtkObject APIs. 
+  [Padraig O'Briain, Bill Haneman]
+* Win32 build fixes [Tor Lillqvist]
+* Bug fixes and optimizations [Padraig]
+* Makefile fix [Jacob Berkman]
+* Doc improvements [Padraig]
+
+Changes in 0.5
+==============
+* Win32 updates and a small bug fix [Hans Breuer]
+
+Changes in 0.4
+==============
+* Miscellaneous cleanups and fixes.
+
+Changes in 0.3
+==============
+* API improvements to AtkTable, AtkSelection
+* Add AtkDocument interface
+* Rename AtkHyperLink to AtkHyperlink
+* Allow for screen or window relative coordinates
+* Utility functions
+* Various minor tweeks and cleanups. 
+* Documentation improvements
+* Add default implementations for important functions
+
+Changes in 0.2
+==============
+* Some API tweaks
+
+Changes in 0.1
+==============
+This is the initial release of ATK, the Accessibility Tookit, which will be
+used obtain accessibily information from GTK+ and GNOME widgets.

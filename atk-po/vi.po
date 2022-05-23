@@ -1,0 +1,803 @@
+# Vietnamese translation for ATK.
+# Bản dịch tiếng Việt dành cho atk.
+# This file is distributed under the same license as the ATK package.
+# Copyright © 2015 GNOME i18n Project for Vietnamese.
+# T.M.Thanh <tmthanh@yahoo.com>, 2002.
+# Pham Thanh Long <lngt@ngonngu.net>, 2007.
+# Clytie Siddall <clytie@riverland.net.au>, 2005-2009.
+# Nguyễn Thái Ngọc Duy <pclouds@gmail.com>, 2011.
+# Trần Ngọc Quân <vnwildman@gmail.com>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: atk master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=atk&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-03-23 15:52+0000\n"
+"PO-Revision-Date: 2015-09-27 14:40+0700\n"
+"Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
+"Language-Team: Vietnamese <gnome-vi-list@gnome.org>\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Gtranslator 2.91.7\n"
+
+#: ../atk/atkhyperlink.c:126
+msgid "Selected Link"
+msgstr "Liên kết đã chọn"
+
+#: ../atk/atkhyperlink.c:127
+msgid "Specifies whether the AtkHyperlink object is selected"
+msgstr "Xác định đối tượng AtkHyperlink được chọn hay chưa"
+
+#: ../atk/atkhyperlink.c:133
+msgid "Number of Anchors"
+msgstr "Số của điểm neo"
+
+#: ../atk/atkhyperlink.c:134
+msgid "The number of anchors associated with the AtkHyperlink object"
+msgstr "Số neo gắn với đối tượng AtkHyperlink"
+
+#: ../atk/atkhyperlink.c:142
+msgid "End index"
+msgstr "Chỉ mục cuối"
+
+#: ../atk/atkhyperlink.c:143
+msgid "The end index of the AtkHyperlink object"
+msgstr "Chỉ mục cuối của đối tượng AtkHyperlink"
+
+#: ../atk/atkhyperlink.c:151
+msgid "Start index"
+msgstr "Chỉ mục đầu"
+
+#: ../atk/atkhyperlink.c:152
+msgid "The start index of the AtkHyperlink object"
+msgstr "Chỉ mục đầu của đối tượng AtkHyperlink"
+
+#: ../atk/atkobject.c:97
+msgid "invalid"
+msgstr "không hợp lệ"
+
+#: ../atk/atkobject.c:98
+msgid "accelerator label"
+msgstr "nhãn tăng tốc"
+
+#: ../atk/atkobject.c:99
+msgid "alert"
+msgstr "cảnh báo"
+
+#: ../atk/atkobject.c:100
+msgid "animation"
+msgstr "hoạt hình"
+
+#: ../atk/atkobject.c:101
+msgid "arrow"
+msgstr "mũi tên"
+
+#: ../atk/atkobject.c:102
+msgid "calendar"
+msgstr "lịch"
+
+#: ../atk/atkobject.c:103
+msgid "canvas"
+msgstr "vùng vẽ"
+
+#: ../atk/atkobject.c:104
+msgid "check box"
+msgstr "hộp chọn"
+
+#: ../atk/atkobject.c:105
+msgid "check menu item"
+msgstr "mục trình đơn chọn"
+
+#: ../atk/atkobject.c:106
+msgid "color chooser"
+msgstr "bộ chọn màu"
+
+#: ../atk/atkobject.c:107
+msgid "column header"
+msgstr "tên cột"
+
+#: ../atk/atkobject.c:108
+msgid "combo box"
+msgstr "hộp kết hợp"
+
+#: ../atk/atkobject.c:109
+msgid "dateeditor"
+msgstr "bộ chỉnh ngày tháng"
+
+#: ../atk/atkobject.c:110
+msgid "desktop icon"
+msgstr "biểu tượng môi trường"
+
+#: ../atk/atkobject.c:111
+msgid "desktop frame"
+msgstr "khung môi trường"
+
+#: ../atk/atkobject.c:112
+msgid "dial"
+msgstr "quay số"
+
+#: ../atk/atkobject.c:113
+msgid "dialog"
+msgstr "hộp thoại"
+
+#: ../atk/atkobject.c:114
+msgid "directory pane"
+msgstr "ô thư mục"
+
+#: ../atk/atkobject.c:115
+msgid "drawing area"
+msgstr "vùng vẽ"
+
+#: ../atk/atkobject.c:116
+msgid "file chooser"
+msgstr "bộ chọn tập tin"
+
+#: ../atk/atkobject.c:117
+msgid "filler"
+msgstr "bộ tô đầy"
+
+#. I know it looks wrong but that is what Java returns
+#: ../atk/atkobject.c:119
+msgid "fontchooser"
+msgstr "bộ chọn phông"
+
+#: ../atk/atkobject.c:120
+msgid "frame"
+msgstr "khung"
+
+#: ../atk/atkobject.c:121
+msgid "glass pane"
+msgstr "ô kính"
+
+#: ../atk/atkobject.c:122
+msgid "html container"
+msgstr "thùng chứa html"
+
+#: ../atk/atkobject.c:123
+msgid "icon"
+msgstr "biểu tượng"
+
+#: ../atk/atkobject.c:124
+msgid "image"
+msgstr "ảnh"
+
+#: ../atk/atkobject.c:125
+msgid "internal frame"
+msgstr "khung nội bộ"
+
+#: ../atk/atkobject.c:126
+msgid "label"
+msgstr "nhãn"
+
+#: ../atk/atkobject.c:127
+msgid "layered pane"
+msgstr "khung phân lớp"
+
+#: ../atk/atkobject.c:128
+msgid "list"
+msgstr "danh sách"
+
+#: ../atk/atkobject.c:129
+msgid "list item"
+msgstr "mục danh sách"
+
+#: ../atk/atkobject.c:130
+msgid "menu"
+msgstr "trình đơn"
+
+#: ../atk/atkobject.c:131
+msgid "menu bar"
+msgstr "thanh trình đơn"
+
+#: ../atk/atkobject.c:132
+msgid "menu item"
+msgstr "mục trình đơn"
+
+#: ../atk/atkobject.c:133
+msgid "option pane"
+msgstr "ô tùy chọn"
+
+#: ../atk/atkobject.c:134
+msgid "page tab"
+msgstr "thẻ trang"
+
+#: ../atk/atkobject.c:135
+msgid "page tab list"
+msgstr "danh sách thẻ trang"
+
+#: ../atk/atkobject.c:136
+msgid "panel"
+msgstr "bảng điều khiển"
+
+#: ../atk/atkobject.c:137
+msgid "password text"
+msgstr "chuỗi mật khẩu"
+
+#: ../atk/atkobject.c:138
+msgid "popup menu"
+msgstr "trình đơn bật lên"
+
+#: ../atk/atkobject.c:139
+msgid "progress bar"
+msgstr "thanh tiến trình"
+
+#: ../atk/atkobject.c:140
+msgid "push button"
+msgstr "nút bấm"
+
+#: ../atk/atkobject.c:141
+msgid "radio button"
+msgstr "nút chọn"
+
+#: ../atk/atkobject.c:142
+msgid "radio menu item"
+msgstr "mục trình đơn chọn một"
+
+#: ../atk/atkobject.c:143
+msgid "root pane"
+msgstr "ô gốc"
+
+#: ../atk/atkobject.c:144
+msgid "row header"
+msgstr "tên hàng"
+
+#: ../atk/atkobject.c:145
+msgid "scroll bar"
+msgstr "thanh cuộn"
+
+#: ../atk/atkobject.c:146
+msgid "scroll pane"
+msgstr "ô cuộn"
+
+#: ../atk/atkobject.c:147
+msgid "separator"
+msgstr "thanh phân cách"
+
+#: ../atk/atkobject.c:148
+msgid "slider"
+msgstr "con trượt"
+
+#: ../atk/atkobject.c:149
+msgid "split pane"
+msgstr "ngăn cách bảng"
+
+#: ../atk/atkobject.c:150
+msgid "spin button"
+msgstr "nút xoay"
+
+#: ../atk/atkobject.c:151
+msgid "statusbar"
+msgstr "thanh trạng thái"
+
+#: ../atk/atkobject.c:152
+msgid "table"
+msgstr "bảng"
+
+#: ../atk/atkobject.c:153
+msgid "table cell"
+msgstr "ô bảng"
+
+#: ../atk/atkobject.c:154
+msgid "table column header"
+msgstr "tên cột bảng"
+
+#: ../atk/atkobject.c:155
+msgid "table row header"
+msgstr "tên hàng bảng"
+
+#: ../atk/atkobject.c:156
+msgid "tear off menu item"
+msgstr "mục trình đơn tách rời"
+
+#: ../atk/atkobject.c:157
+msgid "terminal"
+msgstr "thiết bị cuối"
+
+#: ../atk/atkobject.c:158
+msgid "text"
+msgstr "chữ"
+
+#: ../atk/atkobject.c:159
+msgid "toggle button"
+msgstr "nút bật/tắt"
+
+#: ../atk/atkobject.c:160
+msgid "tool bar"
+msgstr "thanh công cụ"
+
+#: ../atk/atkobject.c:161
+msgid "tool tip"
+msgstr "mẹo công cụ"
+
+#: ../atk/atkobject.c:162
+msgid "tree"
+msgstr "cây"
+
+#: ../atk/atkobject.c:163
+msgid "tree table"
+msgstr "bảng cây"
+
+#: ../atk/atkobject.c:164
+msgid "unknown"
+msgstr "không rõ"
+
+#: ../atk/atkobject.c:165
+msgid "viewport"
+msgstr "cổng xem"
+
+#: ../atk/atkobject.c:166
+msgid "window"
+msgstr "cửa sổ"
+
+#: ../atk/atkobject.c:167
+msgid "header"
+msgstr "phần đầu"
+
+#: ../atk/atkobject.c:168
+msgid "footer"
+msgstr "phần chân"
+
+#: ../atk/atkobject.c:169
+msgid "paragraph"
+msgstr "đoạn văn"
+
+#: ../atk/atkobject.c:170
+msgid "ruler"
+msgstr "thước"
+
+#: ../atk/atkobject.c:171
+msgid "application"
+msgstr "ứng dụng"
+
+#: ../atk/atkobject.c:172
+msgid "autocomplete"
+msgstr "tự động hoàn tất"
+
+#: ../atk/atkobject.c:173
+msgid "edit bar"
+msgstr "thanh sửa"
+
+#: ../atk/atkobject.c:174
+msgid "embedded component"
+msgstr "thành phần nhúng"
+
+#: ../atk/atkobject.c:175
+msgid "entry"
+msgstr "mục nhập"
+
+#: ../atk/atkobject.c:176
+msgid "chart"
+msgstr "sơ đồ"
+
+#: ../atk/atkobject.c:177
+msgid "caption"
+msgstr "tiêu đề"
+
+#: ../atk/atkobject.c:178
+msgid "document frame"
+msgstr "khung tài liệu"
+
+#: ../atk/atkobject.c:179
+msgid "heading"
+msgstr "tiêu đề"
+
+#: ../atk/atkobject.c:180
+msgid "page"
+msgstr "trang"
+
+#: ../atk/atkobject.c:181
+msgid "section"
+msgstr "phần"
+
+#: ../atk/atkobject.c:182
+msgid "redundant object"
+msgstr "đối tượng thừa"
+
+#: ../atk/atkobject.c:183
+msgid "form"
+msgstr "mẫu"
+
+#: ../atk/atkobject.c:184
+msgid "link"
+msgstr "liên kết"
+
+#: ../atk/atkobject.c:185
+msgid "input method window"
+msgstr "cửa sổ cách gõ"
+
+#: ../atk/atkobject.c:186
+msgid "table row"
+msgstr "hàng bảng"
+
+#: ../atk/atkobject.c:187
+msgid "tree item"
+msgstr "nút cây"
+
+#: ../atk/atkobject.c:188
+msgid "document spreadsheet"
+msgstr "bảng tính tài liệu"
+
+#: ../atk/atkobject.c:189
+msgid "document presentation"
+msgstr "trình diễn tài liệu"
+
+#: ../atk/atkobject.c:190
+msgid "document text"
+msgstr "văn bản tài liệu"
+
+#: ../atk/atkobject.c:191
+msgid "document web"
+msgstr "web tài liệu"
+
+#: ../atk/atkobject.c:192
+msgid "document email"
+msgstr "thư tài liệu"
+
+#: ../atk/atkobject.c:193
+msgid "comment"
+msgstr "bình luận"
+
+#: ../atk/atkobject.c:194
+msgid "list box"
+msgstr "ô danh sách"
+
+#: ../atk/atkobject.c:195
+msgid "grouping"
+msgstr "nhóm"
+
+#: ../atk/atkobject.c:196
+msgid "image map"
+msgstr "bản đồ ảnh"
+
+#: ../atk/atkobject.c:197
+msgid "notification"
+msgstr "thông báo"
+
+#: ../atk/atkobject.c:198
+msgid "info bar"
+msgstr "thanh thông tin"
+
+#: ../atk/atkobject.c:199
+msgid "level bar"
+msgstr "thanh mức"
+
+#: ../atk/atkobject.c:200
+msgid "title bar"
+msgstr "thanh tiêu đề"
+
+#: ../atk/atkobject.c:201
+msgid "block quote"
+msgstr "khối trích dẫn"
+
+#: ../atk/atkobject.c:202
+msgid "audio"
+msgstr "âm thanh"
+
+#: ../atk/atkobject.c:203
+msgid "video"
+msgstr "phim"
+
+#: ../atk/atkobject.c:204
+msgid "definition"
+msgstr "định nghĩa"
+
+#: ../atk/atkobject.c:205
+msgid "article"
+msgstr "bài viết"
+
+#: ../atk/atkobject.c:206
+msgid "landmark"
+msgstr "mốc"
+
+#: ../atk/atkobject.c:207
+msgid "log"
+msgstr "nhật ký"
+
+#: ../atk/atkobject.c:208
+msgid "marquee"
+msgstr "màn che"
+
+#: ../atk/atkobject.c:209
+msgid "math"
+msgstr "toán"
+
+#: ../atk/atkobject.c:210
+msgid "rating"
+msgstr "đánh giá"
+
+#: ../atk/atkobject.c:211
+msgid "timer"
+msgstr "bộ định giờ"
+
+#: ../atk/atkobject.c:212
+msgid "description list"
+msgstr "danh sách mô tả"
+
+#: ../atk/atkobject.c:213
+msgid "description term"
+msgstr "điều khoản mô tả"
+
+#: ../atk/atkobject.c:214
+msgid "description value"
+msgstr "giá trị mô tả"
+
+#: ../atk/atkobject.c:372
+msgid "Accessible Name"
+msgstr "Tên truy cập được"
+
+#: ../atk/atkobject.c:373
+msgid "Object instance’s name formatted for assistive technology access"
+msgstr ""
+"Tên của thể hiện đối tượng được định dạng cho truy cập kĩ thuật để giúp đỡ"
+
+#: ../atk/atkobject.c:379
+msgid "Accessible Description"
+msgstr "Mô tả truy cập được"
+
+#: ../atk/atkobject.c:380
+msgid "Description of an object, formatted for assistive technology access"
+msgstr "Mô tả của đối tượng được định dạng cho truy cập kĩ thuật để giúp đỡ"
+
+#: ../atk/atkobject.c:386
+msgid "Accessible Parent"
+msgstr "Cấp trên truy cập được"
+
+#: ../atk/atkobject.c:387
+msgid "Parent of the current accessible as returned by atk_object_get_parent()"
+msgstr "Cha của bộ tiếp cận hiện tại được trả về bởi atk_object_get_parent()"
+
+#: ../atk/atkobject.c:403
+msgid "Accessible Value"
+msgstr "Giá trị truy cập được"
+
+#: ../atk/atkobject.c:404
+msgid "Is used to notify that the value has changed"
+msgstr "Dùng để thông báo giá trị đã thay đổi"
+
+#: ../atk/atkobject.c:412
+msgid "Accessible Role"
+msgstr "Vai trò truy cập được"
+
+#: ../atk/atkobject.c:413
+msgid "The accessible role of this object"
+msgstr "Vai trò có khả năng truy cập của đối tượng này"
+
+#: ../atk/atkobject.c:421
+msgid "Accessible Layer"
+msgstr "Lớp truy cập được"
+
+#: ../atk/atkobject.c:422
+msgid "The accessible layer of this object"
+msgstr "Lớp có khả năng truy cập của đối tượng"
+
+#: ../atk/atkobject.c:430
+msgid "Accessible MDI Value"
+msgstr "Giá trị MDI truy cập được"
+
+#: ../atk/atkobject.c:431
+msgid "The accessible MDI value of this object"
+msgstr "Giá trị MDI có khả năng truy cập của đối tượng này"
+
+#: ../atk/atkobject.c:447
+msgid "Accessible Table Caption"
+msgstr "Tiêu đề bảng truy cập được"
+
+#: ../atk/atkobject.c:448
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr ""
+"Dùng để thông báo tiêu đề bảng đã thay đổi; không dùng thuộc tính này mà nên "
+"dùng accessible-table-caption-object (đối tượng tiêu đề bảng truy cập được)"
+
+#: ../atk/atkobject.c:462
+msgid "Accessible Table Column Header"
+msgstr "Tiêu đề cột bảng truy cập được"
+
+#: ../atk/atkobject.c:463
+msgid "Is used to notify that the table column header has changed"
+msgstr "Dùng để thông báo tiêu đề cột bảng đã thay đổi."
+
+#: ../atk/atkobject.c:478
+msgid "Accessible Table Column Description"
+msgstr "Mô tả cột bảng truy cập được"
+
+#: ../atk/atkobject.c:479
+msgid "Is used to notify that the table column description has changed"
+msgstr "Dùng để thông báo mô tả cột bảng đã thay đổi"
+
+#: ../atk/atkobject.c:494
+msgid "Accessible Table Row Header"
+msgstr "Tên hàng bảng truy cập được"
+
+#: ../atk/atkobject.c:495
+msgid "Is used to notify that the table row header has changed"
+msgstr "Dùng để thông báo tên hàng trong bảng đã thay đổi."
+
+#: ../atk/atkobject.c:509
+msgid "Accessible Table Row Description"
+msgstr "Mô tả hàng bảng truy cập được"
+
+#: ../atk/atkobject.c:510
+msgid "Is used to notify that the table row description has changed"
+msgstr "Dùng để thông báo mô tả hàng bảng đã thay đổi"
+
+#: ../atk/atkobject.c:516
+msgid "Accessible Table Summary"
+msgstr "Tóm tắt bảng truy cập được"
+
+#: ../atk/atkobject.c:517
+msgid "Is used to notify that the table summary has changed"
+msgstr "Dùng để thông báo tóm tắt bảng đã thay đổi"
+
+#: ../atk/atkobject.c:523
+msgid "Accessible Table Caption Object"
+msgstr "Đối tượng tiêu đề bảng truy cập được"
+
+#: ../atk/atkobject.c:524
+msgid "Is used to notify that the table caption has changed"
+msgstr "Dùng để thông báo tiêu đề bảng đã thay đổi"
+
+#: ../atk/atkobject.c:530
+msgid "Number of Accessible Hypertext Links"
+msgstr "Số liên kết siêu văn bản truy cập được"
+
+#: ../atk/atkobject.c:531
+msgid "The number of links which the current AtkHypertext has"
+msgstr "Tổng số liên kết thuộc về AtkHypertext hiện tại"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:194
+msgid "very weak"
+msgstr "rất yếu"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:201
+msgid "weak"
+msgstr "yếu"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:208
+msgid "acceptable"
+msgstr "chấp nhận được"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:215
+msgid "strong"
+msgstr "mạnh"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:222
+msgid "very strong"
+msgstr "rất mạnh"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:230
+msgid "very low"
+msgstr "rất thấp"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:238
+msgid "medium"
+msgstr "trung bình"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:246
+msgid "high"
+msgstr "cao"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:254
+msgid "very high"
+msgstr "rất cao"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:262
+msgid "very bad"
+msgstr "rất tệ"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:270
+msgid "bad"
+msgstr "tệ"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:278
+msgid "good"
+msgstr "tốt"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:286
+msgid "very good"
+msgstr "rất tốt"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:294
+msgid "best"
+msgstr "cực kỳ tốt"
+
+#~ msgid "Is used to notify that the parent has changed"
+#~ msgstr "Dùng để thông báo cấp trên đã thay đổi"

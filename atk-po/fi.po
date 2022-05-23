@@ -1,0 +1,824 @@
+# atk Finnish translation.
+# Suomennos: http://gnome-fi.sourceforge.net/
+# Copyright (C) 2003-2009 Free Software Foundation, Inc.
+#
+# Pauli Virtanen <pauli.virtanen@hut.fi>, 2003-2004.
+# Ilkka Tuohela <hile@iki.fi>, 2005-2009.
+# Lasse Liehu <lasse.liehu@gmail.com>, 2014.
+# Jiri Grönroos <jiri.gronroos+l10n@iki.fi>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: atk\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=atk&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-03-13 15:51+0000\n"
+"PO-Revision-Date: 2015-03-13 18:00+0200\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
+"Language-Team: suomi <gnome-fi-laatu@lists.sourceforge.net>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"sourceforge.net>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.6\n"
+
+#: ../atk/atkhyperlink.c:128
+msgid "Selected Link"
+msgstr "Valittu linkki"
+
+#: ../atk/atkhyperlink.c:129
+msgid "Specifies whether the AtkHyperlink object is selected"
+msgstr "Määrittelee, onko AtkHyperlink-olio valittu"
+
+#: ../atk/atkhyperlink.c:135
+msgid "Number of Anchors"
+msgstr "Ankkureiden määrä"
+
+#: ../atk/atkhyperlink.c:136
+msgid "The number of anchors associated with the AtkHyperlink object"
+msgstr "AtkHyperlink-olioon kytkettyjen ankkureiden määrä"
+
+#: ../atk/atkhyperlink.c:144
+msgid "End index"
+msgstr "Loppuindeksi"
+
+#: ../atk/atkhyperlink.c:145
+msgid "The end index of the AtkHyperlink object"
+msgstr "AtkHyperlink-olion loppuindeksi"
+
+#: ../atk/atkhyperlink.c:153
+msgid "Start index"
+msgstr "Alkuindeksi"
+
+#: ../atk/atkhyperlink.c:154
+msgid "The start index of the AtkHyperlink object"
+msgstr "AtkHyperlink-olion alkuindeksi"
+
+#: ../atk/atkobject.c:97
+msgid "invalid"
+msgstr "virheellinen"
+
+#: ../atk/atkobject.c:98
+msgid "accelerator label"
+msgstr "pikavalintanimiö"
+
+#: ../atk/atkobject.c:99
+msgid "alert"
+msgstr "hälytys"
+
+#: ../atk/atkobject.c:100
+msgid "animation"
+msgstr "animaatio"
+
+#: ../atk/atkobject.c:101
+msgid "arrow"
+msgstr "nuoli"
+
+#: ../atk/atkobject.c:102
+msgid "calendar"
+msgstr "kalenteri"
+
+# Huomaa, että "piirtoalue" on drawing-area.
+#: ../atk/atkobject.c:103
+msgid "canvas"
+msgstr "kangas"
+
+#: ../atk/atkobject.c:104
+msgid "check box"
+msgstr "valintaruutu"
+
+#: ../atk/atkobject.c:105
+msgid "check menu item"
+msgstr "valintaruutu valikon kohtana"
+
+#: ../atk/atkobject.c:106
+msgid "color chooser"
+msgstr "värivalitsin"
+
+#: ../atk/atkobject.c:107
+msgid "column header"
+msgstr "sarakkeen otsake"
+
+#: ../atk/atkobject.c:108
+msgid "combo box"
+msgstr "yhdistelmäruutu"
+
+#: ../atk/atkobject.c:109
+msgid "dateeditor"
+msgstr "päiväysmuokkain"
+
+#: ../atk/atkobject.c:110
+msgid "desktop icon"
+msgstr "työpöydän kuvake"
+
+#: ../atk/atkobject.c:111
+msgid "desktop frame"
+msgstr "työpöytäkehys"
+
+#: ../atk/atkobject.c:112
+msgid "dial"
+msgstr "arvosäädin"
+
+#: ../atk/atkobject.c:113
+msgid "dialog"
+msgstr "valintaikkuna"
+
+#: ../atk/atkobject.c:114
+msgid "directory pane"
+msgstr "kansiopaneeli"
+
+#: ../atk/atkobject.c:115
+msgid "drawing area"
+msgstr "piirtoalue"
+
+#: ../atk/atkobject.c:116
+msgid "file chooser"
+msgstr "tiedostovalitsin"
+
+#: ../atk/atkobject.c:117
+msgid "filler"
+msgstr "täyte"
+
+#. I know it looks wrong but that is what Java returns
+#: ../atk/atkobject.c:119
+msgid "fontchooser"
+msgstr "fonttivalitsin"
+
+#: ../atk/atkobject.c:120
+msgid "frame"
+msgstr "kehys"
+
+# According to the documentation:
+# A pane that is guaranteed to be painted on top of all panes beneath it
+#: ../atk/atkobject.c:121
+msgid "glass pane"
+msgstr "päällimmäinen paneeli"
+
+#: ../atk/atkobject.c:122
+msgid "html container"
+msgstr "html-säilö"
+
+#: ../atk/atkobject.c:123
+msgid "icon"
+msgstr "kuvake"
+
+#: ../atk/atkobject.c:124
+msgid "image"
+msgstr "kuva"
+
+#: ../atk/atkobject.c:125
+msgid "internal frame"
+msgstr "sisäinen kehys"
+
+#: ../atk/atkobject.c:126
+msgid "label"
+msgstr "nimiö"
+
+#: ../atk/atkobject.c:127
+msgid "layered pane"
+msgstr "kerrospaneeli"
+
+#: ../atk/atkobject.c:128
+msgid "list"
+msgstr "luettelo"
+
+#: ../atk/atkobject.c:129
+msgid "list item"
+msgstr "luettelon kohta"
+
+#: ../atk/atkobject.c:130
+msgid "menu"
+msgstr "valikko"
+
+#: ../atk/atkobject.c:131
+msgid "menu bar"
+msgstr "valikkopalkki"
+
+#: ../atk/atkobject.c:132
+msgid "menu item"
+msgstr "valikon kohta"
+
+#: ../atk/atkobject.c:133
+msgid "option pane"
+msgstr "valintapaneeli"
+
+#: ../atk/atkobject.c:134
+msgid "page tab"
+msgstr "välilehti"
+
+#: ../atk/atkobject.c:135
+msgid "page tab list"
+msgstr "välilehtiluettelo"
+
+#: ../atk/atkobject.c:136
+msgid "panel"
+msgstr "paneeli"
+
+#: ../atk/atkobject.c:137
+msgid "password text"
+msgstr "salasanateksti"
+
+#: ../atk/atkobject.c:138
+msgid "popup menu"
+msgstr "ponnahdusvalikko"
+
+#: ../atk/atkobject.c:139
+msgid "progress bar"
+msgstr "edistymispalkki"
+
+#: ../atk/atkobject.c:140
+msgid "push button"
+msgstr "painike"
+
+#: ../atk/atkobject.c:141
+msgid "radio button"
+msgstr "vaihtoehtonappi"
+
+#: ../atk/atkobject.c:142
+msgid "radio menu item"
+msgstr "vaihtoehtonappi valikon kohtana"
+
+#: ../atk/atkobject.c:143
+msgid "root pane"
+msgstr "juuripaneeli"
+
+#: ../atk/atkobject.c:144
+msgid "row header"
+msgstr "riviotsake"
+
+#: ../atk/atkobject.c:145
+msgid "scroll bar"
+msgstr "vierityspalkki"
+
+#: ../atk/atkobject.c:146
+msgid "scroll pane"
+msgstr "vierityspaneeli"
+
+#: ../atk/atkobject.c:147
+msgid "separator"
+msgstr "erotin"
+
+#: ../atk/atkobject.c:148
+msgid "slider"
+msgstr "liukusäädin"
+
+#: ../atk/atkobject.c:149
+msgid "split pane"
+msgstr "jaettu paneeli"
+
+#: ../atk/atkobject.c:150
+msgid "spin button"
+msgstr "pyöröpainike"
+
+#: ../atk/atkobject.c:151
+msgid "statusbar"
+msgstr "tilarivi"
+
+#: ../atk/atkobject.c:152
+msgid "table"
+msgstr "taulukko"
+
+#: ../atk/atkobject.c:153
+msgid "table cell"
+msgstr "taulukon solu"
+
+#: ../atk/atkobject.c:154
+msgid "table column header"
+msgstr "taulukon sarakkeen otsake"
+
+#: ../atk/atkobject.c:155
+msgid "table row header"
+msgstr "taulukon rivin otsake"
+
+#: ../atk/atkobject.c:156
+msgid "tear off menu item"
+msgstr "valikon irrotuskohta"
+
+#: ../atk/atkobject.c:157
+msgid "terminal"
+msgstr "pääte"
+
+#: ../atk/atkobject.c:158
+msgid "text"
+msgstr "teksti"
+
+#: ../atk/atkobject.c:159
+msgid "toggle button"
+msgstr "vipupainike"
+
+#: ../atk/atkobject.c:160
+msgid "tool bar"
+msgstr "työkalupalkki"
+
+#: ../atk/atkobject.c:161
+msgid "tool tip"
+msgstr "vinkki"
+
+#: ../atk/atkobject.c:162
+msgid "tree"
+msgstr "puu"
+
+#: ../atk/atkobject.c:163
+msgid "tree table"
+msgstr "puutaulukko"
+
+#: ../atk/atkobject.c:164
+msgid "unknown"
+msgstr "tuntematon"
+
+#: ../atk/atkobject.c:165
+msgid "viewport"
+msgstr "näköaukko"
+
+#: ../atk/atkobject.c:166
+msgid "window"
+msgstr "ikkuna"
+
+#: ../atk/atkobject.c:167
+msgid "header"
+msgstr "ylätunniste"
+
+#: ../atk/atkobject.c:168
+msgid "footer"
+msgstr "alatunniste"
+
+#: ../atk/atkobject.c:169
+msgid "paragraph"
+msgstr "kappale"
+
+#: ../atk/atkobject.c:170
+msgid "ruler"
+msgstr "viivain"
+
+#: ../atk/atkobject.c:171
+msgid "application"
+msgstr "sovellus"
+
+#: ../atk/atkobject.c:172
+msgid "autocomplete"
+msgstr "automaattitäydennys"
+
+#: ../atk/atkobject.c:173
+msgid "edit bar"
+msgstr "muokkauspalkki"
+
+#: ../atk/atkobject.c:174
+msgid "embedded component"
+msgstr "upotettu komponentti"
+
+#: ../atk/atkobject.c:175
+msgid "entry"
+msgstr "kohta"
+
+#: ../atk/atkobject.c:176
+msgid "chart"
+msgstr "kaavio"
+
+#: ../atk/atkobject.c:177
+msgid "caption"
+msgstr "kuvateksti"
+
+#: ../atk/atkobject.c:178
+msgid "document frame"
+msgstr "asiakirjakehys"
+
+#: ../atk/atkobject.c:179
+msgid "heading"
+msgstr "ylätunniste"
+
+#: ../atk/atkobject.c:180
+msgid "page"
+msgstr "sivu"
+
+#: ../atk/atkobject.c:181
+msgid "section"
+msgstr "kappale"
+
+#: ../atk/atkobject.c:182
+msgid "redundant object"
+msgstr "liiallinen kohde"
+
+#: ../atk/atkobject.c:183
+msgid "form"
+msgstr "kaavake"
+
+#: ../atk/atkobject.c:184
+msgid "link"
+msgstr "linkki"
+
+#: ../atk/atkobject.c:185
+msgid "input method window"
+msgstr "syöttätavan ikkuna"
+
+#: ../atk/atkobject.c:186
+#| msgid "table row header"
+msgid "table row"
+msgstr "taulukon rivi"
+
+#: ../atk/atkobject.c:187
+#, fuzzy
+#| msgid "tree table"
+msgid "tree item"
+msgstr "puutaulukko"
+
+#: ../atk/atkobject.c:188
+#| msgid "document frame"
+msgid "document spreadsheet"
+msgstr "taulukkoasiakirja"
+
+#: ../atk/atkobject.c:189
+#| msgid "document frame"
+msgid "document presentation"
+msgstr "esitysasiakirja"
+
+#: ../atk/atkobject.c:190
+#| msgid "document frame"
+msgid "document text"
+msgstr "tekstiasiakirja"
+
+#: ../atk/atkobject.c:191
+#| msgid "document frame"
+msgid "document web"
+msgstr "verkkoasiakirja"
+
+#: ../atk/atkobject.c:192
+#| msgid "document frame"
+msgid "document email"
+msgstr "sähköpostiasiakirja"
+
+#: ../atk/atkobject.c:193
+msgid "comment"
+msgstr "kommentti"
+
+#: ../atk/atkobject.c:194
+#, fuzzy
+#| msgid "list"
+msgid "list box"
+msgstr "luettelo"
+
+#: ../atk/atkobject.c:195
+msgid "grouping"
+msgstr "ryhmittely"
+
+#: ../atk/atkobject.c:196
+#| msgid "image"
+msgid "image map"
+msgstr "kuvakartta"
+
+#: ../atk/atkobject.c:197
+#| msgid "animation"
+msgid "notification"
+msgstr "ilmoitus"
+
+#: ../atk/atkobject.c:198
+#| msgid "menu bar"
+msgid "info bar"
+msgstr "tietopalkki"
+
+#: ../atk/atkobject.c:199
+#, fuzzy
+#| msgid "scroll bar"
+msgid "level bar"
+msgstr "vierityspalkki"
+
+#: ../atk/atkobject.c:200
+#, fuzzy
+#| msgid "tool bar"
+msgid "title bar"
+msgstr "työkalupalkki"
+
+#: ../atk/atkobject.c:201
+msgid "block quote"
+msgstr ""
+
+#: ../atk/atkobject.c:202
+msgid "audio"
+msgstr "ääni"
+
+#: ../atk/atkobject.c:203
+msgid "video"
+msgstr "video"
+
+#: ../atk/atkobject.c:204
+#| msgid "animation"
+msgid "definition"
+msgstr "määritelmä"
+
+#: ../atk/atkobject.c:205
+msgid "article"
+msgstr "artikkeli"
+
+#: ../atk/atkobject.c:206
+msgid "landmark"
+msgstr ""
+
+#: ../atk/atkobject.c:207
+#, fuzzy
+#| msgid "dialog"
+msgid "log"
+msgstr "valintaikkuna"
+
+#: ../atk/atkobject.c:208
+msgid "marquee"
+msgstr ""
+
+#: ../atk/atkobject.c:209
+msgid "math"
+msgstr ""
+
+#: ../atk/atkobject.c:210
+msgid "rating"
+msgstr "arvostelu"
+
+#: ../atk/atkobject.c:211
+msgid "timer"
+msgstr "ajastin"
+
+#: ../atk/atkobject.c:212
+msgid "description list"
+msgstr "kuvausluettelo"
+
+#: ../atk/atkobject.c:213
+msgid "description term"
+msgstr "kuvaustermi"
+
+#: ../atk/atkobject.c:214
+msgid "description value"
+msgstr "kuvausarvo"
+
+#: ../atk/atkobject.c:372
+msgid "Accessible Name"
+msgstr "Esteetön nimi"
+
+#: ../atk/atkobject.c:373
+msgid "Object instance’s name formatted for assistive technology access"
+msgstr "Olion ilmentymän nimi muotoiltuna apuvälinesovelluksia varten"
+
+#: ../atk/atkobject.c:379
+msgid "Accessible Description"
+msgstr "Esteetön kuvaus"
+
+#: ../atk/atkobject.c:380
+msgid "Description of an object, formatted for assistive technology access"
+msgstr "Olion kuvaus muotoiltuna apuvälinesovelluksia varten"
+
+#: ../atk/atkobject.c:386
+msgid "Accessible Parent"
+msgstr "Esteetön emo"
+
+#: ../atk/atkobject.c:387
+msgid "Parent of the current accessible as returned by atk_object_get_parent()"
+msgstr ""
+
+#: ../atk/atkobject.c:403
+msgid "Accessible Value"
+msgstr "Esteetön arvo"
+
+#: ../atk/atkobject.c:404
+msgid "Is used to notify that the value has changed"
+msgstr "Käytetään huomauttamaan, että arvo on muuttunut"
+
+#: ../atk/atkobject.c:412
+msgid "Accessible Role"
+msgstr "Esteettömyysrooli"
+
+#: ../atk/atkobject.c:413
+msgid "The accessible role of this object"
+msgstr "Tämän olion esteettömyysrooli"
+
+#: ../atk/atkobject.c:421
+msgid "Accessible Layer"
+msgstr "Esteettömyyskerros"
+
+#: ../atk/atkobject.c:422
+msgid "The accessible layer of this object"
+msgstr "Tämän olion esteettömyyskerros"
+
+#: ../atk/atkobject.c:430
+msgid "Accessible MDI Value"
+msgstr "Esteetön MDI-arvo"
+
+#: ../atk/atkobject.c:431
+msgid "The accessible MDI value of this object"
+msgstr "Tämän olion esteetön MDI-arvo"
+
+#: ../atk/atkobject.c:447
+msgid "Accessible Table Caption"
+msgstr "Esteetön taulukon otsake"
+
+#: ../atk/atkobject.c:448
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr ""
+"Käytetään huomauttamaan, että taulukon otsake on muuttunut. Tämän "
+"ominaisuuden sijaan tulisi käyttää ominaisuutta \"accessible-table-caption-"
+"object\"."
+
+#: ../atk/atkobject.c:462
+msgid "Accessible Table Column Header"
+msgstr "Esteetön taulukon sarakkeen otsake"
+
+#: ../atk/atkobject.c:463
+msgid "Is used to notify that the table column header has changed"
+msgstr "Käytetään huomauttamaan, että taulukon sarakkeen otsake on muuttunut"
+
+#: ../atk/atkobject.c:478
+msgid "Accessible Table Column Description"
+msgstr "Esteetön taulukon sarakkeen kuvaus"
+
+#: ../atk/atkobject.c:479
+msgid "Is used to notify that the table column description has changed"
+msgstr "Käytetään huomauttamaan, että taulukon sarakkeen kuvaus on muuttunut"
+
+#: ../atk/atkobject.c:494
+msgid "Accessible Table Row Header"
+msgstr "Esteetön taulukon rivin otsake"
+
+#: ../atk/atkobject.c:495
+msgid "Is used to notify that the table row header has changed"
+msgstr "Käytetään huomauttamaan, että taulukon rivin otsake on muuttunut"
+
+#: ../atk/atkobject.c:509
+msgid "Accessible Table Row Description"
+msgstr "Esteetön taulukon rivin kuvaus"
+
+#: ../atk/atkobject.c:510
+msgid "Is used to notify that the table row description has changed"
+msgstr "Käytetään huomauttamaan, että taulukon rivin kuvaus on muuttunut"
+
+#: ../atk/atkobject.c:516
+msgid "Accessible Table Summary"
+msgstr "Esteetön taulukon yhteenveto"
+
+#: ../atk/atkobject.c:517
+msgid "Is used to notify that the table summary has changed"
+msgstr "Käytetään huomauttamaan, että taulukon yhteenveto on muuttunut"
+
+#: ../atk/atkobject.c:523
+msgid "Accessible Table Caption Object"
+msgstr "Esteetön taulukon otsakeolio"
+
+#: ../atk/atkobject.c:524
+msgid "Is used to notify that the table caption has changed"
+msgstr "Käytetään huomauttamaan, että taulukon otsake on muuttunut"
+
+#: ../atk/atkobject.c:530
+msgid "Number of Accessible Hypertext Links"
+msgstr "Esteettömien hyperlinkkien määrä"
+
+#: ../atk/atkobject.c:531
+msgid "The number of links which the current AtkHypertext has"
+msgstr "AtkHypertext-olion linkkien määrä"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:194
+msgid "very weak"
+msgstr "erittäin heikko"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:201
+msgid "weak"
+msgstr "heikko"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:208
+#| msgid "table"
+msgid "acceptable"
+msgstr "hyväksyttävä"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:215
+msgid "strong"
+msgstr "vahva"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: ../atk/atkvalue.c:222
+msgid "very strong"
+msgstr "erittäin vahva"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:230
+msgid "very low"
+msgstr "erittäin matala"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:238
+msgid "medium"
+msgstr "tavallinen"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:246
+msgid "high"
+msgstr "korkea"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:254
+msgid "very high"
+msgstr "erittäin korkea"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:262
+msgid "very bad"
+msgstr "erittäin huono"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:270
+msgid "bad"
+msgstr "huono"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:278
+msgid "good"
+msgstr "hyvä"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:286
+msgid "very good"
+msgstr "erittäin hyvä"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: ../atk/atkvalue.c:294
+msgid "best"
+msgstr "paras"

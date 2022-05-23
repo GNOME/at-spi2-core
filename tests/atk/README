@@ -1,0 +1,12 @@
+teststateset
+============
+This module tests the interfaces in atk/atkstateset.h
+
+testrelation
+============
+This module tests the interfaces in atk/atkrelation.h
+
+testrole
+========
+This module tests the methods related with roles and role names,
+defined at atk/atkobject.h

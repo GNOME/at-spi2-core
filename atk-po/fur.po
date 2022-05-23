@@ -1,0 +1,797 @@
+# Friulian translation for atk.
+# Copyright (C) 2016 atk's COPYRIGHT HOLDER
+# This file is distributed under the same license as the atk package.
+# Fabio Tomat <f.t.public@gmail.com>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: atk master\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=atk&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2017-03-12 16:16+0000\n"
+"PO-Revision-Date: 2017-05-27 23:32+0200\n"
+"Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
+"Language-Team: Friulian <fur@li.org>\n"
+"Language: fur\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+
+#: atk/atkhyperlink.c:126
+msgid "Selected Link"
+msgstr "Colegament selezionât"
+
+#: atk/atkhyperlink.c:127
+msgid "Specifies whether the AtkHyperlink object is selected"
+msgstr "Specifiche se l'ogjet AtkHyperlink al è selezionât"
+
+#: atk/atkhyperlink.c:133
+msgid "Number of Anchors"
+msgstr "Numar di Ancuris"
+
+#: atk/atkhyperlink.c:134
+msgid "The number of anchors associated with the AtkHyperlink object"
+msgstr "Il numar di ancuris associadis cun l'ogjet AtkHyperlink"
+
+#: atk/atkhyperlink.c:142
+msgid "End index"
+msgstr "Indiç finâl"
+
+#: atk/atkhyperlink.c:143
+msgid "The end index of the AtkHyperlink object"
+msgstr "L'indiç finâl dal ogjet AtkHyperlink"
+
+#: atk/atkhyperlink.c:151
+msgid "Start index"
+msgstr "Indiç iniziâl"
+
+#: atk/atkhyperlink.c:152
+msgid "The start index of the AtkHyperlink object"
+msgstr "L'indiç iniziâl dal ogjet AtkHyperlink"
+
+#: atk/atkobject.c:97
+msgid "invalid"
+msgstr "no valit"
+
+#: atk/atkobject.c:98
+msgid "accelerator label"
+msgstr "etichete aceleradôr"
+
+#: atk/atkobject.c:99
+msgid "alert"
+msgstr "alerte"
+
+#: atk/atkobject.c:100
+msgid "animation"
+msgstr "animazion"
+
+#: atk/atkobject.c:101
+msgid "arrow"
+msgstr "frece"
+
+#: atk/atkobject.c:102
+msgid "calendar"
+msgstr "calendari"
+
+#: atk/atkobject.c:103
+msgid "canvas"
+msgstr "tele"
+
+#: atk/atkobject.c:104
+msgid "check box"
+msgstr "casele di discrosâ"
+
+#: atk/atkobject.c:105
+msgid "check menu item"
+msgstr "vôs di menù di discrosâ"
+
+#: atk/atkobject.c:106
+msgid "color chooser"
+msgstr "seletôr colôr"
+
+#: atk/atkobject.c:107
+msgid "column header"
+msgstr "intestazion colone"
+
+#: atk/atkobject.c:108
+msgid "combo box"
+msgstr "casele cumbinade"
+
+#: atk/atkobject.c:109
+msgid "dateeditor"
+msgstr "editôr di date"
+
+#: atk/atkobject.c:110
+msgid "desktop icon"
+msgstr "icone dal scritori"
+
+#: atk/atkobject.c:111
+msgid "desktop frame"
+msgstr "curnîs de scrivanie"
+
+#: atk/atkobject.c:112
+msgid "dial"
+msgstr "cuadrant circolâr"
+
+#: atk/atkobject.c:113
+msgid "dialog"
+msgstr "dialic"
+
+#: atk/atkobject.c:114
+msgid "directory pane"
+msgstr "ricuadri cartele"
+
+#: atk/atkobject.c:115
+msgid "drawing area"
+msgstr "aree di disen"
+
+#: atk/atkobject.c:116
+msgid "file chooser"
+msgstr "seletôr file"
+
+#: atk/atkobject.c:117
+msgid "filler"
+msgstr "jempladôr"
+
+#. I know it looks wrong but that is what Java returns
+#: atk/atkobject.c:119
+msgid "fontchooser"
+msgstr "seletôr gjenar di caratar"
+
+#: atk/atkobject.c:120
+msgid "frame"
+msgstr "curnîs"
+
+#: atk/atkobject.c:121
+msgid "glass pane"
+msgstr "ricuadri trasparent"
+
+#: atk/atkobject.c:122
+msgid "html container"
+msgstr "contignidôr html"
+
+#: atk/atkobject.c:123
+msgid "icon"
+msgstr "icone"
+
+#: atk/atkobject.c:124
+msgid "image"
+msgstr "imagjin"
+
+#: atk/atkobject.c:125
+msgid "internal frame"
+msgstr "curnîs interne"
+
+#: atk/atkobject.c:126
+msgid "label"
+msgstr "etichete"
+
+#: atk/atkobject.c:127
+msgid "layered pane"
+msgstr "ricuadri a nivei"
+
+#: atk/atkobject.c:128
+msgid "list"
+msgstr "liste"
+
+#: atk/atkobject.c:129
+msgid "list item"
+msgstr "vôs di liste"
+
+#: atk/atkobject.c:130
+msgid "menu"
+msgstr "menù"
+
+#: atk/atkobject.c:131
+msgid "menu bar"
+msgstr "sbare menù"
+
+#: atk/atkobject.c:132
+msgid "menu item"
+msgstr "vôs di menù"
+
+#: atk/atkobject.c:133
+msgid "option pane"
+msgstr "ricuadri opzion"
+
+#: atk/atkobject.c:134
+msgid "page tab"
+msgstr "schede"
+
+#: atk/atkobject.c:135
+msgid "page tab list"
+msgstr "liste di schedis"
+
+#: atk/atkobject.c:136
+msgid "panel"
+msgstr "panel"
+
+#: atk/atkobject.c:137
+msgid "password text"
+msgstr "test password"
+
+#: atk/atkobject.c:138
+msgid "popup menu"
+msgstr "menù a comparî"
+
+#: atk/atkobject.c:139
+msgid "progress bar"
+msgstr "sbare di avanzament"
+
+#: atk/atkobject.c:140
+msgid "push button"
+msgstr "boton di fracâ"
+
+#: atk/atkobject.c:141
+msgid "radio button"
+msgstr "boton radio"
+
+#: atk/atkobject.c:142
+msgid "radio menu item"
+msgstr "vôs di menù radio"
+
+#: atk/atkobject.c:143
+msgid "root pane"
+msgstr "ricuadri lidrîs"
+
+#: atk/atkobject.c:144
+msgid "row header"
+msgstr "intestazion rie"
+
+#: atk/atkobject.c:145
+msgid "scroll bar"
+msgstr "sbare di scoriment"
+
+#: atk/atkobject.c:146
+msgid "scroll pane"
+msgstr "ricuadri di scoriment "
+
+#: atk/atkobject.c:147
+msgid "separator"
+msgstr "separadôr"
+
+#: atk/atkobject.c:148
+msgid "slider"
+msgstr "control dal scori"
+
+#: atk/atkobject.c:149
+msgid "split pane"
+msgstr "ricuadri dividût"
+
+#: atk/atkobject.c:150
+msgid "spin button"
+msgstr "boton che al zire"
+
+#: atk/atkobject.c:151
+msgid "statusbar"
+msgstr "sbare di stât"
+
+#: atk/atkobject.c:152
+msgid "table"
+msgstr "tabele"
+
+#: atk/atkobject.c:153
+msgid "table cell"
+msgstr "cele tabele"
+
+#: atk/atkobject.c:154
+msgid "table column header"
+msgstr "intestazion colone tabele"
+
+#: atk/atkobject.c:155
+msgid "table row header"
+msgstr "intestazion rie tabele"
+
+#: atk/atkobject.c:156
+msgid "tear off menu item"
+msgstr "vôs di menù distacabil"
+
+#: atk/atkobject.c:157
+msgid "terminal"
+msgstr "terminâl"
+
+#: atk/atkobject.c:158
+msgid "text"
+msgstr "test"
+
+#: atk/atkobject.c:159
+msgid "toggle button"
+msgstr "boton di comutazion"
+
+#: atk/atkobject.c:160
+msgid "tool bar"
+msgstr "sbare dai struments"
+
+#: atk/atkobject.c:161
+msgid "tool tip"
+msgstr "sugjeriment"
+
+#: atk/atkobject.c:162
+msgid "tree"
+msgstr "arbul"
+
+#: atk/atkobject.c:163
+msgid "tree table"
+msgstr "tabele a arbul"
+
+#: atk/atkobject.c:164
+msgid "unknown"
+msgstr "no cognossût"
+
+#: atk/atkobject.c:165
+msgid "viewport"
+msgstr "aree de viodude"
+
+#: atk/atkobject.c:166
+msgid "window"
+msgstr "barcon"
+
+#: atk/atkobject.c:167
+msgid "header"
+msgstr "intestazion"
+
+#: atk/atkobject.c:168
+msgid "footer"
+msgstr "da pît de pagjine"
+
+#: atk/atkobject.c:169
+msgid "paragraph"
+msgstr "paragraf"
+
+#: atk/atkobject.c:170
+msgid "ruler"
+msgstr "rie"
+
+#: atk/atkobject.c:171
+msgid "application"
+msgstr "aplicazion"
+
+#: atk/atkobject.c:172
+msgid "autocomplete"
+msgstr "completament automatic"
+
+#: atk/atkobject.c:173
+msgid "edit bar"
+msgstr "sbare di modifiche"
+
+#: atk/atkobject.c:174
+msgid "embedded component"
+msgstr "component incorporât"
+
+#: atk/atkobject.c:175
+msgid "entry"
+msgstr "cjamp inseriment"
+
+#: atk/atkobject.c:176
+msgid "chart"
+msgstr "diagram"
+
+#: atk/atkobject.c:177
+msgid "caption"
+msgstr "didascalie"
+
+#: atk/atkobject.c:178
+msgid "document frame"
+msgstr "curnîs document"
+
+#: atk/atkobject.c:179
+msgid "heading"
+msgstr "intestazion"
+
+#: atk/atkobject.c:180
+msgid "page"
+msgstr "pagjine"
+
+#: atk/atkobject.c:181
+msgid "section"
+msgstr "sezion"
+
+#: atk/atkobject.c:182
+msgid "redundant object"
+msgstr "ogjet ridondant"
+
+#: atk/atkobject.c:183
+msgid "form"
+msgstr "modul"
+
+#: atk/atkobject.c:184
+msgid "link"
+msgstr "colegament"
+
+#: atk/atkobject.c:185
+msgid "input method window"
+msgstr "barcon metodi di input"
+
+#: atk/atkobject.c:186
+msgid "table row"
+msgstr "rie di tabele"
+
+#: atk/atkobject.c:187
+msgid "tree item"
+msgstr "element arbul"
+
+#: atk/atkobject.c:188
+msgid "document spreadsheet"
+msgstr "document sfuei di calcul"
+
+#: atk/atkobject.c:189
+msgid "document presentation"
+msgstr "document presentazion"
+
+#: atk/atkobject.c:190
+msgid "document text"
+msgstr "document test"
+
+#: atk/atkobject.c:191
+msgid "document web"
+msgstr "document web"
+
+#: atk/atkobject.c:192
+msgid "document email"
+msgstr "document e-mail"
+
+#: atk/atkobject.c:193
+msgid "comment"
+msgstr "coment"
+
+#: atk/atkobject.c:194
+msgid "list box"
+msgstr "casele liste"
+
+#: atk/atkobject.c:195
+msgid "grouping"
+msgstr "intropament"
+
+#: atk/atkobject.c:196
+msgid "image map"
+msgstr "mape imagjin"
+
+#: atk/atkobject.c:197
+msgid "notification"
+msgstr "notifiche"
+
+#: atk/atkobject.c:198
+msgid "info bar"
+msgstr "sbare informazions"
+
+#: atk/atkobject.c:199
+msgid "level bar"
+msgstr "sbare nivel"
+
+#: atk/atkobject.c:200
+msgid "title bar"
+msgstr "sbare dal titul"
+
+#: atk/atkobject.c:201
+msgid "block quote"
+msgstr "bloc di citazion"
+
+#: atk/atkobject.c:202
+msgid "audio"
+msgstr "audio"
+
+#: atk/atkobject.c:203
+msgid "video"
+msgstr "video"
+
+#: atk/atkobject.c:204
+msgid "definition"
+msgstr "definizion"
+
+#: atk/atkobject.c:205
+msgid "article"
+msgstr "articul"
+
+#: atk/atkobject.c:206
+msgid "landmark"
+msgstr "pont di riferiment"
+
+#: atk/atkobject.c:207
+msgid "log"
+msgstr "regjistri"
+
+#: atk/atkobject.c:208
+msgid "marquee"
+msgstr "tendon"
+
+#: atk/atkobject.c:209
+msgid "math"
+msgstr "matematiche"
+
+#: atk/atkobject.c:210
+msgid "rating"
+msgstr "valutazion"
+
+#: atk/atkobject.c:211
+msgid "timer"
+msgstr "timer"
+
+#: atk/atkobject.c:212
+msgid "description list"
+msgstr "liste descrizion"
+
+#: atk/atkobject.c:213
+msgid "description term"
+msgstr "tiermin descrizion"
+
+#: atk/atkobject.c:214
+msgid "description value"
+msgstr "valôr descrizion"
+
+#: atk/atkobject.c:372
+msgid "Accessible Name"
+msgstr "non acessibil"
+
+#: atk/atkobject.c:373
+msgid "Object instance’s name formatted for assistive technology access"
+msgstr ""
+"Il non de istance dal ogjet formatât pal acès cun la tecnologjie di jutori"
+
+#: atk/atkobject.c:379
+msgid "Accessible Description"
+msgstr "Descrizion acessibil"
+
+#: atk/atkobject.c:380
+msgid "Description of an object, formatted for assistive technology access"
+msgstr ""
+"Descrizion di un ogjet, formatade pal acès cun la tecnologjie di jutori"
+
+#: atk/atkobject.c:386
+msgid "Accessible Parent"
+msgstr "Gjenitôr acessibil"
+
+#: atk/atkobject.c:387
+msgid "Parent of the current accessible as returned by atk_object_get_parent()"
+msgstr "Il gjenitôr dal atuâl acessibil come tornât di atk_object_get_parent()"
+
+#: atk/atkobject.c:403
+msgid "Accessible Value"
+msgstr "Valôr acessibil"
+
+#: atk/atkobject.c:404
+msgid "Is used to notify that the value has changed"
+msgstr "Doprât par notificâ che il valôr al è cambiât"
+
+#: atk/atkobject.c:412
+msgid "Accessible Role"
+msgstr "Rûl acessibil"
+
+#: atk/atkobject.c:413
+msgid "The accessible role of this object"
+msgstr "Il rûl acessibil di chest ogjet"
+
+#: atk/atkobject.c:421
+msgid "Accessible Layer"
+msgstr "Strât acessibil"
+
+#: atk/atkobject.c:422
+msgid "The accessible layer of this object"
+msgstr "Il strât acessibil di chest ogjet"
+
+#: atk/atkobject.c:430
+msgid "Accessible MDI Value"
+msgstr "Valôr MDI acessibil"
+
+#: atk/atkobject.c:431
+msgid "The accessible MDI value of this object"
+msgstr "Il valôr MDI acessibil di chest ogjet"
+
+#: atk/atkobject.c:447
+msgid "Accessible Table Caption"
+msgstr "Didascalie acessibil de tabele"
+
+#: atk/atkobject.c:448
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr ""
+"Doprât par notificâ che la descrizion de tabele e je cambiade; no si varès "
+"di doprâ cheste proprietât. Si varès di doprâ invezit accessible-table-"
+"caption-object"
+
+#: atk/atkobject.c:462
+msgid "Accessible Table Column Header"
+msgstr "Intestazion acessibil de colone de tabele"
+
+#: atk/atkobject.c:463
+msgid "Is used to notify that the table column header has changed"
+msgstr "Doprade par notificâ che la intestazion de colone de tabele"
+
+#: atk/atkobject.c:478
+msgid "Accessible Table Column Description"
+msgstr "Descrizion acessibil de colone de tabele"
+
+#: atk/atkobject.c:479
+msgid "Is used to notify that the table column description has changed"
+msgstr ""
+"Doprade par notificâ che la descrizion de colone de tabele e je cambiade"
+
+#: atk/atkobject.c:494
+msgid "Accessible Table Row Header"
+msgstr "Intestazion acessibil de rie de tabel"
+
+#: atk/atkobject.c:495
+msgid "Is used to notify that the table row header has changed"
+msgstr "Doprade par notificâ che la intestazion de rie de tabele e je cambiade"
+
+#: atk/atkobject.c:509
+msgid "Accessible Table Row Description"
+msgstr "Descrizion acessibil de rie de tabele"
+
+#: atk/atkobject.c:510
+msgid "Is used to notify that the table row description has changed"
+msgstr "Doprade par notificâ che la descrizion de rie de tabele e je cambiade"
+
+#: atk/atkobject.c:516
+msgid "Accessible Table Summary"
+msgstr "Sintesi acessibil de tabele"
+
+#: atk/atkobject.c:517
+msgid "Is used to notify that the table summary has changed"
+msgstr "Doprade par notificâ che la sintesi de tabele e je cambiade"
+
+#: atk/atkobject.c:523
+msgid "Accessible Table Caption Object"
+msgstr "Ogjet didascalie acessibil de tabele"
+
+#: atk/atkobject.c:524
+msgid "Is used to notify that the table caption has changed"
+msgstr "Doprade par notificâ che la didascalie de tabele e je cambiade"
+
+#: atk/atkobject.c:530
+msgid "Number of Accessible Hypertext Links"
+msgstr "Numar di colegaments acessibii tal ipertest"
+
+#: atk/atkobject.c:531
+msgid "The number of links which the current AtkHypertext has"
+msgstr "Il numar di colegaments presints tal AtkHypertext atuâl"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:194
+msgid "very weak"
+msgstr "une vore debule"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:201
+msgid "weak"
+msgstr "debule"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:208
+msgid "acceptable"
+msgstr "passabile"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:215
+msgid "strong"
+msgstr "fuarte"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:222
+msgid "very strong"
+msgstr "une vore fuarte"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:230
+msgid "very low"
+msgstr "une vore bas"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:238
+msgid "medium"
+msgstr "medi"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:246
+msgid "high"
+msgstr "alt"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:254
+msgid "very high"
+msgstr "une vore alt"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:262
+msgid "very bad"
+msgstr "mâl"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:270
+msgid "bad"
+msgstr "no bon"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:278
+msgid "good"
+msgstr "bon"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:286
+msgid "very good"
+msgstr "une vore bon"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:294
+msgid "best"
+msgstr "il miôr"

@@ -1,0 +1,53 @@
+ATK - The Accessibility Toolkit
+===============================
+
+For more information about ATK and accessibility in GNOME, see:
+
+  https://wiki.gnome.org/Accessibility
+
+Dependencies
+------------
+
+ATK requires GLib >= 2.32. Information about GLib is available from:
+
+  https://www.gtk.org
+
+Getting the source code
+-----------------------
+
+You can get the source code of each ATK release as a tarball:
+
+  https://download.gnome.org/sources/atk/
+
+You can also clone the ATK master branch from GNOME repository:
+
+  https://git.gnome.org/browse/atk
+
+Building
+--------
+
+You can use Meson and Ninja:
+
+    $ meson _build .
+    $ ninja -C _build
+    # ninja -C _build install
+
+Tarball
+-------
+
+If you want a tarball with the ATK source code, you can also use
+Meson:
+
+  $ meson _build .
+  $ ninja -C _build dist
+
+How to report bugs
+------------------
+
+Bugs should be reported to the GNOME bug tracking system:
+
+  http://bugzilla.gnome.org/enter_bug.cgi?product=atk
+
+You will need to create an account for yourself.
+
+You can also mail the mailing list gnome-accessibility-devel@gnome.org

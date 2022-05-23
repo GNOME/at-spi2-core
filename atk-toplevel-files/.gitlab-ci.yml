@@ -1,0 +1,65 @@
+stages:
+  - build
+  - docs
+  - deploy
+
+.cache-paths: &cache-paths
+  paths:
+    - _ccache/
+
+# Common variables
+variables:
+  COMMON_MESON_FLAGS: "--fatal-meson-warnings --werror"
+  MESON_TEST_TIMEOUT_MULTIPLIER: 2
+
+.default-build:
+  script:
+    - meson setup ${COMMON_MESON_FLAGS} ${EXTRA_MESON_FLAGS} _build .
+    - meson compile -C _build
+    - .gitlab-ci/run-tests-docker.sh _build
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - "${CI_PROJECT_DIR}/_build/report.xml"
+    name: "atk-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
+    paths:
+      - "_build/meson-logs"
+      - "_build/report.xml"
+
+fedora-latest:
+  extends: .default-build
+  stage: build
+  image: registry.gitlab.gnome.org/gnome/atk/fedora-latest:v2
+  variables:
+    EXTRA_MESON_FLAGS: "-Dbuildtype=debug -Ddefault_library=both"
+
+debian-stable:
+  extends: .default-build
+  stage: build
+  image: registry.gitlab.gnome.org/gnome/atk/debian-stable:v2
+  variables:
+    EXTRA_MESON_FLAGS: "-Dbuildtype=debug -Ddefault_library=both"
+
+reference:
+  image: registry.gitlab.gnome.org/gnome/atk/fedora-latest:v2
+  stage: docs
+  variables:
+    EXTRA_MESON_FLAGS: "--buildtype=release -Ddocs=true"
+  script:
+    - meson setup ${COMMON_MESON_FLAGS} ${EXTRA_MESON_FLAGS} _build .
+    - ninja -C _build atk-doc
+    - mv _build/docs/html _reference
+  artifacts:
+    paths:
+      - _reference
+
+pages:
+  stage: deploy
+  script:
+    - mv _reference/ public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
