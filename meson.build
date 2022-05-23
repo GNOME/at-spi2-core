@@ -127,7 +127,7 @@ subdir('registryd')
 subdir('tests')
 
 if get_option('docs')
-  subdir('doc/libatspi')
+  subdir('doc')
 endif
 
 if xgettext.found()
