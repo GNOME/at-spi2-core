@@ -1,0 +1,21 @@
+gtkmodule_LTLIBRARIES = libatk-bridge.la
+
+libatk_bridge_la_CFLAGS = \
+	$(DBUS_CFLAGS)    \
+	$(ATK_CFLAGS)     \
+	$(ATSPI_CFLAGS)   \
+	-I$(top_srcdir)   \
+	-I$(top_srcdir)/atk-adaptor/adaptors \
+	-I$(top_srcdir)/atk-adaptor/
+	$(P2P_CFLAGS)
+
+libatk_bridge_la_LDFLAGS = -no-undefined  \
+		           -module        \
+		           -avoid-version \
+		           -rpath $(gtkmoduledir)
+
+libatk_bridge_la_LIBADD = $(DBUS_LIBS) \
+		          $(GMODULE_LIBS)       \
+		          $(ATK_LIBS)       \
+		          $(ATSPI_LIBS)       \
+			  $(top_builddir)/atk-adaptor/libatk-bridge-2.0.la

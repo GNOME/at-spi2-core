@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<accessible description="Root of the accessible tree" name="root_object" role="accelerator label">
+	<accessible_value description="first child" name="obj0" role="alert">
+		<value_node min="1.25" current="2.25" max="3.25" step="0.25"/>
+	</accessible_value>
+</accessible>
