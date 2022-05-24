@@ -23,9 +23,9 @@ libatk_bridge_adaptors = static_library('atk-bridge-adaptors', source,
                                           root_inc,
                                           include_directories('..'),
                                         ],
-                                        dependencies: [ libdbus_dep, atspi_dep, atk_dep ],
+                                        dependencies: [ libdbus_dep, atspi_dep, libatk_dep ],
                                         c_args: p2p_cflags)
 
 libatk_bridge_adaptors_dep = declare_dependency(link_with: libatk_bridge_adaptors,
-                                                dependencies: [ libdbus_dep, atspi_dep, atk_dep ],
+                                                dependencies: [ libdbus_dep, atspi_dep, libatk_dep ],
                                                 include_directories: include_directories('.'))

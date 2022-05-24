@@ -45,6 +45,7 @@ if cc.get_id() == 'msvc'
 endif
 
 # at-spi2-atk versions
+atk_bridge_version = '2.38.0'
 atk_bridge_soversion = 0
 atk_bridge_libversion = '0.0.0'
 
@@ -217,6 +218,8 @@ subdir('atspi')
 subdir('bus')
 subdir('registryd')
 subdir('atk')
+subdir('droute')
+subdir('atk-adaptor')
 subdir('tests')
 
 if get_option('docs')
