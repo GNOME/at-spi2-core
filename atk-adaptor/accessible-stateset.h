@@ -24,7 +24,7 @@
 #ifndef ACCESSIBLE_STATE_SET_H_
 #define ACCESSIBLE_STATE_SET_H_
 
-#include <atk/atkstateset.h>
+#include "atk/atk.h"
 #include "atspi/atspi.h"
 
 G_BEGIN_DECLS
