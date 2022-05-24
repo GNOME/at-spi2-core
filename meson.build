@@ -44,6 +44,10 @@ if cc.get_id() == 'msvc'
   add_project_arguments(cc.get_supported_arguments(['-FImsvc_recommended_pragmas.h', '-utf-8']), language: 'c')
 endif
 
+# at-spi2-atk versions
+atk_bridge_soversion = 0
+atk_bridge_libversion = '0.0.0'
+
 # Compiler and linker flags
 common_cflags = []
 common_ldflags = []
