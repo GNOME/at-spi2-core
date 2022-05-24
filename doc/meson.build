@@ -1,1 +1,2 @@
 subdir('libatspi')
+subdir('atk')
