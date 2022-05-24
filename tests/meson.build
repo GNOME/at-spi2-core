@@ -1,1 +1,2 @@
 subdir('atspi')
+subdir('atk')
