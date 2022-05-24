@@ -209,6 +209,9 @@ else
   p2p_cflags = []
 endif
 
+install_data('at-spi2-atk.desktop',
+             install_dir: join_paths(get_option('libdir'), 'gnome-settings-daemon-3.0', 'gtk-modules'))
+
 subdir('dbind')
 subdir('atspi')
 subdir('bus')
