@@ -120,8 +120,10 @@ endif
 libdbus_req_version = '>= 1.5'
 glib_req_version = '>= 2.62.0'
 gobject_req_version = '>= 2.0.0'
+gmodule_req_version = '>= 2.0.0'
 gio_req_version = '>= 2.28.0'
 gir_req_version = '>= 0.6.7'
+libxml_req_version = '>= 2.9.1'
 
 libdbus_dep = dependency('dbus-1', version: libdbus_req_version)
 glib_dep = dependency('glib-2.0', version: glib_req_version)
@@ -134,6 +136,8 @@ elif cc.has_function('dlopen', args: '-ldl')
 else
   error('Could not find a library with the dlopen function')
 endif
+gmodule_dep = dependency('gmodule-2.0', version: gmodule_req_version)
+libxml_dep = dependency('libxml-2.0', version: libxml_req_version)
 
 x11_deps = []
 x11_option = get_option('x11')
