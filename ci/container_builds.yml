@@ -24,7 +24,7 @@ variables:
     FDO_DISTRIBUTION_PACKAGES: >-
       clang clang-tools findutils gcc dbus-1 dbus-1-devel gettext git
       glib2-devel gobject-introspection-devel
-      gsettings-desktop-schemas itstool libasan6 libxml2-devel
+      gsettings-desktop-schemas gtk-doc itstool libasan6 libxml2-devel
       libxkbcommon-devel libXi-devel libXtst-devel lcov meson ninja
       python38 python38-gobject
 
@@ -43,7 +43,7 @@ opensuse-container@x86_64:
     FDO_DISTRIBUTION_PACKAGES: >-
       clang clang-tools-extra findutils gcc dbus-daemon dbus-devel dbus-tools systemd-devel
       gettext git glib2-devel gobject-introspection-devel
-      gsettings-desktop-schemas itstool libasan libxml2-devel
+      gsettings-desktop-schemas gtk-doc itstool libasan libxml2-devel
       libxkbcommon-devel libXi-devel libXtst-devel lcov meson procps python38
 
 fedora-container@x86_64:
