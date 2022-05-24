@@ -931,6 +931,7 @@ spi_atk_create_socket (SpiBridge *app)
   DBusServer *server;
   DBusError error;
   const gchar *user_runtime_dir = g_get_user_runtime_dir ();
+  char *escaped_address;
 
   if (g_mkdir_with_parents (user_runtime_dir, 0700) != 0)
     return -1;
@@ -957,7 +958,10 @@ spi_atk_create_socket (SpiBridge *app)
     return -1;
 
   dbus_error_init(&error);
-  server = dbus_server_listen(spi_global_app_data->app_bus_addr, &error);
+  escaped_address = dbus_address_escape_value(spi_global_app_data->app_bus_addr);
+  server = dbus_server_listen(escaped_address, &error);
+  dbus_free(escaped_address);
+
   if (server == NULL)
   {
     g_warning ("atk-bridge: Couldn't listen on dbus server: %s", error.message);
