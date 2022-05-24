@@ -58,7 +58,7 @@ else
                              '/usr/pkg/bin/dbus-daemon',
                              required: false)
   if dbus_daemon.found()
-    launcher_args += '-DDBUS_DAEMON="@0@"'.format(dbus_daemon.path())
+    launcher_args += '-DDBUS_DAEMON="@0@"'.format(dbus_daemon.full_path())
   endif
 endif
 
@@ -70,7 +70,7 @@ else
   dbus_broker = find_program('dbus-broker-launch',
                              required: false)
   if dbus_broker.found()
-    launcher_args += '-DDBUS_BROKER="@0@"'.format(dbus_broker.path())
+    launcher_args += '-DDBUS_BROKER="@0@"'.format(dbus_broker.full_path())
     needs_systemd = true
   endif
 endif
