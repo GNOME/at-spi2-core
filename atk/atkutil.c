@@ -581,7 +581,7 @@ atk_get_toolkit_version (void)
 const gchar *
 atk_get_version (void)
 {
-  return VERSION;
+  return ATK_VERSION;
 }
 
 static void

@@ -78,12 +78,12 @@ atk_version_conf.set('ATK_MICRO_VERSION', atk_micro_version)
 atk_version_conf.set('ATK_BINARY_AGE', atk_binary_age)
 atk_version_conf.set('ATK_INTERFACE_AGE', atk_interface_age)
 atk_version_conf.set('LT_CURRENT_MINUS_AGE', '0')
-atk_version_conf.set('ATK_VERSION', meson.project_version())
+atk_version_conf.set('ATK_VERSION', atk_version)
 
 atk_version_h = configure_file(input: 'atkversion.h.in',
   output: 'atkversion.h',
   configuration: atk_version_conf,
-  install_dir: join_paths(atk_includedir, atk_api_path),
+  install_dir: join_paths(atspi_includedir, atk_api_path),
 )
 
 # Marshallers
@@ -98,7 +98,7 @@ atk_enums = gnome.mkenums('atk-enum-types',
   sources: atk_headers,
   c_template: 'atk-enum-types.c.template',
   h_template: 'atk-enum-types.h.template',
-  install_dir: join_paths(atk_includedir, atk_api_path),
+  install_dir: join_paths(atspi_includedir, atk_api_path),
   install_header: true,
 )
 atk_enum_h = atk_enums[1]
@@ -109,7 +109,7 @@ atk_cflags = [
   '-DGLIB_DISABLE_DEPRECATION_WARNINGS',
   '-DATK_DISABLE_DEPRECATION_WARNINGS',
   '-DATK_COMPILATION',
-  '-DATK_LOCALEDIR="@0@"'.format(join_paths(atk_datadir, 'locale')),
+  '-DATK_LOCALEDIR="@0@"'.format(join_paths(atspi_datadir, 'locale')),
 ]
 
 if host_system == 'windows'
@@ -127,7 +127,7 @@ libatk = library(atk_api_name,
   soversion: atk_soversion,
   version: atk_libversion,
   install: true,
-  dependencies: glib_dep,
+  dependencies: [glib_dep, gobject_dep],
   include_directories: [ root_inc, atk_inc ],
   c_args: common_cflags + atk_cflags,
   link_args: common_ldflags,
@@ -135,7 +135,7 @@ libatk = library(atk_api_name,
 
 atk_sources_dep = [ atk_enum_h ]
 
-if get_option('introspection')
+if have_gir
   atk_sources_dep += gnome.generate_gir(libatk,
     sources: atk_sources + atk_headers + [ atk_enum_h ] + [ atk_version_h ],
     namespace: 'Atk',
@@ -155,7 +155,7 @@ endif
 
 libatk_dep = declare_dependency(link_with: libatk,
   include_directories: [ root_inc, atk_inc ],
-  dependencies: glib_dep,
+  dependencies: [glib_dep, gobject_dep],
   sources: atk_sources_dep,
 )
 
@@ -164,5 +164,5 @@ pkgconfig.generate(libatk,
   description: 'Accessibility Toolkit',
   subdirs: atk_api_name,
   filebase: 'atk',
-  libraries: glib_dep,
+  libraries: [glib_dep, gobject_dep],
 )
