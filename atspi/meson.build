@@ -135,10 +135,10 @@ endif
 
 pkgconfig = import('pkgconfig')
 pkgconfig.generate(
+  atspi,
   name: 'atspi',
   description: 'Accessibility Technology software library',
   version: meson.project_version(),
-  libraries: atspi,
   requires: ['dbus-1', 'glib-2.0'],
   subdirs: 'at-spi-2.0',
   filebase: 'atspi-2',
