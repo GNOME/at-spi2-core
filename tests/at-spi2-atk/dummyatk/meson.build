@@ -16,8 +16,8 @@ dummyatk_sources = [
 
 dummyatk = static_library('dummyatk', dummyatk_sources,
                           include_directories: root_inc,
-                          dependencies: [ glib_dep, gobject_dep, atk_dep ])
+                          dependencies: [ glib_dep, gobject_dep, libatk_dep ])
 
 dummyatk_dep = declare_dependency(link_with: dummyatk,
-                                  dependencies: [ glib_dep, gobject_dep, atk_dep ],
+                                  dependencies: [ glib_dep, gobject_dep, libatk_dep ],
                                   include_directories: include_directories('.'))

@@ -1,7 +1,7 @@
 subdir('dummyatk')
 
 xmlloader = static_library('xmlloader', [ 'atk-object-xml-loader.c' ],
-                           dependencies: [ glib_dep, gobject_dep, libxml_dep, atk_dep, dummyatk_dep ],
+                           dependencies: [ glib_dep, gobject_dep, libxml_dep, libatk_dep, dummyatk_dep ],
                            include_directories: [ root_inc, include_directories('.') ])
 xmlloader_dep = declare_dependency(link_with: xmlloader)
 
@@ -51,7 +51,7 @@ tests = [
     ],
     [
       glib_dep,
-      atk_dep,
+      libatk_dep,
       xmlloader_dep,
       testutils_dep,
       dummyatk_dep,
