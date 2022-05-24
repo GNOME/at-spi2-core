@@ -33,3 +33,7 @@ option('x11',
        type: 'combo',
        choices: ['yes', 'no', 'auto'],
        value: 'auto')
+option('disable_p2p',
+       description: 'Disable peer-to-peer DBus connections for at-spi2-atk',
+       type: 'boolean',
+       value: false)
