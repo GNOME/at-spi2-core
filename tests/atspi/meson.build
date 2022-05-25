@@ -10,4 +10,9 @@ memory = executable('memory',
                     dependencies: [ atspi_dep ],
                    )
 
-test('memory', memory, depends: testapp)
+test(
+  'memory',
+  memory,
+  depends: testapp,
+  is_parallel: false,
+)
