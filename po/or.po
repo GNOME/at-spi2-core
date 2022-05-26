@@ -1,13 +1,26 @@
+# #-#-#-#-#  or.po (at-spi2-core master)  #-#-#-#-#
 # Oriya translation for at-spi2-core.
 # Copyright (C) 2011 at-spi2-core's COPYRIGHT HOLDER
 # This file is distributed under the same license as the at-spi2-core package.
 #
 # Manoj Kumar Giri <mgiri@redhat.com>, 2011.
+# #-#-#-#-#  or.po (or)  #-#-#-#-#
+# translation of or.po to Oriya
+# Oriya translation of atk.HEAD.pot.
+# Copyright (C) 2005, 2006, 2009, Free Software Foundation, Inc.
+# This file is distributed under the same license as the atk package.
+# $Id: or.po,v 1.3 2006/12/15 05:17:55 liyuan Exp $
+#
+# Gora Mohanty <gora_mohanty@yahoo.co.in>, 2005, 2006.
+# Subhransu Behera <arya_subhransu@yahoo.co.in>, 2006.
+# Manoj Kumar Giri <mgiri@redhat.com>, 2009, 2011.
+#, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  or.po (at-spi2-core master)  #-#-#-#-#\n"
 "Project-Id-Version: at-spi2-core master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
-"cgi?product=at-spi&component=general\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
+"spi&component=general\n"
 "POT-Creation-Date: 2011-02-12 19:29+0000\n"
 "PO-Revision-Date: 2011-03-17 15:23+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
@@ -18,6 +31,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"#-#-#-#-#  or.po (or)  #-#-#-#-#\n"
+"Project-Id-Version: or\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=atk&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-09-11 11:03+0000\n"
+"PO-Revision-Date: 2011-09-22 10:21+0530\n"
+"Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
+"Language-Team: Oriya <oriya-it@googlegroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.2\n"
+"Plural-Forms:  nplurals=2; plural=(n!=1);\n"
+"\n"
+"Language: or\n"
 
 #: ../atspi/atspi-misc.c:290
 #, c-format
@@ -84,8 +112,7 @@ msgstr "ଏହି ପ୍ରୟୋଗଟି ବର୍ତ୍ତମାନ ନାହ
 #, c-format
 msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
 msgstr ""
-"AT-SPI: %s କୁ ଅନ୍ତରାପୃଷ୍ଠ %s ରୁ କାଢ଼ିବା ସମୟରେ ଗୋଟିଏ ପ୍ରାଚଳକୁ ଆଶାକରାଯିଥିଲା; "
-"%s ମିଳିଲା\n"
+"AT-SPI: %s କୁ ଅନ୍ତରାପୃଷ୍ଠ %s ରୁ କାଢ଼ିବା ସମୟରେ ଗୋଟିଏ ପ୍ରାଚଳକୁ ଆଶାକରାଯିଥିଲା; %s ମିଳିଲା\n"
 
 #: ../atspi/atspi-misc.c:1136
 #, c-format
@@ -110,12 +137,582 @@ msgstr "କଢ଼ାଯୋଗ୍ଯ ବିଷୟବସ୍ତୁକୁ କାର�
 msgid ""
 "called atspi_event_listener_register_from_callback with a NULL event_type"
 msgstr ""
-"atspi_event_listener_register_from_callback କୁ ଗୋଟିଏ NULL event_type ସହିତ "
-"ଡକା ଯାଇଛି"
+"atspi_event_listener_register_from_callback କୁ ଗୋଟିଏ NULL event_type ସହିତ ଡକା "
+"ଯାଇଛି"
 
 #: ../atspi/atspi-event-listener.c:777
 #, c-format
 msgid "Got invalid signature %s for signal %s from interface %s\n"
 msgstr "ସଙ୍କେତ %s ପାଇଁ ଅନ୍ତରାପୃଷ୍ଠ %s ରୁ ଅବୈଧ ହସ୍ତାକ୍ଷର %s ପାଇଛି\n"
 
+#: ../atk/atkhyperlink.c:103
+msgid "Selected Link"
+msgstr "ବଚ୍ଛିତ ସଂଯୋଗ"
 
+#: ../atk/atkhyperlink.c:104
+msgid "Specifies whether the AtkHyperlink object is selected"
+msgstr "ନିର୍ଦ୍ଦିଷ୍ଟ କରେ ଏ.ଟି.କେ.ହାଇପରସଂଯୋଗ ବସ୍ତୁ ବଛାଯାଇଛି କି ନାହିଁ"
+
+#: ../atk/atkhyperlink.c:110
+msgid "Number of Anchors"
+msgstr "ସ୍ଥିରକର ସଂଖ୍ଯା"
+
+#: ../atk/atkhyperlink.c:111
+msgid "The number of anchors associated with the AtkHyperlink object"
+msgstr "ଏ.ଟି.କେ.ହାଇପରସଂଯୋଗ ବସ୍ତୁ ସହିତ ସଂଯୁକ୍ତ ସ୍ଥିରକର ସଂଖ୍ଯା"
+
+#: ../atk/atkhyperlink.c:119
+msgid "End index"
+msgstr "ଶେଷ ଅନୁକ୍ରମଣିକା"
+
+#: ../atk/atkhyperlink.c:120
+msgid "The end index of the AtkHyperlink object"
+msgstr "ଏ.ଟି.କେ.ହାଇପରସଂଯୋଗ ବସ୍ତୁର ଶେଷ ଅନୁକ୍ରମଣିକା"
+
+#: ../atk/atkhyperlink.c:128
+msgid "Start index"
+msgstr "ପ୍ରାରମ୍ଭିକ ଅନୁକ୍ରମଣିକା"
+
+#: ../atk/atkhyperlink.c:129
+msgid "The start index of the AtkHyperlink object"
+msgstr "ଏ.ଟି.କେ.ହାଇପରସଂଯୋଗ ବସ୍ତୁର ପ୍ରାରମ୍ଭିକ ଅନୁକ୍ରମଣିକା"
+
+#: ../atk/atkobject.c:74
+msgid "invalid"
+msgstr "ଅବୈଧ"
+
+#: ../atk/atkobject.c:75
+msgid "accelerator label"
+msgstr "ତ୍ବରକ ଚିହ୍ନକ"
+
+#: ../atk/atkobject.c:76
+msgid "alert"
+msgstr "ଚେତାବନୀ"
+
+#: ../atk/atkobject.c:77
+msgid "animation"
+msgstr "ଜୀବନାୟନ"
+
+#: ../atk/atkobject.c:78
+msgid "arrow"
+msgstr "ତୀର"
+
+#: ../atk/atkobject.c:79
+msgid "calendar"
+msgstr "କାଲେଣ୍ଡର"
+
+#: ../atk/atkobject.c:80
+msgid "canvas"
+msgstr "ଅଙ୍କନ କ୍ଷେତ୍ର"
+
+#: ../atk/atkobject.c:81
+msgid "check box"
+msgstr "ତନଖି ବାକ୍ସ"
+
+#: ../atk/atkobject.c:82
+msgid "check menu item"
+msgstr "ତନଖି ମେନୁ ବସ୍ତୁ"
+
+#: ../atk/atkobject.c:83
+msgid "color chooser"
+msgstr "ରଙ୍ଗ ଚୟକ"
+
+#: ../atk/atkobject.c:84
+msgid "column header"
+msgstr "ସ୍ତମ୍ଭ ଶୀର୍ଷକ"
+
+#: ../atk/atkobject.c:85
+msgid "combo box"
+msgstr "ସମ୍ମିଳିତ ବାକ୍ସ"
+
+#: ../atk/atkobject.c:86
+msgid "dateeditor"
+msgstr "ତାରୀଖ ସମ୍ପାଦକ"
+
+#: ../atk/atkobject.c:87
+msgid "desktop icon"
+msgstr "ଡେସ୍କଟପ ଚିତ୍ରସଙ୍କେତ"
+
+#: ../atk/atkobject.c:88
+msgid "desktop frame"
+msgstr "ଡେସ୍କଟପ ବନ୍ଧେଇ"
+
+#: ../atk/atkobject.c:89
+msgid "dial"
+msgstr "ଡାଏଲ"
+
+#: ../atk/atkobject.c:90
+msgid "dialog"
+msgstr "ସଂଳାପ"
+
+#: ../atk/atkobject.c:91
+msgid "directory pane"
+msgstr "ଡିରେକ୍ଟୋରି ଝରକା"
+
+#: ../atk/atkobject.c:92
+msgid "drawing area"
+msgstr "ଅଙ୍କନ କ୍ଷେତ୍ର"
+
+#: ../atk/atkobject.c:93
+msgid "file chooser"
+msgstr "ଫାଇଲ ଚୟକ"
+
+#: ../atk/atkobject.c:94
+msgid "filler"
+msgstr "ଭରଣ ବସ୍ତୁ"
+
+#. I know it looks wrong but that is what Java returns
+#: ../atk/atkobject.c:96
+msgid "fontchooser"
+msgstr "ଅକ୍ଷରରୂପ ଚୟକ"
+
+#: ../atk/atkobject.c:97
+msgid "frame"
+msgstr "ବନ୍ଧେଇ"
+
+#: ../atk/atkobject.c:98
+msgid "glass pane"
+msgstr "କାଚ ବନ୍ଧେଇ"
+
+#: ../atk/atkobject.c:99
+msgid "html container"
+msgstr "ଏଚ.ଟି.ଏମ.ଏଲ. ଧାରକ"
+
+#: ../atk/atkobject.c:100
+msgid "icon"
+msgstr "ଚିତ୍ରସଙ୍କେତ"
+
+#: ../atk/atkobject.c:101
+msgid "image"
+msgstr "ଚିତ୍ର"
+
+#: ../atk/atkobject.c:102
+msgid "internal frame"
+msgstr "ଆଭ୍ଯନ୍ତରୀଣ ବନ୍ଧେଇ"
+
+#: ../atk/atkobject.c:103
+msgid "label"
+msgstr "ଚିହ୍ନକ"
+
+#: ../atk/atkobject.c:104
+msgid "layered pane"
+msgstr "ବହୁସ୍ତର ଝରକା"
+
+#: ../atk/atkobject.c:105
+msgid "list"
+msgstr "ତାଲିକା"
+
+#: ../atk/atkobject.c:106
+msgid "list item"
+msgstr "ତାଲିକା ବସ୍ତୁ"
+
+#: ../atk/atkobject.c:107
+msgid "menu"
+msgstr "ମେନୁ"
+
+#: ../atk/atkobject.c:108
+msgid "menu bar"
+msgstr "ମେନୁ ପଟି"
+
+#: ../atk/atkobject.c:109
+msgid "menu item"
+msgstr "ମେନୁ ବସ୍ତୁ"
+
+#: ../atk/atkobject.c:110
+msgid "option pane"
+msgstr "ପସନ୍ଦ ଝରକା"
+
+#: ../atk/atkobject.c:111
+msgid "page tab"
+msgstr "ପୃଷ୍ଠା ଟାବ"
+
+#: ../atk/atkobject.c:112
+msgid "page tab list"
+msgstr "ପୃଷ୍ଠା ଟାବର ତାଲିକା"
+
+#: ../atk/atkobject.c:113
+msgid "panel"
+msgstr "ଫଳକ"
+
+#: ../atk/atkobject.c:114
+msgid "password text"
+msgstr "ପ୍ରବେଶ ସଙ୍କେତ ପାଠ୍ଯ"
+
+#: ../atk/atkobject.c:115
+msgid "popup menu"
+msgstr "ପପ୍ଅପ ମେନୁ"
+
+#: ../atk/atkobject.c:116
+msgid "progress bar"
+msgstr "ପ୍ରଗତି ସୂଚକ"
+
+#: ../atk/atkobject.c:117
+msgid "push button"
+msgstr "ଚିପା ଚାବି"
+
+#: ../atk/atkobject.c:118
+msgid "radio button"
+msgstr "ରେଡିଓ ଚାବି"
+
+#: ../atk/atkobject.c:119
+msgid "radio menu item"
+msgstr "ରେଡିଓ ତାଲିକା ବସ୍ତୁ"
+
+#: ../atk/atkobject.c:120
+msgid "root pane"
+msgstr "ମୂଳ ଝରକା"
+
+#: ../atk/atkobject.c:121
+msgid "row header"
+msgstr "ଧାଡ଼ି ଶୀର୍ଷକ"
+
+#: ../atk/atkobject.c:122
+msgid "scroll bar"
+msgstr "ଦୃଶ୍ଯବଦଳା ପଟି"
+
+#: ../atk/atkobject.c:123
+msgid "scroll pane"
+msgstr "ଦୃଶ୍ଯବଦଳା ଝରକା"
+
+#: ../atk/atkobject.c:124
+msgid "separator"
+msgstr "ବିଭାଜକ"
+
+#: ../atk/atkobject.c:125
+msgid "slider"
+msgstr "ସର୍ପକ"
+
+#: ../atk/atkobject.c:126
+msgid "split pane"
+msgstr "ବିଭକ୍ତ ଝରକା"
+
+#: ../atk/atkobject.c:127
+msgid "spin button"
+msgstr "ଘୂର୍ଣନ ଚାବି"
+
+#: ../atk/atkobject.c:128
+msgid "statusbar"
+msgstr "ଅବସ୍ଥିତି ପଟି"
+
+#: ../atk/atkobject.c:129
+msgid "table"
+msgstr "ସାରଣୀ"
+
+#: ../atk/atkobject.c:130
+msgid "table cell"
+msgstr "ସାରଣୀ କୋଷ"
+
+#: ../atk/atkobject.c:131
+msgid "table column header"
+msgstr "ସାରଣୀ ସ୍ତମ୍ଭ ଶୀର୍ଷକ"
+
+#: ../atk/atkobject.c:132
+msgid "table row header"
+msgstr "ସାରଣୀ ଧାଡ଼ି ଶୀର୍ଷକ"
+
+#: ../atk/atkobject.c:133
+msgid "tear off menu item"
+msgstr "ବିଚ୍ଛିନ୍ନ ତାଲିକା ବସ୍ତୁ"
+
+#: ../atk/atkobject.c:134
+msgid "terminal"
+msgstr "ଟର୍ମିନାଲ"
+
+#: ../atk/atkobject.c:135
+msgid "text"
+msgstr "ପାଠ୍ଯ"
+
+#: ../atk/atkobject.c:136
+msgid "toggle button"
+msgstr "ଅଦଳବଦଳ ଚାବି"
+
+#: ../atk/atkobject.c:137
+msgid "tool bar"
+msgstr "ସାଧନ ପଟି"
+
+#: ../atk/atkobject.c:138
+msgid "tool tip"
+msgstr "ଉପକରଣ ସୂଚନା"
+
+#: ../atk/atkobject.c:139
+msgid "tree"
+msgstr "ବୃକ୍ଷ"
+
+#: ../atk/atkobject.c:140
+msgid "tree table"
+msgstr "ବୃକ୍ଷ ସାରଣୀ"
+
+#: ../atk/atkobject.c:141
+msgid "unknown"
+msgstr "ଅଜଣା"
+
+#: ../atk/atkobject.c:142
+msgid "viewport"
+msgstr "ଦୃଶ୍ଯ ସଂଯୋଗୀ"
+
+#: ../atk/atkobject.c:143
+msgid "window"
+msgstr "ୱିଣ୍ଡୋ"
+
+#: ../atk/atkobject.c:144
+msgid "header"
+msgstr "ଶୀର୍ଷକ"
+
+#: ../atk/atkobject.c:145
+msgid "footer"
+msgstr "ପାଦିକା"
+
+#: ../atk/atkobject.c:146
+msgid "paragraph"
+msgstr "ଅନୁଚ୍ଛେଦ"
+
+#: ../atk/atkobject.c:147
+msgid "ruler"
+msgstr "ଶାସକ"
+
+#: ../atk/atkobject.c:148
+msgid "application"
+msgstr "ପ୍ରୟୋଗ"
+
+#: ../atk/atkobject.c:149
+msgid "autocomplete"
+msgstr "ସ୍ବଂୟ ସମାପ୍ତି"
+
+#: ../atk/atkobject.c:150
+msgid "edit bar"
+msgstr "ସମ୍ପାଦନ ପଟି"
+
+#: ../atk/atkobject.c:151
+msgid "embedded component"
+msgstr "ସନ୍ନିବେଶିତ ଯନ୍ତ୍ରାଂଶ"
+
+#: ../atk/atkobject.c:152
+msgid "entry"
+msgstr "ଭରଣ"
+
+#: ../atk/atkobject.c:153
+msgid "chart"
+msgstr "ମାନଚିତ୍ର"
+
+#: ../atk/atkobject.c:154
+msgid "caption"
+msgstr "ଶୀର୍ଷକ"
+
+#: ../atk/atkobject.c:155
+msgid "document frame"
+msgstr "ଦଲିଲ ବନ୍ଧେଇ"
+
+#: ../atk/atkobject.c:156
+msgid "heading"
+msgstr "ଶୀର୍ଷକ"
+
+#: ../atk/atkobject.c:157
+msgid "page"
+msgstr "ପୃଷ୍ଠା"
+
+#: ../atk/atkobject.c:158
+msgid "section"
+msgstr "ଅଂଶ"
+
+#: ../atk/atkobject.c:159
+msgid "redundant object"
+msgstr "ଅନାବଶ୍ଯକ ବସ୍ତୁ"
+
+#: ../atk/atkobject.c:160
+msgid "form"
+msgstr "ଫର୍ମ"
+
+#: ../atk/atkobject.c:161
+msgid "link"
+msgstr "ସଂଯୋଗ"
+
+#: ../atk/atkobject.c:162
+msgid "input method window"
+msgstr "ନିବେଶ ପଦ୍ଧତି ୱିଣ୍ଡୋ"
+
+#: ../atk/atkobject.c:163
+#| msgid "table row header"
+msgid "table row"
+msgstr "ସାରଣୀ ଧାଡ଼ି"
+
+#: ../atk/atkobject.c:164
+#| msgid "tree table"
+msgid "tree item"
+msgstr "ବୃକ୍ଷ ବସ୍ତୁ"
+
+#: ../atk/atkobject.c:165
+#| msgid "document frame"
+msgid "document spreadsheet"
+msgstr "ଦଲିଲ ସ୍ପ୍ରେଡଶୀଟ"
+
+#: ../atk/atkobject.c:166
+#| msgid "document frame"
+msgid "document presentation"
+msgstr "ଦଲିଲ ଉପସ୍ଥାପନା"
+
+#: ../atk/atkobject.c:167
+#| msgid "document frame"
+msgid "document text"
+msgstr "ଦଲିଲ ପାଠ୍ୟ"
+
+#: ../atk/atkobject.c:168
+#| msgid "document frame"
+msgid "document web"
+msgstr "ଦଲିଲ ୱେବ"
+
+#: ../atk/atkobject.c:169
+#| msgid "document frame"
+msgid "document email"
+msgstr "ଦଲିଲ ଇମେଲ"
+
+#: ../atk/atkobject.c:170
+msgid "comment"
+msgstr "ଟିପ୍ପଣୀ"
+
+#: ../atk/atkobject.c:171
+#| msgid "list"
+msgid "list box"
+msgstr "ତାଲିକା ବାକ୍ସ"
+
+#: ../atk/atkobject.c:172
+msgid "grouping"
+msgstr "ସମୂହୀକରଣ"
+
+#: ../atk/atkobject.c:173
+#| msgid "image"
+msgid "image map"
+msgstr "ଚିତ୍ର ମ୍ଯାପ"
+
+#: ../atk/atkobject.c:174
+#| msgid "animation"
+msgid "notification"
+msgstr "ବିଜ୍ଞପ୍ତି"
+
+#: ../atk/atkobject.c:175
+#| msgid "menu bar"
+msgid "info bar"
+msgstr "ସୂଚନା ପଟି"
+
+#: ../atk/atkobject.c:514
+msgid "Accessible Name"
+msgstr "ସୁଗମ ନାମ"
+
+#: ../atk/atkobject.c:515
+msgid "Object instance’s name formatted for assistive technology access"
+msgstr "ସହାୟକ ଟେକନିକି ପ୍ରବେଶାନୁମତି ପାଇଁ ସଜ୍ଜିତ ବସ୍ତୁ ଉଦାହରଣର ନାମ"
+
+#: ../atk/atkobject.c:521
+msgid "Accessible Description"
+msgstr "ସୁଗମ ବର୍ଣ୍ଣନା"
+
+#: ../atk/atkobject.c:522
+msgid "Description of an object, formatted for assistive technology access"
+msgstr "ସହାୟକ ଟେକନିକି ପ୍ରବେଶାନୁମତି ପାଇଁ ସଜ୍ଜିତ ବସ୍ତୁର ବର୍ଣ୍ଣନା"
+
+#: ../atk/atkobject.c:528
+msgid "Accessible Parent"
+msgstr "ସୁଗମ ପୂର୍ବଜ"
+
+#: ../atk/atkobject.c:529
+msgid "Is used to notify that the parent has changed"
+msgstr "ପୂର୍ବଜ ବଦଳିଯାଇଥିବାର ସୂଚନା ପ୍ରଦାନ କରେ"
+
+#: ../atk/atkobject.c:535
+msgid "Accessible Value"
+msgstr "ସୁଗମ ମୂଲ୍ଯ"
+
+#: ../atk/atkobject.c:536
+msgid "Is used to notify that the value has changed"
+msgstr "ମୂଲ୍ଯ ବଦଳିଯାଇଥିବାର ସୂଚନା ପ୍ରଦାନ କରେ"
+
+#: ../atk/atkobject.c:544
+msgid "Accessible Role"
+msgstr "ସୁଗମ ଭୂମିକା"
+
+#: ../atk/atkobject.c:545
+msgid "The accessible role of this object"
+msgstr "ଏହି ବସ୍ତୁର ସୁଗମ ଭୂମିକା"
+
+#: ../atk/atkobject.c:553
+msgid "Accessible Layer"
+msgstr "ସୁଗମ ସ୍ତର"
+
+#: ../atk/atkobject.c:554
+msgid "The accessible layer of this object"
+msgstr "ଏହି ବସ୍ତୁର ସୁଗମ ସ୍ତର"
+
+#: ../atk/atkobject.c:562
+msgid "Accessible MDI Value"
+msgstr "ସୁଗମ ଏମ.ଡି.ଆଇ. ମୂଲ୍ଯ"
+
+#: ../atk/atkobject.c:563
+msgid "The accessible MDI value of this object"
+msgstr "ଏହି ବସ୍ତୁର ସୁଗମ ଏମ.ଡି.ଆଇ. ମୂଲ୍ଯ"
+
+#: ../atk/atkobject.c:571
+msgid "Accessible Table Caption"
+msgstr "ସୁଗମ ସାରଣୀ ଶୀର୍ଷକ"
+
+#: ../atk/atkobject.c:572
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr ""
+"ସାରଣୀ ଶୀର୍ଷକ ବଦଳିଯାଇଥିବାର ସୂଚନା ପ୍ରଦାନ କରେ; ଏହି ଗୁଣଧର୍ମ ବ୍ଯବହାର କରିବା ଉଚିତ ନୁହେଁ. ଏହା "
+"ବଦଳରେ ସୁଗମ ସାରଣୀ-ଶୀର୍ଷକ-ବସ୍ତୁ ବ୍ଯବହାର କରନ୍ତୁ"
+
+#: ../atk/atkobject.c:578
+msgid "Accessible Table Column Header"
+msgstr "ସୁଗମ ସାରଣୀ ସ୍ତମ୍ଭ ଶୀର୍ଷକ"
+
+#: ../atk/atkobject.c:579
+msgid "Is used to notify that the table column header has changed"
+msgstr "ସାରଣୀ ସ୍ତମ୍ଭ ଶୀର୍ଷକ ବଦଳିଯାଇଥିବାର ସୂଚନା ପ୍ରଦାନ କରେ"
+
+#: ../atk/atkobject.c:585
+msgid "Accessible Table Column Description"
+msgstr "ସୁଗମ ସାରଣୀ ସ୍ତମ୍ଭ ବର୍ଣ୍ଣନା"
+
+#: ../atk/atkobject.c:586
+msgid "Is used to notify that the table column description has changed"
+msgstr "ସାରଣୀ ସ୍ତମ୍ଭ ବର୍ଣ୍ଣନା ବଦଳିଯାଇଥିବାର ସୂଚନା ପ୍ରଦାନ କରେ"
+
+#: ../atk/atkobject.c:592
+msgid "Accessible Table Row Header"
+msgstr "ସୁଗମ ସାରଣୀ ଧାଡ଼ି ଶୀର୍ଷକ"
+
+#: ../atk/atkobject.c:593
+msgid "Is used to notify that the table row header has changed"
+msgstr "ସାରଣୀ ଧାଡ଼ି ଶୀର୍ଷକ ବଦଳିଯାଇଥିବାର ସୂଚନା ପ୍ରଦାନ କରେ"
+
+#: ../atk/atkobject.c:599
+msgid "Accessible Table Row Description"
+msgstr "ସୁଗମ ସାରଣୀ ଧାଡ଼ି ବର୍ଣ୍ଣନା"
+
+#: ../atk/atkobject.c:600
+msgid "Is used to notify that the table row description has changed"
+msgstr "ସାରଣୀ ଧାଡ଼ି ବର୍ଣ୍ଣନା ବଦଳିଯାଇଥିବାର ସୂଚନା ପ୍ରଦାନ କରେ"
+
+#: ../atk/atkobject.c:606
+msgid "Accessible Table Summary"
+msgstr "ସୁଗମ ସାରଣୀ ସାରାଂଶ"
+
+#: ../atk/atkobject.c:607
+msgid "Is used to notify that the table summary has changed"
+msgstr "ସାରଣୀ ସାରାଂଶ ବଦଳିଯାଇଥିବାର ସୂଚନା ପ୍ରଦାନ କରେ"
+
+#: ../atk/atkobject.c:613
+msgid "Accessible Table Caption Object"
+msgstr "ସୁଗମ ସାରଣୀ ଶୀର୍ଷକ ବସ୍ତୁ"
+
+#: ../atk/atkobject.c:614
+msgid "Is used to notify that the table caption has changed"
+msgstr "ସାରଣୀ ଶୀର୍ଷକ ବସ୍ତୁ ବଦଳିଯାଇଥିବାର ସୂଚନା ପ୍ରଦାନ କରେ"
+
+#: ../atk/atkobject.c:620
+msgid "Number of Accessible Hypertext Links"
+msgstr "ସୁଗମ ହାଇପରପାଠ୍ଯର ସଂଯୋଗର ସଂଖ୍ଯା"
+
+#: ../atk/atkobject.c:621
+msgid "The number of links which the current AtkHypertext has"
+msgstr "ସାମ୍ପ୍ରତିକ ଏଟିକେହାଇପରପାଠ୍ଯର ସଂଯୋଗର ସଂଖ୍ଯା"

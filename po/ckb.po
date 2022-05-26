@@ -1,0 +1,792 @@
+# Kurdish (Sorani) translation for atk1.0
+# Copyright (c) 2020 Rosetta Contributors and Canonical Ltd 2020
+# This file is distributed under the same license as the atk1.0 package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: atk1.0\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2020-01-30 11:30+0000\n"
+"PO-Revision-Date: 2020-03-05 19:36+0300\n"
+"Last-Translator: Jwtiyar Nariman <jwtiyar@gmail.com>\n"
+"Language-Team: Kurdish (Sorani) <ckb@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2020-03-05 16:00+0000\n"
+"X-Generator: Poedit 2.3\n"
+"Language: ckb\n"
+
+#: atk/atkhyperlink.c:126
+msgid "Selected Link"
+msgstr "بەستەری هەڵبژێردراو"
+
+#: atk/atkhyperlink.c:127
+msgid "Specifies whether the AtkHyperlink object is selected"
+msgstr ""
+
+#: atk/atkhyperlink.c:133
+msgid "Number of Anchors"
+msgstr ""
+
+#: atk/atkhyperlink.c:134
+msgid "The number of anchors associated with the AtkHyperlink object"
+msgstr ""
+
+#: atk/atkhyperlink.c:142
+msgid "End index"
+msgstr "کۆتایی پێڕست"
+
+#: atk/atkhyperlink.c:143
+msgid "The end index of the AtkHyperlink object"
+msgstr ""
+
+#: atk/atkhyperlink.c:151
+msgid "Start index"
+msgstr "دەستپێکردنی پێڕست"
+
+#: atk/atkhyperlink.c:152
+msgid "The start index of the AtkHyperlink object"
+msgstr ""
+
+#: atk/atkobject.c:98
+msgid "invalid"
+msgstr "هەڵەیە"
+
+#: atk/atkobject.c:99
+msgid "accelerator label"
+msgstr ""
+
+#: atk/atkobject.c:100
+msgid "alert"
+msgstr "ئاگادارکردنەوە"
+
+#: atk/atkobject.c:101
+msgid "animation"
+msgstr "خوڵاو"
+
+#: atk/atkobject.c:102
+msgid "arrow"
+msgstr "تیر"
+
+#: atk/atkobject.c:103
+msgid "calendar"
+msgstr "ڕۆژژمێر"
+
+#: atk/atkobject.c:104
+msgid "canvas"
+msgstr ""
+
+#: atk/atkobject.c:105
+msgid "check box"
+msgstr ""
+
+#: atk/atkobject.c:106
+msgid "check menu item"
+msgstr ""
+
+#: atk/atkobject.c:107
+msgid "color chooser"
+msgstr "هەڵبژێرەری ڕەنگ"
+
+#: atk/atkobject.c:108
+msgid "column header"
+msgstr "سەرەوەی ئەستوون"
+
+#: atk/atkobject.c:109
+msgid "combo box"
+msgstr ""
+
+#: atk/atkobject.c:110
+msgid "dateeditor"
+msgstr ""
+
+#: atk/atkobject.c:111
+msgid "desktop icon"
+msgstr "وێنۆچکەی ڕوومێز"
+
+#: atk/atkobject.c:112
+msgid "desktop frame"
+msgstr "چوارجێوەی ڕوومێز"
+
+#: atk/atkobject.c:113
+msgid "dial"
+msgstr "dial"
+
+#: atk/atkobject.c:114
+msgid "dialog"
+msgstr ""
+
+#: atk/atkobject.c:115
+msgid "directory pane"
+msgstr "بەشی پێڕست"
+
+#: atk/atkobject.c:116
+msgid "drawing area"
+msgstr "ڕووبەری کێشراو"
+
+#: atk/atkobject.c:117
+msgid "file chooser"
+msgstr "هەلبژێرەری پەڕگە"
+
+#: atk/atkobject.c:118
+msgid "filler"
+msgstr "پڕکەرەوە"
+
+#. I know it looks wrong but that is what Java returns
+#: atk/atkobject.c:120
+msgid "fontchooser"
+msgstr "هەڵبژێرەری جۆرەپیت"
+
+#: atk/atkobject.c:121
+msgid "frame"
+msgstr "چوارچیوە"
+
+#: atk/atkobject.c:122
+msgid "glass pane"
+msgstr ""
+
+#: atk/atkobject.c:123
+msgid "html container"
+msgstr ""
+
+#: atk/atkobject.c:124
+msgid "icon"
+msgstr "وێنۆچکە"
+
+#: atk/atkobject.c:125
+msgid "image"
+msgstr "وێنە"
+
+#: atk/atkobject.c:126
+msgid "internal frame"
+msgstr "چوارچیوەی ناوەکی"
+
+#: atk/atkobject.c:127
+msgid "label"
+msgstr "پێناسکراو"
+
+#: atk/atkobject.c:128
+msgid "layered pane"
+msgstr "بەشی چینەکان"
+
+#: atk/atkobject.c:129
+msgid "list"
+msgstr "لیستە"
+
+#: atk/atkobject.c:130
+msgid "list item"
+msgstr "بڕگەی لیستە"
+
+#: atk/atkobject.c:131
+msgid "menu"
+msgstr "پێڕست"
+
+#: atk/atkobject.c:132
+msgid "menu bar"
+msgstr "توڵی پێڕست"
+
+#: atk/atkobject.c:133
+msgid "menu item"
+msgstr "بڕگەی پێڕست"
+
+#: atk/atkobject.c:134
+msgid "option pane"
+msgstr "بەشی هەڵبژاردکەان"
+
+#: atk/atkobject.c:135
+msgid "page tab"
+msgstr "بازدەری پەڕە"
+
+#: atk/atkobject.c:136
+msgid "page tab list"
+msgstr "لیستەی بازدەری پەڕە"
+
+#: atk/atkobject.c:137
+msgid "panel"
+msgstr "بەش"
+
+#: atk/atkobject.c:138
+msgid "password text"
+msgstr "دەق تێپەڕەووشە"
+
+#: atk/atkobject.c:139
+msgid "popup menu"
+msgstr ""
+
+#: atk/atkobject.c:140
+msgid "progress bar"
+msgstr ""
+
+#: atk/atkobject.c:141
+msgid "push button"
+msgstr ""
+
+#: atk/atkobject.c:142
+msgid "radio button"
+msgstr "دوگمەی ڕادیۆ"
+
+#: atk/atkobject.c:143
+msgid "radio menu item"
+msgstr "بڕگەی پێڕستی ڕادیۆ"
+
+#: atk/atkobject.c:144
+msgid "root pane"
+msgstr "بەشی ڕەها"
+
+#: atk/atkobject.c:145
+msgid "row header"
+msgstr "سەرەوەی ڕیز"
+
+#: atk/atkobject.c:146
+msgid "scroll bar"
+msgstr ""
+
+#: atk/atkobject.c:147
+msgid "scroll pane"
+msgstr ""
+
+#: atk/atkobject.c:148
+msgid "separator"
+msgstr "جیاکەرەوە"
+
+#: atk/atkobject.c:149
+msgid "slider"
+msgstr ""
+
+#: atk/atkobject.c:150
+msgid "split pane"
+msgstr "بەش جیابکەرەوە"
+
+#: atk/atkobject.c:151
+msgid "spin button"
+msgstr "دوگمەی خولانەوە"
+
+#: atk/atkobject.c:152
+msgid "statusbar"
+msgstr "توڵی ئاگانامەکان"
+
+#: atk/atkobject.c:153
+msgid "table"
+msgstr "خشتە"
+
+#: atk/atkobject.c:154
+msgid "table cell"
+msgstr "خانەکانی خشتە"
+
+#: atk/atkobject.c:155
+msgid "table column header"
+msgstr "ستوونی سەرەوەی خشتە"
+
+#: atk/atkobject.c:156
+msgid "table row header"
+msgstr "ڕیزی سەرەوەی خشتە"
+
+#: atk/atkobject.c:157
+msgid "tear off menu item"
+msgstr ""
+
+#: atk/atkobject.c:158
+msgid "terminal"
+msgstr "تێڕمیناڵ"
+
+#: atk/atkobject.c:159
+msgid "text"
+msgstr "دەق"
+
+#: atk/atkobject.c:160
+msgid "toggle button"
+msgstr ""
+
+#: atk/atkobject.c:161
+msgid "tool bar"
+msgstr "توڵامراز"
+
+#: atk/atkobject.c:162
+msgid "tool tip"
+msgstr ""
+
+#: atk/atkobject.c:163
+msgid "tree"
+msgstr "درەخت"
+
+#: atk/atkobject.c:164
+msgid "tree table"
+msgstr "خشتەی درەخت"
+
+#: atk/atkobject.c:165
+msgid "unknown"
+msgstr "نەزانراو"
+
+#: atk/atkobject.c:166
+msgid "viewport"
+msgstr ""
+
+#: atk/atkobject.c:167
+msgid "window"
+msgstr "پەنجەرە"
+
+#: atk/atkobject.c:168
+msgid "header"
+msgstr "سەرپەڕە"
+
+#: atk/atkobject.c:169
+msgid "footer"
+msgstr "پێپەرە"
+
+#: atk/atkobject.c:170
+msgid "paragraph"
+msgstr "بەند"
+
+#: atk/atkobject.c:171
+msgid "ruler"
+msgstr "ڕاستە"
+
+#: atk/atkobject.c:172
+msgid "application"
+msgstr "داوانامە"
+
+#: atk/atkobject.c:173
+msgid "autocomplete"
+msgstr "تەواوکەری خۆکار"
+
+#: atk/atkobject.c:174
+msgid "edit bar"
+msgstr "توڵی دەستکاریکردن"
+
+#: atk/atkobject.c:175
+msgid "embedded component"
+msgstr "پێکهاتەی تێهەڵکێشکراو"
+
+#: atk/atkobject.c:176
+msgid "entry"
+msgstr "تێخستن"
+
+#: atk/atkobject.c:177
+msgid "chart"
+msgstr "هێڵکاری"
+
+#: atk/atkobject.c:178
+msgid "caption"
+msgstr "سەردێڕ"
+
+#: atk/atkobject.c:179
+msgid "document frame"
+msgstr "چوارجێوەی بەڵگەنامە"
+
+#: atk/atkobject.c:180
+msgid "heading"
+msgstr "سەرەوە"
+
+#: atk/atkobject.c:181
+msgid "page"
+msgstr "پەڕە"
+
+#: atk/atkobject.c:182
+msgid "section"
+msgstr "بەش"
+
+#: atk/atkobject.c:183
+msgid "redundant object"
+msgstr ""
+
+#: atk/atkobject.c:184
+msgid "form"
+msgstr "فۆرم"
+
+#: atk/atkobject.c:185
+msgid "link"
+msgstr "بەستەر"
+
+#: atk/atkobject.c:186
+msgid "input method window"
+msgstr ""
+
+#: atk/atkobject.c:187
+msgid "table row"
+msgstr "ڕێزی خشتە"
+
+#: atk/atkobject.c:188
+msgid "tree item"
+msgstr "بڕگەی درەخت"
+
+#: atk/atkobject.c:189
+msgid "document spreadsheet"
+msgstr "بەڵگەنامەی خشتەیی"
+
+#: atk/atkobject.c:190
+msgid "document presentation"
+msgstr "بەڵگەنامەی پێشکەشکردن"
+
+#: atk/atkobject.c:191
+msgid "document text"
+msgstr "بەڵگەنامەی دەق"
+
+#: atk/atkobject.c:192
+msgid "document web"
+msgstr "بەڵگەنامەی وێب"
+
+#: atk/atkobject.c:193
+msgid "document email"
+msgstr "بەڵگەنامەی پۆستی ئەلکترۆنی"
+
+#: atk/atkobject.c:194
+msgid "comment"
+msgstr "لێدوان"
+
+#: atk/atkobject.c:195
+msgid "list box"
+msgstr "چوارچیوەی لیستە"
+
+#: atk/atkobject.c:196
+msgid "grouping"
+msgstr "گرووپکردن"
+
+#: atk/atkobject.c:197
+msgid "image map"
+msgstr "نەخشەی وێنە"
+
+#: atk/atkobject.c:198
+msgid "notification"
+msgstr "ئاگانامە"
+
+#: atk/atkobject.c:199
+msgid "info bar"
+msgstr "توڵی زانیاری"
+
+#: atk/atkobject.c:200
+msgid "level bar"
+msgstr "توڵی ئاست"
+
+#: atk/atkobject.c:201
+msgid "title bar"
+msgstr "توڵی ناونیشان"
+
+#: atk/atkobject.c:202
+msgid "block quote"
+msgstr ""
+
+#: atk/atkobject.c:203
+msgid "audio"
+msgstr "دەنگ"
+
+#: atk/atkobject.c:204
+msgid "video"
+msgstr "ڤیدیۆ"
+
+#: atk/atkobject.c:205
+msgid "definition"
+msgstr "پێناسە"
+
+#: atk/atkobject.c:206
+msgid "article"
+msgstr "بابەت"
+
+#: atk/atkobject.c:207
+msgid "landmark"
+msgstr "هێمای بازرگانی"
+
+#: atk/atkobject.c:208
+msgid "log"
+msgstr "تۆمار"
+
+#: atk/atkobject.c:209
+msgid "marquee"
+msgstr ""
+
+#: atk/atkobject.c:210
+msgid "math"
+msgstr "بیرکاری"
+
+#: atk/atkobject.c:211
+msgid "rating"
+msgstr "پلەبەندی"
+
+#: atk/atkobject.c:212
+msgid "timer"
+msgstr "کاتپێو"
+
+#: atk/atkobject.c:213
+msgid "description list"
+msgstr "لیستەی کورتە"
+
+#: atk/atkobject.c:214
+msgid "description term"
+msgstr "بڕگەی کورتە"
+
+#: atk/atkobject.c:215
+msgid "description value"
+msgstr "نرخی کورتە"
+
+#: atk/atkobject.c:391
+msgid "Accessible Name"
+msgstr "ناوی پەردەوژ"
+
+#: atk/atkobject.c:392
+msgid "Object instance’s name formatted for assistive technology access"
+msgstr ""
+
+#: atk/atkobject.c:398
+msgid "Accessible Description"
+msgstr "دەربارەی پەردەوژ"
+
+#: atk/atkobject.c:399
+msgid "Description of an object, formatted for assistive technology access"
+msgstr ""
+
+#: atk/atkobject.c:405
+msgid "Accessible Parent"
+msgstr ""
+
+#: atk/atkobject.c:406
+msgid ""
+"Parent of the current accessible as returned by atk_object_get_parent()"
+msgstr ""
+
+#: atk/atkobject.c:422
+msgid "Accessible Value"
+msgstr "نرخی پەردەوژ"
+
+#: atk/atkobject.c:423
+msgid "Is used to notify that the value has changed"
+msgstr "بەکاردەهێنرێت بۆ ئەوەی ئاگادارت بکاتەوە کە نرخێ بگۆڕدرێت"
+
+#: atk/atkobject.c:431
+msgid "Accessible Role"
+msgstr "ڕۆڵی پەردەوژ"
+
+#: atk/atkobject.c:432
+msgid "The accessible role of this object"
+msgstr ""
+
+#: atk/atkobject.c:439
+msgid "Accessible Layer"
+msgstr "چینی پەردوژ"
+
+#: atk/atkobject.c:440
+msgid "The accessible layer of this object"
+msgstr ""
+
+#: atk/atkobject.c:448
+msgid "Accessible MDI Value"
+msgstr ""
+
+#: atk/atkobject.c:449
+msgid "The accessible MDI value of this object"
+msgstr ""
+
+#: atk/atkobject.c:465
+msgid "Accessible Table Caption"
+msgstr ""
+
+#: atk/atkobject.c:466
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr ""
+
+#: atk/atkobject.c:480
+msgid "Accessible Table Column Header"
+msgstr ""
+
+#: atk/atkobject.c:481
+msgid "Is used to notify that the table column header has changed"
+msgstr ""
+
+#: atk/atkobject.c:496
+msgid "Accessible Table Column Description"
+msgstr ""
+
+#: atk/atkobject.c:497
+msgid "Is used to notify that the table column description has changed"
+msgstr ""
+
+#: atk/atkobject.c:512
+msgid "Accessible Table Row Header"
+msgstr ""
+
+#: atk/atkobject.c:513
+msgid "Is used to notify that the table row header has changed"
+msgstr ""
+
+#: atk/atkobject.c:527
+msgid "Accessible Table Row Description"
+msgstr ""
+
+#: atk/atkobject.c:528
+msgid "Is used to notify that the table row description has changed"
+msgstr ""
+
+#: atk/atkobject.c:534
+msgid "Accessible Table Summary"
+msgstr ""
+
+#: atk/atkobject.c:535
+msgid "Is used to notify that the table summary has changed"
+msgstr ""
+
+#: atk/atkobject.c:541
+msgid "Accessible Table Caption Object"
+msgstr ""
+
+#: atk/atkobject.c:542
+msgid "Is used to notify that the table caption has changed"
+msgstr "بەکارێت بۆ ئاگادارکردنەوە لە کاتی گۆڕینی سەردێڕی خشتە"
+
+#: atk/atkobject.c:548
+msgid "Number of Accessible Hypertext Links"
+msgstr ""
+
+#: atk/atkobject.c:549
+msgid "The number of links which the current AtkHypertext has"
+msgstr ""
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:194
+msgid "very weak"
+msgstr "زۆر لاوازە"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:201
+msgid "weak"
+msgstr "لاواز"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:208
+msgid "acceptable"
+msgstr "گونجاوە"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:215
+msgid "strong"
+msgstr "بەهێز"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:222
+msgid "very strong"
+msgstr "زۆر بەهێز"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:230
+msgid "very low"
+msgstr "زۆر کەمە"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:238
+msgid "medium"
+msgstr "ناوەند"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:246
+msgid "high"
+msgstr "بەرز"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:254
+msgid "very high"
+msgstr "زۆر بەرز"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:262
+msgid "very bad"
+msgstr "زۆر خراپ"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:270
+msgid "bad"
+msgstr "خراپ"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:278
+msgid "good"
+msgstr "باشە"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:286
+msgid "very good"
+msgstr "زۆر باشە"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:294
+msgid "best"
+msgstr "باشترینە"
