@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
          xmlns:foaf="http://xmlns.com/foaf/0.1/"
@@ -13,7 +14,12 @@ simulate keyboard and mouse events. It can also be used for automated testing.
 
 The at-spi2-core module contains the D-Bus specification, the registry daemon,
 and a C library for use by access technologies that provides a convenient
-wrapper around the DBus interfaces.</description>
+wrapper around the DBus interfaces.
+
+ATK is a library providing interface definitions that are consumed by
+toolkits that wish to integrate with the GNOME accessibility
+infrastructure.
+  </description>
   <homepage rdf:resource="http://www.linuxfoundation.org/en/Accessibility/ATK/AT-SPI/AT-SPI_on_D-Bus"/>
   <license rdf:resource="http://usefulinc.com/doap/licenses/lgpl" />
   <bug-database rdf:resource="https://gitlab.gnome.org/GNOME/at-spi2-core/issues/" />
@@ -21,6 +27,8 @@ wrapper around the DBus interfaces.</description>
   <mailing-list rdf:resource="https://lists.linux-foundation.org/mailman/listinfo/accessibility-atspi"/>
   <category rdf:resource="http://api.gnome.org/doap-extensions#core" />
   <programming-language>C</programming-language>
+
+  <!-- at-spi2-core maintainers -->
 
   <maintainer>
     <foaf:Person>
@@ -36,4 +44,22 @@ wrapper around the DBus interfaces.</description>
       <gnome:userid>federico</gnome:userid>
     </foaf:Person>
   </maintainer>
+
+  <!-- ATK maintainers -->
+
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Alejandro Piñeiro Iglesias</foaf:name>
+      <foaf:mbox rdf:resource="mailto:apinheiro@igalia.com" />
+      <gnome:userid>apinheiro</gnome:userid>
+    </foaf:Person>
+  </maintainer>
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Emmanuele Bassi</foaf:name>
+      <foaf:mbox rdf:resource="mailto:ebassi@gnome.org" />
+      <gnome:userid>ebassi</gnome:userid>
+    </foaf:Person>
+  </maintainer>
+
 </Project>
