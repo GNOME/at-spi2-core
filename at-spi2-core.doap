@@ -19,6 +19,11 @@ wrapper around the DBus interfaces.
 ATK is a library providing interface definitions that are consumed by
 toolkits that wish to integrate with the GNOME accessibility
 infrastructure.
+
+at-spi2-atk is the library used to bridge ATK to AT-SPI, allowing
+applications exposing information via ATK to interface with clients
+that use AT-SPI. This module provides the necessary inter-process
+communication to allow accessibility-oriented software to operate.
   </description>
   <homepage rdf:resource="http://www.linuxfoundation.org/en/Accessibility/ATK/AT-SPI/AT-SPI_on_D-Bus"/>
   <license rdf:resource="http://usefulinc.com/doap/licenses/lgpl" />
