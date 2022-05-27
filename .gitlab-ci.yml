@@ -192,7 +192,7 @@ pages:
   stage: deploy
   needs: [ coverage, reference ]
   script:
-    - mv _reference/ public/
+    - mv _reference/* public/
   artifacts:
     paths:
       - public

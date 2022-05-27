@@ -21,6 +21,10 @@ include:
 * [KDE Accessibility wiki][kde-a11y-wiki]
 * [Accessibility documentation for GNOME users][docs-users]
 
+## Documentation
+
+* [ATK reference documentation][atk-docs]
+* [libatspi reference documentation][libatspi-docs]
 
 ## Summary of this repository's contents
 
@@ -82,3 +86,5 @@ not been kept up to date.
 [docs-users]: https://help.gnome.org/users/gnome-help/stable/a11y.html
 [gnome-a11y-wiki]: https://wiki.gnome.org/Accessibility
 [kde-a11y-wiki]: https://community.kde.org/Accessibility
+[atk-docs]: https://gnome.pages.gitlab.gnome.org/at-spi2-core/atk
+[libatspi-docs]: https://gnome.pages.gitlab.gnome.org/at-spi2-core/libatspi
