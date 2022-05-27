@@ -1,8 +1,0 @@
-option('docs',
-       description: 'Build API reference for ATK using GTK-Doc',
-       type: 'boolean',
-       value: false)
-option('introspection',
-       description: 'Whether to build introspection files',
-       type: 'boolean',
-       value: true)
