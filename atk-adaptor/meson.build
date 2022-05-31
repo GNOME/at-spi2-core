@@ -12,7 +12,7 @@ atk_bridge_sources = [
   'spi-dbus.c',
 ]
 
-install_headers([ 'atk-bridge.h' ], subdir: join_paths(meson.project_name(), '2.0'))
+install_headers([ 'atk-bridge.h' ], subdir: join_paths('at-spi2-atk', '2.0'))
 
 libatk_bridge = library('atk-bridge-2.0', atk_bridge_sources,
                         include_directories: root_inc,
