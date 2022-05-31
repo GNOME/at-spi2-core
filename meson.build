@@ -17,9 +17,7 @@ host_system = host_machine.system()
 
 soversion = '0.0.1'
 
-# This is just for atk - preserve the versioning scheme from the unmerged repositories
-# until we decide what to do about the versions of different sub-libraries.
-atk_version = '2.38.1'
+atk_version = meson.project_version()
 version = atk_version.split('.')
 atk_major_version = version[0].to_int()
 atk_minor_version = version[1].to_int()
@@ -45,7 +43,7 @@ if cc.get_id() == 'msvc'
 endif
 
 # at-spi2-atk versions
-atk_bridge_version = '2.38.0'
+atk_bridge_version = meson.project_version()
 atk_bridge_soversion = 0
 atk_bridge_libversion = '0.0.0'
 
