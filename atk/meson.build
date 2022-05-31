@@ -80,10 +80,12 @@ atk_version_conf.set('ATK_INTERFACE_AGE', atk_interface_age)
 atk_version_conf.set('LT_CURRENT_MINUS_AGE', '0')
 atk_version_conf.set('ATK_VERSION', atk_version)
 
+atk_includedir = join_paths(get_option('prefix'), get_option('includedir'))
+
 atk_version_h = configure_file(input: 'atkversion.h.in',
   output: 'atkversion.h',
   configuration: atk_version_conf,
-  install_dir: join_paths(atspi_includedir, atk_api_path),
+  install_dir: join_paths(atk_includedir, atk_api_path),
 )
 
 # Marshallers
@@ -98,7 +100,7 @@ atk_enums = gnome.mkenums('atk-enum-types',
   sources: atk_headers,
   c_template: 'atk-enum-types.c.template',
   h_template: 'atk-enum-types.h.template',
-  install_dir: join_paths(atspi_includedir, atk_api_path),
+  install_dir: join_paths(atk_includedir, atk_api_path),
   install_header: true,
 )
 atk_enum_h = atk_enums[1]
