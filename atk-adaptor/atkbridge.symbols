@@ -1,0 +1,3 @@
+atk_bridge_adaptor_init
+atk_bridge_adaptor_cleanup
+atk_bridge_set_event_context

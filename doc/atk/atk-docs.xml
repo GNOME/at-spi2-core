@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+  <!ENTITY % gtkdocentities SYSTEM "xml/gtkdocentities.ent">
+  %gtkdocentities;
+]>
+
+<book>
+  <bookinfo>
+    <title>ATK - Accessibility Toolkit</title>
+    <releaseinfo>for ATK &package_version;</releaseinfo>
+  </bookinfo>
+
+  <chapter id="overview">
+    <title>Overview</title>
+     <para>
+       GNOME provides support for accessibility devices using the ATK
+       framework. This framework defines a set of interfaces to which
+       graphical interface components adhere. This allows, for instance,
+       screen readers to read the text of an interface and interact with its
+       controls. ATK support is built into GTK+ and the rest of the GNOME
+       platform, so any application using GTK+ will have reasonable
+       accessibility support for free.
+     </para>
+
+     <para>
+     Nonetheless, you should be aware of accessibility issues when when
+     developing your applications. Although GTK+ interfaces provide
+     reasonable accessibility by default, you can often improve how well
+     your program behaves with accessibility tools by providing additional
+     information to ATK. If you develop custom widgets, you should ensure
+     that they expose their properties to ATK
+     </para>
+
+  </chapter>
+
+  <chapter id="base-object">
+    <title>Base accessibility object</title>
+    <xi:include href="xml/atkobject.xml"/>
+  </chapter>
+
+  <chapter id="toolkit">
+    <title>Event and toolkit support</title>
+    <xi:include href="xml/atkutil.xml"/>
+  </chapter>
+
+  <chapter id="interfaces">
+    <title>ATK Interfaces</title>
+    <xi:include href="xml/atkaction.xml"/>
+    <xi:include href="xml/atkcomponent.xml"/>
+    <xi:include href="xml/atkdocument.xml"/>
+    <xi:include href="xml/atkeditabletext.xml"/>
+    <xi:include href="xml/atkhyperlinkimpl.xml"/>
+    <xi:include href="xml/atkhypertext.xml"/>
+    <xi:include href="xml/atkimage.xml"/>
+    <xi:include href="xml/atkselection.xml"/>
+    <xi:include href="xml/atkstreamablecontent.xml"/>
+    <xi:include href="xml/atktable.xml"/>
+    <xi:include href="xml/atktablecell.xml"/>
+    <xi:include href="xml/atktext.xml"/>
+    <xi:include href="xml/atkvalue.xml"/>
+    <xi:include href="xml/atkwindow.xml"/>
+  </chapter>
+
+  <chapter id="data">
+    <title>Basic accessible data types</title>
+    <xi:include href="xml/atkrange.xml"/>
+    <xi:include href="xml/atkrelation.xml"/>
+    <xi:include href="xml/atkrelationset.xml"/>
+    <xi:include href="xml/atkstate.xml"/>
+    <xi:include href="xml/atkstateset.xml"/>
+  </chapter>
+
+  <chapter id="accessibles">
+    <title>Custom accessible objects</title>
+    <xi:include href="xml/atkgobjectaccessible.xml"/>
+    <xi:include href="xml/atkhyperlink.xml"/>
+    <xi:include href="xml/atknoopobject.xml"/>
+    <xi:include href="xml/atkplug.xml"/>
+    <xi:include href="xml/atksocket.xml"/>
+  </chapter>
+
+  <chapter id="utilities">
+    <title>Utilities</title>
+    <xi:include href="xml/atknoopobjectfactory.xml"/>
+    <xi:include href="xml/atkobjectfactory.xml"/>
+    <xi:include href="xml/atkregistry.xml"/>
+    <xi:include href="xml/atkversion.xml"/>
+  </chapter>
+
+  <chapter id="deprecated">
+    <title>Deprecated Interfaces</title>
+    <xi:include href="xml/atkmisc.xml"/>
+  </chapter>
+
+  <index id="api-index-full">
+    <title>Index of all symbols</title>
+  </index>
+  <index id="api-index-deprecated" role="deprecated">
+    <title>Index of deprecated symbols</title>
+  </index>
+  <index id="api-index-1-3" role="1.3">
+    <title>Index of new symbols in 1.3</title>
+  </index>
+  <index id="api-index-1-4" role="1.4">
+    <title>Index of new symbols in 1.4</title>
+  </index>
+  <index id="api-index-1-6" role="1.6">
+    <title>Index of new symbols in 1.6</title>
+  </index>
+  <index id="api-index-1-9" role="1.9">
+    <title>Index of new symbols in 1.9</title>
+  </index>
+  <index id="api-index-1-12" role="1.12">
+    <title>Index of new symbols in 1.12</title>
+  </index>
+  <index id="api-index-1-13" role="1.13">
+    <title>Index of new symbols in 1.13</title>
+  </index>
+  <index id="api-index-1-20" role="1.20">
+    <title>Index of new symbols in 1.20</title>
+  </index>
+  <index id="api-index-1-22" role="1.22">
+    <title>Index of new symbols in 1.22</title>
+  </index>
+  <index id="api-index-1-30" role="1.30">
+    <title>Index of new symbols in 1.30</title>
+  </index>
+  <index id="api-index-2-2" role="2.2">
+    <title>Index of new symbols in 2.2</title>
+  </index>
+  <index id="api-index-2-8" role="2.8">
+    <title>Index of new symbols in 2.8</title>
+  </index>
+  <index id="api-index-2-10" role="2.10">
+    <title>Index of new symbols in 2.10</title>
+  </index>
+  <index id="api-index-2-12" role="2.12">
+    <title>Index of new symbols in 2.12</title>
+  </index>
+
+  <xi:include href="xml/annotation-glossary.xml"><xi:fallback/></xi:include>
+</book>
+

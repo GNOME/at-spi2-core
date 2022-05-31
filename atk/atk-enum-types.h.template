@@ -1,0 +1,30 @@
+/*** BEGIN file-header ***/
+#if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined (__ATK_H_INSIDE__) && !defined (ATK_COMPILATION)
+#error "Only <atk/atk.h> can be included directly."
+#endif
+
+#ifndef __ATK_ENUM_TYPES_H__
+#define __ATK_ENUM_TYPES_H__
+
+#include <atk/atkversion.h>
+#include <glib-object.h>
+
+G_BEGIN_DECLS
+/*** END file-header ***/
+
+/*** BEGIN file-production ***/
+
+/* enumerations from "@basename@" */
+/*** END file-production ***/
+
+/*** BEGIN value-header ***/
+ATK_AVAILABLE_IN_ALL
+GType @enum_name@_get_type (void);
+#define @ENUMPREFIX@_TYPE_@ENUMSHORT@ (@enum_name@_get_type())
+/*** END value-header ***/
+
+/*** BEGIN file-tail ***/
+G_END_DECLS
+
+#endif /* __ATK_ENUM_TYPES_H__ */
+/*** END file-tail ***/

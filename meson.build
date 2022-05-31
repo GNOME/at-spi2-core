@@ -6,7 +6,7 @@ project('at-spi2-core', 'c',
           'warning_level=1',
           'c_std=c99',
         ],
-        meson_version: '>= 0.46.0')
+        meson_version: '>= 0.56.2')
 
 add_project_arguments([ '-D_POSIX_C_SOURCE=200809L', '-D_DEFAULT_SOURCE' ], language: 'c')
 
@@ -17,10 +17,87 @@ host_system = host_machine.system()
 
 soversion = '0.0.1'
 
+atk_version = meson.project_version()
+version = atk_version.split('.')
+atk_major_version = version[0].to_int()
+atk_minor_version = version[1].to_int()
+atk_micro_version = version[2].to_int()
+
+atk_interface_age = 1
+atk_binary_age = 10000 * atk_major_version + 100 * atk_minor_version + 10 + atk_micro_version
+
+atk_api_version = '1.0'
+atk_api_name = 'atk-@0@'.format(atk_api_version)
+atk_api_path = '@0@/atk'.format(atk_api_name)
+
+# Maintain version scheme with libtool
+atk_soversion = 0
+current = atk_binary_age - atk_interface_age
+atk_libversion = '@0@.@1@.@2@'.format(atk_soversion, current, atk_interface_age)
+darwin_versions = ['@0@'.format(current + 1), '@0@.@1@'.format(current + 1, atk_interface_age)]
+
+add_project_arguments([ '-DG_DISABLE_SINGLE_INCLUDES', '-DATK_DISABLE_SINGLE_INCLUDES' ], language: 'c')
+
+if cc.get_id() == 'msvc'
+  add_project_arguments(cc.get_supported_arguments(['-FImsvc_recommended_pragmas.h', '-utf-8']), language: 'c')
+endif
+
+# at-spi2-atk versions
+atk_bridge_version = meson.project_version()
+atk_bridge_soversion = 0
+atk_bridge_libversion = '0.0.0'
+
+# Compiler and linker flags
+common_cflags = []
+common_ldflags = []
+
+test_cflags = []
+
 at_spi_conf = configuration_data()
-at_spi_conf.set('GETTEXT_PACKAGE', meson.project_name())
+at_spi_conf.set_quoted('ATK_VERSION', atk_version)
+at_spi_conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
+
+# Symbol visibility
+if get_option('default_library') != 'static'
+  if host_system == 'windows'
+    atspi_conf.set('DLL_EXPORT', true)
+    at_spi_conf.set('_ATK_EXTERN', '__declspec(dllexport) extern')
+    if cc.get_id() != 'msvc'
+      test_cflags += ['-fvisibility=hidden']
+    endif
+  else
+    at_spi_conf.set('_ATK_EXTERN', '__attribute__((visibility("default"))) extern')
+    test_cflags += ['-fvisibility=hidden']
+  endif
+endif
+
+# Check all compiler flags
+common_cflags += cc.get_supported_arguments(test_cflags)
+
+# Linker flags
+if host_machine.system() == 'linux'
+  test_ldflags = [ '-Wl,-Bsymbolic', '-Wl,-z,relro', '-Wl,-z,now', ]
+  common_ldflags += cc.get_supported_link_arguments(test_ldflags)
+endif
+
+# Maintain compatibility with autotools on macOS
+if host_machine.system() == 'darwin'
+  common_ldflags += [ '-compatibility_version', darwin_versions[0], '-current_version', darwin_versions[1]]
+endif
+
+# Functions
+checked_funcs = [
+  'bind_textdomain_codeset',
+]
+
+foreach f: checked_funcs
+  if cc.has_function(f)
+    at_spi_conf.set('HAVE_' + f.underscorify().to_upper(), 1)
+  endif
+endforeach
 
 root_inc = include_directories('.')
+atk_inc = include_directories('atk')
 registryd_inc = include_directories('registryd')
 
 atspi_prefix = get_option('prefix')
@@ -46,8 +123,10 @@ endif
 libdbus_req_version = '>= 1.5'
 glib_req_version = '>= 2.62.0'
 gobject_req_version = '>= 2.0.0'
+gmodule_req_version = '>= 2.0.0'
 gio_req_version = '>= 2.28.0'
 gir_req_version = '>= 0.6.7'
+libxml_req_version = '>= 2.9.1'
 
 libdbus_dep = dependency('dbus-1', version: libdbus_req_version)
 glib_dep = dependency('glib-2.0', version: glib_req_version)
@@ -60,6 +139,8 @@ elif cc.has_function('dlopen', args: '-ldl')
 else
   error('Could not find a library with the dlopen function')
 endif
+gmodule_dep = dependency('gmodule-2.0', version: gmodule_req_version)
+libxml_dep = dependency('libxml-2.0', version: libxml_req_version)
 
 x11_deps = []
 x11_option = get_option('x11')
@@ -118,16 +199,29 @@ xgettext = find_program('xgettext', required : false)
 
 configure_file(output: 'config.h', configuration: at_spi_conf)
 
+pkgconfig = import('pkgconfig')
 gnome = import('gnome')
+
+if get_option('disable_p2p')
+  p2p_cflags = [ '-DDISABLE_P2P' ]
+else
+  p2p_cflags = []
+endif
+
+install_data('at-spi2-atk.desktop',
+             install_dir: join_paths(get_option('libdir'), 'gnome-settings-daemon-3.0', 'gtk-modules'))
 
 subdir('dbind')
 subdir('atspi')
 subdir('bus')
 subdir('registryd')
-subdir('test')
+subdir('atk')
+subdir('droute')
+subdir('atk-adaptor')
+subdir('tests')
 
 if get_option('docs')
-  subdir('doc/libatspi')
+  subdir('doc')
 endif
 
 if xgettext.found()

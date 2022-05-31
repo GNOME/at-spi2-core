@@ -1,16 +1,39 @@
+# #-#-#-#-#  ug.po (at-spi2-core)  #-#-#-#-#
 # Uyghur translation for at-spi2-core.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Gheyret Kenji <gheyret@yahoo.com>, 2010.
-# 
+#
+# #-#-#-#-#  ug.po (atk 2.12 )  #-#-#-#-#
+# translation of atk to Uighur
+# This file is distributed under the same license as the PACKAGE package.
+# Gheyret T.Kenji <gheyret@yahoo.com>, 2005.
+# Sahran <sahran.ug@gmail.com>, 2010
+#
+#, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  ug.po (at-spi2-core)  #-#-#-#-#\n"
 "Project-Id-Version: at-spi2-core\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-spi&keywords=I18N+L10N&component=general\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
+"spi&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2011-03-18 16:31+0000\n"
 "PO-Revision-Date: 2011-01-31 15:04+0000\n"
 "Last-Translator: Gheyret Kenji <gheyret@yahoo.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
+"Language: ug\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"#-#-#-#-#  ug.po (atk 2.12 )  #-#-#-#-#\n"
+"Project-Id-Version: atk 2.12 \n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=atk&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2012-02-26 02:21+0000\n"
+"PO-Revision-Date: 2013-02-02 13:24+0900\n"
+"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
+"Language-Team: Gnome Uighur Translation Project <gnome-uighur@yahoogroups."
+"com>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,14 +59,18 @@ msgstr "AT-SPI: GetItems دا خاتالىق بار. ئەۋەتكۈچى=%s، خ�
 msgid ""
 "AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
 "signature %s"
-msgstr "AT-SPI: _atspi_dbus_return_accessible_from_message نى غەلىتە ئىمزا %s بىلەن چاقىردى"
+msgstr ""
+"AT-SPI: _atspi_dbus_return_accessible_from_message نى غەلىتە ئىمزا %s بىلەن "
+"چاقىردى"
 
 #: ../atspi/atspi-misc.c:617
 #, c-format
 msgid ""
 "AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
 "signature %s"
-msgstr "AT-SPI: _atspi_dbus_return_hyperlink_from_message نى غەلىتە ئىمزا %s بىلەن چاقىردى"
+msgstr ""
+"AT-SPI: _atspi_dbus_return_hyperlink_from_message نى غەلىتە ئىمزا %s بىلەن "
+"چاقىردى"
 
 #: ../atspi/atspi-misc.c:642
 #, c-format
@@ -58,12 +85,15 @@ msgstr "بۇ پروگرامما مەۋجۇت ئەمەس"
 #: ../atspi/atspi-misc.c:1063
 #, c-format
 msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
-msgstr "AT-SPI: %s نى ئارايۈز %s دىن ئالغاندا بىر variant كېلىشى كېرەك ئىدى؛ %s غا ئېرىشتى\n"
+msgstr ""
+"AT-SPI: %s نى ئارايۈز %s دىن ئالغاندا بىر variant كېلىشى كېرەك ئىدى؛ %s غا "
+"ئېرىشتى\n"
 
 #: ../atspi/atspi-misc.c:1069
 #, c-format
 msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
-msgstr "atspi_dbus_get_property: تىپى خاتا: %s بولۇشى كېرەك ئىدى، %c غا ئېرىشتى\n"
+msgstr ""
+"atspi_dbus_get_property: تىپى خاتا: %s بولۇشى كېرەك ئىدى، %c غا ئېرىشتى\n"
 
 #: ../atspi/atspi-misc.c:1212
 #, c-format
@@ -82,12 +112,579 @@ msgstr "ئېقىنلاشتۇرغىلى بولىدىغان مەزمۇننى تې�
 #: ../atspi/atspi-event-listener.c:510
 msgid ""
 "called atspi_event_listener_register_from_callback with a NULL event_type"
-msgstr "atspi_event_listener_register_from_callback نى  نۆل(NULL event_type) بىلەن چاقىردى"
+msgstr ""
+"atspi_event_listener_register_from_callback نى  نۆل(NULL event_type) بىلەن "
+"چاقىردى"
 
 #: ../atspi/atspi-event-listener.c:777
 #, c-format
 msgid "Got invalid signature %s for signal %s from interface %s\n"
-msgstr "خاتا ئىمزا %s ئېرىشتى. بۇ سىگنال %s ئۈچۈن كېرەك ئىدى. بۇ سىگنال %s ئارايۈزدىن كەلگەن\n"
+msgstr ""
+"خاتا ئىمزا %s ئېرىشتى. بۇ سىگنال %s ئۈچۈن كېرەك ئىدى. بۇ سىگنال %s "
+"ئارايۈزدىن كەلگەن\n"
+
+#: ../atk/atkhyperlink.c:103
+msgid "Selected Link"
+msgstr "تاللانغان ئۇلانما"
+
+#: ../atk/atkhyperlink.c:104
+msgid "Specifies whether the AtkHyperlink object is selected"
+msgstr "AtkHyperlink نەڭىنىڭ تاللانغان تاللانمىغانلىقىنى كۆرسىتىدۇ"
+
+#: ../atk/atkhyperlink.c:110
+msgid "Number of Anchors"
+msgstr "لەڭگەر سانى"
+
+#: ../atk/atkhyperlink.c:111
+msgid "The number of anchors associated with the AtkHyperlink object"
+msgstr "AtkHyperlink بىلەن باغلىنىشلىق بولغان لەڭگەرلەرنىڭ سانى"
+
+#: ../atk/atkhyperlink.c:119
+msgid "End index"
+msgstr "ئاخىرلىشىش ئىندېكسى"
+
+#: ../atk/atkhyperlink.c:120
+msgid "The end index of the AtkHyperlink object"
+msgstr "AtkHyperlink نەڭىنىڭ ئاخىرلىشىش ئىندېكسى"
+
+#: ../atk/atkhyperlink.c:128
+msgid "Start index"
+msgstr "باشلىنىش ئىندېكسى"
+
+#: ../atk/atkhyperlink.c:129
+msgid "The start index of the AtkHyperlink object"
+msgstr "AtkHyperlink نەڭىنىڭ باشلىنىش ئىندېكسى"
+
+#: ../atk/atkobject.c:74
+msgid "invalid"
+msgstr "ئىناۋەتسىز"
+
+#: ../atk/atkobject.c:75
+msgid "accelerator label"
+msgstr "تېزلەتكۈچنىڭ ئەنى"
+
+#: ../atk/atkobject.c:76
+msgid "alert"
+msgstr "ئاگاھلاندۇرۇش"
+
+#: ../atk/atkobject.c:77
+msgid "animation"
+msgstr "جانلاندۇرۇم"
+
+#: ../atk/atkobject.c:78
+msgid "arrow"
+msgstr "يا ئوق"
+
+#: ../atk/atkobject.c:79
+msgid "calendar"
+msgstr "يىلنامە"
+
+#: ../atk/atkobject.c:80
+msgid "canvas"
+msgstr "رەسىم رەختى"
+
+#: ../atk/atkobject.c:81
+msgid "check box"
+msgstr "تاللاش كۆزنەكچىسى"
+
+#: ../atk/atkobject.c:82
+msgid "check menu item"
+msgstr "تاللىغىلى بولىدىغان تىزىملىك تۇرى"
+
+#: ../atk/atkobject.c:83
+msgid "color chooser"
+msgstr "رەڭ تاللىغۇچ"
+
+#: ../atk/atkobject.c:84
+msgid "column header"
+msgstr "ئىستون قېشى"
+
+#: ../atk/atkobject.c:85
+msgid "combo box"
+msgstr "بىرىكمە كۆزنەكچىسى"
+
+#: ../atk/atkobject.c:86
+msgid "dateeditor"
+msgstr "چېسلا تەھرىرلىگۈچ"
+
+#: ../atk/atkobject.c:87
+msgid "desktop icon"
+msgstr "ئۈستەلئۈستى سىنبەلگىسى"
+
+#: ../atk/atkobject.c:88
+msgid "desktop frame"
+msgstr "ئۈستەلئۈستى كۆزنىكى"
+
+#: ../atk/atkobject.c:89
+msgid "dial"
+msgstr "نومۇر بۇراش"
+
+#: ../atk/atkobject.c:90
+msgid "dialog"
+msgstr "سۆزلەشكۈ"
+
+#: ../atk/atkobject.c:91
+msgid "directory pane"
+msgstr "مۇندەرىجە پەنجىرىسى"
+
+#: ../atk/atkobject.c:92
+msgid "drawing area"
+msgstr "سىزىش دائىرىسى"
+
+#: ../atk/atkobject.c:93
+msgid "file chooser"
+msgstr "ھۆججەت تاللىغۇچ"
+
+#: ../atk/atkobject.c:94
+msgid "filler"
+msgstr "تولدۇرغۇچ"
+
+#. I know it looks wrong but that is what Java returns
+#: ../atk/atkobject.c:96
+msgid "fontchooser"
+msgstr "خەت نۇسخا تاللىغۇچ"
+
+#: ../atk/atkobject.c:97
+msgid "frame"
+msgstr "كۆزنەك"
+
+#: ../atk/atkobject.c:98
+msgid "glass pane"
+msgstr "ئەينەك پەنجىرە"
+
+#: ../atk/atkobject.c:99
+msgid "html container"
+msgstr "HTML قاچىسى"
+
+#: ../atk/atkobject.c:100
+msgid "icon"
+msgstr "سىنبەلگە"
+
+#: ../atk/atkobject.c:101
+msgid "image"
+msgstr "سۈرەت"
+
+#: ../atk/atkobject.c:102
+msgid "internal frame"
+msgstr "ئىچكى كۆزنەك"
+
+#: ../atk/atkobject.c:103
+msgid "label"
+msgstr "ئەن"
+
+#: ../atk/atkobject.c:104
+msgid "layered pane"
+msgstr "قەۋەتلىك پەنجىرە"
+
+#: ../atk/atkobject.c:105
+msgid "list"
+msgstr "تىزىم"
+
+#: ../atk/atkobject.c:106
+msgid "list item"
+msgstr "تىزىم تۈرى"
+
+#: ../atk/atkobject.c:107
+msgid "menu"
+msgstr "تىزىملىك"
+
+#: ../atk/atkobject.c:108
+msgid "menu bar"
+msgstr "تىزىملىك بالدىقى"
+
+#: ../atk/atkobject.c:109
+msgid "menu item"
+msgstr "تىزىملىك تۈرى"
+
+#: ../atk/atkobject.c:110
+msgid "option pane"
+msgstr "تاللانما پەنجىرىسى"
+
+#: ../atk/atkobject.c:111
+msgid "page tab"
+msgstr "بەتكۈچ"
+
+#: ../atk/atkobject.c:112
+msgid "page tab list"
+msgstr "بەتكۈچ تىزىمى"
+
+#: ../atk/atkobject.c:113
+msgid "panel"
+msgstr "پەنجىرە"
+
+#: ../atk/atkobject.c:114
+msgid "password text"
+msgstr "ئىم تېكىستى"
+
+#: ../atk/atkobject.c:115
+msgid "popup menu"
+msgstr "سەكرىمە تىزىملىك"
+
+#: ../atk/atkobject.c:116
+msgid "progress bar"
+msgstr "ئىلگىرىلەش بالدىقى"
+
+#: ../atk/atkobject.c:117
+msgid "push button"
+msgstr "بېسىلما توپچا"
+
+#: ../atk/atkobject.c:118
+msgid "radio button"
+msgstr "تاق تاللاش توپچىسى"
+
+#: ../atk/atkobject.c:119
+msgid "radio menu item"
+msgstr "تاق تاللاش تىزىملىك تۈرى"
+
+#: ../atk/atkobject.c:120
+msgid "root pane"
+msgstr "يىلتىز پەنجىرە"
+
+#: ../atk/atkobject.c:121
+msgid "row header"
+msgstr "قۇر قېشى"
+
+#: ../atk/atkobject.c:122
+msgid "scroll bar"
+msgstr "سىيرىغۇچ بالداق"
+
+#: ../atk/atkobject.c:123
+msgid "scroll pane"
+msgstr "سىيرىغۇچ پەنجىرە"
+
+#: ../atk/atkobject.c:124
+msgid "separator"
+msgstr "ئايرىغۇچ"
+
+#: ../atk/atkobject.c:125
+msgid "slider"
+msgstr "سۈرگۈچ"
+
+#: ../atk/atkobject.c:126
+msgid "split pane"
+msgstr "ئايرىغۇچ پەنجىرىسى"
+
+#: ../atk/atkobject.c:127
+msgid "spin button"
+msgstr "چىغ توپچا"
+
+#: ../atk/atkobject.c:128
+msgid "statusbar"
+msgstr "ھالەت بالداق"
+
+#: ../atk/atkobject.c:129
+msgid "table"
+msgstr "جەدۋەل"
+
+#: ../atk/atkobject.c:130
+msgid "table cell"
+msgstr "جەدۋەل كاتەكچە"
+
+#: ../atk/atkobject.c:131
+msgid "table column header"
+msgstr "جەدۋەل ئىستونىنىڭ قېشى"
+
+#: ../atk/atkobject.c:132
+msgid "table row header"
+msgstr "جەدۋەل قۇرىنىڭ قېشى"
+
+#: ../atk/atkobject.c:133
+msgid "tear off menu item"
+msgstr "تىزىملىك تۈرىنى يىرتماق"
+
+#: ../atk/atkobject.c:134
+msgid "terminal"
+msgstr "تېرمىنال"
+
+#: ../atk/atkobject.c:135
+msgid "text"
+msgstr "تېكىست"
+
+#: ../atk/atkobject.c:136
+msgid "toggle button"
+msgstr "ئالماشتۇرغۇچ توپچا"
+
+#: ../atk/atkobject.c:137
+msgid "tool bar"
+msgstr "قورال بالداق"
+
+#: ../atk/atkobject.c:138
+msgid "tool tip"
+msgstr "كۆرسەتمە"
+
+#: ../atk/atkobject.c:139
+msgid "tree"
+msgstr "شاخسىمان"
+
+#: ../atk/atkobject.c:140
+msgid "tree table"
+msgstr "شاخسىمان جەدۋەل"
+
+#: ../atk/atkobject.c:141
+msgid "unknown"
+msgstr "نامەلۇم"
+
+#: ../atk/atkobject.c:142
+msgid "viewport"
+msgstr "كۆرۈنۈش ئېغىزى"
+
+#: ../atk/atkobject.c:143
+msgid "window"
+msgstr "كۆزنەك"
+
+#: ../atk/atkobject.c:144
+msgid "header"
+msgstr "قاش"
+
+#: ../atk/atkobject.c:145
+msgid "footer"
+msgstr "بەت ئاستى"
+
+#: ../atk/atkobject.c:146
+msgid "paragraph"
+msgstr "ئابزاس"
+
+#: ../atk/atkobject.c:147
+msgid "ruler"
+msgstr "سىزغۇچ"
+
+#: ../atk/atkobject.c:148
+msgid "application"
+msgstr "پروگرامما"
+
+#: ../atk/atkobject.c:149
+msgid "autocomplete"
+msgstr "ئۆزلۈكىدىن تاماملاش"
+
+#: ../atk/atkobject.c:150
+msgid "edit bar"
+msgstr "تەھرىرلەش بالدىقى"
+
+#: ../atk/atkobject.c:151
+msgid "embedded component"
+msgstr "سىڭدۈرمە بۆلەك"
+
+#: ../atk/atkobject.c:152
+msgid "entry"
+msgstr "كىرگۈ"
+
+#: ../atk/atkobject.c:153
+msgid "chart"
+msgstr "دىئاگرامما"
+
+#: ../atk/atkobject.c:154
+msgid "caption"
+msgstr "ماۋزۇ"
+
+#: ../atk/atkobject.c:155
+msgid "document frame"
+msgstr "پۈتۈك كاندۇكى"
+
+#: ../atk/atkobject.c:156
+msgid "heading"
+msgstr "ماۋزۇ"
+
+#: ../atk/atkobject.c:157
+msgid "page"
+msgstr "بەت"
+
+#: ../atk/atkobject.c:158
+msgid "section"
+msgstr "دائىرە"
+
+#: ../atk/atkobject.c:159
+msgid "redundant object"
+msgstr "ئارتۇقچە نەڭ"
+
+#: ../atk/atkobject.c:160
+msgid "form"
+msgstr "كۆزنەك"
+
+#: ../atk/atkobject.c:161
+msgid "link"
+msgstr "ئۇلانما"
+
+#: ../atk/atkobject.c:162
+msgid "input method window"
+msgstr "كىرگۈزگۈچ كۆزنىكى"
+
+#: ../atk/atkobject.c:163
+msgid "table row"
+msgstr "جەدۋەل قۇرى"
+
+#: ../atk/atkobject.c:164
+msgid "tree item"
+msgstr "شاخسىمان تۇر"
+
+#: ../atk/atkobject.c:165
+msgid "document spreadsheet"
+msgstr "پۈتۈك جەدۋىلى"
+
+#: ../atk/atkobject.c:166
+msgid "document presentation"
+msgstr "پۈتۈك سۇنۇلمىسى"
+
+#: ../atk/atkobject.c:167
+msgid "document text"
+msgstr "پۈتۈك تېكىستى"
+
+#: ../atk/atkobject.c:168
+msgid "document web"
+msgstr "پۈتۈك تورتۇراسى"
+
+#: ../atk/atkobject.c:169
+msgid "document email"
+msgstr "پۈتۈك ئېلخېتى"
+
+#: ../atk/atkobject.c:170
+msgid "comment"
+msgstr "ئىزاھات"
+
+#: ../atk/atkobject.c:171
+msgid "list box"
+msgstr "تىزىم كۆزنەكچىسى"
+
+#: ../atk/atkobject.c:172
+msgid "grouping"
+msgstr "گۇرۇپپىلاش"
+
+#: ../atk/atkobject.c:173
+msgid "image map"
+msgstr "سۈرەت خەرىتىسى"
+
+#: ../atk/atkobject.c:174
+msgid "notification"
+msgstr "ئۇقتۇرۇش"
+
+#: ../atk/atkobject.c:175
+msgid "info bar"
+msgstr "ئۇچۇر بالدىقى"
+
+#: ../atk/atkobject.c:514
+msgid "Accessible Name"
+msgstr "زىيارەتچان ئاتى"
+
+#: ../atk/atkobject.c:515
+msgid "Object instance’s name formatted for assistive technology access"
+msgstr "نەڭ ئۈلگىسىنىڭ ئاتى ياردەمچى تېخنىكا زىيارىتى ئۈچۈن پىچىلغان"
+
+#: ../atk/atkobject.c:521
+msgid "Accessible Description"
+msgstr "زىيارەتچان چۈشەندۈرۈلۈش"
+
+#: ../atk/atkobject.c:522
+msgid "Description of an object, formatted for assistive technology access"
+msgstr "نەڭنىڭ چۈشەندۈرۈشى، ياردەمچى تېخنىكا زىيارىتى ئۈچۈن پىچىلغان"
+
+#: ../atk/atkobject.c:528
+msgid "Accessible Parent"
+msgstr "زىيارەتچان ئاتا تىزگىن"
+
+#: ../atk/atkobject.c:529
+msgid "Is used to notify that the parent has changed"
+msgstr "ئاتا تىزگىننىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+
+#: ../atk/atkobject.c:535
+msgid "Accessible Value"
+msgstr "زىيارەتچان قىممەت"
+
+#: ../atk/atkobject.c:536
+msgid "Is used to notify that the value has changed"
+msgstr "مەزكۇر قىممەتنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+
+#: ../atk/atkobject.c:544
+msgid "Accessible Role"
+msgstr "زىيارەتچان رول"
+
+#: ../atk/atkobject.c:545
+msgid "The accessible role of this object"
+msgstr "مەزكۇر نەڭنىڭ زىيارەتچان رولى"
+
+#: ../atk/atkobject.c:553
+msgid "Accessible Layer"
+msgstr "زىيارەتچان قەۋەت"
+
+#: ../atk/atkobject.c:554
+msgid "The accessible layer of this object"
+msgstr "مەزكۇر نەڭنىڭ زىيارەتچان قەۋىتى"
+
+#: ../atk/atkobject.c:562
+msgid "Accessible MDI Value"
+msgstr "زىيارەتچان MDI قىممىتى"
+
+#: ../atk/atkobject.c:563
+msgid "The accessible MDI value of this object"
+msgstr "مەزكۇر نەڭنىڭ زىيارەتچان MDI قىممىتى"
+
+#: ../atk/atkobject.c:571
+msgid "Accessible Table Caption"
+msgstr "زىيارەتچان جەدۋەل ماۋزۇسى"
+
+#: ../atk/atkobject.c:572
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr ""
+"جەدۋەل قېشى ئۆزگەرگەندە خەۋەر بېرىش ئۈچۈن ئىشلىتىلىدۇ. بۇنى ئىشلەتمەي "
+"accessible-table-caption-object ئىشلەتكەن ياخشى"
+
+#: ../atk/atkobject.c:578
+msgid "Accessible Table Column Header"
+msgstr "زىيارەتچان جەدۋەل ئىستون قېشى"
+
+#: ../atk/atkobject.c:579
+msgid "Is used to notify that the table column header has changed"
+msgstr "جەدۋەل ئىستون قېشىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+
+#: ../atk/atkobject.c:585
+msgid "Accessible Table Column Description"
+msgstr "زىيارەتچان جەدۋەل ئىستونىنىڭ چۈشەندۈرۈلۈشى"
+
+#: ../atk/atkobject.c:586
+msgid "Is used to notify that the table column description has changed"
+msgstr ""
+"جەدۋەل ئىستونىنىڭ چۈشەندۈرۈشىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+
+#: ../atk/atkobject.c:592
+msgid "Accessible Table Row Header"
+msgstr "زىيارەتچان جەدۋەل قۇر قېشى"
+
+#: ../atk/atkobject.c:593
+msgid "Is used to notify that the table row header has changed"
+msgstr "جەدۋەل قۇر قېشىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+
+#: ../atk/atkobject.c:599
+msgid "Accessible Table Row Description"
+msgstr "زىيارەتچان جەدۋەل قۇرىنىڭ چۈشەندۈرۈلۈشى"
+
+#: ../atk/atkobject.c:600
+msgid "Is used to notify that the table row description has changed"
+msgstr ""
+"جەدۋەل قۇرىنىڭ چۈشەندۈرۈشىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+
+#: ../atk/atkobject.c:606
+msgid "Accessible Table Summary"
+msgstr "زىيارەتچان جەدۋەل ئۈزۈندىسى"
+
+#: ../atk/atkobject.c:607
+msgid "Is used to notify that the table summary has changed"
+msgstr "جەدۋەل ئۈزۈندىسىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+
+#: ../atk/atkobject.c:613
+msgid "Accessible Table Caption Object"
+msgstr "زىيارەتچان جەدۋەل ماۋزۇ نەڭى"
+
+#: ../atk/atkobject.c:614
+msgid "Is used to notify that the table caption has changed"
+msgstr "جەدۋەل ماۋزۇسىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+
+#: ../atk/atkobject.c:620
+msgid "Number of Accessible Hypertext Links"
+msgstr "زىيارەتچان مول تېكىست ئۇلانمىلىرىنىڭ سانى"
+
+#: ../atk/atkobject.c:621
+msgid "The number of links which the current AtkHypertext has"
+msgstr "ھازىرقى AtkHypertext  ئۇلانمىلىرىنىڭ سانى"
 
 #~ msgid "AT-SPI: Could not get the display\n"
 #~ msgstr "AT-SPI: ئېكرانغا ئېرىشەلمىدى\n"

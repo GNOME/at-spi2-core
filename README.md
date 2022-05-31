@@ -1,14 +1,17 @@
-# Assistive Technology Service Provider Interface (AT-SPI)
+# Accessibility infrastructure
 
-This repository contains the [DBus][DBus] interface definitions for AT-SPI, the Assistive
-Technology Service Provider Interface — the core of an accessibility stack for free
-software systems.  It also contains the basic daemons of the accessibility stack.
+This repository contains the [DBus][DBus] interface definitions for
+AT-SPI (Assistive Technology Service Provider Interface) — the core of
+an accessibility stack for free software systems.  It also contains
+the basic daemons of the accessibility stack, the ATK library to make
+applications and GUI toolkits accessible, and the internal hooks
+between AT-SPI and ATK.
 
 The version control repository and bug tracker are at https://gitlab.gnome.org/GNOME/at-spi2-core/
 
-The code in this repository is not intended for application programmers.  To write
-accessible applications, look into [ATK][ATK] or your programming language's bindings for
-the `xml` DBus interfaces mentioned below.
+To write accessible applications, look into `atk` or your
+programming language's bindings for the `xml` DBus interfaces
+mentioned below.
 
 While this module started within the [GNOME][GNOME] project's umbrella, it is not used
 only in GNOME.  Other sources of relevant information about AT-SPI and Accessibility
@@ -18,6 +21,10 @@ include:
 * [KDE Accessibility wiki][kde-a11y-wiki]
 * [Accessibility documentation for GNOME users][docs-users]
 
+## Documentation
+
+* [ATK reference documentation][atk-docs]
+* [libatspi reference documentation][libatspi-docs]
 
 ## Summary of this repository's contents
 
@@ -32,13 +39,24 @@ include:
   and lets them talk to each other and to assistive technologies (ATs) like screen
   readers.
 
+* `atk` - GObject-based API to implement accessible applications and
+  GUI toolkits.  It is not mandatory to use this library for an
+  accessible application; your application or toolkit can use bindings to the
+  `xml` DBus APIs directly.
+  
 * `atspi` - Hand-written binding for the `xml` DBus interface above, for use from C with
   [GObject][GObject].  This is not normally what you would use; use a language-specific
-  binding instead.  This module is for use mainly by [`at-spi2-atk`][at-spi2-atk].
+  binding instead.  This module is for use mainly by `atk-adaptor` below.
+  
+* `atk-adaptor` - Translates from the ATK API to the atspi API.
+  Application programmers can ignore this and just consider it as an
+  implementation detail.
 
 * `dbind` - DBus utilities for use by `atspi` above.  `atspi` was written before the more
   modern C bindings like [GDBusConnection][GDBus] were available, so there is a lot of
   hand-written IPC here.
+  
+* `droute` - DBus utilities for use by `atk-adaptor` above.
 
 * Documentation for the Gitlab [Continuous Integration pipeline](devel-docs/gitlab-ci.md).
 
@@ -64,8 +82,9 @@ not been kept up to date.
 [GObject]: https://docs.gtk.org/gobject/
 [at-spi2-atk]: https://gitlab.gnome.org/GNOME/at-spi2-atk
 [GDBus]: https://docs.gtk.org/gio/class.DBusConnection.html
-[ATK]: https://gitlab.gnome.org/GNOME/atk/
 [GNOME]: https://www.gnome.org
 [docs-users]: https://help.gnome.org/users/gnome-help/stable/a11y.html
 [gnome-a11y-wiki]: https://wiki.gnome.org/Accessibility
 [kde-a11y-wiki]: https://community.kde.org/Accessibility
+[atk-docs]: https://gnome.pages.gitlab.gnome.org/at-spi2-core/atk
+[libatspi-docs]: https://gnome.pages.gitlab.gnome.org/at-spi2-core/libatspi

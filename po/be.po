@@ -1,6 +1,14 @@
+# #-#-#-#-#  be.po (ab10e6d45488175674299c2d7fc854f6)  #-#-#-#-#
 # Yuras Shumovich <shumovichy@gmail.com>, 2017.
+# #-#-#-#-#  be.po (ab10e6d45488175674299c2d7fc854f6)  #-#-#-#-#
+# Vital Khilko <vk@altlinux.ru>, 2003, 2005.
+# Alexander Nyakhaychyk <nyakhaychyk@gmail.com>, 2004, 2009.
+# Kasia Bondarava <kasia.bondarava@gmail.com>, 2012.
+# Yuras Shumovich <shumovichy@gmail.com>, 2017.
+#, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  be.po (ab10e6d45488175674299c2d7fc854f6)  #-#-#-#-#\n"
 "Project-Id-Version: ab10e6d45488175674299c2d7fc854f6\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
 "POT-Creation-Date: 2020-12-28 16:53+0000\n"
@@ -11,13 +19,37 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n%100>=11 && n%100<=14 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n"
+"%100>=11 && n%100<=14 ? 2 : 3);\n"
 "X-Generator: Poedit 1.8.11\n"
 "X-Crowdin-Project: ab10e6d45488175674299c2d7fc854f6\n"
 "X-Crowdin-Project-ID: 104\n"
 "X-Crowdin-Language: be\n"
-"X-Crowdin-File: /Localizations/Gnome/Gnome development/in/at-spi2-core.master.be.po\n"
+"X-Crowdin-File: /Localizations/Gnome/Gnome development/in/at-spi2-core."
+"master.be.po\n"
 "X-Crowdin-File-ID: 2608\n"
+"#-#-#-#-#  be.po (ab10e6d45488175674299c2d7fc854f6)  #-#-#-#-#\n"
+"Project-Id-Version: ab10e6d45488175674299c2d7fc854f6\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/atk/issues\n"
+"POT-Creation-Date: 2020-06-06 13:32+0000\n"
+"PO-Revision-Date: 2021-06-15 12:25\n"
+"Last-Translator: Yuras Shumovich <shumovichy@gmail.com>\n"
+"Language-Team: Belarusian\n"
+"Language: be\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n"
+"%100>=11 && n%100<=14 ? 2 : 3);\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Project-Style: gnome\n"
+"X-Crowdin-Project: ab10e6d45488175674299c2d7fc854f6\n"
+"X-Crowdin-Project-ID: 104\n"
+"X-Crowdin-Language: be\n"
+"X-Crowdin-File: /Localizations/Gnome/Gnome development/in/atk.master.be.po\n"
+"X-Crowdin-File-ID: 2656\n"
 
 #: atspi/atspi-component.c:332 atspi/atspi-misc.c:1077 atspi/atspi-value.c:111
 msgid "The application no longer exists"
@@ -26,6 +58,783 @@ msgstr "Праграма больш не існуе"
 #: atspi/atspi-misc.c:1855
 msgid "Attempted synchronous call where prohibited"
 msgstr "Спроба сінхроннага выкліку ў забароненым месцы"
+
+#: atk/atkhyperlink.c:126
+msgid "Selected Link"
+msgstr "Абраная спасылка"
+
+#: atk/atkhyperlink.c:127
+msgid "Specifies whether the AtkHyperlink object is selected"
+msgstr "Вызначае, ці абраны аб'ект AtkHyperlink"
+
+#: atk/atkhyperlink.c:133
+msgid "Number of Anchors"
+msgstr "Колькасць якараў"
+
+#: atk/atkhyperlink.c:134
+msgid "The number of anchors associated with the AtkHyperlink object"
+msgstr "Колькасць якараў, звязаных з аб'ектам AtkHyperlink"
+
+#: atk/atkhyperlink.c:142
+msgid "End index"
+msgstr "Канцавы індэкс"
+
+#: atk/atkhyperlink.c:143
+msgid "The end index of the AtkHyperlink object"
+msgstr "Канцавы індэкс аб'екта AtkHyperlink"
+
+#: atk/atkhyperlink.c:151
+msgid "Start index"
+msgstr "Пачатковы індэкс"
+
+#: atk/atkhyperlink.c:152
+msgid "The start index of the AtkHyperlink object"
+msgstr "Пачатковы індэкс аб'екта AtkHyperlink"
+
+#: atk/atkobject.c:98
+msgid "invalid"
+msgstr "хібны"
+
+#: atk/atkobject.c:99
+msgid "accelerator label"
+msgstr "адмеціна гарачай клавішы"
+
+#: atk/atkobject.c:100
+msgid "alert"
+msgstr "сігнал"
+
+#: atk/atkobject.c:101
+msgid "animation"
+msgstr "анімацыя"
+
+#: atk/atkobject.c:102
+msgid "arrow"
+msgstr "стрэлка"
+
+#: atk/atkobject.c:103
+msgid "calendar"
+msgstr "каляндар"
+
+#: atk/atkobject.c:104
+msgid "canvas"
+msgstr "палатно"
+
+#: atk/atkobject.c:105
+msgid "check box"
+msgstr "пераключальнік"
+
+#: atk/atkobject.c:106
+msgid "check menu item"
+msgstr "элемент меню з магчымасцю пераключэння"
+
+#: atk/atkobject.c:107
+msgid "color chooser"
+msgstr "абіральнік колеру"
+
+#: atk/atkobject.c:108
+msgid "column header"
+msgstr "загаловак слупка"
+
+#: atk/atkobject.c:109
+msgid "combo box"
+msgstr "выплыўное меню"
+
+#: atk/atkobject.c:110
+msgid "dateeditor"
+msgstr "рэдактар датаў"
+
+#: atk/atkobject.c:111
+msgid "desktop icon"
+msgstr "значок працоўнага стала"
+
+#: atk/atkobject.c:112
+msgid "desktop frame"
+msgstr "рамка працоўнага стала"
+
+#: atk/atkobject.c:113
+msgid "dial"
+msgstr "лічбавы радок"
+
+#: atk/atkobject.c:114
+msgid "dialog"
+msgstr "дыялог"
+
+#: atk/atkobject.c:115
+msgid "directory pane"
+msgstr "панэль каталога"
+
+#: atk/atkobject.c:116
+msgid "drawing area"
+msgstr "вобласць адмалёўкі"
+
+#: atk/atkobject.c:117
+msgid "file chooser"
+msgstr "абіральнік файла"
+
+#: atk/atkobject.c:118
+msgid "filler"
+msgstr "запаўняльнік"
+
+#. I know it looks wrong but that is what Java returns
+#: atk/atkobject.c:120
+msgid "fontchooser"
+msgstr "абіральнік шрыфту"
+
+#: atk/atkobject.c:121
+msgid "frame"
+msgstr "рамка"
+
+#: atk/atkobject.c:122
+msgid "glass pane"
+msgstr "празрыстая панэль"
+
+#: atk/atkobject.c:123
+msgid "html container"
+msgstr "кантэйнер html"
+
+#: atk/atkobject.c:124
+msgid "icon"
+msgstr "значок"
+
+#: atk/atkobject.c:125
+msgid "image"
+msgstr "выява"
+
+#: atk/atkobject.c:126
+msgid "internal frame"
+msgstr "унутраная рамка"
+
+#: atk/atkobject.c:127
+msgid "label"
+msgstr "цэтлік"
+
+#: atk/atkobject.c:128
+msgid "layered pane"
+msgstr "панэль з пластамі"
+
+#: atk/atkobject.c:129
+msgid "list"
+msgstr "спіс"
+
+#: atk/atkobject.c:130
+msgid "list item"
+msgstr "элемент спіса"
+
+#: atk/atkobject.c:131
+msgid "menu"
+msgstr "меню"
+
+#: atk/atkobject.c:132
+msgid "menu bar"
+msgstr "радок меню"
+
+#: atk/atkobject.c:133
+msgid "menu item"
+msgstr "элемент меню"
+
+#: atk/atkobject.c:134
+msgid "option pane"
+msgstr "панэль параметраў"
+
+#: atk/atkobject.c:135
+msgid "page tab"
+msgstr "укладка старонкі"
+
+#: atk/atkobject.c:136
+msgid "page tab list"
+msgstr "спіс укладак старонкі"
+
+#: atk/atkobject.c:137
+msgid "panel"
+msgstr "панэль"
+
+#: atk/atkobject.c:138
+msgid "password text"
+msgstr "тэкст пароля"
+
+#: atk/atkobject.c:139
+msgid "popup menu"
+msgstr "выплыўное меню"
+
+#: atk/atkobject.c:140
+msgid "progress bar"
+msgstr "радок прагрэсу"
+
+#: atk/atkobject.c:141
+msgid "push button"
+msgstr "націскальная кнопка"
+
+#: atk/atkobject.c:142
+msgid "radio button"
+msgstr "кнопка выбару"
+
+#: atk/atkobject.c:143
+msgid "radio menu item"
+msgstr "элемент меню з магчымасцю выбару"
+
+#: atk/atkobject.c:144
+msgid "root pane"
+msgstr "каранёвая панэль"
+
+#: atk/atkobject.c:145
+msgid "row header"
+msgstr "загаловак радка"
+
+#: atk/atkobject.c:146
+msgid "scroll bar"
+msgstr "паласа пракруткі"
+
+#: atk/atkobject.c:147
+msgid "scroll pane"
+msgstr "панэль пракруткі"
+
+#: atk/atkobject.c:148
+msgid "separator"
+msgstr "падзяляльнік"
+
+#: atk/atkobject.c:149
+msgid "slider"
+msgstr "паўзунок"
+
+#: atk/atkobject.c:150
+msgid "split pane"
+msgstr "панэль падзелу"
+
+#: atk/atkobject.c:151
+msgid "spin button"
+msgstr "кнопка кручэння"
+
+#: atk/atkobject.c:152
+msgid "statusbar"
+msgstr "радок статусу"
+
+#: atk/atkobject.c:153
+msgid "table"
+msgstr "табліца"
+
+#: atk/atkobject.c:154
+msgid "table cell"
+msgstr "ячэйка табліцы"
+
+#: atk/atkobject.c:155
+msgid "table column header"
+msgstr "загаловак слупка табліцы"
+
+#: atk/atkobject.c:156
+msgid "table row header"
+msgstr "загаловак радка табліцы"
+
+#: atk/atkobject.c:157
+msgid "tear off menu item"
+msgstr "неадрыўны элемент меню"
+
+#: atk/atkobject.c:158
+msgid "terminal"
+msgstr "тэрмінал"
+
+#: atk/atkobject.c:159
+msgid "text"
+msgstr "тэкст"
+
+#: atk/atkobject.c:160
+msgid "toggle button"
+msgstr "кнопка-пераключальнік"
+
+#: atk/atkobject.c:161
+msgid "tool bar"
+msgstr "панэль інструментаў"
+
+#: atk/atkobject.c:162
+msgid "tool tip"
+msgstr "падказка"
+
+#: atk/atkobject.c:163
+msgid "tree"
+msgstr "дрэва"
+
+#: atk/atkobject.c:164
+msgid "tree table"
+msgstr "табліца ў выглядзе дрэва"
+
+#: atk/atkobject.c:165
+msgid "unknown"
+msgstr "невядома"
+
+#: atk/atkobject.c:166
+msgid "viewport"
+msgstr "вобласць прагляду"
+
+#: atk/atkobject.c:167
+msgid "window"
+msgstr "акно"
+
+#: atk/atkobject.c:168
+msgid "header"
+msgstr "загаловак"
+
+#: atk/atkobject.c:169
+msgid "footer"
+msgstr "ніжні калантытул"
+
+#: atk/atkobject.c:170
+msgid "paragraph"
+msgstr "абзац"
+
+#: atk/atkobject.c:171
+msgid "ruler"
+msgstr "лінейка"
+
+#: atk/atkobject.c:172
+msgid "application"
+msgstr "праграма"
+
+#: atk/atkobject.c:173
+msgid "autocomplete"
+msgstr "аўтадапаўненне"
+
+#: atk/atkobject.c:174
+msgid "edit bar"
+msgstr "панэль рэдагавання"
+
+#: atk/atkobject.c:175
+msgid "embedded component"
+msgstr "убудаваны кампанент"
+
+#: atk/atkobject.c:176
+msgid "entry"
+msgstr "запіс"
+
+#: atk/atkobject.c:177
+msgid "chart"
+msgstr "дыяграма"
+
+#: atk/atkobject.c:178
+msgid "caption"
+msgstr "подпіс"
+
+#: atk/atkobject.c:179
+msgid "document frame"
+msgstr "рамка дакумента"
+
+#: atk/atkobject.c:180
+msgid "heading"
+msgstr "загаловак"
+
+#: atk/atkobject.c:181
+msgid "page"
+msgstr "старонка"
+
+#: atk/atkobject.c:182
+msgid "section"
+msgstr "секцыя"
+
+#: atk/atkobject.c:183
+msgid "redundant object"
+msgstr "лішні аб'ект"
+
+#: atk/atkobject.c:184
+msgid "form"
+msgstr "форма"
+
+#: atk/atkobject.c:185
+msgid "link"
+msgstr "спасылка"
+
+#: atk/atkobject.c:186
+msgid "input method window"
+msgstr "акно метаду ўводу"
+
+#: atk/atkobject.c:187
+msgid "table row"
+msgstr "радок табліцы"
+
+#: atk/atkobject.c:188
+msgid "tree item"
+msgstr "элемент дрэва"
+
+#: atk/atkobject.c:189
+msgid "document spreadsheet"
+msgstr "аркуш электроннай табліцы"
+
+#: atk/atkobject.c:190
+msgid "document presentation"
+msgstr "прэзентацыя"
+
+#: atk/atkobject.c:191
+msgid "document text"
+msgstr "тэкставы дакумент"
+
+#: atk/atkobject.c:192
+msgid "document web"
+msgstr "сеціўны дакумент"
+
+#: atk/atkobject.c:193
+msgid "document email"
+msgstr "электронны ліст"
+
+#: atk/atkobject.c:194
+msgid "comment"
+msgstr "каментар"
+
+#: atk/atkobject.c:195
+msgid "list box"
+msgstr "спіс"
+
+#: atk/atkobject.c:196
+msgid "grouping"
+msgstr "групаванне"
+
+#: atk/atkobject.c:197
+msgid "image map"
+msgstr "мапа выявы"
+
+#: atk/atkobject.c:198
+msgid "notification"
+msgstr "апавяшчэнне"
+
+#: atk/atkobject.c:199
+msgid "info bar"
+msgstr "інфармацыйная панэль"
+
+#: atk/atkobject.c:200
+msgid "level bar"
+msgstr "панэль ўзроўняў"
+
+#: atk/atkobject.c:201
+msgid "title bar"
+msgstr "панэль загалоўка"
+
+#: atk/atkobject.c:202
+msgid "block quote"
+msgstr "блок цытавання"
+
+#: atk/atkobject.c:203
+msgid "audio"
+msgstr "аўдыё"
+
+#: atk/atkobject.c:204
+msgid "video"
+msgstr "відэа"
+
+#: atk/atkobject.c:205
+msgid "definition"
+msgstr "азначэнне"
+
+#: atk/atkobject.c:206
+msgid "article"
+msgstr "артыкул"
+
+#: atk/atkobject.c:207
+msgid "landmark"
+msgstr "арыентыр"
+
+#: atk/atkobject.c:208
+msgid "log"
+msgstr "журнал"
+
+#: atk/atkobject.c:209
+msgid "marquee"
+msgstr "бягучы радок"
+
+#: atk/atkobject.c:210
+msgid "math"
+msgstr "матэматычны выраз"
+
+#: atk/atkobject.c:211
+msgid "rating"
+msgstr "ацэнка"
+
+#: atk/atkobject.c:212
+msgid "timer"
+msgstr "таймер"
+
+#: atk/atkobject.c:213
+msgid "description list"
+msgstr "спіс апісанняў"
+
+#: atk/atkobject.c:214
+msgid "description term"
+msgstr "тэрмін апісання"
+
+#: atk/atkobject.c:215
+msgid "description value"
+msgstr "значэнне апісання"
+
+#: atk/atkobject.c:391
+msgid "Accessible Name"
+msgstr "Назва аб’екта адмысловых магчымасцяў"
+
+#: atk/atkobject.c:392
+msgid "Object instance’s name formatted for assistive technology access"
+msgstr ""
+"Назва асобніка аб'екта для доступу пры дапамозе тэхналогій адмысловых "
+"магчымасцяў"
+
+#: atk/atkobject.c:398
+msgid "Accessible Description"
+msgstr "Апісанне аб’екта адмысловых магчымасцяў"
+
+#: atk/atkobject.c:399
+msgid "Description of an object, formatted for assistive technology access"
+msgstr ""
+"Апісанне аб'екта для доступу пры дапамозе тэхналогій адмысловых магчымасцяў"
+
+#: atk/atkobject.c:405
+msgid "Accessible Parent"
+msgstr "Бацькоўскі аб'ект адмысловых магчымасцяў"
+
+#: atk/atkobject.c:406
+msgid "Parent of the current accessible as returned by atk_object_get_parent()"
+msgstr "Продак бягучага даступнага аб'екта, які вярнуў atk_object_get_parent()"
+
+#: atk/atkobject.c:422
+msgid "Accessible Value"
+msgstr "Значэнне аб’екта адмысловых магчымасцяў"
+
+#: atk/atkobject.c:423
+msgid "Is used to notify that the value has changed"
+msgstr "Выкарыстоўваецца, каб паведамляць пра змены значэння"
+
+#: atk/atkobject.c:431
+msgid "Accessible Role"
+msgstr "Роля аб’екта адмысловых магчымасцяў"
+
+#: atk/atkobject.c:432
+msgid "The accessible role of this object"
+msgstr "Роля гэтага аб'екта ў адмысловых магчымасцях"
+
+#: atk/atkobject.c:439
+msgid "Accessible Layer"
+msgstr "Узровень аб’екта адмысловых магчымасцяў"
+
+#: atk/atkobject.c:440
+msgid "The accessible layer of this object"
+msgstr "Узровень гэтага аб'екта ў адмысловых магчымасцях"
+
+#: atk/atkobject.c:448
+msgid "Accessible MDI Value"
+msgstr "Значэнне MDI у адмысловых магчымасцях"
+
+#: atk/atkobject.c:449
+msgid "The accessible MDI value of this object"
+msgstr "Значэнне MDI гэтага аб'екта ў адмысловых магчымасцях"
+
+#: atk/atkobject.c:465
+msgid "Accessible Table Caption"
+msgstr "Подпіс табліцы адмысловых магчымасцяў"
+
+#: atk/atkobject.c:466
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr ""
+"Выкарыстоўваецца, каб паведамляць пра змены подпісу табліцы; замест гэтай "
+"уласцівасці мусіць ужывацца accessible-table-caption-object"
+
+#: atk/atkobject.c:480
+msgid "Accessible Table Column Header"
+msgstr "Загаловак слупка табліцы адмысловых магчымасцяў"
+
+#: atk/atkobject.c:481
+msgid "Is used to notify that the table column header has changed"
+msgstr "Выкарыстоўваецца, каб паведамляць пра змены загалоўка слупка табліцы"
+
+#: atk/atkobject.c:496
+msgid "Accessible Table Column Description"
+msgstr "Апісанне слупка табліцы адмысловых магчымасцяў"
+
+#: atk/atkobject.c:497
+msgid "Is used to notify that the table column description has changed"
+msgstr "Выкарыстоўваецца, каб паведамляць пра змены апісання слупка табліцы"
+
+#: atk/atkobject.c:512
+msgid "Accessible Table Row Header"
+msgstr "Загаловак радка табліцы адмысловых магчымасцяў"
+
+#: atk/atkobject.c:513
+msgid "Is used to notify that the table row header has changed"
+msgstr "Выкарыстоўваецца, каб паведамляць пра змены загалоўка радка табліцы"
+
+#: atk/atkobject.c:527
+msgid "Accessible Table Row Description"
+msgstr "Апісанне радка табліцы адмысловых магчымасцяў"
+
+#: atk/atkobject.c:528
+msgid "Is used to notify that the table row description has changed"
+msgstr "Выкарыстоўваецца, каб паведамляць пра змены апісання радка табліцы"
+
+#: atk/atkobject.c:534
+msgid "Accessible Table Summary"
+msgstr "Зводка табліцы адмысловых магчымасцяў"
+
+#: atk/atkobject.c:535
+msgid "Is used to notify that the table summary has changed"
+msgstr "Выкарыстоўваецца, каб паведамляць пра змены зводкі табліцы"
+
+#: atk/atkobject.c:541
+msgid "Accessible Table Caption Object"
+msgstr "Аб'ект загалоўка табліцы адмысловых магчымасцяў"
+
+#: atk/atkobject.c:542
+msgid "Is used to notify that the table caption has changed"
+msgstr "Выкарыстоўваецца, каб паведамляць пра змены загалоўка табліцы"
+
+#: atk/atkobject.c:548
+msgid "Number of Accessible Hypertext Links"
+msgstr "Колькасць гіпертэкставых спасылак адмысловых магчымасцяў"
+
+#: atk/atkobject.c:549
+msgid "The number of links which the current AtkHypertext has"
+msgstr "Колькасць спасылак, якія мае бягучы аб’ект AtkHypertext"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:194
+msgid "very weak"
+msgstr "вельмі слабы"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:201
+msgid "weak"
+msgstr "слабы"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:208
+msgid "acceptable"
+msgstr "прымальны"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:215
+msgid "strong"
+msgstr "моцны"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:222
+msgid "very strong"
+msgstr "вельмі моцны"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:230
+msgid "very low"
+msgstr "вельмі нізкі"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:238
+msgid "medium"
+msgstr "сярэдні"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:246
+msgid "high"
+msgstr "высокі"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:254
+msgid "very high"
+msgstr "вельмі высокі"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:262
+msgid "very bad"
+msgstr "вельмі дрэнны"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:270
+msgid "bad"
+msgstr "дрэнны"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:278
+msgid "good"
+msgstr "добры"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:286
+msgid "very good"
+msgstr "вельмі добры"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:294
+msgid "best"
+msgstr "найлепшы"
 
 #~ msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
 #~ msgstr "AT-SPI: Невядомы подпіс %s для RemoveAccessible"
@@ -79,3 +888,5 @@ msgstr "Спроба сінхроннага выкліку ў забаронен
 #~ msgid "Got invalid signature %s for signal %s from interface %s\n"
 #~ msgstr "Атрыманы хібны подпіс %s для сігналу %s інтэрфейсу %s\n"
 
+#~ msgid "Is used to notify that the parent has changed"
+#~ msgstr "Выкарыстоўваецца, каб паведамляць пра змены бацькоўскага аб'екта"
