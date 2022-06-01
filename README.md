@@ -9,6 +9,8 @@ between AT-SPI and ATK.
 
 The version control repository and bug tracker are at https://gitlab.gnome.org/GNOME/at-spi2-core/
 
+You can visit an ever-changing roadmap in [`devel-docs/roadmap.md`](devel-docs/roadmap.md).
+
 To write accessible applications, look into `atk` or your
 programming language's bindings for the `xml` DBus interfaces
 mentioned below.
