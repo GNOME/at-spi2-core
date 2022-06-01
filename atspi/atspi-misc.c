@@ -802,9 +802,7 @@ process_deferred_messages (void)
   while ((closure = g_queue_pop_head (deferred_messages)))
   {
     process_deferred_message (closure);
-    dbus_message_unref (closure->message);
-    dbus_connection_unref (closure->bus);
-    g_free (closure);
+    destroy_deferred_message_item (closure);
   }
   in_process_deferred_messages = 0;
   return FALSE;
