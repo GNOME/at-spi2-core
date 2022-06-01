@@ -28,6 +28,13 @@ include:
 * [ATK reference documentation][atk-docs]
 * [libatspi reference documentation][libatspi-docs]
 
+## Development resources
+
+* [Code coverage report for the test suite][coverage]
+* [Container registry for CI images][registry]
+* [Continuous integration pipelines][pipelines]
+* [Development documentation](devel-docs/)
+
 ## Summary of this repository's contents
 
 * `xml` - DBus interfaces for accessibility, described in DBus's XML introspection format.
@@ -90,3 +97,6 @@ not been kept up to date.
 [kde-a11y-wiki]: https://community.kde.org/Accessibility
 [atk-docs]: https://gnome.pages.gitlab.gnome.org/at-spi2-core/atk
 [libatspi-docs]: https://gnome.pages.gitlab.gnome.org/at-spi2-core/libatspi
+[coverage]: https://gnome.pages.gitlab.gnome.org/at-spi2-core/coverage/index.html
+[registry]: https://gitlab.gnome.org/GNOME/at-spi2-core/container_registry
+[pipelines]: https://gitlab.gnome.org/GNOME/at-spi2-core/-/pipelines
