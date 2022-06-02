@@ -32,12 +32,9 @@
 
 G_BEGIN_DECLS
 
-DBusHandlerResult _atspi_dbus_handle_Event (DBusConnection *bus, DBusMessage *message, void *data);
-
 void _atspi_send_event (AtspiEvent *e);
 
-DBusHandlerResult _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data);
-
+DBusHandlerResult _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message);
 void
 _atspi_reregister_event_listeners ();
 

@@ -336,7 +336,7 @@ typedef struct
 } CACHE_ADDITION;
 
 static DBusHandlerResult
-handle_remove_accessible (DBusConnection *bus, DBusMessage *message, void *user_data)
+handle_remove_accessible (DBusConnection *bus, DBusMessage *message)
 {
   const char *sender = dbus_message_get_sender (message);
   AtspiApplication *app;
@@ -367,7 +367,7 @@ handle_remove_accessible (DBusConnection *bus, DBusMessage *message, void *user_
 }
 
 static DBusHandlerResult
-handle_name_owner_changed (DBusConnection *bus, DBusMessage *message, void *user_data)
+handle_name_owner_changed (DBusConnection *bus, DBusMessage *message)
 {
   const char *name, *new, *old;
   static gboolean registry_lost = FALSE;
@@ -718,7 +718,7 @@ const char *cache_signal_type = "((so)(so)(so)iiassusau)";
 const char *old_cache_signal_type = "((so)(so)(so)a(so)assusau)";
 
 static DBusHandlerResult
-handle_add_accessible (DBusConnection *bus, DBusMessage *message, void *user_data)
+handle_add_accessible (DBusConnection *bus, DBusMessage *message)
 {
   DBusMessageIter iter;
   const char *signature = dbus_message_get_signature (message);
@@ -739,7 +739,6 @@ typedef struct
 {
   DBusConnection *bus;
   DBusMessage *message;
-  void *data;
 } BusDataClosure;
 
 static GSource *process_deferred_messages_source = NULL;
@@ -753,24 +752,23 @@ process_deferred_message (BusDataClosure *closure)
   if (type == DBUS_MESSAGE_TYPE_SIGNAL &&
       !strncmp (interface, "org.a11y.atspi.Event.", 21))
   {
-    _atspi_dbus_handle_event (closure->bus, closure->message, closure->data);
+    _atspi_dbus_handle_event (closure->bus, closure->message);
   }
   if (dbus_message_is_method_call (closure->message, atspi_interface_device_event_listener, "NotifyEvent"))
   {
-    _atspi_dbus_handle_DeviceEvent (closure->bus,
-                                   closure->message, closure->data);
+    _atspi_dbus_handle_DeviceEvent (closure->bus, closure->message);
   }
   if (dbus_message_is_signal (closure->message, atspi_interface_cache, "AddAccessible"))
   {
-    handle_add_accessible (closure->bus, closure->message, closure->data);
+    handle_add_accessible (closure->bus, closure->message);
   }
   if (dbus_message_is_signal (closure->message, atspi_interface_cache, "RemoveAccessible"))
   {
-    handle_remove_accessible (closure->bus, closure->message, closure->data);
+    handle_remove_accessible (closure->bus, closure->message);
   }
   if (dbus_message_is_signal (closure->message, "org.freedesktop.DBus", "NameOwnerChanged"))
   {
-    handle_name_owner_changed (closure->bus, closure->message, closure->data);
+    handle_name_owner_changed (closure->bus, closure->message);
   }
 }
 
@@ -779,7 +777,6 @@ static GQueue *deferred_messages = NULL;
 static void
 destroy_deferred_message_item(gpointer ptr)
 {
-  /* TODO this is still memory leak on c->data */
   BusDataClosure *c = ptr;
   dbus_message_unref (c->message);
   dbus_connection_unref (c->bus);
@@ -805,9 +802,7 @@ process_deferred_messages (void)
   while ((closure = g_queue_pop_head (deferred_messages)))
   {
     process_deferred_message (closure);
-    dbus_message_unref (closure->message);
-    dbus_connection_unref (closure->bus);
-    g_free (closure);
+    destroy_deferred_message_item (closure);
   }
   in_process_deferred_messages = 0;
   return FALSE;
@@ -824,13 +819,12 @@ process_deferred_messages_callback (gpointer data)
 }
 
 static DBusHandlerResult
-defer_message (DBusConnection *connection, DBusMessage *message, void *user_data)
+defer_message (DBusConnection *connection, DBusMessage *message)
 {
   BusDataClosure *closure = g_new (BusDataClosure, 1);
 
   closure->bus = dbus_connection_ref (bus);
   closure->message = dbus_message_ref (message);
-  closure->data = user_data;
 
   g_queue_push_tail (deferred_messages, closure);
 
@@ -849,29 +843,32 @@ defer_message (DBusConnection *connection, DBusMessage *message, void *user_data
 static DBusHandlerResult
 atspi_dbus_filter (DBusConnection *bus, DBusMessage *message, void *data)
 {
+  /* Check that we don't start passing stuff from whatever calls dbus_connection_add_filter() */
+  g_assert (data == NULL);
+
   int type = dbus_message_get_type (message);
   const char *interface = dbus_message_get_interface (message);
 
   if (type == DBUS_MESSAGE_TYPE_SIGNAL &&
       !strncmp (interface, "org.a11y.atspi.Event.", 21))
   {
-    return defer_message (bus, message, data);
+    return defer_message (bus, message);
   }
   if (dbus_message_is_method_call (message, atspi_interface_device_event_listener, "NotifyEvent"))
   {
-    return defer_message (bus, message, data);
+    return defer_message (bus, message);
   }
   if (dbus_message_is_signal (message, atspi_interface_cache, "AddAccessible"))
   {
-    return defer_message (bus, message, data);
+    return defer_message (bus, message);
   }
   if (dbus_message_is_signal (message, atspi_interface_cache, "RemoveAccessible"))
   {
-    return defer_message (bus, message, data);
+    return defer_message (bus, message);
   }
   if (dbus_message_is_signal (message, "org.freedesktop.DBus", "NameOwnerChanged"))
   {
-    defer_message (bus, message, data);
+    defer_message (bus, message);
     return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
   }
   return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;

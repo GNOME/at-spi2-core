@@ -31,7 +31,7 @@
 
 G_BEGIN_DECLS
 
-DBusHandlerResult _atspi_dbus_handle_DeviceEvent (DBusConnection *bus, DBusMessage *message, void *data);
+DBusHandlerResult _atspi_dbus_handle_DeviceEvent (DBusConnection *bus, DBusMessage *message);
 
 gchar *_atspi_device_listener_get_path (AtspiDeviceListener *listener);
 

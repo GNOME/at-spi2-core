@@ -9,6 +9,8 @@ between AT-SPI and ATK.
 
 The version control repository and bug tracker are at https://gitlab.gnome.org/GNOME/at-spi2-core/
 
+You can visit an ever-changing roadmap in [`devel-docs/roadmap.md`](devel-docs/roadmap.md).
+
 To write accessible applications, look into `atk` or your
 programming language's bindings for the `xml` DBus interfaces
 mentioned below.
@@ -25,6 +27,13 @@ include:
 
 * [ATK reference documentation][atk-docs]
 * [libatspi reference documentation][libatspi-docs]
+
+## Development resources
+
+* [Code coverage report for the test suite][coverage]
+* [Container registry for CI images][registry]
+* [Continuous integration pipelines][pipelines]
+* [Development documentation](devel-docs/)
 
 ## Summary of this repository's contents
 
@@ -88,3 +97,6 @@ not been kept up to date.
 [kde-a11y-wiki]: https://community.kde.org/Accessibility
 [atk-docs]: https://gnome.pages.gitlab.gnome.org/at-spi2-core/atk
 [libatspi-docs]: https://gnome.pages.gitlab.gnome.org/at-spi2-core/libatspi
+[coverage]: https://gnome.pages.gitlab.gnome.org/at-spi2-core/coverage/index.html
+[registry]: https://gitlab.gnome.org/GNOME/at-spi2-core/container_registry
+[pipelines]: https://gitlab.gnome.org/GNOME/at-spi2-core/-/pipelines
