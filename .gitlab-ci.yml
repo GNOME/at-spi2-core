@@ -19,20 +19,21 @@ stages:
   - docs
   - deploy
 
-# Base definition for jobs.
-.only-default:
-  only:
-    - merge_requests
-    - branches
-  except:
-    - tags
+# Enable merge request pipelines and avoid duplicate pipelines
+# https://docs.gitlab.com/ee/ci/yaml/index.html#switch-between-branch-pipelines-and-merge-request-pipelines
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS && $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: '$CI_COMMIT_TAG'
+    - if: '$CI_COMMIT_BRANCH'
 
 # C coding style checker.
 #
 # Disabled for now, since we need to decide to reindent all the code first.
 #
 # style-check-diff:
-#   extends: .only-default
 #   image: fedora:latest
 #   stage: style-check
 #   script:
@@ -47,7 +48,6 @@ stages:
 opensuse-x86_64:
   stage: build
   extends:
-    - '.only-default'
     - '.container.opensuse@x86_64'
     - '.fdo.distribution-image@opensuse'
   needs: ['opensuse-container@x86_64']
@@ -72,7 +72,6 @@ opensuse-x86_64:
 fedora-x86_64:
   stage: build
   extends:
-    - '.only-default'
     - '.container.fedora@x86_64'
     - '.fdo.distribution-image@fedora'
   needs: ['fedora-container@x86_64']
@@ -97,7 +96,6 @@ fedora-x86_64:
 static-scan:
   stage: analysis
   extends:
-    - '.only-default'
     - '.container.opensuse@x86_64'
     - '.fdo.distribution-image@opensuse'
   needs: ['opensuse-container@x86_64']
@@ -116,7 +114,6 @@ static-scan:
 asan-build:
   stage: analysis
   extends:
-    - '.only-default'
     - '.container.opensuse@x86_64'
     - '.fdo.distribution-image@opensuse'
   needs: ['opensuse-container@x86_64']
@@ -141,7 +138,6 @@ coverage:
   stage: analysis
   needs: []
   extends:
-    - '.only-default'
     - '.container.opensuse@x86_64'
     - '.fdo.distribution-image@opensuse'
   needs: ['opensuse-container@x86_64']
@@ -171,7 +167,6 @@ coverage:
 reference:
   stage: docs
   extends:
-    - '.only-default'
     - '.container.opensuse@x86_64'
     - '.fdo.distribution-image@opensuse'
   needs: ['opensuse-container@x86_64']
@@ -196,5 +191,7 @@ pages:
   artifacts:
     paths:
       - public
-  only:
-    - master
+  rules:
+    - if: ($CI_DEFAULT_BRANCH == $CI_COMMIT_BRANCH)
+    # Restrict it to the gnome namespace to avoid every fork pushing a set of pages by default
+    # - if: ($CI_DEFAULT_BRANCH == $CI_COMMIT_BRANCH && $CI_PROJECT_NAMESPACE == "gnome")
