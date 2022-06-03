@@ -136,7 +136,6 @@ asan-build:
 # See the _coverage/ artifact for the HTML report.
 coverage:
   stage: analysis
-  needs: []
   extends:
     - '.container.opensuse@x86_64'
     - '.fdo.distribution-image@opensuse'
