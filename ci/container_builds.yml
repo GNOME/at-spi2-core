@@ -13,7 +13,7 @@ include:
 variables:
   # When branching change the suffix to avoid conflicts with images
   # from the master branch
-  BASE_TAG: "2022-06-03.2-install-grcov"
+  BASE_TAG: "2022-06-03.0-master"
 
 .container.opensuse@x86_64:
   stage: "container-build"
