@@ -152,7 +152,9 @@ coverage:
     - grcov _build --source-dir ./ --prefix-dir ../ --output-type html --branch --ignore-not-existing -o _coverage
     - mkdir -p public/
     - cp -r _coverage public/coverage
-    - grep -Eo 'line-rate="[^"]+"' coverage.xml | head -n 1 | grep -Eo '[0-9.]+' | awk '{ print "Coverage:", $1 * 100 }'
+    # In the following line, the first grep finds what it is supposed to find, but exits with a nonzero code.
+    # I have no idea why.  So, force the whole pipeline to return true.
+    - (grep -Eo 'line-rate="[^"]+"' coverage.xml | head -n 1 | grep -Eo '[0-9.]+' | awk '{ print "Coverage:", $1 * 100 }') || true
   coverage: '/Coverage: \d+\.\d+/'
   artifacts:
     name: "at-spi2-core-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
@@ -163,6 +165,7 @@ coverage:
     paths:
       - "_build/meson-logs"
       - public
+      - coverage.xml
 
 reference:
   stage: docs
