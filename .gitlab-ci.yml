@@ -148,10 +148,9 @@ coverage:
     - meson compile -C _build
     - meson install -C _build
     - dbus-run-session -- ci/run-tests.sh
+    - mkdir -p public
     - grcov _build --source-dir ./ --prefix-dir ../ --output-type cobertura --branch --ignore-not-existing -o coverage.xml
-    - grcov _build --source-dir ./ --prefix-dir ../ --output-type html --branch --ignore-not-existing -o _coverage
-    - mkdir -p public/
-    - cp -r _coverage public/coverage
+    - grcov _build --source-dir ./ --prefix-dir ../ --output-type html --branch --ignore-not-existing -o public/coverage
     # In the following line, the first grep finds what it is supposed to find, but exits with a nonzero code.
     # I have no idea why.  So, force the whole pipeline to return true.
     - (grep -Eo 'line-rate="[^"]+"' coverage.xml | head -n 1 | grep -Eo '[0-9.]+' | awk '{ print "Coverage:", $1 * 100 }') || true
