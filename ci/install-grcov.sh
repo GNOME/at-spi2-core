@@ -2,8 +2,8 @@
 
 set -eu
 
-GRCOV_VERSION=$1
-GRCOV_ARCH=$2
+GRCOV_VERSION=v0.8.7
+GRCOV_ARCH=x86_64-unknown-linux-gnu
 
 GRCOV_URL=https://github.com/mozilla/grcov/releases/download/$GRCOV_VERSION/grcov-$GRCOV_ARCH.tar.bz2
 

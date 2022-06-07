@@ -28,7 +28,7 @@ variables:
       libxkbcommon-devel libXi-devel libXtst-devel lcov meson ninja
       python38 python38-gobject tar wget
     FDO_DISTRIBUTION_EXEC: >-
-      bash ci/install-grcov.sh v0.8.7 x86_64-unknown-linux-gnu
+      bash ci/install-grcov.sh
 
 opensuse-container@x86_64:
   extends:
