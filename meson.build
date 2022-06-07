@@ -119,7 +119,7 @@ endif
 
 # Dependencies
 libdbus_req_version = '>= 1.5'
-glib_req_version = '>= 2.62.0'
+glib_req_version = '>= 2.67.4'
 gobject_req_version = '>= 2.0.0'
 gmodule_req_version = '>= 2.0.0'
 gio_req_version = '>= 2.28.0'
