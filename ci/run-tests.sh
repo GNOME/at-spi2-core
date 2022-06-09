@@ -1,17 +1,39 @@
 #!/bin/sh
 
-set -e
+set -eu
 
-echo "About to run the tests.  First we'll launch the accessibility bus by calling GetAddress:"
+echo "About to run the tests.  First we'll launch a gnome-session DBus mock."
 
-dbus-send --print-reply --session --dest=org.a11y.Bus /org/a11y/bus org.a11y.Bus.GetAddress
+python3 -m dbusmock --session org.gnome.SessionManager /org/gnome/SessionManager org.gnome.SessionManager &
+sleep 1
+
+gdbus call --session \
+      --dest org.gnome.SessionManager \
+      --object-path /org/gnome/SessionManager \
+      --method org.freedesktop.DBus.Mock.AddTemplate 'tests/dbusmock/mock-gnome-session.py' '{}'
+
+echo "Launching the accessibility bus by calling GetAddress:"
+
+gdbus call --session --dest org.a11y.Bus --object-path /org/a11y/bus --method org.a11y.Bus.GetAddress
 
 ps auxwww
+
+echo "Setting the mock session to the running state"
+
+gdbus call --session \
+      --dest org.gnome.SessionManager \
+      --object-path /org/gnome/SessionManager \
+      --method org.freedesktop.DBus.Mock.SetSessionRunning true
 
 echo "Now running the tests:"
 
 meson test -C _build
 
-echo "After the tests - calling GetAddress again:"
+echo "Telling the mock session to logout so the a11y daemons will exit"
 
-dbus-send --print-reply --session --dest=org.a11y.Bus /org/a11y/bus org.a11y.Bus.GetAddress
+gdbus call --session \
+      --dest org.gnome.SessionManager \
+      --object-path /org/gnome/SessionManager \
+      --method org.gnome.SessionManager.Logout 0
+
+ps auxwww
