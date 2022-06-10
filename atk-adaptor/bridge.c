@@ -953,23 +953,23 @@ spi_atk_create_socket (SpiBridge *app)
     app->app_bus_addr = g_strdup_printf ("unix:path=%s/at-spi2-socket-%d",
                                          user_runtime_dir, getpid ());
 
-  if (!spi_global_app_data->app_bus_addr)
+  if (!app->app_bus_addr)
     return -1;
 
   dbus_error_init(&error);
-  server = dbus_server_listen(spi_global_app_data->app_bus_addr, &error);
+  server = dbus_server_listen(app->app_bus_addr, &error);
   if (server == NULL)
   {
     g_warning ("atk-bridge: Couldn't listen on dbus server: %s", error.message);
     dbus_error_free (&error);
-    spi_global_app_data->app_bus_addr [0] = '\0';
+    app->app_bus_addr [0] = '\0';
     return -1;
   }
 
   atspi_dbus_server_setup_with_g_main(server, spi_context);
   dbus_server_set_new_connection_function(server, new_connection_cb, NULL, NULL);
 
-  spi_global_app_data->server = server;
+  app->server = server;
 #endif
 
   return 0;
