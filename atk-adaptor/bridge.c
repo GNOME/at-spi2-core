@@ -931,7 +931,8 @@ spi_atk_create_socket (SpiBridge *app)
   DBusServer *server;
   DBusError error;
   const gchar *user_runtime_dir = g_get_user_runtime_dir ();
-  char *escaped_address;
+  char *socket_path;
+  char *escaped_socket_path;
 
   if (g_mkdir_with_parents (user_runtime_dir, 0700) != 0)
     return -1;
@@ -949,31 +950,35 @@ spi_atk_create_socket (SpiBridge *app)
   }
 
   if (app->app_tmp_dir)
-    app->app_bus_addr = g_strdup_printf ("unix:path=%s/socket", app->app_tmp_dir);
+    {
+      socket_path = g_strdup_printf ("%s/socket", app->app_tmp_dir);
+    }
   else
-    app->app_bus_addr = g_strdup_printf ("unix:path=%s/at-spi2-socket-%d",
-                                         user_runtime_dir, getpid ());
+    {
+      socket_path = g_strdup_printf ("%s/at-spi2-socket-%d",
+                                     user_runtime_dir, getpid ());
+    }
 
-  if (!spi_global_app_data->app_bus_addr)
-    return -1;
+  escaped_socket_path = dbus_address_escape_value (socket_path);
+  g_free (socket_path);
+
+  app->app_bus_addr = g_strconcat ("unix:path=", escaped_socket_path, NULL);
+  dbus_free (escaped_socket_path);
 
   dbus_error_init(&error);
-  escaped_address = dbus_address_escape_value(spi_global_app_data->app_bus_addr);
-  server = dbus_server_listen(escaped_address, &error);
-  dbus_free(escaped_address);
-
+  server = dbus_server_listen(app->app_bus_addr, &error);
   if (server == NULL)
   {
     g_warning ("atk-bridge: Couldn't listen on dbus server: %s", error.message);
     dbus_error_free (&error);
-    spi_global_app_data->app_bus_addr [0] = '\0';
+    app->app_bus_addr [0] = '\0';
     return -1;
   }
 
   atspi_dbus_server_setup_with_g_main(server, spi_context);
   dbus_server_set_new_connection_function(server, new_connection_cb, NULL, NULL);
 
-  spi_global_app_data->server = server;
+  app->server = server;
 #endif
 
   return 0;
