@@ -931,6 +931,8 @@ spi_atk_create_socket (SpiBridge *app)
   DBusServer *server;
   DBusError error;
   const gchar *user_runtime_dir = g_get_user_runtime_dir ();
+  char *socket_path;
+  char *escaped_socket_path;
 
   if (g_mkdir_with_parents (user_runtime_dir, 0700) != 0)
     return -1;
@@ -948,13 +950,20 @@ spi_atk_create_socket (SpiBridge *app)
   }
 
   if (app->app_tmp_dir)
-    app->app_bus_addr = g_strdup_printf ("unix:path=%s/socket", app->app_tmp_dir);
+    {
+      socket_path = g_strdup_printf ("%s/socket", app->app_tmp_dir);
+    }
   else
-    app->app_bus_addr = g_strdup_printf ("unix:path=%s/at-spi2-socket-%d",
-                                         user_runtime_dir, getpid ());
+    {
+      socket_path = g_strdup_printf ("%s/at-spi2-socket-%d",
+                                     user_runtime_dir, getpid ());
+    }
 
-  if (!app->app_bus_addr)
-    return -1;
+  escaped_socket_path = dbus_address_escape_value (socket_path);
+  g_free (socket_path);
+
+  app->app_bus_addr = g_strconcat ("unix:path=", escaped_socket_path, NULL);
+  dbus_free (escaped_socket_path);
 
   dbus_error_init(&error);
   server = dbus_server_listen(app->app_bus_addr, &error);
