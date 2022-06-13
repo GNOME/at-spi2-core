@@ -31,7 +31,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <signal.h>
 #include <glib.h>
+#include <glib-unix.h>
 #include <atk/atk.h>
 #include <atk-bridge.h>
 #include "my-atk.h"
@@ -93,6 +95,14 @@ static GOptionEntry optentries[] = {
   {NULL}
 };
 
+static gboolean
+sigterm_received_cb (gpointer user_data)
+{
+  GMainLoop *mainloop = user_data;
+  g_main_loop_quit (mainloop);
+  return G_SOURCE_REMOVE;
+}
+
 int main (int argc, char *argv[])
 {
   GOptionContext *opt;
@@ -109,6 +119,7 @@ int main (int argc, char *argv[])
   atk_bridge_adaptor_init (NULL, NULL);
 
   mainloop = g_main_loop_new (NULL, FALSE);
+  g_unix_signal_add (SIGTERM, sigterm_received_cb, mainloop);
   g_main_loop_run (mainloop);
 
   return 0;
