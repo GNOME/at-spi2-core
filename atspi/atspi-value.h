@@ -56,6 +56,7 @@ gboolean atspi_value_set_current_value (AtspiValue *obj, gdouble new_value, GErr
 
 gdouble atspi_value_get_minimum_increment (AtspiValue *obj, GError **error);
 
+gchar *atspi_value_get_text (AtspiValue *obj, GError **error);
 G_END_DECLS
 
 #endif	/* _ATSPI_VALUE_H_ */

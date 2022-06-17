@@ -349,6 +349,7 @@ atspi_value_get_current_value
 atspi_value_get_maximum_value
 atspi_value_set_current_value
 atspi_value_get_minimum_increment
+atspi_value_get_text
 <SUBSECTION Standard>
 ATSPI_VALUE
 ATSPI_IS_VALUE

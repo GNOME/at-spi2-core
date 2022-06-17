@@ -96,6 +96,19 @@ atk_test_value_get_minimum_increment (gpointer fixture, gconstpointer user_data)
 }
 
 static void
+atk_test_value_get_text (gpointer fixture, gconstpointer user_data)
+{
+  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  g_assert (_obj);
+  AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
+  g_assert (child);
+  AtspiValue *obj = atspi_accessible_get_value_iface (child);
+  gchar *text = atspi_value_get_text (obj, NULL);
+  g_assert_cmpstr (text, ==, "2.250000");
+  g_free (text);
+}
+
+static void
 teardown_value_test (gpointer fixture, gconstpointer user_data)
 {
   terminate_app ();
@@ -116,4 +129,6 @@ atk_test_value (void)
                      0, NULL, NULL, atk_test_value_set_current_value, teardown_value_test );
   g_test_add_vtable (ATK_TEST_PATH_VALUE "/atk_test_value_get_minimum_increment",
                      0, NULL, NULL, atk_test_value_get_minimum_increment, teardown_value_test );
+  g_test_add_vtable (ATK_TEST_PATH_VALUE "/atk_test_value_get_text",
+                     0, NULL, NULL, atk_test_value_get_text, teardown_value_test );
 }

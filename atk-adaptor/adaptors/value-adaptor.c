@@ -227,6 +227,28 @@ impl_SetCurrentValue (DBusConnection * bus, DBusMessage * message,
   return reply;
 }
 
+static dbus_bool_t
+impl_get_Text (DBusMessageIter * iter, void *user_data)
+{
+  AtkValue *value = (AtkValue *) user_data;
+  gdouble dub;
+  gchar *text = NULL;
+  dbus_bool_t ret;
+
+  g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
+
+  AtkValueIface *iface = ATK_VALUE_GET_IFACE (value);
+  if (iface->get_value_and_text)
+    {
+      atk_value_get_value_and_text (value, &dub, &text);
+      ret = droute_return_v_string (iter, text);
+      g_free (text);
+      return ret;
+    }
+
+  return droute_return_v_string (iter, "");
+}
+
 static DRouteMethod methods[] = {
   {impl_SetCurrentValue, "SetCurrentValue"},
   {NULL, NULL}
@@ -237,6 +259,7 @@ static DRouteProperty properties[] = {
   {impl_get_MaximumValue, NULL, "MaximumValue"},
   {impl_get_MinimumIncrement, NULL, "MinimumIncrement"},
   {impl_get_CurrentValue, impl_set_CurrentValue, "CurrentValue"},
+  {impl_get_Text, NULL, "Text"},
   {NULL, NULL, NULL}
 };
 

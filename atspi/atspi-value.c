@@ -152,6 +152,28 @@ atspi_value_get_minimum_increment (AtspiValue *obj, GError **error)
   return retval;
 }
 
+/**
+ * atspi_value_get_text:
+ * @obj: a pointer to the #AtspiValue implementor on which to operate. 
+ *
+ * Gets the human readable text alternative associated with the value.
+ * @text is a newly created string, that must be freed by the
+ * caller. Can be NULL if no descriptor is available.
+ *
+ * Since: 2.44
+ **/
+gchar *
+atspi_value_get_text (AtspiValue *obj, GError **error)
+{
+  gchar *retval = NULL;
+
+  g_return_if_fail (obj != NULL);
+
+  _atspi_dbus_get_property (obj, atspi_interface_value, "Text", error, "s", &retval);
+  
+  return retval;
+}
+
 static void
 atspi_value_base_init (AtspiValue *klass)
 {
@@ -175,3 +197,4 @@ atspi_value_get_type (void)
   }
   return type;
 }
+
