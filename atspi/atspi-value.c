@@ -160,7 +160,7 @@ atspi_value_get_minimum_increment (AtspiValue *obj, GError **error)
  * @text is a newly created string, that must be freed by the
  * caller. Can be NULL if no descriptor is available.
  *
- * Since: 2.44
+ * Since: 2.46
  **/
 gchar *
 atspi_value_get_text (AtspiValue *obj, GError **error)
