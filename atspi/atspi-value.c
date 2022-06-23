@@ -167,7 +167,7 @@ atspi_value_get_text (AtspiValue *obj, GError **error)
 {
   gchar *retval = NULL;
 
-  g_return_if_fail (obj != NULL);
+  g_return_val_if_fail (obj != NULL, NULL);
 
   _atspi_dbus_get_property (obj, atspi_interface_value, "Text", error, "s", &retval);
   
