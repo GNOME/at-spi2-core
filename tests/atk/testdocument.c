@@ -22,9 +22,6 @@
 
 #define EXPECTED_NUMBER 5
 
-GMainLoop *global_loop = NULL;
-gint global_number_emissions = 0;
-
 #define TEST_TYPE_DOCUMENT                         (test_document_get_type ())
 #define TEST_DOCUMENT(obj)                         (G_TYPE_CHECK_INSTANCE_CAST ((obj), TEST_TYPE_DOCUMENT, TestDocument))
 #define TEST_DOCUMENT_CLASS(klass)                 (G_TYPE_CHECK_CLASS_CAST ((klass), TEST_TYPE_DOCUMENT, TestDocumentClass))
@@ -38,6 +35,8 @@ typedef struct _TestDocumentClass   TestDocumentClass;
 struct _TestDocument
 {
   AtkObject parent;
+  GMainLoop *loop;
+  gint number_emissions;
 };
 
 struct _TestDocumentClass
@@ -74,8 +73,10 @@ document_page_changed_cb (AtkDocument *document,
                           gint page_number,
                           gpointer data)
 {
+  TestDocument* test_document = TEST_DOCUMENT (document);
+
   g_print ("Page-changed callback, page_number = %i\n", page_number);
-  global_number_emissions++;
+  test_document->number_emissions++;
 }
 
 static gboolean
@@ -89,18 +90,18 @@ document_emit_page_changed (gpointer data)
   g_signal_emit_by_name (test_document, "page-changed", next_page++, NULL);
 
   if (next_page > EXPECTED_NUMBER) {
-    g_main_loop_quit (global_loop);
+    g_main_loop_quit (test_document->loop);
     return G_SOURCE_REMOVE;
   } else
     return G_SOURCE_CONTINUE;
 }
 
-static gboolean
-init_test_document (void)
+static void
+test_page_changed (void)
 {
-  GObject *my_document;
+  TestDocument *my_document;
 
-  my_document = g_object_new (TEST_TYPE_DOCUMENT, NULL);
+  my_document = TEST_DOCUMENT (g_object_new (TEST_TYPE_DOCUMENT, NULL));
 
   g_signal_connect (my_document, "page-changed",
                     G_CALLBACK (document_page_changed_cb),
@@ -108,25 +109,21 @@ init_test_document (void)
 
   g_idle_add (document_emit_page_changed, my_document);
 
-  return TRUE;
-}
+  my_document->loop = g_main_loop_new (NULL, FALSE);
 
+  g_main_loop_run (my_document->loop);
+
+  g_assert_cmpint (my_document->number_emissions, ==, EXPECTED_NUMBER);
+  g_main_loop_unref (my_document->loop);
+  g_object_unref (my_document);
+}
 
 int
 main (gint  argc,
       char* argv[])
 {
-  global_loop = g_main_loop_new (NULL, FALSE);
+  g_test_init (&argc, &argv, NULL);
+  g_test_add_func ("/atk/document/page_changed", test_page_changed);
 
-  g_print("Starting Document test suite\n");
-
-  init_test_document ();
-  g_main_loop_run (global_loop);
-
-  if (global_number_emissions == EXPECTED_NUMBER)
-    g_print ("Document tests succeeded\n");
-  else
-    g_print ("Document tests failed\n");
-
-  return 0;
+  return g_test_run ();
 }

@@ -21,89 +21,35 @@
 #include <atk/atk.h>
 #include <string.h>
 
-static gboolean
+static void
 test_role (void)
 {
   AtkRole role1, role2;
   const gchar *name;
-  gboolean result = TRUE;
 
   name = atk_role_get_name (ATK_ROLE_PAGE_TAB);
-  if (!name || strcmp (name, "page tab") != 0)
-    {
-      g_print ("Unexpected name for ATK_ROLE_PAGE_TAB."
-               " Expected 'page tab', received '%s'\n", name);
-      result = FALSE;
-    }
+  g_assert_cmpstr (name, ==, "page tab");
 
   name = atk_role_get_name (ATK_ROLE_LAYERED_PANE);
-  if (!name || strcmp (name, "layered pane") != 0)
-    {
-      g_print ("Unexpected name for ATK_ROLE_LAYERED_PANE."
-               " Expected 'layered pane', received '%s'\n", name);
-      result = FALSE;
-    }
+  g_assert_cmpstr (name, ==, "layered pane");
 
   role1 = atk_role_for_name ("list item");
-  if (role1 != ATK_ROLE_LIST_ITEM)
-    {
-      g_print ("Unexpected role for list item."
-               " Expected %i, received %i\n", ATK_ROLE_LIST_ITEM, role1);
-      result = FALSE;
-    }
+  g_assert_cmpint (role1, ==, ATK_ROLE_LIST_ITEM);
 
   role2 = atk_role_for_name ("TEST_ROLE");
-  if (role2 != ATK_ROLE_INVALID)
-    {
-      g_print ("Unexpected role for TEST_ROLE. Expected %i, received %i\n", ATK_ROLE_INVALID, role2);
-      result = FALSE;
-    }
+  g_assert_cmpint (role2, ==, ATK_ROLE_INVALID);
   /*
    * Check that a non-existent role returns NULL
    */
-  name = atk_role_get_name (ATK_ROLE_LAST_DEFINED + 2);
-  if (name)
-    {
-      g_print ("Unexpected name for undefined role %s\n", name);
-      result = FALSE;
-    }
-
-  return result;
-}
-
-static void
-print_roles()
-{
-  AtkRole role;
-
-  g_print("(Role, name, localized name) defined by the ATK library:\n");
-
-  for (role = ATK_ROLE_INVALID; role < ATK_ROLE_LAST_DEFINED; role++)
-    g_print ("(%i, %s, %s)\n", role,
-             atk_role_get_name(role), atk_role_get_localized_name(role));
-
-  g_print("(Role, name, localized name) for the extra roles:\n");
-  for (;atk_role_get_name(role) != NULL; role++)
-    g_print ("(%i, %s, %s)\n", role,
-             atk_role_get_name(role), atk_role_get_localized_name(role));
-
+  g_assert_null (atk_role_get_name (ATK_ROLE_LAST_DEFINED + 2));
 }
 
 int
-main (int argc, char **argv)
+main (gint  argc,
+      char* argv[])
 {
-  gboolean b_ret;
+  g_test_init (&argc, &argv, NULL);
+  g_test_add_func ("/atk/role/roles", test_role);
 
-  g_print ("Starting Role test suite\n");
-
-  b_ret = test_role ();
-
-  print_roles();
-
-  if (b_ret)
-    g_print ("Role tests succeeded\n");
-  else
-    g_print ("Role tests failed\n");
-
-  return 0;
+  return g_test_run ();
 }

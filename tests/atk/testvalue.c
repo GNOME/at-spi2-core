@@ -51,8 +51,6 @@
 #define UPPER_LIMIT 1.0
 #define INCREMENT 0.15
 
-GMainLoop *global_loop = NULL;
-gint global_number_emissions = 0;
 gboolean test_success = TRUE;
 GObject *my_value;
 
@@ -69,6 +67,9 @@ typedef struct _TestValueClass   TestValueClass;
 struct _TestValue
 {
   AtkObject parent;
+
+  GMainLoop *loop;
+  gint number_emissions;
 
   gdouble value;
 };
@@ -226,8 +227,10 @@ value_page_changed_cb (AtkValue *value,
                        gchar *new_description,
                        gpointer data)
 {
+  TestValue* test_value = TEST_VALUE (value);
+
   g_print ("value-changed callback=(%f,%s)\n", new_value, new_description);
-  global_number_emissions++;
+  test_value->number_emissions++;
 }
 
 /**
@@ -242,89 +245,40 @@ do_value_changed (gpointer data)
   atk_value_set_value (ATK_VALUE (test_value),
                        test_value->value + INCREMENT);
 
-  if (global_number_emissions == EXPECTED_NUMBER) {
-    g_main_loop_quit (global_loop);
+  if (test_value->number_emissions == EXPECTED_NUMBER) {
+    g_main_loop_quit (test_value->loop);
     return G_SOURCE_REMOVE;
   } else
     return G_SOURCE_CONTINUE;
 }
 
-/**
- * Prints all the info from an AtkValue
- */
 static void
-print_info (AtkValue *atk_value)
+test_page_changed (void)
 {
-  double value;
-  gchar *description;
-  AtkRange *range;
-  GSList *sub_ranges;
-  GSList *iter;
-  gdouble increment;
-  gint i = 0;
-
-  atk_value_get_value_and_text (atk_value, &value, &description);
-  range = atk_value_get_range (atk_value);
-  increment = atk_value_get_increment (atk_value);
-  atk_value_set_value (atk_value, 0);
-
-  g_print ("Current AtkValue data:\n");
-  g_print ("\t (value,description)=(%f,%s) \n", value, description);
-  if (range != NULL)
-    g_print ("\t (min,max,description)=(%f, %f, %s)\n",
-             atk_range_get_lower_limit (range), atk_range_get_upper_limit (range), atk_range_get_description (range));
-  else
-    test_success = FALSE; /* Any AtkValue implementation should provide a range */
-  g_print ("\t minimum increment=%f\n", increment);
-
-  if (range)
-    atk_range_free (range);
-
-  sub_ranges = atk_value_get_sub_ranges (atk_value);
-  for (iter = sub_ranges; iter != NULL; iter = g_slist_next (iter),i++) {
-    range = iter->data;
-    g_print ("\t\t sub_range%i = (%f, %f, %s)\n", i,
-             atk_range_get_lower_limit (range), atk_range_get_upper_limit (range), atk_range_get_description (range));
-  }
-
-  g_slist_free_full (sub_ranges, (GDestroyNotify) atk_range_free);
-}
-
-
-static gboolean
-init_test_value (void)
-{
-  my_value = g_object_new (TEST_TYPE_VALUE, NULL);
+  TestValue *my_value = TEST_VALUE (g_object_new (TEST_TYPE_VALUE, NULL));
 
   g_signal_connect (my_value, "value-changed",
                     G_CALLBACK (value_page_changed_cb),
                     NULL);
 
-  print_info (ATK_VALUE (my_value));
-
   g_idle_add (do_value_changed, my_value);
 
-  return TRUE;
-}
+  my_value->loop = g_main_loop_new (NULL, FALSE);
 
+  g_main_loop_run (my_value->loop);
+
+  g_assert_cmpint (my_value->number_emissions, ==, EXPECTED_NUMBER);
+  g_main_loop_unref (my_value->loop);
+  g_object_unref (my_value);
+}
 
 int
 main (gint  argc,
       char* argv[])
 {
-  global_loop = g_main_loop_new (NULL, FALSE);
+  g_test_init (&argc, &argv, NULL);
+  g_test_add_func ("/atk/value/page_changed", test_page_changed);
 
-  g_print("Starting Value test suite\n\n\n");
-
-  init_test_value ();
-  g_main_loop_run (global_loop);
-
-  if (global_number_emissions == EXPECTED_NUMBER && test_success)
-    g_print ("\n\nValue tests succeeded\n\n\n");
-  else
-    g_print ("\n\nValue tests failed\n\n\n");
-
-  print_info (ATK_VALUE (my_value));
-
-  return 0;
+  return g_test_run ();
 }
+
