@@ -1,4 +1,3 @@
-
 import sys
 from xml.etree import ElementTree
 
@@ -76,7 +75,7 @@ def main (argv):
 
 		#Create the introspection string with version information.
 		itf.attrib["version"] = VERSION
-		contents = convert_contents (ElementTree.tostring (itf))
+		contents = convert_contents (ElementTree.tostring (itf, encoding="unicode"))
 
 		hcontents += DECTEMPLATE % (name)
 		ccontents += DEFTEMPLATE % (name, contents)
@@ -88,4 +87,4 @@ def main (argv):
 	hfile.close ()	
 	
 if __name__ == "__main__":
-	sys.exit(main(sys.argv))
+        main(sys.argv)
