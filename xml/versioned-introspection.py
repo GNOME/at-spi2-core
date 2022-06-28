@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+#
+# Takes a DBus XML file and writes out introspection.[ch] files for inclusion
+# in C code.  Both files are written to the OUTPUT_DIRECTORY as per below.
+#
+# Usage: python3 versioned-introspection.py INPUT_FILE.XML OUTPUT_DIRECTORY
+
+import os
 import sys
 from xml.etree import ElementTree
 
@@ -53,14 +61,16 @@ def convert_contents (contents):
     literals = ["\"%s\"" % (line) for line in contents.split ("\n")]
     return "\n".join (literals)
 
-def main (argv):
+def generate_introspection (input_filename, output_directory):
     #Open the XML file and process includes.
-    tree = ElementTree.parse ("Processed.xml")
+    tree = ElementTree.parse (input_filename)
     root = tree.getroot ()
 
     #Open the output files.
-    cfile = open ("introspection.c", "w")
-    hfile = open ("introspection.h", "w")
+    c_filename = os.path.join(output_directory, "introspection.c")
+    h_filename = os.path.join(output_directory, "introspection.h")
+    cfile = open (c_filename, "w")
+    hfile = open (h_filename, "w")
 
     ccontents = ""
     hcontents = ""
@@ -83,4 +93,13 @@ def main (argv):
     hfile.close ()  
         
 if __name__ == "__main__":
-    main(sys.argv)
+    argv = sys.argv
+
+    if len (argv) != 3:
+        print("usage: versioned-introspection.py INPUT.XML OUTPUT_DIR", file=sys.stderr)
+        sys.exit(1)
+
+    input_filename = sys.argv[1]
+    output_directory = sys.argv[2]
+
+    generate_introspection (input_filename, output_directory)
