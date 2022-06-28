@@ -12,10 +12,10 @@ from xml.etree import ElementTree
 CTEMPLATE = """
 /*
  * This file has been auto-generated from the introspection data available
- * in the at-spi2-core repository. The D-Bus procol is defined in this
+ * in the at-spi2-core repository. The D-Bus protocol is defined in this
  * repository, which can be found at:
  *
- * http://download.gnome.org/sources/at-spi2-core/0.1/
+ * https://gitlab.gnome.org/GNOME/at-spi2-core
  *
  * DO NOT EDIT.
  */
@@ -26,10 +26,10 @@ CTEMPLATE = """
 HTEMPLATE = """
 /*
  * This file has been auto-generated from the introspection data available
- * in the at-spi2-core repository. The D-Bus procol is defined in this
+ * in the at-spi2-core repository. The D-Bus protocol is defined in this
  * repository, which can be found at:
  *
- * http://download.gnome.org/sources/at-spi2-core/0.1/
+ * https://gitlab.gnome.org/GNOME/at-spi2-core
  *
  * DO NOT EDIT.
  */
