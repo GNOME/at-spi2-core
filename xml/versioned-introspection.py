@@ -1,8 +1,7 @@
 import sys
 from xml.etree import ElementTree
 
-CTEMPLATE = \
-"""
+CTEMPLATE = """
 /*
  * This file has been auto-generated from the introspection data available
  * in the at-spi2-core repository. The D-Bus procol is defined in this
@@ -16,8 +15,7 @@ CTEMPLATE = \
 %s
 """
 
-HTEMPLATE = \
-"""
+HTEMPLATE = """
 /*
  * This file has been auto-generated from the introspection data available
  * in the at-spi2-core repository. The D-Bus procol is defined in this
@@ -36,13 +34,11 @@ HTEMPLATE = \
 #endif /* SPI_INTROSPECTION_DATA_H_ */
 """
 
-DECTEMPLATE = \
-"""
+DECTEMPLATE = """
 extern const char *%s;
 """
 
-DEFTEMPLATE = \
-"""
+DEFTEMPLATE = """
 const char *%s = 
 %s;
 """
@@ -50,41 +46,41 @@ const char *%s =
 VERSION = "0.1.7"
 
 def convert_name (name):
-	return "spi_" + name.replace (".", "_")
+    return "spi_" + name.replace (".", "_")
 
 def convert_contents (contents):
-	contents = contents.replace ("\"", "\\\"")
-	literals = ["\"%s\"" % (line) for line in contents.split ("\n")]
-	return "\n".join (literals)
+    contents = contents.replace ("\"", "\\\"")
+    literals = ["\"%s\"" % (line) for line in contents.split ("\n")]
+    return "\n".join (literals)
 
 def main (argv):
-	#Open the XML file and process includes.
-	tree = ElementTree.parse ("Processed.xml")
-	root = tree.getroot ()
+    #Open the XML file and process includes.
+    tree = ElementTree.parse ("Processed.xml")
+    root = tree.getroot ()
 
-	#Open the output files.
-	cfile = open ("introspection.c", "w")
-	hfile = open ("introspection.h", "w")
+    #Open the output files.
+    cfile = open ("introspection.c", "w")
+    hfile = open ("introspection.h", "w")
 
-	ccontents = ""
-	hcontents = ""
+    ccontents = ""
+    hcontents = ""
 
-	for itf in root.findall ("node/interface"):
-		#Get and convert the name of the interface.
-		name = convert_name (itf.attrib["name"])
+    for itf in root.findall ("node/interface"):
+        #Get and convert the name of the interface.
+        name = convert_name (itf.attrib["name"])
 
-		#Create the introspection string with version information.
-		itf.attrib["version"] = VERSION
-		contents = convert_contents (ElementTree.tostring (itf, encoding="unicode"))
+        #Create the introspection string with version information.
+        itf.attrib["version"] = VERSION
+        contents = convert_contents (ElementTree.tostring (itf, encoding="unicode"))
 
-		hcontents += DECTEMPLATE % (name)
-		ccontents += DEFTEMPLATE % (name, contents)
+        hcontents += DECTEMPLATE % (name)
+        ccontents += DEFTEMPLATE % (name, contents)
 
-	cfile.write (CTEMPLATE % (ccontents))
-	hfile.write (HTEMPLATE % (hcontents))
+    cfile.write (CTEMPLATE % (ccontents))
+    hfile.write (HTEMPLATE % (hcontents))
 
-	cfile.close ()
-	hfile.close ()	
-	
+    cfile.close ()
+    hfile.close ()  
+        
 if __name__ == "__main__":
-        main(sys.argv)
+    main(sys.argv)
