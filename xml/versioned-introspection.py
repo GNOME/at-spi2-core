@@ -61,16 +61,14 @@ def convert_contents (contents):
     literals = ["\"%s\"" % (line) for line in contents.split ("\n")]
     return "\n".join (literals)
 
-def generate_introspection (input_filename, output_directory):
+def generate_introspection (input_filename, c_output_filename, h_output_filename):
     #Open the XML file and process includes.
     tree = ElementTree.parse (input_filename)
     root = tree.getroot ()
 
     #Open the output files.
-    c_filename = os.path.join(output_directory, "introspection.c")
-    h_filename = os.path.join(output_directory, "introspection.h")
-    cfile = open (c_filename, "w")
-    hfile = open (h_filename, "w")
+    cfile = open (c_output_filename, "w")
+    hfile = open (h_output_filename, "w")
 
     ccontents = ""
     hcontents = ""
@@ -95,11 +93,12 @@ def generate_introspection (input_filename, output_directory):
 if __name__ == "__main__":
     argv = sys.argv
 
-    if len (argv) != 3:
-        print("usage: versioned-introspection.py INPUT.XML OUTPUT_DIR", file=sys.stderr)
+    if len (argv) != 4:
+        print("usage: versioned-introspection.py INPUT.XML OUTPUT.C, OUTPUT.H", file=sys.stderr)
         sys.exit(1)
 
     input_filename = sys.argv[1]
-    output_directory = sys.argv[2]
+    c_output_filename = sys.argv[2]
+    h_output_filename = sys.argv[3]
 
-    generate_introspection (input_filename, output_directory)
+    generate_introspection (input_filename, c_output_filename, h_output_filename)
