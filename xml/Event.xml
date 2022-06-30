@@ -1,193 +1,193 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<node name="/node">
+<node>
 
-<interface name="org.a11y.atspi.Event.Object">
-	<signal name="PropertyChange"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="BoundsChanged"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="LinkSelected"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="StateChanged"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="ChildrenChanged"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="VisibleDataChanged"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="SelectionChanged"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="ModelChanged"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="ActiveDescendantChanged"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="RowInserted"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="RowReordered"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="RowDeleted"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="ColumnInserted"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="ColumnReordered"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="ColumnDeleted"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="TextBoundsChanged"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="TextSelectionChanged"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="TextChanged"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="TextAttributesChanged"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="TextCaretMoved"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="AttributesChanged"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-</interface>
+  <interface name="org.a11y.atspi.Event.Object">
+    <signal name="PropertyChange"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="BoundsChanged"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="LinkSelected"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="StateChanged"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="ChildrenChanged"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="VisibleDataChanged"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="SelectionChanged"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="ModelChanged"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="ActiveDescendantChanged"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="RowInserted"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="RowReordered"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="RowDeleted"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="ColumnInserted"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="ColumnReordered"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="ColumnDeleted"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="TextBoundsChanged"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="TextSelectionChanged"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="TextChanged"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="TextAttributesChanged"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="TextCaretMoved"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="AttributesChanged"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+  </interface>
 
-<interface name="org.a11y.atspi.Event.Window">
-	<signal name="PropertyChange"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="Minimize"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="Maximize"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="Restore"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="Close"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="Create"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="Reparent"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="DesktopCreate"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="DesktopDestroy"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="Destroy"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="Activate"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="Deactivate"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="Raise"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="Lower"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="Move"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="Resize"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="Shade"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="uUshade"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="Restyle"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-</interface>
+  <interface name="org.a11y.atspi.Event.Window">
+    <signal name="PropertyChange"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="Minimize"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="Maximize"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="Restore"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="Close"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="Create"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="Reparent"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="DesktopCreate"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="DesktopDestroy"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="Destroy"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="Activate"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="Deactivate"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="Raise"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="Lower"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="Move"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="Resize"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="Shade"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="uUshade"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="Restyle"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+  </interface>
 
-<interface name="org.a11y.atspi.Event.Mouse">
-	<signal name="Abs"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="Rel"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="Button"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-</interface>
+  <interface name="org.a11y.atspi.Event.Mouse">
+    <signal name="Abs"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="Rel"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="Button"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+  </interface>
 
-<interface name="org.a11y.atspi.Event.Keyboard">
-	<signal name="Modifiers"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-</interface>
+  <interface name="org.a11y.atspi.Event.Keyboard">
+    <signal name="Modifiers"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+  </interface>
 
-<interface name="org.a11y.atspi.Event.Terminal">
-	<signal name="LineChanged"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="ColumncountChanged"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="LinecountChanged"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="ApplicationChanged"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="CharwidthChanged"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-</interface>
+  <interface name="org.a11y.atspi.Event.Terminal">
+    <signal name="LineChanged"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="ColumncountChanged"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="LinecountChanged"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="ApplicationChanged"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="CharwidthChanged"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+  </interface>
 
-<interface name="org.a11y.atspi.Event.Document">
-	<signal name="LoadComplete"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="Reload"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="LoadStopped"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="ContentChanged"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="AttributesChanged"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-	<signal name="PageChanged"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-</interface>
+  <interface name="org.a11y.atspi.Event.Document">
+    <signal name="LoadComplete"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="Reload"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="LoadStopped"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="ContentChanged"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="AttributesChanged"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+    <signal name="PageChanged"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+  </interface>
 
-<interface name="org.a11y.atspi.Event.Focus">
-	<signal name="Focus"><arg type="(suuv)"/>
-          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
-        </signal>
-</interface>
+  <interface name="org.a11y.atspi.Event.Focus">
+    <signal name="Focus"><arg type="(suuv)"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+    </signal>
+  </interface>
 
 </node>
