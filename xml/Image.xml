@@ -13,9 +13,9 @@
     </method>
 
     <method name="GetImagePosition">
+      <arg direction="in" name="coordType" type="u"/>
       <arg direction="out" name="x" type="i"/>
       <arg direction="out" name="y" type="i"/>
-      <arg direction="in" name="coordType" type="u"/>
     </method>
 
     <method name="GetImageSize">
