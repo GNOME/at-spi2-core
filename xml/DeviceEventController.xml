@@ -33,6 +33,14 @@
       <arg direction="in" name="types" type="u"/>
     </method>
 
+    <method name="GetKeystrokeListeners">
+      <arg direction="out" type="a(souua(iisi)u(bbb))"/>
+    </method>
+
+    <method name="GetDeviceEventListeners">
+      <arg direction="out" type="a(sou)"/>
+    </method>
+
     <method name="GenerateKeyboardEvent">
       <arg direction="in" name="keycode" type="i"/>
       <arg direction="in" name="keystring" type="s"/>
