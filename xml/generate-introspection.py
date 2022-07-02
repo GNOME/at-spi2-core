@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 #
 # Takes a DBus XML file and writes out introspection.[ch] files for inclusion
-# in C code.  Both files are written to the OUTPUT_DIRECTORY as per below.
-#
-# Usage: python3 versioned-introspection.py INPUT_FILE.XML OUTPUT_DIRECTORY
+# in C code.
 
 import os
 import sys
