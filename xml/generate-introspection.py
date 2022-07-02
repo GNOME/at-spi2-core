@@ -71,7 +71,7 @@ def generate_introspection (input_filename, c_output_filename, h_output_filename
     ccontents = ""
     hcontents = ""
 
-    for itf in root.findall ("node/interface"):
+    for itf in root.findall ("interface"):
         #Get and convert the name of the interface.
         name = convert_name (itf.attrib["name"])
 
