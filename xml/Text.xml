@@ -50,8 +50,8 @@
     </method>
 
     <method name="GetCharacterAtOffset">
-      <arg name="offset" type="i" direction="in"/>
-      <arg type="i" direction="out"/>
+      <arg direction="in" name="offset" type="i"/>
+      <arg direction="out" type="i"/>
     </method>
 
     <method name="GetAttributeValue">
@@ -63,9 +63,9 @@
     <method name="GetAttributes">
       <arg direction="in" name="offset" type="i"/>
       <arg direction="out" type="a{ss}"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QSpiAttributeSet"/>
       <arg direction="out" name="startOffset" type="i"/>
       <arg direction="out" name="endOffset" type="i"/>
-      <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QSpiAttributeSet"/>
     </method>
 
     <method name="GetDefaultAttributes">
@@ -75,11 +75,11 @@
 
     <method name="GetCharacterExtents">
       <arg direction="in" name="offset" type="i"/>
+      <arg direction="in" name="coordType" type="u"/>
       <arg direction="out" name="x" type="i"/>
       <arg direction="out" name="y" type="i"/>
       <arg direction="out" name="width" type="i"/>
       <arg direction="out" name="height" type="i"/>
-      <arg direction="in" name="coordType" type="u"/>
     </method>
 
     <method name="GetOffsetAtPoint">
@@ -120,11 +120,11 @@
     <method name="GetRangeExtents">
       <arg direction="in" name="startOffset" type="i"/>
       <arg direction="in" name="endOffset" type="i"/>
+      <arg direction="in" name="coordType" type="u"/>
       <arg direction="out" name="x" type="i"/>
       <arg direction="out" name="y" type="i"/>
       <arg direction="out" name="width" type="i"/>
       <arg direction="out" name="height" type="i"/>
-      <arg direction="in" name="coordType" type="u"/>
     </method>
 
     <method name="GetBoundedRanges">
@@ -143,9 +143,9 @@
       <arg direction="in" name="offset" type="i"/>
       <arg direction="in" name="includeDefaults" type="b"/>
       <arg direction="out" type="a{ss}"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QSpiAttributeSet"/>
       <arg direction="out" name="startOffset" type="i"/>
       <arg direction="out" name="endOffset" type="i"/>
-      <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QSpiAttributeSet"/>
     </method>
 
     <method name="GetDefaultAttributeSet">
