@@ -1,3 +1,30 @@
+What's new in at-spi2-core 2.45.1:
+
+* Atk and at-spi2-atk are now merged into this project.
+
+* Now requires meson 0.56.2 and glib 2.67.4.
+
+* at-spi2-atk: Expose the accessible hierarchy via dbus introspection.
+
+* Properly escape the AT-SPI bus address; fixes warnings about the address
+  not containing a colon (!55).
+
+* Add a text value to AtspiValue, so that a value can expose a textual
+  description, as in the new Atk value API.
+
+* Add atspi_event_listener_register_with_app, to allow an event listener
+  to be registered only for a given application (!52).
+
+What's new in at-spi2-core 2.44.1:
+
+* Fix use after free when removing a hung process.
+
+* Fix the build with X11 disabled.
+
+* Fix crash when NULL is passed to some listener-related functions.
+
+* impl_deregister_keystroke_listener: fix memory leak on iteration error.
+
 What's new in at-spi2-core 2.44.0:
 
 * Unlink the socket before binding when using dbus-broker. Fixes regression
