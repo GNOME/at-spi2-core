@@ -33,7 +33,8 @@
 typedef struct event_data event_data;
 struct event_data
 {
-  gchar *bus_name;
+  gchar *listener_bus_name;
+  gchar *app_bus_name;
   gchar **data;
   GSList *properties;
 };
@@ -242,11 +243,12 @@ remove_events (SpiRegistry *registry, const char *bus_name, const char *event)
     {
       event_data *evdata = list->data;
       list = list->next;
-      if (!g_strcmp0 (evdata->bus_name, bus_name) &&
+      if (!g_strcmp0 (evdata->listener_bus_name, bus_name) &&
           event_is_subtype (evdata->data, remove_data))
         {
           g_strfreev (evdata->data);
-          g_free (evdata->bus_name);
+          g_free (evdata->listener_bus_name);
+          g_free (evdata->app_bus_name);
           g_slist_free_full (evdata->properties, g_free);
           registry->events = g_list_remove (registry->events, evdata);
           g_free (evdata);
@@ -840,7 +842,8 @@ impl_register_event (DBusConnection *bus, DBusMessage *message, void *user_data)
   const char *signature = dbus_message_get_signature (message);
 
   if (strcmp (signature, "sas") != 0 &&
-      strcmp (signature, "s") != 0)
+      strcmp (signature, "s") != 0 &&
+      strcmp (signature, "sass") != 0)
   {
     g_warning ("got RegisterEvent with invalid signature '%s'", signature);
     return NULL;
@@ -853,7 +856,7 @@ impl_register_event (DBusConnection *bus, DBusMessage *message, void *user_data)
 
   evdata = g_new0 (event_data, 1);
   data = g_strsplit (name, ":", 3);
-  evdata->bus_name = g_strdup (sender);
+  evdata->listener_bus_name = g_strdup (sender);
   evdata->data = data;
 
   if (dbus_message_iter_get_arg_type (&iter) == DBUS_TYPE_ARRAY)
@@ -867,7 +870,18 @@ impl_register_event (DBusConnection *bus, DBusMessage *message, void *user_data)
                                            g_strdup (property));
       dbus_message_iter_next (&iter_array);
     }
+    dbus_message_iter_next (&iter);
   }
+
+  if (dbus_message_iter_get_arg_type (&iter) == DBUS_TYPE_STRING)
+  {
+    const char *app;
+    dbus_message_iter_get_basic (&iter, &app);
+    if (app[0])
+      evdata->app_bus_name = g_strdup (app);
+    dbus_message_iter_next (&iter);
+  }
+
   registry->events = g_list_append (registry->events, evdata);
 
   if (needs_mouse_poll (evdata->data))
@@ -881,6 +895,8 @@ impl_register_event (DBusConnection *bus, DBusMessage *message, void *user_data)
   if (signal)
   {
     GSList *ls = evdata->properties;
+    if (evdata->app_bus_name)
+      dbus_message_set_destination (message, evdata->app_bus_name);
     dbus_message_iter_init_append (signal, &iter);
     dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &sender);
     dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &name);
@@ -926,6 +942,7 @@ impl_get_registered_events (DBusConnection *bus, DBusMessage *message, void *use
   DBusMessage *reply;
   DBusMessageIter iter, iter_struct, iter_array;
   GList *list;
+  const char *sender = dbus_message_get_sender (message);
 
   reply = dbus_message_new_method_return (message);
   if (!reply)
@@ -937,11 +954,14 @@ impl_get_registered_events (DBusConnection *bus, DBusMessage *message, void *use
     {
       gchar *str;
       evdata = list->data;
+      if (evdata->app_bus_name && strcmp (evdata->app_bus_name, sender) != 0)
+        continue;
+
       str = g_strconcat (evdata->data [0],
                          ":", (evdata->data [1]? evdata->data [1]: ""),
                          ":", (evdata->data [1] && evdata->data [2]? evdata->data [2]: ""), NULL);
       dbus_message_iter_open_container (&iter_array, DBUS_TYPE_STRUCT, NULL, &iter_struct);
-      dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &evdata->bus_name);
+      dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &evdata->listener_bus_name);
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &str);
       dbus_message_iter_close_container (&iter_array, &iter_struct);
       g_free (str);

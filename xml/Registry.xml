@@ -4,6 +4,8 @@
 
   <method name="RegisterEvent">
     <arg direction="in" name="event" type="s">
+    <arg direction="in" name="properties" type="as">
+    <arg direction="in" name="app_bus_name" type="s">
     </arg>
   </method>
 

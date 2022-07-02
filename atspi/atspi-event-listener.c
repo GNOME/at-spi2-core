@@ -38,6 +38,7 @@ typedef struct
   char *name;
   char *detail;
   GArray *properties;
+  AtspiAccessible *app;
 } EventListenerEntry;
 
 G_DEFINE_TYPE (AtspiEventListener, atspi_event_listener, G_TYPE_OBJECT)
@@ -336,7 +337,7 @@ demarshal_rect (DBusMessageIter *iter, AtspiRect *rect)
 }
 
 static gboolean
-convert_event_type_to_dbus (const char *eventType, char **categoryp, char **namep, char **detailp, GPtrArray **matchrule_array)
+convert_event_type_to_dbus (const char *eventType, char **categoryp, char **namep, char **detailp, AtspiAccessible *app, GPtrArray **matchrule_array)
 {
   gchar *tmp = _atspi_strdup_and_adjust_for_dbus (eventType);
   char *category = NULL, *name = NULL, *detail = NULL;
@@ -357,6 +358,14 @@ convert_event_type_to_dbus (const char *eventType, char **categoryp, char **name
     gchar *matchrule;
     (*matchrule_array) = g_ptr_array_new ();
     matchrule = g_strdup_printf ("type='signal',interface='org.a11y.atspi.Event.%s'", category);
+    if (app)
+    {
+             gchar *new_str = g_strconcat (matchrule, ",sender='",
+                                           app->parent.app->bus_name, "'",
+                                           NULL);
+             g_free (matchrule);
+             matchrule = new_str;
+    }
     if (name && name [0])
     {
              gchar *new_str = g_strconcat (matchrule, ",member='", name, "'", NULL);
@@ -398,6 +407,9 @@ listener_entry_free (EventListenerEntry *e)
     g_free (g_array_index (e->properties, char*, i));
 
   g_array_free (e->properties, TRUE);
+
+  if (e->app)
+    g_object_unref (e->app);
 
   g_free (e);
 }
@@ -521,7 +533,7 @@ atspi_event_listener_register (AtspiEventListener *listener,
  * for a description of the format and legal event types.
 * @properties: (element-type gchar*) (transfer none) (allow-none): a list of
  *             properties that should be sent along with the event. The
- *             properties are valued for the duration of the event callback.k
+ *             properties are valued for the duration of the event callback.
  *             TODO: Document.
  *
  * Adds an in-process callback function to an existing #AtspiEventListener.
@@ -545,23 +557,49 @@ atspi_event_listener_register_full (AtspiEventListener *listener,
                                                            error);
 }
 
+/**
+ * atspi_event_listener_register_with_app:
+ * @listener: The #AtspiEventListener to register against an event type.
+ * @event_type: a character string indicating the type of events for which
+ *            notification is requested.  See #atspi_event_listener_register
+ * for a description of the format and legal event types.
+* @properties: (element-type gchar*) (transfer none) (allow-none): a list of
+ *             properties that should be sent along with the event. The
+ *             properties are valued for the duration of the event callback.
+ * @app: (allow-none): the application whose events should be reported, or
+ *      %null for all applications.
+ *
+ * Adds an in-process callback function to an existing #AtspiEventListener.
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
+ **/
+gboolean
+atspi_event_listener_register_with_app (AtspiEventListener *listener,
+				        const gchar              *event_type,
+				        GArray *properties,
+				        AtspiAccessible *app,
+				        GError **error)
+{
+  return atspi_event_listener_register_from_callback_with_app (listener->callback,
+                                                               listener->user_data,
+                                                               listener->cb_destroyed,
+                                                               event_type,
+                                                               properties,
+                                                               app,
+                                                               error);
+}
+
 static gboolean
 notify_event_registered (EventListenerEntry *e)
 {
+  const char *app_path = (e->app? e->app->parent.app->bus_name: "");
 
-  if (e->properties)
-    dbind_method_call_reentrant (_atspi_bus (), atspi_bus_registry,
-	                         atspi_path_registry,
-	                         atspi_interface_registry,
-	                         "RegisterEvent",
-	                         NULL, "sas", e->event_type,
-                                 e->properties);
-  else
-    dbind_method_call_reentrant (_atspi_bus (), atspi_bus_registry,
-	                         atspi_path_registry,
-	                         atspi_interface_registry,
-	                         "RegisterEvent",
-	                         NULL, "s", e->event_type);
+  dbind_method_call_reentrant (_atspi_bus (), atspi_bus_registry,
+	                       atspi_path_registry,
+	                       atspi_interface_registry,
+	                       "RegisterEvent",
+	                       NULL, "sass", e->event_type,
+                               e->properties, app_path);
 
   return TRUE;
 }
@@ -588,11 +626,11 @@ atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
 				             const gchar              *event_type,
 				             GError **error)
 {
-  return atspi_event_listener_register_from_callback_full (callback,
-                                                           user_data,
-                                                           callback_destroyed,
-                                                           event_type, NULL,
-                                                           error);
+  return atspi_event_listener_register_from_callback_with_app (callback,
+                                                               user_data,
+                                                               callback_destroyed,
+                                                               event_type, NULL,
+                                                               NULL, error);
 }
 
 static GArray *
@@ -632,6 +670,35 @@ atspi_event_listener_register_from_callback_full (AtspiEventListenerCB callback,
 				                  GArray *properties,
 				                  GError **error)
 {
+  return atspi_event_listener_register_from_callback_with_app (callback,
+                                                               user_data,
+                                                               callback_destroyed,
+                                                               event_type, NULL,
+                                                               NULL, error);
+}
+
+/**
+ * atspi_event_listener_register_from_callback_with_app:
+ * @callback: (scope async): an #AtspiEventListenerCB function pointer.
+ * @user_data: (closure callback)
+ * @callback_destroyed: (destroy callback)
+ * @event_type:
+ * @properties: (element-type utf8)
+* @app: (allow-none)
+ * @error:
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
+ *
+ **/
+gboolean
+atspi_event_listener_register_from_callback_with_app (AtspiEventListenerCB callback,
+				                      void *user_data,
+				                      GDestroyNotify callback_destroyed,
+				                      const gchar              *event_type,
+				                      GArray *properties,
+				                      AtspiAccessible *app,
+				                      GError **error)
+{
   EventListenerEntry *e;
   DBusError d_error;
   GPtrArray *matchrule_array;
@@ -648,19 +715,21 @@ atspi_event_listener_register_from_callback_full (AtspiEventListenerCB callback,
     return FALSE;
   }
 
-  e = g_new (EventListenerEntry, 1);
+  e = g_new0 (EventListenerEntry, 1);
   e->event_type = g_strdup (event_type);
   e->callback = callback;
   e->user_data = user_data;
   e->callback_destroyed = callback_destroyed;
   callback_ref (callback == remove_datum ? (gpointer)user_data : (gpointer)callback,
                 callback_destroyed);
-  if (!convert_event_type_to_dbus (event_type, &e->category, &e->name, &e->detail, &matchrule_array))
+  if (!convert_event_type_to_dbus (event_type, &e->category, &e->name, &e->detail, app, &matchrule_array))
   {
     g_free (e->event_type);
     g_free (e);
     return FALSE;
   }
+  if (app)
+    e->app = g_object_ref (app);
   e->properties = copy_event_properties (properties);
   event_listeners = g_list_prepend (event_listeners, e);
   for (i = 0; i < matchrule_array->len; i++)
@@ -778,7 +847,7 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
   gint i;
   GList *l;
 
-  if (!convert_event_type_to_dbus (event_type, &category, &name, &detail, &matchrule_array))
+  if (!convert_event_type_to_dbus (event_type, &category, &name, &detail, NULL, &matchrule_array))
   {
     return FALSE;
   }
@@ -920,7 +989,8 @@ _atspi_send_event (AtspiEvent *e)
     g_value_set_int (&e->any_data, 0);
   }
 
-  if (!convert_event_type_to_dbus (e->type, &category, &name, &detail, NULL))
+  if (!convert_event_type_to_dbus (e->type, &category, &name, &detail, NULL,
+                                   NULL))
   {
     g_warning ("AT-SPI: Couldn't parse event: %s\n", e->type);
     return;
@@ -931,7 +1001,9 @@ _atspi_send_event (AtspiEvent *e)
     EventListenerEntry *entry = l->data;
     if (!strcmp (category, entry->category) &&
         (entry->name == NULL || !strcmp (name, entry->name)) &&
-        detail_matches_listener (detail, entry->detail))
+        detail_matches_listener (detail, entry->detail) &&
+        (entry->app == NULL || !strcmp (entry->app->parent.app->bus_name,
+                                        e->source->parent.app->bus_name)))
     {
       GList *l2;
       for (l2 = called_listeners; l2; l2 = l2->next)
