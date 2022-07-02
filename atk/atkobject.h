@@ -670,6 +670,13 @@ void                      (* initialize)                         (AtkObject     
   void                    (*active_descendant_changed) (AtkObject                  *accessible,
                                                         gpointer                   *child);
 
+  /*
+   * The signal handler which is executed when an object has text to be
+   * announced by a screen reader.
+   */
+  void                    (*announcement)         (AtkObject                  *accessible,
+                                                   gchar                      *text);
+
   /*    	
    * Gets a list of properties applied to this object as a whole, as an #AtkAttributeSet consisting of name-value pairs. 
    * Since ATK 1.12

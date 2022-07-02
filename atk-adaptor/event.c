@@ -885,6 +885,28 @@ active_descendant_event_listener (GSignalInvocationHint * signal_hint,
   return TRUE;
 }
 
+static gboolean
+announcement_event_listener (GSignalInvocationHint * signal_hint,
+                             guint n_param_values,
+                             const GValue * param_values, gpointer data)
+{
+  AtkObject *accessible;
+  gchar *text;
+  GSignalQuery signal_query;
+  const gchar *name;
+
+  g_signal_query (signal_hint->signal_id, &signal_query);
+  name = signal_query.signal_name;
+
+  accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
+  text = (gchar *)g_value_get_pointer (&param_values[1]);
+  g_return_val_if_fail (text != NULL, TRUE);
+
+  emit_event (accessible, ITF_EVENT_OBJECT, name, "", 0, 0,
+              "s", text, append_basic);
+  return TRUE;
+}
+
 /*---------------------------------------------------------------------------*/
 
 /* 
@@ -1289,6 +1311,8 @@ spi_atk_register_event_listeners (void)
   /* TODO */
   add_signal_listener (active_descendant_event_listener,
                        "Gtk:AtkObject:active-descendant-changed");
+  add_signal_listener (announcement_event_listener,
+                       "Gtk:AtkObject:announcement");
   add_signal_listener (bounds_event_listener,
                        "Gtk:AtkComponent:bounds-changed");
   add_signal_listener (text_selection_changed_event_listener,

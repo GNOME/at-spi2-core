@@ -29,6 +29,9 @@
 	<signal name="ActiveDescendantChanged"><arg type="(suuv)"/>
           <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
         </signal>
+	<signal name="Announcement"><arg type="(suuv)"/>
+          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
+        </signal>
 	<signal name="RowInserted"><arg type="(suuv)"/>
           <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
         </signal>
