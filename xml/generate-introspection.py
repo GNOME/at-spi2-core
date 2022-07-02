@@ -94,7 +94,7 @@ if __name__ == "__main__":
     argv = sys.argv
 
     if len (argv) != 4:
-        print("usage: versioned-introspection.py INPUT.XML OUTPUT.C, OUTPUT.H", file=sys.stderr)
+        print("usage: generate-introspection.py INPUT.XML OUTPUT.C, OUTPUT.H", file=sys.stderr)
         sys.exit(1)
 
     input_filename = sys.argv[1]
