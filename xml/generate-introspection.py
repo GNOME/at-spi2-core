@@ -68,7 +68,11 @@ def generate_introspection (inputs, c_output_filename, h_output_filename):
 
     for input_filename in inputs:
         #Open the XML file and process includes.
-        tree = ElementTree.parse (input_filename)
+        try:
+            tree = ElementTree.parse (input_filename)
+        except Exception as e:
+            raise type(e)(f"Invalid XML while parsing {input_filename}: {str(e)}")
+
         root = tree.getroot ()
 
         for itf in root.findall ("interface"):
