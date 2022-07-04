@@ -76,15 +76,24 @@ atk_test_document_get_attributes (gpointer fixture, gconstpointer user_data)
   gpointer key, value;
   g_hash_table_iter_init (&iter, attr);
 
-  gchar *valid_keys[] = {"atspi1", "atspi2"};
-  gchar *valid_values[] = {"test1", "test2"};
+  while (g_hash_table_iter_next (&iter, &key, &value))
+    {
+      const char *key_str = key;
+      const char *value_str = value;
 
-  int i=0;
-  while (g_hash_table_iter_next (&iter, &key, &value)) {
-    g_assert_cmpstr (valid_keys[i], ==, (gchar *)key);
-    g_assert_cmpstr (valid_values[i], ==, (gchar *)value);
-    ++i;
-  }
+      if (strcmp (key_str, "atspi1") == 0)
+        {
+          g_assert_cmpstr (value_str, ==, "test1");
+        }
+      else if (strcmp (key_str, "atspi2") == 0)
+        {
+          g_assert_cmpstr (value_str, ==, "test2");
+        }
+      else
+        {
+          g_assert_not_reached ();
+        }
+    }
 }
 
 void
