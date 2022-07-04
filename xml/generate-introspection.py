@@ -60,11 +60,7 @@ def convert_contents (contents):
     literals = ["\"%s\"" % (line) for line in contents.split ("\n")]
     return "\n".join (literals)
 
-def generate_introspection (input_filename, c_output_filename, h_output_filename):
-    #Open the XML file and process includes.
-    tree = ElementTree.parse (input_filename)
-    root = tree.getroot ()
-
+def generate_introspection (inputs, c_output_filename, h_output_filename):
     #Open the output files.
     cfile = open (c_output_filename, "w")
     hfile = open (h_output_filename, "w")
@@ -72,16 +68,21 @@ def generate_introspection (input_filename, c_output_filename, h_output_filename
     ccontents = ""
     hcontents = ""
 
-    for itf in root.findall ("interface"):
-        #Get and convert the name of the interface.
-        name = convert_name (itf.attrib["name"])
+    for input_filename in inputs:
+        #Open the XML file and process includes.
+        tree = ElementTree.parse (input_filename)
+        root = tree.getroot ()
 
-        #Create the introspection string with version information.
-        itf.attrib["version"] = VERSION
-        contents = convert_contents (ElementTree.tostring (itf, encoding="unicode"))
+        for itf in root.findall ("interface"):
+            #Get and convert the name of the interface.
+            name = convert_name (itf.attrib["name"])
 
-        hcontents += DECTEMPLATE % (name)
-        ccontents += DEFTEMPLATE % (name, contents)
+            #Create the introspection string with version information.
+            itf.attrib["version"] = VERSION
+            contents = convert_contents (ElementTree.tostring (itf, encoding="unicode"))
+
+            hcontents += DECTEMPLATE % (name)
+            ccontents += DEFTEMPLATE % (name, contents)
 
     cfile.write (CTEMPLATE % (ccontents))
     hfile.write (HTEMPLATE % (hcontents))
@@ -100,4 +101,4 @@ if __name__ == "__main__":
     c_output_filename = sys.argv[2]
     h_output_filename = sys.argv[3]
 
-    generate_introspection (args.sources[0], args.c_output, args.h_output)
+    generate_introspection (args.sources, args.c_output, args.h_output)
