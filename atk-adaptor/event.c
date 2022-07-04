@@ -26,6 +26,7 @@
 #include <string.h>
 #include <ctype.h>
 
+#define ATK_DISABLE_DEPRECATION_WARNINGS
 #include <atk/atk.h>
 #include <droute/droute.h>
 #include <atspi/atspi.h>
