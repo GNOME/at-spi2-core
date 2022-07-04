@@ -125,14 +125,18 @@ static AtkStateSet *my_atk_object_ref_state_set (AtkObject *accessible)
 
 static AtkAttributeSet *my_atk_object_get_attributes (AtkObject *accessible)
 {
-  AtkAttributeSet *attributes;
+  AtkAttributeSet *attributes = NULL;
   AtkAttribute *attr;
 
-  attr = g_malloc (sizeof (AtkAttribute));
-  attr->name = g_strdup ("atspi");
-  attr->value = g_strdup ("test");
+  attr = g_new0 (AtkAttribute, 1);
+  attr->name = g_strdup ("atspi1");
+  attr->value = g_strdup ("test1");
+  attributes = g_slist_prepend (attributes, attr);
 
-  attributes = g_slist_append (NULL, attr);
+  attr = g_new0 (AtkAttribute, 1);
+  attr->name = g_strdup ("atspi2");
+  attr->value = g_strdup ("test2");
+  attributes = g_slist_prepend (attributes, attr);
 
   return attributes;
 }
