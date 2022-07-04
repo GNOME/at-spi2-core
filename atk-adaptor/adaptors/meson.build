@@ -1,4 +1,5 @@
 source = [
+  introspection_generated,
   'accessible-adaptor.c',
   'action-adaptor.c',
   'application-adaptor.c',

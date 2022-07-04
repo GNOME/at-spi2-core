@@ -1,10 +1,10 @@
 atspi_introspection_path = ''
 
 registryd_sources = [
+  introspection_generated,
   'de-marshaller.c',
   'registry-main.c',
   'registry.c',
-  'introspection.c',
   'deviceeventcontroller.c',
   'reentrant-list.c',
 ]
