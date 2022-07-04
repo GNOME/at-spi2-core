@@ -50,8 +50,6 @@ const char *%s =
 %s;
 """
 
-VERSION = "0.1.7"
-
 def convert_name (name):
     return "spi_" + name.replace (".", "_")
 
@@ -77,8 +75,6 @@ def generate_introspection (inputs, c_output_filename, h_output_filename):
             #Get and convert the name of the interface.
             name = convert_name (itf.attrib["name"])
 
-            #Create the introspection string with version information.
-            itf.attrib["version"] = VERSION
             contents = convert_contents (ElementTree.tostring (itf, encoding="unicode"))
 
             hcontents += DECTEMPLATE % (name)
