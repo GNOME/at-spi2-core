@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 #
-# Takes a DBus XML file and writes out introspection.[ch] files for inclusion
+# Takes DBus XML files and writes out a pair of introspection.[ch] files for inclusion
 # in C code.
 
+import argparse
 import os
 import sys
 from xml.etree import ElementTree
@@ -45,7 +46,7 @@ extern const char *%s;
 """
 
 DEFTEMPLATE = """
-const char *%s = 
+const char *%s =
 %s;
 """
 
@@ -86,17 +87,17 @@ def generate_introspection (input_filename, c_output_filename, h_output_filename
     hfile.write (HTEMPLATE % (hcontents))
 
     cfile.close ()
-    hfile.close ()  
-        
-if __name__ == "__main__":
-    argv = sys.argv
+    hfile.close ()
 
-    if len (argv) != 4:
-        print("usage: generate-introspection.py INPUT.XML OUTPUT.C, OUTPUT.H", file=sys.stderr)
-        sys.exit(1)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Create a C source file and header file from DBus XML files")
+    parser.add_argument('sources', metavar='FILE.XML', nargs='+', help='DBus XML interface file')
+    parser.add_argument('--c-output', metavar='OUT.C', required=True, help='Name out output C file')
+    parser.add_argument('--h-output', metavar='OUT.H', required=True, help='Name out output H file')
+    args = parser.parse_args()
 
     input_filename = sys.argv[1]
     c_output_filename = sys.argv[2]
     h_output_filename = sys.argv[3]
 
-    generate_introspection (input_filename, c_output_filename, h_output_filename)
+    generate_introspection (args.sources[0], args.c_output, args.h_output)
