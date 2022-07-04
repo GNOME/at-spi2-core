@@ -1,6 +1,7 @@
 subdir('adaptors')
 
 atk_bridge_sources = [
+  introspection_generated,
   'accessible-leasing.c',
   'accessible-cache.c',
   'accessible-register.c',

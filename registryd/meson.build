@@ -1,7 +1,7 @@
 atspi_introspection_path = ''
 
 registryd_sources = [
-  introspection_generated[0],
+  introspection_generated,
   'de-marshaller.c',
   'registry-main.c',
   'registry.c',
