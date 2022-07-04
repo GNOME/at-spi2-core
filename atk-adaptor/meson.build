@@ -5,7 +5,6 @@ atk_bridge_sources = [
   'accessible-cache.c',
   'accessible-register.c',
   'accessible-stateset.c',
-  'introspection.c',
   'bridge.c',
   'object.c',
   'event.c',
