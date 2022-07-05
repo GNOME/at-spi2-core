@@ -47,6 +47,9 @@
       <annotation name="org.qtproject.QtDBus.QtTypeName" value="QSpiObjectReference"/>
     </property>
 
+    <!--
+        ChildCount: number of accessible children for this object.
+    -->
     <property name="ChildCount" type="i" access="read"/>
 
     <property name="Locale" type="s" access="read"/>
