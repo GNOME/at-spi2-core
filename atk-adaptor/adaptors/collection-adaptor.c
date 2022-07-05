@@ -550,9 +550,6 @@ sort_order_rev_canonical (MatchRulePrivate * mrp, GList * ls,
       kount++;
     }
 
-  if (!flag)
-    flag = TRUE;
-
   /* Get the current nodes index in it's parent and the parent object. */
   indexinparent = atk_object_get_index_in_parent (obj);
   parent = atk_object_get_parent (obj);
