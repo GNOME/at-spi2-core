@@ -823,6 +823,9 @@ typedef enum {
  * @ATSPI_ROLE_FRAME object may still be the active window.
  * @ATSPI_RELATION_PARENT_WINDOW_OF: This is the reciprocal relation to
  * @ATSPI_RELATION_POPUP_FOR.
+ * @ATSPI_RELATION_DESCRIPTION_FOR: Reciprocal of %ATSPI_RELATION_DESCRIBED_BY.
+ * Indicates that this object provides descriptive information about the target
+ * object(s). See also %ATSPI_RELATION_DETAILS_FOR and %ATSPI_RELATION_ERROR_FOR.
  * @ATSPI_RELATION_DESCRIBED_BY: Reciprocal of %ATSPI_RELATION_DESCRIPTION_FOR.
  * Indicates that one or more target objects provide descriptive information
  * about this object. This relation type is most appropriate for information
@@ -835,9 +838,6 @@ typedef enum {
  * assistive technologies may provide a means for the user to navigate to
  * objects containing detailed descriptions so that their content can be more
  * closely reviewed.
- * @ATSPI_RELATION_DESCRIPTION_FOR: Reciprocal of %ATSPI_RELATION_DESCRIBED_BY.
- * Indicates that this object provides descriptive information about the target
- * object(s). See also %ATSPI_RELATION_DETAILS_FOR and %ATSPI_RELATION_ERROR_FOR.
  * @ATSPI_RELATION_DETAILS: Reciprocal of %ATSPI_RELATION_DETAILS_FOR. Indicates
  * that this object has a detailed or extended description, the contents of
  * which can be found in the target object(s). This relation type is most
