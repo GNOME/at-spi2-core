@@ -52,6 +52,18 @@
     -->
     <property name="ChildCount" type="i" access="read"/>
 
+    <!--
+        Locale: Unix locale for the current object.
+
+        For an application, this may be the locale for the language that the application
+        shows in its user interface.
+
+        For a document being shown in an application, or a paragraph within a document,
+        the locale may refer to that object exclusively.  For example, an application may
+        be showing itself in English ("en"), but it may be used to display a document in
+        Spanish ("es").  In the latter case, a screen reader will want to know that it
+        should switch to Spanish while reading the document.
+    -->
     <property name="Locale" type="s" access="read"/>
 
     <property name="AccessibleId" type="s" access="read"/>
