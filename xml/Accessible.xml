@@ -97,6 +97,13 @@
       <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QSpiObjectReference"/>
     </method>
 
+    <!--
+        GetChildren:
+
+        Returns a list of the object's accessible children.
+
+        Each array element (so) is a string for the application name, and an object path.
+    -->
     <method name="GetChildren">
       <arg direction="out" type="a(so)"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QSpiObjectReferenceArray"/>
