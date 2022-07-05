@@ -77,6 +77,20 @@
     -->
     <property name="AccessibleId" type="s" access="read"/>
 
+    <!--
+        GetChildAtIndex:
+        @index: 0-based index of the child to query.
+
+        Queries the Nth accessible child of the current object.  It is expected that this
+        will correspond to the order that the GetChildren method would return.
+
+        Returns: The (so) is a string for the application name, and an object path.
+
+        Notes: implementations vary in their behavior when the index is out of range.
+        GTK4 returns an error, while atk-adaptor returns the null object path
+        "/org/a11y/atspi/null".  To keep the type system gods happy, you should probably
+        return a DBus error in that case.
+    -->
     <method name="GetChildAtIndex">
       <arg direction="in" name="index" type="i"/>
       <arg direction="out" type="(so)"/>
