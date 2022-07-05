@@ -30,6 +30,19 @@
     -->
     <property name="Description" type="s" access="read"/>
 
+    <!--
+        Parent: Accessible parent object of the current object.
+
+        The (so) is a string for the application name, and an object path.
+
+        Null parent: If the object has no parent (e.g. the application's root object is
+        being queried), return "" for the application name name and "/org/a11y/atspi/null"
+        for the object path.
+
+        Root object: An application must have a single root object, called
+        "/org/a11y/atspi/accessible/root".  All other objects should have that one as
+        their highest-level ancestor.
+    -->
     <property name="Parent" type="(so)" access="read">
       <annotation name="org.qtproject.QtDBus.QtTypeName" value="QSpiObjectReference"/>
     </property>
