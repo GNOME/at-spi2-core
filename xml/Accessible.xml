@@ -21,6 +21,13 @@
     -->
     <property name="Name" type="s" access="read"/>
 
+    <!--
+        Description: Human-readable, localized description of the object in more detail.
+
+        While the Name property is meant to be a short string that screen readers say
+        during normal navigation, the Description property is for when the user asks for
+        more detail.
+    -->
     <property name="Description" type="s" access="read"/>
 
     <property name="Parent" type="(so)" access="read">
