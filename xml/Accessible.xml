@@ -6,6 +6,19 @@
   -->
   <interface name="org.a11y.atspi.Accessible">
 
+    <!--
+        Name: Human-readable, localized, short name for the object.
+
+        Normally you need to set this for objects which do not have a labelled-by
+        relation.  Consider a widget to select RGB colors by setting three sliders.  The
+        names for the sliders would be "Red", "Green", "Blue", respectively, or
+        translations to application's locale.  The names would be unnecessary if each
+        slider had a labelled-by relation to corresponding labels visible in the user
+        interface.
+
+        In general, something is missing from your application if an object that can be
+        interacted with has no Name or a labelled-by relation.
+    -->
     <property name="Name" type="s" access="read"/>
 
     <property name="Description" type="s" access="read"/>
