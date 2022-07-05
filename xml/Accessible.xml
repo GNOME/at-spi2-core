@@ -109,6 +109,12 @@
       <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QSpiObjectReferenceArray"/>
     </method>
 
+    <!--
+        GetIndexInParent:
+
+        Returns the 0-based index at which the object would be returned by calling
+        GetChildren on its parent.
+    -->
     <method name="GetIndexInParent">
       <arg direction="out" type="i"/>
     </method>
