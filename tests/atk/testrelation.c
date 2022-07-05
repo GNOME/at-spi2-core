@@ -78,7 +78,7 @@ test_relation (void)
   set = atk_object_ref_relation_set (obj);
   g_assert_nonnull (set);
   n_relations = atk_relation_set_get_n_relations (set);
-  g_assert_cmpint (atk_relation_set_get_n_relations (set), ==, 0);
+  g_assert_cmpint (n_relations, ==, 0);
   g_object_unref (set);
   g_object_unref (obj);
 }

@@ -1519,8 +1519,8 @@ atk_text_real_get_bounded_ranges (AtkText          *text,
                                   AtkTextClipType  y_clip_type)
 {
   gint bounds_min_offset, bounds_max_offset;
-  gint min_line_start, min_line_end;
-  gint max_line_start, max_line_end;
+  gint min_line_start = 0, min_line_end = 0;
+  gint max_line_start = 0, max_line_end = 0;
   gchar *line;
   gint curr_offset;
   gint offset;

@@ -57,27 +57,17 @@ atk_test_state_set_new (gpointer fixture, gconstpointer user_data)
 {
   GArray *states_arr = g_array_new (FALSE, FALSE, sizeof (AtspiStateType));
 
-  gint state = 0;
-  state = 11; // ATSPI_STATE_FOCUSABLE
+  AtspiStateType state = ATSPI_STATE_FOCUSABLE;
   g_array_append_val (states_arr, state);
-  state = 12; // ATSPI_STATE_FOCUSED
+  state = ATSPI_STATE_FOCUSED;
   g_array_append_val (states_arr, state);
 
   g_assert_cmpint (states_arr->len, ==, 2);
 
   AtspiStateSet *ss = atspi_state_set_new (states_arr);
 
-  AtspiStateType valid_states[] = {
-    ATSPI_STATE_FOCUSABLE,
-    ATSPI_STATE_FOCUSED,
-  };
-
-  g_assert (atspi_state_set_contains (ss, valid_states[0]));
-  g_assert (atspi_state_set_contains (ss, valid_states[1]));
-  int i = 0;
-  for (i = 0; i < states_arr->len; ++i) {
-    g_assert_cmpint (valid_states[i], ==, g_array_index (states_arr, AtspiStateType, i));
-  }
+  g_assert (atspi_state_set_contains (ss, ATSPI_STATE_FOCUSABLE));
+  g_assert (atspi_state_set_contains (ss, ATSPI_STATE_FOCUSED));
 }
 
 static void

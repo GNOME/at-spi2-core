@@ -66,6 +66,7 @@ atk_test_selection_get_selected_child (gpointer fixture, gconstpointer user_data
   AtspiAccessible *o = NULL;
   int i=0;
   int selected_count = atspi_selection_get_n_selected_children (iface, NULL);
+  g_assert_cmpint (selected_count, ==, 3);
   for (i=0; i<selected_count; i++) {
     o = atspi_selection_get_selected_child (iface, i, NULL);
     g_assert_cmpstr (atspi_accessible_get_name (o, NULL), ==, valid_names[i]);

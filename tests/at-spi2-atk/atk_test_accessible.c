@@ -159,28 +159,40 @@ atk_test_accessible_get_attributes (gpointer fixture, gconstpointer user_data)
   GHashTableIter iter;
   gpointer key, value;
 
-  gchar *valid_keys[] = { "atspi" };
-  gchar *valid_values[] = { "test" };
+  g_hash_table_iter_init (&iter, attr_hash_tab);
 
-  g_hash_table_iter_init (&iter, attr_hash_tab );
-  int i = 0;
-  while (g_hash_table_iter_next (&iter, &key, &value)) {
-    g_assert_cmpstr (valid_keys[i], ==, (gchar *)key );
-    g_assert_cmpstr (valid_values[i], ==, (gchar *)value );
-    ++i;
-  }
+  while (g_hash_table_iter_next (&iter, &key, &value))
+    {
+      const char *key_str = key;
+      const char *value_str = value;
+
+      if (strcmp (key_str, "atspi1") == 0)
+        {
+          g_assert_cmpstr (value_str, ==, "test1");
+        }
+      else if (strcmp (key_str, "atspi2") == 0)
+        {
+          g_assert_cmpstr (value_str, ==, "test2");
+        }
+      else
+        {
+          g_assert_not_reached ();
+        }
+    }
 }
 
 static void
 atk_test_accessible_get_attributes_as_array (gpointer fixture, gconstpointer user_data)
 {
   AtspiAccessible *obj = get_root_obj (DATA_FILE);
-  gchar *valid_attr[] = { "atspi:test", NULL };
   GArray *attr_arr = atspi_accessible_get_attributes_as_array ( obj, NULL);
-  int i = 0;
-  g_assert (attr_arr->len == (sizeof(valid_attr)/sizeof(gchar *))-1);
-  for( i = 0; i < attr_arr->len; ++i) {
-    g_assert_cmpstr (valid_attr[i], ==, g_array_index (attr_arr, gchar *, i));
+  int i;
+  g_assert_cmpint (attr_arr->len, ==, 2);
+  for(i = 0; i < attr_arr->len; ++i) {
+    const char *pair = g_array_index (attr_arr, gchar *, i);
+
+    g_assert (strcmp (pair, "atspi1:test1") == 0
+              || strcmp (pair, "atspi2:test2") == 0);
   }
 }
 

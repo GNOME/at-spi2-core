@@ -300,6 +300,9 @@ int main (int argc, char **argv)
 
     g_idle_add (do_tests_func, NULL);
     g_main_loop_run(main_loop);
+
+    droute_free (cnx);
+
     if (success)
             return 0;
     else

@@ -550,9 +550,6 @@ sort_order_rev_canonical (MatchRulePrivate * mrp, GList * ls,
       kount++;
     }
 
-  if (!flag)
-    flag = TRUE;
-
   /* Get the current nodes index in it's parent and the parent object. */
   indexinparent = atk_object_get_index_in_parent (obj);
   parent = atk_object_get_parent (obj);
@@ -625,8 +622,6 @@ bitarray_to_seq (dbus_uint32_t *array, int array_count, int **ret)
   int i, j;
   int *out = (int *) g_malloc (out_size * sizeof (int));
 
-  if (!out)
-    return FALSE;
   for (i = 0; i < array_count; i++)
     {
       for (j = 0; j < 32; j++)
@@ -637,8 +632,6 @@ bitarray_to_seq (dbus_uint32_t *array, int array_count, int **ret)
                 {
                   out_size <<= 1;
                   out = (int *) g_realloc (out, out_size * sizeof (int));
-                  if (!out)
-                    return FALSE;
                 }
               out[out_count++] = i * 32 + j;
             }
