@@ -22,6 +22,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
+#define ATK_DISABLE_DEPRECATION_WARNINGS
 #include <atk/atk.h>
 #include <droute/droute.h>
 #include "bridge.h"
