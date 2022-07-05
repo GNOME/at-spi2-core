@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<node>
+<node xmlns:doc="http://www.freedesktop.org/dbus/1.0/doc.dtd">
+  <!--
+      org.a11y.atspi.Accessible:
+      @short_description: Base interface which is implemented by all accessible objects.
+  -->
   <interface name="org.a11y.atspi.Accessible">
 
     <property name="Name" type="s" access="read"/>
