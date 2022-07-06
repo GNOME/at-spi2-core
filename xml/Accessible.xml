@@ -732,6 +732,14 @@
       <arg direction="out" type="s"/>
     </method>
 
+    <!--
+        GetLocalizedRoleName:
+
+        Gets a UTF-8 string corresponding to the name of the role played by an object, translated
+        to the current locale.
+        This method will return useful values for roles that fall outside the
+        enumeration used in the GetRole method.
+    -->
     <method name="GetLocalizedRoleName">
       <arg direction="out" type="s"/>
     </method>
