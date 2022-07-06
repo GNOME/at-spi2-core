@@ -974,6 +974,12 @@
       <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QSpiAttributeSet"/>
     </method>
 
+    <!--
+        GetApplication:
+
+        Returns a string for the application name, and an object path for the containing
+        application object.
+    -->
     <method name="GetApplication">
       <arg direction="out" type="(so)"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QSpiObjectReference"/>
