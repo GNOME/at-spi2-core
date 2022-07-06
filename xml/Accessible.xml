@@ -721,6 +721,13 @@
       <arg direction="out" type="u"/>
     </method>
 
+    <!--
+        GetRoleName:
+
+        Gets a UTF-8 string corresponding to the name of the role played by an object.
+        This method will return useful values for roles that fall outside the
+        enumeration used in the GetRole method.
+    -->
     <method name="GetRoleName">
       <arg direction="out" type="s"/>
     </method>
