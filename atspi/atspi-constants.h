@@ -823,6 +823,9 @@ typedef enum {
  * @ATSPI_ROLE_FRAME object may still be the active window.
  * @ATSPI_RELATION_PARENT_WINDOW_OF: This is the reciprocal relation to
  * @ATSPI_RELATION_POPUP_FOR.
+ * @ATSPI_RELATION_DESCRIPTION_FOR: Reciprocal of %ATSPI_RELATION_DESCRIBED_BY.
+ * Indicates that this object provides descriptive information about the target
+ * object(s). See also %ATSPI_RELATION_DETAILS_FOR and %ATSPI_RELATION_ERROR_FOR.
  * @ATSPI_RELATION_DESCRIBED_BY: Reciprocal of %ATSPI_RELATION_DESCRIPTION_FOR.
  * Indicates that one or more target objects provide descriptive information
  * about this object. This relation type is most appropriate for information
@@ -835,9 +838,6 @@ typedef enum {
  * assistive technologies may provide a means for the user to navigate to
  * objects containing detailed descriptions so that their content can be more
  * closely reviewed.
- * @ATSPI_RELATION_DESCRIPTION_FOR: Reciprocal of %ATSPI_RELATION_DESCRIBED_BY.
- * Indicates that this object provides descriptive information about the target
- * object(s). See also %ATSPI_RELATION_DETAILS_FOR and %ATSPI_RELATION_ERROR_FOR.
  * @ATSPI_RELATION_DETAILS: Reciprocal of %ATSPI_RELATION_DETAILS_FOR. Indicates
  * that this object has a detailed or extended description, the contents of
  * which can be found in the target object(s). This relation type is most
@@ -938,7 +938,7 @@ typedef enum {
  * @ATSPI_ROLE_COLUMN_HEADER: The header for a column of data.
  * @ATSPI_ROLE_COMBO_BOX: A list of choices the user can select from.
  * @ATSPI_ROLE_DATE_EDITOR: An object which allows entry of a date.
- * @ATSPI_ROLE_DESKTOP_ICON: An inconifed internal frame within a DESKTOP_PANE.
+ * @ATSPI_ROLE_DESKTOP_ICON: An inconifed internal frame within a DESKTOP_FRAME.
  * @ATSPI_ROLE_DESKTOP_FRAME: A pane that supports internal frames and
  * iconified versions of those internal frames.
  * @ATSPI_ROLE_DIAL: An object that allows a value to be changed via rotating a
@@ -946,11 +946,11 @@ typedef enum {
  * @ATSPI_ROLE_DIALOG: A top level window with title bar and a border.
  * @ATSPI_ROLE_DIRECTORY_PANE: A pane that allows the user to navigate through
  * and select the contents of a directory.
- * @ATSPI_ROLE_DRAWING_AREA: A specialized dialog that displays the files in
+ * @ATSPI_ROLE_DRAWING_AREA: An object used for drawing custom user interface
+ * elements.
+ * @ATSPI_ROLE_FILE_CHOOSER: A specialized dialog that displays the files in
  * the directory and lets the user select a file, browse a different
  * directory, or specify a filename.
- * @ATSPI_ROLE_FILE_CHOOSER: An object used for drawing custom user interface
- * elements.
  * @ATSPI_ROLE_FILLER: A object that fills up space in a user interface.
  * @ATSPI_ROLE_FOCUS_TRAVERSABLE: Don't use, reserved for future use.
  * @ATSPI_ROLE_FONT_CHOOSER: Allows selection of a display font.
@@ -1014,11 +1014,10 @@ typedef enum {
  * @ATSPI_ROLE_SEPARATOR: An object usually contained in a menu to provide a
  * visible and logical separation of the contents in a menu.
  * @ATSPI_ROLE_SLIDER: An object that allows the user to select from a bounded
- * range.
- * @ATSPI_ROLE_SPIN_BUTTON: An object which allows one of a set of choices to
- * be selected, and which displays the current choice.  Unlike
- * @ATSPI_ROLE_SCROLL_BAR, @ATSPI_ROLE_SLIDER objects need not control 
+ * range.  Unlike @ATSPI_ROLE_SCROLL_BAR, @ATSPI_ROLE_SLIDER objects need not control 
  * 'viewport'-like objects.
+ * @ATSPI_ROLE_SPIN_BUTTON: An object which allows one of a set of choices to
+ * be selected, and which displays the current choice.  
  * @ATSPI_ROLE_SPLIT_PANE: A specialized panel that presents two other panels
  * at the same time.
  * @ATSPI_ROLE_STATUS_BAR: Object displays non-quantitative status information
@@ -1072,7 +1071,7 @@ typedef enum {
  * @ATSPI_RELATION_CONTROLLER_FOR relation to such).
  * @ATSPI_ROLE_APPLICATION: An object corresponding to the toplevel accessible
  * of an application, which may contain @ATSPI_ROLE_FRAME objects or other      
- * accessible objects. Children of #AccessibleDesktop objects  are generally
+ * accessible objects. Children of objects with the #ATSPI_ROLE_DESKTOP_FRAME role are generally
  * @ATSPI_ROLE_APPLICATION objects.
  * @ATSPI_ROLE_AUTOCOMPLETE: The object is a dialog or list containing items
  * for insertion into an entry widget, for instance a list of words for
@@ -1249,11 +1248,11 @@ typedef enum {
  * to point back to the mark. @Since: 2.36.
  * @ATSPI_ROLE_SUGGESTION: A container for content that is called out as a proposed
  * change from the current version of the document, such as by a reviewer of the
- * content. This role should include either %ATSPI_ROLE_CONTENT_DELETION and/or
- * %ATSPI_ROLE_CONTENT_INSERTION children, in any order, to indicate what the
+ * content. An object with this role should include children with %ATSPI_ROLE_CONTENT_DELETION and/or
+ * %ATSPI_ROLE_CONTENT_INSERTION, in any order, to indicate what the
  * actual change is. @Since: 2.36
- *  @ATSPI_ROLE_LAST_DEFINED: Not a valid role, used for finding end of
- *  enumeration.
+ * @ATSPI_ROLE_LAST_DEFINED: Not a valid role, used for finding end of
+ * enumeration.
  *
  * Enumeration used by interface #AtspiAccessible to specify the role
  * of an #AtspiAccessible object.
