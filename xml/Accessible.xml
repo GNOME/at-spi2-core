@@ -960,6 +960,15 @@
       <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QSpiIntList"/>
     </method>
 
+    <!--
+        GetAttributes:
+
+        Gets a list of name/value pairs of attributes or annotations for this object.  For
+        typographic, textual, or textually-semantic attributes, see the Text.GetAttributes
+        method.
+
+        FIXME: is there a list of well-known attributes?
+    -->
     <method name="GetAttributes">
       <arg direction="out" type="a{ss}"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QSpiAttributeSet"/>
