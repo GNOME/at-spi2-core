@@ -253,14 +253,14 @@ spi_init_keystroke_from_atk_key_event (AtspiDeviceEvent * keystroke,
   switch (event->type)
     {
     case (ATK_KEY_EVENT_PRESS):
-      keystroke->type = ATSPI_KEY_PRESSED;
+      keystroke->type = ATSPI_KEY_PRESSED_EVENT;
       break;
     case (ATK_KEY_EVENT_RELEASE):
-      keystroke->type = ATSPI_KEY_RELEASED;
+      keystroke->type = ATSPI_KEY_RELEASED_EVENT;
       break;
     default:
-      keystroke->type = 0;
-      break;
+      g_error ("atk passed us an AtkKeyEventStruct invalid type %d", event->type);
+      return;
     }
 #if 0
   g_print
