@@ -23,3 +23,4 @@ rustup component add clippy-preview
 rustup component add rustfmt
 # cargo install --force cargo-c
 cargo install --version ^1.0 gitlab_clippy
+cargo install grcov
