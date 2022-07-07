@@ -43,7 +43,6 @@ static DBusConnection *bus = NULL;
 static GHashTable *live_refs = NULL;
 static gint method_call_timeout = 800;
 static gint app_startup_time = 15000;
-static gboolean allow_sync = TRUE;
 
 GMainLoop *atspi_main_loop;
 GMainContext *atspi_main_context;
@@ -1103,12 +1102,6 @@ _atspi_dbus_call (gpointer obj, const char *interface, const char *method, GErro
   if (!check_app (aobj->app, error))
     return FALSE;
 
-  if (!allow_sync)
-  {
-    _atspi_set_error_no_sync (error);
-    return FALSE;
-  }
-
   va_start (args, type);
   dbus_error_init (&err);
   set_timeout (aobj->app);
@@ -1212,12 +1205,6 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
 
   if (!check_app (aobj->app, error))
     return FALSE;
-
-  if (!allow_sync)
-  {
-    _atspi_set_error_no_sync (error);
-    return FALSE;
-  }
 
   message = dbus_message_new_method_call (aobj->app->bus_name,
                                           aobj->path,
@@ -1864,28 +1851,6 @@ _atspi_dbus_update_cache_from_dict (AtspiAccessible *accessible, DBusMessageIter
   }
 
   return cache;
-}
-
-gboolean
-_atspi_get_allow_sync ()
-{
-  return allow_sync;
-}
-
-gboolean
-_atspi_set_allow_sync (gboolean val)
-{
-  gboolean ret = allow_sync;
-
-  allow_sync = val;
-  return ret;
-}
-
-void
-_atspi_set_error_no_sync (GError **error)
-{
-  g_set_error_literal (error, ATSPI_ERROR, ATSPI_ERROR_SYNC_NOT_ALLOWED,
-                        _("Attempted synchronous call where prohibited"));
 }
 
 static const char *sr_introspection = "<!DOCTYPE node PUBLIC \"-//freedesktop//DTD D-BUS Object Introspection 1.0//EN\"\n"

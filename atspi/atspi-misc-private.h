@@ -149,7 +149,6 @@ typedef enum
 {
   ATSPI_ERROR_APPLICATION_GONE,
   ATSPI_ERROR_IPC,
-  ATSPI_ERROR_SYNC_NOT_ALLOWED,
 } AtspiError;
 
 extern GMainLoop *atspi_main_loop;
@@ -160,12 +159,6 @@ GHashTable *_atspi_get_live_refs ();
 gchar *_atspi_name_compat (gchar *in);
 
 GHashTable *_atspi_dbus_update_cache_from_dict (AtspiAccessible *accessible, DBusMessageIter *iter);
-
-gboolean _atspi_get_allow_sync ();
-
-gboolean _atspi_set_allow_sync (gboolean val);
-
-void _atspi_set_error_no_sync (GError **error);
 
 gboolean _atspi_prepare_screen_reader_interface ();
 

@@ -79,18 +79,6 @@ impl_registerObjectEventListener (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_pause (DBusConnection * bus, DBusMessage * message, void *user_data)
-{
-  return NULL;
-}
-
-static DBusMessage *
-impl_resume (DBusConnection * bus, DBusMessage * message, void *user_data)
-{
-  return NULL;
-}
-
-static DBusMessage *
 impl_GetLocale (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   return NULL;
@@ -124,8 +112,6 @@ return reply;
 static DRouteMethod methods[] = {
   {impl_registerToolkitEventListener, "registerToolkitEventListener"},
   {impl_registerObjectEventListener, "registerObjectEventListener"},
-  {impl_pause, "pause"},
-  {impl_resume, "resume"},
   {impl_GetLocale, "GetLocale"},
   {impl_get_app_bus, "GetApplicationBusAddress"},
   {NULL, NULL}

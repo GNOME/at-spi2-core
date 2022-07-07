@@ -130,7 +130,7 @@ atk_test_component_get_alpha (gpointer fixture, gconstpointer user_data)
   g_assert (iface != NULL);
 
   gdouble ret = atspi_component_get_alpha (iface, NULL);
-  g_assert_cmpint (ret, ==, 2.5);
+  g_assert_cmpfloat (ret, ==, 2.5);
 }
 
 static void
