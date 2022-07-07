@@ -22,11 +22,6 @@
 #include <string.h>
 #include <dbind/dbind.h>
 
-/* Wow! dbus is unpleasant to use */
-
-#define DESKICE_PATH      "/Novell/ICEDesktop/Daemon"
-#define DESKICE_NAMESPACE "Novell.ICEDesktop.Daemon"
-
 void marshal (DBusMessage *msg, const char *type, void *ptr)
 {
     DBusMessageIter iter;
@@ -361,45 +356,6 @@ void test_marshalling ()
     printf ("Marshalling ok\n");
 }
 
-void test_teamspaces (DBusConnection *bus)
-{
-    GArray *spaces;
-    DBusError error;
-    int i;
-    typedef struct {
-        char *name;
-        char *id;
-        char *url;
-    } TeamSpace;
-
-    dbus_error_init (&error);
-    if (!dbind_method_call_reentrant (bus,
-                                      NULL,
-                                      DESKICE_PATH,
-                                      DESKICE_NAMESPACE,
-                                      "GetTeamList",
-                                      &error,
-                                      "=>a(sss)",
-                                      &spaces)) {
-        fprintf (stderr, "Error getting team spaces %s: %s\n",
-                 error.name, error.message);
-        dbus_error_free (&error);
-        return;
-    }
-
-    if (!spaces) {
-        fprintf (stderr, "no teamspaces\n");
-        return;
-    }
-    fprintf (stderr, "%d teamspace(s)\n", spaces->len);
-    for (i = 0; i < spaces->len; i++) {
-        TeamSpace *space = &g_array_index (spaces, TeamSpace, i);
-        fprintf (stderr, "\t%d: %s, %s, %s\n", i, space->name, space->id, space->url);
-    }
-
-    dbind_any_free_ptr ("a(sss)", spaces);
-}
-
 void test_helpers ()
 {
     dbind_find_c_alignment ("(sss)");
@@ -417,7 +373,6 @@ int main (int argc, char **argv)
 
     test_helpers ();
     test_marshalling ();
-    test_teamspaces (bus);
 
     return 0;
 }
