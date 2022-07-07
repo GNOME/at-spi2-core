@@ -119,6 +119,11 @@ asan-build:
   needs: ['opensuse-container@x86_64']
   variables:
     MESON_EXTRA_FLAGS: "--buildtype=debug -Db_sanitize=address -Db_lundef=false -Dintrospection=no -Ddocs=false"
+    # Add a suppressions file for address-sanitizer.  Looks like libdbus has a minor leak that is hurting
+    # the tests while run with asan.  Hopefully this will go away once we convert everything to gdbus.
+    #
+    # https://gitlab.freedesktop.org/dbus/dbus/-/issues/326
+    LSAN_OPTIONS: "suppressions=${CI_PROJECT_DIR}/ci/address-sanitizer.supp"
   script:
     - CC=clang meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
     - meson compile -C _build
@@ -128,7 +133,7 @@ asan-build:
     name: "at-spi2-core-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
     when: always
     paths:
-      - "_asan_build/meson-logs"
+      - "${CI_PROJECT_DIR}/_build/meson-logs"
   allow_failure: true
 
 # Run the test suite and extract code coverage information.

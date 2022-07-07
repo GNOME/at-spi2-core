@@ -1,0 +1,5 @@
+# Leak in __dbus_pending_call_new_unlocked
+# https://gitlab.freedesktop.org/dbus/dbus/-/issues/326
+leak:libdbus
+
+
