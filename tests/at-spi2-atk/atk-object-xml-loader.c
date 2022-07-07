@@ -158,16 +158,8 @@ create_atk_object_from_element (xmlNode *element)
 
   xmlChar *name;
   xmlChar *description;
-  xmlChar *state_enum;
   xmlChar *role;
   gint relation_type;
-  xmlChar *relation_target_name;
-  xmlChar *action_name;
-  xmlChar *action_des;
-  xmlChar *action_key_bind;
-  xmlChar *image_des;
-  xmlChar *image_locale;
-  xmlChar *text;
   gint x_size, y_size;
   gint width, height;
   gint x_extent, y_extent, w_extent, h_extent;
@@ -224,6 +216,14 @@ create_atk_object_from_element (xmlNode *element)
                       "accessible-description", description,
                       "accessible-role", atk_role_for_name ((const gchar *)role),
                       NULL);
+  xmlFree(name);
+  xmlFree(description);
+  xmlFree(role);
+
+  name = NULL;
+  description = NULL;
+  role = NULL;
+
   child_node = element->xmlChildrenNode;
   while (child_node != NULL) {
     if (!xmlStrcmp (child_node->name, ACCESSIBLE_NODE) ||
@@ -245,8 +245,8 @@ create_atk_object_from_element (xmlNode *element)
     child_node2 = child_node->xmlChildrenNode;
     while (child_node2 != NULL) {
       if (!xmlStrcmp (child_node2->name, RELATION_NODE)) {
+        xmlChar *relation_target_name = xmlGetProp (child_node2, RELATION_TARGET_NAME_ATTR);
         relation_type = atoi_get_prop (child_node2, RELATION_TYPE_ATTR);
-        relation_target_name = xmlGetProp (child_node2, RELATION_TARGET_NAME_ATTR);
         relation_set = atk_object_ref_relation_set (ATK_OBJECT (child_obj));
         array[0] = ATK_OBJECT (obj);
         relation = atk_relation_new (array, 1, relation_type);
@@ -257,20 +257,25 @@ create_atk_object_from_element (xmlNode *element)
         xmlFree (relation_target_name);
       }
       if (!xmlStrcmp (child_node2->name, STATE_NODE)) {
+        xmlChar *state_enum = xmlGetProp (child_node2, STATE_TYPE_ATTR);
+
         state_set = atk_object_ref_state_set (ATK_OBJECT (child_obj));
-        state_enum = xmlGetProp (child_node2, STATE_TYPE_ATTR);
         state_type = atk_state_type_for_name ((const gchar *)state_enum);
         atk_state_set_add_state (state_set, state_type);
         g_object_unref (state_set);
         xmlFree (state_enum);
       }
       if (!xmlStrcmp (child_node2->name, ACTION_NODE)) {
-        action_name = xmlGetProp (child_node2, ACTION_NAME_ATTR);
-        action_des = xmlGetProp (child_node2, ACTION_DES_ATTR);
-        action_key_bind = xmlGetProp (child_node2, ACTION_KEY_BIND_ATTR);
+        xmlChar *action_name = xmlGetProp (child_node2, ACTION_NAME_ATTR);
+        xmlChar *action_des = xmlGetProp (child_node2, ACTION_DES_ATTR);
+        xmlChar *action_key_bind = xmlGetProp (child_node2, ACTION_KEY_BIND_ATTR);
+
         my_atk_action_add_action (child_obj, (const gchar *)action_name,
                                   (const gchar *)action_des,
                                   (const gchar *)action_key_bind);
+        xmlFree (action_key_bind);
+        xmlFree (action_des);
+        xmlFree (action_name);
       }
       if (!xmlStrcmp (child_node2->name, COMPONENT_NODE)) {
         x_extent = atoi_get_prop (child_node2, COMP_X_ATTR);
@@ -308,12 +313,12 @@ create_atk_object_from_element (xmlNode *element)
         xmlFree (text);
       }
       if (!xmlStrcmp (child_node2->name, IMAGE_NODE)) {
-        image_des = xmlGetProp (child_node2, IMAGE_DES_ATTR);
+        xmlChar *image_des = xmlGetProp (child_node2, IMAGE_DES_ATTR);
+        xmlChar *image_locale = xmlGetProp (child_node2, IMAGE_LOCALE_ATTR);
         x_size = atoi_get_prop (child_node2, COMP_X_ATTR);
         y_size = atoi_get_prop (child_node2, COMP_Y_ATTR);
         width = atoi_get_prop (child_node2, COMP_WIDTH_ATTR);
         height = atoi_get_prop (child_node2, COMP_HEIGHT_ATTR);
-        image_locale = xmlGetProp (child_node2, IMAGE_LOCALE_ATTR);
 
         my_atk_set_image (ATK_IMAGE (child_obj),
                           (const gchar *)image_des,
@@ -322,9 +327,11 @@ create_atk_object_from_element (xmlNode *element)
                           width,
                           height,
                           (const gchar *)image_locale);
+        xmlFree (image_locale);
+        xmlFree (image_des);
       }
       if (!xmlStrcmp (child_node2->name, TEXT_NODE)) {
-        text = xmlGetProp (child_node2, TEXT_TEXT_ATTR);
+        xmlChar *text = xmlGetProp (child_node2, TEXT_TEXT_ATTR);
         AtkAttributeSet *attrSet = NULL;
         AtkAttribute *a1 = get_atk_attribute (child_node2, TEXT_BOLD_ATTR);
         AtkAttribute *a2 = get_atk_attribute (child_node2, TEXT_UNDERLINE_ATTR);
@@ -339,6 +346,7 @@ create_atk_object_from_element (xmlNode *element)
                          atoi_get_prop (child_node2, COMP_WIDTH_ATTR),
                          atoi_get_prop (child_node2, COMP_HEIGHT_ATTR),
                          attrSet);
+        xmlFree (text);
       }
       if (!xmlStrcmp (child_node2->name, TABLE_CELL_NODE)) {
         my_atk_set_table_cell (ATK_TABLE_CELL (child_obj),
