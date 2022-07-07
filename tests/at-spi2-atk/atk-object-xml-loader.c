@@ -138,7 +138,7 @@ get_atk_attribute (xmlNode *node, const xmlChar *attr)
   tmp->name = g_strdup ((const char *)attr);
   tmp->value = g_strdup ((const char *)str);
 
-  free (str);
+  xmlFree (str);
   return tmp;
 }
 
