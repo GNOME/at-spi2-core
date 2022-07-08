@@ -426,7 +426,6 @@ static void
 add_accessible_from_iter (DBusMessageIter *iter)
 {
   DBusMessageIter iter_struct, iter_array;
-  const char *app_name, *path;
   AtspiAccessible *accessible;
   AtspiAccessible *parent;
   const char *name, *description;
