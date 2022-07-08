@@ -443,7 +443,7 @@ impl_Embed (DBusConnection *bus, DBusMessage *message, void *user_data)
   reply = dbus_message_new_method_return (message);
   dbus_message_iter_init_append (reply, &reply_iter);
   append_reference (&reply_iter, 
-                    dbus_bus_get_unique_name (bus),
+                    reg->bus_unique_name,
                     SPI_DBUS_PATH_ROOT);
 
   return reply;
@@ -497,13 +497,14 @@ static DBusMessage *
 impl_GetAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
                            void *user_data)
 {
+  SpiRegistry *reg = SPI_REGISTRY (user_data);
   DBusMessage *reply = NULL;
   DBusMessageIter iter;
 
   reply = dbus_message_new_method_return (message);
   dbus_message_iter_init_append (reply, &iter);
   append_reference (&iter, 
-                    dbus_bus_get_unique_name (bus),
+                    reg->bus_unique_name,
                     SPI_DBUS_PATH_NULL);
 
   return reply;
@@ -816,13 +817,14 @@ static DBusMessage *
 impl_GetApplication (DBusConnection * bus,
                      DBusMessage * message, void *user_data)
 {
+  SpiRegistry *reg = SPI_REGISTRY (user_data);
   DBusMessage *reply = NULL;
   DBusMessageIter iter;
 
   reply = dbus_message_new_method_return (message);
   dbus_message_iter_init_append (reply, &iter);
   append_reference (&iter,
-                    dbus_bus_get_unique_name (bus),
+                    reg->bus_unique_name,
                     SPI_DBUS_PATH_NULL);
 
   return reply;
