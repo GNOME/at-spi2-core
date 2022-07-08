@@ -428,6 +428,7 @@ add_accessible_from_iter (DBusMessageIter *iter)
   DBusMessageIter iter_struct, iter_array;
   const char *app_name, *path;
   AtspiAccessible *accessible;
+  AtspiAccessible *parent;
   const char *name, *description;
   dbus_uint32_t role;
   gboolean children_cached = FALSE;
@@ -436,8 +437,7 @@ add_accessible_from_iter (DBusMessageIter *iter)
   dbus_message_iter_recurse (iter, &iter_struct);
 
   /* get accessible */
-  get_reference_from_iter (&iter_struct, &app_name, &path);
-  accessible = ref_accessible (app_name, path);
+  accessible = _atspi_dbus_return_accessible_from_iter (&iter_struct);
   if (!accessible)
     return;
 
@@ -445,10 +445,10 @@ add_accessible_from_iter (DBusMessageIter *iter)
   dbus_message_iter_next (&iter_struct);
 
   /* get parent */
-  get_reference_from_iter (&iter_struct, &app_name, &path);
+  parent = _atspi_dbus_return_accessible_from_iter (&iter_struct);
   if (accessible->accessible_parent)
     g_object_unref (accessible->accessible_parent);
-  accessible->accessible_parent = ref_accessible (app_name, path);
+  accessible->accessible_parent = parent;
 
   if (dbus_message_iter_get_arg_type (&iter_struct) == 'i')
   {
@@ -487,8 +487,7 @@ add_accessible_from_iter (DBusMessageIter *iter)
     while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
     {
       AtspiAccessible *child;
-      get_reference_from_iter (&iter_array, &app_name, &path);
-      child = ref_accessible (app_name, path);
+      child = _atspi_dbus_return_accessible_from_iter (&iter_array);
       g_ptr_array_remove (accessible->children, child);
       g_ptr_array_add (accessible->children, child);
     }
