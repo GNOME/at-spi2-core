@@ -39,12 +39,6 @@ struct event_data
   GSList *properties;
 };
 
-static void
-children_removed_listener (DBusConnection * bus,
-                           gint             index,
-                           const gchar    * name,
-                           const gchar    * path);
-
 /*---------------------------------------------------------------------------*/
 
 typedef struct _SpiReference
@@ -240,7 +234,7 @@ remove_application (SpiRegistry *reg, DBusConnection *bus, guint index)
   SpiReference *ref = g_ptr_array_index (reg->apps, index);
 
   spi_remove_device_listeners (reg->dec, ref->name);
-  children_removed_listener (bus, index, ref->name, ref->path);
+  emit_event (bus, SPI_DBUS_INTERFACE_EVENT_OBJECT, "ChildrenChanged", "remove", index, 0, ref->name, ref->path);
   g_ptr_array_remove_index (reg->apps, index);
 }
 
@@ -1081,17 +1075,6 @@ impl_Introspect_registry (DBusMessage * message, void *user_data)
 
   g_free(final);
   return reply;
-}
-
-
-static void
-children_removed_listener (DBusConnection * bus,
-                           gint             index,
-                           const gchar    * name,
-                           const gchar    * path)
-{
-  emit_event (bus, SPI_DBUS_INTERFACE_EVENT_OBJECT, "ChildrenChanged", "remove", index, 0,
-              name, path);
 }
 
 /*---------------------------------------------------------------------------*/
