@@ -40,12 +40,6 @@ struct event_data
 };
 
 static void
-children_added_listener (DBusConnection * bus,
-                         gint             index,
-                         const gchar    * name,
-                         const gchar    * path);
-
-static void
 children_removed_listener (DBusConnection * bus,
                            gint             index,
                            const gchar    * name,
@@ -208,8 +202,12 @@ emit_event (DBusConnection *bus,
 static void
 add_application (SpiRegistry *reg, DBusConnection *bus, const gchar *name, const gchar *path)
 {
+  gint index;
+
   g_ptr_array_add (reg->apps, spi_reference_new (name, path));
-  children_added_listener (bus, reg->apps->len - 1, name, path);
+  index = reg->apps->len - 1;
+
+  emit_event (bus, SPI_DBUS_INTERFACE_EVENT_OBJECT, "ChildrenChanged", "add", index, 0, name, path);
 }
 
 static void
@@ -1085,28 +1083,6 @@ impl_Introspect_registry (DBusMessage * message, void *user_data)
   return reply;
 }
 
-/*---------------------------------------------------------------------------*/
-
-/*
- * Children changed signal converter and forwarder.
- *
- * Klass (Interface) org.a11y.atspi.Event.Object
- * Major is the signal name.
- * Minor is 'add' or 'remove'
- * detail1 is the index.
- * detail2 is 0.
- * any_data is the child reference.
- */
-
-static void
-children_added_listener (DBusConnection * bus,
-                         gint             index,
-                         const gchar    * name,
-                         const gchar    * path)
-{
-  emit_event (bus, SPI_DBUS_INTERFACE_EVENT_OBJECT, "ChildrenChanged", "add", index, 0,
-              name, path);
-}
 
 static void
 children_removed_listener (DBusConnection * bus,
