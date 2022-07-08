@@ -208,14 +208,14 @@ emit_event (DBusConnection *bus,
 }
 
 static void
-add_application (SpiRegistry *reg, DBusConnection *bus, const gchar *name, const gchar *path)
+add_application (SpiRegistry *reg, const gchar *name, const gchar *path)
 {
   gint index;
 
   g_ptr_array_add (reg->apps, spi_reference_new (name, path));
   index = reg->apps->len - 1;
 
-  emit_event (bus, SPI_DBUS_INTERFACE_EVENT_OBJECT, "ChildrenChanged", "add", index, 0, name, path);
+  emit_event (reg->bus, SPI_DBUS_INTERFACE_EVENT_OBJECT, "ChildrenChanged", "add", index, 0, name, path);
 }
 
 static void
@@ -436,7 +436,7 @@ impl_Embed (DBusMessage *message, void *user_data)
 	goto error;
   dbus_message_iter_get_basic (&iter_struct, &obj_path);
 
-  add_application(reg, reg->bus, app_name, obj_path);
+  add_application (reg, app_name, obj_path);
 
   set_id (reg, reg->bus, app_name, obj_path);
 
