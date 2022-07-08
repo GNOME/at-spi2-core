@@ -436,7 +436,7 @@ add_accessible_from_iter (DBusMessageIter *iter)
   dbus_message_iter_recurse (iter, &iter_struct);
 
   /* get accessible */
-  accessible = _atspi_dbus_return_accessible_from_iter (&iter_struct);
+  accessible = _atspi_dbus_consume_accessible (&iter_struct);
   if (!accessible)
     return;
 
@@ -444,7 +444,7 @@ add_accessible_from_iter (DBusMessageIter *iter)
   dbus_message_iter_next (&iter_struct);
 
   /* get parent */
-  parent = _atspi_dbus_return_accessible_from_iter (&iter_struct);
+  parent = _atspi_dbus_consume_accessible (&iter_struct);
   if (accessible->accessible_parent)
     g_object_unref (accessible->accessible_parent);
   accessible->accessible_parent = parent;
@@ -486,7 +486,7 @@ add_accessible_from_iter (DBusMessageIter *iter)
     while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
     {
       AtspiAccessible *child;
-      child = _atspi_dbus_return_accessible_from_iter (&iter_array);
+      child = _atspi_dbus_consume_accessible (&iter_array);
       g_ptr_array_remove (accessible->children, child);
       g_ptr_array_add (accessible->children, child);
     }
@@ -659,7 +659,7 @@ _atspi_dbus_return_accessible_from_message (DBusMessage *message)
   if (!strcmp (signature, "(so)"))
   {
     dbus_message_iter_init (message, &iter);
-    retval =  _atspi_dbus_return_accessible_from_iter (&iter);
+    retval =  _atspi_dbus_consume_accessible (&iter);
   }
   else
   {
@@ -669,8 +669,9 @@ _atspi_dbus_return_accessible_from_message (DBusMessage *message)
   return retval;
 }
 
+/* Enters an iter which must be already pointing to a (so) and returns the accessible for it */
 AtspiAccessible *
-_atspi_dbus_return_accessible_from_iter (DBusMessageIter *iter)
+_atspi_dbus_consume_accessible (DBusMessageIter *iter)
 {
   const char *app_name, *path;
 
@@ -1249,7 +1250,7 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
   }
   if (!strcmp (type, "(so)"))
   {
-    *((AtspiAccessible **)data) = _atspi_dbus_return_accessible_from_iter (&iter_variant);
+    *((AtspiAccessible **)data) = _atspi_dbus_consume_accessible (&iter_variant);
   }
   else
   {
