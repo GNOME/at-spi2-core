@@ -161,6 +161,50 @@ find_index_of_reference (GPtrArray *arr, const gchar *name, const gchar * path, 
   return found;
 }
 
+/*
+ * Emits an AT-SPI event.
+ * AT-SPI events names are split into three parts:
+ * class:major:minor
+ * This is mapped onto D-Bus events as:
+ * D-Bus Interface:Signal Name:Detail argument
+ *
+ * Marshals a basic type into the 'any_data' attribute of
+ * the AT-SPI event.
+ */
+static void
+emit_event (DBusConnection *bus,
+            const char *klass,
+            const char *major,
+            const char *minor,
+            dbus_int32_t detail1,
+            dbus_int32_t detail2,
+            const char *name,
+            const char *path)
+{
+  DBusMessage *sig;
+  DBusMessageIter iter, iter_variant, iter_array;
+
+  sig = dbus_message_new_signal(SPI_DBUS_PATH_ROOT, klass, major);
+
+  dbus_message_iter_init_append(sig, &iter);
+
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &minor);
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail1);
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail2);
+
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_VARIANT, "(so)",
+                                    &iter_variant);
+    append_reference (&iter_variant, name, path);
+  dbus_message_iter_close_container (&iter, &iter_variant);
+
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "{sv}",
+                                    &iter_array);
+  dbus_message_iter_close_container (&iter, &iter_array);
+
+  dbus_connection_send(bus, sig, NULL);
+  dbus_message_unref(sig);
+}
+
 static void
 add_application (SpiRegistry *reg, DBusConnection *bus, const gchar *name, const gchar *path)
 {
@@ -1039,52 +1083,6 @@ impl_Introspect_registry (DBusMessage * message, void *user_data)
 
   g_free(final);
   return reply;
-}
-
-/*---------------------------------------------------------------------------*/
-
-/*
- * Emits an AT-SPI event.
- * AT-SPI events names are split into three parts:
- * class:major:minor
- * This is mapped onto D-Bus events as:
- * D-Bus Interface:Signal Name:Detail argument
- *
- * Marshals a basic type into the 'any_data' attribute of
- * the AT-SPI event.
- */
-static void 
-emit_event (DBusConnection *bus,
-            const char *klass,
-            const char *major,
-            const char *minor,
-            dbus_int32_t detail1,
-            dbus_int32_t detail2,
-            const char *name,
-            const char *path)
-{
-  DBusMessage *sig;
-  DBusMessageIter iter, iter_variant, iter_array;
-  
-  sig = dbus_message_new_signal(SPI_DBUS_PATH_ROOT, klass, major);
-
-  dbus_message_iter_init_append(sig, &iter);
-
-  dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &minor);
-  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail1);
-  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail2);
-
-  dbus_message_iter_open_container (&iter, DBUS_TYPE_VARIANT, "(so)",
-                                    &iter_variant);
-    append_reference (&iter_variant, name, path);
-  dbus_message_iter_close_container (&iter, &iter_variant);
-
-  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "{sv}",
-                                    &iter_array);
-  dbus_message_iter_close_container (&iter, &iter_array);
-
-  dbus_connection_send(bus, sig, NULL);
-  dbus_message_unref(sig);
 }
 
 /*---------------------------------------------------------------------------*/
