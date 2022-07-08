@@ -432,7 +432,7 @@ error:
 /*---------------------------------------------------------------------------*/
 
 static DBusMessage *
-impl_Contains (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_Contains (DBusMessage * message, void *user_data)
 {
   dbus_bool_t retval = FALSE;
   DBusMessage *reply;
@@ -460,7 +460,7 @@ impl_GetAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_GetExtents (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetExtents (DBusMessage * message, void *user_data)
 {
   dbus_int32_t x = 0, y = 0, width = 1024, height = 768;
   DBusMessage *reply;
@@ -479,8 +479,7 @@ impl_GetExtents (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_GetPosition (DBusConnection * bus, DBusMessage * message,
-                  void *user_data)
+impl_GetPosition (DBusMessage * message, void *user_data)
 {
   DBusMessage *reply;
   dbus_int32_t x = 0, y = 0;
@@ -492,7 +491,7 @@ impl_GetPosition (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_GetSize (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetSize (DBusMessage * message, void *user_data)
 {
   /* TODO - Get the screen size */
   DBusMessage *reply;
@@ -507,7 +506,7 @@ impl_GetSize (DBusConnection * bus, DBusMessage * message, void *user_data)
 #define LAYER_WIDGET 3;
 
 static DBusMessage *
-impl_GetLayer (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetLayer (DBusMessage * message, void *user_data)
 {
   DBusMessage *reply;
   dbus_uint32_t rv = LAYER_WIDGET;
@@ -519,8 +518,7 @@ impl_GetLayer (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_GetMDIZOrder (DBusConnection * bus, DBusMessage * message,
-                   void *user_data)
+impl_GetMDIZOrder (DBusMessage * message, void *user_data)
 {
   DBusMessage *reply;
   dbus_int16_t rv = 0;
@@ -532,7 +530,7 @@ impl_GetMDIZOrder (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_GrabFocus (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GrabFocus (DBusMessage * message, void *user_data)
 {
   DBusMessage *reply;
   dbus_bool_t retval = FALSE;
@@ -544,7 +542,7 @@ impl_GrabFocus (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_GetAlpha (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetAlpha (DBusMessage * message, void *user_data)
 {
   double rv = 1.0;
   DBusMessage *reply;
@@ -616,8 +614,7 @@ impl_get_ToolkitVersion (DBusMessageIter * iter, void *user_data)
 }
 
 static DBusMessage *
-impl_GetChildAtIndex (DBusConnection * bus,
-                      DBusMessage * message, void *user_data)
+impl_GetChildAtIndex (DBusMessage * message, void *user_data)
 {
   SpiRegistry *reg = SPI_REGISTRY (user_data);
   DBusMessage *reply;
@@ -648,8 +645,7 @@ impl_GetChildAtIndex (DBusConnection * bus,
 }
 
 static DBusMessage *
-impl_GetChildren (DBusConnection * bus,
-                  DBusMessage * message, void *user_data)
+impl_GetChildren (DBusMessage * message, void *user_data)
 {
   DBusMessage *reply = NULL;
   DBusMessageIter iter, iter_array;
@@ -670,8 +666,7 @@ impl_GetChildren (DBusConnection * bus,
 }
 
 static DBusMessage *
-impl_GetIndexInParent (DBusConnection * bus,
-                       DBusMessage * message, void *user_data)
+impl_GetIndexInParent (DBusMessage * message, void *user_data)
 {
   DBusMessage *reply;
   dbus_uint32_t rv = 0;
@@ -682,8 +677,7 @@ impl_GetIndexInParent (DBusConnection * bus,
 }
 
 static DBusMessage *
-impl_GetRelationSet (DBusConnection * bus,
-                     DBusMessage * message, void *user_data)
+impl_GetRelationSet (DBusMessage * message, void *user_data)
 {
   DBusMessage *reply;
   DBusMessageIter iter, iter_array;
@@ -697,7 +691,7 @@ impl_GetRelationSet (DBusConnection * bus,
 }
 
 static DBusMessage *
-impl_GetRole (DBusConnection * bus, DBusMessage * message, void * user_data)
+impl_GetRole (DBusMessage * message, void * user_data)
 {
   DBusMessage *reply;
   dbus_uint32_t rv = 14;	/* TODO: Get DESKTOP_FRAME from somewhere */
@@ -708,8 +702,7 @@ impl_GetRole (DBusConnection * bus, DBusMessage * message, void * user_data)
 }
 
 static DBusMessage *
-impl_GetRoleName (DBusConnection * bus,
-                  DBusMessage * message, void *user_data)
+impl_GetRoleName (DBusMessage * message, void *user_data)
 {
   DBusMessage *reply;
   const char *role_name = "desktop frame";
@@ -721,8 +714,7 @@ impl_GetRoleName (DBusConnection * bus,
 }
 
 static DBusMessage *
-impl_GetLocalizedRoleName (DBusConnection * bus,
-                           DBusMessage * message, void *user_data)
+impl_GetLocalizedRoleName (DBusMessage * message, void *user_data)
 {
   /* TODO - Localize this */
   DBusMessage *reply;
@@ -735,7 +727,7 @@ impl_GetLocalizedRoleName (DBusConnection * bus,
 }
 
 static DBusMessage *
-impl_GetState (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetState (DBusMessage * message, void *user_data)
 {
   DBusMessage *reply = NULL;
   DBusMessageIter iter, iter_array;
@@ -757,8 +749,7 @@ impl_GetState (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_GetAttributes (DBusConnection * bus,
-                    DBusMessage * message, void *user_data)
+impl_GetAttributes (DBusMessage * message, void *user_data)
 {
   DBusMessage *reply = NULL;
   DBusMessageIter iter, array;
@@ -788,8 +779,7 @@ impl_GetApplication (DBusConnection * bus,
 }
 
 static DBusMessage *
-impl_GetInterfaces (DBusConnection * bus,
-                    DBusMessage * message, void *user_data)
+impl_GetInterfaces (DBusMessage * message, void *user_data)
 {
   DBusMessage *reply;
   DBusMessageIter iter, iter_array;
@@ -810,7 +800,7 @@ impl_GetInterfaces (DBusConnection * bus,
 }
 
 static DBusMessage *
-impl_GetItems (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetItems (DBusMessage * message, void *user_data)
 {
   DBusMessage *reply;
   DBusMessageIter iter, iter_array;
@@ -916,7 +906,7 @@ impl_register_event (DBusConnection *bus, DBusMessage *message, void *user_data)
 }
 
 static DBusMessage *
-impl_deregister_event (DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_deregister_event (DBusMessage *message, void *user_data)
 {
   SpiRegistry *registry = SPI_REGISTRY (user_data);
   const char *orig_name;
@@ -935,7 +925,7 @@ impl_deregister_event (DBusConnection *bus, DBusMessage *message, void *user_dat
 }
 
 static DBusMessage *
-impl_get_registered_events (DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_get_registered_events (DBusMessage *message, void *user_data)
 {
   SpiRegistry *registry = SPI_REGISTRY (user_data);
   event_data *evdata;
@@ -999,8 +989,7 @@ static const char *introspection_footer =
 "</node>";
 
 static DBusMessage *
-impl_Introspect_root (DBusConnection * bus,
-                 DBusMessage * message, void *user_data)
+impl_Introspect_root (DBusMessage * message, void *user_data)
 {
   GString *output;
   gchar *final;
@@ -1027,8 +1016,7 @@ impl_Introspect_root (DBusConnection * bus,
 }
 
 static DBusMessage *
-impl_Introspect_registry (DBusConnection * bus,
-                 DBusMessage * message, void *user_data)
+impl_Introspect_registry (DBusMessage * message, void *user_data)
 {
   GString *output;
   gchar *final;
@@ -1224,27 +1212,27 @@ handle_method_root (DBusConnection *bus, DBusMessage *message, void *user_data)
     {
       result = DBUS_HANDLER_RESULT_HANDLED;
       if      (!strcmp (member, "GetChildAtIndex"))
-          reply = impl_GetChildAtIndex (bus, message, user_data);
+          reply = impl_GetChildAtIndex (message, user_data);
       else if (!strcmp (member, "GetChildren"))
-          reply = impl_GetChildren (bus, message, user_data);
+          reply = impl_GetChildren (message, user_data);
       else if (!strcmp (member, "GetIndexInParent"))
-          reply = impl_GetIndexInParent (bus, message, user_data);
+          reply = impl_GetIndexInParent (message, user_data);
       else if (!strcmp (member, "GetRelationSet"))
-          reply = impl_GetRelationSet (bus, message, user_data);
+          reply = impl_GetRelationSet (message, user_data);
       else if (!strcmp (member, "GetRole"))
-          reply = impl_GetRole (bus, message, user_data);
+          reply = impl_GetRole (message, user_data);
       else if (!strcmp (member, "GetRoleName"))
-          reply = impl_GetRoleName (bus, message, user_data);
+          reply = impl_GetRoleName (message, user_data);
       else if (!strcmp (member, "GetLocalizedRoleName"))
-          reply = impl_GetLocalizedRoleName (bus, message, user_data);
+          reply = impl_GetLocalizedRoleName (message, user_data);
       else if (!strcmp (member, "GetState"))
-          reply = impl_GetState (bus, message, user_data);
+          reply = impl_GetState (message, user_data);
       else if (!strcmp (member, "GetAttributes"))
-          reply = impl_GetAttributes (bus, message, user_data);
+          reply = impl_GetAttributes (message, user_data);
       else if (!strcmp (member, "GetApplication"))
           reply = impl_GetApplication (bus, message, user_data);
       else if (!strcmp (member, "GetInterfaces"))
-          reply = impl_GetInterfaces (bus, message, user_data);
+          reply = impl_GetInterfaces (message, user_data);
       else
          result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     }
@@ -1253,23 +1241,23 @@ handle_method_root (DBusConnection *bus, DBusMessage *message, void *user_data)
     {
       result = DBUS_HANDLER_RESULT_HANDLED;
       if      (!strcmp (member, "Contains"))
-          reply = impl_Contains (bus, message, user_data);
+          reply = impl_Contains (message, user_data);
       else if (!strcmp (member, "GetAccessibleAtPoint"))
           reply = impl_GetAccessibleAtPoint (bus, message, user_data);
       else if (!strcmp (member, "GetExtents"))
-          reply = impl_GetExtents (bus, message, user_data);
+          reply = impl_GetExtents (message, user_data);
       else if (!strcmp (member, "GetPosition"))
-          reply = impl_GetPosition (bus, message, user_data);
+          reply = impl_GetPosition (message, user_data);
       else if (!strcmp (member, "GetSize"))
-          reply = impl_GetSize (bus, message, user_data);
+          reply = impl_GetSize (message, user_data);
       else if (!strcmp (member, "GetLayer"))
-          reply = impl_GetLayer (bus, message, user_data);
+          reply = impl_GetLayer (message, user_data);
       else if (!strcmp (member, "GetMDIZOrder"))
-          reply = impl_GetMDIZOrder (bus, message, user_data);
+          reply = impl_GetMDIZOrder (message, user_data);
       else if (!strcmp (member, "GrabFocus"))
-          reply = impl_GrabFocus (bus, message, user_data);
+          reply = impl_GrabFocus (message, user_data);
       else if (!strcmp (member, "GetAlpha"))
-          reply = impl_GetAlpha (bus, message, user_data);
+          reply = impl_GetAlpha (message, user_data);
       else
          result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     }
@@ -1289,7 +1277,7 @@ handle_method_root (DBusConnection *bus, DBusMessage *message, void *user_data)
     {
       result = DBUS_HANDLER_RESULT_HANDLED;
       if      (!strcmp (member, "Introspect"))
-          reply = impl_Introspect_root (bus, message, user_data);
+          reply = impl_Introspect_root (message, user_data);
       else
           result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     }
@@ -1335,7 +1323,7 @@ handle_method_cache (DBusConnection *bus, DBusMessage *message, void *user_data)
     {
       result = DBUS_HANDLER_RESULT_HANDLED;
       if      (!strcmp (member, "GetItems"))
-          reply = impl_GetItems (bus, message, user_data);
+          reply = impl_GetItems (message, user_data);
       else
          result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     }
@@ -1376,9 +1364,9 @@ handle_method_registry (DBusConnection *bus, DBusMessage *message, void *user_da
       if (!strcmp(member, "RegisterEvent"))
       reply = impl_register_event (bus, message, user_data);
       else if (!strcmp(member, "DeregisterEvent"))
-        reply = impl_deregister_event (bus, message, user_data);
+        reply = impl_deregister_event (message, user_data);
       else if (!strcmp(member, "GetRegisteredEvents"))
-        reply = impl_get_registered_events (bus, message, user_data);
+        reply = impl_get_registered_events (message, user_data);
       else
           result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     }
@@ -1387,7 +1375,7 @@ handle_method_registry (DBusConnection *bus, DBusMessage *message, void *user_da
     {
       result = DBUS_HANDLER_RESULT_HANDLED;
       if      (!strcmp (member, "Introspect"))
-          reply = impl_Introspect_registry (bus, message, user_data);
+          reply = impl_Introspect_registry (message, user_data);
       else
           result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     }
