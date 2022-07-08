@@ -71,9 +71,24 @@ spi_reference_free (SpiReference *ref)
 G_DEFINE_TYPE(SpiRegistry, spi_registry, G_TYPE_OBJECT)
 
 static void
+spi_registry_finalize (GObject *object)
+{
+  SpiRegistry *reg = SPI_REGISTRY (object);
+
+  g_clear_pointer (&reg->bus_unique_name, g_free);
+
+  G_OBJECT_CLASS (spi_registry_parent_class)->finalize (object);
+}
+
+static void
 spi_registry_class_init (SpiRegistryClass *klass)
 {
+  GObjectClass *gobject_class;
+
   spi_registry_parent_class = g_type_class_ref (G_TYPE_OBJECT);
+
+  gobject_class = G_OBJECT_CLASS (klass);
+  gobject_class->finalize = spi_registry_finalize;
 }
 
 static void
@@ -1386,8 +1401,13 @@ SpiRegistry *
 spi_registry_new (DBusConnection *bus)
 {
   SpiRegistry *reg = g_object_new (SPI_REGISTRY_TYPE, NULL);
+  const char *bus_unique_name;
+
+  bus_unique_name = dbus_bus_get_unique_name (bus);
+  g_assert (bus_unique_name != NULL);
 
   reg->bus = bus;
+  reg->bus_unique_name = g_strdup (bus_unique_name);
 
   dbus_bus_add_match (bus, app_sig_match_name_owner, NULL);
   dbus_connection_add_filter (bus, signal_filter, reg, NULL);
