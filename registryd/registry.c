@@ -325,7 +325,7 @@ remove_events (SpiRegistry *registry, const char *bus_name, const char *event)
 }
 
 static void
-handle_disconnection (DBusConnection *bus, DBusMessage *message, void *user_data)
+handle_disconnection (DBusMessage *message, void *user_data)
 {
   char *name, *old, *new;
   SpiRegistry *reg = SPI_REGISTRY (user_data);
@@ -403,7 +403,7 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
 
   if (!g_strcmp0(iface, DBUS_INTERFACE_DBUS) &&
       !g_strcmp0(member, "NameOwnerChanged"))
-      handle_disconnection (bus, message, user_data);
+      handle_disconnection (message, user_data);
   else
       res = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 
