@@ -219,7 +219,7 @@ add_application (SpiRegistry *reg, const gchar *name, const gchar *path)
 }
 
 static void
-set_id (SpiRegistry *reg, DBusConnection *bus, const gchar *name, const gchar *path)
+set_id (SpiRegistry *reg, const gchar *name, const gchar *path)
 {
   DBusMessage *message;
   DBusMessageIter iter, iter_variant;
@@ -238,7 +238,7 @@ set_id (SpiRegistry *reg, DBusConnection *bus, const gchar *name, const gchar *p
   /* TODO: This will cause problems if we cycle through 2^31 ids */
   reg->id++;
   dbus_message_iter_close_container (&iter, &iter_variant);
-  dbus_connection_send (bus, message, NULL);
+  dbus_connection_send (reg->bus, message, NULL);
   dbus_message_unref (message);
 }
 
@@ -438,7 +438,7 @@ impl_Embed (DBusMessage *message, void *user_data)
 
   add_application (reg, app_name, obj_path);
 
-  set_id (reg, reg->bus, app_name, obj_path);
+  set_id (reg, app_name, obj_path);
 
   reply = dbus_message_new_method_return (message);
   dbus_message_iter_init_append (reply, &reply_iter);
