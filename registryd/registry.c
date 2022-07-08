@@ -325,10 +325,9 @@ remove_events (SpiRegistry *registry, const char *bus_name, const char *event)
 }
 
 static void
-handle_disconnection (DBusMessage *message, void *user_data)
+handle_disconnection (SpiRegistry *reg, DBusMessage *message)
 {
   char *name, *old, *new;
-  SpiRegistry *reg = SPI_REGISTRY (user_data);
 
   if (dbus_message_get_args (message, NULL,
                              DBUS_TYPE_STRING, &name,
@@ -393,7 +392,9 @@ ensure_proper_format (const char *name)
 static DBusHandlerResult
 signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
+  SpiRegistry *reg = SPI_REGISTRY (user_data);
   guint res = DBUS_HANDLER_RESULT_HANDLED;
+
   const gint   type    = dbus_message_get_type (message);
   const char *iface = dbus_message_get_interface (message);
   const char *member = dbus_message_get_member (message);
@@ -403,7 +404,7 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
 
   if (!g_strcmp0(iface, DBUS_INTERFACE_DBUS) &&
       !g_strcmp0(member, "NameOwnerChanged"))
-      handle_disconnection (message, user_data);
+      handle_disconnection (reg, message);
   else
       res = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 
