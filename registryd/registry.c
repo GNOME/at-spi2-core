@@ -243,12 +243,12 @@ set_id (SpiRegistry *reg, const gchar *name, const gchar *path)
 }
 
 static void
-remove_application (SpiRegistry *reg, DBusConnection *bus, guint index)
+remove_application (SpiRegistry *reg, guint index)
 {
   SpiReference *ref = g_ptr_array_index (reg->apps, index);
 
   spi_remove_device_listeners (reg->dec, ref->name);
-  emit_event (bus, SPI_DBUS_INTERFACE_EVENT_OBJECT, "ChildrenChanged", "remove", index, 0, ref->name, ref->path);
+  emit_event (reg->bus, SPI_DBUS_INTERFACE_EVENT_OBJECT, "ChildrenChanged", "remove", index, 0, ref->name, ref->path);
   g_ptr_array_remove_index (reg->apps, index);
 }
 
@@ -345,10 +345,10 @@ handle_disconnection (DBusConnection *bus, DBusMessage *message, void *user_data
               SpiReference *ref  = g_ptr_array_index (reg->apps, i);
               if (!g_strcmp0 (old, ref->name))
                 {
-                  remove_application (reg, bus, i);
+                  remove_application (reg, i);
                   i--;
                 }
-            } 
+            }
 
           remove_events (reg, old, "");
         }
@@ -471,7 +471,7 @@ impl_Unembed (DBusMessage *message, void *user_data)
   dbus_message_iter_get_basic (&iter_struct, &obj_path);
 
   if (find_index_of_reference (reg->apps, app_name, obj_path, &index))
-    remove_application (reg, reg->bus, index);
+    remove_application (reg, index);
 
   return NULL;
 error:
