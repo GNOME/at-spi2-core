@@ -414,7 +414,7 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
 /*---------------------------------------------------------------------------*/
 
 static DBusMessage*
-impl_Embed (DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_Embed (DBusMessage *message, void *user_data)
 {
   SpiRegistry *reg = SPI_REGISTRY (user_data);
   DBusMessageIter iter, iter_struct;
@@ -436,9 +436,9 @@ impl_Embed (DBusConnection *bus, DBusMessage *message, void *user_data)
 	goto error;
   dbus_message_iter_get_basic (&iter_struct, &obj_path);
 
-  add_application(reg, bus, app_name, obj_path);
+  add_application(reg, reg->bus, app_name, obj_path);
 
-  set_id (reg, bus, app_name, obj_path);
+  set_id (reg, reg->bus, app_name, obj_path);
 
   reply = dbus_message_new_method_return (message);
   dbus_message_iter_init_append (reply, &reply_iter);
@@ -452,7 +452,7 @@ error:
 }
 
 static DBusMessage*
-impl_Unembed (DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_Unembed (DBusMessage *message, void *user_data)
 {
   SpiRegistry *reg = SPI_REGISTRY (user_data);
   DBusMessageIter iter, iter_struct;
@@ -471,7 +471,7 @@ impl_Unembed (DBusConnection *bus, DBusMessage *message, void *user_data)
   dbus_message_iter_get_basic (&iter_struct, &obj_path);
 
   if (find_index_of_reference (reg->apps, app_name, obj_path, &index))
-      remove_application(reg, bus, index);
+    remove_application (reg, reg->bus, index);
 
   return NULL;
 error:
@@ -494,8 +494,7 @@ impl_Contains (DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_GetAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
-                           void *user_data)
+impl_GetAccessibleAtPoint (DBusMessage * message, void *user_data)
 {
   SpiRegistry *reg = SPI_REGISTRY (user_data);
   DBusMessage *reply = NULL;
@@ -814,8 +813,7 @@ impl_GetAttributes (DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_GetApplication (DBusConnection * bus,
-                     DBusMessage * message, void *user_data)
+impl_GetApplication (DBusMessage * message, void *user_data)
 {
   SpiRegistry *reg = SPI_REGISTRY (user_data);
   DBusMessage *reply = NULL;
@@ -871,7 +869,7 @@ impl_GetItems (DBusMessage * message, void *user_data)
  * a method call and signal for now.
  */
 static DBusMessage *
-impl_register_event (DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_register_event (DBusMessage *message, void *user_data)
 {
   SpiRegistry *registry = SPI_REGISTRY (user_data);
   const char *orig_name;
@@ -949,7 +947,7 @@ impl_register_event (DBusConnection *bus, DBusMessage *message, void *user_data)
       ls = g_slist_next (ls);
     }
     dbus_message_iter_close_container (&iter, &iter_array);
-    dbus_connection_send (bus, signal, NULL);
+    dbus_connection_send (registry->bus, signal, NULL);
     dbus_message_unref (signal);
   }
 
@@ -1203,7 +1201,7 @@ handle_method_root (DBusConnection *bus, DBusMessage *message, void *user_data)
       else if (!strcmp (member, "GetAttributes"))
           reply = impl_GetAttributes (message, user_data);
       else if (!strcmp (member, "GetApplication"))
-          reply = impl_GetApplication (bus, message, user_data);
+          reply = impl_GetApplication (message, user_data);
       else if (!strcmp (member, "GetInterfaces"))
           reply = impl_GetInterfaces (message, user_data);
       else
@@ -1216,7 +1214,7 @@ handle_method_root (DBusConnection *bus, DBusMessage *message, void *user_data)
       if      (!strcmp (member, "Contains"))
           reply = impl_Contains (message, user_data);
       else if (!strcmp (member, "GetAccessibleAtPoint"))
-          reply = impl_GetAccessibleAtPoint (bus, message, user_data);
+          reply = impl_GetAccessibleAtPoint (message, user_data);
       else if (!strcmp (member, "GetExtents"))
           reply = impl_GetExtents (message, user_data);
       else if (!strcmp (member, "GetPosition"))
@@ -1239,9 +1237,9 @@ handle_method_root (DBusConnection *bus, DBusMessage *message, void *user_data)
     {
       result = DBUS_HANDLER_RESULT_HANDLED;
       if      (!strcmp (member, "Embed"))
-          reply = impl_Embed (bus, message, user_data);
+          reply = impl_Embed (message, user_data);
       else if (!strcmp (member, "Unembed"))
-          reply = impl_Unembed (bus, message, user_data);
+          reply = impl_Unembed (message, user_data);
       else
           result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     }
@@ -1335,7 +1333,7 @@ handle_method_registry (DBusConnection *bus, DBusMessage *message, void *user_da
     {
       result = DBUS_HANDLER_RESULT_HANDLED;
       if (!strcmp(member, "RegisterEvent"))
-      reply = impl_register_event (bus, message, user_data);
+      reply = impl_register_event (message, user_data);
       else if (!strcmp(member, "DeregisterEvent"))
         reply = impl_deregister_event (message, user_data);
       else if (!strcmp(member, "GetRegisteredEvents"))
