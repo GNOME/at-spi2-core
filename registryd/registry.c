@@ -30,14 +30,13 @@
 #include "registry.h"
 #include "introspection.h"
 
-typedef struct event_data event_data;
-struct event_data
+typedef struct
 {
   gchar *listener_bus_name;
   gchar *app_bus_name;
   gchar **data;
   GSList *properties;
-};
+} EventData;
 
 /*---------------------------------------------------------------------------*/
 
@@ -277,7 +276,7 @@ remove_events (SpiRegistry *registry, const char *bus_name, const char *event)
 
   for (list = registry->events; list;)
     {
-      event_data *evdata = list->data;
+      EventData *evdata = list->data;
       list = list->next;
       if (!g_strcmp0 (evdata->listener_bus_name, bus_name) &&
           event_is_subtype (evdata->data, remove_data))
@@ -860,7 +859,7 @@ impl_register_event (DBusConnection *bus, DBusMessage *message, void *user_data)
   SpiRegistry *registry = SPI_REGISTRY (user_data);
   const char *orig_name;
   gchar *name;
-  event_data *evdata;
+  EventData *evdata;
   gchar **data;
   DBusMessage *signal;
   const char *sender = dbus_message_get_sender (message);
@@ -880,7 +879,7 @@ impl_register_event (DBusConnection *bus, DBusMessage *message, void *user_data)
   dbus_message_iter_next (&iter);
   name = ensure_proper_format (orig_name);
 
-  evdata = g_new0 (event_data, 1);
+  evdata = g_new0 (EventData, 1);
   data = g_strsplit (name, ":", 3);
   evdata->listener_bus_name = g_strdup (sender);
   evdata->data = data;
@@ -964,7 +963,7 @@ static DBusMessage *
 impl_get_registered_events (DBusMessage *message, void *user_data)
 {
   SpiRegistry *registry = SPI_REGISTRY (user_data);
-  event_data *evdata;
+  EventData *evdata;
   DBusMessage *reply;
   DBusMessageIter iter, iter_struct, iter_array;
   GList *list;
