@@ -72,11 +72,11 @@ typedef struct {
 
 /* A pointer to our parent object class */
 static int spi_error_code = 0;
-struct _SpiPoint {
+
+typedef struct {
     gint x;
     gint y;
-};
-typedef struct _SpiPoint SpiPoint;
+} SpiPoint;
 
 static unsigned int mouse_mask_state = 0;
 static unsigned int key_modifier_mask =

@@ -40,7 +40,7 @@ typedef struct
 
 /*---------------------------------------------------------------------------*/
 
-typedef struct _SpiReference
+typedef struct
 {
   gchar *name;
   gchar *path;
