@@ -163,21 +163,11 @@ find_index_of_reference (GPtrArray *arr, const gchar *name, const gchar * path, 
   return found;
 }
 
-/*
- * Emits an AT-SPI event.
- * AT-SPI events names are split into three parts:
- * class:major:minor
- * This is mapped onto D-Bus events as:
- * D-Bus Interface:Signal Name:Detail argument
- *
- * Marshals a basic type into the 'any_data' attribute of
- * the AT-SPI event.
- */
 static void
 emit_event (DBusConnection *bus,
-            const char *klass,
-            const char *major,
-            const char *minor,
+            const char *iface_name,
+            const char *signal_name,
+            const char *detail_str,
             dbus_int32_t detail1,
             dbus_int32_t detail2,
             SpiReference *app)
@@ -185,11 +175,11 @@ emit_event (DBusConnection *bus,
   DBusMessage *sig;
   DBusMessageIter iter, iter_variant, iter_array;
 
-  sig = dbus_message_new_signal(SPI_DBUS_PATH_ROOT, klass, major);
+  sig = dbus_message_new_signal(SPI_DBUS_PATH_ROOT, iface_name, signal_name);
 
   dbus_message_iter_init_append(sig, &iter);
 
-  dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &minor);
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &detail_str);
   dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail1);
   dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail2);
 
