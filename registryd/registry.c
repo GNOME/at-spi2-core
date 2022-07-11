@@ -73,9 +73,9 @@ G_DEFINE_TYPE(SpiRegistry, spi_registry, G_TYPE_OBJECT)
 static void
 spi_registry_finalize (GObject *object)
 {
-  SpiRegistry *reg = SPI_REGISTRY (object);
+  SpiRegistry *registry = SPI_REGISTRY (object);
 
-  g_clear_pointer (&reg->bus_unique_name, g_free);
+  g_clear_pointer (&registry->bus_unique_name, g_free);
 
   G_OBJECT_CLASS (spi_registry_parent_class)->finalize (object);
 }
@@ -197,18 +197,18 @@ emit_event (DBusConnection *bus,
 }
 
 static void
-add_application (SpiRegistry *reg, SpiReference *app_root)
+add_application (SpiRegistry *registry, SpiReference *app_root)
 {
   gint index;
 
-  g_ptr_array_add (reg->apps, app_root);
-  index = reg->apps->len - 1;
+  g_ptr_array_add (registry->apps, app_root);
+  index = registry->apps->len - 1;
 
-  emit_event (reg->bus, SPI_DBUS_INTERFACE_EVENT_OBJECT, "ChildrenChanged", "add", index, 0, app_root);
+  emit_event (registry->bus, SPI_DBUS_INTERFACE_EVENT_OBJECT, "ChildrenChanged", "add", index, 0, app_root);
 }
 
 static void
-set_id (SpiRegistry *reg, SpiReference *app)
+set_id (SpiRegistry *registry, SpiReference *app)
 {
   DBusMessage *message;
   DBusMessageIter iter, iter_variant;
@@ -223,22 +223,22 @@ set_id (SpiRegistry *reg, SpiReference *app)
   dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &iface_application);
   dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &id);
   dbus_message_iter_open_container (&iter, DBUS_TYPE_VARIANT, "i", &iter_variant);
-  dbus_message_iter_append_basic (&iter_variant, DBUS_TYPE_INT32, &reg->id);
+  dbus_message_iter_append_basic (&iter_variant, DBUS_TYPE_INT32, &registry->id);
   /* TODO: This will cause problems if we cycle through 2^31 ids */
-  reg->id++;
+  registry->id++;
   dbus_message_iter_close_container (&iter, &iter_variant);
-  dbus_connection_send (reg->bus, message, NULL);
+  dbus_connection_send (registry->bus, message, NULL);
   dbus_message_unref (message);
 }
 
 static void
-remove_application (SpiRegistry *reg, guint index)
+remove_application (SpiRegistry *registry, guint index)
 {
-  SpiReference *ref = g_ptr_array_index (reg->apps, index);
+  SpiReference *ref = g_ptr_array_index (registry->apps, index);
 
-  spi_remove_device_listeners (reg->dec, ref->name);
-  emit_event (reg->bus, SPI_DBUS_INTERFACE_EVENT_OBJECT, "ChildrenChanged", "remove", index, 0, ref);
-  g_ptr_array_remove_index (reg->apps, index);
+  spi_remove_device_listeners (registry->dec, ref->name);
+  emit_event (registry->bus, SPI_DBUS_INTERFACE_EVENT_OBJECT, "ChildrenChanged", "remove", index, 0, ref);
+  g_ptr_array_remove_index (registry->apps, index);
 }
 
 static gboolean
@@ -314,7 +314,7 @@ remove_events (SpiRegistry *registry, const char *bus_name, const char *event)
 }
 
 static void
-handle_disconnection (SpiRegistry *reg, DBusMessage *message)
+handle_disconnection (SpiRegistry *registry, DBusMessage *message)
 {
   char *name, *old, *new;
 
@@ -328,17 +328,17 @@ handle_disconnection (SpiRegistry *reg, DBusMessage *message)
         {
           /* Remove all children with the application name the same as the disconnected application. */
           guint i;
-          for (i = 0; i < reg->apps->len; i++)
+          for (i = 0; i < registry->apps->len; i++)
             {
-              SpiReference *ref  = g_ptr_array_index (reg->apps, i);
+              SpiReference *ref = g_ptr_array_index (registry->apps, i);
               if (!g_strcmp0 (old, ref->name))
                 {
-                  remove_application (reg, i);
+                  remove_application (registry, i);
                   i--;
                 }
             }
 
-          remove_events (reg, old, "");
+          remove_events (registry, old, "");
         }
     }
 }
@@ -1385,29 +1385,29 @@ static gchar *app_sig_match_name_owner =
 SpiRegistry *
 spi_registry_new (DBusConnection *bus)
 {
-  SpiRegistry *reg = g_object_new (SPI_REGISTRY_TYPE, NULL);
+  SpiRegistry *registry = g_object_new (SPI_REGISTRY_TYPE, NULL);
   const char *bus_unique_name;
 
   bus_unique_name = dbus_bus_get_unique_name (bus);
   g_assert (bus_unique_name != NULL);
 
-  reg->bus = bus;
-  reg->bus_unique_name = g_strdup (bus_unique_name);
+  registry->bus = bus;
+  registry->bus_unique_name = g_strdup (bus_unique_name);
 
   dbus_bus_add_match (bus, app_sig_match_name_owner, NULL);
-  dbus_connection_add_filter (bus, signal_filter, reg, NULL);
+  dbus_connection_add_filter (bus, signal_filter, registry, NULL);
 
-  dbus_connection_register_object_path (bus, SPI_DBUS_PATH_ROOT, &root_vtable, reg);
+  dbus_connection_register_object_path (bus, SPI_DBUS_PATH_ROOT, &root_vtable, registry);
 
-  dbus_connection_register_object_path (bus, SPI_DBUS_PATH_CACHE, &cache_vtable, reg);
+  dbus_connection_register_object_path (bus, SPI_DBUS_PATH_CACHE, &cache_vtable, registry);
 
-  dbus_connection_register_object_path (bus, SPI_DBUS_PATH_REGISTRY, &registry_vtable, reg);
+  dbus_connection_register_object_path (bus, SPI_DBUS_PATH_REGISTRY, &registry_vtable, registry);
 
   emit_Available (bus);
 
-  reg->events = NULL;
+  registry->events = NULL;
 
-  return reg;
+  return registry;
 }
 
 /*END------------------------------------------------------------------------*/
