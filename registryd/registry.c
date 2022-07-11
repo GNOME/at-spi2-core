@@ -435,10 +435,19 @@ socket_embed_demarshal (DBusMessage *message, SpiReference **out_app_root)
   return DEMARSHAL_STATUS_SUCCESS;
 }
 
+static SpiReference *
+socket_embed (SpiRegistry *registry, SpiReference *app_root)
+{
+  add_application (registry, app_root);
+  set_id (registry, app_root);
+  return spi_reference_new (registry->bus_unique_name, SPI_DBUS_PATH_ROOT);
+}
+
 static DBusMessage*
 impl_Embed (DBusMessage *message, SpiRegistry *registry)
 {
   SpiReference *app_root = NULL;
+  SpiReference *result;
 
   if (socket_embed_demarshal (message, &app_root) != DEMARSHAL_STATUS_SUCCESS)
     {
@@ -448,14 +457,12 @@ impl_Embed (DBusMessage *message, SpiRegistry *registry)
   DBusMessage *reply = NULL;
   DBusMessageIter reply_iter;
 
-  add_application (registry, app_root);
-  set_id (registry, app_root);
+  result = socket_embed (registry, app_root); /* takes ownership of the app_root */
 
   reply = dbus_message_new_method_return (message);
   dbus_message_iter_init_append (reply, &reply_iter);
-  append_reference (&reply_iter, 
-                    registry->bus_unique_name,
-                    SPI_DBUS_PATH_ROOT);
+  append_reference (&reply_iter, result->name, result->path);
+  spi_reference_free (result);
 
   return reply;
 }
