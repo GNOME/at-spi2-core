@@ -870,7 +870,7 @@ impl_GetItems (DBusMessage * message, void *user_data)
  * a method call and signal for now.
  */
 static DBusMessage *
-impl_register_event (DBusMessage *message, void *user_data)
+impl_RegisterEvent (DBusMessage *message, void *user_data)
 {
   SpiRegistry *registry = SPI_REGISTRY (user_data);
   const char *orig_name;
@@ -957,7 +957,7 @@ impl_register_event (DBusMessage *message, void *user_data)
 }
 
 static DBusMessage *
-impl_deregister_event (DBusMessage *message, void *user_data)
+impl_DeregisterEvent (DBusMessage *message, void *user_data)
 {
   SpiRegistry *registry = SPI_REGISTRY (user_data);
   const char *orig_name;
@@ -976,7 +976,7 @@ impl_deregister_event (DBusMessage *message, void *user_data)
 }
 
 static DBusMessage *
-impl_get_registered_events (DBusMessage *message, void *user_data)
+impl_GetRegisteredEvents (DBusMessage *message, void *user_data)
 {
   SpiRegistry *registry = SPI_REGISTRY (user_data);
   EventData *evdata;
@@ -1334,11 +1334,11 @@ handle_method_registry (DBusConnection *bus, DBusMessage *message, void *user_da
     {
       result = DBUS_HANDLER_RESULT_HANDLED;
       if (!strcmp(member, "RegisterEvent"))
-      reply = impl_register_event (message, user_data);
+      reply = impl_RegisterEvent (message, user_data);
       else if (!strcmp(member, "DeregisterEvent"))
-        reply = impl_deregister_event (message, user_data);
+        reply = impl_DeregisterEvent (message, user_data);
       else if (!strcmp(member, "GetRegisteredEvents"))
-        reply = impl_get_registered_events (message, user_data);
+        reply = impl_GetRegisteredEvents (message, user_data);
       else
           result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     }
