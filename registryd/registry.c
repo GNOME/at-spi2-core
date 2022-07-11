@@ -208,14 +208,14 @@ emit_event (DBusConnection *bus,
 }
 
 static void
-add_application (SpiRegistry *reg, const gchar *name, const gchar *path)
+add_application (SpiRegistry *reg, SpiReference *app_root)
 {
   gint index;
 
-  g_ptr_array_add (reg->apps, spi_reference_new (name, path));
+  g_ptr_array_add (reg->apps, app_root);
   index = reg->apps->len - 1;
 
-  emit_event (reg->bus, SPI_DBUS_INTERFACE_EVENT_OBJECT, "ChildrenChanged", "add", index, 0, name, path);
+  emit_event (reg->bus, SPI_DBUS_INTERFACE_EVENT_OBJECT, "ChildrenChanged", "add", index, 0, app_root->name, app_root->path);
 }
 
 static void
@@ -422,6 +422,7 @@ impl_Embed (DBusMessage *message, SpiRegistry *registry)
 
   DBusMessage *reply = NULL;
   DBusMessageIter reply_iter;
+  SpiReference *app_root;
 
   dbus_message_iter_init (message, &iter);
   dbus_message_iter_recurse (&iter, &iter_struct);
@@ -436,7 +437,8 @@ impl_Embed (DBusMessage *message, SpiRegistry *registry)
 	goto error;
   dbus_message_iter_get_basic (&iter_struct, &obj_path);
 
-  add_application (registry, app_name, obj_path);
+  app_root = spi_reference_new (app_name, obj_path);
+  add_application (registry, app_root);
 
   set_id (registry, app_name, obj_path);
 
