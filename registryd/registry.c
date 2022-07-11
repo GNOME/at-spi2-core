@@ -208,14 +208,14 @@ add_application (SpiRegistry *reg, SpiReference *app_root)
 }
 
 static void
-set_id (SpiRegistry *reg, const gchar *name, const gchar *path)
+set_id (SpiRegistry *reg, SpiReference *app)
 {
   DBusMessage *message;
   DBusMessageIter iter, iter_variant;
   const char *iface_application = "org.a11y.atspi.Application";
   const char *id = "Id";
 
-  message = dbus_message_new_method_call (name, path,
+  message = dbus_message_new_method_call (app->name, app->path,
                                           DBUS_INTERFACE_PROPERTIES, "Set");
   if (!message)
     return;
@@ -429,7 +429,7 @@ impl_Embed (DBusMessage *message, SpiRegistry *registry)
   app_root = spi_reference_new (app_name, obj_path);
   add_application (registry, app_root);
 
-  set_id (registry, app_name, obj_path);
+  set_id (registry, app_root);
 
   reply = dbus_message_new_method_return (message);
   dbus_message_iter_init_append (reply, &reply_iter);
