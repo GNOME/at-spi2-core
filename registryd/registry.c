@@ -400,35 +400,55 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
   return res;
 }
 
+typedef enum {
+  DEMARSHAL_STATUS_SUCCESS,
+  DEMARSHAL_STATUS_INVALID_SIGNATURE,
+  DEMARSHAL_STATUS_INVALID_VALUE,
+} DemarshalStatus;
+
 /* org.at_spi.Socket interface */
 /*---------------------------------------------------------------------------*/
 
-static DBusMessage*
-impl_Embed (DBusMessage *message, SpiRegistry *registry)
+static DemarshalStatus
+socket_embed_demarshal (DBusMessage *message, SpiReference **out_app_root)
 {
   DBusMessageIter iter, iter_struct;
   const gchar *app_name, *obj_path;
-
-  DBusMessage *reply = NULL;
-  DBusMessageIter reply_iter;
   SpiReference *app_root;
 
   dbus_message_iter_init (message, &iter);
   dbus_message_iter_recurse (&iter, &iter_struct);
   if (!(dbus_message_iter_get_arg_type (&iter_struct) == DBUS_TYPE_STRING))
-	goto error;
+    return DEMARSHAL_STATUS_INVALID_SIGNATURE;
   dbus_message_iter_get_basic (&iter_struct, &app_name);
   if (!app_name)
     app_name = dbus_message_get_sender (message);
   if (!dbus_message_iter_next (&iter_struct))
-        goto error;
+    return DEMARSHAL_STATUS_INVALID_SIGNATURE;
   if (!(dbus_message_iter_get_arg_type (&iter_struct) == DBUS_TYPE_OBJECT_PATH))
-	goto error;
+    return DEMARSHAL_STATUS_INVALID_SIGNATURE;
   dbus_message_iter_get_basic (&iter_struct, &obj_path);
 
   app_root = spi_reference_new (app_name, obj_path);
-  add_application (registry, app_root);
+  *out_app_root = app_root;
 
+  return DEMARSHAL_STATUS_SUCCESS;
+}
+
+static DBusMessage*
+impl_Embed (DBusMessage *message, SpiRegistry *registry)
+{
+  SpiReference *app_root = NULL;
+
+  if (socket_embed_demarshal (message, &app_root) != DEMARSHAL_STATUS_SUCCESS)
+    {
+      return dbus_message_new_error (message, DBUS_ERROR_FAILED, "Invalid arguments");
+    }
+
+  DBusMessage *reply = NULL;
+  DBusMessageIter reply_iter;
+
+  add_application (registry, app_root);
   set_id (registry, app_root);
 
   reply = dbus_message_new_method_return (message);
@@ -438,8 +458,6 @@ impl_Embed (DBusMessage *message, SpiRegistry *registry)
                     SPI_DBUS_PATH_ROOT);
 
   return reply;
-error:
-  return dbus_message_new_error (message, DBUS_ERROR_FAILED, "Invalid arguments");
 }
 
 static DBusMessage*
