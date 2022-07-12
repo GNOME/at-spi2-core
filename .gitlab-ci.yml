@@ -152,6 +152,7 @@ coverage:
     - meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
     - meson compile -C _build
     - meson install -C _build
+    - dbus-run-session -- ci/run-registryd-tests.sh
     - dbus-run-session -- ci/run-tests.sh
     - mkdir -p public
     - grcov _build --source-dir ./ --prefix-dir ../ --output-type cobertura --branch --ignore-not-existing -o coverage.xml
