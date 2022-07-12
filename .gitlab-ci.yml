@@ -59,6 +59,7 @@ opensuse-x86_64:
     - meson install -C _build
     - mkdir /tmp/test+dir+with+funny+chars
     - export XDG_RUNTIME_DIR=/tmp/test+dir+with+funny+chars # See https://gitlab.gnome.org/GNOME/at-spi2-core/-/issues/48
+    - dbus-run-session -- ci/run-registryd-tests.sh
     - dbus-run-session -- ci/run-tests.sh
   artifacts:
     reports:
