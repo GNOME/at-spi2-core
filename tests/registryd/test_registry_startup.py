@@ -1,3 +1,9 @@
+# Pytest will pick up this module automatically when running just "pytest".
+#
+# Each test_*() function gets passed test fixtures, which are defined
+# in conftest.py.  So, a function "def test_foo(bar)" will get a bar()
+# fixture created for it.
+
 PROPERTIES_IFACE = 'org.freedesktop.DBus.Properties'
 ACCESSIBLE_IFACE = 'org.a11y.atspi.Accessible'
 
