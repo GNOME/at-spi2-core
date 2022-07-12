@@ -12,3 +12,6 @@ def test_accessible_iface_properties(registry, session_manager):
 
     for prop_name, expected in values:
         assert get_property(registry, ACCESSIBLE_IFACE, prop_name) == expected
+
+def test_empty_registry_has_zero_children(registry, session_manager):
+    assert get_property(registry, ACCESSIBLE_IFACE, 'ChildCount') == 0
