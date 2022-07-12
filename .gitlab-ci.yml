@@ -67,8 +67,7 @@ opensuse-x86_64:
     when: always
     name: "at-spi2-core-${CI_COMMIT_REF_NAME}"
     paths:
-      - "${CI_PROJECT_DIR}/_build/meson-logs"
-      - "${CI_PROJECT_DIR}/_build/atspi/Atspi-2.0.gir"
+      - "_build/meson-logs"
 
 fedora-x86_64:
   stage: build
@@ -88,8 +87,7 @@ fedora-x86_64:
     when: always
     name: "at-spi2-core-${CI_COMMIT_REF_NAME}"
     paths:
-      - "${CI_PROJECT_DIR}/_build/meson-logs"
-      - "${CI_PROJECT_DIR}/_build/atspi/Atspi-2.0.gir"
+      - "_build/meson-logs"
 
 # Run static analysis on the code.
 #
