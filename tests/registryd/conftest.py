@@ -14,7 +14,10 @@
 #
 # * main_loop - a GLib.MainLoop integrated with the DBusGMainLoop.
 #
-# * session_manager - A mock gnome-session to control the lifetime of daemons.
+# * session_manager - A mock gnome-session to control the lifetime of daemons.  In
+#   reality, the fixture assumes that there is a gnome-session mock running (see
+#   ci/run-registryd-tests.sh) and just tells that mock to Logout at fixture teardown
+#   time, so that all daemons that monitor the session's lifetime will exit at teardown.
 #
 # * registry - A dbus.proxies.ProxyObject for the registry's root object.  This automatically
 #   depends on a session_manager fixture to control its lifetime.
@@ -29,7 +32,6 @@ def main_loop():
 
     DBusGMainLoop(set_as_default=True)
     loop = GLib.MainLoop()
-    print("main loop created")
     return loop
 
 def get_accesssibility_bus_address():
@@ -42,7 +44,22 @@ def get_registry_root(a11y_bus):
 
 @pytest.fixture
 def session_manager():
-    return None # FIXME - return a gnome-session mock
+    # This assumes that pytest is running in this environment:
+    #
+    # * A session dbus daemon is running
+    #
+    # * There is a gnome-session mock running
+    #
+    # See the ci/run-registryd-tests.sh script to see how that environment is set up.
+
+    bus = dbus.SessionBus()
+    mock_session = bus.get_object('org.gnome.SessionManager', '/org/gnome/SessionManager')
+
+    # return a dummy object as a fixture
+    yield object()
+
+    # Tell all session clients to terminate
+    mock_session.Logout(0, dbus_interface='org.gnome.SessionManager')
 
 @pytest.fixture
 def registry(main_loop, session_manager):
