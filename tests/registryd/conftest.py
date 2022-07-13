@@ -66,6 +66,15 @@ def session_manager():
     # Reset mock session back to its starting state
     mock_session.Reset(dbus_interface='org.freedesktop.DBus.Mock')
 
+    # Wait a bit for the a11y bus launcher to really die
+    proxy = bus.get_object('org.freedesktop.DBus', '/org/freedesktop/DBus')
+    while True:
+        names = proxy.ListNames(dbus_interface='org.freedesktop.DBus')
+        if 'org.a11y.Bus' in names:
+            time.sleep(1)
+        else:
+            break
+
 @pytest.fixture
 def registry(main_loop, session_manager):
     a11y_address = get_accesssibility_bus_address()
