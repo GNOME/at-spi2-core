@@ -52,6 +52,8 @@ def session_manager():
     #
     # See the ci/run-registryd-tests.sh script to see how that environment is set up.
 
+    import time
+
     bus = dbus.SessionBus()
     mock_session = bus.get_object('org.gnome.SessionManager', '/org/gnome/SessionManager')
 
@@ -60,6 +62,9 @@ def session_manager():
 
     # Tell all session clients to terminate
     mock_session.Logout(0, dbus_interface='org.gnome.SessionManager')
+
+    # Reset mock session back to its starting state
+    mock_session.Reset(dbus_interface='org.freedesktop.DBus.Mock')
 
 @pytest.fixture
 def registry(main_loop, session_manager):
