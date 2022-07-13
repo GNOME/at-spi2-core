@@ -4,6 +4,9 @@
 # in conftest.py.  So, a function "def test_foo(bar)" will get a bar()
 # fixture created for it.
 
+import pytest
+import dbus
+
 PROPERTIES_IFACE = 'org.freedesktop.DBus.Properties'
 ACCESSIBLE_IFACE = 'org.a11y.atspi.Accessible'
 
@@ -20,3 +23,7 @@ def test_accessible_iface_properties(registry_root, session_manager):
 
     for prop_name, expected in values:
         assert get_property(registry_root, ACCESSIBLE_IFACE, prop_name) == expected
+
+def test_unknown_property_yields_error(registry_root, session_manager):
+    with pytest.raises(dbus.exceptions.DBusException):
+        get_property(registry_root, ACCESSIBLE_IFACE, 'NonexistentProperty')
