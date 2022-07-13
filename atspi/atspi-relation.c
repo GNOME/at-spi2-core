@@ -99,7 +99,7 @@ _atspi_relation_new_from_iter (DBusMessageIter *iter)
   while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
   {
     AtspiAccessible *accessible;
-    accessible = _atspi_dbus_return_accessible_from_iter (&iter_array);
+    accessible = _atspi_dbus_consume_accessible (&iter_array);
     relation->targets = g_array_append_val (relation->targets, accessible);
     /* Iter was moved already, so no need to call dbus_message_iter_next */
   }

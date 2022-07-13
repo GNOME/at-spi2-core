@@ -46,7 +46,7 @@ get_object_array_and_unref (DBusMessage *reply)
   dbus_message_iter_recurse (&iter, &iter_array);
   while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
   {
-    AtspiAccessible *accessible = _atspi_dbus_return_accessible_from_iter (&iter_array);
+    AtspiAccessible *accessible = _atspi_dbus_consume_accessible (&iter_array);
     g_ptr_array_add (array, accessible);
   }
   dbus_message_unref (reply);

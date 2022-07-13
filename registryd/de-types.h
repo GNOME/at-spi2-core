@@ -51,9 +51,7 @@ typedef enum {
     Accessibility_KEY_UNLOCKMODIFIERS,
 } Accessibility_KeySynthType;
 
-typedef struct _Accessibility_DeviceEvent Accessibility_DeviceEvent;
-struct _Accessibility_DeviceEvent
-{
+typedef struct {
   Accessibility_EventType type;
   dbus_uint32_t id;
   dbus_uint32_t hw_code;
@@ -61,23 +59,19 @@ struct _Accessibility_DeviceEvent
   dbus_uint32_t timestamp;
   char * event_string;
   dbus_bool_t is_text;
-};
+} Accessibility_DeviceEvent;
 
-typedef struct _Accessibility_EventListenerMode Accessibility_EventListenerMode;
-struct _Accessibility_EventListenerMode
-{
+typedef struct {
   dbus_bool_t synchronous;
   dbus_bool_t preemptive;
   dbus_bool_t global;
-};
+} Accessibility_EventListenerMode;
 
-typedef struct _Accessibility_KeyDefinition Accessibility_KeyDefinition;
-struct _Accessibility_KeyDefinition
-{
+typedef struct {
   dbus_int32_t keycode;
   dbus_int32_t keysym;
   char *keystring;
   dbus_int32_t unused;
-};
+} Accessibility_KeyDefinition;
 
 #endif /* SPI_DE_TYPES_H_ */

@@ -81,7 +81,7 @@ AtspiAccessible *
 _atspi_dbus_return_accessible_from_message (DBusMessage *message);
 
 AtspiAccessible *
-_atspi_dbus_return_accessible_from_iter (DBusMessageIter *iter);
+_atspi_dbus_consume_accessible (DBusMessageIter *iter);
 
 AtspiHyperlink *
 _atspi_dbus_return_hyperlink_from_message (DBusMessage *message);

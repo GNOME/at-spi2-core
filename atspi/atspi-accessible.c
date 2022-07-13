@@ -424,7 +424,7 @@ atspi_accessible_get_parent (AtspiAccessible *obj, GError **error)
     dbus_message_iter_init (reply, &iter);
     dbus_message_iter_recurse (&iter, &iter_variant);
     g_clear_object (&obj->accessible_parent);
-    obj->accessible_parent = _atspi_dbus_return_accessible_from_iter (&iter_variant);
+    obj->accessible_parent = _atspi_dbus_consume_accessible (&iter_variant);
     dbus_message_unref (reply);
     _atspi_accessible_add_cache (obj, ATSPI_CACHE_PARENT);
   }
@@ -968,7 +968,6 @@ _atspi_accessible_is_a (AtspiAccessible *accessible,
     dbus_message_iter_init (reply, &iter);
     _atspi_dbus_set_interfaces (accessible, &iter);
     dbus_message_unref (reply);
-    _atspi_accessible_add_cache (accessible, ATSPI_CACHE_INTERFACES);
   }
 
   n = _atspi_get_iface_num (interface_name);

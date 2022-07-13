@@ -49,6 +49,7 @@ struct _SpiRegistry {
   dbus_int32_t id;
 
   DBusConnection *bus;
+  char *bus_unique_name;
   GList *events;
 };
 

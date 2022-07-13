@@ -367,9 +367,8 @@ void test_helpers ()
 
 int main (int argc, char **argv)
 {
-    DBusConnection *bus;
-
-    bus = dbus_bus_get (DBUS_BUS_SESSION, NULL);
+    DBusConnection *bus = dbus_bus_get (DBUS_BUS_SESSION, NULL);
+    g_assert (bus != NULL);
 
     test_helpers ();
     test_marshalling ();

@@ -24,8 +24,7 @@
 
 #include "event-source.h"
 
-typedef struct _DisplaySource
-{
+typedef struct {
   GSource source;
   
   Display *display;
