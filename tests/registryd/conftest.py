@@ -39,9 +39,6 @@ def get_accesssibility_bus_address():
     bus_launcher = bus.get_object('org.a11y.Bus', '/org/a11y/bus')
     return str(bus_launcher.GetAddress(dbus_interface='org.a11y.Bus'))
 
-def get_registry_root(a11y_bus):
-    return a11y_bus.get_object('org.a11y.atspi.Registry', '/org/a11y/atspi/accessible/root')
-
 @pytest.fixture
 def session_manager():
     # This assumes that pytest is running in this environment:
@@ -80,4 +77,4 @@ def registry(main_loop, session_manager):
     a11y_address = get_accesssibility_bus_address()
     a11y_bus = dbus.bus.BusConnection(a11y_address)
 
-    return get_registry_root(a11y_bus)
+    return a11y_bus.get_object('org.a11y.atspi.Registry', '/org/a11y/atspi/accessible/root')
