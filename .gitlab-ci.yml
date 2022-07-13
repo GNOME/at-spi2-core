@@ -63,11 +63,14 @@ opensuse-x86_64:
     - dbus-run-session -- ci/run-tests.sh
   artifacts:
     reports:
-      junit: "_build/meson-logs/testlog.junit.xml"
+      junit:
+        - "_build/meson-logs/testlog.junit.xml"
+        - "_build/tests/registryd/registryd-pytest.junit.xml"
     when: always
     name: "at-spi2-core-${CI_COMMIT_REF_NAME}"
     paths:
       - "_build/meson-logs"
+      - "_build/tests/registryd"
 
 fedora-x86_64:
   stage: build
