@@ -73,7 +73,7 @@ def session_manager():
             break
 
 @pytest.fixture
-def registry(main_loop, session_manager):
+def registry_root(main_loop, session_manager):
     a11y_address = get_accesssibility_bus_address()
     a11y_bus = dbus.bus.BusConnection(a11y_address)
 

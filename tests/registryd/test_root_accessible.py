@@ -10,17 +10,17 @@ ACCESSIBLE_IFACE = 'org.a11y.atspi.Accessible'
 def get_property(proxy, iface_name, prop_name):
     return proxy.Get(iface_name, prop_name, dbus_interface=PROPERTIES_IFACE)
 
-def test_accessible_iface_properties(registry, session_manager):
+def test_accessible_iface_properties(registry_root, session_manager):
     values = [
         ('Name',        'main'),
         ('Description', ''),
     ]
 
     for prop_name, expected in values:
-        assert get_property(registry, ACCESSIBLE_IFACE, prop_name) == expected
+        assert get_property(registry_root, ACCESSIBLE_IFACE, prop_name) == expected
 
-def test_registry_root_has_null_parent(registry, session_manager):
-    assert get_property(registry, ACCESSIBLE_IFACE, 'Parent') == ('', '/org/a11y/atspi/null')
+def test_registry_root_has_null_parent(registry_root, session_manager):
+    assert get_property(registry_root, ACCESSIBLE_IFACE, 'Parent') == ('', '/org/a11y/atspi/null')
 
-def test_empty_registry_has_zero_children(registry, session_manager):
-    assert get_property(registry, ACCESSIBLE_IFACE, 'ChildCount') == 0
+def test_empty_registry_has_zero_children(registry_root, session_manager):
+    assert get_property(registry_root, ACCESSIBLE_IFACE, 'ChildCount') == 0
