@@ -1161,7 +1161,7 @@ handle_method_root (DBusConnection *bus, DBusMessage *message, void *user_data)
                 {
                   if (!strcmp (prop_member, "ToolkitName"))
                     impl_get_ToolkitName (&iter, registry);
-                  else if (!strcmp (prop_member, "ToolkitVersion"))
+                  else if (!strcmp (prop_member, "Version"))
                     impl_get_ToolkitVersion (&iter, registry);
                   else
                     {
