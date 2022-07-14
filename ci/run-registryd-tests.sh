@@ -16,4 +16,6 @@ mkdir -p _build/tests/registryd
 
 cd tests/registryd
 
-pytest -v --junit-xml=../../_build/tests/registryd/registryd-pytest.junit.xml
+pytest --junit-xml=../../_build/tests/registryd/registryd-pytest.junit.xml
+
+kill %1  # Kill python dbusmock
