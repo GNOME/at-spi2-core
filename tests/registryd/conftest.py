@@ -60,9 +60,6 @@ def session_manager():
     # Tell all session clients to terminate
     mock_session.Logout(0, dbus_interface='org.gnome.SessionManager')
 
-    # Reset mock session back to its starting state
-    mock_session.Reset(dbus_interface='org.freedesktop.DBus.Mock')
-
     # Wait a bit for the a11y bus launcher to really die
     proxy = bus.get_object('org.freedesktop.DBus', '/org/freedesktop/DBus')
     while True:
@@ -71,6 +68,9 @@ def session_manager():
             time.sleep(1)
         else:
             break
+
+    # Reset mock session back to its starting state
+    mock_session.Reset(dbus_interface='org.freedesktop.DBus.Mock')
 
 @pytest.fixture
 def registry_root(main_loop, session_manager):
