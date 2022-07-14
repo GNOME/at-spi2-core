@@ -54,6 +54,8 @@ def session_manager():
     bus = dbus.SessionBus()
     mock_session = bus.get_object('org.gnome.SessionManager', '/org/gnome/SessionManager')
 
+    mock_session.SetSessionRunning(True, dbus_interface='org.freedesktop.DBus.Mock')
+
     # return a dummy object as a fixture
     yield object()
 
