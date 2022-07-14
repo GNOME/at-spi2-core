@@ -12,13 +12,10 @@ gdbus call --session \
       --object-path /org/gnome/SessionManager \
       --method org.freedesktop.DBus.Mock.AddTemplate 'tests/dbusmock/mock-gnome-session.py' '{}'
 
-gdbus call --session \
-      --dest org.gnome.SessionManager \
-      --object-path /org/gnome/SessionManager \
-      --method org.freedesktop.DBus.Mock.SetSessionRunning true
-
 mkdir -p _build/tests/registryd
 
 cd tests/registryd
 
-pytest -v --junit-xml=../../_build/tests/registryd/registryd-pytest.junit.xml
+pytest --junit-xml=../../_build/tests/registryd/registryd-pytest.junit.xml
+
+kill %1  # Kill python dbusmock

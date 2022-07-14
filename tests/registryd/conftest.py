@@ -39,9 +39,6 @@ def get_accesssibility_bus_address():
     bus_launcher = bus.get_object('org.a11y.Bus', '/org/a11y/bus')
     return str(bus_launcher.GetAddress(dbus_interface='org.a11y.Bus'))
 
-def get_registry_root(a11y_bus):
-    return a11y_bus.get_object('org.a11y.atspi.Registry', '/org/a11y/atspi/accessible/root')
-
 @pytest.fixture
 def session_manager():
     # This assumes that pytest is running in this environment:
@@ -57,14 +54,13 @@ def session_manager():
     bus = dbus.SessionBus()
     mock_session = bus.get_object('org.gnome.SessionManager', '/org/gnome/SessionManager')
 
+    mock_session.SetSessionRunning(True, dbus_interface='org.freedesktop.DBus.Mock')
+
     # return a dummy object as a fixture
     yield object()
 
     # Tell all session clients to terminate
     mock_session.Logout(0, dbus_interface='org.gnome.SessionManager')
-
-    # Reset mock session back to its starting state
-    mock_session.Reset(dbus_interface='org.freedesktop.DBus.Mock')
 
     # Wait a bit for the a11y bus launcher to really die
     proxy = bus.get_object('org.freedesktop.DBus', '/org/freedesktop/DBus')
@@ -75,9 +71,12 @@ def session_manager():
         else:
             break
 
+    # Reset mock session back to its starting state
+    mock_session.Reset(dbus_interface='org.freedesktop.DBus.Mock')
+
 @pytest.fixture
-def registry(main_loop, session_manager):
+def registry_root(main_loop, session_manager):
     a11y_address = get_accesssibility_bus_address()
     a11y_bus = dbus.bus.BusConnection(a11y_address)
 
-    return get_registry_root(a11y_bus)
+    return a11y_bus.get_object('org.a11y.atspi.Registry', '/org/a11y/atspi/accessible/root')
