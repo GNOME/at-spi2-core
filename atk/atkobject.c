@@ -130,6 +130,7 @@ enum {
   N_("list item")
   N_("menu")
   N_("menu bar")
+  N_("menu button")
   N_("menu item")
   N_("option pane")
   N_("page tab")

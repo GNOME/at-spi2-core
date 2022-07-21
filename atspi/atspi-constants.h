@@ -1251,6 +1251,7 @@ typedef enum {
  * content. An object with this role should include children with %ATSPI_ROLE_CONTENT_DELETION and/or
  * %ATSPI_ROLE_CONTENT_INSERTION, in any order, to indicate what the
  * actual change is. @Since: 2.36
+ * @ATSPI_ROLE_PUSH_BUTTON_MENU: A specialized push button to open a menu. @Since 2.46
  * @ATSPI_ROLE_LAST_DEFINED: Not a valid role, used for finding end of
  * enumeration.
  *
@@ -1388,6 +1389,7 @@ typedef enum {
     ATSPI_ROLE_CONTENT_INSERTION,
     ATSPI_ROLE_MARK,
     ATSPI_ROLE_SUGGESTION,
+    ATSPI_ROLE_PUSH_BUTTON_MENU,
     ATSPI_ROLE_LAST_DEFINED,
 } AtspiRole;
 
