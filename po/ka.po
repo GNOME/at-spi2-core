@@ -1,471 +1,586 @@
-# translation of atk.HEAD.po to Georgian
-# Copyright © 2006 The ATK Team.
-# This file is distributed under the same license as the ATK package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-# Gia Shervashidze <giasher@telenet.ge>, 2005, 2006.
-# Vladimer Sichinava <vsichi@gnome.org>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: atk.HEAD\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-21 15:05+0800\n"
-"PO-Revision-Date: 2006-11-14 01:59+0100\n"
-"Last-Translator: Vladimer Sichinava <vsichi@gnome.org>\n"
-"Language-Team: Georgian <geognome@googlegroups.com>\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
+"POT-Creation-Date: 2022-07-14 02:29+0000\n"
+"PO-Revision-Date: 2022-07-24 07:23+0200\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Language-Team: \n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.1.1\n"
 
-#: atk/atkhyperlink.c:103
+#: atk/atkhyperlink.c:126
 msgid "Selected Link"
 msgstr "შერჩეული ბმა"
 
-#: atk/atkhyperlink.c:104
+#: atk/atkhyperlink.c:127
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr "მიუთითებს, მონიშნულია თუ არა AtkHyperlink ჰიპერბმა"
 
-#: atk/atkhyperlink.c:110
+#: atk/atkhyperlink.c:133
 msgid "Number of Anchors"
 msgstr "ღუზების რაოდენობა"
 
-#: atk/atkhyperlink.c:111
+#: atk/atkhyperlink.c:134
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr "მიმდინარე ჰიპერტექსტთან დაკავშირებული ღუზების რაოდენობა"
 
-#: atk/atkhyperlink.c:119
+#: atk/atkhyperlink.c:142
 msgid "End index"
 msgstr "ინდექსის ბოლო"
 
-#: atk/atkhyperlink.c:120
+#: atk/atkhyperlink.c:143
 msgid "The end index of the AtkHyperlink object"
 msgstr "ჰიპერბმის ობიექტის ინდექსის ბოლო"
 
-#: atk/atkhyperlink.c:128
+#: atk/atkhyperlink.c:151
 msgid "Start index"
 msgstr "ინდექსის დასაწყისი"
 
-#: atk/atkhyperlink.c:129
+#: atk/atkhyperlink.c:152
 msgid "The start index of the AtkHyperlink object"
 msgstr "ჰიპერბმის ობიექტის ინდექსის დასაწყისი"
 
-#: atk/atkobject.c:74
+#: atk/atkobject.c:98
 msgid "invalid"
 msgstr "მცდარი"
 
-#: atk/atkobject.c:75
+#: atk/atkobject.c:99
 msgid "accelerator label"
 msgstr "მალმხმობის წარწერა"
 
-#: atk/atkobject.c:76
+#: atk/atkobject.c:100
 msgid "alert"
 msgstr "განგაში"
 
-#: atk/atkobject.c:77
+#: atk/atkobject.c:101
 msgid "animation"
 msgstr "ანიმაცია"
 
-#: atk/atkobject.c:78
+#: atk/atkobject.c:102
 msgid "arrow"
 msgstr "ისარი"
 
-#: atk/atkobject.c:79
+#: atk/atkobject.c:103
 msgid "calendar"
 msgstr "კალენდარი"
 
-#: atk/atkobject.c:80
+#: atk/atkobject.c:104
 msgid "canvas"
 msgstr "ტილო"
 
-#: atk/atkobject.c:81
+#: atk/atkobject.c:105
 msgid "check box"
 msgstr "ჩამრთველი"
 
-#: atk/atkobject.c:82
+#: atk/atkobject.c:106
 msgid "check menu item"
 msgstr "ჩამრთველი მენიუს ელემენტი"
 
-#: atk/atkobject.c:83
+#: atk/atkobject.c:107
 msgid "color chooser"
 msgstr "ფერის არჩევა"
 
-#: atk/atkobject.c:84
+#: atk/atkobject.c:108
 msgid "column header"
 msgstr "სვეტის თავსართი"
 
-#: atk/atkobject.c:85
+#: atk/atkobject.c:109
 msgid "combo box"
 msgstr "ჩამოშლადი სია"
 
-#: atk/atkobject.c:86
+#: atk/atkobject.c:110
 msgid "dateeditor"
 msgstr "თარიღის რედაქტორი"
 
-#: atk/atkobject.c:87
+#: atk/atkobject.c:111
 msgid "desktop icon"
 msgstr "სამუშაო დაფის ხატულა"
 
-#: atk/atkobject.c:88
+#: atk/atkobject.c:112
 msgid "desktop frame"
 msgstr "სამუშაო დაფის ჩარჩო"
 
-#: atk/atkobject.c:89
+#: atk/atkobject.c:113
 msgid "dial"
 msgstr "დარეკვა"
 
-#: atk/atkobject.c:90
+#: atk/atkobject.c:114
 msgid "dialog"
 msgstr "დიალოგი"
 
-#: atk/atkobject.c:91
+#: atk/atkobject.c:115
 msgid "directory pane"
 msgstr "დასტების კატალოგი"
 
-#: atk/atkobject.c:92
+#: atk/atkobject.c:116
 msgid "drawing area"
 msgstr "სახატავი არე"
 
-#: atk/atkobject.c:93
+#: atk/atkobject.c:117
 msgid "file chooser"
 msgstr "ფაილების არჩევა"
 
-#: atk/atkobject.c:94
+#: atk/atkobject.c:118
 msgid "filler"
 msgstr "შემვსები"
 
 #. I know it looks wrong but that is what Java returns
-#: atk/atkobject.c:96
+#: atk/atkobject.c:120
 msgid "fontchooser"
 msgstr "შრიფტების არჩევა"
 
-#: atk/atkobject.c:97
+#: atk/atkobject.c:121
 msgid "frame"
 msgstr "ჩარჩო"
 
-#: atk/atkobject.c:98
+#: atk/atkobject.c:122
 msgid "glass pane"
 msgstr "გამჭვირვალე პანელი"
 
-#: atk/atkobject.c:99
+#: atk/atkobject.c:123
 msgid "html container"
 msgstr "html ბლოკი"
 
-#: atk/atkobject.c:100
+#: atk/atkobject.c:124
 msgid "icon"
 msgstr "ხატულა"
 
-#: atk/atkobject.c:101
+#: atk/atkobject.c:125
 msgid "image"
-msgstr "ნახატი"
+msgstr "გამოსახულება"
 
-#: atk/atkobject.c:102
+#: atk/atkobject.c:126
 msgid "internal frame"
 msgstr "შიდა ჩარჩო"
 
-#: atk/atkobject.c:103
+#: atk/atkobject.c:127
 msgid "label"
-msgstr "წარწერა"
+msgstr "ჭდე"
 
-#: atk/atkobject.c:104
+#: atk/atkobject.c:128
 msgid "layered pane"
 msgstr "შრეებიანი პანელი"
 
-#: atk/atkobject.c:105
+#: atk/atkobject.c:129
 msgid "list"
 msgstr "სია"
 
-#: atk/atkobject.c:106
+#: atk/atkobject.c:130
 msgid "list item"
 msgstr "სიის ელემენტი"
 
-#: atk/atkobject.c:107
+#: atk/atkobject.c:131
 msgid "menu"
 msgstr "მენიუ"
 
-#: atk/atkobject.c:108
+#: atk/atkobject.c:132
 msgid "menu bar"
 msgstr "მენიუს პულტი"
 
-#: atk/atkobject.c:109
+#: atk/atkobject.c:133
 msgid "menu item"
 msgstr "მენიუს ელემენტი"
 
-#: atk/atkobject.c:110
+#: atk/atkobject.c:134
 msgid "option pane"
 msgstr "ოპციების პანელი"
 
-#: atk/atkobject.c:111
+#: atk/atkobject.c:135
 msgid "page tab"
 msgstr "დაფა"
 
-#: atk/atkobject.c:112
+#: atk/atkobject.c:136
 msgid "page tab list"
 msgstr "დაფების სია"
 
-#: atk/atkobject.c:113
+#: atk/atkobject.c:137
 msgid "panel"
 msgstr "პანელი"
 
-#: atk/atkobject.c:114
+#: atk/atkobject.c:138
 msgid "password text"
 msgstr "პაროლი"
 
-#: atk/atkobject.c:115
+#: atk/atkobject.c:139
 msgid "popup menu"
 msgstr "მოტივტივე მენიუ"
 
-#: atk/atkobject.c:116
+#: atk/atkobject.c:140
 msgid "progress bar"
 msgstr "მიმდინარეობის მაჩვენებელი"
 
-#: atk/atkobject.c:117
+#: atk/atkobject.c:141
 msgid "push button"
 msgstr "ღილაკი"
 
-#: atk/atkobject.c:118
+#: atk/atkobject.c:142
 msgid "radio button"
 msgstr "ინდიკატორი"
 
-#: atk/atkobject.c:119
+#: atk/atkobject.c:143
 msgid "radio menu item"
 msgstr "ინდიკატორის მენიუს ელემენტი"
 
-#: atk/atkobject.c:120
+#: atk/atkobject.c:144
 msgid "root pane"
 msgstr "ძირეული დასტა"
 
-#: atk/atkobject.c:121
+#: atk/atkobject.c:145
 msgid "row header"
 msgstr "მწკრივის თავსართი"
 
-#: atk/atkobject.c:122
+#: atk/atkobject.c:146
 msgid "scroll bar"
 msgstr "გადახვევის ზოლი"
 
-#: atk/atkobject.c:123
+#: atk/atkobject.c:147
 msgid "scroll pane"
 msgstr "გადახვევის პანელი"
 
-#: atk/atkobject.c:124
+#: atk/atkobject.c:148
 msgid "separator"
 msgstr "გამყოფი"
 
-#: atk/atkobject.c:125
+#: atk/atkobject.c:149
 msgid "slider"
 msgstr "ჩოჩიალა"
 
-#: atk/atkobject.c:126
+#: atk/atkobject.c:150
 msgid "split pane"
 msgstr "ორმაგი პანელი"
 
-#: atk/atkobject.c:127
+#: atk/atkobject.c:151
 msgid "spin button"
 msgstr "მოტრიალების ღილაკი"
 
-#: atk/atkobject.c:128
+#: atk/atkobject.c:152
 msgid "statusbar"
 msgstr "სტატუსი"
 
-#: atk/atkobject.c:129
+#: atk/atkobject.c:153
 msgid "table"
 msgstr "ცხრილი"
 
-#: atk/atkobject.c:130
+#: atk/atkobject.c:154
 msgid "table cell"
 msgstr "ცხრილის უჯრა"
 
-#: atk/atkobject.c:131
+#: atk/atkobject.c:155
 msgid "table column header"
 msgstr "ცხრილის სვეტის თავსართი"
 
-#: atk/atkobject.c:132
+#: atk/atkobject.c:156
 msgid "table row header"
 msgstr "ცხრილის მწკრივის თავსართი"
 
-#: atk/atkobject.c:133
+#: atk/atkobject.c:157
 msgid "tear off menu item"
 msgstr "მენიუს ქვეელემენტი"
 
-#: atk/atkobject.c:134
+#: atk/atkobject.c:158
 msgid "terminal"
 msgstr "ტერმინალი"
 
-#: atk/atkobject.c:135
+#: atk/atkobject.c:159
 msgid "text"
 msgstr "ტექსტი"
 
-#: atk/atkobject.c:136
+#: atk/atkobject.c:160
 msgid "toggle button"
 msgstr "გადამრთველი"
 
-#: atk/atkobject.c:137
+#: atk/atkobject.c:161
 msgid "tool bar"
 msgstr "ხელსაწყოთა პანელი"
 
-#: atk/atkobject.c:138
+#: atk/atkobject.c:162
 msgid "tool tip"
 msgstr "კარნახი"
 
-#: atk/atkobject.c:139
+#: atk/atkobject.c:163
 msgid "tree"
 msgstr "ხე"
 
-#: atk/atkobject.c:140
+#: atk/atkobject.c:164
 msgid "tree table"
 msgstr "განტოტვილი ცხრილი"
 
-#: atk/atkobject.c:141
+#: atk/atkobject.c:165
 msgid "unknown"
 msgstr "უცნობია"
 
-#: atk/atkobject.c:142
+#: atk/atkobject.c:166
 msgid "viewport"
 msgstr "ჩვენების არე"
 
-#: atk/atkobject.c:143
+#: atk/atkobject.c:167
 msgid "window"
 msgstr "ფანჯარა"
 
-#: atk/atkobject.c:144
+#: atk/atkobject.c:168
 msgid "header"
 msgstr "თავსართი"
 
-#: atk/atkobject.c:145
+#: atk/atkobject.c:169
 msgid "footer"
 msgstr "ქვესართი"
 
-#: atk/atkobject.c:146
+#: atk/atkobject.c:170
 msgid "paragraph"
 msgstr "პარაგრაფი"
 
-#: atk/atkobject.c:147
-#, fuzzy
+#: atk/atkobject.c:171
 msgid "ruler"
-msgstr "განგაში"
+msgstr "სახაზავი"
 
-#: atk/atkobject.c:148
+#: atk/atkobject.c:172
 msgid "application"
 msgstr "პროგრამა"
 
-#: atk/atkobject.c:149
+#: atk/atkobject.c:173
 msgid "autocomplete"
 msgstr "თვითშევსება"
 
-#: atk/atkobject.c:150
+#: atk/atkobject.c:174
 msgid "edit bar"
 msgstr "რედაქტირების პანელი"
 
-#: atk/atkobject.c:151
+#: atk/atkobject.c:175
 msgid "embedded component"
 msgstr "ჩაკერებული ობიექტი"
 
-#: atk/atkobject.c:152
+#: atk/atkobject.c:176
 msgid "entry"
 msgstr "ელემენტი"
 
-#: atk/atkobject.c:153
+#: atk/atkobject.c:177
 msgid "chart"
 msgstr "განგაში"
 
-#: atk/atkobject.c:154
+#: atk/atkobject.c:178
 msgid "caption"
 msgstr "პროგრამა"
 
-#: atk/atkobject.c:155
+#: atk/atkobject.c:179
 msgid "document frame"
 msgstr "სამუშაო დაფის ჩარჩო"
 
-#: atk/atkobject.c:156
+#: atk/atkobject.c:180
 msgid "heading"
 msgstr "თავსართი"
 
-#: atk/atkobject.c:157
+#: atk/atkobject.c:181
 msgid "page"
-msgstr "პანელი"
+msgstr "page"
 
-#: atk/atkobject.c:158
+#: atk/atkobject.c:182
 msgid "section"
 msgstr "სექცია"
 
-#: atk/atkobject.c:159
+#: atk/atkobject.c:183
 msgid "redundant object"
 msgstr "ზედმეტი ობიექტი"
 
-#: atk/atkobject.c:160
+#: atk/atkobject.c:184
 msgid "form"
 msgstr "ფორმა"
 
-#: atk/atkobject.c:161
+#: atk/atkobject.c:185
 msgid "link"
-msgstr ""
+msgstr "ბმული"
 
-#: atk/atkobject.c:162
+#: atk/atkobject.c:186
 msgid "input method window"
-msgstr ""
+msgstr "შეყვანის მეთოდის ფანჯარა"
 
-#: atk/atkobject.c:488
+#: atk/atkobject.c:187
+msgid "table row"
+msgstr "ცხრილის მწკრივი"
+
+#: atk/atkobject.c:188
+msgid "tree item"
+msgstr "ხის ელემენტი"
+
+#: atk/atkobject.c:189
+msgid "document spreadsheet"
+msgstr "დოკუმენტის ელცხრილი"
+
+#: atk/atkobject.c:190
+msgid "document presentation"
+msgstr "დოკუმენტის პრეზენტაცია"
+
+#: atk/atkobject.c:191
+msgid "document text"
+msgstr "დოკუმენტის ტექსტი"
+
+#: atk/atkobject.c:192
+msgid "document web"
+msgstr "ვებ დოკუმენტი"
+
+#: atk/atkobject.c:193
+msgid "document email"
+msgstr "ელფოტა"
+
+#: atk/atkobject.c:194
+msgid "comment"
+msgstr "კომენტარი"
+
+#: atk/atkobject.c:195
+msgid "list box"
+msgstr "სიის ყუთი"
+
+#: atk/atkobject.c:196
+msgid "grouping"
+msgstr "დაჯგუფება"
+
+#: atk/atkobject.c:197
+msgid "image map"
+msgstr "გამოსახულების რუკა"
+
+#: atk/atkobject.c:198
+msgid "notification"
+msgstr "გაფრთხილება"
+
+#: atk/atkobject.c:199
+msgid "info bar"
+msgstr "ინფორმაციის ზოლი"
+
+#: atk/atkobject.c:200
+msgid "level bar"
+msgstr "დონის ზოლი"
+
+#: atk/atkobject.c:201
+msgid "title bar"
+msgstr "სათაურის ზოლი"
+
+#: atk/atkobject.c:202
+msgid "block quote"
+msgstr "ბრჭყალის ბლოკი"
+
+#: atk/atkobject.c:203
+msgid "audio"
+msgstr "აუდიო"
+
+#: atk/atkobject.c:204
+msgid "video"
+msgstr "ვიდეო"
+
+#: atk/atkobject.c:205
+msgid "definition"
+msgstr "აღწერა"
+
+#: atk/atkobject.c:206
+msgid "article"
+msgstr "სტატია"
+
+#: atk/atkobject.c:207
+msgid "landmark"
+msgstr "ორიენტირი"
+
+#: atk/atkobject.c:208
+msgid "log"
+msgstr "ჟურნალი"
+
+#: atk/atkobject.c:209
+msgid "marquee"
+msgstr "სეფა"
+
+#: atk/atkobject.c:210
+msgid "math"
+msgstr "მათემატიკა"
+
+#: atk/atkobject.c:211
+msgid "rating"
+msgstr "შეფასება"
+
+#: atk/atkobject.c:212
+msgid "timer"
+msgstr "წამმზომი"
+
+#: atk/atkobject.c:213
+msgid "description list"
+msgstr "აღწერის სია"
+
+#: atk/atkobject.c:214
+msgid "description term"
+msgstr "აღწერის წესი"
+
+#: atk/atkobject.c:215
+msgid "description value"
+msgstr "აღწერის მნიშვნელობა"
+
+#: atk/atkobject.c:391
 msgid "Accessible Name"
 msgstr "დამხმარე სახელი"
 
-#: atk/atkobject.c:489
+#: atk/atkobject.c:392
 msgid "Object instance’s name formatted for assistive technology access"
 msgstr "ობიექტის დამხმარე ფსევდონიმი დამხმარე ტექნოლოგიებისთვის"
 
-#: atk/atkobject.c:495
+#: atk/atkobject.c:398
 msgid "Accessible Description"
 msgstr "ძირეული დამხმარე ობიექტი"
 
-#: atk/atkobject.c:496
+#: atk/atkobject.c:399
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "ობიექტის აღწერილობა დამხმარე ტექნოლოგიებისთვის"
 
-#: atk/atkobject.c:502
+#: atk/atkobject.c:405
 msgid "Accessible Parent"
 msgstr "ძირეული დამხმარე ობიექტი"
 
-#: atk/atkobject.c:503
-msgid "Is used to notify that the parent has changed"
-msgstr "ძირეული დამხმარე ობიექტის ცვლილების შეტყობინება"
+#: atk/atkobject.c:406
+msgid "Parent of the current accessible as returned by atk_object_get_parent()"
+msgstr ""
+"მიმდინარე წვდომადის atk_object_get_parent()-ის მიერ დაბრუნებული მშობელი"
 
-#: atk/atkobject.c:509
+#: atk/atkobject.c:422
 msgid "Accessible Value"
 msgstr "დამხმარე ობიექტის მნიშვნელობა"
 
-#: atk/atkobject.c:510
+#: atk/atkobject.c:423
 msgid "Is used to notify that the value has changed"
 msgstr "დამხმარე ობიექტის მნიშვნელობის ცვლილების შეტყობინება"
 
-#: atk/atkobject.c:518
+#: atk/atkobject.c:431
 msgid "Accessible Role"
 msgstr "დამხმარე ობიექტის როლი"
 
-#: atk/atkobject.c:519
+#: atk/atkobject.c:432
 msgid "The accessible role of this object"
 msgstr "დამხმარე ობიექტის როლი"
 
-#: atk/atkobject.c:527
+#: atk/atkobject.c:439
 msgid "Accessible Layer"
 msgstr "დამხმარე ობიექტის შრე"
 
-#: atk/atkobject.c:528
+#: atk/atkobject.c:440
 msgid "The accessible layer of this object"
 msgstr "დამხმარე ობიექტის შრე"
 
-#: atk/atkobject.c:536
+#: atk/atkobject.c:448
 msgid "Accessible MDI Value"
 msgstr "დამხმარე ობიექტის MDI მნიშვნელობა"
 
-#: atk/atkobject.c:537
+#: atk/atkobject.c:449
 msgid "The accessible MDI value of this object"
 msgstr "დამხმარე ობიექტის MDI მნიშვნელობა"
 
-#: atk/atkobject.c:545
+#: atk/atkobject.c:465
 msgid "Accessible Table Caption"
 msgstr "დამხმარე ობიექტის ცხრილის სათაური"
 
-#: atk/atkobject.c:546
+#: atk/atkobject.c:466
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -473,58 +588,211 @@ msgstr ""
 "დამხმარე ობიექტის ცხრილის სათაურის ცვლილების შეტყობინება; ამ პარამეტრის "
 "ნაცვლად სასურველია დამხმარე ცხრილის სათაურის ობიექტის გამოყენება"
 
-#: atk/atkobject.c:552
+#: atk/atkobject.c:480
 msgid "Accessible Table Column Header"
 msgstr "დამხმარე ობიექტის სვეტის თავსართი"
 
-#: atk/atkobject.c:553
+#: atk/atkobject.c:481
 msgid "Is used to notify that the table column header has changed"
 msgstr "დამხმარე ობიექტის სვეტის თავსართის ცვლილების შეტყობინება"
 
-#: atk/atkobject.c:559
+#: atk/atkobject.c:496
 msgid "Accessible Table Column Description"
 msgstr "დამხმარე ობიექტის სვეტის აღწერილობა"
 
-#: atk/atkobject.c:560
+#: atk/atkobject.c:497
 msgid "Is used to notify that the table column description has changed"
 msgstr "დამხმარე ობიექტის სვეტის თავსართის აღწერილობის ცვლილების შეტყობინება"
 
-#: atk/atkobject.c:566
+#: atk/atkobject.c:512
 msgid "Accessible Table Row Header"
 msgstr "დამხმარე ობიექტის მწკრივის თავსართი"
 
-#: atk/atkobject.c:567
+#: atk/atkobject.c:513
 msgid "Is used to notify that the table row header has changed"
 msgstr "დამხმარე ობიექტის მწკრივის თავსართის ცვლილების შეტყობინება"
 
-#: atk/atkobject.c:573
+#: atk/atkobject.c:527
 msgid "Accessible Table Row Description"
 msgstr "დამხმარე ობიექტის მწკრივის აღწერილობა"
 
-#: atk/atkobject.c:574
+#: atk/atkobject.c:528
 msgid "Is used to notify that the table row description has changed"
 msgstr "დამხმარე ობიექტის მწკრივის აღწერილობის თავსართის ცვლილების შეტყობინება"
 
-#: atk/atkobject.c:580
+#: atk/atkobject.c:534
 msgid "Accessible Table Summary"
 msgstr "დამხმარე ობიექტის ნაერთი ცხრილი"
 
-#: atk/atkobject.c:581
+#: atk/atkobject.c:535
 msgid "Is used to notify that the table summary has changed"
 msgstr "დამხმარე ობიექტის ნაერთი ცხრილის ცვლილების შეტყობინება"
 
-#: atk/atkobject.c:587
+#: atk/atkobject.c:541
 msgid "Accessible Table Caption Object"
 msgstr "დამხმარე ცხრილის სათაურის ობიექტი"
 
-#: atk/atkobject.c:588
+#: atk/atkobject.c:542
 msgid "Is used to notify that the table caption has changed"
 msgstr "დამხმარე ცხრილის სათაურის ობიექტის ცვლილების შეტყობინება"
 
-#: atk/atkobject.c:594
+#: atk/atkobject.c:548
 msgid "Number of Accessible Hypertext Links"
 msgstr "დამხმარე ობიექტის ჰიპერტექსტის ბმების რაოდენობა"
 
-#: atk/atkobject.c:595
+#: atk/atkobject.c:549
 msgid "The number of links which the current AtkHypertext has"
 msgstr "მიმდინარე ჰიპერტექსტის ბმების რაოდენობა"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:194
+msgid "very weak"
+msgstr "ძალიან სუსტი"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:201
+msgid "weak"
+msgstr "სუსტი"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:208
+msgid "acceptable"
+msgstr "დამაკმაყოფილებელი"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:215
+msgid "strong"
+msgstr "ძლიერი"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:222
+msgid "very strong"
+msgstr "ძალიან ძლიერი"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:230
+msgid "very low"
+msgstr "ძალიან დაბალი"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:238
+msgid "medium"
+msgstr "საშუალო"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:246
+msgid "high"
+msgstr "მაღალი"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:254
+msgid "very high"
+msgstr "ძალიან მაღალი"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:262
+msgid "very bad"
+msgstr "ძალიან ცუდი"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:270
+msgid "bad"
+msgstr "ცუდი"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:278
+msgid "good"
+msgstr "კარგი"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:286
+msgid "very good"
+msgstr "ძალიან კარგი"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:294
+msgid "best"
+msgstr "საუკეთესო"
+
+#: atspi/atspi-component.c:332 atspi/atspi-misc.c:1063 atspi/atspi-value.c:111
+msgid "The application no longer exists"
+msgstr "აპლიკაცია აღარ არსებობს"
