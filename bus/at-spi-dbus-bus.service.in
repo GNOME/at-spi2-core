@@ -1,5 +1,6 @@
 [Unit]
 Description=Accessibility services bus
+PartOf=graphical-session.target
 
 [Service]
 Type=dbus
