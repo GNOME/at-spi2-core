@@ -235,6 +235,8 @@ G_BEGIN_DECLS
  * content. This role should include either %ATK_ROLE_CONTENT_DELETION and/or
  * %ATK_ROLE_CONTENT_INSERTION children, in any order, to indicate what the
  * actual change is. (Since: 2.36)
+ *@ATK_ROLE_PUSH_BUTTON_MENU: A specialized push button to open a menu.
+ * (Since: 2.46)
  *@ATK_ROLE_LAST_DEFINED: not a valid role, used for finding end of the enumeration
  *
  * Describes the role of an object
@@ -372,6 +374,7 @@ typedef enum
   ATK_ROLE_CONTENT_INSERTION,
   ATK_ROLE_MARK,
   ATK_ROLE_SUGGESTION,
+  ATK_ROLE_PUSH_BUTTON_MENU,
   ATK_ROLE_LAST_DEFINED
 } AtkRole;
 

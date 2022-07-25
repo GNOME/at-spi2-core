@@ -716,6 +716,8 @@
               the content. An object with this role should include children with
               ATSPI_ROLE_CONTENT_DELETION and/or ATSPI_ROLE_CONTENT_INSERTION, in any order, to
               indicate what the actual change is. Since: 2.36
+
+        129 - ATSPI_ROLE_PUSH_BUTTON_MENU: A specialized push button to open a menu. Since: 2.46
     -->
     <method name="GetRole">
       <arg direction="out" type="u"/>
