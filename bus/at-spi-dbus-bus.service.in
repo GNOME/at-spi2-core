@@ -6,3 +6,4 @@ PartOf=graphical-session.target
 Type=dbus
 BusName=org.a11y.Bus
 ExecStart=@libexecdir@/at-spi-bus-launcher
+Slice=session.slice
