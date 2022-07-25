@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
-"POT-Creation-Date: 2022-07-14 02:29+0000\n"
-"PO-Revision-Date: 2022-07-24 07:23+0200\n"
+"POT-Creation-Date: 2022-07-25 14:47+0000\n"
+"PO-Revision-Date: 2022-07-25 18:04+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: \n"
 "Language: ka\n"
@@ -188,399 +188,403 @@ msgid "menu bar"
 msgstr "მენიუს პულტი"
 
 #: atk/atkobject.c:133
+msgid "menu button"
+msgstr "მენიუს ღილაკი"
+
+#: atk/atkobject.c:134
 msgid "menu item"
 msgstr "მენიუს ელემენტი"
 
-#: atk/atkobject.c:134
+#: atk/atkobject.c:135
 msgid "option pane"
 msgstr "ოპციების პანელი"
 
-#: atk/atkobject.c:135
+#: atk/atkobject.c:136
 msgid "page tab"
 msgstr "დაფა"
 
-#: atk/atkobject.c:136
+#: atk/atkobject.c:137
 msgid "page tab list"
 msgstr "დაფების სია"
 
-#: atk/atkobject.c:137
+#: atk/atkobject.c:138
 msgid "panel"
 msgstr "პანელი"
 
-#: atk/atkobject.c:138
+#: atk/atkobject.c:139
 msgid "password text"
 msgstr "პაროლი"
 
-#: atk/atkobject.c:139
+#: atk/atkobject.c:140
 msgid "popup menu"
 msgstr "მოტივტივე მენიუ"
 
-#: atk/atkobject.c:140
+#: atk/atkobject.c:141
 msgid "progress bar"
 msgstr "მიმდინარეობის მაჩვენებელი"
 
-#: atk/atkobject.c:141
+#: atk/atkobject.c:142
 msgid "push button"
 msgstr "ღილაკი"
 
-#: atk/atkobject.c:142
+#: atk/atkobject.c:143
 msgid "radio button"
 msgstr "ინდიკატორი"
 
-#: atk/atkobject.c:143
+#: atk/atkobject.c:144
 msgid "radio menu item"
 msgstr "ინდიკატორის მენიუს ელემენტი"
 
-#: atk/atkobject.c:144
+#: atk/atkobject.c:145
 msgid "root pane"
 msgstr "ძირეული დასტა"
 
-#: atk/atkobject.c:145
+#: atk/atkobject.c:146
 msgid "row header"
 msgstr "მწკრივის თავსართი"
 
-#: atk/atkobject.c:146
+#: atk/atkobject.c:147
 msgid "scroll bar"
 msgstr "გადახვევის ზოლი"
 
-#: atk/atkobject.c:147
+#: atk/atkobject.c:148
 msgid "scroll pane"
 msgstr "გადახვევის პანელი"
 
-#: atk/atkobject.c:148
+#: atk/atkobject.c:149
 msgid "separator"
 msgstr "გამყოფი"
 
-#: atk/atkobject.c:149
+#: atk/atkobject.c:150
 msgid "slider"
 msgstr "ჩოჩიალა"
 
-#: atk/atkobject.c:150
+#: atk/atkobject.c:151
 msgid "split pane"
 msgstr "ორმაგი პანელი"
 
-#: atk/atkobject.c:151
+#: atk/atkobject.c:152
 msgid "spin button"
 msgstr "მოტრიალების ღილაკი"
 
-#: atk/atkobject.c:152
+#: atk/atkobject.c:153
 msgid "statusbar"
 msgstr "სტატუსი"
 
-#: atk/atkobject.c:153
+#: atk/atkobject.c:154
 msgid "table"
 msgstr "ცხრილი"
 
-#: atk/atkobject.c:154
+#: atk/atkobject.c:155
 msgid "table cell"
 msgstr "ცხრილის უჯრა"
 
-#: atk/atkobject.c:155
+#: atk/atkobject.c:156
 msgid "table column header"
 msgstr "ცხრილის სვეტის თავსართი"
 
-#: atk/atkobject.c:156
+#: atk/atkobject.c:157
 msgid "table row header"
 msgstr "ცხრილის მწკრივის თავსართი"
 
-#: atk/atkobject.c:157
+#: atk/atkobject.c:158
 msgid "tear off menu item"
 msgstr "მენიუს ქვეელემენტი"
 
-#: atk/atkobject.c:158
+#: atk/atkobject.c:159
 msgid "terminal"
 msgstr "ტერმინალი"
 
-#: atk/atkobject.c:159
+#: atk/atkobject.c:160
 msgid "text"
 msgstr "ტექსტი"
 
-#: atk/atkobject.c:160
+#: atk/atkobject.c:161
 msgid "toggle button"
 msgstr "გადამრთველი"
 
-#: atk/atkobject.c:161
+#: atk/atkobject.c:162
 msgid "tool bar"
 msgstr "ხელსაწყოთა პანელი"
 
-#: atk/atkobject.c:162
+#: atk/atkobject.c:163
 msgid "tool tip"
 msgstr "კარნახი"
 
-#: atk/atkobject.c:163
+#: atk/atkobject.c:164
 msgid "tree"
 msgstr "ხე"
 
-#: atk/atkobject.c:164
+#: atk/atkobject.c:165
 msgid "tree table"
 msgstr "განტოტვილი ცხრილი"
 
-#: atk/atkobject.c:165
+#: atk/atkobject.c:166
 msgid "unknown"
 msgstr "უცნობია"
 
-#: atk/atkobject.c:166
+#: atk/atkobject.c:167
 msgid "viewport"
 msgstr "ჩვენების არე"
 
-#: atk/atkobject.c:167
+#: atk/atkobject.c:168
 msgid "window"
 msgstr "ფანჯარა"
 
-#: atk/atkobject.c:168
+#: atk/atkobject.c:169
 msgid "header"
 msgstr "თავსართი"
 
-#: atk/atkobject.c:169
+#: atk/atkobject.c:170
 msgid "footer"
 msgstr "ქვესართი"
 
-#: atk/atkobject.c:170
+#: atk/atkobject.c:171
 msgid "paragraph"
 msgstr "პარაგრაფი"
 
-#: atk/atkobject.c:171
+#: atk/atkobject.c:172
 msgid "ruler"
 msgstr "სახაზავი"
 
-#: atk/atkobject.c:172
+#: atk/atkobject.c:173
 msgid "application"
 msgstr "პროგრამა"
 
-#: atk/atkobject.c:173
+#: atk/atkobject.c:174
 msgid "autocomplete"
 msgstr "თვითშევსება"
 
-#: atk/atkobject.c:174
+#: atk/atkobject.c:175
 msgid "edit bar"
 msgstr "რედაქტირების პანელი"
 
-#: atk/atkobject.c:175
+#: atk/atkobject.c:176
 msgid "embedded component"
 msgstr "ჩაკერებული ობიექტი"
 
-#: atk/atkobject.c:176
+#: atk/atkobject.c:177
 msgid "entry"
 msgstr "ელემენტი"
 
-#: atk/atkobject.c:177
+#: atk/atkobject.c:178
 msgid "chart"
 msgstr "განგაში"
 
-#: atk/atkobject.c:178
+#: atk/atkobject.c:179
 msgid "caption"
 msgstr "პროგრამა"
 
-#: atk/atkobject.c:179
+#: atk/atkobject.c:180
 msgid "document frame"
 msgstr "სამუშაო დაფის ჩარჩო"
 
-#: atk/atkobject.c:180
+#: atk/atkobject.c:181
 msgid "heading"
 msgstr "თავსართი"
 
-#: atk/atkobject.c:181
+#: atk/atkobject.c:182
 msgid "page"
 msgstr "page"
 
-#: atk/atkobject.c:182
+#: atk/atkobject.c:183
 msgid "section"
 msgstr "სექცია"
 
-#: atk/atkobject.c:183
+#: atk/atkobject.c:184
 msgid "redundant object"
 msgstr "ზედმეტი ობიექტი"
 
-#: atk/atkobject.c:184
+#: atk/atkobject.c:185
 msgid "form"
 msgstr "ფორმა"
 
-#: atk/atkobject.c:185
+#: atk/atkobject.c:186
 msgid "link"
 msgstr "ბმული"
 
-#: atk/atkobject.c:186
+#: atk/atkobject.c:187
 msgid "input method window"
 msgstr "შეყვანის მეთოდის ფანჯარა"
 
-#: atk/atkobject.c:187
+#: atk/atkobject.c:188
 msgid "table row"
 msgstr "ცხრილის მწკრივი"
 
-#: atk/atkobject.c:188
+#: atk/atkobject.c:189
 msgid "tree item"
 msgstr "ხის ელემენტი"
 
-#: atk/atkobject.c:189
+#: atk/atkobject.c:190
 msgid "document spreadsheet"
 msgstr "დოკუმენტის ელცხრილი"
 
-#: atk/atkobject.c:190
+#: atk/atkobject.c:191
 msgid "document presentation"
 msgstr "დოკუმენტის პრეზენტაცია"
 
-#: atk/atkobject.c:191
+#: atk/atkobject.c:192
 msgid "document text"
 msgstr "დოკუმენტის ტექსტი"
 
-#: atk/atkobject.c:192
+#: atk/atkobject.c:193
 msgid "document web"
 msgstr "ვებ დოკუმენტი"
 
-#: atk/atkobject.c:193
+#: atk/atkobject.c:194
 msgid "document email"
 msgstr "ელფოტა"
 
-#: atk/atkobject.c:194
+#: atk/atkobject.c:195
 msgid "comment"
 msgstr "კომენტარი"
 
-#: atk/atkobject.c:195
+#: atk/atkobject.c:196
 msgid "list box"
 msgstr "სიის ყუთი"
 
-#: atk/atkobject.c:196
+#: atk/atkobject.c:197
 msgid "grouping"
 msgstr "დაჯგუფება"
 
-#: atk/atkobject.c:197
+#: atk/atkobject.c:198
 msgid "image map"
 msgstr "გამოსახულების რუკა"
 
-#: atk/atkobject.c:198
+#: atk/atkobject.c:199
 msgid "notification"
 msgstr "გაფრთხილება"
 
-#: atk/atkobject.c:199
+#: atk/atkobject.c:200
 msgid "info bar"
 msgstr "ინფორმაციის ზოლი"
 
-#: atk/atkobject.c:200
+#: atk/atkobject.c:201
 msgid "level bar"
 msgstr "დონის ზოლი"
 
-#: atk/atkobject.c:201
+#: atk/atkobject.c:202
 msgid "title bar"
 msgstr "სათაურის ზოლი"
 
-#: atk/atkobject.c:202
+#: atk/atkobject.c:203
 msgid "block quote"
 msgstr "ბრჭყალის ბლოკი"
 
-#: atk/atkobject.c:203
+#: atk/atkobject.c:204
 msgid "audio"
 msgstr "აუდიო"
 
-#: atk/atkobject.c:204
+#: atk/atkobject.c:205
 msgid "video"
 msgstr "ვიდეო"
 
-#: atk/atkobject.c:205
+#: atk/atkobject.c:206
 msgid "definition"
 msgstr "აღწერა"
 
-#: atk/atkobject.c:206
+#: atk/atkobject.c:207
 msgid "article"
 msgstr "სტატია"
 
-#: atk/atkobject.c:207
+#: atk/atkobject.c:208
 msgid "landmark"
 msgstr "ორიენტირი"
 
-#: atk/atkobject.c:208
+#: atk/atkobject.c:209
 msgid "log"
 msgstr "ჟურნალი"
 
-#: atk/atkobject.c:209
+#: atk/atkobject.c:210
 msgid "marquee"
 msgstr "სეფა"
 
-#: atk/atkobject.c:210
+#: atk/atkobject.c:211
 msgid "math"
 msgstr "მათემატიკა"
 
-#: atk/atkobject.c:211
+#: atk/atkobject.c:212
 msgid "rating"
 msgstr "შეფასება"
 
-#: atk/atkobject.c:212
+#: atk/atkobject.c:213
 msgid "timer"
 msgstr "წამმზომი"
 
-#: atk/atkobject.c:213
+#: atk/atkobject.c:214
 msgid "description list"
 msgstr "აღწერის სია"
 
-#: atk/atkobject.c:214
+#: atk/atkobject.c:215
 msgid "description term"
 msgstr "აღწერის წესი"
 
-#: atk/atkobject.c:215
+#: atk/atkobject.c:216
 msgid "description value"
 msgstr "აღწერის მნიშვნელობა"
 
-#: atk/atkobject.c:391
+#: atk/atkobject.c:392
 msgid "Accessible Name"
 msgstr "დამხმარე სახელი"
 
-#: atk/atkobject.c:392
+#: atk/atkobject.c:393
 msgid "Object instance’s name formatted for assistive technology access"
 msgstr "ობიექტის დამხმარე ფსევდონიმი დამხმარე ტექნოლოგიებისთვის"
 
-#: atk/atkobject.c:398
+#: atk/atkobject.c:399
 msgid "Accessible Description"
 msgstr "ძირეული დამხმარე ობიექტი"
 
-#: atk/atkobject.c:399
+#: atk/atkobject.c:400
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "ობიექტის აღწერილობა დამხმარე ტექნოლოგიებისთვის"
 
-#: atk/atkobject.c:405
+#: atk/atkobject.c:406
 msgid "Accessible Parent"
 msgstr "ძირეული დამხმარე ობიექტი"
 
-#: atk/atkobject.c:406
+#: atk/atkobject.c:407
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr ""
 "მიმდინარე წვდომადის atk_object_get_parent()-ის მიერ დაბრუნებული მშობელი"
 
-#: atk/atkobject.c:422
+#: atk/atkobject.c:423
 msgid "Accessible Value"
 msgstr "დამხმარე ობიექტის მნიშვნელობა"
 
-#: atk/atkobject.c:423
+#: atk/atkobject.c:424
 msgid "Is used to notify that the value has changed"
 msgstr "დამხმარე ობიექტის მნიშვნელობის ცვლილების შეტყობინება"
 
-#: atk/atkobject.c:431
+#: atk/atkobject.c:432
 msgid "Accessible Role"
 msgstr "დამხმარე ობიექტის როლი"
 
-#: atk/atkobject.c:432
+#: atk/atkobject.c:433
 msgid "The accessible role of this object"
 msgstr "დამხმარე ობიექტის როლი"
 
-#: atk/atkobject.c:439
+#: atk/atkobject.c:440
 msgid "Accessible Layer"
 msgstr "დამხმარე ობიექტის შრე"
 
-#: atk/atkobject.c:440
+#: atk/atkobject.c:441
 msgid "The accessible layer of this object"
 msgstr "დამხმარე ობიექტის შრე"
 
-#: atk/atkobject.c:448
+#: atk/atkobject.c:449
 msgid "Accessible MDI Value"
 msgstr "დამხმარე ობიექტის MDI მნიშვნელობა"
 
-#: atk/atkobject.c:449
+#: atk/atkobject.c:450
 msgid "The accessible MDI value of this object"
 msgstr "დამხმარე ობიექტის MDI მნიშვნელობა"
 
-#: atk/atkobject.c:465
+#: atk/atkobject.c:466
 msgid "Accessible Table Caption"
 msgstr "დამხმარე ობიექტის ცხრილის სათაური"
 
-#: atk/atkobject.c:466
+#: atk/atkobject.c:467
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -588,59 +592,59 @@ msgstr ""
 "დამხმარე ობიექტის ცხრილის სათაურის ცვლილების შეტყობინება; ამ პარამეტრის "
 "ნაცვლად სასურველია დამხმარე ცხრილის სათაურის ობიექტის გამოყენება"
 
-#: atk/atkobject.c:480
+#: atk/atkobject.c:481
 msgid "Accessible Table Column Header"
 msgstr "დამხმარე ობიექტის სვეტის თავსართი"
 
-#: atk/atkobject.c:481
+#: atk/atkobject.c:482
 msgid "Is used to notify that the table column header has changed"
 msgstr "დამხმარე ობიექტის სვეტის თავსართის ცვლილების შეტყობინება"
 
-#: atk/atkobject.c:496
+#: atk/atkobject.c:497
 msgid "Accessible Table Column Description"
 msgstr "დამხმარე ობიექტის სვეტის აღწერილობა"
 
-#: atk/atkobject.c:497
+#: atk/atkobject.c:498
 msgid "Is used to notify that the table column description has changed"
 msgstr "დამხმარე ობიექტის სვეტის თავსართის აღწერილობის ცვლილების შეტყობინება"
 
-#: atk/atkobject.c:512
+#: atk/atkobject.c:513
 msgid "Accessible Table Row Header"
 msgstr "დამხმარე ობიექტის მწკრივის თავსართი"
 
-#: atk/atkobject.c:513
+#: atk/atkobject.c:514
 msgid "Is used to notify that the table row header has changed"
 msgstr "დამხმარე ობიექტის მწკრივის თავსართის ცვლილების შეტყობინება"
 
-#: atk/atkobject.c:527
+#: atk/atkobject.c:528
 msgid "Accessible Table Row Description"
 msgstr "დამხმარე ობიექტის მწკრივის აღწერილობა"
 
-#: atk/atkobject.c:528
+#: atk/atkobject.c:529
 msgid "Is used to notify that the table row description has changed"
 msgstr "დამხმარე ობიექტის მწკრივის აღწერილობის თავსართის ცვლილების შეტყობინება"
 
-#: atk/atkobject.c:534
+#: atk/atkobject.c:535
 msgid "Accessible Table Summary"
 msgstr "დამხმარე ობიექტის ნაერთი ცხრილი"
 
-#: atk/atkobject.c:535
+#: atk/atkobject.c:536
 msgid "Is used to notify that the table summary has changed"
 msgstr "დამხმარე ობიექტის ნაერთი ცხრილის ცვლილების შეტყობინება"
 
-#: atk/atkobject.c:541
+#: atk/atkobject.c:542
 msgid "Accessible Table Caption Object"
 msgstr "დამხმარე ცხრილის სათაურის ობიექტი"
 
-#: atk/atkobject.c:542
+#: atk/atkobject.c:543
 msgid "Is used to notify that the table caption has changed"
 msgstr "დამხმარე ცხრილის სათაურის ობიექტის ცვლილების შეტყობინება"
 
-#: atk/atkobject.c:548
+#: atk/atkobject.c:549
 msgid "Number of Accessible Hypertext Links"
 msgstr "დამხმარე ობიექტის ჰიპერტექსტის ბმების რაოდენობა"
 
-#: atk/atkobject.c:549
+#: atk/atkobject.c:550
 msgid "The number of links which the current AtkHypertext has"
 msgstr "მიმდინარე ჰიპერტექსტის ბმების რაოდენობა"
 
