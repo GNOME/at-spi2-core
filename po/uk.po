@@ -1,56 +1,36 @@
 # #-#-#-#-#  uk.po (1.1)  #-#-#-#-#
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Korostil Daniel <ted.korostiled@gmail.com>, 2011.
 # #-#-#-#-#  uk.po (atk)  #-#-#-#-#
 # ATK Ukrainian translation.
 # Copyright (C) 2002 The ATK Team
 # This file is distributed under the same license as the ATK package.
 # Yuriy Syrota <yuri@renome.rovno.ua>
 # Maxim Dziumanenko <dziumanenko@gmail.com>
+# Korostil Daniel <ted.korostiled@gmail.com>, 2011.
 # wanderlust <wanderlust@ukr.net>, 2009.
 # Korostil Daniel <ted.korostiled@gmail.com>, 2012.
-# Yuri Chornoivan <yurchor@ukr.net>, 2020.
-#, fuzzy
+# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2022.
 msgid ""
 msgstr ""
-"#-#-#-#-#  uk.po (1.1)  #-#-#-#-#\n"
-"Project-Id-Version: 1.1\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
-"POT-Creation-Date: 2018-06-10 15:50+0000\n"
-"PO-Revision-Date: 2019-10-18 18:08+0300\n"
-"Last-Translator: vikaig <vikaig99@gmail.com>\n"
-"Language-Team: translation@linux.org.ua\n"
-"Language: uk\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 2.2.1\n"
-"#-#-#-#-#  uk.po (atk)  #-#-#-#-#\n"
 "Project-Id-Version: atk\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/atk/issues\n"
-"POT-Creation-Date: 2019-09-22 11:50+0000\n"
-"PO-Revision-Date: 2020-03-07 20:22+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
+"POT-Creation-Date: 2022-07-25 14:47+0000\n"
+"PO-Revision-Date: 2022-07-25 22:43+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"#-#-#-#-#  uk.po (1.1)  #-#-#-#-#\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 20.12.0\n"
+"#-#-#-#-#  uk.po (atk)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 20.03.70\n"
-
-#: atspi/atspi-component.c:326 atspi/atspi-misc.c:1073 atspi/atspi-value.c:111
-msgid "The application no longer exists"
-msgstr "Програми більше не існує"
-
-#: atspi/atspi-misc.c:1850
-msgid "Attempted synchronous call where prohibited"
-msgstr "Спроба синхронного виклику там, де це заборонено"
 
 #: atk/atkhyperlink.c:126
 msgid "Selected Link"
@@ -222,405 +202,407 @@ msgid "menu bar"
 msgstr "рядок меню"
 
 #: atk/atkobject.c:133
+#| msgid "push button"
+msgid "menu button"
+msgstr "кнопка меню"
+
+#: atk/atkobject.c:134
 msgid "menu item"
 msgstr "елемент меню"
 
-#: atk/atkobject.c:134
+#: atk/atkobject.c:135
 msgid "option pane"
 msgstr "панель параметрів"
 
-#: atk/atkobject.c:135
+#: atk/atkobject.c:136
 msgid "page tab"
 msgstr "вкладка сторінки"
 
-#: atk/atkobject.c:136
+#: atk/atkobject.c:137
 msgid "page tab list"
 msgstr "список вкладок сторінки"
 
-#: atk/atkobject.c:137
+#: atk/atkobject.c:138
 msgid "panel"
 msgstr "панель"
 
-#: atk/atkobject.c:138
+#: atk/atkobject.c:139
 msgid "password text"
 msgstr "пароль"
 
-#: atk/atkobject.c:139
+#: atk/atkobject.c:140
 msgid "popup menu"
 msgstr "контекстне меню"
 
-#: atk/atkobject.c:140
+#: atk/atkobject.c:141
 msgid "progress bar"
 msgstr "індикатор поступу"
 
-#: atk/atkobject.c:141
+#: atk/atkobject.c:142
 msgid "push button"
 msgstr "звичайна кнопка"
 
-#: atk/atkobject.c:142
+#: atk/atkobject.c:143
 msgid "radio button"
 msgstr "кнопка-перемикач"
 
-#: atk/atkobject.c:143
+#: atk/atkobject.c:144
 msgid "radio menu item"
 msgstr "елемент-перемикач меню"
 
-#: atk/atkobject.c:144
+#: atk/atkobject.c:145
 msgid "root pane"
 msgstr "коренева панель"
 
-#: atk/atkobject.c:145
+#: atk/atkobject.c:146
 msgid "row header"
 msgstr "заголовок рядка"
 
-#: atk/atkobject.c:146
+#: atk/atkobject.c:147
 msgid "scroll bar"
 msgstr "смуга прокрутки"
 
-#: atk/atkobject.c:147
+#: atk/atkobject.c:148
 msgid "scroll pane"
 msgstr "панель прокрутки"
 
-#: atk/atkobject.c:148
+#: atk/atkobject.c:149
 msgid "separator"
 msgstr "розділювач"
 
-#: atk/atkobject.c:149
+#: atk/atkobject.c:150
 msgid "slider"
 msgstr "повзунок"
 
-#: atk/atkobject.c:150
+#: atk/atkobject.c:151
 msgid "split pane"
 msgstr "розділена панель"
 
-#: atk/atkobject.c:151
+#: atk/atkobject.c:152
 msgid "spin button"
 msgstr "кнопка обертання"
 
-#: atk/atkobject.c:152
+#: atk/atkobject.c:153
 msgid "statusbar"
 msgstr "рядок стану"
 
-#: atk/atkobject.c:153
+#: atk/atkobject.c:154
 msgid "table"
 msgstr "таблиця"
 
-#: atk/atkobject.c:154
+#: atk/atkobject.c:155
 msgid "table cell"
 msgstr "клітинка таблиці"
 
-#: atk/atkobject.c:155
+#: atk/atkobject.c:156
 msgid "table column header"
 msgstr "заголовок стовпчика таблиці"
 
-#: atk/atkobject.c:156
+#: atk/atkobject.c:157
 msgid "table row header"
 msgstr "заголовок рядка таблиці"
 
-#: atk/atkobject.c:157
+#: atk/atkobject.c:158
 msgid "tear off menu item"
 msgstr "рухомий елемент меню"
 
-#: atk/atkobject.c:158
+#: atk/atkobject.c:159
 msgid "terminal"
 msgstr "термінал"
 
-#: atk/atkobject.c:159
+#: atk/atkobject.c:160
 msgid "text"
 msgstr "текст"
 
-#: atk/atkobject.c:160
+#: atk/atkobject.c:161
 msgid "toggle button"
 msgstr "кнопка-перемикач"
 
-#: atk/atkobject.c:161
+#: atk/atkobject.c:162
 msgid "tool bar"
 msgstr "панель інструментів"
 
-#: atk/atkobject.c:162
+#: atk/atkobject.c:163
 msgid "tool tip"
 msgstr "підказка"
 
-#: atk/atkobject.c:163
+#: atk/atkobject.c:164
 msgid "tree"
 msgstr "дерево"
 
-#: atk/atkobject.c:164
+#: atk/atkobject.c:165
 msgid "tree table"
 msgstr "таблиця у вигляді дерева"
 
-#: atk/atkobject.c:165
+#: atk/atkobject.c:166
 msgid "unknown"
 msgstr "невідомий"
 
-#: atk/atkobject.c:166
+#: atk/atkobject.c:167
 msgid "viewport"
 msgstr "область перегляду"
 
-#: atk/atkobject.c:167
+#: atk/atkobject.c:168
 msgid "window"
 msgstr "вікно"
 
-#: atk/atkobject.c:168
+#: atk/atkobject.c:169
 msgid "header"
 msgstr "заголовок"
 
-#: atk/atkobject.c:169
+#: atk/atkobject.c:170
 msgid "footer"
 msgstr "нижній колонтитул"
 
-#: atk/atkobject.c:170
+#: atk/atkobject.c:171
 msgid "paragraph"
 msgstr "абзац"
 
-#: atk/atkobject.c:171
+#: atk/atkobject.c:172
 msgid "ruler"
 msgstr "лінійка"
 
-#: atk/atkobject.c:172
+#: atk/atkobject.c:173
 msgid "application"
 msgstr "програма"
 
-#: atk/atkobject.c:173
+#: atk/atkobject.c:174
 msgid "autocomplete"
 msgstr "автодоповнення"
 
-#: atk/atkobject.c:174
+#: atk/atkobject.c:175
 msgid "edit bar"
 msgstr "рядок редагування"
 
-#: atk/atkobject.c:175
+#: atk/atkobject.c:176
 msgid "embedded component"
 msgstr "вбудований компонент"
 
-#: atk/atkobject.c:176
+#: atk/atkobject.c:177
 msgid "entry"
 msgstr "запис"
 
-#: atk/atkobject.c:177
+#: atk/atkobject.c:178
 msgid "chart"
 msgstr "діаграма"
 
-#: atk/atkobject.c:178
+#: atk/atkobject.c:179
 msgid "caption"
 msgstr "заголовок"
 
-#: atk/atkobject.c:179
+#: atk/atkobject.c:180
 msgid "document frame"
 msgstr "рамка документа"
 
-#: atk/atkobject.c:180
+#: atk/atkobject.c:181
 msgid "heading"
 msgstr "заголовок"
 
-#: atk/atkobject.c:181
+#: atk/atkobject.c:182
 msgid "page"
 msgstr "сторінка"
 
-#: atk/atkobject.c:182
+#: atk/atkobject.c:183
 msgid "section"
 msgstr "розділ"
 
-#: atk/atkobject.c:183
+#: atk/atkobject.c:184
 msgid "redundant object"
 msgstr "зайвий аргумент"
 
-#: atk/atkobject.c:184
+#: atk/atkobject.c:185
 msgid "form"
 msgstr "форма"
 
-#: atk/atkobject.c:185
+#: atk/atkobject.c:186
 msgid "link"
 msgstr "посилання"
 
-#: atk/atkobject.c:186
+#: atk/atkobject.c:187
 msgid "input method window"
 msgstr "вікно методу вводу"
 
-#: atk/atkobject.c:187
+#: atk/atkobject.c:188
 msgid "table row"
 msgstr "рядок таблиці"
 
-#: atk/atkobject.c:188
+#: atk/atkobject.c:189
 msgid "tree item"
 msgstr "об'єкт дерева"
 
-#: atk/atkobject.c:189
+#: atk/atkobject.c:190
 msgid "document spreadsheet"
 msgstr "документ електронної таблиці"
 
-#: atk/atkobject.c:190
+#: atk/atkobject.c:191
 msgid "document presentation"
 msgstr "документ презентації"
 
-#: atk/atkobject.c:191
+#: atk/atkobject.c:192
 msgid "document text"
 msgstr "документ тексту"
 
-#: atk/atkobject.c:192
+#: atk/atkobject.c:193
 msgid "document web"
 msgstr "документ інтернету"
 
-#: atk/atkobject.c:193
+#: atk/atkobject.c:194
 msgid "document email"
 msgstr "документ пошти"
 
-#: atk/atkobject.c:194
+#: atk/atkobject.c:195
 msgid "comment"
 msgstr "коментар"
 
-#: atk/atkobject.c:195
+#: atk/atkobject.c:196
 msgid "list box"
 msgstr "список"
 
-#: atk/atkobject.c:196
+#: atk/atkobject.c:197
 msgid "grouping"
 msgstr "групування"
 
-#: atk/atkobject.c:197
+#: atk/atkobject.c:198
 msgid "image map"
 msgstr "зображування"
 
-#: atk/atkobject.c:198
+#: atk/atkobject.c:199
 msgid "notification"
 msgstr "сповіщення"
 
-#: atk/atkobject.c:199
+#: atk/atkobject.c:200
 msgid "info bar"
 msgstr "інформаційна панель"
 
-#: atk/atkobject.c:200
-#| msgid "scroll bar"
+#: atk/atkobject.c:201
 msgid "level bar"
 msgstr "смужка рівня"
 
-#: atk/atkobject.c:201
-#| msgid "tool bar"
+#: atk/atkobject.c:202
 msgid "title bar"
 msgstr "смужка заголовка"
 
-#: atk/atkobject.c:202
+#: atk/atkobject.c:203
 msgid "block quote"
 msgstr "цитата"
 
-#: atk/atkobject.c:203
+#: atk/atkobject.c:204
 msgid "audio"
 msgstr "звук"
 
-#: atk/atkobject.c:204
+#: atk/atkobject.c:205
 msgid "video"
 msgstr "відео"
 
-#: atk/atkobject.c:205
-#| msgid "animation"
+#: atk/atkobject.c:206
 msgid "definition"
 msgstr "визначення"
 
-#: atk/atkobject.c:206
+#: atk/atkobject.c:207
 msgid "article"
 msgstr "стаття"
 
-#: atk/atkobject.c:207
+#: atk/atkobject.c:208
 msgid "landmark"
 msgstr "орієнтир"
 
-#: atk/atkobject.c:208
-#| msgid "dialog"
+#: atk/atkobject.c:209
 msgid "log"
 msgstr "журнал"
 
-#: atk/atkobject.c:209
+#: atk/atkobject.c:210
 msgid "marquee"
 msgstr "область"
 
-#: atk/atkobject.c:210
+#: atk/atkobject.c:211
 msgid "math"
 msgstr "математичний вираз"
 
-#: atk/atkobject.c:211
+#: atk/atkobject.c:212
 msgid "rating"
 msgstr "оцінка"
 
-#: atk/atkobject.c:212
+#: atk/atkobject.c:213
 msgid "timer"
 msgstr "таймер"
 
-#: atk/atkobject.c:213
+#: atk/atkobject.c:214
 msgid "description list"
 msgstr "список опису"
 
-#: atk/atkobject.c:214
+#: atk/atkobject.c:215
 msgid "description term"
 msgstr "термін опису"
 
-#: atk/atkobject.c:215
+#: atk/atkobject.c:216
 msgid "description value"
 msgstr "значення опису"
 
-#: atk/atkobject.c:391
+#: atk/atkobject.c:392
 msgid "Accessible Name"
 msgstr "Назва об'єкта"
 
-#: atk/atkobject.c:392
+#: atk/atkobject.c:393
 msgid "Object instance’s name formatted for assistive technology access"
 msgstr ""
 "Назва екземпляру об'єкта для доступу з використанням допоміжних технологій"
 
-#: atk/atkobject.c:398
+#: atk/atkobject.c:399
 msgid "Accessible Description"
 msgstr "Опис об'єкта"
 
-#: atk/atkobject.c:399
+#: atk/atkobject.c:400
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Опис об'єкта для доступу з використанням допоміжних технологій"
 
-#: atk/atkobject.c:405
+#: atk/atkobject.c:406
 msgid "Accessible Parent"
 msgstr "Батьківський об'єкт"
 
-#: atk/atkobject.c:406
-msgid "Parent of the current accessible as returned by atk_object_get_parent()"
+#: atk/atkobject.c:407
+msgid ""
+"Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr ""
 "Батьківський елемент поточного доступного елемента, який повертатиме "
 "atk_object_get_parent()"
 
-#: atk/atkobject.c:422
+#: atk/atkobject.c:423
 msgid "Accessible Value"
 msgstr "Значення об'єкта"
 
-#: atk/atkobject.c:423
+#: atk/atkobject.c:424
 msgid "Is used to notify that the value has changed"
 msgstr "Використовується для сповіщення, що значення змінились"
 
-#: atk/atkobject.c:431
+#: atk/atkobject.c:432
 msgid "Accessible Role"
 msgstr "Роль об'єкта"
 
-#: atk/atkobject.c:432
+#: atk/atkobject.c:433
 msgid "The accessible role of this object"
 msgstr "Роль цього об'єкта у допоміжних технологіях"
 
-#: atk/atkobject.c:439
+#: atk/atkobject.c:440
 msgid "Accessible Layer"
 msgstr "Рівень об'єкта"
 
-#: atk/atkobject.c:440
+#: atk/atkobject.c:441
 msgid "The accessible layer of this object"
 msgstr "Рівень цього об'єкта в допоміжних технологіях"
 
-#: atk/atkobject.c:448
+#: atk/atkobject.c:449
 msgid "Accessible MDI Value"
 msgstr "Допоміжне значення MDI"
 
-#: atk/atkobject.c:449
+#: atk/atkobject.c:450
 msgid "The accessible MDI value of this object"
 msgstr "Значення MDI цього об'єкта у допоміжних технологіях"
 
-#: atk/atkobject.c:465
+#: atk/atkobject.c:466
 msgid "Accessible Table Caption"
 msgstr "Допоміжний заголовок таблиці"
 
-#: atk/atkobject.c:466
+#: atk/atkobject.c:467
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -629,59 +611,59 @@ msgstr ""
 "не повинна використовуватись. Натомість повинна використовуватись "
 "властивість accessible-table-caption-object."
 
-#: atk/atkobject.c:480
+#: atk/atkobject.c:481
 msgid "Accessible Table Column Header"
 msgstr "Допоміжний заголовок стовпчика таблиці"
 
-#: atk/atkobject.c:481
+#: atk/atkobject.c:482
 msgid "Is used to notify that the table column header has changed"
 msgstr "Використовується для сповіщення про зміну заголовку стовпця"
 
-#: atk/atkobject.c:496
+#: atk/atkobject.c:497
 msgid "Accessible Table Column Description"
 msgstr "Допоміжний опис стовпця таблиці"
 
-#: atk/atkobject.c:497
+#: atk/atkobject.c:498
 msgid "Is used to notify that the table column description has changed"
 msgstr "Використовується для сповіщення про зміну опису стовпця"
 
-#: atk/atkobject.c:512
+#: atk/atkobject.c:513
 msgid "Accessible Table Row Header"
 msgstr "Допоміжний заголовок рядка таблиці"
 
-#: atk/atkobject.c:513
+#: atk/atkobject.c:514
 msgid "Is used to notify that the table row header has changed"
 msgstr "Використовується для сповіщення про зміну заголовку рядка таблиці"
 
-#: atk/atkobject.c:527
+#: atk/atkobject.c:528
 msgid "Accessible Table Row Description"
 msgstr "Допоміжний опис рядка таблиці"
 
-#: atk/atkobject.c:528
+#: atk/atkobject.c:529
 msgid "Is used to notify that the table row description has changed"
 msgstr "Використовується для сповіщення про зміну опису рядка таблиці"
 
-#: atk/atkobject.c:534
+#: atk/atkobject.c:535
 msgid "Accessible Table Summary"
 msgstr "Допоміжний підсумок таблиці "
 
-#: atk/atkobject.c:535
+#: atk/atkobject.c:536
 msgid "Is used to notify that the table summary has changed"
 msgstr "Використовується для сповіщення про зміну підсумку таблиці"
 
-#: atk/atkobject.c:541
+#: atk/atkobject.c:542
 msgid "Accessible Table Caption Object"
 msgstr "Допоміжний об'єкт заголовку таблиці"
 
-#: atk/atkobject.c:542
+#: atk/atkobject.c:543
 msgid "Is used to notify that the table caption has changed"
 msgstr "Використовується для сповіщення про зміну заголовку таблиці"
 
-#: atk/atkobject.c:548
+#: atk/atkobject.c:549
 msgid "Number of Accessible Hypertext Links"
 msgstr "Кількість допоміжних гіпертекстових посилань"
 
-#: atk/atkobject.c:549
+#: atk/atkobject.c:550
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Кількість посилань, які має поточний об'єкт AtkHypertext"
 
@@ -712,7 +694,6 @@ msgstr "простий"
 #. * present this string alone or as a token in a list.
 #.
 #: atk/atkvalue.c:208
-#| msgid "table"
 msgid "acceptable"
 msgstr "прийнятний"
 
@@ -834,6 +815,13 @@ msgstr "дуже добре"
 #: atk/atkvalue.c:294
 msgid "best"
 msgstr "якнайкраще"
+
+#: atspi/atspi-component.c:332 atspi/atspi-misc.c:1063 atspi/atspi-value.c:111
+msgid "The application no longer exists"
+msgstr "Програми більше не існує"
+
+#~ msgid "Attempted synchronous call where prohibited"
+#~ msgstr "Спроба синхронного виклику там, де це заборонено"
 
 #~ msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
 #~ msgstr "AT-SPI: невідомий підпис %s для RemoveAccessible"
