@@ -1,21 +1,14 @@
-# Abkhazian translation for at-spi2-core.
-# Copyright (C) 2011 at-spi2-core's COPYRIGHT HOLDER
-# This file is distributed under the same license as the at-spi2-core package.
-# Nart Tlisha <daniel.abzakh@gmail.com>, 2021.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: at-spi2-core master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
 "POT-Creation-Date: 2022-07-07 22:29+0000\n"
-"PO-Revision-Date: 2021-08-16 13:50+0000\n"
-"Last-Translator: Nart Tlisha <daniel.abzakh@gmail.com>\n"
-"Language-Team: Abkhazian\n"
+"Last-Translator: Нанба Наала <naala-nanba@rambler.ru>\n"
+"Language-Team: Abkhazian <ab@li.org>\n"
 "Language: ab\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: atk/atkhyperlink.c:126
 msgid "Selected Link"
@@ -793,5 +786,5 @@ msgstr ""
 msgid "The application no longer exists"
 msgstr "Аԥшьы уаҳа ыҟаӡам"
 
-#~ msgid "Attempted synchronous call where prohibited"
-#~ msgstr "Синхронтәу асра аҟаҵара азин ыҟаӡам"
+msgid "Attempted synchronous call where prohibited"
+msgstr "Синхронтәу асра аҟаҵара азин ыҟаӡам"
