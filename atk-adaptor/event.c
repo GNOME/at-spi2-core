@@ -892,7 +892,7 @@ announcement_event_listener (GSignalInvocationHint * signal_hint,
                              const GValue * param_values, gpointer data)
 {
   AtkObject *accessible;
-  gchar *text;
+  const gchar *text;
   GSignalQuery signal_query;
   const gchar *name;
 

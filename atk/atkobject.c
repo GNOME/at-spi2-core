@@ -689,7 +689,7 @@ atk_object_class_init (AtkObjectClass *klass)
   /**
    * AtkObject::announcement
    * @atkobject: the object which received the signal.
-   * @arg1: (type gchar *): the text to be announced.
+   * @arg1: the text to be announced.
    *
    * The "announcement" signal can be emitted to pass an announcement on to
    * be read by a screen reader.
