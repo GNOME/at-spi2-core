@@ -461,6 +461,7 @@ listener_entry_free (EventListenerEntry *e)
  *            object:column-deleted
  *            object:model-changed
  *            object:active-descendant-changed
+ *            object:announcement
  *
  *  (screen reader events)
 *             screen-reader:region-changed

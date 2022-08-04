@@ -86,7 +86,7 @@ set_virtual_modifier (AtspiDeviceLegacy *legacy_device, gint keycode, gboolean e
 }
 
 
-gboolean
+static gboolean
 key_cb (AtspiDeviceEvent *event, void *user_data)
 {
   AtspiDeviceLegacy *legacy_device = ATSPI_DEVICE_LEGACY (user_data);

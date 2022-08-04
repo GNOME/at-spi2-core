@@ -89,6 +89,7 @@ enum {
   STATE_CHANGE,
   VISIBLE_DATA_CHANGED,
   ACTIVE_DESCENDANT_CHANGED,
+  ANNOUNCEMENT,
   
   LAST_SIGNAL
 };
@@ -684,6 +685,24 @@ atk_object_class_init (AtkObjectClass *klass)
 		  g_cclosure_marshal_VOID__POINTER,
 		  G_TYPE_NONE,
 		  1, G_TYPE_POINTER);
+
+  /**
+   * AtkObject::announcement
+   * @atkobject: the object which received the signal.
+   * @arg1: (type gchar *): the text to be announced.
+   *
+   * The "announcement" signal can be emitted to pass an announcement on to
+   * be read by a screen reader.
+   */
+  atk_object_signals[ANNOUNCEMENT] =
+    g_signal_new ("announcement",
+		  G_TYPE_FROM_CLASS (klass),
+		  G_SIGNAL_RUN_LAST,
+		  0, /* no class handler in order to avoid breaking ABI */
+		  NULL, NULL,
+		  g_cclosure_marshal_VOID__STRING,
+		  G_TYPE_NONE,
+		  1, G_TYPE_STRING);
 }
 
 static void
