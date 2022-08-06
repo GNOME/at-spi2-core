@@ -1,3 +1,22 @@
+What's new in at-spi2-core 2.45.90:
+
+* xml: Add some documentation.
+
+* xml: Fix event arguments.
+
+* xml: Add some missing DeviceEventController methods.
+
+* Bind the AT-SPI bus to the graphical session.
+
+* Mark bus service as belonging to the session slice.
+
+* Add ATSPI_ROLE_PUSH_BUTTON_MENU.
+
+* Add an "announcement" event/signal to allow objects to send
+  notifications (!63).
+
+* Various code clean-ups and test improvements.
+
 What's new in at-spi2-core 2.45.1:
 
 * Atk and at-spi2-atk are now merged into this project.
