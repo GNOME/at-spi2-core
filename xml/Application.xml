@@ -51,13 +51,5 @@
       <arg direction="out" type="s"/>
     </method>
 
-    <method name="RegisterEventListener">
-      <arg direction="in" name="event" type="s"/>
-    </method>
-
-    <method name="DeregisterEventListener">
-      <arg direction="in" name="event" type="s"/>
-    </method>
-
   </interface>
 </node>
