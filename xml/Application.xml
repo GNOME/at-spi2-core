@@ -46,6 +46,10 @@
     -->
     <property name="Id" type="i" access="readwrite"/>
 
+    <!-- This method is not used.
+
+         See https://gitlab.gnome.org/GNOME/orca/-/issues/260
+    -->
     <method name="GetLocale">
       <arg direction="in" name="lctype" type="u"/>
       <arg direction="out" type="s"/>
