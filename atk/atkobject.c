@@ -693,6 +693,8 @@ atk_object_class_init (AtkObjectClass *klass)
    *
    * The "announcement" signal can be emitted to pass an announcement on to
    * be read by a screen reader.
+   *
+   * Since: 2.46
    */
   atk_object_signals[ANNOUNCEMENT] =
     g_signal_new ("announcement",
