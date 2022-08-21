@@ -170,6 +170,8 @@ end:
       dbus_connection_unref (bus);
       bus = NULL;
     }
+
+    cleanup_deferred_message ();
 }
 
 static gboolean atspi_inited = FALSE;
@@ -784,8 +786,11 @@ destroy_deferred_message_item(gpointer ptr)
 static void
 cleanup_deferred_message(void)
 {
-  g_queue_free_full (deferred_messages, destroy_deferred_message_item);
-  deferred_messages = NULL;
+  if (deferred_messages)
+  {
+    g_queue_free_full (deferred_messages, destroy_deferred_message_item);
+    deferred_messages = NULL;
+  }
 }
 
 static gboolean
