@@ -354,10 +354,9 @@ spi_dec_dbus_emit (SpiDEController *controller, const char *interface,
                    const char *name, const char *minor, int a1, int a2)
 {
   DBusMessage *signal = NULL;
-  DBusMessageIter iter, iter_struct, iter_variant;
+  DBusMessageIter iter, iter_dict, iter_variant;
   int nil = 0;
   const char *path = SPI_DBUS_PATH_ROOT;
-  const char *bus_name = dbus_bus_get_unique_name (controller->bus);
 
   signal = dbus_message_new_signal (path, interface, name);
 
@@ -370,11 +369,8 @@ spi_dec_dbus_emit (SpiDEController *controller, const char *interface,
       dbus_message_iter_append_basic (&iter_variant, DBUS_TYPE_INT32, &nil);
   dbus_message_iter_close_container (&iter, &iter_variant);
 
-  dbus_message_iter_open_container (&iter, DBUS_TYPE_STRUCT, NULL,
-                                    &iter_struct);
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &bus_name);
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
-  dbus_message_iter_close_container (&iter, &iter_struct);
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "{sv}", &iter_dict);
+    dbus_message_iter_close_container (&iter, &iter_dict);
 
   dbus_connection_send (controller->bus, signal, NULL);
   dbus_message_unref (signal);
