@@ -69,11 +69,13 @@
         - au: Set of states currently held by an object.  Equivalent to the GetState
           method of the org.a11y.atspi.Accessible interface.
 
-        Historical note: This method used to have a different signature for the return
-        value.  Some old applications return a value whose signature is
-        "a((so)(so)(so)a(so)assusau)".  The "a(so)" instead of "ii" is a list of
-        references to child objects.  The implementation in atspi-misc.c can handle either
-        version.
+        Deprecation note: The signature for the return value of this method changed in
+        2015, in commit b2c8c4c7.  It used to be "a((so)(so)(so)a(so)assusau)".  The
+        "a(so)" instead of "ii" is a list of references to child objects.  The
+        implementation in atspi-misc.c can handle either version, although the intention
+        is to deprecate the code that handles the old version.  Qt still uses this old
+        signature and should be changed to the new scheme (see qspi_struct_marshallers.cpp
+        in the Qt source code).
     -->
     <method name="GetItems">
       <arg direction="out" name="nodes" type="a((so)(so)(so)iiassusau)"/>
