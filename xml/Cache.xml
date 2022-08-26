@@ -9,7 +9,7 @@
 
       The org.a11y.atspi.Accessible interface has methods like GetChildren and
       GetChildAtIndex, but these only transfer an object's DBus id.  The caller has to
-      then query the object's properties individually.  Transfering objects one by one and
+      then query the object's properties individually.  Transferring objects one by one and
       then their properties produces a lot of traffic in the accessibility bus.
 
       So, this Cache interface can be used to query objects in bulk.  Assistive tech
