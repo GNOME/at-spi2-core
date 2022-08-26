@@ -10,6 +10,11 @@ Sources: [`gtk4/gtk/a11y`](https://gitlab.gnome.org/GNOME/gtk/-/tree/main/gtk/a1
 
 Sources: [`qtbase/src/gui/accessible/linux`](https://github.com/qt/qtbase/tree/dev/src/gui/accessible/linux)
 
+Note: Qt's implementation of
+[Cache.GetItems](https://github.com/qt/qtbase/blob/dev/src/gui/accessible/linux/qspi_struct_marshallers.cpp#L41-L71)
+uses the old signature `a((so)(so)(so)a(so)assusau)` instead of the
+preferred/new `a((so)(so)(so)iiassusau)`.
+
 ## WebKit
 
 Sources: [`WebKit/Source/WebCore/accessibility/atspi`](https://github.com/WebKit/WebKit/tree/main/Source/WebCore/accessibility/atspi)
