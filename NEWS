@@ -1,3 +1,12 @@
+What's new in at-spi2-core 2.45.91:
+
+* Send device event controller events using the same signature as other
+  events.
+
+* Document the Accessible, Action, and Cache dbus interfaces.
+
+* Fix license of atspi-gmain.c (#87).
+
 What's new in at-spi2-core 2.45.90:
 
 * xml: Add some documentation.
