@@ -24,3 +24,11 @@ def test_accessible_iface_properties(registry_root, session_manager):
 
 def test_unknown_property_yields_error(registry_root, session_manager):
     check_unknown_property_yields_error(registry_root, ACCESSIBLE_IFACE)
+
+def test_root_get_interfaces(registry_root, session_manager):
+    ifaces = registry_root.GetInterfaces(dbus_interface=ACCESSIBLE_IFACE)
+    assert ifaces.signature == 's'
+    assert 'org.a11y.atspi.Accessible' in ifaces
+    assert 'org.a11y.atspi.Application' in ifaces
+    assert 'org.a11y.atspi.Component' in ifaces
+    assert 'org.a11y.atspi.Socket' in ifaces

@@ -845,15 +845,19 @@ impl_GetInterfaces (DBusMessage * message, SpiRegistry *registry)
   DBusMessageIter iter, iter_array;
 
   const char *acc = SPI_DBUS_INTERFACE_ACCESSIBLE;
+  const char *app = SPI_DBUS_INTERFACE_APPLICATION;
   const char *com = SPI_DBUS_INTERFACE_COMPONENT;
+  const char *sock = SPI_DBUS_INTERFACE_SOCKET;
 
   reply = dbus_message_new_method_return (message);
 
   dbus_message_iter_init_append (reply, &iter);
   dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "s",
                                     &iter_array);
-    dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_STRING, &acc);
-    dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_STRING, &com);
+  dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_STRING, &acc);
+  dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_STRING, &app);
+  dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_STRING, &com);
+  dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_STRING, &sock);
   dbus_message_iter_close_container (&iter, &iter_array);
 
   return reply;
