@@ -7,7 +7,7 @@
 import pytest
 import dbus
 
-from utils import get_property
+from utils import get_property, check_unknown_property_yields_error
 
 ACCESSIBLE_IFACE = 'org.a11y.atspi.Accessible'
 
@@ -23,5 +23,4 @@ def test_accessible_iface_properties(registry_root, session_manager):
         assert get_property(registry_root, ACCESSIBLE_IFACE, prop_name) == expected
 
 def test_unknown_property_yields_error(registry_root, session_manager):
-    with pytest.raises(dbus.exceptions.DBusException):
-        get_property(registry_root, ACCESSIBLE_IFACE, 'NonexistentProperty')
+    check_unknown_property_yields_error(registry_root, ACCESSIBLE_IFACE)

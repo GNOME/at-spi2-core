@@ -7,7 +7,7 @@
 import pytest
 import dbus
 
-from utils import get_property
+from utils import get_property, check_unknown_property_yields_error
 
 APPLICATION_IFACE = 'org.a11y.atspi.Application'
 
@@ -21,5 +21,4 @@ def test_application_iface_properties(registry_root, session_manager):
         assert get_property(registry_root, APPLICATION_IFACE, prop_name) == expected
 
 def test_unknown_property_yields_error(registry_root, session_manager):
-    with pytest.raises(dbus.exceptions.DBusException):
-        get_property(registry_root, APPLICATION_IFACE, 'NonexistentProperty')
+    check_unknown_property_yields_error(registry_root, APPLICATION_IFACE)
