@@ -7,11 +7,9 @@
 import pytest
 import dbus
 
-PROPERTIES_IFACE = 'org.freedesktop.DBus.Properties'
-APPLICATION_IFACE = 'org.a11y.atspi.Application'
+from utils import get_property
 
-def get_property(proxy, iface_name, prop_name):
-    return proxy.Get(iface_name, prop_name, dbus_interface=PROPERTIES_IFACE)
+APPLICATION_IFACE = 'org.a11y.atspi.Application'
 
 def test_application_iface_properties(registry_root, session_manager):
     values = [
