@@ -2,7 +2,6 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Rudolfs <rudolfs.mazurs@gmail.com>, 2011, 2014.
 # #-#-#-#-#  lv.po (lv)  #-#-#-#-#
 # translation of lv.po to Latvian
 # atk for Latvian.
@@ -10,51 +9,31 @@
 # This file is distributed under the same license as the atk package.
 #
 #
+# Rudolfs <rudolfs.mazurs@gmail.com>, 2011, 2014.
 # Artis Trops <hornet@navigator.lv>, 2002.
 # Raivis Dejus <orvils@gmail.com>, 2006, 2009.
 # Rūdofls Mazurs <rudolfs.mazurs@gmail.com>, 2011.
-# Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2012, 2014, 2021.
-#, fuzzy
+# Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2012, 2014, 2021, 2022.
 msgid ""
 msgstr ""
-"#-#-#-#-#  lv.po  #-#-#-#-#\n"
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
-"spi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-02-03 23:50+0000\n"
-"PO-Revision-Date: 2014-03-07 13:52+0200\n"
-"Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
-"Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
-"Language: lv\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.5\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
-"2);\n"
-"#-#-#-#-#  lv.po (lv)  #-#-#-#-#\n"
 "Project-Id-Version: lv\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/atk/issues\n"
-"POT-Creation-Date: 2020-06-06 13:32+0000\n"
-"PO-Revision-Date: 2021-10-31 16:14+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
+"POT-Creation-Date: 2022-07-25 14:47+0000\n"
+"PO-Revision-Date: 2022-09-03 16:06+0300\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"#-#-#-#-#  lv.po  #-#-#-#-#\n"
+"X-Generator: Lokalize 21.12.3\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 :"
+" 2);\n"
+"#-#-#-#-#  lv.po (lv)  #-#-#-#-#\n"
 "X-Generator: Lokalize 21.08.1\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
-"2);\n"
-
-#: ../atspi/atspi-component.c:325 ../atspi/atspi-misc.c:1034
-#: ../atspi/atspi-value.c:111
-msgid "The application no longer exists"
-msgstr "Šī lietotne vairs neeksistē"
-
-#: ../atspi/atspi-misc.c:1777
-msgid "Attempted synchronous call where prohibited"
-msgstr "Tika aizliegti mēģinātie sinhronie izsaukumi"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 :"
+" 2);\n"
 
 #: atk/atkhyperlink.c:126
 msgid "Selected Link"
@@ -226,398 +205,403 @@ msgid "menu bar"
 msgstr "izvēlnes josla"
 
 #: atk/atkobject.c:133
+#| msgid "push button"
+msgid "menu button"
+msgstr "izvēlnes poga"
+
+#: atk/atkobject.c:134
 msgid "menu item"
 msgstr "izvēlnes elements"
 
-#: atk/atkobject.c:134
+#: atk/atkobject.c:135
 msgid "option pane"
 msgstr "opciju rūts"
 
-#: atk/atkobject.c:135
+#: atk/atkobject.c:136
 msgid "page tab"
 msgstr "lapas cilne"
 
-#: atk/atkobject.c:136
+#: atk/atkobject.c:137
 msgid "page tab list"
 msgstr "lapas ciļņu saraksts"
 
-#: atk/atkobject.c:137
+#: atk/atkobject.c:138
 msgid "panel"
 msgstr "panelis"
 
-#: atk/atkobject.c:138
+#: atk/atkobject.c:139
 msgid "password text"
 msgstr "paroles teksts"
 
-#: atk/atkobject.c:139
+#: atk/atkobject.c:140
 msgid "popup menu"
 msgstr "uznirstošā izvēlne"
 
-#: atk/atkobject.c:140
+#: atk/atkobject.c:141
 msgid "progress bar"
 msgstr "progresa josla"
 
-#: atk/atkobject.c:141
+#: atk/atkobject.c:142
 msgid "push button"
 msgstr "spiedpoga"
 
-#: atk/atkobject.c:142
+#: atk/atkobject.c:143
 msgid "radio button"
 msgstr "radio poga"
 
-#: atk/atkobject.c:143
+#: atk/atkobject.c:144
 msgid "radio menu item"
 msgstr "radio izvēlnes priekšmets"
 
-#: atk/atkobject.c:144
+#: atk/atkobject.c:145
 msgid "root pane"
 msgstr "saknes rūts"
 
-#: atk/atkobject.c:145
+#: atk/atkobject.c:146
 msgid "row header"
 msgstr "rindas galvene"
 
-#: atk/atkobject.c:146
+#: atk/atkobject.c:147
 msgid "scroll bar"
 msgstr "ritjosla"
 
-#: atk/atkobject.c:147
+#: atk/atkobject.c:148
 msgid "scroll pane"
 msgstr "rit rūts"
 
-#: atk/atkobject.c:148
+#: atk/atkobject.c:149
 msgid "separator"
 msgstr "atdalītājs"
 
-#: atk/atkobject.c:149
+#: atk/atkobject.c:150
 msgid "slider"
 msgstr "slīdnis"
 
-#: atk/atkobject.c:150
+#: atk/atkobject.c:151
 msgid "split pane"
 msgstr "šķeltņ rūts"
 
-#: atk/atkobject.c:151
+#: atk/atkobject.c:152
 msgid "spin button"
 msgstr "skaitītāja poga"
 
-#: atk/atkobject.c:152
+#: atk/atkobject.c:153
 msgid "statusbar"
 msgstr "statusjosla"
 
-#: atk/atkobject.c:153
+#: atk/atkobject.c:154
 msgid "table"
 msgstr "tabula"
 
-#: atk/atkobject.c:154
+#: atk/atkobject.c:155
 msgid "table cell"
 msgstr "tabulas šūna"
 
-#: atk/atkobject.c:155
+#: atk/atkobject.c:156
 msgid "table column header"
 msgstr "tabulas kolonas galvene"
 
-#: atk/atkobject.c:156
+#: atk/atkobject.c:157
 msgid "table row header"
 msgstr "tabulas rindas galvene"
 
-#: atk/atkobject.c:157
+#: atk/atkobject.c:158
 msgid "tear off menu item"
 msgstr "pārceļamās izvēlnes elements"
 
-#: atk/atkobject.c:158
+#: atk/atkobject.c:159
 msgid "terminal"
 msgstr "terminālis"
 
-#: atk/atkobject.c:159
+#: atk/atkobject.c:160
 msgid "text"
 msgstr "teksts"
 
-#: atk/atkobject.c:160
+#: atk/atkobject.c:161
 msgid "toggle button"
 msgstr "pārslēgšanas poga"
 
-#: atk/atkobject.c:161
+#: atk/atkobject.c:162
 msgid "tool bar"
 msgstr "rīku josla"
 
-#: atk/atkobject.c:162
+#: atk/atkobject.c:163
 msgid "tool tip"
 msgstr "padoms"
 
-#: atk/atkobject.c:163
+#: atk/atkobject.c:164
 msgid "tree"
 msgstr "koks"
 
-#: atk/atkobject.c:164
+#: atk/atkobject.c:165
 msgid "tree table"
 msgstr "koka tabula"
 
-#: atk/atkobject.c:165
+#: atk/atkobject.c:166
 msgid "unknown"
 msgstr "nezināms"
 
-#: atk/atkobject.c:166
+#: atk/atkobject.c:167
 msgid "viewport"
 msgstr "skatpunkts"
 
-#: atk/atkobject.c:167
+#: atk/atkobject.c:168
 msgid "window"
 msgstr "logs"
 
-#: atk/atkobject.c:168
+#: atk/atkobject.c:169
 msgid "header"
 msgstr "galvene"
 
-#: atk/atkobject.c:169
+#: atk/atkobject.c:170
 msgid "footer"
 msgstr "kājene"
 
-#: atk/atkobject.c:170
+#: atk/atkobject.c:171
 msgid "paragraph"
 msgstr "rindkopa"
 
-#: atk/atkobject.c:171
+#: atk/atkobject.c:172
 msgid "ruler"
 msgstr "lineāls"
 
-#: atk/atkobject.c:172
+#: atk/atkobject.c:173
 msgid "application"
 msgstr "lietotne"
 
-#: atk/atkobject.c:173
+#: atk/atkobject.c:174
 msgid "autocomplete"
 msgstr "automātiskas pabeigšana"
 
-#: atk/atkobject.c:174
+#: atk/atkobject.c:175
 msgid "edit bar"
 msgstr "rediģēšanas josla"
 
-#: atk/atkobject.c:175
+#: atk/atkobject.c:176
 msgid "embedded component"
 msgstr "iegulta komponente"
 
-#: atk/atkobject.c:176
+#: atk/atkobject.c:177
 msgid "entry"
 msgstr "ieraksts"
 
-#: atk/atkobject.c:177
+#: atk/atkobject.c:178
 msgid "chart"
 msgstr "diagramma"
 
-#: atk/atkobject.c:178
+#: atk/atkobject.c:179
 msgid "caption"
 msgstr "virsraksts"
 
-#: atk/atkobject.c:179
+#: atk/atkobject.c:180
 msgid "document frame"
 msgstr "dokumenta ietvars"
 
-#: atk/atkobject.c:180
+#: atk/atkobject.c:181
 msgid "heading"
 msgstr "virsraksts"
 
-#: atk/atkobject.c:181
+#: atk/atkobject.c:182
 msgid "page"
 msgstr "lapa"
 
-#: atk/atkobject.c:182
+#: atk/atkobject.c:183
 msgid "section"
 msgstr "sadaļa"
 
-#: atk/atkobject.c:183
+#: atk/atkobject.c:184
 msgid "redundant object"
 msgstr "rezerves objekts"
 
-#: atk/atkobject.c:184
+#: atk/atkobject.c:185
 msgid "form"
 msgstr "forma"
 
-#: atk/atkobject.c:185
+#: atk/atkobject.c:186
 msgid "link"
 msgstr "saite"
 
-#: atk/atkobject.c:186
+#: atk/atkobject.c:187
 msgid "input method window"
 msgstr "ievades metodes logs"
 
-#: atk/atkobject.c:187
+#: atk/atkobject.c:188
 msgid "table row"
 msgstr "tabulas rinda"
 
-#: atk/atkobject.c:188
+#: atk/atkobject.c:189
 msgid "tree item"
 msgstr "koka vienums"
 
-#: atk/atkobject.c:189
+#: atk/atkobject.c:190
 msgid "document spreadsheet"
 msgstr "dokumenta izklājlapa"
 
-#: atk/atkobject.c:190
+#: atk/atkobject.c:191
 msgid "document presentation"
 msgstr "dokumenta prezentācija"
 
-#: atk/atkobject.c:191
+#: atk/atkobject.c:192
 msgid "document text"
 msgstr "dokumenta teksts"
 
-#: atk/atkobject.c:192
+#: atk/atkobject.c:193
 msgid "document web"
 msgstr "dokumenta tīmeklis"
 
-#: atk/atkobject.c:193
+#: atk/atkobject.c:194
 msgid "document email"
 msgstr "dokumenta e-pasts"
 
-#: atk/atkobject.c:194
+#: atk/atkobject.c:195
 msgid "comment"
 msgstr "komentārs"
 
-#: atk/atkobject.c:195
+#: atk/atkobject.c:196
 msgid "list box"
 msgstr "saraksta lauks"
 
-#: atk/atkobject.c:196
+#: atk/atkobject.c:197
 msgid "grouping"
 msgstr "grupēšana"
 
-#: atk/atkobject.c:197
+#: atk/atkobject.c:198
 msgid "image map"
 msgstr "attēla karte"
 
-#: atk/atkobject.c:198
+#: atk/atkobject.c:199
 msgid "notification"
 msgstr "paziņojums"
 
-#: atk/atkobject.c:199
+#: atk/atkobject.c:200
 msgid "info bar"
 msgstr "informācijas josla"
 
-#: atk/atkobject.c:200
+#: atk/atkobject.c:201
 msgid "level bar"
 msgstr "līmeņa josla"
 
-#: atk/atkobject.c:201
+#: atk/atkobject.c:202
 msgid "title bar"
 msgstr "virsraksta josla"
 
-#: atk/atkobject.c:202
+#: atk/atkobject.c:203
 msgid "block quote"
 msgstr "bloka citāts"
 
-#: atk/atkobject.c:203
+#: atk/atkobject.c:204
 msgid "audio"
 msgstr "audio"
 
-#: atk/atkobject.c:204
+#: atk/atkobject.c:205
 msgid "video"
 msgstr "video"
 
-#: atk/atkobject.c:205
+#: atk/atkobject.c:206
 msgid "definition"
 msgstr "definīcija"
 
-#: atk/atkobject.c:206
+#: atk/atkobject.c:207
 msgid "article"
 msgstr "raksts"
 
-#: atk/atkobject.c:207
+#: atk/atkobject.c:208
 msgid "landmark"
 msgstr "orientieris"
 
-#: atk/atkobject.c:208
+#: atk/atkobject.c:209
 msgid "log"
 msgstr "žurnāls"
 
-#: atk/atkobject.c:209
+#: atk/atkobject.c:210
 msgid "marquee"
 msgstr "slīdjosla"
 
-#: atk/atkobject.c:210
+#: atk/atkobject.c:211
 msgid "math"
 msgstr "matemātika"
 
-#: atk/atkobject.c:211
+#: atk/atkobject.c:212
 msgid "rating"
 msgstr "vērtējums"
 
-#: atk/atkobject.c:212
+#: atk/atkobject.c:213
 msgid "timer"
 msgstr "taimeris"
 
-#: atk/atkobject.c:213
+#: atk/atkobject.c:214
 msgid "description list"
 msgstr "aprakstu saraksts"
 
-#: atk/atkobject.c:214
+#: atk/atkobject.c:215
 msgid "description term"
 msgstr "apraksta terms"
 
-#: atk/atkobject.c:215
+#: atk/atkobject.c:216
 msgid "description value"
 msgstr "apraksta vērtība"
 
-#: atk/atkobject.c:391
+#: atk/atkobject.c:392
 msgid "Accessible Name"
 msgstr "Pieejamais vārds"
 
-#: atk/atkobject.c:392
+#: atk/atkobject.c:393
 msgid "Object instance’s name formatted for assistive technology access"
 msgstr "Objekta instances nosaukums noformēts atbalsta tehnoloģiju pieejai"
 
-#: atk/atkobject.c:398
+#: atk/atkobject.c:399
 msgid "Accessible Description"
 msgstr "Pieejamais apraksts"
 
-#: atk/atkobject.c:399
+#: atk/atkobject.c:400
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Objekta apraksts, noformēts atbalsta tehnoloģiju pieejai"
 
-#: atk/atkobject.c:405
+#: atk/atkobject.c:406
 msgid "Accessible Parent"
 msgstr "Pieejamais vecāks"
 
-#: atk/atkobject.c:406
+#: atk/atkobject.c:407
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr "Pašreizējā pieejamā vecāks, ko ir atgriezis atk_object_get_parent()"
 
-#: atk/atkobject.c:422
+#: atk/atkobject.c:423
 msgid "Accessible Value"
 msgstr "Pieejamā vērtība"
 
-#: atk/atkobject.c:423
+#: atk/atkobject.c:424
 msgid "Is used to notify that the value has changed"
 msgstr "Tiek izmantots, lai paziņotu, ka vērtība ir mainījusies"
 
-#: atk/atkobject.c:431
+#: atk/atkobject.c:432
 msgid "Accessible Role"
 msgstr "Pieejamā loma"
 
-#: atk/atkobject.c:432
+#: atk/atkobject.c:433
 msgid "The accessible role of this object"
 msgstr "Šī objekta pieejamā loma"
 
-#: atk/atkobject.c:439
+#: atk/atkobject.c:440
 msgid "Accessible Layer"
 msgstr "Pieejamais slānis"
 
-#: atk/atkobject.c:440
+#: atk/atkobject.c:441
 msgid "The accessible layer of this object"
 msgstr "Šī objekta pieejams slānis"
 
-#: atk/atkobject.c:448
+#: atk/atkobject.c:449
 msgid "Accessible MDI Value"
 msgstr "Pieejamā MDI vērtība"
 
-#: atk/atkobject.c:449
+#: atk/atkobject.c:450
 msgid "The accessible MDI value of this object"
 msgstr "Šī objekta Pieejamā MDI vērtība"
 
-#: atk/atkobject.c:465
+#: atk/atkobject.c:466
 msgid "Accessible Table Caption"
 msgstr "Pieejamais tabulas virsraksts"
 
-#: atk/atkobject.c:466
+#: atk/atkobject.c:467
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -626,61 +610,61 @@ msgstr ""
 "nevajadzētu izmantot. Tā vietā vajadzētu izmantot accessible-table-caption-"
 "object"
 
-#: atk/atkobject.c:480
+#: atk/atkobject.c:481
 msgid "Accessible Table Column Header"
 msgstr "Pieejamā tabulas kolonnas galvene "
 
-#: atk/atkobject.c:481
+#: atk/atkobject.c:482
 msgid "Is used to notify that the table column header has changed"
 msgstr ""
 "Tiek izmantota, lai paziņotu, ka tabulas kolonnas galvene ir mainījusies"
 
-#: atk/atkobject.c:496
+#: atk/atkobject.c:497
 msgid "Accessible Table Column Description"
 msgstr "Pieejamais tabulas kolonnas apraksts"
 
-#: atk/atkobject.c:497
+#: atk/atkobject.c:498
 msgid "Is used to notify that the table column description has changed"
 msgstr ""
 "Tiek izmantots, lai paziņotu, ka tabulas kolonnas apraksts ir mainījies"
 
-#: atk/atkobject.c:512
+#: atk/atkobject.c:513
 msgid "Accessible Table Row Header"
 msgstr "Pieejamā tabulas rindas galvene"
 
-#: atk/atkobject.c:513
+#: atk/atkobject.c:514
 msgid "Is used to notify that the table row header has changed"
 msgstr "Tiek izmantota, lai paziņotu, ka tabulas rinda ir mainījusies"
 
-#: atk/atkobject.c:527
+#: atk/atkobject.c:528
 msgid "Accessible Table Row Description"
 msgstr "Pieejamais tabulas rindas apraksts"
 
-#: atk/atkobject.c:528
+#: atk/atkobject.c:529
 msgid "Is used to notify that the table row description has changed"
 msgstr "Tiek izmantota, lai paziņotu, ka tabulas rindas apraksts ir mainījies"
 
-#: atk/atkobject.c:534
+#: atk/atkobject.c:535
 msgid "Accessible Table Summary"
 msgstr "Pieejamais tabulas kopsavilkums"
 
-#: atk/atkobject.c:535
+#: atk/atkobject.c:536
 msgid "Is used to notify that the table summary has changed"
 msgstr "Tiek izmantots, lai paziņotu, ka tabulas kopsavilkums ir mainījies"
 
-#: atk/atkobject.c:541
+#: atk/atkobject.c:542
 msgid "Accessible Table Caption Object"
 msgstr "Pieejamais tabulas virsraksta objekts"
 
-#: atk/atkobject.c:542
+#: atk/atkobject.c:543
 msgid "Is used to notify that the table caption has changed"
 msgstr "Tiek izmantots, lai paziņotu, ka tabulas virsraksts ir mainījies"
 
-#: atk/atkobject.c:548
+#: atk/atkobject.c:549
 msgid "Number of Accessible Hypertext Links"
 msgstr "Pieejamo hiperteksta saišu skaits"
 
-#: atk/atkobject.c:549
+#: atk/atkobject.c:550
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Saišu skaits, kurās ir AtkHypertext"
 
@@ -832,6 +816,13 @@ msgstr "ļoti labs"
 #: atk/atkvalue.c:294
 msgid "best"
 msgstr "labākais"
+
+#: atspi/atspi-component.c:332 atspi/atspi-misc.c:1063 atspi/atspi-value.c:111
+msgid "The application no longer exists"
+msgstr "Šī lietotne vairs neeksistē"
+
+#~ msgid "Attempted synchronous call where prohibited"
+#~ msgstr "Tika aizliegti mēģinātie sinhronie izsaukumi"
 
 #~ msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
 #~ msgstr "AT-SPI: Nezināms paraksts %s priekš RemoveAccessible"
