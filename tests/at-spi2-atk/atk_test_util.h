@@ -35,7 +35,6 @@
 
 extern pid_t child_pid;
 
-void run_app (const char *file_name);
 AtspiAccessible *get_root_obj (const char *file_name);
 void terminate_app (void);
 void clean_exit_on_fail ();

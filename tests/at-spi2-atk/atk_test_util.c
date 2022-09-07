@@ -37,7 +37,7 @@ clean_exit_on_fail ()
   signal (SIGABRT, assert_clean_exit);
 }
 
-void
+static void
 run_app (const char *file_name)
 {
   child_pid = fork ();
