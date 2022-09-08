@@ -118,7 +118,8 @@ main (int argc, char *argv[])
 
   setup_atk_util ();
   test_init (tdata_path);
-  atk_bridge_adaptor_init (NULL, NULL);
+
+  atk_bridge_adaptor_init (&argc, &argv);
 
   mainloop = g_main_loop_new (NULL, FALSE);
   g_unix_signal_add (SIGTERM, sigterm_received_cb, mainloop);

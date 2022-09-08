@@ -47,6 +47,8 @@ run_app (const char *file_name)
               TESTS_BUILD_DIR "/app-test",
               "--test-data-file",
               file_name,
+              "--atspi-dbus-name",
+              "org.a11y.Atspi2Atk.TestApplication",
               NULL);
       _exit (EXIT_SUCCESS);
     }
