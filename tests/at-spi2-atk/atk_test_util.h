@@ -33,8 +33,6 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-extern pid_t child_pid;
-
 AtspiAccessible *get_root_obj (const char *file_name);
 void fixture_teardown (gpointer fixture, gconstpointer user_data);
 void clean_exit_on_fail ();

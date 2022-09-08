@@ -23,7 +23,7 @@
 #include "atk_test_util.h"
 #include <signal.h>
 
-pid_t child_pid;
+static pid_t child_pid;
 
 static void
 assert_clean_exit (int sig)

@@ -375,7 +375,7 @@ atk_test_accessible_get_process_id (gpointer fixture, gconstpointer user_data)
 {
   AtspiAccessible *obj = get_root_obj (DATA_FILE);
   guint proc_id = atspi_accessible_get_process_id (obj, NULL);
-  g_assert_cmpint (proc_id, ==, child_pid);
+  g_assert_cmpint (proc_id, ==, fixture->child_pid);
 }
 
 void
