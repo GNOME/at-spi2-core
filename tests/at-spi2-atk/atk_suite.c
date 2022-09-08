@@ -55,8 +55,6 @@ main (int argc, char **argv)
 {
   g_test_init (&argc, &argv, NULL);
 
-  clean_exit_on_fail ();
-
   atk_suite_build ();
 
   return g_test_run ();

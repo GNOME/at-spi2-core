@@ -26,18 +26,6 @@
 static pid_t child_pid;
 
 static void
-assert_clean_exit (int sig)
-{
-  kill (child_pid, SIGTERM);
-}
-
-void
-clean_exit_on_fail ()
-{
-  signal (SIGABRT, assert_clean_exit);
-}
-
-static void
 run_app (const char *file_name)
 {
   child_pid = fork ();
