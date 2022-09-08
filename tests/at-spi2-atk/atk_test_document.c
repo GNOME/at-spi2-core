@@ -26,12 +26,6 @@
 #define DATA_FILE TESTS_DATA_DIR "/test-document.xml"
 
 static void
-teardown_document_test (gpointer fixture, gconstpointer user_data)
-{
-  terminate_app ();
-}
-
-static void
 atk_test_document_get_document_iface (gpointer fixture, gconstpointer user_data)
 {
   AtspiAccessible *obj = get_root_obj (DATA_FILE);
@@ -100,11 +94,11 @@ void
 atk_test_document (void)
 {
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_document_get_document_iface",
-                     0, NULL, NULL, atk_test_document_get_document_iface, teardown_document_test);
+                     0, NULL, NULL, atk_test_document_get_document_iface, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_document_get_locale",
-                     0, NULL, NULL, atk_test_document_get_locale, teardown_document_test);
+                     0, NULL, NULL, atk_test_document_get_locale, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_document_get_attribute_value",
-                     0, NULL, NULL, atk_test_document_get_attribute_value, teardown_document_test);
+                     0, NULL, NULL, atk_test_document_get_attribute_value, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_document_get_attributes",
-                     0, NULL, NULL, atk_test_document_get_attributes, teardown_document_test);
+                     0, NULL, NULL, atk_test_document_get_attributes, fixture_teardown);
 }

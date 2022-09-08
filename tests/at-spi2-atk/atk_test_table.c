@@ -413,65 +413,59 @@ atk_test_table_is_selected (gpointer fixture, gconstpointer user_data)
   g_assert_false (atspi_table_is_selected (obj, 1, 0, NULL));
 }
 
-static void
-teardown_table_test (gpointer fixture, gconstpointer user_data)
-{
-  terminate_app ();
-}
-
 void
 atk_test_table (void)
 {
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_caption",
-                     0, NULL, NULL, atk_test_table_get_caption, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_get_caption, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_summary",
-                     0, NULL, NULL, atk_test_table_get_summary, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_get_summary, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_n_columns",
-                     0, NULL, NULL, atk_test_table_get_n_columns, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_get_n_columns, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_n_rows",
-                     0, NULL, NULL, atk_test_table_get_n_rows, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_get_n_rows, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_accessible_at",
-                     0, NULL, NULL, atk_test_table_get_accessible_at, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_get_accessible_at, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_index_at",
-                     0, NULL, NULL, atk_test_table_get_index_at, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_get_index_at, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_at_index",
-                     0, NULL, NULL, atk_test_table_get_row_at_index, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_get_row_at_index, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_column_at_index",
-                     0, NULL, NULL, atk_test_table_get_column_at_index, teardown_table_test);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_description",
-                     0, NULL, NULL, atk_test_table_get_row_description, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_get_column_at_index, fixture_teardown);
+  g_test_add_vtable  (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_description",
+                      0, NULL, NULL, atk_test_table_get_row_description, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_column_description",
-                     0, NULL, NULL, atk_test_table_get_column_description, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_get_column_description, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_extent_at",
-                     0, NULL, NULL, atk_test_table_get_row_extent_at, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_get_row_extent_at, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_column_extent_at",
-                     0, NULL, NULL, atk_test_table_get_column_extent_at, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_get_column_extent_at, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_header",
-                     0, NULL, NULL, atk_test_table_get_row_header, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_get_row_header, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_column_header",
-                     0, NULL, NULL, atk_test_table_get_column_header, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_get_column_header, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_n_selected_rows",
-                     0, NULL, NULL, atk_test_table_get_n_selected_rows, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_get_n_selected_rows, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_selected_rows",
-                     0, NULL, NULL, atk_test_table_get_selected_rows, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_get_selected_rows, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_selected_columns",
-                     0, NULL, NULL, atk_test_table_get_selected_columns, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_get_selected_columns, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_n_selected_columns",
-                     0, NULL, NULL, atk_test_table_get_n_selected_columns, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_get_n_selected_columns, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_is_row_selected",
-                     0, NULL, NULL, atk_test_table_is_row_selected, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_is_row_selected, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_is_column_selected",
-                     0, NULL, NULL, atk_test_table_is_column_selected, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_is_column_selected, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_add_row_selection",
-                     0, NULL, NULL, atk_test_table_add_row_selection, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_add_row_selection, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_add_column_selection",
-                     0, NULL, NULL, atk_test_table_add_column_selection, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_add_column_selection, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_remove_row_selection",
-                     0, NULL, NULL, atk_test_table_remove_row_selection, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_remove_row_selection, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_remove_column_selection",
-                     0, NULL, NULL, atk_test_table_remove_column_selection, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_remove_column_selection, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_column_extents_at_index",
-                     0, NULL, NULL, atk_test_table_get_row_column_extents_at_index, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_get_row_column_extents_at_index, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_is_selected",
-                     0, NULL, NULL, atk_test_table_is_selected, teardown_table_test);
+                     0, NULL, NULL, atk_test_table_is_selected, fixture_teardown);
 }

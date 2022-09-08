@@ -108,27 +108,21 @@ atk_test_value_get_text (gpointer fixture, gconstpointer user_data)
   g_free (text);
 }
 
-static void
-teardown_value_test (gpointer fixture, gconstpointer user_data)
-{
-  terminate_app ();
-}
-
 void
 atk_test_value (void)
 {
   g_test_add_vtable (ATK_TEST_PATH_VALUE "/atk_test_value_get_value_iface",
-                     0, NULL, NULL, atk_test_value_get_value_iface, teardown_value_test);
+                     0, NULL, NULL, atk_test_value_get_value_iface, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_VALUE "/atk_test_value_get_minimum_value",
-                     0, NULL, NULL, atk_test_value_get_minimum_value, teardown_value_test);
+                     0, NULL, NULL, atk_test_value_get_minimum_value, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_VALUE "/atk_test_value_get_current_value",
-                     0, NULL, NULL, atk_test_value_get_current_value, teardown_value_test);
+                     0, NULL, NULL, atk_test_value_get_current_value, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_VALUE "/atk_test_value_get_maximum_value",
-                     0, NULL, NULL, atk_test_value_get_maximum_value, teardown_value_test);
+                     0, NULL, NULL, atk_test_value_get_maximum_value, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_VALUE "/atk_test_value_set_current_value",
-                     0, NULL, NULL, atk_test_value_set_current_value, teardown_value_test);
+                     0, NULL, NULL, atk_test_value_set_current_value, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_VALUE "/atk_test_value_get_minimum_increment",
-                     0, NULL, NULL, atk_test_value_get_minimum_increment, teardown_value_test);
+                     0, NULL, NULL, atk_test_value_get_minimum_increment, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_VALUE "/atk_test_value_get_text",
-                     0, NULL, NULL, atk_test_value_get_text, teardown_value_test);
+                     0, NULL, NULL, atk_test_value_get_text, fixture_teardown);
 }

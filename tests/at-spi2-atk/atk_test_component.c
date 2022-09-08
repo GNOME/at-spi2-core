@@ -26,12 +26,6 @@
 #define DATA_FILE TESTS_DATA_DIR "/test-component.xml"
 
 static void
-teardown_component_test (gpointer fixture, gconstpointer user_data)
-{
-  terminate_app ();
-}
-
-static void
 atk_test_component_sample (gpointer fixture, gconstpointer user_data)
 {
   AtspiAccessible *obj = get_root_obj (DATA_FILE);
@@ -163,21 +157,21 @@ void
 atk_test_component (void)
 {
   g_test_add_vtable (ATK_TEST_PATH_COMP "/atk_test_component_sample",
-                     0, NULL, NULL, atk_test_component_sample, teardown_component_test);
+                     0, NULL, NULL, atk_test_component_sample, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_COMP "/atk_test_component_contains",
-                     0, NULL, NULL, atk_test_component_contains, teardown_component_test);
+                     0, NULL, NULL, atk_test_component_contains, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_COMP "/atk_test_component_get_accessible_at_point",
-                     0, NULL, NULL, atk_test_component_get_accessible_at_point, teardown_component_test);
+                     0, NULL, NULL, atk_test_component_get_accessible_at_point, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_COMP "/atk_test_component_get_extents",
-                     0, NULL, NULL, atk_test_component_get_extents, teardown_component_test);
+                     0, NULL, NULL, atk_test_component_get_extents, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_COMP "/atk_test_component_get_layer",
-                     0, NULL, NULL, atk_test_component_get_layer, teardown_component_test);
+                     0, NULL, NULL, atk_test_component_get_layer, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_COMP "/atk_test_component_get_mdi_z_order",
-                     0, NULL, NULL, atk_test_component_get_mdi_z_order, teardown_component_test);
+                     0, NULL, NULL, atk_test_component_get_mdi_z_order, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_COMP "/atk_test_component_grab_focus",
-                     0, NULL, NULL, atk_test_component_grab_focus, teardown_component_test);
+                     0, NULL, NULL, atk_test_component_grab_focus, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_COMP "/atk_test_component_get_alpha",
-                     0, NULL, NULL, atk_test_component_get_alpha, teardown_component_test);
+                     0, NULL, NULL, atk_test_component_get_alpha, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_COMP "/atk_test_component_set_extents",
-                     0, NULL, NULL, atk_test_component_set_extents, teardown_component_test);
+                     0, NULL, NULL, atk_test_component_set_extents, fixture_teardown);
 }

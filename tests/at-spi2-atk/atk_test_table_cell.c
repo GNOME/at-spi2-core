@@ -178,33 +178,27 @@ atk_test_table_cell_get_table (gpointer fixture, gconstpointer user_data)
   g_assert (child == tab);
 }
 
-static void
-teardown_table_cell_test (gpointer fixture, gconstpointer user_data)
-{
-  terminate_app ();
-}
-
 void
 atk_test_table_cell (void)
 {
   g_test_add_vtable (ATK_TEST_PATH_TABLE_CELL "/atk_test_accessible_get_table_cell",
-                     0, NULL, NULL, atk_test_accessible_get_table_cell, teardown_table_cell_test);
+                     0, NULL, NULL, atk_test_accessible_get_table_cell, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE_CELL "/atk_test_table_cell_get_column_span",
-                     0, NULL, NULL, atk_test_table_cell_get_column_span, teardown_table_cell_test);
+                     0, NULL, NULL, atk_test_table_cell_get_column_span, fixture_teardown);
   /*
     g_test_add_vtable (ATK_TEST_PATH_TABLE_CELL "/atk_test_table_cell_get_column_header_cells",
-                       0, NULL, NULL, atk_test_table_cell_get_column_header_cells, teardown_table_cell_test);
+                       0, NULL, NULL, atk_test_table_cell_get_column_header_cells, fixture_teardown);
   */
   g_test_add_vtable (ATK_TEST_PATH_TABLE_CELL "/atk_test_table_cell_get_row_span",
-                     0, NULL, NULL, atk_test_table_cell_get_row_span, teardown_table_cell_test);
+                     0, NULL, NULL, atk_test_table_cell_get_row_span, fixture_teardown);
   /*
     g_test_add_vtable (ATK_TEST_PATH_TABLE_CELL "/atk_test_table_cell_get_row_header_cells",
-                       0, NULL, NULL, atk_test_table_cell_get_row_header_cells, teardown_table_cell_test);
+                       0, NULL, NULL, atk_test_table_cell_get_row_header_cells, fixture_teardown);
   */
   g_test_add_vtable (ATK_TEST_PATH_TABLE_CELL "/atk_test_table_cell_get_row_column_span",
-                     0, NULL, NULL, atk_test_table_cell_get_row_column_span, teardown_table_cell_test);
+                     0, NULL, NULL, atk_test_table_cell_get_row_column_span, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE_CELL "/atk_test_table_cell_get_position",
-                     0, NULL, NULL, atk_test_table_cell_get_position, teardown_table_cell_test);
+                     0, NULL, NULL, atk_test_table_cell_get_position, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_TABLE_CELL "/atk_test_table_cell_get_table",
-                     0, NULL, NULL, atk_test_table_cell_get_table, teardown_table_cell_test);
+                     0, NULL, NULL, atk_test_table_cell_get_table, fixture_teardown);
 }

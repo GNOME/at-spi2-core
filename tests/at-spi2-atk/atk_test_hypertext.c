@@ -77,19 +77,13 @@ atk_test_hypertext_get_link_index (gpointer fixture, gconstpointer user_data)
   g_assert_cmpint (cnt, ==, 1);
 }
 
-static void
-teardown_hypertext_test (gpointer fixture, gconstpointer user_data)
-{
-  terminate_app ();
-}
-
 void
 atk_test_hypertext (void)
 {
   g_test_add_vtable (ATK_TEST_PATH_HYPERTEXT "/atk_test_hypertext_get_n_links",
-                     0, NULL, NULL, atk_test_hypertext_get_n_links, teardown_hypertext_test);
+                     0, NULL, NULL, atk_test_hypertext_get_n_links, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_HYPERTEXT "/atk_test_hypertext_get_links",
-                     0, NULL, NULL, atk_test_hypertext_get_link, teardown_hypertext_test);
+                     0, NULL, NULL, atk_test_hypertext_get_link, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_HYPERTEXT "/atk_test_hypertext_get_link_index",
-                     0, NULL, NULL, atk_test_hypertext_get_link_index, teardown_hypertext_test);
+                     0, NULL, NULL, atk_test_hypertext_get_link_index, fixture_teardown);
 }

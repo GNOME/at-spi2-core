@@ -26,12 +26,6 @@
 #define DATA_FILE TESTS_DATA_DIR "/test-collection.xml"
 
 static void
-teardown_collection_test (gpointer fixture, gconstpointer user_data)
-{
-  terminate_app ();
-}
-
-static void
 atk_test_collection_get_collection_iface (gpointer fixture, gconstpointer user_data)
 {
   AtspiAccessible *obj = get_root_obj (DATA_FILE);
@@ -156,11 +150,11 @@ void
 atk_test_collection (void)
 {
   g_test_add_vtable (ATK_TEST_PATH_COLLECTION "/atk_test_collection_get_collection_iface",
-                     0, NULL, NULL, atk_test_collection_get_collection_iface, teardown_collection_test);
+                     0, NULL, NULL, atk_test_collection_get_collection_iface, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_COLLECTION "/atk_test_collection_get_matches",
-                     0, NULL, NULL, atk_test_collection_get_matches, teardown_collection_test);
+                     0, NULL, NULL, atk_test_collection_get_matches, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_COLLECTION "/atk_test_collection_get_matches_to",
-                     0, NULL, NULL, atk_test_collection_get_matches_to, teardown_collection_test);
+                     0, NULL, NULL, atk_test_collection_get_matches_to, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_COLLECTION "/atk_test_collection_get_matches_from",
-                     0, NULL, NULL, atk_test_collection_get_matches_from, teardown_collection_test);
+                     0, NULL, NULL, atk_test_collection_get_matches_from, fixture_teardown);
 }

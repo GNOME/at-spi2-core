@@ -139,27 +139,21 @@ atk_test_hyperlink_is_valid (gpointer fixture, gconstpointer user_data)
   g_assert (atspi_hyperlink_is_valid (obj, NULL));
 }
 
-static void
-teardown_hyperlink_test (gpointer fixture, gconstpointer user_data)
-{
-  terminate_app ();
-}
-
 void
 atk_test_hyperlink (void)
 {
-  g_test_add_vtable (ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_n_anchors",
-                     0, NULL, NULL, atk_test_hyperlink_get_n_anchors, teardown_hyperlink_test);
-  g_test_add_vtable (ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_uri",
-                     0, NULL, NULL, atk_test_hyperlink_get_uri, teardown_hyperlink_test);
-  g_test_add_vtable (ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_object",
-                     0, NULL, NULL, atk_test_hyperlink_get_object, teardown_hyperlink_test);
-  g_test_add_vtable (ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_index_range",
-                     0, NULL, NULL, atk_test_hyperlink_get_index_range, teardown_hyperlink_test);
-  g_test_add_vtable (ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_start_index",
-                     0, NULL, NULL, atk_test_hyperlink_get_start_index, teardown_hyperlink_test);
-  g_test_add_vtable (ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_end_index",
-                     0, NULL, NULL, atk_test_hyperlink_get_end_index, teardown_hyperlink_test);
-  g_test_add_vtable (ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_is_valid",
-                     0, NULL, NULL, atk_test_hyperlink_is_valid, teardown_hyperlink_test);
+  g_test_add_vtable(ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_n_anchors",
+                    0, NULL, NULL, atk_test_hyperlink_get_n_anchors, fixture_teardown);
+  g_test_add_vtable(ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_uri",
+                    0, NULL, NULL, atk_test_hyperlink_get_uri, fixture_teardown);
+  g_test_add_vtable(ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_object",
+                    0, NULL, NULL, atk_test_hyperlink_get_object, fixture_teardown);
+  g_test_add_vtable(ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_index_range",
+                    0, NULL, NULL, atk_test_hyperlink_get_index_range, fixture_teardown);
+  g_test_add_vtable(ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_start_index",
+                    0, NULL, NULL, atk_test_hyperlink_get_start_index, fixture_teardown);
+  g_test_add_vtable(ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_end_index",
+                    0, NULL, NULL, atk_test_hyperlink_get_end_index, fixture_teardown);
+  g_test_add_vtable(ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_is_valid",
+                    0, NULL, NULL, atk_test_hyperlink_is_valid, fixture_teardown);
 }

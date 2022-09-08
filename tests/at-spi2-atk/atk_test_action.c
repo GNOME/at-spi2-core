@@ -26,12 +26,6 @@
 #define DATA_FILE TESTS_DATA_DIR "/test-action.xml"
 
 static void
-teardown_action_test (gpointer fixture, gconstpointer user_data)
-{
-  terminate_app ();
-}
-
-static void
 atk_test_action_sample_get_interface (gpointer fixture, gconstpointer user_data)
 {
   AtspiAccessible *obj = get_root_obj (DATA_FILE);
@@ -104,17 +98,17 @@ void
 atk_test_action (void)
 {
   g_test_add_vtable (ATK_TEST_PATH_ACTION "/atk_test_action_sample_get_interface",
-                     0, NULL, NULL, atk_test_action_sample_get_interface, teardown_action_test);
+                     0, NULL, NULL, atk_test_action_sample_get_interface, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_ACTION "/atk_test_action_get_action_description",
-                     0, NULL, NULL, atk_test_action_get_action_description, teardown_action_test);
+                     0, NULL, NULL, atk_test_action_get_action_description, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_ACTION "/atk_test_action_get_action_name",
-                     0, NULL, NULL, atk_test_action_get_action_name, teardown_action_test);
+                     0, NULL, NULL, atk_test_action_get_action_name, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_ACTION "/atk_test_action_get_n_actions",
-                     0, NULL, NULL, atk_test_action_get_n_actions, teardown_action_test);
+                     0, NULL, NULL, atk_test_action_get_n_actions, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_ACTION "/atk_test_action_get_key_binding",
-                     0, NULL, NULL, atk_test_action_get_key_binding, teardown_action_test);
+                     0, NULL, NULL, atk_test_action_get_key_binding, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_ACTION "/atk_test_action_get_localized_name",
-                     0, NULL, NULL, atk_test_action_get_localized_name, teardown_action_test);
+                     0, NULL, NULL, atk_test_action_get_localized_name, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_ACTION "/atk_test_action_do_action",
-                     0, NULL, NULL, atk_test_action_do_action, teardown_action_test);
+                     0, NULL, NULL, atk_test_action_do_action, fixture_teardown);
 }

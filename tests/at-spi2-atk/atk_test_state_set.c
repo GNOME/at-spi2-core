@@ -26,12 +26,6 @@
 #define DATA_FILE TESTS_DATA_DIR "/test-accessible.xml"
 
 static void
-teardown_state_set_test (gpointer fixture, gconstpointer user_data)
-{
-  terminate_app ();
-}
-
-static void
 atk_test_accessible_get_state_set (gpointer fixture, gconstpointer user_data)
 {
   AtspiAccessible *obj = get_root_obj (DATA_FILE);
@@ -217,23 +211,23 @@ void
 atk_test_state_set (void)
 {
   g_test_add_vtable (ATK_TEST_PATH_STATE_SET "/atk_test_accessible_get_state_set",
-                     0, NULL, NULL, atk_test_accessible_get_state_set, teardown_state_set_test);
+                     0, NULL, NULL, atk_test_accessible_get_state_set, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_STATE_SET "/atk_test_state_set_new",
-                     0, NULL, NULL, atk_test_state_set_new, teardown_state_set_test);
+                     0, NULL, NULL, atk_test_state_set_new, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_STATE_SET "/atk_test_state_set_set_by_name",
-                     0, NULL, NULL, atk_test_state_set_set_by_name, teardown_state_set_test);
+                     0, NULL, NULL, atk_test_state_set_set_by_name, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_STATE_SET "/atk_test_state_set_add",
-                     0, NULL, NULL, atk_test_state_set_add, teardown_state_set_test);
+                     0, NULL, NULL, atk_test_state_set_add, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_STATE_SET "/atk_test_state_set_compare",
-                     0, NULL, NULL, atk_test_state_set_compare, teardown_state_set_test);
+                     0, NULL, NULL, atk_test_state_set_compare, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_STATE_SET "/atk_test_state_set_contains",
-                     0, NULL, NULL, atk_test_state_set_contains, teardown_state_set_test);
+                     0, NULL, NULL, atk_test_state_set_contains, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_STATE_SET "/atk_test_state_set_equals",
-                     0, NULL, NULL, atk_test_state_set_equals, teardown_state_set_test);
+                     0, NULL, NULL, atk_test_state_set_equals, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_STATE_SET "/atk_test_state_set_get_states",
-                     0, NULL, NULL, atk_test_state_set_get_states, teardown_state_set_test);
+                     0, NULL, NULL, atk_test_state_set_get_states, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_STATE_SET "/atk_test_state_set_is_empty",
-                     0, NULL, NULL, atk_test_state_set_is_empty, teardown_state_set_test);
+                     0, NULL, NULL, atk_test_state_set_is_empty, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_STATE_SET "/atk_test_state_set_remove",
-                     0, NULL, NULL, atk_test_state_set_remove, teardown_state_set_test);
+                     0, NULL, NULL, atk_test_state_set_remove, fixture_teardown);
 }

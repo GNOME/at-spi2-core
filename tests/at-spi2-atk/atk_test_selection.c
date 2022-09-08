@@ -26,12 +26,6 @@
 #define DATA_FILE TESTS_DATA_DIR "/test-selection.xml"
 
 static void
-teardown_selection_test (gpointer fixture, gconstpointer user_data)
-{
-  terminate_app ();
-}
-
-static void
 atk_test_selection_sample_get_interface (gpointer fixture, gconstpointer user_data)
 {
   AtspiAccessible *obj = get_root_obj (DATA_FILE);
@@ -176,21 +170,21 @@ void
 atk_test_selection (void)
 {
   g_test_add_vtable (ATK_TEST_PATH_SELECTION "/atk_test_selection_sample_get_interface",
-                     0, NULL, NULL, atk_test_selection_sample_get_interface, teardown_selection_test);
+                     0, NULL, NULL, atk_test_selection_sample_get_interface, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_SELECTION "/atk_test_selection_get_n_selected_children",
-                     0, NULL, NULL, atk_test_selection_get_n_selected_children, teardown_selection_test);
+                     0, NULL, NULL, atk_test_selection_get_n_selected_children, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_SELECTION "/atk_test_selection_get_selected_child",
-                     0, NULL, NULL, atk_test_selection_get_selected_child, teardown_selection_test);
+                     0, NULL, NULL, atk_test_selection_get_selected_child, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_SELECTION "/atk_test_selection_select_child",
-                     0, NULL, NULL, atk_test_selection_select_child, teardown_selection_test);
+                     0, NULL, NULL, atk_test_selection_select_child, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_SELECTION "/atk_test_selection_deselect_selected",
-                     0, NULL, NULL, atk_test_selection_deselect_selected, teardown_selection_test);
+                     0, NULL, NULL, atk_test_selection_deselect_selected, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_SELECTION "/atk_test_selection_deselect_child",
-                     0, NULL, NULL, atk_test_selection_deselect_child, teardown_selection_test);
+                     0, NULL, NULL, atk_test_selection_deselect_child, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_SELECTION "/atk_test_selection_is_child_selected",
-                     0, NULL, NULL, atk_test_selection_is_child_selected, teardown_selection_test);
+                     0, NULL, NULL, atk_test_selection_is_child_selected, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_SELECTION "/atk_test_selection_select_all",
-                     0, NULL, NULL, atk_test_selection_select_all, teardown_selection_test);
+                     0, NULL, NULL, atk_test_selection_select_all, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_SELECTION "/atk_test_selection_clear_selection",
-                     0, NULL, NULL, atk_test_selection_clear_selection, teardown_selection_test);
+                     0, NULL, NULL, atk_test_selection_clear_selection, fixture_teardown);
 }

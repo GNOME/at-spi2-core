@@ -26,12 +26,6 @@
 #define DATA_FILE TESTS_DATA_DIR "/test-image.xml"
 
 static void
-teardown_image_test (gpointer fixture, gconstpointer user_data)
-{
-  terminate_app ();
-}
-
-static void
 atk_test_image_sample_get_interface (gpointer fixture, gconstpointer user_data)
 {
   AtspiAccessible *obj = get_root_obj (DATA_FILE);
@@ -114,15 +108,15 @@ void
 atk_test_image (void)
 {
   g_test_add_vtable (ATK_TEST_PATH_IMAGE "/atk_test_image_sample_get_interface",
-                     0, NULL, NULL, atk_test_image_sample_get_interface, teardown_image_test);
+                     0, NULL, NULL, atk_test_image_sample_get_interface, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_IMAGE "/atk_test_image_get_image_description",
-                     0, NULL, NULL, atk_test_image_get_image_description, teardown_image_test);
+                     0, NULL, NULL, atk_test_image_get_image_description, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_IMAGE "/atk_test_image_get_image_size",
-                     0, NULL, NULL, atk_test_image_get_image_size, teardown_image_test);
+                     0, NULL, NULL, atk_test_image_get_image_size, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_IMAGE "/atk_test_image_get_image_position",
-                     0, NULL, NULL, atk_test_image_get_image_position, teardown_image_test);
+                     0, NULL, NULL, atk_test_image_get_image_position, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_IMAGE "/atk_test_image_get_image_extents",
-                     0, NULL, NULL, atk_test_image_get_image_extents, teardown_image_test);
+                     0, NULL, NULL, atk_test_image_get_image_extents, fixture_teardown);
   g_test_add_vtable (ATK_TEST_PATH_IMAGE "/atk_test_image_get_image_locale",
-                     0, NULL, NULL, atk_test_image_get_image_locale, teardown_image_test);
+                     0, NULL, NULL, atk_test_image_get_image_locale, fixture_teardown);
 }

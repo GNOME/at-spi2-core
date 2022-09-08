@@ -125,7 +125,7 @@ get_root_obj (const char *file_name)
 }
 
 void
-terminate_app (void)
+fixture_teardown (gpointer fixture, gconstpointer user_data)
 {
   int tries = 0;
 
