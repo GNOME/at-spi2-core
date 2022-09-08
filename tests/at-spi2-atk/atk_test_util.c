@@ -23,12 +23,10 @@
 #include "atk_test_util.h"
 #include <signal.h>
 
-static pid_t child_pid;
-
-static void
+static pid_t
 run_app (const char *file_name)
 {
-  child_pid = fork ();
+  pid_t child_pid = fork ();
   if (child_pid == 0)
     {
       execlp (TESTS_BUILD_DIR "/app-test",
@@ -42,6 +40,8 @@ run_app (const char *file_name)
     }
   if (child_pid)
     fprintf (stderr, "child_pid %d\n", child_pid);
+
+  return child_pid;
 }
 
 static AtspiAccessible *
@@ -76,16 +76,18 @@ try_get_root_obj (AtspiAccessible *obj)
   return NULL;
 }
 
-static AtspiAccessible *
-get_root_obj (const char *file_name)
+static void
+get_root_obj (const char *file_name, AtspiAccessible **out_root_obj, pid_t *out_child_pid)
 {
   int tries = 0;
   AtspiAccessible *child;
   struct timespec timeout = { .tv_sec = 0, .tv_nsec = 10 * 1000000 };
   AtspiAccessible *obj = NULL;
+  pid_t child_pid;
 
   fprintf (stderr, "run_app: %s\n", file_name);
-  run_app (file_name);
+  child_pid = run_app (file_name);
+  *out_child_pid = child_pid;
 
   obj = atspi_get_desktop (0);
 
@@ -94,7 +96,10 @@ get_root_obj (const char *file_name)
     {
       child = try_get_root_obj (obj);
       if (child)
-        return child;
+        {
+          *out_root_obj = child;
+          return;
+        }
 
       nanosleep (&timeout, NULL);
     }
@@ -109,14 +114,18 @@ get_root_obj (const char *file_name)
     }
   g_test_fail ();
   kill (child_pid, SIGTERM);
-  return NULL;
+  *out_root_obj = NULL;
 }
 
 void
 fixture_setup (TestAppFixture *fixture, gconstpointer user_data)
 {
   const char *file_name = user_data;
-  AtspiAccessible *root_obj = get_root_obj (file_name);
+  pid_t child_pid;
+  AtspiAccessible *root_obj;
+
+  get_root_obj (file_name, &root_obj, &child_pid);
+  g_assert (root_obj != NULL);
 
   fixture->child_pid = child_pid;
   fixture->root_obj = root_obj;
@@ -131,7 +140,7 @@ fixture_teardown (TestAppFixture *fixture, gconstpointer user_data)
   struct timespec timeout = { .tv_sec = 0, .tv_nsec = 10 * 1000000 };
   AtspiAccessible *obj = NULL;
 
-  kill (child_pid, SIGTERM);
+  kill (fixture->child_pid, SIGTERM);
 
   obj = atspi_get_desktop (0);
 
