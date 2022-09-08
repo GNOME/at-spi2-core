@@ -33,8 +33,8 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-AtspiAccessible *get_root_obj (const char *file_name);
-void fixture_teardown (gpointer fixture, gconstpointer user_data);
+void fixture_setup (TestAppFixture *fixture, gconstpointer user_data);
+void fixture_teardown (TestAppFixture *fixture, gconstpointer user_data);
 void clean_exit_on_fail ();
 
 #endif /* _ATK_TEST_UTIL_H */

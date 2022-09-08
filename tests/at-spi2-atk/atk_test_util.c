@@ -88,7 +88,7 @@ try_get_root_obj (AtspiAccessible *obj)
   return NULL;
 }
 
-AtspiAccessible *
+static AtspiAccessible *
 get_root_obj (const char *file_name)
 {
   int tries = 0;
