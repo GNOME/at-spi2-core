@@ -24,9 +24,9 @@
 #define DATA_FILE TESTS_DATA_DIR "/test-table.xml"
 
 static void
-atk_test_table_get_caption (gpointer fixture, gconstpointer user_data)
+atk_test_table_get_caption (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -37,9 +37,9 @@ atk_test_table_get_caption (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_table_get_summary (gpointer fixture, gconstpointer user_data)
+atk_test_table_get_summary (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -50,9 +50,9 @@ atk_test_table_get_summary (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_table_get_n_columns (gpointer fixture, gconstpointer user_data)
+atk_test_table_get_n_columns (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -62,9 +62,9 @@ atk_test_table_get_n_columns (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_table_get_n_rows (gpointer fixture, gconstpointer user_data)
+atk_test_table_get_n_rows (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -74,9 +74,9 @@ atk_test_table_get_n_rows (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_table_get_accessible_at (gpointer fixture, gconstpointer user_data)
+atk_test_table_get_accessible_at (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -91,9 +91,9 @@ atk_test_table_get_accessible_at (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_table_get_index_at (gpointer fixture, gconstpointer user_data)
+atk_test_table_get_index_at (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -110,9 +110,9 @@ atk_test_table_get_index_at (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_table_get_row_at_index (gpointer fixture, gconstpointer user_data)
+atk_test_table_get_row_at_index (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -132,9 +132,9 @@ atk_test_table_get_row_at_index (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_table_get_column_at_index (gpointer fixture, gconstpointer user_data)
+atk_test_table_get_column_at_index (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -151,9 +151,9 @@ atk_test_table_get_column_at_index (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_table_get_row_description (gpointer fixture, gconstpointer user_data)
+atk_test_table_get_row_description (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -169,9 +169,9 @@ atk_test_table_get_row_description (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_table_get_column_description (gpointer fixture, gconstpointer user_data)
+atk_test_table_get_column_description (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -187,9 +187,9 @@ atk_test_table_get_column_description (gpointer fixture, gconstpointer user_data
 }
 
 static void
-atk_test_table_get_row_extent_at (gpointer fixture, gconstpointer user_data)
+atk_test_table_get_row_extent_at (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -199,9 +199,9 @@ atk_test_table_get_row_extent_at (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_table_get_column_extent_at (gpointer fixture, gconstpointer user_data)
+atk_test_table_get_column_extent_at (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -211,9 +211,9 @@ atk_test_table_get_column_extent_at (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_table_get_row_header (gpointer fixture, gconstpointer user_data)
+atk_test_table_get_row_header (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -227,9 +227,9 @@ atk_test_table_get_row_header (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_table_get_column_header (gpointer fixture, gconstpointer user_data)
+atk_test_table_get_column_header (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -246,9 +246,9 @@ atk_test_table_get_column_header (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_table_get_n_selected_rows (gpointer fixture, gconstpointer user_data)
+atk_test_table_get_n_selected_rows (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -258,9 +258,9 @@ atk_test_table_get_n_selected_rows (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_table_get_selected_rows (gpointer fixture, gconstpointer user_data)
+atk_test_table_get_selected_rows (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -274,9 +274,9 @@ atk_test_table_get_selected_rows (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_table_get_selected_columns (gpointer fixture, gconstpointer user_data)
+atk_test_table_get_selected_columns (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -290,9 +290,9 @@ atk_test_table_get_selected_columns (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_table_get_n_selected_columns (gpointer fixture, gconstpointer user_data)
+atk_test_table_get_n_selected_columns (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -304,9 +304,9 @@ atk_test_table_get_n_selected_columns (gpointer fixture, gconstpointer user_data
 }
 
 static void
-atk_test_table_is_row_selected (gpointer fixture, gconstpointer user_data)
+atk_test_table_is_row_selected (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -316,9 +316,9 @@ atk_test_table_is_row_selected (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_table_is_column_selected (gpointer fixture, gconstpointer user_data)
+atk_test_table_is_column_selected (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -328,9 +328,9 @@ atk_test_table_is_column_selected (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_table_add_row_selection (gpointer fixture, gconstpointer user_data)
+atk_test_table_add_row_selection (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -341,9 +341,9 @@ atk_test_table_add_row_selection (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_table_add_column_selection (gpointer fixture, gconstpointer user_data)
+atk_test_table_add_column_selection (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -354,9 +354,9 @@ atk_test_table_add_column_selection (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_table_remove_row_selection (gpointer fixture, gconstpointer user_data)
+atk_test_table_remove_row_selection (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -367,9 +367,9 @@ atk_test_table_remove_row_selection (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_table_remove_column_selection (gpointer fixture, gconstpointer user_data)
+atk_test_table_remove_column_selection (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -380,9 +380,9 @@ atk_test_table_remove_column_selection (gpointer fixture, gconstpointer user_dat
 }
 
 static void
-atk_test_table_get_row_column_extents_at_index (gpointer fixture, gconstpointer user_data)
+atk_test_table_get_row_column_extents_at_index (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -402,9 +402,9 @@ atk_test_table_get_row_column_extents_at_index (gpointer fixture, gconstpointer 
 }
 
 static void
-atk_test_table_is_selected (gpointer fixture, gconstpointer user_data)
+atk_test_table_is_selected (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -416,56 +416,56 @@ atk_test_table_is_selected (gpointer fixture, gconstpointer user_data)
 void
 atk_test_table (void)
 {
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_caption",
-                     0, NULL, NULL, atk_test_table_get_caption, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_summary",
-                     0, NULL, NULL, atk_test_table_get_summary, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_n_columns",
-                     0, NULL, NULL, atk_test_table_get_n_columns, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_n_rows",
-                     0, NULL, NULL, atk_test_table_get_n_rows, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_accessible_at",
-                     0, NULL, NULL, atk_test_table_get_accessible_at, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_index_at",
-                     0, NULL, NULL, atk_test_table_get_index_at, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_at_index",
-                     0, NULL, NULL, atk_test_table_get_row_at_index, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_column_at_index",
-                     0, NULL, NULL, atk_test_table_get_column_at_index, fixture_teardown);
-  g_test_add_vtable  (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_description",
-                      0, NULL, NULL, atk_test_table_get_row_description, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_column_description",
-                     0, NULL, NULL, atk_test_table_get_column_description, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_extent_at",
-                     0, NULL, NULL, atk_test_table_get_row_extent_at, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_column_extent_at",
-                     0, NULL, NULL, atk_test_table_get_column_extent_at, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_header",
-                     0, NULL, NULL, atk_test_table_get_row_header, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_column_header",
-                     0, NULL, NULL, atk_test_table_get_column_header, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_n_selected_rows",
-                     0, NULL, NULL, atk_test_table_get_n_selected_rows, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_selected_rows",
-                     0, NULL, NULL, atk_test_table_get_selected_rows, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_selected_columns",
-                     0, NULL, NULL, atk_test_table_get_selected_columns, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_n_selected_columns",
-                     0, NULL, NULL, atk_test_table_get_n_selected_columns, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_is_row_selected",
-                     0, NULL, NULL, atk_test_table_is_row_selected, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_is_column_selected",
-                     0, NULL, NULL, atk_test_table_is_column_selected, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_add_row_selection",
-                     0, NULL, NULL, atk_test_table_add_row_selection, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_add_column_selection",
-                     0, NULL, NULL, atk_test_table_add_column_selection, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_remove_row_selection",
-                     0, NULL, NULL, atk_test_table_remove_row_selection, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_remove_column_selection",
-                     0, NULL, NULL, atk_test_table_remove_column_selection, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_column_extents_at_index",
-                     0, NULL, NULL, atk_test_table_get_row_column_extents_at_index, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_is_selected",
-                     0, NULL, NULL, atk_test_table_is_selected, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_caption",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_caption, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_summary",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_summary, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_n_columns",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_n_columns, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_n_rows",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_n_rows, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_accessible_at",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_accessible_at, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_index_at",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_index_at, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_at_index",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_row_at_index, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_column_at_index",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_column_at_index, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_description",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_row_description, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_column_description",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_column_description, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_extent_at",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_row_extent_at, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_column_extent_at",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_column_extent_at, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_header",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_row_header, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_column_header",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_column_header, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_n_selected_rows",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_n_selected_rows, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_selected_rows",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_selected_rows, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_selected_columns",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_selected_columns, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_n_selected_columns",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_n_selected_columns, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_is_row_selected",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_is_row_selected, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_is_column_selected",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_is_column_selected, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_add_row_selection",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_add_row_selection, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_add_column_selection",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_add_column_selection, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_remove_row_selection",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_remove_row_selection, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_remove_column_selection",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_remove_column_selection, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_column_extents_at_index",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_row_column_extents_at_index, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_is_selected",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_is_selected, fixture_teardown);
 }

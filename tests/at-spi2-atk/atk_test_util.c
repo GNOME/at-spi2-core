@@ -125,7 +125,17 @@ get_root_obj (const char *file_name)
 }
 
 void
-fixture_teardown (gpointer fixture, gconstpointer user_data)
+fixture_setup (TestAppFixture *fixture, gconstpointer user_data)
+{
+  const char *file_name = user_data;
+  AtspiAccessible *root_obj = get_root_obj (file_name);
+
+  fixture->child_pid = child_pid;
+  fixture->root_obj = root_obj;
+}
+
+void
+fixture_teardown (TestAppFixture *fixture, gconstpointer user_data)
 {
   int tries = 0;
 

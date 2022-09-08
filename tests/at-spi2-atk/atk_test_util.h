@@ -33,6 +33,15 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+typedef struct
+{
+  pid_t child_pid;
+
+  AtspiAccessible *root_obj;
+} TestAppFixture;
+
+extern pid_t child_pid;
+
 void fixture_setup (TestAppFixture *fixture, gconstpointer user_data);
 void fixture_teardown (TestAppFixture *fixture, gconstpointer user_data);
 void clean_exit_on_fail ();

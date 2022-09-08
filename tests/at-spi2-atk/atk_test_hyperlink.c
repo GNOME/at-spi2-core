@@ -24,9 +24,9 @@
 #define DATA_FILE TESTS_DATA_DIR "/test-hypertext.xml"
 
 static void
-atk_test_hyperlink_get_n_anchors (gpointer fixture, gconstpointer user_data)
+atk_test_hyperlink_get_n_anchors (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -39,9 +39,9 @@ atk_test_hyperlink_get_n_anchors (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_hyperlink_get_uri (gpointer fixture, gconstpointer user_data)
+atk_test_hyperlink_get_uri (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -55,9 +55,9 @@ atk_test_hyperlink_get_uri (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_hyperlink_get_object (gpointer fixture, gconstpointer user_data)
+atk_test_hyperlink_get_object (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -75,9 +75,9 @@ atk_test_hyperlink_get_object (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_hyperlink_get_index_range (gpointer fixture, gconstpointer user_data)
+atk_test_hyperlink_get_index_range (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -96,9 +96,9 @@ atk_test_hyperlink_get_index_range (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_hyperlink_get_start_index (gpointer fixture, gconstpointer user_data)
+atk_test_hyperlink_get_start_index (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -111,9 +111,9 @@ atk_test_hyperlink_get_start_index (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_hyperlink_get_end_index (gpointer fixture, gconstpointer user_data)
+atk_test_hyperlink_get_end_index (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -126,9 +126,9 @@ atk_test_hyperlink_get_end_index (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_hyperlink_is_valid (gpointer fixture, gconstpointer user_data)
+atk_test_hyperlink_is_valid (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -142,18 +142,18 @@ atk_test_hyperlink_is_valid (gpointer fixture, gconstpointer user_data)
 void
 atk_test_hyperlink (void)
 {
-  g_test_add_vtable(ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_n_anchors",
-                    0, NULL, NULL, atk_test_hyperlink_get_n_anchors, fixture_teardown);
-  g_test_add_vtable(ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_uri",
-                    0, NULL, NULL, atk_test_hyperlink_get_uri, fixture_teardown);
-  g_test_add_vtable(ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_object",
-                    0, NULL, NULL, atk_test_hyperlink_get_object, fixture_teardown);
-  g_test_add_vtable(ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_index_range",
-                    0, NULL, NULL, atk_test_hyperlink_get_index_range, fixture_teardown);
-  g_test_add_vtable(ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_start_index",
-                    0, NULL, NULL, atk_test_hyperlink_get_start_index, fixture_teardown);
-  g_test_add_vtable(ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_end_index",
-                    0, NULL, NULL, atk_test_hyperlink_get_end_index, fixture_teardown);
-  g_test_add_vtable(ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_is_valid",
-                    0, NULL, NULL, atk_test_hyperlink_is_valid, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_n_anchors",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_hyperlink_get_n_anchors, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_uri",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_hyperlink_get_uri, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_object",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_hyperlink_get_object, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_index_range",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_hyperlink_get_index_range, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_start_index",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_hyperlink_get_start_index, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_end_index",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_hyperlink_get_end_index, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_is_valid",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_hyperlink_is_valid, fixture_teardown);
 }

@@ -26,9 +26,9 @@
 #define DATA_FILE TESTS_DATA_DIR "/test-selection.xml"
 
 static void
-atk_test_selection_sample_get_interface (gpointer fixture, gconstpointer user_data)
+atk_test_selection_sample_get_interface (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   g_assert_cmpstr (atspi_accessible_get_name (obj, NULL), ==, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiSelection *iface = atspi_accessible_get_selection_iface (child);
@@ -36,9 +36,9 @@ atk_test_selection_sample_get_interface (gpointer fixture, gconstpointer user_da
 }
 
 static void
-atk_test_selection_get_n_selected_children (gpointer fixture, gconstpointer user_data)
+atk_test_selection_get_n_selected_children (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   g_assert_cmpstr (atspi_accessible_get_name (obj, NULL), ==, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiSelection *iface = atspi_accessible_get_selection_iface (child);
@@ -48,9 +48,9 @@ atk_test_selection_get_n_selected_children (gpointer fixture, gconstpointer user
 }
 
 static void
-atk_test_selection_get_selected_child (gpointer fixture, gconstpointer user_data)
+atk_test_selection_get_selected_child (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   g_assert_cmpstr (atspi_accessible_get_name (obj, NULL), ==, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiSelection *iface = atspi_accessible_get_selection_iface (child);
@@ -69,9 +69,9 @@ atk_test_selection_get_selected_child (gpointer fixture, gconstpointer user_data
 }
 
 static void
-atk_test_selection_select_child (gpointer fixture, gconstpointer user_data)
+atk_test_selection_select_child (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   g_assert_cmpstr (atspi_accessible_get_name (obj, NULL), ==, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiSelection *iface = atspi_accessible_get_selection_iface (child);
@@ -85,9 +85,9 @@ atk_test_selection_select_child (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_selection_deselect_selected (gpointer fixture, gconstpointer user_data)
+atk_test_selection_deselect_selected (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   g_assert_cmpstr (atspi_accessible_get_name (obj, NULL), ==, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiSelection *iface = atspi_accessible_get_selection_iface (child);
@@ -104,9 +104,9 @@ atk_test_selection_deselect_selected (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_selection_deselect_child (gpointer fixture, gconstpointer user_data)
+atk_test_selection_deselect_child (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   g_assert_cmpstr (atspi_accessible_get_name (obj, NULL), ==, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiSelection *iface = atspi_accessible_get_selection_iface (child);
@@ -123,9 +123,9 @@ atk_test_selection_deselect_child (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_selection_is_child_selected (gpointer fixture, gconstpointer user_data)
+atk_test_selection_is_child_selected (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   g_assert_cmpstr (atspi_accessible_get_name (obj, NULL), ==, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiSelection *iface = atspi_accessible_get_selection_iface (child);
@@ -139,9 +139,9 @@ atk_test_selection_is_child_selected (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_selection_select_all (gpointer fixture, gconstpointer user_data)
+atk_test_selection_select_all (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   g_assert_cmpstr (atspi_accessible_get_name (obj, NULL), ==, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiSelection *iface = atspi_accessible_get_selection_iface (child);
@@ -153,9 +153,9 @@ atk_test_selection_select_all (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_selection_clear_selection (gpointer fixture, gconstpointer user_data)
+atk_test_selection_clear_selection (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   g_assert_cmpstr (atspi_accessible_get_name (obj, NULL), ==, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiSelection *iface = atspi_accessible_get_selection_iface (child);
@@ -169,22 +169,22 @@ atk_test_selection_clear_selection (gpointer fixture, gconstpointer user_data)
 void
 atk_test_selection (void)
 {
-  g_test_add_vtable (ATK_TEST_PATH_SELECTION "/atk_test_selection_sample_get_interface",
-                     0, NULL, NULL, atk_test_selection_sample_get_interface, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_SELECTION "/atk_test_selection_get_n_selected_children",
-                     0, NULL, NULL, atk_test_selection_get_n_selected_children, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_SELECTION "/atk_test_selection_get_selected_child",
-                     0, NULL, NULL, atk_test_selection_get_selected_child, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_SELECTION "/atk_test_selection_select_child",
-                     0, NULL, NULL, atk_test_selection_select_child, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_SELECTION "/atk_test_selection_deselect_selected",
-                     0, NULL, NULL, atk_test_selection_deselect_selected, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_SELECTION "/atk_test_selection_deselect_child",
-                     0, NULL, NULL, atk_test_selection_deselect_child, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_SELECTION "/atk_test_selection_is_child_selected",
-                     0, NULL, NULL, atk_test_selection_is_child_selected, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_SELECTION "/atk_test_selection_select_all",
-                     0, NULL, NULL, atk_test_selection_select_all, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_SELECTION "/atk_test_selection_clear_selection",
-                     0, NULL, NULL, atk_test_selection_clear_selection, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_SELECTION "/atk_test_selection_sample_get_interface",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_selection_sample_get_interface, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_SELECTION "/atk_test_selection_get_n_selected_children",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_selection_get_n_selected_children, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_SELECTION "/atk_test_selection_get_selected_child",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_selection_get_selected_child, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_SELECTION "/atk_test_selection_select_child",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_selection_select_child, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_SELECTION "/atk_test_selection_deselect_selected",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_selection_deselect_selected, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_SELECTION "/atk_test_selection_deselect_child",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_selection_deselect_child, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_SELECTION "/atk_test_selection_is_child_selected",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_selection_is_child_selected, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_SELECTION "/atk_test_selection_select_all",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_selection_select_all, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_SELECTION "/atk_test_selection_clear_selection",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_selection_clear_selection, fixture_teardown);
 }

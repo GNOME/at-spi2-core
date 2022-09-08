@@ -26,9 +26,9 @@
 #define DATA_FILE TESTS_DATA_DIR "/test-image.xml"
 
 static void
-atk_test_image_sample_get_interface (gpointer fixture, gconstpointer user_data)
+atk_test_image_sample_get_interface (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   g_assert_cmpstr (atspi_accessible_get_name (obj, NULL), ==, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiImage *iface = atspi_accessible_get_image_iface (child);
@@ -36,9 +36,9 @@ atk_test_image_sample_get_interface (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_image_get_image_description (gpointer fixture, gconstpointer user_data)
+atk_test_image_get_image_description (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiImage *image = atspi_accessible_get_image_iface (child);
   gchar *desc = atspi_image_get_image_description (image, NULL);
@@ -48,9 +48,9 @@ atk_test_image_get_image_description (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_image_get_image_size (gpointer fixture, gconstpointer user_data)
+atk_test_image_get_image_size (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiImage *image = atspi_accessible_get_image_iface (child);
   AtspiPoint *p = atspi_image_get_image_size (image, NULL);
@@ -62,9 +62,9 @@ atk_test_image_get_image_size (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_image_get_image_position (gpointer fixture, gconstpointer user_data)
+atk_test_image_get_image_position (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiImage *image = atspi_accessible_get_image_iface (child);
   AtspiPoint *p = atspi_image_get_image_position (image, ATSPI_COORD_TYPE_SCREEN, NULL);
@@ -75,9 +75,9 @@ atk_test_image_get_image_position (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_image_get_image_extents (gpointer fixture, gconstpointer user_data)
+atk_test_image_get_image_extents (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiImage *image = atspi_accessible_get_image_iface (child);
   AtspiRect *r = atspi_image_get_image_extents (image, ATSPI_COORD_TYPE_SCREEN, NULL);
@@ -92,9 +92,9 @@ atk_test_image_get_image_extents (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_image_get_image_locale (gpointer fixture, gconstpointer user_data)
+atk_test_image_get_image_locale (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiImage *image = atspi_accessible_get_image_iface (child);
   gchar *locale = atspi_image_get_image_locale (image, NULL);
@@ -107,16 +107,16 @@ atk_test_image_get_image_locale (gpointer fixture, gconstpointer user_data)
 void
 atk_test_image (void)
 {
-  g_test_add_vtable (ATK_TEST_PATH_IMAGE "/atk_test_image_sample_get_interface",
-                     0, NULL, NULL, atk_test_image_sample_get_interface, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_IMAGE "/atk_test_image_get_image_description",
-                     0, NULL, NULL, atk_test_image_get_image_description, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_IMAGE "/atk_test_image_get_image_size",
-                     0, NULL, NULL, atk_test_image_get_image_size, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_IMAGE "/atk_test_image_get_image_position",
-                     0, NULL, NULL, atk_test_image_get_image_position, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_IMAGE "/atk_test_image_get_image_extents",
-                     0, NULL, NULL, atk_test_image_get_image_extents, fixture_teardown);
-  g_test_add_vtable (ATK_TEST_PATH_IMAGE "/atk_test_image_get_image_locale",
-                     0, NULL, NULL, atk_test_image_get_image_locale, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_IMAGE "/atk_test_image_sample_get_interface",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_image_sample_get_interface, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_IMAGE "/atk_test_image_get_image_description",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_image_get_image_description, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_IMAGE "/atk_test_image_get_image_size",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_image_get_image_size, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_IMAGE "/atk_test_image_get_image_position",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_image_get_image_position, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_IMAGE "/atk_test_image_get_image_extents",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_image_get_image_extents, fixture_teardown);
+  g_test_add (ATK_TEST_PATH_IMAGE "/atk_test_image_get_image_locale",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_image_get_image_locale, fixture_teardown);
 }
