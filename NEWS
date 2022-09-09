@@ -1,3 +1,13 @@
+What's new in at-spi2-core 2.42.1:
+
+* The AT-SPI bus now uses the user's XDG_RUNTIME_DIR for its socket.
+Fixes accessibility for Snap-confined applications.
+
+* Fix crash when NULL is passed to some listener-related functions.
+
+* Caps lock is now unlocked for key synthesis. Fixes cutting and
+pasting from brltty when caps lock is on.
+
 What's new in at-spi2-core 2.42.0:
 
 * Set X root property when Xwayland starts on demand.
