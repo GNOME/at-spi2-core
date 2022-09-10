@@ -23,9 +23,9 @@
 #include "atknoopobject.h"
 
 /**
- * SECTION:atknoopobject
- * @Short_description: An AtkObject which purports to implement all ATK interfaces.
- * @Title:AtkNoOpObject
+ * AtkNoOpObject:
+ *
+ * An AtkObject which purports to implement all ATK interfaces.
  *
  * An AtkNoOpObject is an AtkObject which purports to implement all
  * ATK interfaces. It is the type of AtkObject which is created if an

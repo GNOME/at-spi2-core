@@ -26,6 +26,16 @@
 #include "atspi-accessible-private.h"
 #include <string.h>
 
+/**
+ * AtspiAccessible:
+ *
+ * The base interface which is implemented by all accessible objects.
+ *
+ * All objects support interfaces for querying their contained 'children'
+ * and position in the accessible-object hierarchy, whether or not they
+ * actually have children.
+ */
+
 enum {
   REGION_CHANGED,
   MODE_CHANGED,

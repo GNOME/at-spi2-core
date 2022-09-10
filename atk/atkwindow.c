@@ -23,15 +23,15 @@
 #include "atkmarshal.h"
 
 /**
- * SECTION:atkwindow
- * @Short_description: The ATK Interface provided by UI components that represent a top-level window.
- * @Title: AtkWindow
- * @See_also: #AtkObject
+ * AtkWindow:
+ *
+ * The ATK Interface provided by UI components that represent a top-level window.
  *
  * #AtkWindow should be implemented by the UI elements that represent
  * a top-level window, such as the main window of an application or
  * dialog.
  *
+ * See [class@AtkObject]
  */
 
 enum {

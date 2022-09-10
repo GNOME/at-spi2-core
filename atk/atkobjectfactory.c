@@ -23,10 +23,10 @@
 #include "atknoopobjectfactory.h"
 
 /**
- * SECTION:atkobjectfactory
- * @Short_description: The base object class for a factory used to
+ * AtkObjectFactory:
+ *
+ * The base object class for a factory used to
  *  create accessible objects for objects of a specific GType.
- * @Title:AtkObjectFactory
  *
  * This class is the base object class for a factory used to create an
  * accessible object for a specific GType. The function

@@ -24,10 +24,10 @@
 #include "atk.h"
 
 /**
- * SECTION:atkrelationset
- * @Short_description: A set of AtkRelations, normally the set of
+ * AtkRelationSet:
+ *
+ * A set of AtkRelations, normally the set of
  *  AtkRelations which an AtkObject has.
- * @Title:AtkRelationSet
  *
  * The AtkRelationSet held by an object establishes its relationships
  * with objects beyond the normal "parent/child" hierarchical

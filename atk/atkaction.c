@@ -22,10 +22,10 @@
 #include "atkaction.h"
 
 /**
- * SECTION:atkaction
- * @Short_description: The ATK interface provided by UI components
+ * AtkAction:
+ * 
+ * The ATK interface provided by UI components
  * which the user can activate/interact with.
- * @Title:AtkAction
  *
  * #AtkAction should be implemented by instances of #AtkObject classes
  * with which the user can interact directly, i.e. buttons,

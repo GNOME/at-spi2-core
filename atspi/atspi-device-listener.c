@@ -25,6 +25,16 @@
 #include "atspi-private.h"
 #include <stdio.h>
 
+/**
+ * AtspiDevicelistener:
+ *
+ * An interface for creating and manipulating
+ * device listeners.
+ *
+ * An interface for creating and manipulating
+ * device listeners with callback functions.
+ */
+
 typedef struct
 {
   AtspiDeviceListenerCB    callback;

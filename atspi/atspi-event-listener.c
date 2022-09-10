@@ -28,6 +28,18 @@
 #include <strings.h>
 #include <ctype.h>
 
+/**
+ * AtspiEventListener:
+ *
+ * A generic interface implemented by objects for the receipt of event
+ * notifications.
+ *
+ * A generic interface implemented by objects for the receipt of event
+ * notifications. atspi-event-listener is the interface via which clients of
+ * the atspi-registry receive notification of changes to an application's user
+ * interface and content.
+ */
+
 typedef struct
 {
   AtspiEventListenerCB callback;

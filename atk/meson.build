@@ -138,7 +138,7 @@ libatk = library(atk_api_name,
 atk_sources_dep = [ atk_enum_h ]
 
 if have_gir
-  atk_sources_dep += gnome.generate_gir(libatk,
+  atk_gir = gnome.generate_gir(libatk,
     sources: atk_sources + atk_headers + [ atk_enum_h ] + [ atk_version_h ],
     namespace: 'Atk',
     nsversion: atk_api_version,
@@ -153,6 +153,8 @@ if have_gir
       '-DATK_COMPILATION',
     ],
   )
+
+  atk_sources_dep += atk_gir
 endif
 
 libatk_dep = declare_dependency(link_with: libatk,

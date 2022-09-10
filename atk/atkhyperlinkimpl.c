@@ -23,10 +23,10 @@
 #include "atkhyperlinkimpl.h"
 
 /**
- * SECTION:atkhyperlinkimpl
- * @Short_description: An interface from which the AtkHyperlink
+ * AtkHyperlinImpl:
+ *
+ * An interface from which the AtkHyperlink
  *  associated with an AtkObject may be obtained.
- * @Title:AtkHyperlinImpl
  *
  * AtkHyperlinkImpl allows AtkObjects to refer to their associated
  * AtkHyperlink instance, if one exists.  AtkHyperlinkImpl differs

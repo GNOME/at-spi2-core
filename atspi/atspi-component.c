@@ -30,6 +30,22 @@
 #include "atspi-private.h"
 #include "atspi-accessible-private.h"
 
+/**
+ * AtspiComponent
+ *
+ * An interface implemented by objects which have onscreen visual
+ * representations.
+ *
+ * The Component interface is implemented by objects which occupy on-screen
+ * space, e.g. objects which have onscreen visual representations. The methods
+ * in Component allow clients to identify where the objects lie in the onscreen
+ * coordinate system, their relative size, stacking order, and position. It
+ * also provides a mechanism whereby keyboard focus may be transferred to
+ * specific user interface elements programmatically.  This is a 2D API.
+ * Coordinates of 3D objects are projected into the 2-dimensional screen view
+ * for purposes of this interface.
+ */
+
 void
 atspi_rect_free (AtspiRect *rect)
 {

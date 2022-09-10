@@ -24,9 +24,9 @@
 #include "atknoopobjectfactory.h"
 
 /**
- * SECTION:atknoopobjectfactory
- * @Short_description: The AtkObjectFactory which creates an AtkNoOpObject.
- * @Title:AtkNoOpObjectFactory
+ * AtkNoOpObjectFactory:
+ *
+ * The AtkObjectFactory which creates an AtkNoOpObject.
  *
  * The AtkObjectFactory which creates an AtkNoOpObject. An instance of
  * this is created by an AtkRegistry if no factory type has not been

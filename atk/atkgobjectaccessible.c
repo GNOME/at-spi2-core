@@ -24,10 +24,9 @@
 #include <atk/atkutil.h>
 
 /**
- * SECTION:atkgobjectaccessible
- * @Short_description: This object class is derived from AtkObject and
- *  can be used as a basis implementing accessible objects.
- * @Title:AtkGObjectAccessible
+ * AtkGObjectAccessible:
+ *
+ * This object class is derived from AtkObject and can be used as a basis implementing accessible objects.
  *
  * This object class is derived from AtkObject. It can be used as a
  * basis for implementing accessible objects for GObjects which are

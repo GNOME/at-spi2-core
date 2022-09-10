@@ -29,6 +29,12 @@
 
 #include "atspi-constants.h"
 
+/**
+ * AtspiTypes:
+ *
+ * Type definitions needed by multiple interfaces.
+ */
+
 typedef struct _AtspiAccessible AtspiAccessible;
 typedef struct _AtspiAction AtspiAction;
 typedef struct _AtspiCollection AtspiCollection;
@@ -133,8 +139,9 @@ typedef struct _AtspiKeySet
 } AtspiKeySet;
 
 /**
- *AtspiKeyListenerSyncType:
-  * @ATSPI_KEYLISTENER_NOSYNC: Events may be delivered asynchronously, 
+ * AtspiKeyListenerSyncType:
+ *
+ * @ATSPI_KEYLISTENER_NOSYNC: Events may be delivered asynchronously,
  * which means in some cases they may already have been delivered to the 
  * application before the AT client receives the notification.  
  * @ATSPI_KEYLISTENER_SYNCHRONOUS: Events are delivered synchronously, before the 

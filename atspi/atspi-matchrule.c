@@ -24,6 +24,13 @@
 
 #include "atspi-private.h"
 
+/**
+ * AtspiMatchRule:
+ *
+ * An interface that allows the definition of match rules
+ * for accessible objects.
+ */
+
 G_DEFINE_TYPE (AtspiMatchRule, atspi_match_rule, G_TYPE_OBJECT)
 
 static void

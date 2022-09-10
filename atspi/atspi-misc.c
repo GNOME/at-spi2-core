@@ -37,6 +37,12 @@
 #include <string.h>
 #include <ctype.h>
 
+/**
+ * AtspiMisc:
+ *
+ * Miscellaneous methods for using AT-SPI services.
+ */
+
 static void handle_get_items (DBusPendingCall *pending, void *user_data);
 
 static DBusConnection *bus = NULL;

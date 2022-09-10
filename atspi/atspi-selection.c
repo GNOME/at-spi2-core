@@ -25,6 +25,19 @@
 #include "atspi-private.h"
 
 /**
+ * AtspiSelection:
+ *
+ * An interface which indicates that an object exposes a 'selection' model,
+ * allowing the selection of one or more of its children.
+ *
+ * An interface which indicates that an object exposes a 'selection'
+ * model, allowing the selection of one or more of its children.
+ * Read-only Selection instances are possible, in which case the
+ * interface is used to programmatically determine the selected-ness
+ * of its children.
+ */
+
+/**
  * atspi_selection_get_n_selected_children:
  * @obj: a pointer to the #AtspiSelection implementor on which to operate.
  *

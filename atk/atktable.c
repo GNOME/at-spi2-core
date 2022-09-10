@@ -23,10 +23,9 @@
 #include "atkmarshal.h"
 
 /**
- * SECTION:atktable
- * @Short_description: The ATK interface implemented for UI components
- *  which contain tabular or row/column information.
- * @Title:AtkTable
+ * AtkTable:
+ *
+ * The ATK interface implemented for UI components which contain tabular or row/column information.
  *
  * #AtkTable should be implemented by components which present
  * elements ordered via rows and columns.  It may also be used to

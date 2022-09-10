@@ -25,10 +25,9 @@
 #include <string.h>
 
 /**
- * SECTION:atktext
- * @Short_description: The ATK interface implemented by components
- *  with text content.
- * @Title:AtkText
+ * AtkText:
+ *
+ * The ATK interface implemented by components with text content.
  *
  * #AtkText should be implemented by #AtkObjects on behalf of widgets
  * that have text content which is either attributed or otherwise

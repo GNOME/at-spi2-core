@@ -26,6 +26,18 @@
 
 #include "atspi-private.h"
 
+/**
+ * AtspiRegistry:
+ *
+ * A service through which applications providing accessibility services
+ * can rendezvous with consumers of those services.
+ *
+ * A service through which applications providing accessibility services (servers)
+ * can rendezvous with consumers of those services (Assistive Technologies). The
+ * atspi-registry is the first "port of call" for accessible applications and for
+ * assistive technologies wishing to query and interact with those applications.
+ */
+
 typedef struct
 {
   AtspiDeviceListener *listener;

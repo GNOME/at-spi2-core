@@ -24,10 +24,10 @@
 #include "atk.h"
 
 /**
- * SECTION:atkrelation
- * @Short_description: An object used to describe a relation between a
+ * AtkRelation:
+ *
+ * An object used to describe a relation between a
  *  object and one or more other objects.
- * @Title:AtkRelation
  *
  * An AtkRelation describes a relation between an object and one or
  * more other objects. The actual relations that an object has with

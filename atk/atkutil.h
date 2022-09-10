@@ -54,7 +54,7 @@ typedef struct _AtkKeyEventStruct AtkKeyEventStruct;
  * supported are events of type "focus:".  Most clients of ATK will prefer to 
  * attach signal handlers for the various ATK signals instead.
  *
- * see atk_add_focus_tracker.
+ * see [id@atk_add_focus_tracker]
  **/
 typedef void  (*AtkEventListener) (AtkObject* obj);
 /**
@@ -64,7 +64,7 @@ typedef void  (*AtkEventListener) (AtkObject* obj);
  * called in order to initialize the per-object event registration system
  * used by #AtkEventListener, if any preparation is required.  
  *
- * see atk_focus_tracker_init.
+ * see [id@atk_focus_tracker_init]
  **/
 typedef void  (*AtkEventListenerInit) (void);
 /**
@@ -81,13 +81,16 @@ typedef void  (*AtkEventListenerInit) (void);
  * discarded without being passed to the normal GUI recipient; FALSE (zero) if the 
  * event dispatch to the client application should proceed as normal.
  *
- * see atk_add_key_event_listener.
+ * see [id@atk_add_key_event_listener]
  **/
 typedef gint  (*AtkKeySnoopFunc)  (AtkKeyEventStruct *event,
 				   gpointer user_data);
 
 /**
  * AtkKeyEventStruct:
+ *
+ * Encapsulates information about a key event.
+ *
  * @type: An AtkKeyEventType, generally one of ATK_KEY_EVENT_PRESS or ATK_KEY_EVENT_RELEASE
  * @state: A bitmask representing the state of the modifier keys immediately after the event takes place.   
  * The meaning of the bits is currently defined to match the bitmask used by GDK in
@@ -104,8 +107,6 @@ typedef gint  (*AtkKeySnoopFunc)  (AtkKeyEventStruct *event,
  * @timestamp: A timestamp in milliseconds indicating when the event occurred.  
  * These timestamps are relative to a starting point which should be considered arbitrary, 
  * and only used to compare the dispatch times of events to one another.
- *
- * Encapsulates information about a key event.
  **/
 struct _AtkKeyEventStruct {
   gint type;

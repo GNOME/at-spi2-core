@@ -23,11 +23,11 @@
 #include "atknoopobjectfactory.h"
 
 /**
- * SECTION:atkregistry
- * @Short_description: An object used to store the GType of the
+ * AtkRegistry:
+ *
+ * An object used to store the GType of the
  * factories used to create an accessible object for an object of a
  * particular GType.
- * @Title:AtkRegistry
  *
  * The AtkRegistry is normally used to create appropriate ATK "peers"
  * for user interface components.  Application developers usually need

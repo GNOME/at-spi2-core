@@ -25,9 +25,9 @@
 #include "atkstateset.h"
 
 /**
- * SECTION:atkstateset
- * @Short_description: An AtkStateSet contains the states of an object.
- * @Title:AtkStateSet
+ * AtkStateSet:
+ *
+ * An AtkStateSet contains the states of an object.
  *
  * An AtkStateSet is a read-only representation of the full set of #AtkStates
  * that apply to an object at a given time. This set is not meant to be

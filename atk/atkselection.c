@@ -22,10 +22,9 @@
 #include "atkselection.h"
 
 /**
- * SECTION:atkselection
- * @Short_description: The ATK interface implemented by container
- *  objects whose #AtkObject children can be selected.
- * @Title:AtkSelection
+ * AtkSelection:
+ *
+ * The ATK interface implemented by container objects whose #AtkObject children can be selected.
  *
  * #AtkSelection should be implemented by UI components with children
  * which are exposed by #atk_object_ref_child and

@@ -1,0 +1,52 @@
+[library]
+version = "@VERSION@"
+browse_url = "https://gitlab.gnome.org/GNOME/at-spi2-core/"
+repository_url = "https://gitlab.gnome.org/GNOME/at-spi2-core.git"
+website_url = "https://wiki.gnome.org/Accessibility"
+docs_url = "https://gnome.pages.gitlab.gnome.org/at-spi2-core/atk/"
+authors = "ATK Development Team"
+license = "LGPL-2.1-or-later"
+description = """GNOME provides support for accessibility devices using the ATK
+framework. This framework defines a set of interfaces to which
+graphical interface components adhere. This allows, for instance,
+screen readers to read the text of an interface and interact with its
+controls. ATK support is built into GTK+ 3 and the rest of the GNOME
+platform, so any application using GTK+ 3 will have reasonable
+accessibility support for free.
+GTK4 now includes accessibility support natively and does not need ATK."""
+devhelp = true
+search_index = true
+logo_url = "logo.png"
+
+dependencies = ["GObject-2.0",]
+
+  [dependencies."GObject-2.0"]
+  name = "GObject"
+  description = "The base type system library"
+  docs_url = "https://docs.gtk.org/gobject/"
+
+related = ["Atspi-2.0"]
+
+  [related."Atspi-2.0"]
+  name = "AT-SPI"
+  description = "The Assistive Technology Service Provider Interface"
+  docs_url = "https://gnome.pages.gitlab.gnome.org/at-spi2-core/libatspi/"
+
+[theme]
+name = "basic"
+show_index_summary = true
+show_class_hierarchy = true
+
+[source-location]
+# The base URL for the web UI
+base_url = "https://gitlab.gnome.org/GNOME/at-spi2-core/-/blob/HEAD/"
+# The format for links, using "filename" and "line" for the format
+file_format = "{filename}#L{line}"
+
+[extra]
+content_files = [
+]
+content_images = [
+  "logo.png",
+]
+urlmap_file = "urlmap.js"

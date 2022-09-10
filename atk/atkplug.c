@@ -23,13 +23,11 @@
 #include "atkplug.h"
 
 /**
- * SECTION:atkplug
- * @Short_description: Toplevel for embedding into other processes
- * @Title: AtkPlug
- * @See_also: #AtkPlug
+ * AtkPlug:
  *
- * See #AtkSocket
+ * Toplevel for embedding into other processes
  *
+ * See [class@AtkSocket]
  */
 
 static void atk_component_interface_init (AtkComponentIface *iface);

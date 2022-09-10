@@ -23,6 +23,18 @@
 
 #include "atspi-private.h"
 
+/**
+ * AtspiEditabletext:
+ *
+ * An interface that provides methods for modifying textual content
+ * of components which support editing.
+ *
+ * Derived from atspi-text, the atspi-editabletext interface
+ * provides methods for modifying textual content of components
+ * which support editing. EditableText also interacts with the
+ * system clipboard via copy, cut, and paste methods.
+ */
+
 #if 0
 /* TODO: implement */
 /**

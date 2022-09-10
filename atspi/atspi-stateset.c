@@ -24,6 +24,13 @@
 
 #include "atspi-private.h"
 
+/**
+ * AtspiStateSet:
+ *
+ * The atspi-stateset objects implement wrappers around a
+ * bitmap of accessible states.
+ */
+
 static void atspi_state_set_class_init (AtspiStateSetClass *klass);
 
 G_DEFINE_TYPE (AtspiStateSet, atspi_state_set, G_TYPE_OBJECT)
