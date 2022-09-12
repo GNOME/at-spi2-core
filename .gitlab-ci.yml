@@ -102,7 +102,7 @@ static-scan:
     - '.fdo.distribution-image@opensuse'
   needs: ['opensuse-container@x86_64']
   variables:
-    MESON_EXTRA_FLAGS: "--buildtype=debug -Dintrospection=no -Ddocs=false"
+    MESON_EXTRA_FLAGS: "--buildtype=debug -Dintrospection=disabled -Ddocs=false"
   script:
     - meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _scan_build .
     - ninja -C _scan_build scan-build
@@ -120,7 +120,7 @@ asan-build:
     - '.fdo.distribution-image@opensuse'
   needs: ['opensuse-container@x86_64']
   variables:
-    MESON_EXTRA_FLAGS: "--buildtype=debug -Db_sanitize=address -Db_lundef=false -Dintrospection=no -Ddocs=false"
+    MESON_EXTRA_FLAGS: "--buildtype=debug -Db_sanitize=address -Db_lundef=false -Dintrospection=disabled -Ddocs=false"
     # Add a suppressions file for address-sanitizer.  Looks like libdbus has a minor leak that is hurting
     # the tests while run with asan.  Hopefully this will go away once we convert everything to gdbus.
     #
@@ -148,7 +148,7 @@ coverage:
     - '.fdo.distribution-image@opensuse'
   needs: ['opensuse-container@x86_64']
   variables:
-    MESON_EXTRA_FLAGS: "--buildtype=debug -Ddocs=false -Dintrospection=no"
+    MESON_EXTRA_FLAGS: "--buildtype=debug -Ddocs=false -Dintrospection=disabled"
     CFLAGS: "-coverage -ftest-coverage -fprofile-arcs"
   script:
     - source ./ci/env.sh

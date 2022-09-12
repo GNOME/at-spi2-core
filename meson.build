@@ -123,7 +123,6 @@ glib_req_version = '>= 2.67.4'
 gobject_req_version = '>= 2.0.0'
 gmodule_req_version = '>= 2.0.0'
 gio_req_version = '>= 2.28.0'
-gir_req_version = '>= 0.6.7'
 libxml_req_version = '>= 2.9.1'
 
 libdbus_dep = dependency('dbus-1', version: libdbus_req_version)
@@ -174,16 +173,8 @@ at_spi_conf.set('ALIGNOF_DBIND_POINTER', cc.alignment('dbind_pointer', prefix: '
 at_spi_conf.set('ALIGNOF_DBIND_STRUCT', cc.alignment('dbind_struct', prefix: 'typedef struct { char s1; } dbind_struct;'))
 
 # introspection support
-have_gir = false
-
-introspection_option = get_option('introspection')
-if introspection_option != 'no'
-  gir_dep = dependency('gobject-introspection-1.0', version: gir_req_version, required: false)
-
-  if gir_dep.found()
-    have_gir = true
-  endif
-endif
+gir = find_program('g-ir-scanner', required : get_option('introspection'))
+have_gir = gir.found() and (not meson.is_cross_build() or get_option('introspection').enabled())
 
 xgettext = find_program('xgettext', required : false)
 

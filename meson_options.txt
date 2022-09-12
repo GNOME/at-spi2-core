@@ -25,9 +25,9 @@ option('docs',
        value: false)
 option('introspection',
        description: 'Enable GObject Introspection (depends on GObject)',
-       type: 'combo',
-       choices: ['yes', 'no', 'auto'],
-       value: 'auto')
+       type: 'feature',
+       value: 'auto',
+       yield: true)
 option('x11',
        description: 'Enable X11 support',
        type: 'feature',
