@@ -30,8 +30,7 @@ option('introspection',
        value: 'auto')
 option('x11',
        description: 'Enable X11 support',
-       type: 'combo',
-       choices: ['yes', 'no', 'auto'],
+       type: 'feature',
        value: 'auto')
 option('disable_p2p',
        description: 'Disable peer-to-peer DBus connections for at-spi2-atk',
