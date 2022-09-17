@@ -1,3 +1,8 @@
+What's new in at-spi2-core 2.46.0:
+
+* Fix GetInterfaces documentation on org.a11y.atspi.Accessible
+  interface.
+
 What's new in at-spi2-core 2.45.91:
 
 * Send device event controller events using the same signature as other
