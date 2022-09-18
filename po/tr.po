@@ -1,7 +1,8 @@
-# #-#-#-#-#  tr.po (at-spi2-core master)  #-#-#-#-#
 # Turkish translation for at-spi2-core.
 # Copyright (C) 2011 the Free Software Foundation, Inc.
+# Copyright (C) 2008-2022 at-spi2-core's COPYRIGHT HOLDER
 # This file is distributed under the same license as the at-spi2-core package.
+#
 # Muhammed EKEN <gnome@m-eken.com>, 2011.
 # Muhammet Kara <muhammetk@gmail.com>, 2011, 2014.
 # Emin Tufan Çetin <etcetin@gmail.com>, 2022.
@@ -18,9 +19,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: atk\n"
+"Project-Id-Version: at-spi2-core\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
-"POT-Creation-Date: 2022-07-25 14:47+0000\n"
+"POT-Creation-Date: 2022-07-25 21:55+0000\n"
 "PO-Revision-Date: 2022-07-26 00:45+0200\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
@@ -818,30 +819,3 @@ msgstr "en iyi"
 #: atspi/atspi-component.c:332 atspi/atspi-misc.c:1063 atspi/atspi-value.c:111
 msgid "The application no longer exists"
 msgstr "Artık böyle bir uygulama bulunmuyor"
-
-#~ msgid "Attempted synchronous call where prohibited"
-#~ msgstr "Yasak olduğu halde eşzamanlı çağrı yapmaya çalışıldı"
-
-#~ msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
-#~ msgstr "AT-SPI: Bilinmeyen RemoveAccesible imzası %s"
-
-#~ msgid "AT-SPI: Error calling getRoot for %s: %s"
-#~ msgstr "AT-SPI: %s için getRoot çağırma hatası: %s"
-
-#~ msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
-#~ msgstr "AT-SPI: GetItems'te hata, gönderen=%s, hata=%s"
-
-#~ msgid "AT-SPI: Unknown interface %s"
-#~ msgstr "AT-SPI: Bilinmeyen arayüz %s"
-
-#~ msgid "AT-SPI: expected 2 values in states array; got %d\n"
-#~ msgstr "AT-SPI: durumlar dizisinde 2 değer beklenirken %d değer alındı\n"
-
-#~ msgid "Streamable content not implemented"
-#~ msgstr "Akıcı içerik uygulanmamış"
-
-#~ msgid "Got invalid signature %s for signal %s from interface %s\n"
-#~ msgstr "%3$s arayüzünden %2$s sinyali için geçersiz imza %1$s alındı\n"
-
-#~ msgid "Is used to notify that the parent has changed"
-#~ msgstr "Sahibin değiştiğini uyarmak için kullanılır"
