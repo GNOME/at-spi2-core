@@ -1,3 +1,12 @@
+FIXME: no version number yet; I just want to get the following item in the release notes:
+
+* The meson options -Dx11 and -Dintrospection are now implemented with
+  meson features - https://mesonbuild.com/Build-options.html#features
+
+  Instead of accepting values of "yes/no/auto", they take
+  "enabled/disabled/auto".  Please change your build scripts
+  accordingly if you use these options.
+
 What's new in at-spi2-core 2.46.0:
 
 * Fix GetInterfaces documentation on org.a11y.atspi.Accessible

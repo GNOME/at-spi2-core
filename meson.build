@@ -123,7 +123,6 @@ glib_req_version = '>= 2.67.4'
 gobject_req_version = '>= 2.0.0'
 gmodule_req_version = '>= 2.0.0'
 gio_req_version = '>= 2.28.0'
-gir_req_version = '>= 0.6.7'
 libxml_req_version = '>= 2.9.1'
 
 libdbus_dep = dependency('dbus-1', version: libdbus_req_version)
@@ -141,25 +140,17 @@ gmodule_dep = dependency('gmodule-2.0', version: gmodule_req_version)
 libxml_dep = dependency('libxml-2.0', version: libxml_req_version)
 
 x11_deps = []
-x11_option = get_option('x11')
-# ensure x11_dep is defined for use elsewhere, such as bus/meson.build
-x11_dep = dependency('', required: false)
-if x11_option != 'no'
-  x11_dep = dependency('x11', required: false)
-
-  if x11_dep.found()
-    x11_deps += x11_dep
-    at_spi_conf.set('HAVE_X11', 1)
-    xtest_dep = dependency('xtst')
-    x11_deps += xtest_dep
-
-    if cc.has_function('XkbGetMap', dependencies: x11_deps)
-      at_spi_conf.set('HAVE_XKB', 1)
-    endif
-
-    xinput_dep = dependency('xi')
-    x11_deps += xinput_dep
+x11_dep = dependency('x11', required: get_option('x11'))
+if x11_dep.found()
+  x11_deps += x11_dep
+  at_spi_conf.set('HAVE_X11', 1)
+  xtest_dep = dependency('xtst')
+  x11_deps += xtest_dep
+  if cc.has_function('XkbGetMap', dependencies: x11_deps)
+    at_spi_conf.set('HAVE_XKB', 1)
   endif
+  xinput_dep = dependency('xi')
+  x11_deps += xinput_dep
 endif
 
 # Alignments
@@ -182,16 +173,8 @@ at_spi_conf.set('ALIGNOF_DBIND_POINTER', cc.alignment('dbind_pointer', prefix: '
 at_spi_conf.set('ALIGNOF_DBIND_STRUCT', cc.alignment('dbind_struct', prefix: 'typedef struct { char s1; } dbind_struct;'))
 
 # introspection support
-have_gir = false
-
-introspection_option = get_option('introspection')
-if introspection_option != 'no'
-  gir_dep = dependency('gobject-introspection-1.0', version: gir_req_version, required: false)
-
-  if gir_dep.found()
-    have_gir = true
-  endif
-endif
+gir = find_program('g-ir-scanner', required : get_option('introspection'))
+have_gir = gir.found() and (not meson.is_cross_build() or get_option('introspection').enabled())
 
 xgettext = find_program('xgettext', required : false)
 

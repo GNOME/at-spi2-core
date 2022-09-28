@@ -60,12 +60,9 @@ atspi_headers = [
   'atspi-value.h',
 ]
 
-x11_option = get_option('x11')
-if x11_option != 'no'
-  if x11_dep.found()
-    atspi_sources += ['atspi-device-x11.c']
-    atspi_headers += ['atspi-device-x11.h']
-  endif
+if x11_dep.found()
+  atspi_sources += ['atspi-device-x11.c']
+  atspi_headers += ['atspi-device-x11.h']
 endif
 
 atspi_includedir = join_paths(get_option('prefix'), get_option('includedir'), 'at-spi-2.0', 'atspi')
