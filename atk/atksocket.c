@@ -23,10 +23,9 @@
 #include "atksocket.h"
 
 /**
- * SECTION:atksocket
- * @Short_description: Container for AtkPlug objects from other processes
- * @Title: AtkSocket
- * @See_also: #AtkPlug
+ * AtkSocket:
+ *
+ * Container for AtkPlug objects from other processes
  *
  * Together with #AtkPlug, #AtkSocket provides the ability to embed
  * accessibles from one process into another in a fashion that is
@@ -50,6 +49,8 @@
  * atk_object_get_n_accessible_children() and
  * atk_object_ref_accessible_child(). All the logic related to those
  * functions will be implemented by the IPC layer.
+ *
+ * See [class@AtkPlug]
  */
 
 static void atk_socket_finalize   (GObject *obj);

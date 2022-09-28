@@ -23,16 +23,15 @@
 
 
 /**
- * SECTION:atktablecell
- * @Short_description: The ATK interface implemented for a cell inside
- * a two-dimentional #AtkTable
- * @Title:AtkTableCell
+ * AtkTableCell:
+ *
+ * The ATK interface implemented for a cell inside a two-dimentional #AtkTable
  *
  * Being #AtkTable a component which present elements ordered via rows
  * and columns, an #AtkTableCell is the interface which each of those
  * elements, so "cells" should implement.
  *
- * See also #AtkTable.
+ * See [iface@AtkTable]
  */
 
 typedef AtkTableCellIface AtkTableCellInterface;

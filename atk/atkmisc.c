@@ -22,9 +22,9 @@
 #include "atkmisc.h"
 
 /**
- * SECTION:atkmisc
- * @Short_description: A set of ATK utility functions for thread locking
- * @Title:AtkMisc
+ * AtkMisc:
+ *
+ * A set of ATK utility functions for thread locking
  *
  * A set of utility functions for thread locking. This interface and
  * all his related methods are deprecated since 2.12.

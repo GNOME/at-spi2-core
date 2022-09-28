@@ -25,6 +25,18 @@
 #include "atspi-private.h"
 
 /**
+ * AtspiValue:
+ *
+ * An interface supporting a one-dimensional scalar
+ * to be modified, or which reflects its value.
+ *
+ * An interface supporting a one-dimensional scalar
+ * to be modified, or which reflects its value. If
+ * STATE_EDITABLE is not present, the value is
+ * treated as "read only".
+ */
+
+/**
  * atspi_value_get_minimum_value:
  * @obj: a pointer to the #AtspiValue implementor on which to operate. 
  *

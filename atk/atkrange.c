@@ -24,9 +24,9 @@
 #include "atkvalue.h"
 
 /**
- * SECTION:atkrange
- * @Short_description: A given range or subrange, to be used with #AtkValue
- * @Title:AtkRange
+ * AtkRange:
+ *
+ * A given range or subrange, to be used with #AtkValue
  *
  * #AtkRange are used on #AtkValue, in order to represent the full
  * range of a given component (for example an slider or a range

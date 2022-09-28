@@ -22,11 +22,11 @@
 #include "atkcomponent.h"
 
 /**
- * SECTION:atkcomponent
- * @Short_description: The ATK interface provided by UI components
+ * AtkComponent:
+ * 
+ * The ATK interface provided by UI components
  * which occupy a physical area on the screen.
  * which the user can activate/interact with.
- * @Title:AtkComponent
  *
  * #AtkComponent should be implemented by most if not all UI elements
  * with an actual on-screen presence, i.e. components which can be

@@ -22,10 +22,10 @@
 #include "atkdocument.h"
 
 /**
- * SECTION:atkdocument
- * @Short_description: The ATK interface which represents the toplevel
+ * AtkDocument:
+ *
+ * The ATK interface which represents the toplevel
  *  container for document content.
- * @Title:AtkDocument
  *
  * The AtkDocument interface should be supported by any object whose
  * content is a representation or view of a document.  The AtkDocument

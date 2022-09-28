@@ -28,11 +28,9 @@
 #include "atkprivate.h"
 
 /**
- * SECTION:atkvalue
- * @Short_description: The ATK interface implemented by valuators and
- *  components which display or select a value from a bounded range of
- *  values.
- * @Title:AtkValue
+ * AtkValue:
+ *
+ * The ATK interface implemented by valuators and components which display or select a value from a bounded range of values.
  *
  * #AtkValue should be implemented for components which either display
  * a value from a bounded range, or which allow the user to specify a

@@ -22,10 +22,10 @@
 #include "atkimage.h"
 
 /**
- * SECTION:atkimage
- * @Short_description: The ATK Interface implemented by components
+ * AtkImage:
+ *
+ * The ATK Interface implemented by components
  *  which expose image or pixmap content on-screen.
- * @Title:AtkImage
  *
  * #AtkImage should be implemented by #AtkObject subtypes on behalf of
  * components which display image/pixmap information onscreen, and

@@ -30,9 +30,9 @@
 #include "atkprivate.h"
 
 /**
- * SECTION:atkobject
- * @Short_description: The base object class for the Accessibility Toolkit API.
- * @Title:AtkObject
+ * AtkObject:
+ *
+ * The base object class for the Accessibility Toolkit API.
  *
  * This class is the primary class for accessibility support via the
  * Accessibility ToolKit (ATK).  Objects which are instances of
@@ -52,7 +52,7 @@
  * implementation is insufficient, via instances of a new #AtkObject
  * subclass.
  *
- * See also: #AtkObjectFactory, #AtkRegistry.  (GTK+ users see also
+ * See [class@AtkObjectFactory], [class@AtkRegistry].  (GTK+ users see also
  * #GtkAccessible).
  *
  */

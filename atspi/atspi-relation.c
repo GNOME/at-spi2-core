@@ -25,6 +25,17 @@
 #include "atspi-private.h"
 
 /**
+ * AtspiRelation:
+ *
+ * An interface via which non-hierarchical relationships
+ * are indicated.
+ *
+ * An interface via which non-hierarchical relationships
+ * are indicated. An instance of this interface represents
+ * a "one-to-many" correspondance.
+ */
+
+/**
  * atspi_relation_get_relation_type:
  * @obj: a pointer to the #AtspiRelation object to query.
  *

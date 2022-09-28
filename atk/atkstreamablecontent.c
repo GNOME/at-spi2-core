@@ -22,10 +22,9 @@
 #include "atkstreamablecontent.h"
 
 /**
- * SECTION:atkstreamablecontent
- * @Short_description: The ATK interface which provides access to
- *  streamable content.
- * @Title:AtkStreamableContent
+ * AtkStreamableContent:
+ *
+ * The ATK interface which provides access to streamable content.
  *
  * An interface whereby an object allows its backing content to be
  * streamed to clients.  Typical implementors would be images or

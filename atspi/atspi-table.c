@@ -26,6 +26,22 @@
 #include "atspi-private.h"
 
 /**
+ * AtspiTable:
+ *
+ * An interface used by containers whose data is arranged in a tabular form.
+ *
+ * An interface used by containers whose contained data is arranged
+ * in a tabular (i.e. row-column) form. Tables may resemble
+ * a two-dimensional grid, as in a spreadsheet, or may feature objects
+ * which span multiple rows and/or columns, but whose bounds are
+ * aligned on a row/column matrix. Objects within tables are children
+ * of the table object, and they may be referenced either via a child
+ * index or via a row/column pair. Table 'cells' may implement other
+ * interfaces, such as Text, Action, Image, and Component, and should do
+ * so as appropriate to their onscreen rresentation and/or behavior.
+ */
+
+/**
  * atspi_table_get_caption:
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  *

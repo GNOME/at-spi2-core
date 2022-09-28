@@ -23,6 +23,16 @@
 
 #include "atspi-private.h"
 
+/**
+ * AtspiApplication:
+ *
+ * An interface identifying the root object associated
+ * with a running application.
+ *
+ * An interface identifying an object which is the root of the
+ * hierarchy associated with a running application.
+ */
+
 G_DEFINE_TYPE (AtspiApplication, atspi_application, G_TYPE_OBJECT)
 
 static void

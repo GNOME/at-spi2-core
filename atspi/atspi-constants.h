@@ -84,6 +84,12 @@
 
  */
 
+/**
+ * AtspiConstants:
+ *
+ * Constant definitions needed by multiple interfaces.
+ */
+
 #ifndef _ATSPI_CONSTANTS_H_
 #define _ATSPI_CONSTANTS_H_
 #ifdef __cplusplus

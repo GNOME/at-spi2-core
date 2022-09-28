@@ -22,10 +22,9 @@
 #include "atkeditabletext.h"
 
 /**
- * SECTION:atkeditabletext
- * @Short_description: The ATK interface implemented by components
- *  containing user-editable text content.
- * @Title:AtkEditableText
+ * AtkEditableText:
+ *
+ * The ATK interface implemented by components containing user-editable text content.
  *
  * #AtkEditableText should be implemented by UI components which
  * contain text which the user can edit, via the #AtkObject
@@ -35,7 +34,7 @@
  * which implements #AtkEditableText is by definition an #AtkText
  * implementor as well.
  *
- * See also: #AtkText
+ * See [iface@AtkText]
  */
 
 GType

@@ -22,10 +22,9 @@
 #include "atkhypertext.h"
 
 /**
- * SECTION:atkhypertext
- * @Short_description: The ATK interface which provides standard
- *  mechanism for manipulating hyperlinks.
- * @Title:AtkHypertext
+ * AtkHypertext:
+ *
+ * The ATK interface which provides standard mechanism for manipulating hyperlinks.
  *
  * An interface used for objects which implement linking between
  * multiple resource or content locations, or multiple 'markers'

@@ -23,9 +23,9 @@
 #include "atkmarshal.h"
 
 /**
- * SECTION:atkutil
- * @Short_description: A set of ATK utility functions for event and toolkit support.
- * @Title:AtkUtil
+ * AtkUtil:
+ *
+ * A set of ATK utility functions for event and toolkit support.
  *
  * A set of ATK utility functions which are used to support event
  * registration of various types, and obtaining the 'root' accessible

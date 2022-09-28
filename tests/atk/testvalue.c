@@ -22,8 +22,9 @@
 #include <atk/atk.h>
 
 /**
- * SECTION:testvalue
- * @Short_description: this example serves as a unit test for AtkValue
+ * TestValue:
+ *
+ * this example serves as a unit test for AtkValue
  *  and also as an example of how to implement #AtkValue on a given
  *  GObject.
  *

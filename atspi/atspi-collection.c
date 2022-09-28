@@ -26,6 +26,17 @@
 /* TODO: Improve documentation and implement some missing functions */
 
 /**
+ * AtspiCollection
+ *
+ * An interface designed to allow accessibles which satisfy a set of
+ * criteria to be returned.
+ *
+ * An interface designed to allow accessibles which satisfy a set of
+ * criteria to be returned. This interface can be used to avoid iteration
+ * or client-side search of the object tree.
+ */
+
+/**
  * atspi_collection_is_ancestor_of:
  *
  * Not yet implemented.

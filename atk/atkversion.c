@@ -25,9 +25,11 @@
 #include "atk.h"
 
 /**
- * SECTION:atkversion
- * @Short_description: Variables and functions to check the ATK version
- * @Title: Versioning macros
+ * atkversion:
+ *
+ * TODO title Versioning macros
+ *
+ * Variables and functions to check the ATK version
  *
  * ATK provides a set of macros and methods for checking the version
  * of the library at compile and run time.

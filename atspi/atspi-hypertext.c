@@ -25,6 +25,19 @@
 #include "atspi-private.h"
 
 /**
+ * AtspiHypertext:
+ *
+ * An interface used for objects which implement linking between
+ * multiple resource locations.
+ *
+ * An interface used for objects which implement linking between
+ * multiple resource or content locations, or multiple 'markers'
+ * within a single document. A hypertext instance is associated
+ * with one or more hyperlinks which are associated with particular
+ * offests within the hypertext's content.
+ */
+
+/**
  * atspi_hypertext_get_n_links:
  * @obj: a pointer to the #AtspiHypertext implementor on which to operate.
  *

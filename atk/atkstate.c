@@ -24,13 +24,14 @@
 #include <string.h>
 
 /**
- * SECTION:atkstate
- * @Short_description: An AtkState describes a single state of an object.
- * @Title:AtkState
+ * AtkState:
+ *
+ * An AtkState describes a single state of an object.
  *
  * An AtkState describes a single state of an object. The full set of states
  * that apply to an object at a given time are contained in its #AtkStateSet.
- * See also #atk_object_ref_state_set and #atk_object_notify_state_change.
+ *
+ * See [id@atk_object_ref_state_set] and [id@atk_object_notify_state_change]
  */
 
 static guint last_type = ATK_STATE_LAST_DEFINED;

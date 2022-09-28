@@ -24,6 +24,21 @@
 
 #include "atspi-private.h"
 
+/**
+ * AtspiHyperlink:
+ *
+ * Instances of atspi-hyperlink are the means by which end users
+ * and clients interact with linked content.
+ *
+ *  Instances of atspi-hyperlink are returned by
+ * atspi-hypertext objects, and are the means by
+ * which end users and clients interact with linked,
+ * and in some cases embedded, content. These instances
+ * may have multiple "anchors", where an anchor corresponds to a
+ * reference to a particular resource with a corresponding resource
+ * identified (URI).
+ */
+
 G_DEFINE_TYPE (AtspiHyperlink, atspi_hyperlink, ATSPI_TYPE_OBJECT)
 
 static void
