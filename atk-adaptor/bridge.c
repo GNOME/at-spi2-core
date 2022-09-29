@@ -686,7 +686,7 @@ new_connection_cb (DBusServer *server, DBusConnection *con, void *data)
   spi_global_app_data->direct_connections = g_list_append (spi_global_app_data->direct_connections, con);
 }
 
-gchar *atspi_dbus_name = NULL;
+static gchar *atspi_dbus_name = NULL;
 static gboolean atspi_no_register = FALSE;
 
 static GOptionEntry atspi_option_entries[] = {
@@ -1222,6 +1222,26 @@ atk_bridge_adaptor_cleanup (void)
     {
       dbus_connection_remove_filter (spi_global_app_data->bus, signal_filter, NULL);
       droute_context_unregister (spi_global_app_data->droute, spi_global_app_data->bus);
+
+      if (atspi_dbus_name != NULL)
+        {
+          DBusError error;
+          int result;
+
+          dbus_error_init (&error);
+          result = dbus_bus_release_name (spi_global_app_data->bus, atspi_dbus_name, &error);
+          if (result == -1)
+            {
+              g_warning ("atk-bridge: could not release dbus name: %s", error.message);
+            }
+          else
+            {
+              g_print ("bridge: released name, result %d\n", result);
+            }
+
+          dbus_error_free (&error);
+        }
+
       dbus_connection_close (spi_global_app_data->bus);
       dbus_connection_unref (spi_global_app_data->bus);
       spi_global_app_data->bus = NULL;

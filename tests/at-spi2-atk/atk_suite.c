@@ -53,9 +53,25 @@ atk_suite_build (void)
 int
 main (int argc, char **argv)
 {
+  int init_result;
+
   g_test_init (&argc, &argv, NULL);
+
+  init_result = atspi_init ();
+  if (init_result != 0)
+    {
+      g_error ("Could not initialize atspi, code %d", init_result);
+    }
+
+  fixture_listener_init ();
 
   atk_suite_build ();
 
-  return g_test_run ();
+  int result = g_test_run ();
+  g_assert_cmpint (result, ==, 0);
+
+  int leaked = atspi_exit ();
+  g_assert_cmpint (leaked, ==, 0);
+
+  return 0;
 }

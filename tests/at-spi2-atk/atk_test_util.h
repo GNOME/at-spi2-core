@@ -33,8 +33,20 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+typedef enum
+{
+  FIXTURE_STATE_WAITING_FOR_CHILD,
+  FIXTURE_STATE_CHILD_ACQUIRED,
+} FixtureState;
+
 typedef struct
 {
+  FixtureState state;
+
+  char *name_to_claim;
+
+  guint wait_for_test_app_timeout;
+  gboolean test_app_timed_out;
   pid_t child_pid;
 
   AtspiAccessible *root_obj;
@@ -42,8 +54,9 @@ typedef struct
 
 extern pid_t child_pid;
 
+void fixture_listener_init (void);
+void fixture_listener_destroy (void);
 void fixture_setup (TestAppFixture *fixture, gconstpointer user_data);
 void fixture_teardown (TestAppFixture *fixture, gconstpointer user_data);
-void clean_exit_on_fail ();
 
 #endif /* _ATK_TEST_UTIL_H */

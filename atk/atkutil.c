@@ -488,6 +488,7 @@ atk_get_root (void)
 {
   AtkUtilClass *klass = g_type_class_ref (ATK_TYPE_UTIL);
   AtkObject *retval;
+
   if (klass->get_root)
     {
       retval = klass->get_root ();

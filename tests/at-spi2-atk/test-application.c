@@ -100,6 +100,7 @@ static gboolean
 sigterm_received_cb (gpointer user_data)
 {
   GMainLoop *mainloop = user_data;
+  g_print ("test application received SIGTERM\n");
   g_main_loop_quit (mainloop);
   return G_SOURCE_REMOVE;
 }
@@ -125,5 +126,10 @@ main (int argc, char *argv[])
   g_unix_signal_add (SIGTERM, sigterm_received_cb, mainloop);
   g_main_loop_run (mainloop);
 
+  g_print ("test application exited main loop; terminating after cleanup\n");
+
+  atk_bridge_adaptor_cleanup ();
+
+  g_print ("test application %d exiting!\n", getpid ());
   return 0;
 }
