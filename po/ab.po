@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
-"POT-Creation-Date: 2022-07-07 22:29+0000\n"
+"POT-Creation-Date: 2022-09-17 14:43+0000\n"
 "Last-Translator: Нанба Наала <naala-nanba@rambler.ru>\n"
 "Language-Team: Abkhazian <daniel.abzakh@gmail.com>\n"
 "Language: ab\n"
@@ -42,594 +42,598 @@ msgstr ""
 msgid "The start index of the AtkHyperlink object"
 msgstr ""
 
-#: atk/atkobject.c:98
+#: atk/atkobject.c:99
 msgid "invalid"
 msgstr ""
 
-#: atk/atkobject.c:99
+#: atk/atkobject.c:100
 msgid "accelerator label"
 msgstr ""
 
-#: atk/atkobject.c:100
+#: atk/atkobject.c:101
 msgid "alert"
 msgstr ""
 
-#: atk/atkobject.c:101
+#: atk/atkobject.c:102
 msgid "animation"
 msgstr "Анимациа"
 
-#: atk/atkobject.c:102
+#: atk/atkobject.c:103
 msgid "arrow"
 msgstr ""
 
-#: atk/atkobject.c:103
+#: atk/atkobject.c:104
 msgid "calendar"
 msgstr ""
 
-#: atk/atkobject.c:104
+#: atk/atkobject.c:105
 msgid "canvas"
 msgstr ""
 
-#: atk/atkobject.c:105
+#: atk/atkobject.c:106
 msgid "check box"
 msgstr ""
 
-#: atk/atkobject.c:106
+#: atk/atkobject.c:107
 msgid "check menu item"
 msgstr ""
 
-#: atk/atkobject.c:107
+#: atk/atkobject.c:108
 msgid "color chooser"
 msgstr ""
 
-#: atk/atkobject.c:108
+#: atk/atkobject.c:109
 msgid "column header"
 msgstr ""
 
-#: atk/atkobject.c:109
+#: atk/atkobject.c:110
 msgid "combo box"
 msgstr ""
 
-#: atk/atkobject.c:110
+#: atk/atkobject.c:111
 msgid "dateeditor"
 msgstr ""
 
-#: atk/atkobject.c:111
+#: atk/atkobject.c:112
 msgid "desktop icon"
 msgstr ""
 
-#: atk/atkobject.c:112
+#: atk/atkobject.c:113
 msgid "desktop frame"
 msgstr ""
 
-#: atk/atkobject.c:113
+#: atk/atkobject.c:114
 msgid "dial"
 msgstr ""
 
-#: atk/atkobject.c:114
+#: atk/atkobject.c:115
 msgid "dialog"
 msgstr ""
 
-#: atk/atkobject.c:115
+#: atk/atkobject.c:116
 msgid "directory pane"
 msgstr ""
 
-#: atk/atkobject.c:116
+#: atk/atkobject.c:117
 msgid "drawing area"
 msgstr ""
 
-#: atk/atkobject.c:117
+#: atk/atkobject.c:118
 msgid "file chooser"
 msgstr ""
 
-#: atk/atkobject.c:118
+#: atk/atkobject.c:119
 msgid "filler"
 msgstr ""
 
 #. I know it looks wrong but that is what Java returns
-#: atk/atkobject.c:120
+#: atk/atkobject.c:121
 msgid "fontchooser"
 msgstr ""
 
-#: atk/atkobject.c:121
+#: atk/atkobject.c:122
 msgid "frame"
 msgstr ""
 
-#: atk/atkobject.c:122
+#: atk/atkobject.c:123
 msgid "glass pane"
 msgstr ""
 
-#: atk/atkobject.c:123
+#: atk/atkobject.c:124
 msgid "html container"
 msgstr ""
 
-#: atk/atkobject.c:124
+#: atk/atkobject.c:125
 msgid "icon"
 msgstr ""
 
-#: atk/atkobject.c:125
+#: atk/atkobject.c:126
 msgid "image"
 msgstr ""
 
-#: atk/atkobject.c:126
+#: atk/atkobject.c:127
 msgid "internal frame"
 msgstr ""
 
-#: atk/atkobject.c:127
+#: atk/atkobject.c:128
 msgid "label"
 msgstr ""
 
-#: atk/atkobject.c:128
+#: atk/atkobject.c:129
 msgid "layered pane"
 msgstr ""
 
-#: atk/atkobject.c:129
+#: atk/atkobject.c:130
 msgid "list"
 msgstr ""
 
-#: atk/atkobject.c:130
+#: atk/atkobject.c:131
 msgid "list item"
 msgstr ""
 
-#: atk/atkobject.c:131
+#: atk/atkobject.c:132
 msgid "menu"
 msgstr ""
 
-#: atk/atkobject.c:132
+#: atk/atkobject.c:133
 msgid "menu bar"
 msgstr ""
 
-#: atk/atkobject.c:133
-msgid "menu item"
-msgstr ""
-
 #: atk/atkobject.c:134
-msgid "option pane"
+msgid "menu button"
 msgstr ""
 
 #: atk/atkobject.c:135
-msgid "page tab"
+msgid "menu item"
 msgstr ""
 
 #: atk/atkobject.c:136
-msgid "page tab list"
+msgid "option pane"
 msgstr ""
 
 #: atk/atkobject.c:137
-msgid "panel"
-msgstr ""
+msgid "page tab"
+msgstr "адаҟьа агәылаҵа"
 
 #: atk/atkobject.c:138
-msgid "password text"
+msgid "page tab list"
 msgstr ""
 
 #: atk/atkobject.c:139
-msgid "popup menu"
+msgid "panel"
 msgstr ""
 
 #: atk/atkobject.c:140
-msgid "progress bar"
-msgstr ""
+msgid "password text"
+msgstr "ажәамаӡа"
 
 #: atk/atkobject.c:141
-msgid "push button"
+msgid "popup menu"
 msgstr ""
 
 #: atk/atkobject.c:142
-msgid "radio button"
+msgid "progress bar"
 msgstr ""
 
 #: atk/atkobject.c:143
-msgid "radio menu item"
+msgid "push button"
 msgstr ""
 
 #: atk/atkobject.c:144
-msgid "root pane"
+msgid "radio button"
 msgstr ""
 
 #: atk/atkobject.c:145
-msgid "row header"
+msgid "radio menu item"
 msgstr ""
 
 #: atk/atkobject.c:146
-msgid "scroll bar"
+msgid "root pane"
 msgstr ""
 
 #: atk/atkobject.c:147
-msgid "scroll pane"
+msgid "row header"
 msgstr ""
 
 #: atk/atkobject.c:148
-msgid "separator"
+msgid "scroll bar"
 msgstr ""
 
 #: atk/atkobject.c:149
-msgid "slider"
-msgstr "акәараҵа"
+msgid "scroll pane"
+msgstr ""
 
 #: atk/atkobject.c:150
-msgid "split pane"
+msgid "separator"
 msgstr ""
 
 #: atk/atkobject.c:151
-msgid "spin button"
-msgstr ""
+msgid "slider"
+msgstr "акәараҵа"
 
 #: atk/atkobject.c:152
-msgid "statusbar"
+msgid "split pane"
 msgstr ""
 
 #: atk/atkobject.c:153
-msgid "table"
+msgid "spin button"
 msgstr ""
 
 #: atk/atkobject.c:154
-msgid "table cell"
+msgid "statusbar"
 msgstr ""
 
 #: atk/atkobject.c:155
-msgid "table column header"
+msgid "table"
 msgstr ""
 
 #: atk/atkobject.c:156
-msgid "table row header"
+msgid "table cell"
 msgstr ""
 
 #: atk/atkobject.c:157
-msgid "tear off menu item"
+msgid "table column header"
 msgstr ""
 
 #: atk/atkobject.c:158
-msgid "terminal"
+msgid "table row header"
 msgstr ""
 
 #: atk/atkobject.c:159
-msgid "text"
+msgid "tear off menu item"
 msgstr ""
 
 #: atk/atkobject.c:160
-msgid "toggle button"
+msgid "terminal"
 msgstr ""
 
 #: atk/atkobject.c:161
-msgid "tool bar"
+msgid "text"
 msgstr ""
 
 #: atk/atkobject.c:162
-msgid "tool tip"
+msgid "toggle button"
 msgstr ""
 
 #: atk/atkobject.c:163
-msgid "tree"
+msgid "tool bar"
 msgstr ""
 
 #: atk/atkobject.c:164
-msgid "tree table"
+msgid "tool tip"
 msgstr ""
 
 #: atk/atkobject.c:165
-msgid "unknown"
+msgid "tree"
 msgstr ""
 
 #: atk/atkobject.c:166
-msgid "viewport"
+msgid "tree table"
 msgstr ""
 
 #: atk/atkobject.c:167
-msgid "window"
+msgid "unknown"
 msgstr ""
 
 #: atk/atkobject.c:168
-msgid "header"
+msgid "viewport"
 msgstr ""
 
 #: atk/atkobject.c:169
-msgid "footer"
+msgid "window"
 msgstr ""
 
 #: atk/atkobject.c:170
-msgid "paragraph"
-msgstr "абзац"
+msgid "header"
+msgstr ""
 
 #: atk/atkobject.c:171
-msgid "ruler"
+msgid "footer"
 msgstr ""
 
 #: atk/atkobject.c:172
+msgid "paragraph"
+msgstr "абзац"
+
+#: atk/atkobject.c:173
+msgid "ruler"
+msgstr ""
+
+#: atk/atkobject.c:174
 msgid "application"
 msgstr ""
 
-#: atk/atkobject.c:173
+#: atk/atkobject.c:175
 msgid "autocomplete"
 msgstr "автоматикла ахарҭәаара"
 
-#: atk/atkobject.c:174
+#: atk/atkobject.c:176
 msgid "edit bar"
 msgstr ""
 
-#: atk/atkobject.c:175
+#: atk/atkobject.c:177
 msgid "embedded component"
 msgstr ""
 
-#: atk/atkobject.c:176
+#: atk/atkobject.c:178
 msgid "entry"
 msgstr ""
 
-#: atk/atkobject.c:177
+#: atk/atkobject.c:179
 msgid "chart"
 msgstr ""
 
-#: atk/atkobject.c:178
+#: atk/atkobject.c:180
 msgid "caption"
 msgstr ""
 
-#: atk/atkobject.c:179
+#: atk/atkobject.c:181
 msgid "document frame"
 msgstr ""
 
-#: atk/atkobject.c:180
+#: atk/atkobject.c:182
 msgid "heading"
 msgstr ""
 
-#: atk/atkobject.c:181
+#: atk/atkobject.c:183
 msgid "page"
 msgstr ""
 
-#: atk/atkobject.c:182
+#: atk/atkobject.c:184
 msgid "section"
 msgstr ""
 
-#: atk/atkobject.c:183
+#: atk/atkobject.c:185
 msgid "redundant object"
 msgstr ""
 
-#: atk/atkobject.c:184
+#: atk/atkobject.c:186
 msgid "form"
 msgstr ""
 
-#: atk/atkobject.c:185
+#: atk/atkobject.c:187
 msgid "link"
 msgstr ""
 
-#: atk/atkobject.c:186
+#: atk/atkobject.c:188
 msgid "input method window"
 msgstr ""
 
-#: atk/atkobject.c:187
+#: atk/atkobject.c:189
 msgid "table row"
 msgstr ""
 
-#: atk/atkobject.c:188
+#: atk/atkobject.c:190
 msgid "tree item"
 msgstr ""
 
-#: atk/atkobject.c:189
+#: atk/atkobject.c:191
 msgid "document spreadsheet"
 msgstr ""
 
-#: atk/atkobject.c:190
+#: atk/atkobject.c:192
 msgid "document presentation"
 msgstr ""
 
-#: atk/atkobject.c:191
+#: atk/atkobject.c:193
 msgid "document text"
 msgstr ""
 
-#: atk/atkobject.c:192
+#: atk/atkobject.c:194
 msgid "document web"
 msgstr ""
 
-#: atk/atkobject.c:193
+#: atk/atkobject.c:195
 msgid "document email"
 msgstr ""
 
-#: atk/atkobject.c:194
+#: atk/atkobject.c:196
 msgid "comment"
 msgstr ""
 
-#: atk/atkobject.c:195
+#: atk/atkobject.c:197
 msgid "list box"
 msgstr ""
 
-#: atk/atkobject.c:196
+#: atk/atkobject.c:198
 msgid "grouping"
 msgstr ""
 
-#: atk/atkobject.c:197
+#: atk/atkobject.c:199
 msgid "image map"
 msgstr ""
 
-#: atk/atkobject.c:198
+#: atk/atkobject.c:200
 msgid "notification"
 msgstr ""
 
-#: atk/atkobject.c:199
+#: atk/atkobject.c:201
 msgid "info bar"
 msgstr ""
 
-#: atk/atkobject.c:200
+#: atk/atkobject.c:202
 msgid "level bar"
 msgstr ""
 
-#: atk/atkobject.c:201
+#: atk/atkobject.c:203
 msgid "title bar"
 msgstr ""
 
-#: atk/atkobject.c:202
+#: atk/atkobject.c:204
 msgid "block quote"
 msgstr ""
 
-#: atk/atkobject.c:203
+#: atk/atkobject.c:205
 msgid "audio"
 msgstr ""
 
-#: atk/atkobject.c:204
+#: atk/atkobject.c:206
 msgid "video"
 msgstr "Авидео"
 
-#: atk/atkobject.c:205
+#: atk/atkobject.c:207
 msgid "definition"
 msgstr ""
 
-#: atk/atkobject.c:206
+#: atk/atkobject.c:208
 msgid "article"
 msgstr ""
 
-#: atk/atkobject.c:207
+#: atk/atkobject.c:209
 msgid "landmark"
 msgstr ""
 
-#: atk/atkobject.c:208
+#: atk/atkobject.c:210
 msgid "log"
 msgstr ""
 
-#: atk/atkobject.c:209
+#: atk/atkobject.c:211
 msgid "marquee"
 msgstr "иҩуа ацәаҳәа"
 
-#: atk/atkobject.c:210
+#: atk/atkobject.c:212
 msgid "math"
 msgstr ""
 
-#: atk/atkobject.c:211
+#: atk/atkobject.c:213
 msgid "rating"
 msgstr ""
 
-#: atk/atkobject.c:212
+#: atk/atkobject.c:214
 msgid "timer"
 msgstr ""
 
-#: atk/atkobject.c:213
+#: atk/atkobject.c:215
 msgid "description list"
 msgstr ""
 
-#: atk/atkobject.c:214
+#: atk/atkobject.c:216
 msgid "description term"
 msgstr ""
 
-#: atk/atkobject.c:215
+#: atk/atkobject.c:217
 msgid "description value"
 msgstr ""
 
-#: atk/atkobject.c:391
+#: atk/atkobject.c:393
 msgid "Accessible Name"
 msgstr ""
 
-#: atk/atkobject.c:392
+#: atk/atkobject.c:394
 msgid "Object instance’s name formatted for assistive technology access"
 msgstr ""
 
-#: atk/atkobject.c:398
+#: atk/atkobject.c:400
 msgid "Accessible Description"
 msgstr ""
 
-#: atk/atkobject.c:399
+#: atk/atkobject.c:401
 msgid "Description of an object, formatted for assistive technology access"
 msgstr ""
 
-#: atk/atkobject.c:405
+#: atk/atkobject.c:407
 msgid "Accessible Parent"
 msgstr ""
 
-#: atk/atkobject.c:406
+#: atk/atkobject.c:408
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr ""
 
-#: atk/atkobject.c:422
+#: atk/atkobject.c:424
 msgid "Accessible Value"
 msgstr ""
 
-#: atk/atkobject.c:423
+#: atk/atkobject.c:425
 msgid "Is used to notify that the value has changed"
 msgstr ""
 
-#: atk/atkobject.c:431
+#: atk/atkobject.c:433
 msgid "Accessible Role"
 msgstr ""
 
-#: atk/atkobject.c:432
+#: atk/atkobject.c:434
 msgid "The accessible role of this object"
 msgstr ""
 
-#: atk/atkobject.c:439
+#: atk/atkobject.c:441
 msgid "Accessible Layer"
 msgstr ""
 
-#: atk/atkobject.c:440
+#: atk/atkobject.c:442
 msgid "The accessible layer of this object"
 msgstr ""
 
-#: atk/atkobject.c:448
+#: atk/atkobject.c:450
 msgid "Accessible MDI Value"
 msgstr ""
 
-#: atk/atkobject.c:449
+#: atk/atkobject.c:451
 msgid "The accessible MDI value of this object"
 msgstr ""
 
-#: atk/atkobject.c:465
+#: atk/atkobject.c:467
 msgid "Accessible Table Caption"
 msgstr ""
 
-#: atk/atkobject.c:466
+#: atk/atkobject.c:468
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
 
-#: atk/atkobject.c:480
+#: atk/atkobject.c:482
 msgid "Accessible Table Column Header"
 msgstr ""
 
-#: atk/atkobject.c:481
+#: atk/atkobject.c:483
 msgid "Is used to notify that the table column header has changed"
 msgstr ""
 
-#: atk/atkobject.c:496
+#: atk/atkobject.c:498
 msgid "Accessible Table Column Description"
 msgstr ""
 
-#: atk/atkobject.c:497
+#: atk/atkobject.c:499
 msgid "Is used to notify that the table column description has changed"
 msgstr ""
 
-#: atk/atkobject.c:512
+#: atk/atkobject.c:514
 msgid "Accessible Table Row Header"
 msgstr ""
 
-#: atk/atkobject.c:513
+#: atk/atkobject.c:515
 msgid "Is used to notify that the table row header has changed"
 msgstr ""
 
-#: atk/atkobject.c:527
+#: atk/atkobject.c:529
 msgid "Accessible Table Row Description"
 msgstr ""
 
-#: atk/atkobject.c:528
+#: atk/atkobject.c:530
 msgid "Is used to notify that the table row description has changed"
 msgstr ""
 
-#: atk/atkobject.c:534
+#: atk/atkobject.c:536
 msgid "Accessible Table Summary"
 msgstr ""
 
-#: atk/atkobject.c:535
+#: atk/atkobject.c:537
 msgid "Is used to notify that the table summary has changed"
 msgstr ""
 
-#: atk/atkobject.c:541
+#: atk/atkobject.c:543
 msgid "Accessible Table Caption Object"
 msgstr ""
 
-#: atk/atkobject.c:542
+#: atk/atkobject.c:544
 msgid "Is used to notify that the table caption has changed"
 msgstr ""
 
-#: atk/atkobject.c:548
+#: atk/atkobject.c:550
 msgid "Number of Accessible Hypertext Links"
 msgstr ""
 
-#: atk/atkobject.c:549
+#: atk/atkobject.c:551
 msgid "The number of links which the current AtkHypertext has"
 msgstr ""
 
@@ -782,9 +786,3917 @@ msgstr ""
 msgid "best"
 msgstr ""
 
-#: atspi/atspi-component.c:332 atspi/atspi-misc.c:1064 atspi/atspi-value.c:111
+#: atspi/atspi-component.c:332 atspi/atspi-misc.c:1068 atspi/atspi-value.c:111
 msgid "The application no longer exists"
 msgstr "Аԥшьы уаҳа ыҟаӡам"
 
 msgid "Attempted synchronous call where prohibited"
 msgstr "Синхронтәу асра аҟаҵара азин ыҟаӡам"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#, fuzzy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#, fuzzy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#, fuzzy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#, fuzzy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#, fuzzy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#, fuzzy
+
+
+
+#, fuzzy
+
+#, fuzzy
+
+
+
+
+
+
+#, fuzzy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#, fuzzy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#, fuzzy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#, fuzzy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#, fuzzy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#, fuzzy
