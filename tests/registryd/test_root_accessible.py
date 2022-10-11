@@ -36,3 +36,7 @@ def test_root_get_interfaces(registry_root, session_manager):
 def test_root_get_index_in_parent(registry_root, session_manager):
     # The registry root is always index 0
     assert registry_root.GetIndexInParent(dbus_interface=ACCESSIBLE_IFACE) == 0
+
+def test_root_get_relation_set(registry_root, session_manager):
+    # The registry root has an empty relation set
+    assert len(registry_root.GetRelationSet(dbus_interface=ACCESSIBLE_IFACE)) == 0
