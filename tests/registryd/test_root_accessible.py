@@ -11,6 +11,8 @@ from utils import get_property, check_unknown_property_yields_error
 
 ACCESSIBLE_IFACE = 'org.a11y.atspi.Accessible'
 
+ATSPI_ROLE_DESKTOP_FRAME = 14 # see atspi-constants.h
+
 def test_accessible_iface_properties(registry_root, session_manager):
     values = [
         ('Name',        'main'),
@@ -40,3 +42,8 @@ def test_root_get_index_in_parent(registry_root, session_manager):
 def test_root_get_relation_set(registry_root, session_manager):
     # The registry root has an empty relation set
     assert len(registry_root.GetRelationSet(dbus_interface=ACCESSIBLE_IFACE)) == 0
+
+def test_root_get_role(registry_root, session_manager):
+    # Hardcoded to ATSPI_ROLE_DESKTOP_FRAME
+    assert registry_root.GetRole(dbus_interface=ACCESSIBLE_IFACE) == ATSPI_ROLE_DESKTOP_FRAME
+
