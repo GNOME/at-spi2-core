@@ -32,3 +32,7 @@ def test_root_get_interfaces(registry_root, session_manager):
     assert 'org.a11y.atspi.Application' in ifaces
     assert 'org.a11y.atspi.Component' in ifaces
     assert 'org.a11y.atspi.Socket' in ifaces
+
+def test_root_get_index_in_parent(registry_root, session_manager):
+    # The registry root is always index 0
+    assert registry_root.GetIndexInParent(dbus_interface=ACCESSIBLE_IFACE) == 0
