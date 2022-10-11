@@ -777,7 +777,7 @@ impl_GetRoleName (DBusMessage * message, SpiRegistry *registry)
 static DBusMessage *
 impl_GetLocalizedRoleName (DBusMessage * message, SpiRegistry *registry)
 {
-  /* TODO - Localize this */
+  /* FIXME - Localize this */
   DBusMessage *reply;
   const char *role_name = "desktop frame";
 
