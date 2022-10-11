@@ -47,3 +47,5 @@ def test_root_get_role(registry_root, session_manager):
     # Hardcoded to ATSPI_ROLE_DESKTOP_FRAME
     assert registry_root.GetRole(dbus_interface=ACCESSIBLE_IFACE) == ATSPI_ROLE_DESKTOP_FRAME
 
+def test_root_get_role_name(registry_root, session_manager):
+    assert registry_root.GetRoleName(dbus_interface=ACCESSIBLE_IFACE) == "desktop frame"
