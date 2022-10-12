@@ -53,3 +53,6 @@ def test_root_get_role_name(registry_root, session_manager):
 def test_root_get_localized_role_name(registry_root, session_manager):
     # FIXME: see the corresponding FIXME in registry.c, to actually localize this
     assert registry_root.GetLocalizedRoleName(dbus_interface=ACCESSIBLE_IFACE) == "desktop frame"
+
+def test_root_get_state(registry_root, session_manager):
+    assert registry_root.GetState(dbus_interface=ACCESSIBLE_IFACE) == [0, 0]
