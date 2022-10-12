@@ -7,11 +7,9 @@
 import pytest
 import dbus
 
-PROPERTIES_IFACE = 'org.freedesktop.DBus.Properties'
-APPLICATION_IFACE = 'org.a11y.atspi.Application'
+from utils import get_property, check_unknown_property_yields_error
 
-def get_property(proxy, iface_name, prop_name):
-    return proxy.Get(iface_name, prop_name, dbus_interface=PROPERTIES_IFACE)
+APPLICATION_IFACE = 'org.a11y.atspi.Application'
 
 def test_application_iface_properties(registry_root, session_manager):
     values = [
@@ -23,5 +21,4 @@ def test_application_iface_properties(registry_root, session_manager):
         assert get_property(registry_root, APPLICATION_IFACE, prop_name) == expected
 
 def test_unknown_property_yields_error(registry_root, session_manager):
-    with pytest.raises(dbus.exceptions.DBusException):
-        get_property(registry_root, APPLICATION_IFACE, 'NonexistentProperty')
+    check_unknown_property_yields_error(registry_root, APPLICATION_IFACE)

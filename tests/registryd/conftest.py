@@ -56,8 +56,7 @@ def session_manager():
 
     mock_session.SetSessionRunning(True, dbus_interface='org.freedesktop.DBus.Mock')
 
-    # return a dummy object as a fixture
-    yield object()
+    yield mock_session
 
     # Tell all session clients to terminate
     mock_session.Logout(0, dbus_interface='org.gnome.SessionManager')
