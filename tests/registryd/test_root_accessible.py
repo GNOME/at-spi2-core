@@ -56,3 +56,7 @@ def test_root_get_localized_role_name(registry_root, session_manager):
 
 def test_root_get_state(registry_root, session_manager):
     assert registry_root.GetState(dbus_interface=ACCESSIBLE_IFACE) == [0, 0]
+
+def test_root_get_attributes(registry_root, session_manager):
+    assert len(registry_root.GetAttributes(dbus_interface=ACCESSIBLE_IFACE)) == 0
+
