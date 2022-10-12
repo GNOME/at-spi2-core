@@ -27,6 +27,11 @@ def test_accessible_iface_properties(registry_root, session_manager):
 def test_unknown_property_yields_error(registry_root, session_manager):
     check_unknown_property_yields_error(registry_root, ACCESSIBLE_IFACE)
 
+def test_get_child_at_index_for_empty_registry(registry_root, session_manager):
+    # FIXME: Shouldn't this return an error, rather than a null reference?
+    (name, path) = registry_root.GetChildAtIndex(0, dbus_interface=ACCESSIBLE_IFACE)
+    assert path == '/org/a11y/atspi/null'
+
 def test_root_get_index_in_parent(registry_root, session_manager):
     # The registry root is always index 0
     assert registry_root.GetIndexInParent(dbus_interface=ACCESSIBLE_IFACE) == 0
