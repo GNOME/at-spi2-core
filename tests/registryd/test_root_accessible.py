@@ -32,6 +32,9 @@ def test_get_child_at_index_for_empty_registry(registry_root, session_manager):
     (name, path) = registry_root.GetChildAtIndex(0, dbus_interface=ACCESSIBLE_IFACE)
     assert path == '/org/a11y/atspi/null'
 
+def test_get_children_for_empty_registry(registry_root, session_manager):
+    assert len(registry_root.GetChildren(dbus_interface=ACCESSIBLE_IFACE)) == 0
+
 def test_root_get_index_in_parent(registry_root, session_manager):
     # The registry root is always index 0
     assert registry_root.GetIndexInParent(dbus_interface=ACCESSIBLE_IFACE) == 0
