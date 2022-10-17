@@ -413,7 +413,7 @@ atspi_component_set_position (AtspiComponent *obj,
  * @width: the width to which the component should be resized.
  * @height: the height to which the component should be resized.
  *
- * Resizes the specified component to the given coordinates.
+ * Resizes the specified component to the given pixel dimensions.
  *
  * Returns: #TRUE if successful; #FALSE otherwise.
  **/

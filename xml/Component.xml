@@ -239,6 +239,15 @@
       <arg direction="out" type="b"/>
     </method>
 
+    <!--
+        SetSize:
+        @width: the width to which the component should be resized.
+        @height: the height to which the component should be resized.
+
+        Resizes the component to the given pixel dimensions.
+
+        Returns: true if successful, or false otherwise.
+    -->
     <method name="SetSize">
       <arg direction="in" name="width" type="i"/>
       <arg direction="in" name="height" type="i"/>
