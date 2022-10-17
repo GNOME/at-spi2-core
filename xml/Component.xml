@@ -99,6 +99,12 @@
       <arg direction="out" name="y" type="i"/>
     </method>
 
+    <!--
+        GetSize:
+        Queries the pixel size of a component.
+
+        Returns: (width, height) of the component's rectangular area.
+    -->
     <method name="GetSize">
       <arg direction="out" name="width" type="i"/>
       <arg direction="out" name="height" type="i"/>
