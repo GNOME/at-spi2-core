@@ -153,6 +153,14 @@
       <arg direction="out" type="u"/>
     </method>
 
+    <!--
+        GetMDIZOrder:
+
+        Queries the Z stacking order of a component which is in the MDI or WINDOW layer,
+        per the GetLayer method.  Bigger z-order numbers are nearer the top.
+
+        Returns: The z order of the component, or -1 if it is not in the MDI layer.
+    -->
     <method name="GetMDIZOrder">
       <arg direction="out" type="n"/>
     </method>
