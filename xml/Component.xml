@@ -165,6 +165,13 @@
       <arg direction="out" type="n"/>
     </method>
 
+    <!--
+        GrabFocus:
+
+        Attempts to set the keyboard input focus to the component.
+
+        Returns: true if successful, or false otherwise.
+    -->
     <method name="GrabFocus">
       <arg direction="out" type="b"/>
     </method>
