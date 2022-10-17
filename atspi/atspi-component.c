@@ -379,8 +379,8 @@ atspi_component_set_extents (AtspiComponent *obj,
 /**
  * atspi_component_set_position:
  * @obj: a pointer to the #AtspiComponent to move.
- * @x: the new vertical position to which the component should be moved.
- * @y: the new horizontal position to which the component should be moved.
+ * @x: the new horizontal position to which the component should be moved.
+ * @y: the new vertical position to which the component should be moved.
  * @ctype: the coordinate system in which the position is specified.
  *         (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
  *
