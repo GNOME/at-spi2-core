@@ -313,8 +313,8 @@ atspi_component_get_alpha    (AtspiComponent *obj, GError **error)
 /**
  * atspi_component_set_extents:
  * @obj: a pointer to the #AtspiComponent to move.
- * @x: the new vertical position to which the component should be moved.
- * @y: the new horizontal position to which the component should be moved.
+ * @x: the new horizontal position to which the component should be moved.
+ * @y: the new vertical position to which the component should be moved.
  * @width: the width to which the component should be resized.
  * @height: the height to which the component should be resized.
  * @ctype: the coordinate system in which the position is specified.
