@@ -176,6 +176,13 @@
       <arg direction="out" type="b"/>
     </method>
 
+    <!--
+        GetAlpha:
+
+        Gets the opacity/alpha value of a component, if alpha blending is in use.
+
+        Returns: opacity value in the [0.0, 1.0] range.  0 is fully transparent and 1 is fully opaque.
+    -->
     <method name="GetAlpha">
       <arg direction="out" type="d"/>
     </method>
