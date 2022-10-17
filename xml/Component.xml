@@ -110,6 +110,45 @@
       <arg direction="out" name="height" type="i"/>
     </method>
 
+    <!--
+        GetLayer:
+
+        Queries the UI layer at which a component is rendered, which can help in
+        determining when components occlude one another.
+
+        The layer of a component indicates its relative stacking order with respect to the
+        onscreen visual representation of the UI.  The layer index, in combination
+        with the component's extents, can be used to compute the visibility of
+        all or part of a component.  This is important in programmatic determination of
+        region-of-interest for magnification, and in flat screen review models of the
+        screen, as well as for other uses.  Objects residing in two of the
+        Layer categories support further z-ordering information, with
+        respect to their peers in the same layer: namely, WINDOW and
+        MDI.  Relative stacking order for other objects within the same layer
+        is not available; the recommended heuristic is first child paints first. In other
+        words, assume that the first siblings in the child list are subject to being
+        overpainted by later siblings if their bounds intersect. The order of layers, from
+        bottom to top, is as follows:
+
+        0 - INVALID: Error condition.
+
+        1 - BACKGROUND: Reserved for the desktop background; this is the bottom-most
+        layer, over which everything else is painted.
+
+        2 - CANVAS: The 'background' layer for most content renderers and UI component containers.
+
+        3 - WIDGET: The layer in which the majority of ordintary 'foreground' widgets reside.
+
+        4 - MDI: A special layer between CANVAS and WIDGET, in which the 'pseudo-windows'
+        (e.g. the Multiple-Document Interface frames) reside.  See the GetMDIZOrder
+        method.
+
+        5 - POPUP: Layer for popup window content, above WIDGET.
+
+        6 - OVERLAY: The topmost layer.
+
+        7 - WINDOW: The layer in which a toplevel window background usually resides.
+    -->
     <method name="GetLayer">
       <arg direction="out" type="u"/>
     </method>
