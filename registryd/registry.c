@@ -410,7 +410,7 @@ typedef enum {
 /*---------------------------------------------------------------------------*/
 
 static DemarshalStatus
-socket_embed_demarshal (DBusMessage *message, SpiReference **out_reference)
+demarshal_reference (DBusMessage *message, SpiReference **out_reference)
 {
   DBusMessageIter iter, iter_struct;
   const gchar *app_name, *obj_path;
@@ -449,7 +449,7 @@ impl_Embed (DBusMessage *message, SpiRegistry *registry)
   SpiReference *app_root = NULL;
   SpiReference *result;
 
-  if (socket_embed_demarshal (message, &app_root) != DEMARSHAL_STATUS_SUCCESS)
+  if (demarshal_reference (message, &app_root) != DEMARSHAL_STATUS_SUCCESS)
     {
       return dbus_message_new_error (message, DBUS_ERROR_FAILED, "Invalid arguments");
     }
