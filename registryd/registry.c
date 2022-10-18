@@ -130,7 +130,7 @@ append_reference (DBusMessageIter * iter, const char * name, const char * path)
 /*---------------------------------------------------------------------------*/
 
 static gboolean
-compare_reference (SpiReference *one, SpiReference *two)
+compare_reference (const SpiReference *one, const SpiReference *two)
 {
   if (g_strcmp0 (one->name, two->name) == 0 &&
       g_strcmp0 (one->path, two->path) == 0)
@@ -140,13 +140,10 @@ compare_reference (SpiReference *one, SpiReference *two)
 }
 
 static gboolean
-find_index_of_reference (GPtrArray *arr, const gchar *name, const gchar * path, guint *index)
+find_index_of_reference (GPtrArray *arr, const SpiReference *ref, guint *index)
 {
-  SpiReference *ref;
   gboolean found = FALSE;
   guint i = 0;
-
-  ref = spi_reference_new (name, path);
 
   for (i = 0; i < arr->len; i++)
     {
@@ -156,8 +153,6 @@ find_index_of_reference (GPtrArray *arr, const gchar *name, const gchar * path, 
           break;
         }
     }
-
-  spi_reference_free (ref);
 
   *index = i;
   return found;
@@ -478,7 +473,7 @@ impl_Unembed (DBusMessage *message, SpiRegistry *registry)
       return dbus_message_new_error (message, DBUS_ERROR_FAILED, "Invalid arguments");
     }
 
-  if (find_index_of_reference (registry->apps, app_reference->name, app_reference->path, &index))
+  if (find_index_of_reference (registry->apps, app_reference, &index))
     remove_application (registry, index);
 
   spi_reference_free (app_reference);
