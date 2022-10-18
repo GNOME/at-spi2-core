@@ -1065,6 +1065,7 @@ impl_Introspect_root (DBusMessage * message, SpiRegistry *registry)
 
   g_string_append (output, spi_org_a11y_atspi_Accessible);
   g_string_append (output, spi_org_a11y_atspi_Component);
+  g_string_append (output, spi_org_a11y_atspi_Socket);
 
   g_string_append(output, introspection_footer);
   final = g_string_free(output, FALSE);
