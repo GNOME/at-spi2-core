@@ -470,27 +470,20 @@ impl_Embed (DBusMessage *message, SpiRegistry *registry)
 static DBusMessage*
 impl_Unembed (DBusMessage *message, SpiRegistry *registry)
 {
-  DBusMessageIter iter, iter_struct;
-  gchar *app_name, *obj_path;
+  SpiReference *app_reference;
   guint index;
 
-  dbus_message_iter_init (message, &iter);
-  dbus_message_iter_recurse (&iter, &iter_struct);
-  if (!(dbus_message_iter_get_arg_type (&iter_struct) == DBUS_TYPE_STRING))
-	goto error;
-  dbus_message_iter_get_basic (&iter_struct, &app_name);
-  if (!dbus_message_iter_next (&iter_struct))
-        goto error;
-  if (!(dbus_message_iter_get_arg_type (&iter_struct) == DBUS_TYPE_OBJECT_PATH))
-	goto error;
-  dbus_message_iter_get_basic (&iter_struct, &obj_path);
+  if (demarshal_reference (message, &app_reference) != DEMARSHAL_STATUS_SUCCESS)
+    {
+      return dbus_message_new_error (message, DBUS_ERROR_FAILED, "Invalid arguments");
+    }
 
-  if (find_index_of_reference (registry->apps, app_name, obj_path, &index))
+  if (find_index_of_reference (registry->apps, app_reference->name, app_reference->path, &index))
     remove_application (registry, index);
 
+  spi_reference_free (app_reference);
+
   return NULL;
-error:
-  return dbus_message_new_error (message, DBUS_ERROR_FAILED, "Invalid arguments");
 }
 
 /* org.at_spi.Component interface */
