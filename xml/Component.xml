@@ -254,6 +254,38 @@
       <arg direction="out" type="b"/>
     </method>
 
+    <!--
+        ScrollTo:
+        @type: How to position the component within its parent; see the description.
+
+        Makes the component visible on the screen by scrolling all necessary parents.
+
+        The @type corresponds to AtkScrollType:
+
+        0 - TOP_LEFT: Scroll the object vertically and horizontally to bring
+        its top left corner to the top left corner of the window.
+
+        1 - BOTTOM_RIGHT: Scroll the object vertically and horizontally to
+        bring its bottom right corner to the bottom right corner of the window.
+
+        2 - TOP_EDGE: Scroll the object vertically to bring its top edge to
+        the top edge of the window.
+
+        3 - BOTTOM_EDGE: Scroll the object vertically to bring its bottom
+        edge to the bottom edge of the window.
+
+        4 - LEFT_EDGE: Scroll the object vertically and horizontally to bring
+        its left edge to the left edge of the window.
+
+        5 - RIGHT_EDGE: Scroll the object vertically and horizontally to
+        bring its right edge to the right edge of the window.
+
+        6 - ANYWHERE: Scroll the object vertically and horizontally so that
+        as much as possible of the object becomes visible. The exact placement is
+        determined by the application.
+
+        Returns: true if successful, or false otherwise.
+    -->
     <method name="ScrollTo">
       <arg direction="in" name="type" type="u"/>
       <arg direction="out" type="b"/>
