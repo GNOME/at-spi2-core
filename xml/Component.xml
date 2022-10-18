@@ -291,6 +291,18 @@
       <arg direction="out" type="b"/>
     </method>
 
+    <!--
+        ScrollToPoint:
+        @type: How to position the component within its parent; see the description of the
+        ScrollTo method for the possible values.
+        @x: X coordinate within the component to make visible.
+        @y: Y coordinate within the component to make visible.
+
+        Similar to the ScrollTo method, but makes a specific point from the component
+        visible in its parent.
+
+        Returns: true if successful, or false otherwise.
+    -->
     <method name="ScrollToPoint">
       <arg direction="in" name="type" type="u"/>
       <arg direction="in" name="x" type="i"/>
