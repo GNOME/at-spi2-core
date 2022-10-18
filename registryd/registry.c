@@ -410,11 +410,12 @@ typedef enum {
 /*---------------------------------------------------------------------------*/
 
 static DemarshalStatus
-socket_embed_demarshal (DBusMessage *message, SpiReference **out_app_root)
+socket_embed_demarshal (DBusMessage *message, SpiReference **out_reference)
 {
   DBusMessageIter iter, iter_struct;
   const gchar *app_name, *obj_path;
-  SpiReference *app_root;
+
+  *out_reference = NULL;
 
   dbus_message_iter_init (message, &iter);
   dbus_message_iter_recurse (&iter, &iter_struct);
@@ -429,8 +430,7 @@ socket_embed_demarshal (DBusMessage *message, SpiReference **out_app_root)
     return DEMARSHAL_STATUS_INVALID_SIGNATURE;
   dbus_message_iter_get_basic (&iter_struct, &obj_path);
 
-  app_root = spi_reference_new (app_name, obj_path);
-  *out_app_root = app_root;
+  *out_reference = spi_reference_new (app_name, obj_path);
 
   return DEMARSHAL_STATUS_SUCCESS;
 }
