@@ -58,6 +58,12 @@ spi_reference_new (const gchar *name, const gchar *path)
   return ref;
 }
 
+static SpiReference *
+spi_reference_null (const char *bus_name)
+{
+  return spi_reference_new (bus_name, SPI_DBUS_PATH_NULL);
+}
+
 static void
 spi_reference_free (SpiReference *ref)
 {
@@ -114,15 +120,15 @@ return_v_string (DBusMessageIter * iter, const gchar * str)
 }
 
 static dbus_bool_t
-append_reference (DBusMessageIter * iter, const char * name, const char * path)
+append_reference (DBusMessageIter * iter, SpiReference *ref)
 {
   DBusMessageIter iter_struct;
 
   if (!dbus_message_iter_open_container (iter, DBUS_TYPE_STRUCT, NULL,
                                     &iter_struct))
     return FALSE;
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &name);
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &ref->name);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &ref->path);
   dbus_message_iter_close_container (iter, &iter_struct);
   return TRUE;
 }
@@ -180,7 +186,7 @@ emit_event (DBusConnection *bus,
 
   dbus_message_iter_open_container (&iter, DBUS_TYPE_VARIANT, "(so)",
                                     &iter_variant);
-    append_reference (&iter_variant, app->name, app->path);
+  append_reference (&iter_variant, app);
   dbus_message_iter_close_container (&iter, &iter_variant);
 
   dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "{sv}",
@@ -456,7 +462,7 @@ impl_Embed (DBusMessage *message, SpiRegistry *registry)
 
   reply = dbus_message_new_method_return (message);
   dbus_message_iter_init_append (reply, &reply_iter);
-  append_reference (&reply_iter, result->name, result->path);
+  append_reference (&reply_iter, result);
   spi_reference_free (result);
 
   return reply;
@@ -501,12 +507,12 @@ impl_GetAccessibleAtPoint (DBusMessage * message, SpiRegistry *registry)
 {
   DBusMessage *reply = NULL;
   DBusMessageIter iter;
+  SpiReference *null_ref = spi_reference_null (registry->bus_unique_name);
 
   reply = dbus_message_new_method_return (message);
   dbus_message_iter_init_append (reply, &iter);
-  append_reference (&iter, 
-                    registry->bus_unique_name,
-                    SPI_DBUS_PATH_NULL);
+  append_reference (&iter, null_ref);
+  spi_reference_free (null_ref);
 
   return reply;
 }
@@ -625,14 +631,13 @@ impl_get_Description (DBusMessageIter * iter, SpiRegistry *registry)
 static dbus_bool_t
 impl_get_Parent (DBusMessageIter * iter, SpiRegistry *registry)
 {
-  const gchar *name = "";
   DBusMessageIter iter_variant;
+  SpiReference *null_ref = spi_reference_null ("");
 
   dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, "(so)",
                                     &iter_variant);
-  append_reference (&iter_variant, 
-                    name,
-                    SPI_DBUS_PATH_NULL);
+  append_reference (&iter_variant, null_ref);
+  spi_reference_free (null_ref);
   dbus_message_iter_close_container (iter, &iter_variant);
   return TRUE;
 }
@@ -684,11 +689,15 @@ impl_GetChildAtIndex (DBusMessage * message, SpiRegistry *registry)
   dbus_message_iter_init_append (reply, &iter);
 
   if (i < 0 || i >= registry->apps->len)
-    append_reference (&iter, SPI_DBUS_NAME_REGISTRY, SPI_DBUS_PATH_NULL);
+    {
+      SpiReference *null_ref = spi_reference_null (SPI_DBUS_NAME_REGISTRY);
+      append_reference (&iter, null_ref);
+      spi_reference_free (null_ref);
+    }
   else
     {
       ref = g_ptr_array_index (registry->apps, i);
-      append_reference (&iter, ref->name, ref->path);
+      append_reference (&iter, ref);
     }
 
   return reply;
@@ -708,7 +717,7 @@ impl_GetChildren (DBusMessage * message, SpiRegistry *registry)
   for (i=0; i < registry->apps->len; i++)
     {
       SpiReference *current = g_ptr_array_index (registry->apps, i);
-      append_reference (&iter_array, current->name, current->path);
+      append_reference (&iter_array, current);
     }
   dbus_message_iter_close_container(&iter, &iter_array);
   return reply;
@@ -816,12 +825,12 @@ impl_GetApplication (DBusMessage * message, SpiRegistry *registry)
 {
   DBusMessage *reply = NULL;
   DBusMessageIter iter;
+  SpiReference *null_ref = spi_reference_null (registry->bus_unique_name);
 
   reply = dbus_message_new_method_return (message);
   dbus_message_iter_init_append (reply, &iter);
-  append_reference (&iter,
-                    registry->bus_unique_name,
-                    SPI_DBUS_PATH_NULL);
+  append_reference (&iter, null_ref);
+  spi_reference_free (null_ref);
 
   return reply;
 }
@@ -1016,11 +1025,15 @@ emit_Available (DBusConnection * bus)
 {
   DBusMessage *sig;
   DBusMessageIter iter;
+  SpiReference root_ref = {
+    SPI_DBUS_NAME_REGISTRY,
+    SPI_DBUS_PATH_ROOT,
+  };
   
   sig = dbus_message_new_signal(SPI_DBUS_PATH_ROOT, SPI_DBUS_INTERFACE_SOCKET, "Available");
 
   dbus_message_iter_init_append(sig, &iter);
-  append_reference (&iter, SPI_DBUS_NAME_REGISTRY, SPI_DBUS_PATH_ROOT);
+  append_reference (&iter, &root_ref);
 
   dbus_connection_send(bus, sig, NULL);
   dbus_message_unref(sig);
