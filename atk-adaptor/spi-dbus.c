@@ -69,19 +69,6 @@ oom:
   return reply;
 }
 
-void spi_dbus_emit_valist(DBusConnection *bus, const char *path, const char *interface, const char *name, int first_arg_type, va_list args)
-{
-  DBusMessage *sig;
-
-  sig = dbus_message_new_signal(path, interface, name);
-  if (first_arg_type != DBUS_TYPE_INVALID)
-  {
-    dbus_message_append_args_valist(sig, first_arg_type, args);
-  }
-  dbus_connection_send(bus, sig, NULL);
-  dbus_message_unref(sig);
-}
-
 dbus_bool_t spi_dbus_message_iter_get_struct(DBusMessageIter *iter, ...)
 {
   va_list args;
