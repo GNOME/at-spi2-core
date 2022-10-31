@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
-"POT-Creation-Date: 2022-09-17 14:43+0000\n"
+"POT-Creation-Date: 2022-10-03 08:42+0000\n"
 "Last-Translator: Нанба Наала <naala-nanba@rambler.ru>\n"
 "Language-Team: Abkhazian <daniel.abzakh@gmail.com>\n"
 "Language: ab\n"
@@ -9,42 +9,43 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-DamnedLies-Scope: partial\n"
+
+#: atk/atkhyperlink.c:125
+msgid "Selected Link"
+msgstr "Иалху азхьарԥш"
 
 #: atk/atkhyperlink.c:126
-msgid "Selected Link"
-msgstr ""
-
-#: atk/atkhyperlink.c:127
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr ""
 
-#: atk/atkhyperlink.c:133
+#: atk/atkhyperlink.c:132
 msgid "Number of Anchors"
-msgstr ""
+msgstr "Аԥырсалқәа рхыԥхьаӡара"
 
-#: atk/atkhyperlink.c:134
+#: atk/atkhyperlink.c:133
 msgid "The number of anchors associated with the AtkHyperlink object"
-msgstr ""
+msgstr "Уажәтәи аобиект AtkHyperlink иадҳәалоу аԥырсалқәа рхыԥхьаӡара"
+
+#: atk/atkhyperlink.c:141
+msgid "End index"
+msgstr "Аиндекс анҵәамҭа"
 
 #: atk/atkhyperlink.c:142
-msgid "End index"
-msgstr ""
-
-#: atk/atkhyperlink.c:143
 msgid "The end index of the AtkHyperlink object"
-msgstr ""
+msgstr "Аобиект AtkHyperlink аиндекс анҵәамҭа"
+
+#: atk/atkhyperlink.c:150
+msgid "Start index"
+msgstr "Аиндекс алагамҭа"
 
 #: atk/atkhyperlink.c:151
-msgid "Start index"
-msgstr ""
-
-#: atk/atkhyperlink.c:152
 msgid "The start index of the AtkHyperlink object"
-msgstr ""
+msgstr "Аобиект AtkHyperlink аиндекс алагамҭа"
 
 #: atk/atkobject.c:99
 msgid "invalid"
-msgstr ""
+msgstr "ззин ыҟам"
 
 #: atk/atkobject.c:100
 msgid "accelerator label"
@@ -52,7 +53,7 @@ msgstr ""
 
 #: atk/atkobject.c:101
 msgid "alert"
-msgstr ""
+msgstr "ашәарҭадырга"
 
 #: atk/atkobject.c:102
 msgid "animation"
@@ -60,31 +61,31 @@ msgstr "Анимациа"
 
 #: atk/atkobject.c:103
 msgid "arrow"
-msgstr ""
+msgstr "ахыц"
 
 #: atk/atkobject.c:104
 msgid "calendar"
-msgstr ""
+msgstr "амзар"
 
 #: atk/atkobject.c:105
 msgid "canvas"
-msgstr ""
+msgstr "канва"
 
 #: atk/atkobject.c:106
 msgid "check box"
-msgstr ""
+msgstr "апытҟәыр-абираҟ"
 
 #: atk/atkobject.c:107
 msgid "check menu item"
-msgstr ""
+msgstr "амениу аелемент-абираҟ "
 
 #: atk/atkobject.c:108
 msgid "color chooser"
-msgstr ""
+msgstr "Аԥштәы алхра"
 
 #: atk/atkobject.c:109
 msgid "column header"
-msgstr ""
+msgstr "Аиҵагыла ахы"
 
 #: atk/atkobject.c:110
 msgid "combo box"
@@ -96,19 +97,19 @@ msgstr ""
 
 #: atk/atkobject.c:112
 msgid "desktop icon"
-msgstr ""
+msgstr "аусуратә ишәа адыргаҷ"
 
 #: atk/atkobject.c:113
 msgid "desktop frame"
-msgstr ""
+msgstr "аусуратә ишәа адаԥа"
 
 #: atk/atkobject.c:114
 msgid "dial"
-msgstr ""
+msgstr "аномер алхра"
 
 #: atk/atkobject.c:115
 msgid "dialog"
-msgstr ""
+msgstr "аиҿцәажәара"
 
 #: atk/atkobject.c:116
 msgid "directory pane"
@@ -116,80 +117,80 @@ msgstr ""
 
 #: atk/atkobject.c:117
 msgid "drawing area"
-msgstr ""
+msgstr "аҭыхра аҵакыра"
 
 #: atk/atkobject.c:118
 msgid "file chooser"
-msgstr ""
+msgstr "афаил алхра"
 
 #: atk/atkobject.c:119
 msgid "filler"
-msgstr ""
+msgstr "ахарҭәаага"
 
 #. I know it looks wrong but that is what Java returns
 #: atk/atkobject.c:121
 msgid "fontchooser"
-msgstr ""
+msgstr "Ашрифт алхра"
 
 #: atk/atkobject.c:122
 msgid "frame"
-msgstr ""
+msgstr "адаԥа"
 
 #: atk/atkobject.c:123
 msgid "glass pane"
-msgstr ""
+msgstr "ицәцоу апанель"
 
 #: atk/atkobject.c:124
 msgid "html container"
-msgstr ""
+msgstr "html абызшәа змоу аҭаҵа"
 
 #: atk/atkobject.c:125
 msgid "icon"
-msgstr ""
+msgstr "адыргаҷа"
 
 #: atk/atkobject.c:126
 msgid "image"
-msgstr ""
+msgstr "аԥшранҵа"
 
 #: atk/atkobject.c:127
 msgid "internal frame"
-msgstr ""
+msgstr "аҩныҵаҟатәи адаԥа"
 
 #: atk/atkobject.c:128
 msgid "label"
-msgstr ""
+msgstr "ахҵара"
 
 #: atk/atkobject.c:129
 msgid "layered pane"
-msgstr ""
+msgstr "аҩаӡарақәа змоу апанель"
 
 #: atk/atkobject.c:130
 msgid "list"
-msgstr ""
+msgstr "ахьӡынҵа"
 
 #: atk/atkobject.c:131
 msgid "list item"
-msgstr ""
+msgstr "ахьӡынҵа аелемент"
 
 #: atk/atkobject.c:132
 msgid "menu"
-msgstr ""
+msgstr "амениу"
 
 #: atk/atkobject.c:133
 msgid "menu bar"
-msgstr ""
+msgstr "амениу ацәаҳәа"
 
 #: atk/atkobject.c:134
 msgid "menu button"
-msgstr ""
+msgstr "амениу апытҟәыр"
 
 #: atk/atkobject.c:135
 msgid "menu item"
-msgstr ""
+msgstr "амениу аелемент"
 
 #: atk/atkobject.c:136
 msgid "option pane"
-msgstr ""
+msgstr "аопциақәа рпанель"
 
 #: atk/atkobject.c:137
 msgid "page tab"
@@ -197,11 +198,11 @@ msgstr "адаҟьа агәылаҵа"
 
 #: atk/atkobject.c:138
 msgid "page tab list"
-msgstr ""
+msgstr "адаҟьа агәылаҵақәа рыхьӡынца"
 
 #: atk/atkobject.c:139
 msgid "panel"
-msgstr ""
+msgstr "апанель"
 
 #: atk/atkobject.c:140
 msgid "password text"
@@ -209,43 +210,43 @@ msgstr "ажәамаӡа"
 
 #: atk/atkobject.c:141
 msgid "popup menu"
-msgstr ""
+msgstr "ихыло амениу"
 
 #: atk/atkobject.c:142
 msgid "progress bar"
-msgstr ""
+msgstr "анагӡара аиндикатор"
 
 #: atk/atkobject.c:143
 msgid "push button"
-msgstr ""
+msgstr "изықәыӷәӷәо апатҟәыр"
 
 #: atk/atkobject.c:144
 msgid "radio button"
-msgstr ""
+msgstr "арадио-апатҟәыр"
 
 #: atk/atkobject.c:145
 msgid "radio menu item"
-msgstr ""
+msgstr "радио-аелемент мениу"
 
 #: atk/atkobject.c:146
 msgid "root pane"
-msgstr ""
+msgstr "адацтә панель"
 
 #: atk/atkobject.c:147
 msgid "row header"
-msgstr ""
+msgstr "ацәаҳәа ахы"
 
 #: atk/atkobject.c:148
 msgid "scroll bar"
-msgstr ""
+msgstr "аҭаргьежьга ацәаҳәа"
 
 #: atk/atkobject.c:149
 msgid "scroll pane"
-msgstr ""
+msgstr "аҭаргьежьга апанель"
 
 #: atk/atkobject.c:150
 msgid "separator"
-msgstr ""
+msgstr "аиҟәшага"
 
 #: atk/atkobject.c:151
 msgid "slider"
@@ -253,31 +254,31 @@ msgstr "акәараҵа"
 
 #: atk/atkobject.c:152
 msgid "split pane"
-msgstr ""
+msgstr "иҩбатәу апанель"
 
 #: atk/atkobject.c:153
 msgid "spin button"
-msgstr ""
+msgstr "ахаҵәира апатҟәыр"
 
 #: atk/atkobject.c:154
 msgid "statusbar"
-msgstr ""
+msgstr "аҭагылазаашьа ацәаҳәа"
 
 #: atk/atkobject.c:155
 msgid "table"
-msgstr ""
+msgstr "аҭаӡҩыра"
 
 #: atk/atkobject.c:156
 msgid "table cell"
-msgstr ""
+msgstr "аҭаӡҩыра абларҭа"
 
 #: atk/atkobject.c:157
 msgid "table column header"
-msgstr ""
+msgstr "аҭаӡҩыра аҵагыла ахы"
 
 #: atk/atkobject.c:158
 msgid "table row header"
-msgstr ""
+msgstr "аҭаӡҩыра ацәаҳәа ахы"
 
 #: atk/atkobject.c:159
 msgid "tear off menu item"
@@ -285,51 +286,51 @@ msgstr ""
 
 #: atk/atkobject.c:160
 msgid "terminal"
-msgstr ""
+msgstr "атерминал"
 
 #: atk/atkobject.c:161
 msgid "text"
-msgstr ""
+msgstr "атекст"
 
 #: atk/atkobject.c:162
 msgid "toggle button"
-msgstr ""
+msgstr "апатҟәыр-аиагага"
 
 #: atk/atkobject.c:163
 msgid "tool bar"
-msgstr ""
+msgstr "амаругақәа рпанель"
 
 #: atk/atkobject.c:164
 msgid "tool tip"
-msgstr ""
+msgstr "аҵаҳәа"
 
 #: atk/atkobject.c:165
 msgid "tree"
-msgstr ""
+msgstr "аҵла"
 
 #: atk/atkobject.c:166
 msgid "tree table"
-msgstr ""
+msgstr "Аҵла иеиԥшу аҭаӡҩыра"
 
 #: atk/atkobject.c:167
 msgid "unknown"
-msgstr ""
+msgstr "еилкаӡам"
 
 #: atk/atkobject.c:168
 msgid "viewport"
-msgstr ""
+msgstr "ахәаԥшра аҵакыра"
 
 #: atk/atkobject.c:169
 msgid "window"
-msgstr ""
+msgstr "аԥенџьыр"
 
 #: atk/atkobject.c:170
 msgid "header"
-msgstr ""
+msgstr "ахы"
 
 #: atk/atkobject.c:171
 msgid "footer"
-msgstr ""
+msgstr "аӷәраҵа"
 
 #: atk/atkobject.c:172
 msgid "paragraph"
@@ -341,7 +342,7 @@ msgstr ""
 
 #: atk/atkobject.c:174
 msgid "application"
-msgstr ""
+msgstr "аԥшьы"
 
 #: atk/atkobject.c:175
 msgid "autocomplete"
@@ -357,31 +358,31 @@ msgstr ""
 
 #: atk/atkobject.c:178
 msgid "entry"
-msgstr ""
+msgstr "анҵара"
 
 #: atk/atkobject.c:179
 msgid "chart"
-msgstr ""
+msgstr "адиаграмма"
 
 #: atk/atkobject.c:180
 msgid "caption"
-msgstr ""
+msgstr "ахы"
 
 #: atk/atkobject.c:181
 msgid "document frame"
-msgstr ""
+msgstr "адокумент адаԥа"
 
 #: atk/atkobject.c:182
 msgid "heading"
-msgstr ""
+msgstr "ахы"
 
 #: atk/atkobject.c:183
 msgid "page"
-msgstr ""
+msgstr "адаҟьа"
 
 #: atk/atkobject.c:184
 msgid "section"
-msgstr ""
+msgstr "аҟәша"
 
 #: atk/atkobject.c:185
 msgid "redundant object"
@@ -389,27 +390,27 @@ msgstr ""
 
 #: atk/atkobject.c:186
 msgid "form"
-msgstr ""
+msgstr "аформа"
 
 #: atk/atkobject.c:187
 msgid "link"
-msgstr ""
+msgstr "азхьарԥш"
 
 #: atk/atkobject.c:188
 msgid "input method window"
-msgstr ""
+msgstr "аҭагалара аметод аԥенџьыр"
 
 #: atk/atkobject.c:189
 msgid "table row"
-msgstr ""
+msgstr "аҭаӡҩыра ацәаҳәа"
 
 #: atk/atkobject.c:190
 msgid "tree item"
-msgstr ""
+msgstr "аҵла аелемент"
 
 #: atk/atkobject.c:191
 msgid "document spreadsheet"
-msgstr ""
+msgstr "аелектронтә ҭаӡҩыра адокумент"
 
 #: atk/atkobject.c:192
 msgid "document presentation"
@@ -417,19 +418,19 @@ msgstr ""
 
 #: atk/atkobject.c:193
 msgid "document text"
-msgstr ""
+msgstr "атексттә документ"
 
 #: atk/atkobject.c:194
 msgid "document web"
-msgstr ""
+msgstr "веб-документ"
 
 #: atk/atkobject.c:195
 msgid "document email"
-msgstr ""
+msgstr "аелектронтә цҳамҭа адокумент "
 
 #: atk/atkobject.c:196
 msgid "comment"
-msgstr ""
+msgstr "ажәеилыркка"
 
 #: atk/atkobject.c:197
 msgid "list box"
@@ -437,19 +438,19 @@ msgstr ""
 
 #: atk/atkobject.c:198
 msgid "grouping"
-msgstr ""
+msgstr "аидгәыԥлара"
 
 #: atk/atkobject.c:199
 msgid "image map"
-msgstr ""
+msgstr "аԥшранҵа ахсаала"
 
 #: atk/atkobject.c:200
 msgid "notification"
-msgstr ""
+msgstr "ардырра"
 
 #: atk/atkobject.c:201
 msgid "info bar"
-msgstr ""
+msgstr "аинформациатә цәаҳәа"
 
 #: atk/atkobject.c:202
 msgid "level bar"
@@ -457,7 +458,7 @@ msgstr ""
 
 #: atk/atkobject.c:203
 msgid "title bar"
-msgstr ""
+msgstr "Ахы апанель"
 
 #: atk/atkobject.c:204
 msgid "block quote"
@@ -465,7 +466,7 @@ msgstr ""
 
 #: atk/atkobject.c:205
 msgid "audio"
-msgstr ""
+msgstr "абжьы"
 
 #: atk/atkobject.c:206
 msgid "video"
@@ -473,19 +474,19 @@ msgstr "Авидео"
 
 #: atk/atkobject.c:207
 msgid "definition"
-msgstr ""
+msgstr "аилкаара"
 
 #: atk/atkobject.c:208
 msgid "article"
-msgstr ""
+msgstr "астатиа"
 
 #: atk/atkobject.c:209
 msgid "landmark"
-msgstr ""
+msgstr "азырхара"
 
 #: atk/atkobject.c:210
 msgid "log"
-msgstr ""
+msgstr "ажурнал"
 
 #: atk/atkobject.c:211
 msgid "marquee"
@@ -493,11 +494,11 @@ msgstr "иҩуа ацәаҳәа"
 
 #: atk/atkobject.c:212
 msgid "math"
-msgstr ""
+msgstr "аматиматикатә ҳәахьа"
 
 #: atk/atkobject.c:213
 msgid "rating"
-msgstr ""
+msgstr "ахәшьара"
 
 #: atk/atkobject.c:214
 msgid "timer"
@@ -505,19 +506,19 @@ msgstr ""
 
 #: atk/atkobject.c:215
 msgid "description list"
-msgstr ""
+msgstr "ахцәажәарақәа рыхьӡынҵа"
 
 #: atk/atkobject.c:216
 msgid "description term"
-msgstr ""
+msgstr "ахцәажәарақәа атерм"
 
 #: atk/atkobject.c:217
 msgid "description value"
-msgstr ""
+msgstr "ахцәажәара аҵакы"
 
 #: atk/atkobject.c:393
 msgid "Accessible Name"
-msgstr ""
+msgstr "Ирмариоу ахьӡ"
 
 #: atk/atkobject.c:394
 msgid "Object instance’s name formatted for assistive technology access"
@@ -525,7 +526,7 @@ msgstr ""
 
 #: atk/atkobject.c:400
 msgid "Accessible Description"
-msgstr ""
+msgstr "Ирмариоу ахцәажәара"
 
 #: atk/atkobject.c:401
 msgid "Description of an object, formatted for assistive technology access"
@@ -533,7 +534,7 @@ msgstr ""
 
 #: atk/atkobject.c:407
 msgid "Accessible Parent"
-msgstr ""
+msgstr "Изхылҵыз ирмарианы"
 
 #: atk/atkobject.c:408
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
@@ -541,7 +542,7 @@ msgstr ""
 
 #: atk/atkobject.c:424
 msgid "Accessible Value"
-msgstr ""
+msgstr "Ирмариоу аҵакы"
 
 #: atk/atkobject.c:425
 msgid "Is used to notify that the value has changed"
@@ -549,7 +550,7 @@ msgstr ""
 
 #: atk/atkobject.c:433
 msgid "Accessible Role"
-msgstr ""
+msgstr "Ирмариоу ароль"
 
 #: atk/atkobject.c:434
 msgid "The accessible role of this object"
@@ -557,7 +558,7 @@ msgstr ""
 
 #: atk/atkobject.c:441
 msgid "Accessible Layer"
-msgstr ""
+msgstr "Ирмариоу аҩаӡара"
 
 #: atk/atkobject.c:442
 msgid "The accessible layer of this object"
@@ -565,7 +566,7 @@ msgstr ""
 
 #: atk/atkobject.c:450
 msgid "Accessible MDI Value"
-msgstr ""
+msgstr "MDI ирмариоу аҵакы"
 
 #: atk/atkobject.c:451
 msgid "The accessible MDI value of this object"
@@ -573,7 +574,7 @@ msgstr ""
 
 #: atk/atkobject.c:467
 msgid "Accessible Table Caption"
-msgstr ""
+msgstr "Ирмариоу аҭаӡҩыра ахы"
 
 #: atk/atkobject.c:468
 msgid ""
@@ -591,7 +592,7 @@ msgstr ""
 
 #: atk/atkobject.c:498
 msgid "Accessible Table Column Description"
-msgstr ""
+msgstr "Аҭаӡҩыра аиҵагыла ирмариоу ахцәажәара"
 
 #: atk/atkobject.c:499
 msgid "Is used to notify that the table column description has changed"
@@ -607,7 +608,7 @@ msgstr ""
 
 #: atk/atkobject.c:529
 msgid "Accessible Table Row Description"
-msgstr ""
+msgstr "Аҭаӡҩыра аиҵагыла ирмариоу ахцәажәара"
 
 #: atk/atkobject.c:530
 msgid "Is used to notify that the table row description has changed"
@@ -643,9 +644,9 @@ msgstr ""
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:194
+#: atk/atkvalue.c:192
 msgid "very weak"
-msgstr ""
+msgstr "даара иҧсыҽны"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a password-strength meter. Note that what such a
@@ -653,9 +654,9 @@ msgstr ""
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:201
+#: atk/atkvalue.c:199
 msgid "weak"
-msgstr ""
+msgstr "иҧсыҽны"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a password-strength meter. Note that what such a
@@ -663,9 +664,9 @@ msgstr ""
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:208
+#: atk/atkvalue.c:206
 msgid "acceptable"
-msgstr ""
+msgstr "иудукыларатә иҟоу"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a password-strength meter. Note that what such a
@@ -673,9 +674,9 @@ msgstr ""
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:215
+#: atk/atkvalue.c:213
 msgid "strong"
-msgstr ""
+msgstr "уақәгәыӷыртә иҟоуп"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a password-strength meter. Note that what such a
@@ -683,9 +684,9 @@ msgstr ""
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:222
+#: atk/atkvalue.c:220
 msgid "very strong"
-msgstr ""
+msgstr "даара уақәгәыӷыртә иҟоуп"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a volume slider. Note that what such a widget
@@ -694,9 +695,9 @@ msgstr ""
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:230
+#: atk/atkvalue.c:228
 msgid "very low"
-msgstr ""
+msgstr "даара илаҟәуп"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a volume slider. Note that what such a widget
@@ -705,9 +706,9 @@ msgstr ""
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:238
+#: atk/atkvalue.c:236
 msgid "medium"
-msgstr ""
+msgstr "Абжьаратә"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a volume slider. Note that what such a widget
@@ -716,9 +717,9 @@ msgstr ""
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:246
+#: atk/atkvalue.c:244
 msgid "high"
-msgstr ""
+msgstr "иҳараку"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a volume slider. Note that what such a widget
@@ -727,9 +728,9 @@ msgstr ""
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:254
+#: atk/atkvalue.c:252
 msgid "very high"
-msgstr ""
+msgstr "даара иҳараку"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a hard drive usage. Note that what such a widget
@@ -738,9 +739,9 @@ msgstr ""
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:262
+#: atk/atkvalue.c:260
 msgid "very bad"
-msgstr ""
+msgstr "даара ихәарҭам"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a hard drive usage. Note that what such a widget
@@ -749,9 +750,9 @@ msgstr ""
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:270
+#: atk/atkvalue.c:268
 msgid "bad"
-msgstr ""
+msgstr "ихәарҭам"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a hard drive usage. Note that what such a widget
@@ -760,9 +761,9 @@ msgstr ""
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:278
+#: atk/atkvalue.c:276
 msgid "good"
-msgstr ""
+msgstr "ибзиоуп"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a hard drive usage. Note that what such a widget
@@ -771,9 +772,9 @@ msgstr ""
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:286
+#: atk/atkvalue.c:284
 msgid "very good"
-msgstr ""
+msgstr "даара ибзиоуп"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a hard drive usage. Note that what such a widget
@@ -782,11 +783,11 @@ msgstr ""
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:294
+#: atk/atkvalue.c:292
 msgid "best"
-msgstr ""
+msgstr "иреиӷьӡоу"
 
-#: atspi/atspi-component.c:332 atspi/atspi-misc.c:1068 atspi/atspi-value.c:111
+#: atspi/atspi-component.c:348 atspi/atspi-misc.c:1074 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "Аԥшьы уаҳа ыҟаӡам"
 
@@ -1027,7 +1028,6 @@ msgstr "Синхронтәу асра аҟаҵара азин ыҟаӡам"
 
 
 
-#, fuzzy
 
 
 
@@ -1051,7 +1051,6 @@ msgstr "Синхронтәу асра аҟаҵара азин ыҟаӡам"
 
 
 
-#, fuzzy
 
 
 
@@ -1138,7 +1137,6 @@ msgstr "Синхронтәу асра аҟаҵара азин ыҟаӡам"
 
 
 
-#, fuzzy
 
 
 
@@ -1505,3045 +1503,6 @@ msgstr "Синхронтәу асра аҟаҵара азин ыҟаӡам"
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#, fuzzy
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#, fuzzy
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#, fuzzy
-
-
-
-#, fuzzy
-
-#, fuzzy
-
-
-
-
-
-
-#, fuzzy
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#, fuzzy
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#, fuzzy
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#, fuzzy
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#, fuzzy
 
 
 
