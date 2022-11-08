@@ -166,13 +166,13 @@ find_index_of_reference (GPtrArray *arr, const SpiReference *ref, guint *index)
 
 static void
 emit_children_changed (DBusConnection *bus,
-                       const char *detail_str,
-                       dbus_int32_t detail1,
+                       const char *operation,
+                       dbus_int32_t index,
                        SpiReference *app)
 {
   DBusMessage *sig;
   DBusMessageIter iter, iter_variant, iter_array;
-  dbus_int32_t detail2 = 0;
+  dbus_int32_t unused = 0;
 
   sig = dbus_message_new_signal(SPI_DBUS_PATH_ROOT,
                                 SPI_DBUS_INTERFACE_EVENT_OBJECT,
@@ -180,9 +180,9 @@ emit_children_changed (DBusConnection *bus,
 
   dbus_message_iter_init_append(sig, &iter);
 
-  dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &detail_str);
-  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail1);
-  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail2);
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &operation);
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &index);
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &unused);
 
   dbus_message_iter_open_container (&iter, DBUS_TYPE_VARIANT, "(so)",
                                     &iter_variant);
