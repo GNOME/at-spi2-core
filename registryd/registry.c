@@ -168,11 +168,11 @@ static void
 emit_children_changed (DBusConnection *bus,
                        const char *detail_str,
                        dbus_int32_t detail1,
-                       dbus_int32_t detail2,
                        SpiReference *app)
 {
   DBusMessage *sig;
   DBusMessageIter iter, iter_variant, iter_array;
+  dbus_int32_t detail2 = 0;
 
   sig = dbus_message_new_signal(SPI_DBUS_PATH_ROOT,
                                 SPI_DBUS_INTERFACE_EVENT_OBJECT,
@@ -205,7 +205,7 @@ add_application (SpiRegistry *registry, SpiReference *app_root)
   g_ptr_array_add (registry->apps, app_root);
   index = registry->apps->len - 1;
 
-  emit_children_changed (registry->bus, "add", index, 0, app_root);
+  emit_children_changed (registry->bus, "add", index, app_root);
 }
 
 static void
@@ -238,7 +238,7 @@ remove_application (SpiRegistry *registry, guint index)
   SpiReference *ref = g_ptr_array_index (registry->apps, index);
 
   spi_remove_device_listeners (registry->dec, ref->name);
-  emit_children_changed (registry->bus, "remove", index, 0, ref);
+  emit_children_changed (registry->bus, "remove", index, ref);
   g_ptr_array_remove_index (registry->apps, index);
 }
 
