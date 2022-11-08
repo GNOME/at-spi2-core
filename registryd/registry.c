@@ -165,13 +165,13 @@ find_index_of_reference (GPtrArray *arr, const SpiReference *ref, guint *index)
 }
 
 static void
-emit_event (DBusConnection *bus,
-            const char *iface_name,
-            const char *signal_name,
-            const char *detail_str,
-            dbus_int32_t detail1,
-            dbus_int32_t detail2,
-            SpiReference *app)
+emit_children_changed (DBusConnection *bus,
+                       const char *iface_name,
+                       const char *signal_name,
+                       const char *detail_str,
+                       dbus_int32_t detail1,
+                       dbus_int32_t detail2,
+                       SpiReference *app)
 {
   DBusMessage *sig;
   DBusMessageIter iter, iter_variant, iter_array;
@@ -205,7 +205,7 @@ add_application (SpiRegistry *registry, SpiReference *app_root)
   g_ptr_array_add (registry->apps, app_root);
   index = registry->apps->len - 1;
 
-  emit_event (registry->bus, SPI_DBUS_INTERFACE_EVENT_OBJECT, "ChildrenChanged", "add", index, 0, app_root);
+  emit_children_changed (registry->bus, SPI_DBUS_INTERFACE_EVENT_OBJECT, "ChildrenChanged", "add", index, 0, app_root);
 }
 
 static void
@@ -238,7 +238,7 @@ remove_application (SpiRegistry *registry, guint index)
   SpiReference *ref = g_ptr_array_index (registry->apps, index);
 
   spi_remove_device_listeners (registry->dec, ref->name);
-  emit_event (registry->bus, SPI_DBUS_INTERFACE_EVENT_OBJECT, "ChildrenChanged", "remove", index, 0, ref);
+  emit_children_changed (registry->bus, SPI_DBUS_INTERFACE_EVENT_OBJECT, "ChildrenChanged", "remove", index, 0, ref);
   g_ptr_array_remove_index (registry->apps, index);
 }
 
