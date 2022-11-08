@@ -214,7 +214,7 @@ call_set_id (SpiRegistry *registry, SpiReference *app)
   DBusMessage *message;
   DBusMessageIter iter, iter_variant;
   const char *iface_application = "org.a11y.atspi.Application";
-  const char *id = "Id";
+  const char *id_str = "Id";
 
   message = dbus_message_new_method_call (app->name, app->path,
                                           DBUS_INTERFACE_PROPERTIES, "Set");
@@ -222,7 +222,7 @@ call_set_id (SpiRegistry *registry, SpiReference *app)
     return;
   dbus_message_iter_init_append (message, &iter);
   dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &iface_application);
-  dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &id);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &id_str);
   dbus_message_iter_open_container (&iter, DBUS_TYPE_VARIANT, "i", &iter_variant);
   dbus_message_iter_append_basic (&iter_variant, DBUS_TYPE_INT32, &registry->id);
   /* TODO: This will cause problems if we cycle through 2^31 ids */
