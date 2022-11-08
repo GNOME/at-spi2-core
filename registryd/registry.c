@@ -209,7 +209,7 @@ add_application (SpiRegistry *registry, SpiReference *app_root)
 }
 
 static void
-call_set_id (SpiRegistry *registry, SpiReference *app)
+call_set_id (SpiRegistry *registry, SpiReference *app, dbus_int32_t id)
 {
   DBusMessage *message;
   DBusMessageIter iter, iter_variant;
@@ -224,9 +224,7 @@ call_set_id (SpiRegistry *registry, SpiReference *app)
   dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &iface_application);
   dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &id_str);
   dbus_message_iter_open_container (&iter, DBUS_TYPE_VARIANT, "i", &iter_variant);
-  dbus_message_iter_append_basic (&iter_variant, DBUS_TYPE_INT32, &registry->id);
-  /* TODO: This will cause problems if we cycle through 2^31 ids */
-  registry->id++;
+  dbus_message_iter_append_basic (&iter_variant, DBUS_TYPE_INT32, &id);
   dbus_message_iter_close_container (&iter, &iter_variant);
   dbus_connection_send (registry->bus, message, NULL);
   dbus_message_unref (message);
@@ -440,7 +438,9 @@ static SpiReference *
 socket_embed (SpiRegistry *registry, SpiReference *app_root)
 {
   add_application (registry, app_root);
-  call_set_id (registry, app_root);
+  call_set_id (registry, app_root, registry->id);
+  /* TODO: This will cause problems if we cycle through 2^31 ids */
+  registry->id++;
   return spi_reference_new (registry->bus_unique_name, SPI_DBUS_PATH_ROOT);
 }
 
