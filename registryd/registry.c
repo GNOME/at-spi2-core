@@ -209,7 +209,7 @@ add_application (SpiRegistry *registry, SpiReference *app_root)
 }
 
 static void
-set_id (SpiRegistry *registry, SpiReference *app)
+call_set_id (SpiRegistry *registry, SpiReference *app)
 {
   DBusMessage *message;
   DBusMessageIter iter, iter_variant;
@@ -440,7 +440,7 @@ static SpiReference *
 socket_embed (SpiRegistry *registry, SpiReference *app_root)
 {
   add_application (registry, app_root);
-  set_id (registry, app_root);
+  call_set_id (registry, app_root);
   return spi_reference_new (registry->bus_unique_name, SPI_DBUS_PATH_ROOT);
 }
 
