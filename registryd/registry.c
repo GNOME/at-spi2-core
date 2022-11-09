@@ -58,6 +58,12 @@ spi_reference_new (const gchar *name, const gchar *path)
   return ref;
 }
 
+static SpiReference *
+spi_reference_null (const char *bus_name)
+{
+  return spi_reference_new (bus_name, SPI_DBUS_PATH_NULL);
+}
+
 static void
 spi_reference_free (SpiReference *ref)
 {
@@ -114,15 +120,15 @@ return_v_string (DBusMessageIter * iter, const gchar * str)
 }
 
 static dbus_bool_t
-append_reference (DBusMessageIter * iter, const char * name, const char * path)
+append_reference (DBusMessageIter * iter, SpiReference *ref)
 {
   DBusMessageIter iter_struct;
 
   if (!dbus_message_iter_open_container (iter, DBUS_TYPE_STRUCT, NULL,
                                     &iter_struct))
     return FALSE;
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &name);
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &ref->name);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &ref->path);
   dbus_message_iter_close_container (iter, &iter_struct);
   return TRUE;
 }
@@ -130,7 +136,7 @@ append_reference (DBusMessageIter * iter, const char * name, const char * path)
 /*---------------------------------------------------------------------------*/
 
 static gboolean
-compare_reference (SpiReference *one, SpiReference *two)
+compare_reference (const SpiReference *one, const SpiReference *two)
 {
   if (g_strcmp0 (one->name, two->name) == 0 &&
       g_strcmp0 (one->path, two->path) == 0)
@@ -140,13 +146,10 @@ compare_reference (SpiReference *one, SpiReference *two)
 }
 
 static gboolean
-find_index_of_reference (GPtrArray *arr, const gchar *name, const gchar * path, guint *index)
+find_index_of_reference (GPtrArray *arr, const SpiReference *ref, guint *index)
 {
-  SpiReference *ref;
   gboolean found = FALSE;
   guint i = 0;
-
-  ref = spi_reference_new (name, path);
 
   for (i = 0; i < arr->len; i++)
     {
@@ -157,35 +160,33 @@ find_index_of_reference (GPtrArray *arr, const gchar *name, const gchar * path, 
         }
     }
 
-  spi_reference_free (ref);
-
   *index = i;
   return found;
 }
 
 static void
-emit_event (DBusConnection *bus,
-            const char *iface_name,
-            const char *signal_name,
-            const char *detail_str,
-            dbus_int32_t detail1,
-            dbus_int32_t detail2,
-            SpiReference *app)
+emit_children_changed (DBusConnection *bus,
+                       const char *operation,
+                       dbus_int32_t index,
+                       SpiReference *app)
 {
   DBusMessage *sig;
   DBusMessageIter iter, iter_variant, iter_array;
+  dbus_int32_t unused = 0;
 
-  sig = dbus_message_new_signal(SPI_DBUS_PATH_ROOT, iface_name, signal_name);
+  sig = dbus_message_new_signal(SPI_DBUS_PATH_ROOT,
+                                SPI_DBUS_INTERFACE_EVENT_OBJECT,
+                                "ChildrenChanged");
 
   dbus_message_iter_init_append(sig, &iter);
 
-  dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &detail_str);
-  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail1);
-  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail2);
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &operation);
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &index);
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &unused);
 
   dbus_message_iter_open_container (&iter, DBUS_TYPE_VARIANT, "(so)",
                                     &iter_variant);
-    append_reference (&iter_variant, app->name, app->path);
+  append_reference (&iter_variant, app);
   dbus_message_iter_close_container (&iter, &iter_variant);
 
   dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "{sv}",
@@ -204,16 +205,16 @@ add_application (SpiRegistry *registry, SpiReference *app_root)
   g_ptr_array_add (registry->apps, app_root);
   index = registry->apps->len - 1;
 
-  emit_event (registry->bus, SPI_DBUS_INTERFACE_EVENT_OBJECT, "ChildrenChanged", "add", index, 0, app_root);
+  emit_children_changed (registry->bus, "add", index, app_root);
 }
 
 static void
-set_id (SpiRegistry *registry, SpiReference *app)
+call_set_id (SpiRegistry *registry, SpiReference *app, dbus_int32_t id)
 {
   DBusMessage *message;
   DBusMessageIter iter, iter_variant;
   const char *iface_application = "org.a11y.atspi.Application";
-  const char *id = "Id";
+  const char *id_str = "Id";
 
   message = dbus_message_new_method_call (app->name, app->path,
                                           DBUS_INTERFACE_PROPERTIES, "Set");
@@ -221,11 +222,9 @@ set_id (SpiRegistry *registry, SpiReference *app)
     return;
   dbus_message_iter_init_append (message, &iter);
   dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &iface_application);
-  dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &id);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &id_str);
   dbus_message_iter_open_container (&iter, DBUS_TYPE_VARIANT, "i", &iter_variant);
-  dbus_message_iter_append_basic (&iter_variant, DBUS_TYPE_INT32, &registry->id);
-  /* TODO: This will cause problems if we cycle through 2^31 ids */
-  registry->id++;
+  dbus_message_iter_append_basic (&iter_variant, DBUS_TYPE_INT32, &id);
   dbus_message_iter_close_container (&iter, &iter_variant);
   dbus_connection_send (registry->bus, message, NULL);
   dbus_message_unref (message);
@@ -237,7 +236,7 @@ remove_application (SpiRegistry *registry, guint index)
   SpiReference *ref = g_ptr_array_index (registry->apps, index);
 
   spi_remove_device_listeners (registry->dec, ref->name);
-  emit_event (registry->bus, SPI_DBUS_INTERFACE_EVENT_OBJECT, "ChildrenChanged", "remove", index, 0, ref);
+  emit_children_changed (registry->bus, "remove", index, ref);
   g_ptr_array_remove_index (registry->apps, index);
 }
 
@@ -410,11 +409,12 @@ typedef enum {
 /*---------------------------------------------------------------------------*/
 
 static DemarshalStatus
-socket_embed_demarshal (DBusMessage *message, SpiReference **out_app_root)
+demarshal_reference (DBusMessage *message, SpiReference **out_reference)
 {
   DBusMessageIter iter, iter_struct;
   const gchar *app_name, *obj_path;
-  SpiReference *app_root;
+
+  *out_reference = NULL;
 
   dbus_message_iter_init (message, &iter);
   dbus_message_iter_recurse (&iter, &iter_struct);
@@ -429,8 +429,7 @@ socket_embed_demarshal (DBusMessage *message, SpiReference **out_app_root)
     return DEMARSHAL_STATUS_INVALID_SIGNATURE;
   dbus_message_iter_get_basic (&iter_struct, &obj_path);
 
-  app_root = spi_reference_new (app_name, obj_path);
-  *out_app_root = app_root;
+  *out_reference = spi_reference_new (app_name, obj_path);
 
   return DEMARSHAL_STATUS_SUCCESS;
 }
@@ -439,7 +438,9 @@ static SpiReference *
 socket_embed (SpiRegistry *registry, SpiReference *app_root)
 {
   add_application (registry, app_root);
-  set_id (registry, app_root);
+  call_set_id (registry, app_root, registry->id);
+  /* TODO: This will cause problems if we cycle through 2^31 ids */
+  registry->id++;
   return spi_reference_new (registry->bus_unique_name, SPI_DBUS_PATH_ROOT);
 }
 
@@ -449,7 +450,7 @@ impl_Embed (DBusMessage *message, SpiRegistry *registry)
   SpiReference *app_root = NULL;
   SpiReference *result;
 
-  if (socket_embed_demarshal (message, &app_root) != DEMARSHAL_STATUS_SUCCESS)
+  if (demarshal_reference (message, &app_root) != DEMARSHAL_STATUS_SUCCESS)
     {
       return dbus_message_new_error (message, DBUS_ERROR_FAILED, "Invalid arguments");
     }
@@ -461,7 +462,7 @@ impl_Embed (DBusMessage *message, SpiRegistry *registry)
 
   reply = dbus_message_new_method_return (message);
   dbus_message_iter_init_append (reply, &reply_iter);
-  append_reference (&reply_iter, result->name, result->path);
+  append_reference (&reply_iter, result);
   spi_reference_free (result);
 
   return reply;
@@ -470,27 +471,20 @@ impl_Embed (DBusMessage *message, SpiRegistry *registry)
 static DBusMessage*
 impl_Unembed (DBusMessage *message, SpiRegistry *registry)
 {
-  DBusMessageIter iter, iter_struct;
-  gchar *app_name, *obj_path;
+  SpiReference *app_reference;
   guint index;
 
-  dbus_message_iter_init (message, &iter);
-  dbus_message_iter_recurse (&iter, &iter_struct);
-  if (!(dbus_message_iter_get_arg_type (&iter_struct) == DBUS_TYPE_STRING))
-	goto error;
-  dbus_message_iter_get_basic (&iter_struct, &app_name);
-  if (!dbus_message_iter_next (&iter_struct))
-        goto error;
-  if (!(dbus_message_iter_get_arg_type (&iter_struct) == DBUS_TYPE_OBJECT_PATH))
-	goto error;
-  dbus_message_iter_get_basic (&iter_struct, &obj_path);
+  if (demarshal_reference (message, &app_reference) != DEMARSHAL_STATUS_SUCCESS)
+    {
+      return dbus_message_new_error (message, DBUS_ERROR_FAILED, "Invalid arguments");
+    }
 
-  if (find_index_of_reference (registry->apps, app_name, obj_path, &index))
+  if (find_index_of_reference (registry->apps, app_reference, &index))
     remove_application (registry, index);
 
+  spi_reference_free (app_reference);
+
   return NULL;
-error:
-  return dbus_message_new_error (message, DBUS_ERROR_FAILED, "Invalid arguments");
 }
 
 /* org.at_spi.Component interface */
@@ -513,12 +507,12 @@ impl_GetAccessibleAtPoint (DBusMessage * message, SpiRegistry *registry)
 {
   DBusMessage *reply = NULL;
   DBusMessageIter iter;
+  SpiReference *null_ref = spi_reference_null (registry->bus_unique_name);
 
   reply = dbus_message_new_method_return (message);
   dbus_message_iter_init_append (reply, &iter);
-  append_reference (&iter, 
-                    registry->bus_unique_name,
-                    SPI_DBUS_PATH_NULL);
+  append_reference (&iter, null_ref);
+  spi_reference_free (null_ref);
 
   return reply;
 }
@@ -637,14 +631,13 @@ impl_get_Description (DBusMessageIter * iter, SpiRegistry *registry)
 static dbus_bool_t
 impl_get_Parent (DBusMessageIter * iter, SpiRegistry *registry)
 {
-  const gchar *name = "";
   DBusMessageIter iter_variant;
+  SpiReference *null_ref = spi_reference_null ("");
 
   dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, "(so)",
                                     &iter_variant);
-  append_reference (&iter_variant, 
-                    name,
-                    SPI_DBUS_PATH_NULL);
+  append_reference (&iter_variant, null_ref);
+  spi_reference_free (null_ref);
   dbus_message_iter_close_container (iter, &iter_variant);
   return TRUE;
 }
@@ -696,11 +689,15 @@ impl_GetChildAtIndex (DBusMessage * message, SpiRegistry *registry)
   dbus_message_iter_init_append (reply, &iter);
 
   if (i < 0 || i >= registry->apps->len)
-    append_reference (&iter, SPI_DBUS_NAME_REGISTRY, SPI_DBUS_PATH_NULL);
+    {
+      SpiReference *null_ref = spi_reference_null (SPI_DBUS_NAME_REGISTRY);
+      append_reference (&iter, null_ref);
+      spi_reference_free (null_ref);
+    }
   else
     {
       ref = g_ptr_array_index (registry->apps, i);
-      append_reference (&iter, ref->name, ref->path);
+      append_reference (&iter, ref);
     }
 
   return reply;
@@ -720,7 +717,7 @@ impl_GetChildren (DBusMessage * message, SpiRegistry *registry)
   for (i=0; i < registry->apps->len; i++)
     {
       SpiReference *current = g_ptr_array_index (registry->apps, i);
-      append_reference (&iter_array, current->name, current->path);
+      append_reference (&iter_array, current);
     }
   dbus_message_iter_close_container(&iter, &iter_array);
   return reply;
@@ -828,12 +825,12 @@ impl_GetApplication (DBusMessage * message, SpiRegistry *registry)
 {
   DBusMessage *reply = NULL;
   DBusMessageIter iter;
+  SpiReference *null_ref = spi_reference_null (registry->bus_unique_name);
 
   reply = dbus_message_new_method_return (message);
   dbus_message_iter_init_append (reply, &iter);
-  append_reference (&iter,
-                    registry->bus_unique_name,
-                    SPI_DBUS_PATH_NULL);
+  append_reference (&iter, null_ref);
+  spi_reference_free (null_ref);
 
   return reply;
 }
@@ -1028,11 +1025,15 @@ emit_Available (DBusConnection * bus)
 {
   DBusMessage *sig;
   DBusMessageIter iter;
+  SpiReference root_ref = {
+    SPI_DBUS_NAME_REGISTRY,
+    SPI_DBUS_PATH_ROOT,
+  };
   
   sig = dbus_message_new_signal(SPI_DBUS_PATH_ROOT, SPI_DBUS_INTERFACE_SOCKET, "Available");
 
   dbus_message_iter_init_append(sig, &iter);
-  append_reference (&iter, SPI_DBUS_NAME_REGISTRY, SPI_DBUS_PATH_ROOT);
+  append_reference (&iter, &root_ref);
 
   dbus_connection_send(bus, sig, NULL);
   dbus_message_unref(sig);
@@ -1065,6 +1066,7 @@ impl_Introspect_root (DBusMessage * message, SpiRegistry *registry)
 
   g_string_append (output, spi_org_a11y_atspi_Accessible);
   g_string_append (output, spi_org_a11y_atspi_Component);
+  g_string_append (output, spi_org_a11y_atspi_Socket);
 
   g_string_append(output, introspection_footer);
   final = g_string_free(output, FALSE);

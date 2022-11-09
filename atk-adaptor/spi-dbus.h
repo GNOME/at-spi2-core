@@ -41,7 +41,6 @@ extern int _dbg;
 DBusMessage *spi_dbus_general_error(DBusMessage *message);
 DBusMessage *spi_dbus_return_rect(DBusMessage *message, gint ix, gint iy, gint iwidth, gint iheight);
 
-void spi_dbus_emit_valist(DBusConnection *bus, const char *path, const char *interface, const char *name, int first_arg_type, va_list args);
 dbus_bool_t spi_dbus_message_iter_get_struct(DBusMessageIter *iter, ...);
 dbus_bool_t spi_dbus_message_iter_append_struct(DBusMessageIter *iter, ...);
 dbus_bool_t spi_dbus_marshal_deviceEvent(DBusMessage *message, const AtspiDeviceEvent *e);
