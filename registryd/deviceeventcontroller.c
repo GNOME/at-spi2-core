@@ -973,7 +973,6 @@ send_and_allow_reentry (DBusConnection *bus, DBusMessage *message, int timeout, 
 }
 static gboolean
 Accessibility_DeviceEventListener_NotifyEvent(SpiDEController *controller,
-                                              SpiRegistry *registry,
                                               DEControllerListener *listener,
                                               const Accessibility_DeviceEvent *key_event)
 {
@@ -1060,7 +1059,7 @@ spi_controller_notify_mouselisteners (SpiDEController                 *controlle
     {
       DEControllerListener *listener = l2->data;
 
-      is_consumed = Accessibility_DeviceEventListener_NotifyEvent (controller, controller->registry, listener, event);
+      is_consumed = Accessibility_DeviceEventListener_NotifyEvent (controller, listener, event);
 
       spi_listener_clone_free ((DEControllerListener *) l2->data);
     }
@@ -1209,7 +1208,7 @@ spi_controller_notify_keylisteners (SpiDEController                 *controller,
     {
       DEControllerKeyListener *key_listener = l2->data;	    
 
-      is_consumed = Accessibility_DeviceEventListener_NotifyEvent (controller, controller->registry, &key_listener->listener, key_event) &&
+      is_consumed = Accessibility_DeviceEventListener_NotifyEvent (controller, &key_listener->listener, key_event) &&
 	            key_listener->mode->preemptive;
 
       spi_key_listener_clone_free (key_listener);
