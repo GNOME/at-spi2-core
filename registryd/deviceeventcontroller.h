@@ -46,7 +46,6 @@ G_BEGIN_DECLS
 struct _SpiDEController {
 	GObject parent;
 	DBusConnection *bus;
-	SpiRegistry    *registry;
 	GList          *key_listeners;
 	GList          *mouse_listeners;
 	GList          *keygrabs_list;
