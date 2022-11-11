@@ -13,3 +13,17 @@ is to set the `ATSPI_MUTTER_DATA.window_id` and
 `_atspi_mutter_generate_keyboard_event` or
 `_atspi_mutter_generate_mouse_event`.
 
+Relatedly, `_atspi_mutter_generate_keyboard_event` takes a `keystring`
+argument but it's not used.
+
+What is incomplete here?
+
+Refactoring plan
+----------------
+
+While the device event controller (DEC) code works for X11, it doesn't
+work for Wayland because there are no hooks there to sniff the
+keyboard or mouse.
+
+However, the machinery to synthesize events is presumably still
+useful.  I'd like to be able to add tests for it.
