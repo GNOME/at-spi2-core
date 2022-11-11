@@ -70,9 +70,6 @@ typedef struct {
 } SpiDEControllerPrivate;
 #endif
 
-/* A pointer to our parent object class */
-static int spi_error_code = 0;
-
 typedef struct {
     gint x;
     gint y;
@@ -1231,14 +1228,6 @@ spi_controller_notify_keylisteners (SpiDEController                 *controller,
   if (is_consumed) g_message ("consumed\n");
 #endif
   return is_consumed;
-}
-
-gboolean
-spi_clear_error_state (void)
-{
-	gboolean retval = spi_error_code != 0;
-	spi_error_code = 0;
-	return retval;
 }
 
 gboolean

@@ -141,8 +141,6 @@ GType            spi_device_event_controller_get_type (void);
 SpiDEController *spi_device_event_controller_new      (SpiRegistry    *registry,
                                                        DBusConnection *bus);
 
-gboolean spi_clear_error_state (void);
-
 void spi_device_event_controller_start_poll_mouse (SpiRegistry *registry);
 void spi_device_event_controller_stop_poll_mouse (void);
 
