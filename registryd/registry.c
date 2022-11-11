@@ -936,7 +936,7 @@ impl_RegisterEvent (DBusMessage *message, SpiRegistry *registry)
 
   if (needs_mouse_poll (evdata->data))
     {
-      spi_device_event_controller_start_poll_mouse (registry);
+      spi_device_event_controller_start_poll_mouse (registry->dec);
     }
 
   signal = dbus_message_new_signal (SPI_DBUS_PATH_REGISTRY,

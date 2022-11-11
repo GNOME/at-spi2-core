@@ -2045,14 +2045,14 @@ spi_registry_dec_new (DBusConnection *bus)
 }
 
 void
-spi_device_event_controller_start_poll_mouse (SpiRegistry *registry)
+spi_device_event_controller_start_poll_mouse (SpiDEController *dec)
 {
   if (!have_mouse_event_listener)
     {
       have_mouse_event_listener = TRUE;
       if (!have_mouse_listener) {
         guint id;
-        id = g_timeout_add (100, spi_dec_poll_mouse_idle, registry->dec);
+        id = g_timeout_add (100, spi_dec_poll_mouse_idle, dec);
         g_source_set_name_by_id (id, "[at-spi2-core] spi_dec_poll_mouse_idle");
       }
     }
