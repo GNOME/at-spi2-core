@@ -1414,7 +1414,7 @@ static gchar *app_sig_match_name_owner =
        "type='signal', interface='org.freedesktop.DBus', member='NameOwnerChanged'";
 
 SpiRegistry *
-spi_registry_new (DBusConnection *bus)
+spi_registry_new (DBusConnection *bus, SpiDEController *dec)
 {
   SpiRegistry *registry = g_object_new (SPI_REGISTRY_TYPE, NULL);
   const char *bus_unique_name;
@@ -1423,6 +1423,7 @@ spi_registry_new (DBusConnection *bus)
   g_assert (bus_unique_name != NULL);
 
   registry->bus = bus;
+  registry->dec = g_object_ref (dec);
   registry->bus_unique_name = g_strdup (bus_unique_name);
 
   dbus_bus_add_match (bus, app_sig_match_name_owner, NULL);

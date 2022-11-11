@@ -2033,12 +2033,10 @@ static DBusObjectPathVTable dec_vtable =
 };
 
 SpiDEController *
-spi_registry_dec_new (SpiRegistry *reg, DBusConnection *bus)
+spi_registry_dec_new (DBusConnection *bus)
 {
   SpiDEController *dec = g_object_new (SPI_DEVICE_EVENT_CONTROLLER_TYPE, NULL);
 
-  dec->registry = g_object_ref (reg);
-  reg->dec = g_object_ref (dec);
   dec->bus = bus;
 
   dbus_connection_register_object_path (bus, SPI_DBUS_PATH_DEC, &dec_vtable, dec);

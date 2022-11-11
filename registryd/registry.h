@@ -58,7 +58,7 @@ struct _SpiRegistryClass {
 };
 
 GType        spi_registry_get_type (void);
-SpiRegistry *spi_registry_new      (DBusConnection *bus);
+SpiRegistry *spi_registry_new      (DBusConnection *bus, SpiDEController *dec);
 
 G_END_DECLS
 

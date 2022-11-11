@@ -248,8 +248,8 @@ main (int argc, char **argv)
       g_print ("SpiRegistry daemon is running with well-known name - %s\n", dbus_name);
     }
 
-  registry = spi_registry_new (bus);
-  dec = spi_registry_dec_new (registry, bus);
+  dec = spi_registry_dec_new (bus);
+  registry = spi_registry_new (bus, dec);
 
   if (use_gnome_session)
     {
