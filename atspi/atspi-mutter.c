@@ -316,8 +316,8 @@ _atspi_mutter_generate_keyboard_event (glong keyval,
     dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyKeyboardKeycode", &d_error, "ub", d_keyval, FALSE);
     break;
   case ATSPI_KEY_SYM:
-    dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyKeyboardKeysyme", &d_error, "ub", d_keyval, TRUE);
-    dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyKeyboardKeysyme", &d_error, "ub", d_keyval, FALSE);
+    dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyKeyboardKeysym", &d_error, "ub", d_keyval, TRUE);
+    dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyKeyboardKeysym", &d_error, "ub", d_keyval, FALSE);
     break;
   default:
     /* TODO: set error */
