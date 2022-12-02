@@ -1996,7 +1996,6 @@ message_queue_dispatch (gpointer data)
   while (!g_queue_is_empty (controller->message_queue))
     {
       DBusMessage *message = g_queue_pop_head (controller->message_queue);
-      data = g_queue_pop_head (controller->message_queue);
       handle_dec_method_from_idle (controller->bus, message, controller);
       dbus_message_unref (message);
     }
@@ -2019,7 +2018,6 @@ handle_dec_method (DBusConnection *bus, DBusMessage *message, void *user_data)
 
   dbus_message_ref (message);
   g_queue_push_tail (controller->message_queue, message);
-  g_queue_push_tail (controller->message_queue, user_data);
   if (!controller->message_queue_idle) {
     controller->message_queue_idle = g_idle_add (message_queue_dispatch, controller);
     g_source_set_name_by_id (controller->message_queue_idle, "[at-spi2-core] message_queue_dispatch");
