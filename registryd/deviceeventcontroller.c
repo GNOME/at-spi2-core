@@ -1909,7 +1909,7 @@ impl_Introspect (DBusMessage * message, SpiDEController *controller)
 /*---------------------------------------------------------------------------*/
 
 static void
-handle_dec_method_from_idle (DBusMessage *message, SpiDEController *controller)
+handle_message (DBusMessage *message, SpiDEController *controller)
 {
   const gchar *iface   = dbus_message_get_interface (message);
   const gchar *member  = dbus_message_get_member (message);
@@ -1973,7 +1973,7 @@ message_queue_dispatch (gpointer data)
   while (!g_queue_is_empty (controller->message_queue))
     {
       DBusMessage *message = g_queue_pop_head (controller->message_queue);
-      handle_dec_method_from_idle (message, controller);
+      handle_message (message, controller);
       dbus_message_unref (message);
     }
   return FALSE;
