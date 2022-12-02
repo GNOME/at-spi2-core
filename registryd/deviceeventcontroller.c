@@ -81,9 +81,6 @@ static unsigned int key_modifier_mask =
   SPI_KEYMASK_CONTROL | SPI_KEYMASK_NUMLOCK;
 unsigned int _numlock_physical_mask = SPI_KEYMASK_MOD2; /* a guess, will be reset */
 
-static gboolean have_mouse_listener = FALSE;
-static gboolean have_mouse_event_listener = FALSE;
-
 
 typedef struct {
   guint                             ref_count : 30;
@@ -397,7 +394,7 @@ spi_dec_poll_mouse_idle (gpointer data)
 {
   SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(data);
 
-  if (!have_mouse_event_listener && !have_mouse_listener)
+  if (!controller->have_mouse_event_listener && !controller->have_mouse_listener)
     return FALSE;
   else if (!spi_dec_poll_mouse_moved (controller))
     return TRUE;
@@ -415,7 +412,7 @@ spi_dec_poll_mouse_moving (gpointer data)
 {
   SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(data);
 
-  if (!have_mouse_event_listener && !have_mouse_listener)
+  if (!controller->have_mouse_event_listener && !controller->have_mouse_listener)
     return FALSE;
   else if (spi_dec_poll_mouse_moved (controller))
     return TRUE;
@@ -850,10 +847,10 @@ spi_controller_register_device_listener (SpiDEController      *controller,
       break;
   case SPI_DEVICE_TYPE_MOUSE:
       controller->mouse_listeners = g_list_prepend (controller->mouse_listeners, listener);
-      if (!have_mouse_listener)
+      if (!controller->have_mouse_listener)
         {
-          have_mouse_listener = TRUE;
-          if (!have_mouse_event_listener) {
+          controller->have_mouse_listener = TRUE;
+          if (!controller->have_mouse_event_listener) {
             guint id;
             id = g_timeout_add (100, spi_dec_poll_mouse_idle, controller);
             g_source_set_name_by_id (id, "[at-spi2-core] spi_dec_poll_mouse_idle");
@@ -1497,7 +1494,7 @@ spi_controller_deregister_device_listener (SpiDEController            *controlle
   spi_re_entrant_list_foreach (&controller->mouse_listeners,
 			       remove_listener_cb, &ctx);
   if (!controller->mouse_listeners)
-    have_mouse_listener = FALSE;
+    controller->have_mouse_listener = FALSE;
 }
 
 static void
@@ -2050,10 +2047,10 @@ spi_registry_dec_new (DBusConnection *bus)
 void
 spi_device_event_controller_start_poll_mouse (SpiDEController *dec)
 {
-  if (!have_mouse_event_listener)
+  if (!dec->have_mouse_event_listener)
     {
-      have_mouse_event_listener = TRUE;
-      if (!have_mouse_listener) {
+      dec->have_mouse_event_listener = TRUE;
+      if (!dec->have_mouse_listener) {
         guint id;
         id = g_timeout_add (100, spi_dec_poll_mouse_idle, dec);
         g_source_set_name_by_id (id, "[at-spi2-core] spi_dec_poll_mouse_idle");
@@ -2064,5 +2061,5 @@ spi_device_event_controller_start_poll_mouse (SpiDEController *dec)
 void
 spi_device_event_controller_stop_poll_mouse (SpiDEController *dec)
 {
-  have_mouse_event_listener = FALSE;
+  dec->have_mouse_event_listener = FALSE;
 }
