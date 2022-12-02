@@ -75,7 +75,6 @@ typedef struct {
     gint y;
 } SpiPoint;
 
-static unsigned int mouse_mask_state = 0;
 static unsigned int key_modifier_mask =
   SPI_KEYMASK_MOD1 | SPI_KEYMASK_MOD2 | SPI_KEYMASK_MOD3 | SPI_KEYMASK_MOD4 |
   SPI_KEYMASK_MOD5 | SPI_KEYMASK_SHIFT | SPI_KEYMASK_SHIFTLOCK |
@@ -384,10 +383,10 @@ spi_dec_poll_mouse_moved (gpointer data)
   mask_return = spi_dec_plat_mouse_check (controller, &x, &y, &moved);
 
   if ((mask_return & key_modifier_mask) !=
-      (mouse_mask_state & key_modifier_mask)) 
+      (controller->mouse_mask_state & key_modifier_mask))
     {
-      spi_dec_plat_emit_modifier_event (controller, mouse_mask_state, mask_return);
-      mouse_mask_state = mask_return;
+      spi_dec_plat_emit_modifier_event (controller, controller->mouse_mask_state, mask_return);
+      controller->mouse_mask_state = mask_return;
     }
 
   return moved;
@@ -1691,7 +1690,7 @@ static unsigned
 get_modifier_state (SpiDEController *controller)
 {
 	spi_dec_poll_mouse_moved (controller);
-	return mouse_mask_state;
+	return controller->mouse_mask_state;
 }
 
 gboolean
