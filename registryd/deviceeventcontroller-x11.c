@@ -677,6 +677,14 @@ global_filter_fn (XEvent *xevent, void *data)
   return;
 }
 
+static gboolean
+spi_clear_error_state (void)
+{
+	gboolean retval = spi_error_code != 0;
+	spi_error_code = 0;
+	return retval;
+}
+
 static int
 _spi_controller_device_error_handler (Display *display, XErrorEvent *error)
 {

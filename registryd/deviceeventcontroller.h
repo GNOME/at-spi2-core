@@ -44,14 +44,17 @@ G_BEGIN_DECLS
 #define SPI_DEVICE_EVENT_CONTROLLER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDEControllerClass))
 
 struct _SpiDEController {
-	GObject parent;
-	DBusConnection *bus;
-	SpiRegistry    *registry;
-	GList          *key_listeners;
-	GList          *mouse_listeners;
-	GList          *keygrabs_list;
-	GQueue *message_queue;
-	guint message_queue_idle;
+  GObject parent;
+  DBusConnection *bus;
+  GList *key_listeners;
+  GList *mouse_listeners;
+  GList *keygrabs_list;
+  GQueue *message_queue;
+  guint message_queue_idle;
+
+  guint mouse_mask_state;
+  gboolean have_mouse_listener;
+  gboolean have_mouse_event_listener;
 };
 
 typedef enum {
@@ -138,17 +141,13 @@ typedef struct {
 } SpiDEControllerClass;
 
 GType            spi_device_event_controller_get_type (void);
-SpiDEController *spi_device_event_controller_new      (SpiRegistry    *registry,
-                                                       DBusConnection *bus);
 
-gboolean spi_clear_error_state (void);
-
-void spi_device_event_controller_start_poll_mouse (SpiRegistry *registry);
-void spi_device_event_controller_stop_poll_mouse (void);
+void spi_device_event_controller_start_poll_mouse (SpiDEController *dec);
+void spi_device_event_controller_stop_poll_mouse (SpiDEController *dec);
 
 void spi_remove_device_listeners (SpiDEController *controller, const char *bus_name);
 
-SpiDEController *spi_registry_dec_new (SpiRegistry *reg, DBusConnection *bus);
+SpiDEController *spi_registry_dec_new (DBusConnection *bus);
 
 gboolean
 spi_controller_notify_mouselisteners (SpiDEController                 *controller,
