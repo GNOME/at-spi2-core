@@ -2062,7 +2062,7 @@ spi_device_event_controller_start_poll_mouse (SpiDEController *dec)
 }
 
 void
-spi_device_event_controller_stop_poll_mouse (void)
+spi_device_event_controller_stop_poll_mouse (SpiDEController *dec)
 {
   have_mouse_event_listener = FALSE;
 }

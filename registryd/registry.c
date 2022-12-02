@@ -299,7 +299,7 @@ remove_events (SpiRegistry *registry, const char *bus_name, const char *event)
     }
 
   if (!mouse_found)
-    spi_device_event_controller_stop_poll_mouse ();
+    spi_device_event_controller_stop_poll_mouse (registry->dec);
 
   g_strfreev (remove_data);
 
