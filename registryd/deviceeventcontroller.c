@@ -1346,9 +1346,7 @@ spi_device_event_controller_object_finalize (GObject *object)
  *     method implementation
  */
 static DBusMessage *
-impl_register_keystroke_listener (DBusConnection *bus,
-				  DBusMessage *message,
-				  void *user_data)
+impl_register_keystroke_listener (DBusMessage *message, void *user_data)
 {
   SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
   DEControllerKeyListener *dec_listener;
@@ -1410,9 +1408,7 @@ impl_register_keystroke_listener (DBusConnection *bus,
  *     method implementation
  */
 static DBusMessage *
-impl_register_device_event_listener (DBusConnection *bus,
-				  DBusMessage *message,
-				  void *user_data)
+impl_register_device_event_listener (DBusMessage *message, void *user_data)
 {
   SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
   DEControllerListener *dec_listener;
@@ -1555,9 +1551,7 @@ spi_remove_device_listeners (SpiDEController *controller, const char *bus_name)
  *     method implementation
  */
 static DBusMessage *
-impl_deregister_keystroke_listener (DBusConnection *bus,
-				  DBusMessage *message,
-				  void *user_data)
+impl_deregister_keystroke_listener (DBusMessage *message, void *user_data)
 {
   SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
   DEControllerKeyListener *key_listener;
@@ -1613,9 +1607,7 @@ impl_deregister_keystroke_listener (DBusConnection *bus,
  *     method implementation
  */
 static DBusMessage *
-impl_deregister_device_event_listener (DBusConnection *bus,
-				  DBusMessage *message,
-				  void *user_data)
+impl_deregister_device_event_listener (DBusMessage *message, void *user_data)
 {
   SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
   DEControllerListener *listener;
@@ -1635,9 +1627,7 @@ impl_deregister_device_event_listener (DBusConnection *bus,
 }
 
 static DBusMessage *
-impl_get_keystroke_listeners (DBusConnection *bus,
-				  DBusMessage *message,
-				  void *user_data)
+impl_get_keystroke_listeners (DBusMessage *message, void *user_data)
 {
   SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
   DBusMessageIter iter, iter_array;
@@ -1659,9 +1649,7 @@ impl_get_keystroke_listeners (DBusConnection *bus,
 }
 
 static DBusMessage *
-impl_get_device_event_listeners (DBusConnection *bus,
-				  DBusMessage *message,
-				  void *user_data)
+impl_get_device_event_listeners (DBusMessage *message, void *user_data)
 {
   SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
   DBusMessageIter iter, iter_array;
@@ -1728,7 +1716,7 @@ spi_dec_synth_keysym (SpiDEController *controller, long keysym)
  *     method implementation
  */
 static DBusMessage *
-impl_generate_keyboard_event (DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_generate_keyboard_event (DBusMessage *message, void *user_data)
 {
   SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
   dbus_int32_t keycode;
@@ -1791,7 +1779,7 @@ impl_generate_keyboard_event (DBusConnection *bus, DBusMessage *message, void *u
 
 /* Accessibility::DEController::GenerateMouseEvent */
 static DBusMessage *
-impl_generate_mouse_event (DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_generate_mouse_event (DBusMessage *message, void *user_data)
 {
   SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER (user_data);
   dbus_int32_t       x;
@@ -1815,7 +1803,7 @@ impl_generate_mouse_event (DBusConnection *bus, DBusMessage *message, void *user
 
 /* Accessibility::DEController::NotifyListenersSync */
 static DBusMessage *
-impl_notify_listeners_sync (DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_notify_listeners_sync (DBusMessage *message, void *user_data)
 {
   SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
   Accessibility_DeviceEvent event;
@@ -1843,7 +1831,7 @@ impl_notify_listeners_sync (DBusConnection *bus, DBusMessage *message, void *use
 }
 
 static DBusMessage *
-impl_notify_listeners_async (DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_notify_listeners_async (DBusMessage *message, void *user_data)
 {
   SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
   Accessibility_DeviceEvent event;
@@ -1903,8 +1891,7 @@ static const char *introspection_footer =
 "</node>";
 
 static DBusMessage *
-impl_Introspect (DBusConnection * bus,
-                 DBusMessage * message, void *user_data)
+impl_Introspect (DBusMessage * message, void *user_data)
 {
   GString *output;
   gchar *final;
@@ -1943,25 +1930,25 @@ handle_dec_method_from_idle (DBusConnection *bus, DBusMessage *message, void *us
     {
       result = DBUS_HANDLER_RESULT_HANDLED;
       if      (!strcmp (member, "RegisterKeystrokeListener"))
-          reply = impl_register_keystroke_listener (bus, message, user_data);
+          reply = impl_register_keystroke_listener (message, user_data);
       else if (!strcmp (member, "RegisterDeviceEventListener"))
-          reply = impl_register_device_event_listener (bus, message, user_data);
+          reply = impl_register_device_event_listener (message, user_data);
       else if (!strcmp (member, "DeregisterKeystrokeListener"))
-          reply = impl_deregister_keystroke_listener (bus, message, user_data);
+          reply = impl_deregister_keystroke_listener (message, user_data);
       else if (!strcmp (member, "DeregisterDeviceEventListener"))
-          reply = impl_deregister_device_event_listener (bus, message, user_data);
+          reply = impl_deregister_device_event_listener (message, user_data);
       else if (!strcmp (member, "GetKeystrokeListeners"))
-          reply = impl_get_keystroke_listeners (bus, message, user_data);
+          reply = impl_get_keystroke_listeners (message, user_data);
       else if (!strcmp (member, "GetDeviceEventListeners"))
-          reply = impl_get_device_event_listeners (bus, message, user_data);
+          reply = impl_get_device_event_listeners (message, user_data);
       else if (!strcmp (member, "GenerateKeyboardEvent"))
-          reply = impl_generate_keyboard_event (bus, message, user_data);
+          reply = impl_generate_keyboard_event (message, user_data);
       else if (!strcmp (member, "GenerateMouseEvent"))
-          reply = impl_generate_mouse_event (bus, message, user_data);
+          reply = impl_generate_mouse_event (message, user_data);
       else if (!strcmp (member, "NotifyListenersSync"))
-          reply = impl_notify_listeners_sync (bus, message, user_data);
+          reply = impl_notify_listeners_sync (message, user_data);
       else if (!strcmp (member, "NotifyListenersAsync"))
-          reply = impl_notify_listeners_async (bus, message, user_data);
+          reply = impl_notify_listeners_async (message, user_data);
       else
           result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     }
@@ -1970,7 +1957,7 @@ handle_dec_method_from_idle (DBusConnection *bus, DBusMessage *message, void *us
     {
       result = DBUS_HANDLER_RESULT_HANDLED;
       if      (!strcmp (member, "Introspect"))
-          reply = impl_Introspect (bus, message, user_data);
+          reply = impl_Introspect (message, user_data);
       else
           result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     }
