@@ -55,7 +55,6 @@
 
 #define CHECK_RELEASE_DELAY 20
 #define BIT(c, x)       (c[x/8]&(1<<(x%8)))
-static SpiDEController *saved_controller;
 
 /* Our parent Gtk object type */
 #define PARENT_TYPE G_TYPE_OBJECT
@@ -1794,6 +1793,7 @@ impl_generate_keyboard_event (DBusConnection *bus, DBusMessage *message, void *u
 static DBusMessage *
 impl_generate_mouse_event (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
+  SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER (user_data);
   dbus_int32_t       x;
   dbus_int32_t       y;
   char *eventName;
@@ -1808,7 +1808,7 @@ impl_generate_mouse_event (DBusConnection *bus, DBusMessage *message, void *user
   fprintf (stderr, "generating mouse %s event at %ld, %ld\n",
 	   eventName, (long int) x, (long int) y);
 #endif
-  spi_dec_plat_generate_mouse_event (saved_controller, x, y, eventName);
+  spi_dec_plat_generate_mouse_event (controller, x, y, eventName);
   reply = dbus_message_new_method_return (message);
   return reply;
 }
@@ -1885,7 +1885,6 @@ spi_device_event_controller_init (SpiDEController *device_event_controller)
   klass = SPI_DEVICE_EVENT_CONTROLLER_GET_CLASS (device_event_controller);
 
   device_event_controller->message_queue = g_queue_new ();
-  saved_controller = device_event_controller;
 
   if (klass->plat.init)
     klass->plat.init (device_event_controller);
@@ -1991,12 +1990,14 @@ handle_dec_method_from_idle (DBusConnection *bus, DBusMessage *message, void *us
 static gboolean
 message_queue_dispatch (gpointer data)
 {
-  saved_controller->message_queue_idle = 0;
-  while (!g_queue_is_empty (saved_controller->message_queue))
+  SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER (data);
+
+  controller->message_queue_idle = 0;
+  while (!g_queue_is_empty (controller->message_queue))
     {
-      DBusMessage *message = g_queue_pop_head (saved_controller->message_queue);
-      data = g_queue_pop_head (saved_controller->message_queue);
-      handle_dec_method_from_idle (saved_controller->bus, message, data);
+      DBusMessage *message = g_queue_pop_head (controller->message_queue);
+      data = g_queue_pop_head (controller->message_queue);
+      handle_dec_method_from_idle (controller->bus, message, controller);
       dbus_message_unref (message);
     }
   return FALSE;
@@ -2005,6 +2006,7 @@ message_queue_dispatch (gpointer data)
 static DBusHandlerResult
 handle_dec_method (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
+  SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER (user_data);
   const gchar *iface   = dbus_message_get_interface (message);
   const gchar *member  = dbus_message_get_member (message);
   const gint   type    = dbus_message_get_type (message);
@@ -2016,11 +2018,11 @@ handle_dec_method (DBusConnection *bus, DBusMessage *message, void *user_data)
       return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 
   dbus_message_ref (message);
-  g_queue_push_tail (saved_controller->message_queue, message);
-  g_queue_push_tail (saved_controller->message_queue, user_data);
-  if (!saved_controller->message_queue_idle) {
-    saved_controller->message_queue_idle = g_idle_add (message_queue_dispatch, NULL);
-    g_source_set_name_by_id (saved_controller->message_queue_idle, "[at-spi2-core] message_queue_dispatch");
+  g_queue_push_tail (controller->message_queue, message);
+  g_queue_push_tail (controller->message_queue, user_data);
+  if (!controller->message_queue_idle) {
+    controller->message_queue_idle = g_idle_add (message_queue_dispatch, controller);
+    g_source_set_name_by_id (controller->message_queue_idle, "[at-spi2-core] message_queue_dispatch");
   }
   return DBUS_HANDLER_RESULT_HANDLED;
 }
