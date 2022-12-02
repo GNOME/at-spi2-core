@@ -396,14 +396,16 @@ spi_dec_poll_mouse_moved (gpointer data)
 static gboolean
 spi_dec_poll_mouse_idle (gpointer data)
 {
+  SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(data);
+
   if (!have_mouse_event_listener && !have_mouse_listener)
     return FALSE;
-  else if (!spi_dec_poll_mouse_moved (data))
+  else if (!spi_dec_poll_mouse_moved (controller))
     return TRUE;
   else
     {
       guint id;
-      id = g_timeout_add (20, spi_dec_poll_mouse_moving, data);
+      id = g_timeout_add (20, spi_dec_poll_mouse_moving, controller);
       g_source_set_name_by_id (id, "[at-spi2-core] spi_dec_poll_mouse_moving");
       return FALSE;	    
     }
@@ -412,14 +414,16 @@ spi_dec_poll_mouse_idle (gpointer data)
 static gboolean
 spi_dec_poll_mouse_moving (gpointer data)
 {
+  SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(data);
+
   if (!have_mouse_event_listener && !have_mouse_listener)
     return FALSE;
-  else if (spi_dec_poll_mouse_moved (data))
+  else if (spi_dec_poll_mouse_moved (controller))
     return TRUE;
   else
     {
       guint id;
-      id = g_timeout_add (100, spi_dec_poll_mouse_idle, data);
+      id = g_timeout_add (100, spi_dec_poll_mouse_idle, controller);
       g_source_set_name_by_id (id, "[at-spi2-core] check_release");
       return FALSE;
     }
