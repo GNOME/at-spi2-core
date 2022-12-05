@@ -483,19 +483,6 @@ spi_dec_key_listener_new (const char *bus_name,
 }
 
 static DEControllerListener *
-spi_dec_listener_new (const char *bus_name,
-		      const char *path,
-		      dbus_uint32_t types)
-{
-  DEControllerListener *listener = g_new0 (DEControllerListener, 1);
-  listener->bus_name = g_strdup(bus_name);
-  listener->path = g_strdup(path);
-  listener->type = SPI_DEVICE_TYPE_MOUSE;
-  listener->types = types;
-  return listener;	
-}
-
-static DEControllerListener *
 spi_listener_clone (DEControllerListener *listener)
 {
   DEControllerListener *clone = g_new0 (DEControllerListener, 1);
@@ -1571,29 +1558,6 @@ impl_deregister_keystroke_listener (DBusMessage *message, SpiDEController *contr
   return reply;
 }
 
-/*
- * DBus Accessibility::DEController::DeregisterDeviceEventListener
- *     method implementation
- */
-static DBusMessage *
-impl_deregister_device_event_listener (DBusMessage *message, SpiDEController *controller)
-{
-  DEControllerListener *listener;
-  const char *path;
-  dbus_int32_t event_types;
-  DBusMessage *reply = NULL;
-
-  if (!dbus_message_get_args(message, NULL, DBUS_TYPE_OBJECT_PATH, &path, DBUS_TYPE_UINT32, &event_types, DBUS_TYPE_INVALID))
-  {
-    return invalid_arguments_error (message);
-  }
-  listener = spi_dec_listener_new (dbus_message_get_sender(message), path, event_types);
-  spi_controller_deregister_device_listener (
-	  controller, listener);
-  reply = dbus_message_new_method_return (message);
-  return reply;
-}
-
 static DBusMessage *
 impl_get_keystroke_listeners (DBusMessage *message, SpiDEController *controller)
 {
@@ -1874,8 +1838,6 @@ handle_message (DBusMessage *message, SpiDEController *controller)
           reply = impl_register_keystroke_listener (message, controller);
       else if (!strcmp (member, "DeregisterKeystrokeListener"))
           reply = impl_deregister_keystroke_listener (message, controller);
-      else if (!strcmp (member, "DeregisterDeviceEventListener"))
-          reply = impl_deregister_device_event_listener (message, controller);
       else if (!strcmp (member, "GetKeystrokeListeners"))
           reply = impl_get_keystroke_listeners (message, controller);
       else if (!strcmp (member, "GenerateKeyboardEvent"))
