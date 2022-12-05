@@ -827,21 +827,8 @@ spi_controller_register_device_listener (SpiDEController      *controller,
       if (retval)
 	notify_keystroke_listener (controller, key_listener, TRUE);
       break;
-  case SPI_DEVICE_TYPE_MOUSE:
-      controller->mouse_listeners = g_list_prepend (controller->mouse_listeners, listener);
-      if (!controller->have_mouse_listener)
-        {
-          controller->have_mouse_listener = TRUE;
-          if (!controller->have_mouse_event_listener) {
-            guint id;
-            id = g_timeout_add (100, spi_dec_poll_mouse_idle, controller);
-            g_source_set_name_by_id (id, "[at-spi2-core] spi_dec_poll_mouse_idle");
-          }
-        }
-      spi_dbus_add_disconnect_match (controller->bus, listener->bus_name);
-      notify_mouse_listener (controller, listener, TRUE);
-      break;
   default:
+      g_assert_not_reached ();
       break;
   }
   return FALSE;

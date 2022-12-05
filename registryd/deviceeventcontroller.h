@@ -59,7 +59,6 @@ struct _SpiDEController {
 
 typedef enum {
   SPI_DEVICE_TYPE_KBD,
-  SPI_DEVICE_TYPE_MOUSE,
   SPI_DEVICE_TYPE_LAST_DEFINED
 } SpiDeviceTypeCategory;
 
