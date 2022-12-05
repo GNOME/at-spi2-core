@@ -335,22 +335,6 @@ get_registered_event_listeners (SpiBridge *app)
       return;
     }
   dbus_pending_call_set_notify (pending, get_device_events_reply, NULL, NULL);
-
-  message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
-                                         ATSPI_DBUS_PATH_DEC,
-                                         ATSPI_DBUS_INTERFACE_DEC,
-                                         "GetDeviceEventListeners");
-  if (!message)
-    return;
-  pending = NULL;
-  dbus_connection_send_with_reply (app->bus, message, &pending, -1);
-  dbus_message_unref (message);
-  if (!pending)
-    {
-      spi_global_app_data->events_initialized = TRUE;
-      return;
-    }
-  dbus_pending_call_set_notify (pending, get_device_events_reply, NULL, NULL);
 }
 
 static void
