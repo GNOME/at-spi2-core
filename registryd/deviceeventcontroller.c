@@ -1335,7 +1335,7 @@ impl_register_keystroke_listener (DBusMessage *message, SpiDEController *control
   DBusMessageIter iter, iter_array;
   const char *path;
   GSList *keys = NULL;
-  dbus_int32_t mask, type;
+  dbus_int32_t mask, types;
   Accessibility_EventListenerMode *mode;
  dbus_bool_t ret;
   DBusMessage *reply = NULL;
@@ -1362,7 +1362,7 @@ impl_register_keystroke_listener (DBusMessage *message, SpiDEController *control
   dbus_message_iter_next(&iter);
   dbus_message_iter_get_basic(&iter, &mask);
   dbus_message_iter_next(&iter);
-  dbus_message_iter_get_basic(&iter, &type);
+  dbus_message_iter_get_basic(&iter, &types);
   dbus_message_iter_next(&iter);
   mode = (Accessibility_EventListenerMode *)g_malloc(sizeof(Accessibility_EventListenerMode));
   if (mode)
@@ -1373,7 +1373,7 @@ impl_register_keystroke_listener (DBusMessage *message, SpiDEController *control
   fprintf (stderr, "registering keystroke listener %s:%s with maskVal %lu\n",
 	   dbus_message_get_sender(message), path, (unsigned long) mask);
 #endif
-  dec_listener = spi_dec_key_listener_new (dbus_message_get_sender(message), path, keys, mask, type, mode);
+  dec_listener = spi_dec_key_listener_new (dbus_message_get_sender(message), path, keys, mask, types, mode);
   g_free (mode);
   ret = spi_controller_register_device_listener (
 	  controller, (DEControllerListener *) dec_listener);
