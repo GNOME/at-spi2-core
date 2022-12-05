@@ -450,7 +450,6 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
 						 XEvent *xevent)
 {
   gchar event_detail[3];
-  gboolean xkb_mod_unlatch_occurred;
   XButtonEvent *xbutton_event = (XButtonEvent *) xevent;
   dbus_uint32_t ix, iy;
 
@@ -502,9 +501,6 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
       spi_dec_dbus_emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "Button", event_detail, ix, iy);
     }
 
-  xkb_mod_unlatch_occurred = (xevent->type == ButtonPress ||
-			      xevent->type == ButtonRelease);
-  
   XAllowEvents (spi_get_display (),
 		ReplayPointer,
 		CurrentTime);
