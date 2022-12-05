@@ -263,23 +263,19 @@ static dbus_bool_t
 spi_dbus_add_disconnect_match (DBusConnection *bus, const char *name)
 {
   char *match = g_strdup_printf ("interface=%s,member=NameOwnerChanged,arg0=%s", DBUS_INTERFACE_DBUS, name);
-  if (match)
-  {
-    DBusError error;
-    dbus_error_init (&error);
-    dbus_bus_add_match (bus, match, &error);
-    g_free (match);
-    if (dbus_error_is_set (&error))
-      {
-        dbus_error_free (&error);
-        return FALSE;
-      }
-    else
-      {
-        return TRUE;
-      }
-  }
-  else return FALSE;
+  DBusError error;
+  dbus_error_init (&error);
+  dbus_bus_add_match (bus, match, &error);
+  g_free (match);
+  if (dbus_error_is_set (&error))
+    {
+      dbus_error_free (&error);
+      return FALSE;
+    }
+  else
+    {
+      return TRUE;
+    }
 }
 
 static dbus_bool_t
