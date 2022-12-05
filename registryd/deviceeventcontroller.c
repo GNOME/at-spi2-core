@@ -1381,16 +1381,6 @@ spi_remove_device_listeners (SpiDEController *controller, const char *bus_name)
 {
   GList *l, *tmp;
 
-  for (l = controller->mouse_listeners; l; l = tmp)
-  {
-    DEControllerListener *listener = l->data;
-    tmp = l->next;
-    if (!strcmp (listener->bus_name, bus_name))
-    {
-      spi_controller_deregister_device_listener (controller, listener);
-      tmp = controller->mouse_listeners;
-    }
-  }
   for (l = controller->key_listeners; l; l = tmp)
   {
     DEControllerKeyListener *key_listener = l->data;
