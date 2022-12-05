@@ -1334,23 +1334,6 @@ copy_key_listener_cb (GList * const *list,
 }
 
 static void
-spi_controller_deregister_device_listener (SpiDEController            *controller,
-					   DEControllerListener *listener)
-{
-  RemoveListenerClosure  ctx;
-
-  ctx.bus = controller->bus;
-  ctx.listener = listener;
-
-  notify_mouse_listener (controller, listener, FALSE);
-
-  spi_re_entrant_list_foreach (&controller->mouse_listeners,
-			       remove_listener_cb, &ctx);
-  if (!controller->mouse_listeners)
-    controller->have_mouse_listener = FALSE;
-}
-
-static void
 spi_deregister_controller_key_listener (SpiDEController            *controller,
 					DEControllerKeyListener    *key_listener)
 {
