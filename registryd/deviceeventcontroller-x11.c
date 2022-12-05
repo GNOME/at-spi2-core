@@ -258,7 +258,6 @@ static gboolean
 spi_dec_button_update_and_emit (SpiDEController *controller,
 				guint mask_return)
 {
-  Accessibility_DeviceEvent mouse_e;
   gchar event_detail[3];
   gboolean is_consumed = FALSE;
 
@@ -340,18 +339,6 @@ spi_dec_button_update_and_emit (SpiDEController *controller,
 #endif
 	snprintf (event_detail, 3, "%d%c", button_number,
 		  (is_down) ? 'p' : 'r');
-	/* TODO: FIXME distinguish between physical and 
-	 * logical buttons 
-	 */
-	mouse_e.type      = (is_down) ? 
-	  Accessibility_BUTTON_PRESSED_EVENT :
-	  Accessibility_BUTTON_RELEASED_EVENT;
-	mouse_e.id        = button_number;
-	mouse_e.hw_code   = button_number;
-	mouse_e.modifiers = (dbus_uint16_t) mouse_mask_state; 
-	mouse_e.timestamp = 0;
-	mouse_e.event_string = "";
-	mouse_e.is_text   = FALSE;
 	is_consumed = FALSE;
 	if (!is_consumed)
 	  {
