@@ -259,7 +259,6 @@ spi_dec_button_update_and_emit (SpiDEController *controller,
 				guint mask_return)
 {
   gchar event_detail[3];
-  gboolean is_consumed = FALSE;
 
   if ((mask_return & mouse_button_mask) !=
       (mouse_mask_state & mouse_button_mask)) 
@@ -339,14 +338,8 @@ spi_dec_button_update_and_emit (SpiDEController *controller,
 #endif
 	snprintf (event_detail, 3, "%d%c", button_number,
 		  (is_down) ? 'p' : 'r');
-	is_consumed = FALSE;
-	if (!is_consumed)
-	  {
-	    dbus_uint32_t x = last_mouse_pos->x, y = last_mouse_pos->y;
-	    spi_dec_dbus_emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "Button", event_detail, x, y);
-	  }
-	else
-	  spi_dec_set_unlatch_pending (controller, mask_return);
+        dbus_uint32_t x = last_mouse_pos->x, y = last_mouse_pos->y;
+        spi_dec_dbus_emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "Button", event_detail, x, y);
       }
       return TRUE;
     }
