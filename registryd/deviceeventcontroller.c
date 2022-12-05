@@ -1643,27 +1643,6 @@ impl_get_keystroke_listeners (DBusMessage *message, SpiDEController *controller)
   return reply;
 }
 
-static DBusMessage *
-impl_get_device_event_listeners (DBusMessage *message, SpiDEController *controller)
-{
-  DBusMessageIter iter, iter_array;
-  GList *l;
-  DBusMessage *reply = dbus_message_new_method_return (message);
-
-  if (!reply)
-    return NULL;
-
-  dbus_message_iter_init_append (reply, &iter);
-  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY,
-                                    "(sou)", &iter_array);
-  for (l = controller->key_listeners; l; l = l->next)
-  {
-    append_mouse_listener (&iter_array, l->data);
-  }
-  dbus_message_iter_close_container (&iter, &iter_array);
-  return reply;
-}
-
 static unsigned
 get_modifier_state (SpiDEController *controller)
 {
@@ -1929,8 +1908,6 @@ handle_message (DBusMessage *message, SpiDEController *controller)
           reply = impl_deregister_device_event_listener (message, controller);
       else if (!strcmp (member, "GetKeystrokeListeners"))
           reply = impl_get_keystroke_listeners (message, controller);
-      else if (!strcmp (member, "GetDeviceEventListeners"))
-          reply = impl_get_device_event_listeners (message, controller);
       else if (!strcmp (member, "GenerateKeyboardEvent"))
           reply = impl_generate_keyboard_event (message, controller);
       else if (!strcmp (member, "GenerateMouseEvent"))
