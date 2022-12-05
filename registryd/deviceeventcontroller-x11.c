@@ -450,7 +450,6 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
 						 XEvent *xevent)
 {
   gchar event_detail[3];
-  gboolean is_consumed = FALSE;
   gboolean xkb_mod_unlatch_occurred;
   XButtonEvent *xbutton_event = (XButtonEvent *) xevent;
   dbus_uint32_t ix, iy;
@@ -506,14 +505,8 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
   xkb_mod_unlatch_occurred = (xevent->type == ButtonPress ||
 			      xevent->type == ButtonRelease);
   
-  /* if client wants to consume this event, and XKB latch state was
-   *   unset by this button event, we reset it
-   */
-  if (is_consumed && xkb_mod_unlatch_occurred)
-    spi_dec_set_unlatch_pending (controller, mouse_mask_state);
-  
   XAllowEvents (spi_get_display (),
-		(is_consumed) ? SyncPointer : ReplayPointer,
+		ReplayPointer,
 		CurrentTime);
 }
 
