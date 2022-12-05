@@ -22,12 +22,6 @@
       <arg direction="in" name="type" type="u"/>
     </method>
 
-    <method name="RegisterDeviceEventListener">
-      <arg direction="in" name="listener" type="o"/>
-      <arg direction="in" name="types" type="u"/>
-      <arg direction="out" type="b"/>
-    </method>
-
     <method name="DeregisterDeviceEventListener">
       <arg direction="in" name="listener" type="o"/>
       <arg direction="in" name="types" type="u"/>

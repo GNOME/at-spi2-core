@@ -1402,34 +1402,6 @@ impl_register_keystroke_listener (DBusMessage *message, SpiDEController *control
   return reply;
 }
 
-/*
- * DBus Accessibility::DEController::RegisterDeviceEventListener
- *     method implementation
- */
-static DBusMessage *
-impl_register_device_event_listener (DBusMessage *message, SpiDEController *controller)
-{
-  DEControllerListener *dec_listener;
-  const char *path;
-  dbus_int32_t event_types;
-  dbus_bool_t ret;
-  DBusMessage *reply = NULL;
-
-  if (!dbus_message_get_args(message, NULL, DBUS_TYPE_OBJECT_PATH, &path, DBUS_TYPE_UINT32, &event_types, DBUS_TYPE_INVALID))
-  {
-    return invalid_arguments_error (message);
-  }
-  dec_listener = spi_dec_listener_new (dbus_message_get_sender(message), path, event_types);
-  ret =  spi_controller_register_device_listener (
-	  controller, (DEControllerListener *) dec_listener);
-  reply = dbus_message_new_method_return (message);
-  if (reply)
-  {
-    dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &ret, DBUS_TYPE_INVALID);
-  }
-  return reply;
-}
-
 typedef struct {
 	DBusConnection *bus;
 	DEControllerListener    *listener;
@@ -1900,8 +1872,6 @@ handle_message (DBusMessage *message, SpiDEController *controller)
       result = DBUS_HANDLER_RESULT_HANDLED;
       if      (!strcmp (member, "RegisterKeystrokeListener"))
           reply = impl_register_keystroke_listener (message, controller);
-      else if (!strcmp (member, "RegisterDeviceEventListener"))
-          reply = impl_register_device_event_listener (message, controller);
       else if (!strcmp (member, "DeregisterKeystrokeListener"))
           reply = impl_deregister_keystroke_listener (message, controller);
       else if (!strcmp (member, "DeregisterDeviceEventListener"))
