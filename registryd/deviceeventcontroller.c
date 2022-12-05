@@ -745,24 +745,6 @@ notify_keystroke_listener (SpiDEController *controller,
   dbus_message_unref (signal);
 }
 
-static void
-append_mouse_listener (DBusMessageIter *iter, DEControllerListener *listener)
-{
-  DBusMessageIter iter_struct;
-  dbus_uint32_t d_uint;
-
-  if (!dbus_message_iter_open_container (iter, DBUS_TYPE_STRUCT, NULL,
-                                         &iter_struct))
-    return;
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING,
-                                  &listener->bus_name);
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH,
-                                  &listener->path);
-  d_uint = listener->types;
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT32, &d_uint);
-  dbus_message_iter_close_container (iter, &iter_struct);
-}
-
 static gboolean
 spi_controller_register_device_listener (SpiDEController      *controller,
 					 DEControllerListener *listener)
