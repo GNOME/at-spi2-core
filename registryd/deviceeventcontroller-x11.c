@@ -243,17 +243,6 @@ spi_dec_x11_get_keycode (SpiDEController *controller,
 	return keycode;
 }
 
-static void
-spi_dec_set_unlatch_pending (SpiDEController *controller, unsigned mask)
-{
-  SpiDEControllerPrivate *priv = spi_device_event_controller_get_instance_private (controller);
-#ifdef SPI_XKB_DEBUG
-  if (priv->xkb_latch_mask) fprintf (stderr, "unlatch pending! %x\n", 
-				     priv->xkb_latch_mask);
-#endif
-  priv->pending_xkb_mod_relatch_mask |= priv->xkb_latch_mask; 
-}
- 
 static gboolean
 spi_dec_button_update_and_emit (SpiDEController *controller,
 				guint mask_return)
