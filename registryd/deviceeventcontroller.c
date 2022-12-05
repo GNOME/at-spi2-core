@@ -240,7 +240,7 @@ spi_dec_plat_generate_mouse_event (SpiDEController *controller,
     klass->plat.generate_mouse_event (controller, x, y, eventName);
 }
 
-DBusMessage *
+static DBusMessage *
 invalid_arguments_error (DBusMessage *message)
 {
     DBusMessage *reply;
