@@ -389,7 +389,7 @@ spi_dec_poll_mouse_idle (gpointer data)
 {
   SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(data);
 
-  if (!controller->have_mouse_event_listener && !controller->have_mouse_listener)
+  if (!controller->have_mouse_event_listener)
     return FALSE;
   else if (!spi_dec_poll_mouse_moved (controller))
     return TRUE;
@@ -407,7 +407,7 @@ spi_dec_poll_mouse_moving (gpointer data)
 {
   SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(data);
 
-  if (!controller->have_mouse_event_listener && !controller->have_mouse_listener)
+  if (!controller->have_mouse_event_listener)
     return FALSE;
   else if (spi_dec_poll_mouse_moved (controller))
     return TRUE;
@@ -1770,11 +1770,9 @@ spi_device_event_controller_start_poll_mouse (SpiDEController *dec)
   if (!dec->have_mouse_event_listener)
     {
       dec->have_mouse_event_listener = TRUE;
-      if (!dec->have_mouse_listener) {
-        guint id;
-        id = g_timeout_add (100, spi_dec_poll_mouse_idle, dec);
-        g_source_set_name_by_id (id, "[at-spi2-core] spi_dec_poll_mouse_idle");
-      }
+      guint id;
+      id = g_timeout_add (100, spi_dec_poll_mouse_idle, dec);
+      g_source_set_name_by_id (id, "[at-spi2-core] spi_dec_poll_mouse_idle");
     }
 }
 

@@ -53,7 +53,6 @@ struct _SpiDEController {
   guint message_queue_idle;
 
   guint mouse_mask_state;
-  gboolean have_mouse_listener;
   gboolean have_mouse_event_listener;
 };
 
