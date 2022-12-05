@@ -352,9 +352,7 @@ spi_dec_button_update_and_emit (SpiDEController *controller,
 	mouse_e.timestamp = 0;
 	mouse_e.event_string = "";
 	mouse_e.is_text   = FALSE;
-	is_consumed = 
-	  spi_controller_notify_mouselisteners (controller, 
-						&mouse_e);
+	is_consumed = FALSE;
 	if (!is_consumed)
 	  {
 	    dbus_uint32_t x = last_mouse_pos->x, y = last_mouse_pos->y;
@@ -531,8 +529,6 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
 	spi_dec_x11_emit_modifier_event (controller, 
 				     mouse_mask_state, mouse_button_state);
       mouse_mask_state = mouse_button_state;
-      is_consumed = 
-	spi_controller_notify_mouselisteners (controller, &mouse_e);
       ix = last_mouse_pos->x;
       iy = last_mouse_pos->y;
       spi_dec_dbus_emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "Button", event_detail, ix, iy);

@@ -985,69 +985,6 @@ Accessibility_DeviceEventListener_NotifyEvent(SpiDEController *controller,
   return consumed;
 }
 
-gboolean
-spi_controller_notify_mouselisteners (SpiDEController                 *controller,
-				      const Accessibility_DeviceEvent *event)
-{
-  GList   *l;
-  GSList  *notify = NULL, *l2;
-  GList  **listeners = &controller->mouse_listeners;
-  gboolean is_consumed;
-#ifdef SPI_KEYEVENT_DEBUG
-  gboolean found = FALSE;
-#endif
-  if (!listeners)
-    {
-      return FALSE;
-    }
-
-  for (l = *listeners; l; l = l->next)
-    {
-       DEControllerListener *listener = l->data;
-
-       if (eventtype_seq_contains_event (listener->types, event))
-         {
-	   /* we clone (don't dup) the listener, to avoid refcount inc. */
-	   notify = g_slist_prepend (notify,
-				     spi_listener_clone (listener));
-#ifdef SPI_KEYEVENT_DEBUG
-           found = TRUE;
-#endif
-         }
-    }
-
-#ifdef SPI_KEYEVENT_DEBUG
-  if (!found)
-    {
-      g_print ("no match for event\n");
-    }
-#endif
-
-  is_consumed = FALSE;
-  for (l2 = notify; l2 && !is_consumed; l2 = l2->next)
-    {
-      DEControllerListener *listener = l2->data;
-
-      is_consumed = Accessibility_DeviceEventListener_NotifyEvent (controller, listener, event);
-
-      spi_listener_clone_free ((DEControllerListener *) l2->data);
-    }
-
-  for (; l2; l2 = l2->next)
-    {
-      DEControllerListener *listener = l2->data;
-      spi_listener_clone_free (listener);
-      /* clone doesn't have its own ref, so don't use spi_device_listener_free */
-    }
-
-  g_slist_free (notify);
-
-#ifdef SPI_DEBUG
-  if (is_consumed) g_message ("consumed\n");
-#endif
-  return is_consumed;
-}
-
 static gboolean
 key_set_contains_key (GSList                          *key_set,
 			  const Accessibility_DeviceEvent *key_event)

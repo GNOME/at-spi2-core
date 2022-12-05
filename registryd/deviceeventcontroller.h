@@ -149,10 +149,6 @@ void spi_remove_device_listeners (SpiDEController *controller, const char *bus_n
 SpiDEController *spi_registry_dec_new (DBusConnection *bus);
 
 gboolean
-spi_controller_notify_mouselisteners (SpiDEController                 *controller,
-				      const Accessibility_DeviceEvent *event);
-
-gboolean
 spi_controller_notify_keylisteners (SpiDEController                 *controller,
 				    Accessibility_DeviceEvent       *key_event,
 				    dbus_bool_t                    is_system_global);
