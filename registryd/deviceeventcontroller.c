@@ -478,17 +478,6 @@ spi_dec_key_listener_new (const char *bus_name,
   return key_listener;	
 }
 
-static DEControllerListener *
-spi_listener_clone (DEControllerListener *listener)
-{
-  DEControllerListener *clone = g_new0 (DEControllerListener, 1);
-  clone->bus_name = g_strdup (listener->bus_name);
-  clone->path = g_strdup (listener->path);
-  clone->type = listener->type;
-  clone->types = listener->types;
-  return clone;
-}
-
 static GSList *keylist_clone (GSList *s)
 {
   GSList *d = NULL;
