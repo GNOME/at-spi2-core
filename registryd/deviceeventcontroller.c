@@ -559,14 +559,6 @@ spi_key_listener_clone_free (DEControllerKeyListener *clone)
 }
 
 static void
-spi_listener_clone_free (DEControllerListener *clone)
-{
-  g_free (clone->path);
-  g_free (clone->bus_name);
-  g_free (clone);
-}
-
-static void
 spi_dec_listener_free (DEControllerListener    *listener)
 {
   if (listener->type == SPI_DEVICE_TYPE_KBD) 
