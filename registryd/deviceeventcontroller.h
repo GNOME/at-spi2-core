@@ -73,7 +73,7 @@ typedef struct {
 typedef struct {
   DEControllerListener listener;
 
- GSList *keys;
+  GSList *keys;
   Accessibility_ControllerEventMask mask;
   Accessibility_EventListenerMode  *mode;	
 } DEControllerKeyListener;
