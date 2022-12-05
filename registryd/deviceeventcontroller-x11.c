@@ -456,7 +456,6 @@ static void
 spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
 						 XEvent *xevent)
 {
-  Accessibility_DeviceEvent mouse_e;
   gchar event_detail[3];
   gboolean is_consumed = FALSE;
   gboolean xkb_mod_unlatch_occurred;
@@ -498,16 +497,6 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
   snprintf (event_detail, 3, "%d%c", button,
 	    (xevent->type == ButtonPress) ? 'p' : 'r');
 
-  /* TODO: FIXME distinguish between physical and logical buttons */
-  mouse_e.type      = (xevent->type == ButtonPress) ? 
-                      Accessibility_BUTTON_PRESSED_EVENT :
-                      Accessibility_BUTTON_RELEASED_EVENT;
-  mouse_e.id        = button;
-  mouse_e.hw_code   = button;
-  mouse_e.modifiers = (dbus_uint16_t) xbutton_event->state;
-  mouse_e.timestamp = (dbus_uint32_t) xbutton_event->time;
-  mouse_e.event_string = "";
-  mouse_e.is_text   = FALSE;
   if ((mouse_button_state & mouse_button_mask) != 
        (mouse_mask_state & mouse_button_mask))
     { 
