@@ -763,28 +763,6 @@ append_mouse_listener (DBusMessageIter *iter, DEControllerListener *listener)
   dbus_message_iter_close_container (iter, &iter_struct);
 }
 
-static void
-notify_mouse_listener (SpiDEController *controller,
-                       DEControllerListener *listener,
-                       gboolean enable)
-{
-  const char *path = SPI_DBUS_PATH_DEC;
-  const char *interface = SPI_DBUS_INTERFACE_DEVICE_EVENT_LISTENER;
-  const char *name = (enable
-                      ? "DeviceListenerRegistered"
-                      : "DeviceListenerDeregistered");
-  DBusMessage *signal;
-  DBusMessageIter iter;
-
-  signal = dbus_message_new_signal (path, interface, name);
-  if (!signal)
-    return;
-  dbus_message_iter_init_append (signal, &iter);
-  append_mouse_listener (&iter, listener);
-  dbus_connection_send (controller->bus, signal, NULL);
-  dbus_message_unref (signal);
-}
-
 static gboolean
 spi_controller_register_device_listener (SpiDEController      *controller,
 					 DEControllerListener *listener)
