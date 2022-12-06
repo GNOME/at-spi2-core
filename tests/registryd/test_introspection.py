@@ -4,8 +4,10 @@ import xml.etree.ElementTree as ElementTree
 
 INTROSPECTABLE_IFACE = 'org.freedesktop.DBus.Introspectable'
 
-def test_introspect(registry_root, session_manager):
-    xml_str = str(registry_root.Introspect(dbus_interface=INTROSPECTABLE_IFACE))
+# obj: a dbus proxy object to introspect
+# expected_ifaces: sequence of interface names as strings
+def check_object_supports_interfaces(obj, expected_ifaces):
+    xml_str = str(obj.Introspect(dbus_interface=INTROSPECTABLE_IFACE))
     root = ElementTree.fromstring(xml_str)
     assert root.tag == 'node'
 
@@ -14,7 +16,16 @@ def test_introspect(registry_root, session_manager):
     iface_names = list(iface_names)
     iface_names.sort()
 
-    assert iface_names == ['org.a11y.atspi.Accessible',
-                           'org.a11y.atspi.Component',
-                           'org.a11y.atspi.Socket',
-                           ]
+    expected_ifaces.sort()
+
+    assert iface_names == expected_ifaces
+
+# Test that the root object at /org/a11y/atspi/accessible/root advertises the correct interfaces
+def test_introspect_root(registry_root, session_manager):
+    check_object_supports_interfaces(
+        registry_root,
+        ['org.a11y.atspi.Accessible',
+         'org.a11y.atspi.Component',
+         'org.a11y.atspi.Socket',
+         ]
+    )
