@@ -53,13 +53,11 @@ struct _SpiDEController {
   guint message_queue_idle;
 
   guint mouse_mask_state;
-  gboolean have_mouse_listener;
   gboolean have_mouse_event_listener;
 };
 
 typedef enum {
   SPI_DEVICE_TYPE_KBD,
-  SPI_DEVICE_TYPE_MOUSE,
   SPI_DEVICE_TYPE_LAST_DEFINED
 } SpiDeviceTypeCategory;
 
@@ -73,7 +71,7 @@ typedef struct {
 typedef struct {
   DEControllerListener listener;
 
- GSList *keys;
+  GSList *keys;
   Accessibility_ControllerEventMask mask;
   Accessibility_EventListenerMode  *mode;	
 } DEControllerKeyListener;
@@ -148,10 +146,6 @@ void spi_device_event_controller_stop_poll_mouse (SpiDEController *dec);
 void spi_remove_device_listeners (SpiDEController *controller, const char *bus_name);
 
 SpiDEController *spi_registry_dec_new (DBusConnection *bus);
-
-gboolean
-spi_controller_notify_mouselisteners (SpiDEController                 *controller,
-				      const Accessibility_DeviceEvent *event);
 
 gboolean
 spi_controller_notify_keylisteners (SpiDEController                 *controller,

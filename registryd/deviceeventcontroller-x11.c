@@ -243,24 +243,11 @@ spi_dec_x11_get_keycode (SpiDEController *controller,
 	return keycode;
 }
 
-static void
-spi_dec_set_unlatch_pending (SpiDEController *controller, unsigned mask)
-{
-  SpiDEControllerPrivate *priv = spi_device_event_controller_get_instance_private (controller);
-#ifdef SPI_XKB_DEBUG
-  if (priv->xkb_latch_mask) fprintf (stderr, "unlatch pending! %x\n", 
-				     priv->xkb_latch_mask);
-#endif
-  priv->pending_xkb_mod_relatch_mask |= priv->xkb_latch_mask; 
-}
- 
 static gboolean
 spi_dec_button_update_and_emit (SpiDEController *controller,
 				guint mask_return)
 {
-  Accessibility_DeviceEvent mouse_e;
   gchar event_detail[3];
-  gboolean is_consumed = FALSE;
 
   if ((mask_return & mouse_button_mask) !=
       (mouse_mask_state & mouse_button_mask)) 
@@ -340,28 +327,8 @@ spi_dec_button_update_and_emit (SpiDEController *controller,
 #endif
 	snprintf (event_detail, 3, "%d%c", button_number,
 		  (is_down) ? 'p' : 'r');
-	/* TODO: FIXME distinguish between physical and 
-	 * logical buttons 
-	 */
-	mouse_e.type      = (is_down) ? 
-	  Accessibility_BUTTON_PRESSED_EVENT :
-	  Accessibility_BUTTON_RELEASED_EVENT;
-	mouse_e.id        = button_number;
-	mouse_e.hw_code   = button_number;
-	mouse_e.modifiers = (dbus_uint16_t) mouse_mask_state; 
-	mouse_e.timestamp = 0;
-	mouse_e.event_string = "";
-	mouse_e.is_text   = FALSE;
-	is_consumed = 
-	  spi_controller_notify_mouselisteners (controller, 
-						&mouse_e);
-	if (!is_consumed)
-	  {
-	    dbus_uint32_t x = last_mouse_pos->x, y = last_mouse_pos->y;
-	    spi_dec_dbus_emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "Button", event_detail, x, y);
-	  }
-	else
-	  spi_dec_set_unlatch_pending (controller, mask_return);
+        dbus_uint32_t x = last_mouse_pos->x, y = last_mouse_pos->y;
+        spi_dec_dbus_emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "Button", event_detail, x, y);
       }
       return TRUE;
     }
@@ -471,10 +438,7 @@ static void
 spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
 						 XEvent *xevent)
 {
-  Accessibility_DeviceEvent mouse_e;
   gchar event_detail[3];
-  gboolean is_consumed = FALSE;
-  gboolean xkb_mod_unlatch_occurred;
   XButtonEvent *xbutton_event = (XButtonEvent *) xevent;
   dbus_uint32_t ix, iy;
 
@@ -513,16 +477,6 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
   snprintf (event_detail, 3, "%d%c", button,
 	    (xevent->type == ButtonPress) ? 'p' : 'r');
 
-  /* TODO: FIXME distinguish between physical and logical buttons */
-  mouse_e.type      = (xevent->type == ButtonPress) ? 
-                      Accessibility_BUTTON_PRESSED_EVENT :
-                      Accessibility_BUTTON_RELEASED_EVENT;
-  mouse_e.id        = button;
-  mouse_e.hw_code   = button;
-  mouse_e.modifiers = (dbus_uint16_t) xbutton_event->state;
-  mouse_e.timestamp = (dbus_uint32_t) xbutton_event->time;
-  mouse_e.event_string = "";
-  mouse_e.is_text   = FALSE;
   if ((mouse_button_state & mouse_button_mask) != 
        (mouse_mask_state & mouse_button_mask))
     { 
@@ -531,24 +485,13 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
 	spi_dec_x11_emit_modifier_event (controller, 
 				     mouse_mask_state, mouse_button_state);
       mouse_mask_state = mouse_button_state;
-      is_consumed = 
-	spi_controller_notify_mouselisteners (controller, &mouse_e);
       ix = last_mouse_pos->x;
       iy = last_mouse_pos->y;
       spi_dec_dbus_emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "Button", event_detail, ix, iy);
     }
 
-  xkb_mod_unlatch_occurred = (xevent->type == ButtonPress ||
-			      xevent->type == ButtonRelease);
-  
-  /* if client wants to consume this event, and XKB latch state was
-   *   unset by this button event, we reset it
-   */
-  if (is_consumed && xkb_mod_unlatch_occurred)
-    spi_dec_set_unlatch_pending (controller, mouse_mask_state);
-  
   XAllowEvents (spi_get_display (),
-		(is_consumed) ? SyncPointer : ReplayPointer,
+		ReplayPointer,
 		CurrentTime);
 }
 

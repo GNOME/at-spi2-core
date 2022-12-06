@@ -360,45 +360,18 @@ atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
 
 /**
  * atspi_register_device_event_listener:
- * @listener:  a pointer to the #AtspiDeviceListener which requests
- *             the events.
- * @event_types: an #AtspiDeviceEventMask mask indicating which
- *             types of key events are requested (%ATSPI_KEY_PRESSED, etc.).
- * @filter: (allow-none): Unused parameter.
- * @error: (allow-none): a pointer to a %NULL #GError pointer, or %NULL
- *             
- * Registers a listener for device events, for instance button events.
  *
- * Returns: %TRUE if successful, otherwise %FALSE.
+ * This function does nothing and should not be called.
+ *
+ * Returns: Always returns %FALSE.
  **/
 gboolean
 atspi_register_device_event_listener (AtspiDeviceListener  *listener,
 				 AtspiDeviceEventMask  event_types,
 				 void                      *filter, GError **error)
 {
-  gboolean                          retval = FALSE;
-  dbus_uint32_t d_event_types = event_types;
-  gchar *path;
-  DBusError d_error;
-
-  if (!listener)
-    {
-      return retval;
-    }
-
-  dbus_error_init (&d_error);
-
-  path = _atspi_device_listener_get_path (listener);
-
-    dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry, atspi_path_dec, atspi_interface_dec, "RegisterDeviceEventListener", &d_error, "ou=>b", path, d_event_types, &retval);
-    if (dbus_error_is_set (&d_error))
-      {
-        g_warning ("RegisterDeviceEventListener failed: %s", d_error.message);
-        dbus_error_free (&d_error);
-      }
-
-  g_free (path);
-  return retval;
+  /* See https://gitlab.gnome.org/GNOME/at-spi2-core/-/issues/94 for why this code is removed */
+  return FALSE;
 }
 
 /**
@@ -415,33 +388,11 @@ atspi_register_device_event_listener (AtspiDeviceListener  *listener,
  **/
 gboolean
 atspi_deregister_device_event_listener (AtspiDeviceListener *listener,
-				   void                     *filter, GError **error)
+                                        void                *filter,
+                                        GError **error)
 {
-  dbus_uint32_t event_types = 0;
-  gchar *path;
-  DBusError d_error;
-
-  if (!listener)
-    {
-      return FALSE;
-    }
-
-  dbus_error_init (&d_error);
-
-  path = _atspi_device_listener_get_path (listener);
-
-  event_types |= (1 << ATSPI_BUTTON_PRESSED_EVENT);
-  event_types |= (1 << ATSPI_BUTTON_RELEASED_EVENT);
-
-  dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry, atspi_path_dec, atspi_interface_dec, "DeregisterDeviceEventListener", &d_error, "ou", path, event_types);
-  if (dbus_error_is_set (&d_error))
-    {
-      g_warning ("DeregisterDeviceEventListener failed: %s", d_error.message);
-      dbus_error_free (&d_error);
-    }
-
-  g_free (path);
-  return TRUE;
+  /* See https://gitlab.gnome.org/GNOME/at-spi2-core/-/issues/94 for why this code is removed */
+  return FALSE;
 }
 
 static gboolean
