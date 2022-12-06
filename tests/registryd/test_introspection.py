@@ -29,3 +29,10 @@ def test_introspect_root(registry_root, session_manager):
          'org.a11y.atspi.Socket',
          ]
     )
+
+# Test that the registry object at /org/a11y/atspi/registry advertises the correct interfaces
+def test_introspect_registry(registry_registry, session_manager):
+    check_object_supports_interfaces(
+        registry_registry,
+        ['org.a11y.atspi.Registry']
+    )
