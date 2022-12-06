@@ -156,13 +156,6 @@ gboolean spi_dec_synth_keysym (SpiDEController *controller, long keysym);
 
 void spi_dec_dbus_emit(SpiDEController *controller, const char *interface, const char *name, const char *minor, int a1, int a2);
 
-#ifdef HAVE_X11
-void spi_dec_setup_x11 (SpiDEControllerClass *klass);
-#endif
-
-long ucs2keysym (long ucs);
-long keysym2ucs(long keysym);
-
 G_END_DECLS
 
 #endif /* DEVICEEVENTCONTROLLER_H_ */

@@ -25,4 +25,11 @@ typedef struct {
   guint  reserved_reset_timeout;
 } SpiDEControllerPrivate;
 
+#ifdef HAVE_X11
+void spi_dec_setup_x11 (SpiDEControllerClass *klass);
+#endif
+
+long ucs2keysym (long ucs);
+long keysym2ucs(long keysym);
+
 #endif /* _DEVICEEVENTCONTROLLER_X11_H_ */
