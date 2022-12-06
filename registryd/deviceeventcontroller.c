@@ -49,8 +49,6 @@
 
 #ifdef HAVE_X11
 #include "deviceeventcontroller-x11.h"
-#include "display.h"
-#include "event-source.h"
 #endif
 
 #define CHECK_RELEASE_DELAY 20
