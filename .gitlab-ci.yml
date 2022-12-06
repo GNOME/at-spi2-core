@@ -195,10 +195,23 @@ reference:
     paths:
       - _reference
 
+devel-docs:
+  stage: docs
+  extends:
+  extends:
+    - '.container.opensuse@x86_64'
+    - '.fdo.distribution-image@opensuse'
+  needs: ['opensuse-container@x86_64']
+  script:
+    - bash -x ./ci/gen-devel-docs.sh
+  artifacts:
+    paths:
+      - public
+
 # Publish the test coverage report
 pages:
   stage: deploy
-  needs: [ coverage, reference ]
+  needs: [ coverage, reference, devel-docs ]
   script:
     - mv _reference/* public/
   artifacts:

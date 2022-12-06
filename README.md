@@ -30,6 +30,7 @@ include:
 
 ## Development resources
 
+* [Development guide for the accessibility infrastructure][devel-docs]
 * [Code coverage report for the test suite][coverage]
 * [Container registry for CI images][registry]
 * [Continuous integration pipelines][pipelines]
@@ -100,3 +101,4 @@ not been kept up to date.
 [coverage]: https://gnome.pages.gitlab.gnome.org/at-spi2-core/coverage/index.html
 [registry]: https://gitlab.gnome.org/GNOME/at-spi2-core/container_registry
 [pipelines]: https://gitlab.gnome.org/GNOME/at-spi2-core/-/pipelines
+[devel-docs]: https://gnome.pages.gitlab.gnome.org/at-spi2-core/devel-docs/index.html
