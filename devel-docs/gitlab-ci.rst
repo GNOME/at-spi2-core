@@ -12,10 +12,11 @@ mention ``@federico`` in it.
 Quick overview
 ==============
 
-By having a ```.gitlab-ci.yml`` <../.gitlab-ci.yml>`__ file in the
-toplevel directory of a project, Gitlab knows that it must run a
-continuous integration pipeline when certain events occur, for example,
-when someone creates a merge request, or pushes to a branch.
+By having a `.gitlab-ci.yml
+<https://gitlab.gnome.org/GNOME/at-spi2-core/-/blob/main/.gitlab-ci.yml>`_
+file in the toplevel directory of a project, Gitlab knows that it must
+run a continuous integration pipeline when certain events occur, for
+example, when someone creates a merge request, or pushes to a branch.
 
 What’s a pipeline? It is an automated version of the following. Running
 the test suite for at-spi2-core involves some repetitive steps:
@@ -185,9 +186,10 @@ Code formatting
 ===============
 
 The C coding style is enforced via `clang-format
-<https://clang.llvm.org/docs/ClangFormat.html>`_ and a a
-`.clang-format <../.clang-format>`_ configuration file (`docs on
-configuration
+<https://clang.llvm.org/docs/ClangFormat.html>`_ and a 
+`.clang-format
+<https://gitlab.gnome.org/GNOME/at-spi2-core/-/blob/main/.clang-format>`_
+configuration file (`docs on configuration
 <https://clang.llvm.org/docs/ClangFormatStyleOptions.html>`_).
 
 The ``style-check-diff`` job in CI will fail if you put in new code
