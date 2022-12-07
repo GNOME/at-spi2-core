@@ -36,10 +36,10 @@ atspi_object_dispose (GObject *object)
   AtspiObject *aobj = ATSPI_OBJECT (object);
 
   if (aobj->app)
-  {
-    g_object_unref (aobj->app);
-    aobj->app = NULL;
-  }
+    {
+      g_object_unref (aobj->app);
+      aobj->app = NULL;
+    }
 
   G_OBJECT_CLASS (atspi_object_parent_class)->dispose (object);
 }

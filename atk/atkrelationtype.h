@@ -20,7 +20,7 @@
 #ifndef __ATK_RELATION_TYPE_H__
 #define __ATK_RELATION_TYPE_H__
 
-#if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined (__ATK_H_INSIDE__) && !defined (ATK_COMPILATION)
+#if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined(__ATK_H_INSIDE__) && !defined(ATK_COMPILATION)
 #error "Only <atk/atk.h> can be included directly."
 #endif
 
@@ -42,8 +42,8 @@ G_BEGIN_DECLS
  *@ATK_RELATION_FLOWS_FROM: Indicates that the object has content that flows logically from
  *  another AtkObject in a sequential way, (for instance text-flow).
  *@ATK_RELATION_SUBWINDOW_OF: Indicates a subwindow attached to a component but otherwise has no connection in  the UI heirarchy to that component.
- *@ATK_RELATION_EMBEDS: Indicates that the object visually embeds 
- *  another object's content, i.e. this object's content flows around 
+ *@ATK_RELATION_EMBEDS: Indicates that the object visually embeds
+ *  another object's content, i.e. this object's content flows around
  *  another's content.
  *@ATK_RELATION_EMBEDDED_BY: Reciprocal of %ATK_RELATION_EMBEDS, indicates that
  *  this object's content is visualy embedded in another object.
@@ -81,7 +81,7 @@ G_BEGIN_DECLS
  * contains an error message describing an invalid condition in the target object(s). @Since:
  * ATK_2.26.
  *@ATK_RELATION_LAST_DEFINED: Not used, this value indicates the end of the enumeration.
- * 
+ *
  *Describes the type of the relation
  **/
 typedef enum
@@ -95,11 +95,11 @@ typedef enum
   ATK_RELATION_NODE_CHILD_OF,
   ATK_RELATION_FLOWS_TO,
   ATK_RELATION_FLOWS_FROM,
-  ATK_RELATION_SUBWINDOW_OF, 
-  ATK_RELATION_EMBEDS, 
-  ATK_RELATION_EMBEDDED_BY, 
-  ATK_RELATION_POPUP_FOR, 
-  ATK_RELATION_PARENT_WINDOW_OF, 
+  ATK_RELATION_SUBWINDOW_OF,
+  ATK_RELATION_EMBEDS,
+  ATK_RELATION_EMBEDDED_BY,
+  ATK_RELATION_POPUP_FOR,
+  ATK_RELATION_PARENT_WINDOW_OF,
   ATK_RELATION_DESCRIBED_BY,
   ATK_RELATION_DESCRIPTION_FOR,
   ATK_RELATION_NODE_PARENT_OF,

@@ -20,11 +20,11 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include <glib-object.h>
 #include <atk/atk.h>
+#include <glib-object.h>
 
-#include "my-atk-object.h"
 #include "my-atk-document.h"
+#include "my-atk-object.h"
 
 static void atk_document_interface_init (AtkDocumentIface *iface);
 
@@ -32,13 +32,13 @@ G_DEFINE_TYPE_WITH_CODE (MyAtkDocument,
                          my_atk_document,
                          MY_TYPE_ATK_OBJECT,
                          G_IMPLEMENT_INTERFACE (ATK_TYPE_DOCUMENT,
-                             atk_document_interface_init));
+                                                atk_document_interface_init));
 
 void
 my_atk_set_document (AtkDocument *obj, gint page, gint page_num)
 {
-  g_return_if_fail (MY_IS_ATK_DOCUMENT(obj));
-  MyAtkDocument *self = MY_ATK_DOCUMENT	(obj);
+  g_return_if_fail (MY_IS_ATK_DOCUMENT (obj));
+  MyAtkDocument *self = MY_ATK_DOCUMENT (obj);
 
   self->pages = page;
   self->current_page = page_num;
@@ -81,13 +81,15 @@ my_atk_document_get_document_attribute_value (AtkDocument *document, const gchar
   GSList *cur_attr = (GSList *) attr;
   AtkAttribute *at;
 
-  while (cur_attr) {
-    at = (AtkAttribute *) cur_attr->data;
-    if (!g_strcmp0 (at->name, value)) {
-      return at->value;
+  while (cur_attr)
+    {
+      at = (AtkAttribute *) cur_attr->data;
+      if (!g_strcmp0 (at->name, value))
+        {
+          return at->value;
+        }
+      cur_attr = cur_attr->next;
     }
-    cur_attr = cur_attr->next;
-  }
   return NULL;
 }
 
@@ -113,13 +115,14 @@ const gchar *
 my_atk_document_get_document_locale (AtkDocument *document)
 {
 
-  return g_strdup("document_locale");
+  return g_strdup ("document_locale");
 }
 
 static void
-atk_document_interface_init(AtkDocumentIface *iface)
+atk_document_interface_init (AtkDocumentIface *iface)
 {
-  if(!iface) return;
+  if (!iface)
+    return;
 
   iface->get_document_locale = my_atk_document_get_document_locale;
   iface->get_document_attributes = my_atk_document_get_document_attributes;
@@ -130,23 +133,22 @@ atk_document_interface_init(AtkDocumentIface *iface)
 }
 
 static void
-my_atk_document_initialize(AtkObject *obj, gpointer data)
+my_atk_document_initialize (AtkObject *obj, gpointer data)
 {
 }
 
 static void
-my_atk_document_finalize(GObject *object)
+my_atk_document_finalize (GObject *object)
 {
 }
 
 static void
-my_atk_document_class_init(MyAtkDocumentClass *my_class)
+my_atk_document_class_init (MyAtkDocumentClass *my_class)
 {
-  AtkObjectClass *atk_class = ATK_OBJECT_CLASS(my_class);
-  GObjectClass *gobject_class = G_OBJECT_CLASS(my_class);
+  AtkObjectClass *atk_class = ATK_OBJECT_CLASS (my_class);
+  GObjectClass *gobject_class = G_OBJECT_CLASS (my_class);
 
   gobject_class->finalize = my_atk_document_finalize;
 
   atk_class->initialize = my_atk_document_initialize;
 }
-

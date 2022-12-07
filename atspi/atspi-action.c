@@ -95,7 +95,7 @@ atspi_action_get_action_description (AtspiAction *obj, int i, GError **error)
  *        there are multiple parts to a keybinding string (typically 3).
  *        They are delimited with ";".  The first is the action's
  *        keybinding which is usable if the object implementing the action
- *        is currently posted to the screen, e.g. if a menu is posted 
+ *        is currently posted to the screen, e.g. if a menu is posted
  *        then these keybindings for the corresponding menu-items are
  *        available.  The second keybinding substring is the full key sequence
  *        necessary to post the action's widget and activate it, e.g. for
@@ -104,11 +104,11 @@ atspi_action_get_action_description (AtspiAction *obj, int i, GError **error)
  *        during the lifetime of the containing toplevel window as a whole,
  *        whereas the first keybinding string only works while the object
  *        implementing AtkAction is posted.  The third (and optional)
- *        keybinding string is the "keyboard shortcut" which invokes the 
- *        action without posting any menus. 
+ *        keybinding string is the "keyboard shortcut" which invokes the
+ *        action without posting any menus.
  *        Meta-keys are indicated by the conventional strings
  *        "&lt;Control&gt;", "&lt;Alt&gt;", "&lt;Shift&gt;", "&lt;Mod2&gt;",
- *        etc. (we use the same string as gtk_accelerator_name() in 
+ *        etc. (we use the same string as gtk_accelerator_name() in
  *        gtk+-2.X.
  *
  * Returns: a UTF-8 string which can be parsed to determine the @i-th
@@ -224,16 +224,15 @@ atspi_action_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) {
-    static const GTypeInfo tinfo =
+  if (!type)
     {
-      sizeof (AtspiAction),
-      (GBaseInitFunc) atspi_action_base_init,
-      (GBaseFinalizeFunc) NULL,
-    };
+      static const GTypeInfo tinfo = {
+        sizeof (AtspiAction),
+        (GBaseInitFunc) atspi_action_base_init,
+        (GBaseFinalizeFunc) NULL,
+      };
 
-    type = g_type_register_static (G_TYPE_INTERFACE, "AtspiAction", &tinfo, 0);
-
-  }
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtspiAction", &tinfo, 0);
+    }
   return type;
 }

@@ -37,7 +37,7 @@
 
 typedef struct
 {
-  AtspiDeviceListenerCB    callback;
+  AtspiDeviceListenerCB callback;
   gpointer user_data;
   GDestroyNotify callback_destroyed;
 } DeviceEventHandler;
@@ -68,7 +68,7 @@ device_remove_datum (AtspiDeviceEvent *event, void *user_data)
   AtspiDeviceListenerSimpleCB cb = user_data;
   return cb (event);
 }
-  
+
 static void
 device_event_handler_free (DeviceEventHandler *eh)
 {
@@ -88,17 +88,17 @@ static GList *
 event_list_remove_by_cb (GList *list, AtspiDeviceListenerCB callback)
 {
   GList *l, *next;
-	
+
   for (l = list; l; l = next)
     {
       DeviceEventHandler *eh = l->data;
       next = l->next;
 
       if (eh->callback == callback)
-      {
-        list = g_list_delete_link (list, l);
-        device_event_handler_free (eh);
-      }
+        {
+          list = g_list_delete_link (list, l);
+          device_event_handler_free (eh);
+        }
     }
 
   return list;
@@ -117,10 +117,11 @@ id_is_free (guint id)
   GList *l;
 
   for (l = device_listeners; l; l = g_list_next (l))
-  {
-    AtspiDeviceListener *listener = l->data;
-    if (listener->id == id) return FALSE;
-  }
+    {
+      AtspiDeviceListener *listener = l->data;
+      if (listener->id == id)
+        return FALSE;
+    }
   return TRUE;
 }
 
@@ -147,12 +148,12 @@ atspi_device_event_free (AtspiDeviceEvent *event)
   g_free (event);
 }
 
-/* 
+/*
  * Device event handler
  */
 static gboolean
-atspi_device_event_dispatch (AtspiDeviceListener               *listener,
-		   const AtspiDeviceEvent *event)
+atspi_device_event_dispatch (AtspiDeviceListener *listener,
+                             const AtspiDeviceEvent *event)
 {
   GList *l;
   gboolean handled = FALSE;
@@ -164,8 +165,8 @@ atspi_device_event_dispatch (AtspiDeviceListener               *listener,
 
       if ((handled = eh->callback (atspi_device_event_copy (event), eh->user_data)))
         {
-	  break;
-	}
+          break;
+        }
     }
 
   return handled;
@@ -176,9 +177,10 @@ atspi_device_listener_init (AtspiDeviceListener *listener)
 {
 
   do
-  {
-    listener->id = listener_id++;
-  } while (!id_is_free (listener->id));
+    {
+      listener->id = listener_id++;
+    }
+  while (!id_is_free (listener->id));
   device_listeners = g_list_append (device_listeners, listener);
 }
 
@@ -194,7 +196,7 @@ atspi_device_listener_finalize (GObject *object)
     {
       device_event_handler_free (l->data);
     }
-  
+
   g_list_free (listener->callbacks);
 
   device_listener_parent_class->finalize (object);
@@ -211,8 +213,7 @@ atspi_device_listener_class_init (AtspiDeviceListenerClass *klass)
   klass->device_event = atspi_device_event_dispatch;
 }
 
-G_DEFINE_TYPE (AtspiDeviceListener, atspi_device_listener,
-			  G_TYPE_OBJECT)
+G_DEFINE_TYPE (AtspiDeviceListener, atspi_device_listener, G_TYPE_OBJECT)
 
 /**
  * atspi_device_listener_new:
@@ -237,7 +238,7 @@ atspi_device_listener_new (AtspiDeviceListenerCB callback,
 
   if (callback)
     atspi_device_listener_add_callback (listener, callback, callback_destroyed,
-                                       user_data);
+                                        user_data);
   return listener;
 }
 
@@ -257,7 +258,7 @@ atspi_device_listener_new (AtspiDeviceListenerCB callback,
  **/
 AtspiDeviceListener *
 atspi_device_listener_new_simple (AtspiDeviceListenerSimpleCB callback,
-                           GDestroyNotify callback_destroyed)
+                                  GDestroyNotify callback_destroyed)
 {
   return atspi_device_listener_new (device_remove_datum, callback, callback_destroyed);
 }
@@ -269,16 +270,16 @@ atspi_device_listener_new_simple (AtspiDeviceListenerSimpleCB callback,
  * @callback_destroyed: A #GDestroyNotify called when the listener is freed
  * and data associated with the callback should be freed. It can be NULL.
  * @user_data: (closure): a pointer to data which will be passed to the
- *             callback when invoked. 
+ *             callback when invoked.
  *
  * Adds an in-process callback function to an existing #AtspiDeviceListener.
  *
  **/
 void
-atspi_device_listener_add_callback (AtspiDeviceListener  *listener,
-			     AtspiDeviceListenerCB callback,
-			     GDestroyNotify callback_destroyed,
-			     void                      *user_data)
+atspi_device_listener_add_callback (AtspiDeviceListener *listener,
+                                    AtspiDeviceListenerCB callback,
+                                    GDestroyNotify callback_destroyed,
+                                    void *user_data)
 {
   g_return_if_fail (ATSPI_IS_DEVICE_LISTENER (listener));
   DeviceEventHandler *new_handler;
@@ -294,13 +295,13 @@ atspi_device_listener_add_callback (AtspiDeviceListener  *listener,
  * @listener: the #AtspiDeviceListener instance to modify.
  * @callback: (scope call): an #AtspiDeviceListenerCB function pointer.
  *
- * Removes an in-process callback function from an existing 
+ * Removes an in-process callback function from an existing
  * #AtspiDeviceListener.
  *
  **/
 void
-atspi_device_listener_remove_callback (AtspiDeviceListener  *listener,
-				AtspiDeviceListenerCB callback)
+atspi_device_listener_remove_callback (AtspiDeviceListener *listener,
+                                       AtspiDeviceListenerCB callback)
 {
   g_return_if_fail (ATSPI_IS_DEVICE_LISTENER (listener));
 
@@ -354,7 +355,7 @@ _atspi_dbus_handle_DeviceEvent (DBusConnection *bus, DBusMessage *message)
   const char *path = dbus_message_get_path (message);
   int id;
   AtspiDeviceEvent event;
-    AtspiDeviceListener *listener;
+  AtspiDeviceListener *listener;
   DBusMessageIter iter;
   AtspiDeviceListenerClass *klass;
   dbus_bool_t retval = FALSE;
@@ -362,47 +363,48 @@ _atspi_dbus_handle_DeviceEvent (DBusConnection *bus, DBusMessage *message)
   DBusMessage *reply;
 
   if (strcmp (dbus_message_get_signature (message), "(uiuuisb)") != 0)
-  {
-    g_warning ("AT-SPI: Unknown signature for an event");
-    goto done;
-  }
+    {
+      g_warning ("AT-SPI: Unknown signature for an event");
+      goto done;
+    }
 
   if (sscanf (path, "/org/a11y/atspi/listeners/%d", &id) != 1)
-  {
-    g_warning ("AT-SPI: Bad listener path: %s\n", path);
-    goto done;
-  }
+    {
+      g_warning ("AT-SPI: Bad listener path: %s\n", path);
+      goto done;
+    }
 
   for (l = device_listeners; l; l = g_list_next (l))
-  {
-    listener = l->data;
-    if (listener->id == id) break;
-  }
+    {
+      listener = l->data;
+      if (listener->id == id)
+        break;
+    }
 
   if (!l)
-  {
-    goto done;
-  }
+    {
+      goto done;
+    }
   dbus_message_iter_init (message, &iter);
   read_device_event_from_iter (&iter, &event);
   klass = ATSPI_DEVICE_LISTENER_GET_CLASS (listener);
   if (klass->device_event)
-  {
-    retval = (*klass->device_event) (listener, &event);
-    if (retval != 0 && retval != 1)
     {
-      g_warning ("AT-SPI: device event handler returned %d; should be 0 or 1", retval);
-      retval = 0;
+      retval = (*klass->device_event) (listener, &event);
+      if (retval != 0 && retval != 1)
+        {
+          g_warning ("AT-SPI: device event handler returned %d; should be 0 or 1", retval);
+          retval = 0;
+        }
     }
-  }
 done:
   reply = dbus_message_new_method_return (message);
   if (reply)
-  {
-    dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &retval, DBUS_TYPE_INVALID);
-    dbus_connection_send (_atspi_bus(), reply, NULL);
-    dbus_message_unref (reply);
-  }
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &retval, DBUS_TYPE_INVALID);
+      dbus_connection_send (_atspi_bus (), reply, NULL);
+      dbus_message_unref (reply);
+    }
   return DBUS_HANDLER_RESULT_HANDLED;
 }
 

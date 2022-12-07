@@ -31,13 +31,14 @@
  *
  */
 
+#include "deviceeventcontroller.h" /* for prototype */
 #include <X11/X.h>
-#include "deviceeventcontroller.h"	/* for prototype */
 
 /* DO NOT UPATE BY HAND!
  * This table can be regenerated from Xorg's keysymdef.h with the ucs2keysym.sh
  * script.  */
-struct codepair {
+struct codepair
+{
   unsigned short keysym;
   unsigned short ucs;
 } keysymtab[] = {
@@ -823,56 +824,62 @@ struct codepair {
   { 0x0ef5, 0x3186 }, /*          Hangul_YeorinHieuh ㆆ HANGUL LETTER YEORINHIEUH */
   { 0x0ef6, 0x318d }, /*                Hangul_AraeA ㆍ HANGUL LETTER ARAEA */
   { 0x0ef7, 0x318e }, /*               Hangul_AraeAE ㆎ HANGUL LETTER ARAEAE */
- };
+};
 
-long ucs2keysym (long ucs)
+long
+ucs2keysym (long ucs)
 {
-    int min = 0;
-    int max = sizeof(keysymtab) / sizeof(struct codepair) - 1;
-    int mid;
-    
-    /* first check for Latin-1 characters (1:1 mapping) */
-    if ((ucs >= 0x0020 && ucs <= 0x007e) ||
-        (ucs >= 0x00a0 && ucs <= 0x00ff))
-        return ucs;
+  int min = 0;
+  int max = sizeof (keysymtab) / sizeof (struct codepair) - 1;
+  int mid;
 
-    /* binary search in table */
-    while (max >= min) {
-	mid = (min + max) / 2;
-	if (keysymtab[mid].ucs < ucs)
-	    min = mid + 1;
-	else if (keysymtab[mid].ucs > ucs)
-	    max = mid - 1;
-	else {
-	    /* found it */
-	    return keysymtab[mid].keysym;
-	}
+  /* first check for Latin-1 characters (1:1 mapping) */
+  if ((ucs >= 0x0020 && ucs <= 0x007e) ||
+      (ucs >= 0x00a0 && ucs <= 0x00ff))
+    return ucs;
+
+  /* binary search in table */
+  while (max >= min)
+    {
+      mid = (min + max) / 2;
+      if (keysymtab[mid].ucs < ucs)
+        min = mid + 1;
+      else if (keysymtab[mid].ucs > ucs)
+        max = mid - 1;
+      else
+        {
+          /* found it */
+          return keysymtab[mid].keysym;
+        }
     }
 
-    /* no matching keysym value found, return UCS2 with bit set */
-    return ucs | 0x01000000;
+  /* no matching keysym value found, return UCS2 with bit set */
+  return ucs | 0x01000000;
 }
 
-long keysym2ucs(long keysym)
+long
+keysym2ucs (long keysym)
 {
-    int i;
+  int i;
 
-    /* first check for Latin-1 characters (1:1 mapping) */
-    if ((keysym >= 0x0020 && keysym <= 0x007e) ||
-        (keysym >= 0x00a0 && keysym <= 0x00ff))
-        return (long) keysym;
+  /* first check for Latin-1 characters (1:1 mapping) */
+  if ((keysym >= 0x0020 && keysym <= 0x007e) ||
+      (keysym >= 0x00a0 && keysym <= 0x00ff))
+    return (long) keysym;
 
-    /* also check for directly encoded 24-bit UCS characters */
-    if ((keysym & 0xff000000) == 0x01000000)
-	return keysym & 0x00ffffff;
+  /* also check for directly encoded 24-bit UCS characters */
+  if ((keysym & 0xff000000) == 0x01000000)
+    return keysym & 0x00ffffff;
 
-    for (i = 0; i < sizeof(keysymtab) / sizeof(keysymtab[0]); i++) {
-	if (keysymtab[i].keysym == keysym) {
-	    /* found it */
-	    return keysymtab[i].ucs;
-	}
+  for (i = 0; i < sizeof (keysymtab) / sizeof (keysymtab[0]); i++)
+    {
+      if (keysymtab[i].keysym == keysym)
+        {
+          /* found it */
+          return keysymtab[i].ucs;
+        }
     }
 
-    /* no matching Unicode value found */
-    return -1;
+  /* no matching Unicode value found */
+  return -1;
 }

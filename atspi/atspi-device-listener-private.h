@@ -4,7 +4,7 @@
  *
  * Copyright 2002 Ximian, Inc.
  *           2002 Sun Microsystems Inc.
- *           
+ *
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -37,4 +37,4 @@ gchar *_atspi_device_listener_get_path (AtspiDeviceListener *listener);
 
 G_END_DECLS
 
-#endif	/* _ATSPI_DEVICE_LISTENER_H_ */
+#endif /* _ATSPI_DEVICE_LISTENER_H_ */

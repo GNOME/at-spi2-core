@@ -21,22 +21,23 @@
 #ifndef MY_ATK_TABLE_H_
 #define MY_ATK_TABLE_H_
 
-#include <glib.h>
-#include <glib-object.h>
 #include <atk/atk.h>
+#include <glib-object.h>
+#include <glib.h>
 
 #include "my-atk-object.h"
-#define MY_TYPE_ATK_TABLE             (my_atk_table_get_type ())
-#define MY_ATK_TABLE(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), MY_TYPE_ATK_TABLE, MyAtkTable))
-#define MY_ATK_TABLE_CLASS(vtable)    (G_TYPE_CHECK_CLASS_CAST ((vtable), MY_TYPE_ATK_TABLE, MyAtkTableClass))
-#define MY_IS_ATK_TABLE(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), MY_TYPE_ATK_TABLE))
+#define MY_TYPE_ATK_TABLE (my_atk_table_get_type ())
+#define MY_ATK_TABLE(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), MY_TYPE_ATK_TABLE, MyAtkTable))
+#define MY_ATK_TABLE_CLASS(vtable) (G_TYPE_CHECK_CLASS_CAST ((vtable), MY_TYPE_ATK_TABLE, MyAtkTableClass))
+#define MY_IS_ATK_TABLE(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), MY_TYPE_ATK_TABLE))
 #define MY_IS_ATK_TABLE_CLASS(vtable) (G_TYPE_CHECK_CLASS_TYPE ((vtable), MY_TYPE_ATK_TABLE))
-#define MY_ATK_TABLE_GET_CLASS(inst)  (G_TYPE_INSTANCE_GET_CLASS ((inst), MY_TYPE_ATK_TABLE, MyAtkTableClass))
+#define MY_ATK_TABLE_GET_CLASS(inst) (G_TYPE_INSTANCE_GET_CLASS ((inst), MY_TYPE_ATK_TABLE, MyAtkTableClass))
 
 typedef struct _MyAtkTable MyAtkTable;
 typedef struct _MyAtkTableClass MyAtkTableClass;
 
-struct _MyAtkTable {
+struct _MyAtkTable
+{
   MyAtkObject parent;
   MyAtkTable *parent_table;
   GPtrArray *table;
@@ -47,7 +48,8 @@ struct _MyAtkTable {
   gboolean selected;
 };
 
-struct _MyAtkTableClass {
+struct _MyAtkTableClass
+{
   MyAtkObjectClass parent;
 };
 
@@ -57,12 +59,12 @@ guint my_atk_set_table (AtkTable *obj,
                         gchar *col_header,
                         gchar *row_header,
                         gchar *col_desc,
-                        gchar* row_desc,
+                        gchar *row_desc,
                         gchar *value,
                         gboolean selected,
                         gboolean selected_col);
 
-AtkObject*
+AtkObject *
 test_get_cell_from_table (AtkTable *obj, gint row);
 
 #endif /* MY_ATK_TABLE_H_ */

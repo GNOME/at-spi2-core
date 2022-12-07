@@ -3,7 +3,7 @@
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
  * Copyright 2020 SUSE LLC.
- *           
+ *
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -26,17 +26,17 @@
 
 #include "glib-object.h"
 
-#include "atspi-types.h"
 #include "atspi-device.h"
+#include "atspi-types.h"
 
 G_BEGIN_DECLS
 
-#define ATSPI_TYPE_DEVICE_X11                        (atspi_device_x11_get_type ())
-#define ATSPI_DEVICE_X11(obj)                        (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_DEVICE_X11, AtspiDeviceX11))
-#define ATSPI_DEVICE_X11_CLASS(klass)                (G_TYPE_CHECK_CLASS_CAST ((klass), ATSPI_TYPE_DEVICE_X11, AtspiDeviceX11Class))
-#define ATSPI_IS_DEVICE_X11(obj)                     (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_DEVICE_X11))
-#define ATSPI_IS_DEVICE_X11_CLASS(klass)             (G_TYPE_CHECK_CLASS_TYPE ((klass), ATSPI_TYPE_DEVICE_X11))
-#define ATSPI_DEVICE_X11_GET_CLASS(obj)              (G_TYPE_INSTANCE_GET_CLASS ((obj), ATSPI_TYPE_DEVICE_X11, AtspiDeviceX11Class))
+#define ATSPI_TYPE_DEVICE_X11 (atspi_device_x11_get_type ())
+#define ATSPI_DEVICE_X11(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_DEVICE_X11, AtspiDeviceX11))
+#define ATSPI_DEVICE_X11_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), ATSPI_TYPE_DEVICE_X11, AtspiDeviceX11Class))
+#define ATSPI_IS_DEVICE_X11(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_DEVICE_X11))
+#define ATSPI_IS_DEVICE_X11_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), ATSPI_TYPE_DEVICE_X11))
+#define ATSPI_DEVICE_X11_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), ATSPI_TYPE_DEVICE_X11, AtspiDeviceX11Class))
 
 typedef struct _AtspiDeviceX11 AtspiDeviceX11;
 struct _AtspiDeviceX11
@@ -56,4 +56,4 @@ AtspiDeviceX11 *atspi_device_x11_new ();
 
 G_END_DECLS
 
-#endif	/* _ATSPI_DEVICE_X11_H_ */
+#endif /* _ATSPI_DEVICE_X11_H_ */

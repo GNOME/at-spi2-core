@@ -27,15 +27,15 @@
 typedef struct _StrPair StrPair;
 struct _StrPair
 {
-    const gchar *one;
-    const gchar *two;
+  const gchar *one;
+  const gchar *two;
 };
 
-StrPair *str_pair_new     (const gchar *one,
-                           const gchar *two);
+StrPair *str_pair_new (const gchar *one,
+                       const gchar *two);
 
-guint    str_pair_hash    (gconstpointer key);
-gboolean str_pair_equal   (gconstpointer a,
-                           gconstpointer b);
+guint str_pair_hash (gconstpointer key);
+gboolean str_pair_equal (gconstpointer a,
+                         gconstpointer b);
 
 #endif /* _DROUTE_PAIRHASH_H */

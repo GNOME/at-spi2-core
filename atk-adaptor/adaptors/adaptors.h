@@ -29,22 +29,22 @@
 
 AtspiRole spi_accessible_role_from_atk_role (AtkRole role);
 
-void spi_initialize_accessible (DRoutePath * path);
-void spi_initialize_action (DRoutePath * path);
-void spi_initialize_application (DRoutePath * path);
-void spi_initialize_collection (DRoutePath * path);
-void spi_initialize_component (DRoutePath * path);
-void spi_initialize_document (DRoutePath * path);
-void spi_initialize_editabletext (DRoutePath * path);
-void spi_initialize_hyperlink (DRoutePath * path);
-void spi_initialize_hypertext (DRoutePath * path);
-void spi_initialize_image (DRoutePath * path);
-void spi_initialize_selection (DRoutePath * path);
-void spi_initialize_socket (DRoutePath * path);
-void spi_initialize_table (DRoutePath * path);
-void spi_initialize_table_cell (DRoutePath * path);
-void spi_initialize_text (DRoutePath * path);
-void spi_initialize_value (DRoutePath * path);
-void spi_initialize_cache (DRoutePath * path);
+void spi_initialize_accessible (DRoutePath *path);
+void spi_initialize_action (DRoutePath *path);
+void spi_initialize_application (DRoutePath *path);
+void spi_initialize_collection (DRoutePath *path);
+void spi_initialize_component (DRoutePath *path);
+void spi_initialize_document (DRoutePath *path);
+void spi_initialize_editabletext (DRoutePath *path);
+void spi_initialize_hyperlink (DRoutePath *path);
+void spi_initialize_hypertext (DRoutePath *path);
+void spi_initialize_image (DRoutePath *path);
+void spi_initialize_selection (DRoutePath *path);
+void spi_initialize_socket (DRoutePath *path);
+void spi_initialize_table (DRoutePath *path);
+void spi_initialize_table_cell (DRoutePath *path);
+void spi_initialize_text (DRoutePath *path);
+void spi_initialize_value (DRoutePath *path);
+void spi_initialize_cache (DRoutePath *path);
 
 #endif /* ADAPTORS_H */

@@ -25,21 +25,21 @@
 
 #include <atspi/atspi.h>
 
-#define ATK_TEST_PATH_ACCESSIBLE (const char *)"/Accessible"
-#define ATK_TEST_PATH_ACTION (const char *)"/Action"
-#define ATK_TEST_PATH_COMP (const char *)"/Component"
-#define ATK_TEST_PATH_COLLECTION (const char *)"/Collection"
-#define ATK_TEST_PATH_DOC (const char *)"/Document"
-#define ATK_TEST_PATH_EDIT_TEXT (const char *)"/Editable_Text"
-#define ATK_TEST_PATH_HYPERLINK (const char *)"/Hyperlink"
-#define ATK_TEST_PATH_HYPERTEXT (const char *)"/Hypertext"
-#define ATK_TEST_PATH_IMAGE (const char *)"/Image"
-#define ATK_TEST_PATH_SELECTION (const char *)"/Selection"
-#define ATK_TEST_PATH_STATE_SET (const char *)"/State_Set"
-#define ATK_TEST_PATH_TABLE (const char *)"/Table"
-#define ATK_TEST_PATH_TABLE_CELL (const char *)"/Table_Cell"
-#define ATK_TEST_PATH_TEXT (const char *)"/Text"
-#define ATK_TEST_PATH_VALUE (const char *)"/Value"
+#define ATK_TEST_PATH_ACCESSIBLE (const char *) "/Accessible"
+#define ATK_TEST_PATH_ACTION (const char *) "/Action"
+#define ATK_TEST_PATH_COMP (const char *) "/Component"
+#define ATK_TEST_PATH_COLLECTION (const char *) "/Collection"
+#define ATK_TEST_PATH_DOC (const char *) "/Document"
+#define ATK_TEST_PATH_EDIT_TEXT (const char *) "/Editable_Text"
+#define ATK_TEST_PATH_HYPERLINK (const char *) "/Hyperlink"
+#define ATK_TEST_PATH_HYPERTEXT (const char *) "/Hypertext"
+#define ATK_TEST_PATH_IMAGE (const char *) "/Image"
+#define ATK_TEST_PATH_SELECTION (const char *) "/Selection"
+#define ATK_TEST_PATH_STATE_SET (const char *) "/State_Set"
+#define ATK_TEST_PATH_TABLE (const char *) "/Table"
+#define ATK_TEST_PATH_TABLE_CELL (const char *) "/Table_Cell"
+#define ATK_TEST_PATH_TEXT (const char *) "/Text"
+#define ATK_TEST_PATH_VALUE (const char *) "/Value"
 
 void atk_test_accessible (void);
 void atk_test_action (void);

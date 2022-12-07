@@ -4,7 +4,7 @@
  *
  * Copyright 2002 Ximian, Inc.
  *           2002 Sun Microsystems Inc.
- *           
+ *
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -33,10 +33,10 @@
 
 G_BEGIN_DECLS
 
-#define ATSPI_TYPE_EDITABLE_TEXT                    (atspi_editable_text_get_type ())
-#define ATSPI_IS_EDITABLE_TEXT(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_EDITABLE_TEXT)
-#define ATSPI_EDITABLE_TEXT(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_EDITABLE_TEXT, AtspiEditableText)
-#define ATSPI_EDITABLE_TEXT_GET_IFACE(obj)          (G_TYPE_INSTANCE_GET_INTERFACE ((obj), ATSPI_TYPE_EDITABLE_TEXT, AtspiEditableText))
+#define ATSPI_TYPE_EDITABLE_TEXT (atspi_editable_text_get_type ())
+#define ATSPI_IS_EDITABLE_TEXT(obj) G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_EDITABLE_TEXT)
+#define ATSPI_EDITABLE_TEXT(obj) G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_EDITABLE_TEXT, AtspiEditableText)
+#define ATSPI_EDITABLE_TEXT_GET_IFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), ATSPI_TYPE_EDITABLE_TEXT, AtspiEditableText))
 
 GType atspi_editable_text_get_type ();
 
@@ -63,4 +63,4 @@ gboolean atspi_editable_text_paste_text (AtspiEditableText *obj, gint position, 
 
 G_END_DECLS
 
-#endif	/* _ATSPI_EDITABLE_TEXT_H_ */
+#endif /* _ATSPI_EDITABLE_TEXT_H_ */

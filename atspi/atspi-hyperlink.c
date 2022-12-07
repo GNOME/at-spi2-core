@@ -55,7 +55,7 @@ AtspiHyperlink *
 _atspi_hyperlink_new (AtspiApplication *app, const gchar *path)
 {
   AtspiHyperlink *hyperlink;
-  
+
   hyperlink = g_object_new (ATSPI_TYPE_HYPERLINK, NULL);
   hyperlink->parent.app = g_object_ref (app);
   hyperlink->parent.path = g_strdup (path);
@@ -124,7 +124,7 @@ atspi_hyperlink_get_uri (AtspiHyperlink *obj, int i, GError **error)
  * Returns: (transfer full): an #AtspiAccessible that represents the object
  *        associated with the @ith anchor of the specified #AtspiHyperlink.
  **/
-AtspiAccessible*
+AtspiAccessible *
 atspi_hyperlink_get_object (AtspiHyperlink *obj, gint i, GError **error)
 {
   dbus_int32_t d_i = i;
@@ -206,7 +206,6 @@ atspi_hyperlink_get_end_index (AtspiHyperlink *obj, GError **error)
 
   return d_end_offset;
 }
-
 
 /**
  * atspi_hyperlink_is_valid:

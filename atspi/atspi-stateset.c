@@ -42,7 +42,7 @@ atspi_state_set_init (AtspiStateSet *set)
 }
 
 static void
-atspi_state_set_class_init (AtspiStateSetClass* klass)
+atspi_state_set_class_init (AtspiStateSetClass *klass)
 {
 }
 
@@ -73,7 +73,7 @@ AtspiStateSet *
 _atspi_state_set_new_internal (AtspiAccessible *accessible, gint64 states)
 {
   AtspiStateSet *set;
-  
+
   set = g_object_new (ATSPI_TYPE_STATE_SET, NULL);
   g_return_val_if_fail (set != NULL, NULL);
 
@@ -106,14 +106,13 @@ atspi_state_set_set_by_name (AtspiStateSet *set, const gchar *name, gboolean ena
   value = g_enum_get_value_by_nick (G_ENUM_CLASS (type_class), name);
 
   if (!value)
-  {
-    g_warning ("AT-SPI: Attempt to set unknown state '%s'", name);
-  }
+    {
+      g_warning ("AT-SPI: Attempt to set unknown state '%s'", name);
+    }
+  else if (enabled)
+    set->states |= ((gint64) 1 << value->value);
   else
-    if (enabled)
-      set->states |= ((gint64)1 << value->value);
-    else
-      set->states &= ~((gint64)1 << value->value);
+    set->states &= ~((gint64) 1 << value->value);
 
   g_type_class_unref (type_class);
 }
@@ -133,8 +132,8 @@ refresh_states (AtspiStateSet *set)
 
   states = (dbus_uint32_t *) state_array->data;
 
-  set->states = ((gint64)states [1]) << 32;
-  set->states |= (gint64) states [0];
+  set->states = ((gint64) states[1]) << 32;
+  set->states |= (gint64) states[0];
   g_array_free (state_array, TRUE);
 }
 
@@ -151,7 +150,7 @@ void
 atspi_state_set_add (AtspiStateSet *set, AtspiStateType state)
 {
   g_return_if_fail (set != NULL);
-  set->states |= (((gint64)1) << state);
+  set->states |= (((gint64) 1) << state);
 }
 
 /**
@@ -192,12 +191,12 @@ atspi_state_set_compare (AtspiStateSet *set,
  **/
 gboolean
 atspi_state_set_contains (AtspiStateSet *set,
-			     AtspiStateType state)
+                          AtspiStateType state)
 {
   if (!set)
     return FALSE;
   refresh_states (set);
-  return (set->states & ((gint64)1 << state)) ? TRUE : FALSE;
+  return (set->states & ((gint64) 1 << state)) ? TRUE : FALSE;
 }
 
 /**
@@ -217,7 +216,7 @@ atspi_state_set_contains (AtspiStateSet *set,
  **/
 gboolean
 atspi_state_set_equals (AtspiStateSet *set,
-                           AtspiStateSet *set2)
+                        AtspiStateSet *set2)
 {
   if (set == set2)
     return TRUE;
@@ -248,11 +247,11 @@ atspi_state_set_get_states (AtspiStateSet *set)
   if (!ret)
     return NULL;
   for (i = 0; i < 64; i++)
-  {
-    if (set->states & val)
-      ret = g_array_append_val (ret, i);
-    val <<= 1;
-  }
+    {
+      if (set->states & val)
+        ret = g_array_append_val (ret, i);
+      val <<= 1;
+    }
   return ret;
 }
 
@@ -281,5 +280,5 @@ void
 atspi_state_set_remove (AtspiStateSet *set, AtspiStateType state)
 {
   g_return_if_fail (set != NULL);
-  set->states &= ~((gint64)1 << state);
+  set->states &= ~((gint64) 1 << state);
 }

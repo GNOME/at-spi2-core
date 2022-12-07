@@ -5,7 +5,7 @@
  * Copyright 2002 Ximian, Inc.
  *           2002 Sun Microsystems Inc.
  * Copyright 2010, 2011 Novell, Inc.
- *           
+ *
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -34,10 +34,10 @@
 
 G_BEGIN_DECLS
 
-#define ATSPI_TYPE_VALUE                    (atspi_value_get_type ())
-#define ATSPI_IS_VALUE(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_VALUE)
-#define ATSPI_VALUE(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_VALUE, AtspiValue)
-#define ATSPI_VALUE_GET_IFACE(obj)          (G_TYPE_INSTANCE_GET_INTERFACE ((obj), ATSPI_TYPE_VALUE, AtspiValue))
+#define ATSPI_TYPE_VALUE (atspi_value_get_type ())
+#define ATSPI_IS_VALUE(obj) G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_VALUE)
+#define ATSPI_VALUE(obj) G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_VALUE, AtspiValue)
+#define ATSPI_VALUE_GET_IFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), ATSPI_TYPE_VALUE, AtspiValue))
 
 GType atspi_value_get_type ();
 
@@ -59,4 +59,4 @@ gdouble atspi_value_get_minimum_increment (AtspiValue *obj, GError **error);
 gchar *atspi_value_get_text (AtspiValue *obj, GError **error);
 G_END_DECLS
 
-#endif	/* _ATSPI_VALUE_H_ */
+#endif /* _ATSPI_VALUE_H_ */

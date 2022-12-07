@@ -107,53 +107,53 @@ get_window_id (const char *name)
   if (!reply)
     return FALSE;
   if (strcmp (dbus_message_get_signature (reply), "a{ta{sv}}") != 0)
-  {
-    dbus_message_unref (reply);
-    return FALSE;
-  }
+    {
+      dbus_message_unref (reply);
+      return FALSE;
+    }
 
   dbus_message_iter_init (reply, &iter);
   dbus_message_iter_recurse (&iter, &iter_array);
   while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
-  {
-    dbus_message_iter_recurse (&iter_array, &iter_dict);
-    dbus_message_iter_get_basic (&iter_dict, &window_id);
-    dbus_message_iter_next (&iter_dict);
-    dbus_message_iter_recurse (&iter_dict, &iter_sub_array);
-    cur_name = NULL;
-    have_focus = FALSE;
-    while (dbus_message_iter_get_arg_type (&iter_sub_array) != DBUS_TYPE_INVALID)
     {
-      dbus_message_iter_recurse (&iter_sub_array, &iter_sub_dict);
-      dbus_message_iter_get_basic (&iter_sub_dict, &prop_name);
-      if (!strcmp (prop_name, "wm-class"))
-      {
-        DBusMessageIter iter_variant;
-        dbus_message_iter_next (&iter_sub_dict);
-        dbus_message_iter_recurse (&iter_sub_dict, &iter_variant);
-        dbus_message_iter_get_basic (&iter_variant, &cur_name);
-      }
-      if (!strcmp (prop_name, "has-focus"))
-      {
-        DBusMessageIter iter_variant;
-        dbus_message_iter_next (&iter_sub_dict);
-        dbus_message_iter_recurse (&iter_sub_dict, &iter_variant);
-        dbus_message_iter_get_basic (&iter_variant, &cur_focus);
-        have_focus = TRUE;
-      }
-      if (cur_name && have_focus)
-      {
-        if ((name && !strcmp (name, cur_name)) || cur_focus)
+      dbus_message_iter_recurse (&iter_array, &iter_dict);
+      dbus_message_iter_get_basic (&iter_dict, &window_id);
+      dbus_message_iter_next (&iter_dict);
+      dbus_message_iter_recurse (&iter_dict, &iter_sub_array);
+      cur_name = NULL;
+      have_focus = FALSE;
+      while (dbus_message_iter_get_arg_type (&iter_sub_array) != DBUS_TYPE_INVALID)
         {
-          dbus_message_unref (reply);
-          return window_id;
+          dbus_message_iter_recurse (&iter_sub_array, &iter_sub_dict);
+          dbus_message_iter_get_basic (&iter_sub_dict, &prop_name);
+          if (!strcmp (prop_name, "wm-class"))
+            {
+              DBusMessageIter iter_variant;
+              dbus_message_iter_next (&iter_sub_dict);
+              dbus_message_iter_recurse (&iter_sub_dict, &iter_variant);
+              dbus_message_iter_get_basic (&iter_variant, &cur_name);
+            }
+          if (!strcmp (prop_name, "has-focus"))
+            {
+              DBusMessageIter iter_variant;
+              dbus_message_iter_next (&iter_sub_dict);
+              dbus_message_iter_recurse (&iter_sub_dict, &iter_variant);
+              dbus_message_iter_get_basic (&iter_variant, &cur_focus);
+              have_focus = TRUE;
+            }
+          if (cur_name && have_focus)
+            {
+              if ((name && !strcmp (name, cur_name)) || cur_focus)
+                {
+                  dbus_message_unref (reply);
+                  return window_id;
+                }
+              break;
+            }
+          dbus_message_iter_next (&iter_sub_array);
         }
-        break;
-      }
-      dbus_message_iter_next (&iter_sub_array);
+      dbus_message_iter_next (&iter_array);
     }
-    dbus_message_iter_next (&iter_array);
-  }
 
   dbus_message_unref (reply);
   return 0;
@@ -184,10 +184,10 @@ ensure_rd_session_id (GError **error)
   if (!reply)
     return FALSE;
   if (strcmp (dbus_message_get_signature (reply), "v") != 0)
-  {
-    dbus_message_unref (reply);
-    return FALSE;
-  }
+    {
+      dbus_message_unref (reply);
+      return FALSE;
+    }
   dbus_message_iter_init (reply, &iter);
   dbus_message_iter_recurse (&iter, &iter_variant);
   dbus_message_iter_get_basic (&iter_variant, &session_id);
@@ -227,10 +227,10 @@ ensure_sc_session (GError **error)
   if (!reply)
     return FALSE;
   if (!dbus_message_get_args (reply, NULL, DBUS_TYPE_OBJECT_PATH, &sc_session_path, DBUS_TYPE_INVALID))
-  {
-    dbus_message_unref (reply);
-    return FALSE;
-  }
+    {
+      dbus_message_unref (reply);
+      return FALSE;
+    }
 
   data.sc_session_path = g_strdup (sc_session_path);
   dbus_message_unref (reply);
@@ -254,7 +254,7 @@ init_mutter (gboolean need_window, GError **error)
     return TRUE;
 
   window_id = (data.window_id_is_explicit) ? data.window_id
-              : get_window_id (NULL);
+                                           : get_window_id (NULL);
   if (!window_id)
     return FALSE;
 
@@ -280,10 +280,10 @@ init_mutter (gboolean need_window, GError **error)
   if (!reply)
     return FALSE;
   if (!dbus_message_get_args (reply, NULL, DBUS_TYPE_OBJECT_PATH, &sc_stream_path, DBUS_TYPE_INVALID))
-  {
-    dbus_message_unref (reply);
-    return FALSE;
-  }
+    {
+      dbus_message_unref (reply);
+      return FALSE;
+    }
 
   data.sc_stream_path = g_strdup (sc_stream_path);
   dbus_message_unref (reply);
@@ -293,8 +293,9 @@ init_mutter (gboolean need_window, GError **error)
 
 gboolean
 _atspi_mutter_generate_keyboard_event (glong keyval,
-			               const gchar *keystring,
-			               AtspiKeySynthType synth_type, GError **error)
+                                       const gchar *keystring,
+                                       AtspiKeySynthType synth_type,
+                                       GError **error)
 {
   DBusError d_error;
   dbus_uint32_t d_keyval = keyval;
@@ -304,31 +305,31 @@ _atspi_mutter_generate_keyboard_event (glong keyval,
 
   dbus_error_init (&d_error);
   switch (synth_type)
-  {
-  case ATSPI_KEY_PRESS:
-    dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyKeyboardKeycode", &d_error, "ub", d_keyval, TRUE);
-    break;
-  case ATSPI_KEY_RELEASE:
-    dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyKeyboardKeycode", &d_error, "ub", d_keyval, FALSE);
-    break;
-  case ATSPI_KEY_PRESSRELEASE:
-    dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyKeyboardKeycode", &d_error, "ub", d_keyval, TRUE);
-    dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyKeyboardKeycode", &d_error, "ub", d_keyval, FALSE);
-    break;
-  case ATSPI_KEY_SYM:
-    dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyKeyboardKeysym", &d_error, "ub", d_keyval, TRUE);
-    dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyKeyboardKeysym", &d_error, "ub", d_keyval, FALSE);
-    break;
-  default:
-    /* TODO: set error */
-    g_warning ("%s: unsupported type", __func__);
-    return FALSE;
-  }
+    {
+    case ATSPI_KEY_PRESS:
+      dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyKeyboardKeycode", &d_error, "ub", d_keyval, TRUE);
+      break;
+    case ATSPI_KEY_RELEASE:
+      dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyKeyboardKeycode", &d_error, "ub", d_keyval, FALSE);
+      break;
+    case ATSPI_KEY_PRESSRELEASE:
+      dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyKeyboardKeycode", &d_error, "ub", d_keyval, TRUE);
+      dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyKeyboardKeycode", &d_error, "ub", d_keyval, FALSE);
+      break;
+    case ATSPI_KEY_SYM:
+      dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyKeyboardKeysym", &d_error, "ub", d_keyval, TRUE);
+      dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyKeyboardKeysym", &d_error, "ub", d_keyval, FALSE);
+      break;
+    default:
+      /* TODO: set error */
+      g_warning ("%s: unsupported type", __func__);
+      return FALSE;
+    }
   if (dbus_error_is_set (&d_error))
     {
       g_warning ("GenerateKeyboardEvent failed: %s", d_error.message);
       dbus_error_free (&d_error);
-         return FALSE;
+      return FALSE;
     }
 
   return TRUE;
@@ -346,44 +347,44 @@ _atspi_mutter_generate_mouse_event (glong x, glong y, const gchar *name, GError 
 
   dbus_error_init (&d_error);
   switch (name[0])
-  {
-  case 'b':
-    button = name[1] - '1';
-    if (button < 0 || button > 4)
-      return FALSE;
-    if (x != -1 && y != -1)
-      dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerMotionAbsolute", &d_error, "sdd", data.sc_stream_path, d_x, d_y);
-    switch (name[2])
     {
-    case 'p':
-      dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerButton", &d_error, "ib", button, TRUE);
+    case 'b':
+      button = name[1] - '1';
+      if (button < 0 || button > 4)
+        return FALSE;
+      if (x != -1 && y != -1)
+        dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerMotionAbsolute", &d_error, "sdd", data.sc_stream_path, d_x, d_y);
+      switch (name[2])
+        {
+        case 'p':
+          dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerButton", &d_error, "ib", button, TRUE);
+          break;
+        case 'r':
+          dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerButton", &d_error, "ib", button, FALSE);
+          break;
+        case 'c':
+          dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerButton", &d_error, "ib", button, TRUE);
+          dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerButton", &d_error, "ib", button, FALSE);
+          break;
+        case 'd':
+          dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerButton", &d_error, "ib", button, TRUE);
+          dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerButton", &d_error, "ib", button, FALSE);
+          dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerButton", &d_error, "ib", button, TRUE);
+          dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerButton", &d_error, "ib", button, FALSE);
+          break;
+        default:
+          return FALSE;
+        }
       break;
-    case 'r':
-      dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerButton", &d_error, "ib", button, FALSE);
+    case 'a': /* absolute motion */
+      dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerMotionAbsolute", &d_error, "sdd", data.sc_stream_path, d_x, d_y);
       break;
-    case 'c':
-      dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerButton", &d_error, "ib", button, TRUE);
-      dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerButton", &d_error, "ib", button, FALSE);
-      break;
-    case 'd':
-      dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerButton", &d_error, "ib", button, TRUE);
-      dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerButton", &d_error, "ib", button, FALSE);
-      dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerButton", &d_error, "ib", button, TRUE);
-      dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerButton", &d_error, "ib", button, FALSE);
+    case 'r': /* relative */
+      dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerMotionRelative", &d_error, "dd", d_x, d_y);
       break;
     default:
       return FALSE;
     }
-    break;
-  case 'a': /* absolute motion */
-    dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerMotionAbsolute", &d_error, "sdd", data.sc_stream_path, d_x, d_y);
-    break;
-  case 'r': /* relative */
-    dbind_method_call_reentrant (data.bus, MUTTER_REMOTE_DESKTOP_BUS_NAME, data.rd_session_path, MUTTER_REMOTE_DESKTOP_SESSION_INTERFACE, "NotifyPointerMotionRelative", &d_error, "dd", d_x, d_y);
-    break;
-  default:
-    return FALSE;
-  }
   return TRUE;
 }
 
@@ -391,17 +392,17 @@ void
 _atspi_mutter_set_reference_window (AtspiAccessible *accessible)
 {
   if (accessible)
-  {
-    AtspiRole role = atspi_accessible_get_role (accessible, NULL);
-    gchar *name;
-    g_return_if_fail (role != ATSPI_ROLE_APPLICATION);
-    name = atspi_accessible_get_name (accessible, NULL);
-    data.window_id = get_window_id (name);
-    data.window_id_is_explicit = TRUE;
-  }
+    {
+      AtspiRole role = atspi_accessible_get_role (accessible, NULL);
+      gchar *name;
+      g_return_if_fail (role != ATSPI_ROLE_APPLICATION);
+      name = atspi_accessible_get_name (accessible, NULL);
+      data.window_id = get_window_id (name);
+      data.window_id_is_explicit = TRUE;
+    }
 
   else
-  {
-    data.window_id_is_explicit = FALSE;
-  }
+    {
+      data.window_id_is_explicit = FALSE;
+    }
 }

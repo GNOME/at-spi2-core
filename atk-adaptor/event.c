@@ -23,20 +23,20 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include <string.h>
 #include <ctype.h>
+#include <string.h>
 
 #define ATK_DISABLE_DEPRECATION_WARNINGS
 #include <atk/atk.h>
-#include <droute/droute.h>
 #include <atspi/atspi.h>
+#include <droute/droute.h>
 
-#include "bridge.h"
 #include "accessible-register.h"
+#include "bridge.h"
 
-#include "spi-dbus.h"
 #include "event.h"
 #include "object.h"
+#include "spi-dbus.h"
 
 static GArray *listener_ids = NULL;
 
@@ -47,17 +47,17 @@ GMainContext *spi_context = NULL;
 
 /*---------------------------------------------------------------------------*/
 
-#define ITF_EVENT_OBJECT   "org.a11y.atspi.Event.Object"
-#define ITF_EVENT_WINDOW   "org.a11y.atspi.Event.Window"
+#define ITF_EVENT_OBJECT "org.a11y.atspi.Event.Object"
+#define ITF_EVENT_WINDOW "org.a11y.atspi.Event.Window"
 #define ITF_EVENT_DOCUMENT "org.a11y.atspi.Event.Document"
-#define ITF_EVENT_FOCUS    "org.a11y.atspi.Event.Focus"
+#define ITF_EVENT_FOCUS "org.a11y.atspi.Event.Focus"
 
 /*---------------------------------------------------------------------------*/
 
-typedef struct _SpiReentrantCallClosure 
+typedef struct _SpiReentrantCallClosure
 {
   DBusConnection *bus;
-  GMainLoop   *loop;
+  GMainLoop *loop;
   DBusMessage *reply;
   guint timeout;
 } SpiReentrantCallClosure;
@@ -79,7 +79,7 @@ switch_main_context (GMainContext *cnx)
 }
 
 guint
-spi_idle_add(GSourceFunc    function, gpointer       data)
+spi_idle_add (GSourceFunc function, gpointer data)
 {
   GSource *source;
   guint id;
@@ -93,7 +93,7 @@ spi_idle_add(GSourceFunc    function, gpointer       data)
 }
 
 guint
-spi_timeout_add_seconds (gint interval, GSourceFunc function, gpointer    data)
+spi_timeout_add_seconds (gint interval, GSourceFunc function, gpointer data)
 {
   GSource *source;
   guint id;
@@ -107,8 +107,7 @@ spi_timeout_add_seconds (gint interval, GSourceFunc function, gpointer    data)
 }
 
 guint
-spi_timeout_add_full (gint priority, guint interval, GSourceFunc function,
-                      gpointer data, GDestroyNotify notify)
+spi_timeout_add_full (gint priority, guint interval, GSourceFunc function, gpointer data, GDestroyNotify notify)
 {
   GSource *source;
   guint id;
@@ -123,9 +122,9 @@ spi_timeout_add_full (gint priority, guint interval, GSourceFunc function,
 }
 
 static void
-set_reply (DBusPendingCall * pending, void *user_data)
+set_reply (DBusPendingCall *pending, void *user_data)
 {
-  SpiReentrantCallClosure* closure = (SpiReentrantCallClosure *) user_data; 
+  SpiReentrantCallClosure *closure = (SpiReentrantCallClosure *) user_data;
 
   closure->reply = dbus_pending_call_steal_reply (pending);
   dbus_pending_call_unref (pending);
@@ -145,7 +144,7 @@ timeout_reply (void *data)
 }
 
 static DBusMessage *
-send_and_allow_reentry (DBusConnection * bus, DBusMessage * message)
+send_and_allow_reentry (DBusConnection *bus, DBusMessage *message)
 {
   DBusPendingCall *pending;
   SpiReentrantCallClosure closure;
@@ -166,10 +165,10 @@ send_and_allow_reentry (DBusConnection * bus, DBusMessage * message)
   g_source_set_callback (source, timeout_reply, &closure, NULL);
   closure.timeout = g_source_attach (source, spi_global_app_data->main_context);
   g_source_unref (source);
-  g_main_loop_run  (closure.loop);
+  g_main_loop_run (closure.loop);
   if (closure.timeout != -1)
     g_source_destroy (source);
-  
+
   g_main_loop_unref (closure.loop);
   if (!closure.reply)
     dbus_pending_call_cancel (pending);
@@ -177,10 +176,10 @@ send_and_allow_reentry (DBusConnection * bus, DBusMessage * message)
 }
 
 void
-atk_bridge_set_event_context(GMainContext *cnx)
+atk_bridge_set_event_context (GMainContext *cnx)
 {
   spi_context = cnx;
-  switch_main_context(spi_context);
+  switch_main_context (spi_context);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -192,29 +191,28 @@ atk_bridge_set_event_context(GMainContext *cnx)
  */
 
 static gboolean
-Accessibility_DeviceEventController_NotifyListenersSync (const
-                                                         AtspiDeviceEvent
-                                                         * key_event)
+Accessibility_DeviceEventController_NotifyListenersSync (const AtspiDeviceEvent
+                                                             *key_event)
 {
   DBusMessage *message;
   dbus_bool_t consumed = FALSE;
 
   message =
-    dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
-                                  ATSPI_DBUS_PATH_DEC,
-                                  ATSPI_DBUS_INTERFACE_DEC,
-                                  "NotifyListenersSync");
+      dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
+                                    ATSPI_DBUS_PATH_DEC,
+                                    ATSPI_DBUS_INTERFACE_DEC,
+                                    "NotifyListenersSync");
 
   if (spi_dbus_marshal_deviceEvent (message, key_event))
     {
       DBusMessage *reply =
-        send_and_allow_reentry (spi_global_app_data->bus, message);
+          send_and_allow_reentry (spi_global_app_data->bus, message);
       if (reply)
         {
           DBusError error;
           dbus_error_init (&error);
           if (!dbus_message_get_args (reply, &error, DBUS_TYPE_BOOLEAN,
-              &consumed, DBUS_TYPE_INVALID))
+                                      &consumed, DBUS_TYPE_INVALID))
             {
               /* TODO: print a warning */
               dbus_error_free (&error);
@@ -227,8 +225,8 @@ Accessibility_DeviceEventController_NotifyListenersSync (const
 }
 
 static void
-spi_init_keystroke_from_atk_key_event (AtspiDeviceEvent * keystroke,
-                                       AtkKeyEventStruct * event)
+spi_init_keystroke_from_atk_key_event (AtspiDeviceEvent *keystroke,
+                                       AtkKeyEventStruct *event)
 {
   keystroke->id = (dbus_int32_t) event->keyval;
   keystroke->hw_code = (dbus_int16_t) event->keycode;
@@ -271,9 +269,8 @@ spi_init_keystroke_from_atk_key_event (AtspiDeviceEvent * keystroke,
 #endif
 }
 
-
 static gint
-spi_atk_bridge_key_listener (AtkKeyEventStruct * event, gpointer data)
+spi_atk_bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
 {
   gboolean result;
   AtspiDeviceEvent key_event;
@@ -281,7 +278,7 @@ spi_atk_bridge_key_listener (AtkKeyEventStruct * event, gpointer data)
   spi_init_keystroke_from_atk_key_event (&key_event, event);
 
   result =
-    Accessibility_DeviceEventController_NotifyListenersSync (&key_event);
+      Accessibility_DeviceEventController_NotifyListenersSync (&key_event);
 
   if (key_event.event_string)
     g_free (key_event.event_string);
@@ -293,23 +290,23 @@ spi_atk_bridge_key_listener (AtkKeyEventStruct * event, gpointer data)
 
 static const void *
 validate_for_dbus (const gint type,
-              const void *val)
+                   const void *val)
 {
   switch (type)
     {
-      case DBUS_TYPE_STRING:
-      case DBUS_TYPE_OBJECT_PATH:
-	   if (!val)
-	      return "";
-	   else if (!g_utf8_validate (val, -1, NULL))
-             {
-	       g_warning ("atk-bridge: Received bad UTF-8 string when emitting event");
-	       return "";
-               }
-	   else
-	      return val;
-      default:
-	   return val;
+    case DBUS_TYPE_STRING:
+    case DBUS_TYPE_OBJECT_PATH:
+      if (!val)
+        return "";
+      else if (!g_utf8_validate (val, -1, NULL))
+        {
+          g_warning ("atk-bridge: Received bad UTF-8 string when emitting event");
+          return "";
+        }
+      else
+        return val;
+    default:
+      return val;
     }
 }
 
@@ -320,12 +317,12 @@ append_basic (DBusMessageIter *iter,
 {
   DBusMessageIter sub;
 
-  dbus_message_iter_open_container(iter, DBUS_TYPE_VARIANT, type, &sub);
+  dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, type, &sub);
 
-    val = validate_for_dbus ((int) *type, val);
-    dbus_message_iter_append_basic(&sub, (int) *type, &val);
+  val = validate_for_dbus ((int) *type, val);
+  dbus_message_iter_append_basic (&sub, (int) *type, &val);
 
-  dbus_message_iter_close_container(iter, &sub);
+  dbus_message_iter_close_container (iter, &sub);
 }
 
 static void
@@ -336,18 +333,18 @@ append_rect (DBusMessageIter *iter,
   DBusMessageIter variant, sub;
   const AtkRectangle *rect = (const AtkRectangle *) val;
 
-  dbus_message_iter_open_container(iter, DBUS_TYPE_VARIANT, type, &variant);
+  dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, type, &variant);
 
-    dbus_message_iter_open_container (&variant, DBUS_TYPE_STRUCT, NULL, &sub);
+  dbus_message_iter_open_container (&variant, DBUS_TYPE_STRUCT, NULL, &sub);
 
-      dbus_message_iter_append_basic (&sub, DBUS_TYPE_INT32, &(rect->x));
-      dbus_message_iter_append_basic (&sub, DBUS_TYPE_INT32, &(rect->y));
-      dbus_message_iter_append_basic (&sub, DBUS_TYPE_INT32, &(rect->width));
-      dbus_message_iter_append_basic (&sub, DBUS_TYPE_INT32, &(rect->height));
+  dbus_message_iter_append_basic (&sub, DBUS_TYPE_INT32, &(rect->x));
+  dbus_message_iter_append_basic (&sub, DBUS_TYPE_INT32, &(rect->y));
+  dbus_message_iter_append_basic (&sub, DBUS_TYPE_INT32, &(rect->width));
+  dbus_message_iter_append_basic (&sub, DBUS_TYPE_INT32, &(rect->height));
 
-    dbus_message_iter_close_container (&variant, &sub);
+  dbus_message_iter_close_container (&variant, &sub);
 
-  dbus_message_iter_close_container(iter, &variant);
+  dbus_message_iter_close_container (iter, &variant);
 }
 
 static void
@@ -366,12 +363,12 @@ signal_name_to_dbus (const gchar *s)
 
   if (!ret)
     return NULL;
-  ret [0] = toupper (ret [0]);
+  ret[0] = toupper (ret[0]);
   while ((t = strchr (ret, '-')) != NULL)
-  {
-    memmove (t, t + 1, strlen (t));
-    *t = toupper (*t);
-  }
+    {
+      memmove (t, t + 1, strlen (t));
+      *t = toupper (*t);
+    }
   return ret;
 }
 
@@ -417,26 +414,25 @@ append_properties (GArray *properties, event_data *evdata)
   gint i;
 
   for (ls = evdata->properties; ls; ls = ls->next)
-  {
-    gboolean dup = FALSE;
-    for (i = 0; i < properties->len; i++)
     {
-      if (ls->data == g_array_index (properties, AtspiPropertyDefinition *, i))
-      {
-        dup = TRUE;
-        break;
-      }
+      gboolean dup = FALSE;
+      for (i = 0; i < properties->len; i++)
+        {
+          if (ls->data == g_array_index (properties, AtspiPropertyDefinition *, i))
+            {
+              dup = TRUE;
+              break;
+            }
+        }
+      if (!dup)
+        g_array_append_val (properties, ls->data);
     }
-    if (!dup)
-      g_array_append_val (properties, ls->data);
-  }
 }
 
 static gboolean
-signal_is_needed (AtkObject *obj, const gchar *klass, const gchar *major,
-                  const gchar *minor, GArray **properties)
+signal_is_needed (AtkObject *obj, const gchar *klass, const gchar *major, const gchar *minor, GArray **properties)
 {
-  gchar *data [4];
+  gchar *data[4];
   event_data *evdata;
   gboolean ret = FALSE;
   GList *list;
@@ -445,37 +441,36 @@ signal_is_needed (AtkObject *obj, const gchar *klass, const gchar *major,
   if (!spi_global_app_data->events_initialized)
     return TRUE;
 
-  data [0] = ensure_proper_format (klass[0] ? klass + 21 : klass);
-  data [1] = ensure_proper_format (major);
-  data [2] = ensure_proper_format (minor);
-  data [3] = NULL;
+  data[0] = ensure_proper_format (klass[0] ? klass + 21 : klass);
+  data[1] = ensure_proper_format (major);
+  data[2] = ensure_proper_format (minor);
+  data[3] = NULL;
 
   /* Hack: Always pass events that update the cache.
    * TODO: FOr 2.2, have at-spi2-core define a special "cache listener" for
    * this instead, so that we don't send these if no one is listening */
-  if (!g_strcmp0 (data [1], "ChildrenChanged") ||
-      ((!g_strcmp0 (data [1], "PropertyChange")) &&
-       (!g_strcmp0 (data [2], "AccessibleName") ||
-        !g_strcmp0 (data [2], "AccessibleDescription") ||
-        !g_strcmp0 (data [2], "AccessibleParent") ||
-        !g_strcmp0 (data [2], "AccessibleRole"))) ||
-      !g_strcmp0 (data [1], "StateChanged"))
-  {
-    if (minor && !g_strcmp0 (minor, "defunct"))
-      ret = TRUE;
-    else
+  if (!g_strcmp0 (data[1], "ChildrenChanged") ||
+      ((!g_strcmp0 (data[1], "PropertyChange")) &&
+       (!g_strcmp0 (data[2], "AccessibleName") ||
+        !g_strcmp0 (data[2], "AccessibleDescription") ||
+        !g_strcmp0 (data[2], "AccessibleParent") ||
+        !g_strcmp0 (data[2], "AccessibleRole"))) ||
+      !g_strcmp0 (data[1], "StateChanged"))
     {
-      AtkStateSet *set = atk_object_ref_state_set (obj);
-      AtkState state = ((!g_strcmp0 (data[1], "ChildrenChanged")) ?
-                        ATK_STATE_MANAGES_DESCENDANTS : ATK_STATE_TRANSIENT);
-      ret = !atk_state_set_contains_state (set, state);
-      g_object_unref (set);
+      if (minor && !g_strcmp0 (minor, "defunct"))
+        ret = TRUE;
+      else
+        {
+          AtkStateSet *set = atk_object_ref_state_set (obj);
+          AtkState state = ((!g_strcmp0 (data[1], "ChildrenChanged")) ? ATK_STATE_MANAGES_DESCENDANTS : ATK_STATE_TRANSIENT);
+          ret = !atk_state_set_contains_state (set, state);
+          g_object_unref (set);
+        }
     }
-  }
 
   /* Hack: events such as "object::text-changed::insert:system" as
      generated by Gecko */
-  data [2][strcspn (data [2], ":")] = '\0';
+  data[2][strcspn (data[2], ":")] = '\0';
 
   for (list = spi_global_app_data->events; list; list = list->next)
     {
@@ -484,14 +479,14 @@ signal_is_needed (AtkObject *obj, const gchar *klass, const gchar *major,
         {
           ret = TRUE;
           if (!props)
-          props = g_array_new (TRUE, TRUE, sizeof (AtspiPropertyDefinition *));
+            props = g_array_new (TRUE, TRUE, sizeof (AtspiPropertyDefinition *));
           append_properties (props, evdata);
         }
     }
 
-  g_free (data [2]);
-  g_free (data [1]);
-  g_free (data [0]);
+  g_free (data[2]);
+  g_free (data[1]);
+  g_free (data[0]);
   *properties = props;
   return ret;
 }
@@ -518,8 +513,8 @@ adapt_minor_for_dbus (const char *source)
  * Marshals a basic type into the 'any_data' attribute of
  * the AT-SPI event.
  */
-static void 
-emit_event (AtkObject  *obj,
+static void
+emit_event (AtkObject *obj,
             const char *klass,
             const char *major,
             const char *minor,
@@ -537,16 +532,20 @@ emit_event (AtkObject  *obj,
   DBusMessage *sig;
   DBusMessageIter iter, iter_dict, iter_dict_entry;
   GArray *properties = NULL;
-  
-  if (!klass) klass = "";
-  if (!major) major = "";
-  if (!minor) minor = "";
-  if (!type) type = "u";
+
+  if (!klass)
+    klass = "";
+  if (!major)
+    major = "";
+  if (!minor)
+    minor = "";
+  if (!type)
+    type = "u";
 
   if (!signal_is_needed (obj, klass, major, minor, &properties))
     return;
 
-  path =  spi_register_object_to_path (spi_global_register, G_OBJECT (obj));
+  path = spi_register_object_to_path (spi_global_register, G_OBJECT (obj));
   g_return_if_fail (path != NULL);
 
   /*
@@ -555,46 +554,46 @@ emit_event (AtkObject  *obj,
    * on this side, and again on the client side.
    */
   cname = signal_name_to_dbus (major);
-  sig = dbus_message_new_signal(path, klass, cname);
+  sig = dbus_message_new_signal (path, klass, cname);
 
-  dbus_message_iter_init_append(sig, &iter);
+  dbus_message_iter_init_append (sig, &iter);
 
   minor_dbus = adapt_minor_for_dbus (minor);
-  dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &minor_dbus);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &minor_dbus);
   g_free (minor_dbus);
-  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail1);
-  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail2);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_INT32, &detail1);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_INT32, &detail2);
   append_variant (&iter, type, val);
 
   dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "{sv}", &iter_dict);
   /* Add requested properties, unless the object is being marked defunct, in
      which case it's safest not to touch it */
   if (minor == NULL || strcmp (minor, "defunct") != 0 || detail1 == 0)
-  {
-    if (properties)
     {
-      gint i;
-      for (i = 0; i < properties->len; i++)
-      {
-        AtspiPropertyDefinition *prop = g_array_index (properties, AtspiPropertyDefinition *, i);
-        dbus_message_iter_open_container (&iter_dict, DBUS_TYPE_DICT_ENTRY, NULL,
-                                          &iter_dict_entry);
-        dbus_message_iter_append_basic (&iter_dict_entry, DBUS_TYPE_STRING, &prop->name);
-        prop->func (&iter_dict_entry, obj);
-        dbus_message_iter_close_container (&iter_dict, &iter_dict_entry);
-      }
-      g_array_free (properties, TRUE);
+      if (properties)
+        {
+          gint i;
+          for (i = 0; i < properties->len; i++)
+            {
+              AtspiPropertyDefinition *prop = g_array_index (properties, AtspiPropertyDefinition *, i);
+              dbus_message_iter_open_container (&iter_dict, DBUS_TYPE_DICT_ENTRY, NULL,
+                                                &iter_dict_entry);
+              dbus_message_iter_append_basic (&iter_dict_entry, DBUS_TYPE_STRING, &prop->name);
+              prop->func (&iter_dict_entry, obj);
+              dbus_message_iter_close_container (&iter_dict, &iter_dict_entry);
+            }
+          g_array_free (properties, TRUE);
+        }
     }
-  }
-    dbus_message_iter_close_container (&iter, &iter_dict);
+  dbus_message_iter_close_container (&iter, &iter_dict);
 
-  dbus_connection_send(bus, sig, NULL);
-  dbus_message_unref(sig);
+  dbus_connection_send (bus, sig, NULL);
+  dbus_message_unref (sig);
 
   if (g_strcmp0 (cname, "ChildrenChanged") != 0)
     spi_object_lease_if_needed (G_OBJECT (obj));
 
-  g_free(cname);
+  g_free (cname);
   g_free (path);
 }
 
@@ -605,7 +604,7 @@ emit_event (AtkObject  *obj,
  * as the AT-SPI event, 'focus:'
  */
 static void
-focus_tracker (AtkObject * accessible)
+focus_tracker (AtkObject *accessible)
 {
   emit_event (accessible, ITF_EVENT_FOCUS, "focus", "", 0, 0,
               DBUS_TYPE_INT32_AS_STRING, 0, append_basic);
@@ -615,18 +614,19 @@ focus_tracker (AtkObject * accessible)
 
 #define PCHANGE "PropertyChange"
 
-/* 
+/*
  * This handler handles the following ATK signals and
  * converts them to AT-SPI events:
- *  
+ *
  * Gtk:AtkObject:property-change -> object:property-change:(property-name)
  *
  * The property-name is part of the ATK property-change signal.
  */
 static gboolean
-property_event_listener (GSignalInvocationHint * signal_hint,
+property_event_listener (GSignalInvocationHint *signal_hint,
                          guint n_param_values,
-                         const GValue * param_values, gpointer data)
+                         const GValue *param_values,
+                         gpointer data)
 {
   AtkObject *accessible;
   AtkPropertyValues *values;
@@ -670,7 +670,7 @@ property_event_listener (GSignalInvocationHint * signal_hint,
     {
       i = atk_object_get_role (accessible);
       emit_event (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
-                    DBUS_TYPE_UINT32_AS_STRING, GINT_TO_POINTER(i), append_basic);
+                  DBUS_TYPE_UINT32_AS_STRING, GINT_TO_POINTER (i), append_basic);
     }
   else if (strcmp (pname, "accessible-table-summary") == 0)
     {
@@ -718,7 +718,7 @@ property_event_listener (GSignalInvocationHint * signal_hint,
   else
     {
       emit_event (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
-            DBUS_TYPE_INT32_AS_STRING, 0, append_basic);
+                  DBUS_TYPE_INT32_AS_STRING, 0, append_basic);
     }
   return TRUE;
 }
@@ -733,9 +733,10 @@ property_event_listener (GSignalInvocationHint * signal_hint,
  * the param-name is part of the ATK state-change signal.
  */
 static gboolean
-state_event_listener (GSignalInvocationHint * signal_hint,
+state_event_listener (GSignalInvocationHint *signal_hint,
                       guint n_param_values,
-                      const GValue * param_values, gpointer data)
+                      const GValue *param_values,
+                      gpointer data)
 {
   AtkObject *accessible;
   const gchar *pname;
@@ -768,9 +769,10 @@ state_event_listener (GSignalInvocationHint * signal_hint,
  * window:deactivate -> window:deactivate
  */
 static gboolean
-window_event_listener (GSignalInvocationHint * signal_hint,
+window_event_listener (GSignalInvocationHint *signal_hint,
                        guint n_param_values,
-                       const GValue * param_values, gpointer data)
+                       const GValue *param_values,
+                       gpointer data)
 {
   AtkObject *accessible;
   GSignalQuery signal_query;
@@ -789,7 +791,7 @@ window_event_listener (GSignalInvocationHint * signal_hint,
 
 /*---------------------------------------------------------------------------*/
 
-/* 
+/*
  * The document event listener handles the following ATK signals
  * and converts them to AT-SPI events:
  *
@@ -799,9 +801,10 @@ window_event_listener (GSignalInvocationHint * signal_hint,
  * Gtk:AtkDocument:page-changed  ->  document:page-changed
  */
 static gboolean
-document_event_listener (GSignalInvocationHint * signal_hint,
+document_event_listener (GSignalInvocationHint *signal_hint,
                          guint n_param_values,
-                         const GValue * param_values, gpointer data)
+                         const GValue *param_values,
+                         gpointer data)
 {
   AtkObject *accessible;
   GSignalQuery signal_query;
@@ -830,9 +833,10 @@ document_event_listener (GSignalInvocationHint * signal_hint,
  * this to an AT-SPI event - "object:bounds-changed".
  */
 static gboolean
-bounds_event_listener (GSignalInvocationHint * signal_hint,
+bounds_event_listener (GSignalInvocationHint *signal_hint,
                        guint n_param_values,
-                       const GValue * param_values, gpointer data)
+                       const GValue *param_values,
+                       gpointer data)
 {
   AtkObject *accessible;
   AtkRectangle *atk_rect;
@@ -845,26 +849,27 @@ bounds_event_listener (GSignalInvocationHint * signal_hint,
   accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
 
   if (G_VALUE_HOLDS_BOXED (param_values + 1))
-  {
-    atk_rect = g_value_get_boxed (param_values + 1);
+    {
+      atk_rect = g_value_get_boxed (param_values + 1);
 
-    emit_event (accessible, ITF_EVENT_OBJECT, name, "", 0, 0,
-                "(iiii)", atk_rect, append_rect);
-  }
+      emit_event (accessible, ITF_EVENT_OBJECT, name, "", 0, 0,
+                  "(iiii)", atk_rect, append_rect);
+    }
   return TRUE;
 }
 
 /*---------------------------------------------------------------------------*/
 
-/* 
- * Handles the ATK signal 'Gtk:AtkObject:active-descendant-changed' and 
+/*
+ * Handles the ATK signal 'Gtk:AtkObject:active-descendant-changed' and
  * converts it to the AT-SPI signal - 'object:active-descendant-changed'.
  *
  */
 static gboolean
-active_descendant_event_listener (GSignalInvocationHint * signal_hint,
+active_descendant_event_listener (GSignalInvocationHint *signal_hint,
                                   guint n_param_values,
-                                  const GValue * param_values, gpointer data)
+                                  const GValue *param_values,
+                                  gpointer data)
 {
   AtkObject *accessible;
   AtkObject *child;
@@ -887,9 +892,10 @@ active_descendant_event_listener (GSignalInvocationHint * signal_hint,
 }
 
 static gboolean
-announcement_event_listener (GSignalInvocationHint * signal_hint,
+announcement_event_listener (GSignalInvocationHint *signal_hint,
                              guint n_param_values,
-                             const GValue * param_values, gpointer data)
+                             const GValue *param_values,
+                             gpointer data)
 {
   AtkObject *accessible;
   const gchar *text;
@@ -910,15 +916,16 @@ announcement_event_listener (GSignalInvocationHint * signal_hint,
 
 /*---------------------------------------------------------------------------*/
 
-/* 
+/*
  * Handles the ATK signal 'Gtk:AtkHypertext:link-selected' and
  * converts it to the AT-SPI signal - 'object:link-selected'
  *
  */
 static gboolean
-link_selected_event_listener (GSignalInvocationHint * signal_hint,
+link_selected_event_listener (GSignalInvocationHint *signal_hint,
                               guint n_param_values,
-                              const GValue * param_values, gpointer data)
+                              const GValue *param_values,
+                              gpointer data)
 {
   AtkObject *accessible;
   GSignalQuery signal_query;
@@ -941,7 +948,7 @@ link_selected_event_listener (GSignalInvocationHint * signal_hint,
 
 /*---------------------------------------------------------------------------*/
 
-/* 
+/*
  * Handles the ATK signal 'Gtk:AtkText:text-changed' and
  * converts it to the AT-SPI signal - 'object:text-changed'
  * This signal is deprecated by Gtk:AtkText:text-insert
@@ -949,9 +956,10 @@ link_selected_event_listener (GSignalInvocationHint * signal_hint,
  *
  */
 static gboolean
-text_changed_event_listener (GSignalInvocationHint * signal_hint,
+text_changed_event_listener (GSignalInvocationHint *signal_hint,
                              guint n_param_values,
-                             const GValue * param_values, gpointer data)
+                             const GValue *param_values,
+                             gpointer data)
 {
   AtkObject *accessible;
   GSignalQuery signal_query;
@@ -972,7 +980,7 @@ text_changed_event_listener (GSignalInvocationHint * signal_hint,
     detail2 = g_value_get_int (&param_values[2]);
 
   selected =
-    atk_text_get_text (ATK_TEXT (accessible), detail1, detail1 + detail2);
+      atk_text_get_text (ATK_TEXT (accessible), detail1, detail1 + detail2);
 
   emit_event (accessible, ITF_EVENT_OBJECT, name, minor, detail1, detail2,
               DBUS_TYPE_STRING_AS_STRING, selected, append_basic);
@@ -981,15 +989,16 @@ text_changed_event_listener (GSignalInvocationHint * signal_hint,
   return TRUE;
 }
 
-/* 
+/*
  * Handles the ATK signal 'Gtk:AtkText:text-insert' and
  * converts it to the AT-SPI signal - 'object:text-changed'
  *
  */
 static gboolean
-text_insert_event_listener (GSignalInvocationHint * signal_hint,
+text_insert_event_listener (GSignalInvocationHint *signal_hint,
                             guint n_param_values,
-                            const GValue * param_values, gpointer data)
+                            const GValue *param_values,
+                            gpointer data)
 {
   AtkObject *accessible;
   guint text_changed_signal_id;
@@ -1006,7 +1015,6 @@ text_insert_event_listener (GSignalInvocationHint * signal_hint,
   text_changed_signal_id = g_signal_lookup ("text-changed", G_OBJECT_TYPE (accessible));
   g_signal_query (text_changed_signal_id, &signal_query);
   name = signal_query.signal_name;
-
 
   /* Add the insert and keep any detail coming from atk */
   minor_raw = g_quark_to_string (signal_hint->detail);
@@ -1032,15 +1040,16 @@ text_insert_event_listener (GSignalInvocationHint * signal_hint,
   return TRUE;
 }
 
-/* 
+/*
  * Handles the ATK signal 'Gtk:AtkText:text-remove' and
  * converts it to the AT-SPI signal - 'object:text-changed'
  *
  */
 static gboolean
-text_remove_event_listener (GSignalInvocationHint * signal_hint,
+text_remove_event_listener (GSignalInvocationHint *signal_hint,
                             guint n_param_values,
-                            const GValue * param_values, gpointer data)
+                            const GValue *param_values,
+                            gpointer data)
 {
   AtkObject *accessible;
   guint text_changed_signal_id;
@@ -1083,18 +1092,17 @@ text_remove_event_listener (GSignalInvocationHint * signal_hint,
   return TRUE;
 }
 
-
 /*---------------------------------------------------------------------------*/
 
-/* 
+/*
  * Handles the ATK signal 'Gtk:AtkText:text-selection-changed' and
  * converts it to the AT-SPI signal - 'object:text-selection-changed'
  *
  */
 static gboolean
-text_selection_changed_event_listener (GSignalInvocationHint * signal_hint,
+text_selection_changed_event_listener (GSignalInvocationHint *signal_hint,
                                        guint n_param_values,
-                                       const GValue * param_values,
+                                       const GValue *param_values,
                                        gpointer data)
 {
   AtkObject *accessible;
@@ -1125,15 +1133,16 @@ text_selection_changed_event_listener (GSignalInvocationHint * signal_hint,
  * any_data is the child reference.
  */
 static gboolean
-children_changed_event_listener (GSignalInvocationHint * signal_hint,
+children_changed_event_listener (GSignalInvocationHint *signal_hint,
                                  guint n_param_values,
-                                 const GValue * param_values, gpointer data)
+                                 const GValue *param_values,
+                                 gpointer data)
 {
   GSignalQuery signal_query;
   const gchar *name, *minor;
   gint detail1 = 0, detail2 = 0;
 
-  AtkObject *accessible, *ao=NULL;
+  AtkObject *accessible, *ao = NULL;
   gpointer child;
   AtkStateSet *set;
   gboolean ret;
@@ -1164,7 +1173,7 @@ children_changed_event_listener (GSignalInvocationHint * signal_hint,
     }
   else if ((minor != NULL) && (strcmp (minor, "add") == 0))
     {
-      ao = atk_object_ref_accessible_child (accessible, 
+      ao = atk_object_ref_accessible_child (accessible,
                                             detail1);
       emit_event (accessible, ITF_EVENT_OBJECT, name, minor, detail1, detail2,
                   "(so)", ao, append_object);
@@ -1175,7 +1184,7 @@ children_changed_event_listener (GSignalInvocationHint * signal_hint,
       emit_event (accessible, ITF_EVENT_OBJECT, name, minor, detail1, detail2,
                   "(so)", ao, append_object);
     }
- 
+
   return TRUE;
 }
 
@@ -1192,9 +1201,10 @@ children_changed_event_listener (GSignalInvocationHint * signal_hint,
  * any_data is NULL.
  */
 static gboolean
-generic_event_listener (GSignalInvocationHint * signal_hint,
+generic_event_listener (GSignalInvocationHint *signal_hint,
                         guint n_param_values,
-                        const GValue * param_values, gpointer data)
+                        const GValue *param_values,
+                        gpointer data)
 {
   AtkObject *accessible;
   GSignalQuery signal_query;
@@ -1257,10 +1267,10 @@ spi_atk_register_event_listeners (void)
   g_object_unref (ao);
 
   if (listener_ids)
-  {
-    g_warning ("atk_bridge: spi_atk-register_event_listeners called multiple times");
-    return;
-  }
+    {
+      g_warning ("atk_bridge: spi_atk-register_event_listeners called multiple times");
+      return;
+    }
 
   /* Register for focus event notifications, and register app with central registry  */
   listener_ids = g_array_sized_new (FALSE, TRUE, sizeof (guint), 16);
@@ -1362,12 +1372,12 @@ spi_atk_register_event_listeners (void)
    * atk_add_global_event_listener (spi_atk_bridge_widgetkey_listener, "Gtk:GtkWidget:key-release-event");
    */
   atk_bridge_key_event_listener_id =
-    atk_add_key_event_listener (spi_atk_bridge_key_listener, NULL);
+      atk_add_key_event_listener (spi_atk_bridge_key_listener, NULL);
 }
 
 /*---------------------------------------------------------------------------*/
 
-/* 
+/*
  * De-registers all ATK signal handlers.
  */
 void
@@ -1378,10 +1388,10 @@ spi_atk_deregister_event_listeners (void)
   listener_ids = NULL;
 
   if (atk_bridge_focus_tracker_id)
-  {
-    atk_remove_focus_tracker (atk_bridge_focus_tracker_id);
-    atk_bridge_focus_tracker_id = 0;
-  }
+    {
+      atk_remove_focus_tracker (atk_bridge_focus_tracker_id);
+      atk_bridge_focus_tracker_id = 0;
+    }
 
   if (ids)
     {
@@ -1393,10 +1403,10 @@ spi_atk_deregister_event_listeners (void)
     }
 
   if (atk_bridge_key_event_listener_id)
-  {
-    atk_remove_key_event_listener (atk_bridge_key_event_listener_id);
-    atk_bridge_key_event_listener_id = 0;
-  }
+    {
+      atk_remove_key_event_listener (atk_bridge_key_event_listener_id);
+      atk_bridge_key_event_listener_id = 0;
+    }
 }
 
 /*---------------------------------------------------------------------------*/

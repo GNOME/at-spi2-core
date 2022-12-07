@@ -19,9 +19,9 @@
 
 #include "config.h"
 
-#include <string.h>
-#include <glib-object.h>
 #include "atk.h"
+#include <glib-object.h>
+#include <string.h>
 
 /**
  * AtkRelation:
@@ -34,7 +34,8 @@
  * other objects are defined as an AtkRelationSet, which is a set of
  * AtkRelations.
  */
-enum {
+enum
+{
   PROP_0,
 
   PROP_RELATION_TYPE,
@@ -45,20 +46,20 @@ enum {
 static GPtrArray *extra_names = NULL;
 
 static gpointer parent_class = NULL;
-  
-static void atk_relation_class_init   (AtkRelationClass *klass);
-static void atk_relation_finalize     (GObject          *object);
-static void atk_relation_set_property (GObject          *object,
-                                       guint            prop_id,
-                                       const GValue     *value,
-                                       GParamSpec       *pspec);
-static void atk_relation_get_property (GObject          *object,
-                                       guint            prop_id,
-                                       GValue           *value,
-                                       GParamSpec       *pspec);
 
-static GPtrArray* atk_relation_get_ptr_array_from_value_array (GValueArray *array);
-static GValueArray* atk_relation_get_value_array_from_ptr_array (GPtrArray *array);
+static void atk_relation_class_init (AtkRelationClass *klass);
+static void atk_relation_finalize (GObject *object);
+static void atk_relation_set_property (GObject *object,
+                                       guint prop_id,
+                                       const GValue *value,
+                                       GParamSpec *pspec);
+static void atk_relation_get_property (GObject *object,
+                                       guint prop_id,
+                                       GValue *value,
+                                       GParamSpec *pspec);
+
+static GPtrArray *atk_relation_get_ptr_array_from_value_array (GValueArray *array);
+static GValueArray *atk_relation_get_value_array_from_ptr_array (GPtrArray *array);
 
 GType
 atk_relation_get_type (void)
@@ -67,8 +68,7 @@ atk_relation_get_type (void)
 
   if (!type)
     {
-      static const GTypeInfo typeInfo =
-      {
+      static const GTypeInfo typeInfo = {
         sizeof (AtkRelationClass),
         (GBaseInitFunc) NULL,
         (GBaseFinalizeFunc) NULL,
@@ -78,8 +78,8 @@ atk_relation_get_type (void)
         sizeof (AtkRelation),
         0,
         (GInstanceInitFunc) NULL,
-      } ;
-      type = g_type_register_static (G_TYPE_OBJECT, "AtkRelation", &typeInfo, 0) ;
+      };
+      type = g_type_register_static (G_TYPE_OBJECT, "AtkRelation", &typeInfo, 0);
     }
   return type;
 }
@@ -90,7 +90,7 @@ atk_relation_class_init (AtkRelationClass *klass)
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
   parent_class = g_type_class_peek_parent (klass);
-  
+
   gobject_class->finalize = atk_relation_finalize;
   gobject_class->set_property = atk_relation_set_property;
   gobject_class->get_property = atk_relation_get_property;
@@ -118,7 +118,7 @@ atk_relation_class_init (AtkRelationClass *klass)
  * @name: a name string
  *
  * Associate @name with a new #AtkRelationType
- 
+
  * Returns: an #AtkRelationType associated with @name
  **/
 AtkRelationType
@@ -141,7 +141,7 @@ atk_relation_type_register (const gchar *name)
  *
  * Returns: the string describing the AtkRelationType
  */
-const gchar*
+const gchar *
 atk_relation_type_get_name (AtkRelationType type)
 {
   GTypeClass *type_class;
@@ -208,10 +208,10 @@ atk_relation_type_for_name (const gchar *name)
         {
           for (i = 0; i < extra_names->len; i++)
             {
-              gchar *extra_name = (gchar *)g_ptr_array_index (extra_names, i);
+              gchar *extra_name = (gchar *) g_ptr_array_index (extra_names, i);
 
               g_return_val_if_fail (extra_name, ATK_RELATION_NULL);
-         
+
               if (strcmp (name, extra_name) == 0)
                 {
                   type = i + 1 + ATK_RELATION_LAST_DEFINED;
@@ -221,10 +221,9 @@ atk_relation_type_for_name (const gchar *name)
         }
     }
   g_type_class_unref (type_class);
- 
+
   return type;
 }
-
 
 /**
  * atk_relation_new:
@@ -239,33 +238,33 @@ atk_relation_type_for_name (const gchar *name)
  *
  * Returns: a pointer to a new #AtkRelation
  **/
-AtkRelation*
-atk_relation_new (AtkObject       **targets,
-                  gint            n_targets,
+AtkRelation *
+atk_relation_new (AtkObject **targets,
+                  gint n_targets,
                   AtkRelationType relationship)
 {
   AtkRelation *relation;
-  int         i;
+  int i;
   GValueArray *array;
-  GValue      *value;
+  GValue *value;
 
   g_return_val_if_fail (targets != NULL, NULL);
 
   array = g_value_array_new (n_targets);
   for (i = 0; i < n_targets; i++)
-  {
-    value = g_new0 (GValue, 1);
-    g_value_init (value, ATK_TYPE_OBJECT);
-    g_value_set_object (value, targets[i]);
-    array = g_value_array_append (array, value);
-    g_value_unset (value);
-    g_free (value);
-  }
-  
-  relation =  g_object_new (ATK_TYPE_RELATION, 
-                            "relation_type", relationship,
-                            "target", array,
-                            NULL);
+    {
+      value = g_new0 (GValue, 1);
+      g_value_init (value, ATK_TYPE_OBJECT);
+      g_value_set_object (value, targets[i]);
+      array = g_value_array_append (array, value);
+      g_value_unset (value);
+      g_free (value);
+    }
+
+  relation = g_object_new (ATK_TYPE_RELATION,
+                           "relation_type", relationship,
+                           "target", array,
+                           NULL);
 
   g_value_array_free (array);
 
@@ -274,7 +273,7 @@ atk_relation_new (AtkObject       **targets,
 
 /**
  * atk_relation_get_relation_type:
- * @relation: an #AtkRelation 
+ * @relation: an #AtkRelation
  *
  * Gets the type of @relation
  *
@@ -284,7 +283,7 @@ AtkRelationType
 atk_relation_get_relation_type (AtkRelation *relation)
 {
   g_return_val_if_fail (ATK_IS_RELATION (relation), 0);
-  
+
   return relation->relationship;
 }
 
@@ -296,7 +295,7 @@ atk_relation_get_relation_type (AtkRelation *relation)
  *
  * Returns: (transfer none) (element-type Atk.Object): the target list of @relation
  **/
-GPtrArray*
+GPtrArray *
 atk_relation_get_target (AtkRelation *relation)
 {
   g_return_val_if_fail (ATK_IS_RELATION (relation), NULL);
@@ -329,7 +328,7 @@ delete_object_while_in_relation (gpointer callback_data,
  **/
 void
 atk_relation_add_target (AtkRelation *relation,
-                         AtkObject   *target)
+                         AtkObject *target)
 {
   guint i;
 
@@ -338,7 +337,7 @@ atk_relation_add_target (AtkRelation *relation,
 
   /* first check if target occurs in array ... */
   for (i = 0; i < relation->target->len; i++)
-    if (g_ptr_array_index(relation->target, i) == target)
+    if (g_ptr_array_index (relation->target, i) == target)
       return;
 
   g_ptr_array_add (relation->target, target);
@@ -377,33 +376,33 @@ atk_relation_remove_target (AtkRelation *relation,
 static void
 atk_relation_finalize (GObject *object)
 {
-  AtkRelation        *relation;
+  AtkRelation *relation;
 
   g_return_if_fail (ATK_IS_RELATION (object));
 
   relation = ATK_RELATION (object);
 
   if (relation->target)
-  {
-    gint i;
-
-    for (i = 0; i < relation->target->len; i++)
     {
-      g_object_weak_unref (G_OBJECT (g_ptr_array_index (relation->target, i)),
-                           (GWeakNotify) delete_object_while_in_relation, 
-                           relation->target);
+      gint i;
+
+      for (i = 0; i < relation->target->len; i++)
+        {
+          g_object_weak_unref (G_OBJECT (g_ptr_array_index (relation->target, i)),
+                               (GWeakNotify) delete_object_while_in_relation,
+                               relation->target);
+        }
+      g_ptr_array_free (relation->target, TRUE);
     }
-    g_ptr_array_free (relation->target, TRUE);
-  } 
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
-static void 
-atk_relation_set_property (GObject       *object,
-                           guint         prop_id,
-                           const GValue  *value,
-                           GParamSpec    *pspec)
+static void
+atk_relation_set_property (GObject *object,
+                           guint prop_id,
+                           const GValue *value,
+                           GParamSpec *pspec)
 {
   AtkRelation *relation;
   gpointer boxed;
@@ -414,32 +413,32 @@ atk_relation_set_property (GObject       *object,
     {
     case PROP_RELATION_TYPE:
       relation->relationship = g_value_get_enum (value);
-      break; 
+      break;
     case PROP_TARGET:
       if (relation->target)
-      {
-        gint i;
-
-        for (i = 0; i < relation->target->len; i++)
         {
-          g_object_weak_unref (G_OBJECT (g_ptr_array_index (relation->target, i)),
-                               (GWeakNotify) delete_object_while_in_relation,
-                               relation->target);
+          gint i;
+
+          for (i = 0; i < relation->target->len; i++)
+            {
+              g_object_weak_unref (G_OBJECT (g_ptr_array_index (relation->target, i)),
+                                   (GWeakNotify) delete_object_while_in_relation,
+                                   relation->target);
+            }
+          g_ptr_array_free (relation->target, TRUE);
         }
-        g_ptr_array_free (relation->target, TRUE);
-      }
       boxed = g_value_get_boxed (value);
-      relation->target = atk_relation_get_ptr_array_from_value_array ( (GValueArray *) boxed);
-      break; 
+      relation->target = atk_relation_get_ptr_array_from_value_array ((GValueArray *) boxed);
+      break;
     default:
       break;
-    }  
+    }
 }
 
 static void
-atk_relation_get_property (GObject    *object,
-                           guint      prop_id,
-                           GValue     *value,
+atk_relation_get_property (GObject *object,
+                           guint prop_id,
+                           GValue *value,
                            GParamSpec *pspec)
 {
   AtkRelation *relation;
@@ -459,10 +458,10 @@ atk_relation_get_property (GObject    *object,
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
-    }  
+    }
 }
 
-static GPtrArray*
+static GPtrArray *
 atk_relation_get_ptr_array_from_value_array (GValueArray *array)
 {
   gint i;
@@ -478,16 +477,16 @@ atk_relation_get_ptr_array_from_value_array (GValueArray *array)
       g_ptr_array_add (return_array, obj);
       g_object_weak_ref (obj, (GWeakNotify) delete_object_while_in_relation, return_array);
     }
-      
+
   return return_array;
 }
 
-static GValueArray*
+static GValueArray *
 atk_relation_get_value_array_from_ptr_array (GPtrArray *array)
 {
-  int         i;
+  int i;
   GValueArray *return_array;
-  GValue      *value;
+  GValue *value;
 
   return_array = g_value_array_new (array->len);
   for (i = 0; i < array->len; i++)

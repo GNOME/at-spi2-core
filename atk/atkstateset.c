@@ -34,7 +34,7 @@
  * modified, but rather created when #atk_object_ref_state_set() is called.
  */
 
-#define ATK_STATE(state_enum)             ((AtkState)((guint64)1 << ((state_enum)%64)))
+#define ATK_STATE(state_enum) ((AtkState) ((guint64) 1 << ((state_enum) % 64)))
 
 struct _AtkRealStateSet
 {
@@ -43,9 +43,9 @@ struct _AtkRealStateSet
   AtkState state;
 };
 
-typedef struct _AtkRealStateSet      AtkRealStateSet;
+typedef struct _AtkRealStateSet AtkRealStateSet;
 
-static void            atk_state_set_class_init       (AtkStateSetClass  *klass);
+static void atk_state_set_class_init (AtkStateSetClass *klass);
 
 GType
 atk_state_set_get_type (void)
@@ -54,8 +54,7 @@ atk_state_set_get_type (void)
 
   if (!type)
     {
-      static const GTypeInfo typeInfo =
-      {
+      static const GTypeInfo typeInfo = {
         sizeof (AtkStateSetClass),
         (GBaseInitFunc) NULL,
         (GBaseFinalizeFunc) NULL,
@@ -65,8 +64,8 @@ atk_state_set_get_type (void)
         sizeof (AtkRealStateSet),
         0,
         (GInstanceInitFunc) NULL,
-      } ;
-      type = g_type_register_static (G_TYPE_OBJECT, "AtkStateSet", &typeInfo, 0) ;
+      };
+      type = g_type_register_static (G_TYPE_OBJECT, "AtkStateSet", &typeInfo, 0);
     }
   return type;
 }
@@ -78,15 +77,15 @@ atk_state_set_class_init (AtkStateSetClass *klass)
 
 /**
  * atk_state_set_new:
- * 
+ *
  * Creates a new empty state set.
- * 
- * Returns: a new #AtkStateSet 
+ *
+ * Returns: a new #AtkStateSet
  **/
-AtkStateSet*
+AtkStateSet *
 atk_state_set_new (void)
 {
-  return (AtkStateSet*) g_object_new (ATK_TYPE_STATE_SET, NULL);
+  return (AtkStateSet *) g_object_new (ATK_TYPE_STATE_SET, NULL);
 }
 
 /**
@@ -98,12 +97,12 @@ atk_state_set_new (void)
  * Returns: %TRUE if @set has no states set, otherwise %FALSE
  **/
 gboolean
-atk_state_set_is_empty (AtkStateSet   *set)
+atk_state_set_is_empty (AtkStateSet *set)
 {
   AtkRealStateSet *real_set;
   g_return_val_if_fail (ATK_IS_STATE_SET (set), FALSE);
 
-  real_set = (AtkRealStateSet *)set;
+  real_set = (AtkRealStateSet *) set;
 
   if (real_set->state)
     return FALSE;
@@ -127,21 +126,21 @@ atk_state_set_is_empty (AtkStateSet   *set)
  * Returns: %TRUE if  the state for @type is not already in @set.
  **/
 gboolean
-atk_state_set_add_state (AtkStateSet   *set,
-                         AtkStateType  type)
+atk_state_set_add_state (AtkStateSet *set,
+                         AtkStateType type)
 {
   AtkRealStateSet *real_set;
   g_return_val_if_fail (ATK_IS_STATE_SET (set), FALSE);
 
-  real_set = (AtkRealStateSet *)set;
+  real_set = (AtkRealStateSet *) set;
 
   if (real_set->state & ATK_STATE (type))
     return FALSE;
   else
-  {
-    real_set->state |= ATK_STATE (type);
-    return TRUE;
-  }
+    {
+      real_set->state |= ATK_STATE (type);
+      return TRUE;
+    }
 }
 /**
  * atk_state_set_add_states:
@@ -157,20 +156,20 @@ atk_state_set_add_state (AtkStateSet   *set,
  * of an object. See also #atk_object_notify_state_change.
  **/
 void
-atk_state_set_add_states (AtkStateSet   *set,
-                          AtkStateType  *types,
-                          gint          n_types)
+atk_state_set_add_states (AtkStateSet *set,
+                          AtkStateType *types,
+                          gint n_types)
 {
   AtkRealStateSet *real_set;
-  gint     i;
+  gint i;
   g_return_if_fail (ATK_IS_STATE_SET (set));
 
-  real_set = (AtkRealStateSet *)set;
+  real_set = (AtkRealStateSet *) set;
 
   for (i = 0; i < n_types; i++)
-  {
-    real_set->state |= ATK_STATE (types[i]);
-  }
+    {
+      real_set->state |= ATK_STATE (types[i]);
+    }
 }
 
 /**
@@ -180,12 +179,12 @@ atk_state_set_add_states (AtkStateSet   *set,
  * Removes all states from the state set.
  **/
 void
-atk_state_set_clear_states (AtkStateSet   *set)
+atk_state_set_clear_states (AtkStateSet *set)
 {
   AtkRealStateSet *real_set;
   g_return_if_fail (ATK_IS_STATE_SET (set));
 
-  real_set = (AtkRealStateSet *)set;
+  real_set = (AtkRealStateSet *) set;
 
   real_set->state = 0;
 }
@@ -200,13 +199,13 @@ atk_state_set_clear_states (AtkStateSet   *set)
  * Returns: %TRUE if @type is the state type is in @set.
  **/
 gboolean
-atk_state_set_contains_state (AtkStateSet   *set,
-                              AtkStateType  type)
+atk_state_set_contains_state (AtkStateSet *set,
+                              AtkStateType type)
 {
   AtkRealStateSet *real_set;
   g_return_val_if_fail (ATK_IS_STATE_SET (set), FALSE);
 
-  real_set = (AtkRealStateSet *)set;
+  real_set = (AtkRealStateSet *) set;
 
   if (real_set->state & ATK_STATE (type))
     return TRUE;
@@ -220,27 +219,27 @@ atk_state_set_contains_state (AtkStateSet   *set,
  * @types: (array length=n_types): an array of #AtkStateType
  * @n_types: The number of elements in the array
  *
- * Checks whether the states for all the specified types are in the 
+ * Checks whether the states for all the specified types are in the
  * specified set.
  *
  * Returns: %TRUE if all the states for @type are in @set.
  **/
 gboolean
-atk_state_set_contains_states (AtkStateSet   *set,
-                               AtkStateType  *types,
-                               gint          n_types)
+atk_state_set_contains_states (AtkStateSet *set,
+                               AtkStateType *types,
+                               gint n_types)
 {
   AtkRealStateSet *real_set;
   gint i;
   g_return_val_if_fail (ATK_IS_STATE_SET (set), FALSE);
 
-  real_set = (AtkRealStateSet *)set;
+  real_set = (AtkRealStateSet *) set;
 
   for (i = 0; i < n_types; i++)
-  {
-    if (!(real_set->state & ATK_STATE (types[i])))
-      return FALSE;
-  }
+    {
+      if (!(real_set->state & ATK_STATE (types[i])))
+        return FALSE;
+    }
   return TRUE;
 }
 
@@ -259,19 +258,19 @@ atk_state_set_contains_states (AtkStateSet   *set,
  * Returns: %TRUE if @type was the state type is in @set.
  **/
 gboolean
-atk_state_set_remove_state (AtkStateSet  *set,
+atk_state_set_remove_state (AtkStateSet *set,
                             AtkStateType type)
 {
   AtkRealStateSet *real_set;
   g_return_val_if_fail (ATK_IS_STATE_SET (set), FALSE);
 
-  real_set = (AtkRealStateSet *)set;
+  real_set = (AtkRealStateSet *) set;
 
   if (real_set->state & ATK_STATE (type))
-  {
-    real_set->state ^= ATK_STATE (type);
-    return TRUE;
-  }
+    {
+      real_set->state ^= ATK_STATE (type);
+      return TRUE;
+    }
   else
     return FALSE;
 }
@@ -287,9 +286,9 @@ atk_state_set_remove_state (AtkStateSet  *set,
  * Returns: (transfer full): a new #AtkStateSet which is the intersection of
  * the two sets.
  **/
-AtkStateSet*
-atk_state_set_and_sets (AtkStateSet  *set,
-                        AtkStateSet  *compare_set)
+AtkStateSet *
+atk_state_set_and_sets (AtkStateSet *set,
+                        AtkStateSet *compare_set)
 {
   AtkRealStateSet *real_set, *real_compare_set;
   AtkStateSet *return_set = NULL;
@@ -298,15 +297,15 @@ atk_state_set_and_sets (AtkStateSet  *set,
   g_return_val_if_fail (ATK_IS_STATE_SET (set), NULL);
   g_return_val_if_fail (ATK_IS_STATE_SET (compare_set), NULL);
 
-  real_set = (AtkRealStateSet *)set;
-  real_compare_set = (AtkRealStateSet *)compare_set;
+  real_set = (AtkRealStateSet *) set;
+  real_compare_set = (AtkRealStateSet *) compare_set;
 
   state = real_set->state & real_compare_set->state;
   if (state)
-  {
-    return_set = atk_state_set_new();
-    ((AtkRealStateSet *) return_set)->state = state;
-  }
+    {
+      return_set = atk_state_set_new ();
+      ((AtkRealStateSet *) return_set)->state = state;
+    }
   return return_set;
 }
 
@@ -320,9 +319,9 @@ atk_state_set_and_sets (AtkStateSet  *set,
  * Returns: (nullable) (transfer full): a new #AtkStateSet which is
  * the union of the two sets, returning %NULL is empty.
  **/
-AtkStateSet*
-atk_state_set_or_sets (AtkStateSet  *set,
-                       AtkStateSet  *compare_set)
+AtkStateSet *
+atk_state_set_or_sets (AtkStateSet *set,
+                       AtkStateSet *compare_set)
 {
   AtkRealStateSet *real_set, *real_compare_set;
   AtkStateSet *return_set = NULL;
@@ -331,16 +330,16 @@ atk_state_set_or_sets (AtkStateSet  *set,
   g_return_val_if_fail (ATK_IS_STATE_SET (set), NULL);
   g_return_val_if_fail (ATK_IS_STATE_SET (compare_set), NULL);
 
-  real_set = (AtkRealStateSet *)set;
-  real_compare_set = (AtkRealStateSet *)compare_set;
+  real_set = (AtkRealStateSet *) set;
+  real_compare_set = (AtkRealStateSet *) compare_set;
 
   state = real_set->state | real_compare_set->state;
 
   if (state)
-  {
-    return_set = atk_state_set_new();
-    ((AtkRealStateSet *) return_set)->state = state;
-  }
+    {
+      return_set = atk_state_set_new ();
+      ((AtkRealStateSet *) return_set)->state = state;
+    }
 
   return return_set;
 }
@@ -357,9 +356,9 @@ atk_state_set_or_sets (AtkStateSet  *set,
  * Returns: (transfer full): a new #AtkStateSet which contains the states
  * which are in exactly one of the two sets.
  **/
-AtkStateSet*
-atk_state_set_xor_sets (AtkStateSet  *set,
-                        AtkStateSet  *compare_set)
+AtkStateSet *
+atk_state_set_xor_sets (AtkStateSet *set,
+                        AtkStateSet *compare_set)
 {
   AtkRealStateSet *real_set, *real_compare_set;
   AtkStateSet *return_set = NULL;
@@ -368,17 +367,17 @@ atk_state_set_xor_sets (AtkStateSet  *set,
   g_return_val_if_fail (ATK_IS_STATE_SET (set), NULL);
   g_return_val_if_fail (ATK_IS_STATE_SET (compare_set), NULL);
 
-  real_set = (AtkRealStateSet *)set;
-  real_compare_set = (AtkRealStateSet *)compare_set;
+  real_set = (AtkRealStateSet *) set;
+  real_compare_set = (AtkRealStateSet *) compare_set;
 
   state1 = real_set->state & (~real_compare_set->state);
   state2 = (~real_set->state) & real_compare_set->state;
   state = state1 | state2;
 
   if (state)
-  {
-    return_set = atk_state_set_new();
-    ((AtkRealStateSet *) return_set)->state = state;
-  }
+    {
+      return_set = atk_state_set_new ();
+      ((AtkRealStateSet *) return_set)->state = state;
+    }
   return return_set;
 }

@@ -27,7 +27,7 @@
  * atspi_document_get_locale:
  * @obj: a pointer to the #AtspiDocument object on which to operate.
  *
- * Gets the locale associated with the document's content, 
+ * Gets the locale associated with the document's content,
  * e.g. the locale for LOCALE_TYPE_MESSAGES.
  *
  * Returns: a string compliant with the POSIX standard for locale description.
@@ -58,12 +58,12 @@ atspi_document_get_locale (AtspiDocument *obj, GError **error)
  **/
 gchar *
 atspi_document_get_attribute_value (AtspiDocument *obj,
-				      gchar *attribute,
-				      GError **error)
+                                    gchar *attribute,
+                                    GError **error)
 {
   return atspi_document_get_document_attribute_value (obj, attribute, error);
 }
-				      
+
 /**
  * atspi_document_get_document_attribute_value:
  * @obj: a pointer to the #AtspiDocument object on which to operate.
@@ -76,8 +76,8 @@ atspi_document_get_attribute_value (AtspiDocument *obj,
  **/
 gchar *
 atspi_document_get_document_attribute_value (AtspiDocument *obj,
-				             gchar *attribute,
-				             GError **error)
+                                             gchar *attribute,
+                                             GError **error)
 {
   gchar *retval = NULL;
 
@@ -90,15 +90,14 @@ atspi_document_get_document_attribute_value (AtspiDocument *obj,
 
   return retval;
 }
-				      
 
 /**
  * atspi_document_get_attributes: (rename-to atspi_document_get_document_attributes)
  * @obj: a pointer to the #AtspiDocument object on which to operate.
- * 
+ *
  * Gets all constant attributes for the document as a whole. For attributes
  * that change within the document content, see @atspi_text_get_attribute_run instead.
- * 
+ *
  * Returns: (element-type gchar* gchar*) (transfer full): a #GHashTable
  *          containing the constant attributes of the document, as name-value pairs.
  *
@@ -113,10 +112,10 @@ atspi_document_get_attributes (AtspiDocument *obj, GError **error)
 /**
  * atspi_document_get_document_attributes:
  * @obj: a pointer to the #AtspiDocument object on which to operate.
- * 
+ *
  * Gets all constant attributes for the document as a whole. For attributes
  * that change within the document content, see @atspi_text_get_attribute_run instead.
- * 
+ *
  * Returns: (element-type gchar* gchar*) (transfer full): a #GHashTable
  *          containing the constant attributes of the document, as name-value pairs.
  **/
@@ -125,7 +124,7 @@ atspi_document_get_document_attributes (AtspiDocument *obj, GError **error)
 {
   DBusMessage *message;
 
-    g_return_val_if_fail (obj != NULL, NULL);
+  g_return_val_if_fail (obj != NULL, NULL);
 
   message = _atspi_dbus_call_partial (obj, atspi_interface_document, "GetAttributes", error, "");
   return _atspi_dbus_return_hash_from_message (message);
@@ -183,16 +182,15 @@ atspi_document_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) {
-    static const GTypeInfo tinfo =
+  if (!type)
     {
-      sizeof (AtspiDocument),
-      (GBaseInitFunc) atspi_document_base_init,
-      (GBaseFinalizeFunc) NULL,
-    };
+      static const GTypeInfo tinfo = {
+        sizeof (AtspiDocument),
+        (GBaseInitFunc) atspi_document_base_init,
+        (GBaseFinalizeFunc) NULL,
+      };
 
-    type = g_type_register_static (G_TYPE_INTERFACE, "AtspiDocument", &tinfo, 0);
-
-  }
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtspiDocument", &tinfo, 0);
+    }
   return type;
 }

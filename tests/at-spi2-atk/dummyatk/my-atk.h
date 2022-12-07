@@ -24,17 +24,17 @@
 #define MY_ATK_H
 
 #include "my-atk-action.h"
-#include "my-atk-object.h"
 #include "my-atk-component.h"
 #include "my-atk-document.h"
 #include "my-atk-editable-text.h"
 #include "my-atk-hyperlink.h"
 #include "my-atk-hypertext.h"
 #include "my-atk-image.h"
-#include "my-atk-table.h"
-#include "my-atk-table-cell.h"
-#include "my-atk-text.h"
+#include "my-atk-object.h"
 #include "my-atk-selection.h"
+#include "my-atk-table-cell.h"
+#include "my-atk-table.h"
+#include "my-atk-text.h"
 #include "my-atk-value.h"
 
 #endif /*MY_ATK_H*/

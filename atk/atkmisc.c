@@ -39,8 +39,7 @@ atk_misc_get_type (void)
 
   if (!type)
     {
-      static const GTypeInfo typeInfo =
-      {
+      static const GTypeInfo typeInfo = {
         sizeof (AtkMiscClass),
         (GBaseInitFunc) NULL,
         (GBaseFinalizeFunc) NULL,
@@ -50,8 +49,8 @@ atk_misc_get_type (void)
         sizeof (AtkMisc),
         0,
         (GInstanceInitFunc) NULL,
-      } ;
-      type = g_type_register_static (G_TYPE_OBJECT, "AtkMisc", &typeInfo, 0) ;
+      };
+      type = g_type_register_static (G_TYPE_OBJECT, "AtkMisc", &typeInfo, 0);
     }
   return type;
 }
@@ -65,10 +64,10 @@ atk_misc_class_init (AtkMiscClass *klass)
 
 /**
  * atk_misc_threads_enter:
- * @misc: an AtkMisc instance for this application. 
+ * @misc: an AtkMisc instance for this application.
  *
- * Take the thread mutex for the GUI toolkit, 
- * if one exists. 
+ * Take the thread mutex for the GUI toolkit,
+ * if one exists.
  * (This method is implemented by the toolkit ATK implementation layer;
  *  for instance, for GTK+, GAIL implements this via GDK_THREADS_ENTER).
  *
@@ -95,11 +94,11 @@ atk_misc_threads_enter (AtkMisc *misc)
 
 /**
  * atk_misc_threads_leave:
- * @misc: an AtkMisc instance for this application. 
+ * @misc: an AtkMisc instance for this application.
  *
- * Release the thread mutex for the GUI toolkit, 
- * if one exists. This method, and atk_misc_threads_enter, 
- * are needed in some situations by threaded application code which 
+ * Release the thread mutex for the GUI toolkit,
+ * if one exists. This method, and atk_misc_threads_enter,
+ * are needed in some situations by threaded application code which
  * services ATK requests, since fulfilling ATK requests often
  * requires calling into the GUI toolkit.  If a long-running or
  * potentially blocking call takes place inside such a block, it should
@@ -134,7 +133,7 @@ AtkMisc *atk_misc_instance = NULL;
  * atk_misc_get_instance:
  *
  * Obtain the singleton instance of AtkMisc for this application.
- * 
+ *
  * Since: 1.13
  *
  * Deprecated: Since 2.12.

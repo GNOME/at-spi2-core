@@ -23,16 +23,17 @@
  */
 
 #define ATK_DISABLE_DEPRECATION_WARNINGS
+#include "bridge.h"
 #include <atk/atk.h>
 #include <droute/droute.h>
-#include "bridge.h"
 
 #include "spi-dbus.h"
-#include "object.h"
+
 #include "introspection.h"
+#include "object.h"
 
 static dbus_bool_t
-impl_get_CurrentPageNumber (DBusMessageIter * iter, void *user_data)
+impl_get_CurrentPageNumber (DBusMessageIter *iter, void *user_data)
 {
   AtkDocument *document = (AtkDocument *) user_data;
   g_return_val_if_fail (ATK_IS_DOCUMENT (user_data), FALSE);
@@ -40,7 +41,7 @@ impl_get_CurrentPageNumber (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_PageCount (DBusMessageIter * iter, void *user_data)
+impl_get_PageCount (DBusMessageIter *iter, void *user_data)
 {
   AtkDocument *document = (AtkDocument *) user_data;
   g_return_val_if_fail (ATK_IS_DOCUMENT (user_data), FALSE);
@@ -48,7 +49,7 @@ impl_get_PageCount (DBusMessageIter * iter, void *user_data)
 }
 
 static DBusMessage *
-impl_GetLocale (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetLocale (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkDocument *document = (AtkDocument *) user_data;
   const gchar *lc;
@@ -69,8 +70,7 @@ impl_GetLocale (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_GetAttributeValue (DBusConnection * bus, DBusMessage * message,
-                        void *user_data)
+impl_GetAttributeValue (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkDocument *document = (AtkDocument *) user_data;
   gchar *attributename;
@@ -79,8 +79,7 @@ impl_GetAttributeValue (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_DOCUMENT (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_STRING, &attributename, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &attributename, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -97,8 +96,7 @@ impl_GetAttributeValue (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_GetAttributes (DBusConnection * bus, DBusMessage * message,
-                    void *user_data)
+impl_GetAttributes (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkDocument *document = (AtkDocument *) user_data;
   DBusMessage *reply;
@@ -123,20 +121,20 @@ impl_GetAttributes (DBusConnection * bus, DBusMessage * message,
 }
 
 static DRouteMethod methods[] = {
-  {impl_GetLocale, "GetLocale"},
-  {impl_GetAttributeValue, "GetAttributeValue"},
-  {impl_GetAttributes, "GetAttributes"},
-  {NULL, NULL}
+  { impl_GetLocale, "GetLocale" },
+  { impl_GetAttributeValue, "GetAttributeValue" },
+  { impl_GetAttributes, "GetAttributes" },
+  { NULL, NULL }
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_CurrentPageNumber, NULL, "CurrentPageNumber"},
-  {impl_get_PageCount, NULL, "PageCount"},
-  {NULL, NULL, NULL}
+  { impl_get_CurrentPageNumber, NULL, "CurrentPageNumber" },
+  { impl_get_PageCount, NULL, "PageCount" },
+  { NULL, NULL, NULL }
 };
 
 void
-spi_initialize_document (DRoutePath * path)
+spi_initialize_document (DRoutePath *path)
 {
   droute_path_add_interface (path,
                              ATSPI_DBUS_INTERFACE_DOCUMENT, spi_org_a11y_atspi_Document, methods, properties);

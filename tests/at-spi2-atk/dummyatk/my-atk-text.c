@@ -20,10 +20,10 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include <stdio.h>
-#include <glib.h>
-#include <string.h>
 #include <atk/atk.h>
+#include <glib.h>
+#include <stdio.h>
+#include <string.h>
 
 #include "my-atk-object.h"
 #include "my-atk-text.h"
@@ -34,7 +34,8 @@ static void atk_text_interface_init (AtkTextIface *iface);
 
 typedef struct _MyAtkTextSelection MyAtkTextSelection;
 
-struct _MyAtkTextSelection {
+struct _MyAtkTextSelection
+{
   gint start;
   gint end;
 };
@@ -43,7 +44,7 @@ G_DEFINE_TYPE_WITH_CODE (MyAtkText,
                          my_atk_text,
                          MY_TYPE_ATK_OBJECT,
                          G_IMPLEMENT_INTERFACE (ATK_TYPE_TEXT,
-                             atk_text_interface_init));
+                                                atk_text_interface_init));
 
 guint
 my_atk_set_text (AtkText *obj,
@@ -92,7 +93,8 @@ my_atk_text_get_character_count (AtkText *obj)
 {
   g_return_val_if_fail (MY_IS_ATK_TEXT (obj), -1);
   gchar *str = MY_ATK_TEXT (obj)->text;
-  if (!str) return 0;
+  if (!str)
+    return 0;
   return (gint) strlen (str);
 }
 
@@ -181,11 +183,11 @@ my_atk_text_get_selection (AtkText *obj, gint selection_num, gint *start_offset,
   if (!it)
     return NULL;
 
-  str = my_atk_text_get_text (obj, ((MyAtkTextSelection *)it->data)->start, ((MyAtkTextSelection *)it->data)->end);
+  str = my_atk_text_get_text (obj, ((MyAtkTextSelection *) it->data)->start, ((MyAtkTextSelection *) it->data)->end);
   if (!str)
     return NULL;
-  *start_offset = ((MyAtkTextSelection *)it->data)->start;
-  *end_offset = ((MyAtkTextSelection *)it->data)->end;
+  *start_offset = ((MyAtkTextSelection *) it->data)->start;
+  *end_offset = ((MyAtkTextSelection *) it->data)->end;
 
   return str;
 }
@@ -205,8 +207,8 @@ my_atk_text_set_selection (AtkText *obj, gint selection_num, gint start_offset, 
   if (!it)
     return FALSE;
 
-  ((MyAtkTextSelection *)it->data)->start = start_offset;
-  ((MyAtkTextSelection *)it->data)->end = end_offset;
+  ((MyAtkTextSelection *) it->data)->start = start_offset;
+  ((MyAtkTextSelection *) it->data)->end = end_offset;
 
   return TRUE;
 }
@@ -266,7 +268,8 @@ my_atk_text_get_run_attributes (AtkText *obj, gint offset, gint *start_offset, g
   return attributes;
 }
 
-static void setSentenceStartEnd (MyAtkText *self,gint *_offset, gint *start_offset, gint*end_offset, const gchar *fstr)
+static void
+setSentenceStartEnd (MyAtkText *self, gint *_offset, gint *start_offset, gint *end_offset, const gchar *fstr)
 {
   gchar *p_str_begin = NULL;
   gchar *p_str_end = NULL;
@@ -276,39 +279,51 @@ static void setSentenceStartEnd (MyAtkText *self,gint *_offset, gint *start_offs
   /*
    * In case if offset is in the middle of the word rewind to 1 character before.
    */
-  for (; g_ascii_isalpha (self->text[offset]) && 0 < offset; offset--);
+  for (; g_ascii_isalpha (self->text[offset]) && 0 < offset; offset--)
+    ;
   /*
    * if [char]  rewind to word after by passing none alpha
    * else  try to find last [string] in range [0,offset]
    *   if  found then correct position
    *   else not found so this is first sentence find first word
    */
-  if (self->text[offset] == fstr[0]) {
-    for (; !g_ascii_isalpha (self->text[offset]) && offset < length; offset++);
-    p_str_begin = self->text + offset;
-  } else {
-    p_str_begin = g_strrstr_len (self->text, offset, fstr);
-    if (p_str_begin) {
-      for (; !g_ascii_isalpha (self->text[offset]) && length < offset; offset++);
-    } else {
-      for (offset = 0; !g_ascii_isalpha (self->text[offset]) && length < offset; offset++);
-      star_correction = 0;
+  if (self->text[offset] == fstr[0])
+    {
+      for (; !g_ascii_isalpha (self->text[offset]) && offset < length; offset++)
+        ;
+      p_str_begin = self->text + offset;
     }
-    p_str_begin = self->text + offset;
-  }
+  else
+    {
+      p_str_begin = g_strrstr_len (self->text, offset, fstr);
+      if (p_str_begin)
+        {
+          for (; !g_ascii_isalpha (self->text[offset]) && length < offset; offset++)
+            ;
+        }
+      else
+        {
+          for (offset = 0; !g_ascii_isalpha (self->text[offset]) && length < offset; offset++)
+            ;
+          star_correction = 0;
+        }
+      p_str_begin = self->text + offset;
+    }
   /*
    * try find ending
    * if not found set ending at text end.
    * */
   p_str_end = g_strstr_len (self->text + offset, length - offset, fstr);
-  if (!p_str_end) {
-    p_str_end = self->text + (length -1);
-  }
-  if (p_str_begin  && p_str_end) {
-    *start_offset = p_str_begin - self->text + star_correction;
-    *end_offset = p_str_end - self->text + 1;
-    *_offset = offset;
-  }
+  if (!p_str_end)
+    {
+      p_str_end = self->text + (length - 1);
+    }
+  if (p_str_begin && p_str_end)
+    {
+      *start_offset = p_str_begin - self->text + star_correction;
+      *end_offset = p_str_end - self->text + 1;
+      *_offset = offset;
+    }
 }
 
 static gchar *
@@ -322,43 +337,49 @@ my_atk_text_get_string_at_offset (AtkText *obj, gint offset, AtkTextGranularity 
   *start_offset = -1;
   *end_offset = -1;
 
-  switch (granularity) {
-  case ATK_TEXT_GRANULARITY_CHAR:
-    *start_offset = offset;
-    *end_offset = *start_offset + 1;
-    break;
-  case ATK_TEXT_GRANULARITY_WORD:
-    length = strlen (self->text);
-    for (; !g_ascii_isalpha (self->text[offset]) && offset < length ; offset++);
-    for (cnt = offset; cnt < length; cnt++) {
-      if (!g_ascii_isalpha (self->text[cnt])) {
-        *start_offset = offset;
-        *end_offset = cnt - 1;
-        myoffset = 1;
-        break;
-      }
+  switch (granularity)
+    {
+    case ATK_TEXT_GRANULARITY_CHAR:
+      *start_offset = offset;
+      *end_offset = *start_offset + 1;
+      break;
+    case ATK_TEXT_GRANULARITY_WORD:
+      length = strlen (self->text);
+      for (; !g_ascii_isalpha (self->text[offset]) && offset < length; offset++)
+        ;
+      for (cnt = offset; cnt < length; cnt++)
+        {
+          if (!g_ascii_isalpha (self->text[cnt]))
+            {
+              *start_offset = offset;
+              *end_offset = cnt - 1;
+              myoffset = 1;
+              break;
+            }
+        }
+      for (cnt = offset; 0 < cnt; cnt--)
+        {
+          if (!g_ascii_isalpha (self->text[cnt]))
+            {
+              *start_offset = cnt + 1;
+              break;
+            }
+        }
+      break;
+    case ATK_TEXT_GRANULARITY_SENTENCE:
+      setSentenceStartEnd (self, &offset, start_offset, end_offset, ".");
+      break;
+    case ATK_TEXT_GRANULARITY_LINE:
+      setSentenceStartEnd (self, &offset, start_offset, end_offset, "/n");
+      break;
+    case ATK_TEXT_GRANULARITY_PARAGRAPH:
+      /* Not implemented */
+      *start_offset = 0;
+      *end_offset = 0;
+      break;
+    default:
+      break;
     }
-    for (cnt = offset; 0 < cnt; cnt--) {
-      if (!g_ascii_isalpha (self->text[cnt])) {
-        *start_offset = cnt + 1;
-        break;
-      }
-    }
-    break;
-  case ATK_TEXT_GRANULARITY_SENTENCE:
-    setSentenceStartEnd (self, &offset, start_offset, end_offset, ".");
-    break;
-  case ATK_TEXT_GRANULARITY_LINE:
-    setSentenceStartEnd (self, &offset, start_offset, end_offset, "/n");
-    break;
-  case ATK_TEXT_GRANULARITY_PARAGRAPH:
-    /* Not implemented */
-    *start_offset = 0;
-    *end_offset = 0;
-    break;
-  default:
-    break;
-  }
   return my_atk_text_get_text (obj, *start_offset, *end_offset + myoffset);
 }
 
@@ -373,12 +394,12 @@ my_atk_get_bounded_ranges (AtkText *obj, AtkTextRectangle *rect, AtkCoordType ct
   (*range)->end_offset = 5;
   (*range)->content = my_atk_text_get_text (obj, (*range)->start_offset, (*range)->end_offset);
 
-  *(range+1) = g_new (AtkTextRange, 1);
-  (*(range+1))->start_offset = 6;
-  (*(range+1))->end_offset = 10;
-  (*(range+1))->content = my_atk_text_get_text (obj, (*(range+1))->start_offset, (*(range+1))->end_offset);
+  *(range + 1) = g_new (AtkTextRange, 1);
+  (*(range + 1))->start_offset = 6;
+  (*(range + 1))->end_offset = 10;
+  (*(range + 1))->content = my_atk_text_get_text (obj, (*(range + 1))->start_offset, (*(range + 1))->end_offset);
 
-  *(range+2) = NULL;
+  *(range + 2) = NULL;
 
   return range;
 }
@@ -386,7 +407,8 @@ my_atk_get_bounded_ranges (AtkText *obj, AtkTextRectangle *rect, AtkCoordType ct
 static void
 atk_text_interface_init (AtkTextIface *iface)
 {
-  if (!iface) return;
+  if (!iface)
+    return;
 
   iface->get_text = my_atk_text_get_text;
   iface->get_character_count = my_atk_text_get_character_count;
@@ -395,7 +417,7 @@ atk_text_interface_init (AtkTextIface *iface)
   iface->get_character_at_offset = my_atk_text_get_character_at_offset;
   iface->get_character_extents = my_atk_text_get_character_extents;
   iface->get_range_extents = my_atk_text_get_range_extents;
-  iface->get_n_selections =  my_atk_text_get_n_selections;
+  iface->get_n_selections = my_atk_text_get_n_selections;
   iface->add_selection = my_atk_text_add_selection;
   iface->get_selection = my_atk_text_get_selection;
   iface->set_selection = my_atk_text_set_selection;
@@ -412,7 +434,7 @@ my_atk_text_init (MyAtkText *self)
 {
   self->text = NULL;
   self->caret_offset = -1;
-  self->x =-1;
+  self->x = -1;
   self->y = -1;
   self->width = -1;
   self->height = -1;

@@ -85,7 +85,7 @@ append_accessible (DBusMessage *message, AtspiAccessible *accessible)
   dbus_message_iter_init_append (message, &iter);
   dbus_message_iter_append_basic (&iter, DBUS_TYPE_OBJECT_PATH,
                                   &accessible->parent.path);
-  return TRUE;	/* TODO: Check for out-of-memory */
+  return TRUE; /* TODO: Check for out-of-memory */
 }
 
 static GArray *
@@ -100,12 +100,12 @@ return_accessibles (DBusMessage *message)
   dbus_message_iter_recurse (&iter, &iter_array);
 
   while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
-  {
-    AtspiAccessible *accessible;
-    accessible = _atspi_dbus_consume_accessible (&iter_array);
-    ret = g_array_append_val (ret, accessible);
-    /* Iter was moved already, so no need to call dbus_message_iter_next */
-  }
+    {
+      AtspiAccessible *accessible;
+      accessible = _atspi_dbus_consume_accessible (&iter_array);
+      ret = g_array_append_val (ret, accessible);
+      /* Iter was moved already, so no need to call dbus_message_iter_next */
+    }
   dbus_message_unref (message);
   return ret;
 }
@@ -120,9 +120,9 @@ return_accessibles (DBusMessage *message)
  * @traverse: Not supported.
  *
  * Gets all #AtspiAccessible objects from the @collection matching a given
- * @rule.  
+ * @rule.
  *
- * Returns: (element-type AtspiAccessible*) (transfer full): All 
+ * Returns: (element-type AtspiAccessible*) (transfer full): All
  *          #AtspiAccessible objects matching the given match rule.
  **/
 GArray *
@@ -170,8 +170,8 @@ atspi_collection_get_matches (AtspiCollection *collection,
  * @count: The maximum number of results to return, or 0 for no limit.
  * @traverse: Not supported.
  *
- * Gets all #AtspiAccessible objects from the @collection, after 
- * @current_object, matching a given @rule.  
+ * Gets all #AtspiAccessible objects from the @collection, after
+ * @current_object, matching a given @rule.
  *
  * Returns: (element-type AtspiAccessible*) (transfer full): All
  *          #AtspiAccessible objects matching the given match rule after
@@ -179,14 +179,14 @@ atspi_collection_get_matches (AtspiCollection *collection,
  **/
 GArray *
 atspi_collection_get_matches_to (AtspiCollection *collection,
-                              AtspiAccessible *current_object,
-                              AtspiMatchRule *rule,
-                              AtspiCollectionSortOrder sortby,
-                              AtspiCollectionTreeTraversalType tree,
-                              gboolean limit_scope,
-                              gint count,
-                              gboolean traverse,
-                              GError **error)
+                                 AtspiAccessible *current_object,
+                                 AtspiMatchRule *rule,
+                                 AtspiCollectionSortOrder sortby,
+                                 AtspiCollectionTreeTraversalType tree,
+                                 gboolean limit_scope,
+                                 gint count,
+                                 gboolean traverse,
+                                 GError **error)
 {
   DBusMessage *message = new_message (collection, "GetMatchesTo");
   DBusMessage *reply;
@@ -204,7 +204,7 @@ atspi_collection_get_matches_to (AtspiCollection *collection,
   if (!append_match_rule (message, rule))
     return NULL;
   dbus_message_append_args (message, DBUS_TYPE_UINT32, &d_sortby,
-                                     DBUS_TYPE_UINT32, &d_tree,
+                            DBUS_TYPE_UINT32, &d_tree,
                             DBUS_TYPE_BOOLEAN, &d_limit_scope,
                             DBUS_TYPE_INT32, &d_count,
                             DBUS_TYPE_BOOLEAN, &d_traverse,
@@ -227,22 +227,22 @@ atspi_collection_get_matches_to (AtspiCollection *collection,
  * @count: The maximum number of results to return, or 0 for no limit.
  * @traverse: Not supported.
  *
- * Gets all #AtspiAccessible objects from the @collection, before  
- * @current_object, matching a given @rule.  
+ * Gets all #AtspiAccessible objects from the @collection, before
+ * @current_object, matching a given @rule.
  *
- * Returns: (element-type AtspiAccessible*) (transfer full): All 
+ * Returns: (element-type AtspiAccessible*) (transfer full): All
  *          #AtspiAccessible objects matching the given match rule that preceed
  *          @current_object.
  **/
 GArray *
 atspi_collection_get_matches_from (AtspiCollection *collection,
-                              AtspiAccessible *current_object,
-                              AtspiMatchRule *rule,
-                              AtspiCollectionSortOrder sortby,
-                              AtspiCollectionTreeTraversalType tree,
-                              gint count,
-                              gboolean traverse,
-                              GError **error)
+                                   AtspiAccessible *current_object,
+                                   AtspiMatchRule *rule,
+                                   AtspiCollectionSortOrder sortby,
+                                   AtspiCollectionTreeTraversalType tree,
+                                   gint count,
+                                   gboolean traverse,
+                                   GError **error)
 {
   DBusMessage *message = new_message (collection, "GetMatchesFrom");
   DBusMessage *reply;
@@ -272,7 +272,7 @@ atspi_collection_get_matches_from (AtspiCollection *collection,
 /**
  * atspi_collection_get_active_descendant:
  *
-* Returns: (transfer full): The active descendant of the given object.
+ * Returns: (transfer full): The active descendant of the given object.
  * Not yet implemented.
  **/
 AtspiAccessible *
@@ -292,16 +292,15 @@ atspi_collection_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) {
-    static const GTypeInfo tinfo =
+  if (!type)
     {
-      sizeof (AtspiCollection),
-      (GBaseInitFunc) atspi_collection_base_init,
-      (GBaseFinalizeFunc) NULL,
-    };
+      static const GTypeInfo tinfo = {
+        sizeof (AtspiCollection),
+        (GBaseInitFunc) atspi_collection_base_init,
+        (GBaseFinalizeFunc) NULL,
+      };
 
-    type = g_type_register_static (G_TYPE_INTERFACE, "AtspiCollection", &tinfo, 0);
-
-  }
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtspiCollection", &tinfo, 0);
+    }
   return type;
 }

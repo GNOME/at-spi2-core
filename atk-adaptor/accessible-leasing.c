@@ -41,17 +41,18 @@ typedef struct _ExpiryElement
   GObject *object;
 } ExpiryElement;
 
-static void spi_leasing_dispose (GObject * object);
+static void spi_leasing_dispose (GObject *object);
 
-static void spi_leasing_finalize (GObject * object);
+static void spi_leasing_finalize (GObject *object);
 
-static void add_expiry_timeout (SpiLeasing * leasing);
+static void add_expiry_timeout (SpiLeasing *leasing);
 
 /*---------------------------------------------------------------------------*/
 
 G_DEFINE_TYPE (SpiLeasing, spi_leasing, G_TYPE_OBJECT)
 
-static void spi_leasing_class_init (SpiLeasingClass * klass)
+static void
+spi_leasing_class_init (SpiLeasingClass *klass)
 {
   GObjectClass *object_class = (GObjectClass *) klass;
 
@@ -62,14 +63,14 @@ static void spi_leasing_class_init (SpiLeasingClass * klass)
 }
 
 static void
-spi_leasing_init (SpiLeasing * leasing)
+spi_leasing_init (SpiLeasing *leasing)
 {
   leasing->expiry_queue = g_queue_new ();
   leasing->expiry_func_id = 0;
 }
 
 static void
-spi_leasing_finalize (GObject * object)
+spi_leasing_finalize (GObject *object)
 {
   SpiLeasing *leasing = SPI_LEASING (object);
 
@@ -80,7 +81,7 @@ spi_leasing_finalize (GObject * object)
 }
 
 static void
-spi_leasing_dispose (GObject * object)
+spi_leasing_dispose (GObject *object)
 {
   SpiLeasing *leasing = SPI_LEASING (object);
 
@@ -97,7 +98,7 @@ spi_leasing_dispose (GObject * object)
 
 /*
   End the lease on all objects whose expiry time has passed.
- 
+
   Check when the next event is and set the next expiry func.
 */
 static gboolean
@@ -144,7 +145,7 @@ expiry_func (gpointer data)
   expiry function to add the next expiry timeout.
 */
 static void
-add_expiry_timeout (SpiLeasing * leasing)
+add_expiry_timeout (SpiLeasing *leasing)
 {
   ExpiryElement *elem;
   gint64 secs = g_get_monotonic_time () / 1000000;
@@ -175,7 +176,7 @@ add_expiry_timeout (SpiLeasing * leasing)
 #define EXPIRY_TIME_S (LEASE_TIME_S + 1)
 
 GObject *
-spi_leasing_take (SpiLeasing * leasing, GObject * object)
+spi_leasing_take (SpiLeasing *leasing, GObject *object)
 {
   /*
      Get the current time.

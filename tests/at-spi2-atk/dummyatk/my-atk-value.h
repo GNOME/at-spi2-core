@@ -21,22 +21,23 @@
 #ifndef MY_ATK_VALUE_H_
 #define MY_ATK_VALUE_H_
 
-#include <glib.h>
-#include <glib-object.h>
 #include <atk/atk.h>
+#include <glib-object.h>
+#include <glib.h>
 
 #include "my-atk-object.h"
-#define MY_TYPE_ATK_VALUE             (my_atk_value_get_type ())
-#define MY_ATK_VALUE(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), MY_TYPE_ATK_VALUE, MyAtkValue))
-#define MY_ATK_VALUE_CLASS(vtable)    (G_TYPE_CHECK_CLASS_CAST ((vtable), MY_TYPE_ATK_VALUE, MyAtkValueClass))
-#define MY_IS_ATK_VALUE(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), MY_TYPE_ATK_VALUE))
+#define MY_TYPE_ATK_VALUE (my_atk_value_get_type ())
+#define MY_ATK_VALUE(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), MY_TYPE_ATK_VALUE, MyAtkValue))
+#define MY_ATK_VALUE_CLASS(vtable) (G_TYPE_CHECK_CLASS_CAST ((vtable), MY_TYPE_ATK_VALUE, MyAtkValueClass))
+#define MY_IS_ATK_VALUE(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), MY_TYPE_ATK_VALUE))
 #define MY_IS_ATK_VALUE_CLASS(vtable) (G_TYPE_CHECK_CLASS_TYPE ((vtable), MY_TYPE_ATK_VALUE))
-#define MY_ATK_VALUE_GET_CLASS(inst)  (G_TYPE_INSTANCE_GET_CLASS ((inst), MY_TYPE_ATK_VALUE, MyAtkValueClass))
+#define MY_ATK_VALUE_GET_CLASS(inst) (G_TYPE_INSTANCE_GET_CLASS ((inst), MY_TYPE_ATK_VALUE, MyAtkValueClass))
 
 typedef struct _MyAtkValue MyAtkValue;
 typedef struct _MyAtkValueClass MyAtkValueClass;
 
-struct _MyAtkValue {
+struct _MyAtkValue
+{
   MyAtkObject parent;
   gdouble min;
   gdouble cur;
@@ -44,7 +45,8 @@ struct _MyAtkValue {
   gdouble step;
 };
 
-struct _MyAtkValueClass {
+struct _MyAtkValueClass
+{
   MyAtkObjectClass parent;
 };
 

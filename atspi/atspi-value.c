@@ -38,7 +38,7 @@
 
 /**
  * atspi_value_get_minimum_value:
- * @obj: a pointer to the #AtspiValue implementor on which to operate. 
+ * @obj: a pointer to the #AtspiValue implementor on which to operate.
  *
  * Gets the minimum allowed value for an #AtspiValue.
  *
@@ -52,13 +52,13 @@ atspi_value_get_minimum_value (AtspiValue *obj, GError **error)
 
   g_return_val_if_fail (obj != NULL, 0.0);
   _atspi_dbus_get_property (obj, atspi_interface_value, "MinimumValue", error, "d", &retval);
-  
+
   return retval;
 }
 
 /**
  * atspi_value_get_current_value:
- * @obj: a pointer to the #AtspiValue implementor on which to operate. 
+ * @obj: a pointer to the #AtspiValue implementor on which to operate.
  *
  * Gets the current value for an #AtspiValue.
  *
@@ -78,7 +78,7 @@ atspi_value_get_current_value (AtspiValue *obj, GError **error)
 
 /**
  * atspi_value_get_maximum_value:
- * @obj: a pointer to the #AtspiValue implementor on which to operate. 
+ * @obj: a pointer to the #AtspiValue implementor on which to operate.
  *
  * Gets the maximum allowed value for an #AtspiValue.
  *
@@ -87,7 +87,7 @@ atspi_value_get_current_value (AtspiValue *obj, GError **error)
 gdouble
 atspi_value_get_maximum_value (AtspiValue *obj, GError **error)
 {
-  double retval;	
+  double retval;
 
   g_return_val_if_fail (obj != NULL, 0.0);
 
@@ -118,25 +118,25 @@ atspi_value_set_current_value (AtspiValue *obj, gdouble new_value, GError **erro
   g_return_val_if_fail (accessible != NULL, FALSE);
 
   if (!accessible->parent.app || !accessible->parent.app->bus_name)
-{
-    g_set_error_literal (error, ATSPI_ERROR, ATSPI_ERROR_APPLICATION_GONE,
-                          _("The application no longer exists"));
-    return FALSE;
-  }
-
-    message = dbus_message_new_method_call (accessible->parent.app->bus_name,
-                                            accessible->parent.path,
-                                            DBUS_INTERFACE_PROPERTIES, "Set");
-    if (!message)
+    {
+      g_set_error_literal (error, ATSPI_ERROR, ATSPI_ERROR_APPLICATION_GONE,
+                           _ ("The application no longer exists"));
       return FALSE;
-    dbus_message_append_args (message, DBUS_TYPE_STRING, &atspi_interface_value,
-                               DBUS_TYPE_STRING, &str_curval,
-                              DBUS_TYPE_INVALID);
+    }
+
+  message = dbus_message_new_method_call (accessible->parent.app->bus_name,
+                                          accessible->parent.path,
+                                          DBUS_INTERFACE_PROPERTIES, "Set");
+  if (!message)
+    return FALSE;
+  dbus_message_append_args (message, DBUS_TYPE_STRING, &atspi_interface_value,
+                            DBUS_TYPE_STRING, &str_curval,
+                            DBUS_TYPE_INVALID);
   dbus_message_iter_init_append (message, &iter);
   dbus_message_iter_open_container (&iter, DBUS_TYPE_VARIANT, "d", &iter_variant);
   dbus_message_iter_append_basic (&iter_variant, DBUS_TYPE_DOUBLE, &d_new_value);
   dbus_message_iter_close_container (&iter, &iter_variant);
-    reply = _atspi_dbus_send_with_reply_and_block (message, error);
+  reply = _atspi_dbus_send_with_reply_and_block (message, error);
   dbus_message_unref (reply);
 
   return TRUE;
@@ -144,7 +144,7 @@ atspi_value_set_current_value (AtspiValue *obj, gdouble new_value, GError **erro
 
 /**
  * atspi_value_get_minimum_increment:
- * @obj: a pointer to the #AtspiValue implementor on which to operate. 
+ * @obj: a pointer to the #AtspiValue implementor on which to operate.
  *
  * Gets the minimum increment by which an #AtspiValue can be adjusted.
  *
@@ -160,13 +160,13 @@ atspi_value_get_minimum_increment (AtspiValue *obj, GError **error)
   g_return_val_if_fail (obj != NULL, 0.0);
 
   _atspi_dbus_get_property (obj, atspi_interface_value, "MinimumIncrement", error, "d", &retval);
-  
+
   return retval;
 }
 
 /**
  * atspi_value_get_text:
- * @obj: a pointer to the #AtspiValue implementor on which to operate. 
+ * @obj: a pointer to the #AtspiValue implementor on which to operate.
  *
  * Gets the human readable text alternative associated with the value.
  * @text is a newly created string, that must be freed by the
@@ -182,7 +182,7 @@ atspi_value_get_text (AtspiValue *obj, GError **error)
   g_return_val_if_fail (obj != NULL, NULL);
 
   _atspi_dbus_get_property (obj, atspi_interface_value, "Text", error, "s", &retval);
-  
+
   return retval;
 }
 
@@ -196,17 +196,15 @@ atspi_value_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) {
-    static const GTypeInfo tinfo =
+  if (!type)
     {
-      sizeof (AtspiValue),
-      (GBaseInitFunc) atspi_value_base_init,
-      (GBaseFinalizeFunc) NULL,
-    };
+      static const GTypeInfo tinfo = {
+        sizeof (AtspiValue),
+        (GBaseInitFunc) atspi_value_base_init,
+        (GBaseFinalizeFunc) NULL,
+      };
 
-    type = g_type_register_static (G_TYPE_INTERFACE, "AtspiValue", &tinfo, 0);
-
-  }
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtspiValue", &tinfo, 0);
+    }
   return type;
 }
-

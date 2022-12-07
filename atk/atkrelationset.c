@@ -41,8 +41,8 @@
 
 static gpointer parent_class = NULL;
 
-static void atk_relation_set_class_init (AtkRelationSetClass  *klass);
-static void atk_relation_set_finalize   (GObject              *object);
+static void atk_relation_set_class_init (AtkRelationSetClass *klass);
+static void atk_relation_set_finalize (GObject *object);
 
 GType
 atk_relation_set_get_type (void)
@@ -51,8 +51,7 @@ atk_relation_set_get_type (void)
 
   if (!type)
     {
-      static const GTypeInfo typeInfo =
-      {
+      static const GTypeInfo typeInfo = {
         sizeof (AtkRelationSetClass),
         (GBaseInitFunc) NULL,
         (GBaseFinalizeFunc) NULL,
@@ -62,8 +61,8 @@ atk_relation_set_get_type (void)
         sizeof (AtkRelationSet),
         0,
         (GInstanceInitFunc) NULL,
-      } ;
-      type = g_type_register_static (G_TYPE_OBJECT, "AtkRelationSet", &typeInfo, 0) ;
+      };
+      type = g_type_register_static (G_TYPE_OBJECT, "AtkRelationSet", &typeInfo, 0);
     }
   return type;
 }
@@ -80,12 +79,12 @@ atk_relation_set_class_init (AtkRelationSetClass *klass)
 
 /**
  * atk_relation_set_new:
- * 
+ *
  * Creates a new empty relation set.
- * 
- * Returns: a new #AtkRelationSet 
+ *
+ * Returns: a new #AtkRelationSet
  **/
-AtkRelationSet*
+AtkRelationSet *
 atk_relation_set_new (void)
 {
   AtkRelationSet *relation_set;
@@ -106,12 +105,12 @@ atk_relation_set_new (void)
  * in @set, %FALSE otherwise
  **/
 gboolean
-atk_relation_set_contains (AtkRelationSet   *set,
-                           AtkRelationType  relationship)
+atk_relation_set_contains (AtkRelationSet *set,
+                           AtkRelationType relationship)
 {
   GPtrArray *array_item;
   AtkRelation *item;
-  gint  i;
+  gint i;
 
   g_return_val_if_fail (ATK_IS_RELATION_SET (set), FALSE);
 
@@ -119,11 +118,11 @@ atk_relation_set_contains (AtkRelationSet   *set,
   if (array_item == NULL)
     return FALSE;
   for (i = 0; i < array_item->len; i++)
-  {
-    item = g_ptr_array_index (array_item, i);
-    if (item->relationship == relationship)
-      return TRUE;
-  }
+    {
+      item = g_ptr_array_index (array_item, i);
+      if (item->relationship == relationship)
+        return TRUE;
+    }
   return FALSE;
 }
 
@@ -138,7 +137,7 @@ atk_relation_set_contains (AtkRelationSet   *set,
  **/
 void
 atk_relation_set_remove (AtkRelationSet *set,
-                         AtkRelation    *relation)
+                         AtkRelation *relation)
 {
   GPtrArray *array_item;
   AtkRelationType relationship;
@@ -150,24 +149,24 @@ atk_relation_set_remove (AtkRelationSet *set,
     return;
 
   if (g_ptr_array_remove (array_item, relation))
-  {
-    g_object_unref (relation);
-  }
-  else
-  {
-    relationship = atk_relation_get_relation_type (relation);
-    if (atk_relation_set_contains (set, relationship))
     {
-      AtkRelation *exist_relation;
-      gint i;
-      exist_relation = atk_relation_set_get_relation_by_type (set, relationship);
-      for (i = 0; i < relation->target->len; i++)
-      {
-        AtkObject *target = g_ptr_array_index(relation->target, i);
-        atk_relation_remove_target (exist_relation, target);
-      }
+      g_object_unref (relation);
     }
-  }
+  else
+    {
+      relationship = atk_relation_get_relation_type (relation);
+      if (atk_relation_set_contains (set, relationship))
+        {
+          AtkRelation *exist_relation;
+          gint i;
+          exist_relation = atk_relation_set_get_relation_by_type (set, relationship);
+          for (i = 0; i < relation->target->len; i++)
+            {
+              AtkObject *target = g_ptr_array_index (relation->target, i);
+              atk_relation_remove_target (exist_relation, target);
+            }
+        }
+    }
 }
 
 /**
@@ -183,7 +182,7 @@ atk_relation_set_remove (AtkRelationSet *set,
  **/
 void
 atk_relation_set_add (AtkRelationSet *set,
-                      AtkRelation    *relation)
+                      AtkRelation *relation)
 {
   AtkRelationType relationship;
 
@@ -191,27 +190,27 @@ atk_relation_set_add (AtkRelationSet *set,
   g_return_if_fail (relation != NULL);
 
   if (set->relations == NULL)
-  {
-    set->relations = g_ptr_array_new ();
-  }
+    {
+      set->relations = g_ptr_array_new ();
+    }
 
   relationship = atk_relation_get_relation_type (relation);
   if (!atk_relation_set_contains (set, relationship))
-  {
-    g_ptr_array_add (set->relations, relation);
-    g_object_ref (relation);
-  }
-  else
-  {
-    AtkRelation *exist_relation;
-    gint i;
-    exist_relation = atk_relation_set_get_relation_by_type (set, relationship);
-    for (i = 0; i < relation->target->len; i++)
     {
-      AtkObject *target = g_ptr_array_index(relation->target, i);
-      atk_relation_add_target (exist_relation, target); 
+      g_ptr_array_add (set->relations, relation);
+      g_object_ref (relation);
     }
-  }
+  else
+    {
+      AtkRelation *exist_relation;
+      gint i;
+      exist_relation = atk_relation_set_get_relation_by_type (set, relationship);
+      for (i = 0; i < relation->target->len; i++)
+        {
+          AtkObject *target = g_ptr_array_index (relation->target, i);
+          atk_relation_add_target (exist_relation, target);
+        }
+    }
 }
 
 /**
@@ -243,12 +242,12 @@ atk_relation_set_get_n_relations (AtkRelationSet *set)
  * Returns: (transfer none): a #AtkRelation, which is the relation at
  * position i in the set.
  **/
-AtkRelation*
+AtkRelation *
 atk_relation_set_get_relation (AtkRelationSet *set,
-                               gint           i)
+                               gint i)
 {
   GPtrArray *array_item;
-  AtkRelation* item;
+  AtkRelation *item;
 
   g_return_val_if_fail (ATK_IS_RELATION_SET (set), NULL);
   g_return_val_if_fail (i >= 0, NULL);
@@ -273,8 +272,8 @@ atk_relation_set_get_relation (AtkRelationSet *set,
  * Returns: (transfer none): an #AtkRelation, which is a relation matching the
  * specified type.
  **/
-AtkRelation*
-atk_relation_set_get_relation_by_type (AtkRelationSet  *set,
+AtkRelation *
+atk_relation_set_get_relation_by_type (AtkRelationSet *set,
                                        AtkRelationType relationship)
 {
   GPtrArray *array_item;
@@ -287,20 +286,20 @@ atk_relation_set_get_relation_by_type (AtkRelationSet  *set,
   if (array_item == NULL)
     return NULL;
   for (i = 0; i < array_item->len; i++)
-  {
-    item = g_ptr_array_index (array_item, i);
-    if (item->relationship == relationship)
-      return item;
-  }
+    {
+      item = g_ptr_array_index (array_item, i);
+      if (item->relationship == relationship)
+        return item;
+    }
   return NULL;
 }
 
 static void
 atk_relation_set_finalize (GObject *object)
 {
-  AtkRelationSet     *relation_set;
-  GPtrArray             *array;
-  gint               i;
+  AtkRelationSet *relation_set;
+  GPtrArray *array;
+  gint i;
 
   g_return_if_fail (ATK_IS_RELATION_SET (object));
 
@@ -308,13 +307,13 @@ atk_relation_set_finalize (GObject *object)
   array = relation_set->relations;
 
   if (array)
-  {
-    for (i = 0; i < array->len; i++)
     {
-      g_object_unref (g_ptr_array_index (array, i));
+      for (i = 0; i < array->len; i++)
+        {
+          g_object_unref (g_ptr_array_index (array, i));
+        }
+      g_ptr_array_free (array, TRUE);
     }
-    g_ptr_array_free (array, TRUE);
-  }
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
@@ -325,7 +324,7 @@ atk_relation_set_finalize (GObject *object)
  * @relationship: an #AtkRelationType
  * @target: an #AtkObject
  *
- * Add a new relation of the specified type with the specified target to 
+ * Add a new relation of the specified type with the specified target to
  * the current relation set if the relation set does not contain a relation
  * of that type. If it is does contain a relation of that typea the target
  * is added to the relation.
@@ -333,9 +332,9 @@ atk_relation_set_finalize (GObject *object)
  * Since: 1.9
  **/
 void
-atk_relation_set_add_relation_by_type (AtkRelationSet  *set,
+atk_relation_set_add_relation_by_type (AtkRelationSet *set,
                                        AtkRelationType relationship,
-                                       AtkObject       *target)
+                                       AtkObject *target)
 {
   AtkRelation *relation;
 
@@ -347,13 +346,13 @@ atk_relation_set_add_relation_by_type (AtkRelationSet  *set,
   if (relation)
     {
       atk_relation_add_target (relation, target);
-    } 
-  else 
+    }
+  else
     {
       /* the relation hasn't been created yet ... */
       relation = atk_relation_new (&target, 1, relationship);
       atk_relation_set_add (set, relation);
-      g_object_unref(relation);
+      g_object_unref (relation);
     }
 }
 
@@ -372,9 +371,9 @@ atk_relation_set_add_relation_by_type (AtkRelationSet  *set,
  **/
 
 gboolean
-atk_relation_set_contains_target (AtkRelationSet  *set,
+atk_relation_set_contains_target (AtkRelationSet *set,
                                   AtkRelationType relationship,
-                                  AtkObject       *target)
+                                  AtkObject *target)
 {
   GPtrArray *array_relations;
   GPtrArray *array_target;
@@ -391,19 +390,19 @@ atk_relation_set_contains_target (AtkRelationSet  *set,
     return FALSE;
 
   for (i = 0; i < array_relations->len; i++)
-  {
-    relation = g_ptr_array_index (array_relations, i);
-    if (relation->relationship == relationship)
-      {
-        array_target = atk_relation_get_target (relation);
-        for (c = 0; c < array_target->len; c++)
-          {
-            current_target = g_ptr_array_index (array_target, c);
-            if (target == current_target)
-              return TRUE;
-          }
-      }
-  }
+    {
+      relation = g_ptr_array_index (array_relations, i);
+      if (relation->relationship == relationship)
+        {
+          array_target = atk_relation_get_target (relation);
+          for (c = 0; c < array_target->len; c++)
+            {
+              current_target = g_ptr_array_index (array_target, c);
+              if (target == current_target)
+                return TRUE;
+            }
+        }
+    }
 
   return FALSE;
 }

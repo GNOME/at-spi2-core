@@ -3,7 +3,7 @@
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
  * Copyright 2019 SUSE LLC.
- *           
+ *
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -33,4 +33,4 @@ gboolean _atspi_mutter_generate_mouse_event (glong x, glong y, const gchar *name
 void _atspi_mutter_set_reference_window (AtspiAccessible *accessible);
 G_END_DECLS
 
-#endif	/* _ATSPI_MUTTER_H_ */
+#endif /* _ATSPI_MUTTER_H_ */

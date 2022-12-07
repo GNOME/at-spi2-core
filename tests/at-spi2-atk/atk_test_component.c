@@ -23,7 +23,7 @@
 #include "atk_suite.h"
 #include "atk_test_util.h"
 
-#define DATA_FILE TESTS_DATA_DIR"/test-component.xml"
+#define DATA_FILE TESTS_DATA_DIR "/test-component.xml"
 
 static void
 teardown_component_test (gpointer fixture, gconstpointer user_data)
@@ -62,10 +62,10 @@ atk_test_component_get_accessible_at_point (gpointer fixture, gconstpointer user
   g_assert (iface != NULL);
 
   AtspiAccessible *r = atspi_component_get_accessible_at_point (iface,
-                       400,
-                       300,
-                       ATSPI_COORD_TYPE_SCREEN,
-                       NULL);
+                                                                400,
+                                                                300,
+                                                                ATSPI_COORD_TYPE_SCREEN,
+                                                                NULL);
   g_assert (r != NULL);
 }
 

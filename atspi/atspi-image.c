@@ -84,8 +84,8 @@ atspi_image_get_image_size (AtspiImage *obj, GError **error)
  * STATE_VISIBLE and STATE_SHOWING.
  *
  * Returns: a pointer to an #AtspiPoint where x and y correspond to the
- * minimum coordinates of the displayed image. 
- * 
+ * minimum coordinates of the displayed image.
+ *
  **/
 AtspiPoint *
 atspi_image_get_image_position (AtspiImage *obj,
@@ -119,13 +119,13 @@ atspi_image_get_image_position (AtspiImage *obj,
  * The returned values are meaningful only if the Image has both
  * STATE_VISIBLE and STATE_SHOWING.
  *
- * Returns: a pointer to an #AtspiRect corresponding to the image's bounding box. The minimum x and y coordinates, 
+ * Returns: a pointer to an #AtspiRect corresponding to the image's bounding box. The minimum x and y coordinates,
  * width, and height are specified.
  **/
 AtspiRect *
 atspi_image_get_image_extents (AtspiImage *obj,
-			       AtspiCoordType ctype,
-			       GError **error)
+                               AtspiCoordType ctype,
+                               GError **error)
 {
   dbus_uint32_t d_ctype = ctype;
   AtspiRect bbox;
@@ -147,7 +147,7 @@ atspi_image_get_image_extents (AtspiImage *obj,
  * Returns: A POSIX LC_MESSAGES-style locale value for image description and text.
  **/
 gchar *
-atspi_image_get_image_locale  (AtspiImage *obj, GError **error)
+atspi_image_get_image_locale (AtspiImage *obj, GError **error)
 {
   gchar *retval = NULL;
 
@@ -168,16 +168,15 @@ atspi_image_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) {
-    static const GTypeInfo tinfo =
+  if (!type)
     {
-      sizeof (AtspiImage),
-      (GBaseInitFunc) atspi_image_base_init,
-      (GBaseFinalizeFunc) NULL,
-    };
+      static const GTypeInfo tinfo = {
+        sizeof (AtspiImage),
+        (GBaseInitFunc) atspi_image_base_init,
+        (GBaseFinalizeFunc) NULL,
+      };
 
-    type = g_type_register_static (G_TYPE_INTERFACE, "AtspiImage", &tinfo, 0);
-
-  }
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtspiImage", &tinfo, 0);
+    }
   return type;
 }

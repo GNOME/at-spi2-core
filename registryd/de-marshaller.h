@@ -29,9 +29,9 @@
 
 #include "de-types.h"
 
-dbus_bool_t spi_dbus_message_iter_get_struct(DBusMessageIter *iter, ...);
-dbus_bool_t spi_dbus_message_iter_append_struct(DBusMessageIter *iter, ...);
-dbus_bool_t spi_dbus_marshal_deviceEvent(DBusMessage *message, const Accessibility_DeviceEvent *e);
-dbus_bool_t spi_dbus_demarshal_deviceEvent(DBusMessage *message, Accessibility_DeviceEvent *e);
+dbus_bool_t spi_dbus_message_iter_get_struct (DBusMessageIter *iter, ...);
+dbus_bool_t spi_dbus_message_iter_append_struct (DBusMessageIter *iter, ...);
+dbus_bool_t spi_dbus_marshal_deviceEvent (DBusMessage *message, const Accessibility_DeviceEvent *e);
+dbus_bool_t spi_dbus_demarshal_deviceEvent (DBusMessage *message, Accessibility_DeviceEvent *e);
 
 #endif /* SPI_DE_MARSHALLER_H_ */

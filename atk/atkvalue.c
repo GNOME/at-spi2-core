@@ -19,13 +19,13 @@
 
 #include "config.h"
 
-#include <string.h>
 #include <glib/gi18n-lib.h>
+#include <string.h>
 
-#include "atkvalue.h"
-#include "atkmarshal.h"
 #include "atk-enum-types.h"
+#include "atkmarshal.h"
 #include "atkprivate.h"
+#include "atkvalue.h"
 
 /**
  * AtkValue:
@@ -176,7 +176,8 @@
 
 static GPtrArray *value_type_names = NULL;
 
-enum {
+enum
+{
   VALUE_CHANGED,
   LAST_SIGNAL
 };
@@ -294,24 +295,24 @@ N_("best")
 
 static void atk_value_base_init (AtkValueIface *class);
 
-static guint atk_value_signals[LAST_SIGNAL] = {0};
+static guint atk_value_signals[LAST_SIGNAL] = { 0 };
 
 GType
 atk_value_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) {
-    GTypeInfo tinfo =
+  if (!type)
     {
-      sizeof (AtkValueIface),
-      (GBaseInitFunc) atk_value_base_init,
-      (GBaseFinalizeFunc) NULL,
+      GTypeInfo tinfo = {
+        sizeof (AtkValueIface),
+        (GBaseInitFunc) atk_value_base_init,
+        (GBaseFinalizeFunc) NULL,
 
-    };
+      };
 
-    type = g_type_register_static (G_TYPE_INTERFACE, "AtkValue", &tinfo, 0);
-  }
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtkValue", &tinfo, 0);
+    }
 
   return type;
 }
@@ -345,14 +346,14 @@ atk_value_base_init (AtkValueIface *class)
        * Since: 2.12
        */
       atk_value_signals[VALUE_CHANGED] =
-        g_signal_new ("value_changed",
-                      ATK_TYPE_VALUE,
-                      G_SIGNAL_RUN_LAST,
-                      0,
-                      (GSignalAccumulator) NULL, NULL,
-                      atk_marshal_VOID__DOUBLE_STRING,
-                      G_TYPE_NONE,
-                      2, G_TYPE_DOUBLE, G_TYPE_STRING);
+          g_signal_new ("value_changed",
+                        ATK_TYPE_VALUE,
+                        G_SIGNAL_RUN_LAST,
+                        0,
+                        (GSignalAccumulator) NULL, NULL,
+                        atk_marshal_VOID__DOUBLE_STRING,
+                        G_TYPE_NONE,
+                        2, G_TYPE_DOUBLE, G_TYPE_STRING);
 
       initialized = TRUE;
     }
@@ -370,7 +371,7 @@ atk_value_base_init (AtkValueIface *class)
  **/
 void
 atk_value_get_current_value (AtkValue *obj,
-                             GValue   *value)
+                             GValue *value)
 {
   AtkValueIface *iface;
 
@@ -400,8 +401,8 @@ atk_value_get_current_value (AtkValue *obj,
  * Deprecated: Since 2.12. Use atk_value_get_range() instead.
  **/
 void
-atk_value_get_maximum_value  (AtkValue *obj,
-                              GValue   *value)
+atk_value_get_maximum_value (AtkValue *obj,
+                             GValue *value)
 {
   AtkValueIface *iface;
 
@@ -432,7 +433,7 @@ atk_value_get_maximum_value  (AtkValue *obj,
  **/
 void
 atk_value_get_minimum_value (AtkValue *obj,
-                             GValue   *value)
+                             GValue *value)
 {
   AtkValueIface *iface;
 
@@ -458,7 +459,7 @@ atk_value_get_minimum_value (AtkValue *obj,
  * @value: (out): a #GValue representing the minimum increment by which the accessible value may be changed
  *
  * Gets the minimum increment by which the value of this object may be changed.  If zero,
- * the minimum increment is undefined, which may mean that it is limited only by the 
+ * the minimum increment is undefined, which may mean that it is limited only by the
  * floating point precision of the platform.
  *
  * Since: 1.12
@@ -467,7 +468,7 @@ atk_value_get_minimum_value (AtkValue *obj,
  **/
 void
 atk_value_get_minimum_increment (AtkValue *obj,
-                             GValue   *value)
+                                 GValue *value)
 {
   AtkValueIface *iface;
 
@@ -499,8 +500,8 @@ atk_value_get_minimum_increment (AtkValue *obj,
  * Deprecated: Since 2.12. Use atk_value_set_value() instead.
  **/
 gboolean
-atk_value_set_current_value (AtkValue       *obj, 
-                             const GValue   *value)
+atk_value_set_current_value (AtkValue *obj,
+                             const GValue *value)
 {
   AtkValueIface *iface;
 
@@ -514,7 +515,6 @@ atk_value_set_current_value (AtkValue       *obj,
   else
     return FALSE;
 }
-
 
 /**
  * atk_value_get_value_and_text:
@@ -533,7 +533,7 @@ atk_value_set_current_value (AtkValue       *obj,
 void
 atk_value_get_value_and_text (AtkValue *obj,
                               gdouble *value,
-                              gchar  **text)
+                              gchar **text)
 {
   AtkValueIface *iface;
 
@@ -565,7 +565,7 @@ atk_value_get_value_and_text (AtkValue *obj,
  *
  * Since: 2.12
  **/
-AtkRange*
+AtkRange *
 atk_value_get_range (AtkValue *obj)
 {
   AtkValueIface *iface;
@@ -613,7 +613,6 @@ atk_value_get_increment (AtkValue *obj)
     return 0;
 }
 
-
 /**
  * atk_value_get_sub_ranges:
  * @obj: a GObject instance that implements AtkValueIface
@@ -627,7 +626,7 @@ atk_value_get_increment (AtkValue *obj)
  *
  * Since: 2.12
  **/
-GSList*
+GSList *
 atk_value_get_sub_ranges (AtkValue *obj)
 {
   AtkValueIface *iface;
@@ -667,7 +666,7 @@ atk_value_get_sub_ranges (AtkValue *obj)
  * Since: 2.12
  **/
 void
-atk_value_set_value (AtkValue     *obj,
+atk_value_set_value (AtkValue *obj,
                      const gdouble new_value)
 {
   AtkValueIface *iface;
@@ -695,7 +694,7 @@ initialize_value_type_names ()
 
   value_type_names = g_ptr_array_new ();
   enum_class = g_type_class_ref (ATK_TYPE_VALUE_TYPE);
-  if (!G_IS_ENUM_CLASS(enum_class))
+  if (!G_IS_ENUM_CLASS (enum_class))
     return;
 
   for (i = 0; i < ATK_VALUE_LAST_DEFINED; i++)
@@ -717,7 +716,7 @@ initialize_value_type_names ()
  *
  * Returns: the string describing the #AtkValueType
  */
-const gchar*
+const gchar *
 atk_value_type_get_name (AtkValueType value_type)
 {
   g_return_val_if_fail (value_type >= 0, NULL);
@@ -739,7 +738,7 @@ atk_value_type_get_name (AtkValueType value_type)
  *
  * Returns: the localized string describing the #AtkValueType
  **/
-const gchar*
+const gchar *
 atk_value_type_get_localized_name (AtkValueType value_type)
 {
   _gettext_initialization ();

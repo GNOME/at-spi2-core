@@ -42,17 +42,17 @@ atk_editable_text_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) {
-    static const GTypeInfo tinfo =
+  if (!type)
     {
-      sizeof (AtkEditableTextIface),
-      (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL,
+      static const GTypeInfo tinfo = {
+        sizeof (AtkEditableTextIface),
+        (GBaseInitFunc) NULL,
+        (GBaseFinalizeFunc) NULL,
 
-    };
+      };
 
-    type = g_type_register_static (G_TYPE_INTERFACE, "AtkEditableText", &tinfo, 0);
-  }
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtkEditableText", &tinfo, 0);
+    }
 
   return type;
 }
@@ -65,7 +65,7 @@ atk_editable_text_get_type (void)
  *@end_offset: end of range in which to set attributes
  *
  *Sets the attributes for a specified range. See the ATK_ATTRIBUTE
- *macros (such as #ATK_ATTRIBUTE_LEFT_MARGIN) for examples of attributes 
+ *macros (such as #ATK_ATTRIBUTE_LEFT_MARGIN) for examples of attributes
  *that can be set. Note that other attributes that do not have corresponding
  *ATK_ATTRIBUTE macros may also be set for certain text widgets.
  *
@@ -75,7 +75,7 @@ atk_editable_text_get_type (void)
 gboolean
 atk_editable_text_set_run_attributes (AtkEditableText *text,
                                       AtkAttributeSet *attrib_set,
-			              gint start_offset,
+                                      gint start_offset,
                                       gint end_offset)
 {
   AtkEditableTextIface *iface;
@@ -94,7 +94,6 @@ atk_editable_text_set_run_attributes (AtkEditableText *text,
     }
 }
 
-
 /**
  * atk_editable_text_set_text_contents:
  * @text: an #AtkEditableText
@@ -102,9 +101,9 @@ atk_editable_text_set_run_attributes (AtkEditableText *text,
  *
  * Set text contents of @text.
  **/
-void 
-atk_editable_text_set_text_contents (AtkEditableText  *text,
-                                     const gchar      *string)
+void
+atk_editable_text_set_text_contents (AtkEditableText *text,
+                                     const gchar *string)
 {
   AtkEditableTextIface *iface;
 
@@ -121,17 +120,17 @@ atk_editable_text_set_text_contents (AtkEditableText  *text,
  * @text: an #AtkEditableText
  * @string: the text to insert
  * @length: the length of text to insert, in bytes
- * @position: The caller initializes this to 
+ * @position: The caller initializes this to
  * the position at which to insert the text. After the call it
  * points at the position after the newly inserted text.
  *
  * Insert text at a given position.
  **/
-void 
-atk_editable_text_insert_text (AtkEditableText  *text,
-                               const gchar      *string,
-                               gint             length,
-                               gint             *position)
+void
+atk_editable_text_insert_text (AtkEditableText *text,
+                               const gchar *string,
+                               gint length,
+                               gint *position)
 {
   AtkEditableTextIface *iface;
 
@@ -149,13 +148,13 @@ atk_editable_text_insert_text (AtkEditableText  *text,
  * @start_pos: start position
  * @end_pos: end position
  *
- * Copy text from @start_pos up to, but not including @end_pos 
+ * Copy text from @start_pos up to, but not including @end_pos
  * to the clipboard.
  **/
-void 
-atk_editable_text_copy_text (AtkEditableText  *text,
-                             gint             start_pos,
-                             gint             end_pos)
+void
+atk_editable_text_copy_text (AtkEditableText *text,
+                             gint start_pos,
+                             gint end_pos)
 {
   AtkEditableTextIface *iface;
 
@@ -176,10 +175,10 @@ atk_editable_text_copy_text (AtkEditableText  *text,
  * Copy text from @start_pos up to, but not including @end_pos
  * to the clipboard and then delete from the widget.
  **/
-void 
-atk_editable_text_cut_text  (AtkEditableText  *text,
-                             gint             start_pos,
-                             gint             end_pos)
+void
+atk_editable_text_cut_text (AtkEditableText *text,
+                            gint start_pos,
+                            gint end_pos)
 {
   AtkEditableTextIface *iface;
 
@@ -199,10 +198,10 @@ atk_editable_text_cut_text  (AtkEditableText  *text,
  *
  * Delete text @start_pos up to, but not including @end_pos.
  **/
-void 
-atk_editable_text_delete_text (AtkEditableText  *text,
-                               gint             start_pos,
-                               gint             end_pos)
+void
+atk_editable_text_delete_text (AtkEditableText *text,
+                               gint start_pos,
+                               gint end_pos)
 {
   AtkEditableTextIface *iface;
 
@@ -221,9 +220,9 @@ atk_editable_text_delete_text (AtkEditableText  *text,
  *
  * Paste text from clipboard to specified @position.
  **/
-void 
-atk_editable_text_paste_text (AtkEditableText  *text,
-                              gint             position)
+void
+atk_editable_text_paste_text (AtkEditableText *text,
+                              gint position)
 {
   AtkEditableTextIface *iface;
 

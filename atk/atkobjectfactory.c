@@ -19,8 +19,8 @@
 
 #include "config.h"
 
-#include "atkobjectfactory.h"
 #include "atknoopobjectfactory.h"
+#include "atkobjectfactory.h"
 
 /**
  * AtkObjectFactory:
@@ -35,57 +35,56 @@
  * particular GType.
  */
 
-static void atk_object_factory_class_init   (AtkObjectFactoryClass        *klass);
+static void atk_object_factory_class_init (AtkObjectFactoryClass *klass);
 
-static gpointer    parent_class = NULL;
+static gpointer parent_class = NULL;
 
 GType
 atk_object_factory_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) {
-    GTypeInfo tinfo =
+  if (!type)
     {
-      sizeof (AtkObjectFactoryClass),
-      (GBaseInitFunc) NULL, /* base init */
-      (GBaseFinalizeFunc) NULL, /* base finalize */
-      (GClassInitFunc) atk_object_factory_class_init, /* class init */
-      (GClassFinalizeFunc) NULL, /* class finalize */
-      NULL, /* class data */
-      sizeof (AtkObjectFactory), /* instance size */
-      0, /* nb preallocs */
-      (GInstanceInitFunc) NULL, /* instance init */
-      NULL /* value table */
-    };
+      GTypeInfo tinfo = {
+        sizeof (AtkObjectFactoryClass),
+        (GBaseInitFunc) NULL,                           /* base init */
+        (GBaseFinalizeFunc) NULL,                       /* base finalize */
+        (GClassInitFunc) atk_object_factory_class_init, /* class init */
+        (GClassFinalizeFunc) NULL,                      /* class finalize */
+        NULL,                                           /* class data */
+        sizeof (AtkObjectFactory),                      /* instance size */
+        0,                                              /* nb preallocs */
+        (GInstanceInitFunc) NULL,                       /* instance init */
+        NULL                                            /* value table */
+      };
 
-    type = g_type_register_static (G_TYPE_OBJECT, "AtkObjectFactory", &tinfo, 0);
-  }
+      type = g_type_register_static (G_TYPE_OBJECT, "AtkObjectFactory", &tinfo, 0);
+    }
   return type;
 }
 
-static void 
+static void
 atk_object_factory_class_init (AtkObjectFactoryClass *klass)
 {
   parent_class = g_type_class_peek_parent (klass);
-
 }
 
 /**
  * atk_object_factory_create_accessible:
  * @factory: The #AtkObjectFactory associated with @obj's
  * object type
- * @obj: a #GObject 
- * 
- * Provides an #AtkObject that implements an accessibility interface 
+ * @obj: a #GObject
+ *
+ * Provides an #AtkObject that implements an accessibility interface
  * on behalf of @obj
  *
  * Returns: (transfer full): an #AtkObject that implements an accessibility
  * interface on behalf of @obj
  **/
-AtkObject* 
+AtkObject *
 atk_object_factory_create_accessible (AtkObjectFactory *factory,
-                                      GObject          *obj)
+                                      GObject *obj)
 {
   AtkObjectFactoryClass *klass;
   AtkObject *accessible = NULL;
@@ -96,11 +95,11 @@ atk_object_factory_create_accessible (AtkObjectFactory *factory,
   klass = ATK_OBJECT_FACTORY_GET_CLASS (factory);
 
   if (klass->create_accessible)
-  {
+    {
       accessible = klass->create_accessible (obj);
-  }
+    }
   return accessible;
-} 
+}
 
 /**
  * atk_object_factory_invalidate:
@@ -112,7 +111,7 @@ atk_object_factory_create_accessible (AtkObjectFactory *factory,
  * Note: primarily used for runtime replacement of #AtkObjectFactorys
  * in object registries.
  **/
-void 
+void
 atk_object_factory_invalidate (AtkObjectFactory *factory)
 {
   AtkObjectFactoryClass *klass;
@@ -121,14 +120,14 @@ atk_object_factory_invalidate (AtkObjectFactory *factory)
 
   klass = ATK_OBJECT_FACTORY_GET_CLASS (factory);
   if (klass->invalidate)
-     (klass->invalidate) (factory);
+    (klass->invalidate) (factory);
 }
 
 /**
  * atk_object_factory_get_accessible_type:
- * @factory: an #AtkObjectFactory 
+ * @factory: an #AtkObjectFactory
  *
- * Gets the GType of the accessible which is created by the factory. 
+ * Gets the GType of the accessible which is created by the factory.
  * Returns: the type of the accessible which is created by the @factory.
  * The value G_TYPE_INVALID is returned if no type if found.
  **/
@@ -141,7 +140,7 @@ atk_object_factory_get_accessible_type (AtkObjectFactory *factory)
 
   klass = ATK_OBJECT_FACTORY_GET_CLASS (factory);
   if (klass->get_accessible_type)
-     return (klass->get_accessible_type) ();
+    return (klass->get_accessible_type) ();
   else
-     return G_TYPE_INVALID;
+    return G_TYPE_INVALID;
 }

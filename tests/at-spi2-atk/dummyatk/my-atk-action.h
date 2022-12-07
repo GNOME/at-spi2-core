@@ -23,33 +23,34 @@
 #ifndef MY_ATK_ACTION_H
 #define MY_ATK_ACTION_H
 
-#include <glib.h>
-#include <glib-object.h>
 #include <atk/atk.h>
+#include <glib-object.h>
+#include <glib.h>
 
 #include "my-atk-object.h"
 
-#define MY_TYPE_ATK_ACTION             (my_atk_action_get_type ())
-#define MY_ATK_ACTION(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), MY_TYPE_ATK_ACTION, MyAtkAction))
-#define MY_ATK_ACTION_CLASS(vtable)    (G_TYPE_CHECK_CLASS_CAST ((vtable), MY_TYPE_ATK_ACTION, MyAtkActionClass))
-#define MY_IS_ATK_ACTION(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), MY_TYPE_ATK_ACTION))
+#define MY_TYPE_ATK_ACTION (my_atk_action_get_type ())
+#define MY_ATK_ACTION(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), MY_TYPE_ATK_ACTION, MyAtkAction))
+#define MY_ATK_ACTION_CLASS(vtable) (G_TYPE_CHECK_CLASS_CAST ((vtable), MY_TYPE_ATK_ACTION, MyAtkActionClass))
+#define MY_IS_ATK_ACTION(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), MY_TYPE_ATK_ACTION))
 #define MY_IS_ATK_ACTION_CLASS(vtable) (G_TYPE_CHECK_CLASS_TYPE ((vtable), MY_TYPE_ATK_ACTION))
-#define MY_ATK_ACTION_GET_CLASS(inst)  (G_TYPE_INSTANCE_GET_CLASS ((inst), MY_TYPE_ATK_ACTION, MyAtkActionClass))
+#define MY_ATK_ACTION_GET_CLASS(inst) (G_TYPE_INSTANCE_GET_CLASS ((inst), MY_TYPE_ATK_ACTION, MyAtkActionClass))
 
 typedef struct _MyAtkAction MyAtkAction;
 typedef struct _MyAtkActionPrivate MyAtkActionPrivate;
 typedef struct _MyAtkActionClass MyAtkActionClass;
 
-typedef void (* MyAtkActionFunc) (MyAtkAction *action);
+typedef void (*MyAtkActionFunc) (MyAtkAction *action);
 
-struct _MyAtkAction {
+struct _MyAtkAction
+{
   MyAtkObject parent;
   MyAtkActionPrivate *priv;
-  gint last_performed_action;//this field is changed when action is performed
-
+  gint last_performed_action; // this field is changed when action is performed
 };
 
-struct _MyAtkActionClass {
+struct _MyAtkActionClass
+{
   MyAtkObjectClass parent;
 };
 

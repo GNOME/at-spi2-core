@@ -108,12 +108,12 @@ _atspi_relation_new_from_iter (DBusMessageIter *iter)
   relation->targets = g_array_new (TRUE, TRUE, sizeof (AtspiAccessible *));
   dbus_message_iter_recurse (&iter_struct, &iter_array);
   while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
-  {
-    AtspiAccessible *accessible;
-    accessible = _atspi_dbus_consume_accessible (&iter_array);
-    relation->targets = g_array_append_val (relation->targets, accessible);
-    /* Iter was moved already, so no need to call dbus_message_iter_next */
-  }
+    {
+      AtspiAccessible *accessible;
+      accessible = _atspi_dbus_consume_accessible (&iter_array);
+      relation->targets = g_array_append_val (relation->targets, accessible);
+      /* Iter was moved already, so no need to call dbus_message_iter_next */
+    }
   return relation;
 }
 
@@ -131,7 +131,7 @@ atspi_relation_finalize (GObject *object)
   gint i;
 
   for (i = 0; i < relation->targets->len; i++)
-  g_object_unref (g_array_index (relation->targets, AtspiAccessible *, i));
+    g_object_unref (g_array_index (relation->targets, AtspiAccessible *, i));
   g_array_free (relation->targets, TRUE);
 
   G_OBJECT_CLASS (atspi_relation_parent_class)->finalize (object);

@@ -20,14 +20,14 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include "atspi-private.h"
 #include "atspi-device-legacy.h"
+#include "atspi-private.h"
 
 #ifdef HAVE_X11
+#include <X11/XKBlib.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/extensions/XInput2.h>
-#include <X11/XKBlib.h>
 #endif
 
 typedef struct
@@ -52,10 +52,7 @@ struct _AtspiDeviceLegacyPrivate
 
 GObjectClass *device_legacy_parent_class;
 
-G_DEFINE_TYPE_WITH_CODE (AtspiDeviceLegacy, atspi_device_legacy,
-			  ATSPI_TYPE_DEVICE,
-			  G_ADD_PRIVATE (AtspiDeviceLegacy))
-
+G_DEFINE_TYPE_WITH_CODE (AtspiDeviceLegacy, atspi_device_legacy, ATSPI_TYPE_DEVICE, G_ADD_PRIVATE (AtspiDeviceLegacy))
 
 static guint
 find_virtual_mapping (AtspiDeviceLegacy *legacy_device, gint keycode)
@@ -64,11 +61,11 @@ find_virtual_mapping (AtspiDeviceLegacy *legacy_device, gint keycode)
   GSList *l;
 
   for (l = priv->modifiers; l; l = l->next)
-  {
-    AtspiLegacyKeyModifier *entry = l->data;
-    if (entry->keycode == keycode)
-      return entry->modifier;
-  }
+    {
+      AtspiLegacyKeyModifier *entry = l->data;
+      if (entry->keycode == keycode)
+        return entry->modifier;
+    }
 
   return 0;
 }
@@ -85,7 +82,6 @@ set_virtual_modifier (AtspiDeviceLegacy *legacy_device, gint keycode, gboolean e
     priv->virtual_mods_enabled &= ~modifier;
 }
 
-
 static gboolean
 key_cb (AtspiDeviceEvent *event, void *user_data)
 {
@@ -93,16 +89,16 @@ key_cb (AtspiDeviceEvent *event, void *user_data)
   AtspiDeviceLegacyPrivate *priv = atspi_device_legacy_get_instance_private (legacy_device);
   gboolean ret = priv->keyboard_grabbed;
   guint modifiers;
-  
+
   set_virtual_modifier (legacy_device, event->hw_code,
-                        event->type == (AtspiEventType)ATSPI_KEY_PRESS);
+                        event->type == (AtspiEventType) ATSPI_KEY_PRESS);
 
   modifiers = event->modifiers | priv->virtual_mods_enabled;
   if (modifiers & (1 << ATSPI_MODIFIER_NUMLOCK))
     modifiers &= ~priv->numlock_physical_mask;
 
   ret |= atspi_device_notify_key (ATSPI_DEVICE (legacy_device),
-                                  event->type == (AtspiEventType)ATSPI_KEY_PRESS,
+                                  event->type == (AtspiEventType) ATSPI_KEY_PRESS,
                                   event->hw_code, event->id,
                                   modifiers,
                                   event->event_string);
@@ -137,11 +133,11 @@ check_virtual_modifier (AtspiDeviceLegacy *legacy_device, guint modifier)
     return TRUE;
 
   for (l = priv->modifiers; l; l = l->next)
-  {
-    AtspiLegacyKeyModifier *entry = l->data;
-    if (entry->modifier == modifier)
-      return TRUE;
-  }
+    {
+      AtspiLegacyKeyModifier *entry = l->data;
+      if (entry->modifier == modifier)
+        return TRUE;
+    }
 
   return FALSE;
 }
@@ -152,11 +148,11 @@ get_unused_virtual_modifier (AtspiDeviceLegacy *legacy_device)
   guint ret = 0x1000;
 
   while (ret < 0x10000)
-  {
-    if (!check_virtual_modifier (legacy_device, ret))
-      return ret;
-    ret <<= 1;
-  }
+    {
+      if (!check_virtual_modifier (legacy_device, ret))
+        return ret;
+      ret <<= 1;
+    }
 
   return 0;
 }
@@ -174,11 +170,11 @@ atspi_device_legacy_map_modifier (AtspiDevice *device, gint keycode)
   desc = XkbGetMap (priv->display, XkbModifierMapMask, XkbUseCoreKbd);
 
   if (keycode < desc->min_key_code || keycode >= desc->max_key_code)
-  {
-    XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
-    g_warning ("Passed invalid keycode %d", keycode);
-    return 0;
-  }
+    {
+      XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
+      g_warning ("Passed invalid keycode %d", keycode);
+      return 0;
+    }
 
   ret = desc->map->modmap[keycode];
   XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
@@ -208,15 +204,15 @@ atspi_device_legacy_unmap_modifier (AtspiDevice *device, gint keycode)
   GSList *l;
 
   for (l = priv->modifiers; l; l = l->next)
-  {
-    AtspiLegacyKeyModifier *entry = l->data;
-    if (entry->keycode == keycode)
     {
-      priv->modifiers = g_slist_remove (priv->modifiers, entry);
-      g_free (entry);
-      return;
+      AtspiLegacyKeyModifier *entry = l->data;
+      if (entry->keycode == keycode)
+        {
+          priv->modifiers = g_slist_remove (priv->modifiers, entry);
+          g_free (entry);
+          return;
+        }
     }
-  }
 }
 
 static guint
@@ -231,11 +227,11 @@ atspi_device_legacy_get_modifier (AtspiDevice *device, gint keycode)
   desc = XkbGetMap (priv->display, XkbModifierMapMask, XkbUseCoreKbd);
 
   if (keycode < desc->min_key_code || keycode >= desc->max_key_code)
-  {
-    XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
-    g_warning ("Passed invalid keycode %d", keycode);
-    return 0;
-  }
+    {
+      XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
+      g_warning ("Passed invalid keycode %d", keycode);
+      return 0;
+    }
 
   ret = desc->map->modmap[keycode];
   XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
@@ -276,13 +272,12 @@ atspi_device_legacy_init (AtspiDeviceLegacy *device)
     atspi_register_keystroke_listener (priv->listener, NULL, i, 3, ATSPI_KEYLISTENER_SYNCHRONOUS | ATSPI_KEYLISTENER_CANCONSUME, NULL);
 
 #ifdef HAVE_X11
-  priv->display=XOpenDisplay("");
+  priv->display = XOpenDisplay ("");
   if (priv->display)
-    priv->window = DefaultRootWindow(priv->display);
+    priv->window = DefaultRootWindow (priv->display);
   priv->numlock_physical_mask = XkbKeysymToModifiers (priv->display,
-						      XK_Num_Lock);
+                                                      XK_Num_Lock);
 #endif
-
 }
 
 static void
@@ -294,7 +289,6 @@ atspi_device_legacy_finalize (GObject *object)
   g_clear_object (&priv->listener);
   device_legacy_parent_class->finalize (object);
 }
-
 
 static void
 atspi_device_legacy_class_init (AtspiDeviceLegacyClass *klass)

@@ -52,7 +52,8 @@
 
 static GPtrArray *extra_attributes = NULL;
 
-enum {
+enum
+{
   TEXT_CHANGED,
   TEXT_CARET_MOVED,
   TEXT_SELECTION_CHANGED,
@@ -63,98 +64,100 @@ enum {
 };
 
 static const char boolean[] =
-  "false\0"
-  "true";
+    "false\0"
+    "true";
 static const guint8 boolean_offsets[] = {
   0, 6
 };
 
 static const char style[] =
-  "normal\0"
-  "oblique\0"
-  "italic";
+    "normal\0"
+    "oblique\0"
+    "italic";
 static const guint8 style_offsets[] = {
   0, 7, 15
 };
 
 static const char variant[] =
-  "normal\0"
-  "small_caps";
+    "normal\0"
+    "small_caps";
 static const guint8 variant_offsets[] = {
   0, 7
 };
 
 static const char stretch[] =
-  "ultra_condensed\0"
-  "extra_condensed\0"
-  "condensed\0"
-  "semi_condensed\0"
-  "normal\0"
-  "semi_expanded\0"
-  "expanded\0"
-  "extra_expanded\0"
-  "ultra_expanded";
+    "ultra_condensed\0"
+    "extra_condensed\0"
+    "condensed\0"
+    "semi_condensed\0"
+    "normal\0"
+    "semi_expanded\0"
+    "expanded\0"
+    "extra_expanded\0"
+    "ultra_expanded";
 static const guint8 stretch_offsets[] = {
   0, 16, 32, 42, 57, 64, 78, 87, 102
 };
 
 static const char justification[] =
-  "left\0"
-  "right\0"
-  "center\0"
-  "fill";
+    "left\0"
+    "right\0"
+    "center\0"
+    "fill";
 static const guint8 justification_offsets[] = {
   0, 5, 11, 18
 };
 
 static const char direction[] =
-  "none\0"
-  "ltr\0"
-  "rtl";
+    "none\0"
+    "ltr\0"
+    "rtl";
 static const guint8 direction_offsets[] = {
   0, 5, 9
 };
 
 static const char wrap_mode[] =
-  "none\0"
-  "char\0"
-  "word\0"
-  "word_char";
+    "none\0"
+    "char\0"
+    "word\0"
+    "word_char";
 static const guint8 wrap_mode_offsets[] = {
   0, 5, 10, 15
 };
 
 static const char underline[] =
-  "none\0"
-  "single\0"
-  "double\0"
-  "low\0"
-  "error";
+    "none\0"
+    "single\0"
+    "double\0"
+    "low\0"
+    "error";
 static const guint8 underline_offsets[] = {
   0, 5, 12, 19, 23
 };
 
 static const char text_position[] =
-  "baseline\0"
-  "super\0"
-  "sub\0";
+    "baseline\0"
+    "super\0"
+    "sub\0";
 static const guint8 text_position_offsets[] = {
-  0, 9, 15,
+  0,
+  9,
+  15,
 };
 
 static void atk_text_base_init (AtkTextIface *class);
 
-static void atk_text_real_get_range_extents  (AtkText          *text,
-                                              gint             start_offset,
-                                              gint             end_offset,
-                                              AtkCoordType     coord_type,
-                                              AtkTextRectangle *rect);
+static void atk_text_real_get_range_extents (AtkText *text,
+                                             gint start_offset,
+                                             gint end_offset,
+                                             AtkCoordType coord_type,
+                                             AtkTextRectangle *rect);
 
-static AtkTextRange** atk_text_real_get_bounded_ranges (AtkText          *text,
+static AtkTextRange **atk_text_real_get_bounded_ranges (AtkText *text,
                                                         AtkTextRectangle *rect,
-                                                        AtkCoordType     coord_type,
-                                                        AtkTextClipType  x_clip_type,
-                                                        AtkTextClipType  y_clip_type);
+                                                        AtkCoordType coord_type,
+                                                        AtkTextClipType x_clip_type,
+                                                        AtkTextClipType y_clip_type);
 
 static guint atk_text_signals[LAST_SIGNAL] = { 0 };
 
@@ -163,14 +166,13 @@ atk_text_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) 
+  if (!type)
     {
-      static const GTypeInfo tinfo =
-      {
+      static const GTypeInfo tinfo = {
         sizeof (AtkTextIface),
         (GBaseInitFunc) atk_text_base_init,
         (GBaseFinalizeFunc) NULL,
-        (GClassInitFunc) NULL /* atk_text_interface_init */ ,
+        (GClassInitFunc) NULL /* atk_text_interface_init */,
         (GClassFinalizeFunc) NULL,
 
       };
@@ -185,16 +187,16 @@ static void
 atk_text_base_init (AtkTextIface *class)
 {
   static gboolean initialized = FALSE;
-  
-  if (! initialized)
+
+  if (!initialized)
     {
-      /* 
-       * Note that text_changed signal supports details "insert", "delete", 
-       * possibly "replace". 
+      /*
+       * Note that text_changed signal supports details "insert", "delete",
+       * possibly "replace".
        */
-     
-      class->get_range_extents = atk_text_real_get_range_extents; 
-      class->get_bounded_ranges = atk_text_real_get_bounded_ranges; 
+
+      class->get_range_extents = atk_text_real_get_range_extents;
+      class->get_bounded_ranges = atk_text_real_get_bounded_ranges;
 
       /**
        * AtkText::text-changed:
@@ -212,14 +214,14 @@ atk_text_base_init (AtkTextIface *class)
        * #AtkObject::text-remove instead.
        */
       atk_text_signals[TEXT_CHANGED] =
-	g_signal_new ("text_changed",
-		      ATK_TYPE_TEXT,
-		      G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
-		      G_STRUCT_OFFSET (AtkTextIface, text_changed), 
-		      (GSignalAccumulator) NULL, NULL,
-		      atk_marshal_VOID__INT_INT,
-		      G_TYPE_NONE,
-		      2, G_TYPE_INT, G_TYPE_INT);
+          g_signal_new ("text_changed",
+                        ATK_TYPE_TEXT,
+                        G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
+                        G_STRUCT_OFFSET (AtkTextIface, text_changed),
+                        (GSignalAccumulator) NULL, NULL,
+                        atk_marshal_VOID__INT_INT,
+                        G_TYPE_NONE,
+                        2, G_TYPE_INT, G_TYPE_INT);
 
       /**
        * AtkText::text-insert:
@@ -234,14 +236,14 @@ atk_text_base_init (AtkTextIface *class)
        * included.
        */
       atk_text_signals[TEXT_INSERT] =
-	g_signal_new ("text_insert",
-		      ATK_TYPE_TEXT,
-		      G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
-		      0,
-		      (GSignalAccumulator) NULL, NULL,
-		      atk_marshal_VOID__INT_INT_STRING,
-		      G_TYPE_NONE,
-		      3, G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING);
+          g_signal_new ("text_insert",
+                        ATK_TYPE_TEXT,
+                        G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
+                        0,
+                        (GSignalAccumulator) NULL, NULL,
+                        atk_marshal_VOID__INT_INT_STRING,
+                        G_TYPE_NONE,
+                        3, G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING);
 
       /**
        * AtkText::text-remove:
@@ -256,14 +258,14 @@ atk_text_base_init (AtkTextIface *class)
        * included.
        */
       atk_text_signals[TEXT_REMOVE] =
-	g_signal_new ("text_remove",
-		      ATK_TYPE_TEXT,
-		      G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
-		      0,
-		      (GSignalAccumulator) NULL, NULL,
-		      atk_marshal_VOID__INT_INT_STRING,
-		      G_TYPE_NONE,
-		      3, G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING);
+          g_signal_new ("text_remove",
+                        ATK_TYPE_TEXT,
+                        G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
+                        0,
+                        (GSignalAccumulator) NULL, NULL,
+                        atk_marshal_VOID__INT_INT_STRING,
+                        G_TYPE_NONE,
+                        3, G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING);
 
       /**
        * AtkText::text-caret-moved:
@@ -275,14 +277,14 @@ atk_text_base_init (AtkTextIface *class)
        * changes.
        */
       atk_text_signals[TEXT_CARET_MOVED] =
-	g_signal_new ("text_caret_moved",
-		      ATK_TYPE_TEXT,
-		      G_SIGNAL_RUN_LAST,
-		      G_STRUCT_OFFSET (AtkTextIface, text_caret_moved),
-		      (GSignalAccumulator) NULL, NULL,
-		      g_cclosure_marshal_VOID__INT,
-		      G_TYPE_NONE,
-		      1, G_TYPE_INT);
+          g_signal_new ("text_caret_moved",
+                        ATK_TYPE_TEXT,
+                        G_SIGNAL_RUN_LAST,
+                        G_STRUCT_OFFSET (AtkTextIface, text_caret_moved),
+                        (GSignalAccumulator) NULL, NULL,
+                        g_cclosure_marshal_VOID__INT,
+                        G_TYPE_NONE,
+                        1, G_TYPE_INT);
 
       /**
        * AtkText::text-selection-changed:
@@ -292,13 +294,13 @@ atk_text_base_init (AtkTextIface *class)
        * selected text of an object which implements AtkText changes.
        */
       atk_text_signals[TEXT_SELECTION_CHANGED] =
-        g_signal_new ("text_selection_changed",
-                      ATK_TYPE_TEXT,
-                      G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (AtkTextIface, text_selection_changed),
-                      (GSignalAccumulator) NULL, NULL,
-                      g_cclosure_marshal_VOID__VOID,
-                      G_TYPE_NONE, 0);
+          g_signal_new ("text_selection_changed",
+                        ATK_TYPE_TEXT,
+                        G_SIGNAL_RUN_LAST,
+                        G_STRUCT_OFFSET (AtkTextIface, text_selection_changed),
+                        (GSignalAccumulator) NULL, NULL,
+                        g_cclosure_marshal_VOID__VOID,
+                        G_TYPE_NONE, 0);
       /**
        * AtkText::text-attributes-changed:
        * @atktext: the object which received the signal.
@@ -308,15 +310,14 @@ atk_text_base_init (AtkTextIface *class)
        * changes.
        */
       atk_text_signals[TEXT_ATTRIBUTES_CHANGED] =
-        g_signal_new ("text_attributes_changed",
-                      ATK_TYPE_TEXT,
-                      G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (AtkTextIface, text_attributes_changed),
-                      (GSignalAccumulator) NULL, NULL,
-                      g_cclosure_marshal_VOID__VOID,
-                      G_TYPE_NONE, 0);
+          g_signal_new ("text_attributes_changed",
+                        ATK_TYPE_TEXT,
+                        G_SIGNAL_RUN_LAST,
+                        G_STRUCT_OFFSET (AtkTextIface, text_attributes_changed),
+                        (GSignalAccumulator) NULL, NULL,
+                        g_cclosure_marshal_VOID__VOID,
+                        G_TYPE_NONE, 0);
 
-      
       initialized = TRUE;
     }
 }
@@ -333,13 +334,13 @@ atk_text_base_init (AtkTextIface *class)
  *          to, but not including @end_offset. Use g_free() to free the returned
  *          string.
  **/
-gchar*
-atk_text_get_text (AtkText      *text,
-                   gint         start_offset,
-                   gint         end_offset)
+gchar *
+atk_text_get_text (AtkText *text,
+                   gint start_offset,
+                   gint end_offset)
 {
   AtkTextIface *iface;
-  
+
   g_return_val_if_fail (ATK_IS_TEXT (text), NULL);
 
   iface = ATK_TEXT_GET_IFACE (text);
@@ -364,8 +365,8 @@ atk_text_get_text (AtkText      *text,
  * Returns: the character at @offset or 0 in the case of failure.
  **/
 gunichar
-atk_text_get_character_at_offset (AtkText      *text,
-                                  gint         offset)
+atk_text_get_character_at_offset (AtkText *text,
+                                  gint offset)
 {
   AtkTextIface *iface;
 
@@ -396,12 +397,12 @@ atk_text_get_character_at_offset (AtkText      *text,
  *          by the specified @boundary_type. Use g_free() to free the returned
  *          string.
  **/
-gchar*
-atk_text_get_text_after_offset (AtkText          *text,
-                                gint             offset,
-                                AtkTextBoundary  boundary_type,
- 				gint             *start_offset,
-				gint		 *end_offset)
+gchar *
+atk_text_get_text_after_offset (AtkText *text,
+                                gint offset,
+                                AtkTextBoundary boundary_type,
+                                gint *start_offset,
+                                gint *end_offset)
 {
   AtkTextIface *iface;
   gint local_start_offset, local_end_offset;
@@ -470,12 +471,12 @@ atk_text_get_text_after_offset (AtkText          *text,
  *          by the specified @boundary_type. Use g_free() to free the returned
  *          string.
  **/
-gchar*
-atk_text_get_text_at_offset (AtkText          *text,
-                             gint             offset,
-                             AtkTextBoundary  boundary_type,
-			     gint             *start_offset,
-			     gint             *end_offset)
+gchar *
+atk_text_get_text_at_offset (AtkText *text,
+                             gint offset,
+                             AtkTextBoundary boundary_type,
+                             gint *start_offset,
+                             gint *end_offset)
 {
   AtkTextIface *iface;
   gint local_start_offset, local_end_offset;
@@ -517,12 +518,12 @@ atk_text_get_text_at_offset (AtkText          *text,
  *          by the specified @boundary_type. Use g_free() to free the returned
  *          string.
  **/
-gchar*
-atk_text_get_text_before_offset (AtkText          *text,
-                                 gint             offset,
-                                 AtkTextBoundary  boundary_type,
-				 gint             *start_offset,
-				 gint		  *end_offset)
+gchar *
+atk_text_get_text_before_offset (AtkText *text,
+                                 gint offset,
+                                 AtkTextBoundary boundary_type,
+                                 gint *start_offset,
+                                 gint *end_offset)
 {
   AtkTextIface *iface;
   gint local_start_offset, local_end_offset;
@@ -598,11 +599,12 @@ atk_text_get_text_before_offset (AtkText          *text,
  *          to free the returned string.  Returns %NULL if the offset is invalid
  *          or no implementation is available.
  **/
-gchar* atk_text_get_string_at_offset (AtkText *text,
-                                      gint offset,
-                                      AtkTextGranularity granularity,
-                                      gint *start_offset,
-                                      gint *end_offset)
+gchar *
+atk_text_get_string_at_offset (AtkText *text,
+                               gint offset,
+                               AtkTextGranularity granularity,
+                               gint *start_offset,
+                               gint *end_offset)
 {
   AtkTextIface *iface;
   gint local_start_offset, local_end_offset;
@@ -670,13 +672,13 @@ atk_text_get_caret_offset (AtkText *text)
  * @y: (out) (optional): Pointer for the y coordinate of the bounding box
  * @width: (out) (optional): Pointer for the width of the bounding box
  * @height: (out) (optional): Pointer for the height of the bounding box
- * @coords: specify whether coordinates are relative to the screen or widget window 
+ * @coords: specify whether coordinates are relative to the screen or widget window
  *
  * If the extent can not be obtained (e.g. missing support), all of x, y, width,
  * height are set to -1.
  *
- * Get the bounding box containing the glyph representing the character at 
- *     a particular text offset. 
+ * Get the bounding box containing the glyph representing the character at
+ *     a particular text offset.
  **/
 void
 atk_text_get_character_extents (AtkText *text,
@@ -717,13 +719,13 @@ atk_text_get_character_extents (AtkText *text,
 
   if (offset < 0)
     return;
- 
+
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->get_character_extents)
     (*(iface->get_character_extents)) (text, offset, real_x, real_y, real_width, real_height, coords);
 
-  if (*real_width <0)
+  if (*real_width < 0)
     {
       *real_x = *real_x + *real_width;
       *real_width *= -1;
@@ -742,19 +744,19 @@ atk_text_get_character_extents (AtkText *text,
  *set at the position @offset in the text. @start_offset and @end_offset are
  *set to the start and end of the range around @offset where the attributes are
  *invariant. Note that @end_offset is the offset of the first character
- *after the range.  See the enum AtkTextAttribute for types of text 
- *attributes that can be returned. Note that other attributes may also be 
+ *after the range.  See the enum AtkTextAttribute for types of text
+ *attributes that can be returned. Note that other attributes may also be
  *returned.
  *
  *Returns: (transfer full): an #AtkAttributeSet which contains the attributes
  *         explicitly set at @offset. This #AtkAttributeSet should be freed by
  *         a call to atk_attribute_set_free().
  **/
-AtkAttributeSet* 
-atk_text_get_run_attributes (AtkText          *text,
-                             gint             offset,
-                             gint             *start_offset,
-                             gint             *end_offset)
+AtkAttributeSet *
+atk_text_get_run_attributes (AtkText *text,
+                             gint offset,
+                             gint *start_offset,
+                             gint *end_offset)
 {
   AtkTextIface *iface;
   gint local_start_offset, local_end_offset;
@@ -787,16 +789,16 @@ atk_text_get_run_attributes (AtkText          *text,
  *@text: an #AtkText
  *
  *Creates an #AtkAttributeSet which consists of the default values of
- *attributes for the text. See the enum AtkTextAttribute for types of text 
- *attributes that can be returned. Note that other attributes may also be 
+ *attributes for the text. See the enum AtkTextAttribute for types of text
+ *attributes that can be returned. Note that other attributes may also be
  *returned.
  *
  *Returns: (transfer full): an #AtkAttributeSet which contains the default text
  *          attributes for this #AtkText. This #AtkAttributeSet should be freed by
  *          a call to atk_attribute_set_free().
  */
-AtkAttributeSet*
-atk_text_get_default_attributes (AtkText          *text)
+AtkAttributeSet *
+atk_text_get_default_attributes (AtkText *text)
 {
   AtkTextIface *iface;
 
@@ -839,7 +841,7 @@ atk_text_get_character_count (AtkText *text)
  * @x: screen x-position of character
  * @y: screen y-position of character
  * @coords: specify whether coordinates are relative to the screen or
- * widget window 
+ * widget window
  *
  * Gets the offset of the character located at coordinates @x and @y. @x and @y
  * are interpreted as being relative to the screen or this widget's window
@@ -852,7 +854,7 @@ gint
 atk_text_get_offset_at_point (AtkText *text,
                               gint x,
                               gint y,
-			      AtkCoordType coords)
+                              AtkCoordType coords)
 {
   AtkTextIface *iface;
 
@@ -906,11 +908,11 @@ atk_text_get_n_selections (AtkText *text)
  * Returns: a newly allocated string containing the selected text. Use g_free()
  *          to free the returned string.
  **/
-gchar*
-atk_text_get_selection (AtkText *text, 
-                        gint    selection_num,
-                        gint    *start_offset,
-                        gint    *end_offset)
+gchar *
+atk_text_get_selection (AtkText *text,
+                        gint selection_num,
+                        gint *start_offset,
+                        gint *end_offset)
 {
   AtkTextIface *iface;
   gint local_start_offset, local_end_offset;
@@ -930,10 +932,10 @@ atk_text_get_selection (AtkText *text,
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->get_selection)
-  {
-    return (*(iface->get_selection)) (text, selection_num,
-       real_start_offset, real_end_offset);
-  }
+    {
+      return (*(iface->get_selection)) (text, selection_num,
+                                        real_start_offset, real_end_offset);
+    }
   else
     return NULL;
 }
@@ -949,9 +951,9 @@ atk_text_get_selection (AtkText *text,
  * Returns: %TRUE if successful, %FALSE otherwise
  **/
 gboolean
-atk_text_add_selection (AtkText *text, 
-                        gint    start_offset,
-                        gint    end_offset)
+atk_text_add_selection (AtkText *text,
+                        gint start_offset,
+                        gint end_offset)
 {
   AtkTextIface *iface;
 
@@ -979,8 +981,8 @@ atk_text_add_selection (AtkText *text,
  * Returns: %TRUE if successful, %FALSE otherwise
  **/
 gboolean
-atk_text_remove_selection (AtkText *text, 
-                           gint    selection_num)
+atk_text_remove_selection (AtkText *text,
+                           gint selection_num)
 {
   AtkTextIface *iface;
 
@@ -1003,7 +1005,7 @@ atk_text_remove_selection (AtkText *text,
  * of the text region is assigned the number 0, etc.  Note that adding,
  * moving or deleting a selected region can change the numbering.
  * @start_offset: the new starting character offset of the selection
- * @end_offset: the new end position of (e.g. offset immediately past) 
+ * @end_offset: the new end position of (e.g. offset immediately past)
  * the selection
  *
  * Changes the start and end offset of the specified selection.
@@ -1011,10 +1013,10 @@ atk_text_remove_selection (AtkText *text,
  * Returns: %TRUE if successful, %FALSE otherwise
  **/
 gboolean
-atk_text_set_selection (AtkText *text, 
-                        gint    selection_num,
-                        gint    start_offset, 
-                        gint    end_offset)
+atk_text_set_selection (AtkText *text,
+                        gint selection_num,
+                        gint start_offset,
+                        gint end_offset)
 {
   AtkTextIface *iface;
 
@@ -1023,10 +1025,10 @@ atk_text_set_selection (AtkText *text,
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->set_selection)
-  {
-    return (*(iface->set_selection)) (text, selection_num,
-       start_offset, end_offset);
-  }
+    {
+      return (*(iface->set_selection)) (text, selection_num,
+                                        start_offset, end_offset);
+    }
   else
     return FALSE;
 }
@@ -1058,7 +1060,7 @@ atk_text_set_selection (AtkText *text,
  **/
 gboolean
 atk_text_set_caret_offset (AtkText *text,
-                           gint    offset)
+                           gint offset)
 {
   AtkTextIface *iface;
 
@@ -1079,9 +1081,9 @@ atk_text_set_caret_offset (AtkText *text,
 /**
  * atk_text_get_range_extents:
  * @text: an #AtkText
- * @start_offset: The offset of the first text character for which boundary 
+ * @start_offset: The offset of the first text character for which boundary
  *        information is required.
- * @end_offset: The offset of the text character after the last character 
+ * @end_offset: The offset of the text character after the last character
  *        for which boundary information is required.
  * @coord_type: Specify whether coordinates are relative to the screen or widget window.
  * @rect: (out): A pointer to a AtkTextRectangle which is filled in by this function.
@@ -1094,10 +1096,10 @@ atk_text_set_caret_offset (AtkText *text,
  * Since: 1.3
  **/
 void
-atk_text_get_range_extents (AtkText          *text,
-                            gint             start_offset,
-                            gint             end_offset,
-                            AtkCoordType     coord_type,
+atk_text_get_range_extents (AtkText *text,
+                            gint start_offset,
+                            gint end_offset,
+                            AtkCoordType coord_type,
                             AtkTextRectangle *rect)
 {
   AtkTextIface *iface;
@@ -1134,12 +1136,12 @@ atk_text_get_range_extents (AtkText          *text,
  * Returns: (array zero-terminated=1): Array of AtkTextRange. The last
  *          element of the array returned by this function will be NULL.
  **/
-AtkTextRange**
-atk_text_get_bounded_ranges (AtkText          *text,
+AtkTextRange **
+atk_text_get_bounded_ranges (AtkText *text,
                              AtkTextRectangle *rect,
-                             AtkCoordType      coord_type,
-                             AtkTextClipType   x_clip_type,
-                             AtkTextClipType   y_clip_type)
+                             AtkCoordType coord_type,
+                             AtkTextClipType x_clip_type,
+                             AtkTextClipType y_clip_type)
 {
   AtkTextIface *iface;
 
@@ -1210,7 +1212,7 @@ atk_text_attribute_register (const gchar *name)
  *
  * Returns: a string containing the name; this string should not be freed
  **/
-const gchar*
+const gchar *
 atk_text_attribute_get_name (AtkTextAttribute attr)
 {
   GTypeClass *type_class;
@@ -1279,7 +1281,7 @@ atk_text_attribute_for_name (const gchar *name)
         {
           for (i = 0; i < extra_attributes->len; i++)
             {
-              gchar *extra_attribute = (gchar *)g_ptr_array_index (extra_attributes, i);
+              gchar *extra_attribute = (gchar *) g_ptr_array_index (extra_attributes, i);
 
               g_return_val_if_fail (extra_attribute, ATK_TEXT_ATTR_INVALID);
 
@@ -1307,9 +1309,9 @@ atk_text_attribute_for_name (const gchar *name)
  * should not be freed; %NULL is returned if there are no values
  * maintained for the attr value.
  **/
-const gchar*
+const gchar *
 atk_text_attribute_get_value (AtkTextAttribute attr,
-                              gint             index)
+                              gint index)
 {
   switch (attr)
     {
@@ -1347,7 +1349,7 @@ atk_text_attribute_get_value (AtkTextAttribute attr,
       return text_position + text_position_offsets[index];
     default:
       return NULL;
-   }
+    }
 }
 
 static void
@@ -1385,8 +1387,8 @@ atk_text_rectangle_union (AtkTextRectangle *src1,
 static gboolean
 atk_text_rectangle_contain (AtkTextRectangle *clip,
                             AtkTextRectangle *bounds,
-                            AtkTextClipType  x_clip_type,
-                            AtkTextClipType  y_clip_type)
+                            AtkTextClipType x_clip_type,
+                            AtkTextClipType y_clip_type)
 {
   gboolean x_min_ok, x_max_ok, y_min_ok, y_max_ok;
 
@@ -1411,7 +1413,6 @@ atk_text_rectangle_contain (AtkTextRectangle *clip,
                (y_clip_type == ATK_TEXT_CLIP_MIN)));
 
   return (x_min_ok && x_max_ok && y_min_ok && y_max_ok);
-  
 }
 
 /**
@@ -1428,9 +1429,9 @@ atk_text_rectangle_contain (AtkTextRectangle *clip,
  * Returns: whether scrolling was successful.
  */
 gboolean
-atk_text_scroll_substring_to (AtkText       *text,
-                              gint          start_offset,
-                              gint          end_offset,
+atk_text_scroll_substring_to (AtkText *text,
+                              gint start_offset,
+                              gint end_offset,
                               AtkScrollType type)
 {
   AtkTextIface *iface = NULL;
@@ -1462,12 +1463,12 @@ atk_text_scroll_substring_to (AtkText       *text,
  * Returns: whether scrolling was successful.
  */
 gboolean
-atk_text_scroll_substring_to_point (AtkText      *text,
-                                    gint         start_offset,
-                                    gint         end_offset,
+atk_text_scroll_substring_to_point (AtkText *text,
+                                    gint start_offset,
+                                    gint end_offset,
                                     AtkCoordType coords,
-                                    gint         x,
-                                    gint         y)
+                                    gint x,
+                                    gint y)
 {
   AtkTextIface *iface = NULL;
   g_return_val_if_fail (ATK_IS_TEXT (text), FALSE);
@@ -1480,12 +1481,12 @@ atk_text_scroll_substring_to_point (AtkText      *text,
     return FALSE;
 }
 
-static void 
-atk_text_real_get_range_extents (AtkText           *text,
-                                 gint              start_offset,
-                                 gint              end_offset,
-                                 AtkCoordType      coord_type,
-                                 AtkTextRectangle  *rect)
+static void
+atk_text_real_get_range_extents (AtkText *text,
+                                 gint start_offset,
+                                 gint end_offset,
+                                 AtkCoordType coord_type,
+                                 AtkTextRectangle *rect)
 {
   gint i;
   AtkTextRectangle cbounds, bounds;
@@ -1498,8 +1499,8 @@ atk_text_real_get_range_extents (AtkText           *text,
   for (i = start_offset + 1; i < end_offset; i++)
     {
       atk_text_get_character_extents (text, i,
-                                      &cbounds.x, &cbounds.y, 
-                                      &cbounds.width, &cbounds.height, 
+                                      &cbounds.x, &cbounds.y,
+                                      &cbounds.width, &cbounds.height,
                                       coord_type);
       atk_text_rectangle_union (&bounds, &cbounds, &bounds);
     }
@@ -1510,12 +1511,12 @@ atk_text_real_get_range_extents (AtkText           *text,
   rect->height = bounds.height;
 }
 
-static AtkTextRange**
-atk_text_real_get_bounded_ranges (AtkText          *text,
+static AtkTextRange **
+atk_text_real_get_bounded_ranges (AtkText *text,
                                   AtkTextRectangle *rect,
-                                  AtkCoordType     coord_type,
-                                  AtkTextClipType  x_clip_type,
-                                  AtkTextClipType  y_clip_type)
+                                  AtkCoordType coord_type,
+                                  AtkTextClipType x_clip_type,
+                                  AtkTextClipType y_clip_type)
 {
   gint bounds_min_offset, bounds_max_offset;
   gint min_line_start = 0, min_line_end = 0;
@@ -1536,11 +1537,11 @@ atk_text_real_get_bounded_ranges (AtkText          *text,
       bounds_min_offset == bounds_max_offset)
     return NULL;
 
-  line = atk_text_get_text_at_offset (text, bounds_min_offset, 
+  line = atk_text_get_text_at_offset (text, bounds_min_offset,
                                       ATK_TEXT_BOUNDARY_LINE_START,
                                       &min_line_start, &min_line_end);
   g_free (line);
-  line = atk_text_get_text_at_offset (text, bounds_max_offset, 
+  line = atk_text_get_text_at_offset (text, bounds_max_offset,
                                       ATK_TEXT_BOUNDARY_LINE_START,
                                       &max_line_start, &max_line_end);
   g_free (line);
@@ -1559,7 +1560,7 @@ atk_text_real_get_bounded_ranges (AtkText          *text,
                                           &cbounds.width, &cbounds.height,
                                           coord_type);
           if (!atk_text_rectangle_contain (rect, &cbounds, x_clip_type, y_clip_type))
-	    break;
+            break;
           curr_offset++;
         }
       if (curr_offset > offset)
@@ -1577,8 +1578,8 @@ atk_text_real_get_bounded_ranges (AtkText          *text,
               range = g_realloc (range, range_size * sizeof (gpointer));
             }
           range[num_ranges] = one_range;
-          num_ranges++; 
-        }   
+          num_ranges++;
+        }
       curr_offset++;
       if (range)
         range[num_ranges] = NULL;
@@ -1636,5 +1637,4 @@ atk_text_range_free (AtkTextRange *range)
   g_free (range);
 }
 
-G_DEFINE_BOXED_TYPE (AtkTextRange, atk_text_range, atk_text_range_copy,
-                     atk_text_range_free)
+G_DEFINE_BOXED_TYPE (AtkTextRange, atk_text_range, atk_text_range_copy, atk_text_range_free)

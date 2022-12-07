@@ -18,13 +18,13 @@
  * Boston, MA 02110-1301, USA.
  */
 
+#include <atk/atk.h>
 #include <glib.h>
 #include <string.h>
-#include <atk/atk.h>
 
 #include "my-atk-object.h"
-#include "my-atk-table.h"
 #include "my-atk-table-cell.h"
+#include "my-atk-table.h"
 
 typedef struct _MyAtkTableCellInfo MyAtkTableCellInfo;
 
@@ -34,7 +34,7 @@ G_DEFINE_TYPE_WITH_CODE (MyAtkTableCell,
                          my_atk_tablecell,
                          MY_TYPE_ATK_OBJECT,
                          G_IMPLEMENT_INTERFACE (ATK_TYPE_TABLE_CELL,
-                             atk_tablecell_interface_init));
+                                                atk_tablecell_interface_init));
 
 gboolean
 my_atk_set_table_cell (AtkTableCell *cell, gint x, gint y, gint row_span, gint column_span)
@@ -54,7 +54,6 @@ my_atk_set_table_cell (AtkTableCell *cell, gint x, gint y, gint row_span, gint c
     self->column_span = 1;
 
   return TRUE;
-
 }
 gboolean
 my_atk_set_tablecell (MyAtkTableCell *self, gpointer value, const gchar *row_desc, MyAtkObject *parent_table, gboolean selected, gint *xy)
@@ -99,12 +98,14 @@ my_atk_tablecell_get_column_header_cells (AtkTableCell *obj)
   AtkObject *child = NULL;
   GPtrArray *ret = g_ptr_array_new_full (atk_table_get_n_columns ATK_TABLE (tab), g_object_unref);
 
-  for (i = 0; i < all_child; i++) {
-    child = atk_object_ref_accessible_child (ATK_OBJECT (tab), i);
-    if (atk_object_get_role (child) == ATK_ROLE_TABLE_COLUMN_HEADER) {
-      g_ptr_array_add (ret, child);
+  for (i = 0; i < all_child; i++)
+    {
+      child = atk_object_ref_accessible_child (ATK_OBJECT (tab), i);
+      if (atk_object_get_role (child) == ATK_ROLE_TABLE_COLUMN_HEADER)
+        {
+          g_ptr_array_add (ret, child);
+        }
     }
-  }
 
   return ret;
 }
@@ -126,7 +127,7 @@ my_atk_tablecell_get_row_span (AtkTableCell *obj)
 }
 
 static gboolean
-my_atk_tablecell_get_position (AtkTableCell *obj, gint *row , gint *column)
+my_atk_tablecell_get_position (AtkTableCell *obj, gint *row, gint *column)
 {
   MyAtkTableCell *self = MY_ATK_TABLE_CELL (obj);
   g_return_val_if_fail (MY_IS_ATK_TABLE_CELL (obj), FALSE);
@@ -148,12 +149,14 @@ my_atk_tablecell_get_row_header_cells (AtkTableCell *obj)
   AtkObject *child = NULL;
   GPtrArray *ret = g_ptr_array_new_full (atk_table_get_n_columns ATK_TABLE (tab), g_object_unref);
 
-  for (i = 0; i < all_child; i++) {
-    child = atk_object_ref_accessible_child (ATK_OBJECT (tab), i);
-    if (atk_object_get_role (child) == ATK_ROLE_TABLE_ROW_HEADER) {
-      g_ptr_array_add (ret, child);
+  for (i = 0; i < all_child; i++)
+    {
+      child = atk_object_ref_accessible_child (ATK_OBJECT (tab), i);
+      if (atk_object_get_role (child) == ATK_ROLE_TABLE_ROW_HEADER)
+        {
+          g_ptr_array_add (ret, child);
+        }
     }
-  }
 
   return ret;
 }
@@ -161,7 +164,8 @@ my_atk_tablecell_get_row_header_cells (AtkTableCell *obj)
 static void
 atk_tablecell_interface_init (AtkTableCellIface *iface)
 {
-  if (!iface) return;
+  if (!iface)
+    return;
   iface->get_column_span = my_atk_tablecell_get_column_span;
   iface->get_column_header_cells = my_atk_tablecell_get_column_header_cells;
   iface->get_position = my_atk_tablecell_get_position;

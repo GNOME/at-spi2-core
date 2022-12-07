@@ -20,16 +20,17 @@
  * Boston, MA 02110-1301, USA.
  */
 
+#include <atk/atk.h>
 #include <stdio.h>
 #include <string.h>
-#include <atk/atk.h>
 
-#include "my-atk-object.h"
 #include "my-atk-action.h"
+#include "my-atk-object.h"
 
 typedef struct _MyAtkActionInfo MyAtkActionInfo;
 
-struct _MyAtkActionInfo {
+struct _MyAtkActionInfo
+{
   gchar *name;
   gchar *description;
   gchar *keybinding;
@@ -39,19 +40,20 @@ struct _MyAtkActionInfo {
 
 static void atk_action_interface_init (AtkActionIface *iface);
 
-struct _MyAtkActionPrivate {
+struct _MyAtkActionPrivate
+{
   GQueue *action_queue;
   guint action_idle_handler;
-  GList  *action_list;
+  GList *action_list;
   GList *children;
 };
 
 G_DEFINE_TYPE_WITH_CODE (MyAtkAction,
                          my_atk_action,
                          MY_TYPE_ATK_OBJECT,
-                         G_IMPLEMENT_INTERFACE(ATK_TYPE_ACTION,
-                             atk_action_interface_init)
-                         G_ADD_PRIVATE (MyAtkAction));
+                         G_IMPLEMENT_INTERFACE (ATK_TYPE_ACTION,
+                                                atk_action_interface_init)
+                             G_ADD_PRIVATE (MyAtkAction));
 
 static void
 my_atk_action_initialize (AtkObject *obj, gpointer data)
@@ -105,7 +107,7 @@ _my_atk_action_get_action_info (MyAtkAction *action, gint i)
   return node_data;
 }
 
-static const gchar*
+static const gchar *
 my_atk_action_description_get (AtkAction *action, gint i)
 {
   MyAtkAction *my_action = NULL;
@@ -142,7 +144,7 @@ my_atk_action_description_set (AtkAction *action, gint i, const char *des)
   return TRUE;
 }
 
-static const gchar*
+static const gchar *
 my_atk_action_name_get (AtkAction *action, gint i)
 {
   MyAtkAction *my_action = NULL;
@@ -159,7 +161,7 @@ my_atk_action_name_get (AtkAction *action, gint i)
   return strdup (info->name);
 }
 
-static const gchar*
+static const gchar *
 my_atk_action_localized_name_get (AtkAction *action, gint i)
 {
   MyAtkAction *my_action = NULL;
@@ -205,7 +207,8 @@ my_atk_action_get_keybinding (AtkAction *action, gint i)
   return strdup (info->keybinding);
 }
 
-void perform_action (AtkObject *obj)
+void
+perform_action (AtkObject *obj)
 {
   AtkStateSet *state_set1 = atk_object_ref_state_set (obj);
   atk_state_set_add_state (state_set1, ATK_STATE_ACTIVE);
@@ -221,10 +224,11 @@ my_atk_action_do_action (AtkAction *action, gint i)
   return FALSE;
 }
 
-guint my_atk_action_add_action (MyAtkAction *action,
-                                const gchar *action_name,
-                                const gchar *action_description,
-                                const gchar *action_keybinding)
+guint
+my_atk_action_add_action (MyAtkAction *action,
+                          const gchar *action_name,
+                          const gchar *action_description,
+                          const gchar *action_keybinding)
 {
   MyAtkActionInfo *info = NULL;
   MyAtkActionPrivate *priv = NULL;
@@ -248,12 +252,12 @@ atk_action_interface_init (AtkActionIface *iface)
 {
   g_return_if_fail (iface);
 
-  iface->do_action          = my_atk_action_do_action;
+  iface->do_action = my_atk_action_do_action;
 
-  iface->get_n_actions      = my_atk_action_get_n_actions;
-  iface->get_description    = my_atk_action_description_get;
-  iface->get_keybinding     = my_atk_action_get_keybinding;
-  iface->get_name           = my_atk_action_name_get;
-  iface->set_description    = my_atk_action_description_set;
+  iface->get_n_actions = my_atk_action_get_n_actions;
+  iface->get_description = my_atk_action_description_get;
+  iface->get_keybinding = my_atk_action_get_keybinding;
+  iface->get_name = my_atk_action_name_get;
+  iface->set_description = my_atk_action_description_set;
   iface->get_localized_name = my_atk_action_localized_name_get;
 }

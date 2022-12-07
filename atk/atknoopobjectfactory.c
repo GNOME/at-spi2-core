@@ -20,6 +20,7 @@
 #include "config.h"
 
 #include "atkobject.h"
+
 #include "atknoopobject.h"
 #include "atknoopobjectfactory.h"
 
@@ -33,43 +34,42 @@
  * specified to create an accessible object of a particular type.
  */
 static void atk_no_op_object_factory_class_init (
-                              AtkNoOpObjectFactoryClass        *klass);
+    AtkNoOpObjectFactoryClass *klass);
 
-static AtkObject* atk_no_op_object_factory_create_accessible (
-                              GObject                          *obj);
-static GType      atk_no_op_object_factory_get_accessible_type (void);
+static AtkObject *atk_no_op_object_factory_create_accessible (
+    GObject *obj);
+static GType atk_no_op_object_factory_get_accessible_type (void);
 
-static gpointer    parent_class = NULL;
+static gpointer parent_class = NULL;
 
 GType
 atk_no_op_object_factory_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) 
-  {
-    static const GTypeInfo tinfo =
+  if (!type)
     {
-      sizeof (AtkNoOpObjectFactoryClass),
-      (GBaseInitFunc) NULL, /* base init */
-      (GBaseFinalizeFunc) NULL, /* base finalize */
-      (GClassInitFunc) atk_no_op_object_factory_class_init, /* class init */
-      (GClassFinalizeFunc) NULL, /* class finalize */
-      NULL, /* class data */
-      sizeof (AtkNoOpObjectFactory), /* instance size */
-      0, /* nb preallocs */
-      (GInstanceInitFunc) NULL, /* instance init */
-      NULL /* value table */
-    };
-    type = g_type_register_static (
-                           ATK_TYPE_OBJECT_FACTORY, 
-                           "AtkNoOpObjectFactory" , &tinfo, 0);
-  }
+      static const GTypeInfo tinfo = {
+        sizeof (AtkNoOpObjectFactoryClass),
+        (GBaseInitFunc) NULL,                                 /* base init */
+        (GBaseFinalizeFunc) NULL,                             /* base finalize */
+        (GClassInitFunc) atk_no_op_object_factory_class_init, /* class init */
+        (GClassFinalizeFunc) NULL,                            /* class finalize */
+        NULL,                                                 /* class data */
+        sizeof (AtkNoOpObjectFactory),                        /* instance size */
+        0,                                                    /* nb preallocs */
+        (GInstanceInitFunc) NULL,                             /* instance init */
+        NULL                                                  /* value table */
+      };
+      type = g_type_register_static (
+          ATK_TYPE_OBJECT_FACTORY,
+          "AtkNoOpObjectFactory", &tinfo, 0);
+    }
 
   return type;
 }
 
-static void 
+static void
 atk_no_op_object_factory_class_init (AtkNoOpObjectFactoryClass *klass)
 {
   AtkObjectFactoryClass *class = ATK_OBJECT_FACTORY_CLASS (klass);
@@ -84,11 +84,11 @@ atk_no_op_object_factory_class_init (AtkNoOpObjectFactoryClass *klass)
  * atk_no_op_object_factory_new:
  *
  * Creates an instance of an #AtkObjectFactory which generates primitive
- * (non-functioning) #AtkObjects. 
+ * (non-functioning) #AtkObjects.
  *
  * Returns: an instance of an #AtkObjectFactory
  **/
-AtkObjectFactory* 
+AtkObjectFactory *
 atk_no_op_object_factory_new (void)
 {
   GObject *factory;
@@ -97,12 +97,12 @@ atk_no_op_object_factory_new (void)
 
   g_return_val_if_fail (factory != NULL, NULL);
   return ATK_OBJECT_FACTORY (factory);
-} 
+}
 
-static AtkObject* 
-atk_no_op_object_factory_create_accessible (GObject   *obj)
+static AtkObject *
+atk_no_op_object_factory_create_accessible (GObject *obj)
 {
-  AtkObject     *accessible;
+  AtkObject *accessible;
 
   accessible = atk_no_op_object_new (obj);
 

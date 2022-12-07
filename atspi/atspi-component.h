@@ -4,7 +4,7 @@
  *
  * Copyright 2002 Ximian, Inc.
  *           2002 Sun Microsystems Inc.
- *           
+ *
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -44,10 +44,10 @@ struct _AtspiRect
 
 /**
  * ATSPI_TYPE_RECT:
- * 
+ *
  * The #GType for a boxed type holding a #AtspiRect.
  */
-#define	ATSPI_TYPE_RECT (atspi_rect_get_type ())
+#define ATSPI_TYPE_RECT (atspi_rect_get_type ())
 
 GType atspi_rect_get_type ();
 
@@ -62,19 +62,19 @@ struct _AtspiPoint
 
 /**
  * ATSPI_TYPE_POINT:
- * 
+ *
  * The #GType for a boxed type holding a #AtspiPoint.
  */
-#define	ATSPI_TYPE_POINT (atspi_point_get_type ())
+#define ATSPI_TYPE_POINT (atspi_point_get_type ())
 
 GType atspi_point_get_type ();
 
 AtspiPoint *atspi_point_copy (AtspiPoint *src);
 
-#define ATSPI_TYPE_COMPONENT                    (atspi_component_get_type ())
-#define ATSPI_IS_COMPONENT(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_COMPONENT)
-#define ATSPI_COMPONENT(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_COMPONENT, AtspiComponent)
-#define ATSPI_COMPONENT_GET_IFACE(obj)          (G_TYPE_INSTANCE_GET_INTERFACE ((obj), ATSPI_TYPE_COMPONENT, AtspiComponent))
+#define ATSPI_TYPE_COMPONENT (atspi_component_get_type ())
+#define ATSPI_IS_COMPONENT(obj) G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_COMPONENT)
+#define ATSPI_COMPONENT(obj) G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_COMPONENT, AtspiComponent)
+#define ATSPI_COMPONENT_GET_IFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), ATSPI_TYPE_COMPONENT, AtspiComponent))
 
 GType atspi_component_get_type ();
 
@@ -99,7 +99,7 @@ gshort atspi_component_get_mdi_z_order (AtspiComponent *obj, GError **error);
 
 gboolean atspi_component_grab_focus (AtspiComponent *obj, GError **error);
 
-gdouble      atspi_component_get_alpha    (AtspiComponent *obj, GError **error);
+gdouble atspi_component_get_alpha (AtspiComponent *obj, GError **error);
 
 gboolean atspi_component_set_extents (AtspiComponent *obj, gint x, gint y, gint width, gint height, AtspiCoordType ctype, GError **error);
 
@@ -113,4 +113,4 @@ gboolean atspi_component_scroll_to_point (AtspiComponent *obj, AtspiCoordType co
 
 G_END_DECLS
 
-#endif	/* _ATSPI_COMPONENT_H_ */
+#endif /* _ATSPI_COMPONENT_H_ */

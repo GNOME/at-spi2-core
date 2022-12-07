@@ -19,8 +19,8 @@
 
 #include "config.h"
 
-#include "atktable.h"
 #include "atkmarshal.h"
+#include "atktable.h"
 
 /**
  * AtkTable:
@@ -57,7 +57,8 @@
  * index-based methods are deprecated.
  */
 
-enum {
+enum
+{
   ROW_INSERTED,
   ROW_DELETED,
   COLUMN_INSERTED,
@@ -68,7 +69,7 @@ enum {
   LAST_SIGNAL
 };
 
-static void  atk_table_base_init (gpointer *g_class);
+static void atk_table_base_init (gpointer *g_class);
 
 static guint atk_table_signals[LAST_SIGNAL] = { 0 };
 
@@ -76,28 +77,27 @@ GType
 atk_table_get_type (void)
 {
   static GType type = 0;
-  
-  if (!type) {
-    GTypeInfo tinfo =
+
+  if (!type)
     {
-      sizeof (AtkTableIface),
-      (GBaseInitFunc) atk_table_base_init,
-      (GBaseFinalizeFunc) NULL,
-      
-    };
-    
-    type = g_type_register_static (G_TYPE_INTERFACE, "AtkTable", &tinfo, 0);
-  }
-  
+      GTypeInfo tinfo = {
+        sizeof (AtkTableIface),
+        (GBaseInitFunc) atk_table_base_init,
+        (GBaseFinalizeFunc) NULL,
+
+      };
+
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtkTable", &tinfo, 0);
+    }
+
   return type;
 }
-
 
 static void
 atk_table_base_init (gpointer *g_class)
 {
   static gboolean initialized = FALSE;
-  
+
   if (!initialized)
     {
       /**
@@ -110,14 +110,14 @@ atk_table_base_init (gpointer *g_class)
        * implements the AtkTable interface when a row is inserted.
        */
       atk_table_signals[ROW_INSERTED] =
-	g_signal_new ("row_inserted",
-		      ATK_TYPE_TABLE,
-		      G_SIGNAL_RUN_LAST,
-		      G_STRUCT_OFFSET (AtkTableIface, row_inserted),
-		      (GSignalAccumulator) NULL, NULL,
-		      atk_marshal_VOID__INT_INT,
-		      G_TYPE_NONE,
-		      2, G_TYPE_INT, G_TYPE_INT);
+          g_signal_new ("row_inserted",
+                        ATK_TYPE_TABLE,
+                        G_SIGNAL_RUN_LAST,
+                        G_STRUCT_OFFSET (AtkTableIface, row_inserted),
+                        (GSignalAccumulator) NULL, NULL,
+                        atk_marshal_VOID__INT_INT,
+                        G_TYPE_NONE,
+                        2, G_TYPE_INT, G_TYPE_INT);
       /**
        * AtkTable::column-inserted:
        * @atktable: the object which received the signal.
@@ -128,14 +128,14 @@ atk_table_base_init (gpointer *g_class)
        * implements the AtkTable interface when a column is inserted.
        */
       atk_table_signals[COLUMN_INSERTED] =
-	g_signal_new ("column_inserted",
-		      ATK_TYPE_TABLE,
-		      G_SIGNAL_RUN_LAST,
-		      G_STRUCT_OFFSET (AtkTableIface, column_inserted),
-		      (GSignalAccumulator) NULL, NULL,
-		      atk_marshal_VOID__INT_INT,
-		      G_TYPE_NONE,
-		      2, G_TYPE_INT, G_TYPE_INT);
+          g_signal_new ("column_inserted",
+                        ATK_TYPE_TABLE,
+                        G_SIGNAL_RUN_LAST,
+                        G_STRUCT_OFFSET (AtkTableIface, column_inserted),
+                        (GSignalAccumulator) NULL, NULL,
+                        atk_marshal_VOID__INT_INT,
+                        G_TYPE_NONE,
+                        2, G_TYPE_INT, G_TYPE_INT);
       /**
        * AtkTable::row-deleted:
        * @atktable: the object which received the signal.
@@ -146,14 +146,14 @@ atk_table_base_init (gpointer *g_class)
        * implements the AtkTable interface when a row is deleted.
        */
       atk_table_signals[ROW_DELETED] =
-	g_signal_new ("row_deleted",
-		      ATK_TYPE_TABLE,
-		      G_SIGNAL_RUN_LAST,
-		      G_STRUCT_OFFSET (AtkTableIface, row_deleted),
-		      (GSignalAccumulator) NULL, NULL,
-		      atk_marshal_VOID__INT_INT,
-		      G_TYPE_NONE,
-		      2, G_TYPE_INT, G_TYPE_INT);
+          g_signal_new ("row_deleted",
+                        ATK_TYPE_TABLE,
+                        G_SIGNAL_RUN_LAST,
+                        G_STRUCT_OFFSET (AtkTableIface, row_deleted),
+                        (GSignalAccumulator) NULL, NULL,
+                        atk_marshal_VOID__INT_INT,
+                        G_TYPE_NONE,
+                        2, G_TYPE_INT, G_TYPE_INT);
       /**
        * AtkTable::column-deleted:
        * @atktable: the object which received the signal.
@@ -164,14 +164,14 @@ atk_table_base_init (gpointer *g_class)
        * implements the AtkTable interface when a column is deleted.
        */
       atk_table_signals[COLUMN_DELETED] =
-	g_signal_new ("column_deleted",
-		      ATK_TYPE_TABLE,
-		      G_SIGNAL_RUN_LAST,
-		      G_STRUCT_OFFSET (AtkTableIface, column_deleted),
-		      (GSignalAccumulator) NULL, NULL,
-		      atk_marshal_VOID__INT_INT,
-		      G_TYPE_NONE,
-		      2, G_TYPE_INT, G_TYPE_INT);
+          g_signal_new ("column_deleted",
+                        ATK_TYPE_TABLE,
+                        G_SIGNAL_RUN_LAST,
+                        G_STRUCT_OFFSET (AtkTableIface, column_deleted),
+                        (GSignalAccumulator) NULL, NULL,
+                        atk_marshal_VOID__INT_INT,
+                        G_TYPE_NONE,
+                        2, G_TYPE_INT, G_TYPE_INT);
       /**
        * AtkTable::row-reordered:
        * @atktable: the object which received the signal.
@@ -181,14 +181,14 @@ atk_table_base_init (gpointer *g_class)
        * reordered.
        */
       atk_table_signals[ROW_REORDERED] =
-	g_signal_new ("row_reordered",
-		      ATK_TYPE_TABLE,
-		      G_SIGNAL_RUN_LAST,
-		      G_STRUCT_OFFSET (AtkTableIface, row_reordered),
-		      (GSignalAccumulator) NULL, NULL,
-		      g_cclosure_marshal_VOID__VOID,
-		      G_TYPE_NONE,
-		      0);
+          g_signal_new ("row_reordered",
+                        ATK_TYPE_TABLE,
+                        G_SIGNAL_RUN_LAST,
+                        G_STRUCT_OFFSET (AtkTableIface, row_reordered),
+                        (GSignalAccumulator) NULL, NULL,
+                        g_cclosure_marshal_VOID__VOID,
+                        G_TYPE_NONE,
+                        0);
       /**
        * AtkTable::column-reordered:
        * @atktable: the object which received the signal.
@@ -198,14 +198,14 @@ atk_table_base_init (gpointer *g_class)
        * reordered.
        */
       atk_table_signals[COLUMN_REORDERED] =
-	g_signal_new ("column_reordered",
-		      ATK_TYPE_TABLE,
-		      G_SIGNAL_RUN_LAST,
-		      G_STRUCT_OFFSET (AtkTableIface, column_reordered),
-		      (GSignalAccumulator) NULL, NULL,
-		      g_cclosure_marshal_VOID__VOID,
-		      G_TYPE_NONE,
-		      0);
+          g_signal_new ("column_reordered",
+                        ATK_TYPE_TABLE,
+                        G_SIGNAL_RUN_LAST,
+                        G_STRUCT_OFFSET (AtkTableIface, column_reordered),
+                        (GSignalAccumulator) NULL, NULL,
+                        g_cclosure_marshal_VOID__VOID,
+                        G_TYPE_NONE,
+                        0);
 
       /**
        * AtkTable::model-changed:
@@ -216,13 +216,13 @@ atk_table_base_init (gpointer *g_class)
        * the table changes.
        */
       atk_table_signals[MODEL_CHANGED] =
-        g_signal_new ("model_changed",
-                      ATK_TYPE_TABLE,
-                      G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (AtkTableIface, model_changed),
-                      (GSignalAccumulator) NULL, NULL,
-                      g_cclosure_marshal_VOID__VOID,
-                      G_TYPE_NONE, 0);
+          g_signal_new ("model_changed",
+                        ATK_TYPE_TABLE,
+                        G_SIGNAL_RUN_LAST,
+                        G_STRUCT_OFFSET (AtkTableIface, model_changed),
+                        (GSignalAccumulator) NULL, NULL,
+                        g_cclosure_marshal_VOID__VOID,
+                        G_TYPE_NONE, 0);
 
       initialized = TRUE;
     }
@@ -240,10 +240,10 @@ atk_table_base_init (gpointer *g_class)
  * Returns: (transfer full): an #AtkObject representing the referred
  * to accessible
  **/
-AtkObject*
+AtkObject *
 atk_table_ref_at (AtkTable *table,
-                  gint     row,
-                  gint     column)
+                  gint row,
+                  gint column)
 {
   AtkTableIface *iface;
 
@@ -277,8 +277,8 @@ atk_table_ref_at (AtkTable *table,
  **/
 gint
 atk_table_get_index_at (AtkTable *table,
-                        gint     row,
-                        gint     column)
+                        gint row,
+                        gint column)
 {
   AtkTableIface *iface;
 
@@ -308,7 +308,7 @@ atk_table_get_index_at (AtkTable *table,
  **/
 gint
 atk_table_get_row_at_index (AtkTable *table,
-                            gint     index)
+                            gint index)
 {
   AtkTableIface *iface;
 
@@ -336,7 +336,7 @@ atk_table_get_row_at_index (AtkTable *table,
  **/
 gint
 atk_table_get_column_at_index (AtkTable *table,
-                               gint     index)
+                               gint index)
 {
   AtkTableIface *iface;
 
@@ -359,7 +359,7 @@ atk_table_get_column_at_index (AtkTable *table,
  * Returns: (nullable) (transfer none): a AtkObject* representing the
  * table caption, or %NULL if value does not implement this interface.
  **/
-AtkObject*
+AtkObject *
 atk_table_get_caption (AtkTable *table)
 {
   AtkTableIface *iface;
@@ -408,9 +408,9 @@ atk_table_get_n_columns (AtkTable *table)
  * Returns: a gchar* representing the column description, or %NULL
  * if value does not implement this interface.
  **/
-const gchar*
+const gchar *
 atk_table_get_column_description (AtkTable *table,
-                                  gint     column)
+                                  gint column)
 {
   AtkTableIface *iface;
 
@@ -438,8 +438,8 @@ atk_table_get_column_description (AtkTable *table,
  **/
 gint
 atk_table_get_column_extent_at (AtkTable *table,
-                                gint     row,
-                                gint     column)
+                                gint row,
+                                gint column)
 {
   AtkTableIface *iface;
 
@@ -464,7 +464,7 @@ atk_table_get_column_extent_at (AtkTable *table,
  * specified column header, or %NULL if value does not implement this
  * interface.
  **/
-AtkObject*
+AtkObject *
 atk_table_get_column_header (AtkTable *table, gint column)
 {
   AtkTableIface *iface;
@@ -513,9 +513,9 @@ atk_table_get_n_rows (AtkTable *table)
  * Returns: (nullable): a gchar* representing the row description, or
  * %NULL if value does not implement this interface.
  **/
-const gchar*
+const gchar *
 atk_table_get_row_description (AtkTable *table,
-                               gint      row)
+                               gint row)
 {
   AtkTableIface *iface;
 
@@ -543,8 +543,8 @@ atk_table_get_row_description (AtkTable *table,
  **/
 gint
 atk_table_get_row_extent_at (AtkTable *table,
-                             gint     row,
-                             gint     column)
+                             gint row,
+                             gint column)
 {
   AtkTableIface *iface;
 
@@ -569,7 +569,7 @@ atk_table_get_row_extent_at (AtkTable *table,
  * specified row header, or %NULL if value does not implement this
  * interface.
  **/
-AtkObject*
+AtkObject *
 atk_table_get_row_header (AtkTable *table, gint row)
 {
   AtkTableIface *iface;
@@ -593,7 +593,7 @@ atk_table_get_row_header (AtkTable *table, gint row)
  * Returns: (transfer full): a AtkObject* representing a summary description
  * of the table, or zero if value does not implement this interface.
  **/
-AtkObject*
+AtkObject *
 atk_table_get_summary (AtkTable *table)
 {
   AtkTableIface *iface;
@@ -613,7 +613,7 @@ atk_table_get_summary (AtkTable *table)
  * @table: a GObject instance that implements AtkTableIface
  * @selected: a #gint** that is to contain the selected row numbers
  *
- * Gets the selected rows of the table by initializing **selected with 
+ * Gets the selected rows of the table by initializing **selected with
  * the selected row numbers. This array should be freed by the caller.
  *
  * Returns: a gint representing the number of selected rows,
@@ -639,13 +639,13 @@ atk_table_get_selected_rows (AtkTable *table, gint **selected)
  * @table: a GObject instance that implements AtkTableIface
  * @selected: a #gint** that is to contain the selected columns numbers
  *
- * Gets the selected columns of the table by initializing **selected with 
+ * Gets the selected columns of the table by initializing **selected with
  * the selected column numbers. This array should be freed by the caller.
  *
  * Returns: a gint representing the number of selected columns,
  * or %0 if value does not implement this interface.
  **/
-gint 
+gint
 atk_table_get_selected_columns (AtkTable *table, gint **selected)
 {
   AtkTableIface *iface;
@@ -673,7 +673,7 @@ atk_table_get_selected_columns (AtkTable *table, gint **selected)
  **/
 gboolean
 atk_table_is_column_selected (AtkTable *table,
-                              gint     column)
+                              gint column)
 {
   AtkTableIface *iface;
 
@@ -700,7 +700,7 @@ atk_table_is_column_selected (AtkTable *table,
  **/
 gboolean
 atk_table_is_row_selected (AtkTable *table,
-                           gint     row)
+                           gint row)
 {
   AtkTableIface *iface;
 
@@ -728,8 +728,8 @@ atk_table_is_row_selected (AtkTable *table,
  **/
 gboolean
 atk_table_is_selected (AtkTable *table,
-                       gint     row,
-                       gint     column)
+                       gint row,
+                       gint column)
 {
   AtkTableIface *iface;
 
@@ -748,14 +748,14 @@ atk_table_is_selected (AtkTable *table,
  * @table: a GObject instance that implements AtkTableIface
  * @row: a #gint representing a row in @table
  *
- * Adds the specified @row to the selection. 
+ * Adds the specified @row to the selection.
  *
  * Returns: a gboolean representing if row was successfully added to selection,
  * or 0 if value does not implement this interface.
  **/
 gboolean
 atk_table_add_row_selection (AtkTable *table,
-                       		 gint     row)
+                             gint row)
 {
   AtkTableIface *iface;
 
@@ -773,14 +773,14 @@ atk_table_add_row_selection (AtkTable *table,
  * @table: a GObject instance that implements AtkTableIface
  * @row: a #gint representing a row in @table
  *
- * Removes the specified @row from the selection. 
+ * Removes the specified @row from the selection.
  *
  * Returns: a gboolean representing if the row was successfully removed from
  * the selection, or 0 if value does not implement this interface.
  **/
 gboolean
 atk_table_remove_row_selection (AtkTable *table,
-                       		    gint     row)
+                                gint row)
 {
   AtkTableIface *iface;
 
@@ -798,14 +798,14 @@ atk_table_remove_row_selection (AtkTable *table,
  * @table: a GObject instance that implements AtkTableIface
  * @column: a #gint representing a column in @table
  *
- * Adds the specified @column to the selection. 
+ * Adds the specified @column to the selection.
  *
- * Returns: a gboolean representing if the column was successfully added to 
+ * Returns: a gboolean representing if the column was successfully added to
  * the selection, or 0 if value does not implement this interface.
  **/
 gboolean
 atk_table_add_column_selection (AtkTable *table,
-                       		    gint     column)
+                                gint column)
 {
   AtkTableIface *iface;
 
@@ -823,14 +823,14 @@ atk_table_add_column_selection (AtkTable *table,
  * @table: a GObject instance that implements AtkTableIface
  * @column: a #gint representing a column in @table
  *
- * Adds the specified @column to the selection. 
+ * Adds the specified @column to the selection.
  *
  * Returns: a gboolean representing if the column was successfully removed from
  * the selection, or 0 if value does not implement this interface.
  **/
 gboolean
 atk_table_remove_column_selection (AtkTable *table,
-                       			   gint     column)
+                                   gint column)
 {
   AtkTableIface *iface;
 
@@ -852,8 +852,8 @@ atk_table_remove_column_selection (AtkTable *table,
  * Sets the caption for the table.
  **/
 void
-atk_table_set_caption (AtkTable       *table,
-                       AtkObject      *caption)
+atk_table_set_caption (AtkTable *table,
+                       AtkObject *caption)
 {
   AtkTableIface *iface;
 
@@ -875,9 +875,9 @@ atk_table_set_caption (AtkTable       *table,
  * Sets the description text for the specified @column of the @table.
  **/
 void
-atk_table_set_column_description (AtkTable       *table,
-                                  gint           column,
-                                  const gchar    *description)
+atk_table_set_column_description (AtkTable *table,
+                                  gint column,
+                                  const gchar *description)
 {
   AtkTableIface *iface;
 
@@ -898,8 +898,8 @@ atk_table_set_column_description (AtkTable       *table,
  * Sets the specified column header to @header.
  **/
 void
-atk_table_set_column_header (AtkTable  *table,
-                             gint      column,
+atk_table_set_column_header (AtkTable *table,
+                             gint column,
                              AtkObject *header)
 {
   AtkTableIface *iface;
@@ -922,9 +922,9 @@ atk_table_set_column_header (AtkTable  *table,
  * Sets the description text for the specified @row of @table.
  **/
 void
-atk_table_set_row_description (AtkTable       *table,
-                               gint           row,
-                               const gchar    *description)
+atk_table_set_row_description (AtkTable *table,
+                               gint row,
+                               const gchar *description)
 {
   AtkTableIface *iface;
 
@@ -940,13 +940,13 @@ atk_table_set_row_description (AtkTable       *table,
  * atk_table_set_row_header:
  * @table: a GObject instance that implements AtkTableIface
  * @row: a #gint representing a row in @table
- * @header: an #AtkTable 
+ * @header: an #AtkTable
  *
  * Sets the specified row header to @header.
  **/
 void
-atk_table_set_row_header (AtkTable  *table,
-                          gint      row,
+atk_table_set_row_header (AtkTable *table,
+                          gint row,
                           AtkObject *header)
 {
   AtkTableIface *iface;
@@ -968,8 +968,8 @@ atk_table_set_row_header (AtkTable  *table,
  * Sets the summary description of the table.
  **/
 void
-atk_table_set_summary (AtkTable       *table,
-                       AtkObject      *accessible)
+atk_table_set_summary (AtkTable *table,
+                       AtkObject *accessible)
 {
   AtkTableIface *iface;
 

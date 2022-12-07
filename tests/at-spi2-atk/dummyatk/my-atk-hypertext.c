@@ -18,14 +18,14 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include <glib.h>
-#include <string.h>
 #include <atk/atk.h>
+#include <glib.h>
 #include <stdio.h>
+#include <string.h>
 
-#include "my-atk-object.h"
-#include "my-atk-hypertext.h"
 #include "my-atk-hyperlink.h"
+#include "my-atk-hypertext.h"
+#include "my-atk-object.h"
 
 typedef struct _MyAtkHypertextInfo MyAtkHypertextInfo;
 
@@ -36,7 +36,7 @@ G_DEFINE_TYPE_WITH_CODE (MyAtkHypertext,
                          my_atk_hypertext,
                          MY_TYPE_ATK_OBJECT,
                          G_IMPLEMENT_INTERFACE (ATK_TYPE_HYPERTEXT,
-                             atk_hypertext_interface_init));
+                                                atk_hypertext_interface_init));
 
 gint
 my_atk_set_hypertext (AtkHypertext *obj, const gchar *text)
@@ -44,7 +44,7 @@ my_atk_set_hypertext (AtkHypertext *obj, const gchar *text)
   MyAtkHypertext *self = MY_ATK_HYPERTEXT (obj);
   MyAtkHyperlink *link;
   gchar *ptr;
-  const gchar *fstr= "href=";
+  const gchar *fstr = "href=";
   gint len = strlen (fstr);
   gint text_len = strlen (text);
   gint index = 0;
@@ -54,27 +54,32 @@ my_atk_set_hypertext (AtkHypertext *obj, const gchar *text)
   if (text_len < len)
     return -1;
 
-  while (text) {
-    ptr = g_strstr_len (text + index, text_len - index, fstr);
-    index = ptr - text + len;
-    if (ptr) {
-      if (text_len < index || index < len)
+  while (text)
+    {
+      ptr = g_strstr_len (text + index, text_len - index, fstr);
+      index = ptr - text + len;
+      if (ptr)
+        {
+          if (text_len < index || index < len)
+            break;
+          if (text[index] == '\'')
+            {
+              start_offset = index + 1;
+              while (++index < text_len && text[index] != '\'')
+                ;
+              if (text[index] != '\'')
+                break;
+              link = new_MyAtkHyperlink ();
+              my_atk_set_hyperlink (ATK_HYPERLINK (link),
+                                    g_strndup (text + start_offset, index - start_offset),
+                                    start_offset,
+                                    index);
+              g_ptr_array_add (self->array, link);
+            }
+        }
+      else
         break;
-      if (text[index] == '\'') {
-        start_offset = index + 1;
-        while (++index < text_len && text[index] != '\'');
-        if (text[index] != '\'')
-          break;
-        link = new_MyAtkHyperlink ();
-        my_atk_set_hyperlink (ATK_HYPERLINK (link),
-                              g_strndup (text + start_offset, index - start_offset),
-                              start_offset,
-                              index);
-        g_ptr_array_add (self->array, link);
-      }
-    } else
-      break;
-  }
+    }
 
   return self->array->len > 0 ? 0 : -1;
 }
@@ -85,7 +90,6 @@ my_atk_hypertext_get_n_links (AtkHypertext *obj)
   MyAtkHypertext *self = MY_ATK_HYPERTEXT (obj);
   g_return_val_if_fail (MY_IS_ATK_HYPERTEXT (obj), -1);
   return self->array->len;
-
 }
 
 static AtkHyperlink *
@@ -107,11 +111,12 @@ my_atk_hypertext_get_link_index (AtkHypertext *obj, gint char_index)
   MyAtkHyperlink *link;
   g_return_val_if_fail (MY_IS_ATK_HYPERTEXT (obj), -1);
 
-  for (i = 0; i < self->array->len; i++) {
-    link = g_ptr_array_index (self->array, i);
-    if (link->start <= char_index && char_index <= link->end)
-      return i;
-  }
+  for (i = 0; i < self->array->len; i++)
+    {
+      link = g_ptr_array_index (self->array, i);
+      if (link->start <= char_index && char_index <= link->end)
+        return i;
+    }
   return -1;
 }
 
@@ -130,7 +135,8 @@ GDestroyNotifyGOBJptrArray (gpointer data)
 static void
 atk_hypertext_interface_init (AtkHypertextIface *iface)
 {
-  if (!iface) return;
+  if (!iface)
+    return;
   iface->get_n_links = my_atk_hypertext_get_n_links;
   iface->get_link = my_atk_hypertext_get_link;
   iface->get_link_index = my_atk_hypertext_get_link_index;
@@ -154,10 +160,10 @@ my_atk_hypertext_class_finalize (GObject *obj)
 }
 
 static void
-my_atk_hypertext_class_init(MyAtkHypertextClass *my_class)
+my_atk_hypertext_class_init (MyAtkHypertextClass *my_class)
 {
-  AtkObjectClass *atk_class = ATK_OBJECT_CLASS(my_class);
-  GObjectClass *gobject_class = G_OBJECT_CLASS(my_class);
+  AtkObjectClass *atk_class = ATK_OBJECT_CLASS (my_class);
+  GObjectClass *gobject_class = G_OBJECT_CLASS (my_class);
 
   gobject_class->finalize = my_atk_hypertext_class_finalize;
 

@@ -22,8 +22,8 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include <stdlib.h> /* for malloc */
 #include "atspi-private.h"
+#include <stdlib.h> /* for malloc */
 
 /**
  * AtspiTable:
@@ -80,7 +80,7 @@ atspi_table_get_summary (AtspiTable *obj, GError **error)
 
   _atspi_dbus_get_property (obj, atspi_interface_table, "Summary", error, "(so)", &retval);
 
- return retval;
+  return retval;
 }
 
 /**
@@ -101,7 +101,7 @@ atspi_table_get_n_rows (AtspiTable *obj, GError **error)
   g_return_val_if_fail (obj != NULL, -1);
 
   _atspi_dbus_get_property (obj, atspi_interface_table, "NRows", error, "i", &retval);
-	  
+
   return retval;
 }
 
@@ -123,7 +123,7 @@ atspi_table_get_n_columns (AtspiTable *obj, GError **error)
   g_return_val_if_fail (obj != NULL, -1);
 
   _atspi_dbus_get_property (obj, atspi_interface_table, "NColumns", error, "i", &retval);
-	  
+
   return retval;
 }
 
@@ -134,7 +134,7 @@ atspi_table_get_n_columns (AtspiTable *obj, GError **error)
  * @column: the specified table column, zero-indexed.
  *
  * Gets the table cell at the specified row and column indices.
- * To get the accessible object at a particular (x, y) screen 
+ * To get the accessible object at a particular (x, y) screen
  * coordinate, use #atspi_component_get_accessible_at_point.
  *
  * Returns: (transfer full): an #AtspiAccessible object representing the
@@ -142,9 +142,9 @@ atspi_table_get_n_columns (AtspiTable *obj, GError **error)
  **/
 AtspiAccessible *
 atspi_table_get_accessible_at (AtspiTable *obj,
-                                 gint row,
-                                 gint column,
-                                 GError **error)
+                               gint row,
+                               gint column,
+                               GError **error)
 {
   dbus_int32_t d_row = row, d_column = column;
   DBusMessage *reply;
@@ -163,7 +163,7 @@ atspi_table_get_accessible_at (AtspiTable *obj,
  * @column: the specified table column, zero-indexed.
  *
  * Gets the 1-D child index corresponding to the specified 2-D row and
- * column indices. To get the accessible object at a particular (x, y) screen 
+ * column indices. To get the accessible object at a particular (x, y) screen
  * coordinate, use #atspi_component_get_accessible_at_point.
  *
  * @see #atspi_table_get_row_at_index, #atspi_table_get_column_at_index
@@ -173,9 +173,9 @@ atspi_table_get_accessible_at (AtspiTable *obj,
  **/
 gint
 atspi_table_get_index_at (AtspiTable *obj,
-                            gint row,
-                            gint column,
-                            GError **error)
+                          gint row,
+                          gint column,
+                          GError **error)
 {
   dbus_int32_t d_row = row, d_column = column;
   dbus_int32_t retval = -1;
@@ -183,7 +183,7 @@ atspi_table_get_index_at (AtspiTable *obj,
   g_return_val_if_fail (obj != NULL, -1);
 
   _atspi_dbus_call (obj, atspi_interface_table, "GetIndexAt", error, "ii=>i", d_row, d_column, &retval);
-	  
+
   return retval;
 }
 
@@ -192,7 +192,7 @@ atspi_table_get_index_at (AtspiTable *obj,
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  * @index: the specified child index, zero-indexed.
  *
- * Gets the table row index occupied by the child at a particular 1-D 
+ * Gets the table row index occupied by the child at a particular 1-D
  * child index.
  *
  * @see #atspi_table_get_index_at, #atspi_table_get_column_at_index
@@ -202,8 +202,8 @@ atspi_table_get_index_at (AtspiTable *obj,
  **/
 gint
 atspi_table_get_row_at_index (AtspiTable *obj,
-                               gint index,
-                               GError **error)
+                              gint index,
+                              GError **error)
 {
   dbus_int32_t d_index = index;
   dbus_int32_t retval = -1;
@@ -211,7 +211,7 @@ atspi_table_get_row_at_index (AtspiTable *obj,
   g_return_val_if_fail (obj != NULL, -1);
 
   _atspi_dbus_call (obj, atspi_interface_table, "GetRowAtIndex", error, "i=>i", d_index, &retval);
-	  
+
   return retval;
 }
 
@@ -230,8 +230,8 @@ atspi_table_get_row_at_index (AtspiTable *obj,
  **/
 gint
 atspi_table_get_column_at_index (AtspiTable *obj,
-                                  gint index,
-                                  GError **error)
+                                 gint index,
+                                 GError **error)
 {
   dbus_int32_t d_index = index;
   dbus_int32_t retval = -1;
@@ -239,7 +239,7 @@ atspi_table_get_column_at_index (AtspiTable *obj,
   g_return_val_if_fail (obj != NULL, -1);
 
   _atspi_dbus_call (obj, atspi_interface_table, "GetColumnAtIndex", error, "i=>i", d_index, &retval);
-	  
+
   return retval;
 }
 
@@ -255,8 +255,8 @@ atspi_table_get_column_at_index (AtspiTable *obj,
  **/
 gchar *
 atspi_table_get_row_description (AtspiTable *obj,
-				   gint  row,
-				   GError **error)
+                                 gint row,
+                                 GError **error)
 {
   dbus_int32_t d_row = row;
   char *retval = NULL;
@@ -264,7 +264,7 @@ atspi_table_get_row_description (AtspiTable *obj,
   g_return_val_if_fail (obj != NULL, NULL);
 
   _atspi_dbus_call (obj, atspi_interface_table, "GetRowDescription", error, "i=>s", d_row, &retval);
-	  
+
   return retval;
 }
 
@@ -280,7 +280,8 @@ atspi_table_get_row_description (AtspiTable *obj,
  **/
 gchar *
 atspi_table_get_column_description (AtspiTable *obj,
-				      gint         column, GError **error)
+                                    gint column,
+                                    GError **error)
 {
   dbus_int32_t d_column = column;
   char *retval = NULL;
@@ -308,9 +309,9 @@ atspi_table_get_column_description (AtspiTable *obj,
  **/
 gint
 atspi_table_get_row_extent_at (AtspiTable *obj,
-                                gint         row,
-                                gint         column,
-                                GError **error)
+                               gint row,
+                               gint column,
+                               GError **error)
 {
   dbus_int32_t d_row = row, d_column = column;
   dbus_int32_t retval = -1;
@@ -318,7 +319,7 @@ atspi_table_get_row_extent_at (AtspiTable *obj,
   g_return_val_if_fail (obj != NULL, -1);
 
   _atspi_dbus_call (obj, atspi_interface_table, "GetRowExtentAt", error, "ii=>i", d_row, d_column, &retval);
-	  
+
   return retval;
 }
 
@@ -338,9 +339,9 @@ atspi_table_get_row_extent_at (AtspiTable *obj,
  **/
 gint
 atspi_table_get_column_extent_at (AtspiTable *obj,
-                                   gint         row,
-                                   gint         column,
-                                   GError **error)
+                                  gint row,
+                                  gint column,
+                                  GError **error)
 {
   dbus_int32_t d_row = row, d_column = column;
   dbus_int32_t retval = -1;
@@ -348,7 +349,7 @@ atspi_table_get_column_extent_at (AtspiTable *obj,
   g_return_val_if_fail (obj != NULL, -1);
 
   _atspi_dbus_call (obj, atspi_interface_table, "GetColumnExtentAt", error, "ii=>i", d_row, d_column, &retval);
-	  
+
   return retval;
 }
 
@@ -365,8 +366,8 @@ atspi_table_get_column_extent_at (AtspiTable *obj,
  **/
 AtspiAccessible *
 atspi_table_get_row_header (AtspiTable *obj,
-			      gint         row,
-			      GError **error)
+                            gint row,
+                            GError **error)
 {
   dbus_int32_t d_row = row;
   DBusMessage *reply;
@@ -392,8 +393,8 @@ atspi_table_get_row_header (AtspiTable *obj,
  **/
 AtspiAccessible *
 atspi_table_get_column_header (AtspiTable *obj,
-				 gint column,
-				 GError **error)
+                               gint column,
+                               GError **error)
 {
   dbus_int32_t d_column = column;
   DBusMessage *reply;
@@ -409,7 +410,7 @@ atspi_table_get_column_header (AtspiTable *obj,
  * atspi_table_get_n_selected_rows:
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  *
- * Query a table to find out how many rows are currently selected. 
+ * Query a table to find out how many rows are currently selected.
  * Not all tables support row selection.
  *
  * Returns: a #gint indicating the number of rows currently selected.
@@ -422,7 +423,7 @@ atspi_table_get_n_selected_rows (AtspiTable *obj, GError **error)
   g_return_val_if_fail (obj != NULL, -1);
 
   _atspi_dbus_get_property (obj, atspi_interface_table, "NSelectedRows", error, "i", &retval);
-	  
+
   return retval;
 }
 
@@ -437,7 +438,7 @@ atspi_table_get_n_selected_rows (AtspiTable *obj, GError **error)
  **/
 GArray *
 atspi_table_get_selected_rows (AtspiTable *obj,
-                                 GError **error)
+                               GError **error)
 {
   GArray *rows = NULL;
 
@@ -460,7 +461,7 @@ atspi_table_get_selected_rows (AtspiTable *obj,
  **/
 GArray *
 atspi_table_get_selected_columns (AtspiTable *obj,
-                                 GError **error)
+                                  GError **error)
 {
   GArray *columns = NULL;
 
@@ -475,7 +476,7 @@ atspi_table_get_selected_columns (AtspiTable *obj,
  * atspi_table_get_n_selected_columns:
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  *
- * Queries a table to find out how many columns are currently selected. 
+ * Queries a table to find out how many columns are currently selected.
  * Not all tables support column selection.
  *
  * Returns: a #gint indicating the number of columns currently selected.
@@ -488,7 +489,7 @@ atspi_table_get_n_selected_columns (AtspiTable *obj, GError **error)
   g_return_val_if_fail (obj != NULL, -1);
 
   _atspi_dbus_get_property (obj, atspi_interface_table, "NSelectedColumns", error, "i", &retval);
-	  
+
   return retval;
 }
 
@@ -497,15 +498,15 @@ atspi_table_get_n_selected_columns (AtspiTable *obj, GError **error)
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  * @row: the zero-indexed row number of the row being queried.
  *
- * Determines whether a table row is selected.  Not all tables support 
+ * Determines whether a table row is selected.  Not all tables support
  * row selection.
  *
  * Returns: #TRUE if the specified row is currently selected, #FALSE if not.
  **/
 gboolean
 atspi_table_is_row_selected (AtspiTable *obj,
-                               gint row,
-                               GError **error)
+                             gint row,
+                             GError **error)
 {
   dbus_int32_t d_row = row;
   dbus_bool_t retval = FALSE;
@@ -529,8 +530,8 @@ atspi_table_is_row_selected (AtspiTable *obj,
  **/
 gboolean
 atspi_table_is_column_selected (AtspiTable *obj,
-                                  gint column,
-                                  GError **error)
+                                gint column,
+                                GError **error)
 {
   dbus_int32_t d_column = column;
   dbus_bool_t retval = FALSE;
@@ -538,7 +539,7 @@ atspi_table_is_column_selected (AtspiTable *obj,
   g_return_val_if_fail (obj != NULL, FALSE);
 
   _atspi_dbus_call (obj, atspi_interface_table, "IsColumnSelected", error, "i=>b", d_column, &retval);
-	  
+
   return retval;
 }
 
@@ -554,8 +555,8 @@ atspi_table_is_column_selected (AtspiTable *obj,
  **/
 gboolean
 atspi_table_add_row_selection (AtspiTable *obj,
-				 gint row,
-				 GError **error)
+                               gint row,
+                               GError **error)
 {
   dbus_int32_t d_row = row;
   dbus_bool_t retval = FALSE;
@@ -563,7 +564,7 @@ atspi_table_add_row_selection (AtspiTable *obj,
   g_return_val_if_fail (obj != NULL, FALSE);
 
   _atspi_dbus_call (obj, atspi_interface_table, "AddRowSelection", error, "i=>b", d_row, &retval);
-	  
+
   return retval;
 }
 
@@ -579,8 +580,8 @@ atspi_table_add_row_selection (AtspiTable *obj,
  **/
 gboolean
 atspi_table_add_column_selection (AtspiTable *obj,
-				    gint column,
-				    GError **error)
+                                  gint column,
+                                  GError **error)
 {
   dbus_int32_t d_column = column;
   dbus_bool_t retval = FALSE;
@@ -588,7 +589,7 @@ atspi_table_add_column_selection (AtspiTable *obj,
   g_return_val_if_fail (obj != NULL, FALSE);
 
   _atspi_dbus_call (obj, atspi_interface_table, "AddColumnSelection", error, "i=>b", d_column, &retval);
-	  
+
   return retval;
 }
 
@@ -605,8 +606,8 @@ atspi_table_add_column_selection (AtspiTable *obj,
  **/
 gboolean
 atspi_table_remove_row_selection (AtspiTable *obj,
-				    gint row,
-				    GError **error)
+                                  gint row,
+                                  GError **error)
 {
   dbus_int32_t d_row = row;
   dbus_bool_t retval = FALSE;
@@ -614,7 +615,7 @@ atspi_table_remove_row_selection (AtspiTable *obj,
   g_return_val_if_fail (obj != NULL, FALSE);
 
   _atspi_dbus_call (obj, atspi_interface_table, "RemoveRowSelection", error, "i=>b", d_row, &retval);
-	  
+
   return retval;
 }
 
@@ -632,8 +633,8 @@ atspi_table_remove_row_selection (AtspiTable *obj,
  **/
 gboolean
 atspi_table_remove_column_selection (AtspiTable *obj,
-				       gint column,
-				       GError **error)
+                                     gint column,
+                                     GError **error)
 {
   dbus_int32_t d_column = column;
   dbus_bool_t retval = FALSE;
@@ -641,20 +642,20 @@ atspi_table_remove_column_selection (AtspiTable *obj,
   g_return_val_if_fail (obj != NULL, FALSE);
 
   _atspi_dbus_call (obj, atspi_interface_table, "RemoveColumnSelection", error, "i=>b", d_column, &retval);
-	  
+
   return retval;
 }
 
 /**
  * atspi_table_get_row_column_extents_at_index:
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
- * @index: the index of the #AtspiTable child whose row/column 
+ * @index: the index of the #AtspiTable child whose row/column
  * extents are requested.
  * @row: (out): back-filled with the first table row associated with
  * the cell with child index.
- * @col: (out): back-filled with the first table column associated 
+ * @col: (out): back-filled with the first table column associated
  * with the cell with child index.
- * @row_extents: (out): back-filled with the number of table rows 
+ * @row_extents: (out): back-filled with the number of table rows
  * across which child i extends.
  * @col_extents: (out): back-filled with the number of table columns
  * across which child i extends.
@@ -662,9 +663,9 @@ atspi_table_remove_column_selection (AtspiTable *obj,
  * if the child at index i corresponds to a selected table cell,
  * #FALSE otherwise.
  *
- * Given a child index, determines the row and column indices and 
+ * Given a child index, determines the row and column indices and
  * extents, and whether the cell is currently selected.  If
- * the child at index is not a cell (for instance, if it is 
+ * the child at index is not a cell (for instance, if it is
  * a summary, caption, etc.), #FALSE is returned.
  * The returned values are meaningful only if the Table has both
  * STATE_VISIBLE and STATE_SHOWING.
@@ -672,32 +673,36 @@ atspi_table_remove_column_selection (AtspiTable *obj,
  * Example:
  * If the #AtspiTable child at index '6' extends across columns 5 and 6 of
  * row 2 of an #AtspiTable instance, and is currently selected, then
- * 
+ *
  * retval = atspi_table_get_row_column_extents_at_index (table, 6,
- *                                             row, col, 
+ *                                             row, col,
  *                                             row_extents,
  *                                             col_extents,
  *                                             is_selected);
- * 
+ *
  * will return #TRUE, and after the call
  * row, col, row_extents, col_extents,
- * and is_selected will contain 2, 5, 1, 2, and 
+ * and is_selected will contain 2, 5, 1, 2, and
  * #TRUE, respectively.
  *
  * Returns: #TRUE if the index is associated with a valid table
- * cell, #FALSE if the index does not correspond to a cell.  If 
- * #FALSE is returned, the values of the out parameters are 
+ * cell, #FALSE if the index does not correspond to a cell.  If
+ * #FALSE is returned, the values of the out parameters are
  * undefined.
  **/
 gboolean
 atspi_table_get_row_column_extents_at_index (AtspiTable *obj,
-					    gint index, gint *row, gint *col, 
-					    gint *row_extents, gint *col_extents, 
-					    gboolean *is_selected, GError **error)
+                                             gint index,
+                                             gint *row,
+                                             gint *col,
+                                             gint *row_extents,
+                                             gint *col_extents,
+                                             gboolean *is_selected,
+                                             GError **error)
 {
   dbus_int32_t d_index = index;
   dbus_bool_t retval = FALSE;
-  dbus_int32_t d_row = 0,  d_col = 0, d_row_extents = 0, d_col_extents = 0;
+  dbus_int32_t d_row = 0, d_col = 0, d_row_extents = 0, d_col_extents = 0;
   dbus_bool_t d_is_selected = FALSE;
 
   g_return_val_if_fail (obj != NULL, FALSE);
@@ -708,13 +713,14 @@ atspi_table_get_row_column_extents_at_index (AtspiTable *obj,
 
   *row = d_row;
   *col = d_col;
-  *row_extents = d_row_extents;;
+  *row_extents = d_row_extents;
+  ;
   *col_extents = d_col_extents;
-  *is_selected = d_is_selected;;
-  
+  *is_selected = d_is_selected;
+  ;
+
   return retval;
 }
-
 
 /**
  * atspi_table_is_selected:
@@ -728,9 +734,9 @@ atspi_table_get_row_column_extents_at_index (AtspiTable *obj,
  **/
 gboolean
 atspi_table_is_selected (AtspiTable *obj,
-                            gint row,
-                            gint column,
-                            GError **error)
+                         gint row,
+                         gint column,
+                         GError **error)
 {
   dbus_int32_t d_row = row, d_column = column;
   dbus_bool_t retval = FALSE;
@@ -738,7 +744,7 @@ atspi_table_is_selected (AtspiTable *obj,
   g_return_val_if_fail (obj != NULL, FALSE);
 
   _atspi_dbus_call (obj, atspi_interface_table, "IsSelected", error, "ii=>b", d_row, d_column, &retval);
-	  
+
   return retval;
 }
 
@@ -752,16 +758,15 @@ atspi_table_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) {
-    static const GTypeInfo tinfo =
+  if (!type)
     {
-      sizeof (AtspiTable),
-      (GBaseInitFunc) atspi_table_base_init,
-      (GBaseFinalizeFunc) NULL,
-    };
+      static const GTypeInfo tinfo = {
+        sizeof (AtspiTable),
+        (GBaseInitFunc) atspi_table_base_init,
+        (GBaseFinalizeFunc) NULL,
+      };
 
-    type = g_type_register_static (G_TYPE_INTERFACE, "AtspiTable", &tinfo, 0);
-
-  }
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtspiTable", &tinfo, 0);
+    }
   return type;
 }

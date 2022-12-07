@@ -18,13 +18,13 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include <glib.h>
-#include <string.h>
 #include <atk/atk.h>
+#include <glib.h>
 #include <stdio.h>
+#include <string.h>
 
-#include "my-atk-object.h"
 #include "my-atk-hyperlink.h"
+#include "my-atk-object.h"
 #include "my-atk-text.h"
 
 typedef struct _MyAtkHyperlinkInfo MyAtkHyperlinkInfo;
@@ -52,7 +52,7 @@ new_MyAtkHyperlink (void)
   return g_object_new (MY_TYPE_ATK_HYPERLINK, NULL);
 }
 
-static gchar*
+static gchar *
 my_atk_hyperlink_get_uri (AtkHyperlink *obj, gint i)
 {
   MyAtkHyperlink *self = MY_ATK_HYPERLINK (obj);
@@ -144,7 +144,7 @@ my_atk_hyperlink_link_activated (AtkHyperlink *obj)
 static void
 my_atk_hyperlink_init (MyAtkHyperlink *self)
 {
-  self->uri =NULL;
+  self->uri = NULL;
   self->start = -1;
   self->end = -1;
   self->state = FALSE;
@@ -157,17 +157,18 @@ my_atk_hyperlink_set_property (GObject *obj,
                                const GValue *value,
                                GParamSpec *spec)
 {
-  switch (id) {
-  case 1:
-    break;
-  case 2:
-    break;
-  case 3:
-    break;
-  default:
-    //G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, id, pspec);
-    break;
-  }
+  switch (id)
+    {
+    case 1:
+      break;
+    case 2:
+      break;
+    case 3:
+      break;
+    default:
+      // G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, id, pspec);
+      break;
+    }
 }
 
 static void
@@ -188,22 +189,21 @@ my_atk_hyperlink_class_init (MyAtkHyperlinkClass *my_class)
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (my_class);
   AtkHyperlinkClass *iface = ATK_HYPERLINK_CLASS (my_class);
-  const gchar *inst_tab[] = {"accessible-name", "accessible-description", "accessible-role", NULL};
+  const gchar *inst_tab[] = { "accessible-name", "accessible-description", "accessible-role", NULL };
 
   gobject_class->finalize = my_atk_hyperlink_class_finalize;
   gobject_class->set_property = my_atk_hyperlink_set_property;
   gobject_class->get_property = my_atk_hyperlink_get_property;
 
   gint i;
-  for (i = 0; inst_tab[i] != NULL ; i++)
+  for (i = 0; inst_tab[i] != NULL; i++)
     g_object_class_install_property (gobject_class,
-                                     i+1,
+                                     i + 1,
                                      g_param_spec_string (inst_tab[i],
-                                         inst_tab[i],
-                                         inst_tab[i],
-                                         NULL,
-                                         G_PARAM_READWRITE)
-                                    );
+                                                          inst_tab[i],
+                                                          inst_tab[i],
+                                                          NULL,
+                                                          G_PARAM_READWRITE));
 
   iface->get_uri = my_atk_hyperlink_get_uri;
   iface->get_object = my_atk_hyperlink_get_object;

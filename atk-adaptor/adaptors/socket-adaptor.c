@@ -25,11 +25,11 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-#include "spi-dbus.h"
 #include "accessible-stateset.h"
-#include "object.h"
-#include "introspection.h"
 #include "bridge.h"
+#include "introspection.h"
+#include "object.h"
+#include "spi-dbus.h"
 
 static DBusMessage *
 new_socket_call_message (AtkComponent *component, const char *member)
@@ -58,9 +58,7 @@ new_socket_call_message (AtkComponent *component, const char *member)
 }
 
 static void
-atspi_plug_component_get_extents (AtkComponent *component, gint *x, gint *y,
-                                  gint *width, gint *height,
-                                  AtkCoordType coord_type)
+atspi_plug_component_get_extents (AtkComponent *component, gint *x, gint *y, gint *width, gint *height, AtkCoordType coord_type)
 {
   DBusMessage *message = new_socket_call_message (component, "GetExtents");
   DBusMessage *reply;
@@ -111,8 +109,7 @@ atspi_plug_component_get_extents (AtkComponent *component, gint *x, gint *y,
 }
 
 static void
-atspi_plug_component_get_position (AtkComponent *component, gint *x, gint *y,
-                                  AtkCoordType coord_type)
+atspi_plug_component_get_position (AtkComponent *component, gint *x, gint *y, AtkCoordType coord_type)
 {
   DBusMessage *message = new_socket_call_message (component, "GetPosition");
   DBusMessage *reply;
@@ -149,7 +146,8 @@ atspi_plug_component_get_position (AtkComponent *component, gint *x, gint *y,
 
 static void
 atspi_plug_component_get_size (AtkComponent *component,
-                               gint *width, gint *height)
+                               gint *width,
+                               gint *height)
 {
   DBusMessage *message = new_socket_call_message (component, "GetSize");
   DBusMessage *reply;
@@ -184,8 +182,8 @@ atspi_plug_component_get_size (AtkComponent *component,
 
 static DBusMessage *
 impl_Embedded (DBusConnection *bus,
-                    DBusMessage *message,
-                    void *user_data)
+               DBusMessage *message,
+               void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
   char *path;
@@ -196,7 +194,7 @@ impl_Embedded (DBusConnection *bus,
       return droute_invalid_arguments_error (message);
     }
   id = g_strconcat (dbus_message_get_sender (message), ":", path, NULL);
-  g_object_set_data_full (G_OBJECT (object), "dbus-plug-parent", id, (GDestroyNotify)g_free);
+  g_object_set_data_full (G_OBJECT (object), "dbus-plug-parent", id, (GDestroyNotify) g_free);
 
   if (ATK_IS_COMPONENT (object))
     {
@@ -216,12 +214,12 @@ impl_Embedded (DBusConnection *bus,
 }
 
 static DRouteMethod methods[] = {
-  {impl_Embedded, "Embedded"},
-  {NULL, NULL}
+  { impl_Embedded, "Embedded" },
+  { NULL, NULL }
 };
 
 void
-spi_initialize_socket (DRoutePath * path)
+spi_initialize_socket (DRoutePath *path)
 {
   droute_path_add_interface (path,
                              ATSPI_DBUS_INTERFACE_SOCKET,

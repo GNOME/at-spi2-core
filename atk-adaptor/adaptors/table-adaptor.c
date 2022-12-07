@@ -23,16 +23,17 @@
  */
 
 #define ATK_DISABLE_DEPRECATION_WARNINGS
+#include "bridge.h"
 #include <atk/atk.h>
 #include <droute/droute.h>
-#include "bridge.h"
 
 #include "spi-dbus.h"
-#include "object.h"
+
 #include "introspection.h"
+#include "object.h"
 
 static dbus_bool_t
-impl_get_NRows (DBusMessageIter * iter, void *user_data)
+impl_get_NRows (DBusMessageIter *iter, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   g_return_val_if_fail (ATK_IS_TABLE (user_data), FALSE);
@@ -40,7 +41,7 @@ impl_get_NRows (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_NColumns (DBusMessageIter * iter, void *user_data)
+impl_get_NColumns (DBusMessageIter *iter, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   g_return_val_if_fail (ATK_IS_TABLE (user_data), FALSE);
@@ -48,7 +49,7 @@ impl_get_NColumns (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_Caption (DBusMessageIter * iter, void *user_data)
+impl_get_Caption (DBusMessageIter *iter, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   g_return_val_if_fail (ATK_IS_TABLE (user_data), FALSE);
@@ -57,7 +58,7 @@ impl_get_Caption (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_Summary (DBusMessageIter * iter, void *user_data)
+impl_get_Summary (DBusMessageIter *iter, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   g_return_val_if_fail (ATK_IS_TABLE (user_data), FALSE);
@@ -66,7 +67,7 @@ impl_get_Summary (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_NSelectedRows (DBusMessageIter * iter, void *user_data)
+impl_get_NSelectedRows (DBusMessageIter *iter, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   gint *selected_rows = NULL;
@@ -79,7 +80,7 @@ impl_get_NSelectedRows (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_NSelectedColumns (DBusMessageIter * iter, void *user_data)
+impl_get_NSelectedColumns (DBusMessageIter *iter, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   gint *selected_columns = NULL;
@@ -92,8 +93,7 @@ impl_get_NSelectedColumns (DBusMessageIter * iter, void *user_data)
 }
 
 static DBusMessage *
-impl_GetAccessibleAt (DBusConnection * bus, DBusMessage * message,
-                      void *user_data)
+impl_GetAccessibleAt (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   dbus_int32_t row, column;
@@ -102,9 +102,8 @@ impl_GetAccessibleAt (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_TABLE (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &row, DBUS_TYPE_INT32, &column,
-       DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &row, DBUS_TYPE_INT32, &column,
+                              DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -117,7 +116,7 @@ impl_GetAccessibleAt (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_GetIndexAt (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetIndexAt (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   dbus_int32_t row, column;
@@ -126,9 +125,8 @@ impl_GetIndexAt (DBusConnection * bus, DBusMessage * message, void *user_data)
 
   g_return_val_if_fail (ATK_IS_TABLE (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &row, DBUS_TYPE_INT32, &column,
-       DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &row, DBUS_TYPE_INT32, &column,
+                              DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -143,8 +141,7 @@ impl_GetIndexAt (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_GetRowAtIndex (DBusConnection * bus, DBusMessage * message,
-                    void *user_data)
+impl_GetRowAtIndex (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   dbus_int32_t index;
@@ -153,8 +150,7 @@ impl_GetRowAtIndex (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_TABLE (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -169,8 +165,7 @@ impl_GetRowAtIndex (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_GetColumnAtIndex (DBusConnection * bus, DBusMessage * message,
-                       void *user_data)
+impl_GetColumnAtIndex (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   dbus_int32_t index;
@@ -179,8 +174,7 @@ impl_GetColumnAtIndex (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_TABLE (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -208,8 +202,7 @@ validate_unallocated_string (const gchar *str)
 }
 
 static DBusMessage *
-impl_GetRowDescription (DBusConnection * bus, DBusMessage * message,
-                        void *user_data)
+impl_GetRowDescription (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   dbus_int32_t row;
   AtkTable *table = (AtkTable *) user_data;
@@ -218,8 +211,7 @@ impl_GetRowDescription (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_TABLE (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &row, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &row, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -235,8 +227,7 @@ impl_GetRowDescription (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_GetColumnDescription (DBusConnection * bus, DBusMessage * message,
-                           void *user_data)
+impl_GetColumnDescription (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   dbus_int32_t column;
@@ -245,8 +236,7 @@ impl_GetColumnDescription (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_TABLE (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &column, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &column, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -262,8 +252,7 @@ impl_GetColumnDescription (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_GetRowExtentAt (DBusConnection * bus, DBusMessage * message,
-                     void *user_data)
+impl_GetRowExtentAt (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   dbus_int32_t row, column;
@@ -272,9 +261,8 @@ impl_GetRowExtentAt (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_TABLE (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &row, DBUS_TYPE_INT32, &column,
-       DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &row, DBUS_TYPE_INT32, &column,
+                              DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -289,8 +277,7 @@ impl_GetRowExtentAt (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_GetColumnExtentAt (DBusConnection * bus, DBusMessage * message,
-                        void *user_data)
+impl_GetColumnExtentAt (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   dbus_int32_t row, column;
@@ -299,9 +286,8 @@ impl_GetColumnExtentAt (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_TABLE (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &row, DBUS_TYPE_INT32, &column,
-       DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &row, DBUS_TYPE_INT32, &column,
+                              DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -316,8 +302,7 @@ impl_GetColumnExtentAt (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_GetRowHeader (DBusConnection * bus, DBusMessage * message,
-                   void *user_data)
+impl_GetRowHeader (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   dbus_int32_t row;
@@ -325,8 +310,7 @@ impl_GetRowHeader (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_TABLE (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &row, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &row, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -335,8 +319,7 @@ impl_GetRowHeader (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_GetColumnHeader (DBusConnection * bus, DBusMessage * message,
-                      void *user_data)
+impl_GetColumnHeader (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   dbus_int32_t column;
@@ -344,8 +327,7 @@ impl_GetColumnHeader (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_TABLE (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &column, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &column, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -354,8 +336,7 @@ impl_GetColumnHeader (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_GetSelectedRows (DBusConnection * bus, DBusMessage * message,
-                      void *user_data)
+impl_GetSelectedRows (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   gint *selected_rows = NULL;
@@ -380,8 +361,7 @@ impl_GetSelectedRows (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_GetSelectedColumns (DBusConnection * bus, DBusMessage * message,
-                         void *user_data)
+impl_GetSelectedColumns (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   gint *selected_columns = NULL;
@@ -406,8 +386,7 @@ impl_GetSelectedColumns (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_IsRowSelected (DBusConnection * bus, DBusMessage * message,
-                    void *user_data)
+impl_IsRowSelected (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   dbus_int32_t row;
@@ -416,8 +395,7 @@ impl_IsRowSelected (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_TABLE (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &row, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &row, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -432,8 +410,7 @@ impl_IsRowSelected (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_IsColumnSelected (DBusConnection * bus, DBusMessage * message,
-                       void *user_data)
+impl_IsColumnSelected (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   dbus_int32_t column;
@@ -442,8 +419,7 @@ impl_IsColumnSelected (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_TABLE (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &column, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &column, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -458,7 +434,7 @@ impl_IsColumnSelected (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_IsSelected (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_IsSelected (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   dbus_int32_t row, column;
@@ -467,9 +443,8 @@ impl_IsSelected (DBusConnection * bus, DBusMessage * message, void *user_data)
 
   g_return_val_if_fail (ATK_IS_TABLE (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &row, DBUS_TYPE_INT32, &column,
-       DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &row, DBUS_TYPE_INT32, &column,
+                              DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -484,8 +459,7 @@ impl_IsSelected (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_AddRowSelection (DBusConnection * bus, DBusMessage * message,
-                      void *user_data)
+impl_AddRowSelection (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   dbus_int32_t row;
@@ -494,8 +468,7 @@ impl_AddRowSelection (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_TABLE (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &row, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &row, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -510,8 +483,7 @@ impl_AddRowSelection (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_AddColumnSelection (DBusConnection * bus, DBusMessage * message,
-                         void *user_data)
+impl_AddColumnSelection (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   dbus_int32_t column;
@@ -520,8 +492,7 @@ impl_AddColumnSelection (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_TABLE (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &column, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &column, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -536,8 +507,7 @@ impl_AddColumnSelection (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_RemoveRowSelection (DBusConnection * bus, DBusMessage * message,
-                         void *user_data)
+impl_RemoveRowSelection (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   dbus_int32_t row;
@@ -546,8 +516,7 @@ impl_RemoveRowSelection (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_TABLE (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &row, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &row, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -562,8 +531,7 @@ impl_RemoveRowSelection (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_RemoveColumnSelection (DBusConnection * bus, DBusMessage * message,
-                            void *user_data)
+impl_RemoveColumnSelection (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   dbus_int32_t column;
@@ -572,8 +540,7 @@ impl_RemoveColumnSelection (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_TABLE (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &column, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &column, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -588,8 +555,7 @@ impl_RemoveColumnSelection (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_GetRowColumnExtentsAtIndex (DBusConnection * bus, DBusMessage * message,
-                                 void *user_data)
+impl_GetRowColumnExtentsAtIndex (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   dbus_int32_t index;
@@ -602,8 +568,7 @@ impl_GetRowColumnExtentsAtIndex (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_TABLE (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -614,10 +579,10 @@ impl_GetRowColumnExtentsAtIndex (DBusConnection * bus, DBusMessage * message,
   is_selected = atk_table_is_selected (table, row, column);
   cell = atk_table_ref_at (table, row, column);
   if (cell)
-  {
-    role = atk_object_get_role (cell);
-    g_object_unref (cell);
-  }
+    {
+      role = atk_object_get_role (cell);
+      g_object_unref (cell);
+    }
   ret = (role == ATK_ROLE_TABLE_CELL ? TRUE : FALSE);
   reply = dbus_message_new_method_return (message);
   if (reply)
@@ -633,41 +598,41 @@ impl_GetRowColumnExtentsAtIndex (DBusConnection * bus, DBusMessage * message,
 }
 
 static DRouteMethod methods[] = {
-  {impl_GetAccessibleAt, "GetAccessibleAt"},
-  {impl_GetIndexAt, "GetIndexAt"},
-  {impl_GetRowAtIndex, "GetRowAtIndex"},
-  {impl_GetColumnAtIndex, "GetColumnAtIndex"},
-  {impl_GetRowDescription, "GetRowDescription"},
-  {impl_GetColumnDescription, "GetColumnDescription"},
-  {impl_GetRowExtentAt, "GetRowExtentAt"},
-  {impl_GetColumnExtentAt, "GetColumnExtentAt"},
-  {impl_GetRowHeader, "GetRowHeader"},
-  {impl_GetColumnHeader, "GetColumnHeader"},
-  {impl_GetSelectedRows, "GetSelectedRows"},
-  {impl_GetSelectedColumns, "GetSelectedColumns"},
-  {impl_IsRowSelected, "IsRowSelected"},
-  {impl_IsColumnSelected, "IsColumnSelected"},
-  {impl_IsSelected, "IsSelected"},
-  {impl_AddRowSelection, "AddRowSelection"},
-  {impl_AddColumnSelection, "AddColumnSelection"},
-  {impl_RemoveRowSelection, "RemoveRowSelection"},
-  {impl_RemoveColumnSelection, "RemoveColumnSelection"},
-  {impl_GetRowColumnExtentsAtIndex, "GetRowColumnExtentsAtIndex"},
-  {NULL, NULL}
+  { impl_GetAccessibleAt, "GetAccessibleAt" },
+  { impl_GetIndexAt, "GetIndexAt" },
+  { impl_GetRowAtIndex, "GetRowAtIndex" },
+  { impl_GetColumnAtIndex, "GetColumnAtIndex" },
+  { impl_GetRowDescription, "GetRowDescription" },
+  { impl_GetColumnDescription, "GetColumnDescription" },
+  { impl_GetRowExtentAt, "GetRowExtentAt" },
+  { impl_GetColumnExtentAt, "GetColumnExtentAt" },
+  { impl_GetRowHeader, "GetRowHeader" },
+  { impl_GetColumnHeader, "GetColumnHeader" },
+  { impl_GetSelectedRows, "GetSelectedRows" },
+  { impl_GetSelectedColumns, "GetSelectedColumns" },
+  { impl_IsRowSelected, "IsRowSelected" },
+  { impl_IsColumnSelected, "IsColumnSelected" },
+  { impl_IsSelected, "IsSelected" },
+  { impl_AddRowSelection, "AddRowSelection" },
+  { impl_AddColumnSelection, "AddColumnSelection" },
+  { impl_RemoveRowSelection, "RemoveRowSelection" },
+  { impl_RemoveColumnSelection, "RemoveColumnSelection" },
+  { impl_GetRowColumnExtentsAtIndex, "GetRowColumnExtentsAtIndex" },
+  { NULL, NULL }
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_NRows, NULL, "NRows"},
-  {impl_get_NColumns, NULL, "NColumns"},
-  {impl_get_Caption, NULL, "Caption"},
-  {impl_get_Summary, NULL, "Summary"},
-  {impl_get_NSelectedRows, NULL, "NSelectedRows"},
-  {impl_get_NSelectedColumns, NULL, "NSelectedColumns"},
-  {NULL, NULL, NULL}
+  { impl_get_NRows, NULL, "NRows" },
+  { impl_get_NColumns, NULL, "NColumns" },
+  { impl_get_Caption, NULL, "Caption" },
+  { impl_get_Summary, NULL, "Summary" },
+  { impl_get_NSelectedRows, NULL, "NSelectedRows" },
+  { impl_get_NSelectedColumns, NULL, "NSelectedColumns" },
+  { NULL, NULL, NULL }
 };
 
 void
-spi_initialize_table (DRoutePath * path)
+spi_initialize_table (DRoutePath *path)
 {
   spi_atk_add_interface (path,
                          ATSPI_DBUS_INTERFACE_TABLE, spi_org_a11y_atspi_Table, methods, properties);

@@ -20,10 +20,10 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include "atspi-private.h"
 #include "atspi-device.h"
 #include "atspi-device-legacy.h"
 #include "atspi-device-x11.h"
+#include "atspi-private.h"
 
 typedef struct
 {
@@ -51,9 +51,7 @@ atspi_device_init (AtspiDevice *device)
 {
 }
 
-G_DEFINE_TYPE_WITH_CODE (AtspiDevice, atspi_device,
-			 G_TYPE_OBJECT,
-			 G_ADD_PRIVATE (AtspiDevice))
+G_DEFINE_TYPE_WITH_CODE (AtspiDevice, atspi_device, G_TYPE_OBJECT, G_ADD_PRIVATE (AtspiDevice))
 
 static void
 atspi_device_finalize (GObject *object)
@@ -128,21 +126,21 @@ atspi_device_notify_key (AtspiDevice *device, gboolean pressed, int keycode, int
   gboolean ret = FALSE;
 
   for (l = priv->key_watchers; l; l = l->next)
-  {
-    AtspiKeyGrab *grab = l->data;
-    grab->callback (device, pressed, keycode, keysym, state, text, grab->callback_data);
-  }
+    {
+      AtspiKeyGrab *grab = l->data;
+      grab->callback (device, pressed, keycode, keysym, state, text, grab->callback_data);
+    }
 
   for (l = priv->keygrabs; l; l = l->next)
-  {
-    AtspiKeyGrab *grab = l->data;
-    if (keycode == grab->keycode && key_matches_modifiers (state, grab->modifiers))
     {
-      if (grab->callback)
-        grab->callback (device, pressed, keycode, keysym, state, text, grab->callback_data);
-      ret = TRUE;
+      AtspiKeyGrab *grab = l->data;
+      if (keycode == grab->keycode && key_matches_modifiers (state, grab->modifiers))
+        {
+          if (grab->callback)
+            grab->callback (device, pressed, keycode, keysym, state, text, grab->callback_data);
+          ret = TRUE;
+        }
     }
-  }
 
   return ret;
 }
@@ -154,18 +152,18 @@ is_id_used (AtspiDevice *device, guint id)
   GSList *l;
 
   for (l = priv->key_watchers; l; l = l->next)
-  {
-    AtspiKeyGrab *grab = l->data;
-    if (grab->id == id)
-      return TRUE;
-  }
+    {
+      AtspiKeyGrab *grab = l->data;
+      if (grab->id == id)
+        return TRUE;
+    }
 
   for (l = priv->keygrabs; l; l = l->next)
-  {
-    AtspiKeyGrab *grab = l->data;
-    if (grab->id == id)
-      return TRUE;
-  }
+    {
+      AtspiKeyGrab *grab = l->data;
+      if (grab->id == id)
+        return TRUE;
+    }
 
   return FALSE;
 }
@@ -175,7 +173,8 @@ get_grab_id (AtspiDevice *device)
 {
   AtspiDevicePrivate *priv = atspi_device_get_instance_private (device);
 
-  while (is_id_used (device, priv->last_grab_id)) priv->last_grab_id++;
+  while (is_id_used (device, priv->last_grab_id))
+    priv->last_grab_id++;
   return priv->last_grab_id++;
 }
 
@@ -186,18 +185,18 @@ grab_has_duplicate (AtspiDevice *device, AtspiKeyGrab *grab)
   GSList *l;
 
   for (l = priv->keygrabs; l; l = l->next)
-  {
-    AtspiKeyGrab *other_grab = l->data;
-    if (other_grab->id != grab->id && other_grab->keycode == grab->keycode && other_grab->modifiers == grab->modifiers)
-      return TRUE;
-  }
+    {
+      AtspiKeyGrab *other_grab = l->data;
+      if (other_grab->id != grab->id && other_grab->keycode == grab->keycode && other_grab->modifiers == grab->modifiers)
+        return TRUE;
+    }
 
   return FALSE;
 }
 
 /**
  *atspi_device_add_key_grab:
-* @device: the device.
+ * @device: the device.
  * @kd: a #AtspiKeyDefinition specifying the key code to grab.
  * @callback: (scope notified) (allow-none): the function to call when the
  *            given key is pressed.
@@ -241,24 +240,24 @@ atspi_device_remove_key_grab (AtspiDevice *device, guint id)
   GSList *l;
 
   for (l = priv->keygrabs; l; l = l->next)
-  {
-    AtspiKeyGrab *grab = l->data;
-    if (grab->id == id)
     {
-      if (!grab_has_duplicate (device, grab))
-        ATSPI_DEVICE_GET_CLASS (device)->remove_key_grab (device, id);
-      priv->keygrabs = g_slist_remove (priv->keygrabs, grab);
-      if (grab->callback_destroyed)
-        (*grab->callback_destroyed) (grab->callback);
-      g_free (grab);
-      return;
+      AtspiKeyGrab *grab = l->data;
+      if (grab->id == id)
+        {
+          if (!grab_has_duplicate (device, grab))
+            ATSPI_DEVICE_GET_CLASS (device)->remove_key_grab (device, id);
+          priv->keygrabs = g_slist_remove (priv->keygrabs, grab);
+          if (grab->callback_destroyed)
+            (*grab->callback_destroyed) (grab->callback);
+          g_free (grab);
+          return;
+        }
     }
-  }
 }
 
 /**
  *atspi_device_add_key_watcher:
-* @device: the device.
+ * @device: the device.
  * @callback: (scope notified): the function to call when the given key is
  *            pressed.
  * @user_data: (closure callback): Data to be passed to @callback.
@@ -287,16 +286,16 @@ atspi_device_get_grab_by_id (AtspiDevice *device, guint id)
   GSList *l;
 
   for (l = priv->keygrabs; l; l = l->next)
-  {
-    AtspiKeyGrab *grab = l->data;
-    if (grab->id == id)
     {
-      AtspiKeyDefinition *kd = g_new0 (AtspiKeyDefinition, 1);
-      kd->keycode = grab->keycode;\
-      kd->modifiers = grab->modifiers;
-      return kd;
+      AtspiKeyGrab *grab = l->data;
+      if (grab->id == id)
+        {
+          AtspiKeyDefinition *kd = g_new0 (AtspiKeyDefinition, 1);
+          kd->keycode = grab->keycode;
+          kd->modifiers = grab->modifiers;
+          return kd;
+        }
     }
-  }
   return NULL;
 }
 
@@ -408,4 +407,3 @@ atspi_device_ungrab_keyboard (AtspiDevice *device)
   if (ATSPI_DEVICE_GET_CLASS (device)->ungrab_keyboard)
     ATSPI_DEVICE_GET_CLASS (device)->ungrab_keyboard (device);
 }
-

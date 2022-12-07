@@ -5,7 +5,7 @@
  * Copyright 2002 Ximian, Inc.
  *           2002 Sun Microsystems Inc.
  * Copyright 2010, 2011 Novell, Inc.
- *           
+ *
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -34,10 +34,10 @@
 
 G_BEGIN_DECLS
 
-#define ATSPI_TYPE_TABLE_CELL                    (atspi_table_cell_get_type ())
-#define ATSPI_IS_TABLE_CELL(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_TABLE_CELL)
-#define ATSPI_TABLE_CELL(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_TABLE_CELL, AtspiTableCell)
-#define ATSPI_TABLE_CELL_GET_IFACE(obj)          (G_TYPE_INSTANCE_GET_INTERFACE ((obj), ATSPI_TYPE_TABLE_CELL, AtspiTableCell))
+#define ATSPI_TYPE_TABLE_CELL (atspi_table_cell_get_type ())
+#define ATSPI_IS_TABLE_CELL(obj) G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_TABLE_CELL)
+#define ATSPI_TABLE_CELL(obj) G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_TABLE_CELL, AtspiTableCell)
+#define ATSPI_TABLE_CELL_GET_IFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), ATSPI_TYPE_TABLE_CELL, AtspiTableCell))
 
 GType atspi_table_cell_get_type ();
 
@@ -59,19 +59,19 @@ GPtrArray *atspi_table_cell_get_row_header_cells (AtspiTableCell *obj,
                                                   GError **error);
 
 gint atspi_table_cell_get_position (AtspiTableCell *obj,
-                                    gint           *row,
-                                    gint           *column,
-                                    GError        **error);
+                                    gint *row,
+                                    gint *column,
+                                    GError **error);
 
 void atspi_table_cell_get_row_column_span (AtspiTableCell *obj,
-                                              gint *row,
-                                              gint *column,
-                                              gint *row_span,
-                                              gint *column_span,
-                                              GError **error);
+                                           gint *row,
+                                           gint *column,
+                                           gint *row_span,
+                                           gint *column_span,
+                                           GError **error);
 
 AtspiAccessible *atspi_table_cell_get_table (AtspiTableCell *obj,
                                              GError **error);
 G_END_DECLS
 
-#endif	/* _ATSPI_TABLE_CELL_H_ */
+#endif /* _ATSPI_TABLE_CELL_H_ */

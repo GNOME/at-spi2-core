@@ -24,25 +24,25 @@
 #ifndef ACCESSIBLE_REGISTER_H
 #define ACCESSIBLE_REGISTER_H
 
-#include <glib.h>
 #include <glib-object.h>
+#include <glib.h>
 
 typedef struct _SpiRegister SpiRegister;
 typedef struct _SpiRegisterClass SpiRegisterClass;
 
 G_BEGIN_DECLS
 
-#define SPI_REGISTER_TYPE        (spi_register_get_type ())
-#define SPI_REGISTER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_REGISTER_TYPE, SpiRegister))
-#define SPI_REGISTER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_REGISTER_TYPE, SpiRegisterClass))
-#define SPI_IS_REGISTER(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_REGISTER_TYPE))
+#define SPI_REGISTER_TYPE (spi_register_get_type ())
+#define SPI_REGISTER(o) (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_REGISTER_TYPE, SpiRegister))
+#define SPI_REGISTER_CLASS(k) (G_TYPE_CHECK_CLASS_CAST ((k), SPI_REGISTER_TYPE, SpiRegisterClass))
+#define SPI_IS_REGISTER(o) (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_REGISTER_TYPE))
 #define SPI_IS_REGISTER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_REGISTER_TYPE))
 
 struct _SpiRegister
 {
   GObject parent;
 
-  GHashTable * ref2ptr;
+  GHashTable *ref2ptr;
   guint reference_counter;
 };
 
@@ -58,17 +58,17 @@ extern SpiRegister *spi_global_register;
 /*---------------------------------------------------------------------------*/
 
 GObject *
-spi_register_path_to_object (SpiRegister * reg, const char *path);
+spi_register_path_to_object (SpiRegister *reg, const char *path);
 
 GObject *
-spi_global_register_path_to_object (const char * path);
+spi_global_register_path_to_object (const char *path);
 
 gchar *
-spi_register_object_to_path (SpiRegister * reg, GObject * gobj);
+spi_register_object_to_path (SpiRegister *reg, GObject *gobj);
 
 guint
-spi_register_object_to_ref (GObject * gobj);
-  
+spi_register_object_to_ref (GObject *gobj);
+
 gchar *
 spi_register_root_object_path ();
 

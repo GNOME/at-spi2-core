@@ -4,7 +4,7 @@
  *
  * Copyright 2002 Ximian, Inc.
  *           2002 Sun Microsystems Inc.
- *           
+ *
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -32,12 +32,12 @@
 
 G_BEGIN_DECLS
 
-#define ATSPI_TYPE_OBJECT                        (atspi_object_get_type ())
-#define ATSPI_OBJECT(obj)                        (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_OBJECT, AtspiObject))
-#define ATSPI_OBJECT_CLASS(klass)                (G_TYPE_CHECK_CLASS_CAST ((klass), ATSPI_TYPE_OBJECT, AtspiObjectClass))
-#define ATSPI_IS_OBJECT(obj)                     (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_OBJECT))
-#define ATSPI_IS_OBJECT_CLASS(klass)             (G_TYPE_CHECK_CLASS_TYPE ((klass), ATSPI_TYPE_OBJECT))
-#define ATSPI_OBJECT_GET_CLASS(obj)              (G_TYPE_INSTANCE_GET_CLASS ((obj), ATSPI_TYPE_OBJECT, AtspiObjectClass))
+#define ATSPI_TYPE_OBJECT (atspi_object_get_type ())
+#define ATSPI_OBJECT(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_OBJECT, AtspiObject))
+#define ATSPI_OBJECT_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), ATSPI_TYPE_OBJECT, AtspiObjectClass))
+#define ATSPI_IS_OBJECT(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_OBJECT))
+#define ATSPI_IS_OBJECT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), ATSPI_TYPE_OBJECT))
+#define ATSPI_OBJECT_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), ATSPI_TYPE_OBJECT, AtspiObjectClass))
 
 typedef struct _AtspiObject AtspiObject;
 struct _AtspiObject
@@ -53,8 +53,8 @@ struct _AtspiObjectClass
   GObjectClass parent_class;
 };
 
-GType atspi_object_get_type (void); 
+GType atspi_object_get_type (void);
 
 G_END_DECLS
 
-#endif	/* _ATSPI_OBJECT_H_ */
+#endif /* _ATSPI_OBJECT_H_ */

@@ -31,22 +31,24 @@
 SpiCache *spi_global_cache = NULL;
 
 static gboolean
-child_added_listener (GSignalInvocationHint * signal_hint,
+child_added_listener (GSignalInvocationHint *signal_hint,
                       guint n_param_values,
-                      const GValue * param_values, gpointer data);
+                      const GValue *param_values,
+                      gpointer data);
 
 static void
-toplevel_added_listener (AtkObject * accessible,
-                         guint index, AtkObject * child);
+toplevel_added_listener (AtkObject *accessible,
+                         guint index,
+                         AtkObject *child);
 
 static void
-remove_object (GObject * source, GObject * gobj, gpointer data);
+remove_object (GObject *source, GObject *gobj, gpointer data);
 
 static void
-add_object (SpiCache * cache, GObject * gobj);
+add_object (SpiCache *cache, GObject *gobj);
 
 static void
-add_subtree (SpiCache *cache, AtkObject * accessible);
+add_subtree (SpiCache *cache, AtkObject *accessible);
 
 static gboolean
 add_pending_items (gpointer data);
@@ -54,7 +56,7 @@ add_pending_items (gpointer data);
 /*---------------------------------------------------------------------------*/
 
 static void
-spi_cache_finalize (GObject * object);
+spi_cache_finalize (GObject *object);
 
 /*---------------------------------------------------------------------------*/
 
@@ -70,7 +72,8 @@ static guint cache_signals[LAST_SIGNAL] = { 0 };
 
 G_DEFINE_TYPE (SpiCache, spi_cache, G_TYPE_OBJECT)
 
-static void spi_cache_class_init (SpiCacheClass * klass)
+static void
+spi_cache_class_init (SpiCacheClass *klass)
 {
   GObjectClass *object_class = (GObjectClass *) klass;
 
@@ -78,7 +81,7 @@ static void spi_cache_class_init (SpiCacheClass * klass)
 
   object_class->finalize = spi_cache_finalize;
 
-  cache_signals [OBJECT_ADDED] = \
+  cache_signals[OBJECT_ADDED] =
       g_signal_new ("object-added",
                     SPI_CACHE_TYPE,
                     G_SIGNAL_ACTION,
@@ -90,7 +93,7 @@ static void spi_cache_class_init (SpiCacheClass * klass)
                     1,
                     G_TYPE_OBJECT);
 
-  cache_signals [OBJECT_REMOVED] = \
+  cache_signals[OBJECT_REMOVED] =
       g_signal_new ("object-removed",
                     SPI_CACHE_TYPE,
                     G_SIGNAL_ACTION,
@@ -104,7 +107,7 @@ static void spi_cache_class_init (SpiCacheClass * klass)
 }
 
 static void
-spi_cache_init (SpiCache * cache)
+spi_cache_init (SpiCache *cache)
 {
   cache->objects = g_hash_table_new (g_direct_hash, g_direct_equal);
   cache->add_traversal = g_queue_new ();
@@ -123,7 +126,7 @@ spi_cache_init (SpiCache * cache)
   add_subtree (cache, spi_global_app_data->root);
 
   cache->child_added_listener = atk_add_global_event_listener (child_added_listener,
-                                                               "Gtk:AtkObject:children-changed"); 
+                                                               "Gtk:AtkObject:children-changed");
 
   g_signal_connect (G_OBJECT (spi_global_app_data->root),
                     "children-changed::add",
@@ -131,7 +134,7 @@ spi_cache_init (SpiCache * cache)
 }
 
 static void
-spi_cache_finalize (GObject * object)
+spi_cache_finalize (GObject *object)
 {
   SpiCache *cache = SPI_CACHE (object);
 
@@ -154,18 +157,18 @@ spi_cache_finalize (GObject * object)
 /*---------------------------------------------------------------------------*/
 
 static void
-remove_object (GObject * source, GObject * gobj, gpointer data)
+remove_object (GObject *source, GObject *gobj, gpointer data)
 {
   SpiCache *cache = SPI_CACHE (data);
-  
+
   if (spi_cache_in (cache, gobj))
     {
 #ifdef SPI_ATK_DEBUG
-  g_debug ("CACHE REM - %s - %d - %s\n", atk_object_get_name (ATK_OBJECT (gobj)),
-            atk_object_get_role (ATK_OBJECT (gobj)),
-            spi_register_object_to_path (spi_global_register, gobj));
+      g_debug ("CACHE REM - %s - %d - %s\n", atk_object_get_name (ATK_OBJECT (gobj)),
+               atk_object_get_role (ATK_OBJECT (gobj)),
+               spi_register_object_to_path (spi_global_register, gobj));
 #endif
-      g_signal_emit (cache, cache_signals [OBJECT_REMOVED], 0, gobj);
+      g_signal_emit (cache, cache_signals[OBJECT_REMOVED], 0, gobj);
       g_hash_table_remove (cache->objects, gobj);
     }
   else if (g_queue_remove (cache->add_traversal, gobj))
@@ -175,7 +178,7 @@ remove_object (GObject * source, GObject * gobj, gpointer data)
 }
 
 static void
-add_object (SpiCache * cache, GObject * gobj)
+add_object (SpiCache *cache, GObject *gobj)
 {
   g_return_if_fail (G_IS_OBJECT (gobj));
 
@@ -183,11 +186,11 @@ add_object (SpiCache * cache, GObject * gobj)
 
 #ifdef SPI_ATK_DEBUG
   g_debug ("CACHE ADD - %s - %d - %s\n", atk_object_get_name (ATK_OBJECT (gobj)),
-            atk_object_get_role (ATK_OBJECT (gobj)),
-            spi_register_object_to_path (spi_global_register, gobj));
+           atk_object_get_role (ATK_OBJECT (gobj)),
+           spi_register_object_to_path (spi_global_register, gobj));
 #endif
 
-  g_signal_emit (cache, cache_signals [OBJECT_ADDED], 0, gobj);
+  g_signal_emit (cache, cache_signals[OBJECT_ADDED], 0, gobj);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -221,7 +224,7 @@ recursion_check_unset ()
 /*---------------------------------------------------------------------------*/
 
 static void
-append_children (AtkObject * accessible, GQueue * traversal)
+append_children (AtkObject *accessible, GQueue *traversal)
 {
   AtkObject *current;
   guint i;
@@ -249,7 +252,7 @@ append_children (AtkObject * accessible, GQueue * traversal)
  * or if it has already been registered.
  */
 static void
-add_subtree (SpiCache *cache, AtkObject * accessible)
+add_subtree (SpiCache *cache, AtkObject *accessible)
 {
   g_return_if_fail (ATK_IS_OBJECT (accessible));
 
@@ -278,10 +281,10 @@ add_pending_items (gpointer data)
       if (set && !atk_state_set_contains_state (set, ATK_STATE_TRANSIENT))
         {
           /* transfer the ref into to_add */
-	  g_queue_push_tail (to_add, current);
+          g_queue_push_tail (to_add, current);
           if (!spi_cache_in (cache, G_OBJECT (current)) &&
-              !atk_state_set_contains_state  (set, ATK_STATE_MANAGES_DESCENDANTS) &&
-              !atk_state_set_contains_state  (set, ATK_STATE_DEFUNCT))
+              !atk_state_set_contains_state (set, ATK_STATE_MANAGES_DESCENDANTS) &&
+              !atk_state_set_contains_state (set, ATK_STATE_DEFUNCT))
             {
               append_children (current, cache->add_traversal);
             }
@@ -302,9 +305,9 @@ add_pending_items (gpointer data)
 
       /* Make sure object is registerd so we are notified if it goes away */
       g_free (spi_register_object_to_path (spi_global_register,
-              G_OBJECT (current)));
+                                           G_OBJECT (current)));
 
-      add_object (cache, G_OBJECT(current));
+      add_object (cache, G_OBJECT (current));
       g_object_unref (G_OBJECT (current));
     }
 
@@ -316,16 +319,17 @@ add_pending_items (gpointer data)
 /*---------------------------------------------------------------------------*/
 
 static gboolean
-child_added_listener (GSignalInvocationHint * signal_hint,
+child_added_listener (GSignalInvocationHint *signal_hint,
                       guint n_param_values,
-                      const GValue * param_values, gpointer data)
+                      const GValue *param_values,
+                      gpointer data)
 {
   SpiCache *cache = spi_global_cache;
   AtkObject *accessible;
 
   const gchar *detail = NULL;
 
-  /* 
+  /*
    * Ensure that only accessibles already in the cache
    * have their signals processed.
    */
@@ -334,7 +338,7 @@ child_added_listener (GSignalInvocationHint * signal_hint,
 
   g_rec_mutex_lock (&cache_mutex);
 
-  if (spi_cache_in (cache, G_OBJECT(accessible)))
+  if (spi_cache_in (cache, G_OBJECT (accessible)))
     {
 #ifdef SPI_ATK_DEBUG
       if (recursion_check_and_set ())
@@ -374,8 +378,9 @@ child_added_listener (GSignalInvocationHint * signal_hint,
 /*---------------------------------------------------------------------------*/
 
 static void
-toplevel_added_listener (AtkObject * accessible,
-                         guint index, AtkObject * child)
+toplevel_added_listener (AtkObject *accessible,
+                         guint index,
+                         AtkObject *child)
 {
   SpiCache *cache = spi_global_cache;
 
@@ -383,7 +388,7 @@ toplevel_added_listener (AtkObject * accessible,
 
   g_rec_mutex_lock (&cache_mutex);
 
-  if (spi_cache_in (cache, G_OBJECT(accessible)))
+  if (spi_cache_in (cache, G_OBJECT (accessible)))
     {
 #ifdef SPI_ATK_DEBUG
       if (recursion_check_and_set ())
@@ -413,13 +418,13 @@ toplevel_added_listener (AtkObject * accessible,
 /*---------------------------------------------------------------------------*/
 
 void
-spi_cache_foreach (SpiCache * cache, GHFunc func, gpointer data)
+spi_cache_foreach (SpiCache *cache, GHFunc func, gpointer data)
 {
   g_hash_table_foreach (cache->objects, func, data);
 }
 
 gboolean
-spi_cache_in (SpiCache * cache, GObject * object)
+spi_cache_in (SpiCache *cache, GObject *object)
 {
   if (!cache)
     return FALSE;
@@ -435,17 +440,17 @@ spi_cache_in (SpiCache * cache, GObject * object)
 
 #ifdef SPI_ATK_DEBUG
 void
-spi_cache_print_info (GObject * obj)
+spi_cache_print_info (GObject *obj)
 {
-  char * path = spi_register_object_to_path (spi_global_register, obj);
- 
+  char *path = spi_register_object_to_path (spi_global_register, obj);
+
   if (spi_cache_in (spi_global_cache, obj))
-      g_printf ("%s IC\n", path);
+    g_printf ("%s IC\n", path);
   else
-      g_printf ("%s NC\n", path);
+    g_printf ("%s NC\n", path);
 
   if (path)
-      g_free (path);
+    g_free (path);
 }
 #endif
 

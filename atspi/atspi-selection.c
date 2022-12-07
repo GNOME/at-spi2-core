@@ -67,7 +67,7 @@ atspi_selection_get_n_selected_children (AtspiSelection *obj, GError **error)
  *      children is specified.
  *
  * Gets the i-th selected #AtspiAccessible child of an #AtspiSelection.
- *      Note that @selected_child_index refers to the index in the list 
+ *      Note that @selected_child_index refers to the index in the list
  *      of 'selected'
  *      children and generally differs from that used in
  *      #atspi_accessible_get_child_at_index or returned by
@@ -81,13 +81,14 @@ atspi_selection_get_n_selected_children (AtspiSelection *obj, GError **error)
  **/
 AtspiAccessible *
 atspi_selection_get_selected_child (AtspiSelection *obj,
-                                      gint selected_child_index, GError **error)
+                                    gint selected_child_index,
+                                    GError **error)
 {
   dbus_int32_t d_selected_child_index = selected_child_index;
   DBusMessage *reply;
 
   g_return_val_if_fail (obj != NULL, NULL);
-  
+
   reply = _atspi_dbus_call_partial (obj, atspi_interface_selection,
                                     "GetSelectedChild", error, "i",
                                     d_selected_child_index);
@@ -161,15 +162,15 @@ atspi_selection_deselect_selected_child (AtspiSelection *obj,
  * Deselects a specific child of an #AtspiSelection.
  *          Note that @child_index is the index of the child
  *          in the parent container.
- * 
+ *
  * See #atspi_selection_deselect_selected_child
- * 
+ *
  * Returns: #TRUE if the child was successfully deselected, #FALSE otherwise.
  **/
 gboolean
 atspi_selection_deselect_child (AtspiSelection *obj,
-				gint child_index,
-				GError **error)
+                                gint child_index,
+                                GError **error)
 {
   dbus_int32_t d_child_index = child_index;
   dbus_bool_t retval = FALSE;
@@ -222,7 +223,7 @@ gboolean
 atspi_selection_select_all (AtspiSelection *obj, GError **error)
 {
   dbus_bool_t retval = FALSE;
-  
+
   g_return_val_if_fail (obj != NULL, FALSE);
 
   _atspi_dbus_call (obj, atspi_interface_selection, "SelectAll", error, "=>b", &retval);
@@ -244,7 +245,7 @@ gboolean
 atspi_selection_clear_selection (AtspiSelection *obj, GError **error)
 {
   dbus_bool_t retval = FALSE;
-  
+
   g_return_val_if_fail (obj != NULL, FALSE);
 
   _atspi_dbus_call (obj, atspi_interface_selection, "ClearSelection", error, "=>b", &retval);
@@ -262,16 +263,15 @@ atspi_selection_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) {
-    static const GTypeInfo tinfo =
+  if (!type)
     {
-      sizeof (AtspiSelection),
-      (GBaseInitFunc) atspi_selection_base_init,
-      (GBaseFinalizeFunc) NULL,
-    };
+      static const GTypeInfo tinfo = {
+        sizeof (AtspiSelection),
+        (GBaseInitFunc) atspi_selection_base_init,
+        (GBaseFinalizeFunc) NULL,
+      };
 
-    type = g_type_register_static (G_TYPE_INTERFACE, "AtspiSelection", &tinfo, 0);
-
-  }
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtspiSelection", &tinfo, 0);
+    }
   return type;
 }

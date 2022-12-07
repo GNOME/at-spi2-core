@@ -22,17 +22,17 @@
  * Boston, MA 02110-1301, USA.
  */
 
+#include "bridge.h"
 #include <atk/atk.h>
 #include <droute/droute.h>
-#include "bridge.h"
 
 #include "spi-dbus.h"
-#include "object.h"
 
 #include "introspection.h"
+#include "object.h"
 
 static DBusMessage *
-impl_GetNLinks (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetNLinks (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkHypertext *hypertext = (AtkHypertext *) user_data;
   gint rv;
@@ -51,7 +51,7 @@ impl_GetNLinks (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_GetLink (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetLink (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkHypertext *hypertext = (AtkHypertext *) user_data;
   dbus_int32_t linkIndex;
@@ -59,8 +59,7 @@ impl_GetLink (DBusConnection * bus, DBusMessage * message, void *user_data)
 
   g_return_val_if_fail (ATK_IS_HYPERTEXT (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &linkIndex, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &linkIndex, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -72,8 +71,7 @@ impl_GetLink (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_GetLinkIndex (DBusConnection * bus, DBusMessage * message,
-                   void *user_data)
+impl_GetLinkIndex (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkHypertext *hypertext = (AtkHypertext *) user_data;
   dbus_int32_t characterIndex;
@@ -82,8 +80,7 @@ impl_GetLinkIndex (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_HYPERTEXT (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &characterIndex, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &characterIndex, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -98,14 +95,14 @@ impl_GetLinkIndex (DBusConnection * bus, DBusMessage * message,
 }
 
 static DRouteMethod methods[] = {
-  {impl_GetNLinks, "GetNLinks"},
-  {impl_GetLink, "GetLink"},
-  {impl_GetLinkIndex, "GetLinkIndex"},
-  {NULL, NULL}
+  { impl_GetNLinks, "GetNLinks" },
+  { impl_GetLink, "GetLink" },
+  { impl_GetLinkIndex, "GetLinkIndex" },
+  { NULL, NULL }
 };
 
 void
-spi_initialize_hypertext (DRoutePath * path)
+spi_initialize_hypertext (DRoutePath *path)
 {
   spi_atk_add_interface (path,
                          ATSPI_DBUS_INTERFACE_HYPERTEXT, spi_org_a11y_atspi_Hypertext, methods, NULL);

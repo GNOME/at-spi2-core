@@ -23,7 +23,7 @@
 
 /**
  * AtkComponent:
- * 
+ *
  * The ATK interface provided by UI components
  * which occupy a physical area on the screen.
  * which the user can activate/interact with.
@@ -40,31 +40,32 @@
  * information is provided by #AtkText.
  */
 
-enum {
+enum
+{
   BOUNDS_CHANGED,
   LAST_SIGNAL
 };
 
-static void       atk_component_base_init (AtkComponentIface *class);
+static void atk_component_base_init (AtkComponentIface *class);
 
-static gboolean   atk_component_real_contains                (AtkComponent *component,
-                                                              gint         x,
-                                                              gint         y,
+static gboolean atk_component_real_contains (AtkComponent *component,
+                                             gint x,
+                                             gint y,
+                                             AtkCoordType coord_type);
+
+static AtkObject *atk_component_real_ref_accessible_at_point (AtkComponent *component,
+                                                              gint x,
+                                                              gint y,
                                                               AtkCoordType coord_type);
 
-static AtkObject* atk_component_real_ref_accessible_at_point (AtkComponent *component,
-                                                              gint         x,
-                                                              gint         y,
-                                                              AtkCoordType coord_type);
+static void atk_component_real_get_position (AtkComponent *component,
+                                             gint *x,
+                                             gint *y,
+                                             AtkCoordType coord_type);
 
-static void      atk_component_real_get_position             (AtkComponent *component,
-                                                              gint         *x,
-                                                              gint         *y,
-                                                              AtkCoordType coord_type);
-
-static void      atk_component_real_get_size                 (AtkComponent *component,
-                                                              gint         *width,
-                                                              gint         *height);
+static void atk_component_real_get_size (AtkComponent *component,
+                                         gint *width,
+                                         gint *height);
 
 static guint atk_component_signals[LAST_SIGNAL] = { 0 };
 
@@ -73,17 +74,17 @@ atk_component_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) {
-    static const GTypeInfo tinfo =
+  if (!type)
     {
-      sizeof (AtkComponentIface),
-      (GBaseInitFunc) atk_component_base_init,
-      (GBaseFinalizeFunc) NULL,
+      static const GTypeInfo tinfo = {
+        sizeof (AtkComponentIface),
+        (GBaseInitFunc) atk_component_base_init,
+        (GBaseFinalizeFunc) NULL,
 
-    };
+      };
 
-    type = g_type_register_static (G_TYPE_INTERFACE, "AtkComponent", &tinfo, 0);
-  }
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtkComponent", &tinfo, 0);
+    }
 
   return type;
 }
@@ -93,13 +94,12 @@ atk_component_base_init (AtkComponentIface *class)
 {
   static gboolean initialized = FALSE;
 
-  if (! initialized)
+  if (!initialized)
     {
       class->ref_accessible_at_point = atk_component_real_ref_accessible_at_point;
       class->contains = atk_component_real_contains;
       class->get_position = atk_component_real_get_position;
       class->get_size = atk_component_real_get_size;
-
 
       /**
        * AtkComponent::bounds-changed:
@@ -110,26 +110,25 @@ atk_component_base_init (AtkComponentIface *class)
        * size of the component changes.
        */
       atk_component_signals[BOUNDS_CHANGED] =
-        g_signal_new ("bounds_changed",
-                      ATK_TYPE_COMPONENT,
-                      G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (AtkComponentIface, bounds_changed),
-                      (GSignalAccumulator) NULL, NULL,
-                      g_cclosure_marshal_VOID__BOXED,
-                      G_TYPE_NONE, 1,
-                      ATK_TYPE_RECTANGLE | G_SIGNAL_TYPE_STATIC_SCOPE);
+          g_signal_new ("bounds_changed",
+                        ATK_TYPE_COMPONENT,
+                        G_SIGNAL_RUN_LAST,
+                        G_STRUCT_OFFSET (AtkComponentIface, bounds_changed),
+                        (GSignalAccumulator) NULL, NULL,
+                        g_cclosure_marshal_VOID__BOXED,
+                        G_TYPE_NONE, 1,
+                        ATK_TYPE_RECTANGLE | G_SIGNAL_TYPE_STATIC_SCOPE);
 
       initialized = TRUE;
     }
 }
-
 
 /**
  * atk_component_add_focus_handler: (skip)
  * @component: The #AtkComponent to attach the @handler to
  * @handler: The #AtkFocusHandler to be attached to @component
  *
- * Add the specified handler to the set of functions to be called 
+ * Add the specified handler to the set of functions to be called
  * when this object receives focus events (in or out). If the handler is
  * already added it is not added again
  *
@@ -140,7 +139,7 @@ atk_component_base_init (AtkComponentIface *class)
  * or zero if the handler was already added.
  **/
 guint
-atk_component_add_focus_handler (AtkComponent    *component,
+atk_component_add_focus_handler (AtkComponent *component,
                                  AtkFocusHandler handler)
 {
   AtkComponentIface *iface = NULL;
@@ -161,7 +160,7 @@ atk_component_add_focus_handler (AtkComponent    *component,
  * from @component
  *
  * Remove the handler specified by @handler_id from the list of
- * functions to be executed when this object receives focus events 
+ * functions to be executed when this object receives focus events
  * (in or out).
  *
  * Deprecated: 2.9.4: If you need to track when an object gains or
@@ -169,8 +168,8 @@ atk_component_add_focus_handler (AtkComponent    *component,
  *
  **/
 void
-atk_component_remove_focus_handler (AtkComponent    *component,
-                                    guint           handler_id)
+atk_component_remove_focus_handler (AtkComponent *component,
+                                    guint handler_id)
 {
   AtkComponentIface *iface = NULL;
   g_return_if_fail (ATK_IS_COMPONENT (component));
@@ -199,10 +198,10 @@ atk_component_remove_focus_handler (AtkComponent    *component,
  * the extent of the @component or not
  **/
 gboolean
-atk_component_contains (AtkComponent    *component,
-                        gint            x,
-                        gint            y,
-                        AtkCoordType    coord_type)
+atk_component_contains (AtkComponent *component,
+                        gint x,
+                        gint y,
+                        AtkCoordType coord_type)
 {
   AtkComponentIface *iface = NULL;
   g_return_val_if_fail (ATK_IS_COMPONENT (component), FALSE);
@@ -229,11 +228,11 @@ atk_component_contains (AtkComponent    *component,
  * Returns: (nullable) (transfer full): a reference to the accessible
  * child, if one exists
  **/
-AtkObject*
-atk_component_ref_accessible_at_point (AtkComponent    *component,
-                                       gint            x,
-                                       gint            y,
-                                       AtkCoordType    coord_type)
+AtkObject *
+atk_component_ref_accessible_at_point (AtkComponent *component,
+                                       gint x,
+                                       gint y,
+                                       AtkCoordType coord_type)
 {
   AtkComponentIface *iface = NULL;
   g_return_val_if_fail (ATK_IS_COMPONENT (component), NULL);
@@ -263,12 +262,12 @@ atk_component_ref_accessible_at_point (AtkComponent    *component,
  *
  **/
 void
-atk_component_get_extents    (AtkComponent    *component,
-                              gint            *x,
-                              gint            *y,
-                              gint            *width,
-                              gint            *height,
-                              AtkCoordType    coord_type)
+atk_component_get_extents (AtkComponent *component,
+                           gint *x,
+                           gint *y,
+                           gint *width,
+                           gint *height,
+                           AtkCoordType coord_type)
 {
   AtkComponentIface *iface = NULL;
   gint local_x, local_y, local_width, local_height;
@@ -314,7 +313,7 @@ atk_component_get_extents    (AtkComponent    *component,
  * @coord_type: specifies whether the coordinates are relative to the screen
  * or to the components top level window
  *
- * Gets the position of @component in the form of 
+ * Gets the position of @component in the form of
  * a point specifying @component's top-left corner.
  *
  * If the position can not be obtained (e.g. a non-embedded plug or missing
@@ -323,10 +322,10 @@ atk_component_get_extents    (AtkComponent    *component,
  * Deprecated: Since 2.12. Use atk_component_get_extents() instead.
  **/
 void
-atk_component_get_position   (AtkComponent    *component,
-                              gint            *x,
-                              gint            *y,
-                              AtkCoordType    coord_type)
+atk_component_get_position (AtkComponent *component,
+                            gint *x,
+                            gint *y,
+                            AtkCoordType coord_type)
 {
   AtkComponentIface *iface = NULL;
   gint local_x, local_y;
@@ -368,9 +367,9 @@ atk_component_get_position   (AtkComponent    *component,
  * Deprecated: Since 2.12. Use atk_component_get_extents() instead.
  **/
 void
-atk_component_get_size       (AtkComponent    *component,
-                              gint            *width,
-                              gint            *height)
+atk_component_get_size (AtkComponent *component,
+                        gint *width,
+                        gint *height)
 {
   AtkComponentIface *iface = NULL;
   gint local_width, local_height;
@@ -409,7 +408,7 @@ atk_component_get_size       (AtkComponent    *component,
  * Returns: an #AtkLayer which is the layer of the component
  **/
 AtkLayer
-atk_component_get_layer (AtkComponent *component) 
+atk_component_get_layer (AtkComponent *component)
 {
   AtkComponentIface *iface;
 
@@ -426,15 +425,15 @@ atk_component_get_layer (AtkComponent *component)
  * atk_component_get_mdi_zorder:
  * @component: an #AtkComponent
  *
- * Gets the zorder of the component. The value G_MININT will be returned 
+ * Gets the zorder of the component. The value G_MININT will be returned
  * if the layer of the component is not ATK_LAYER_MDI or ATK_LAYER_WINDOW.
  *
- * Returns: a gint which is the zorder of the component, i.e. the depth at 
- * which the component is shown in relation to other components in the same 
+ * Returns: a gint which is the zorder of the component, i.e. the depth at
+ * which the component is shown in relation to other components in the same
  * container.
  **/
 gint
-atk_component_get_mdi_zorder (AtkComponent *component) 
+atk_component_get_mdi_zorder (AtkComponent *component)
 {
   AtkComponentIface *iface;
 
@@ -459,7 +458,7 @@ atk_component_get_mdi_zorder (AtkComponent *component)
  * Since: 1.12
  **/
 gdouble
-atk_component_get_alpha (AtkComponent    *component)
+atk_component_get_alpha (AtkComponent *component)
 {
   AtkComponentIface *iface;
 
@@ -481,7 +480,7 @@ atk_component_get_alpha (AtkComponent    *component)
  * Returns: %TRUE if successful, %FALSE otherwise.
  **/
 gboolean
-atk_component_grab_focus (AtkComponent    *component)
+atk_component_grab_focus (AtkComponent *component)
 {
   AtkComponentIface *iface = NULL;
   g_return_val_if_fail (ATK_IS_COMPONENT (component), FALSE);
@@ -509,12 +508,12 @@ atk_component_grab_focus (AtkComponent    *component)
  * Returns: %TRUE or %FALSE whether the extents were set or not
  **/
 gboolean
-atk_component_set_extents   (AtkComponent    *component,
-                             gint            x,
-                             gint            y,
-                             gint            width,
-                             gint            height,
-                             AtkCoordType    coord_type)
+atk_component_set_extents (AtkComponent *component,
+                           gint x,
+                           gint y,
+                           gint width,
+                           gint height,
+                           AtkCoordType coord_type)
 {
   AtkComponentIface *iface = NULL;
   g_return_val_if_fail (ATK_IS_COMPONENT (component), FALSE);
@@ -543,10 +542,10 @@ atk_component_set_extents   (AtkComponent    *component,
  * Returns: %TRUE or %FALSE whether or not the position was set or not
  **/
 gboolean
-atk_component_set_position   (AtkComponent    *component,
-                              gint            x,
-                              gint            y,
-                              AtkCoordType    coord_type)
+atk_component_set_position (AtkComponent *component,
+                            gint x,
+                            gint y,
+                            AtkCoordType coord_type)
 {
   AtkComponentIface *iface = NULL;
   g_return_val_if_fail (ATK_IS_COMPONENT (component), FALSE);
@@ -570,9 +569,9 @@ atk_component_set_position   (AtkComponent    *component,
  * Returns: %TRUE or %FALSE whether the size was set or not
  **/
 gboolean
-atk_component_set_size       (AtkComponent    *component,
-                              gint            x,
-                              gint            y)
+atk_component_set_size (AtkComponent *component,
+                        gint x,
+                        gint y)
 {
   AtkComponentIface *iface = NULL;
   g_return_val_if_fail (ATK_IS_COMPONENT (component), FALSE);
@@ -601,8 +600,8 @@ atk_component_set_size       (AtkComponent    *component,
  * Since: 2.30
  */
 gboolean
-atk_component_scroll_to (AtkComponent  *component,
-                         AtkScrollType  type)
+atk_component_scroll_to (AtkComponent *component,
+                         AtkScrollType type)
 {
   AtkComponentIface *iface = NULL;
   g_return_val_if_fail (ATK_IS_COMPONENT (component), FALSE);
@@ -632,9 +631,9 @@ atk_component_scroll_to (AtkComponent  *component,
  */
 gboolean
 atk_component_scroll_to_point (AtkComponent *component,
-                               AtkCoordType  coords,
-                               gint          x,
-                               gint          y)
+                               AtkCoordType coords,
+                               gint x,
+                               gint y)
 {
   AtkComponentIface *iface = NULL;
   g_return_val_if_fail (ATK_IS_COMPONENT (component), FALSE);
@@ -649,8 +648,8 @@ atk_component_scroll_to_point (AtkComponent *component,
 
 static gboolean
 atk_component_real_contains (AtkComponent *component,
-                             gint         x,
-                             gint         y,
+                             gint x,
+                             gint y,
                              AtkCoordType coord_type)
 {
   gint real_x, real_y, width, height;
@@ -668,10 +667,10 @@ atk_component_real_contains (AtkComponent *component,
     return FALSE;
 }
 
-static AtkObject* 
+static AtkObject *
 atk_component_real_ref_accessible_at_point (AtkComponent *component,
-                                            gint         x,
-                                            gint         y,
+                                            gint x,
+                                            gint y,
                                             AtkCoordType coord_type)
 {
   gint count, i;
@@ -679,30 +678,30 @@ atk_component_real_ref_accessible_at_point (AtkComponent *component,
   count = atk_object_get_n_accessible_children (ATK_OBJECT (component));
 
   for (i = 0; i < count; i++)
-  {
-    AtkObject *obj;
-
-    obj = atk_object_ref_accessible_child (ATK_OBJECT (component), i);
-
-    if (obj != NULL)
     {
-      if (atk_component_contains (ATK_COMPONENT (obj), x, y, coord_type))
-      {
-        return obj;
-      }
-      else
-      {
-        g_object_unref (obj);
-      }
+      AtkObject *obj;
+
+      obj = atk_object_ref_accessible_child (ATK_OBJECT (component), i);
+
+      if (obj != NULL)
+        {
+          if (atk_component_contains (ATK_COMPONENT (obj), x, y, coord_type))
+            {
+              return obj;
+            }
+          else
+            {
+              g_object_unref (obj);
+            }
+        }
     }
-  }
   return NULL;
 }
 
 static void
 atk_component_real_get_position (AtkComponent *component,
-                                 gint         *x,
-                                 gint         *y,
+                                 gint *x,
+                                 gint *y,
                                  AtkCoordType coord_type)
 {
   gint width, height;
@@ -712,8 +711,8 @@ atk_component_real_get_position (AtkComponent *component,
 
 static void
 atk_component_real_get_size (AtkComponent *component,
-                             gint         *width,
-                             gint         *height)
+                             gint *width,
+                             gint *height)
 {
   gint x, y;
   AtkCoordType coord_type;
@@ -742,8 +741,7 @@ atk_rectangle_get_type (void)
 
   if (our_type == 0)
     our_type = g_boxed_type_register_static ("AtkRectangle",
-                                             (GBoxedCopyFunc)atk_rectangle_copy,
-                                             (GBoxedFreeFunc)g_free);
+                                             (GBoxedCopyFunc) atk_rectangle_copy,
+                                             (GBoxedFreeFunc) g_free);
   return our_type;
 }
-

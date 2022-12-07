@@ -23,7 +23,7 @@
 #include "atk_suite.h"
 #include "atk_test_util.h"
 
-#define DATA_FILE TESTS_DATA_DIR"/test-accessible.xml"
+#define DATA_FILE TESTS_DATA_DIR "/test-accessible.xml"
 
 static void
 teardown_state_set_test (gpointer fixture, gconstpointer user_data)
@@ -45,11 +45,12 @@ atk_test_accessible_get_state_set (gpointer fixture, gconstpointer user_data)
   };
   g_assert_cmpint (states_arr->len, ==, 2);
   int i = 0;
-  for (i = 0; i < states_arr->len; ++i) {
-    g_assert_cmpint (valid_states[i], ==, g_array_index (states_arr, AtspiStateType, i));
-    g_assert (atspi_state_set_contains (states, ATSPI_STATE_MODAL));
-    g_assert (atspi_state_set_contains (states, ATSPI_STATE_MULTI_LINE));
-  }
+  for (i = 0; i < states_arr->len; ++i)
+    {
+      g_assert_cmpint (valid_states[i], ==, g_array_index (states_arr, AtspiStateType, i));
+      g_assert (atspi_state_set_contains (states, ATSPI_STATE_MODAL));
+      g_assert (atspi_state_set_contains (states, ATSPI_STATE_MULTI_LINE));
+    }
 }
 
 static void
@@ -102,7 +103,6 @@ atk_test_state_set_add (gpointer fixture, gconstpointer user_data)
   atspi_state_set_add (states, ATSPI_STATE_FOCUSABLE);
 
   g_assert (atspi_state_set_contains (states, ATSPI_STATE_FOCUSABLE));
-
 }
 
 static void
@@ -237,4 +237,3 @@ atk_test_state_set (void)
   g_test_add_vtable (ATK_TEST_PATH_STATE_SET "/atk_test_state_set_remove",
                      0, NULL, NULL, atk_test_state_set_remove, teardown_state_set_test);
 }
-

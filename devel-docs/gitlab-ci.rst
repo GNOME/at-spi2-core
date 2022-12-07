@@ -2,15 +2,12 @@ Gitlab Continuous Integration (CI) for at-spi2-core
 ===================================================
 
 Summary: make the robots set up an environment for running the test
-suite, run it, and report back to us.
+suite, run it, and report back to us.  Have them also run lints and
+formatters, and get interesting reports for our perusal.
 
 If you have questions about the CI, mail federico@gnome.org, or `file an
 issue <https://gitlab.gnome.org/GNOME/at-spi2-core/-/issues>`__ and
 mention ``@federico`` in it.
-
-Table of contents:
-
-[[*TOC*]]
 
 Quick overview
 ==============
@@ -23,7 +20,7 @@ when someone creates a merge request, or pushes to a branch.
 What’s a pipeline? It is an automated version of the following. Running
 the test suite for at-spi2-core involves some repetitive steps:
 
--  Create a pristine and minimal environment for testing, without all
+-  Create a reproducible environment for testing, without all
    the random gunk from one’s development system. Gitlab CI uses Linux
    containers, with pre-built operating system images in the `Open
    Container Initiative <https://opencontainers.org/>`__ format — this
@@ -117,6 +114,15 @@ mostly same package dependencies), so they use ``extends:`` to use a
 declared template with all that stuff instead of redeclaring it each
 time.
 
+The ``container-build`` stage builds container images with the
+reproducible environments described above.  See the :ref:`CI templates`
+below for details.
+
+The ``style-check`` stage runs a code formatter to ensure that new
+code preserves the coding style.  It does not modify your code;
+instead the job will fail if your code does not match the rest of the
+coding style, so you can fix it.  See :ref:`Code formatting` for details.
+
 The ``build`` stage has these jobs:
 
 -  ``opensuse-x86_64`` - Extends the ``.only-default`` rule,
@@ -141,19 +147,23 @@ The ``analysis`` stage has these jobs:
    automatically, and to decide which ones would require manual testing,
    or refactoring to allow automated testing.
 
-As of 2022/Apr/19 there are some commented-out jobs to generate
-documentation and publish it; this needs to be made to work.
+Finally, the ``docs`` stage builds documentation:
+
+- ``reference`` - Public API reference.
+
+- ``devel-docs`` - Development guide for the accessibility internals,
+   including the document you are reading right now.
 
 CI templates
 ============
 
-The task of setting up CI for a particular distro or build configuration
-is rather repetitive. One has to start with a “bare” distro image, then
-install the build-time dependencies that your project requires, then
-that is slow, then you want to build a container image instead of
-installing packages every time, then you want to test another distro,
-then you want to make those container images easily available to your
-project’s forks, and then you start pulling your hair.
+The task of setting up a container image to do CI for a particular
+distro or build configuration is rather repetitive. One has to start
+with a “bare” distro image, then install the build-time dependencies
+that your project requires, which is slow; then you want to test
+another distro, then you want to make those container images easily
+available to your project’s forks, and then you start pulling your
+hair.
 
 `Fredesktop CI
 Templates <https://gitlab.freedesktop.org/freedesktop/ci-templates/>`__
@@ -170,6 +180,59 @@ The prebuilt container images are stored here:
 https://gitlab.gnome.org/GNOME/at-spi2-core/container_registry
 
 They get updated automatically thanks to the CI Templates machinery.
+
+Code formatting
+===============
+
+The C coding style is enforced via `clang-format
+<https://clang.llvm.org/docs/ClangFormat.html>`_ and a a
+```.clang-format`` <../.clang-format>`__ configuration file (`docs on
+configuration
+<https://clang.llvm.org/docs/ClangFormatStyleOptions.html>`_).
+
+The ``style-check-diff` job in CI will fail if you put in new code
+that does not match what ``clang-format`` would do for it.  You must
+fix your code by hand; it is not re-indented automatically to give you
+a chance to selectively opt-out of formatting some chunks of code.
+
+To format a whole file, run ``clang-format -i some_file.c``.  The
+``-i`` option means "in place"; with it the file will be overwritten,
+otherwise clang-format will write to standard output.
+
+You can prevent a chunk of code from being changed with comments like
+the following, for example, for a struct initializer:
+
+.. code:: c
+
+   /* clang-format off */
+
+   static MyStruct some_array[] = {
+     { "a",            42, "b"        },
+     { "long string",   0, "blahblah" },
+     { "etc etc",     -42, ""         },
+   };
+
+   /* clang-format on */
+
+Note that **clang-format likes to re-order includes alphabetically**
+within chunks separated by blank lines:
+
+.. code:: c
+   #include <dbus/dbus.h>
+   
+   #include "de-marshaller.h"
+   #include "de-types.h"
+   #include "keymasks.h"
+   #include "paths.h"
+   
+   #include "deviceeventcontroller.h"
+   #include "introspection.h"
+   #include "reentrant-list.h"
+
+Here, each of the three groups of includes will be sorted
+independently.  You can fix your header files so that the order of
+inclusion doesn't matter, or separate them out with blank lines to
+enforce ordering.
 
 General advice and future work
 ==============================

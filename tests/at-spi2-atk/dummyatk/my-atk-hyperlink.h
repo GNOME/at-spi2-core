@@ -21,23 +21,24 @@
 #ifndef MY_ATK_HYPERLINK_H_
 #define MY_ATK_HYPERLINK_H_
 
-#include <glib.h>
-#include <glib-object.h>
 #include <atk/atk.h>
+#include <glib-object.h>
+#include <glib.h>
 
 #include "my-atk-object.h"
 
-#define MY_TYPE_ATK_HYPERLINK             (my_atk_hyperlink_get_type ())
-#define MY_ATK_HYPERLINK(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), MY_TYPE_ATK_HYPERLINK, MyAtkHyperlink))
-#define MY_ATK_HYPERLINK_CLASS(vtable)    (G_TYPE_CHECK_CLASS_CAST ((vtable), MY_TYPE_ATK_HYPERLINK, MyAtkHyperlinkClass))
-#define MY_IS_ATK_HYPERLINK(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), MY_TYPE_ATK_HYPERLINK))
+#define MY_TYPE_ATK_HYPERLINK (my_atk_hyperlink_get_type ())
+#define MY_ATK_HYPERLINK(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), MY_TYPE_ATK_HYPERLINK, MyAtkHyperlink))
+#define MY_ATK_HYPERLINK_CLASS(vtable) (G_TYPE_CHECK_CLASS_CAST ((vtable), MY_TYPE_ATK_HYPERLINK, MyAtkHyperlinkClass))
+#define MY_IS_ATK_HYPERLINK(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), MY_TYPE_ATK_HYPERLINK))
 #define MY_IS_ATK_HYPERLINK_CLASS(vtable) (G_TYPE_CHECK_CLASS_TYPE ((vtable), MY_TYPE_ATK_HYPERLINK))
-#define MY_ATK_HYPERLINK_GET_CLASS(inst)  (G_TYPE_INSTANCE_GET_CLASS ((inst), MY_TYPE_ATK_HYPERLINK, MyAtkHyperlinkClass))
+#define MY_ATK_HYPERLINK_GET_CLASS(inst) (G_TYPE_INSTANCE_GET_CLASS ((inst), MY_TYPE_ATK_HYPERLINK, MyAtkHyperlinkClass))
 
 typedef struct _MyAtkHyperlink MyAtkHyperlink;
 typedef struct _MyAtkHyperlinkClass MyAtkHyperlinkClass;
 
-struct _MyAtkHyperlink {
+struct _MyAtkHyperlink
+{
   MyAtkObject parent;
   gchar *uri;
   gint start;
@@ -46,13 +47,14 @@ struct _MyAtkHyperlink {
   gboolean selected;
 };
 
-struct _MyAtkHyperlinkClass {
+struct _MyAtkHyperlinkClass
+{
   MyAtkObjectClass parent;
 };
 
 GType my_atk_hyperlink_get_type (void);
 
-MyAtkHyperlink * new_MyAtkHyperlink (void);
+MyAtkHyperlink *new_MyAtkHyperlink (void);
 
 gint my_atk_set_hyperlink (AtkHyperlink *obj, const gchar *uri, gint start, gint end);
 

@@ -5,7 +5,7 @@
  * Copyright 2002 Ximian, Inc.
  *           2002 Sun Microsystems Inc.
  * Copyright 2010, 2011 Novell, Inc.
- *           
+ *
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -34,10 +34,10 @@
 
 G_BEGIN_DECLS
 
-#define ATSPI_TYPE_TABLE                    (atspi_table_get_type ())
-#define ATSPI_IS_TABLE(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_TABLE)
-#define ATSPI_TABLE(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_TABLE, AtspiTable)
-#define ATSPI_TABLE_GET_IFACE(obj)          (G_TYPE_INSTANCE_GET_INTERFACE ((obj), ATSPI_TYPE_TABLE, AtspiTable))
+#define ATSPI_TYPE_TABLE (atspi_table_get_type ())
+#define ATSPI_IS_TABLE(obj) G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_TABLE)
+#define ATSPI_TABLE(obj) G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_TABLE, AtspiTable)
+#define ATSPI_TABLE_GET_IFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), ATSPI_TYPE_TABLE, AtspiTable))
 
 GType atspi_table_get_type ();
 
@@ -46,15 +46,15 @@ struct _AtspiTable
   GTypeInterface parent;
 };
 
-AtspiAccessible * atspi_table_get_caption (AtspiTable *obj, GError **error);
+AtspiAccessible *atspi_table_get_caption (AtspiTable *obj, GError **error);
 
-AtspiAccessible * atspi_table_get_summary (AtspiTable *obj, GError **error);
+AtspiAccessible *atspi_table_get_summary (AtspiTable *obj, GError **error);
 
 gint atspi_table_get_n_rows (AtspiTable *obj, GError **error);
 
 gint atspi_table_get_n_columns (AtspiTable *obj, GError **error);
 
-AtspiAccessible * atspi_table_get_accessible_at (AtspiTable *obj, gint row, gint column, GError **error);
+AtspiAccessible *atspi_table_get_accessible_at (AtspiTable *obj, gint row, gint column, GError **error);
 
 gint atspi_table_get_index_at (AtspiTable *obj, gint row, gint column, GError **error);
 
@@ -62,9 +62,9 @@ gint atspi_table_get_row_at_index (AtspiTable *obj, gint index, GError **error);
 
 gint atspi_table_get_column_at_index (AtspiTable *obj, gint index, GError **error);
 
-gchar * atspi_table_get_row_description (AtspiTable *obj, gint row, GError **error);
+gchar *atspi_table_get_row_description (AtspiTable *obj, gint row, GError **error);
 
-gchar * atspi_table_get_column_description (AtspiTable *obj, gint         column, GError **error);
+gchar *atspi_table_get_column_description (AtspiTable *obj, gint column, GError **error);
 
 gint
 atspi_table_get_row_extent_at (AtspiTable *obj, gint row, gint column, GError **error);
@@ -72,15 +72,15 @@ atspi_table_get_row_extent_at (AtspiTable *obj, gint row, gint column, GError **
 gint
 atspi_table_get_column_extent_at (AtspiTable *obj, gint row, gint column, GError **error);
 
-AtspiAccessible * atspi_table_get_row_header (AtspiTable *obj, gint row, GError **error);
+AtspiAccessible *atspi_table_get_row_header (AtspiTable *obj, gint row, GError **error);
 
-AtspiAccessible * atspi_table_get_column_header (AtspiTable *obj, gint column, GError **error);
+AtspiAccessible *atspi_table_get_column_header (AtspiTable *obj, gint column, GError **error);
 
 gint atspi_table_get_n_selected_rows (AtspiTable *obj, GError **error);
 
 GArray *atspi_table_get_selected_rows (AtspiTable *obj, GError **error);
 
-GArray * atspi_table_get_selected_columns (AtspiTable *obj, GError **error);
+GArray *atspi_table_get_selected_columns (AtspiTable *obj, GError **error);
 
 gint atspi_table_get_n_selected_columns (AtspiTable *obj, GError **error);
 
@@ -102,4 +102,4 @@ gboolean atspi_table_is_selected (AtspiTable *obj, gint row, gint column, GError
 
 G_END_DECLS
 
-#endif	/* _ATSPI_TABLE_H_ */
+#endif /* _ATSPI_TABLE_H_ */

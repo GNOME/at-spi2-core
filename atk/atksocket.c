@@ -53,22 +53,21 @@
  * See [class@AtkPlug]
  */
 
-static void atk_socket_finalize   (GObject *obj);
+static void atk_socket_finalize (GObject *obj);
 
 static void atk_component_interface_init (AtkComponentIface *iface);
 
 static void atk_socket_component_real_get_extents (AtkComponent *component,
-                                                   gint         *x,
-                                                   gint         *y,
-                                                   gint         *width,
-                                                   gint         *height,
-                                                   AtkCoordType  coord_type);
+                                                   gint *x,
+                                                   gint *y,
+                                                   gint *width,
+                                                   gint *height,
+                                                   AtkCoordType coord_type);
 
-G_DEFINE_TYPE_WITH_CODE (AtkSocket, atk_socket, ATK_TYPE_OBJECT,
-                         G_IMPLEMENT_INTERFACE (ATK_TYPE_COMPONENT, atk_component_interface_init))
+G_DEFINE_TYPE_WITH_CODE (AtkSocket, atk_socket, ATK_TYPE_OBJECT, G_IMPLEMENT_INTERFACE (ATK_TYPE_COMPONENT, atk_component_interface_init))
 
 static void
-atk_socket_init (AtkSocket* obj)
+atk_socket_init (AtkSocket *obj)
 {
   AtkObject *accessible = ATK_OBJECT (obj);
 
@@ -79,7 +78,7 @@ atk_socket_init (AtkSocket* obj)
 }
 
 static void
-atk_socket_class_init (AtkSocketClass* klass)
+atk_socket_class_init (AtkSocketClass *klass)
 {
   GObjectClass *obj_class = G_OBJECT_CLASS (klass);
 
@@ -112,7 +111,7 @@ atk_component_interface_init (AtkComponentIface *iface)
  *
  * Returns: (transfer full): the newly created #AtkSocket instance
  */
-AtkObject*
+AtkObject *
 atk_socket_new (void)
 {
   return g_object_new (ATK_TYPE_SOCKET, NULL);
@@ -137,7 +136,7 @@ atk_socket_new (void)
  * Since: 1.30
  **/
 void
-atk_socket_embed (AtkSocket* obj, const gchar* plug_id)
+atk_socket_embed (AtkSocket *obj, const gchar *plug_id)
 {
   AtkSocketClass *klass;
 
@@ -165,7 +164,7 @@ atk_socket_embed (AtkSocket* obj, const gchar* plug_id)
  * Since: 1.30
  **/
 gboolean
-atk_socket_is_occupied (AtkSocket* obj)
+atk_socket_is_occupied (AtkSocket *obj)
 {
   g_return_val_if_fail (ATK_IS_SOCKET (obj), FALSE);
 
@@ -174,27 +173,27 @@ atk_socket_is_occupied (AtkSocket* obj)
 
 static void
 atk_socket_component_real_get_extents (AtkComponent *component,
-                                       gint         *x,
-                                       gint         *y,
-                                       gint         *width,
-                                       gint         *height,
-                                       AtkCoordType  coord_type)
+                                       gint *x,
+                                       gint *y,
+                                       gint *width,
+                                       gint *height,
+                                       AtkCoordType coord_type)
 {
   AtkObject *parent = atk_object_get_parent (ATK_OBJECT (component));
 
   if (parent == NULL || !ATK_IS_COMPONENT (parent))
-  {
-    if (x)
-      *x = -1;
-    if (y)
-      *y = -1;
-    if (width)
-      *width = -1;
-    if (height)
-      *height = -1;
+    {
+      if (x)
+        *x = -1;
+      if (y)
+        *y = -1;
+      if (width)
+        *width = -1;
+      if (height)
+        *height = -1;
 
-    return;
-  }
+      return;
+    }
 
   atk_component_get_extents (ATK_COMPONENT (parent), x, y, width, height, coord_type);
 }

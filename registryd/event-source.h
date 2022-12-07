@@ -28,6 +28,6 @@
 void spi_events_init (Display *display);
 void spi_events_uninit ();
 void spi_set_events (long event_mask);
-void spi_set_filter (void (*filter) (XEvent*, void*), void* data);
+void spi_set_filter (void (*filter) (XEvent *, void *), void *data);
 
 #endif /* SPI_EVENT_SOURCE_H_ */

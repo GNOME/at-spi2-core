@@ -25,10 +25,10 @@
  * registry and then waiting to get killed by some external force.
  */
 
-#include <stdio.h>
-#include <glib.h>
-#include <dbus/dbus.h>
 #include <atspi/atspi.h>
+#include <dbus/dbus.h>
+#include <glib.h>
+#include <stdio.h>
 
 static GMainLoop *mainloop;
 
@@ -44,13 +44,12 @@ register_app ()
   const gchar *name;
   gchar *path;
 
-
   /* Set up D-Bus connection and register bus name */
   dbus_error_init (&error);
   connection = atspi_get_a11y_bus ();
   if (!connection)
     {
-      printf("Couldn't get a11y bus!\n");
+      printf ("Couldn't get a11y bus!\n");
       return -1;
     }
 
@@ -73,10 +72,10 @@ register_app ()
 
   g_free (path);
 
-  reply = dbus_connection_send_with_reply_and_block(connection, message, -1, &error);
+  reply = dbus_connection_send_with_reply_and_block (connection, message, -1, &error);
   if (!reply)
     {
-      printf("Did not get a reply from the registry.\n");
+      printf ("Did not get a reply from the registry.\n");
       dbus_message_unref (message);
       dbus_error_free (&error);
       return -1;
@@ -88,13 +87,15 @@ register_app ()
   return 0;
 }
 
-int main (int argc, char *argv[])
+int
+main (int argc, char *argv[])
 {
   int ret = register_app ();
-  if (ret) {
-    printf("Failed to send dbus signals. Aborting.\n");
-    return ret;
-  }
+  if (ret)
+    {
+      printf ("Failed to send dbus signals. Aborting.\n");
+      return ret;
+    }
 
   // This keeps the test-application runnig indefinitely, i.e.
   // until killed by an external signal.

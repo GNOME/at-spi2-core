@@ -22,8 +22,8 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include <stdlib.h> /* for malloc */
 #include "atspi-private.h"
+#include <stdlib.h> /* for malloc */
 
 static GPtrArray *
 get_object_array_and_unref (DBusMessage *reply)
@@ -35,20 +35,20 @@ get_object_array_and_unref (DBusMessage *reply)
     return NULL;
 
   if (strcmp (dbus_message_get_signature (reply), "a(so)") != 0)
-  {
-    dbus_message_unref (reply);
-    return NULL;
-  }
+    {
+      dbus_message_unref (reply);
+      return NULL;
+    }
 
   array = g_ptr_array_new ();
 
   dbus_message_iter_init (reply, &iter);
   dbus_message_iter_recurse (&iter, &iter_array);
   while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
-  {
-    AtspiAccessible *accessible = _atspi_dbus_consume_accessible (&iter_array);
-    g_ptr_array_add (array, accessible);
-  }
+    {
+      AtspiAccessible *accessible = _atspi_dbus_consume_accessible (&iter_array);
+      g_ptr_array_add (array, accessible);
+    }
   dbus_message_unref (reply);
   return array;
 }
@@ -73,7 +73,7 @@ atspi_table_cell_get_column_span (AtspiTableCell *obj, GError **error)
 
   _atspi_dbus_get_property (obj, atspi_interface_table_cell, "ColumnSpan",
                             error, "i", &retval);
-	  
+
   return retval;
 }
 
@@ -85,7 +85,7 @@ atspi_table_cell_get_column_span (AtspiTableCell *obj, GError **error)
  *
  * Returns: (element-type AtspiAccessible) (transfer full): a GPtrArray of
  * AtspiAccessibles representing the column header cells.
-  */
+ */
 GPtrArray *
 atspi_table_cell_get_column_header_cells (AtspiTableCell *obj, GError **error)
 {
@@ -94,7 +94,7 @@ atspi_table_cell_get_column_header_cells (AtspiTableCell *obj, GError **error)
   g_return_val_if_fail (obj != NULL, NULL);
 
   reply = _atspi_dbus_call_partial (obj, atspi_interface_table_cell, "GetColumnHeaderCells", error, "");
-	  
+
   return get_object_array_and_unref (reply);
 }
 
@@ -118,7 +118,7 @@ atspi_table_cell_get_row_span (AtspiTableCell *obj, GError **error)
 
   _atspi_dbus_get_property (obj, atspi_interface_table_cell, "RowSpan",
                             error, "i", &retval);
-	  
+
   return retval;
 }
 
@@ -139,7 +139,7 @@ atspi_table_cell_get_row_header_cells (AtspiTableCell *obj, GError **error)
   g_return_val_if_fail (obj != NULL, NULL);
 
   reply = _atspi_dbus_call_partial (obj, atspi_interface_table_cell, "GetRowHeaderCells", error, "");
-	  
+
   return get_object_array_and_unref (reply);
 }
 
@@ -169,7 +169,7 @@ atspi_table_cell_get_position (AtspiTableCell *obj,
   reply = _atspi_dbus_call_partial (obj, "org.freedesktop.DBus.Properties",
                                     "Get", error, "ss",
                                     atspi_interface_table_cell, "Position");
-	  
+
   if (!reply)
     return -1;
 
@@ -183,10 +183,10 @@ atspi_table_cell_get_position (AtspiTableCell *obj,
   iter_sig = dbus_message_iter_get_signature (&iter_variant);
   /* TODO: Also report error here */
   if (strcmp (iter_sig, "(ii)") != 0)
-  {
-    dbus_free (iter_sig);
-    return FALSE;
-  }
+    {
+      dbus_free (iter_sig);
+      return FALSE;
+    }
   dbus_free (iter_sig);
 
   dbus_message_iter_recurse (&iter_variant, &iter_struct);
@@ -215,13 +215,13 @@ atspi_table_cell_get_position (AtspiTableCell *obj,
  */
 void
 atspi_table_cell_get_row_column_span (AtspiTableCell *obj,
-                                       gint *row,
-                                       gint *column,
-                                       gint *row_span,
-                                       gint *column_span,
-                                       GError **error)
+                                      gint *row,
+                                      gint *column,
+                                      gint *row_span,
+                                      gint *column_span,
+                                      GError **error)
 {
-  dbus_int32_t d_row = 0,  d_column = 0, d_row_span = 0, d_column_span = 0;
+  dbus_int32_t d_row = 0, d_column = 0, d_row_span = 0, d_column_span = 0;
 
   if (row)
     *row = -1;
@@ -265,7 +265,7 @@ atspi_table_cell_get_table (AtspiTableCell *obj, GError **error)
 
   _atspi_dbus_get_property (obj, atspi_interface_table_cell, "Table",
                             error, "(so)", &retval);
-	  
+
   return retval;
 }
 
@@ -279,16 +279,15 @@ atspi_table_cell_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) {
-    static const GTypeInfo tinfo =
+  if (!type)
     {
-      sizeof (AtspiTableCell),
-      (GBaseInitFunc) atspi_table_cell_base_init,
-      (GBaseFinalizeFunc) NULL,
-    };
+      static const GTypeInfo tinfo = {
+        sizeof (AtspiTableCell),
+        (GBaseInitFunc) atspi_table_cell_base_init,
+        (GBaseFinalizeFunc) NULL,
+      };
 
-    type = g_type_register_static (G_TYPE_INTERFACE, "AtspiTableCell", &tinfo, 0);
-
-  }
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtspiTableCell", &tinfo, 0);
+    }
   return type;
 }
