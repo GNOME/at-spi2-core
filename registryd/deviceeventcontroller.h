@@ -24,9 +24,6 @@
 #ifndef SPI_DEVICE_EVENT_CONTROLLER_H_
 #define SPI_DEVICE_EVENT_CONTROLLER_H_
 
-#ifdef HAVE_X11
-#include <X11/Xlib.h>
-#endif
 #include <dbus/dbus.h>
 
 typedef struct _SpiDEController SpiDEController;
@@ -158,13 +155,6 @@ gboolean spi_controller_update_key_grabs               (SpiDEController         
 gboolean spi_dec_synth_keysym (SpiDEController *controller, long keysym);
 
 void spi_dec_dbus_emit(SpiDEController *controller, const char *interface, const char *name, const char *minor, int a1, int a2);
-
-#ifdef HAVE_X11
-void spi_dec_setup_x11 (SpiDEControllerClass *klass);
-#endif
-
-long ucs2keysym (long ucs);
-long keysym2ucs(long keysym);
 
 G_END_DECLS
 

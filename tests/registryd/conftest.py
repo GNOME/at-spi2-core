@@ -79,3 +79,10 @@ def registry_root(main_loop, session_manager):
     a11y_bus = dbus.bus.BusConnection(a11y_address)
 
     return a11y_bus.get_object('org.a11y.atspi.Registry', '/org/a11y/atspi/accessible/root')
+
+@pytest.fixture
+def registry_registry(main_loop, session_manager):
+    a11y_address = get_accesssibility_bus_address()
+    a11y_bus = dbus.bus.BusConnection(a11y_address)
+
+    return a11y_bus.get_object('org.a11y.atspi.Registry', '/org/a11y/atspi/registry')

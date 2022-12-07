@@ -49,12 +49,7 @@
 
 #ifdef HAVE_X11
 #include "deviceeventcontroller-x11.h"
-#include "display.h"
-#include "event-source.h"
 #endif
-
-#define CHECK_RELEASE_DELAY 20
-#define BIT(c, x)       (c[x/8]&(1<<(x%8)))
 
 /* Our parent Gtk object type */
 #define PARENT_TYPE G_TYPE_OBJECT

@@ -49,8 +49,8 @@
 #include "display.h"
 #include "event-source.h"
 
-#include "deviceeventcontroller-x11.h"
 #include "deviceeventcontroller.h"
+#include "deviceeventcontroller-x11.h"
 #include "reentrant-list.h"
 
 static void spi_dec_x11_emit_modifier_event (SpiDEController *controller,
