@@ -9,10 +9,6 @@ If you have questions about the CI, mail federico@gnome.org, or `file an
 issue <https://gitlab.gnome.org/GNOME/at-spi2-core/-/issues>`__ and
 mention ``@federico`` in it.
 
-Table of contents:
-
-[[*TOC*]]
-
 Quick overview
 ==============
 
