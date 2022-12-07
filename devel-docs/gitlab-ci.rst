@@ -186,11 +186,11 @@ Code formatting
 
 The C coding style is enforced via `clang-format
 <https://clang.llvm.org/docs/ClangFormat.html>`_ and a a
-```.clang-format`` <../.clang-format>`__ configuration file (`docs on
+`.clang-format <../.clang-format>`_ configuration file (`docs on
 configuration
 <https://clang.llvm.org/docs/ClangFormatStyleOptions.html>`_).
 
-The ``style-check-diff` job in CI will fail if you put in new code
+The ``style-check-diff`` job in CI will fail if you put in new code
 that does not match what ``clang-format`` would do for it.  You must
 fix your code by hand; it is not re-indented automatically to give you
 a chance to selectively opt-out of formatting some chunks of code.
