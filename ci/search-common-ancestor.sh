@@ -24,6 +24,13 @@ git fetch --shallow-since="$(date --date="${ancestor_horizon} days ago" +%Y-%m-%
 # fall back to `${CI_DEFAULT_BRANCH}` or `${CI_COMMIT_BRANCH}` respectively
 # otherwise.
 
+echo "CI_MERGE_REQUEST_SOURCE_BRANCH_NAME = " $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME
+echo "CI_MERGE_REQUEST_TARGET_BRANCH_NAME = " $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+echo REMOTES:
+git remote -v
+echo BRANCHES:
+git branch
+
 source_branch="${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME:-${CI_COMMIT_BRANCH}}"
 git fetch --shallow-since="$(date --date="${ancestor_horizon} days ago" +%Y-%m-%d)" origin "${source_branch}"
 
