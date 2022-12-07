@@ -195,9 +195,12 @@ that does not match what ``clang-format`` would do for it.  You must
 fix your code by hand; it is not re-indented automatically to give you
 a chance to selectively opt-out of formatting some chunks of code.
 
-For example, if you have a carefully-formatted initializer, you can
-include comments like the following to keep ``clang-format`` from
-messing it up:
+To format a whole file, run ``clang-format -i some_file.c``.  The
+``-i`` option means "in place"; with it the file will be overwritten,
+otherwise clang-format will write to standard output.
+
+You can prevent a chunk of code from being changed with comments like
+the following, for example, for a struct initializer:
 
 .. code:: c
 
