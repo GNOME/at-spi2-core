@@ -20,14 +20,14 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include <stdlib.h>
-#include <stdio.h>
+#include "atk_suite.h"
+#include "atk_test_util.h"
 #include <glib.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include "atk_suite.h"
-#include "atk_test_util.h"
 
 static void
 atk_suite_build (void)
@@ -51,7 +51,7 @@ atk_suite_build (void)
 }
 
 int
-main(int argc, char **argv)
+main (int argc, char **argv)
 {
   g_test_init (&argc, &argv, NULL);
 

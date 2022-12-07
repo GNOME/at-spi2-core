@@ -4,7 +4,7 @@
  *
  * Copyright 2002 Ximian, Inc.
  *           2002 Sun Microsystems Inc.
- *           
+ *
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -66,7 +66,7 @@ struct _AtspiDeviceEvent
   gushort hw_code;
   gushort modifiers;
   guint timestamp;
-  gchar * event_string;
+  gchar *event_string;
   gboolean is_text;
 };
 
@@ -89,35 +89,35 @@ struct _AtspiKeyDefinition
 
 /**
  * ATSPI_TYPE_KEY_DEFINITION:
- * 
+ *
  * The #GType for a boxed type holding a #AtspiKeyDefinition.
  */
-#define	ATSPI_TYPE_KEY_DEFINITION (atspi_key_definition_get_type ())
+#define ATSPI_TYPE_KEY_DEFINITION (atspi_key_definition_get_type ())
 
 typedef struct _AtspiEvent AtspiEvent;
 struct _AtspiEvent
 {
-  gchar  *type;
-  AtspiAccessible  *source;
-  gint         detail1;
-  gint         detail2;
+  gchar *type;
+  AtspiAccessible *source;
+  gint detail1;
+  gint detail2;
   GValue any_data;
   AtspiAccessible *sender;
 };
 
 /**
  * ATSPI_TYPE_DEVICE_EVENT:
- * 
+ *
  * The #GType for a boxed type holding a #AtspiDeviceEvent.
  */
-#define	ATSPI_TYPE_DEVICE_EVENT (atspi_device_event_get_type ())
+#define ATSPI_TYPE_DEVICE_EVENT (atspi_device_event_get_type ())
 
 /**
  * ATSPI_TYPE_EVENT:
- * 
+ *
  * The #GType for a boxed type holding a #AtspiEvent.
  */
-#define	ATSPI_TYPE_EVENT (atspi_event_get_type ())
+#define ATSPI_TYPE_EVENT (atspi_event_get_type ())
 
 typedef void AtspiKeystrokeListener;
 
@@ -134,22 +134,22 @@ typedef struct _AtspiKeySet
 {
   guint *keysyms;
   gushort *keycodes;
-  gchar          **keystrings;
-  gshort           len;
+  gchar **keystrings;
+  gshort len;
 } AtspiKeySet;
 
 /**
  * AtspiKeyListenerSyncType:
  *
  * @ATSPI_KEYLISTENER_NOSYNC: Events may be delivered asynchronously,
- * which means in some cases they may already have been delivered to the 
- * application before the AT client receives the notification.  
- * @ATSPI_KEYLISTENER_SYNCHRONOUS: Events are delivered synchronously, before the 
- * currently focussed application sees them.  
+ * which means in some cases they may already have been delivered to the
+ * application before the AT client receives the notification.
+ * @ATSPI_KEYLISTENER_SYNCHRONOUS: Events are delivered synchronously, before the
+ * currently focussed application sees them.
  * @ATSPI_KEYLISTENER_CANCONSUME: Events may be consumed by the AT client.  Presumes and
  * requires #ATSPI_KEYLISTENER_SYNCHRONOUS, incompatible with #ATSPI_KEYLISTENER_NOSYNC.
  * @ATSPI_KEYLISTENER_ALL_WINDOWS: Events are received not from the application toolkit layer, but
- * from the device driver or windowing system subsystem; such notifications are 'global' in the 
+ * from the device driver or windowing system subsystem; such notifications are 'global' in the
  * sense that they are not broken or defeated by applications that participate poorly
  * in the accessibility APIs, or not at all; however because of the intrusive nature of
  * such snooping, it can have side-effects on certain older platforms.  If unconditional
@@ -161,13 +161,14 @@ typedef struct _AtspiKeySet
  * together, observing the compatibility limitations specified in the description of
  * each value.  For instance, #ATSPI_KEYLISTENER_ALL_WINDOWS | #ATSPI_KEYLISTENER_CANCONSUME is
  * a commonly used combination which gives the AT complete control over the delivery of matching
- * events.  However, such filters should be used sparingly as they may have a negative impact on 
+ * events.  However, such filters should be used sparingly as they may have a negative impact on
  * system performance.
  **/
-typedef enum {
+typedef enum
+{
   ATSPI_KEYLISTENER_NOSYNC = 0,
   ATSPI_KEYLISTENER_SYNCHRONOUS = 1 << 0,
   ATSPI_KEYLISTENER_CANCONSUME = 1 << 1,
   ATSPI_KEYLISTENER_ALL_WINDOWS = 1 << 2
 } AtspiKeyListenerSyncType;
-#endif	/* _ATSPI_TYPES_H_ */
+#endif /* _ATSPI_TYPES_H_ */

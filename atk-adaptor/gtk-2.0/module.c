@@ -25,18 +25,18 @@
 #define _GNU_SOURCE
 #include "config.h"
 
-#include <gmodule.h>
 #include <atk-bridge.h>
+#include <gmodule.h>
 
 /*---------------------------------------------------------------------------*/
 
 int
-gtk_module_init (gint * argc, gchar ** argv[])
+gtk_module_init (gint *argc, gchar **argv[])
 {
   return atk_bridge_adaptor_init (argc, argv);
 }
 
-gchar*
+gchar *
 g_module_check_init (GModule *module)
 {
   g_module_make_resident (module);
@@ -58,5 +58,5 @@ gnome_accessibility_module_init (void)
 void
 gnome_accessibility_module_shutdown (void)
 {
-    atk_bridge_adaptor_cleanup ();
+  atk_bridge_adaptor_cleanup ();
 }

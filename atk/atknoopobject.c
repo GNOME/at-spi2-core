@@ -34,11 +34,9 @@
  *
  */
 
-
 static void atk_no_op_object_class_init (AtkNoOpObjectClass *klass);
 
 static gpointer parent_class = NULL;
-
 
 GType
 atk_no_op_object_get_type (void)
@@ -46,132 +44,119 @@ atk_no_op_object_get_type (void)
   static GType type = 0;
 
   if (!type)
-  {
-    static const GTypeInfo tinfo =
     {
-      sizeof (AtkObjectClass),
-      (GBaseInitFunc) NULL, /* base init */
-      (GBaseFinalizeFunc) NULL, /* base finalize */
-      (GClassInitFunc) atk_no_op_object_class_init, /* class init */
-      (GClassFinalizeFunc) NULL, /* class finalize */
-      NULL, /* class data */
-      sizeof (AtkNoOpObject), /* instance size */
-      0, /* nb preallocs */
-      (GInstanceInitFunc) NULL, /* instance init */
-      NULL /* value table */
-    };
+      static const GTypeInfo tinfo = {
+        sizeof (AtkObjectClass),
+        (GBaseInitFunc) NULL,                         /* base init */
+        (GBaseFinalizeFunc) NULL,                     /* base finalize */
+        (GClassInitFunc) atk_no_op_object_class_init, /* class init */
+        (GClassFinalizeFunc) NULL,                    /* class finalize */
+        NULL,                                         /* class data */
+        sizeof (AtkNoOpObject),                       /* instance size */
+        0,                                            /* nb preallocs */
+        (GInstanceInitFunc) NULL,                     /* instance init */
+        NULL                                          /* value table */
+      };
 
-    static const GInterfaceInfo atk_component_info =
-    {
+      static const GInterfaceInfo atk_component_info = {
         (GInterfaceInitFunc) NULL,
         (GInterfaceFinalizeFunc) NULL,
         NULL
-    };
+      };
 
-    static const GInterfaceInfo atk_action_info =
-    {
+      static const GInterfaceInfo atk_action_info = {
         (GInterfaceInitFunc) NULL,
         (GInterfaceFinalizeFunc) NULL,
         NULL
-    };
+      };
 
-    static const GInterfaceInfo atk_editable_text_info =
-    {
+      static const GInterfaceInfo atk_editable_text_info = {
         (GInterfaceInitFunc) NULL,
         (GInterfaceFinalizeFunc) NULL,
         NULL
-    };
+      };
 
-    static const GInterfaceInfo atk_image_info =
-    {
+      static const GInterfaceInfo atk_image_info = {
         (GInterfaceInitFunc) NULL,
         (GInterfaceFinalizeFunc) NULL,
         NULL
-    };
+      };
 
-    static const GInterfaceInfo atk_selection_info =
-    {
+      static const GInterfaceInfo atk_selection_info = {
         (GInterfaceInitFunc) NULL,
         (GInterfaceFinalizeFunc) NULL,
         NULL
-    };
+      };
 
-    static const GInterfaceInfo atk_table_info =
-    {
+      static const GInterfaceInfo atk_table_info = {
         (GInterfaceInitFunc) NULL,
         (GInterfaceFinalizeFunc) NULL,
         NULL
-    };
+      };
 
-    static const GInterfaceInfo atk_table_cell_info =
-    {
+      static const GInterfaceInfo atk_table_cell_info = {
         (GInterfaceInitFunc) NULL,
         (GInterfaceFinalizeFunc) NULL,
         NULL
-    };
+      };
 
-    static const GInterfaceInfo atk_text_info =
-    {
+      static const GInterfaceInfo atk_text_info = {
         (GInterfaceInitFunc) NULL,
         (GInterfaceFinalizeFunc) NULL,
         NULL
-    };
+      };
 
-    static const GInterfaceInfo atk_hypertext_info =
-    {
+      static const GInterfaceInfo atk_hypertext_info = {
         (GInterfaceInitFunc) NULL,
         (GInterfaceFinalizeFunc) NULL,
         NULL
-    };
+      };
 
-    static const GInterfaceInfo atk_value_info =
-    {
+      static const GInterfaceInfo atk_value_info = {
         (GInterfaceInitFunc) NULL,
         (GInterfaceFinalizeFunc) NULL,
         NULL
-    };
+      };
 
-    static const GInterfaceInfo atk_document_info =
-    {
+      static const GInterfaceInfo atk_document_info = {
         (GInterfaceInitFunc) NULL,
         (GInterfaceFinalizeFunc) NULL,
         NULL
-    };
+      };
 
-    static const GInterfaceInfo atk_window_info =
-    {
+      static const GInterfaceInfo atk_window_info = {
         (GInterfaceInitFunc) NULL,
         (GInterfaceFinalizeFunc) NULL,
         NULL
-    };
+      };
 
-    type = g_type_register_static (ATK_TYPE_OBJECT,
-                                    "AtkNoOpObject", &tinfo, 0);
-    g_type_add_interface_static (type, ATK_TYPE_COMPONENT,
-                                 &atk_component_info);
-    g_type_add_interface_static (type, ATK_TYPE_ACTION,
-                                 &atk_action_info);
-    g_type_add_interface_static (type, ATK_TYPE_EDITABLE_TEXT,
-                                 &atk_editable_text_info);
-    g_type_add_interface_static (type, ATK_TYPE_IMAGE,
-                                 &atk_image_info);
-    g_type_add_interface_static (type, ATK_TYPE_SELECTION,
-                                 &atk_selection_info);
-    g_type_add_interface_static (type, ATK_TYPE_TABLE,
-                                 &atk_table_info);
-    g_type_add_interface_static (type, ATK_TYPE_TABLE_CELL,
-                                 &atk_table_cell_info);
-    g_type_add_interface_static (type, ATK_TYPE_TEXT,
-                                 &atk_text_info);
-    g_type_add_interface_static (type, ATK_TYPE_HYPERTEXT,
-                                 &atk_hypertext_info);
-    g_type_add_interface_static (type, ATK_TYPE_VALUE,
-                                 &atk_value_info);
-    g_type_add_interface_static (type, ATK_TYPE_DOCUMENT,
-                                 &atk_document_info);
-    g_type_add_interface_static (type, ATK_TYPE_WINDOW,
-                                 &atk_window_info);
-  }
+      type = g_type_register_static (ATK_TYPE_OBJECT,
+                                     "AtkNoOpObject", &tinfo, 0);
+      g_type_add_interface_static (type, ATK_TYPE_COMPONENT,
+                                   &atk_component_info);
+      g_type_add_interface_static (type, ATK_TYPE_ACTION,
+                                   &atk_action_info);
+      g_type_add_interface_static (type, ATK_TYPE_EDITABLE_TEXT,
+                                   &atk_editable_text_info);
+      g_type_add_interface_static (type, ATK_TYPE_IMAGE,
+                                   &atk_image_info);
+      g_type_add_interface_static (type, ATK_TYPE_SELECTION,
+                                   &atk_selection_info);
+      g_type_add_interface_static (type, ATK_TYPE_TABLE,
+                                   &atk_table_info);
+      g_type_add_interface_static (type, ATK_TYPE_TABLE_CELL,
+                                   &atk_table_cell_info);
+      g_type_add_interface_static (type, ATK_TYPE_TEXT,
+                                   &atk_text_info);
+      g_type_add_interface_static (type, ATK_TYPE_HYPERTEXT,
+                                   &atk_hypertext_info);
+      g_type_add_interface_static (type, ATK_TYPE_VALUE,
+                                   &atk_value_info);
+      g_type_add_interface_static (type, ATK_TYPE_DOCUMENT,
+                                   &atk_document_info);
+      g_type_add_interface_static (type, ATK_TYPE_WINDOW,
+                                   &atk_window_info);
+    }
   return type;
 }
 
@@ -186,11 +171,11 @@ atk_no_op_object_class_init (AtkNoOpObjectClass *klass)
  * @obj: a #GObject
  *
  * Provides a default (non-functioning stub) #AtkObject.
- * Application maintainers should not use this method. 
+ * Application maintainers should not use this method.
  *
  * Returns: a default (non-functioning stub) #AtkObject
  **/
-AtkObject*
+AtkObject *
 atk_no_op_object_new (GObject *obj)
 {
   AtkObject *accessible;
@@ -205,4 +190,3 @@ atk_no_op_object_new (GObject *obj)
 
   return accessible;
 }
-

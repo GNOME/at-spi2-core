@@ -33,10 +33,10 @@
  * not derived from GtkWidget. One example of its use is in providing
  * an accessible object for GnomeCanvasItem in the GAIL library.
  */
-static void       atk_gobject_accessible_class_init       (AtkGObjectAccessibleClass   *klass);
-static void       atk_real_gobject_accessible_initialize  (AtkObject         *atk_obj,
-                                                           gpointer          data);
-static void       atk_gobject_accessible_object_gone_cb   (gpointer          data);
+static void atk_gobject_accessible_class_init (AtkGObjectAccessibleClass *klass);
+static void atk_real_gobject_accessible_initialize (AtkObject *atk_obj,
+                                                    gpointer data);
+static void atk_gobject_accessible_object_gone_cb (gpointer data);
 
 static GQuark quark_accessible_object = 0;
 static GQuark quark_object = 0;
@@ -49,18 +49,17 @@ atk_gobject_accessible_get_type (void)
 
   if (!type)
     {
-      static const GTypeInfo tinfo =
-      {
+      static const GTypeInfo tinfo = {
         sizeof (AtkGObjectAccessibleClass),
-        (GBaseInitFunc) NULL, /* base init */
+        (GBaseInitFunc) NULL,     /* base init */
         (GBaseFinalizeFunc) NULL, /* base finalize */
         (GClassInitFunc) atk_gobject_accessible_class_init,
         (GClassFinalizeFunc) NULL, /* class finalize */
-        NULL, /* class data */
+        NULL,                      /* class data */
         sizeof (AtkGObjectAccessible),
-        0, /* nb preallocs */
+        0,                        /* nb preallocs */
         (GInstanceInitFunc) NULL, /* instance init */
-        NULL /* value table */
+        NULL                      /* value table */
       };
 
       type = g_type_register_static (ATK_TYPE_OBJECT,
@@ -79,10 +78,10 @@ atk_gobject_accessible_get_type (void)
  * Returns: (transfer none): a #AtkObject which is the accessible object for
  * the @obj
  **/
-AtkObject*
+AtkObject *
 atk_gobject_accessible_for_object (GObject *obj)
 {
-  AtkObject* accessible;
+  AtkObject *accessible;
 
   g_return_val_if_fail (G_IS_OBJECT (obj), NULL);
   /* See if we have a cached accessible for this object */
@@ -95,7 +94,7 @@ atk_gobject_accessible_for_object (GObject *obj)
       AtkRegistry *default_registry;
 
       default_registry = atk_get_default_registry ();
-      factory = atk_registry_get_factory (default_registry, 
+      factory = atk_registry_get_factory (default_registry,
                                           G_OBJECT_TYPE (obj));
       accessible = atk_object_factory_create_accessible (factory,
                                                          obj);
@@ -106,7 +105,7 @@ atk_gobject_accessible_for_object (GObject *obj)
            */
           g_object_weak_ref (obj,
                              (GWeakNotify) g_object_unref,
-                             accessible); 
+                             accessible);
           if (!quark_accessible_object)
             quark_accessible_object = g_quark_from_static_string ("accessible-object");
         }
@@ -131,10 +130,10 @@ atk_gobject_accessible_get_object (AtkGObjectAccessible *obj)
 
   return g_object_get_qdata (G_OBJECT (obj), quark_object);
 }
- 
+
 static void
-atk_real_gobject_accessible_initialize (AtkObject  *atk_obj,
-                                        gpointer   data)
+atk_real_gobject_accessible_initialize (AtkObject *atk_obj,
+                                        gpointer data)
 {
   AtkGObjectAccessible *atk_gobj;
 
@@ -149,7 +148,7 @@ atk_real_gobject_accessible_initialize (AtkObject  *atk_obj,
 }
 
 static void
-atk_gobject_accessible_object_gone_cb (gpointer  data)
+atk_gobject_accessible_object_gone_cb (gpointer data)
 {
   GObject *object;
 
@@ -157,20 +156,21 @@ atk_gobject_accessible_object_gone_cb (gpointer  data)
 
   object = atk_gobject_accessible_get_object (data);
   if (object)
-      g_object_set_qdata (object, quark_accessible_object, NULL);
+    g_object_set_qdata (object, quark_accessible_object, NULL);
 
   g_object_set_qdata (G_OBJECT (data), quark_object, NULL);
   atk_object_notify_state_change (ATK_OBJECT (data), ATK_STATE_DEFUNCT,
-                                  TRUE); 
+                                  TRUE);
   g_object_unref (data);
 }
 
 static void
 atk_gobject_accessible_dispose (GObject *atk_obj)
 {
-   GObject *obj = atk_gobject_accessible_get_object (ATK_GOBJECT_ACCESSIBLE (atk_obj));
+  GObject *obj = atk_gobject_accessible_get_object (ATK_GOBJECT_ACCESSIBLE (atk_obj));
 
-   if (obj) {
+  if (obj)
+    {
       g_object_set_qdata (obj, quark_accessible_object, NULL);
       g_object_weak_unref (obj,
                            (GWeakNotify) atk_gobject_accessible_object_gone_cb,
@@ -178,15 +178,15 @@ atk_gobject_accessible_dispose (GObject *atk_obj)
 
       g_object_set_qdata (atk_obj, quark_object, NULL);
       atk_object_notify_state_change (ATK_OBJECT (atk_obj), ATK_STATE_DEFUNCT,
-                                      TRUE); 
-   }
+                                      TRUE);
+    }
 
-   G_OBJECT_CLASS (parent_class)->dispose (atk_obj);
+  G_OBJECT_CLASS (parent_class)->dispose (atk_obj);
 }
 
 static void
 atk_gobject_accessible_class_init (AtkGObjectAccessibleClass *klass)
-{ 
+{
   AtkObjectClass *class;
   GObjectClass *object_class;
 

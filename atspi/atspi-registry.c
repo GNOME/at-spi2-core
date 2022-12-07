@@ -41,9 +41,9 @@
 typedef struct
 {
   AtspiDeviceListener *listener;
-  GArray             *key_set;
-  AtspiKeyMaskType         modmask;
-  AtspiKeyEventMask        event_types;
+  GArray *key_set;
+  AtspiKeyMaskType modmask;
+  AtspiKeyEventMask event_types;
   gint sync_type;
 } DeviceListenerEntry;
 
@@ -53,7 +53,7 @@ static GList *device_listeners;
  * atspi_get_desktop_count:
  *
  * Gets the number of virtual desktops.
- * NOTE: multiple virtual desktops are not implemented yet; as a 
+ * NOTE: multiple virtual desktops are not implemented yet; as a
  * consequence, this function always returns 1.
  *
  * Returns: a #gint indicating the number of active virtual desktops.
@@ -76,10 +76,11 @@ atspi_get_desktop_count ()
  * Returns: (transfer full): a pointer to the @i-th virtual desktop's
  * #AtspiAccessible representation.
  **/
-AtspiAccessible*
+AtspiAccessible *
 atspi_get_desktop (gint i)
 {
-  if (i != 0) return NULL;
+  if (i != 0)
+    return NULL;
   return _atspi_ref_accessible (atspi_bus_registry, atspi_path_root);
 }
 
@@ -116,19 +117,19 @@ notify_keystroke_listener (DeviceListenerEntry *e)
   gchar *path = _atspi_device_listener_get_path (e->listener);
   dbus_uint32_t d_modmask = e->modmask;
   dbus_uint32_t d_event_types = e->event_types;
-  AtspiEventListenerMode     listener_mode;
-  gboolean                          retval = FALSE;
+  AtspiEventListenerMode listener_mode;
+  gboolean retval = FALSE;
   DBusError d_error;
 
   listener_mode.synchronous =
-	  (dbus_bool_t) ((e->sync_type & ATSPI_KEYLISTENER_SYNCHRONOUS)!=0);
+      (dbus_bool_t) ((e->sync_type & ATSPI_KEYLISTENER_SYNCHRONOUS) != 0);
   listener_mode.preemptive =
-	  (dbus_bool_t) ((e->sync_type & ATSPI_KEYLISTENER_CANCONSUME)!=0);
+      (dbus_bool_t) ((e->sync_type & ATSPI_KEYLISTENER_CANCONSUME) != 0);
   listener_mode.global =
-	  (dbus_bool_t) ((e->sync_type & ATSPI_KEYLISTENER_ALL_WINDOWS)!=0);
+      (dbus_bool_t) ((e->sync_type & ATSPI_KEYLISTENER_ALL_WINDOWS) != 0);
 
   dbus_error_init (&d_error);
-  dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry,
+  dbind_method_call_reentrant (_atspi_bus (), atspi_bus_registry,
                                atspi_path_dec, atspi_interface_dec,
                                "RegisterKeystrokeListener", &d_error,
                                "oa(iisi)uu(bbb)=>b", path, e->key_set,
@@ -194,24 +195,24 @@ unregister_listener (gpointer data, GObject *object)
  * @sync_type: an #AtspiKeyListenerSyncType parameter indicating
  *             the behavior of the notification/listener transaction.
  * @error: (allow-none): a pointer to a %NULL #GError pointer, or %NULL
- *             
+ *
  * Registers a listener for keystroke events, either pre-emptively for
  *             all windows (%ATSPI_KEYLISTENER_ALL_WINDOWS),
  *             non-preemptively (%ATSPI_KEYLISTENER_NOSYNC), or
  *             pre-emptively at the toolkit level (%ATSPI_KEYLISTENER_CANCONSUME).
  *             If ALL_WINDOWS or CANCONSUME are used, the event is consumed
- *             upon receipt if one of @listener's callbacks returns %TRUE 
+ *             upon receipt if one of @listener's callbacks returns %TRUE
  *             (other sync_type values may be available in the future).
  *
  * Returns: %TRUE if successful, otherwise %FALSE.
  **/
 gboolean
-atspi_register_keystroke_listener (AtspiDeviceListener  *listener,
-					 GArray             *key_set,
-					 AtspiKeyMaskType         modmask,
-					 AtspiKeyEventMask        event_types,
-					 AtspiKeyListenerSyncType sync_type,
-                                         GError **error)
+atspi_register_keystroke_listener (AtspiDeviceListener *listener,
+                                   GArray *key_set,
+                                   AtspiKeyMaskType modmask,
+                                   AtspiKeyEventMask event_types,
+                                   AtspiKeyListenerSyncType sync_type,
+                                   GError **error)
 {
   DeviceListenerEntry *e;
 
@@ -230,18 +231,18 @@ atspi_register_keystroke_listener (AtspiDeviceListener  *listener,
       e->key_set->len = key_set->len;
       for (i = 0; i < key_set->len; i++)
         {
-	  AtspiKeyDefinition *kd =  ((AtspiKeyDefinition *) key_set->data) + i;
-	  AtspiKeyDefinition *d_kd =  ((AtspiKeyDefinition *) e->key_set->data) + i;
+          AtspiKeyDefinition *kd = ((AtspiKeyDefinition *) key_set->data) + i;
+          AtspiKeyDefinition *d_kd = ((AtspiKeyDefinition *) e->key_set->data) + i;
           d_kd->keycode = kd->keycode;
-	  d_kd->keysym = kd->keysym;
-	  if (kd->keystring)
-	    {
-	      d_kd->keystring = kd->keystring;
-	    } 
-          else 
+          d_kd->keysym = kd->keysym;
+          if (kd->keystring)
             {
-	      d_kd->keystring = "";
-	    }
+              d_kd->keystring = kd->keystring;
+            }
+          else
+            {
+              d_kd->keystring = "";
+            }
         }
     }
   else
@@ -276,10 +277,10 @@ atspi_register_keystroke_listener (AtspiDeviceListener  *listener,
  **/
 gboolean
 atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
-                                     GArray              *key_set,
-                                     AtspiKeyMaskType     modmask,
-                                     AtspiKeyEventMask    event_types,
-                                     GError             **error)
+                                     GArray *key_set,
+                                     AtspiKeyMaskType modmask,
+                                     AtspiKeyEventMask event_types,
+                                     GError **error)
 {
   GArray *d_key_set;
   gchar *path;
@@ -305,18 +306,18 @@ atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
       d_key_set->len = key_set->len;
       for (i = 0; i < key_set->len; ++i)
         {
-	  AtspiKeyDefinition *kd =  ((AtspiKeyDefinition *) key_set->data) + i;
-	  AtspiKeyDefinition *d_kd =  ((AtspiKeyDefinition *) d_key_set->data) + i;
+          AtspiKeyDefinition *kd = ((AtspiKeyDefinition *) key_set->data) + i;
+          AtspiKeyDefinition *d_kd = ((AtspiKeyDefinition *) d_key_set->data) + i;
           d_kd->keycode = kd->keycode;
-	  d_kd->keysym = kd->keysym;
-	  if (kd->keystring)
-	    {
-	      d_kd->keystring = kd->keystring;
-	    } 
-          else 
+          d_kd->keysym = kd->keysym;
+          if (kd->keystring)
             {
-	      d_kd->keystring = "";
-	    }
+              d_kd->keystring = kd->keystring;
+            }
+          else
+            {
+              d_kd->keystring = "";
+            }
         }
     }
   else
@@ -324,7 +325,7 @@ atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
       d_key_set = g_array_sized_new (FALSE, TRUE, sizeof (AtspiKeyDefinition), 0);
     }
 
-  dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry,
+  dbind_method_call_reentrant (_atspi_bus (), atspi_bus_registry,
                                atspi_path_dec, atspi_interface_dec,
                                "DeregisterKeystrokeListener", &d_error,
                                "oa(iisi)uu", path, d_key_set, d_modmask,
@@ -339,9 +340,9 @@ atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
   for (l = device_listeners; l;)
     {
       /* TODO: This code is all wrong / doesn't match what is in
- *       deviceeventcontroller.c. It would be nice to deprecate these methods
- *       in favor of methods that return an ID for the registration that can
- *       be passed to a deregister function, for instance. */
+       *       deviceeventcontroller.c. It would be nice to deprecate these methods
+       *       in favor of methods that return an ID for the registration that can
+       *       be passed to a deregister function, for instance. */
       DeviceListenerEntry *e = l->data;
       if (e->modmask == modmask && e->event_types == event_types)
         {
@@ -366,9 +367,10 @@ atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
  * Returns: Always returns %FALSE.
  **/
 gboolean
-atspi_register_device_event_listener (AtspiDeviceListener  *listener,
-				 AtspiDeviceEventMask  event_types,
-				 void                      *filter, GError **error)
+atspi_register_device_event_listener (AtspiDeviceListener *listener,
+                                      AtspiDeviceEventMask event_types,
+                                      void *filter,
+                                      GError **error)
 {
   /* See https://gitlab.gnome.org/GNOME/at-spi2-core/-/issues/94 for why this code is removed */
   return FALSE;
@@ -388,7 +390,7 @@ atspi_register_device_event_listener (AtspiDeviceListener  *listener,
  **/
 gboolean
 atspi_deregister_device_event_listener (AtspiDeviceListener *listener,
-                                        void                *filter,
+                                        void *filter,
                                         GError **error)
 {
   /* See https://gitlab.gnome.org/GNOME/at-spi2-core/-/issues/94 for why this code is removed */
@@ -426,23 +428,24 @@ using_mutter ()
  **/
 gboolean
 atspi_generate_keyboard_event (glong keyval,
-			   const gchar *keystring,
-			   AtspiKeySynthType synth_type, GError **error)
+                               const gchar *keystring,
+                               AtspiKeySynthType synth_type,
+                               GError **error)
 {
   dbus_uint32_t d_synth_type = synth_type;
   dbus_int32_t d_keyval = keyval;
   DBusError d_error;
 
   if (using_mutter ())
-  {
-    if (_atspi_mutter_generate_keyboard_event (keyval, keystring, synth_type, error))
-      return TRUE;
-  }
+    {
+      if (_atspi_mutter_generate_keyboard_event (keyval, keystring, synth_type, error))
+        return TRUE;
+    }
 
   dbus_error_init (&d_error);
   if (!keystring)
     keystring = "";
-  dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry, atspi_path_dec, atspi_interface_dec, "GenerateKeyboardEvent", &d_error, "isu", d_keyval, keystring, d_synth_type);
+  dbind_method_call_reentrant (_atspi_bus (), atspi_bus_registry, atspi_path_dec, atspi_interface_dec, "GenerateKeyboardEvent", &d_error, "isu", d_keyval, keystring, d_synth_type);
   if (dbus_error_is_set (&d_error))
     {
       g_warning ("GenerateKeyboardEvent failed: %s", d_error.message);
@@ -478,13 +481,13 @@ atspi_generate_mouse_event (glong x, glong y, const gchar *name, GError **error)
   g_return_val_if_fail (name != NULL, FALSE);
 
   if (using_mutter ())
-  {
-    if (_atspi_mutter_generate_mouse_event (x, y, name, error))
-      return TRUE;
-  }
+    {
+      if (_atspi_mutter_generate_mouse_event (x, y, name, error))
+        return TRUE;
+    }
 
   dbus_error_init (&d_error);
-  dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry,
+  dbind_method_call_reentrant (_atspi_bus (), atspi_bus_registry,
                                atspi_path_dec, atspi_interface_dec,
                                "GenerateMouseEvent", &d_error, "iis",
                                d_x, d_y, name);

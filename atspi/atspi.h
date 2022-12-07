@@ -26,12 +26,11 @@
 
 #include "glib.h"
 
-#include "atspi-constants.h"
-#include "atspi-types.h"
 #include "atspi-accessible.h"
 #include "atspi-action.h"
 #include "atspi-collection.h"
 #include "atspi-component.h"
+#include "atspi-constants.h"
 #include "atspi-device-listener.h"
 #include "atspi-document.h"
 #include "atspi-editabletext.h"
@@ -45,9 +44,10 @@
 #include "atspi-relation.h"
 #include "atspi-selection.h"
 #include "atspi-stateset.h"
-#include "atspi-table.h"
 #include "atspi-table-cell.h"
+#include "atspi-table.h"
 #include "atspi-text.h"
+#include "atspi-types.h"
 #include "atspi-value.h"
 
 #include "atspi-gmain.h"

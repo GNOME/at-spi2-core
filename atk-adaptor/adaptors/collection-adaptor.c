@@ -24,17 +24,17 @@
 
 #include <string.h>
 
+#include "bridge.h"
 #include <atk/atk.h>
 #include <droute/droute.h>
-#include "bridge.h"
 
+#include "accessible-stateset.h"
 #include "bitarray.h"
 #include "spi-dbus.h"
-#include "accessible-stateset.h"
 
 #include "accessible-register.h"
-#include "object.h"
 #include "introspection.h"
+#include "object.h"
 
 typedef struct _MatchRulePrivate MatchRulePrivate;
 struct _MatchRulePrivate
@@ -51,7 +51,7 @@ struct _MatchRulePrivate
 };
 
 static gboolean
-child_interface_p (AtkObject * child, gchar * repo_id)
+child_interface_p (AtkObject *child, gchar *repo_id)
 {
   if (!strcasecmp (repo_id, "action"))
     return ATK_IS_ACTION (child);
@@ -81,7 +81,7 @@ child_interface_p (AtkObject * child, gchar * repo_id)
 #define child_collection_p(ch) (TRUE)
 
 static gboolean
-match_states_all_p (AtkObject * child, gint * set)
+match_states_all_p (AtkObject *child, gint *set)
 {
   AtkStateSet *chs;
   gint i;
@@ -107,7 +107,7 @@ match_states_all_p (AtkObject * child, gint * set)
 }
 
 static gboolean
-match_states_any_p (AtkObject * child, gint * set)
+match_states_any_p (AtkObject *child, gint *set)
 {
   AtkStateSet *chs;
   gint i;
@@ -132,7 +132,7 @@ match_states_any_p (AtkObject * child, gint * set)
 }
 
 static gboolean
-match_states_none_p (AtkObject * child, gint * set)
+match_states_none_p (AtkObject *child, gint *set)
 {
   AtkStateSet *chs;
   gint i;
@@ -158,7 +158,7 @@ match_states_none_p (AtkObject * child, gint * set)
 
 // TODO: need to convert at-spi roles/states to atk roles/states */
 static gboolean
-match_states_lookup (AtkObject * child, MatchRulePrivate * mrp)
+match_states_lookup (AtkObject *child, MatchRulePrivate *mrp)
 {
   switch (mrp->statematchtype)
     {
@@ -186,10 +186,10 @@ match_states_lookup (AtkObject * child, MatchRulePrivate * mrp)
 
 // TODO: Map at-spi -> atk roles at mrp creation instead of doing this;
 // would be more efficient
-#define spi_get_role(obj) spi_accessible_role_from_atk_role(atk_object_get_role(obj))
+#define spi_get_role(obj) spi_accessible_role_from_atk_role (atk_object_get_role (obj))
 
 static gboolean
-match_roles_all_p (AtkObject * child, gint * roles)
+match_roles_all_p (AtkObject *child, gint *roles)
 {
   if (roles == NULL || roles[0] == BITARRAY_SEQ_TERM)
     return TRUE;
@@ -197,11 +197,10 @@ match_roles_all_p (AtkObject * child, gint * roles)
     return FALSE;
 
   return (atk_object_get_role (child) == roles[0]);
-
 }
 
 static gboolean
-match_roles_any_p (AtkObject * child, gint * roles)
+match_roles_any_p (AtkObject *child, gint *roles)
 {
   AtspiRole role;
   int i;
@@ -219,7 +218,7 @@ match_roles_any_p (AtkObject * child, gint * roles)
 }
 
 static gboolean
-match_roles_none_p (AtkObject * child, gint * roles)
+match_roles_none_p (AtkObject *child, gint *roles)
 {
   AtkRole role;
   int i;
@@ -237,7 +236,7 @@ match_roles_none_p (AtkObject * child, gint * roles)
 }
 
 static gboolean
-match_roles_lookup (AtkObject * child, MatchRulePrivate * mrp)
+match_roles_lookup (AtkObject *child, MatchRulePrivate *mrp)
 {
   switch (mrp->rolematchtype)
     {
@@ -258,13 +257,12 @@ match_roles_lookup (AtkObject * child, MatchRulePrivate * mrp)
 
     default:
       break;
-
     }
   return FALSE;
 }
 
 static gboolean
-match_interfaces_all_p (AtkObject * obj, gchar ** ifaces)
+match_interfaces_all_p (AtkObject *obj, gchar **ifaces)
 {
   gint i;
 
@@ -280,13 +278,12 @@ match_interfaces_all_p (AtkObject * obj, gchar ** ifaces)
 }
 
 static gboolean
-match_interfaces_any_p (AtkObject * obj, gchar ** ifaces)
+match_interfaces_any_p (AtkObject *obj, gchar **ifaces)
 {
   gint i;
 
   if (ifaces == NULL)
     return TRUE;
-
 
   for (i = 0; ifaces[i]; i++)
     if (child_interface_p (obj, ifaces[i]))
@@ -297,7 +294,7 @@ match_interfaces_any_p (AtkObject * obj, gchar ** ifaces)
 }
 
 static gboolean
-match_interfaces_none_p (AtkObject * obj, gchar ** ifaces)
+match_interfaces_none_p (AtkObject *obj, gchar **ifaces)
 {
   gint i;
 
@@ -309,7 +306,7 @@ match_interfaces_none_p (AtkObject * obj, gchar ** ifaces)
 }
 
 static gboolean
-match_interfaces_lookup (AtkObject * child, MatchRulePrivate * mrp)
+match_interfaces_lookup (AtkObject *child, MatchRulePrivate *mrp)
 {
   switch (mrp->interfacematchtype)
     {
@@ -339,7 +336,7 @@ match_interfaces_lookup (AtkObject * child, MatchRulePrivate * mrp)
 #define split_attributes(attributes) (g_strsplit (attributes, ";", 0))
 
 static gboolean
-match_attributes_all_p (AtkObject * child, AtkAttributeSet * attributes)
+match_attributes_all_p (AtkObject *child, AtkAttributeSet *attributes)
 {
   int i, k;
   AtkAttributeSet *oa;
@@ -379,7 +376,7 @@ match_attributes_all_p (AtkObject * child, AtkAttributeSet * attributes)
 }
 
 static gboolean
-match_attributes_any_p (AtkObject * child, AtkAttributeSet * attributes)
+match_attributes_any_p (AtkObject *child, AtkAttributeSet *attributes)
 {
   int i, k;
 
@@ -412,7 +409,7 @@ match_attributes_any_p (AtkObject * child, AtkAttributeSet * attributes)
 }
 
 static gboolean
-match_attributes_none_p (AtkObject * child, AtkAttributeSet * attributes)
+match_attributes_none_p (AtkObject *child, AtkAttributeSet *attributes)
 {
   int i, k;
 
@@ -445,7 +442,7 @@ match_attributes_none_p (AtkObject * child, AtkAttributeSet * attributes)
 }
 
 static gboolean
-match_attributes_lookup (AtkObject * child, MatchRulePrivate * mrp)
+match_attributes_lookup (AtkObject *child, MatchRulePrivate *mrp)
 {
   switch (mrp->attributematchtype)
     {
@@ -472,7 +469,7 @@ match_attributes_lookup (AtkObject * child, MatchRulePrivate * mrp)
 }
 
 static gboolean
-traverse_p (AtkObject * child, const gboolean traverse)
+traverse_p (AtkObject *child, const gboolean traverse)
 {
   if (traverse)
     return TRUE;
@@ -481,10 +478,7 @@ traverse_p (AtkObject * child, const gboolean traverse)
 }
 
 static int
-sort_order_canonical (MatchRulePrivate * mrp, GList * ls,
-                      gint kount, gint max,
-                      AtkObject * obj, glong index, gboolean flag,
-                      AtkObject * pobj, gboolean recurse, gboolean traverse)
+sort_order_canonical (MatchRulePrivate *mrp, GList *ls, gint kount, gint max, AtkObject *obj, glong index, gboolean flag, AtkObject *pobj, gboolean recurse, gboolean traverse)
 {
   gint i = index;
   glong acount = atk_object_get_n_accessible_children (obj);
@@ -503,10 +497,7 @@ sort_order_canonical (MatchRulePrivate * mrp, GList * ls,
           return kount;
         }
 
-      if (flag && match_interfaces_lookup (child, mrp)
-          && match_states_lookup (child, mrp)
-          && match_roles_lookup (child, mrp)
-          && match_attributes_lookup (child, mrp))
+      if (flag && match_interfaces_lookup (child, mrp) && match_states_lookup (child, mrp) && match_roles_lookup (child, mrp) && match_attributes_lookup (child, mrp))
         {
 
           ls = g_list_append (ls, child);
@@ -526,9 +517,7 @@ sort_order_canonical (MatchRulePrivate * mrp, GList * ls,
 }
 
 static int
-sort_order_rev_canonical (MatchRulePrivate * mrp, GList * ls,
-                          gint kount, gint max,
-                          AtkObject * obj, gboolean flag, AtkObject * pobj)
+sort_order_rev_canonical (MatchRulePrivate *mrp, GList *ls, gint kount, gint max, AtkObject *obj, gboolean flag, AtkObject *pobj)
 {
   AtkObject *nextobj;
   AtkObject *parent;
@@ -541,10 +530,7 @@ sort_order_rev_canonical (MatchRulePrivate * mrp, GList * ls,
     }
 
   /* Add to the list if it matches */
-  if (flag && match_interfaces_lookup (obj, mrp)
-      && match_states_lookup (obj, mrp)
-      && match_roles_lookup (obj, mrp) && match_attributes_lookup (obj, mrp)
-      && (max == 0 || kount < max))
+  if (flag && match_interfaces_lookup (obj, mrp) && match_states_lookup (obj, mrp) && match_roles_lookup (obj, mrp) && match_attributes_lookup (obj, mrp) && (max == 0 || kount < max))
     {
       ls = g_list_append (ls, obj);
       kount++;
@@ -564,36 +550,30 @@ sort_order_rev_canonical (MatchRulePrivate * mrp, GList * ls,
       /* Now, drill down the right side to the last descendant */
       while (nextobj && atk_object_get_n_accessible_children (nextobj) > 0)
         {
-	  AtkObject *follow;
+          AtkObject *follow;
 
           follow = atk_object_ref_accessible_child (nextobj,
-                                                     atk_object_get_n_accessible_children
-                                                     (nextobj) - 1);
+                                                    atk_object_get_n_accessible_children (nextobj) - 1);
           g_object_unref (nextobj);
-	  nextobj = follow;
+          nextobj = follow;
         }
       /* recurse with the last descendant */
       kount = sort_order_rev_canonical (mrp, ls, kount, max,
                                         nextobj, TRUE, pobj);
       if (nextobj)
-	 g_object_unref (nextobj);
+        g_object_unref (nextobj);
     }
   else if (max == 0 || kount < max)
     {
       /* no more siblings so next node must be the parent */
       kount = sort_order_rev_canonical (mrp, ls, kount, max,
                                         parent, TRUE, pobj);
-
     }
   return kount;
 }
 
 static int
-query_exec (MatchRulePrivate * mrp, AtspiCollectionSortOrder sortby,
-            GList * ls, gint kount, gint max,
-            AtkObject * obj, glong index,
-            gboolean flag,
-            AtkObject * pobj, gboolean recurse, gboolean traverse)
+query_exec (MatchRulePrivate *mrp, AtspiCollectionSortOrder sortby, GList *ls, gint kount, gint max, AtkObject *obj, glong index, gboolean flag, AtkObject *pobj, gboolean recurse, gboolean traverse)
 {
   switch (sortby)
     {
@@ -642,9 +622,8 @@ bitarray_to_seq (dbus_uint32_t *array, int array_count, int **ret)
   return TRUE;
 }
 
-
 static dbus_bool_t
-read_mr (DBusMessageIter * iter, MatchRulePrivate * mrp)
+read_mr (DBusMessageIter *iter, MatchRulePrivate *mrp)
 {
   DBusMessageIter iter_struct, iter_array, iter_dict, iter_dict_entry;
   dbus_uint32_t *array;
@@ -666,7 +645,8 @@ read_mr (DBusMessageIter * iter, MatchRulePrivate * mrp)
   dbus_message_iter_next (&iter_struct);
   dbus_message_iter_get_basic (&iter_struct, &matchType);
   dbus_message_iter_next (&iter_struct);
-  mrp->statematchtype = matchType;;
+  mrp->statematchtype = matchType;
+  ;
 
   /* attributes */
   mrp->attributes = NULL;
@@ -681,36 +661,37 @@ read_mr (DBusMessageIter * iter, MatchRulePrivate * mrp)
       dbus_message_iter_get_basic (&iter_dict_entry, &val);
       p = q = val;
       for (;;)
-      {
-        if (*q == '\0' || (*q == ':' && (q == val || q[-1] != '\\')))
         {
-          char *tmp;
-          attr = g_new (AtkAttribute, 1);
-          attr->name = g_strdup (key);
-          attr->value = g_strdup (p);
-          attr->value[q - p] = '\0';
-          tmp = attr->value;
-          while (*tmp != '\0')
-          {
-            if (*tmp == '\\')
-              memmove (tmp, tmp + 1, strlen (tmp));
-            else
-              tmp++;
-          }
-          mrp->attributes = g_slist_prepend (mrp->attributes, attr);
-          if (*q == '\0')
-            break;
+          if (*q == '\0' || (*q == ':' && (q == val || q[-1] != '\\')))
+            {
+              char *tmp;
+              attr = g_new (AtkAttribute, 1);
+              attr->name = g_strdup (key);
+              attr->value = g_strdup (p);
+              attr->value[q - p] = '\0';
+              tmp = attr->value;
+              while (*tmp != '\0')
+                {
+                  if (*tmp == '\\')
+                    memmove (tmp, tmp + 1, strlen (tmp));
+                  else
+                    tmp++;
+                }
+              mrp->attributes = g_slist_prepend (mrp->attributes, attr);
+              if (*q == '\0')
+                break;
+              else
+                p = ++q;
+            }
           else
-            p = ++q;
+            q++;
         }
-        else
-          q++;
-      }
       dbus_message_iter_next (&iter_dict);
     }
   dbus_message_iter_next (&iter_struct);
   dbus_message_iter_get_basic (&iter_struct, &matchType);
-  mrp->attributematchtype = matchType;;
+  mrp->attributematchtype = matchType;
+  ;
   dbus_message_iter_next (&iter_struct);
 
   /* Get roles and role match */
@@ -719,7 +700,8 @@ read_mr (DBusMessageIter * iter, MatchRulePrivate * mrp)
   bitarray_to_seq (array, array_count, &mrp->roles);
   dbus_message_iter_next (&iter_struct);
   dbus_message_iter_get_basic (&iter_struct, &matchType);
-  mrp->rolematchtype = matchType;;
+  mrp->rolematchtype = matchType;
+  ;
   dbus_message_iter_next (&iter_struct);
 
   /* Get interfaces and interface match */
@@ -727,16 +709,17 @@ read_mr (DBusMessageIter * iter, MatchRulePrivate * mrp)
   mrp->ifaces = g_new0 (gchar *, 16);
   i = 0;
   while (i < 15 && dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
-  {
-    char *iface;
-    dbus_message_iter_get_basic (&iter_array, &iface);
-    mrp->ifaces [i] = g_strdup (iface);
-    i++;
-    dbus_message_iter_next (&iter_array);
-  }
+    {
+      char *iface;
+      dbus_message_iter_get_basic (&iter_array, &iface);
+      mrp->ifaces[i] = g_strdup (iface);
+      i++;
+      dbus_message_iter_next (&iter_array);
+    }
   dbus_message_iter_next (&iter_struct);
   dbus_message_iter_get_basic (&iter_struct, &matchType);
-  mrp->interfacematchtype = matchType;;
+  mrp->interfacematchtype = matchType;
+  ;
   dbus_message_iter_next (&iter_struct);
   /* get invert */
   dbus_message_iter_get_basic (&iter_struct, &mrp->invert);
@@ -745,7 +728,7 @@ read_mr (DBusMessageIter * iter, MatchRulePrivate * mrp)
 }
 
 static DBusMessage *
-return_and_free_list (DBusMessage * message, GList * ls)
+return_and_free_list (DBusMessage *message, GList *ls)
 {
   DBusMessage *reply;
   DBusMessageIter iter, iter_array;
@@ -755,8 +738,7 @@ return_and_free_list (DBusMessage * message, GList * ls)
   if (!reply)
     return NULL;
   dbus_message_iter_init_append (reply, &iter);
-  if (!dbus_message_iter_open_container
-      (&iter, DBUS_TYPE_ARRAY, "(so)", &iter_array))
+  if (!dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(so)", &iter_array))
     goto oom;
   for (item = ls; item; item = g_list_next (item))
     {
@@ -773,7 +755,7 @@ oom:
 }
 
 static void
-free_mrp_data (MatchRulePrivate * mrp)
+free_mrp_data (MatchRulePrivate *mrp)
 {
   g_free (mrp->states);
   atk_attribute_set_free (mrp->attributes);
@@ -782,12 +764,13 @@ free_mrp_data (MatchRulePrivate * mrp)
 }
 
 static DBusMessage *
-GetMatchesFrom (DBusMessage * message,
-                AtkObject * current_object,
-                MatchRulePrivate * mrp,
+GetMatchesFrom (DBusMessage *message,
+                AtkObject *current_object,
+                MatchRulePrivate *mrp,
                 const AtspiCollectionSortOrder sortby,
                 const dbus_bool_t isrestrict,
-                dbus_int32_t count, const dbus_bool_t traverse)
+                dbus_int32_t count,
+                const dbus_bool_t traverse)
 {
   GList *ls = NULL;
   AtkObject *parent;
@@ -819,10 +802,7 @@ GetMatchesFrom (DBusMessage * message,
 */
 
 static int
-inorder (AtkObject * collection, MatchRulePrivate * mrp,
-         GList * ls, gint kount, gint max,
-         AtkObject * obj,
-         gboolean flag, AtkObject * pobj, dbus_bool_t traverse)
+inorder (AtkObject *collection, MatchRulePrivate *mrp, GList *ls, gint kount, gint max, AtkObject *obj, gboolean flag, AtkObject *pobj, dbus_bool_t traverse)
 {
   int i = 0;
 
@@ -854,19 +834,20 @@ inorder (AtkObject * collection, MatchRulePrivate * mrp,
 */
 
 static DBusMessage *
-GetMatchesInOrder (DBusMessage * message,
-                   AtkObject * current_object,
-                   MatchRulePrivate * mrp,
+GetMatchesInOrder (DBusMessage *message,
+                   AtkObject *current_object,
+                   MatchRulePrivate *mrp,
                    const AtspiCollectionSortOrder sortby,
                    const dbus_bool_t recurse,
-                   dbus_int32_t count, const dbus_bool_t traverse)
+                   dbus_int32_t count,
+                   const dbus_bool_t traverse)
 {
   GList *ls = NULL;
   AtkObject *obj;
 
   ls = g_list_append (ls, current_object);
 
-  obj = ATK_OBJECT(spi_register_path_to_object (spi_global_register, dbus_message_get_path (message)));
+  obj = ATK_OBJECT (spi_register_path_to_object (spi_global_register, dbus_message_get_path (message)));
 
   inorder (obj, mrp, ls, 0, count,
            current_object, TRUE, NULL, traverse);
@@ -886,9 +867,9 @@ GetMatchesInOrder (DBusMessage * message,
 */
 
 static DBusMessage *
-GetMatchesInBackOrder (DBusMessage * message,
-                       AtkObject * current_object,
-                       MatchRulePrivate * mrp,
+GetMatchesInBackOrder (DBusMessage *message,
+                       AtkObject *current_object,
+                       MatchRulePrivate *mrp,
                        const AtspiCollectionSortOrder sortby,
                        dbus_int32_t count)
 {
@@ -897,7 +878,7 @@ GetMatchesInBackOrder (DBusMessage * message,
 
   ls = g_list_append (ls, current_object);
 
-  collection = ATK_OBJECT(spi_register_path_to_object (spi_global_register, dbus_message_get_path (message)));
+  collection = ATK_OBJECT (spi_register_path_to_object (spi_global_register, dbus_message_get_path (message)));
 
   sort_order_rev_canonical (mrp, ls, 0, count, current_object,
                             FALSE, collection);
@@ -912,13 +893,14 @@ GetMatchesInBackOrder (DBusMessage * message,
 }
 
 static DBusMessage *
-GetMatchesTo (DBusMessage * message,
-              AtkObject * current_object,
-              MatchRulePrivate * mrp,
+GetMatchesTo (DBusMessage *message,
+              AtkObject *current_object,
+              MatchRulePrivate *mrp,
               const AtspiCollectionSortOrder sortby,
               const dbus_bool_t recurse,
               const dbus_bool_t isrestrict,
-              dbus_int32_t count, const dbus_bool_t traverse)
+              dbus_int32_t count,
+              const dbus_bool_t traverse)
 {
   GList *ls = NULL;
   AtkObject *obj;
@@ -935,7 +917,6 @@ GetMatchesTo (DBusMessage * message,
       obj = ATK_OBJECT (spi_register_path_to_object (spi_global_register, dbus_message_get_path (message)));
       query_exec (mrp, sortby, ls, 0, count,
                   obj, 0, TRUE, current_object, TRUE, traverse);
-
     }
 
   ls = g_list_remove (ls, ls->data);
@@ -948,8 +929,7 @@ GetMatchesTo (DBusMessage * message,
 }
 
 static DBusMessage *
-impl_GetMatchesFrom (DBusConnection * bus, DBusMessage * message,
-                     void *user_data)
+impl_GetMatchesFrom (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   char *current_object_path = NULL;
   AtkObject *current_object;
@@ -1009,8 +989,7 @@ impl_GetMatchesFrom (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_GetMatchesTo (DBusConnection * bus, DBusMessage * message,
-                   void *user_data)
+impl_GetMatchesTo (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   char *current_object_path = NULL;
   AtkObject *current_object;
@@ -1073,8 +1052,7 @@ impl_GetMatchesTo (DBusConnection * bus, DBusMessage * message,
 }
 
 static void
-append_accessible_properties (DBusMessageIter *iter, AtkObject *obj,
-                              GArray *properties)
+append_accessible_properties (DBusMessageIter *iter, AtkObject *obj, GArray *properties)
 {
   DBusMessageIter iter_struct, iter_dict, iter_dict_entry;
   AtkStateSet *set;
@@ -1085,75 +1063,75 @@ append_accessible_properties (DBusMessageIter *iter, AtkObject *obj,
   spi_object_append_reference (&iter_struct, obj);
   dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "{sv}", &iter_dict);
   if (properties && properties->len)
-  {
-    gint i;
-    for (i = 0; i < properties->len; i++)
     {
-      gchar *prop = g_array_index (properties, char *, i);
-      DRoutePropertyFunction func;
-      GType type;
-      func = _atk_bridge_find_property_func (prop, &type);
-      if (func && G_TYPE_CHECK_INSTANCE_TYPE (obj, type))
-      {
-        dbus_message_iter_open_container (&iter_dict, DBUS_TYPE_DICT_ENTRY,
-                                          NULL, &iter_dict_entry);
-        dbus_message_iter_append_basic (&iter_dict_entry, DBUS_TYPE_STRING, &prop);
-        func (&iter_dict_entry, obj);
-        dbus_message_iter_close_container (&iter_dict, &iter_dict_entry);
-      }
+      gint i;
+      for (i = 0; i < properties->len; i++)
+        {
+          gchar *prop = g_array_index (properties, char *, i);
+          DRoutePropertyFunction func;
+          GType type;
+          func = _atk_bridge_find_property_func (prop, &type);
+          if (func && G_TYPE_CHECK_INSTANCE_TYPE (obj, type))
+            {
+              dbus_message_iter_open_container (&iter_dict, DBUS_TYPE_DICT_ENTRY,
+                                                NULL, &iter_dict_entry);
+              dbus_message_iter_append_basic (&iter_dict_entry, DBUS_TYPE_STRING, &prop);
+              func (&iter_dict_entry, obj);
+              dbus_message_iter_close_container (&iter_dict, &iter_dict_entry);
+            }
+        }
     }
-  }
   else
-  {
-    GHashTableIter hi;
-    gpointer key, value;
-    g_hash_table_iter_init (&hi, spi_global_app_data->property_hash);
-    while (g_hash_table_iter_next (&hi, &key, &value))
     {
-      const DRouteProperty *prop = value;
-      GType type = _atk_bridge_type_from_iface (key);
-      if (!G_TYPE_CHECK_INSTANCE_TYPE (obj, type))
-        continue;
-      for (;prop->name; prop++)
-      {
-        const char *p = key + strlen (key);
-        gchar *property_name;
-        while (p[-1] != '.')
-          p--;
-        if (!strcmp (p, "Accessible"))
-          property_name = g_strdup (prop->name);
-        else
-          property_name = g_strconcat (p, ".", prop->name, NULL);
-        dbus_message_iter_open_container (&iter_dict, DBUS_TYPE_DICT_ENTRY,
-                                          NULL, &iter_dict_entry);
-        dbus_message_iter_append_basic (&iter_dict_entry, DBUS_TYPE_STRING, &property_name);
-        g_free (property_name);
-        prop->get (&iter_dict_entry, obj);
-        dbus_message_iter_close_container (&iter_dict, &iter_dict_entry);
-      }
+      GHashTableIter hi;
+      gpointer key, value;
+      g_hash_table_iter_init (&hi, spi_global_app_data->property_hash);
+      while (g_hash_table_iter_next (&hi, &key, &value))
+        {
+          const DRouteProperty *prop = value;
+          GType type = _atk_bridge_type_from_iface (key);
+          if (!G_TYPE_CHECK_INSTANCE_TYPE (obj, type))
+            continue;
+          for (; prop->name; prop++)
+            {
+              const char *p = key + strlen (key);
+              gchar *property_name;
+              while (p[-1] != '.')
+                p--;
+              if (!strcmp (p, "Accessible"))
+                property_name = g_strdup (prop->name);
+              else
+                property_name = g_strconcat (p, ".", prop->name, NULL);
+              dbus_message_iter_open_container (&iter_dict, DBUS_TYPE_DICT_ENTRY,
+                                                NULL, &iter_dict_entry);
+              dbus_message_iter_append_basic (&iter_dict_entry, DBUS_TYPE_STRING, &property_name);
+              g_free (property_name);
+              prop->get (&iter_dict_entry, obj);
+              dbus_message_iter_close_container (&iter_dict, &iter_dict_entry);
+            }
+        }
     }
-  }
   dbus_message_iter_close_container (&iter_struct, &iter_dict);
   dbus_message_iter_close_container (iter, &iter_struct);
 
   set = atk_object_ref_state_set (obj);
   if (set)
-  {
-    gboolean md = atk_state_set_contains_state (set, ATK_STATE_MANAGES_DESCENDANTS);
-    g_object_unref (set);
-    if (md)
-      return;
-  }
+    {
+      gboolean md = atk_state_set_contains_state (set, ATK_STATE_MANAGES_DESCENDANTS);
+      g_object_unref (set);
+      if (md)
+        return;
+    }
   count = atk_object_get_n_accessible_children (obj);
   for (i = 0; i < count; i++)
-  {
-    AtkObject *child = atk_object_ref_accessible_child (obj, i);
-    if (child)
     {
-      append_accessible_properties (iter, child, properties);
-      g_object_unref (child);
+      AtkObject *child = atk_object_ref_accessible_child (obj, i);
+      if (child)
+        {
+          append_accessible_properties (iter, child, properties);
+          g_object_unref (child);
+        }
     }
-  }
 }
 
 #if 0
@@ -1248,8 +1226,9 @@ walkm (DBusMessage *message)
 #endif
 
 static DBusMessage *
-impl_GetTree (DBusConnection * bus,
-              DBusMessage * message, void *user_data)
+impl_GetTree (DBusConnection *bus,
+              DBusMessage *message,
+              void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
   DBusMessage *reply;
@@ -1272,12 +1251,12 @@ impl_GetTree (DBusConnection * bus,
 
   dbus_message_iter_recurse (&iter, &iter_array);
   while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
-  {
-    const char *prop;
-    dbus_message_iter_get_basic (&iter_array, &prop);
-    g_array_append_val (properties, prop);
-    dbus_message_iter_next (&iter_array);
-  }
+    {
+      const char *prop;
+      dbus_message_iter_get_basic (&iter_array, &prop);
+      g_array_append_val (properties, prop);
+      dbus_message_iter_next (&iter_array);
+    }
 
   reply = dbus_message_new_method_return (message);
   if (reply)
@@ -1295,7 +1274,7 @@ impl_GetTree (DBusConnection * bus,
 }
 
 static DBusMessage *
-impl_GetMatches (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetMatches (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkObject *obj = ATK_OBJECT (spi_register_path_to_object (spi_global_register, dbus_message_get_path (message)));
   DBusMessageIter iter;
@@ -1335,15 +1314,15 @@ impl_GetMatches (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DRouteMethod methods[] = {
-  {impl_GetMatchesFrom, "GetMatchesFrom"},
-  {impl_GetMatchesTo, "GetMatchesTo"},
-  {impl_GetTree, "GetTree"},
-  {impl_GetMatches, "GetMatches"},
-  {NULL, NULL}
+  { impl_GetMatchesFrom, "GetMatchesFrom" },
+  { impl_GetMatchesTo, "GetMatchesTo" },
+  { impl_GetTree, "GetTree" },
+  { impl_GetMatches, "GetMatches" },
+  { NULL, NULL }
 };
 
 void
-spi_initialize_collection (DRoutePath * path)
+spi_initialize_collection (DRoutePath *path)
 {
   spi_atk_add_interface (path,
                          ATSPI_DBUS_INTERFACE_COLLECTION, spi_org_a11y_atspi_Collection, methods, NULL);

@@ -20,17 +20,19 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include <signal.h>
 #include "atk_test_util.h"
+#include <signal.h>
 
 pid_t child_pid;
 
-static void assert_clean_exit (int sig)
+static void
+assert_clean_exit (int sig)
 {
   kill (child_pid, SIGTERM);
 }
 
-void clean_exit_on_fail ()
+void
+clean_exit_on_fail ()
 {
   signal (SIGABRT, assert_clean_exit);
 }
@@ -39,77 +41,89 @@ void
 run_app (const char *file_name)
 {
   child_pid = fork ();
-  if (child_pid == 0) {
-    execlp (TESTS_BUILD_DIR "/app-test",
-            TESTS_BUILD_DIR "/app-test",
-            "--test-data-file",
-            file_name,
-            NULL);
-    _exit (EXIT_SUCCESS);
-  }
-  if (child_pid) fprintf(stderr, "child_pid %d\n", child_pid);
+  if (child_pid == 0)
+    {
+      execlp (TESTS_BUILD_DIR "/app-test",
+              TESTS_BUILD_DIR "/app-test",
+              "--test-data-file",
+              file_name,
+              NULL);
+      _exit (EXIT_SUCCESS);
+    }
+  if (child_pid)
+    fprintf (stderr, "child_pid %d\n", child_pid);
 }
 
-static AtspiAccessible *try_get_root_obj (AtspiAccessible *obj)
+static AtspiAccessible *
+try_get_root_obj (AtspiAccessible *obj)
 {
   gchar *name;
   int i;
 
   gint child_count = atspi_accessible_get_child_count (obj, NULL);
-  if (child_count < 1) {
-    return NULL;
-  }
-
-  for (i = 0; i < child_count; i++) {
-    AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, i, NULL);
-    if (!child)
-      continue;
-    if ((name = atspi_accessible_get_name (child, NULL)) != NULL) {
-      if (!strcmp (name, "root_object")) {
-        g_free(name);
-        return child;
-      }
-      g_free(name);
+  if (child_count < 1)
+    {
+      return NULL;
     }
-    g_object_unref (child);
-  }
+
+  for (i = 0; i < child_count; i++)
+    {
+      AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, i, NULL);
+      if (!child)
+        continue;
+      if ((name = atspi_accessible_get_name (child, NULL)) != NULL)
+        {
+          if (!strcmp (name, "root_object"))
+            {
+              g_free (name);
+              return child;
+            }
+          g_free (name);
+        }
+      g_object_unref (child);
+    }
 
   return NULL;
 }
 
-AtspiAccessible * get_root_obj (const char *file_name)
+AtspiAccessible *
+get_root_obj (const char *file_name)
 {
   int tries = 0;
   AtspiAccessible *child;
   struct timespec timeout = { .tv_sec = 0, .tv_nsec = 10 * 1000000 };
   AtspiAccessible *obj = NULL;
 
-  fprintf(stderr, "run_app: %s\n", file_name);
+  fprintf (stderr, "run_app: %s\n", file_name);
   run_app (file_name);
 
   obj = atspi_get_desktop (0);
 
   /* Wait for application to start, up to 100 times 10ms.  */
   while (++tries <= 100)
-  {
-    child = try_get_root_obj (obj);
-    if (child)
-      return child;
+    {
+      child = try_get_root_obj (obj);
+      if (child)
+        return child;
 
-    nanosleep(&timeout, NULL);
-  }
+      nanosleep (&timeout, NULL);
+    }
 
-  if (atspi_accessible_get_child_count (obj, NULL) < 1) {
-    g_test_message ("Fail, test application not found\n");
-  } else {
-    g_test_message ("test object not found\n");
-  }
+  if (atspi_accessible_get_child_count (obj, NULL) < 1)
+    {
+      g_test_message ("Fail, test application not found\n");
+    }
+  else
+    {
+      g_test_message ("test object not found\n");
+    }
   g_test_fail ();
   kill (child_pid, SIGTERM);
   return NULL;
 }
 
-void terminate_app (void)
+void
+terminate_app (void)
 {
   int tries = 0;
 
@@ -123,13 +137,13 @@ void terminate_app (void)
 
   /* Wait for application to stop, up to 100 times 10ms.  */
   while (++tries <= 100)
-  {
-    child = try_get_root_obj (obj);
-    if (child == NULL)
-      return;
+    {
+      child = try_get_root_obj (obj);
+      if (child == NULL)
+        return;
 
-    nanosleep(&timeout, NULL);
-  }
+      nanosleep (&timeout, NULL);
+    }
 
   g_test_message ("Fail, test application still running\n");
   g_test_fail ();

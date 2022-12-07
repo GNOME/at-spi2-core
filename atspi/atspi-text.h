@@ -5,7 +5,7 @@
  * Copyright 2002 Ximian, Inc.
  *           2002 Sun Microsystems Inc.
  * Copyright 2010, 2011 Novell, Inc.
- *           
+ *
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -43,10 +43,10 @@ struct _AtspiRange
 
 /**
  * ATSPI_TYPE_RANGE:
- * 
+ *
  * The #GType for a boxed type holding a range within a text bock.
  */
-#define	ATSPI_TYPE_RANGE atspi_range_get_type ()
+#define ATSPI_TYPE_RANGE atspi_range_get_type ()
 
 GType atspi_range_get_type ();
 
@@ -63,15 +63,15 @@ struct _AtspiTextRange
 
 /**
  * ATSPI_TYPE_TEXT_RANGE:
- * 
+ *
  * The #GType for a boxed type holding a range within a text bock.
  */
-#define	ATSPI_TYPE_TEXT_RANGE atspi_text_range_get_type ()
+#define ATSPI_TYPE_TEXT_RANGE atspi_text_range_get_type ()
 
-#define ATSPI_TYPE_TEXT                    (atspi_text_get_type ())
-#define ATSPI_IS_TEXT(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_TEXT)
-#define ATSPI_TEXT(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_TEXT, AtspiText)
-#define ATSPI_TEXT_GET_IFACE(obj)          (G_TYPE_INSTANCE_GET_INTERFACE ((obj), ATSPI_TYPE_TEXT, AtspiText))
+#define ATSPI_TYPE_TEXT (atspi_text_get_type ())
+#define ATSPI_IS_TEXT(obj) G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_TEXT)
+#define ATSPI_TEXT(obj) G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_TEXT, AtspiText)
+#define ATSPI_TEXT_GET_IFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), ATSPI_TYPE_TEXT, AtspiText))
 
 GType atspi_text_get_type ();
 
@@ -80,12 +80,11 @@ struct _AtspiText
   GTypeInterface parent;
 };
 
-
 GType atspi_text_range_get_type ();
 
 gint atspi_text_get_character_count (AtspiText *obj, GError **error);
 
-gchar * atspi_text_get_text (AtspiText *obj, gint start_offset, gint end_offset, GError **error);
+gchar *atspi_text_get_text (AtspiText *obj, gint start_offset, gint end_offset, GError **error);
 
 gint atspi_text_get_caret_offset (AtspiText *obj, GError **error);
 
@@ -98,38 +97,38 @@ GHashTable *atspi_text_get_text_attributes (AtspiText *obj, gint offset, gint *s
 GHashTable *atspi_text_get_attribute_run (AtspiText *obj, gint offset, gboolean include_defaults, gint *start_offset, gint *end_offset, GError **error);
 
 #ifndef ATSPI_DISABLE_DEPRECATED
-gchar * atspi_text_get_attribute_value (AtspiText *obj, gint offset, gchar *attribute_name, GError **error);
+gchar *atspi_text_get_attribute_value (AtspiText *obj, gint offset, gchar *attribute_name, GError **error);
 #endif
 
-gchar * atspi_text_get_text_attribute_value (AtspiText *obj, gint offset, gchar *attribute_name, GError **error);
+gchar *atspi_text_get_text_attribute_value (AtspiText *obj, gint offset, gchar *attribute_name, GError **error);
 
-GHashTable * atspi_text_get_default_attributes (AtspiText *obj, GError **error);
+GHashTable *atspi_text_get_default_attributes (AtspiText *obj, GError **error);
 
 gboolean atspi_text_set_caret_offset (AtspiText *obj, gint new_offset, GError **error);
 
 #ifndef ATSPI_DISABLE_DEPRECATED
-AtspiTextRange * atspi_text_get_text_before_offset (AtspiText *obj, gint offset, AtspiTextBoundaryType type, GError **error);
+AtspiTextRange *atspi_text_get_text_before_offset (AtspiText *obj, gint offset, AtspiTextBoundaryType type, GError **error);
 
-AtspiTextRange * atspi_text_get_text_at_offset (AtspiText *obj, gint offset, AtspiTextBoundaryType type, GError **error);
+AtspiTextRange *atspi_text_get_text_at_offset (AtspiText *obj, gint offset, AtspiTextBoundaryType type, GError **error);
 
-AtspiTextRange * atspi_text_get_text_after_offset (AtspiText *obj, gint offset, AtspiTextBoundaryType type, GError **error);
+AtspiTextRange *atspi_text_get_text_after_offset (AtspiText *obj, gint offset, AtspiTextBoundaryType type, GError **error);
 #endif
 
-AtspiTextRange * atspi_text_get_string_at_offset (AtspiText *obj, gint offset, AtspiTextGranularity granularity, GError **error);
+AtspiTextRange *atspi_text_get_string_at_offset (AtspiText *obj, gint offset, AtspiTextGranularity granularity, GError **error);
 
 guint atspi_text_get_character_at_offset (AtspiText *obj, gint offset, GError **error);
 
-AtspiRect * atspi_text_get_character_extents (AtspiText *obj, gint offset, AtspiCoordType type, GError **error);
+AtspiRect *atspi_text_get_character_extents (AtspiText *obj, gint offset, AtspiCoordType type, GError **error);
 
 gint atspi_text_get_offset_at_point (AtspiText *obj, gint x, gint y, AtspiCoordType type, GError **error);
 
-AtspiRect * atspi_text_get_range_extents (AtspiText *obj, gint start_offset, gint end_offset, AtspiCoordType type, GError **error);
+AtspiRect *atspi_text_get_range_extents (AtspiText *obj, gint start_offset, gint end_offset, AtspiCoordType type, GError **error);
 
-GArray * atspi_text_get_bounded_ranges (AtspiText *obj, gint x, gint y, gint width, gint height, AtspiCoordType type, AtspiTextClipType clipTypeX, AtspiTextClipType clipTypeY, GError **error);
+GArray *atspi_text_get_bounded_ranges (AtspiText *obj, gint x, gint y, gint width, gint height, AtspiCoordType type, AtspiTextClipType clipTypeX, AtspiTextClipType clipTypeY, GError **error);
 
 gint atspi_text_get_n_selections (AtspiText *obj, GError **error);
 
-AtspiRange * atspi_text_get_selection (AtspiText *obj, gint selection_num, GError **error);
+AtspiRange *atspi_text_get_selection (AtspiText *obj, gint selection_num, GError **error);
 
 gboolean atspi_text_add_selection (AtspiText *obj, gint start_offset, gint end_offset, GError **error);
 
@@ -142,4 +141,4 @@ gboolean atspi_text_scroll_substring_to (AtspiText *obj, gint start_offset, gint
 gboolean atspi_text_scroll_substring_to_point (AtspiText *obj, gint start_offset, gint end_offset, AtspiCoordType coords, gint x, gint y, GError **error);
 G_END_DECLS
 
-#endif	/* _ATSPI_TEXT_H_ */
+#endif /* _ATSPI_TEXT_H_ */

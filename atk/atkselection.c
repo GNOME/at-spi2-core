@@ -38,8 +38,8 @@
  * to the selection/deselection of children.
  */
 
-
-enum {
+enum
+{
   SELECTION_CHANGED,
   LAST_SIGNAL
 };
@@ -53,17 +53,17 @@ atk_selection_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) {
-    GTypeInfo tinfo =
+  if (!type)
     {
-      sizeof (AtkSelectionIface),
-      (GBaseInitFunc)atk_selection_base_init,
-      (GBaseFinalizeFunc) NULL,
+      GTypeInfo tinfo = {
+        sizeof (AtkSelectionIface),
+        (GBaseInitFunc) atk_selection_base_init,
+        (GBaseFinalizeFunc) NULL,
 
-    };
+      };
 
-    type = g_type_register_static (G_TYPE_INTERFACE, "AtkSelection", &tinfo, 0);
-  }
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtkSelection", &tinfo, 0);
+    }
 
   return type;
 }
@@ -73,7 +73,7 @@ atk_selection_base_init (gpointer *g_class)
 {
   static gboolean initialized = FALSE;
 
-  if (! initialized)
+  if (!initialized)
     {
       /**
        * AtkSelection::selection-changed:
@@ -83,14 +83,13 @@ atk_selection_base_init (gpointer *g_class)
        * implements AtkSelection interface when the selection changes.
        */
       atk_selection_signals[SELECTION_CHANGED] =
-        g_signal_new ("selection_changed",
-                      ATK_TYPE_SELECTION,
-                      G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (AtkSelectionIface, selection_changed),
-                      (GSignalAccumulator) NULL, NULL,
-                      g_cclosure_marshal_VOID__VOID,
-                      G_TYPE_NONE, 0);
-
+          g_signal_new ("selection_changed",
+                        ATK_TYPE_SELECTION,
+                        G_SIGNAL_RUN_LAST,
+                        G_STRUCT_OFFSET (AtkSelectionIface, selection_changed),
+                        (GSignalAccumulator) NULL, NULL,
+                        g_cclosure_marshal_VOID__VOID,
+                        G_TYPE_NONE, 0);
 
       initialized = TRUE;
     }
@@ -108,7 +107,7 @@ atk_selection_base_init (gpointer *g_class)
  **/
 gboolean
 atk_selection_add_selection (AtkSelection *obj,
-                             gint         i)
+                             gint i)
 {
   AtkSelectionIface *iface;
 
@@ -152,7 +151,7 @@ atk_selection_clear_selection (AtkSelection *obj)
  * @i: a #gint specifying the index in the selection set.  (e.g. the
  * ith selection as opposed to the ith child).
  *
- * Gets a reference to the accessible object representing the specified 
+ * Gets a reference to the accessible object representing the specified
  * selected child of the object.
  * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
@@ -163,9 +162,9 @@ atk_selection_clear_selection (AtkSelection *obj)
  * selected accessible, or %NULL if @selection does not implement this
  * interface.
  **/
-AtkObject*
+AtkObject *
 atk_selection_ref_selection (AtkSelection *obj,
-                             gint         i)
+                             gint i)
 {
   AtkSelectionIface *iface;
 
@@ -223,7 +222,7 @@ atk_selection_get_selection_count (AtkSelection *obj)
  **/
 gboolean
 atk_selection_is_child_selected (AtkSelection *obj,
-                                 gint         i)
+                                 gint i)
 {
   AtkSelectionIface *iface;
 
@@ -249,7 +248,7 @@ atk_selection_is_child_selected (AtkSelection *obj,
  **/
 gboolean
 atk_selection_remove_selection (AtkSelection *obj,
-                                gint         i)
+                                gint i)
 {
   AtkSelectionIface *iface;
 

@@ -24,18 +24,18 @@
 #ifndef ACCESSIBLE_LEASING_H
 #define ACCESSIBLE_LEASING_H
 
-#include <glib.h>
 #include <glib-object.h>
+#include <glib.h>
 
 typedef struct _SpiLeasing SpiLeasing;
 typedef struct _SpiLeasingClass SpiLeasingClass;
 
 G_BEGIN_DECLS
 
-#define SPI_LEASING_TYPE        (spi_leasing_get_type ())
-#define SPI_LEASING(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_LEASING_TYPE, SpiLeasing))
-#define SPI_LEASING_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_LEASING_TYPE, SpiLeasingClass))
-#define SPI_IS_LEASING(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_LEASING_TYPE))
+#define SPI_LEASING_TYPE (spi_leasing_get_type ())
+#define SPI_LEASING(o) (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_LEASING_TYPE, SpiLeasing))
+#define SPI_LEASING_CLASS(k) (G_TYPE_CHECK_CLASS_CAST ((k), SPI_LEASING_TYPE, SpiLeasingClass))
+#define SPI_IS_LEASING(o) (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_LEASING_TYPE))
 #define SPI_IS_LEASING_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_LEASING_TYPE))
 
 struct _SpiLeasing
@@ -55,7 +55,7 @@ GType spi_leasing_get_type (void);
 
 extern SpiLeasing *spi_global_leasing;
 
-GObject *spi_leasing_take (SpiLeasing * leasing, GObject * object);
+GObject *spi_leasing_take (SpiLeasing *leasing, GObject *object);
 
 G_END_DECLS
 #endif /* ACCESSIBLE_LEASING_H */

@@ -28,52 +28,51 @@
 
 #include <droute/droute-variant.h>
 
-
-typedef DBusMessage *(*DRouteFunction)         (DBusConnection *, DBusMessage *, void *);
-typedef dbus_bool_t  (*DRoutePropertyFunction) (DBusMessageIter *, void *);
+typedef DBusMessage *(*DRouteFunction) (DBusConnection *, DBusMessage *, void *);
+typedef dbus_bool_t (*DRoutePropertyFunction) (DBusMessageIter *, void *);
 typedef gchar *(*DRouteIntrospectChildrenFunction) (const char *, void *);
 
-typedef void        *(*DRouteGetDatumFunction) (const char *, void *);
-typedef gboolean    (*DRouteQueryInterfaceFunction) (void *, const char *);
+typedef void *(*DRouteGetDatumFunction) (const char *, void *);
+typedef gboolean (*DRouteQueryInterfaceFunction) (void *, const char *);
 
 typedef struct _DRouteMethod DRouteMethod;
 struct _DRouteMethod
 {
-    DRouteFunction func;
-    const char *name;
+  DRouteFunction func;
+  const char *name;
 };
 
 typedef struct _DRouteProperty DRouteProperty;
 struct _DRouteProperty
 {
-    DRoutePropertyFunction get;
-    DRoutePropertyFunction set;
-    const char *name;
+  DRoutePropertyFunction get;
+  DRoutePropertyFunction set;
+  const char *name;
 };
 
 /*---------------------------------------------------------------------------*/
 
 typedef struct _DRouteContext DRouteContext;
 
-typedef struct _DRoutePath    DRoutePath;
+typedef struct _DRoutePath DRoutePath;
 
 /*---------------------------------------------------------------------------*/
 
 DRouteContext *
-droute_new      ();
+droute_new ();
 
 void
-droute_free     (DRouteContext *cnx);
+droute_free (DRouteContext *cnx);
 
 DRoutePath *
-droute_add_one  (DRouteContext *cnx,
-                 const char    *path,
-                 const void    *data);
+droute_add_one (DRouteContext *cnx,
+                const char *path,
+                const void *data);
 
 DRoutePath *
 droute_add_many (DRouteContext *cnx,
-                 const char    *path,
-                 const void    *data,
+                 const char *path,
+                 const void *data,
                  DRouteIntrospectChildrenFunction introspect_children_cb,
                  void *introspect_children_data,
                  const DRouteGetDatumFunction get_datum,
@@ -83,17 +82,17 @@ void
 droute_path_add_interface (DRoutePath *path,
                            const char *name,
                            const char *introspect,
-                           const DRouteMethod   *methods,
+                           const DRouteMethod *methods,
                            const DRouteProperty *properties);
 
 DBusMessage *
-droute_not_yet_handled_error   (DBusMessage *message);
+droute_not_yet_handled_error (DBusMessage *message);
 
 DBusMessage *
 droute_invalid_arguments_error (DBusMessage *message);
 
 DBusMessage *
-droute_out_of_memory_error     (DBusMessage *message);
+droute_out_of_memory_error (DBusMessage *message);
 
 void
 droute_path_register (DRoutePath *path, DBusConnection *bus);

@@ -22,11 +22,12 @@
  * Boston, MA 02110-1301, USA.
  */
 
+#include "bridge.h"
 #include <atk/atk.h>
 #include <droute/droute.h>
-#include "bridge.h"
 
 #include "spi-dbus.h"
+
 #include "introspection.h"
 #include "object.h"
 
@@ -41,16 +42,15 @@ get_hyperlink (void *user_data)
 }
 
 static dbus_bool_t
-impl_get_NAnchors (DBusMessageIter * iter, void *user_data)
+impl_get_NAnchors (DBusMessageIter *iter, void *user_data)
 {
   AtkHyperlink *link = get_hyperlink (user_data);
   g_return_val_if_fail (ATK_IS_HYPERLINK (link), FALSE);
   return droute_return_v_int32 (iter, atk_hyperlink_get_n_anchors (link));
 }
 
-
 static dbus_bool_t
-impl_get_StartIndex (DBusMessageIter * iter, void *user_data)
+impl_get_StartIndex (DBusMessageIter *iter, void *user_data)
 {
   AtkHyperlink *link = get_hyperlink (user_data);
   g_return_val_if_fail (ATK_IS_HYPERLINK (link), FALSE);
@@ -58,7 +58,7 @@ impl_get_StartIndex (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_EndIndex (DBusMessageIter * iter, void *user_data)
+impl_get_EndIndex (DBusMessageIter *iter, void *user_data)
 {
   AtkHyperlink *link = get_hyperlink (user_data);
   g_return_val_if_fail (ATK_IS_HYPERLINK (link), FALSE);
@@ -66,7 +66,7 @@ impl_get_EndIndex (DBusMessageIter * iter, void *user_data)
 }
 
 static DBusMessage *
-impl_GetObject (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetObject (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkHyperlink *link = get_hyperlink (user_data);
   dbus_int32_t i;
@@ -74,8 +74,7 @@ impl_GetObject (DBusConnection * bus, DBusMessage * message, void *user_data)
 
   g_return_val_if_fail (ATK_IS_HYPERLINK (link),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &i, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &i, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -84,7 +83,7 @@ impl_GetObject (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_GetURI (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetURI (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkHyperlink *link = get_hyperlink (user_data);
   dbus_int32_t i;
@@ -93,8 +92,7 @@ impl_GetURI (DBusConnection * bus, DBusMessage * message, void *user_data)
 
   g_return_val_if_fail (ATK_IS_HYPERLINK (link),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &i, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &i, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -113,7 +111,7 @@ impl_GetURI (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_IsValid (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_IsValid (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkHyperlink *link = get_hyperlink (user_data);
   dbus_bool_t rv;
@@ -133,21 +131,21 @@ impl_IsValid (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DRouteMethod methods[] = {
-  {impl_GetObject, "GetObject"},
-  {impl_GetURI, "GetURI"},
-  {impl_IsValid, "IsValid"},
-  {NULL, NULL}
+  { impl_GetObject, "GetObject" },
+  { impl_GetURI, "GetURI" },
+  { impl_IsValid, "IsValid" },
+  { NULL, NULL }
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_NAnchors, NULL, "NAnchors"},
-  {impl_get_StartIndex, NULL, "StartIndex"},
-  {impl_get_EndIndex, NULL, "EndIndex"},
-  {NULL, NULL, NULL}
+  { impl_get_NAnchors, NULL, "NAnchors" },
+  { impl_get_StartIndex, NULL, "StartIndex" },
+  { impl_get_EndIndex, NULL, "EndIndex" },
+  { NULL, NULL, NULL }
 };
 
 void
-spi_initialize_hyperlink (DRoutePath * path)
+spi_initialize_hyperlink (DRoutePath *path)
 {
   spi_atk_add_interface (path,
                          ATSPI_DBUS_INTERFACE_HYPERLINK,

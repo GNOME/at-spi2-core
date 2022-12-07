@@ -20,22 +20,18 @@
  * Boston, MA 02110-1301, USA.
  */
 
-
 #ifndef _ATK_TEST_UTIL_H
 #define _ATK_TEST_UTIL_H
 
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/time.h>
+#include "atk_suite.h"
 #include <glib.h>
+#include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
+#include <sys/time.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include <locale.h>
-#include "atk_suite.h"
 
 extern pid_t child_pid;
 

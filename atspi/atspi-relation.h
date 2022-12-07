@@ -5,7 +5,7 @@
  * Copyright 2002 Ximian, Inc.
  *           2002 Sun Microsystems Inc.
  * Copyright 2010, 2011 Novell, Inc.
- *           
+ *
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -32,10 +32,10 @@
 
 G_BEGIN_DECLS
 
-#define ATSPI_TYPE_RELATION                    (atspi_relation_get_type ())
-#define ATSPI_IS_RELATION(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_RELATION)
-#define ATSPI_RELATION(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_RELATION, AtspiRelation)
-#define ATSPI_RELATION_GET_IFACE(obj)          (G_TYPE_INSTANCE_GET_INTERFACE ((obj), ATSPI_TYPE_RELATION, AtspiRelation))
+#define ATSPI_TYPE_RELATION (atspi_relation_get_type ())
+#define ATSPI_IS_RELATION(obj) G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_RELATION)
+#define ATSPI_RELATION(obj) G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_RELATION, AtspiRelation)
+#define ATSPI_RELATION_GET_IFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), ATSPI_TYPE_RELATION, AtspiRelation))
 
 GType atspi_relation_get_type ();
 
@@ -57,11 +57,11 @@ AtspiRelationType atspi_relation_get_relation_type (AtspiRelation *obj);
 
 gint atspi_relation_get_n_targets (AtspiRelation *obj);
 
-AtspiAccessible * atspi_relation_get_target (AtspiRelation *obj, gint i);
+AtspiAccessible *atspi_relation_get_target (AtspiRelation *obj, gint i);
 
 /* private */
-AtspiRelation * _atspi_relation_new_from_iter (DBusMessageIter *iter);
+AtspiRelation *_atspi_relation_new_from_iter (DBusMessageIter *iter);
 
 G_END_DECLS
 
-#endif	/* _ATSPI_RELATION_H_ */
+#endif /* _ATSPI_RELATION_H_ */

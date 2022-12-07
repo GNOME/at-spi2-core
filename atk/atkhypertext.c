@@ -36,7 +36,8 @@
  * as well, and Hyperlinks need not have non-zero text offsets.
  */
 
-enum {
+enum
+{
   LINK_SELECTED,
   LAST_SIGNAL
 };
@@ -45,23 +46,22 @@ static void atk_hypertext_base_init (AtkHypertextIface *class);
 
 static guint atk_hypertext_signals[LAST_SIGNAL] = { 0 };
 
-
 GType
 atk_hypertext_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) {
-    static const GTypeInfo tinfo =
+  if (!type)
     {
-      sizeof (AtkHypertextIface),
-      (GBaseInitFunc) atk_hypertext_base_init,
-      (GBaseFinalizeFunc) NULL,
+      static const GTypeInfo tinfo = {
+        sizeof (AtkHypertextIface),
+        (GBaseInitFunc) atk_hypertext_base_init,
+        (GBaseFinalizeFunc) NULL,
 
-    };
+      };
 
-    type = g_type_register_static (G_TYPE_INTERFACE, "AtkHypertext", &tinfo, 0);
-  }
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtkHypertext", &tinfo, 0);
+    }
 
   return type;
 }
@@ -83,14 +83,14 @@ atk_hypertext_base_init (AtkHypertextIface *class)
        * is selected.
        */
       atk_hypertext_signals[LINK_SELECTED] =
-        g_signal_new ("link_selected",
-                      ATK_TYPE_HYPERTEXT,
-                      G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (AtkHypertextIface, link_selected),
-                      (GSignalAccumulator) NULL, NULL,
-                      g_cclosure_marshal_VOID__INT,
-                      G_TYPE_NONE,
-                      1, G_TYPE_INT);
+          g_signal_new ("link_selected",
+                        ATK_TYPE_HYPERTEXT,
+                        G_SIGNAL_RUN_LAST,
+                        G_STRUCT_OFFSET (AtkHypertextIface, link_selected),
+                        (GSignalAccumulator) NULL, NULL,
+                        g_cclosure_marshal_VOID__INT,
+                        G_TYPE_NONE,
+                        1, G_TYPE_INT);
 
       initialized = TRUE;
     }
@@ -101,15 +101,15 @@ atk_hypertext_base_init (AtkHypertextIface *class)
  * @hypertext: an #AtkHypertext
  * @link_index: an integer specifying the desired link
  *
- * Gets the link in this hypertext document at index 
+ * Gets the link in this hypertext document at index
  * @link_index
  *
  * Returns: (transfer none): the link in this hypertext document at
  * index @link_index
  **/
-AtkHyperlink* 
-atk_hypertext_get_link (AtkHypertext  *hypertext,
-                        gint          link_index)
+AtkHyperlink *
+atk_hypertext_get_link (AtkHypertext *hypertext,
+                        gint link_index)
 {
   AtkHypertextIface *iface;
 
@@ -134,8 +134,8 @@ atk_hypertext_get_link (AtkHypertext  *hypertext,
  *
  * Returns: the number of links within this hypertext document
  **/
-gint 
-atk_hypertext_get_n_links (AtkHypertext  *hypertext)
+gint
+atk_hypertext_get_n_links (AtkHypertext *hypertext)
 {
   AtkHypertextIface *iface;
 
@@ -160,9 +160,9 @@ atk_hypertext_get_n_links (AtkHypertext  *hypertext)
  * Returns: an index into the array of hyperlinks in @hypertext,
  * or -1 if there is no hyperlink associated with this character.
  **/
-gint 
-atk_hypertext_get_link_index (AtkHypertext  *hypertext,
-                              gint          char_index)
+gint
+atk_hypertext_get_link_index (AtkHypertext *hypertext,
+                              gint char_index)
 {
   AtkHypertextIface *iface;
 

@@ -3,7 +3,7 @@
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
  * Copyright 2020 SUSE LLC.
- *           
+ *
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,12 +30,12 @@
 
 G_BEGIN_DECLS
 
-#define ATSPI_TYPE_DEVICE                        (atspi_device_get_type ())
-#define ATSPI_DEVICE(obj)                        (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_DEVICE, AtspiDevice))
-#define ATSPI_DEVICE_CLASS(klass)                (G_TYPE_CHECK_CLASS_CAST ((klass), ATSPI_TYPE_DEVICE, AtspiDeviceClass))
-#define ATSPI_IS_DEVICE(obj)                     (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_DEVICE))
-#define ATSPI_IS_DEVICE_CLASS(klass)             (G_TYPE_CHECK_CLASS_TYPE ((klass), ATSPI_TYPE_DEVICE))
-#define ATSPI_DEVICE_GET_CLASS(obj)              (G_TYPE_INSTANCE_GET_CLASS ((obj), ATSPI_TYPE_DEVICE, AtspiDeviceClass))
+#define ATSPI_TYPE_DEVICE (atspi_device_get_type ())
+#define ATSPI_DEVICE(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_DEVICE, AtspiDevice))
+#define ATSPI_DEVICE_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), ATSPI_TYPE_DEVICE, AtspiDeviceClass))
+#define ATSPI_IS_DEVICE(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_DEVICE))
+#define ATSPI_IS_DEVICE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), ATSPI_TYPE_DEVICE))
+#define ATSPI_DEVICE_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), ATSPI_TYPE_DEVICE, AtspiDeviceClass))
 
 typedef struct _AtspiDevice AtspiDevice;
 struct _AtspiDevice
@@ -100,4 +100,4 @@ void atspi_device_ungrab_keyboard (AtspiDevice *device);
 
 G_END_DECLS
 
-#endif	/* _ATSPI_DEVICE_H_ */
+#endif /* _ATSPI_DEVICE_H_ */

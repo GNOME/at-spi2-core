@@ -20,13 +20,13 @@
  * Boston, MA 02110-1301, USA.
  */
 
+#include <atk/atk.h>
+#include <glib-object.h>
 #include <stdio.h>
 #include <string.h>
-#include <glib-object.h>
-#include <atk/atk.h>
 
-#include "my-atk-object.h"
 #include "my-atk-editable-text.h"
+#include "my-atk-object.h"
 
 typedef struct _MyAtkEditableTextInfo MyAtkEditableTextInfo;
 
@@ -36,7 +36,7 @@ G_DEFINE_TYPE_WITH_CODE (MyAtkEditableText,
                          my_atk_editable_text,
                          MY_TYPE_ATK_OBJECT,
                          G_IMPLEMENT_INTERFACE (ATK_TYPE_EDITABLE_TEXT,
-                             atk_editable_text_interface_init));
+                                                atk_editable_text_interface_init));
 
 guint
 my_atk_set_editable_text (AtkEditableText *editable_text, const gchar *text)
@@ -53,60 +53,60 @@ my_atk_editable_text_init (MyAtkEditableText *obj)
 }
 
 static gboolean
-my_atk_set_editable_text_set_run_attributes (AtkEditableText  *text,
-    AtkAttributeSet  *attrib_set,
-    gint             start_offset,
-    gint             end_offset)
+my_atk_set_editable_text_set_run_attributes (AtkEditableText *text,
+                                             AtkAttributeSet *attrib_set,
+                                             gint start_offset,
+                                             gint end_offset)
 {
   return FALSE;
 }
 
 static void
-my_atk_set_editable_text_set_text_contents (AtkEditableText  *text,
-    const gchar      *string)
+my_atk_set_editable_text_set_text_contents (AtkEditableText *text,
+                                            const gchar *string)
 {
 }
 
 static void
-my_atk_set_editable_text_insert_text (AtkEditableText  *text,
-                                      const gchar      *string,
-                                      gint             length,
-                                      gint             *position)
+my_atk_set_editable_text_insert_text (AtkEditableText *text,
+                                      const gchar *string,
+                                      gint length,
+                                      gint *position)
 {
 }
 
 static void
-my_atk_set_editable_text_copy_text (AtkEditableText  *text,
-                                    gint             start_pos,
-                                    gint             end_pos)
+my_atk_set_editable_text_copy_text (AtkEditableText *text,
+                                    gint start_pos,
+                                    gint end_pos)
 {
 }
 
 static void
-my_atk_set_editable_text_cut_text (AtkEditableText  *text,
-                                   gint             start_pos,
-                                   gint             end_pos)
+my_atk_set_editable_text_cut_text (AtkEditableText *text,
+                                   gint start_pos,
+                                   gint end_pos)
 {
 }
 
 static void
-my_atk_set_editable_text_delete_text (AtkEditableText  *text,
-                                      gint             start_pos,
-                                      gint             end_pos)
+my_atk_set_editable_text_delete_text (AtkEditableText *text,
+                                      gint start_pos,
+                                      gint end_pos)
 {
 }
 
 static void
-my_atk_set_editable_text_paste_text (AtkEditableText  *text,
-                                     gint             position)
+my_atk_set_editable_text_paste_text (AtkEditableText *text,
+                                     gint position)
 {
 }
-
 
 static void
 atk_editable_text_interface_init (AtkEditableTextIface *iface)
 {
-  if (!iface) return;
+  if (!iface)
+    return;
   iface->set_run_attributes = my_atk_set_editable_text_set_run_attributes;
   iface->set_text_contents = my_atk_set_editable_text_set_text_contents;
   iface->insert_text = my_atk_set_editable_text_insert_text;

@@ -23,7 +23,7 @@
 #include "atk_suite.h"
 #include "atk_test_util.h"
 
-#define DATA_FILE TESTS_DATA_DIR"/test-selection.xml"
+#define DATA_FILE TESTS_DATA_DIR "/test-selection.xml"
 
 static void
 teardown_selection_test (gpointer fixture, gconstpointer user_data)
@@ -61,16 +61,17 @@ atk_test_selection_get_selected_child (gpointer fixture, gconstpointer user_data
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiSelection *iface = atspi_accessible_get_selection_iface (child);
   g_assert (iface != NULL);
-  gchar* valid_names[] = { "obj2/1", "obj2/2", "obj3/1"};
+  gchar *valid_names[] = { "obj2/1", "obj2/2", "obj3/1" };
 
   AtspiAccessible *o = NULL;
-  int i=0;
+  int i = 0;
   int selected_count = atspi_selection_get_n_selected_children (iface, NULL);
   g_assert_cmpint (selected_count, ==, 3);
-  for (i=0; i<selected_count; i++) {
-    o = atspi_selection_get_selected_child (iface, i, NULL);
-    g_assert_cmpstr (atspi_accessible_get_name (o, NULL), ==, valid_names[i]);
-  }
+  for (i = 0; i < selected_count; i++)
+    {
+      o = atspi_selection_get_selected_child (iface, i, NULL);
+      g_assert_cmpstr (atspi_accessible_get_name (o, NULL), ==, valid_names[i]);
+    }
 }
 
 static void
@@ -139,7 +140,7 @@ atk_test_selection_is_child_selected (gpointer fixture, gconstpointer user_data)
   g_assert (atspi_selection_is_child_selected (iface, 0, NULL));
   g_assert (atspi_selection_is_child_selected (iface, 1, NULL));
   g_assert (atspi_selection_is_child_selected (iface, 4, NULL));
-  g_assert (!atspi_selection_is_child_selected (iface,  2, NULL));
+  g_assert (!atspi_selection_is_child_selected (iface, 2, NULL));
   g_assert (!atspi_selection_is_child_selected (iface, 3, NULL));
 }
 
@@ -192,5 +193,4 @@ atk_test_selection (void)
                      0, NULL, NULL, atk_test_selection_select_all, teardown_selection_test);
   g_test_add_vtable (ATK_TEST_PATH_SELECTION "/atk_test_selection_clear_selection",
                      0, NULL, NULL, atk_test_selection_clear_selection, teardown_selection_test);
-
 }

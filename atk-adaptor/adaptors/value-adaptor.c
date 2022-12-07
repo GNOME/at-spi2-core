@@ -25,15 +25,15 @@
 #include <math.h>
 
 #define ATK_DISABLE_DEPRECATION_WARNINGS
+#include "bridge.h"
 #include <atk/atk.h>
 #include <droute/droute.h>
-#include "bridge.h"
 
-#include "spi-dbus.h"
 #include "introspection.h"
+#include "spi-dbus.h"
 
 static dbus_bool_t
-impl_get_MinimumValue (DBusMessageIter * iter, void *user_data)
+impl_get_MinimumValue (DBusMessageIter *iter, void *user_data)
 {
   AtkValue *value = (AtkValue *) user_data;
   GValue src = { 0 };
@@ -66,7 +66,7 @@ impl_get_MinimumValue (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_MaximumValue (DBusMessageIter * iter, void *user_data)
+impl_get_MaximumValue (DBusMessageIter *iter, void *user_data)
 {
   AtkValue *value = (AtkValue *) user_data;
   GValue src = { 0 };
@@ -96,7 +96,7 @@ impl_get_MaximumValue (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_MinimumIncrement (DBusMessageIter * iter, void *user_data)
+impl_get_MinimumIncrement (DBusMessageIter *iter, void *user_data)
 {
   AtkValue *value = (AtkValue *) user_data;
   GValue src = { 0 };
@@ -124,7 +124,7 @@ impl_get_MinimumIncrement (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_CurrentValue (DBusMessageIter * iter, void *user_data)
+impl_get_CurrentValue (DBusMessageIter *iter, void *user_data)
 {
   AtkValue *value = (AtkValue *) user_data;
   GValue src = { 0 };
@@ -153,7 +153,7 @@ impl_get_CurrentValue (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_set_CurrentValue (DBusMessageIter * iter, void *user_data)
+impl_set_CurrentValue (DBusMessageIter *iter, void *user_data)
 {
   AtkValue *value = (AtkValue *) user_data;
   GValue src = { 0 };
@@ -197,8 +197,7 @@ impl_set_CurrentValue (DBusMessageIter * iter, void *user_data)
 /* keeping this method around for backwards-compatibility for now; see
  *  * BGO#652596 */
 static DBusMessage *
-impl_SetCurrentValue (DBusConnection * bus, DBusMessage * message,
-                       void *user_data)
+impl_SetCurrentValue (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkValue *value = (AtkValue *) user_data;
   dbus_bool_t rv;
@@ -209,8 +208,7 @@ impl_SetCurrentValue (DBusConnection * bus, DBusMessage * message,
   g_return_val_if_fail (ATK_IS_VALUE (value),
                         droute_not_yet_handled_error (message));
 
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_DOUBLE, &dub, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_DOUBLE, &dub, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -229,7 +227,7 @@ impl_SetCurrentValue (DBusConnection * bus, DBusMessage * message,
 }
 
 static dbus_bool_t
-impl_get_Text (DBusMessageIter * iter, void *user_data)
+impl_get_Text (DBusMessageIter *iter, void *user_data)
 {
   AtkValue *value = (AtkValue *) user_data;
   gdouble dub;
@@ -251,21 +249,21 @@ impl_get_Text (DBusMessageIter * iter, void *user_data)
 }
 
 static DRouteMethod methods[] = {
-  {impl_SetCurrentValue, "SetCurrentValue"},
-  {NULL, NULL}
+  { impl_SetCurrentValue, "SetCurrentValue" },
+  { NULL, NULL }
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_MinimumValue, NULL, "MinimumValue"},
-  {impl_get_MaximumValue, NULL, "MaximumValue"},
-  {impl_get_MinimumIncrement, NULL, "MinimumIncrement"},
-  {impl_get_CurrentValue, impl_set_CurrentValue, "CurrentValue"},
-  {impl_get_Text, NULL, "Text"},
-  {NULL, NULL, NULL}
+  { impl_get_MinimumValue, NULL, "MinimumValue" },
+  { impl_get_MaximumValue, NULL, "MaximumValue" },
+  { impl_get_MinimumIncrement, NULL, "MinimumIncrement" },
+  { impl_get_CurrentValue, impl_set_CurrentValue, "CurrentValue" },
+  { impl_get_Text, NULL, "Text" },
+  { NULL, NULL, NULL }
 };
 
 void
-spi_initialize_value (DRoutePath * path)
+spi_initialize_value (DRoutePath *path)
 {
   spi_atk_add_interface (path,
                          ATSPI_DBUS_INTERFACE_VALUE, spi_org_a11y_atspi_Value, methods, properties);

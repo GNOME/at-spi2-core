@@ -21,22 +21,23 @@
 #ifndef MY_ATK_TABLE_CELL_H_
 #define MY_ATK_TABLE_CELL_H_
 
-#include <glib.h>
-#include <glib-object.h>
 #include <atk/atk.h>
+#include <glib-object.h>
+#include <glib.h>
 
 #include "my-atk-object.h"
-#define MY_TYPE_ATK_TABLE_CELL                  (my_atk_tablecell_get_type ())
-#define MY_ATK_TABLE_CELL(obj)                 (G_TYPE_CHECK_INSTANCE_CAST ((obj), MY_TYPE_ATK_TABLE_CELL, MyAtkTableCell))
-#define MY_ATK_TABLE_CELL_CLASS (vtablecell)    (G_TYPE_CHECK_CLASS_CAST ((vtablecell), MY_TYPE_ATK_TABLE_CELL, MyAtkTableCellClass))
-#define MY_IS_ATK_TABLE_CELL(obj)              (G_TYPE_CHECK_INSTANCE_TYPE ((obj), MY_TYPE_ATK_TABLE_CELL))
+#define MY_TYPE_ATK_TABLE_CELL (my_atk_tablecell_get_type ())
+#define MY_ATK_TABLE_CELL(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), MY_TYPE_ATK_TABLE_CELL, MyAtkTableCell))
+#define MY_ATK_TABLE_CELL_CLASS (vtablecell) (G_TYPE_CHECK_CLASS_CAST ((vtablecell), MY_TYPE_ATK_TABLE_CELL, MyAtkTableCellClass))
+#define MY_IS_ATK_TABLE_CELL(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), MY_TYPE_ATK_TABLE_CELL))
 #define MY_IS_ATK_TABLE_CELL_CLASS (vtablecell) (G_TYPE_CHECK_CLASS_TYPE ((vtablecell), MY_TYPE_ATK_TABLE_CELL))
-#define MY_ATK_TABLE_CELL_GET_CLASS (inst)      (G_TYPE_INSTANCE_GET_CLASS ((inst), MY_TYPE_ATK_TABLE_CELL, MyAtkTableCellClass))
+#define MY_ATK_TABLE_CELL_GET_CLASS (inst) (G_TYPE_INSTANCE_GET_CLASS ((inst), MY_TYPE_ATK_TABLE_CELL, MyAtkTableCellClass))
 
 typedef struct _MyAtkTableCell MyAtkTableCell;
 typedef struct _MyAtkTableCellClass MyAtkTableCellClass;
 
-struct _MyAtkTableCell {
+struct _MyAtkTableCell
+{
   MyAtkObject parent;
   MyAtkObject *parent_table;
   gpointer value;
@@ -50,7 +51,8 @@ struct _MyAtkTableCell {
   gint xy[2];
 };
 
-struct _MyAtkTableCellClass {
+struct _MyAtkTableCellClass
+{
   MyAtkObjectClass parent;
 };
 

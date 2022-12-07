@@ -56,20 +56,20 @@ struct _SpiBridge
   AtkObject *root;
 
   DBusConnection *bus;
-  DRouteContext  *droute;
+  DRouteContext *droute;
   GMainContext *main_context;
   DBusServer *server;
   GList *direct_connections;
 
-/*
-  SpiRegister *reg;
-  SpiCache    *cache;
-  SpiLeasing  *leasing;
-*/
+  /*
+    SpiRegister *reg;
+    SpiCache    *cache;
+    SpiLeasing  *leasing;
+  */
   gchar *desktop_name;
   gchar *desktop_path;
-gchar *app_tmp_dir;
-gchar *app_bus_addr;
+  gchar *app_tmp_dir;
+  gchar *app_bus_addr;
   GList *events;
   gboolean events_initialized;
   GHashTable *property_hash;
@@ -86,7 +86,7 @@ int spi_atk_create_socket (SpiBridge *app);
 void spi_atk_add_interface (DRoutePath *path,
                             const char *name,
                             const char *introspect,
-                            const DRouteMethod   *methods,
+                            const DRouteMethod *methods,
                             const DRouteProperty *properties);
 
 DRoutePropertyFunction _atk_bridge_find_property_func (const char *property,

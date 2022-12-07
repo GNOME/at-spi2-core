@@ -37,7 +37,8 @@
  *
  */
 
-enum {
+enum
+{
   LOAD_COMPLETE,
   RELOAD,
   LOAD_STOPPED,
@@ -47,24 +48,24 @@ enum {
 
 static void atk_document_base_init (AtkDocumentIface *class);
 
-static guint atk_document_signals[LAST_SIGNAL] = {0};
+static guint atk_document_signals[LAST_SIGNAL] = { 0 };
 
 GType
 atk_document_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) {
-    static const GTypeInfo tinfo =
+  if (!type)
     {
-      sizeof (AtkDocumentIface),
-      (GBaseInitFunc) atk_document_base_init,
-      (GBaseFinalizeFunc) NULL,
+      static const GTypeInfo tinfo = {
+        sizeof (AtkDocumentIface),
+        (GBaseInitFunc) atk_document_base_init,
+        (GBaseFinalizeFunc) NULL,
 
-    };
+      };
 
-    type = g_type_register_static (G_TYPE_INTERFACE, "AtkDocument", &tinfo, 0);
-  }
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtkDocument", &tinfo, 0);
+    }
 
   return type;
 }
@@ -90,13 +91,13 @@ atk_document_base_init (AtkDocumentIface *class)
        * signals.)
        */
       atk_document_signals[LOAD_COMPLETE] =
-        g_signal_new ("load_complete",
-                      ATK_TYPE_DOCUMENT,
-                      G_SIGNAL_RUN_LAST,
-                      0,
-                      (GSignalAccumulator) NULL, NULL,
-                      g_cclosure_marshal_VOID__VOID,
-                      G_TYPE_NONE, 0);
+          g_signal_new ("load_complete",
+                        ATK_TYPE_DOCUMENT,
+                        G_SIGNAL_RUN_LAST,
+                        0,
+                        (GSignalAccumulator) NULL, NULL,
+                        g_cclosure_marshal_VOID__VOID,
+                        G_TYPE_NONE, 0);
       /**
        * AtkDocument::reload:
        * @atkdocument: the object which received the signal.
@@ -108,13 +109,13 @@ atk_document_base_init (AtkDocumentIface *class)
        * interrogating ATK for the latest document content.
        */
       atk_document_signals[RELOAD] =
-        g_signal_new ("reload",
-                      ATK_TYPE_DOCUMENT,
-                      G_SIGNAL_RUN_LAST,
-                      0,
-                      (GSignalAccumulator) NULL, NULL,
-                      g_cclosure_marshal_VOID__VOID,
-                      G_TYPE_NONE, 0);
+          g_signal_new ("reload",
+                        ATK_TYPE_DOCUMENT,
+                        G_SIGNAL_RUN_LAST,
+                        0,
+                        (GSignalAccumulator) NULL, NULL,
+                        g_cclosure_marshal_VOID__VOID,
+                        G_TYPE_NONE, 0);
 
       /**
        * AtkDocument::load-stopped:
@@ -128,13 +129,13 @@ atk_document_base_init (AtkDocumentIface *class)
        * user-significant timeout has occurred.
        */
       atk_document_signals[LOAD_STOPPED] =
-        g_signal_new ("load_stopped",
-                      ATK_TYPE_DOCUMENT,
-                      G_SIGNAL_RUN_LAST,
-                      0,
-                      (GSignalAccumulator) NULL, NULL,
-                      g_cclosure_marshal_VOID__VOID,
-                      G_TYPE_NONE, 0);
+          g_signal_new ("load_stopped",
+                        ATK_TYPE_DOCUMENT,
+                        G_SIGNAL_RUN_LAST,
+                        0,
+                        (GSignalAccumulator) NULL, NULL,
+                        g_cclosure_marshal_VOID__VOID,
+                        G_TYPE_NONE, 0);
 
       /**
        * AtkDocument::page-changed:
@@ -149,13 +150,13 @@ atk_document_base_init (AtkDocumentIface *class)
        * Since: 2.12
        */
       atk_document_signals[PAGE_CHANGED] =
-        g_signal_new ("page_changed",
-                      ATK_TYPE_DOCUMENT,
-                      G_SIGNAL_RUN_LAST,
-                      0,
-                      (GSignalAccumulator) NULL, NULL,
-                      g_cclosure_marshal_VOID__INT,
-                      G_TYPE_NONE, 1, G_TYPE_INT);
+          g_signal_new ("page_changed",
+                        ATK_TYPE_DOCUMENT,
+                        G_SIGNAL_RUN_LAST,
+                        0,
+                        (GSignalAccumulator) NULL, NULL,
+                        g_cclosure_marshal_VOID__INT,
+                        G_TYPE_NONE, 1, G_TYPE_INT);
 
       initialized = TRUE;
     }
@@ -172,7 +173,7 @@ atk_document_base_init (AtkDocumentIface *class)
  *
  * Returns: a string indicating the document type
  **/
-const gchar*
+const gchar *
 atk_document_get_document_type (AtkDocument *document)
 {
   AtkDocumentIface *iface;
@@ -205,7 +206,7 @@ atk_document_get_document_type (AtkDocument *document)
  *
  * Returns: (transfer none): a %gpointer that points to an instance of the DOM.
  **/
-gpointer 
+gpointer
 atk_document_get_document (AtkDocument *document)
 {
   AtkDocumentIface *iface;
@@ -259,7 +260,6 @@ atk_document_get_locale (AtkDocument *document)
     }
 }
 
-
 /**
  * atk_document_get_attributes: (virtual get_document_attributes)
  * @document: a #GObject instance that implements AtkDocumentIface
@@ -307,8 +307,8 @@ atk_document_get_attributes (AtkDocument *document)
  * Since: 1.12
  */
 const gchar *
-atk_document_get_attribute_value (AtkDocument *document, 
-				  const gchar *attribute_name)
+atk_document_get_attribute_value (AtkDocument *document,
+                                  const gchar *attribute_name)
 {
   AtkDocumentIface *iface;
 
@@ -342,9 +342,9 @@ atk_document_get_attribute_value (AtkDocument *document,
  *   document does not allow the attribute to be modified
  */
 gboolean
-atk_document_set_attribute_value (AtkDocument *document, 
-				  const gchar *attribute_name,
-				  const gchar *attribute_value)
+atk_document_set_attribute_value (AtkDocument *document,
+                                  const gchar *attribute_name,
+                                  const gchar *attribute_value)
 {
   AtkDocumentIface *iface;
 

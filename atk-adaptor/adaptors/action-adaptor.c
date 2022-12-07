@@ -22,16 +22,16 @@
  * Boston, MA 02110-1301, USA.
  */
 
+#include "bridge.h"
 #include <atk/atk.h>
 #include <droute/droute.h>
-#include "bridge.h"
 
 #include "spi-dbus.h"
 
 #include "introspection.h"
 
 static dbus_bool_t
-impl_get_NActions (DBusMessageIter * iter, void *user_data)
+impl_get_NActions (DBusMessageIter *iter, void *user_data)
 {
   AtkAction *action = (AtkAction *) user_data;
 
@@ -40,8 +40,7 @@ impl_get_NActions (DBusMessageIter * iter, void *user_data)
 }
 
 static DBusMessage *
-impl_get_description (DBusConnection * bus, DBusMessage * message,
-                      void *user_data)
+impl_get_description (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkAction *action = (AtkAction *) user_data;
   DBusMessage *reply;
@@ -50,8 +49,7 @@ impl_get_description (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_ACTION (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -68,7 +66,7 @@ impl_get_description (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_get_name (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_get_name (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   DBusMessage *reply;
   dbus_int32_t index;
@@ -77,8 +75,7 @@ impl_get_name (DBusConnection * bus, DBusMessage * message, void *user_data)
 
   g_return_val_if_fail (ATK_IS_ACTION (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -95,7 +92,7 @@ impl_get_name (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_get_localized_name (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_get_localized_name (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   DBusMessage *reply;
   dbus_int32_t index;
@@ -104,8 +101,7 @@ impl_get_localized_name (DBusConnection * bus, DBusMessage * message, void *user
 
   g_return_val_if_fail (ATK_IS_ACTION (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -122,8 +118,7 @@ impl_get_localized_name (DBusConnection * bus, DBusMessage * message, void *user
 }
 
 static DBusMessage *
-impl_get_keybinding (DBusConnection * bus, DBusMessage * message,
-                     void *user_data)
+impl_get_keybinding (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   DBusMessage *reply;
   dbus_int32_t index;
@@ -132,8 +127,7 @@ impl_get_keybinding (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_ACTION (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -150,7 +144,7 @@ impl_get_keybinding (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_GetActions (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetActions (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkAction *action = (AtkAction *) user_data;
   DBusMessage *reply;
@@ -165,8 +159,7 @@ impl_GetActions (DBusConnection * bus, DBusMessage * message, void *user_data)
   if (!reply)
     goto oom;
   dbus_message_iter_init_append (reply, &iter);
-  if (!dbus_message_iter_open_container
-      (&iter, DBUS_TYPE_ARRAY, "(sss)", &iter_array))
+  if (!dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(sss)", &iter_array))
     goto oom;
   for (i = 0; i < count; i++)
     {
@@ -179,8 +172,7 @@ impl_GetActions (DBusConnection * bus, DBusMessage * message, void *user_data)
         desc = "";
       if (!kb)
         kb = "";
-      if (!dbus_message_iter_open_container
-          (&iter_array, DBUS_TYPE_STRUCT, NULL, &iter_struct))
+      if (!dbus_message_iter_open_container (&iter_array, DBUS_TYPE_STRUCT, NULL, &iter_struct))
         goto oom;
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &lname);
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &desc);
@@ -197,7 +189,7 @@ oom:
 }
 
 static DBusMessage *
-impl_DoAction (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_DoAction (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkAction *action = (AtkAction *) user_data;
   dbus_int32_t index;
@@ -206,8 +198,7 @@ impl_DoAction (DBusConnection * bus, DBusMessage * message, void *user_data)
 
   g_return_val_if_fail (ATK_IS_ACTION (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -224,30 +215,24 @@ impl_DoAction (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 DRouteMethod methods[] = {
-  {impl_get_description, "GetDescription"}
-  ,
-  {impl_get_name, "GetName"}
-  ,
-  {impl_get_localized_name, "GetLocalizedName"}
-  ,
-  {impl_get_keybinding, "GetKeyBinding"}
-  ,
-  {impl_GetActions, "GetActions"}
-  ,
-  {impl_DoAction, "DoAction"}
-  ,
-  {NULL, NULL}
+  { impl_get_description, "GetDescription" },
+  { impl_get_name, "GetName" },
+  { impl_get_localized_name, "GetLocalizedName" },
+  { impl_get_keybinding, "GetKeyBinding" },
+  { impl_GetActions, "GetActions" },
+  { impl_DoAction, "DoAction" },
+  { NULL, NULL }
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_NActions, NULL, "NActions"},
-  {NULL, NULL}
+  { impl_get_NActions, NULL, "NActions" },
+  { NULL, NULL }
 };
 
 void
-spi_initialize_action (DRoutePath * path)
+spi_initialize_action (DRoutePath *path)
 {
   spi_atk_add_interface (path,
-                             ATSPI_DBUS_INTERFACE_ACTION,
-                             spi_org_a11y_atspi_Action, methods, properties);
+                         ATSPI_DBUS_INTERFACE_ACTION,
+                         spi_org_a11y_atspi_Action, methods, properties);
 };

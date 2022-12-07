@@ -22,8 +22,8 @@
 
 #include "config.h"
 
-#include <string.h>
 #include <locale.h>
+#include <string.h>
 
 #include <glib-object.h>
 #include <glib/gi18n-lib.h>
@@ -40,8 +40,8 @@ static HMODULE atk_dll;
 
 BOOL WINAPI
 DllMain (HINSTANCE hinstDLL,
-         DWORD     fdwReason,
-         LPVOID    lpvReserved)
+         DWORD fdwReason,
+         LPVOID lpvReserved)
 {
   switch (fdwReason)
     {
@@ -62,15 +62,15 @@ get_atk_locale_dir (void)
     {
       const gchar *p;
       gchar *root, *temp;
-      
+
       /* ATK_LOCALEDIR might end in either /lib/locale or
        * /share/locale. Scan for that slash.
        */
       p = ATK_LOCALEDIR + strlen (ATK_LOCALEDIR);
       while (*--p != '/')
-	;
+        ;
       while (*--p != '/')
-	;
+        ;
 
       root = g_win32_get_package_installation_directory_of_module (atk_dll);
       temp = g_build_filename (root, p, NULL);
@@ -87,7 +87,7 @@ get_atk_locale_dir (void)
 
 #undef ATK_LOCALEDIR
 
-#define ATK_LOCALEDIR get_atk_locale_dir()
+#define ATK_LOCALEDIR get_atk_locale_dir ()
 
 #endif
 

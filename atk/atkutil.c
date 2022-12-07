@@ -19,8 +19,8 @@
 
 #include "config.h"
 
-#include "atkutil.h"
 #include "atkmarshal.h"
+#include "atkutil.h"
 
 /**
  * AtkUtil:
@@ -53,8 +53,7 @@ atk_util_get_type (void)
 
   if (!type)
     {
-      static const GTypeInfo typeInfo =
-      {
+      static const GTypeInfo typeInfo = {
         sizeof (AtkUtilClass),
         (GBaseInitFunc) NULL,
         (GBaseFinalizeFunc) NULL,
@@ -64,8 +63,8 @@ atk_util_get_type (void)
         sizeof (AtkUtil),
         0,
         (GInstanceInitFunc) NULL,
-      } ;
-      type = g_type_register_static (G_TYPE_OBJECT, "AtkUtil", &typeInfo, 0) ;
+      };
+      type = g_type_register_static (G_TYPE_OBJECT, "AtkUtil", &typeInfo, 0);
     }
   return type;
 }
@@ -74,7 +73,7 @@ atk_util_get_type (void)
  * This file supports the addition and removal of multiple focus handlers
  * as long as they are all called in the same thread.
  */
-static AtkEventListenerInit  focus_tracker_init = (AtkEventListenerInit) NULL;
+static AtkEventListenerInit focus_tracker_init = (AtkEventListenerInit) NULL;
 
 static gboolean init_done = FALSE;
 
@@ -82,11 +81,12 @@ static gboolean init_done = FALSE;
  * Array of FocusTracker structs
  */
 static GArray *trackers = NULL;
-static guint  global_index = 0;
+static guint global_index = 0;
 
 typedef struct _FocusTracker FocusTracker;
 
-struct _FocusTracker {
+struct _FocusTracker
+{
   guint index;
   AtkEventListener func;
 };
@@ -105,7 +105,7 @@ struct _FocusTracker {
  *
  **/
 void
-atk_focus_tracker_init (AtkEventListenerInit    init)
+atk_focus_tracker_init (AtkEventListenerInit init)
 {
   if (!focus_tracker_init)
     focus_tracker_init = init;
@@ -126,32 +126,32 @@ atk_focus_tracker_init (AtkEventListenerInit    init)
  * Returns: added focus tracker id, or 0 on failure.
  **/
 guint
-atk_add_focus_tracker (AtkEventListener   focus_tracker)
+atk_add_focus_tracker (AtkEventListener focus_tracker)
 {
   g_return_val_if_fail (focus_tracker, 0);
 
   if (!init_done)
-  {
-    if (focus_tracker_init)
     {
-      focus_tracker_init ();
+      if (focus_tracker_init)
+        {
+          focus_tracker_init ();
+        }
+      trackers = g_array_sized_new (FALSE, TRUE, sizeof (FocusTracker), 0);
+      init_done = TRUE;
     }
-    trackers = g_array_sized_new (FALSE, TRUE, sizeof (FocusTracker), 0);
-    init_done = TRUE;
-  }
   if (init_done)
-  {
-    FocusTracker item;
+    {
+      FocusTracker item;
 
-    item.index = ++global_index;
-    item.func = focus_tracker;
-    trackers = g_array_append_val (trackers, item);
-    return global_index;
-  }
+      item.index = ++global_index;
+      item.func = focus_tracker;
+      trackers = g_array_append_val (trackers, item);
+      return global_index;
+    }
   else
-  {
-    return 0;
-  }
+    {
+      return 0;
+    }
 }
 
 /**
@@ -167,7 +167,7 @@ atk_add_focus_tracker (AtkEventListener   focus_tracker)
  *   signal.
  */
 void
-atk_remove_focus_tracker (guint            tracker_id)
+atk_remove_focus_tracker (guint tracker_id)
 {
   FocusTracker *item;
   guint i;
@@ -179,14 +179,14 @@ atk_remove_focus_tracker (guint            tracker_id)
     return;
 
   for (i = 0; i < trackers->len; i++)
-  {
-    item = &g_array_index (trackers, FocusTracker, i);
-    if (item->index == tracker_id)
     {
-      trackers = g_array_remove_index (trackers, i);
-      break;
+      item = &g_array_index (trackers, FocusTracker, i);
+      if (item->index == tracker_id)
+        {
+          trackers = g_array_remove_index (trackers, i);
+          break;
+        }
     }
-  }
 }
 
 /**
@@ -203,7 +203,7 @@ atk_remove_focus_tracker (guint            tracker_id)
  * atk_object_notify_state_change() instead.
  **/
 void
-atk_focus_tracker_notify (AtkObject       *object)
+atk_focus_tracker_notify (AtkObject *object)
 {
   FocusTracker *item;
   guint i;
@@ -230,27 +230,26 @@ atk_focus_tracker_notify (AtkObject       *object)
               item->func (object);
             }
         }
-    
     }
 }
 
 static guint
 add_listener (GSignalEmissionHook listener,
-              const gchar         *object_type,
-              const gchar         *signal_name,
-              const gchar         *detail_string,
-              const gchar         *hook_data)
+              const gchar *object_type,
+              const gchar *signal_name,
+              const gchar *detail_string,
+              const gchar *hook_data)
 {
   GType type;
   guint signal_id;
-  gint  rc = 0;
+  gint rc = 0;
   static gint listener_idx = 1;
   GQuark detail_quark = 0;
 
   type = g_type_from_name (object_type);
   if (type)
     {
-      signal_id  = g_signal_lookup (signal_name, type);
+      signal_id = g_signal_lookup (signal_name, type);
       detail_quark = g_quark_from_string (detail_string);
 
       if (signal_id > 0)
@@ -262,12 +261,12 @@ add_listener (GSignalEmissionHook listener,
           listener_info = g_new (AtkUtilListenerInfo, 1);
           listener_info->key = listener_idx;
           listener_info->hook_id =
-            g_signal_add_emission_hook (signal_id, detail_quark, listener,
-                                        g_strdup (hook_data),
-                                        (GDestroyNotify) g_free);
+              g_signal_add_emission_hook (signal_id, detail_quark, listener,
+                                          g_strdup (hook_data),
+                                          (GDestroyNotify) g_free);
           listener_info->signal_id = signal_id;
 
-	  g_hash_table_insert(listener_list, &(listener_info->key), listener_info);
+          g_hash_table_insert (listener_list, &(listener_info->key), listener_info);
           listener_idx++;
         }
       else
@@ -277,7 +276,7 @@ add_listener (GSignalEmissionHook listener,
     }
   else
     {
-      g_warning("Invalid object type %s\n", object_type);
+      g_warning ("Invalid object type %s\n", object_type);
     }
   return rc;
 }
@@ -311,7 +310,7 @@ atk_util_real_remove_global_event_listener (guint remove_listener)
       gint tmp_idx = remove_listener;
 
       listener_info = (AtkUtilListenerInfo *)
-        g_hash_table_lookup(listener_list, &tmp_idx);
+          g_hash_table_lookup (listener_list, &tmp_idx);
 
       if (listener_info != NULL)
         {
@@ -319,30 +318,29 @@ atk_util_real_remove_global_event_listener (guint remove_listener)
           if (listener_info->hook_id != 0 && listener_info->signal_id != 0)
             {
               /* Remove the emission hook */
-              g_signal_remove_emission_hook(listener_info->signal_id,
-                                            listener_info->hook_id);
+              g_signal_remove_emission_hook (listener_info->signal_id,
+                                             listener_info->hook_id);
 
               /* Remove the element from the hash */
-              g_hash_table_remove(listener_list, &tmp_idx);
+              g_hash_table_remove (listener_list, &tmp_idx);
             }
           else
             {
-              g_warning("Invalid listener hook_id %ld or signal_id %d\n",
-                        listener_info->hook_id, listener_info->signal_id);
+              g_warning ("Invalid listener hook_id %ld or signal_id %d\n",
+                         listener_info->hook_id, listener_info->signal_id);
             }
         }
       else
         {
-          g_warning("No listener with the specified listener id %d",
-                    remove_listener);
+          g_warning ("No listener with the specified listener id %d",
+                     remove_listener);
         }
     }
   else
     {
-      g_warning("Invalid listener_id %d", remove_listener);
+      g_warning ("Invalid listener_id %d", remove_listener);
     }
 }
-
 
 /**
  * atk_add_global_event_listener: (skip)
@@ -387,7 +385,7 @@ atk_util_real_remove_global_event_listener (guint remove_listener)
  **/
 guint
 atk_add_global_event_listener (GSignalEmissionHook listener,
-			       const gchar        *event_type)
+                               const gchar *event_type)
 {
   guint retval;
   AtkUtilClass *klass = g_type_class_ref (ATK_TYPE_UTIL);
@@ -434,7 +432,7 @@ atk_remove_global_event_listener (guint listener_id)
  * atk_add_key_event_listener: (skip)
  * @listener: the listener to notify
  * @data: a #gpointer that points to a block of data that should be sent to the registered listeners,
- *        along with the event notification, when it occurs.  
+ *        along with the event notification, when it occurs.
  *
  * Adds the specified function to the list of functions to be called
  *        when a key event occurs.  The @data element will be passed to the
@@ -485,11 +483,11 @@ atk_remove_key_event_listener (guint listener_id)
  * Returns: (transfer none): the root accessible container for the current
  * application
  **/
-AtkObject*
+AtkObject *
 atk_get_root (void)
 {
   AtkUtilClass *klass = g_type_class_ref (ATK_TYPE_UTIL);
-  AtkObject    *retval;
+  AtkObject *retval;
   if (klass->get_root)
     {
       retval = klass->get_root ();
@@ -507,13 +505,13 @@ atk_get_root (void)
  * atk_get_focus_object:
  *
  * Gets the currently focused object.
- * 
+ *
  * Since: 1.6
  *
  * Returns: (transfer none): the currently focused object for the current
  * application
  **/
-AtkObject*
+AtkObject *
 atk_get_focus_object (void)
 {
   return previous_focus_object;
@@ -526,7 +524,7 @@ atk_get_focus_object (void)
  *
  * Returns: name string for the GUI toolkit implementing ATK for this application
  **/
-const gchar*
+const gchar *
 atk_get_toolkit_name (void)
 {
   const gchar *retval;
@@ -551,7 +549,7 @@ atk_get_toolkit_name (void)
  *
  * Returns: version string for the GUI toolkit implementing ATK for this application
  **/
-const gchar*
+const gchar *
 atk_get_toolkit_version (void)
 {
   const gchar *retval;

@@ -77,7 +77,7 @@ atspi_hypertext_get_link (AtspiHypertext *obj, gint link_index, GError **error)
 {
   dbus_int32_t d_link_index = link_index;
   DBusMessage *reply;
-	
+
   g_return_val_if_fail (obj != NULL, NULL);
 
   reply = _atspi_dbus_call_partial (obj, atspi_interface_hypertext, "GetLink", error, "i", d_link_index);
@@ -99,7 +99,7 @@ atspi_hypertext_get_link (AtspiHypertext *obj, gint link_index, GError **error)
  **/
 int
 atspi_hypertext_get_link_index (AtspiHypertext *obj,
-                                gint             character_offset,
+                                gint character_offset,
                                 GError **error)
 {
   dbus_int32_t d_character_offset = character_offset;
@@ -122,16 +122,15 @@ atspi_hypertext_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) {
-    static const GTypeInfo tinfo =
+  if (!type)
     {
-      sizeof (AtspiHypertext),
-      (GBaseInitFunc) atspi_hypertext_base_init,
-      (GBaseFinalizeFunc) NULL,
-    };
+      static const GTypeInfo tinfo = {
+        sizeof (AtspiHypertext),
+        (GBaseInitFunc) atspi_hypertext_base_init,
+        (GBaseFinalizeFunc) NULL,
+      };
 
-    type = g_type_register_static (G_TYPE_INTERFACE, "AtspiHypertext", &tinfo, 0);
-
-  }
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtspiHypertext", &tinfo, 0);
+    }
   return type;
 }

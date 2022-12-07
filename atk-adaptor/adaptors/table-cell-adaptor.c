@@ -26,11 +26,12 @@
 #include <droute/droute.h>
 
 #include "spi-dbus.h"
-#include "object.h"
+
 #include "introspection.h"
+#include "object.h"
 
 static dbus_bool_t
-impl_get_ColumnSpan (DBusMessageIter * iter, void *user_data)
+impl_get_ColumnSpan (DBusMessageIter *iter, void *user_data)
 {
   AtkTableCell *cell = (AtkTableCell *) user_data;
   g_return_val_if_fail (ATK_IS_TABLE_CELL (user_data), FALSE);
@@ -51,22 +52,20 @@ message_from_object_array (DBusMessage *message, GPtrArray *array)
 
   dbus_message_iter_init_append (reply, &iter);
 
-  if (!dbus_message_iter_open_container
-      (&iter, DBUS_TYPE_ARRAY, "(so)", &iter_array))
+  if (!dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(so)", &iter_array))
     return reply; /* TODO: handle out of memory */
-  len = (array? array->len: 0);
+  len = (array ? array->len : 0);
   for (i = 0; i < len; i++)
-  {
-    spi_object_append_reference (&iter_array, g_ptr_array_index (array, i));
-  }
+    {
+      spi_object_append_reference (&iter_array, g_ptr_array_index (array, i));
+    }
   dbus_message_iter_close_container (&iter, &iter_array);
   g_ptr_array_unref (array);
   return reply;
 }
 
 static DBusMessage *
-impl_GetColumnHeaderCells (DBusConnection * bus, DBusMessage * message,
-                        void *user_data)
+impl_GetColumnHeaderCells (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTableCell *cell = user_data;
   GPtrArray *array;
@@ -79,7 +78,7 @@ impl_GetColumnHeaderCells (DBusConnection * bus, DBusMessage * message,
 }
 
 static dbus_bool_t
-impl_get_RowSpan (DBusMessageIter * iter, void *user_data)
+impl_get_RowSpan (DBusMessageIter *iter, void *user_data)
 {
   AtkTableCell *cell = (AtkTableCell *) user_data;
   g_return_val_if_fail (ATK_IS_TABLE_CELL (user_data), FALSE);
@@ -87,8 +86,7 @@ impl_get_RowSpan (DBusMessageIter * iter, void *user_data)
 }
 
 static DBusMessage *
-impl_GetRowHeaderCells (DBusConnection * bus, DBusMessage * message,
-                        void *user_data)
+impl_GetRowHeaderCells (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTableCell *cell = user_data;
   GPtrArray *array;
@@ -101,7 +99,7 @@ impl_GetRowHeaderCells (DBusConnection * bus, DBusMessage * message,
 }
 
 static dbus_bool_t
-impl_get_Position (DBusMessageIter * iter, void *user_data)
+impl_get_Position (DBusMessageIter *iter, void *user_data)
 {
   AtkTableCell *cell = (AtkTableCell *) user_data;
   gint row = -1, column = -1;
@@ -121,7 +119,7 @@ impl_get_Position (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_Table (DBusMessageIter * iter, void *user_data)
+impl_get_Table (DBusMessageIter *iter, void *user_data)
 {
   AtkTableCell *cell = (AtkTableCell *) user_data;
   AtkObject *table;
@@ -139,8 +137,7 @@ impl_get_Table (DBusMessageIter * iter, void *user_data)
 }
 
 static DBusMessage *
-impl_GetRowColumnSpan (DBusConnection * bus, DBusMessage * message,
-                          void *user_data)
+impl_GetRowColumnSpan (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkTableCell *cell = (AtkTableCell *) user_data;
   gint row, column, row_span, column_span;
@@ -150,7 +147,7 @@ impl_GetRowColumnSpan (DBusConnection * bus, DBusMessage * message,
   g_return_val_if_fail (ATK_IS_TABLE_CELL (user_data),
                         droute_not_yet_handled_error (message));
   atk_table_cell_get_row_column_span (cell, &row, &column, &row_span,
-                                         &column_span);
+                                      &column_span);
   d_row = row;
   d_column = column;
   d_row_span = row_span;
@@ -167,22 +164,22 @@ impl_GetRowColumnSpan (DBusConnection * bus, DBusMessage * message,
 }
 
 static DRouteMethod methods[] = {
-  {impl_GetRowHeaderCells, "GetRowHeaderCells"},
-  {impl_GetColumnHeaderCells, "GetColumnHeaderCells"},
-  {impl_GetRowColumnSpan, "GetRowColumnSpan"},
-  {NULL, NULL}
+  { impl_GetRowHeaderCells, "GetRowHeaderCells" },
+  { impl_GetColumnHeaderCells, "GetColumnHeaderCells" },
+  { impl_GetRowColumnSpan, "GetRowColumnSpan" },
+  { NULL, NULL }
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_ColumnSpan, NULL, "ColumnSpan"},
-  {impl_get_Position, NULL, "Position"},
-  {impl_get_RowSpan, NULL, "RowSpan"},
-  {impl_get_Table, NULL, "Table"},
-  {NULL, NULL, NULL}
+  { impl_get_ColumnSpan, NULL, "ColumnSpan" },
+  { impl_get_Position, NULL, "Position" },
+  { impl_get_RowSpan, NULL, "RowSpan" },
+  { impl_get_Table, NULL, "Table" },
+  { NULL, NULL, NULL }
 };
 
 void
-spi_initialize_table_cell (DRoutePath * path)
+spi_initialize_table_cell (DRoutePath *path)
 {
   droute_path_add_interface (path,
                              ATSPI_DBUS_INTERFACE_TABLE_CELL,

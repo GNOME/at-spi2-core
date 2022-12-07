@@ -31,31 +31,31 @@ void
 spi_object_lease_if_needed (GObject *obj);
 
 void
-spi_object_append_reference (DBusMessageIter * iter, AtkObject * obj);
+spi_object_append_reference (DBusMessageIter *iter, AtkObject *obj);
 
 void
-spi_hyperlink_append_reference (DBusMessageIter * iter, AtkObject * obj);
+spi_hyperlink_append_reference (DBusMessageIter *iter, AtkObject *obj);
 
 void
-spi_object_append_v_reference (DBusMessageIter * iter, AtkObject * obj);
+spi_object_append_v_reference (DBusMessageIter *iter, AtkObject *obj);
 
 void
-spi_object_append_desktop_reference (DBusMessageIter * iter);
+spi_object_append_desktop_reference (DBusMessageIter *iter);
 
 void
-spi_object_append_null_reference (DBusMessageIter * iter);
+spi_object_append_null_reference (DBusMessageIter *iter);
 
 DBusMessage *
-spi_object_return_reference (DBusMessage * msg, AtkObject * obj);
+spi_object_return_reference (DBusMessage *msg, AtkObject *obj);
 
 DBusMessage *
-spi_hyperlink_return_reference (DBusMessage * msg, AtkHyperlink * obj);
+spi_hyperlink_return_reference (DBusMessage *msg, AtkHyperlink *obj);
 
 void
-spi_object_append_interfaces (DBusMessageIter * iter, AtkObject * obj);
+spi_object_append_interfaces (DBusMessageIter *iter, AtkObject *obj);
 
 void
-spi_object_append_attribute_set (DBusMessageIter * iter, AtkAttributeSet * attr);
+spi_object_append_attribute_set (DBusMessageIter *iter, AtkAttributeSet *attr);
 
 AtspiRole
 spi_accessible_role_from_atk_role (AtkRole role);

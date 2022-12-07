@@ -20,8 +20,8 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include <stdio.h>
 #include <atk/atk.h>
+#include <stdio.h>
 
 #include "my-atk-object.h"
 
@@ -31,8 +31,9 @@ G_DEFINE_TYPE (MyAtkObject,
                my_atk_object,
                ATK_TYPE_OBJECT);
 
-void my_atk_object_add_child (MyAtkObject* parent,
-                              MyAtkObject* child)
+void
+my_atk_object_add_child (MyAtkObject *parent,
+                         MyAtkObject *child)
 {
   g_ptr_array_add (parent->children, child);
   g_object_ref_sink (child);
@@ -44,20 +45,23 @@ void my_atk_object_add_child (MyAtkObject* parent,
                          child);
 }
 
-void my_atk_object_remove_child (MyAtkObject* parent,
-                                 MyAtkObject* child)
+void
+my_atk_object_remove_child (MyAtkObject *parent,
+                            MyAtkObject *child)
 {
   gint i;
-  for (i = parent->children->len - 1; i >= 0; i--) {
-    if (g_ptr_array_index (parent->children, i) == child)
-      break;
-  }
+  for (i = parent->children->len - 1; i >= 0; i--)
+    {
+      if (g_ptr_array_index (parent->children, i) == child)
+        break;
+    }
   g_return_if_fail (i < 0);
   g_ptr_array_remove_index (parent->children, i);
   g_signal_emit_by_name (parent, "children-changed::remove", i, child);
 }
 
-static void my_atk_object_set_parent(AtkObject *accessible, AtkObject *parent)
+static void
+my_atk_object_set_parent (AtkObject *accessible, AtkObject *parent)
 {
   MyAtkObject *self = MY_ATK_OBJECT (accessible);
   AtkObject *parent_old = atk_object_get_parent (accessible);
@@ -72,42 +76,48 @@ static void my_atk_object_set_parent(AtkObject *accessible, AtkObject *parent)
     my_atk_object_remove_child (MY_ATK_OBJECT (parent_old), self);
 }
 
-static gint my_atk_object_get_n_children (AtkObject *accessible)
+static gint
+my_atk_object_get_n_children (AtkObject *accessible)
 {
   MyAtkObject *self = MY_ATK_OBJECT (accessible);
   return self->children->len;
 }
 
-static AtkObject* my_atk_object_ref_child (AtkObject *accessible, gint i)
+static AtkObject *
+my_atk_object_ref_child (AtkObject *accessible, gint i)
 {
   MyAtkObject *self = MY_ATK_OBJECT (accessible);
 
   g_return_val_if_fail (i >= 0 || i <= self->children->len, NULL);
 
-  AtkObject* child = ATK_OBJECT (g_ptr_array_index (self->children, i));
+  AtkObject *child = ATK_OBJECT (g_ptr_array_index (self->children, i));
 
   return (child == NULL) ? NULL : g_object_ref (child);
 }
 
-static gint my_atk_object_get_index_in_parent (AtkObject *accessible)
+static gint
+my_atk_object_get_index_in_parent (AtkObject *accessible)
 {
   AtkObject *parent = atk_object_get_parent (accessible);
-  if (parent == NULL) return -1; /*root object so no parent*/
+  if (parent == NULL)
+    return -1; /*root object so no parent*/
 
   MyAtkObject *parent_my = MY_ATK_OBJECT (parent);
 
   int i = parent_my->children->len;
-  for (; i>=0; i--) {
-    if (g_ptr_array_index (parent_my->children,i) == accessible)
-      break;
-  }
+  for (; i >= 0; i--)
+    {
+      if (g_ptr_array_index (parent_my->children, i) == accessible)
+        break;
+    }
 
-  g_return_val_if_fail (i>=0, -1);
+  g_return_val_if_fail (i >= 0, -1);
 
   return i;
 }
 
-static AtkRelationSet *my_atk_object_ref_relation_set (AtkObject* accessible)
+static AtkRelationSet *
+my_atk_object_ref_relation_set (AtkObject *accessible)
 {
   MyAtkObject *obj = MY_ATK_OBJECT (accessible);
   if (obj->relation_set == NULL)
@@ -115,7 +125,8 @@ static AtkRelationSet *my_atk_object_ref_relation_set (AtkObject* accessible)
   return g_object_ref (ATK_RELATION_SET (obj->relation_set));
 }
 
-static AtkStateSet *my_atk_object_ref_state_set (AtkObject *accessible)
+static AtkStateSet *
+my_atk_object_ref_state_set (AtkObject *accessible)
 {
   MyAtkObject *obj = MY_ATK_OBJECT (accessible);
   if (obj->state_set == NULL)
@@ -123,7 +134,8 @@ static AtkStateSet *my_atk_object_ref_state_set (AtkObject *accessible)
   return g_object_ref (ATK_STATE_SET (obj->state_set));
 }
 
-static AtkAttributeSet *my_atk_object_get_attributes (AtkObject *accessible)
+static AtkAttributeSet *
+my_atk_object_get_attributes (AtkObject *accessible)
 {
   AtkAttributeSet *attributes = NULL;
   AtkAttribute *attr;
@@ -141,12 +153,14 @@ static AtkAttributeSet *my_atk_object_get_attributes (AtkObject *accessible)
   return attributes;
 }
 
-static void my_atk_object_init (MyAtkObject *self)
+static void
+my_atk_object_init (MyAtkObject *self)
 {
   self->children = g_ptr_array_new_full (10, g_object_unref);
 }
 
-static void my_atk_object_class_init (MyAtkObjectClass *my_class)
+static void
+my_atk_object_class_init (MyAtkObjectClass *my_class)
 {
   AtkObjectClass *object_class = ATK_OBJECT_CLASS (my_class);
 
@@ -157,5 +171,4 @@ static void my_atk_object_class_init (MyAtkObjectClass *my_class)
   object_class->ref_state_set = my_atk_object_ref_state_set;
   object_class->get_attributes = my_atk_object_get_attributes;
   object_class->ref_relation_set = my_atk_object_ref_relation_set;
-
 }

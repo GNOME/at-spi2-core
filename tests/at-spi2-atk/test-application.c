@@ -28,16 +28,16 @@
  * and as such provide all the application state for the test.
  */
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <signal.h>
-#include <glib.h>
-#include <glib-unix.h>
-#include <atk/atk.h>
-#include <atk-bridge.h>
-#include "my-atk.h"
 #include "atk-object-xml-loader.h"
+#include "my-atk.h"
+#include <atk-bridge.h>
+#include <atk/atk.h>
+#include <glib-unix.h>
+#include <glib.h>
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 static AtkObject *root_accessible;
 
@@ -50,10 +50,11 @@ test_init (gchar *path)
 {
   gchar *td;
 
-  if (path == NULL) {
-    g_print ("No test data file provided\n");
-    exit (EXIT_FAILURE);
-  }
+  if (path == NULL)
+    {
+      g_print ("No test data file provided\n");
+      exit (EXIT_FAILURE);
+    }
   tdata_path = path;
 
   td = g_build_path (G_DIR_SEPARATOR_S, tdata_path, NULL, NULL);
@@ -91,8 +92,8 @@ setup_atk_util (void)
 }
 
 static GOptionEntry optentries[] = {
-  {"test-data-file", 0, 0, G_OPTION_ARG_STRING, &tdata_path, "Path to file of test data", NULL},
-  {NULL}
+  { "test-data-file", 0, 0, G_OPTION_ARG_STRING, &tdata_path, "Path to file of test data", NULL },
+  { NULL }
 };
 
 static gboolean
@@ -103,7 +104,8 @@ sigterm_received_cb (gpointer user_data)
   return G_SOURCE_REMOVE;
 }
 
-int main (int argc, char *argv[])
+int
+main (int argc, char *argv[])
 {
   GOptionContext *opt;
   GError *err = NULL;
@@ -112,7 +114,7 @@ int main (int argc, char *argv[])
   g_option_context_set_ignore_unknown_options (opt, TRUE);
 
   if (!g_option_context_parse (opt, &argc, &argv, &err))
-    g_error("Option parsing failed: %s\n", err->message);
+    g_error ("Option parsing failed: %s\n", err->message);
 
   setup_atk_util ();
   test_init (tdata_path);

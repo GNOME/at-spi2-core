@@ -30,10 +30,8 @@
 
 #include <stdio.h>
 
-
 static AtspiStateType *accessible_state_types = NULL;
 static AtkStateType *atk_state_types = NULL;
-
 
 static gboolean
 spi_init_state_type_tables (void)
@@ -48,15 +46,15 @@ spi_init_state_type_tables (void)
     atk_state_types = g_new (AtkStateType, ATSPI_STATE_LAST_DEFINED);
   g_return_val_if_fail (accessible_state_types, FALSE);
   g_return_val_if_fail (atk_state_types, FALSE);
-  
+
   for (i = 0; i < ATSPI_STATE_LAST_DEFINED; i++)
     {
       atk_state_types[i] = ATK_STATE_INVALID;
     }
 
-  for (i=0; i < ATK_STATE_LAST_DEFINED; i++)
+  for (i = 0; i < ATK_STATE_LAST_DEFINED; i++)
     {
-      accessible_state_types[i] = ATSPI_STATE_INVALID;	
+      accessible_state_types[i] = ATSPI_STATE_INVALID;
     }
 
   accessible_state_types[ATK_STATE_ACTIVE] = ATSPI_STATE_ACTIVE;
@@ -72,9 +70,9 @@ spi_init_state_type_tables (void)
   accessible_state_types[ATK_STATE_DEFUNCT] = ATSPI_STATE_DEFUNCT;
   atk_state_types[ATSPI_STATE_DEFUNCT] = ATK_STATE_DEFUNCT;
   accessible_state_types[ATK_STATE_EDITABLE] = ATSPI_STATE_EDITABLE;
-  atk_state_types[ATSPI_STATE_EDITABLE] = ATK_STATE_EDITABLE;  
+  atk_state_types[ATSPI_STATE_EDITABLE] = ATK_STATE_EDITABLE;
   accessible_state_types[ATK_STATE_ENABLED] = ATSPI_STATE_ENABLED;
-  atk_state_types[ATSPI_STATE_ENABLED] = ATK_STATE_ENABLED;  
+  atk_state_types[ATSPI_STATE_ENABLED] = ATK_STATE_ENABLED;
   accessible_state_types[ATK_STATE_EXPANDABLE] = ATSPI_STATE_EXPANDABLE;
   atk_state_types[ATSPI_STATE_EXPANDABLE] = ATK_STATE_EXPANDABLE;
   accessible_state_types[ATK_STATE_EXPANDED] = ATSPI_STATE_EXPANDED;
@@ -154,7 +152,7 @@ state_spi_to_atk (AtspiStateType state)
 {
   guint idx = state;
   if (idx < ATSPI_STATE_LAST_DEFINED)
-    return atk_state_types [idx];
+    return atk_state_types[idx];
   else
     return ATK_STATE_INVALID;
 }
@@ -174,10 +172,10 @@ spi_state_set_cache_from_sequence (GArray *seq)
   AtkStateType *states;
 
   spi_init_state_type_tables ();
-  
+
   states = g_newa (AtkStateType, seq->len);
   for (i = 0; i < seq->len; i++)
-    states [i] = state_spi_to_atk (g_array_index (seq, dbus_int32_t, i));
+    states[i] = state_spi_to_atk (g_array_index (seq, dbus_int32_t, i));
 
   set = atk_state_set_new ();
   atk_state_set_add_states (set, states, seq->len);
@@ -187,7 +185,7 @@ spi_state_set_cache_from_sequence (GArray *seq)
 }
 
 void
-spi_atk_state_to_dbus_array (AtkObject * object, dbus_uint32_t * array)
+spi_atk_state_to_dbus_array (AtkObject *object, dbus_uint32_t *array)
 {
   AtkStateSet *set = atk_object_ref_state_set (object);
   spi_atk_state_set_to_dbus_array (set, array);
@@ -195,7 +193,7 @@ spi_atk_state_to_dbus_array (AtkObject * object, dbus_uint32_t * array)
 }
 
 void
-spi_atk_state_set_to_dbus_array (AtkStateSet * set, dbus_uint32_t * array)
+spi_atk_state_set_to_dbus_array (AtkStateSet *set, dbus_uint32_t *array)
 {
   int i;
 
@@ -209,10 +207,10 @@ spi_atk_state_set_to_dbus_array (AtkStateSet * set, dbus_uint32_t * array)
   for (i = 0; i < ATK_STATE_LAST_DEFINED; i++)
     {
       if (atk_state_set_contains_state (set, i))
-	{
-	  int a = accessible_state_types[i];
-	  g_assert (a < 64);
-	  BITARRAY_SET (array, a);
-	}
+        {
+          int a = accessible_state_types[i];
+          g_assert (a < 64);
+          BITARRAY_SET (array, a);
+        }
     }
 }

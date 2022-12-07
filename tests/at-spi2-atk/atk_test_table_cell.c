@@ -18,10 +18,10 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include "atk_test_util.h"
 #include "atk_suite.h"
+#include "atk_test_util.h"
 
-#define DATA_FILE TESTS_DATA_DIR"/test-table.xml"
+#define DATA_FILE TESTS_DATA_DIR "/test-table.xml"
 
 static void
 atk_test_accessible_get_table_cell (gpointer fixture, gconstpointer user_data)
@@ -207,6 +207,4 @@ atk_test_table_cell (void)
                      0, NULL, NULL, atk_test_table_cell_get_position, teardown_table_cell_test);
   g_test_add_vtable (ATK_TEST_PATH_TABLE_CELL "/atk_test_table_cell_get_table",
                      0, NULL, NULL, atk_test_table_cell_get_table, teardown_table_cell_test);
-
-
 }

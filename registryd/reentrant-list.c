@@ -26,9 +26,10 @@
 
 #include "reentrant-list.h"
 
-typedef struct {
-	GList **list;
-	GList  *iterator;
+typedef struct
+{
+  GList **list;
+  GList *iterator;
 } Iteration;
 
 static GSList *working_list = NULL; /* of Iteration */
@@ -39,12 +40,12 @@ static GSList *working_list = NULL; /* of Iteration */
  * element.
  */
 void
-spi_re_entrant_list_delete_link (GList * const *element_ptr)
+spi_re_entrant_list_delete_link (GList *const *element_ptr)
 {
-  GSList    *l;
-  GList     *next;
-  GList     *element;
-  gboolean   first_item;
+  GSList *l;
+  GList *next;
+  GList *element;
+  gboolean first_item;
   GList *dummy G_GNUC_UNUSED;
 
   g_return_if_fail (element_ptr != NULL);
@@ -59,47 +60,48 @@ spi_re_entrant_list_delete_link (GList * const *element_ptr)
 
   for (l = working_list; l; l = l->next)
     {
-       Iteration *i = l->data;
+      Iteration *i = l->data;
 
-       if (i->iterator == element)
-         {
-           i->iterator = next;
-         }
+      if (i->iterator == element)
+        {
+          i->iterator = next;
+        }
 
-       if (first_item && *(i->list) == element)
-         {
-           *(i->list) = next;
-         }
+      if (first_item && *(i->list) == element)
+        {
+          *(i->list) = next;
+        }
     }
 
   g_list_free_1 (element);
 }
 
 void
-spi_re_entrant_list_foreach (GList         **list,
-			     SpiReEntrantFn  func,
-			     gpointer        user_data)
+spi_re_entrant_list_foreach (GList **list,
+                             SpiReEntrantFn func,
+                             gpointer user_data)
 {
-	Iteration i;
+  Iteration i;
 
-	if (!list || !*list)
-	  {
-            return;
-	  }
+  if (!list || !*list)
+    {
+      return;
+    }
 
-	i.list = list;
-	i.iterator = *list;
+  i.list = list;
+  i.iterator = *list;
 
-	working_list = g_slist_prepend (working_list, &i);
+  working_list = g_slist_prepend (working_list, &i);
 
-	while (i.iterator) {
-		GList *l = i.iterator;
+  while (i.iterator)
+    {
+      GList *l = i.iterator;
 
-		func (&i.iterator, user_data);
+      func (&i.iterator, user_data);
 
-		if (i.iterator == l)
-			i.iterator = i.iterator->next;
-	}
+      if (i.iterator == l)
+        i.iterator = i.iterator->next;
+    }
 
-	working_list = g_slist_remove (working_list, &i);
+  working_list = g_slist_remove (working_list, &i);
 }

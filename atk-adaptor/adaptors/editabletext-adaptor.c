@@ -22,16 +22,15 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include <atk/atk.h>
-#include <droute/droute.h>
 #include "bridge.h"
 #include "introspection.h"
+#include <atk/atk.h>
+#include <droute/droute.h>
 
 #include "spi-dbus.h"
 
 static DBusMessage *
-impl_SetTextContents (DBusConnection * bus, DBusMessage * message,
-                      void *user_data)
+impl_SetTextContents (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkEditableText *editable = (AtkEditableText *) user_data;
   const char *newContents;
@@ -40,8 +39,7 @@ impl_SetTextContents (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_STRING, &newContents, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &newContents, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -58,7 +56,7 @@ impl_SetTextContents (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_InsertText (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_InsertText (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkEditableText *editable = (AtkEditableText *) user_data;
   dbus_int32_t position, length;
@@ -69,9 +67,8 @@ impl_InsertText (DBusConnection * bus, DBusMessage * message, void *user_data)
 
   g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &position, DBUS_TYPE_STRING, &text,
-       DBUS_TYPE_INT32, &length, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &position, DBUS_TYPE_STRING, &text,
+                              DBUS_TYPE_INT32, &length, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -89,16 +86,15 @@ impl_InsertText (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_CopyText (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_CopyText (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkEditableText *editable = (AtkEditableText *) user_data;
   dbus_int32_t startPos, endPos;
 
   g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &startPos, DBUS_TYPE_INT32, &endPos,
-       DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &startPos, DBUS_TYPE_INT32, &endPos,
+                              DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -107,7 +103,7 @@ impl_CopyText (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_CutText (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_CutText (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkEditableText *editable = (AtkEditableText *) user_data;
   dbus_int32_t startPos, endPos;
@@ -116,9 +112,8 @@ impl_CutText (DBusConnection * bus, DBusMessage * message, void *user_data)
 
   g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &startPos, DBUS_TYPE_INT32, &endPos,
-       DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &startPos, DBUS_TYPE_INT32, &endPos,
+                              DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -135,7 +130,7 @@ impl_CutText (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_DeleteText (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_DeleteText (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkEditableText *editable = (AtkEditableText *) user_data;
   dbus_int32_t startPos, endPos;
@@ -144,9 +139,8 @@ impl_DeleteText (DBusConnection * bus, DBusMessage * message, void *user_data)
 
   g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &startPos, DBUS_TYPE_INT32, &endPos,
-       DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &startPos, DBUS_TYPE_INT32, &endPos,
+                              DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -163,7 +157,7 @@ impl_DeleteText (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_PasteText (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_PasteText (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkEditableText *editable = (AtkEditableText *) user_data;
   dbus_int32_t position;
@@ -172,8 +166,7 @@ impl_PasteText (DBusConnection * bus, DBusMessage * message, void *user_data)
 
   g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &position, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &position, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -190,17 +183,17 @@ impl_PasteText (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DRouteMethod methods[] = {
-  {impl_SetTextContents, "SetTextContents"},
-  {impl_InsertText, "InsertText"},
-  {impl_CopyText, "CopyText"},
-  {impl_CutText, "CutText"},
-  {impl_DeleteText, "DeleteText"},
-  {impl_PasteText, "PasteText"},
-  {NULL, NULL}
+  { impl_SetTextContents, "SetTextContents" },
+  { impl_InsertText, "InsertText" },
+  { impl_CopyText, "CopyText" },
+  { impl_CutText, "CutText" },
+  { impl_DeleteText, "DeleteText" },
+  { impl_PasteText, "PasteText" },
+  { NULL, NULL }
 };
 
 void
-spi_initialize_editabletext (DRoutePath * path)
+spi_initialize_editabletext (DRoutePath *path)
 {
   spi_atk_add_interface (path,
                          ATSPI_DBUS_INTERFACE_EDITABLE_TEXT, spi_org_a11y_atspi_EditableText, methods, NULL);

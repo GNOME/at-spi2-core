@@ -28,36 +28,34 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-#include "spi-dbus.h"
-#include "accessible-stateset.h"
 #include "accessible-cache.h"
+#include "accessible-stateset.h"
 #include "bridge.h"
-#include "object.h"
 #include "introspection.h"
+#include "object.h"
+#include "spi-dbus.h"
 
 /* TODO - This should possibly be a common define */
 #define SPI_OBJECT_PREFIX "/org/a11y/atspi"
 #define SPI_CACHE_OBJECT_SUFFIX "/cache"
 #define SPI_CACHE_OBJECT_PATH SPI_OBJECT_PREFIX SPI_CACHE_OBJECT_SUFFIX
 
-#define SPI_OBJECT_REFERENCE_SIGNATURE "(" \
-                                          DBUS_TYPE_STRING_AS_STRING \
-                                          DBUS_TYPE_OBJECT_PATH_AS_STRING \
+#define SPI_OBJECT_REFERENCE_SIGNATURE "(" DBUS_TYPE_STRING_AS_STRING \
+    DBUS_TYPE_OBJECT_PATH_AS_STRING                                   \
                                        ")"
-                                          
-#define SPI_CACHE_ITEM_SIGNATURE "(" \
-                                   SPI_OBJECT_REFERENCE_SIGNATURE \
-                                   SPI_OBJECT_REFERENCE_SIGNATURE \
-                                   SPI_OBJECT_REFERENCE_SIGNATURE \
-                                   DBUS_TYPE_INT32_AS_STRING \
-                                   DBUS_TYPE_INT32_AS_STRING \
-                                   DBUS_TYPE_ARRAY_AS_STRING \
-                                     DBUS_TYPE_STRING_AS_STRING \
-                                   DBUS_TYPE_STRING_AS_STRING \
-                                   DBUS_TYPE_UINT32_AS_STRING \
-                                   DBUS_TYPE_STRING_AS_STRING \
-                                   DBUS_TYPE_ARRAY_AS_STRING \
-                                     DBUS_TYPE_UINT32_AS_STRING \
+
+#define SPI_CACHE_ITEM_SIGNATURE "(" SPI_OBJECT_REFERENCE_SIGNATURE    \
+    SPI_OBJECT_REFERENCE_SIGNATURE                                     \
+        SPI_OBJECT_REFERENCE_SIGNATURE                                 \
+            DBUS_TYPE_INT32_AS_STRING                                  \
+                DBUS_TYPE_INT32_AS_STRING                              \
+                    DBUS_TYPE_ARRAY_AS_STRING                          \
+                        DBUS_TYPE_STRING_AS_STRING                     \
+                            DBUS_TYPE_STRING_AS_STRING                 \
+                                DBUS_TYPE_UINT32_AS_STRING             \
+                                    DBUS_TYPE_STRING_AS_STRING         \
+                                        DBUS_TYPE_ARRAY_AS_STRING      \
+                                            DBUS_TYPE_UINT32_AS_STRING \
                                  ")"
 
 /*---------------------------------------------------------------------------*/
@@ -111,7 +109,7 @@ should_cache_children (AtkObject *obj, AtkStateSet *set)
  * The format of the structure is (o(so)iiassusau).
  */
 static void
-append_cache_item (AtkObject * obj, gpointer data)
+append_cache_item (AtkObject *obj, gpointer data)
 {
   DBusMessageIter iter_struct, iter_sub_array;
   dbus_uint32_t states[2];
@@ -122,7 +120,7 @@ append_cache_item (AtkObject * obj, gpointer data)
   dbus_uint32_t role;
 
   set = atk_object_ref_state_set (obj);
-    AtkObject *application, *parent;
+  AtkObject *application, *parent;
 
   dbus_message_iter_open_container (iter_array, DBUS_TYPE_STRUCT, NULL,
                                     &iter_struct);
@@ -182,12 +180,14 @@ append_cache_item (AtkObject * obj, gpointer data)
 
   /* Marshal index in parent */
   index = (should_call_index_in_parent (obj, set)
-           ? atk_object_get_index_in_parent (obj) : -1);
+               ? atk_object_get_index_in_parent (obj)
+               : -1);
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32, &index);
 
   /* marshal child count */
   count = (should_cache_children (obj, set)
-           ? atk_object_get_n_accessible_children (obj) : -1);
+               ? atk_object_get_n_accessible_children (obj)
+               : -1);
 
   if (ATK_IS_SOCKET (obj) && atk_socket_is_occupied (ATK_SOCKET (obj)))
     count = 1;
@@ -256,7 +256,7 @@ add_to_list_hf (gpointer key, gpointer obj_data, gpointer data)
 /*---------------------------------------------------------------------------*/
 
 static void
-emit_cache_remove (SpiCache *cache, GObject * obj)
+emit_cache_remove (SpiCache *cache, GObject *obj)
 {
   DBusMessage *message;
 
@@ -277,7 +277,7 @@ emit_cache_remove (SpiCache *cache, GObject * obj)
 }
 
 static void
-emit_cache_add (SpiCache *cache, GObject * obj)
+emit_cache_add (SpiCache *cache, GObject *obj)
 {
   AtkObject *accessible = ATK_OBJECT (obj);
   DBusMessage *message;
@@ -299,11 +299,10 @@ emit_cache_add (SpiCache *cache, GObject * obj)
     }
 }
 
-
 /*---------------------------------------------------------------------------*/
 
 static DBusMessage *
-impl_GetRoot (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetRoot (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   return spi_object_return_reference (message, spi_global_app_data->root);
 }
@@ -311,7 +310,7 @@ impl_GetRoot (DBusConnection * bus, DBusMessage * message, void *user_data)
 /*---------------------------------------------------------------------------*/
 
 static DBusMessage *
-impl_GetItems (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetItems (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   DBusMessage *reply;
   DBusMessageIter iter, iter_array;
@@ -336,13 +335,13 @@ impl_GetItems (DBusConnection * bus, DBusMessage * message, void *user_data)
 /*---------------------------------------------------------------------------*/
 
 static DRouteMethod methods[] = {
-  {impl_GetRoot, "GetRoot"},
-  {impl_GetItems, "GetItems"},
-  {NULL, NULL}
+  { impl_GetRoot, "GetRoot" },
+  { impl_GetItems, "GetItems" },
+  { NULL, NULL }
 };
 
 void
-spi_initialize_cache (DRoutePath * path)
+spi_initialize_cache (DRoutePath *path)
 {
   droute_path_add_interface (path, ATSPI_DBUS_INTERFACE_CACHE, spi_org_a11y_atspi_Cache, methods, NULL);
 

@@ -1,8 +1,8 @@
 #include "atspi/atspi.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
+#include <unistd.h>
 
 pid_t child_pid;
 AtspiEventListener *listener;
@@ -27,12 +27,12 @@ basic (AtspiAccessible *obj)
   printf ("ok, getting children\n");
   count = atspi_accessible_get_child_count (obj, &error);
   for (i = 0; i < count; i++)
-  {
-    accessible = atspi_accessible_get_child_at_index (obj, i, &error);
-    printf ("ok %d\n", i);
-    if (accessible)
-      g_object_unref (accessible);
-  }
+    {
+      accessible = atspi_accessible_get_child_at_index (obj, i, &error);
+      printf ("ok %d\n", i);
+      if (accessible)
+        g_object_unref (accessible);
+    }
   printf ("ok\n");
 }
 
@@ -55,29 +55,29 @@ void
 on_event (AtspiEvent *event, void *data)
 {
   if (atspi_accessible_get_role (event->source, NULL) == ATSPI_ROLE_DESKTOP_FRAME)
-  {
-    printf ("memory: event: %s\n", event->type);
-    if (strstr (event->type, "add"))
     {
-      AtspiAccessible *desktop = atspi_get_desktop (0);
-      guint id;
-      basic (desktop);
-      g_object_unref (desktop);
-      id = g_timeout_add (3000, kill_child, NULL);
-      g_source_set_name_by_id (id, "[at-spi2-core] kill_child");
+      printf ("memory: event: %s\n", event->type);
+      if (strstr (event->type, "add"))
+        {
+          AtspiAccessible *desktop = atspi_get_desktop (0);
+          guint id;
+          basic (desktop);
+          g_object_unref (desktop);
+          id = g_timeout_add (3000, kill_child, NULL);
+          g_source_set_name_by_id (id, "[at-spi2-core] kill_child");
+        }
+      else
+        {
+          guint id;
+          id = g_idle_add (end, NULL);
+          g_source_set_name_by_id (id, "[at-spi2-core] end");
+        }
     }
-    else
-    {
-      guint id;
-      id = g_idle_add (end, NULL);
-      g_source_set_name_by_id (id, "[at-spi2-core] end");
-    }
-  }
   g_boxed_free (ATSPI_TYPE_EVENT, event);
 }
 
 int
-main()
+main ()
 {
   atspi_init ();
 

@@ -29,13 +29,13 @@
  * and supported interfaces to a D-Bus message.
  */
 
-#include <atk/atk.h>
 #include "atspi/atspi.h"
 #include "spi-dbus.h"
+#include <atk/atk.h>
 
-#include "accessible-register.h"
 #include "accessible-cache.h"
 #include "accessible-leasing.h"
+#include "accessible-register.h"
 
 #include "bridge.h"
 
@@ -74,7 +74,7 @@ spi_object_lease_if_needed (GObject *obj)
  */
 
 void
-spi_object_append_null_reference (DBusMessageIter * iter)
+spi_object_append_null_reference (DBusMessageIter *iter)
 {
   DBusMessageIter iter_struct;
   const char *name;
@@ -90,16 +90,17 @@ spi_object_append_null_reference (DBusMessageIter * iter)
 }
 
 void
-spi_object_append_reference (DBusMessageIter * iter, AtkObject * obj)
+spi_object_append_reference (DBusMessageIter *iter, AtkObject *obj)
 {
   DBusMessageIter iter_struct;
   const gchar *name;
   gchar *path;
 
-  if (!obj) {
-    spi_object_append_null_reference (iter);
-    return;
-  }
+  if (!obj)
+    {
+      spi_object_append_null_reference (iter);
+      return;
+    }
 
   spi_object_lease_if_needed (G_OBJECT (obj));
 
@@ -114,23 +115,24 @@ spi_object_append_reference (DBusMessageIter * iter, AtkObject * obj)
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &name);
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
   dbus_message_iter_close_container (iter, &iter_struct);
-  
+
   g_free (path);
 }
 
 /* TODO: Perhaps combine with spi_object_append_reference.  Leaving separate
  * for now in case we want to use a different path for hyperlinks. */
 void
-spi_hyperlink_append_reference (DBusMessageIter * iter, AtkHyperlink * obj)
+spi_hyperlink_append_reference (DBusMessageIter *iter, AtkHyperlink *obj)
 {
   DBusMessageIter iter_struct;
   const gchar *name;
   gchar *path;
 
-  if (!obj) {
-    spi_object_append_null_reference (iter);
-    return;
-  }
+  if (!obj)
+    {
+      spi_object_append_null_reference (iter);
+      return;
+    }
 
   spi_object_lease_if_needed (G_OBJECT (obj));
 
@@ -145,23 +147,23 @@ spi_hyperlink_append_reference (DBusMessageIter * iter, AtkHyperlink * obj)
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &name);
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
   dbus_message_iter_close_container (iter, &iter_struct);
-  
+
   g_free (path);
 }
 
 void
-spi_object_append_v_reference (DBusMessageIter * iter, AtkObject * obj)
+spi_object_append_v_reference (DBusMessageIter *iter, AtkObject *obj)
 {
   DBusMessageIter iter_variant;
 
   dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, "(so)",
                                     &iter_variant);
-     spi_object_append_reference (&iter_variant, obj);
+  spi_object_append_reference (&iter_variant, obj);
   dbus_message_iter_close_container (iter, &iter_variant);
 }
 
 void
-spi_object_append_desktop_reference (DBusMessageIter * iter)
+spi_object_append_desktop_reference (DBusMessageIter *iter)
 {
   DBusMessageIter iter_struct;
   const char *name = spi_global_app_data->desktop_name;
@@ -175,7 +177,7 @@ spi_object_append_desktop_reference (DBusMessageIter * iter)
 }
 
 DBusMessage *
-spi_object_return_reference (DBusMessage * msg, AtkObject * obj)
+spi_object_return_reference (DBusMessage *msg, AtkObject *obj)
 {
   DBusMessage *reply;
 
@@ -191,7 +193,7 @@ spi_object_return_reference (DBusMessage * msg, AtkObject * obj)
 }
 
 DBusMessage *
-spi_hyperlink_return_reference (DBusMessage * msg, AtkHyperlink * obj)
+spi_hyperlink_return_reference (DBusMessage *msg, AtkHyperlink *obj)
 {
   DBusMessage *reply;
 
@@ -211,7 +213,7 @@ spi_hyperlink_return_reference (DBusMessage * msg, AtkHyperlink * obj)
 /*---------------------------------------------------------------------------*/
 
 void
-spi_object_append_interfaces (DBusMessageIter * iter, AtkObject * obj)
+spi_object_append_interfaces (DBusMessageIter *iter, AtkObject *obj)
 {
   const gchar *itf;
 
@@ -314,7 +316,7 @@ spi_object_append_interfaces (DBusMessageIter * iter, AtkObject * obj)
 /*---------------------------------------------------------------------------*/
 
 void
-spi_object_append_attribute_set (DBusMessageIter * iter, AtkAttributeSet * attr)
+spi_object_append_attribute_set (DBusMessageIter *iter, AtkAttributeSet *attr)
 {
   DBusMessageIter dictIter;
 
@@ -327,7 +329,7 @@ spi_object_append_attribute_set (DBusMessageIter * iter, AtkAttributeSet * attr)
       const char *value = attribute->value;
 
       if (key == NULL)
-	key = "";
+        key = "";
       if (value == NULL)
         value = "";
 
@@ -346,7 +348,7 @@ spi_object_append_attribute_set (DBusMessageIter * iter, AtkAttributeSet * attr)
 /*---------------------------------------------------------------------------*/
 
 static gboolean
-init_role_lookup_table (AtspiRole * role_table)
+init_role_lookup_table (AtspiRole *role_table)
 {
   int i;
   /* if it's not in the list below, dunno what it is */
@@ -412,10 +414,10 @@ init_role_lookup_table (AtspiRole * role_table)
   role_table[ATK_ROLE_TABLE] = ATSPI_ROLE_TABLE;
   role_table[ATK_ROLE_TABLE_CELL] = ATSPI_ROLE_TABLE_CELL;
   role_table[ATK_ROLE_TABLE_COLUMN_HEADER] =
-    ATSPI_ROLE_TABLE_COLUMN_HEADER;
+      ATSPI_ROLE_TABLE_COLUMN_HEADER;
   role_table[ATK_ROLE_TABLE_ROW_HEADER] = ATSPI_ROLE_TABLE_ROW_HEADER;
   role_table[ATK_ROLE_TEAR_OFF_MENU_ITEM] =
-    ATSPI_ROLE_TEAROFF_MENU_ITEM;
+      ATSPI_ROLE_TEAROFF_MENU_ITEM;
   role_table[ATK_ROLE_TERMINAL] = ATSPI_ROLE_TERMINAL;
   role_table[ATK_ROLE_TEXT] = ATSPI_ROLE_TEXT;
   role_table[ATK_ROLE_TOGGLE_BUTTON] = ATSPI_ROLE_TOGGLE_BUTTON;
@@ -445,13 +447,13 @@ init_role_lookup_table (AtspiRole * role_table)
   role_table[ATK_ROLE_REDUNDANT_OBJECT] = ATSPI_ROLE_REDUNDANT_OBJECT;
   role_table[ATK_ROLE_LINK] = ATSPI_ROLE_LINK;
   role_table[ATK_ROLE_INPUT_METHOD_WINDOW] =
-    ATSPI_ROLE_INPUT_METHOD_WINDOW;
+      ATSPI_ROLE_INPUT_METHOD_WINDOW;
   role_table[ATK_ROLE_TABLE_ROW] = ATSPI_ROLE_TABLE_ROW;
   role_table[ATK_ROLE_TREE_ITEM] = ATSPI_ROLE_TREE_ITEM;
   role_table[ATK_ROLE_DOCUMENT_SPREADSHEET] =
-    ATSPI_ROLE_DOCUMENT_SPREADSHEET;
+      ATSPI_ROLE_DOCUMENT_SPREADSHEET;
   role_table[ATK_ROLE_DOCUMENT_PRESENTATION] =
-    ATSPI_ROLE_DOCUMENT_PRESENTATION;
+      ATSPI_ROLE_DOCUMENT_PRESENTATION;
   role_table[ATK_ROLE_DOCUMENT_TEXT] = ATSPI_ROLE_DOCUMENT_TEXT;
   role_table[ATK_ROLE_DOCUMENT_WEB] = ATSPI_ROLE_DOCUMENT_WEB;
   role_table[ATK_ROLE_DOCUMENT_EMAIL] = ATSPI_ROLE_DOCUMENT_EMAIL;

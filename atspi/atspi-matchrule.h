@@ -5,7 +5,7 @@
  * Copyright 2002 Ximian, Inc.
  *           2002 Sun Microsystems Inc.
  * Copyright 2010, 2011 Novell, Inc.
- *           
+ *
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -28,18 +28,18 @@
 
 #include "glib-object.h"
 
-#include "atspi-stateset.h"
 #include "atspi-constants.h"
+#include "atspi-stateset.h"
 #include "atspi-types.h"
 
 G_BEGIN_DECLS
 
-#define ATSPI_TYPE_MATCH_RULE                        (atspi_match_rule_get_type ())
-#define ATSPI_MATCH_RULE(obj)                        (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_MATCH_RULE, AtspiMatchRule))
-#define ATSPI_MATCH_RULE_CLASS(klass)                (G_TYPE_CHECK_CLASS_CAST ((klass), ATSPI_TYPE_MATCH_RULE, AtspiMatchRuleClass))
-#define ATSPI_IS_MATCH_RULE(obj)                     (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_MATCH_RULE))
-#define ATSPI_IS_MATCH_RULE_CLASS(klass)             (G_TYPE_CHECK_CLASS_TYPE ((klass), ATSPI_TYPE_MATCH_RULE))
-#define ATSPI_MATCH_RULE_GET_CLASS(obj)              (G_TYPE_INSTANCE_GET_CLASS ((obj), ATSPI_TYPE_MATCH_RULE, AtspiMatchRuleClass))
+#define ATSPI_TYPE_MATCH_RULE (atspi_match_rule_get_type ())
+#define ATSPI_MATCH_RULE(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_MATCH_RULE, AtspiMatchRule))
+#define ATSPI_MATCH_RULE_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), ATSPI_TYPE_MATCH_RULE, AtspiMatchRuleClass))
+#define ATSPI_IS_MATCH_RULE(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_MATCH_RULE))
+#define ATSPI_IS_MATCH_RULE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), ATSPI_TYPE_MATCH_RULE))
+#define ATSPI_MATCH_RULE_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), ATSPI_TYPE_MATCH_RULE, AtspiMatchRuleClass))
 
 typedef struct _AtspiMatchRule AtspiMatchRule;
 struct _AtspiMatchRule
@@ -51,7 +51,7 @@ struct _AtspiMatchRule
   AtspiCollectionMatchType attributematchtype;
   GArray *interfaces;
   AtspiCollectionMatchType interfacematchtype;
-  gint roles [4];
+  gint roles[4];
   AtspiCollectionMatchType rolematchtype;
   gboolean invert;
 };
@@ -77,4 +77,4 @@ atspi_match_rule_new (AtspiStateSet *states,
 
 G_END_DECLS
 
-#endif	/* _ATSPI_MATCH_RULE_H_ */
+#endif /* _ATSPI_MATCH_RULE_H_ */

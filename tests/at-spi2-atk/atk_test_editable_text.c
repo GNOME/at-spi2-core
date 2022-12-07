@@ -23,7 +23,7 @@
 #include "atk_suite.h"
 #include "atk_test_util.h"
 
-#define DATA_FILE TESTS_DATA_DIR"/test-editable-text.xml"
+#define DATA_FILE TESTS_DATA_DIR "/test-editable-text.xml"
 
 static void
 teardown_editable_text_test (gpointer fixture, gconstpointer user_data)
@@ -107,7 +107,7 @@ atk_test_editable_text_paste_text (gpointer fixture, gconstpointer user_data)
 }
 
 void
-atk_test_editable_text(void )
+atk_test_editable_text (void)
 {
   g_test_add_vtable (ATK_TEST_PATH_EDIT_TEXT "/atk_test_editable_text_get_editable_text_iface",
                      0, NULL, NULL, atk_test_editable_text_get_editable_text_iface, teardown_editable_text_test);

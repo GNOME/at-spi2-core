@@ -20,16 +20,18 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include "atk_test_util.h"
 #include "atk_suite.h"
+#include "atk_test_util.h"
 
-#define DATA_FILE TESTS_DATA_DIR"/test-text.xml"
+#define DATA_FILE TESTS_DATA_DIR "/test-text.xml"
 
-static gboolean GHRunc_find (gpointer key, gpointer value, gpointer user_data)
+static gboolean
+GHRunc_find (gpointer key, gpointer value, gpointer user_data)
 {
-  if (!g_strcmp0 (key, user_data)) {
-    return TRUE;
-  }
+  if (!g_strcmp0 (key, user_data))
+    {
+      return TRUE;
+    }
   return FALSE;
 }
 
@@ -70,7 +72,7 @@ atk_test_text_get_caret_offset (gpointer fixture, gconstpointer user_data)
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
   gint pos = atspi_text_get_caret_offset (obj, NULL);
-  g_assert_cmpint (pos,==,-1);
+  g_assert_cmpint (pos, ==, -1);
 }
 
 static void
@@ -201,10 +203,10 @@ atk_test_text_set_selection (gpointer fixture, gconstpointer user_data)
   g_assert (child);
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
-  g_assert_true(atspi_text_add_selection (obj, 9, 14, NULL));
-  g_assert_true(atspi_text_add_selection (obj, 14, 15, NULL));
-  g_assert_true(atspi_text_set_selection (obj, 0, 1, 2, NULL));
-  g_assert_true(atspi_text_set_selection (obj, 1, 3, 4, NULL));
+  g_assert_true (atspi_text_add_selection (obj, 9, 14, NULL));
+  g_assert_true (atspi_text_add_selection (obj, 14, 15, NULL));
+  g_assert_true (atspi_text_set_selection (obj, 0, 1, 2, NULL));
+  g_assert_true (atspi_text_set_selection (obj, 1, 3, 4, NULL));
 
   AtspiRange *range = atspi_text_get_selection (obj, 0, NULL);
   g_assert (range);
@@ -292,14 +294,14 @@ atk_test_text_get_attribute_run (gpointer fixture, gconstpointer user_data)
 
   gint start_offset = 0;
   gint end_offset = 0;
-  GHashTable *tab =  atspi_text_get_attribute_run (obj, 0, FALSE, &start_offset, &end_offset , NULL);
+  GHashTable *tab = atspi_text_get_attribute_run (obj, 0, FALSE, &start_offset, &end_offset, NULL);
 
   g_assert (tab);
 
-  g_assert_cmpstr ((const char*) g_hash_table_find (tab, GHRunc_find, "text_test_attr1"), ==, "on");
-  g_assert_cmpstr ((const char*) g_hash_table_find (tab, GHRunc_find, "text_test_attr2"), ==, "off");
-  g_assert_cmpint (start_offset, == , 5);
-  g_assert_cmpint (end_offset, == , 10);
+  g_assert_cmpstr ((const char *) g_hash_table_find (tab, GHRunc_find, "text_test_attr1"), ==, "on");
+  g_assert_cmpstr ((const char *) g_hash_table_find (tab, GHRunc_find, "text_test_attr2"), ==, "off");
+  g_assert_cmpint (start_offset, ==, 5);
+  g_assert_cmpint (end_offset, ==, 10);
   g_hash_table_destroy (tab);
 }
 
@@ -315,9 +317,9 @@ atk_test_text_get_defualt_attributes (gpointer fixture, gconstpointer user_data)
   GHashTable *tab = atspi_text_get_default_attributes (obj, NULL);
   g_assert (tab);
 
-  g_assert_cmpstr ((const char*) g_hash_table_find (tab, GHRunc_find, "bold_text"), ==, "on");
-  g_assert_cmpstr ((const char*) g_hash_table_find (tab, GHRunc_find, "underline_text"), ==, "off");
-  g_assert_cmpstr ((const char*) g_hash_table_find (tab, GHRunc_find, "dummy_text"), ==, "");
+  g_assert_cmpstr ((const char *) g_hash_table_find (tab, GHRunc_find, "bold_text"), ==, "on");
+  g_assert_cmpstr ((const char *) g_hash_table_find (tab, GHRunc_find, "underline_text"), ==, "off");
+  g_assert_cmpstr ((const char *) g_hash_table_find (tab, GHRunc_find, "dummy_text"), ==, "");
   g_hash_table_destroy (tab);
 }
 
@@ -332,14 +334,14 @@ atk_test_text_get_text_attributes (gpointer fixture, gconstpointer user_data)
 
   gint start_offset = 0;
   gint end_offset = 0;
-  GHashTable *tab =  atspi_text_get_text_attributes (obj, 0, &start_offset, &end_offset, NULL);
+  GHashTable *tab = atspi_text_get_text_attributes (obj, 0, &start_offset, &end_offset, NULL);
 
   g_assert (tab);
 
-  g_assert_cmpstr ((const char*) g_hash_table_find (tab, GHRunc_find, "text_test_attr1"), ==, "on");
-  g_assert_cmpstr ((const char*) g_hash_table_find (tab, GHRunc_find, "text_test_attr2"), ==, "off");
-  g_assert_cmpint (start_offset, == , 5);
-  g_assert_cmpint (end_offset, == , 10);
+  g_assert_cmpstr ((const char *) g_hash_table_find (tab, GHRunc_find, "text_test_attr1"), ==, "on");
+  g_assert_cmpstr ((const char *) g_hash_table_find (tab, GHRunc_find, "text_test_attr2"), ==, "off");
+  g_assert_cmpint (start_offset, ==, 5);
+  g_assert_cmpint (end_offset, ==, 10);
   g_hash_table_destroy (tab);
 }
 
@@ -414,19 +416,19 @@ atk_test_text_get_bounded_ranges (gpointer fixture, gconstpointer user_data)
   GArray *array = atspi_text_get_bounded_ranges (obj, 15, 21, 100, 50, ATSPI_COORD_TYPE_SCREEN, ATSPI_TEXT_CLIP_MAX, ATSPI_TEXT_CLIP_MIN, NULL);
   g_assert (array);
 
-  AtspiTextRange *range  = &g_array_index (array, AtspiTextRange, 0);
+  AtspiTextRange *range = &g_array_index (array, AtspiTextRange, 0);
   g_assert_cmpint (g_array_get_element_size (array), ==, sizeof (AtspiTextRange));
   g_assert_cmpint (range->start_offset, ==, 0);
   g_assert_cmpint (range->end_offset, ==, 5);
   g_assert_cmpstr (range->content, ==, "text0");
 
-  range  = &g_array_index (array, AtspiTextRange, 1);
+  range = &g_array_index (array, AtspiTextRange, 1);
   g_assert_cmpint (g_array_get_element_size (array), ==, sizeof (AtspiTextRange));
   g_assert_cmpint (range->start_offset, ==, 6);
   g_assert_cmpint (range->end_offset, ==, 10);
   g_assert_cmpstr (range->content, ==, "it w");
 
-  g_array_free (array,TRUE);
+  g_array_free (array, TRUE);
 }
 
 static void
@@ -455,9 +457,9 @@ atk_test_text (void)
   g_test_add_vtable (ATK_TEST_PATH_TEXT "/atk_test_text_set_caret_offset",
                      0, NULL, NULL, atk_test_text_set_caret_offset, teardown_text_test);
   g_test_add_vtable (ATK_TEST_PATH_TEXT "/atk_test_text_get_string_at_offset_s1",
-                     0, NULL, NULL, atk_test_text_get_string_at_offset_s1, teardown_text_test );
+                     0, NULL, NULL, atk_test_text_get_string_at_offset_s1, teardown_text_test);
   g_test_add_vtable (ATK_TEST_PATH_TEXT "/atk_test_text_get_string_at_offset_s2",
-                     0, NULL, NULL, atk_test_text_get_string_at_offset_s2, teardown_text_test );
+                     0, NULL, NULL, atk_test_text_get_string_at_offset_s2, teardown_text_test);
   g_test_add_vtable (ATK_TEST_PATH_TEXT "/atk_test_text_get_character_at_offset",
                      0, NULL, NULL, atk_test_text_get_character_at_offset, teardown_text_test);
   g_test_add_vtable (ATK_TEST_PATH_TEXT "/atk_test_text_get_character_extents",
@@ -473,9 +475,9 @@ atk_test_text (void)
   g_test_add_vtable (ATK_TEST_PATH_TEXT "/atk_test_text_get_selection",
                      0, NULL, NULL, atk_test_text_get_selection, teardown_text_test);
   g_test_add_vtable (ATK_TEST_PATH_TEXT "/atk_test_text_add_selection",
-                     0, NULL, NULL, atk_test_text_add_selection, teardown_text_test );
+                     0, NULL, NULL, atk_test_text_add_selection, teardown_text_test);
   g_test_add_vtable (ATK_TEST_PATH_TEXT "/atk_test_text_remove_selection",
-                     0, NULL, NULL, atk_test_text_remove_selection, teardown_text_test );
+                     0, NULL, NULL, atk_test_text_remove_selection, teardown_text_test);
   g_test_add_vtable (ATK_TEST_PATH_TEXT "/atk_test_text_set_selection",
                      0, NULL, NULL, atk_test_text_set_selection, teardown_text_test);
 }

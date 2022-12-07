@@ -55,15 +55,15 @@
 gboolean test_success = TRUE;
 GObject *my_value;
 
-#define TEST_TYPE_VALUE                         (test_value_get_type ())
-#define TEST_VALUE(obj)                         (G_TYPE_CHECK_INSTANCE_CAST ((obj), TEST_TYPE_VALUE, TestValue))
-#define TEST_VALUE_CLASS(klass)                 (G_TYPE_CHECK_CLASS_CAST ((klass), TEST_TYPE_VALUE, TestValueClass))
-#define TEST_IS_VALUE(obj)                      (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TEST_TYPE_VALUE))
-#define TEST_IS_VALUE_CLASS(klass)              (G_TYPE_CHECK_CLASS_TYPE ((klass), TEST_TYPE_VALUE))
-#define TEST_VALUE_GET_CLASS(obj)               (G_TYPE_INSTANCE_GET_CLASS ((obj), TEST_TYPE_VALUE, TestValueClass))
+#define TEST_TYPE_VALUE (test_value_get_type ())
+#define TEST_VALUE(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), TEST_TYPE_VALUE, TestValue))
+#define TEST_VALUE_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), TEST_TYPE_VALUE, TestValueClass))
+#define TEST_IS_VALUE(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TEST_TYPE_VALUE))
+#define TEST_IS_VALUE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TEST_TYPE_VALUE))
+#define TEST_VALUE_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), TEST_TYPE_VALUE, TestValueClass))
 
-typedef struct _TestValue        TestValue;
-typedef struct _TestValueClass   TestValueClass;
+typedef struct _TestValue TestValue;
+typedef struct _TestValueClass TestValueClass;
 
 struct _TestValue
 {
@@ -80,7 +80,7 @@ struct _TestValueClass
   AtkObjectClass parent_class;
 };
 
-GType       test_value_get_type (void) G_GNUC_CONST;
+GType test_value_get_type (void) G_GNUC_CONST;
 static void test_value_interface_init (AtkValueIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (TestValue,
@@ -99,8 +99,7 @@ test_value_init (TestValue *value)
 {
 }
 
-
-static const gchar*
+static const gchar *
 get_description (gdouble value)
 {
   const gchar *description = NULL;
@@ -111,7 +110,8 @@ get_description (gdouble value)
     description = atk_value_type_get_localized_name (ATK_VALUE_MEDIUM);
   else if (value < HIGH_THRESHOLD)
     description = atk_value_type_get_localized_name (ATK_VALUE_HIGH);
-  else description = atk_value_type_get_localized_name (ATK_VALUE_VERY_HIGH);
+  else
+    description = atk_value_type_get_localized_name (ATK_VALUE_VERY_HIGH);
 
   return description;
 }
@@ -134,7 +134,7 @@ test_value_get_value_and_text (AtkValue *value,
     *description = g_strdup (get_description (self->value));
 }
 
-AtkRange*
+AtkRange *
 test_value_get_range (AtkValue *value)
 {
   AtkRange *result;
@@ -142,8 +142,8 @@ test_value_get_range (AtkValue *value)
   g_return_val_if_fail (TEST_IS_VALUE (value), NULL);
 
   result = atk_range_new (LOWER_LIMIT,
-                                    UPPER_LIMIT,
-                                    NULL);
+                          UPPER_LIMIT,
+                          NULL);
 
   return result;
 }
@@ -156,7 +156,7 @@ test_value_get_increment (AtkValue *value)
   return INCREMENT;
 }
 
-GSList*
+GSList *
 test_value_get_sub_ranges (AtkValue *value)
 {
   GSList *result = NULL;
@@ -204,12 +204,13 @@ test_value_set_value (AtkValue *value,
   if (new_value > UPPER_LIMIT)
     new_value = UPPER_LIMIT;
 
-  if (new_value != self->value) {
-    gchar *description = g_strdup (get_description (new_value));
-    self->value = new_value;
-    g_signal_emit_by_name (value, "value-changed", new_value, description, NULL);
-    g_free (description);
-  }
+  if (new_value != self->value)
+    {
+      gchar *description = g_strdup (get_description (new_value));
+      self->value = new_value;
+      g_signal_emit_by_name (value, "value-changed", new_value, description, NULL);
+      g_free (description);
+    }
 }
 
 static void
@@ -228,7 +229,7 @@ value_page_changed_cb (AtkValue *value,
                        gchar *new_description,
                        gpointer data)
 {
-  TestValue* test_value = TEST_VALUE (value);
+  TestValue *test_value = TEST_VALUE (value);
 
   g_print ("value-changed callback=(%f,%s)\n", new_value, new_description);
   test_value->number_emissions++;
@@ -241,15 +242,17 @@ value_page_changed_cb (AtkValue *value,
 static gboolean
 do_value_changed (gpointer data)
 {
-  TestValue* test_value = TEST_VALUE (data);
+  TestValue *test_value = TEST_VALUE (data);
 
   atk_value_set_value (ATK_VALUE (test_value),
                        test_value->value + INCREMENT);
 
-  if (test_value->number_emissions == EXPECTED_NUMBER) {
-    g_main_loop_quit (test_value->loop);
-    return G_SOURCE_REMOVE;
-  } else
+  if (test_value->number_emissions == EXPECTED_NUMBER)
+    {
+      g_main_loop_quit (test_value->loop);
+      return G_SOURCE_REMOVE;
+    }
+  else
     return G_SOURCE_CONTINUE;
 }
 
@@ -274,12 +277,11 @@ test_page_changed (void)
 }
 
 int
-main (gint  argc,
-      char* argv[])
+main (gint argc,
+      char *argv[])
 {
   g_test_init (&argc, &argv, NULL);
   g_test_add_func ("/atk/value/page_changed", test_page_changed);
 
   return g_test_run ();
 }
-

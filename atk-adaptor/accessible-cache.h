@@ -23,25 +23,25 @@
 #ifndef ACCESSIBLE_CACHE_H
 #define ACCESSIBLE_CACHE_H
 
-#include <glib.h>
 #include <glib-object.h>
+#include <glib.h>
 
 typedef struct _SpiCache SpiCache;
 typedef struct _SpiCacheClass SpiCacheClass;
 
 G_BEGIN_DECLS
 
-#define SPI_CACHE_TYPE        (spi_cache_get_type ())
-#define SPI_CACHE(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_CACHE_TYPE, SpiCache))
-#define SPI_CACHE_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_CACHE_TYPE, SpiCacheClass))
-#define SPI_IS_CACHE(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_CACHE_TYPE))
+#define SPI_CACHE_TYPE (spi_cache_get_type ())
+#define SPI_CACHE(o) (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_CACHE_TYPE, SpiCache))
+#define SPI_CACHE_CLASS(k) (G_TYPE_CHECK_CLASS_CAST ((k), SPI_CACHE_TYPE, SpiCacheClass))
+#define SPI_IS_CACHE(o) (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_CACHE_TYPE))
 #define SPI_IS_CACHE_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_CACHE_TYPE))
 
 struct _SpiCache
 {
   GObject parent;
 
-  GHashTable * objects;
+  GHashTable *objects;
   GQueue *add_traversal;
   gint add_pending_idle;
 
@@ -58,10 +58,10 @@ GType spi_cache_get_type (void);
 extern SpiCache *spi_global_cache;
 
 void
-spi_cache_foreach (SpiCache * cache, GHFunc func, gpointer data);
+spi_cache_foreach (SpiCache *cache, GHFunc func, gpointer data);
 
 gboolean
-spi_cache_in (SpiCache * cache, GObject * object);
+spi_cache_in (SpiCache *cache, GObject *object);
 
 G_END_DECLS
 #endif /* ACCESSIBLE_CACHE_H */

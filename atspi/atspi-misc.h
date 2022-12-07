@@ -5,7 +5,7 @@
  * Copyright 2002 Ximian, Inc.
  *           2002 Sun Microsystems Inc.
  * Copyright 2010, 2011 Novell, Inc.
- *           
+ *
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -46,7 +46,7 @@ atspi_set_timeout (gint val, gint startup_time);
 void
 atspi_set_main_context (GMainContext *cnx);
 
-gchar * atspi_role_get_name (AtspiRole role);
+gchar *atspi_role_get_name (AtspiRole role);
 G_END_DECLS
 
-#endif	/* _ATSPI_MISC_H_ */
+#endif /* _ATSPI_MISC_H_ */

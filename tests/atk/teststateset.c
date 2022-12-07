@@ -21,8 +21,8 @@
 
 #include <string.h>
 
-static void  test_state_set (void);
-static void  test_state (void);
+static void test_state_set (void);
+static void test_state (void);
 
 static void
 test_state_set (void)
@@ -49,7 +49,7 @@ test_state_set (void)
   g_assert_true (atk_state_set_contains_state (state_set1, ATK_STATE_VISIBLE));
   g_assert_true (atk_state_set_contains_state (state_set1, ATK_STATE_BUSY));
   g_assert_false (atk_state_set_contains_state (state_set1, ATK_STATE_VERTICAL));
- 
+
   atk_state_set_remove_state (state_set1, ATK_STATE_BUSY);
   g_assert_false (atk_state_set_contains_state (state_set1, ATK_STATE_BUSY));
   g_assert_true (atk_state_set_contains_state (state_set1, ATK_STATE_VISIBLE));
@@ -59,8 +59,8 @@ test_state_set (void)
   state_array[0] = ATK_STATE_SINGLE_LINE;
   state_array[1] = ATK_STATE_VISIBLE;
   state_array[2] = ATK_STATE_VERTICAL;
- 
-  state_set2 = atk_state_set_new();
+
+  state_set2 = atk_state_set_new ();
   atk_state_set_add_states (state_set2, state_array, 3);
 
   state_set3 = atk_state_set_and_sets (state_set1, state_set2);
@@ -71,7 +71,7 @@ test_state_set (void)
   atk_state_set_remove_state (state_set1, ATK_STATE_VISIBLE);
   state_set3 = atk_state_set_and_sets (state_set1, state_set2);
   g_assert_null (state_set3);
- 
+
   state_set3 = atk_state_set_or_sets (state_set1, state_set2);
   g_assert_true (atk_state_set_contains_state (state_set3, ATK_STATE_VISIBLE));
   g_assert_false (atk_state_set_contains_state (state_set3, ATK_STATE_INVALID));
@@ -114,16 +114,16 @@ test_state (void)
   /*
    * Check that a non-existent type returns NULL
    */
-  g_assert_null (atk_state_type_get_name (ATK_STATE_LAST_DEFINED +2));
+  g_assert_null (atk_state_type_get_name (ATK_STATE_LAST_DEFINED + 2));
 }
 
 int
-main (gint  argc,
-      char* argv[])
+main (gint argc,
+      char *argv[])
 {
   g_test_init (&argc, &argv, NULL);
   g_test_add_func ("/atk/state/state_set", test_state_set);
-  g_test_add_func ("/atk/state/state",     test_state);
+  g_test_add_func ("/atk/state/state", test_state);
 
   return g_test_run ();
 }

@@ -22,22 +22,22 @@
  * Boston, MA 02110-1301, USA.
  */
 
+#include "bridge.h"
 #include <atk/atk.h>
 #include <droute/droute.h>
-#include "bridge.h"
 
 #include "spi-dbus.h"
-#include "object.h"
+
 #include "introspection.h"
+#include "object.h"
 
 static dbus_bool_t
-impl_get_NSelectedChildren (DBusMessageIter * iter, void *user_data)
+impl_get_NSelectedChildren (DBusMessageIter *iter, void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
   g_return_val_if_fail (ATK_IS_SELECTION (user_data), FALSE);
   return droute_return_v_int32 (iter,
-                                atk_selection_get_selection_count
-                                (selection));
+                                atk_selection_get_selection_count (selection));
 }
 
 /*static char *
@@ -50,8 +50,7 @@ impl_get_NSelectedChildren_str (void *datum)
 }*/
 
 static DBusMessage *
-impl_GetSelectedChild (DBusConnection * bus, DBusMessage * message,
-                       void *user_data)
+impl_GetSelectedChild (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
   DBusMessage *reply;
@@ -60,9 +59,8 @@ impl_GetSelectedChild (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_SELECTION (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &selectedChildIndex,
-       DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &selectedChildIndex,
+                              DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -75,8 +73,7 @@ impl_GetSelectedChild (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_SelectChild (DBusConnection * bus, DBusMessage * message,
-                  void *user_data)
+impl_SelectChild (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
   dbus_int32_t childIndex;
@@ -85,8 +82,7 @@ impl_SelectChild (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_SELECTION (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &childIndex, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &childIndex, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -101,8 +97,7 @@ impl_SelectChild (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_DeselectSelectedChild (DBusConnection * bus, DBusMessage * message,
-                            void *user_data)
+impl_DeselectSelectedChild (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
   dbus_int32_t selectedChildIndex;
@@ -111,9 +106,8 @@ impl_DeselectSelectedChild (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_SELECTION (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &selectedChildIndex,
-       DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &selectedChildIndex,
+                              DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -128,8 +122,7 @@ impl_DeselectSelectedChild (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_IsChildSelected (DBusConnection * bus, DBusMessage * message,
-                      void *user_data)
+impl_IsChildSelected (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
   dbus_int32_t childIndex;
@@ -138,8 +131,7 @@ impl_IsChildSelected (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_SELECTION (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &childIndex, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &childIndex, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -154,7 +146,7 @@ impl_IsChildSelected (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_SelectAll (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_SelectAll (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
   dbus_bool_t rv;
@@ -173,8 +165,7 @@ impl_SelectAll (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_ClearSelection (DBusConnection * bus, DBusMessage * message,
-                     void *user_data)
+impl_ClearSelection (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
   dbus_bool_t rv;
@@ -193,8 +184,7 @@ impl_ClearSelection (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_DeselectChild (DBusConnection * bus, DBusMessage * message,
-                    void *user_data)
+impl_DeselectChild (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
   dbus_int32_t selectedChildIndex;
@@ -204,9 +194,8 @@ impl_DeselectChild (DBusConnection * bus, DBusMessage * message,
 
   g_return_val_if_fail (ATK_IS_SELECTION (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &selectedChildIndex,
-       DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &selectedChildIndex,
+                              DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -232,23 +221,23 @@ impl_DeselectChild (DBusConnection * bus, DBusMessage * message,
 }
 
 static DRouteMethod methods[] = {
-  {impl_GetSelectedChild, "GetSelectedChild"},
-  {impl_SelectChild, "SelectChild"},
-  {impl_DeselectSelectedChild, "DeselectSelectedChild"},
-  {impl_IsChildSelected, "IsChildSelected"},
-  {impl_SelectAll, "SelectAll"},
-  {impl_ClearSelection, "ClearSelection"},
-  {impl_DeselectChild, "DeselectChild"},
-  {NULL, NULL}
+  { impl_GetSelectedChild, "GetSelectedChild" },
+  { impl_SelectChild, "SelectChild" },
+  { impl_DeselectSelectedChild, "DeselectSelectedChild" },
+  { impl_IsChildSelected, "IsChildSelected" },
+  { impl_SelectAll, "SelectAll" },
+  { impl_ClearSelection, "ClearSelection" },
+  { impl_DeselectChild, "DeselectChild" },
+  { NULL, NULL }
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_NSelectedChildren, NULL, "NSelectedChildren"},
-  {NULL, NULL, NULL}
+  { impl_get_NSelectedChildren, NULL, "NSelectedChildren" },
+  { NULL, NULL, NULL }
 };
 
 void
-spi_initialize_selection (DRoutePath * path)
+spi_initialize_selection (DRoutePath *path)
 {
   spi_atk_add_interface (path,
                          ATSPI_DBUS_INTERFACE_SELECTION,

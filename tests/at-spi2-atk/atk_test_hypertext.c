@@ -18,10 +18,10 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include "atk_test_util.h"
 #include "atk_suite.h"
+#include "atk_test_util.h"
 
-#define DATA_FILE TESTS_DATA_DIR"/test-hypertext.xml"
+#define DATA_FILE TESTS_DATA_DIR "/test-hypertext.xml"
 
 static void
 atk_test_hypertext_get_n_links (gpointer fixture, gconstpointer user_data)
@@ -87,9 +87,9 @@ void
 atk_test_hypertext (void)
 {
   g_test_add_vtable (ATK_TEST_PATH_HYPERTEXT "/atk_test_hypertext_get_n_links",
-                     0, NULL, NULL, atk_test_hypertext_get_n_links, teardown_hypertext_test );
+                     0, NULL, NULL, atk_test_hypertext_get_n_links, teardown_hypertext_test);
   g_test_add_vtable (ATK_TEST_PATH_HYPERTEXT "/atk_test_hypertext_get_links",
-                     0, NULL, NULL, atk_test_hypertext_get_link, teardown_hypertext_test );
+                     0, NULL, NULL, atk_test_hypertext_get_link, teardown_hypertext_test);
   g_test_add_vtable (ATK_TEST_PATH_HYPERTEXT "/atk_test_hypertext_get_link_index",
-                     0, NULL, NULL, atk_test_hypertext_get_link_index, teardown_hypertext_test );
+                     0, NULL, NULL, atk_test_hypertext_get_link_index, teardown_hypertext_test);
 }

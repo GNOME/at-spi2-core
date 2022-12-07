@@ -18,10 +18,10 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include <glib.h>
-#include <string.h>
 #include <atk/atk.h>
+#include <glib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "my-atk-object.h"
 #include "my-atk-value.h"
@@ -34,7 +34,7 @@ G_DEFINE_TYPE_WITH_CODE (MyAtkValue,
                          my_atk_value,
                          MY_TYPE_ATK_OBJECT,
                          G_IMPLEMENT_INTERFACE (ATK_TYPE_VALUE,
-                             atk_value_interface_init));
+                                                atk_value_interface_init));
 
 guint
 my_atk_set_value (AtkValue *obj, gdouble min, gdouble cur, gdouble max, gdouble step)
@@ -60,7 +60,7 @@ my_atk_value_get_value_and_text (AtkValue *obj, gdouble *value, gchar **text)
   *text = g_strdup_printf ("%f", self->cur);
 }
 
-static AtkRange*
+static AtkRange *
 my_atk_value_get_range (AtkValue *obj)
 {
   MyAtkValue *self = MY_ATK_VALUE (obj);
@@ -77,7 +77,7 @@ my_atk_value_get_increment (AtkValue *obj)
   return self->step;
 }
 
-static GSList*
+static GSList *
 my_atk_value_get_sub_ranges (AtkValue *obj)
 {
   g_return_val_if_fail (MY_IS_ATK_VALUE (obj), NULL);
@@ -91,7 +91,7 @@ my_atk_value_set_value (AtkValue *obj, const gdouble val)
   MyAtkValue *self = MY_ATK_VALUE (obj);
   g_return_if_fail (MY_IS_ATK_VALUE (obj));
 
-  if ( self->min < val && val < self->max )
+  if (self->min < val && val < self->max)
     self->cur = val;
   return;
 }
@@ -99,7 +99,8 @@ my_atk_value_set_value (AtkValue *obj, const gdouble val)
 static void
 atk_value_interface_init (AtkValueIface *iface)
 {
-  if (!iface) return;
+  if (!iface)
+    return;
   iface->get_value_and_text = my_atk_value_get_value_and_text;
   iface->get_range = my_atk_value_get_range;
   iface->get_increment = my_atk_value_get_increment;
@@ -127,10 +128,10 @@ my_atk_value_class_finalize (GObject *obj)
 }
 
 static void
-my_atk_value_class_init(MyAtkValueClass *my_class)
+my_atk_value_class_init (MyAtkValueClass *my_class)
 {
-  AtkObjectClass *atk_class = ATK_OBJECT_CLASS(my_class);
-  GObjectClass *gobject_class = G_OBJECT_CLASS(my_class);
+  AtkObjectClass *atk_class = ATK_OBJECT_CLASS (my_class);
+  GObjectClass *gobject_class = G_OBJECT_CLASS (my_class);
 
   gobject_class->finalize = my_atk_value_class_finalize;
 

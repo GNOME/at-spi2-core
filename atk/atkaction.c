@@ -23,7 +23,7 @@
 
 /**
  * AtkAction:
- * 
+ *
  * The ATK interface provided by UI components
  * which the user can activate/interact with.
  *
@@ -52,17 +52,17 @@ atk_action_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) {
-    GTypeInfo tinfo =
+  if (!type)
     {
-      sizeof (AtkActionIface),
-      (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL,
+      GTypeInfo tinfo = {
+        sizeof (AtkActionIface),
+        (GBaseInitFunc) NULL,
+        (GBaseFinalizeFunc) NULL,
 
-    };
+      };
 
-    type = g_type_register_static (G_TYPE_INTERFACE, "AtkAction", &tinfo, 0);
-  }
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtkAction", &tinfo, 0);
+    }
 
   return type;
 }
@@ -70,7 +70,7 @@ atk_action_get_type (void)
 /**
  * atk_action_do_action:
  * @action: a #GObject instance that implements AtkActionIface
- * @i: the action index corresponding to the action to be performed 
+ * @i: the action index corresponding to the action to be performed
  *
  * Perform the specified action on the object.
  *
@@ -79,7 +79,7 @@ atk_action_get_type (void)
  **/
 gboolean
 atk_action_do_action (AtkAction *obj,
-                      gint      i)
+                      gint i)
 {
   AtkActionIface *iface;
 
@@ -96,7 +96,7 @@ atk_action_do_action (AtkAction *obj,
 /**
  * atk_action_get_n_actions:
  * @action: a #GObject instance that implements AtkActionIface
- * 
+ *
  * Gets the number of accessible actions available on the object.
  * If there are more than one, the first one is considered the
  * "default" action of the object.
@@ -105,7 +105,7 @@ atk_action_do_action (AtkAction *obj,
  * implement this interface.
  **/
 gint
-atk_action_get_n_actions  (AtkAction *obj)
+atk_action_get_n_actions (AtkAction *obj)
 {
   AtkActionIface *iface;
 
@@ -122,16 +122,16 @@ atk_action_get_n_actions  (AtkAction *obj)
 /**
  * atk_action_get_description:
  * @action: a #GObject instance that implements AtkActionIface
- * @i: the action index corresponding to the action to be performed 
+ * @i: the action index corresponding to the action to be performed
  *
  * Returns a description of the specified action of the object.
  *
  * Returns: (nullable): a description string, or %NULL if @action does
  * not implement this interface.
  **/
-const gchar*
+const gchar *
 atk_action_get_description (AtkAction *obj,
-                            gint      i)
+                            gint i)
 {
   AtkActionIface *iface;
 
@@ -148,19 +148,19 @@ atk_action_get_description (AtkAction *obj,
 /**
  * atk_action_get_name:
  * @action: a #GObject instance that implements AtkActionIface
- * @i: the action index corresponding to the action to be performed 
+ * @i: the action index corresponding to the action to be performed
  *
- * Returns a non-localized string naming the specified action of the 
- * object. This name is generally not descriptive of the end result 
- * of the action, but instead names the 'interaction type' which the 
- * object supports. By convention, the above strings should be used to 
- * represent the actions which correspond to the common point-and-click 
- * interaction techniques of the same name: i.e. 
+ * Returns a non-localized string naming the specified action of the
+ * object. This name is generally not descriptive of the end result
+ * of the action, but instead names the 'interaction type' which the
+ * object supports. By convention, the above strings should be used to
+ * represent the actions which correspond to the common point-and-click
+ * interaction techniques of the same name: i.e.
  * "click", "press", "release", "drag", "drop", "popup", etc.
- * The "popup" action should be used to pop up a context menu for the 
+ * The "popup" action should be used to pop up a context menu for the
  * object, if one exists.
  *
- * For technical reasons, some toolkits cannot guarantee that the 
+ * For technical reasons, some toolkits cannot guarantee that the
  * reported action is actually 'bound' to a nontrivial user event;
  * i.e. the result of some actions via atk_action_do_action() may be
  * NIL.
@@ -168,9 +168,9 @@ atk_action_get_description (AtkAction *obj,
  * Returns: (nullable): a name string, or %NULL if @action does not
  * implement this interface.
  **/
-const gchar*
+const gchar *
 atk_action_get_name (AtkAction *obj,
-                     gint      i)
+                     gint i)
 {
   AtkActionIface *iface;
 
@@ -187,16 +187,16 @@ atk_action_get_name (AtkAction *obj,
 /**
  * atk_action_get_localized_name:
  * @action: a #GObject instance that implements AtkActionIface
- * @i: the action index corresponding to the action to be performed 
+ * @i: the action index corresponding to the action to be performed
  *
  * Returns the localized name of the specified action of the object.
  *
  * Returns: (nullable): a name string, or %NULL if @action does not
  * implement this interface.
  **/
-const gchar*
+const gchar *
 atk_action_get_localized_name (AtkAction *obj,
-                               gint      i)
+                               gint i)
 {
   AtkActionIface *iface;
 
@@ -242,9 +242,9 @@ atk_action_get_localized_name (AtkAction *obj,
  * this action, or %NULL if there is no keybinding for this action.
  *
  **/
-const gchar*
+const gchar *
 atk_action_get_keybinding (AtkAction *obj,
-                           gint      i)
+                           gint i)
 {
   AtkActionIface *iface;
 
@@ -261,7 +261,7 @@ atk_action_get_keybinding (AtkAction *obj,
 /**
  * atk_action_set_description:
  * @action: a #GObject instance that implements AtkActionIface
- * @i: the action index corresponding to the action to be performed 
+ * @i: the action index corresponding to the action to be performed
  * @desc: the description to be assigned to this action
  *
  * Sets a description of the specified action of the object.
@@ -269,8 +269,8 @@ atk_action_get_keybinding (AtkAction *obj,
  * Returns: a gboolean representing if the description was successfully set;
  **/
 gboolean
-atk_action_set_description (AtkAction   *obj,
-                            gint        i,
+atk_action_set_description (AtkAction *obj,
+                            gint i,
                             const gchar *desc)
 {
   AtkActionIface *iface;

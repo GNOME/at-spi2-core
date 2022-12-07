@@ -22,19 +22,19 @@
  * Boston, MA 02110-1301, USA.
  */
 
+#include "bridge.h"
 #include <atk/atk.h>
 #include <droute/droute.h>
-#include "bridge.h"
 
-#include "atspi/atspi.h"
-#include "spi-dbus.h"
 #include "accessible-stateset.h"
-#include "object.h"
+#include "atspi/atspi.h"
 #include "introspection.h"
+#include "object.h"
+#include "spi-dbus.h"
 #include <string.h>
 
 static dbus_bool_t
-impl_get_Name (DBusMessageIter * iter, void *user_data)
+impl_get_Name (DBusMessageIter *iter, void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
 
@@ -44,7 +44,7 @@ impl_get_Name (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_Description (DBusMessageIter * iter, void *user_data)
+impl_get_Description (DBusMessageIter *iter, void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
 
@@ -54,7 +54,7 @@ impl_get_Description (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_Locale (DBusMessageIter * iter, void *user_data)
+impl_get_Locale (DBusMessageIter *iter, void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
 
@@ -64,7 +64,7 @@ impl_get_Locale (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_Parent (DBusMessageIter * iter, void *user_data)
+impl_get_Parent (DBusMessageIter *iter, void *user_data)
 {
   AtkObject *obj = (AtkObject *) user_data;
   AtkObject *parent;
@@ -112,22 +112,21 @@ impl_get_Parent (DBusMessageIter * iter, void *user_data)
             }
         }
       else if (role != ATSPI_ROLE_APPLICATION)
-         spi_object_append_null_reference (&iter_variant);
+        spi_object_append_null_reference (&iter_variant);
       else
-         spi_object_append_desktop_reference (&iter_variant);
-      }
+        spi_object_append_desktop_reference (&iter_variant);
+    }
   else
     {
       spi_object_append_reference (&iter_variant, parent);
     }
-
 
   dbus_message_iter_close_container (iter, &iter_variant);
   return TRUE;
 }
 
 static dbus_bool_t
-impl_get_ChildCount (DBusMessageIter * iter, void *user_data)
+impl_get_ChildCount (DBusMessageIter *iter, void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
   int childCount;
@@ -135,14 +134,15 @@ impl_get_ChildCount (DBusMessageIter * iter, void *user_data)
   g_return_val_if_fail (ATK_IS_OBJECT (user_data), FALSE);
 
   childCount = (ATK_IS_SOCKET (object) && atk_socket_is_occupied (ATK_SOCKET (object)))
-               ? 1
-               : atk_object_get_n_accessible_children (object);
+                   ? 1
+                   : atk_object_get_n_accessible_children (object);
   return droute_return_v_int32 (iter, childCount);
 }
 
 static DBusMessage *
-impl_GetChildAtIndex (DBusConnection * bus,
-                      DBusMessage * message, void *user_data)
+impl_GetChildAtIndex (DBusConnection *bus,
+                      DBusMessage *message,
+                      void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
   DBusMessage *reply;
@@ -151,8 +151,7 @@ impl_GetChildAtIndex (DBusConnection * bus,
 
   g_return_val_if_fail (ATK_IS_OBJECT (user_data),
                         droute_not_yet_handled_error (message));
-  if (!dbus_message_get_args 
-       (message, NULL, DBUS_TYPE_INT32, &i, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &i, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -189,8 +188,9 @@ impl_GetChildAtIndex (DBusConnection * bus,
 }
 
 static DBusMessage *
-impl_GetChildren (DBusConnection * bus,
-                  DBusMessage * message, void *user_data)
+impl_GetChildren (DBusConnection *bus,
+                  DBusMessage *message,
+                  void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
   gint i;
@@ -205,13 +205,12 @@ impl_GetChildren (DBusConnection * bus,
   if (!reply)
     goto oom;
   dbus_message_iter_init_append (reply, &iter);
-  if (!dbus_message_iter_open_container
-      (&iter, DBUS_TYPE_ARRAY, "(so)", &iter_array))
+  if (!dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(so)", &iter_array))
     goto oom;
   for (i = 0; i < count; i++)
     {
       AtkObject *child = atk_object_ref_accessible_child (object, i);
-      spi_object_append_reference (&iter_array, child); 
+      spi_object_append_reference (&iter_array, child);
       if (child)
         g_object_unref (child);
     }
@@ -224,8 +223,9 @@ oom:
 }
 
 static DBusMessage *
-impl_GetIndexInParent (DBusConnection * bus,
-                       DBusMessage * message, void *user_data)
+impl_GetIndexInParent (DBusConnection *bus,
+                       DBusMessage *message,
+                       void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
   dbus_int32_t rv;
@@ -241,7 +241,7 @@ impl_GetIndexInParent (DBusConnection * bus,
 }
 
 static gboolean
-spi_init_relation_type_table (AtspiRelationType * types)
+spi_init_relation_type_table (AtspiRelationType *types)
 {
   gint i;
 
@@ -261,9 +261,9 @@ spi_init_relation_type_table (AtspiRelationType * types)
   types[ATK_RELATION_EMBEDDED_BY] = ATSPI_RELATION_EMBEDDED_BY;
   types[ATK_RELATION_POPUP_FOR] = ATSPI_RELATION_POPUP_FOR;
   types[ATK_RELATION_PARENT_WINDOW_OF] =
-    ATSPI_RELATION_PARENT_WINDOW_OF;
+      ATSPI_RELATION_PARENT_WINDOW_OF;
   types[ATK_RELATION_DESCRIPTION_FOR] =
-    ATSPI_RELATION_DESCRIPTION_FOR;
+      ATSPI_RELATION_DESCRIPTION_FOR;
   types[ATK_RELATION_DESCRIBED_BY] = ATSPI_RELATION_DESCRIBED_BY;
   types[ATK_RELATION_DETAILS] = ATSPI_RELATION_DETAILS;
   types[ATK_RELATION_DETAILS_FOR] = ATSPI_RELATION_DETAILS_FOR;
@@ -279,7 +279,7 @@ spi_relation_type_from_atk_relation_type (AtkRelationType type)
 {
   static gboolean is_initialized = FALSE;
   static AtspiRelationType
-    spi_relation_type_table[ATK_RELATION_LAST_DEFINED];
+      spi_relation_type_table[ATK_RELATION_LAST_DEFINED];
   AtspiRelationType spi_type;
 
   if (!is_initialized)
@@ -293,8 +293,9 @@ spi_relation_type_from_atk_relation_type (AtkRelationType type)
 }
 
 static DBusMessage *
-impl_GetRelationSet (DBusConnection * bus,
-                     DBusMessage * message, void *user_data)
+impl_GetRelationSet (DBusConnection *bus,
+                     DBusMessage *message,
+                     void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
   DBusMessage *reply;
@@ -310,8 +311,7 @@ impl_GetRelationSet (DBusConnection * bus,
     return NULL;
   set = atk_object_ref_relation_set (object);
   dbus_message_iter_init_append (reply, &iter);
-  if (!dbus_message_iter_open_container
-      (&iter, DBUS_TYPE_ARRAY, "(ua(so))", &iter_array))
+  if (!dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(ua(so))", &iter_array))
     {
       goto oom;
     }
@@ -329,14 +329,12 @@ impl_GetRelationSet (DBusConnection * bus,
       rt = atk_relation_get_relation_type (r);
       type = spi_relation_type_from_atk_relation_type (rt);
       target = atk_relation_get_target (r);
-      if (!dbus_message_iter_open_container
-          (&iter_array, DBUS_TYPE_STRUCT, NULL, &iter_struct))
+      if (!dbus_message_iter_open_container (&iter_array, DBUS_TYPE_STRUCT, NULL, &iter_struct))
         {
           goto oom;
         }
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT32, &type);
-      if (!dbus_message_iter_open_container
-          (&iter_struct, DBUS_TYPE_ARRAY, "(so)", &iter_targets))
+      if (!dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "(so)", &iter_targets))
         {
           goto oom;
         }
@@ -359,7 +357,7 @@ oom:
 }
 
 static DBusMessage *
-impl_GetRole (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetRole (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
   gint role;
@@ -380,8 +378,9 @@ impl_GetRole (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_GetRoleName (DBusConnection * bus,
-                  DBusMessage * message, void *user_data)
+impl_GetRoleName (DBusConnection *bus,
+                  DBusMessage *message,
+                  void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
   gint role;
@@ -404,8 +403,9 @@ impl_GetRoleName (DBusConnection * bus,
 }
 
 static DBusMessage *
-impl_GetLocalizedRoleName (DBusConnection * bus,
-                           DBusMessage * message, void *user_data)
+impl_GetLocalizedRoleName (DBusConnection *bus,
+                           DBusMessage *message,
+                           void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
   gint role;
@@ -428,7 +428,7 @@ impl_GetLocalizedRoleName (DBusConnection * bus,
 }
 
 static DBusMessage *
-impl_GetState (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetState (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
 
@@ -457,8 +457,9 @@ impl_GetState (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_GetAttributes (DBusConnection * bus,
-                    DBusMessage * message, void *user_data)
+impl_GetAttributes (DBusConnection *bus,
+                    DBusMessage *message,
+                    void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
   AtkAttributeSet *attributes;
@@ -480,7 +481,7 @@ impl_GetAttributes (DBusConnection * bus,
 }
 
 static dbus_bool_t
-impl_get_Attributes (DBusMessageIter * iter, void *user_data)
+impl_get_Attributes (DBusMessageIter *iter, void *user_data)
 {
   DBusMessageIter iter_variant;
   AtkObject *object = (AtkObject *) user_data;
@@ -500,15 +501,17 @@ impl_get_Attributes (DBusMessageIter * iter, void *user_data)
 }
 
 static DBusMessage *
-impl_GetApplication (DBusConnection * bus,
-                     DBusMessage * message, void *user_data)
+impl_GetApplication (DBusConnection *bus,
+                     DBusMessage *message,
+                     void *user_data)
 {
   return spi_object_return_reference (message, atk_get_root ());
 }
 
 static DBusMessage *
-impl_GetInterfaces (DBusConnection * bus,
-                    DBusMessage * message, void *user_data)
+impl_GetInterfaces (DBusConnection *bus,
+                    DBusMessage *message,
+                    void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
   DBusMessage *reply;
@@ -529,7 +532,7 @@ impl_GetInterfaces (DBusConnection * bus,
 }
 
 static dbus_bool_t
-impl_get_AccessibleId (DBusMessageIter * iter, void *user_data)
+impl_get_AccessibleId (DBusMessageIter *iter, void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
 
@@ -539,36 +542,36 @@ impl_get_AccessibleId (DBusMessageIter * iter, void *user_data)
 }
 
 static DRouteMethod methods[] = {
-  {impl_GetChildAtIndex, "GetChildAtIndex"},
-  {impl_GetChildren, "GetChildren"},
-  {impl_GetIndexInParent, "GetIndexInParent"},
-  {impl_GetRelationSet, "GetRelationSet"},
-  {impl_GetRole, "GetRole"},
-  {impl_GetRoleName, "GetRoleName"},
-  {impl_GetLocalizedRoleName, "GetLocalizedRoleName"},
-  {impl_GetState, "GetState"},
-  {impl_GetAttributes, "GetAttributes"},
-  {impl_GetApplication, "GetApplication"},
-  {impl_GetInterfaces, "GetInterfaces"},
-  {NULL, NULL}
+  { impl_GetChildAtIndex, "GetChildAtIndex" },
+  { impl_GetChildren, "GetChildren" },
+  { impl_GetIndexInParent, "GetIndexInParent" },
+  { impl_GetRelationSet, "GetRelationSet" },
+  { impl_GetRole, "GetRole" },
+  { impl_GetRoleName, "GetRoleName" },
+  { impl_GetLocalizedRoleName, "GetLocalizedRoleName" },
+  { impl_GetState, "GetState" },
+  { impl_GetAttributes, "GetAttributes" },
+  { impl_GetApplication, "GetApplication" },
+  { impl_GetInterfaces, "GetInterfaces" },
+  { NULL, NULL }
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_Name, NULL, "Name"},
-  {impl_get_Description, NULL, "Description"},
-  {impl_get_Locale, NULL, "Locale"},
-  {impl_get_Parent, NULL, "Parent"},
-  {impl_get_ChildCount, NULL, "ChildCount"},
-  {impl_get_Attributes, NULL, "Attributes"},
-  {impl_get_AccessibleId, NULL, "AccessibleId"},
-  {NULL, NULL, NULL}
+  { impl_get_Name, NULL, "Name" },
+  { impl_get_Description, NULL, "Description" },
+  { impl_get_Locale, NULL, "Locale" },
+  { impl_get_Parent, NULL, "Parent" },
+  { impl_get_ChildCount, NULL, "ChildCount" },
+  { impl_get_Attributes, NULL, "Attributes" },
+  { impl_get_AccessibleId, NULL, "AccessibleId" },
+  { NULL, NULL, NULL }
 };
 
 void
-spi_initialize_accessible (DRoutePath * path)
+spi_initialize_accessible (DRoutePath *path)
 {
   spi_atk_add_interface (path,
                          ATSPI_DBUS_INTERFACE_ACCESSIBLE,
-                         spi_org_a11y_atspi_Accessible,	
+                         spi_org_a11y_atspi_Accessible,
                          methods, properties);
 };

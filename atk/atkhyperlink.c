@@ -18,8 +18,10 @@
  */
 
 #include "config.h"
-#include "atkhyperlink.h"
+
 #include <glib/gi18n-lib.h>
+
+#include "atkhyperlink.h"
 
 /**
  * AtkHyperlink:
@@ -43,7 +45,7 @@ enum
 
 enum
 {
-  PROP_0,  /* gobject convention */
+  PROP_0, /* gobject convention */
 
   PROP_SELECTED_LINK,
   PROP_NUMBER_ANCHORS,
@@ -53,19 +55,21 @@ enum
 };
 
 static void atk_hyperlink_class_init (AtkHyperlinkClass *klass);
-static void atk_hyperlink_init       (AtkHyperlink      *link,
-                                      AtkHyperlinkClass *klass);
+static void atk_hyperlink_init (AtkHyperlink *link,
+                                AtkHyperlinkClass *klass);
 
-static void atk_hyperlink_real_get_property (GObject            *object,
-                                             guint              prop_id,
-                                             GValue             *value,
-                                             GParamSpec         *pspec);
+static void atk_hyperlink_real_get_property (GObject *object,
+                                             guint prop_id,
+                                             GValue *value,
+                                             GParamSpec *pspec);
 
 static void atk_hyperlink_action_iface_init (AtkActionIface *iface);
 
-static guint atk_hyperlink_signals[LAST_SIGNAL] = { 0, };
+static guint atk_hyperlink_signals[LAST_SIGNAL] = {
+  0,
+};
 
-static gpointer  parent_class = NULL;
+static gpointer parent_class = NULL;
 
 GType
 atk_hyperlink_get_type (void)
@@ -74,8 +78,7 @@ atk_hyperlink_get_type (void)
 
   if (!type)
     {
-      static const GTypeInfo typeInfo =
-      {
+      static const GTypeInfo typeInfo = {
         sizeof (AtkHyperlinkClass),
         (GBaseInitFunc) NULL,
         (GBaseFinalizeFunc) NULL,
@@ -85,16 +88,15 @@ atk_hyperlink_get_type (void)
         sizeof (AtkHyperlink),
         0,
         (GInstanceInitFunc) atk_hyperlink_init,
-      } ;
+      };
 
-      static const GInterfaceInfo action_info =
-      {
+      static const GInterfaceInfo action_info = {
         (GInterfaceInitFunc) atk_hyperlink_action_iface_init,
         (GInterfaceFinalizeFunc) NULL,
         NULL
       };
 
-      type = g_type_register_static (G_TYPE_OBJECT, "AtkHyperlink", &typeInfo, 0) ;
+      type = g_type_register_static (G_TYPE_OBJECT, "AtkHyperlink", &typeInfo, 0);
       g_type_add_interface_static (type, ATK_TYPE_ACTION, &action_info);
     }
   return type;
@@ -122,15 +124,15 @@ atk_hyperlink_class_init (AtkHyperlinkClass *klass)
   g_object_class_install_property (gobject_class,
                                    PROP_SELECTED_LINK,
                                    g_param_spec_boolean ("selected-link",
-                                                         _("Selected Link"),
-                                                         _("Specifies whether the AtkHyperlink object is selected"),
+                                                         _ ("Selected Link"),
+                                                         _ ("Specifies whether the AtkHyperlink object is selected"),
                                                          FALSE,
                                                          G_PARAM_READABLE));
   g_object_class_install_property (gobject_class,
                                    PROP_NUMBER_ANCHORS,
                                    g_param_spec_int ("number-of-anchors",
-                                                     _("Number of Anchors"),
-                                                     _("The number of anchors associated with the AtkHyperlink object"),
+                                                     _ ("Number of Anchors"),
+                                                     _ ("The number of anchors associated with the AtkHyperlink object"),
                                                      0,
                                                      G_MAXINT,
                                                      0,
@@ -138,8 +140,8 @@ atk_hyperlink_class_init (AtkHyperlinkClass *klass)
   g_object_class_install_property (gobject_class,
                                    PROP_END_INDEX,
                                    g_param_spec_int ("end-index",
-                                                     _("End index"),
-                                                     _("The end index of the AtkHyperlink object"),
+                                                     _ ("End index"),
+                                                     _ ("The end index of the AtkHyperlink object"),
                                                      0,
                                                      G_MAXINT,
                                                      0,
@@ -147,8 +149,8 @@ atk_hyperlink_class_init (AtkHyperlinkClass *klass)
   g_object_class_install_property (gobject_class,
                                    PROP_START_INDEX,
                                    g_param_spec_int ("start-index",
-                                                     _("Start index"),
-                                                     _("The start index of the AtkHyperlink object"),
+                                                     _ ("Start index"),
+                                                     _ ("The start index of the AtkHyperlink object"),
                                                      0,
                                                      G_MAXINT,
                                                      0,
@@ -161,30 +163,29 @@ atk_hyperlink_class_init (AtkHyperlinkClass *klass)
    * The signal link-activated is emitted when a link is activated.
    */
   atk_hyperlink_signals[LINK_ACTIVATED] =
-    g_signal_new ("link_activated",
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST,
-                  G_STRUCT_OFFSET (AtkHyperlinkClass, link_activated),
-                  NULL, NULL,
-                  g_cclosure_marshal_VOID__VOID,
-                  G_TYPE_NONE,
-                  0);
-
+      g_signal_new ("link_activated",
+                    G_TYPE_FROM_CLASS (klass),
+                    G_SIGNAL_RUN_LAST,
+                    G_STRUCT_OFFSET (AtkHyperlinkClass, link_activated),
+                    NULL, NULL,
+                    g_cclosure_marshal_VOID__VOID,
+                    G_TYPE_NONE,
+                    0);
 }
 
 static void
-atk_hyperlink_init  (AtkHyperlink        *link,
-                     AtkHyperlinkClass   *klass)
+atk_hyperlink_init (AtkHyperlink *link,
+                    AtkHyperlinkClass *klass)
 {
 }
 
 static void
-atk_hyperlink_real_get_property (GObject    *object,
-                                 guint      prop_id,
-                                 GValue     *value,
+atk_hyperlink_real_get_property (GObject *object,
+                                 guint prop_id,
+                                 GValue *value,
                                  GParamSpec *pspec)
 {
-  AtkHyperlink* link;
+  AtkHyperlink *link;
 
   link = ATK_HYPERLINK (object);
 
@@ -195,7 +196,7 @@ atk_hyperlink_real_get_property (GObject    *object,
       g_value_set_boolean (value, FALSE);
       break;
     case PROP_NUMBER_ANCHORS:
-      g_value_set_int (value,  atk_hyperlink_get_n_anchors (link));
+      g_value_set_int (value, atk_hyperlink_get_n_anchors (link));
       break;
     case PROP_END_INDEX:
       g_value_set_int (value, atk_hyperlink_get_end_index (link));
@@ -213,16 +214,16 @@ atk_hyperlink_real_get_property (GObject    *object,
  * @link_: an #AtkHyperlink
  * @i: a (zero-index) integer specifying the desired anchor
  *
- * Get a the URI associated with the anchor specified 
- * by @i of @link_. 
+ * Get a the URI associated with the anchor specified
+ * by @i of @link_.
  *
  * Multiple anchors are primarily used by client-side image maps.
  *
- * Returns: a string specifying the URI 
+ * Returns: a string specifying the URI
  **/
-gchar*
+gchar *
 atk_hyperlink_get_uri (AtkHyperlink *link,
-                       gint         i)
+                       gint i)
 {
   AtkHyperlinkClass *klass;
 
@@ -243,16 +244,16 @@ atk_hyperlink_get_uri (AtkHyperlink *link,
  * Returns the item associated with this hyperlinks nth anchor.
  * For instance, the returned #AtkObject will implement #AtkText
  * if @link_ is a text hyperlink, #AtkImage if @link_ is an image
- * hyperlink etc. 
- * 
+ * hyperlink etc.
+ *
  * Multiple anchors are primarily used by client-side image maps.
  *
  * Returns: (transfer none): an #AtkObject associated with this hyperlinks
  * i-th anchor
  **/
-AtkObject*
+AtkObject *
 atk_hyperlink_get_object (AtkHyperlink *link,
-                          gint         i)
+                          gint i)
 {
   AtkHyperlinkClass *klass;
 
@@ -408,12 +409,13 @@ atk_hyperlink_is_selected_link (AtkHyperlink *link)
     return FALSE;
 }
 
-static void atk_hyperlink_action_iface_init (AtkActionIface *iface)
+static void
+atk_hyperlink_action_iface_init (AtkActionIface *iface)
 {
   /*
    * We do nothing here
    *
    * When we come to derive a class from AtkHyperlink we will provide an
-   * implementation of the AtkAction interface. 
+   * implementation of the AtkAction interface.
    */
 }

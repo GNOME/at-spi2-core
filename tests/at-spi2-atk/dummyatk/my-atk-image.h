@@ -23,25 +23,26 @@
 #ifndef MY_ATK_IMAGE_H_
 #define MY_ATK_IMAGE_H_
 
-#include <glib.h>
-#include <glib-object.h>
 #include <atk/atk.h>
+#include <glib-object.h>
+#include <glib.h>
 
 #include "my-atk-object.h"
 
-#define MY_TYPE_ATK_IMAGE             (my_atk_image_get_type ())
-#define MY_ATK_IMAGE(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), MY_TYPE_ATK_IMAGE, MyAtkImage))
-#define MY_ATK_IMAGE_CLASS(vtable)    (G_TYPE_CHECK_CLASS_CAST ((vtable), MY_TYPE_ATK_IMAGE, MyAtkImageClass))
-#define MY_IS_ATK_IMAGE(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), MY_TYPE_ATK_IMAGE))
+#define MY_TYPE_ATK_IMAGE (my_atk_image_get_type ())
+#define MY_ATK_IMAGE(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), MY_TYPE_ATK_IMAGE, MyAtkImage))
+#define MY_ATK_IMAGE_CLASS(vtable) (G_TYPE_CHECK_CLASS_CAST ((vtable), MY_TYPE_ATK_IMAGE, MyAtkImageClass))
+#define MY_IS_ATK_IMAGE(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), MY_TYPE_ATK_IMAGE))
 #define MY_IS_ATK_IMAGE_CLASS(vtable) (G_TYPE_CHECK_CLASS_TYPE ((vtable), MY_TYPE_ATK_IMAGE))
-#define MY_ATK_IMAGE_GET_CLASS(inst)  (G_TYPE_INSTANCE_GET_CLASS ((inst), MY_TYPE_ATK_IMAGE, MyAtkImageClass))
+#define MY_ATK_IMAGE_GET_CLASS(inst) (G_TYPE_INSTANCE_GET_CLASS ((inst), MY_TYPE_ATK_IMAGE, MyAtkImageClass))
 
 typedef struct _MyAtkImage MyAtkImage;
 typedef struct _MyAtkImageClass MyAtkImageClass;
 
-typedef void (* MyAtkImageFunc) (MyAtkImage *image);
+typedef void (*MyAtkImageFunc) (MyAtkImage *image);
 
-struct _MyAtkImage {
+struct _MyAtkImage
+{
   MyAtkObject parent;
   gchar *description;
   gint x;
@@ -51,7 +52,8 @@ struct _MyAtkImage {
   gchar *locale;
 };
 
-struct _MyAtkImageClass {
+struct _MyAtkImageClass
+{
   MyAtkObjectClass parent;
 };
 

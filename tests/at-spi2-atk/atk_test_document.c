@@ -23,7 +23,7 @@
 #include "atk_suite.h"
 #include "atk_test_util.h"
 
-#define DATA_FILE TESTS_DATA_DIR"/test-document.xml"
+#define DATA_FILE TESTS_DATA_DIR "/test-document.xml"
 
 static void
 teardown_document_test (gpointer fixture, gconstpointer user_data)
@@ -97,7 +97,7 @@ atk_test_document_get_attributes (gpointer fixture, gconstpointer user_data)
 }
 
 void
-atk_test_document(void )
+atk_test_document (void)
 {
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_document_get_document_iface",
                      0, NULL, NULL, atk_test_document_get_document_iface, teardown_document_test);
@@ -106,5 +106,5 @@ atk_test_document(void )
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_document_get_attribute_value",
                      0, NULL, NULL, atk_test_document_get_attribute_value, teardown_document_test);
   g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_document_get_attributes",
-                     0, NULL, NULL, atk_test_document_get_attributes, teardown_document_test );
+                     0, NULL, NULL, atk_test_document_get_attributes, teardown_document_test);
 }

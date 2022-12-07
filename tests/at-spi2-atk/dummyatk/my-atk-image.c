@@ -20,13 +20,12 @@
  * Boston, MA 02110-1301, USA.
  */
 
-
+#include <atk/atk.h>
 #include <stdio.h>
 #include <string.h>
-#include <atk/atk.h>
 
-#include "my-atk-object.h"
 #include "my-atk-image.h"
+#include "my-atk-object.h"
 
 typedef struct _MyAtkImageInfo MyAtkImageInfo;
 
@@ -36,7 +35,7 @@ G_DEFINE_TYPE_WITH_CODE (MyAtkImage,
                          my_atk_image,
                          MY_TYPE_ATK_OBJECT,
                          G_IMPLEMENT_INTERFACE (ATK_TYPE_IMAGE,
-                             atk_image_interface_init));
+                                                atk_image_interface_init));
 
 guint
 my_atk_set_image (AtkImage *image,
@@ -73,7 +72,8 @@ my_atk_image_init (MyAtkImage *obj)
   self->locale = NULL;
 }
 
-void my_atk_image_get_image_position (AtkImage *obj, gint *x, gint *y, AtkCoordType coord_type)
+void
+my_atk_image_get_image_position (AtkImage *obj, gint *x, gint *y, AtkCoordType coord_type)
 {
   g_return_if_fail (MY_IS_ATK_IMAGE (obj));
 
@@ -82,7 +82,7 @@ void my_atk_image_get_image_position (AtkImage *obj, gint *x, gint *y, AtkCoordT
   *y = self->y;
 }
 
-const gchar*
+const gchar *
 my_atk_image_get_image_description (AtkImage *obj)
 {
   g_return_val_if_fail (MY_IS_ATK_IMAGE (obj), NULL);
@@ -92,7 +92,8 @@ my_atk_image_get_image_description (AtkImage *obj)
   return g_strdup (self->description);
 }
 
-void my_atk_image_get_image_size (AtkImage *obj, gint *width, gint *height)
+void
+my_atk_image_get_image_size (AtkImage *obj, gint *width, gint *height)
 {
   g_return_if_fail (MY_IS_ATK_IMAGE (obj));
 
@@ -102,7 +103,7 @@ void my_atk_image_get_image_size (AtkImage *obj, gint *width, gint *height)
 }
 
 gboolean
-my_atk_image_set_image_description (AtkImage *obj, const gchar * desc)
+my_atk_image_set_image_description (AtkImage *obj, const gchar *desc)
 {
   g_return_val_if_fail (MY_IS_ATK_IMAGE (obj), FALSE);
 
@@ -114,7 +115,7 @@ my_atk_image_set_image_description (AtkImage *obj, const gchar * desc)
   return TRUE;
 }
 
-const gchar*
+const gchar *
 my_atk_image_get_image_locale (AtkImage *obj)
 {
   g_return_val_if_fail (MY_IS_ATK_IMAGE (obj), NULL);
@@ -127,7 +128,8 @@ my_atk_image_get_image_locale (AtkImage *obj)
 static void
 atk_image_interface_init (AtkImageIface *iface)
 {
-  if (!iface) return;
+  if (!iface)
+    return;
   iface->get_image_position = my_atk_image_get_image_position;
   iface->set_image_description = my_atk_image_set_image_description;
   iface->get_image_description = my_atk_image_get_image_description;

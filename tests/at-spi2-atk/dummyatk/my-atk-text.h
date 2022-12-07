@@ -23,24 +23,25 @@
 #ifndef MY_ATK_TEXT_H_
 #define MY_ATK_TEXT_H_
 
-#include <glib.h>
-#include <glib-object.h>
 #include <atk/atk.h>
+#include <glib-object.h>
+#include <glib.h>
 
 #include "my-atk-object.h"
-#define MY_TYPE_ATK_TEXT             (my_atk_text_get_type ())
-#define MY_ATK_TEXT(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), MY_TYPE_ATK_TEXT, MyAtkText))
-#define MY_ATK_TEXT_CLASS(vtable)    (G_TYPE_CHECK_CLASS_CAST ((vtable), MY_TYPE_ATK_TEXT, MyAtkTextClass))
-#define MY_IS_ATK_TEXT(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), MY_TYPE_ATK_TEXT))
+#define MY_TYPE_ATK_TEXT (my_atk_text_get_type ())
+#define MY_ATK_TEXT(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), MY_TYPE_ATK_TEXT, MyAtkText))
+#define MY_ATK_TEXT_CLASS(vtable) (G_TYPE_CHECK_CLASS_CAST ((vtable), MY_TYPE_ATK_TEXT, MyAtkTextClass))
+#define MY_IS_ATK_TEXT(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), MY_TYPE_ATK_TEXT))
 #define MY_IS_ATK_TEXT_CLASS(vtable) (G_TYPE_CHECK_CLASS_TYPE ((vtable), MY_TYPE_ATK_TEXT))
-#define MY_ATK_TEXT_GET_CLASS(inst)  (G_TYPE_INSTANCE_GET_CLASS ((inst), MY_TYPE_ATK_TEXT, MyAtkTextClass))
+#define MY_ATK_TEXT_GET_CLASS(inst) (G_TYPE_INSTANCE_GET_CLASS ((inst), MY_TYPE_ATK_TEXT, MyAtkTextClass))
 
 typedef struct _MyAtkText MyAtkText;
 typedef struct _MyAtkTextClass MyAtkTextClass;
 
-typedef void (* MyAtkTextFunc) (MyAtkText *obj);
+typedef void (*MyAtkTextFunc) (MyAtkText *obj);
 
-struct _MyAtkText {
+struct _MyAtkText
+{
   MyAtkObject parent;
   gchar *text;
   gint caret_offset;
@@ -52,7 +53,8 @@ struct _MyAtkText {
   AtkAttributeSet *attributes;
 };
 
-struct _MyAtkTextClass {
+struct _MyAtkTextClass
+{
   MyAtkObjectClass parent;
 };
 

@@ -47,16 +47,16 @@ atk_image_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) {
-    static const GTypeInfo tinfo =
+  if (!type)
     {
-      sizeof (AtkImageIface),
-      (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL
-    };
+      static const GTypeInfo tinfo = {
+        sizeof (AtkImageIface),
+        (GBaseInitFunc) NULL,
+        (GBaseFinalizeFunc) NULL
+      };
 
-    type = g_type_register_static (G_TYPE_INTERFACE, "AtkImage", &tinfo, 0);
-  }
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtkImage", &tinfo, 0);
+    }
 
   return type;
 }
@@ -69,7 +69,7 @@ atk_image_get_type (void)
  *
  * Returns: a string representing the image description
  **/
-const gchar*
+const gchar *
 atk_image_get_image_description (AtkImage *image)
 {
   AtkImageIface *iface;
@@ -102,9 +102,9 @@ atk_image_get_image_description (AtkImage *image)
  * to -1.
  **/
 void
-atk_image_get_image_size (AtkImage *image, 
-                          int      *width,
-                          int      *height)
+atk_image_get_image_size (AtkImage *image,
+                          int *width,
+                          int *height)
 {
   AtkImageIface *iface;
   gint local_width, local_height;
@@ -120,18 +120,18 @@ atk_image_get_image_size (AtkImage *image,
     real_height = height;
   else
     real_height = &local_height;
-  
+
   iface = ATK_IMAGE_GET_IFACE (image);
 
   if (iface->get_image_size)
-  {
-    iface->get_image_size (image, real_width, real_height);
-  }
+    {
+      iface->get_image_size (image, real_width, real_height);
+    }
   else
-  {
-    *real_width = -1;
-    *real_height = -1;
-  }
+    {
+      *real_width = -1;
+      *real_height = -1;
+    }
 }
 
 /**
@@ -145,8 +145,8 @@ atk_image_get_image_size (AtkImage *image,
  * not be completed.
  **/
 gboolean
-atk_image_set_image_description (AtkImage        *image,
-                                 const gchar     *description)
+atk_image_set_image_description (AtkImage *image,
+                                 const gchar *description)
 {
   AtkImageIface *iface;
 
@@ -171,18 +171,18 @@ atk_image_set_image_description (AtkImage        *image,
  * @y: (out) (optional): address of #gint to put y coordinate position; otherwise, -1 if value cannot be obtained.
  * @coord_type: specifies whether the coordinates are relative to the screen
  * or to the components top level window
- * 
+ *
  * Gets the position of the image in the form of a point specifying the
  * images top-left corner.
  *
  * If the position can not be obtained (e.g. missing support), x and y are set
  * to -1.
  **/
-void     
+void
 atk_image_get_image_position (AtkImage *image,
-                        gint *x,
-		        gint *y,
-    		        AtkCoordType coord_type)
+                              gint *x,
+                              gint *y,
+                              AtkCoordType coord_type)
 {
   AtkImageIface *iface;
   gint local_x, local_y;
@@ -202,18 +202,18 @@ atk_image_get_image_position (AtkImage *image,
   iface = ATK_IMAGE_GET_IFACE (image);
 
   if (iface->get_image_position)
-  {
-    (iface->get_image_position) (image, real_x, real_y, coord_type);
-  }
+    {
+      (iface->get_image_position) (image, real_x, real_y, coord_type);
+    }
   else
-  {
-    *real_x = -1;
-    *real_y = -1;
-  }
+    {
+      *real_x = -1;
+      *real_y = -1;
+    }
 }
 
 /**
- * atk_image_get_image_locale: 
+ * atk_image_get_image_locale:
  * @image: An #AtkImage
  *
  * Retrieves the locale identifier associated to the #AtkImage.
@@ -225,10 +225,10 @@ atk_image_get_image_position (AtkImage *image,
  *   %NULL if the image does not specify a locale.
  *
  */
-const gchar*
-atk_image_get_image_locale (AtkImage   *image)
+const gchar *
+atk_image_get_image_locale (AtkImage *image)
 {
-	
+
   AtkImageIface *iface;
 
   g_return_val_if_fail (ATK_IS_IMAGE (image), NULL);

@@ -5,7 +5,7 @@
  * Copyright 2002 Ximian, Inc.
  *           2002 Sun Microsystems Inc.
  * Copyright 2010, 2011 Novell, Inc.
- *           
+ *
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -34,10 +34,10 @@
 
 G_BEGIN_DECLS
 
-#define ATSPI_TYPE_SELECTION                    (atspi_selection_get_type ())
-#define ATSPI_IS_SELECTION(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_SELECTION)
-#define ATSPI_SELECTION(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_SELECTION, AtspiSelection)
-#define ATSPI_SELECTION_GET_IFACE(obj)          (G_TYPE_INSTANCE_GET_INTERFACE ((obj), ATSPI_TYPE_SELECTION, AtspiSelection))
+#define ATSPI_TYPE_SELECTION (atspi_selection_get_type ())
+#define ATSPI_IS_SELECTION(obj) G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_SELECTION)
+#define ATSPI_SELECTION(obj) G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_SELECTION, AtspiSelection)
+#define ATSPI_SELECTION_GET_IFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), ATSPI_TYPE_SELECTION, AtspiSelection))
 
 GType atspi_selection_get_type ();
 
@@ -48,7 +48,7 @@ struct _AtspiSelection
 
 gint atspi_selection_get_n_selected_children (AtspiSelection *obj, GError **error);
 
-AtspiAccessible * atspi_selection_get_selected_child (AtspiSelection *obj, gint selected_child_index, GError **error);
+AtspiAccessible *atspi_selection_get_selected_child (AtspiSelection *obj, gint selected_child_index, GError **error);
 
 gboolean atspi_selection_select_child (AtspiSelection *obj, gint child_index, GError **error);
 
@@ -58,7 +58,8 @@ gboolean atspi_selection_deselect_child (AtspiSelection *obj, gint child_index, 
 
 gboolean
 atspi_selection_is_child_selected (AtspiSelection *obj,
-                                   gint child_index, GError **error);
+                                   gint child_index,
+                                   GError **error);
 
 gboolean atspi_selection_select_all (AtspiSelection *obj, GError **error);
 
@@ -66,4 +67,4 @@ gboolean atspi_selection_clear_selection (AtspiSelection *obj, GError **error);
 
 G_END_DECLS
 
-#endif	/* _ATSPI_SELECTION_H_ */
+#endif /* _ATSPI_SELECTION_H_ */

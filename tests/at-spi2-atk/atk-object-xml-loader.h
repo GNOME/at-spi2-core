@@ -23,9 +23,9 @@
 #ifndef ATK_OBJECT_XML_LOADER_H
 #define ATK_OBJECT_XML_LOADER_H
 
-#include <glib.h>
 #include "my-atk.h"
+#include <glib.h>
 
-MyAtkObject * atk_object_xml_parse (gchar *filename);
+MyAtkObject *atk_object_xml_parse (gchar *filename);
 
 #endif /*ATK_OBJECT_XML_LOADER_H*/

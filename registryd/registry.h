@@ -24,8 +24,8 @@
 #ifndef SPI_REGISTRY_H_
 #define SPI_REGISTRY_H_
 
-#include <glib.h>
 #include <glib-object.h>
+#include <glib.h>
 
 #include <dbus/dbus.h>
 
@@ -36,16 +36,17 @@ typedef struct _SpiRegistryClass SpiRegistryClass;
 
 G_BEGIN_DECLS
 
-#define SPI_REGISTRY_TYPE        (spi_registry_get_type ())
-#define SPI_REGISTRY(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_REGISTRY_TYPE, SpiRegistry))
-#define SPI_REGISTRY_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_REGISTRY_TYPE, SpiRegistryClass))
-#define SPI_IS_REGISTRY(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_REGISTRY_TYPE))
+#define SPI_REGISTRY_TYPE (spi_registry_get_type ())
+#define SPI_REGISTRY(o) (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_REGISTRY_TYPE, SpiRegistry))
+#define SPI_REGISTRY_CLASS(k) (G_TYPE_CHECK_CLASS_CAST ((k), SPI_REGISTRY_TYPE, SpiRegistryClass))
+#define SPI_IS_REGISTRY(o) (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_REGISTRY_TYPE))
 #define SPI_IS_REGISTRY_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_REGISTRY_TYPE))
 
-struct _SpiRegistry {
-  GObject      parent;
+struct _SpiRegistry
+{
+  GObject parent;
   SpiDEController *dec;
-  GPtrArray   *apps;
+  GPtrArray *apps;
   dbus_int32_t id;
 
   DBusConnection *bus;
@@ -53,12 +54,13 @@ struct _SpiRegistry {
   GList *events;
 };
 
-struct _SpiRegistryClass {
+struct _SpiRegistryClass
+{
   GObjectClass parent_class;
 };
 
-GType        spi_registry_get_type (void);
-SpiRegistry *spi_registry_new      (DBusConnection *bus, SpiDEController *dec);
+GType spi_registry_get_type (void);
+SpiRegistry *spi_registry_new (DBusConnection *bus, SpiDEController *dec);
 
 G_END_DECLS
 

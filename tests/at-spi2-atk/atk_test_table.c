@@ -18,10 +18,10 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include "atk_test_util.h"
 #include "atk_suite.h"
+#include "atk_test_util.h"
 
-#define DATA_FILE TESTS_DATA_DIR"/test-table.xml"
+#define DATA_FILE TESTS_DATA_DIR "/test-table.xml"
 
 static void
 atk_test_table_get_caption (gpointer fixture, gconstpointer user_data)
@@ -34,7 +34,6 @@ atk_test_table_get_caption (gpointer fixture, gconstpointer user_data)
   AtspiAccessible *acc = atspi_table_get_caption (obj, NULL);
   g_assert (acc);
   g_assert_cmpstr ("caption name", ==, atspi_accessible_get_name (acc, NULL));
-
 }
 
 static void
@@ -269,8 +268,8 @@ atk_test_table_get_selected_rows (gpointer fixture, gconstpointer user_data)
   GArray *array = atspi_table_get_selected_rows (obj, NULL);
   g_assert (array);
   g_assert_cmpint (array->len, ==, 2);
-  g_assert_cmpint (g_array_index (array,gint, 0), ==, 0);
-  g_assert_cmpint (g_array_index (array,gint, 1), ==, 2);
+  g_assert_cmpint (g_array_index (array, gint, 0), ==, 0);
+  g_assert_cmpint (g_array_index (array, gint, 1), ==, 2);
   g_array_free (array, TRUE);
 }
 
@@ -299,7 +298,7 @@ atk_test_table_get_n_selected_columns (gpointer fixture, gconstpointer user_data
   g_assert (child);
 
   AtspiTable *obj = atspi_accessible_get_table_iface (child);
-  g_assert(obj);
+  g_assert (obj);
   gint cnt = atspi_table_get_n_selected_columns (obj, NULL);
   g_assert_cmpint (cnt, ==, 1);
 }
@@ -421,7 +420,7 @@ teardown_table_test (gpointer fixture, gconstpointer user_data)
 }
 
 void
-atk_test_table(void)
+atk_test_table (void)
 {
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_caption",
                      0, NULL, NULL, atk_test_table_get_caption, teardown_table_test);
@@ -439,8 +438,8 @@ atk_test_table(void)
                      0, NULL, NULL, atk_test_table_get_row_at_index, teardown_table_test);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_column_at_index",
                      0, NULL, NULL, atk_test_table_get_column_at_index, teardown_table_test);
-  g_test_add_vtable  (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_description",
-                      0, NULL, NULL, atk_test_table_get_row_description, teardown_table_test);
+  g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_description",
+                     0, NULL, NULL, atk_test_table_get_row_description, teardown_table_test);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_column_description",
                      0, NULL, NULL, atk_test_table_get_column_description, teardown_table_test);
   g_test_add_vtable (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_extent_at",

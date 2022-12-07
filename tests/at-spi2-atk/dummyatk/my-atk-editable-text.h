@@ -23,30 +23,32 @@
 #ifndef MY_ATK_EDITABLE_TEXT_H_
 #define MY_ATK_EDITABLE_TEXT_H_
 
-#include <glib.h>
-#include <glib-object.h>
 #include <atk/atk.h>
+#include <glib-object.h>
+#include <glib.h>
 
 #include "my-atk-object.h"
 
-#define MY_TYPE_ATK_EDITABLE_TEXT             (my_atk_editable_text_get_type ())
-#define MY_ATK_EDITABLE_TEXT(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), MY_TYPE_ATK_EDITABLE_TEXT, MyAtkEditableText))
-#define MY_ATK_EDITABLE_TEXT_CLASS(vtable)    (G_TYPE_CHECK_CLASS_CAST ((vtable), MY_TYPE_ATK_EDITABLE_TEXT, MyAtkEditableTextClass))
-#define MY_IS_ATK_EDITABLE_TEXT(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), MY_TYPE_ATK_EDITABLE_TEXT))
+#define MY_TYPE_ATK_EDITABLE_TEXT (my_atk_editable_text_get_type ())
+#define MY_ATK_EDITABLE_TEXT(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), MY_TYPE_ATK_EDITABLE_TEXT, MyAtkEditableText))
+#define MY_ATK_EDITABLE_TEXT_CLASS(vtable) (G_TYPE_CHECK_CLASS_CAST ((vtable), MY_TYPE_ATK_EDITABLE_TEXT, MyAtkEditableTextClass))
+#define MY_IS_ATK_EDITABLE_TEXT(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), MY_TYPE_ATK_EDITABLE_TEXT))
 #define MY_IS_ATK_EDITABLE_TEXT_CLASS(vtable) (G_TYPE_CHECK_CLASS_TYPE ((vtable), MY_TYPE_ATK_EDITABLE_TEXT))
-#define MY_ATK_EDITABLE_TEXT_GET_CLASS(inst)  (G_TYPE_INSTANCE_GET_CLASS ((inst), MY_TYPE_ATK_EDITABLE_TEXT, MyAtkEditableTextClass))
+#define MY_ATK_EDITABLE_TEXT_GET_CLASS(inst) (G_TYPE_INSTANCE_GET_CLASS ((inst), MY_TYPE_ATK_EDITABLE_TEXT, MyAtkEditableTextClass))
 
 typedef struct _MyAtkEditableText MyAtkEditableText;
 typedef struct _MyAtkEditableTextClass MyAtkEditableTextClass;
 
-typedef void (* MyAtkEditableTextFunc) (MyAtkEditableText *editable_text);
+typedef void (*MyAtkEditableTextFunc) (MyAtkEditableText *editable_text);
 
-struct _MyAtkEditableText {
+struct _MyAtkEditableText
+{
   MyAtkObject parent;
   gchar *text;
 };
 
-struct _MyAtkEditableTextClass {
+struct _MyAtkEditableTextClass
+{
   MyAtkObjectClass parent;
 };
 

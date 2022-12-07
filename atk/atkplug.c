@@ -32,17 +32,16 @@
 
 static void atk_component_interface_init (AtkComponentIface *iface);
 
-typedef struct {
+typedef struct
+{
   AtkObject *child;
 } AtkPlugPrivate;
 
 static gint AtkPlug_private_offset;
 
-G_DEFINE_TYPE_WITH_CODE (AtkPlug, atk_plug, ATK_TYPE_OBJECT,
-                         G_IMPLEMENT_INTERFACE (ATK_TYPE_COMPONENT, atk_component_interface_init)
-                         G_ADD_PRIVATE(AtkPlug))
+G_DEFINE_TYPE_WITH_CODE (AtkPlug, atk_plug, ATK_TYPE_OBJECT, G_IMPLEMENT_INTERFACE (ATK_TYPE_COMPONENT, atk_component_interface_init) G_ADD_PRIVATE (AtkPlug))
 
-static AtkObject*
+static AtkObject *
 atk_plug_ref_child (AtkObject *obj, int i)
 {
   AtkPlugPrivate *private = atk_plug_get_instance_private (ATK_PLUG (obj));
@@ -70,7 +69,7 @@ atk_plug_get_n_children (AtkObject *obj)
   return 1;
 }
 
-static AtkStateSet*
+static AtkStateSet *
 atk_plug_ref_state_set (AtkObject *obj)
 {
   AtkPlugPrivate *private = atk_plug_get_instance_private (ATK_PLUG (obj));
@@ -85,7 +84,7 @@ atk_plug_ref_state_set (AtkObject *obj)
 }
 
 static void
-atk_plug_init (AtkPlug* obj)
+atk_plug_init (AtkPlug *obj)
 {
   AtkObject *accessible = ATK_OBJECT (obj);
 
@@ -94,7 +93,7 @@ atk_plug_init (AtkPlug* obj)
 }
 
 static void
-atk_plug_class_init (AtkPlugClass* klass)
+atk_plug_class_init (AtkPlugClass *klass)
 {
   AtkObjectClass *class = ATK_OBJECT_CLASS (klass);
 
@@ -104,8 +103,8 @@ atk_plug_class_init (AtkPlugClass* klass)
   klass->get_object_id = NULL;
 
   class->get_n_children = atk_plug_get_n_children;
-  class->ref_child      = atk_plug_ref_child;
-  class->ref_state_set  = atk_plug_ref_state_set;
+  class->ref_child = atk_plug_ref_child;
+  class->ref_state_set = atk_plug_ref_state_set;
 }
 
 static void
@@ -156,7 +155,7 @@ atk_plug_set_child (AtkPlug *plug, AtkObject *child)
   private->child = child;
 
   if (child)
-    atk_object_set_parent (child, ATK_OBJECT(plug));
+    atk_object_set_parent (child, ATK_OBJECT (plug));
 }
 
 /**
@@ -176,8 +175,8 @@ atk_plug_set_child (AtkPlug *plug, AtkObject *child)
  *
  * Since: 1.30
  **/
-gchar*
-atk_plug_get_id (AtkPlug* plug)
+gchar *
+atk_plug_get_id (AtkPlug *plug)
 {
   AtkPlugClass *klass;
 

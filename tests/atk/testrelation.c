@@ -31,7 +31,7 @@ test_relation (void)
   AtkRelationSet *set;
   AtkRelation *relation;
   gint n_relations;
-  GPtrArray *array; 
+  GPtrArray *array;
 
   name = atk_relation_type_get_name (ATK_RELATION_LABEL_FOR);
   g_assert_cmpstr (name, ==, "label-for");
@@ -67,7 +67,7 @@ test_relation (void)
   g_assert_nonnull (set);
   n_relations = atk_relation_set_get_n_relations (set);
   g_assert_cmpint (n_relations, ==, 1);
-  relation = atk_relation_set_get_relation (set, 0);  
+  relation = atk_relation_set_get_relation (set, 0);
   g_assert_nonnull (relation);
   type1 = atk_relation_get_relation_type (relation);
   g_assert_cmpint (type1, ==, ATK_RELATION_LABEL_FOR);
@@ -111,11 +111,11 @@ test_text_attr (void)
 }
 
 int
-main (gint  argc,
-      char* argv[])
+main (gint argc,
+      char *argv[])
 {
   g_test_init (&argc, &argv, NULL);
-  g_test_add_func ("/atk/relation/relation",       test_relation);
+  g_test_add_func ("/atk/relation/relation", test_relation);
   g_test_add_func ("/atk/relation/text_attr", test_text_attr);
 
   return g_test_run ();

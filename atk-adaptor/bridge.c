@@ -25,27 +25,27 @@
 #define _GNU_SOURCE
 #include "config.h"
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
-#include<sys/stat.h>
 #include <atk/atk.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
-#include <droute/droute.h>
-#include <atspi/atspi.h>
 #include <atk-bridge.h>
+#include <atspi/atspi.h>
+#include <droute/droute.h>
 
+#include "accessible-stateset.h"
+#include "adaptors.h"
 #include "bridge.h"
 #include "event.h"
-#include "adaptors.h"
 #include "object.h"
-#include "accessible-stateset.h"
 
-#include "accessible-register.h"
-#include "accessible-leasing.h"
 #include "accessible-cache.h"
+#include "accessible-leasing.h"
+#include "accessible-register.h"
 
 #include "spi-dbus.h"
 
@@ -93,11 +93,11 @@ tally_event_reply ()
 
   replies_received++;
   if (replies_received == 3)
-  {
-    if (!clients)
-      spi_atk_deregister_event_listeners ();
-    spi_global_app_data->events_initialized = TRUE;
-  }
+    {
+      if (!clients)
+        spi_atk_deregister_event_listeners ();
+      spi_global_app_data->events_initialized = TRUE;
+    }
 }
 
 GType
@@ -136,40 +136,40 @@ _atk_bridge_find_property_func (const char *property, GType *type)
   DRouteProperty *dp;
 
   if (!strncasecmp (property, "action.", 7))
-  {
-    iface = ATSPI_DBUS_INTERFACE_ACTION;
-    member = property + 7;
-  }
+    {
+      iface = ATSPI_DBUS_INTERFACE_ACTION;
+      member = property + 7;
+    }
   else if (!strncasecmp (property, "component.", 10))
-  {
-    iface = ATSPI_DBUS_INTERFACE_COMPONENT;
-    member = property + 10;
-  }
+    {
+      iface = ATSPI_DBUS_INTERFACE_COMPONENT;
+      member = property + 10;
+    }
   else if (!strncasecmp (property, "selection.", 10))
-  {
-    iface = ATSPI_DBUS_INTERFACE_SELECTION;
-    member = property + 10;
-  }
+    {
+      iface = ATSPI_DBUS_INTERFACE_SELECTION;
+      member = property + 10;
+    }
   else if (!strncasecmp (property, "table.", 6))
-  {
-    iface = ATSPI_DBUS_INTERFACE_TABLE;
-    member = property + 6;
-  }
+    {
+      iface = ATSPI_DBUS_INTERFACE_TABLE;
+      member = property + 6;
+    }
   else if (!strncasecmp (property, "text.", 5))
-  {
-    iface = ATSPI_DBUS_INTERFACE_TEXT;
-    member = property + 5;
-  }
+    {
+      iface = ATSPI_DBUS_INTERFACE_TEXT;
+      member = property + 5;
+    }
   else if (!strncasecmp (property, "value.", 6))
-  {
-    iface = ATSPI_DBUS_INTERFACE_VALUE;
-    member = property + 6;
-  }
+    {
+      iface = ATSPI_DBUS_INTERFACE_VALUE;
+      member = property + 6;
+    }
   else
-  {
-    iface = ATSPI_DBUS_INTERFACE_ACCESSIBLE;
-    member = property;
-  }
+    {
+      iface = ATSPI_DBUS_INTERFACE_ACCESSIBLE;
+      member = property;
+    }
 
   *type = _atk_bridge_type_from_iface (iface);
 
@@ -178,13 +178,13 @@ _atk_bridge_find_property_func (const char *property, GType *type)
   if (!dp)
     return NULL;
 
-  for (;dp->name; dp++)
-  {
-    if (!strcasecmp (dp->name, member))
+  for (; dp->name; dp++)
     {
-      return dp->get;
+      if (!strcasecmp (dp->name, member))
+        {
+          return dp->get;
+        }
     }
-  }
   return NULL;
 }
 
@@ -194,11 +194,11 @@ add_property_to_event (event_data *evdata, const char *property)
   AtspiPropertyDefinition *prop = g_new0 (AtspiPropertyDefinition, 1);
   prop->func = _atk_bridge_find_property_func (property, &prop->type);
   if (!prop->func)
-  {
-    g_warning ("atk-bridge: Request for unknown property '%s'", property);
-    g_free (prop);
-    return;
-  }
+    {
+      g_warning ("atk-bridge: Request for unknown property '%s'", property);
+      g_free (prop);
+      return;
+    }
 
   prop->name = g_strdup (property);
   evdata->properties = g_slist_append (evdata->properties, prop);
@@ -216,17 +216,17 @@ add_event_from_iter (DBusMessageIter *iter)
   dbus_message_iter_next (iter);
   evdata = add_event (bus_name, event);
   if (dbus_message_iter_get_arg_type (iter) == DBUS_TYPE_ARRAY)
-  {
-    DBusMessageIter iter_sub_array;
-    dbus_message_iter_recurse (iter, &iter_sub_array);
-    while (dbus_message_iter_get_arg_type (&iter_sub_array) != DBUS_TYPE_INVALID)
     {
-      const char *property;
-      dbus_message_iter_get_basic (&iter_sub_array, &property);
-      add_property_to_event (evdata, property);
-       dbus_message_iter_next (&iter_sub_array);
+      DBusMessageIter iter_sub_array;
+      dbus_message_iter_recurse (iter, &iter_sub_array);
+      while (dbus_message_iter_get_arg_type (&iter_sub_array) != DBUS_TYPE_INVALID)
+        {
+          const char *property;
+          dbus_message_iter_get_basic (&iter_sub_array, &property);
+          add_property_to_event (evdata, property);
+          dbus_message_iter_next (&iter_sub_array);
+        }
     }
-  }
 }
 
 static void
@@ -305,9 +305,9 @@ get_registered_event_listeners (SpiBridge *app)
   DBusPendingCall *pending = NULL;
 
   message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
-                                         ATSPI_DBUS_PATH_REGISTRY,
-                                         ATSPI_DBUS_INTERFACE_REGISTRY,
-                                         "GetRegisteredEvents");
+                                          ATSPI_DBUS_PATH_REGISTRY,
+                                          ATSPI_DBUS_INTERFACE_REGISTRY,
+                                          "GetRegisteredEvents");
   if (!message)
     return;
 
@@ -321,9 +321,9 @@ get_registered_event_listeners (SpiBridge *app)
   dbus_pending_call_set_notify (pending, get_events_reply, NULL, NULL);
 
   message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
-                                         ATSPI_DBUS_PATH_DEC,
-                                         ATSPI_DBUS_INTERFACE_DEC,
-                                         "GetKeystrokeListeners");
+                                          ATSPI_DBUS_PATH_DEC,
+                                          ATSPI_DBUS_INTERFACE_DEC,
+                                          "GetKeystrokeListeners");
   if (!message)
     return;
   pending = NULL;
@@ -349,7 +349,7 @@ register_reply (DBusPendingCall *pending, void *user_data)
   if (!spi_global_app_data)
     {
       if (reply)
-         dbus_message_unref (reply);
+        dbus_message_unref (reply);
       return;
     }
 
@@ -390,7 +390,7 @@ register_reply (DBusPendingCall *pending, void *user_data)
 static gboolean
 register_application (gpointer data)
 {
-  SpiBridge * app = data;
+  SpiBridge *app = data;
   DBusMessage *message;
   DBusMessageIter iter;
   DBusPendingCall *pending;
@@ -404,18 +404,17 @@ register_application (gpointer data)
 
   dbus_message_iter_init_append (message, &iter);
   spi_object_append_reference (&iter, app->root);
-  
-    if (!dbus_connection_send_with_reply (app->bus, message, &pending, -1)
-        || !pending)
-    {
-        if (pending)
-          dbus_pending_call_unref (pending);
 
-        dbus_message_unref (message);
-        return FALSE;
+  if (!dbus_connection_send_with_reply (app->bus, message, &pending, -1) || !pending)
+    {
+      if (pending)
+        dbus_pending_call_unref (pending);
+
+      dbus_message_unref (message);
+      return FALSE;
     }
 
-    dbus_pending_call_set_notify (pending, register_reply, app, NULL);
+  dbus_pending_call_set_notify (pending, register_reply, app, NULL);
 
   if (message)
     dbus_message_unref (message);
@@ -439,11 +438,11 @@ gboolean
 _atk_bridge_remove_pending_application_registration (SpiBridge *app)
 {
   if (app->registration_pending)
-  {
-    g_source_remove (app->registration_pending);
-    app->registration_pending = 0;
-    return TRUE;
-  }
+    {
+      g_source_remove (app->registration_pending);
+      app->registration_pending = 0;
+      return TRUE;
+    }
 
   return FALSE;
 }
@@ -458,22 +457,22 @@ remove_socket ()
 
   if (spi_global_app_data->app_bus_addr &&
       !strncmp (spi_global_app_data->app_bus_addr, "unix:path=", 10))
-  {
-    unlink (spi_global_app_data->app_bus_addr + 10);
-    g_free (spi_global_app_data->app_bus_addr);
-    spi_global_app_data->app_bus_addr = NULL;
-  }
+    {
+      unlink (spi_global_app_data->app_bus_addr + 10);
+      g_free (spi_global_app_data->app_bus_addr);
+      spi_global_app_data->app_bus_addr = NULL;
+    }
 
   if (spi_global_app_data->app_tmp_dir)
-  {
-    rmdir (spi_global_app_data->app_tmp_dir);
-    g_free (spi_global_app_data->app_tmp_dir);
-    spi_global_app_data->app_tmp_dir = NULL;
-  }
+    {
+      rmdir (spi_global_app_data->app_tmp_dir);
+      g_free (spi_global_app_data->app_tmp_dir);
+      spi_global_app_data->app_tmp_dir = NULL;
+    }
 }
 
 static void
-deregister_application (SpiBridge * app)
+deregister_application (SpiBridge *app)
 {
   DBusMessage *message;
   DBusMessageIter iter;
@@ -512,7 +511,7 @@ static AtkPlugClass *plug_class;
 static AtkSocketClass *socket_class;
 
 static gchar *
-get_plug_id (AtkPlug * plug)
+get_plug_id (AtkPlug *plug)
 {
   const char *uname = dbus_bus_get_unique_name (spi_global_app_data->bus);
   gchar *path;
@@ -584,11 +583,11 @@ socket_ref_state_set (AtkObject *accessible)
 }
 
 static void
-socket_embed_hook (AtkSocket * socket, const gchar * plug_id)
+socket_embed_hook (AtkSocket *socket, const gchar *plug_id)
 {
   g_return_if_fail (spi_global_register != NULL);
 
-  AtkObject *accessible = ATK_OBJECT(socket);
+  AtkObject *accessible = ATK_OBJECT (socket);
   gchar *plug_name, *plug_path;
   AtkObjectClass *klass;
 
@@ -634,7 +633,7 @@ static guint
 get_ancestral_uid (guint pid)
 {
   FILE *fp;
-  char buf [80];
+  char buf[80];
   int ppid = 0;
   int uid = 0;
   gboolean got_ppid = 0;
@@ -645,12 +644,12 @@ get_ancestral_uid (guint pid)
   if (!fp)
     return 0;
   while ((!got_ppid || !got_uid) && fgets (buf, sizeof (buf), fp))
-  {
-    if (sscanf (buf, "PPid:\t%d", &ppid) == 1)
-      got_ppid = TRUE;
-    else if (sscanf (buf, "Uid:\t%d", &uid) == 1)
-      got_uid = TRUE;
-  }
+    {
+      if (sscanf (buf, "PPid:\t%d", &ppid) == 1)
+        got_ppid = TRUE;
+      else if (sscanf (buf, "Uid:\t%d", &uid) == 1)
+        got_uid = TRUE;
+    }
   fclose (fp);
 
   if (!got_ppid || !got_uid)
@@ -668,10 +667,10 @@ user_check (DBusConnection *bus, unsigned long uid, void *data)
   if (uid == getuid () || uid == geteuid ())
     return TRUE;
   if (getuid () == 0)
-  {
-    guint ancestor = get_ancestral_uid (getpid ());
-    return (ancestor == uid || ancestor == 1 || ancestor == 0);
-  }
+    {
+      guint ancestor = get_ancestral_uid (getpid ());
+      return (ancestor == uid || ancestor == 1 || ancestor == 0);
+    }
   return FALSE;
 }
 
@@ -679,24 +678,23 @@ static void
 new_connection_cb (DBusServer *server, DBusConnection *con, void *data)
 {
   dbus_connection_set_unix_user_function (con, user_check, NULL, NULL);
-  dbus_connection_ref(con);
-  atspi_dbus_connection_setup_with_g_main(con, spi_context);
+  dbus_connection_ref (con);
+  atspi_dbus_connection_setup_with_g_main (con, spi_context);
   droute_intercept_dbus (con);
   droute_context_register (spi_global_app_data->droute, con);
 
   spi_global_app_data->direct_connections = g_list_append (spi_global_app_data->direct_connections, con);
 }
 
-
 gchar *atspi_dbus_name = NULL;
 static gboolean atspi_no_register = FALSE;
 
 static GOptionEntry atspi_option_entries[] = {
-  {"atspi-dbus-name", 0, 0, G_OPTION_ARG_STRING, &atspi_dbus_name,
-   "D-Bus bus name to register as", NULL},
-  {"atspi-no-register", 0, 0, G_OPTION_ARG_NONE, &atspi_no_register,
-   "Do not register with Registry Daemon", NULL},
-  {NULL}
+  { "atspi-dbus-name", 0, 0, G_OPTION_ARG_STRING, &atspi_dbus_name,
+    "D-Bus bus name to register as", NULL },
+  { "atspi-no-register", 0, 0, G_OPTION_ARG_NONE, &atspi_no_register,
+    "Do not register with Registry Daemon", NULL },
+  { NULL }
 };
 
 static void
@@ -715,25 +713,25 @@ add_objects_for_introspection (AtkObject *obj, GString *str)
   p = strrchr (path, '/') + 1;
   g_string_append_printf (str, "<node name=\"%s\"/>\n", p);
   g_free (path);
-    
+
   if (ATK_IS_SOCKET (obj))
     return;
 
   set = atk_object_ref_state_set (obj);
   if (atk_state_set_contains_state (set, ATK_STATE_MANAGES_DESCENDANTS))
-  {
-    g_object_unref (set);
-    return;
-  }
+    {
+      g_object_unref (set);
+      return;
+    }
   g_object_unref (set);
 
   count = atk_object_get_n_accessible_children (obj);
   for (i = 0; i < count; i++)
-  {
-    AtkObject *child = atk_object_ref_accessible_child (obj, i);
-    add_objects_for_introspection (child, str);
-    g_object_unref (child);
-  }
+    {
+      AtkObject *child = atk_object_ref_accessible_child (obj, i);
+      add_objects_for_introspection (child, str);
+      g_object_unref (child);
+    }
 }
 
 static gchar *
@@ -750,18 +748,17 @@ introspect_children_cb (const char *path, void *data)
 }
 
 static void
-handle_event_listener_registered (DBusConnection *bus, DBusMessage *message,
-                                  void *user_data)
+handle_event_listener_registered (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   DBusMessageIter iter;
   const char *signature = dbus_message_get_signature (message);
 
   if (strcmp (signature, "ssas") != 0 &&
       strcmp (signature, "ss") != 0)
-  {
-    g_warning ("got RegisterEvent with invalid signature '%s'", signature);
-    return;
-  }
+    {
+      g_warning ("got RegisterEvent with invalid signature '%s'", signature);
+      return;
+    }
 
   dbus_message_iter_init (message, &iter);
   add_event_from_iter (&iter);
@@ -816,8 +813,7 @@ remove_events (const char *bus_name, const char *event)
 }
 
 static void
-handle_event_listener_deregistered (DBusConnection *bus, DBusMessage *message,
-                                    void *user_data)
+handle_event_listener_deregistered (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   gchar *name;
   char *sender;
@@ -830,8 +826,7 @@ handle_event_listener_deregistered (DBusConnection *bus, DBusMessage *message,
 }
 
 static void
-handle_device_listener_registered (DBusConnection *bus, DBusMessage *message,
-                                    void *user_data)
+handle_device_listener_registered (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   char *sender;
   DBusMessageIter iter, iter_struct;
@@ -880,8 +875,8 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
         result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     }
 
-  if (!g_strcmp0(interface, DBUS_INTERFACE_DBUS) &&
-      !g_strcmp0(member, "NameOwnerChanged"))
+  if (!g_strcmp0 (interface, DBUS_INTERFACE_DBUS) &&
+      !g_strcmp0 (member, "NameOwnerChanged"))
     {
       char *name, *old, *new;
       if (dbus_message_get_args (message, NULL,
@@ -901,7 +896,7 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
                 registry_lost = TRUE;
             }
           else if (*old != '\0' && *new == '\0')
-              spi_atk_remove_client (old);
+            spi_atk_remove_client (old);
         }
     }
 
@@ -922,16 +917,16 @@ spi_atk_create_socket (SpiBridge *app)
     return -1;
 
   if (getuid () != 0)
-  {
-    app->app_tmp_dir = g_build_filename (user_runtime_dir,
-                                         "at-spi2-XXXXXX", NULL);
-    if (!g_mkdtemp (app->app_tmp_dir))
     {
-      g_free (app->app_tmp_dir);
-      app->app_tmp_dir = NULL;
-      return -1;
+      app->app_tmp_dir = g_build_filename (user_runtime_dir,
+                                           "at-spi2-XXXXXX", NULL);
+      if (!g_mkdtemp (app->app_tmp_dir))
+        {
+          g_free (app->app_tmp_dir);
+          app->app_tmp_dir = NULL;
+          return -1;
+        }
     }
-  }
 
   if (app->app_tmp_dir)
     {
@@ -949,18 +944,18 @@ spi_atk_create_socket (SpiBridge *app)
   app->app_bus_addr = g_strconcat ("unix:path=", escaped_socket_path, NULL);
   dbus_free (escaped_socket_path);
 
-  dbus_error_init(&error);
-  server = dbus_server_listen(app->app_bus_addr, &error);
+  dbus_error_init (&error);
+  server = dbus_server_listen (app->app_bus_addr, &error);
   if (server == NULL)
-  {
-    g_warning ("atk-bridge: Couldn't listen on dbus server: %s", error.message);
-    dbus_error_free (&error);
-    app->app_bus_addr [0] = '\0';
-    return -1;
-  }
+    {
+      g_warning ("atk-bridge: Couldn't listen on dbus server: %s", error.message);
+      dbus_error_free (&error);
+      app->app_bus_addr[0] = '\0';
+      return -1;
+    }
 
-  atspi_dbus_server_setup_with_g_main(server, spi_context);
-  dbus_server_set_new_connection_function(server, new_connection_cb, NULL, NULL);
+  atspi_dbus_server_setup_with_g_main (server, spi_context);
+  dbus_server_set_new_connection_function (server, new_connection_cb, NULL, NULL);
 
   app->server = server;
 #endif
@@ -997,7 +992,7 @@ spi_atk_activate ()
   spi_atk_register_event_listeners ();
   if (!spi_global_cache)
     {
-      spi_global_cache    = g_object_new (SPI_CACHE_TYPE, NULL);
+      spi_global_cache = g_object_new (SPI_CACHE_TYPE, NULL);
       treepath = droute_add_one (spi_global_app_data->droute,
                                  "/org/a11y/atspi/cache", spi_global_cache);
 
@@ -1048,7 +1043,7 @@ spi_object_has_dbus_interface (void *obj, const char *interface)
 
   return FALSE;
 
-    return TRUE;
+  return TRUE;
 }
 
 /**
@@ -1065,7 +1060,7 @@ spi_object_has_dbus_interface (void *obj, const char *interface)
  * succesfully, -1 otherwise
  */
 int
-atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
+atk_bridge_adaptor_init (gint *argc, gchar **argv[])
 {
   GOptionContext *opt;
   GError *err = NULL;
@@ -1123,16 +1118,14 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
 
   if (atspi_dbus_name != NULL)
     {
-      if (dbus_bus_request_name
-          (spi_global_app_data->bus, atspi_dbus_name, 0, &error))
+      if (dbus_bus_request_name (spi_global_app_data->bus, atspi_dbus_name, 0, &error))
         {
           g_print ("AT-SPI Received D-Bus name - %s\n", atspi_dbus_name);
         }
       else
         {
-          g_print
-            ("AT-SPI D-Bus name requested but could not be allocated - %s\n",
-             atspi_dbus_name);
+          g_print ("AT-SPI D-Bus name requested but could not be allocated - %s\n",
+                   atspi_dbus_name);
         }
     }
 
@@ -1143,17 +1136,17 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
   /* Hook our plug-and socket functions */
   install_plug_hooks ();
 
-  /* 
+  /*
    * Create the leasing, register and cache objects.
    * The order is important here, the cache depends on the
    * register object.
    */
   spi_global_register = g_object_new (SPI_REGISTER_TYPE, NULL);
-  spi_global_leasing  = g_object_new (SPI_LEASING_TYPE, NULL);
+  spi_global_leasing = g_object_new (SPI_LEASING_TYPE, NULL);
 
   /* Register droute for routing AT-SPI messages */
   spi_global_app_data->droute =
-    droute_new ();
+      droute_new ();
 
   accpath = droute_add_many (spi_global_app_data->droute,
                              "/org/a11y/atspi/accessible",
@@ -1161,9 +1154,8 @@ atk_bridge_adaptor_init (gint * argc, gchar ** argv[])
                              introspect_children_cb,
                              NULL,
                              (DRouteGetDatumFunction)
-                             spi_global_register_path_to_object,
+                                 spi_global_register_path_to_object,
                              spi_object_has_dbus_interface);
-
 
   /* Register all interfaces with droute and set up application accessible db */
   spi_initialize_accessible (accpath);
@@ -1221,7 +1213,7 @@ atk_bridge_adaptor_cleanup (void)
     return;
 
   if (!spi_global_app_data)
-      return;
+    return;
 
   spi_atk_tidy_windows ();
   spi_atk_deregister_event_listeners ();
@@ -1274,7 +1266,7 @@ atk_bridge_adaptor_cleanup (void)
 /*---------------------------------------------------------------------------*/
 
 static gchar *name_match_tmpl =
-       "type='signal', interface='org.freedesktop.DBus', member='NameOwnerChanged', arg0='%s'";
+    "type='signal', interface='org.freedesktop.DBus', member='NameOwnerChanged', arg0='%s'";
 
 void
 spi_atk_add_client (const char *bus_name)
@@ -1283,10 +1275,10 @@ spi_atk_add_client (const char *bus_name)
   gchar *match;
 
   for (l = clients; l; l = l->next)
-  {
-    if (!g_strcmp0 (l->data, bus_name))
-      return;
-  }
+    {
+      if (!g_strcmp0 (l->data, bus_name))
+        return;
+    }
   if (!clients)
     spi_atk_activate ();
   clients = g_slist_append (clients, g_strdup (bus_name));
@@ -1303,42 +1295,42 @@ spi_atk_remove_client (const char *bus_name)
 
   l = clients;
   while (l)
-  {
-    next_node = l->next;
-
-    if (!g_strcmp0 (l->data, bus_name))
     {
-      gchar *match = g_strdup_printf (name_match_tmpl, l->data);
-      dbus_bus_remove_match (spi_global_app_data->bus, match, NULL);
-  g_free (match);
-      g_free (l->data);
-      clients = g_slist_delete_link (clients, l);
-      if (!clients)
-        spi_atk_deregister_event_listeners ();
-      return;
-    }
+      next_node = l->next;
 
-    l = next_node;
-  }
+      if (!g_strcmp0 (l->data, bus_name))
+        {
+          gchar *match = g_strdup_printf (name_match_tmpl, l->data);
+          dbus_bus_remove_match (spi_global_app_data->bus, match, NULL);
+          g_free (match);
+          g_free (l->data);
+          clients = g_slist_delete_link (clients, l);
+          if (!clients)
+            spi_atk_deregister_event_listeners ();
+          return;
+        }
+
+      l = next_node;
+    }
 }
 
 void
 spi_atk_add_interface (DRoutePath *path,
                        const char *name,
                        const char *introspect,
-                       const DRouteMethod   *methods,
+                       const DRouteMethod *methods,
                        const DRouteProperty *properties)
 {
   droute_path_add_interface (path, name, introspect, methods, properties);
 
   if (properties)
-  {
-    if (!spi_global_app_data->property_hash)
-      spi_global_app_data->property_hash = g_hash_table_new_full (g_str_hash,
-                                                                  g_str_equal,
-                                                                  g_free, NULL);
-    g_hash_table_insert (spi_global_app_data->property_hash, g_strdup (name),
-                         (gpointer) properties);
-  }
+    {
+      if (!spi_global_app_data->property_hash)
+        spi_global_app_data->property_hash = g_hash_table_new_full (g_str_hash,
+                                                                    g_str_equal,
+                                                                    g_free, NULL);
+      g_hash_table_insert (spi_global_app_data->property_hash, g_strdup (name),
+                           (gpointer) properties);
+    }
 }
 /*END------------------------------------------------------------------------*/

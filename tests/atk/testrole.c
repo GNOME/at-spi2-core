@@ -45,8 +45,8 @@ test_role (void)
 }
 
 int
-main (gint  argc,
-      char* argv[])
+main (gint argc,
+      char *argv[])
 {
   g_test_init (&argc, &argv, NULL);
   g_test_add_func ("/atk/role/roles", test_role);

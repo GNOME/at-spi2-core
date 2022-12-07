@@ -19,8 +19,8 @@
 
 #include "config.h"
 
-#include <string.h>
 #include "atkhyperlinkimpl.h"
+#include <string.h>
 
 /**
  * AtkHyperlinImpl:
@@ -63,17 +63,17 @@ atk_hyperlink_impl_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) {
-    GTypeInfo tinfo =
+  if (!type)
     {
-      sizeof (AtkHyperlinkImplIface),
-      (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL,
+      GTypeInfo tinfo = {
+        sizeof (AtkHyperlinkImplIface),
+        (GBaseInitFunc) NULL,
+        (GBaseFinalizeFunc) NULL,
 
-    };
+      };
 
-    type = g_type_register_static (G_TYPE_INTERFACE, "AtkHyperlinkImpl", &tinfo, 0);
-  }
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtkHyperlinkImpl", &tinfo, 0);
+    }
 
   return type;
 }
@@ -105,4 +105,3 @@ atk_hyperlink_impl_get_hyperlink (AtkHyperlinkImpl *impl)
     }
   return NULL;
 }
-

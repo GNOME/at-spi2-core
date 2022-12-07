@@ -28,19 +28,20 @@
 
 typedef struct _SpiDEController SpiDEController;
 
-#include "registry.h"
 #include "de-types.h"
+#include "registry.h"
 
 G_BEGIN_DECLS
 
-#define SPI_DEVICE_EVENT_CONTROLLER_TYPE        (spi_device_event_controller_get_type ())
-#define SPI_DEVICE_EVENT_CONTROLLER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDEController))
-#define SPI_DEVICE_EVENT_CONTROLLER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDEControllerClass))
-#define SPI_IS_DEVICE_EVENT_CONTROLLER(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), SPI_DEVICE_EVENT_CONTROLLER_TYPE))
+#define SPI_DEVICE_EVENT_CONTROLLER_TYPE (spi_device_event_controller_get_type ())
+#define SPI_DEVICE_EVENT_CONTROLLER(o) (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDEController))
+#define SPI_DEVICE_EVENT_CONTROLLER_CLASS(k) (G_TYPE_CHECK_CLASS_CAST ((k), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDEControllerClass))
+#define SPI_IS_DEVICE_EVENT_CONTROLLER(o) (G_TYPE_CHECK_INSTANCE_TYPE ((o), SPI_DEVICE_EVENT_CONTROLLER_TYPE))
 #define SPI_IS_DEVICE_EVENT_CONTROLLER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_DEVICE_EVENT_CONTROLLER_TYPE))
 #define SPI_DEVICE_EVENT_CONTROLLER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDEControllerClass))
 
-struct _SpiDEController {
+struct _SpiDEController
+{
   GObject parent;
   DBusConnection *bus;
   GList *key_listeners;
@@ -53,24 +54,27 @@ struct _SpiDEController {
   gboolean have_mouse_event_listener;
 };
 
-typedef enum {
+typedef enum
+{
   SPI_DEVICE_TYPE_KBD,
   SPI_DEVICE_TYPE_LAST_DEFINED
 } SpiDeviceTypeCategory;
 
-typedef struct {
+typedef struct
+{
   char *bus_name;
   char *path;
   SpiDeviceTypeCategory type;
   gulong types;
 } DEControllerListener;
 
-typedef struct {
+typedef struct
+{
   DEControllerListener listener;
 
   GSList *keys;
   Accessibility_ControllerEventMask mask;
-  Accessibility_EventListenerMode  *mode;	
+  Accessibility_EventListenerMode *mode;
 } DEControllerKeyListener;
 
 typedef struct
@@ -81,22 +85,22 @@ typedef struct
                        gboolean fix,
                        guint *modmask);
 
-  guint (*mouse_check) (SpiDEController *controller, 
-	                gint *x,
-	                gint *y,
-	                gboolean *moved);
+  guint (*mouse_check) (SpiDEController *controller,
+                        gint *x,
+                        gint *y,
+                        gboolean *moved);
 
-  gboolean (*register_global_keygrabs) (SpiDEController         *controller,
-					DEControllerKeyListener *key_listener);
+  gboolean (*register_global_keygrabs) (SpiDEController *controller,
+                                        DEControllerKeyListener *key_listener);
 
-  void (*deregister_global_keygrabs) (SpiDEController         *controller,
-				      DEControllerKeyListener *key_listener);
+  void (*deregister_global_keygrabs) (SpiDEController *controller,
+                                      DEControllerKeyListener *key_listener);
 
   gboolean (*synth_keycode_press) (SpiDEController *controller,
-		                   guint keycode);
+                                   guint keycode);
 
   gboolean (*synth_keycode_release) (SpiDEController *controller,
-		                   guint keycode);
+                                     guint keycode);
 
   gboolean (*lock_modifiers) (SpiDEController *controller,
                               unsigned modifiers);
@@ -118,8 +122,8 @@ typedef struct
                       Accessibility_ControllerEventMask mod_mask);
 
   void (*emit_modifier_event) (SpiDEController *controller,
-			       guint prev_mask,
-			       guint current_mask);
+                               guint prev_mask,
+                               guint current_mask);
 
   void (*generate_mouse_event) (SpiDEController *controller,
                                 gint x,
@@ -130,12 +134,13 @@ typedef struct
   void (*finalize) (SpiDEController *controller);
 } SpiDEControllerPlat;
 
-typedef struct {
+typedef struct
+{
   GObjectClass parent_class;
   SpiDEControllerPlat plat;
 } SpiDEControllerClass;
 
-GType            spi_device_event_controller_get_type (void);
+GType spi_device_event_controller_get_type (void);
 
 void spi_device_event_controller_start_poll_mouse (SpiDEController *dec);
 void spi_device_event_controller_stop_poll_mouse (SpiDEController *dec);
@@ -145,16 +150,16 @@ void spi_remove_device_listeners (SpiDEController *controller, const char *bus_n
 SpiDEController *spi_registry_dec_new (DBusConnection *bus);
 
 gboolean
-spi_controller_notify_keylisteners (SpiDEController                 *controller,
-				    Accessibility_DeviceEvent       *key_event,
-				    dbus_bool_t                    is_system_global);
+spi_controller_notify_keylisteners (SpiDEController *controller,
+                                    Accessibility_DeviceEvent *key_event,
+                                    dbus_bool_t is_system_global);
 
-gboolean spi_controller_update_key_grabs               (SpiDEController           *controller,
-							       Accessibility_DeviceEvent *recv);
+gboolean spi_controller_update_key_grabs (SpiDEController *controller,
+                                          Accessibility_DeviceEvent *recv);
 
 gboolean spi_dec_synth_keysym (SpiDEController *controller, long keysym);
 
-void spi_dec_dbus_emit(SpiDEController *controller, const char *interface, const char *name, const char *minor, int a1, int a2);
+void spi_dec_dbus_emit (SpiDEController *controller, const char *interface, const char *name, const char *minor, int a1, int a2);
 
 G_END_DECLS
 

@@ -18,13 +18,13 @@
  * Boston, MA 02110-1301, USA.
  */
 
+#include <atk/atk.h>
 #include <glib.h>
 #include <string.h>
-#include <atk/atk.h>
 
 #include "my-atk-object.h"
-#include "my-atk-table.h"
 #include "my-atk-table-cell.h"
+#include "my-atk-table.h"
 
 typedef struct _MyAtkTableInfo MyAtkTableInfo;
 
@@ -35,8 +35,7 @@ G_DEFINE_TYPE_WITH_CODE (MyAtkTable,
                          my_atk_table,
                          MY_TYPE_ATK_OBJECT,
                          G_IMPLEMENT_INTERFACE (ATK_TYPE_TABLE,
-                             atk_table_interface_init));
-
+                                                atk_table_interface_init));
 
 static gint
 my_atk_table_get_index_at (AtkTable *obj, gint row, gint column)
@@ -50,18 +49,22 @@ my_atk_table_get_index_at (AtkTable *obj, gint row, gint column)
   AtkObject *child = NULL;
 
   MyAtkTableCell *cell = NULL;
-  for (i = 0; i < all_child; i++) {
-    child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
-    if (atk_object_get_role (child) == ATK_ROLE_TABLE_CELL) {
-      if (index_first_cell == -1) {
-        index_first_cell = i;
-      }
-      cell = MY_ATK_TABLE_CELL (child);
-      if (cell->x == column && cell->y == row) {
-        ret = i-index_first_cell;
-      }
+  for (i = 0; i < all_child; i++)
+    {
+      child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
+      if (atk_object_get_role (child) == ATK_ROLE_TABLE_CELL)
+        {
+          if (index_first_cell == -1)
+            {
+              index_first_cell = i;
+            }
+          cell = MY_ATK_TABLE_CELL (child);
+          if (cell->x == column && cell->y == row)
+            {
+              ret = i - index_first_cell;
+            }
+        }
     }
-  }
   return ret;
 }
 
@@ -77,12 +80,14 @@ my_atk_table_get_column_at_index (AtkTable *obj, gint index)
   columns = atk_table_get_n_columns (ATK_TABLE (table));
   rows = atk_table_get_n_rows (ATK_TABLE (table));
 
-  for (i = 0; i < rows; i++) {
-    for (j = 0; j < columns; j++) {
-      if (index == my_atk_table_get_index_at (obj, i, j))
-        return j;
+  for (i = 0; i < rows; i++)
+    {
+      for (j = 0; j < columns; j++)
+        {
+          if (index == my_atk_table_get_index_at (obj, i, j))
+            return j;
+        }
     }
-  }
   return -1;
 }
 
@@ -98,12 +103,14 @@ my_atk_table_get_row_at_index (AtkTable *obj, gint index)
   columns = atk_table_get_n_columns (ATK_TABLE (table));
   rows = atk_table_get_n_rows (ATK_TABLE (table));
 
-  for (i = 0; i < rows; i++) {
-    for (j = 0; j < columns; j++) {
-      if (index == my_atk_table_get_index_at (obj, i, j))
-        return i;
+  for (i = 0; i < rows; i++)
+    {
+      for (j = 0; j < columns; j++)
+        {
+          if (index == my_atk_table_get_index_at (obj, i, j))
+            return i;
+        }
     }
-  }
 
   return -1;
 }
@@ -113,15 +120,16 @@ my_atk_table_get_n_columns (AtkTable *obj)
 {
   MyAtkTable *self = MY_ATK_TABLE (obj);
   g_return_val_if_fail (MY_IS_ATK_TABLE (obj), -1);
-  gint i, all_child, ret=0;
+  gint i, all_child, ret = 0;
 
   all_child = MY_ATK_OBJECT (self)->children->len;
   AtkObject *child = NULL;
-  for (i = 0; i < all_child; i++) {
-    child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
-    if (atk_object_get_role (child) == ATK_ROLE_TABLE_COLUMN_HEADER)
-      ret++;
-  }
+  for (i = 0; i < all_child; i++)
+    {
+      child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
+      if (atk_object_get_role (child) == ATK_ROLE_TABLE_COLUMN_HEADER)
+        ret++;
+    }
   return ret;
 }
 
@@ -130,19 +138,20 @@ my_atk_table_get_n_rows (AtkTable *obj)
 {
   MyAtkTable *self = MY_ATK_TABLE (obj);
   g_return_val_if_fail (MY_IS_ATK_TABLE (obj), -1);
-  gint i, all_child, ret=0;
+  gint i, all_child, ret = 0;
 
   all_child = MY_ATK_OBJECT (self)->children->len;
   AtkObject *child = NULL;
-  for (i = 0; i < all_child; i++) {
-    child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
-    if (atk_object_get_role (child) == ATK_ROLE_TABLE_ROW_HEADER)
-      ret++;
-  }
+  for (i = 0; i < all_child; i++)
+    {
+      child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
+      if (atk_object_get_role (child) == ATK_ROLE_TABLE_ROW_HEADER)
+        ret++;
+    }
   return ret;
 }
 
-static AtkObject*
+static AtkObject *
 my_atk_table_get_caption (AtkTable *obj)
 {
   MyAtkTable *self = MY_ATK_TABLE (obj);
@@ -153,15 +162,16 @@ my_atk_table_get_caption (AtkTable *obj)
 
   all_child = MY_ATK_OBJECT (self)->children->len;
   AtkObject *child = NULL;
-  for (i = 0; i < all_child; i++) {
-    child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
-    if (atk_object_get_role (child) == ATK_ROLE_CAPTION)
-      caption = child;
-  }
+  for (i = 0; i < all_child; i++)
+    {
+      child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
+      if (atk_object_get_role (child) == ATK_ROLE_CAPTION)
+        caption = child;
+    }
   return caption ? caption : NULL;
 }
 
-static AtkObject*
+static AtkObject *
 my_atk_table_ref_at (AtkTable *obj, gint row, gint column)
 {
   MyAtkTable *self = MY_ATK_TABLE (obj);
@@ -173,14 +183,16 @@ my_atk_table_ref_at (AtkTable *obj, gint row, gint column)
   AtkObject *child = NULL;
 
   MyAtkTableCell *cell = NULL;
-  for (i = 0; i < all_child; i++) {
-    child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
-    if (atk_object_get_role (child) == ATK_ROLE_TABLE_CELL) {
-      cell = MY_ATK_TABLE_CELL (child);
-      if (cell->x == column && cell->y == row)
-        ret = ATK_OBJECT (cell);
+  for (i = 0; i < all_child; i++)
+    {
+      child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
+      if (atk_object_get_role (child) == ATK_ROLE_TABLE_CELL)
+        {
+          cell = MY_ATK_TABLE_CELL (child);
+          if (cell->x == column && cell->y == row)
+            ret = ATK_OBJECT (cell);
+        }
     }
-  }
   return ret ? ret : NULL;
 }
 
@@ -190,17 +202,18 @@ my_atk_table_get_row_description (AtkTable *obj, gint index)
   MyAtkTable *self = MY_ATK_TABLE (obj);
   g_return_val_if_fail (MY_IS_ATK_TABLE (obj), NULL);
   gint i, all_child;
-  GPtrArray *ret = g_ptr_array_new_full ( my_atk_table_get_n_rows (obj),
-                                          g_object_unref);
+  GPtrArray *ret = g_ptr_array_new_full (my_atk_table_get_n_rows (obj),
+                                         g_object_unref);
 
   all_child = MY_ATK_OBJECT (self)->children->len;
   AtkObject *child = NULL;
 
-  for (i = 0; i < all_child; i++) {
-    child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
-    if (atk_object_get_role (child) == ATK_ROLE_TABLE_ROW_HEADER)
-      g_ptr_array_add (ret, child);
-  }
+  for (i = 0; i < all_child; i++)
+    {
+      child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
+      if (atk_object_get_role (child) == ATK_ROLE_TABLE_ROW_HEADER)
+        g_ptr_array_add (ret, child);
+    }
   child = g_ptr_array_index (ret, index);
 
   return g_strdup (atk_object_get_description (child));
@@ -214,14 +227,15 @@ my_atk_table_get_column_description (AtkTable *obj, gint index)
   gint i, all_child;
   GPtrArray *ret = g_ptr_array_new_full (my_atk_table_get_n_columns (obj), g_object_unref);
 
-  all_child = MY_ATK_OBJECT(self)->children->len;
+  all_child = MY_ATK_OBJECT (self)->children->len;
   AtkObject *child = NULL;
 
-  for (i = 0; i < all_child; i++) {
-    child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
-    if (atk_object_get_role (child) == ATK_ROLE_TABLE_COLUMN_HEADER)
-      g_ptr_array_add (ret, child);
-  }
+  for (i = 0; i < all_child; i++)
+    {
+      child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
+      if (atk_object_get_role (child) == ATK_ROLE_TABLE_COLUMN_HEADER)
+        g_ptr_array_add (ret, child);
+    }
   child = g_ptr_array_index (ret, index);
 
   return g_strdup (atk_object_get_description (child));
@@ -247,7 +261,7 @@ my_atk_table_test_table_get_column_extent_at (AtkTable *obj, gint row, gint col)
   return self->column_span;
 }
 
-static AtkObject*
+static AtkObject *
 my_atk_table_get_row_header (AtkTable *obj, gint row)
 {
   MyAtkTable *self = MY_ATK_TABLE (obj);
@@ -259,17 +273,18 @@ my_atk_table_get_row_header (AtkTable *obj, gint row)
   AtkObject *child = NULL;
   AtkObject *c = NULL;
 
-  for (i = 0; i < all_child; i++) {
-    child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
-    if (atk_object_get_role (child) == ATK_ROLE_TABLE_ROW_HEADER)
-      g_ptr_array_add (ret, child);
-  }
+  for (i = 0; i < all_child; i++)
+    {
+      child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
+      if (atk_object_get_role (child) == ATK_ROLE_TABLE_ROW_HEADER)
+        g_ptr_array_add (ret, child);
+    }
   c = ATK_OBJECT (g_ptr_array_index (ret, row));
 
   return atk_object_ref_accessible_child (c, 0);
 }
 
-static AtkObject*
+static AtkObject *
 my_atk_table_get_column_header (AtkTable *obj, gint col)
 {
   MyAtkTable *self = MY_ATK_TABLE (obj);
@@ -281,11 +296,12 @@ my_atk_table_get_column_header (AtkTable *obj, gint col)
   AtkObject *child = NULL;
   AtkObject *c = NULL;
 
-  for (i = 0; i < all_child; i++) {
-    child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
-    if (atk_object_get_role (child) == ATK_ROLE_TABLE_COLUMN_HEADER)
-      g_ptr_array_add (ret, child);
-  }
+  for (i = 0; i < all_child; i++)
+    {
+      child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
+      if (atk_object_get_role (child) == ATK_ROLE_TABLE_COLUMN_HEADER)
+        g_ptr_array_add (ret, child);
+    }
   c = g_ptr_array_index (ret, col);
 
   return atk_object_ref_accessible_child (c, 0);
@@ -303,17 +319,20 @@ my_atk_table_get_selected_rows (AtkTable *obj, gint **selected)
   GArray *array = g_array_new (FALSE, FALSE, sizeof (gint));
 
   all_child = MY_ATK_OBJECT (self)->children->len;
-  for (i=0; i<all_child; i++) {
-    child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
-    if (atk_object_get_role (child) == ATK_ROLE_TABLE_ROW_HEADER) {
-      ss = atk_object_ref_state_set (child);
-      if (atk_state_set_contains_state (ss, ATK_STATE_SELECTED)) {
-        ret++;
-        g_array_append_val (array, row);
-      }
-      row++;
+  for (i = 0; i < all_child; i++)
+    {
+      child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
+      if (atk_object_get_role (child) == ATK_ROLE_TABLE_ROW_HEADER)
+        {
+          ss = atk_object_ref_state_set (child);
+          if (atk_state_set_contains_state (ss, ATK_STATE_SELECTED))
+            {
+              ret++;
+              g_array_append_val (array, row);
+            }
+          row++;
+        }
     }
-  }
   if (selected)
     *selected = (gint *) g_array_free (array, FALSE);
   return ret;
@@ -331,17 +350,20 @@ my_atk_table_get_selected_columns (AtkTable *obj, gint **selected)
   GArray *array = g_array_new (FALSE, FALSE, sizeof (gint));
 
   all_child = MY_ATK_OBJECT (self)->children->len;
-  for (i=0; i<all_child; i++) {
-    child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
-    if (atk_object_get_role (child) == ATK_ROLE_TABLE_COLUMN_HEADER) {
-      ss = atk_object_ref_state_set (child);
-      if (atk_state_set_contains_state (ss, ATK_STATE_SELECTED)) {
-        ret++;
-        g_array_append_val (array, column);
-      }
-      column++;
+  for (i = 0; i < all_child; i++)
+    {
+      child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
+      if (atk_object_get_role (child) == ATK_ROLE_TABLE_COLUMN_HEADER)
+        {
+          ss = atk_object_ref_state_set (child);
+          if (atk_state_set_contains_state (ss, ATK_STATE_SELECTED))
+            {
+              ret++;
+              g_array_append_val (array, column);
+            }
+          column++;
+        }
     }
-  }
   if (selected)
     *selected = (gint *) g_array_free (array, FALSE);
   return ret;
@@ -359,11 +381,12 @@ my_atk_table_is_row_selected (AtkTable *obj, gint row)
   GPtrArray *ret = g_ptr_array_new_full (my_atk_table_get_n_rows (obj), g_object_unref);
 
   all_child = MY_ATK_OBJECT (self)->children->len;
-  for (i = 0; i < all_child; i++) {
-    child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
-    if (atk_object_get_role (child) == ATK_ROLE_TABLE_ROW_HEADER)
-      g_ptr_array_add (ret, child);
-  }
+  for (i = 0; i < all_child; i++)
+    {
+      child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
+      if (atk_object_get_role (child) == ATK_ROLE_TABLE_ROW_HEADER)
+        g_ptr_array_add (ret, child);
+    }
   c = g_ptr_array_index (ret, row);
   ss = atk_object_ref_state_set (c);
   if (atk_state_set_contains_state (ss, ATK_STATE_SELECTED))
@@ -383,11 +406,12 @@ my_atk_table_is_column_selected (AtkTable *obj, gint col)
   GPtrArray *ret = g_ptr_array_new_full (my_atk_table_get_n_columns (obj), g_object_unref);
 
   all_child = MY_ATK_OBJECT (self)->children->len;
-  for (i = 0; i < all_child; i++) {
-    child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
-    if (atk_object_get_role (child) == ATK_ROLE_TABLE_COLUMN_HEADER)
-      g_ptr_array_add (ret, child);
-  }
+  for (i = 0; i < all_child; i++)
+    {
+      child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
+      if (atk_object_get_role (child) == ATK_ROLE_TABLE_COLUMN_HEADER)
+        g_ptr_array_add (ret, child);
+    }
   c = g_ptr_array_index (ret, col);
   ss = atk_object_ref_state_set (c);
   if (atk_state_set_contains_state (ss, ATK_STATE_SELECTED))
@@ -417,19 +441,23 @@ my_atk_table_add_column_selection (AtkTable *obj, gint col)
   AtkStateSet *ss = NULL;
 
   all_child = MY_ATK_OBJECT (self)->children->len;
-  for (i = 0; i < all_child; i++) {
-    child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
-    if (atk_object_get_role (child) == ATK_ROLE_TABLE_COLUMN_HEADER) {
-      if (col == counter) {
-        ss = atk_object_ref_state_set (child);
-        if (!atk_state_set_contains_state (ss, ATK_STATE_SELECTED)) {
-          atk_state_set_add_state (ss, ATK_STATE_SELECTED);
-          return TRUE;
+  for (i = 0; i < all_child; i++)
+    {
+      child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
+      if (atk_object_get_role (child) == ATK_ROLE_TABLE_COLUMN_HEADER)
+        {
+          if (col == counter)
+            {
+              ss = atk_object_ref_state_set (child);
+              if (!atk_state_set_contains_state (ss, ATK_STATE_SELECTED))
+                {
+                  atk_state_set_add_state (ss, ATK_STATE_SELECTED);
+                  return TRUE;
+                }
+            }
+          counter++;
         }
-      }
-      counter++;
     }
-  }
   return FALSE;
 }
 
@@ -443,19 +471,23 @@ my_atk_table_add_row_selection (AtkTable *obj, gint row)
   AtkStateSet *ss = NULL;
 
   all_child = MY_ATK_OBJECT (self)->children->len;
-  for (i = 0; i < all_child; i++) {
-    child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
-    if (atk_object_get_role (child) == ATK_ROLE_TABLE_ROW_HEADER) {
-      if (row == counter) {
-        ss = atk_object_ref_state_set (child);
-        if (!atk_state_set_contains_state (ss, ATK_STATE_SELECTED)) {
-          atk_state_set_add_state (ss, ATK_STATE_SELECTED);
-          return TRUE;
+  for (i = 0; i < all_child; i++)
+    {
+      child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
+      if (atk_object_get_role (child) == ATK_ROLE_TABLE_ROW_HEADER)
+        {
+          if (row == counter)
+            {
+              ss = atk_object_ref_state_set (child);
+              if (!atk_state_set_contains_state (ss, ATK_STATE_SELECTED))
+                {
+                  atk_state_set_add_state (ss, ATK_STATE_SELECTED);
+                  return TRUE;
+                }
+            }
+          counter++;
         }
-      }
-      counter++;
     }
-  }
   return FALSE;
 }
 
@@ -469,19 +501,23 @@ my_atk_table_remove_column_selection (AtkTable *obj, gint col)
   AtkStateSet *ss = NULL;
 
   all_child = MY_ATK_OBJECT (self)->children->len;
-  for (i = 0; i < all_child; i++) {
-    child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
-    if (atk_object_get_role (child) == ATK_ROLE_TABLE_COLUMN_HEADER) {
-      if (col == counter) {
-        ss = atk_object_ref_state_set (child);
-        if (atk_state_set_contains_state (ss, ATK_STATE_SELECTED)) {
-          atk_state_set_remove_state (ss, ATK_STATE_SELECTED);
-          return TRUE;
+  for (i = 0; i < all_child; i++)
+    {
+      child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
+      if (atk_object_get_role (child) == ATK_ROLE_TABLE_COLUMN_HEADER)
+        {
+          if (col == counter)
+            {
+              ss = atk_object_ref_state_set (child);
+              if (atk_state_set_contains_state (ss, ATK_STATE_SELECTED))
+                {
+                  atk_state_set_remove_state (ss, ATK_STATE_SELECTED);
+                  return TRUE;
+                }
+            }
+          counter++;
         }
-      }
-      counter++;
     }
-  }
   return FALSE;
 }
 
@@ -495,19 +531,23 @@ my_atk_table_remove_row_selection (AtkTable *obj, gint row)
   AtkStateSet *ss = NULL;
 
   all_child = MY_ATK_OBJECT (self)->children->len;
-  for (i = 0; i < all_child; i++) {
-    child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
-    if (atk_object_get_role (child) == ATK_ROLE_TABLE_ROW_HEADER) {
-      if (row == counter) {
-        ss = atk_object_ref_state_set (child);
-        if (atk_state_set_contains_state (ss, ATK_STATE_SELECTED)) {
-          atk_state_set_remove_state (ss, ATK_STATE_SELECTED);
-          return TRUE;
+  for (i = 0; i < all_child; i++)
+    {
+      child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
+      if (atk_object_get_role (child) == ATK_ROLE_TABLE_ROW_HEADER)
+        {
+          if (row == counter)
+            {
+              ss = atk_object_ref_state_set (child);
+              if (atk_state_set_contains_state (ss, ATK_STATE_SELECTED))
+                {
+                  atk_state_set_remove_state (ss, ATK_STATE_SELECTED);
+                  return TRUE;
+                }
+            }
+          counter++;
         }
-      }
-      counter++;
     }
-  }
   return FALSE;
 }
 
@@ -519,13 +559,14 @@ my_atk_table_get_summary (AtkTable *obj)
   gint i, all_child;
   AtkObject *summary = NULL;
 
-  all_child = MY_ATK_OBJECT(self)->children->len;
+  all_child = MY_ATK_OBJECT (self)->children->len;
   AtkObject *child = NULL;
-  for (i=0; i<all_child; i++) {
-    child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
-    if (atk_object_get_role (child) == ATK_ROLE_HEADING)
-      summary = child;
-  }
+  for (i = 0; i < all_child; i++)
+    {
+      child = atk_object_ref_accessible_child (ATK_OBJECT (obj), i);
+      if (atk_object_get_role (child) == ATK_ROLE_HEADING)
+        summary = child;
+    }
   return summary ? summary : NULL;
 }
 
@@ -598,7 +639,8 @@ static void
 atk_table_interface_init (AtkTableIface *iface)
 {
 
-  if (!iface) return;
+  if (!iface)
+    return;
 
   iface->ref_at = my_atk_table_ref_at;
 
@@ -651,7 +693,6 @@ my_atk_table_init (MyAtkTable *self)
   self->column_headers = g_ptr_array_new_with_free_func (GDestroyNotifyGPTRARRAYptrArray);
   self->selected = FALSE;
   self->col_desc = NULL;
-
 }
 
 static void

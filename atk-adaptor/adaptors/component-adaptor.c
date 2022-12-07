@@ -23,17 +23,18 @@
  */
 
 #define ATK_DISABLE_DEPRECATION_WARNINGS
+#include "bridge.h"
 #include <atk/atk.h>
 #include <droute/droute.h>
-#include "bridge.h"
 #include <string.h>
 
 #include "spi-dbus.h"
-#include "object.h"
+
 #include "introspection.h"
+#include "object.h"
 
 static DBusMessage *
-impl_Contains (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_Contains (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   dbus_int32_t x, y;
@@ -44,14 +45,13 @@ impl_Contains (DBusConnection * bus, DBusMessage * message, void *user_data)
   g_return_val_if_fail (ATK_IS_COMPONENT (user_data),
                         droute_not_yet_handled_error (message));
 
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
-       DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
+                              DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
   retval =
-    atk_component_contains (component, x, y, (AtkCoordType) coord_type);
+      atk_component_contains (component, x, y, (AtkCoordType) coord_type);
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
@@ -62,8 +62,7 @@ impl_Contains (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_GetAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
-                           void *user_data)
+impl_GetAccessibleAtPoint (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   dbus_int32_t x, y;
@@ -74,15 +73,14 @@ impl_GetAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
   g_return_val_if_fail (ATK_IS_COMPONENT (user_data),
                         droute_not_yet_handled_error (message));
 
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
-       DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
+                              DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
   child =
-    atk_component_ref_accessible_at_point (component, x, y,
-                                           (AtkCoordType) coord_type);
+      atk_component_ref_accessible_at_point (component, x, y,
+                                             (AtkCoordType) coord_type);
   reply = spi_object_return_reference (message, child);
   if (child)
     g_object_unref (child);
@@ -91,7 +89,7 @@ impl_GetAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_GetExtents (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetExtents (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   dbus_uint32_t coord_type;
@@ -100,8 +98,7 @@ impl_GetExtents (DBusConnection * bus, DBusMessage * message, void *user_data)
   g_return_val_if_fail (ATK_IS_COMPONENT (user_data),
                         droute_not_yet_handled_error (message));
 
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -111,8 +108,7 @@ impl_GetExtents (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_GetPosition (DBusConnection * bus, DBusMessage * message,
-                  void *user_data)
+impl_GetPosition (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   dbus_uint32_t coord_type;
@@ -123,8 +119,7 @@ impl_GetPosition (DBusConnection * bus, DBusMessage * message,
   g_return_val_if_fail (ATK_IS_COMPONENT (user_data),
                         droute_not_yet_handled_error (message));
 
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -141,7 +136,7 @@ impl_GetPosition (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_GetSize (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetSize (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   gint iwidth = 0, iheight = 0;
@@ -164,7 +159,7 @@ impl_GetSize (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_GetLayer (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetLayer (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   AtkLayer atklayer;
@@ -213,8 +208,7 @@ impl_GetLayer (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_GetMDIZOrder (DBusConnection * bus, DBusMessage * message,
-                   void *user_data)
+impl_GetMDIZOrder (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   dbus_int16_t rv;
@@ -234,7 +228,7 @@ impl_GetMDIZOrder (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_GrabFocus (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GrabFocus (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   dbus_bool_t rv;
@@ -268,7 +262,7 @@ impl_deregisterFocusHandler (DBusConnection * bus, DBusMessage * message,
 #endif
 
 static DBusMessage *
-impl_GetAlpha (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetAlpha (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   double rv;
@@ -288,7 +282,7 @@ impl_GetAlpha (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_SetExtents (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_SetExtents (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   DBusMessageIter iter, iter_struct;
@@ -331,7 +325,7 @@ impl_SetExtents (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_SetPosition (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_SetPosition (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   dbus_uint32_t coord_type;
@@ -342,9 +336,8 @@ impl_SetPosition (DBusConnection * bus, DBusMessage * message, void *user_data)
   g_return_val_if_fail (ATK_IS_COMPONENT (user_data),
                         droute_not_yet_handled_error (message));
 
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
-       DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
+                              DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -362,7 +355,7 @@ impl_SetPosition (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_ScreenExtents (DBusMessageIter * iter, void *user_data)
+impl_get_ScreenExtents (DBusMessageIter *iter, void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   DBusMessageIter iter_variant, iter_struct;
@@ -390,7 +383,7 @@ impl_get_ScreenExtents (DBusMessageIter * iter, void *user_data)
 }
 
 static DBusMessage *
-impl_SetSize (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_SetSize (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   dbus_int32_t width, height;
@@ -400,9 +393,8 @@ impl_SetSize (DBusConnection * bus, DBusMessage * message, void *user_data)
   g_return_val_if_fail (ATK_IS_COMPONENT (user_data),
                         droute_not_yet_handled_error (message));
 
-  if (!dbus_message_get_args
-      (message, NULL, DBUS_TYPE_INT32, &width, DBUS_TYPE_INT32, &height,
-       DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &width, DBUS_TYPE_INT32, &height,
+                              DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -420,8 +412,9 @@ impl_SetSize (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_ScrollTo (DBusConnection * bus,
-               DBusMessage * message, void *user_data)
+impl_ScrollTo (DBusConnection *bus,
+               DBusMessage *message,
+               void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   dbus_uint32_t type;
@@ -431,8 +424,7 @@ impl_ScrollTo (DBusConnection * bus,
   g_return_val_if_fail (ATK_IS_COMPONENT (user_data),
                         droute_not_yet_handled_error (message));
 
-  if (!dbus_message_get_args
-       (message, NULL, DBUS_TYPE_UINT32, &type, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_UINT32, &type, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -449,8 +441,9 @@ impl_ScrollTo (DBusConnection * bus,
 }
 
 static DBusMessage *
-impl_ScrollToPoint (DBusConnection * bus,
-                    DBusMessage * message, void *user_data)
+impl_ScrollToPoint (DBusConnection *bus,
+                    DBusMessage *message,
+                    void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   dbus_uint32_t type;
@@ -461,11 +454,10 @@ impl_ScrollToPoint (DBusConnection * bus,
   g_return_val_if_fail (ATK_IS_COMPONENT (user_data),
                         droute_not_yet_handled_error (message));
 
-  if (!dbus_message_get_args
-       (message, NULL, DBUS_TYPE_UINT32, &type,
-                       DBUS_TYPE_INT32, &x,
-                       DBUS_TYPE_INT32, &y,
-                       DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_UINT32, &type,
+                              DBUS_TYPE_INT32, &x,
+                              DBUS_TYPE_INT32, &y,
+                              DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -482,31 +474,31 @@ impl_ScrollToPoint (DBusConnection * bus,
 }
 
 static DRouteMethod methods[] = {
-  {impl_Contains, "Contains"},
-  {impl_GetAccessibleAtPoint, "GetAccessibleAtPoint"},
-  {impl_GetExtents, "GetExtents"},
-  {impl_GetPosition, "GetPosition"},
-  {impl_GetSize, "GetSize"},
-  {impl_GetLayer, "GetLayer"},
-  {impl_GetMDIZOrder, "GetMDIZOrder"},
-  {impl_GrabFocus, "GrabFocus"},
+  { impl_Contains, "Contains" },
+  { impl_GetAccessibleAtPoint, "GetAccessibleAtPoint" },
+  { impl_GetExtents, "GetExtents" },
+  { impl_GetPosition, "GetPosition" },
+  { impl_GetSize, "GetSize" },
+  { impl_GetLayer, "GetLayer" },
+  { impl_GetMDIZOrder, "GetMDIZOrder" },
+  { impl_GrabFocus, "GrabFocus" },
   //{impl_registerFocusHandler, "registerFocusHandler"},
   //{impl_deregisterFocusHandler, "deregisterFocusHandler"},
-  {impl_GetAlpha, "GetAlpha"},
-  {impl_SetExtents, "SetExtents"},
-  {impl_SetPosition, "SetPosition"},
-  {impl_SetSize, "SetSize"},
-  {impl_ScrollTo, "ScrollTo"},
-  {impl_ScrollToPoint, "ScrollToPoint"},
-  {NULL, NULL}
+  { impl_GetAlpha, "GetAlpha" },
+  { impl_SetExtents, "SetExtents" },
+  { impl_SetPosition, "SetPosition" },
+  { impl_SetSize, "SetSize" },
+  { impl_ScrollTo, "ScrollTo" },
+  { impl_ScrollToPoint, "ScrollToPoint" },
+  { NULL, NULL }
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_ScreenExtents, NULL, "ScreenExtents"},
-  {NULL, NULL, NULL}
+  { impl_get_ScreenExtents, NULL, "ScreenExtents" },
+  { NULL, NULL, NULL }
 };
 void
-spi_initialize_component (DRoutePath * path)
+spi_initialize_component (DRoutePath *path)
 {
   spi_atk_add_interface (path,
                          ATSPI_DBUS_INTERFACE_COMPONENT, spi_org_a11y_atspi_Component, methods, properties);

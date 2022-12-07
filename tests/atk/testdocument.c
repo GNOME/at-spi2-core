@@ -22,15 +22,15 @@
 
 #define EXPECTED_NUMBER 5
 
-#define TEST_TYPE_DOCUMENT                         (test_document_get_type ())
-#define TEST_DOCUMENT(obj)                         (G_TYPE_CHECK_INSTANCE_CAST ((obj), TEST_TYPE_DOCUMENT, TestDocument))
-#define TEST_DOCUMENT_CLASS(klass)                 (G_TYPE_CHECK_CLASS_CAST ((klass), TEST_TYPE_DOCUMENT, TestDocumentClass))
-#define TEST_IS_DOCUMENT(obj)                      (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TEST_TYPE_DOCUMENT))
-#define TEST_IS_DOCUMENT_CLASS(klass)              (G_TYPE_CHECK_CLASS_TYPE ((klass), TEST_TYPE_DOCUMENT))
-#define TEST_DOCUMENT_GET_CLASS(obj)               (G_TYPE_INSTANCE_GET_CLASS ((obj), TEST_TYPE_DOCUMENT, TestDocumentClass))
+#define TEST_TYPE_DOCUMENT (test_document_get_type ())
+#define TEST_DOCUMENT(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), TEST_TYPE_DOCUMENT, TestDocument))
+#define TEST_DOCUMENT_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), TEST_TYPE_DOCUMENT, TestDocumentClass))
+#define TEST_IS_DOCUMENT(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TEST_TYPE_DOCUMENT))
+#define TEST_IS_DOCUMENT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TEST_TYPE_DOCUMENT))
+#define TEST_DOCUMENT_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), TEST_TYPE_DOCUMENT, TestDocumentClass))
 
-typedef struct _TestDocument        TestDocument;
-typedef struct _TestDocumentClass   TestDocumentClass;
+typedef struct _TestDocument TestDocument;
+typedef struct _TestDocumentClass TestDocumentClass;
 
 struct _TestDocument
 {
@@ -44,7 +44,7 @@ struct _TestDocumentClass
   AtkObjectClass parent_class;
 };
 
-GType       test_document_get_type (void) G_GNUC_CONST;
+GType test_document_get_type (void) G_GNUC_CONST;
 static void test_document_interface_init (AtkDocumentIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (TestDocument,
@@ -73,7 +73,7 @@ document_page_changed_cb (AtkDocument *document,
                           gint page_number,
                           gpointer data)
 {
-  TestDocument* test_document = TEST_DOCUMENT (document);
+  TestDocument *test_document = TEST_DOCUMENT (document);
 
   g_print ("Page-changed callback, page_number = %i\n", page_number);
   test_document->number_emissions++;
@@ -82,17 +82,19 @@ document_page_changed_cb (AtkDocument *document,
 static gboolean
 document_emit_page_changed (gpointer data)
 {
-  TestDocument* test_document = TEST_DOCUMENT (data);
+  TestDocument *test_document = TEST_DOCUMENT (data);
   static gint next_page = 1;
 
   g_print ("Moving to next page. Emitting page-change, page_number = %i\n",
            next_page);
   g_signal_emit_by_name (test_document, "page-changed", next_page++, NULL);
 
-  if (next_page > EXPECTED_NUMBER) {
-    g_main_loop_quit (test_document->loop);
-    return G_SOURCE_REMOVE;
-  } else
+  if (next_page > EXPECTED_NUMBER)
+    {
+      g_main_loop_quit (test_document->loop);
+      return G_SOURCE_REMOVE;
+    }
+  else
     return G_SOURCE_CONTINUE;
 }
 
@@ -119,8 +121,8 @@ test_page_changed (void)
 }
 
 int
-main (gint  argc,
-      char* argv[])
+main (gint argc,
+      char *argv[])
 {
   g_test_init (&argc, &argv, NULL);
   g_test_add_func ("/atk/document/page_changed", test_page_changed);

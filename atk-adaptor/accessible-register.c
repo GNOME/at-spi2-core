@@ -25,19 +25,19 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "bridge.h"
 #include "accessible-register.h"
+#include "bridge.h"
 
 /*
  * This module is responsible for keeping track of all the AtkObjects in
  * the application, so that they can be accessed remotely and placed in
  * a client side cache.
  *
- * To access an AtkObject remotely we need to provide a D-Bus object 
+ * To access an AtkObject remotely we need to provide a D-Bus object
  * path for it. The D-Bus object paths used have a standard prefix
  * (SPI_ATK_OBJECT_PATH_PREFIX). Appended to this prefix is a string
- * representation of an integer reference. So to access an AtkObject 
- * remotely we keep a Hashtable that maps the given reference to 
+ * representation of an integer reference. So to access an AtkObject
+ * remotely we keep a Hashtable that maps the given reference to
  * the AtkObject pointer. An object in this hash table is said to be 'registered'.
  *
  * The architecture of AT-SPI dbus is such that AtkObjects are not
@@ -48,7 +48,7 @@
  */
 
 #define SPI_ATK_PATH_PREFIX_LENGTH 27
-#define SPI_ATK_OBJECT_PATH_PREFIX  "/org/a11y/atspi/accessible/"
+#define SPI_ATK_OBJECT_PATH_PREFIX "/org/a11y/atspi/accessible/"
 #define SPI_ATK_OBJECT_PATH_ROOT "root"
 
 #define SPI_ATK_OBJECT_REFERENCE_TEMPLATE SPI_ATK_OBJECT_PATH_PREFIX "%d"
@@ -57,7 +57,7 @@
 
 SpiRegister *spi_global_register = NULL;
 
-static const gchar * spi_register_root_path = SPI_ATK_OBJECT_PATH_PREFIX SPI_ATK_OBJECT_PATH_ROOT;
+static const gchar *spi_register_root_path = SPI_ATK_OBJECT_PATH_PREFIX SPI_ATK_OBJECT_PATH_ROOT;
 
 enum
 {
@@ -70,13 +70,14 @@ static guint register_signals[LAST_SIGNAL] = { 0 };
 /*---------------------------------------------------------------------------*/
 
 static void
-spi_register_finalize (GObject * object);
+spi_register_finalize (GObject *object);
 
 /*---------------------------------------------------------------------------*/
 
 G_DEFINE_TYPE (SpiRegister, spi_register, G_TYPE_OBJECT)
 
-static void spi_register_class_init (SpiRegisterClass * klass)
+static void
+spi_register_class_init (SpiRegisterClass *klass)
 {
   GObjectClass *object_class = (GObjectClass *) klass;
 
@@ -84,7 +85,7 @@ static void spi_register_class_init (SpiRegisterClass * klass)
 
   object_class->finalize = spi_register_finalize;
 
-  register_signals [OBJECT_REGISTERED] =
+  register_signals[OBJECT_REGISTERED] =
       g_signal_new ("object-registered",
                     SPI_REGISTER_TYPE,
                     G_SIGNAL_ACTION,
@@ -96,7 +97,7 @@ static void spi_register_class_init (SpiRegisterClass * klass)
                     1,
                     G_TYPE_OBJECT);
 
-  register_signals [OBJECT_DEREGISTERED] =
+  register_signals[OBJECT_DEREGISTERED] =
       g_signal_new ("object-deregistered",
                     SPI_REGISTER_TYPE,
                     G_SIGNAL_ACTION,
@@ -110,14 +111,14 @@ static void spi_register_class_init (SpiRegisterClass * klass)
 }
 
 static void
-spi_register_init (SpiRegister * reg)
+spi_register_init (SpiRegister *reg)
 {
   reg->ref2ptr = g_hash_table_new (g_direct_hash, g_direct_equal);
   reg->reference_counter = 0;
 }
 
 static void
-deregister_object (gpointer data, GObject * gobj)
+deregister_object (gpointer data, GObject *gobj)
 {
   SpiRegister *reg = SPI_REGISTER (data);
 
@@ -131,7 +132,7 @@ spi_register_remove_weak_ref (gpointer key, gpointer val, gpointer reg)
 }
 
 static void
-spi_register_finalize (GObject * object)
+spi_register_finalize (GObject *object)
 {
   SpiRegister *reg = SPI_REGISTER (object);
 
@@ -152,7 +153,7 @@ spi_register_finalize (GObject * object)
  * TODO: Make this reference a little more unique, this is shoddy.
  */
 static guint
-assign_reference (SpiRegister * reg)
+assign_reference (SpiRegister *reg)
 {
   reg->reference_counter++;
   /* Reference of 0 not allowed as used as direct key in hash table */
@@ -167,7 +168,7 @@ assign_reference (SpiRegister * reg)
  * Returns the reference of the object, or 0 if it is not registered.
  */
 static guint
-object_to_ref (GObject * gobj)
+object_to_ref (GObject *gobj)
 {
   return GPOINTER_TO_INT (g_object_get_data (gobj, SPI_DBUS_ID));
 }
@@ -198,7 +199,7 @@ spi_register_deregister_object (SpiRegister *reg, GObject *gobj, gboolean unref)
   if (ref != 0)
     {
       g_signal_emit (reg,
-                     register_signals [OBJECT_DEREGISTERED],
+                     register_signals[OBJECT_DEREGISTERED],
                      0,
                      gobj);
       if (unref)
@@ -212,7 +213,7 @@ spi_register_deregister_object (SpiRegister *reg, GObject *gobj, gboolean unref)
 }
 
 static void
-register_object (SpiRegister * reg, GObject * gobj)
+register_object (SpiRegister *reg, GObject *gobj)
 {
   guint ref;
   g_return_if_fail (G_IS_OBJECT (gobj));
@@ -227,26 +228,25 @@ register_object (SpiRegister * reg, GObject * gobj)
   g_debug ("REG  - %d", ref);
 #endif
 
-  g_signal_emit (reg, register_signals [OBJECT_REGISTERED], 0, gobj);
+  g_signal_emit (reg, register_signals[OBJECT_REGISTERED], 0, gobj);
 }
 
 /*---------------------------------------------------------------------------*/
 
 /*
  * Used to lookup an GObject from its D-Bus path.
- * 
+ *
  * If the D-Bus path is not found this function returns NULL.
  */
 GObject *
-spi_register_path_to_object (SpiRegister * reg, const char *path)
+spi_register_path_to_object (SpiRegister *reg, const char *path)
 {
   guint index;
   void *data;
 
   g_return_val_if_fail (path, NULL);
 
-  if (strncmp (path, SPI_ATK_OBJECT_PATH_PREFIX, SPI_ATK_PATH_PREFIX_LENGTH)
-      != 0)
+  if (strncmp (path, SPI_ATK_OBJECT_PATH_PREFIX, SPI_ATK_PATH_PREFIX_LENGTH) != 0)
     return NULL;
 
   path += SPI_ATK_PATH_PREFIX_LENGTH; /* Skip over the prefix */
@@ -258,25 +258,25 @@ spi_register_path_to_object (SpiRegister * reg, const char *path)
   index = atoi (path);
   data = g_hash_table_lookup (reg->ref2ptr, GINT_TO_POINTER (index));
   if (data)
-    return G_OBJECT(data);
+    return G_OBJECT (data);
   else
     return NULL;
 }
 
 GObject *
-spi_global_register_path_to_object (const char * path)
+spi_global_register_path_to_object (const char *path)
 {
   return spi_register_path_to_object (spi_global_register, path);
 }
 
 /*
  * Used to lookup a D-Bus path from the GObject.
- * 
- * If the objects is not already registered, 
+ *
+ * If the objects is not already registered,
  * this function will register it.
  */
 gchar *
-spi_register_object_to_path (SpiRegister * reg, GObject * gobj)
+spi_register_object_to_path (SpiRegister *reg, GObject *gobj)
 {
   guint ref;
 
@@ -284,7 +284,7 @@ spi_register_object_to_path (SpiRegister * reg, GObject * gobj)
     return NULL;
 
   /* Map the root object to the root path. */
-  if ((void *)gobj == (void *)spi_global_app_data->root)
+  if ((void *) gobj == (void *) spi_global_app_data->root)
     return g_strdup (spi_register_root_path);
 
   ref = object_to_ref (gobj);
@@ -301,11 +301,11 @@ spi_register_object_to_path (SpiRegister * reg, GObject * gobj)
 }
 
 guint
-spi_register_object_to_ref (GObject * gobj)
+spi_register_object_to_ref (GObject *gobj)
 {
   return object_to_ref (gobj);
 }
-  
+
 /*
  * Gets the path that indicates the accessible desktop object.
  * This object is logically located on the registry daemon and not

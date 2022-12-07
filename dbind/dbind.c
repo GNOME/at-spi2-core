@@ -17,15 +17,15 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include <stdio.h>
-#include <stdarg.h>
-#include <sys/time.h>
-#include <string.h>
 #include <glib.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/time.h>
 
+#include "atspi/atspi-gmain.h"
 #include "config.h"
 #include "dbind/dbind.h"
-#include "atspi/atspi-gmain.h"
 
 static int dbind_timeout = -1;
 
@@ -36,15 +36,15 @@ static int dbind_timeout = -1;
 
 /*---------------------------------------------------------------------------*/
 
-typedef struct _SpiReentrantCallClosure 
+typedef struct _SpiReentrantCallClosure
 {
   DBusMessage *reply;
 } SpiReentrantCallClosure;
 
 static void
-set_reply (DBusPendingCall * pending, void *user_data)
+set_reply (DBusPendingCall *pending, void *user_data)
 {
-  SpiReentrantCallClosure* closure = (SpiReentrantCallClosure *) user_data; 
+  SpiReentrantCallClosure *closure = (SpiReentrantCallClosure *) user_data;
 
   closure->reply = dbus_pending_call_steal_reply (pending);
   dbus_pending_call_unref (pending);
@@ -60,7 +60,7 @@ time_elapsed (struct timeval *origin)
 }
 
 DBusMessage *
-dbind_send_and_allow_reentry (DBusConnection * bus, DBusMessage * message, DBusError *error)
+dbind_send_and_allow_reentry (DBusConnection *bus, DBusMessage *message, DBusError *error)
 {
   DBusPendingCall *pending;
   SpiReentrantCallClosure *closure;
@@ -76,18 +76,18 @@ dbind_send_and_allow_reentry (DBusConnection * bus, DBusMessage * message, DBusE
       ret = dbus_connection_send_with_reply_and_block (bus, message,
                                                        dbind_timeout, error);
       if (g_main_depth () == 0 && !in_dispatch)
-      {
-        in_dispatch = TRUE;
-        while (dbus_connection_dispatch (bus) == DBUS_DISPATCH_DATA_REMAINS);
-        in_dispatch = FALSE;
-      }
+        {
+          in_dispatch = TRUE;
+          while (dbus_connection_dispatch (bus) == DBUS_DISPATCH_DATA_REMAINS)
+            ;
+          in_dispatch = FALSE;
+        }
       return ret;
     }
 
   closure = g_new0 (SpiReentrantCallClosure, 1);
   closure->reply = NULL;
-  if (!dbus_connection_send_with_reply (bus, message, &pending, dbind_timeout)
-      || !pending)
+  if (!dbus_connection_send_with_reply (bus, message, &pending, dbind_timeout) || !pending)
     {
       g_free (closure);
       return NULL;
@@ -101,14 +101,14 @@ dbind_send_and_allow_reentry (DBusConnection * bus, DBusMessage * message, DBusE
     {
       if (!dbus_connection_read_write_dispatch (bus, dbind_timeout))
         {
-          //dbus_pending_call_set_notify (pending, NULL, NULL, NULL);
+          // dbus_pending_call_set_notify (pending, NULL, NULL, NULL);
           dbus_pending_call_cancel (pending);
           dbus_pending_call_unref (pending);
           return NULL;
         }
       if (time_elapsed (&tv) > dbind_timeout)
         {
-          //dbus_pending_call_set_notify (pending, NULL, NULL, NULL);
+          // dbus_pending_call_set_notify (pending, NULL, NULL, NULL);
           dbus_pending_call_cancel (pending);
           dbus_pending_call_unref (pending);
           dbus_set_error_const (error, "org.freedesktop.DBus.Error.NoReply",
@@ -116,7 +116,7 @@ dbind_send_and_allow_reentry (DBusConnection * bus, DBusMessage * message, DBusE
           return NULL;
         }
     }
-  
+
   ret = closure->reply;
   dbus_pending_call_unref (pending);
   return ret;
@@ -124,79 +124,80 @@ dbind_send_and_allow_reentry (DBusConnection * bus, DBusMessage * message, DBusE
 
 dbus_bool_t
 dbind_method_call_reentrant_va (DBusConnection *cnx,
-                                const char     *bus_name,
-                                const char     *path,
-                                const char     *interface,
-                                const char     *method,
-                                DBusError      *opt_error,
-                                const char     *arg_types,
-                                va_list         args)
+                                const char *bus_name,
+                                const char *path,
+                                const char *interface,
+                                const char *method,
+                                DBusError *opt_error,
+                                const char *arg_types,
+                                va_list args)
 {
-    dbus_bool_t success = FALSE;
-    DBusMessage *msg = NULL, *reply = NULL;
-    DBusMessageIter iter;
-    DBusError *err, real_err;
-    const char *p;
+  dbus_bool_t success = FALSE;
+  DBusMessage *msg = NULL, *reply = NULL;
+  DBusMessageIter iter;
+  DBusError *err, real_err;
+  const char *p;
   va_list args_demarshal;
 
   dbus_error_init (&real_err);
 
   va_copy (args_demarshal, args);
-    if (opt_error)
-        err = opt_error;
-    else {
-        err = &real_err;
+  if (opt_error)
+    err = opt_error;
+  else
+    {
+      err = &real_err;
     }
 
-    msg = dbus_message_new_method_call (bus_name, path, interface, method);
-    if (!msg)
-        goto out;
+  msg = dbus_message_new_method_call (bus_name, path, interface, method);
+  if (!msg)
+    goto out;
 
-    p = arg_types;
-    dbus_message_iter_init_append (msg, &iter);
-    dbind_any_marshal_va (&iter, &p, args);
+  p = arg_types;
+  dbus_message_iter_init_append (msg, &iter);
+  dbind_any_marshal_va (&iter, &p, args);
 
-    reply = dbind_send_and_allow_reentry (cnx, msg, err);
-    if (!reply)
-        goto out;
+  reply = dbind_send_and_allow_reentry (cnx, msg, err);
+  if (!reply)
+    goto out;
 
-    if (dbus_message_get_type (reply) == DBUS_MESSAGE_TYPE_ERROR)
+  if (dbus_message_get_type (reply) == DBUS_MESSAGE_TYPE_ERROR)
     {
       goto out;
     }
-    /* demarshal */
-    if (p[0] == '=' && p[1] == '>')
+  /* demarshal */
+  if (p[0] == '=' && p[1] == '>')
     {
-        DBusMessageIter iter;
-        dbus_message_iter_init (reply, &iter);
-	if (strcmp (p + 2, dbus_message_get_signature (reply)) != 0)
-	{
-	    g_warning ("dbind: Call to \"%s\" returned signature %s; expected %s",
-		       method, dbus_message_get_signature (reply), p + 2);
-	    if (opt_error)
-	        dbus_set_error (opt_error, DBUS_ERROR_INVALID_ARGS,
-		                "Call to \"%s\" returned signature %s; expected %s",
-		                method, dbus_message_get_signature (reply),
-                                p + 2);
-	    goto out;
-	}
-        p = arg_types;
-        dbind_any_demarshal_va (&iter, &p, args_demarshal);
+      DBusMessageIter iter;
+      dbus_message_iter_init (reply, &iter);
+      if (strcmp (p + 2, dbus_message_get_signature (reply)) != 0)
+        {
+          g_warning ("dbind: Call to \"%s\" returned signature %s; expected %s",
+                     method, dbus_message_get_signature (reply), p + 2);
+          if (opt_error)
+            dbus_set_error (opt_error, DBUS_ERROR_INVALID_ARGS,
+                            "Call to \"%s\" returned signature %s; expected %s",
+                            method, dbus_message_get_signature (reply),
+                            p + 2);
+          goto out;
+        }
+      p = arg_types;
+      dbind_any_demarshal_va (&iter, &p, args_demarshal);
     }
 
-    success = TRUE;
+  success = TRUE;
 out:
-    if (msg)
-        dbus_message_unref (msg);
+  if (msg)
+    dbus_message_unref (msg);
 
-    if (reply)
-        dbus_message_unref (reply);
+  if (reply)
+    dbus_message_unref (reply);
 
-    if (dbus_error_is_set (&real_err))
-        dbus_error_free (&real_err);
+  if (dbus_error_is_set (&real_err))
+    dbus_error_free (&real_err);
 
-    va_end (args_demarshal);
-    return success;
+  va_end (args_demarshal);
+  return success;
 }
 
 /**
@@ -218,29 +219,29 @@ out:
  **/
 dbus_bool_t
 dbind_method_call_reentrant (DBusConnection *cnx,
-                             const char     *bus_name,
-                             const char     *path,
-                             const char     *interface,
-                             const char     *method,
-                             DBusError      *opt_error,
-                             const char     *arg_types,
+                             const char *bus_name,
+                             const char *path,
+                             const char *interface,
+                             const char *method,
+                             DBusError *opt_error,
+                             const char *arg_types,
                              ...)
 {
-    dbus_bool_t success = FALSE;
-    va_list args;
+  dbus_bool_t success = FALSE;
+  va_list args;
 
-    va_start (args, arg_types);
-    success = dbind_method_call_reentrant_va (cnx,
-                                              bus_name,
-                                              path,
-                                              interface,
-                                              method,
-                                              opt_error,
-                                              arg_types,
-                                              args);
-    va_end (args);
+  va_start (args, arg_types);
+  success = dbind_method_call_reentrant_va (cnx,
+                                            bus_name,
+                                            path,
+                                            interface,
+                                            method,
+                                            opt_error,
+                                            arg_types,
+                                            args);
+  va_end (args);
 
-    return success;
+  return success;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -248,36 +249,36 @@ dbind_method_call_reentrant (DBusConnection *cnx,
 /* TODO: opt_error is unused; should be removed */
 dbus_bool_t
 dbind_emit_signal_va (DBusConnection *cnx,
-                      const char     *path,
-                      const char     *interface,
-                      const char     *signal,
-                      DBusError      *opt_error,
-                      const char     *arg_types,
-                      va_list         args)
+                      const char *path,
+                      const char *interface,
+                      const char *signal,
+                      DBusError *opt_error,
+                      const char *arg_types,
+                      va_list args)
 {
-    dbus_bool_t success = FALSE;
-    DBusMessage *msg = NULL;
-    DBusMessageIter iter;
-    const char *p;
+  dbus_bool_t success = FALSE;
+  DBusMessage *msg = NULL;
+  DBusMessageIter iter;
+  const char *p;
 
-    msg = dbus_message_new_signal (path, interface, signal);
-    if (!msg)
-        goto out;
+  msg = dbus_message_new_signal (path, interface, signal);
+  if (!msg)
+    goto out;
 
-    p = arg_types;
-    dbus_message_iter_init_append (msg, &iter);
-    dbind_any_marshal_va (&iter, &p, args);
+  p = arg_types;
+  dbus_message_iter_init_append (msg, &iter);
+  dbind_any_marshal_va (&iter, &p, args);
 
-    if (!dbus_connection_send (cnx, msg, NULL))
-       goto out;
+  if (!dbus_connection_send (cnx, msg, NULL))
+    goto out;
 
-    success = TRUE;
+  success = TRUE;
 out:
 
-    if (msg)
-        dbus_message_unref (msg);
+  if (msg)
+    dbus_message_unref (msg);
 
-    return success;
+  return success;
 }
 
 /**
@@ -295,27 +296,26 @@ out:
  **/
 dbus_bool_t
 dbind_emit_signal (DBusConnection *cnx,
-                   const char     *path,
-                   const char     *interface,
-                   const char     *signal,
-                   DBusError      *opt_error,
-                   const char     *arg_types,
+                   const char *path,
+                   const char *interface,
+                   const char *signal,
+                   DBusError *opt_error,
+                   const char *arg_types,
                    ...)
 {
-    dbus_bool_t success = FALSE;
-    va_list args;
+  dbus_bool_t success = FALSE;
+  va_list args;
 
-    va_start (args, arg_types);
-    success = dbind_emit_signal_va (cnx, path, interface, signal, opt_error, arg_types, args);
-    va_end (args);
+  va_start (args, arg_types);
+  success = dbind_emit_signal_va (cnx, path, interface, signal, opt_error, arg_types, args);
+  va_end (args);
 
-    return success;
+  return success;
 }
 void
 dbind_set_timeout (int timeout)
 {
   dbind_timeout = timeout;
 }
-
 
 /*END------------------------------------------------------------------------*/

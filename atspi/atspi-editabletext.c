@@ -96,7 +96,7 @@ atspi_editable_text_set_text_contents (AtspiEditableText *obj,
  * atspi_editable_text_insert_text:
  * @obj: a pointer to the #AtspiEditableText object to modify.
  * @position: a #gint indicating the character offset at which to insert
- *       the new text.  
+ *       the new text.
  * @text: a string representing the text to insert, in UTF-8 encoding.
  * @length:  the number of characters of text to insert, in bytes. If the
  * byte count of text is less than or equal to length, the entire contents
@@ -136,7 +136,7 @@ atspi_editable_text_insert_text (AtspiEditableText *obj,
  *
  * Copies text from an #AtspiEditableText object into the system clipboard.
  *
- * see: #atspi_editable_text_paste_text 
+ * see: #atspi_editable_text_paste_text
  *
  * Returns: #TRUE if the operation was successful, otherwise #FALSE.
  **/
@@ -221,7 +221,7 @@ atspi_editable_text_delete_text (AtspiEditableText *obj,
  * atspi_editable_text_paste_text:
  * @obj: a pointer to the #AtspiEditableText object to modify.
  * @position: a #gint indicating the character offset at which to insert
- *       the new text.  
+ *       the new text.
  *
  * Inserts text from the system clipboard into an #AtspiEditableText object.
  * As with all character offsets, the specified @position may not be the
@@ -255,16 +255,15 @@ atspi_editable_text_get_type (void)
 {
   static GType type = 0;
 
-  if (!type) {
-    static const GTypeInfo tinfo =
+  if (!type)
     {
-      sizeof (AtspiEditableText),
-      (GBaseInitFunc) atspi_editable_text_base_init,
-      (GBaseFinalizeFunc) NULL,
-    };
+      static const GTypeInfo tinfo = {
+        sizeof (AtspiEditableText),
+        (GBaseInitFunc) atspi_editable_text_base_init,
+        (GBaseFinalizeFunc) NULL,
+      };
 
-    type = g_type_register_static (G_TYPE_INTERFACE, "AtspiEditableText", &tinfo, 0);
-
-  }
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtspiEditableText", &tinfo, 0);
+    }
   return type;
 }

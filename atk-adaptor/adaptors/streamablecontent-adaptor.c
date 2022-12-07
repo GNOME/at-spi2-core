@@ -36,10 +36,10 @@
 /* A pointer to our parent object class */
 static GObjectClass *spi_streamable_parent_class;
 
-#define SPI_CONTENT_STREAM_TYPE            (spi_content_stream_get_type ())
-#define SPI_CONTENT_STREAM(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_CONTENT_STREAM_TYPE, SpiContentStream))
-#define SPI_CONTENT_STREAM_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SPI_CONTENT_STREAM_TYPE, SpiContentStreamClass))
-#define SPI_IS_CONTENT_STREAM(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SPI_CONTENT_STREAM_TYPE))
+#define SPI_CONTENT_STREAM_TYPE (spi_content_stream_get_type ())
+#define SPI_CONTENT_STREAM(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_CONTENT_STREAM_TYPE, SpiContentStream))
+#define SPI_CONTENT_STREAM_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), SPI_CONTENT_STREAM_TYPE, SpiContentStreamClass))
+#define SPI_IS_CONTENT_STREAM(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SPI_CONTENT_STREAM_TYPE))
 #define SPI_IS_CONTENT_STREAM_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_CONTENT_STREAM_TYPE))
 
 typedef struct _SpiContentStream SpiContentStream;
@@ -60,7 +60,7 @@ struct _SpiContentStreamClass
 GType spi_content_stream_get_type (void);
 
 static SpiContentStream *
-spi_content_stream_new (GIOChannel * gio)
+spi_content_stream_new (GIOChannel *gio)
 {
   SpiContentStream *new_stream = g_object_new (SPI_CONTENT_STREAM_TYPE, NULL);
   new_stream->gio = gio;
@@ -68,7 +68,7 @@ spi_content_stream_new (GIOChannel * gio)
 }
 
 static void
-spi_content_stream_dispose (GObject * o)
+spi_content_stream_dispose (GObject *o)
 {
   if (SPI_IS_CONTENT_STREAM (o))
     {
@@ -82,10 +82,10 @@ static CORBA_long
 impl_content_stream_seek (PortableServer_Servant servant,
                           const CORBA_long offset,
                           const Accessibility_ContentStream_SeekType whence,
-                          CORBA_Environment * ev)
+                          CORBA_Environment *ev)
 {
   SpiContentStream *stream =
-    SPI_CONTENT_STREAM (bonobo_object_from_servant (servant));
+      SPI_CONTENT_STREAM (bonobo_object_from_servant (servant));
   if (stream && stream->gio)
     {
       GError *err;
@@ -112,11 +112,11 @@ impl_content_stream_seek (PortableServer_Servant servant,
 static CORBA_long
 impl_content_stream_read (PortableServer_Servant servant,
                           const CORBA_long count,
-                          Accessibility_ContentStream_iobuf ** buffer,
-                          CORBA_Environment * ev)
+                          Accessibility_ContentStream_iobuf **buffer,
+                          CORBA_Environment *ev)
 {
   SpiContentStream *stream =
-    SPI_CONTENT_STREAM (bonobo_object_from_servant (servant));
+      SPI_CONTENT_STREAM (bonobo_object_from_servant (servant));
   CORBA_long realcount = 0;
 
   if (stream && stream->gio)
@@ -130,12 +130,12 @@ impl_content_stream_read (PortableServer_Servant servant,
         {
           gbuf = g_malloc (count + 1);
           status =
-            g_io_channel_read_chars (stream->gio, gbuf, count, &realcount,
-                                     &err);
+              g_io_channel_read_chars (stream->gio, gbuf, count, &realcount,
+                                       &err);
         }
       else
         status =
-          g_io_channel_read_to_end (stream->gio, &gbuf, &realcount, &err);
+            g_io_channel_read_to_end (stream->gio, &gbuf, &realcount, &err);
 
       if (status == G_IO_STATUS_NORMAL || status == G_IO_STATUS_EOF)
         {
@@ -143,7 +143,7 @@ impl_content_stream_read (PortableServer_Servant servant,
           CORBA_sequence_set_release (*buffer, TRUE);
 
           (*buffer)->_buffer =
-            CORBA_sequence_CORBA_octet_allocbuf (realcount);
+              CORBA_sequence_CORBA_octet_allocbuf (realcount);
           (*buffer)->_length = realcount;
 
           g_memmove ((*buffer)->_buffer, gbuf, realcount);
@@ -157,12 +157,12 @@ impl_content_stream_read (PortableServer_Servant servant,
 
 static void
 impl_content_stream_close (PortableServer_Servant servant,
-                           CORBA_Environment * ev)
+                           CORBA_Environment *ev)
 {
   GIOStatus status;
   GError *err;
   SpiContentStream *stream =
-    SPI_CONTENT_STREAM (bonobo_object_from_servant (servant));
+      SPI_CONTENT_STREAM (bonobo_object_from_servant (servant));
   if (stream && stream->gio)
     {
       status = g_io_channel_shutdown (stream->gio, TRUE, &err);
@@ -173,7 +173,7 @@ impl_content_stream_close (PortableServer_Servant servant,
 }
 
 static void
-spi_content_stream_class_init (SpiContentStreamClass * klass)
+spi_content_stream_class_init (SpiContentStreamClass *klass)
 {
   POA_Accessibility_ContentStream__epv *epv = &klass->epv;
   GObjectClass *object_class = (GObjectClass *) klass;
@@ -185,18 +185,18 @@ spi_content_stream_class_init (SpiContentStreamClass * klass)
   object_class->dispose = spi_content_stream_dispose;
 }
 
-
 static void
-spi_content_stream_init (SpiContentStream * stream)
+spi_content_stream_init (SpiContentStream *stream)
 {
 }
 
-
 BONOBO_TYPE_FUNC_FULL (SpiContentStream,
                        Accessibility_ContentStream,
-                       BONOBO_TYPE_OBJECT, spi_content_stream)
-     static AtkStreamableContent
-       *get_streamable_from_servant (PortableServer_Servant servant)
+                       BONOBO_TYPE_OBJECT,
+                       spi_content_stream)
+static AtkStreamableContent
+    *
+    get_streamable_from_servant (PortableServer_Servant servant)
 {
   SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
   g_return_val_if_fail (object != NULL, NULL);
@@ -209,8 +209,8 @@ BONOBO_TYPE_FUNC_FULL (SpiContentStream,
  */
 static Accessibility_StringSeq *
 impl_accessibility_streamable_get_content_types (PortableServer_Servant
-                                                 servant,
-                                                 CORBA_Environment * ev)
+                                                     servant,
+                                                 CORBA_Environment *ev)
 {
   Accessibility_StringSeq *typelist = Accessibility_StringSeq__alloc ();
   AtkStreamableContent *streamable = get_streamable_from_servant (servant);
@@ -229,7 +229,7 @@ impl_accessibility_streamable_get_content_types (PortableServer_Servant
       for (i = 0; i < n_types; ++i)
         {
           const gchar *mimetype =
-            atk_streamable_content_get_mime_type (streamable, i);
+              atk_streamable_content_get_mime_type (streamable, i);
           typelist->_buffer[i] = CORBA_string_dup (mimetype ? mimetype : "");
         }
     }
@@ -241,8 +241,8 @@ impl_accessibility_streamable_get_content_types (PortableServer_Servant
  */
 static Bonobo_Stream
 impl_accessibility_streamable_get_content (PortableServer_Servant servant,
-                                           const CORBA_char * content_type,
-                                           CORBA_Environment * ev)
+                                           const CORBA_char *content_type,
+                                           CORBA_Environment *ev)
 {
   Bonobo_Stream stream;
   AtkStreamableContent *streamable = get_streamable_from_servant (servant);
@@ -252,10 +252,10 @@ impl_accessibility_streamable_get_content (PortableServer_Servant servant,
 
   gio = atk_streamable_content_get_stream (streamable, content_type);
 
-  stream = CORBA_OBJECT_NIL;    /* deprecated, 
-                                 * and it was never implemented,
-                                 * so don't bother fixing this 
-                                 */
+  stream = CORBA_OBJECT_NIL; /* deprecated,
+                              * and it was never implemented,
+                              * so don't bother fixing this
+                              */
   return stream;
 }
 
@@ -264,8 +264,8 @@ impl_accessibility_streamable_get_content (PortableServer_Servant servant,
  */
 static Accessibility_ContentStream
 impl_accessibility_streamable_get_stream (PortableServer_Servant servant,
-                                          const CORBA_char * content_type,
-                                          CORBA_Environment * ev)
+                                          const CORBA_char *content_type,
+                                          CORBA_Environment *ev)
 {
   SpiContentStream *stream;
   AtkStreamableContent *streamable = get_streamable_from_servant (servant);
@@ -285,8 +285,8 @@ impl_accessibility_streamable_get_stream (PortableServer_Servant servant,
  */
 static CORBA_string
 impl_accessibility_streamable_get_uri (PortableServer_Servant servant,
-                                       const CORBA_char * content_type,
-                                       CORBA_Environment * ev)
+                                       const CORBA_char *content_type,
+                                       CORBA_Environment *ev)
 {
   gchar *uri;
   AtkStreamableContent *streamable = get_streamable_from_servant (servant);
@@ -299,7 +299,7 @@ impl_accessibility_streamable_get_uri (PortableServer_Servant servant,
 }
 
 static void
-spi_streamable_class_init (SpiStreamableClass * klass)
+spi_streamable_class_init (SpiStreamableClass *klass)
 {
   POA_Accessibility_StreamableContent__epv *epv = &klass->epv;
   spi_streamable_parent_class = g_type_class_peek_parent (klass);
@@ -311,13 +311,12 @@ spi_streamable_class_init (SpiStreamableClass * klass)
 }
 
 static void
-spi_streamable_init (SpiStreamable * streamable)
+spi_streamable_init (SpiStreamable *streamable)
 {
 }
 
-
 SpiStreamable *
-spi_streamable_interface_new (AtkObject * o)
+spi_streamable_interface_new (AtkObject *o)
 {
   SpiStreamable *retval = g_object_new (SPI_STREAMABLE_TYPE, NULL);
 
@@ -328,4 +327,5 @@ spi_streamable_interface_new (AtkObject * o)
 
 BONOBO_TYPE_FUNC_FULL (SpiStreamable,
                        Accessibility_StreamableContent,
-                       PARENT_TYPE, spi_streamable)
+                       PARENT_TYPE,
+                       spi_streamable)

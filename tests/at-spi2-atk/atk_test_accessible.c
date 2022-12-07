@@ -23,7 +23,7 @@
 #include "atk_suite.h"
 #include "atk_test_util.h"
 
-#define DATA_FILE TESTS_DATA_DIR"/test-accessible.xml"
+#define DATA_FILE TESTS_DATA_DIR "/test-accessible.xml"
 
 static void
 teardown_accessible_test (gpointer fixture, gconstpointer user_data)
@@ -42,7 +42,7 @@ static void
 atk_test_accessible_get_description (gpointer fixture, gconstpointer user_data)
 {
   AtspiAccessible *obj = get_root_obj (DATA_FILE);
-  g_assert_cmpstr (atspi_accessible_get_description (obj, NULL), ==, "Root of the accessible tree" );
+  g_assert_cmpstr (atspi_accessible_get_description (obj, NULL), ==, "Root of the accessible tree");
 }
 
 static void
@@ -50,23 +50,23 @@ atk_test_accessible_get_child_count (gpointer fixture, gconstpointer user_data)
 {
   AtspiAccessible *obj = get_root_obj (DATA_FILE);
   gint child_c = atspi_accessible_get_child_count (obj, NULL);
-  g_assert_cmpint ( 3, ==, child_c );
+  g_assert_cmpint (3, ==, child_c);
 }
 
 static void
 atk_test_accessible_get_parent (gpointer fixture, gconstpointer user_data)
 {
   AtspiAccessible *obj = get_root_obj (DATA_FILE);
-  AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL );
-  AtspiAccessible *parent = atspi_accessible_get_parent (child, NULL );
-  g_assert (parent == obj );
+  AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
+  AtspiAccessible *parent = atspi_accessible_get_parent (child, NULL);
+  g_assert (parent == obj);
 }
 
 static void
 atk_test_accessible_get_child_at_index (gpointer fixture, gconstpointer user_data)
 {
   AtspiAccessible *obj = get_root_obj (DATA_FILE);
-  AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL );
+  AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   g_assert_cmpstr (atspi_accessible_get_name (child, NULL), ==, "obj2");
 }
 
@@ -86,7 +86,7 @@ atk_test_accessible_get_relation_set_1 (gpointer fixture, gconstpointer user_dat
   AtspiAccessible *child1 = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (child1, 0, NULL);
   GArray *rel_set = atspi_accessible_get_relation_set (child, NULL);
-  g_assert_cmpint (rel_set->len, == , 1);
+  g_assert_cmpint (rel_set->len, ==, 1);
 }
 
 static void
@@ -96,14 +96,15 @@ atk_test_accessible_get_relation_set_2 (gpointer fixture, gconstpointer user_dat
   AtspiAccessible *obj2 = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiAccessible *obj2_1 = atspi_accessible_get_child_at_index (obj2, 0, NULL);
   GArray *rel_set = atspi_accessible_get_relation_set (obj2_1, NULL);
-  int i=0;
-  for (i = 0; i < rel_set->len; i++) {
-    AtspiRelation *a = g_array_index (rel_set, AtspiRelation *, i);
-    g_assert_cmpint (atspi_relation_get_relation_type (a), == , ATSPI_RELATION_CONTROLLER_FOR );
-    g_assert_cmpint (atspi_relation_get_n_targets (a), ==, 1);
-    AtspiAccessible *target = atspi_relation_get_target (a, 0);
-    g_assert_cmpstr (atspi_accessible_get_name (target,NULL), == , "obj2");
-  }
+  int i = 0;
+  for (i = 0; i < rel_set->len; i++)
+    {
+      AtspiRelation *a = g_array_index (rel_set, AtspiRelation *, i);
+      g_assert_cmpint (atspi_relation_get_relation_type (a), ==, ATSPI_RELATION_CONTROLLER_FOR);
+      g_assert_cmpint (atspi_relation_get_n_targets (a), ==, 1);
+      AtspiAccessible *target = atspi_relation_get_target (a, 0);
+      g_assert_cmpstr (atspi_accessible_get_name (target, NULL), ==, "obj2");
+    }
 }
 
 static void
@@ -144,11 +145,12 @@ atk_test_accessible_get_state_set (gpointer fixture, gconstpointer user_data)
   };
   g_assert_cmpint (states_arr->len, ==, 2);
   int i = 0;
-  for (i = 0; i < states_arr->len; ++i) {
-    g_assert_cmpint (valid_states[i], ==, g_array_index (states_arr, AtspiStateType, i));
-    g_assert (atspi_state_set_contains (states, ATSPI_STATE_MODAL));
-    g_assert (atspi_state_set_contains(states, ATSPI_STATE_MULTI_LINE));
-  }
+  for (i = 0; i < states_arr->len; ++i)
+    {
+      g_assert_cmpint (valid_states[i], ==, g_array_index (states_arr, AtspiStateType, i));
+      g_assert (atspi_state_set_contains (states, ATSPI_STATE_MODAL));
+      g_assert (atspi_state_set_contains (states, ATSPI_STATE_MULTI_LINE));
+    }
 }
 
 static void
@@ -185,15 +187,15 @@ static void
 atk_test_accessible_get_attributes_as_array (gpointer fixture, gconstpointer user_data)
 {
   AtspiAccessible *obj = get_root_obj (DATA_FILE);
-  GArray *attr_arr = atspi_accessible_get_attributes_as_array ( obj, NULL);
+  GArray *attr_arr = atspi_accessible_get_attributes_as_array (obj, NULL);
   int i;
   g_assert_cmpint (attr_arr->len, ==, 2);
-  for(i = 0; i < attr_arr->len; ++i) {
-    const char *pair = g_array_index (attr_arr, gchar *, i);
+  for (i = 0; i < attr_arr->len; ++i)
+    {
+      const char *pair = g_array_index (attr_arr, gchar *, i);
 
-    g_assert (strcmp (pair, "atspi1:test1") == 0
-              || strcmp (pair, "atspi2:test2") == 0);
-  }
+      g_assert (strcmp (pair, "atspi1:test1") == 0 || strcmp (pair, "atspi2:test2") == 0);
+    }
 }
 
 static void
@@ -362,7 +364,7 @@ atk_test_check_cache_cleared (AtspiAccessible *obj)
   g_assert_cmpint (obj->cached_properties, ==, ATSPI_CACHE_NONE);
   GPtrArray *array = obj->children;
   int i;
-  for (i=0; i<array->len; i++)
+  for (i = 0; i < array->len; i++)
     atk_test_check_cache_cleared (g_ptr_array_index (array, i));
 }
 

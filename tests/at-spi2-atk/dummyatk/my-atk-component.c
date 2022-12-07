@@ -20,11 +20,12 @@
  * Boston, MA 02110-1301, USA.
  */
 
+#include <atk/atk.h>
 #include <stdio.h>
 #include <string.h>
-#include <atk/atk.h>
 
 #include "my-atk-object.h"
+
 #include "my-atk-component.h"
 
 typedef struct _MyAtkComponentInfo MyAtkComponentInfo;
@@ -35,7 +36,7 @@ G_DEFINE_TYPE_WITH_CODE (MyAtkComponent,
                          my_atk_component,
                          MY_TYPE_ATK_OBJECT,
                          G_IMPLEMENT_INTERFACE (ATK_TYPE_COMPONENT,
-                             atk_component_interface_init));
+                                                atk_component_interface_init));
 
 void
 my_atk_component_set_layer (AtkComponent *component,
@@ -70,10 +71,10 @@ my_atk_component_set_alpha (AtkComponent *component,
 
 static void
 my_atk_component_get_extents (AtkComponent *component,
-                              gint         *width,
-                              gint         *height,
-                              gint         *x,
-                              gint         *y,
+                              gint *width,
+                              gint *height,
+                              gint *x,
+                              gint *y,
                               AtkCoordType coord_type)
 {
   g_return_if_fail (MY_IS_ATK_COMPONENT (component));
@@ -87,23 +88,24 @@ my_atk_component_get_extents (AtkComponent *component,
 
 static gboolean
 my_atk_component_set_extents (AtkComponent *component,
-                              gint         x,
-                              gint         y,
-                              gint         width,
-                              gint         height,
+                              gint x,
+                              gint y,
+                              gint width,
+                              gint height,
                               AtkCoordType coord_type)
 {
   g_return_val_if_fail (MY_IS_ATK_COMPONENT (component), FALSE);
 
   MyAtkComponent *self = MY_ATK_COMPONENT (component);
 
-  if (self->extent_may_change) {
-    self->extent.width = width;
-    self->extent.height = height;
-    self->extent.x = x;
-    self->extent.y = y;
-    return TRUE;
-  }
+  if (self->extent_may_change)
+    {
+      self->extent.width = width;
+      self->extent.height = height;
+      self->extent.x = x;
+      self->extent.y = y;
+      return TRUE;
+    }
   return FALSE;
 }
 
@@ -126,26 +128,28 @@ my_atk_component_contains (AtkComponent *component,
 
 static AtkObject *
 my_atk_component_ref_accessible_at_point (AtkComponent *component,
-    gint x,
-    gint y,
-    AtkCoordType coord_type)
+                                          gint x,
+                                          gint y,
+                                          AtkCoordType coord_type)
 {
   g_return_val_if_fail (MY_IS_ATK_COMPONENT (component), NULL);
 
-  gint count,i;
+  gint count, i;
   count = atk_object_get_n_accessible_children (ATK_OBJECT (component));
 
-  for (i = 0; i < count; i++) {
-    AtkObject *obj;
-    obj = atk_object_ref_accessible_child (ATK_OBJECT (component), i);
+  for (i = 0; i < count; i++)
+    {
+      AtkObject *obj;
+      obj = atk_object_ref_accessible_child (ATK_OBJECT (component), i);
 
-    if (obj != NULL) {
-      if (atk_component_contains (ATK_COMPONENT (obj), x, y, coord_type))
-        return obj;
-      else
-        g_object_unref (obj);
+      if (obj != NULL)
+        {
+          if (atk_component_contains (ATK_COMPONENT (obj), x, y, coord_type))
+            return obj;
+          else
+            g_object_unref (obj);
+        }
     }
-  }
   return NULL;
 }
 
@@ -212,7 +216,7 @@ my_atk_component_finalize (GObject *object)
 }
 
 static void
-my_atk_component_init(MyAtkComponent *obj)
+my_atk_component_init (MyAtkComponent *obj)
 {
   obj->extent.x = 0;
   obj->extent.y = 0;

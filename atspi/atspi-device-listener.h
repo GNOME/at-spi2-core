@@ -5,7 +5,7 @@
  * Copyright 2002 Ximian, Inc.
  *           2002 Sun Microsystems Inc.
  * Copyright 2010, 2011 Novell, Inc.
- *           
+ *
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -45,8 +45,8 @@ GType atspi_device_event_get_type (void);
  * Returns: #TRUE if the client wishes to consume/preempt the event, preventing it from being
  * relayed to the currently focussed application, #FALSE if the event delivery should proceed as normal.
  **/
-typedef gboolean (*AtspiDeviceListenerCB)    (AtspiDeviceEvent *stroke,
-						     void                      *user_data);
+typedef gboolean (*AtspiDeviceListenerCB) (AtspiDeviceEvent *stroke,
+                                           void *user_data);
 
 /**
  * AtspiDeviceListenerSimpleCB:
@@ -58,14 +58,14 @@ typedef gboolean (*AtspiDeviceListenerCB)    (AtspiDeviceEvent *stroke,
  * Returns: #TRUE if the client wishes to consume/preempt the event, preventing it from being
  * relayed to the currently focussed application, #FALSE if the event delivery should proceed as normal.
  **/
-typedef gboolean (*AtspiDeviceListenerSimpleCB)    (const AtspiDeviceEvent *stroke);
+typedef gboolean (*AtspiDeviceListenerSimpleCB) (const AtspiDeviceEvent *stroke);
 
-#define ATSPI_TYPE_DEVICE_LISTENER                        (atspi_device_listener_get_type ())
-#define ATSPI_DEVICE_LISTENER(obj)                        (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_DEVICE_LISTENER, AtspiDeviceListener))
-#define ATSPI_DEVICE_LISTENER_CLASS(klass)                (G_TYPE_CHECK_CLASS_CAST ((klass), ATSPI_TYPE_DEVICE_LISTENER, AtspiDeviceListenerClass))
-#define ATSPI_IS_DEVICE_LISTENER(obj)                     (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_DEVICE_LISTENER))
-#define ATSPI_IS_DEVICE_LISTENER_CLASS(klass)             (G_TYPE_CHECK_CLASS_TYPE ((klass), ATSPI_TYPE_DEVICE_LISTENER))
-#define ATSPI_DEVICE_LISTENER_GET_CLASS(obj)              (G_TYPE_INSTANCE_GET_CLASS ((obj), ATSPI_TYPE_DEVICE_LISTENER, AtspiDeviceListenerClass))
+#define ATSPI_TYPE_DEVICE_LISTENER (atspi_device_listener_get_type ())
+#define ATSPI_DEVICE_LISTENER(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_DEVICE_LISTENER, AtspiDeviceListener))
+#define ATSPI_DEVICE_LISTENER_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), ATSPI_TYPE_DEVICE_LISTENER, AtspiDeviceListenerClass))
+#define ATSPI_IS_DEVICE_LISTENER(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_DEVICE_LISTENER))
+#define ATSPI_IS_DEVICE_LISTENER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), ATSPI_TYPE_DEVICE_LISTENER))
+#define ATSPI_DEVICE_LISTENER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), ATSPI_TYPE_DEVICE_LISTENER, AtspiDeviceListenerClass))
 
 typedef struct _AtspiDeviceListener AtspiDeviceListener;
 struct _AtspiDeviceListener
@@ -90,8 +90,8 @@ AtspiDeviceListener *atspi_device_listener_new_simple (AtspiDeviceListenerSimple
 
 void atspi_device_listener_add_callback (AtspiDeviceListener *listener, AtspiDeviceListenerCB callback, GDestroyNotify callback_destroyed, void *user_data);
 
-void atspi_device_listener_remove_callback (AtspiDeviceListener  *listener, AtspiDeviceListenerCB callback);
+void atspi_device_listener_remove_callback (AtspiDeviceListener *listener, AtspiDeviceListenerCB callback);
 
 G_END_DECLS
 
-#endif	/* _ATSPI_DEVICE_LISTENER_H_ */
+#endif /* _ATSPI_DEVICE_LISTENER_H_ */
