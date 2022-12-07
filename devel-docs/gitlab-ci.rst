@@ -214,6 +214,26 @@ the following, for example, for a struct initializer:
 
    /* clang-format on */
 
+Note that **clang-format likes to re-order includes alphabetically**
+within chunks separated by blank lines:
+
+.. code:: c
+   #include <dbus/dbus.h>
+   
+   #include "de-marshaller.h"
+   #include "de-types.h"
+   #include "keymasks.h"
+   #include "paths.h"
+   
+   #include "deviceeventcontroller.h"
+   #include "introspection.h"
+   #include "reentrant-list.h"
+
+Here, each of the three groups of includes will be sorted
+independently.  You can fix your header files so that the order of
+inclusion doesn't matter, or separate them out with blank lines to
+enforce ordering.
+
 General advice and future work
 ==============================
 
