@@ -36,5 +36,9 @@ if [ -n "${format_diff}" ]; then
     cat format-diff.log
     echo
     echo "PLEASE FIX THE FORMATTING OF THE SOURCE CODE ABOVE"
+    echo
+    echo "See https://gnome.pages.gitlab.gnome.org/at-spi2-core/devel-docs/gitlab-ci.html#code-formatting"
+    echo "for details."
+
     exit 1
 fi

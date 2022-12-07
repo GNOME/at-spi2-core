@@ -1,3 +1,6 @@
+# See https://gnome.pages.gitlab.gnome.org/at-spi2-core/devel-docs/gitlab-ci.html#code-formatting
+# for documentation about this configuration for code formatting.
+
 BasedOnStyle: GNU
 AlwaysBreakAfterDefinitionReturnType: All
 BreakBeforeBinaryOperators: None
