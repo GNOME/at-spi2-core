@@ -38,9 +38,9 @@
 
 #include <dbus/dbus.h>
 
-#include "de-marshaller.h"
 #include "de-types.h"
 #include "keymasks.h"
+#include "marshal-dbus.h"
 #include "paths.h"
 
 #include "deviceeventcontroller.h"
