@@ -5,7 +5,8 @@ set -eu
 echo "About to run the tests.  First we'll launch a gnome-session DBus mock."
 
 python3 -m dbusmock --session org.gnome.SessionManager /org/gnome/SessionManager org.gnome.SessionManager &
-sleep 1
+
+gdbus wait --session --timeout 10 org.gnome.SessionManager
 
 gdbus call --session \
       --dest org.gnome.SessionManager \
