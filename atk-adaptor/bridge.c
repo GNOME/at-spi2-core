@@ -869,8 +869,6 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
       result = DBUS_HANDLER_RESULT_HANDLED;
       if (!strcmp (member, "KeystrokeListenerRegistered"))
         handle_device_listener_registered (bus, message, user_data);
-      else if (!strcmp (member, "DeviceListenerRegistered"))
-        handle_device_listener_registered (bus, message, user_data);
       else
         result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     }
