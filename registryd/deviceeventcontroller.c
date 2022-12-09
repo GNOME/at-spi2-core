@@ -1232,11 +1232,9 @@ impl_register_keystroke_listener (DBusMessage *message, SpiDEController *control
   dbus_message_iter_next (&iter);
   dbus_message_iter_get_basic (&iter, &types);
   dbus_message_iter_next (&iter);
-  mode = (Accessibility_EventListenerMode *) g_malloc (sizeof (Accessibility_EventListenerMode));
-  if (mode)
-    {
-      spi_dbus_message_iter_get_struct (&iter, DBUS_TYPE_BOOLEAN, &mode->synchronous, DBUS_TYPE_BOOLEAN, &mode->preemptive, DBUS_TYPE_BOOLEAN, &mode->global, DBUS_TYPE_INVALID);
-    }
+  mode = g_new0 (Accessibility_EventListenerMode, 1);
+  spi_dbus_message_iter_get_struct (&iter, DBUS_TYPE_BOOLEAN, &mode->synchronous, DBUS_TYPE_BOOLEAN, &mode->preemptive, DBUS_TYPE_BOOLEAN, &mode->global, DBUS_TYPE_INVALID);
+
 #ifdef SPI_DEBUG
   fprintf (stderr, "registering keystroke listener %s:%s with maskVal %lu\n",
            dbus_message_get_sender (message), path, (unsigned long) mask);
