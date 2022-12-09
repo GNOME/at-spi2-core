@@ -33,8 +33,6 @@ typedef enum
 {
   Accessibility_KEY_PRESSED_EVENT,
   Accessibility_KEY_RELEASED_EVENT,
-  Accessibility_BUTTON_PRESSED_EVENT,
-  Accessibility_BUTTON_RELEASED_EVENT,
 } Accessibility_EventType;
 
 typedef enum
