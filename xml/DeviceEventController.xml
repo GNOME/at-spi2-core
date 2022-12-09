@@ -7,7 +7,7 @@
       <arg direction="in" name="keys" type="a(iisi)"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QSpiKeyTypeArray"/>
       <arg direction="in" name="mask" type="u"/>
-      <arg direction="in" name="type" type="au"/>
+      <arg direction="in" name="types" type="u"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In3" value="QSpiEventTypeArray"/>
       <arg direction="in" name="mode" type="(bbb)"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In4" value="QSpiEventMode"/>
