@@ -174,6 +174,7 @@ impl_GetChildAtIndex (DBusConnection *bus,
                                             &iter_socket);
           dbus_message_iter_append_basic (&iter_socket, DBUS_TYPE_STRING, &child_name);
           dbus_message_iter_append_basic (&iter_socket, DBUS_TYPE_OBJECT_PATH, &child_path);
+          g_free (child_name);
           dbus_message_iter_close_container (&iter, &iter_socket);
           return reply;
         }
