@@ -184,31 +184,19 @@ reference:
     MESON_EXTRA_FLAGS: "--buildtype=release -Ddocs=true"
   script:
     - meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
-    - ninja -C _build doc/atk doc/libatspi
+    - ninja -C _build doc/atk doc/libatspi devel-docs/devel-docs
     - mkdir _reference
     - mv _build/doc/libatspi _reference/libatspi
     - mv _build/doc/atk _reference/atk
+    - mv _build/devel-docs/devel-docs  _reference/devel-docs
   artifacts:
     paths:
       - _reference
 
-devel-docs:
-  stage: docs
-  extends:
-  extends:
-    - '.container.opensuse@x86_64'
-    - '.fdo.distribution-image@opensuse'
-  needs: ['opensuse-container@x86_64']
-  script:
-    - bash -x ./ci/gen-devel-docs.sh
-  artifacts:
-    paths:
-      - public
-
 # Publish the test coverage report
 pages:
   stage: deploy
-  needs: [ coverage, reference, devel-docs ]
+  needs: [ coverage, reference ]
   script:
     - mv _reference/* public/
   artifacts:
