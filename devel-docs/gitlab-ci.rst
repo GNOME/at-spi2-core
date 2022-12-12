@@ -220,6 +220,7 @@ Note that **clang-format likes to re-order includes alphabetically**
 within chunks separated by blank lines:
 
 .. code:: c
+
    #include <dbus/dbus.h>
    
    #include "de-marshaller.h"
