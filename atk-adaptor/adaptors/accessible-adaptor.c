@@ -207,6 +207,32 @@ impl_GetChildren (DBusConnection *bus,
   dbus_message_iter_init_append (reply, &iter);
   if (!dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(so)", &iter_array))
     goto oom;
+
+  if (ATK_IS_SOCKET (object) && atk_socket_is_occupied (ATK_SOCKET (object)))
+    {
+      AtkSocket *socket = ATK_SOCKET (object);
+      gchar *child_name, *child_path;
+      child_name = g_strdup (socket->embedded_plug_id);
+      child_path = g_utf8_strchr (child_name + 1, -1, ':');
+      if (child_path)
+        {
+          DBusMessageIter iter_struct;
+          *(child_path++) = '\0';
+          dbus_message_iter_open_container (&iter_array, DBUS_TYPE_STRUCT, NULL,
+                                            &iter_struct);
+          dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING,
+                                          &child_name);
+          dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING,
+                                          &child_path);
+          dbus_message_iter_close_container (&iter_array, &iter_struct);
+          g_free (child_name);
+          if (!dbus_message_iter_close_container (&iter, &iter_array))
+            goto oom;
+          return reply;
+        }
+      g_free (child_name);
+    }
+
   for (i = 0; i < count; i++)
     {
       AtkObject *child = atk_object_ref_accessible_child (object, i);
