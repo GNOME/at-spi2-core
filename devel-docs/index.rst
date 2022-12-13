@@ -7,6 +7,7 @@ Development guide for the accessibility infrastructure
    gitlab-ci
    roadmap
    toolkits
+   xml-changes
    :maxdepth: 1
    :caption: Contents:
 
@@ -24,6 +25,7 @@ General documentation
 
 - :doc:`roadmap`
 - :doc:`toolkits`
+- :doc:`xml-changes`
 
 Refactoring and cleanup
 -----------------------

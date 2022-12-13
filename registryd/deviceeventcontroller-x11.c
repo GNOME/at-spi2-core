@@ -42,11 +42,11 @@
 
 #include <dbus/dbus.h>
 
-#include "de-marshaller.h"
 #include "de-types.h"
 #include "display.h"
 #include "event-source.h"
 #include "keymasks.h"
+#include "marshal-dbus.h"
 #include "paths.h"
 
 #include "deviceeventcontroller.h"
@@ -416,32 +416,6 @@ spi_dec_ungrab_mouse (gpointer data)
   return FALSE;
 }
 #endif
-
-static void
-spi_dec_init_mouse_listener (SpiDEController *dec)
-{
-#ifdef GRAB_BUTTON
-  Display *display = spi_get_display ();
-
-  if (display)
-    {
-      if (XGrabButton (display, AnyButton, AnyModifier,
-                       spi_get_root_window (),
-                       True, ButtonPressMask | ButtonReleaseMask,
-                       GrabModeSync, GrabModeAsync, None, None) != Success)
-        {
-#ifdef SPI_DEBUG
-          fprintf (stderr, "WARNING: could not grab mouse buttons!\n");
-#endif
-          ;
-        }
-      XSync (display, False);
-#ifdef SPI_DEBUG
-      fprintf (stderr, "mouse buttons grabbed\n");
-#endif
-    }
-#endif
-}
 
 static void
 spi_dec_clear_unlatch_pending (SpiDEController *controller)
@@ -1212,8 +1186,6 @@ spi_dec_x11_init (SpiDEController *controller)
   gettimeofday (&priv->last_press_time, NULL);
   gettimeofday (&priv->last_release_time, NULL);
   spi_controller_register_with_devices (controller);
-
-  spi_dec_init_mouse_listener (controller);
 
   saved_controller = controller;
 }

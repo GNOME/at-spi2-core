@@ -6,9 +6,11 @@ project('at-spi2-core', 'c',
           'warning_level=1',
           'c_std=c99',
         ],
-        meson_version: '>= 0.56.2')
+        meson_version: '>= 0.60.0')
 
 add_project_arguments([ '-D_POSIX_C_SOURCE=200809L', '-D_DEFAULT_SOURCE' ], language: 'c')
+
+fs = import('fs')
 
 atspi_gir_ns = 'Atspi'
 
@@ -204,6 +206,7 @@ subdir('tests')
 
 if get_option('docs')
   subdir('doc')
+  subdir('devel-docs')
 endif
 
 if xgettext.found()

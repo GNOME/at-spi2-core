@@ -145,7 +145,7 @@ typedef struct _AtspiKeySet
  * which means in some cases they may already have been delivered to the
  * application before the AT client receives the notification.
  * @ATSPI_KEYLISTENER_SYNCHRONOUS: Events are delivered synchronously, before the
- * currently focussed application sees them.
+ * currently focused application sees them.
  * @ATSPI_KEYLISTENER_CANCONSUME: Events may be consumed by the AT client.  Presumes and
  * requires #ATSPI_KEYLISTENER_SYNCHRONOUS, incompatible with #ATSPI_KEYLISTENER_NOSYNC.
  * @ATSPI_KEYLISTENER_ALL_WINDOWS: Events are received not from the application toolkit layer, but

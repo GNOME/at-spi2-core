@@ -56,8 +56,8 @@ opensuse-x86_64:
     - meson install -C _build
     - mkdir /tmp/test+dir+with+funny+chars
     - export XDG_RUNTIME_DIR=/tmp/test+dir+with+funny+chars # See https://gitlab.gnome.org/GNOME/at-spi2-core/-/issues/48
-    - dbus-run-session -- ci/run-registryd-tests.sh
-    - dbus-run-session -- ci/run-tests.sh
+    - xvfb-run --auto-servernum dbus-run-session -- ci/run-registryd-tests.sh
+    - xvfb-run --auto-servernum dbus-run-session -- ci/run-tests.sh
   artifacts:
     reports:
       junit:
@@ -127,7 +127,7 @@ asan-build:
     - CC=clang meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
     - meson compile -C _build
     - meson install -C _build
-    - dbus-run-session -- ci/run-tests.sh
+    - xvfb-run --auto-servernum dbus-run-session -- ci/run-tests.sh
   artifacts:
     name: "at-spi2-core-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
     when: always
@@ -152,8 +152,8 @@ coverage:
     - meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
     - meson compile -C _build
     - meson install -C _build
-    - dbus-run-session -- ci/run-registryd-tests.sh
-    - dbus-run-session -- ci/run-tests.sh
+    - xvfb-run --auto-servernum dbus-run-session -- ci/run-registryd-tests.sh
+    - xvfb-run --auto-servernum dbus-run-session -- ci/run-tests.sh
     - mkdir -p public
     - grcov _build --source-dir ./ --prefix-dir ../ --output-type cobertura --branch --ignore-not-existing -o coverage.xml
     - grcov _build --source-dir ./ --prefix-dir ../ --output-type html --branch --ignore-not-existing -o public/coverage
@@ -184,31 +184,20 @@ reference:
     MESON_EXTRA_FLAGS: "--buildtype=release -Ddocs=true"
   script:
     - meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
-    - ninja -C _build doc/atk doc/libatspi
+    - ninja -C _build doc/atk doc/libatspi devel-docs/devel-docs
     - mkdir _reference
     - mv _build/doc/libatspi _reference/libatspi
     - mv _build/doc/atk _reference/atk
+    - mv _build/devel-docs/devel-docs  _reference/devel-docs
   artifacts:
     paths:
       - _reference
-
-devel-docs:
-  stage: docs
-  extends:
-  extends:
-    - '.container.opensuse@x86_64'
-    - '.fdo.distribution-image@opensuse'
-  needs: ['opensuse-container@x86_64']
-  script:
-    - bash -x ./ci/gen-devel-docs.sh
-  artifacts:
-    paths:
-      - public
+      - "_build/meson-logs"
 
 # Publish the test coverage report
 pages:
   stage: deploy
-  needs: [ coverage, reference, devel-docs ]
+  needs: [ coverage, reference ]
   script:
     - mv _reference/* public/
   artifacts:
