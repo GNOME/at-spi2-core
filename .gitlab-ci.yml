@@ -192,6 +192,7 @@ reference:
   artifacts:
     paths:
       - _reference
+      - "_build/meson-logs"
 
 # Publish the test coverage report
 pages:
