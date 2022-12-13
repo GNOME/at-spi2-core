@@ -87,9 +87,6 @@ typedef gint (*AtkKeySnoopFunc) (AtkKeyEventStruct *event,
 
 /**
  * AtkKeyEventStruct:
- *
- * Encapsulates information about a key event.
- *
  * @type: An AtkKeyEventType, generally one of ATK_KEY_EVENT_PRESS or ATK_KEY_EVENT_RELEASE
  * @state: A bitmask representing the state of the modifier keys immediately after the event takes place.
  * The meaning of the bits is currently defined to match the bitmask used by GDK in
@@ -106,6 +103,8 @@ typedef gint (*AtkKeySnoopFunc) (AtkKeyEventStruct *event,
  * @timestamp: A timestamp in milliseconds indicating when the event occurred.
  * These timestamps are relative to a starting point which should be considered arbitrary,
  * and only used to compare the dispatch times of events to one another.
+ *
+ * Encapsulates information about a key event.
  **/
 struct _AtkKeyEventStruct
 {
