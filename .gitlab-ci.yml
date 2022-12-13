@@ -188,7 +188,7 @@ reference:
     - mkdir _reference
     - mv _build/doc/libatspi _reference/libatspi
     - mv _build/doc/atk _reference/atk
-    - mv _build/devel-docs/devel-docs  _reference/devel-docs
+    - mv _build/devel-docs/html  _reference/devel-docs
   artifacts:
     paths:
       - _reference
