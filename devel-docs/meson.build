@@ -21,7 +21,7 @@ interfaces_rst = custom_target(
   'interfaces_rst',
   input: interfaces_xml,
   output: interfaces_rst_sources,
-  command: [ gdbus_codegen, '--generate-rst', 'doc', '@INPUT@']
+  command: [ gdbus_codegen, '--generate-rst', 'devel-docs/doc', '@INPUT@']
 )
 
 docs_sources = [
@@ -32,6 +32,7 @@ docs_sources = [
   'roadmap.rst',
   'toolkits.rst',
   'xml-changes.rst',
+  'xml-interfaces.rst',
 ]
 
 custom_target(
@@ -39,4 +40,5 @@ custom_target(
   input: docs_sources + interfaces_rst,
   output: 'devel-docs',
   command: [ sphinx_build, meson.current_source_dir(), '@OUTPUT@' ],
+  env: { 'MESON_CURRENT_BUILD_DIR': meson.current_build_dir() }
 )
