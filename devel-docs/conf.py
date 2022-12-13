@@ -40,11 +40,6 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
-include_patterns = [
-    '**', # this is the default
-    os.path.join(os.environ['MESON_CURRENT_BUILD_DIR'], '*') # for generated doc-org.a11y.atspi.SomeInterface.rst
-]
-
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
