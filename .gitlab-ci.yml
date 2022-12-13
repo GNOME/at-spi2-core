@@ -184,7 +184,7 @@ reference:
     MESON_EXTRA_FLAGS: "--buildtype=release -Ddocs=true"
   script:
     - meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
-    - ninja -C _build doc/atk doc/libatspi devel-docs/devel-docs
+    - ninja -C _build doc/atk doc/libatspi devel-docs/html
     - mkdir _reference
     - mv _build/doc/libatspi _reference/libatspi
     - mv _build/doc/atk _reference/atk
