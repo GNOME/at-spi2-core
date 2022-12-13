@@ -26,6 +26,7 @@ interfaces_rst = custom_target(
 
 docs_sources = [
   'atk-deprecations.rst',
+  'conf.py',
   'de-controller.rst',
   'gitlab-ci.rst',
   'index.rst',
