@@ -13,7 +13,7 @@ include:
 variables:
   # When branching change the suffix to avoid conflicts with images
   # from the main branch
-  BASE_TAG: "2022-12-13.1-main"
+  BASE_TAG: "2022-12-13.2-main"
   RUST_STABLE: "1.64.0"
 
 .container.opensuse@x86_64:
@@ -91,7 +91,8 @@ opensuse-container@x86_64:
       libxkbcommon-devel
       libxml2-devel
       procps
-      python38
+      python3
+      python3-pip
       systemd-devel
     FDO_DISTRIBUTION_EXEC: >-
       pip3 install meson==0.64
