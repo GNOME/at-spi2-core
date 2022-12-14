@@ -140,7 +140,6 @@ typedef struct _AtspiKeySet
 
 /**
  * AtspiKeyListenerSyncType:
- *
  * @ATSPI_KEYLISTENER_NOSYNC: Events may be delivered asynchronously,
  * which means in some cases they may already have been delivered to the
  * application before the AT client receives the notification.

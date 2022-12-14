@@ -8,6 +8,7 @@ Development guide for the accessibility infrastructure
    roadmap
    toolkits
    xml-changes
+   xml-interfaces
    :maxdepth: 1
    :caption: Contents:
 
@@ -26,6 +27,7 @@ General documentation
 - :doc:`roadmap`
 - :doc:`toolkits`
 - :doc:`xml-changes`
+- :doc:`xml-interfaces`
 
 Refactoring and cleanup
 -----------------------
