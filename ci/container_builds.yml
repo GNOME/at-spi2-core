@@ -13,7 +13,7 @@ include:
 variables:
   # When branching change the suffix to avoid conflicts with images
   # from the main branch
-  BASE_TAG: "2022-12-09.1-main"
+  BASE_TAG: "2022-12-13.0-main"
   RUST_STABLE: "1.64.0"
 
 .container.opensuse@x86_64:
@@ -68,7 +68,7 @@ opensuse-container@x86_64:
   stage: "container-build"
   variables:
     FDO_DISTRIBUTION_TAG: "x86_64-${BASE_TAG}"
-    FDO_DISTRIBUTION_VERSION: "35"
+    FDO_DISTRIBUTION_VERSION: "37"
     FDO_UPSTREAM_REPO: "gnome/at-spi2-core"
     FDO_DISTRIBUTION_PACKAGES: >-
       clang
