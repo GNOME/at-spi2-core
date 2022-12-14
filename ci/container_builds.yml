@@ -13,7 +13,7 @@ include:
 variables:
   # When branching change the suffix to avoid conflicts with images
   # from the main branch
-  BASE_TAG: "2022-12-13.2-main"
+  BASE_TAG: "2022-12-13.3-main"
   RUST_STABLE: "1.64.0"
 
 .container.opensuse@x86_64:
@@ -90,6 +90,7 @@ opensuse-container@x86_64:
       libasan
       libxkbcommon-devel
       libxml2-devel
+      ninja-build
       procps
       python3
       python3-pip
