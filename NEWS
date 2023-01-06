@@ -1,11 +1,21 @@
-FIXME: no version number yet; I just want to get the following item in the release notes:
-
+What's new in at-spi2-core 2.47.1:
 * The meson options -Dx11 and -Dintrospection are now implemented with
   meson features - https://mesonbuild.com/Build-options.html#features
 
   Instead of accepting values of "yes/no/auto", they take
   "enabled/disabled/auto".  Please change your build scripts
   accordingly if you use these options.
+
+* Use gi-docgen to generate documentation.
+
+* Register key grabs using the focused window, rather than the root window.
+  This should prevent the window from losing focus when a key grab is used.
+
+* atk-adaptor: Handle sockets in GetChildren.
+
+* Improve documentation of the dbus interfaces.
+
+* Various code clean-ups. Some unused code has been removed.
 
 What's new in at-spi2-core 2.46.0:
 
