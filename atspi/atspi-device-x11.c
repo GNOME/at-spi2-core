@@ -34,7 +34,8 @@ typedef struct _AtspiDeviceX11Private AtspiDeviceX11Private;
 struct _AtspiDeviceX11Private
 {
   Display *display;
-  Window window;
+  Window root_window;
+  Window focused_window;
   GSource *source;
   int xi_opcode;
   int device_id;
@@ -44,6 +45,7 @@ struct _AtspiDeviceX11Private
   guint virtual_mods_enabled;
   gboolean keyboard_grabbed;
   unsigned int numlock_physical_mask;
+  AtspiEventListener *event_listener;
 };
 
 GObjectClass *device_x11_parent_class;
@@ -66,6 +68,7 @@ typedef struct
 {
   AtspiKeyDefinition *kd;
   gboolean enabled;
+  Window window;
 } AtspiX11KeyGrab;
 
 static gboolean
@@ -173,7 +176,7 @@ grab_has_active_duplicate (AtspiDeviceX11 *x11_device, AtspiX11KeyGrab *grab)
 }
 
 static void
-grab_key_aux (AtspiDeviceX11 *x11_device, int keycode, int modmask)
+grab_key_aux (AtspiDeviceX11 *x11_device, Window window, int keycode, int modmask)
 {
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
   XIGrabModifiers xi_modifiers;
@@ -190,22 +193,22 @@ grab_key_aux (AtspiDeviceX11 *x11_device, int keycode, int modmask)
   XISetMask (mask, XI_KeyPress);
   XISetMask (mask, XI_KeyRelease);
 
-  XIGrabKeycode (priv->display, XIAllMasterDevices, keycode, priv->window, XIGrabModeSync, XIGrabModeAsync, False, &eventmask, 1, &xi_modifiers);
+  XIGrabKeycode (priv->display, XIAllMasterDevices, keycode, window, XIGrabModeSync, XIGrabModeAsync, False, &eventmask, 1, &xi_modifiers);
 }
 
 static void
-grab_key (AtspiDeviceX11 *x11_device, int keycode, int modmask)
+grab_key (AtspiDeviceX11 *x11_device, Window window, int keycode, int modmask)
 {
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
 
-  grab_key_aux (x11_device, keycode, modmask);
+  grab_key_aux (x11_device, window, keycode, modmask);
   if (!(modmask & LockMask))
-    grab_key_aux (x11_device, keycode, modmask | LockMask);
+    grab_key_aux (x11_device, window, keycode, modmask | LockMask);
   if (!(modmask & priv->numlock_physical_mask))
     {
-      grab_key_aux (x11_device, keycode, modmask | priv->numlock_physical_mask);
+      grab_key_aux (x11_device, window, keycode, modmask | priv->numlock_physical_mask);
       if (!(modmask & LockMask))
-        grab_key_aux (x11_device, keycode, modmask | LockMask | priv->numlock_physical_mask);
+        grab_key_aux (x11_device, window, keycode, modmask | LockMask | priv->numlock_physical_mask);
     }
 }
 
@@ -217,12 +220,13 @@ enable_key_grab (AtspiDeviceX11 *x11_device, AtspiX11KeyGrab *grab)
   g_return_if_fail (priv->display != NULL);
 
   if (!grab_has_active_duplicate (x11_device, grab))
-    grab_key (x11_device, grab->kd->keycode, grab->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK);
+    grab_key (x11_device, priv->focused_window, grab->kd->keycode, grab->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK);
   grab->enabled = TRUE;
+  grab->window = priv->focused_window;
 }
 
 static void
-ungrab_key_aux (AtspiDeviceX11 *x11_device, int keycode, int modmask)
+ungrab_key_aux (AtspiDeviceX11 *x11_device, Window window, int keycode, int modmask)
 {
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
   XIGrabModifiers xi_modifiers;
@@ -230,22 +234,22 @@ ungrab_key_aux (AtspiDeviceX11 *x11_device, int keycode, int modmask)
   xi_modifiers.modifiers = modmask;
   xi_modifiers.status = 0;
 
-  XIUngrabKeycode (priv->display, XIAllMasterDevices, keycode, priv->window, sizeof (xi_modifiers), &xi_modifiers);
+  XIUngrabKeycode (priv->display, XIAllMasterDevices, keycode, window, sizeof (xi_modifiers), &xi_modifiers);
 }
 
 static void
-ungrab_key (AtspiDeviceX11 *x11_device, int keycode, int modmask)
+ungrab_key (AtspiDeviceX11 *x11_device, Window window, int keycode, int modmask)
 {
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
 
-  ungrab_key_aux (x11_device, keycode, modmask);
+  ungrab_key_aux (x11_device, window, keycode, modmask);
   if (!(modmask & LockMask))
-    ungrab_key_aux (x11_device, keycode, modmask | LockMask);
+    ungrab_key_aux (x11_device, window, keycode, modmask | LockMask);
   if (!(modmask & priv->numlock_physical_mask))
     {
-      ungrab_key_aux (x11_device, keycode, modmask | priv->numlock_physical_mask);
+      ungrab_key_aux (x11_device, window, keycode, modmask | priv->numlock_physical_mask);
       if (!(modmask & LockMask))
-        ungrab_key_aux (x11_device, keycode, modmask | LockMask | priv->numlock_physical_mask);
+        ungrab_key_aux (x11_device, window, keycode, modmask | LockMask | priv->numlock_physical_mask);
     }
 }
 
@@ -264,7 +268,7 @@ disable_key_grab (AtspiDeviceX11 *x11_device, AtspiX11KeyGrab *grab)
   if (grab_has_active_duplicate (x11_device, grab))
     return;
 
-  ungrab_key (x11_device, grab->kd->keycode, grab->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK);
+  ungrab_key (x11_device, grab->window, grab->kd->keycode, grab->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK);
 }
 
 static void
@@ -272,11 +276,16 @@ refresh_key_grabs (AtspiDeviceX11 *x11_device)
 {
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
   GSList *l;
+  int focus_revert;
+
+  XGetInputFocus (priv->display, &priv->focused_window, &focus_revert);
 
   for (l = priv->key_grabs; l; l = l->next)
     {
       AtspiX11KeyGrab *grab = l->data;
       gboolean new_enabled = grab_should_be_enabled (x11_device, grab);
+      if (grab->window != priv->focused_window)
+        disable_key_grab (x11_device, grab);
       if (new_enabled && !grab->enabled)
         enable_key_grab (x11_device, grab);
       else if (grab->enabled && !new_enabled)
@@ -339,6 +348,9 @@ do_event_dispatch (gpointer user_data)
             }
           atspi_device_notify_key (ATSPI_DEVICE (device), (xevent.type == KeyPress), xevent.xkey.keycode, keysym, modifiers, text);
           break;
+        case FocusIn:
+          refresh_key_grabs (device);
+          break;
         case GenericEvent:
           if (xevent.xcookie.extension == priv->xi_opcode)
             {
@@ -369,6 +381,9 @@ do_event_dispatch (gpointer user_data)
                     atspi_device_notify_key (ATSPI_DEVICE (device), (xevent.xcookie.evtype == XI_KeyPress), xiRawEv->detail, keysym, modifiers, text);
                   /* otherwise it's probably a duplicate event from a key grab */
                   XFreeEventData (priv->display, &xevent.xcookie);
+                  break;
+                case FocusIn:
+                  refresh_key_grabs (device);
                   break;
                 }
             }
@@ -545,14 +560,24 @@ atspi_device_x11_get_modifier (AtspiDevice *device, gint keycode)
 }
 
 static void
+event_listener_cb (AtspiEvent *event, void *user_data)
+{
+  AtspiDeviceX11 *x11_device = user_data;
+
+  refresh_key_grabs (x11_device);
+}
+
+static void
 atspi_device_x11_init (AtspiDeviceX11 *device)
 {
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (device);
   int first_event, first_error;
+  int focus_revert;
 
   priv->display = XOpenDisplay ("");
   g_return_if_fail (priv->display != NULL);
-  priv->window = DefaultRootWindow (priv->display);
+  priv->root_window = DefaultRootWindow (priv->display);
+  XGetInputFocus (priv->display, &priv->focused_window, &focus_revert);
 
   if (XQueryExtension (priv->display, "XInputExtension", &priv->xi_opcode, &first_event, &first_error))
     {
@@ -572,13 +597,18 @@ atspi_device_x11_init (AtspiDeviceX11 *device)
           XISetMask (mask, XI_ButtonPress);
           XISetMask (mask, XI_ButtonRelease);
           XISetMask (mask, XI_Motion);
-          XISelectEvents (priv->display, priv->window, &eventmask, 1);
+          XISelectEvents (priv->display, priv->root_window, &eventmask, 1);
+          XSelectInput (priv->display, priv->root_window, FocusChangeMask);
           create_event_source (device);
         }
     }
 
   priv->numlock_physical_mask = XkbKeysymToModifiers (priv->display,
                                                       XK_Num_Lock);
+
+  priv->event_listener = atspi_event_listener_new (event_listener_cb, device, NULL);
+  atspi_event_listener_register (priv->event_listener, "window:activate", NULL);
+  atspi_event_listener_register (priv->event_listener, "window:deactivate", NULL);
 }
 
 static void
@@ -607,6 +637,11 @@ atspi_device_x11_finalize (GObject *object)
       g_source_unref ((GSource *) priv->source);
       priv->source = NULL;
     }
+
+  /* TODO: deregister event listeners automatically when the listener is finalized */
+  atspi_event_listener_deregister (priv->event_listener, "window:deactivate", NULL);
+  atspi_event_listener_deregister (priv->event_listener, "window:activate", NULL);
+  g_object_unref (priv->event_listener);
 
   device_x11_parent_class->finalize (object);
 }
@@ -683,7 +718,7 @@ atspi_device_x11_grab_keyboard (AtspiDevice *device)
   g_return_val_if_fail (priv->display != NULL, FALSE);
 #if 0
   /* THis seems like the right thing to do, but it fails for me */
-  return (XGrabKeyboard (priv->display, priv->window, TRUE, GrabModeAsync, GrabModeSync, CurrentTime)) == 0;
+  return (XGrabKeyboard (priv->display, priv->focused_window, TRUE, GrabModeAsync, GrabModeSync, CurrentTime)) == 0;
 #else
   if (priv->keyboard_grabbed)
     return TRUE;
@@ -692,7 +727,7 @@ atspi_device_x11_grab_keyboard (AtspiDevice *device)
 
   get_keycode_range (x11_device, &min, &max);
   for (i = min; i < max; i++)
-    grab_key (x11_device, i, 0);
+    grab_key (x11_device, priv->focused_window, i, 0);
   return TRUE;
 #endif
 }
@@ -715,7 +750,7 @@ atspi_device_x11_ungrab_keyboard (AtspiDevice *device)
 
   get_keycode_range (x11_device, &min, &max);
   for (i = min; i < max; i++)
-    ungrab_key (x11_device, i, 0);
+    ungrab_key (x11_device, priv->focused_window, i, 0);
 
   refresh_key_grabs (x11_device);
 #endif
