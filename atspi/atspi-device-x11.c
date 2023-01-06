@@ -565,6 +565,7 @@ event_listener_cb (AtspiEvent *event, void *user_data)
   AtspiDeviceX11 *x11_device = user_data;
 
   refresh_key_grabs (x11_device);
+  g_boxed_free (ATSPI_TYPE_EVENT, event);
 }
 
 static void
