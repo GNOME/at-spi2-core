@@ -4,6 +4,7 @@ Accessibility infrastructure roadmap
 Note that this roadmap refers exclusively to **cleanups** and **paying
 technical debt**. It does not yet refer to actually changing the
 accessibility interfaces, or the way accessibility works in general.
+Possible API changes are discussed in a separate document.
 
 High level goals, detailed below
 --------------------------------
