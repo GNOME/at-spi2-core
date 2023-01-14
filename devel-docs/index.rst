@@ -2,6 +2,7 @@ Development guide for the accessibility infrastructure
 ======================================================
 
 .. toctree::
+   at-spi3
    atk-deprecations
    de-controller
    gitlab-ci
@@ -34,6 +35,7 @@ Refactoring and cleanup
 
 - :doc:`de-controller`
 - :doc:`atk-deprecations`
+- :doc:`at-spi3`
 
 Information for maintainers
 ---------------------------
