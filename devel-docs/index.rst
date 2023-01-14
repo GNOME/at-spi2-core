@@ -2,9 +2,11 @@ Development guide for the accessibility infrastructure
 ======================================================
 
 .. toctree::
+   at-spi3
    atk-deprecations
    de-controller
    gitlab-ci
+   meeting-2023-01-13
    roadmap
    toolkits
    xml-changes
@@ -34,8 +36,14 @@ Refactoring and cleanup
 
 - :doc:`de-controller`
 - :doc:`atk-deprecations`
+- :doc:`at-spi3`
 
 Information for maintainers
 ---------------------------
 
 - :doc:`gitlab-ci`
+
+Meeting minutes
+---------------
+
+- :doc:`meeting-2023-01-13`

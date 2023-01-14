@@ -1,0 +1,157 @@
+Meeting minutes, 2023/Jan/13
+============================
+
+Attendees
+---------
+
+- bgt lover
+- Emmanuele Bassi
+- Federico Mena Quintero
+- Matt Campbell
+- Mike Gorse
+- Samuel Thibault
+
+- Didier Spaier (listening only)
+- Melody (listening only)
+
+
+Agenda
+------
+
+* Introductions
+* Orca hotkeys for Wayland/GTK4
+* pyatspi2 / orca integration plans
+
+
+Some pre-meeting links from from Samuel Thibault
+------------------------------------------------
+
+- https://gitlab.gnome.org/GNOME/gtk/-/issues/1739 original discussion within gtk
+- https://wiki.gnome.org/Hackfests/GTK2020/Notes notes during the 2020 gtk meeting
+- https://bugzilla.gnome.org/show_bug.cgi?id=649559#c3 discussion on shortcomings of the current at-spi events
+- https://gitlab.freedesktop.org/whot/macrod/ an example of macro daemon written by Peter Hutterer himself
+- https://gitlab.gnome.org/GNOME/mutter/-/issues/9 the issue in mutter
+- https://www.freedesktop.org/wiki/Accessibility/Input/ more general notes on input needs
+- https://www.freedesktop.org/wiki/Accessibility/GTK-a11y-revamp/ more general notes on the gtk a11y revamp
+- https://www.freedesktop.org/wiki/Accessibility/Wayland/ more general notes on wayland
+
+
+Minutes
+-------
+
+**Introductions:**
+
+* Federico - helping with CI, writing tests, code cleanup / refactoring, making things easier for the real devs
+* Matt - AccessKit (Rust abstraction over linux/macos/windows accessibility APIs), wants to get input handling solved
+* bgt lover (Alberto) - Odilia screen reader, general interest in how accessibility works
+* Mike - atspi maintainer, ported it to DBus, worked with Mark Doffman from Codethink.  Working on the keyboard issue.
+* Samuel - working on accessibility for 20 years, touching many layers of the stack, maintaining speech-dispatcher.
+* Emmanuele - GTK, author of accessibility API in GTK4, mostly working on other things right now
+
+___
+
+**Orca, keyboard handling, Wayland/GTK4:**
+
+Mike - has a MR against mutter, pinged Garnacho to review it.  Sets up a DBus interface that clients can connect to to grab keys.  May need turning into a Wayland protocol; Mike wasn't sure if that would be controversial.  Maybe write a proposal and see how things go.  Someone was ready to make a similar change for KDE (orca #285).  bgt lover had an idea for authentication in a Wayland protocol. 
+
+Matt - would like to go with whatever is more likely to ship sooner.  Remember that this is between the AT and compositor, not apps.
+
+bgt lover - we need a protocol for mutter/kwin/whatever.  Agrees with Matt that it is something between the AT and the compositor, not the apps.  Some details on proposed portal protocol (FIXME, bgt lover posted them on matrix, will paste on freedesktop wiki).
+
+Emmanuele - this should not need a portal; ATs are privileged anyway.  A Wayland protocol is fine; ATs can probably talk to the compositor using libwayland or whatever.  We are ignoring X11 at this point.  If you want a shim for X11, this basically removes Wayland from the picture and means you may have to use DBus.
+
+Matt - we already have a solution for X11 thanks to Mike; this can ship right away for gnome 44 and then we can get the Wayland solution right.
+
+Mike - do we also need a Wayland protocol to handle authentication?
+
+Matt - ATs and screen readers are installed on the system, not as flatpaks.  We already had this exact discussion at Microsoft for the Windows screen readers.
+
+Emmanuele - the compositor can decide whether to talk to an AT or not anyway.  Any input method talks to the compositor right now via the Wayland protocol.
+
+bgt lover - what if a malicious thing wants to present itself as a screen reader?
+
+Emmanuele - it means the user or the OS installed it.  For example, GNOME has standardised on ibus as *the* input method, and it is a privileged component.  Anything that talks to the compositor is a privileged component.
+
+Matt - does the compositor have a hardcoded list of privileged components; do downstream distributors have to patch it to allow other components?
+
+Emmanuele - no, it means you would have to go through an official rpm/deb to install odilia or other components.  Not as a flatpak, since those are sandboxed.  The theory is that distros test the component and guarantee that it works.
+
+Matt - this is hard for Odilia, since it hasn't built a user base yet, so what if they want to provide their own package?
+
+Mike - from old hackfest notes - there was talk about seeing whether things are in /usr/local/bin and then they are automatically trusted
+
+Emmanuele - the compositor can decide if a peer that is connecting to it via the Wayland socket has access to functionality.
+
+Samuel - would this be through PolicyKit?
+
+Emmanuele - it *is* problematic to say that if you connect to the compositor, you can get key events.  However, we don't have a mechanism to do authentication or privilege escalation via Wayland.  PolicyKit is all DBus - it gives you a token, and then you could use that token to talk to the compositor
+
+bgt lover - just accept the permissions if the user installed it
+
+Emmanuele - it's a bootstrapping problem; if you don't have a screen reader you cannot interact anyway to ask the user whether something has authorization.
+
+Samuel - the compositor could implement by hand (e.g. pre-recorded) a very basic accessible way to ask the question, that doesn't need a screen reader
+
+Federico - we can probably punt the more general problem of authorization-in-Wayland until later, and get screen readers working for now
+
+Federico - is this related to gnome-control-center/gnome-settings-daemon's hotkeys?
+
+Matt - watching keys is different from grabbing.  E.g. Orca needs to be able to stop speech when a key is pressed; this is not covered by the current mechanism for hotkeys.  Also, screen readers needs non-standard modifiers, like Insert or Caps Lock.  Also, dynamically grabbing/ungrabbing keys as the context changes.  Or Orca+H where it "grabs all the keys" so it gets into Learn mode, and you exit it with Esc.
+
+Sam - In GTK3 it was sending the watch events to Orca synchronously, waiting for an answer from Orca before processing the event. That was making the whole desktop really slower. For watches, it doesn't actually need to be synchronous, it can be handled asynchronously, it's just an event.
+
+bgt lover - it's not just the keyboard, it can also be the mouse or something else, like when flicking left/right on a touch screen
+
+Sam - doing it from the toolkit with confirmation from Orca on each event makes everything slow
+
+Matt - mouse events can probably just be a watching thing (asynchronous). For gestures, it should probably be on a registration base, to tell ahead which ones should be passed to the screen reader
+
+(Some discussion of awkward behavior in other platforms, and how we don't want to replicate that for Linux)
+
+Sam - The grabbing could be dynamic, depending on the mode. Normally you'd only have capslock/insert grabbed. In help mode you'd grab all the keyboard
+
+Matt - per Wayland's wish to keep frames perfect - maybe have a list of changes to keygrabs so they can be handled atomically, without intermediate states
+
+Sam - a grabbed-key event could be synchronously acked by the AT along a list of grab adds/dels, so that grabbing updates can be atomic with the grabbed-key event
+
+Emmanuele - needs to leave; will read notes later
+
+To-do: post link to the Wayland book that bgt lover talked about - https://wayland-book.com/
+
+___
+
+**pyatspi2 / orca integration plans:**
+
+Merge pytaspi2 into at-spi2-core, like other other modules, and release Orca and at-spi2-core in tandem.
+
+Matt assumes that the X11 changes can be done so Orca can use them.
+
+Federico is not sure how much accerciser is used these days.
+
+Sam - it's indeed easier to tell people to use it for reproducing an issue in an app, than teaching them to use a scren reader (even if ideally all devs learnt that)
+
+Federico: wondering how to communicate with projects like Firefox, WebKit, Chromium about things we find along the way; so far, taking notes and putting them in the development guide for at-spi2-core, with the intention of finding the right people and pointing them at those documents, but haven't been filing bugs in the respective bug trackers. Also, the XML interfaces: have been trying to coordinate the C code with the XML while writing tests for C code to increase code coverage, but not everything is covered yet, so haven't gone through all the code yet. You can write the XML interfaces for D-Bus, but the demarshalers are written by hand, so you have to coordinate them by hand with the XML; haven't found a way to do that automatically. Even if we port things to GDBus (trying to do), GDBus code generator writes method signatures for you, but it doesn't handle things like the super long signatures we have for some methods. Don't think the GDBus code generator writes that out into C structs or something you can use directly. Wonder how to solve that, like split those arguments with super long signatures into finer-grained arguments. Like to have something that if we change the XML signature, it will emit a compile error if the code hasn't been changed.
+
+Federico: Haven't found a way to automatically guarantee that argument signatures from the XML DBus interfaces match the C code or the marshallers.  I want a compile error if the long signatures like type="a((so)(so)(so)iiassusau)" get changed and don't match what the code expects.  Maybe zbus in Rust can do that?
+
+bgt lover: yes, zbus can help
+
+Federico: That gives me an excuse to start porting at least the marshaling code to Rust, and maybe port the C logic later.
+
+___
+
+**Final comments:**
+
+Matt: what do we need to get the X11 solution shipped in at-spi2-core and Orca?
+
+Mike: the code is in the latest release in at-spi2-core; just need the Orca part merged and tested.
+
+Mike: some people in orca-list do test the latest versions, so we can ask them to test the merged code once it lands
+
+Federico - can we remove the old key code from at-spi2-core ?
+
+Mike - probably nobody is using it any more indeed ?
+
+---
+
+Meeting adjourned.
