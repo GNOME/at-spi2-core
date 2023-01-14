@@ -10,7 +10,7 @@ issue <https://gitlab.gnome.org/GNOME/at-spi2-core/-/issues>`__ and
 mention ``@federico`` in it.
 
 Quick overview
-==============
+--------------
 
 By having a `.gitlab-ci.yml
 <https://gitlab.gnome.org/GNOME/at-spi2-core/-/blob/main/.gitlab-ci.yml>`_
@@ -52,7 +52,7 @@ where each job’s artifacts will be stored.
 What’s an artifact or a job? Read on!
 
 A little glossary
-=================
+-----------------
 
 **Pipeline** - A collection of **jobs**, which can be run in parallel or
 sequentially. For example, a pair of “build” and “test” jobs would need
@@ -96,7 +96,7 @@ which is more limited than e.g. a shell session on a graphical,
 development machine.
 
 The CI pipeline for at-spi2-core
-================================
+--------------------------------
 
 The ``.gitlab-ci.yml`` file is a more-or-less declarative description
 the CI pipeline, with some ``script`` sections which are imperative
@@ -156,7 +156,7 @@ Finally, the ``docs`` stage builds documentation:
    including the document you are reading right now.
 
 CI templates
-============
+------------
 
 The task of setting up a container image to do CI for a particular
 distro or build configuration is rather repetitive. One has to start
@@ -183,7 +183,7 @@ https://gitlab.gnome.org/GNOME/at-spi2-core/container_registry
 They get updated automatically thanks to the CI Templates machinery.
 
 Code formatting
-===============
+---------------
 
 The C coding style is enforced via `clang-format
 <https://clang.llvm.org/docs/ClangFormat.html>`_ and a 
@@ -238,7 +238,7 @@ inclusion doesn't matter, or separate them out with blank lines to
 enforce ordering.
 
 General advice and future work
-==============================
+------------------------------
 
 A failed run of a CI pipeline should trouble you; it either means that
 some test broke, or that something is not completely deterministic. Fix
@@ -271,7 +271,7 @@ faster feedback loop. Instead of installing package dependencies on each
 job, we can move to prebuilt container images.
 
 References
-==========
+----------
 
 Full documentation for Gitlab CI: https://docs.gitlab.com/ee/ci/
 
