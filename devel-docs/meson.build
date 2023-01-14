@@ -57,12 +57,13 @@ interfaces_rst = custom_target(
 )
 
 docs_sources = [
-  'atk-deprecations.rst',
   'at-spi3.rst',
+  'atk-deprecations.rst',
   'conf.py',
   'de-controller.rst',
   'gitlab-ci.rst',
   'index.rst',
+  'meeting-2023-01-13.rst',
   'roadmap.rst',
   'toolkits.rst',
   'xml-changes.rst',

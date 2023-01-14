@@ -6,6 +6,7 @@ Development guide for the accessibility infrastructure
    atk-deprecations
    de-controller
    gitlab-ci
+   meeting-2023-01-13
    roadmap
    toolkits
    xml-changes
@@ -41,3 +42,8 @@ Information for maintainers
 ---------------------------
 
 - :doc:`gitlab-ci`
+
+Meeting minutes
+---------------
+
+- :doc:`meeting-2023-01-13`
