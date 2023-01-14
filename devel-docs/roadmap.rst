@@ -4,7 +4,7 @@ Accessibility infrastructure roadmap
 Note that this roadmap refers exclusively to **cleanups** and **paying
 technical debt**. It does not yet refer to actually changing the
 accessibility interfaces, or the way accessibility works in general.
-Possible API changes are discussed in a separate document.
+Possible API changes are discussed in the :doc:`at-spi3`.
 
 High level goals, detailed below
 --------------------------------
@@ -33,9 +33,9 @@ Short term tasks
    test/refactor them if the code is in the same repo. See “`merge the
    repositories <#merge-the-repositories>`__” below for details.
 
--  Replace manually-written DBus code in at-spi2-core for automatically
-   generated code. See “`DBus update for
-   libatspi <#dbus-update-for-libatspi>`__” below for details.
+- Replace manually-written DBus code in at-spi2-core for automatically
+   generated code. See “`Remove hand-written DBus code
+   <#remove-hand-written-dbus-code>`__” below for details.
 
 -  `Make the XML interfaces the single source of
    truth <#make-the-xml-interfaces-the-single-source-of-truth>`__.
