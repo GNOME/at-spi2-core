@@ -75,7 +75,10 @@ docs_sources = [
 # and just do the build from there.
 copied_docs_sources = []
 foreach i: docs_sources
-  copied_docs_sources += fs.copyfile(i)
+  copied_docs_sources += configure_file(copy: true, input: i, output: i)
+
+  # When we bump meson to 0.64 or later, replace the line above with this:
+  # copied_docs_sources += fs.copyfile(i)
 endforeach
 
 custom_target(
