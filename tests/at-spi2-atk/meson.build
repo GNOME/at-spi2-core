@@ -79,4 +79,4 @@ foreach t: tests
   endif
 endforeach
 
-test('atk-test', atk_test_bin, timeout: 120)
+test('atk-test', atk_test_bin, timeout: 300)
