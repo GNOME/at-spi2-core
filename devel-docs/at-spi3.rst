@@ -17,6 +17,17 @@ future version of the API.
    applications could then respond to, and applications could similarly
    query consumers for a list of events that they care about.
 
--  The DBus API for sending events should be reviewed. TODO: flesh this out.
+-  The DBus API for sending events should be reviewed. All events in the
+   `xml/Event.xml` file return items with the same "siiva{sv}" signature
+	 when it is not necessary. Take for example "StateChanged", which only
+	 uses the first two variables: a string of the state which has been
+	 changed, and a signed integer that may be either 1 or 0 depending on
+	 if the state has been added or removed. For one thing, it is clear that
+	 the second argument for "StateChanged" should be "b" for bool, and
+	 secondly the arguments "iva{sv}" do not seem to be used at all for this
+	 event, and subsequently could be dropped. This is only the example of
+	 one event with issues like this. Nearly every event has a similar case
+	 of some unused fields, or fields that don't *exactly* match the
+	 smenatics of their type sent over DBus.
 
 -  The AtspiEventListener API is hard to use and also needs to be reworked.
