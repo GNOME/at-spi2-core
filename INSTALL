@@ -4,6 +4,7 @@ Install procedure
 tar -xJf at-spi2-core-2.34.0.tar.xz                      # unpack the sources
         % cd at-spi2-core-2.34.0                         # change to the toplevel directory
 mkdir build                                              # create a build directory
+cd build                                                 # change to build directory
 meson ..                                                 # configure
 ninja                                                    # build at-spi2-core
 
