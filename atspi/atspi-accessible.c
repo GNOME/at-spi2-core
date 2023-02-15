@@ -78,6 +78,7 @@ screen_reader_signal_watcher (GSignalInvocationHint *signal_hint,
   if (n_param_values > 2 && G_VALUE_HOLDS_INT (param_values + 2))
     detail2 = g_value_get_int (param_values + 2);
   accessible = ATSPI_ACCESSIBLE (object);
+  g_return_val_if_fail (accessible->parent.app != NULL, FALSE);
 
   dbus_name = _atspi_strdup_and_adjust_for_dbus (name);
   signal = dbus_message_new_signal (ATSPI_DBUS_PATH_SCREEN_READER,
