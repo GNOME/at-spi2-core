@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.47.90:
+
+* Downgrade meson requirement to 0.63.
+
+*  at-spi-dbus-bus service: set stop timeout to 5s
+    
+* Fix possible crash in screen_reader_signal_watcher.
+
 What's new in at-spi2-core 2.47.1:
 * The meson options -Dx11 and -Dintrospection are now implemented with
   meson features - https://mesonbuild.com/Build-options.html#features
