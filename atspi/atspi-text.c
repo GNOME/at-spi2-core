@@ -33,8 +33,8 @@
  * The text interface should be implemented by objects which place textual
  * information onscreen as character strings or glyphs. The text interface
  * allows access to textual content including display attributes and
- * semantic hints associated with runs of text, and to bounding boc
- * information for glyphs and substrings. It also alows portions of text to
+ * semantic hints associated with runs of text, and to bounding
+ * information for glyphs and substrings. It also allows portions of text to
  * be selected, if the objects StateSet includes STATE_SELECTABLE_TEXT.
  */
 

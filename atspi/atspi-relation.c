@@ -32,7 +32,7 @@
  *
  * An interface via which non-hierarchical relationships
  * are indicated. An instance of this interface represents
- * a "one-to-many" correspondance.
+ * a "one-to-many" correspondence.
  */
 
 /**

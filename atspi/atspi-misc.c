@@ -1741,7 +1741,7 @@ atspi_get_a11y_bus (void)
  * behavior.
  *
  * Set the timeout used for method calls. If this is not set explicitly,
- * a default of 0.8 ms is used.
+ * a default of 800 ms is used.
  * Note that at-spi2-registryd currently uses a timeout of 3 seconds when
  * sending a keyboard event notification. This means that, if an AT makes
  * a call in response to the keyboard notification and the application
