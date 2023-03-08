@@ -34,7 +34,7 @@
  * multiple resource or content locations, or multiple 'markers'
  * within a single document. A hypertext instance is associated
  * with one or more hyperlinks which are associated with particular
- * offests within the hypertext's content.
+ * offsets within the hypertext's content.
  */
 
 /**

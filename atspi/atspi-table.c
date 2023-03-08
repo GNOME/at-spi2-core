@@ -38,7 +38,7 @@
  * of the table object, and they may be referenced either via a child
  * index or via a row/column pair. Table 'cells' may implement other
  * interfaces, such as Text, Action, Image, and Component, and should do
- * so as appropriate to their onscreen rresentation and/or behavior.
+ * so as appropriate to their onscreen presentation and/or behavior.
  */
 
 /**

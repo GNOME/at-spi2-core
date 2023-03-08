@@ -344,7 +344,7 @@ atspi_device_unmap_modifier (AtspiDevice *device, gint keycode)
  * @device: the device.
  * @keycode: the keycode to map.
  *
- * Gets the modifier for a given keycode, if one exists. Does not creatt a new
+ * Gets the modifier for a given keycode, if one exists. Does not create a new
  * mapping. This function should be used when the intention is to query a
  * locking modifier such as num lock via atspi_device_get_locked_modifiers,
  * rather than to add key grabs.
