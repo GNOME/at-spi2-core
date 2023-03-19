@@ -1,3 +1,10 @@
+What's new in at-spi2-core 2.48.0:
+
+* Add a "atk-only" build option. This allows atk to be built without libdbus
+  installed, but it does not build libatspi or the atk bridge.
+
+* Fix some typos in the documentation.
+
 What's new in at-spi2-core 2.47.90:
 
 * Downgrade meson requirement to 0.63.
