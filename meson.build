@@ -134,12 +134,14 @@ endif
 glib_dep = dependency('glib-2.0', version: glib_req_version)
 gobject_dep = dependency('gobject-2.0', version: gobject_req_version)
 gio_dep = dependency('gio-2.0', version: gio_req_version)
-if cc.has_function('dlopen')
-  dl_dep = []
-elif cc.has_function('dlopen', args: '-ldl')
-  dl_dep = cc.find_library('dl')
-else
-  error('Could not find a library with the dlopen function')
+if not get_option('atk_only')
+  if cc.has_function('dlopen')
+    dl_dep = []
+  elif cc.has_function('dlopen', args: '-ldl')
+    dl_dep = cc.find_library('dl')
+  else
+    error('Could not find a library with the dlopen function')
+  endif
 endif
 gmodule_dep = dependency('gmodule-2.0', version: gmodule_req_version)
 libxml_dep = dependency('libxml-2.0', version: libxml_req_version)
