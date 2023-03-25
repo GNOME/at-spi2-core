@@ -62,7 +62,7 @@ at_spi_conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 # Symbol visibility
 if get_option('default_library') != 'static'
   if host_system == 'windows'
-    atspi_conf.set('DLL_EXPORT', true)
+    at_spi_conf.set('DLL_EXPORT', true)
     at_spi_conf.set('_ATK_EXTERN', '__declspec(dllexport) extern')
     if cc.get_id() != 'msvc'
       test_cflags += ['-fvisibility=hidden']
