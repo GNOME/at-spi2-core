@@ -62,7 +62,7 @@ at_spi_conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 # Symbol visibility
 if get_option('default_library') != 'static'
   if host_system == 'windows'
-    atspi_conf.set('DLL_EXPORT', true)
+    at_spi_conf.set('DLL_EXPORT', true)
     at_spi_conf.set('_ATK_EXTERN', '__declspec(dllexport) extern')
     if cc.get_id() != 'msvc'
       test_cflags += ['-fvisibility=hidden']
@@ -134,12 +134,14 @@ endif
 glib_dep = dependency('glib-2.0', version: glib_req_version)
 gobject_dep = dependency('gobject-2.0', version: gobject_req_version)
 gio_dep = dependency('gio-2.0', version: gio_req_version)
-if cc.has_function('dlopen')
-  dl_dep = []
-elif cc.has_function('dlopen', args: '-ldl')
-  dl_dep = cc.find_library('dl')
-else
-  error('Could not find a library with the dlopen function')
+if not get_option('atk_only')
+  if cc.has_function('dlopen')
+    dl_dep = []
+  elif cc.has_function('dlopen', args: '-ldl')
+    dl_dep = cc.find_library('dl')
+  else
+    error('Could not find a library with the dlopen function')
+  endif
 endif
 gmodule_dep = dependency('gmodule-2.0', version: gmodule_req_version)
 libxml_dep = dependency('libxml-2.0', version: libxml_req_version)
