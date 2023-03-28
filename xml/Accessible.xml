@@ -113,7 +113,8 @@
         GetIndexInParent:
 
         Returns the 0-based index at which the object would be returned by calling
-        GetChildren on its parent.
+        GetChildren on its parent, or -1 if the object has no containing
+        parent or on exception.
     -->
     <method name="GetIndexInParent">
       <arg direction="out" type="i"/>
