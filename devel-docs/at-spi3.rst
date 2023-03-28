@@ -28,6 +28,14 @@ future version of the API.
 	 event, and subsequently could be dropped. This is only the example of
 	 one event with issues like this. Nearly every event has a similar case
 	 of some unused fields, or fields that don't *exactly* match the
-	 smenatics of their type sent over DBus.
+	 semantics of their type sent over DBus.
+
+- ChildCount and GetChildAtIndex could have unsigned arguments (#106).
+
+- For the Collection interface, roles are signed, but they are unsigned
+  elsewhere (#108).
+
+- For the Collection interface, states are signed, but they are unsigned
+  elsewhere (#109).
 
 -  The AtspiEventListener API is hard to use and also needs to be reworked.
