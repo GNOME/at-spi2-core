@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
-"POT-Creation-Date: 2022-10-31 09:56+0000\n"
+"POT-Creation-Date: 2023-01-25 15:54+0000\n"
 "Last-Translator: Нанба Наала <naala-nanba@rambler.ru>\n"
 "Language-Team: Abkhazian <daniel.abzakh@gmail.com>\n"
 "Language: ab\n"
@@ -9,632 +9,631 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-DamnedLies-Scope: partial\n"
 
-#: atk/atkhyperlink.c:125
+#: atk/atkhyperlink.c:127
 msgid "Selected Link"
 msgstr "Иалху азхьарԥш"
 
-#: atk/atkhyperlink.c:126
+#: atk/atkhyperlink.c:128
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr ""
 
-#: atk/atkhyperlink.c:132
+#: atk/atkhyperlink.c:134
 msgid "Number of Anchors"
 msgstr "Аԥырсалқәа рхыԥхьаӡара"
 
-#: atk/atkhyperlink.c:133
+#: atk/atkhyperlink.c:135
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr "Уажәтәи аобиект AtkHyperlink иадҳәалоу аԥырсалқәа рхыԥхьаӡара"
 
-#: atk/atkhyperlink.c:141
+#: atk/atkhyperlink.c:143
 msgid "End index"
 msgstr "Аиндекс анҵәамҭа"
 
-#: atk/atkhyperlink.c:142
+#: atk/atkhyperlink.c:144
 msgid "The end index of the AtkHyperlink object"
 msgstr "Аобиект AtkHyperlink аиндекс анҵәамҭа"
 
-#: atk/atkhyperlink.c:150
+#: atk/atkhyperlink.c:152
 msgid "Start index"
 msgstr "Аиндекс алагамҭа"
 
-#: atk/atkhyperlink.c:151
+#: atk/atkhyperlink.c:153
 msgid "The start index of the AtkHyperlink object"
 msgstr "Аобиект AtkHyperlink аиндекс алагамҭа"
 
-#: atk/atkobject.c:99
+#: atk/atkobject.c:100
 msgid "invalid"
 msgstr "ззин ыҟам"
 
-#: atk/atkobject.c:100
+#: atk/atkobject.c:101
 msgid "accelerator label"
 msgstr "арццакыга адырга"
 
-#: atk/atkobject.c:101
+#: atk/atkobject.c:102
 msgid "alert"
 msgstr "ашәарҭадырга"
 
-#: atk/atkobject.c:102
+#: atk/atkobject.c:103
 msgid "animation"
 msgstr "Анимациа"
 
-#: atk/atkobject.c:103
+#: atk/atkobject.c:104
 msgid "arrow"
 msgstr "ахыц"
 
-#: atk/atkobject.c:104
+#: atk/atkobject.c:105
 msgid "calendar"
 msgstr "амзар"
 
-#: atk/atkobject.c:105
+#: atk/atkobject.c:106
 msgid "canvas"
 msgstr "канва"
 
-#: atk/atkobject.c:106
+#: atk/atkobject.c:107
 msgid "check box"
 msgstr "апытҟәыр-абираҟ"
 
-#: atk/atkobject.c:107
+#: atk/atkobject.c:108
 msgid "check menu item"
 msgstr "амениу аелемент-абираҟ"
 
-#: atk/atkobject.c:108
+#: atk/atkobject.c:109
 msgid "color chooser"
 msgstr "Аԥштәы алхра"
 
-#: atk/atkobject.c:109
+#: atk/atkobject.c:110
 msgid "column header"
 msgstr "Аиҵагыла ахы"
 
-#: atk/atkobject.c:110
+#: atk/atkobject.c:111
 msgid "combo box"
 msgstr ""
 
-#: atk/atkobject.c:111
+#: atk/atkobject.c:112
 msgid "dateeditor"
 msgstr "арыцхә аредактор"
 
-#: atk/atkobject.c:112
+#: atk/atkobject.c:113
 msgid "desktop icon"
 msgstr "аусуратә ишәа адыргаҷ"
 
-#: atk/atkobject.c:113
+#: atk/atkobject.c:114
 msgid "desktop frame"
 msgstr "аусуратә ишәа адаԥа"
 
-#: atk/atkobject.c:114
+#: atk/atkobject.c:115
 msgid "dial"
 msgstr "аномер алхра"
 
-#: atk/atkobject.c:115
+#: atk/atkobject.c:116
 msgid "dialog"
 msgstr "аиҿцәажәара"
 
-#: atk/atkobject.c:116
+#: atk/atkobject.c:117
 msgid "directory pane"
 msgstr "аизакхьӡынҵа апанель"
 
-#: atk/atkobject.c:117
+#: atk/atkobject.c:118
 msgid "drawing area"
 msgstr "аҭыхра аҵакыра"
 
-#: atk/atkobject.c:118
+#: atk/atkobject.c:119
 msgid "file chooser"
 msgstr "афаил алхра"
 
-#: atk/atkobject.c:119
+#: atk/atkobject.c:120
 msgid "filler"
 msgstr "ахарҭәаага"
 
 #. I know it looks wrong but that is what Java returns
-#: atk/atkobject.c:121
+#: atk/atkobject.c:122
 msgid "fontchooser"
 msgstr "Ашрифт алхра"
 
-#: atk/atkobject.c:122
+#: atk/atkobject.c:123
 msgid "frame"
 msgstr "адаԥа"
 
-#: atk/atkobject.c:123
+#: atk/atkobject.c:124
 msgid "glass pane"
 msgstr "ицәцоу апанель"
 
-#: atk/atkobject.c:124
+#: atk/atkobject.c:125
 msgid "html container"
 msgstr "html абызшәа змоу аҭаҵа"
 
-#: atk/atkobject.c:125
+#: atk/atkobject.c:126
 msgid "icon"
 msgstr "адыргаҷа"
 
-#: atk/atkobject.c:126
+#: atk/atkobject.c:127
 msgid "image"
 msgstr "аԥшранҵа"
 
-#: atk/atkobject.c:127
+#: atk/atkobject.c:128
 msgid "internal frame"
 msgstr "аҩныҵаҟатәи адаԥа"
 
-#: atk/atkobject.c:128
+#: atk/atkobject.c:129
 msgid "label"
 msgstr "ахҵара"
 
-#: atk/atkobject.c:129
+#: atk/atkobject.c:130
 msgid "layered pane"
 msgstr "аҩаӡарақәа змоу апанель"
 
-#: atk/atkobject.c:130
+#: atk/atkobject.c:131
 msgid "list"
 msgstr "ахьӡынҵа"
 
-#: atk/atkobject.c:131
+#: atk/atkobject.c:132
 msgid "list item"
 msgstr "ахьӡынҵа аелемент"
 
-#: atk/atkobject.c:132
+#: atk/atkobject.c:133
 msgid "menu"
 msgstr "амениу"
 
-#: atk/atkobject.c:133
+#: atk/atkobject.c:134
 msgid "menu bar"
 msgstr "амениу ацәаҳәа"
 
-#: atk/atkobject.c:134
+#: atk/atkobject.c:135
 msgid "menu button"
 msgstr "амениу апытҟәыр"
 
-#: atk/atkobject.c:135
+#: atk/atkobject.c:136
 msgid "menu item"
 msgstr "амениу аелемент"
 
-#: atk/atkobject.c:136
+#: atk/atkobject.c:137
 msgid "option pane"
 msgstr "аопциақәа рпанель"
 
-#: atk/atkobject.c:137
+#: atk/atkobject.c:138
 msgid "page tab"
 msgstr "адаҟьа агәылаҵа"
 
-#: atk/atkobject.c:138
+#: atk/atkobject.c:139
 msgid "page tab list"
 msgstr "адаҟьа агәылаҵақәа рыхьӡынца"
 
-#: atk/atkobject.c:139
+#: atk/atkobject.c:140
 msgid "panel"
 msgstr "апанель"
 
-#: atk/atkobject.c:140
+#: atk/atkobject.c:141
 msgid "password text"
 msgstr "ажәамаӡа"
 
-#: atk/atkobject.c:141
+#: atk/atkobject.c:142
 msgid "popup menu"
 msgstr "ихыло амениу"
 
-#: atk/atkobject.c:142
+#: atk/atkobject.c:143
 msgid "progress bar"
 msgstr "анагӡара аиндикатор"
 
-#: atk/atkobject.c:143
+#: atk/atkobject.c:144
 msgid "push button"
 msgstr "изықәыӷәӷәо апатҟәыр"
 
-#: atk/atkobject.c:144
+#: atk/atkobject.c:145
 msgid "radio button"
 msgstr "арадио-апатҟәыр"
 
-#: atk/atkobject.c:145
+#: atk/atkobject.c:146
 msgid "radio menu item"
 msgstr "радио-аелемент мениу"
 
-#: atk/atkobject.c:146
+#: atk/atkobject.c:147
 msgid "root pane"
 msgstr "адацтә панель"
 
-#: atk/atkobject.c:147
+#: atk/atkobject.c:148
 msgid "row header"
 msgstr "ацәаҳәа ахы"
 
-#: atk/atkobject.c:148
+#: atk/atkobject.c:149
 msgid "scroll bar"
 msgstr "аҭаргьежьга ацәаҳәа"
 
-#: atk/atkobject.c:149
+#: atk/atkobject.c:150
 msgid "scroll pane"
 msgstr "аҭаргьежьга апанель"
 
-#: atk/atkobject.c:150
+#: atk/atkobject.c:151
 msgid "separator"
 msgstr "аиҟәшага"
 
-#: atk/atkobject.c:151
+#: atk/atkobject.c:152
 msgid "slider"
 msgstr "акәараҵа"
 
-#: atk/atkobject.c:152
+#: atk/atkobject.c:153
 msgid "split pane"
 msgstr "иҩбатәу апанель"
 
-#: atk/atkobject.c:153
+#: atk/atkobject.c:154
 msgid "spin button"
 msgstr "ахаҵәира апатҟәыр"
 
-#: atk/atkobject.c:154
+#: atk/atkobject.c:155
 msgid "statusbar"
 msgstr "аҭагылазаашьа ацәаҳәа"
 
-#: atk/atkobject.c:155
+#: atk/atkobject.c:156
 msgid "table"
 msgstr "аҭаӡҩыра"
 
-#: atk/atkobject.c:156
+#: atk/atkobject.c:157
 msgid "table cell"
 msgstr "аҭаӡҩыра абларҭа"
 
-#: atk/atkobject.c:157
+#: atk/atkobject.c:158
 msgid "table column header"
 msgstr "аҭаӡҩыра аҵагыла ахы"
 
-#: atk/atkobject.c:158
+#: atk/atkobject.c:159
 msgid "table row header"
 msgstr "аҭаӡҩыра ацәаҳәа ахы"
 
-#: atk/atkobject.c:159
+#: atk/atkobject.c:160
 msgid "tear off menu item"
 msgstr "еиԥырҟьам амениу аелемент"
 
-#: atk/atkobject.c:160
+#: atk/atkobject.c:161
 msgid "terminal"
 msgstr "атерминал"
 
-#: atk/atkobject.c:161
+#: atk/atkobject.c:162
 msgid "text"
 msgstr "атекст"
 
-#: atk/atkobject.c:162
+#: atk/atkobject.c:163
 msgid "toggle button"
 msgstr "апатҟәыр-аиагага"
 
-#: atk/atkobject.c:163
+#: atk/atkobject.c:164
 msgid "tool bar"
 msgstr "амаругақәа рпанель"
 
-#: atk/atkobject.c:164
+#: atk/atkobject.c:165
 msgid "tool tip"
 msgstr "аҵаҳәа"
 
-#: atk/atkobject.c:165
+#: atk/atkobject.c:166
 msgid "tree"
 msgstr "аҵла"
 
-#: atk/atkobject.c:166
+#: atk/atkobject.c:167
 msgid "tree table"
 msgstr "Аҵла иеиԥшу аҭаӡҩыра"
 
-#: atk/atkobject.c:167
+#: atk/atkobject.c:168
 msgid "unknown"
 msgstr "еилкаӡам"
 
-#: atk/atkobject.c:168
+#: atk/atkobject.c:169
 msgid "viewport"
 msgstr "ахәаԥшра аҵакыра"
 
-#: atk/atkobject.c:169
+#: atk/atkobject.c:170
 msgid "window"
 msgstr "аԥенџьыр"
 
-#: atk/atkobject.c:170
+#: atk/atkobject.c:171
 msgid "header"
 msgstr "ахы"
 
-#: atk/atkobject.c:171
+#: atk/atkobject.c:172
 msgid "footer"
 msgstr "аӷәраҵа"
 
-#: atk/atkobject.c:172
+#: atk/atkobject.c:173
 msgid "paragraph"
 msgstr "абзац"
 
-#: atk/atkobject.c:173
+#: atk/atkobject.c:174
 msgid "ruler"
 msgstr "аҵәаӷәага"
 
-#: atk/atkobject.c:174
+#: atk/atkobject.c:175
 msgid "application"
 msgstr "аԥшьы"
 
-#: atk/atkobject.c:175
+#: atk/atkobject.c:176
 msgid "autocomplete"
 msgstr "автоматикла ахарҭәаара"
 
-#: atk/atkobject.c:176
+#: atk/atkobject.c:177
 msgid "edit bar"
 msgstr "аредакторазура ацәаҳәа"
 
-#: atk/atkobject.c:177
+#: atk/atkobject.c:178
 msgid "embedded component"
 msgstr "Иалаҵәоу акомпонент"
 
-#: atk/atkobject.c:178
+#: atk/atkobject.c:179
 msgid "entry"
 msgstr "анҵара"
 
-#: atk/atkobject.c:179
+#: atk/atkobject.c:180
 msgid "chart"
 msgstr "адиаграмма"
 
-#: atk/atkobject.c:180
+#: atk/atkobject.c:181
 msgid "caption"
 msgstr "ахы"
 
-#: atk/atkobject.c:181
+#: atk/atkobject.c:182
 msgid "document frame"
 msgstr "адокумент адаԥа"
 
-#: atk/atkobject.c:182
+#: atk/atkobject.c:183
 msgid "heading"
 msgstr "ахы"
 
-#: atk/atkobject.c:183
+#: atk/atkobject.c:184
 msgid "page"
 msgstr "адаҟьа"
 
-#: atk/atkobject.c:184
+#: atk/atkobject.c:185
 msgid "section"
 msgstr "аҟәша"
 
-#: atk/atkobject.c:185
+#: atk/atkobject.c:186
 msgid "redundant object"
 msgstr "Имцхәу аобиект"
 
-#: atk/atkobject.c:186
+#: atk/atkobject.c:187
 msgid "form"
 msgstr "аформа"
 
-#: atk/atkobject.c:187
+#: atk/atkobject.c:188
 msgid "link"
 msgstr "азхьарԥш"
 
-#: atk/atkobject.c:188
+#: atk/atkobject.c:189
 msgid "input method window"
 msgstr "аҭагалара аметод аԥенџьыр"
 
-#: atk/atkobject.c:189
+#: atk/atkobject.c:190
 msgid "table row"
 msgstr "аҭаӡҩыра ацәаҳәа"
 
-#: atk/atkobject.c:190
+#: atk/atkobject.c:191
 msgid "tree item"
 msgstr "аҵла аелемент"
 
-#: atk/atkobject.c:191
+#: atk/atkobject.c:192
 msgid "document spreadsheet"
 msgstr "аелектронтә ҭаӡҩыра адокумент"
 
-#: atk/atkobject.c:192
+#: atk/atkobject.c:193
 msgid "document presentation"
 msgstr "апрезентациа адокумент"
 
-#: atk/atkobject.c:193
+#: atk/atkobject.c:194
 msgid "document text"
 msgstr "атексттә документ"
 
-#: atk/atkobject.c:194
+#: atk/atkobject.c:195
 msgid "document web"
 msgstr "веб-документ"
 
-#: atk/atkobject.c:195
+#: atk/atkobject.c:196
 msgid "document email"
 msgstr "аелектронтә цҳамҭа адокумент"
 
-#: atk/atkobject.c:196
+#: atk/atkobject.c:197
 msgid "comment"
 msgstr "ажәеилыркка"
 
-#: atk/atkobject.c:197
+#: atk/atkobject.c:198
 msgid "list box"
 msgstr "Ахьӡынҵатә еидкыла"
 
-#: atk/atkobject.c:198
+#: atk/atkobject.c:199
 msgid "grouping"
 msgstr "аидгәыԥлара"
 
-#: atk/atkobject.c:199
+#: atk/atkobject.c:200
 msgid "image map"
 msgstr "аԥшранҵа ахсаала"
 
-#: atk/atkobject.c:200
+#: atk/atkobject.c:201
 msgid "notification"
 msgstr "ардырра"
 
-#: atk/atkobject.c:201
+#: atk/atkobject.c:202
 msgid "info bar"
 msgstr "аинформациатә цәаҳәа"
 
-#: atk/atkobject.c:202
+#: atk/atkobject.c:203
 msgid "level bar"
 msgstr ""
 
-#: atk/atkobject.c:203
+#: atk/atkobject.c:204
 msgid "title bar"
 msgstr "Ахы апанель"
 
-#: atk/atkobject.c:204
+#: atk/atkobject.c:205
 msgid "block quote"
 msgstr ""
 
-#: atk/atkobject.c:205
+#: atk/atkobject.c:206
 msgid "audio"
 msgstr "абжьы"
 
-#: atk/atkobject.c:206
+#: atk/atkobject.c:207
 msgid "video"
 msgstr "Авидео"
 
-#: atk/atkobject.c:207
+#: atk/atkobject.c:208
 msgid "definition"
 msgstr "аилкаара"
 
-#: atk/atkobject.c:208
+#: atk/atkobject.c:209
 msgid "article"
 msgstr "астатиа"
 
-#: atk/atkobject.c:209
+#: atk/atkobject.c:210
 msgid "landmark"
 msgstr "азырхара"
 
-#: atk/atkobject.c:210
+#: atk/atkobject.c:211
 msgid "log"
 msgstr "ажурнал"
 
-#: atk/atkobject.c:211
+#: atk/atkobject.c:212
 msgid "marquee"
 msgstr "иҩуа ацәаҳәа"
 
-#: atk/atkobject.c:212
+#: atk/atkobject.c:213
 msgid "math"
 msgstr "аматиматикатә ҳәахьа"
 
-#: atk/atkobject.c:213
+#: atk/atkobject.c:214
 msgid "rating"
 msgstr "ахәшьара"
 
-#: atk/atkobject.c:214
+#: atk/atkobject.c:215
 msgid "timer"
 msgstr "аамҭарбага"
 
-#: atk/atkobject.c:215
+#: atk/atkobject.c:216
 msgid "description list"
 msgstr "ахцәажәарақәа рыхьӡынҵа"
 
-#: atk/atkobject.c:216
+#: atk/atkobject.c:217
 msgid "description term"
 msgstr "ахцәажәарақәа атерм"
 
-#: atk/atkobject.c:217
+#: atk/atkobject.c:218
 msgid "description value"
 msgstr "ахцәажәара аҵакы"
 
-#: atk/atkobject.c:393
+#: atk/atkobject.c:390
 msgid "Accessible Name"
 msgstr "Ирмариоу ахьӡ"
 
-#: atk/atkobject.c:394
+#: atk/atkobject.c:391
 msgid "Object instance’s name formatted for assistive technology access"
 msgstr ""
 
-#: atk/atkobject.c:400
+#: atk/atkobject.c:397
 msgid "Accessible Description"
 msgstr "Ирмариоу ахцәажәара"
 
-#: atk/atkobject.c:401
+#: atk/atkobject.c:398
 msgid "Description of an object, formatted for assistive technology access"
 msgstr ""
 
-#: atk/atkobject.c:407
+#: atk/atkobject.c:404
 msgid "Accessible Parent"
 msgstr "Изхылҵыз ирмарианы"
 
-#: atk/atkobject.c:408
+#: atk/atkobject.c:405
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr ""
 
-#: atk/atkobject.c:424
+#: atk/atkobject.c:421
 msgid "Accessible Value"
 msgstr "Ирмариоу аҵакы"
 
-#: atk/atkobject.c:425
+#: atk/atkobject.c:422
 msgid "Is used to notify that the value has changed"
 msgstr ""
 
-#: atk/atkobject.c:433
+#: atk/atkobject.c:430
 msgid "Accessible Role"
 msgstr "Ирмариоу ароль"
 
-#: atk/atkobject.c:434
+#: atk/atkobject.c:431
 msgid "The accessible role of this object"
 msgstr ""
 
-#: atk/atkobject.c:441
+#: atk/atkobject.c:438
 msgid "Accessible Layer"
 msgstr "Ирмариоу аҩаӡара"
 
-#: atk/atkobject.c:442
+#: atk/atkobject.c:439
 msgid "The accessible layer of this object"
 msgstr ""
 
-#: atk/atkobject.c:450
+#: atk/atkobject.c:447
 msgid "Accessible MDI Value"
 msgstr "MDI ирмариоу аҵакы"
 
-#: atk/atkobject.c:451
+#: atk/atkobject.c:448
 msgid "The accessible MDI value of this object"
 msgstr ""
 
-#: atk/atkobject.c:467
+#: atk/atkobject.c:464
 msgid "Accessible Table Caption"
 msgstr "Ирмариоу аҭаӡҩыра ахы"
 
-#: atk/atkobject.c:468
+#: atk/atkobject.c:465
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
 
-#: atk/atkobject.c:482
+#: atk/atkobject.c:479
 msgid "Accessible Table Column Header"
 msgstr "Аҭаӡҩыра аихагыла ирмариоу ахы"
 
-#: atk/atkobject.c:483
+#: atk/atkobject.c:480
 msgid "Is used to notify that the table column header has changed"
 msgstr ""
 
-#: atk/atkobject.c:498
+#: atk/atkobject.c:495
 msgid "Accessible Table Column Description"
 msgstr "Аҭаӡҩыра аиҵагыла ирмариоу ахцәажәара"
 
-#: atk/atkobject.c:499
+#: atk/atkobject.c:496
 msgid "Is used to notify that the table column description has changed"
 msgstr ""
 
-#: atk/atkobject.c:514
+#: atk/atkobject.c:511
 msgid "Accessible Table Row Header"
 msgstr "Аҭаӡҩыра ацәаҳәа имариоу ахы "
 
-#: atk/atkobject.c:515
+#: atk/atkobject.c:512
 msgid "Is used to notify that the table row header has changed"
 msgstr ""
 
-#: atk/atkobject.c:529
+#: atk/atkobject.c:526
 msgid "Accessible Table Row Description"
 msgstr "Аҭаӡҩыра аиҵагыла ирмариоу ахцәажәара"
 
-#: atk/atkobject.c:530
+#: atk/atkobject.c:527
 msgid "Is used to notify that the table row description has changed"
 msgstr ""
 
-#: atk/atkobject.c:536
+#: atk/atkobject.c:533
 msgid "Accessible Table Summary"
 msgstr ""
 
-#: atk/atkobject.c:537
+#: atk/atkobject.c:534
 msgid "Is used to notify that the table summary has changed"
 msgstr ""
 
-#: atk/atkobject.c:543
+#: atk/atkobject.c:540
 msgid "Accessible Table Caption Object"
 msgstr ""
 
-#: atk/atkobject.c:544
+#: atk/atkobject.c:541
 msgid "Is used to notify that the table caption has changed"
 msgstr ""
 
-#: atk/atkobject.c:550
+#: atk/atkobject.c:547
 msgid "Number of Accessible Hypertext Links"
 msgstr ""
 
-#: atk/atkobject.c:551
+#: atk/atkobject.c:548
 msgid "The number of links which the current AtkHypertext has"
 msgstr ""
 
@@ -644,7 +643,7 @@ msgstr ""
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:192
+#: atk/atkvalue.c:193
 msgid "very weak"
 msgstr "даара иҧсыҽны"
 
@@ -654,7 +653,7 @@ msgstr "даара иҧсыҽны"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:199
+#: atk/atkvalue.c:200
 msgid "weak"
 msgstr "иҧсыҽны"
 
@@ -664,7 +663,7 @@ msgstr "иҧсыҽны"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:206
+#: atk/atkvalue.c:207
 msgid "acceptable"
 msgstr "иудукыларатә иҟоу"
 
@@ -674,7 +673,7 @@ msgstr "иудукыларатә иҟоу"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:213
+#: atk/atkvalue.c:214
 msgid "strong"
 msgstr "уақәгәыӷыртә иҟоуп"
 
@@ -684,7 +683,7 @@ msgstr "уақәгәыӷыртә иҟоуп"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:220
+#: atk/atkvalue.c:221
 msgid "very strong"
 msgstr "даара уақәгәыӷыртә иҟоуп"
 
@@ -695,7 +694,7 @@ msgstr "даара уақәгәыӷыртә иҟоуп"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:228
+#: atk/atkvalue.c:229
 msgid "very low"
 msgstr "даара илаҟәуп"
 
@@ -706,7 +705,7 @@ msgstr "даара илаҟәуп"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:236
+#: atk/atkvalue.c:237
 msgid "medium"
 msgstr "Абжьаратә"
 
@@ -717,7 +716,7 @@ msgstr "Абжьаратә"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:244
+#: atk/atkvalue.c:245
 msgid "high"
 msgstr "иҳараку"
 
@@ -728,7 +727,7 @@ msgstr "иҳараку"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:252
+#: atk/atkvalue.c:253
 msgid "very high"
 msgstr "даара иҳараку"
 
@@ -739,7 +738,7 @@ msgstr "даара иҳараку"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:260
+#: atk/atkvalue.c:261
 msgid "very bad"
 msgstr "даара ихәарҭам"
 
@@ -750,7 +749,7 @@ msgstr "даара ихәарҭам"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:268
+#: atk/atkvalue.c:269
 msgid "bad"
 msgstr "ихәарҭам"
 
@@ -761,7 +760,7 @@ msgstr "ихәарҭам"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:276
+#: atk/atkvalue.c:277
 msgid "good"
 msgstr "ибзиоуп"
 
@@ -772,7 +771,7 @@ msgstr "ибзиоуп"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:284
+#: atk/atkvalue.c:285
 msgid "very good"
 msgstr "даара ибзиоуп"
 
@@ -783,13 +782,4114 @@ msgstr "даара ибзиоуп"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:292
+#: atk/atkvalue.c:293
 msgid "best"
 msgstr "иреиӷьӡоу"
 
-#: atspi/atspi-component.c:348 atspi/atspi-misc.c:1074 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1077 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "Аԥшьы уаҳа ыҟаӡам"
 
 msgid "Attempted synchronous call where prohibited"
 msgstr "Синхронтәу асра аҟаҵара азин ыҟаӡам"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#, fuzzy
