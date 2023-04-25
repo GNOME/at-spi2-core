@@ -97,10 +97,10 @@ GHashTable *atspi_text_get_text_attributes (AtspiText *obj, gint offset, gint *s
 GHashTable *atspi_text_get_attribute_run (AtspiText *obj, gint offset, gboolean include_defaults, gint *start_offset, gint *end_offset, GError **error);
 
 #ifndef ATSPI_DISABLE_DEPRECATED
-gchar *atspi_text_get_attribute_value (AtspiText *obj, gint offset, gchar *attribute_name, GError **error);
+gchar *atspi_text_get_attribute_value (AtspiText *obj, gint offset, const gchar *attribute_name, GError **error);
 #endif
 
-gchar *atspi_text_get_text_attribute_value (AtspiText *obj, gint offset, gchar *attribute_name, GError **error);
+gchar *atspi_text_get_text_attribute_value (AtspiText *obj, gint offset, const gchar *attribute_name, GError **error);
 
 GHashTable *atspi_text_get_default_attributes (AtspiText *obj, GError **error);
 
