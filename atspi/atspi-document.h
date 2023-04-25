@@ -48,10 +48,10 @@ struct _AtspiDocument
 gchar *atspi_document_get_locale (AtspiDocument *obj, GError **error);
 
 #ifndef ATSPI_DISABLE_DEPRECATED
-gchar *atspi_document_get_attribute_value (AtspiDocument *obj, gchar *attribute, GError **error);
+gchar *atspi_document_get_attribute_value (AtspiDocument *obj, const gchar *attribute, GError **error);
 #endif
 
-gchar *atspi_document_get_document_attribute_value (AtspiDocument *obj, gchar *attribute, GError **error);
+gchar *atspi_document_get_document_attribute_value (AtspiDocument *obj, const gchar *attribute, GError **error);
 
 #ifndef ATSPI_DISABLE_DEPRECATED
 GHashTable *atspi_document_get_attributes (AtspiDocument *obj, GError **error);

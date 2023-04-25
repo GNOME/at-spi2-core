@@ -58,7 +58,7 @@ atspi_document_get_locale (AtspiDocument *obj, GError **error)
  **/
 gchar *
 atspi_document_get_attribute_value (AtspiDocument *obj,
-                                    gchar *attribute,
+                                    const gchar *attribute,
                                     GError **error)
 {
   return atspi_document_get_document_attribute_value (obj, attribute, error);
@@ -76,7 +76,7 @@ atspi_document_get_attribute_value (AtspiDocument *obj,
  **/
 gchar *
 atspi_document_get_document_attribute_value (AtspiDocument *obj,
-                                             gchar *attribute,
+                                             const gchar *attribute,
                                              GError **error)
 {
   gchar *retval = NULL;
