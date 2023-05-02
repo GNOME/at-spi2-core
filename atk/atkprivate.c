@@ -63,10 +63,10 @@ get_atk_locale_dir (void)
       const gchar *p;
       gchar *root, *temp;
 
-      /* ATK_LOCALEDIR might end in either /lib/locale or
+      /* ATSPI_LOCALEDIR might end in either /lib/locale or
        * /share/locale. Scan for that slash.
        */
-      p = ATK_LOCALEDIR + strlen (ATK_LOCALEDIR);
+      p = ATSPI_LOCALEDIR + strlen (ATSPI_LOCALEDIR);
       while (*--p != '/')
         ;
       while (*--p != '/')
@@ -85,9 +85,9 @@ get_atk_locale_dir (void)
   return atk_localedir;
 }
 
-#undef ATK_LOCALEDIR
+#undef ATSPI_LOCALEDIR
 
-#define ATK_LOCALEDIR get_atk_locale_dir ()
+#define ATSPI_LOCALEDIR get_atk_locale_dir ()
 
 #endif
 
@@ -103,7 +103,7 @@ _gettext_initialization (void)
 
       gettext_initialized = TRUE;
       if (dir == NULL)
-        dir = ATK_LOCALEDIR;
+        dir = ATSPI_LOCALEDIR;
 
       bindtextdomain (GETTEXT_PACKAGE, dir);
 #ifdef HAVE_BIND_TEXTDOMAIN_CODESET

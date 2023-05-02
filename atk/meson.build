@@ -111,7 +111,6 @@ atk_cflags = [
   '-DGLIB_DISABLE_DEPRECATION_WARNINGS',
   '-DATK_DISABLE_DEPRECATION_WARNINGS',
   '-DATK_COMPILATION',
-  '-DATK_LOCALEDIR="@0@"'.format(join_paths(atspi_datadir, 'locale')),
 ]
 
 if host_system == 'windows'

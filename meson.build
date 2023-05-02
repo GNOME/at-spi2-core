@@ -119,6 +119,8 @@ else
   systemd_user_dir = join_paths(get_option('prefix'), 'lib/systemd/user')
 endif
 
+at_spi_conf.set_quoted('ATSPI_LOCALEDIR', join_paths(atspi_datadir, 'locale'))
+
 # Dependencies
 libdbus_req_version = '>= 1.5'
 glib_req_version = '>= 2.67.4'
