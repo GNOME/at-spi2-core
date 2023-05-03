@@ -729,7 +729,9 @@
 
         Gets a UTF-8 string corresponding to the name of the role played by an object.
         This method will return useful values for roles that fall outside the
-        enumeration used in the GetRole method.
+        enumeration used in the GetRole method. Implementing this method is
+        optional, and it may be removed in a future version of the API.
+        Libatspi will only call id in the event of an unknown role.
     -->
     <method name="GetRoleName">
       <arg direction="out" type="s"/>
@@ -741,7 +743,9 @@
         Gets a UTF-8 string corresponding to the name of the role played by an object, translated
         to the current locale.
         This method will return useful values for roles that fall outside the
-        enumeration used in the GetRole method.
+        enumeration used in the GetRole method. Implementing this method is
+        optional, and it may be removed in a future version of the API.
+        Libatspi will only call id in the event of an unknown role.
     -->
     <method name="GetLocalizedRoleName">
       <arg direction="out" type="s"/>

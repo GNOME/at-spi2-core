@@ -43,6 +43,143 @@
  * Miscellaneous methods for using AT-SPI services.
  */
 
+/* These are listed here for extraction by intltool */
+#if 0
+  N_("invalid")
+  N_("accelerator label")
+  N_("alert")
+  N_("animation")
+  N_("arrow")
+  N_("calendar")
+  N_("canvas")
+  N_("check box")
+  N_("check menu item")
+  N_("color chooser")
+  N_("column header")
+  N_("combo box")
+  N_("dateeditor")
+  N_("desktop icon")
+  N_("desktop frame")
+  N_("dial")
+  N_("dialog")
+  N_("directory pane")
+  N_("drawing area")
+  N_("file chooser")
+  N_("filler")
+  /* I know it looks wrong but that is what Java returns */
+  N_("fontchooser")
+  N_("frame")
+  N_("glass pane")
+  N_("html container")
+  N_("icon")
+  N_("image")
+  N_("internal frame")
+  N_("label")
+  N_("layered pane")
+  N_("list")
+  N_("list item")
+  N_("menu")
+  N_("menu bar")
+  N_("menu button")
+  N_("menu item")
+  N_("option pane")
+  N_("page tab")
+  N_("page tab list")
+  N_("panel")
+  N_("password text")
+  N_("popup menu")
+  N_("progress bar")
+  N_("push button")
+  N_("radio button")
+  N_("radio menu item")
+  N_("root pane")
+  N_("row header")
+  N_("scroll bar")
+  N_("scroll pane")
+  N_("separator")
+  N_("slider")
+  N_("split pane")
+  N_("spin button")
+  N_("statusbar")
+  N_("table")
+  N_("table cell")
+  N_("table column header")
+  N_("table row header")
+  N_("tear off menu item")
+  N_("terminal")
+  N_("text")
+  N_("toggle button")
+  N_("tool bar")
+  N_("tool tip")
+  N_("tree")
+  N_("tree table")
+  N_("unknown")
+  N_("viewport")
+  N_("window")
+  N_("header")
+  N_("footer")
+  N_("paragraph")
+  N_("ruler")
+  N_("application")
+  N_("autocomplete")
+  N_("edit bar")
+  N_("embedded component")
+  N_("entry")
+  N_("chart")
+  N_("caption")
+  N_("document frame")
+  N_("heading")
+  N_("page")
+  N_("section")
+  N_("redundant object")
+  N_("form")
+  N_("link")
+  N_("input method window")
+  N_("table row")
+  N_("tree item")
+  N_("document spreadsheet")
+  N_("document presentation")
+  N_("document text")
+  N_("document web")
+  N_("document email")
+  N_("comment")
+  N_("list box")
+  N_("grouping")
+  N_("image map")
+  N_("notification")
+  N_("info bar")
+  N_("level bar")
+  N_("title bar")
+  N_("block quote")
+  N_("audio")
+  N_("video")
+  N_("definition")
+  N_("article")
+  N_("landmark")
+  N_("log")
+  N_("marquee")
+  N_("math")
+  N_("rating")
+  N_("timer")
+  N_("description list")
+  N_("description term")
+  N_("description value")
+#endif /* 0 */
+
+static void
+_gettext_initialization (void)
+{
+  static gboolean gettext_initialized = FALSE;
+
+  if (!gettext_initialized)
+    {
+      gettext_initialized = TRUE;
+      setlocale (LC_ALL, "");
+      bindtextdomain (GETTEXT_PACKAGE, ATSPI_LOCALEDIR);
+      bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+    }
+}
+
 static void handle_get_items (DBusPendingCall *pending, void *user_data);
 
 static DBusConnection *bus = NULL;
@@ -1862,6 +1999,29 @@ atspi_role_get_name (AtspiRole role)
     return _atspi_name_compat (retval);
 
   return NULL;
+}
+
+/**
+ * atspi_role_get_localized_name:
+ * @role: an #AtspiRole object to query.
+ *
+ * Gets the localized description string describing the #AtspiRole @role.
+ *
+ * Returns: the localized string describing the AtspiRole
+ **/
+const gchar *
+atspi_role_get_localized_name (AtspiRole role)
+{
+  gchar *raw_name = NULL;
+  const gchar *ret;
+
+  _gettext_initialization ();
+
+  raw_name = atspi_role_get_name (role);
+  ret = dgettext (GETTEXT_PACKAGE, raw_name);
+  if (ret != raw_name)
+    g_free (raw_name);
+  return ret;
 }
 
 GHashTable *
