@@ -189,44 +189,15 @@ _atk_bridge_find_property_func (const char *property, GType *type)
 }
 
 static void
-add_property_to_event (event_data *evdata, const char *property)
-{
-  AtspiPropertyDefinition *prop = g_new0 (AtspiPropertyDefinition, 1);
-  prop->func = _atk_bridge_find_property_func (property, &prop->type);
-  if (!prop->func)
-    {
-      g_warning ("atk-bridge: Request for unknown property '%s'", property);
-      g_free (prop);
-      return;
-    }
-
-  prop->name = g_strdup (property);
-  evdata->properties = g_slist_append (evdata->properties, prop);
-}
-
-static void
 add_event_from_iter (DBusMessageIter *iter)
 {
   const char *bus_name, *event;
-  event_data *evdata;
 
   dbus_message_iter_get_basic (iter, &bus_name);
   dbus_message_iter_next (iter);
   dbus_message_iter_get_basic (iter, &event);
   dbus_message_iter_next (iter);
-  evdata = add_event (bus_name, event);
-  if (dbus_message_iter_get_arg_type (iter) == DBUS_TYPE_ARRAY)
-    {
-      DBusMessageIter iter_sub_array;
-      dbus_message_iter_recurse (iter, &iter_sub_array);
-      while (dbus_message_iter_get_arg_type (&iter_sub_array) != DBUS_TYPE_INVALID)
-        {
-          const char *property;
-          dbus_message_iter_get_basic (&iter_sub_array, &property);
-          add_property_to_event (evdata, property);
-          dbus_message_iter_next (&iter_sub_array);
-        }
-    }
+  add_event (bus_name, event);
 }
 
 static void
@@ -765,15 +736,6 @@ handle_event_listener_registered (DBusConnection *bus, DBusMessage *message, voi
 }
 
 static void
-free_property_definition (void *data)
-{
-  AtspiPropertyDefinition *pd = data;
-
-  g_free (pd->name);
-  g_free (pd);
-}
-
-static void
 remove_events (const char *bus_name, const char *event)
 {
   gchar **remove_data;
@@ -796,7 +758,6 @@ remove_events (const char *bus_name, const char *event)
 
           g_strfreev (evdata->data);
           g_free (evdata->bus_name);
-          g_slist_free_full (evdata->properties, free_property_definition);
           g_free (evdata);
 
           next = list->next;

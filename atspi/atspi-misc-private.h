@@ -157,8 +157,6 @@ GHashTable *_atspi_get_live_refs ();
 
 gchar *_atspi_name_compat (gchar *in);
 
-GHashTable *_atspi_dbus_update_cache_from_dict (AtspiAccessible *accessible, DBusMessageIter *iter);
-
 gboolean _atspi_prepare_screen_reader_interface ();
 
 gchar *_atspi_strdup_and_adjust_for_dbus (const char *s);

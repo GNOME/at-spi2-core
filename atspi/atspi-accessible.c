@@ -250,9 +250,6 @@ atspi_accessible_finalize (GObject *object)
   if (accessible->attributes)
     g_hash_table_unref (accessible->attributes);
 
-  if (accessible->priv->cache)
-    g_hash_table_destroy (accessible->priv->cache);
-
 #ifdef DEBUG_REF_COUNTS
   accessible_count--;
   g_hash_table_remove (_atspi_get_live_refs (), accessible);
@@ -747,13 +744,6 @@ atspi_accessible_get_attributes (AtspiAccessible *obj, GError **error)
 
   g_return_val_if_fail (obj != NULL, NULL);
 
-  if (obj->priv->cache)
-    {
-      GValue *val = g_hash_table_lookup (obj->priv->cache, "Attributes");
-      if (val)
-        return g_value_dup_boxed (val);
-    }
-
   if (!_atspi_accessible_test_cache (obj, ATSPI_CACHE_ATTRIBUTES))
     {
       message = _atspi_dbus_call_partial (obj, atspi_interface_accessible,
@@ -767,14 +757,6 @@ atspi_accessible_get_attributes (AtspiAccessible *obj, GError **error)
   if (!obj->attributes)
     return NULL;
   return g_hash_table_ref (obj->attributes);
-}
-
-static void
-add_to_attribute_array (gpointer key, gpointer value, gpointer data)
-{
-  GArray **array = (GArray **) data;
-  gchar *str = g_strconcat (key, ":", value, NULL);
-  *array = g_array_append_val (*array, str);
 }
 
 /**
@@ -795,18 +777,6 @@ atspi_accessible_get_attributes_as_array (AtspiAccessible *obj, GError **error)
   DBusMessage *message;
 
   g_return_val_if_fail (obj != NULL, NULL);
-
-  if (obj->priv->cache)
-    {
-      GValue *val = g_hash_table_lookup (obj->priv->cache, "Attributes");
-      if (val)
-        {
-          GArray *array = g_array_new (TRUE, TRUE, sizeof (gchar *));
-          GHashTable *attributes = g_value_get_boxed (val);
-          g_hash_table_foreach (attributes, add_to_attribute_array, &array);
-          return array;
-        }
-    }
 
   message = _atspi_dbus_call_partial (obj, atspi_interface_accessible, "GetAttributes", error, "");
   return _atspi_dbus_return_attribute_array_from_message (message);
@@ -1929,28 +1899,3 @@ free_value (gpointer data)
   g_free (value);
 }
 
-GHashTable *
-_atspi_accessible_ref_cache (AtspiAccessible *accessible)
-{
-  AtspiAccessiblePrivate *priv = accessible->priv;
-
-  priv->cache_ref_count++;
-  if (priv->cache)
-    return g_hash_table_ref (priv->cache);
-  priv->cache = g_hash_table_new_full (g_str_hash, g_str_equal, g_free,
-                                       free_value);
-  return priv->cache;
-}
-
-void
-_atspi_accessible_unref_cache (AtspiAccessible *accessible)
-{
-  AtspiAccessiblePrivate *priv = accessible->priv;
-
-  if (priv->cache)
-    {
-      g_hash_table_unref (priv->cache);
-      if (--priv->cache_ref_count == 0)
-        priv->cache = NULL;
-    }
-}

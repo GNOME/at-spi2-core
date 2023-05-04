@@ -35,16 +35,8 @@ G_BEGIN_DECLS
 
 struct _AtspiAccessiblePrivate
 {
-  GHashTable *cache;
-  guint cache_ref_count;
   guint iteration_stamp;
 };
-
-GHashTable *
-_atspi_accessible_ref_cache (AtspiAccessible *accessible);
-
-void
-_atspi_accessible_unref_cache (AtspiAccessible *accessible);
 G_END_DECLS
 
 #endif /* _ATSPI_ACCESSIBLE_H_ */

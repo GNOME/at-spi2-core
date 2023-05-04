@@ -33,20 +33,11 @@ typedef struct _SpiBridgeClass SpiBridgeClass;
 
 G_BEGIN_DECLS
 
-typedef struct _AtspiPropertyDefinition AtspiPropertyDefinition;
-struct _AtspiPropertyDefinition
-{
-  char *name;
-  GType type;
-  DRoutePropertyFunction func;
-};
-
 typedef struct _event_data event_data;
 struct _event_data
 {
   gchar *bus_name;
   gchar **data;
-  GSList *properties;
 };
 
 struct _SpiBridge

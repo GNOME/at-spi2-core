@@ -407,36 +407,13 @@ ensure_proper_format (const char *name)
   return ret;
 }
 
-void
-append_properties (GArray *properties, event_data *evdata)
-{
-  GSList *ls;
-  gint i;
-
-  for (ls = evdata->properties; ls; ls = ls->next)
-    {
-      gboolean dup = FALSE;
-      for (i = 0; i < properties->len; i++)
-        {
-          if (ls->data == g_array_index (properties, AtspiPropertyDefinition *, i))
-            {
-              dup = TRUE;
-              break;
-            }
-        }
-      if (!dup)
-        g_array_append_val (properties, ls->data);
-    }
-}
-
 static gboolean
-signal_is_needed (AtkObject *obj, const gchar *klass, const gchar *major, const gchar *minor, GArray **properties)
+signal_is_needed (AtkObject *obj, const gchar *klass, const gchar *major, const gchar *minor)
 {
   gchar *data[4];
   event_data *evdata;
   gboolean ret = FALSE;
   GList *list;
-  GArray *props = NULL;
 
   if (!spi_global_app_data->events_initialized)
     return TRUE;
@@ -476,18 +453,12 @@ signal_is_needed (AtkObject *obj, const gchar *klass, const gchar *major, const 
     {
       evdata = list->data;
       if (spi_event_is_subtype (data, evdata->data))
-        {
           ret = TRUE;
-          if (!props)
-            props = g_array_new (TRUE, TRUE, sizeof (AtspiPropertyDefinition *));
-          append_properties (props, evdata);
-        }
     }
 
   g_free (data[2]);
   g_free (data[1]);
   g_free (data[0]);
-  *properties = props;
   return ret;
 }
 
@@ -530,8 +501,7 @@ emit_event (AtkObject *obj,
 
   gchar *cname;
   DBusMessage *sig;
-  DBusMessageIter iter, iter_dict, iter_dict_entry;
-  GArray *properties = NULL;
+  DBusMessageIter iter, iter_dict;
 
   if (!klass)
     klass = "";
@@ -542,7 +512,7 @@ emit_event (AtkObject *obj,
   if (!type)
     type = "u";
 
-  if (!signal_is_needed (obj, klass, major, minor, &properties))
+  if (!signal_is_needed (obj, klass, major, minor))
     return;
 
   path = spi_register_object_to_path (spi_global_register, G_OBJECT (obj));
@@ -566,25 +536,6 @@ emit_event (AtkObject *obj,
   append_variant (&iter, type, val);
 
   dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "{sv}", &iter_dict);
-  /* Add requested properties, unless the object is being marked defunct, in
-     which case it's safest not to touch it */
-  if (minor == NULL || strcmp (minor, "defunct") != 0 || detail1 == 0)
-    {
-      if (properties)
-        {
-          gint i;
-          for (i = 0; i < properties->len; i++)
-            {
-              AtspiPropertyDefinition *prop = g_array_index (properties, AtspiPropertyDefinition *, i);
-              dbus_message_iter_open_container (&iter_dict, DBUS_TYPE_DICT_ENTRY, NULL,
-                                                &iter_dict_entry);
-              dbus_message_iter_append_basic (&iter_dict_entry, DBUS_TYPE_STRING, &prop->name);
-              prop->func (&iter_dict_entry, obj);
-              dbus_message_iter_close_container (&iter_dict, &iter_dict_entry);
-            }
-          g_array_free (properties, TRUE);
-        }
-    }
   dbus_message_iter_close_container (&iter, &iter_dict);
 
   dbus_connection_send (bus, sig, NULL);

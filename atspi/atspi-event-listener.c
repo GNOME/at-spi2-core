@@ -1197,12 +1197,6 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message)
   g_assert (e.source != NULL);
 
   dbus_message_iter_next (&iter);
-  if (dbus_message_iter_get_arg_type (&iter) == DBUS_TYPE_ARRAY)
-    {
-      /* new form -- parse properties sent with event */
-      cache = _atspi_dbus_update_cache_from_dict (e.source, &iter);
-    }
-
   e.sender = _atspi_ref_accessible (sender, ATSPI_DBUS_PATH_ROOT);
 
   if (!strncmp (e.type, "object:children-changed", 23))
@@ -1224,9 +1218,6 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message)
     }
 
   _atspi_send_event (&e);
-
-  if (cache)
-    _atspi_accessible_unref_cache (e.source);
 
   g_free (converted_type);
   g_free (name);
