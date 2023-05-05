@@ -210,24 +210,24 @@ atk_test_state_set_remove (TestAppFixture *fixture, gconstpointer user_data)
 void
 atk_test_state_set (void)
 {
-  g_test_add (ATK_TEST_PATH_STATE_SET "/atk_test_accessible_get_state_set",
+  g_test_add ("/state_set/atk_test_accessible_get_state_set",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_state_set, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_STATE_SET "/atk_test_state_set_new",
+  g_test_add ("/state_set/atk_test_state_set_new",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_state_set_new, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_STATE_SET "/atk_test_state_set_set_by_name",
+  g_test_add ("/state_set/atk_test_state_set_set_by_name",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_state_set_set_by_name, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_STATE_SET "/atk_test_state_set_add",
+  g_test_add ("/state_set/atk_test_state_set_add",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_state_set_add, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_STATE_SET "/atk_test_state_set_compare",
+  g_test_add ("/state_set/atk_test_state_set_compare",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_state_set_compare, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_STATE_SET "/atk_test_state_set_contains",
+  g_test_add ("/state_set/atk_test_state_set_contains",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_state_set_contains, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_STATE_SET "/atk_test_state_set_equals",
+  g_test_add ("/state_set/atk_test_state_set_equals",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_state_set_equals, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_STATE_SET "/atk_test_state_set_get_states",
+  g_test_add ("/state_set/atk_test_state_set_get_states",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_state_set_get_states, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_STATE_SET "/atk_test_state_set_is_empty",
+  g_test_add ("/state_set/atk_test_state_set_is_empty",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_state_set_is_empty, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_STATE_SET "/atk_test_state_set_remove",
+  g_test_add ("/state_set/atk_test_state_set_remove",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_state_set_remove, fixture_teardown);
 }

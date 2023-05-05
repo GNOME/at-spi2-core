@@ -169,22 +169,22 @@ atk_test_selection_clear_selection (TestAppFixture *fixture, gconstpointer user_
 void
 atk_test_selection (void)
 {
-  g_test_add (ATK_TEST_PATH_SELECTION "/atk_test_selection_sample_get_interface",
+  g_test_add ("/selection/atk_test_selection_sample_get_interface",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_selection_sample_get_interface, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_SELECTION "/atk_test_selection_get_n_selected_children",
+  g_test_add ("/selection/atk_test_selection_get_n_selected_children",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_selection_get_n_selected_children, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_SELECTION "/atk_test_selection_get_selected_child",
+  g_test_add ("/selection/atk_test_selection_get_selected_child",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_selection_get_selected_child, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_SELECTION "/atk_test_selection_select_child",
+  g_test_add ("/selection/atk_test_selection_select_child",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_selection_select_child, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_SELECTION "/atk_test_selection_deselect_selected",
+  g_test_add ("/selection/atk_test_selection_deselect_selected",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_selection_deselect_selected, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_SELECTION "/atk_test_selection_deselect_child",
+  g_test_add ("/selection/atk_test_selection_deselect_child",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_selection_deselect_child, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_SELECTION "/atk_test_selection_is_child_selected",
+  g_test_add ("/selection/atk_test_selection_is_child_selected",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_selection_is_child_selected, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_SELECTION "/atk_test_selection_select_all",
+  g_test_add ("/selection/atk_test_selection_select_all",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_selection_select_all, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_SELECTION "/atk_test_selection_clear_selection",
+  g_test_add ("/selection/atk_test_selection_clear_selection",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_selection_clear_selection, fixture_teardown);
 }

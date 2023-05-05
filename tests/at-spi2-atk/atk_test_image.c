@@ -107,16 +107,16 @@ atk_test_image_get_image_locale (TestAppFixture *fixture, gconstpointer user_dat
 void
 atk_test_image (void)
 {
-  g_test_add (ATK_TEST_PATH_IMAGE "/atk_test_image_sample_get_interface",
+  g_test_add ("/image/atk_test_image_sample_get_interface",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_image_sample_get_interface, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_IMAGE "/atk_test_image_get_image_description",
+  g_test_add ("/image/atk_test_image_get_image_description",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_image_get_image_description, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_IMAGE "/atk_test_image_get_image_size",
+  g_test_add ("/image/atk_test_image_get_image_size",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_image_get_image_size, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_IMAGE "/atk_test_image_get_image_position",
+  g_test_add ("/image/atk_test_image_get_image_position",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_image_get_image_position, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_IMAGE "/atk_test_image_get_image_extents",
+  g_test_add ("/image/atk_test_image_get_image_extents",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_image_get_image_extents, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_IMAGE "/atk_test_image_get_image_locale",
+  g_test_add ("/image/atk_test_image_get_image_locale",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_image_get_image_locale, fixture_teardown);
 }

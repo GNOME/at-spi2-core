@@ -416,56 +416,56 @@ atk_test_table_is_selected (TestAppFixture *fixture, gconstpointer user_data)
 void
 atk_test_table (void)
 {
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_caption",
+  g_test_add ("/table/atk_test_table_get_caption",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_caption, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_summary",
+  g_test_add ("/table/atk_test_table_get_summary",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_summary, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_n_columns",
+  g_test_add ("/table/atk_test_table_get_n_columns",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_n_columns, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_n_rows",
+  g_test_add ("/table/atk_test_table_get_n_rows",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_n_rows, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_accessible_at",
+  g_test_add ("/table/atk_test_table_get_accessible_at",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_accessible_at, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_index_at",
+  g_test_add ("/table/atk_test_table_get_index_at",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_index_at, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_at_index",
+  g_test_add ("/table/atk_test_table_get_row_at_index",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_row_at_index, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_column_at_index",
+  g_test_add ("/table/atk_test_table_get_column_at_index",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_column_at_index, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_description",
+  g_test_add ("/table/atk_test_table_get_row_description",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_row_description, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_column_description",
+  g_test_add ("/table/atk_test_table_get_column_description",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_column_description, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_extent_at",
+  g_test_add ("/table/atk_test_table_get_row_extent_at",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_row_extent_at, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_column_extent_at",
+  g_test_add ("/table/atk_test_table_get_column_extent_at",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_column_extent_at, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_header",
+  g_test_add ("/table/atk_test_table_get_row_header",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_row_header, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_column_header",
+  g_test_add ("/table/atk_test_table_get_column_header",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_column_header, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_n_selected_rows",
+  g_test_add ("/table/atk_test_table_get_n_selected_rows",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_n_selected_rows, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_selected_rows",
+  g_test_add ("/table/atk_test_table_get_selected_rows",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_selected_rows, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_selected_columns",
+  g_test_add ("/table/atk_test_table_get_selected_columns",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_selected_columns, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_n_selected_columns",
+  g_test_add ("/table/atk_test_table_get_n_selected_columns",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_n_selected_columns, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_is_row_selected",
+  g_test_add ("/table/atk_test_table_is_row_selected",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_is_row_selected, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_is_column_selected",
+  g_test_add ("/table/atk_test_table_is_column_selected",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_is_column_selected, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_add_row_selection",
+  g_test_add ("/table/atk_test_table_add_row_selection",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_add_row_selection, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_add_column_selection",
+  g_test_add ("/table/atk_test_table_add_column_selection",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_add_column_selection, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_remove_row_selection",
+  g_test_add ("/table/atk_test_table_remove_row_selection",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_remove_row_selection, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_remove_column_selection",
+  g_test_add ("/table/atk_test_table_remove_column_selection",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_remove_column_selection, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_get_row_column_extents_at_index",
+  g_test_add ("/table/atk_test_table_get_row_column_extents_at_index",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_get_row_column_extents_at_index, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE "/atk_test_table_is_selected",
+  g_test_add ("/table/atk_test_table_is_selected",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_is_selected, fixture_teardown);
 }

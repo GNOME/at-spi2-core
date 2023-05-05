@@ -181,24 +181,24 @@ atk_test_table_cell_get_table (TestAppFixture *fixture, gconstpointer user_data)
 void
 atk_test_table_cell (void)
 {
-  g_test_add (ATK_TEST_PATH_TABLE_CELL "/atk_test_accessible_get_table_cell",
+  g_test_add ("/table_cell/atk_test_accessible_get_table_cell",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_table_cell, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE_CELL "/atk_test_table_cell_get_column_span",
+  g_test_add ("/table_cell/atk_test_table_cell_get_column_span",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_cell_get_column_span, fixture_teardown);
   /*
-    g_test_add (ATK_TEST_PATH_TABLE_CELL "/atk_test_table_cell_get_column_header_cells",
+    g_test_add ("/table_cell/atk_test_table_cell_get_column_header_cells",
                 TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_cell_get_column_header_cells, fixture_teardown);
   */
-  g_test_add (ATK_TEST_PATH_TABLE_CELL "/atk_test_table_cell_get_row_span",
+  g_test_add ("/table_cell/atk_test_table_cell_get_row_span",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_cell_get_row_span, fixture_teardown);
   /*
-    g_test_add (ATK_TEST_PATH_TABLE_CELL "/atk_test_table_cell_get_row_header_cells",
+    g_test_add ("/table_cell/atk_test_table_cell_get_row_header_cells",
                 TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_cell_get_row_header_cells, fixture_teardown);
   */
-  g_test_add (ATK_TEST_PATH_TABLE_CELL "/atk_test_table_cell_get_row_column_span",
+  g_test_add ("/table_cell/atk_test_table_cell_get_row_column_span",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_cell_get_row_column_span, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE_CELL "/atk_test_table_cell_get_position",
+  g_test_add ("/table_cell/atk_test_table_cell_get_position",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_cell_get_position, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TABLE_CELL "/atk_test_table_cell_get_table",
+  g_test_add ("/table_cell/atk_test_table_cell_get_table",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_table_cell_get_table, fixture_teardown);
 }

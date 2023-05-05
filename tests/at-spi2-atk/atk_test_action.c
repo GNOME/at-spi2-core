@@ -97,18 +97,18 @@ atk_test_action_do_action (TestAppFixture *fixture, gconstpointer user_data)
 void
 atk_test_action (void)
 {
-  g_test_add (ATK_TEST_PATH_ACTION "/atk_test_action_sample_get_interface",
+  g_test_add ("/action/atk_test_action_sample_get_interface",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_action_sample_get_interface, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACTION "/atk_test_action_get_action_description",
+  g_test_add ("/action/atk_test_action_get_action_description",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_action_get_action_description, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACTION "/atk_test_action_get_action_name",
+  g_test_add ("/action/atk_test_action_get_action_name",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_action_get_action_name, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACTION "/atk_test_action_get_n_actions",
+  g_test_add ("/action/atk_test_action_get_n_actions",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_action_get_n_actions, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACTION "/atk_test_action_get_key_binding",
+  g_test_add ("/action/atk_test_action_get_key_binding",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_action_get_key_binding, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACTION "/atk_test_action_get_localized_name",
+  g_test_add ("/action/atk_test_action_get_localized_name",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_action_get_localized_name, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACTION "/atk_test_action_do_action",
+  g_test_add ("/action/atk_test_action_do_action",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_action_do_action, fixture_teardown);
 }

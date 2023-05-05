@@ -103,20 +103,20 @@ atk_test_editable_text_paste_text (TestAppFixture *fixture, gconstpointer user_d
 void
 atk_test_editable_text (void)
 {
-  g_test_add (ATK_TEST_PATH_EDIT_TEXT "/atk_test_editable_text_get_editable_text_iface",
+  g_test_add ("/editable_text/atk_test_editable_text_get_editable_text_iface",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_editable_text_get_editable_text_iface, fixture_teardown);
 #if 0
-  g_test_add (ATK_TEST_PATH_EDIT_TEXT "/atk_test_editable_text_set_attributes",
+  g_test_add ("/editable_text/atk_test_editable_text_set_attributes",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_editable_text_set_attributes, fixture_teardown);
 #endif
-  g_test_add (ATK_TEST_PATH_EDIT_TEXT "/atk_test_editable_text_insert_text",
+  g_test_add ("/editable_text/atk_test_editable_text_insert_text",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_editable_text_insert_text, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_EDIT_TEXT "/atk_test_editable_text_copy_text",
+  g_test_add ("/editable_text/atk_test_editable_text_copy_text",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_editable_text_copy_text, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_EDIT_TEXT "/atk_test_editable_text_cut_text",
+  g_test_add ("/editable_text/atk_test_editable_text_cut_text",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_editable_text_cut_text, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_EDIT_TEXT "/atk_test_editable_text_delete_text",
+  g_test_add ("/editable_text/atk_test_editable_text_delete_text",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_editable_text_delete_text, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_EDIT_TEXT "/atk_test_editable_text_paste_text",
+  g_test_add ("/editable_text/atk_test_editable_text_paste_text",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_editable_text_paste_text, fixture_teardown);
 }

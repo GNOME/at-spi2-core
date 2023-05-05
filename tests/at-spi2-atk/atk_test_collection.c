@@ -149,12 +149,12 @@ atk_test_collection_get_matches_from (TestAppFixture *fixture, gconstpointer use
 void
 atk_test_collection (void)
 {
-  g_test_add (ATK_TEST_PATH_COLLECTION "/atk_test_collection_get_collection_iface",
+  g_test_add ("/collection/atk_test_collection_get_collection_iface",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_collection_get_collection_iface, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_COLLECTION "/atk_test_collection_get_matches",
+  g_test_add ("/collection/atk_test_collection_get_matches",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_collection_get_matches, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_COLLECTION "/atk_test_collection_get_matches_to",
+  g_test_add ("/collection/atk_test_collection_get_matches_to",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_collection_get_matches_to, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_COLLECTION "/atk_test_collection_get_matches_from",
+  g_test_add ("/collection/atk_test_collection_get_matches_from",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_collection_get_matches_from, fixture_teardown);
 }

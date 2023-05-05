@@ -434,44 +434,44 @@ atk_test_text_get_bounded_ranges (TestAppFixture *fixture, gconstpointer user_da
 void
 atk_test_text (void)
 {
-  g_test_add (ATK_TEST_PATH_TEXT "/atk_test_text_get_character_count",
+  g_test_add ("/text/atk_test_text_get_character_count",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_text_get_character_count, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TEXT "/atk_test_text_get_text",
+  g_test_add ("/text/atk_test_text_get_text",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_text_get_text, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TEXT "/atk_test_text_get_caret_offset",
+  g_test_add ("/text/atk_test_text_get_caret_offset",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_text_get_caret_offset, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TEXT "/atk_test_text_get_text_attributes",
+  g_test_add ("/text/atk_test_text_get_text_attributes",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_text_get_text_attributes, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TEXT "/atk_test_text_get_attribute_run",
+  g_test_add ("/text/atk_test_text_get_attribute_run",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_text_get_attribute_run, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TEXT "/atk_test_text_get_text_attribute_value",
+  g_test_add ("/text/atk_test_text_get_text_attribute_value",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_text_get_text_attribute_value, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TEXT "/atk_test_text_get_default_attributes",
+  g_test_add ("/text/atk_test_text_get_default_attributes",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_text_get_default_attributes, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TEXT "/atk_test_text_set_caret_offset",
+  g_test_add ("/text/atk_test_text_set_caret_offset",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_text_set_caret_offset, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TEXT "/atk_test_text_get_string_at_offset_s1",
+  g_test_add ("/text/atk_test_text_get_string_at_offset_s1",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_text_get_string_at_offset_s1, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TEXT "/atk_test_text_get_string_at_offset_s2",
+  g_test_add ("/text/atk_test_text_get_string_at_offset_s2",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_text_get_string_at_offset_s2, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TEXT "/atk_test_text_get_character_at_offset",
+  g_test_add ("/text/atk_test_text_get_character_at_offset",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_text_get_character_at_offset, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TEXT "/atk_test_text_get_character_extents",
+  g_test_add ("/text/atk_test_text_get_character_extents",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_text_get_character_extents, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TEXT "/atk_test_text_get_offset_at_point",
+  g_test_add ("/text/atk_test_text_get_offset_at_point",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_text_get_offset_at_point, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TEXT "/atk_test_text_get_range_extents",
+  g_test_add ("/text/atk_test_text_get_range_extents",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_text_get_range_extents, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TEXT "/atk_test_text_get_bounded_ranges",
+  g_test_add ("/text/atk_test_text_get_bounded_ranges",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_text_get_bounded_ranges, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TEXT "/atk_test_text_get_n_selections",
+  g_test_add ("/text/atk_test_text_get_n_selections",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_text_get_n_selections, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TEXT "/atk_test_text_get_selection",
+  g_test_add ("/text/atk_test_text_get_selection",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_text_get_selection, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TEXT "/atk_test_text_add_selection",
+  g_test_add ("/text/atk_test_text_add_selection",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_text_add_selection, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TEXT "/atk_test_text_remove_selection",
+  g_test_add ("/text/atk_test_text_remove_selection",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_text_remove_selection, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_TEXT "/atk_test_text_set_selection",
+  g_test_add ("/text/atk_test_text_set_selection",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_text_set_selection, fixture_teardown);
 }

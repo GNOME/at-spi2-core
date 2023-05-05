@@ -142,18 +142,18 @@ atk_test_hyperlink_is_valid (TestAppFixture *fixture, gconstpointer user_data)
 void
 atk_test_hyperlink (void)
 {
-  g_test_add (ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_n_anchors",
+  g_test_add ("/hyperlink/atk_test_hyperlink_get_n_anchors",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_hyperlink_get_n_anchors, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_uri",
+  g_test_add ("/hyperlink/atk_test_hyperlink_get_uri",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_hyperlink_get_uri, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_object",
+  g_test_add ("/hyperlink/atk_test_hyperlink_get_object",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_hyperlink_get_object, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_index_range",
+  g_test_add ("/hyperlink/atk_test_hyperlink_get_index_range",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_hyperlink_get_index_range, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_start_index",
+  g_test_add ("/hyperlink/atk_test_hyperlink_get_start_index",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_hyperlink_get_start_index, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_get_end_index",
+  g_test_add ("/hyperlink/atk_test_hyperlink_get_end_index",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_hyperlink_get_end_index, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_HYPERTEXT "/atk_test_hyperlink_is_valid",
+  g_test_add ("/hyperlink/atk_test_hyperlink_is_valid",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_hyperlink_is_valid, fixture_teardown);
 }

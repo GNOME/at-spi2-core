@@ -80,10 +80,10 @@ atk_test_hypertext_get_link_index (TestAppFixture *fixture, gconstpointer user_d
 void
 atk_test_hypertext (void)
 {
-  g_test_add (ATK_TEST_PATH_HYPERTEXT "/atk_test_hypertext_get_n_links",
+  g_test_add ("/hypertext/atk_test_hypertext_get_n_links",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_hypertext_get_n_links, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_HYPERTEXT "/atk_test_hypertext_get_links",
+  g_test_add ("/hypertext/atk_test_hypertext_get_links",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_hypertext_get_link, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_HYPERTEXT "/atk_test_hypertext_get_link_index",
+  g_test_add ("/hypertext/atk_test_hypertext_get_link_index",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_hypertext_get_link_index, fixture_teardown);
 }

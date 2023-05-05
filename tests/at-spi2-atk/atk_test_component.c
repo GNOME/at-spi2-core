@@ -156,22 +156,22 @@ atk_test_component_set_extents (TestAppFixture *fixture, gconstpointer user_data
 void
 atk_test_component (void)
 {
-  g_test_add (ATK_TEST_PATH_COMP "/atk_test_component_sample",
+  g_test_add ("/component/atk_test_component_sample",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_component_sample, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_COMP "/atk_test_component_contains",
+  g_test_add ("/component/atk_test_component_contains",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_component_contains, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_COMP "/atk_test_component_get_accessible_at_point",
+  g_test_add ("/component/atk_test_component_get_accessible_at_point",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_component_get_accessible_at_point, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_COMP "/atk_test_component_get_extents",
+  g_test_add ("/component/atk_test_component_get_extents",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_component_get_extents, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_COMP "/atk_test_component_get_layer",
+  g_test_add ("/component/atk_test_component_get_layer",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_component_get_layer, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_COMP "/atk_test_component_get_mdi_z_order",
+  g_test_add ("/component/atk_test_component_get_mdi_z_order",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_component_get_mdi_z_order, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_COMP "/atk_test_component_grab_focus",
+  g_test_add ("/component/atk_test_component_grab_focus",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_component_grab_focus, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_COMP "/atk_test_component_get_alpha",
+  g_test_add ("/component/atk_test_component_get_alpha",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_component_get_alpha, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_COMP "/atk_test_component_set_extents",
+  g_test_add ("/component/atk_test_component_set_extents",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_component_set_extents, fixture_teardown);
 }

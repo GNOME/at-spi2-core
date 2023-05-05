@@ -111,18 +111,18 @@ atk_test_value_get_text (TestAppFixture *fixture, gconstpointer user_data)
 void
 atk_test_value (void)
 {
-  g_test_add (ATK_TEST_PATH_VALUE "/atk_test_value_get_value_iface",
+  g_test_add ("/value/atk_test_value_get_value_iface",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_value_get_value_iface, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_VALUE "/atk_test_value_get_minimum_value",
+  g_test_add ("/value/atk_test_value_get_minimum_value",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_value_get_minimum_value, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_VALUE "/atk_test_value_get_current_value",
+  g_test_add ("/value/atk_test_value_get_current_value",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_value_get_current_value, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_VALUE "/atk_test_value_get_maximum_value",
+  g_test_add ("/value/atk_test_value_get_maximum_value",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_value_get_maximum_value, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_VALUE "/atk_test_value_set_current_value",
+  g_test_add ("/value/atk_test_value_set_current_value",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_value_set_current_value, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_VALUE "/atk_test_value_get_minimum_increment",
+  g_test_add ("/value/atk_test_value_get_minimum_increment",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_value_get_minimum_increment, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_VALUE "/atk_test_value_get_text",
+  g_test_add ("/value/atk_test_value_get_text",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_value_get_text, fixture_teardown);
 }

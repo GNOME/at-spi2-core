@@ -381,74 +381,74 @@ atk_test_accessible_get_process_id (TestAppFixture *fixture, gconstpointer user_
 void
 atk_test_accessible (void)
 {
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_name",
+  g_test_add ("/accessible/atk_test_accessible_get_name",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_name, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_description",
+  g_test_add ("/accessible/atk_test_accessible_get_description",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_description, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_child_count",
+  g_test_add ("/accessible/atk_test_accessible_get_child_count",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_child_count, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_parent",
+  g_test_add ("/accessible/atk_test_accessible_get_parent",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_parent, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_child_at_index",
+  g_test_add ("/accessible/atk_test_accessible_get_child_at_index",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_child_at_index, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_index_in_parent",
+  g_test_add ("/accessible/atk_test_accessible_get_index_in_parent",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_index_in_parent, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_relation_set_1",
+  g_test_add ("/accessible/atk_test_accessible_get_relation_set_1",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_relation_set_1, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_relation_set_2",
+  g_test_add ("/accessible/atk_test_accessible_get_relation_set_2",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_relation_set_2, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_role",
+  g_test_add ("/accessible/atk_test_accessible_get_role",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_role, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_role_name",
+  g_test_add ("/accessible/atk_test_accessible_get_role_name",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_role_name, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_localized_role_name",
+  g_test_add ("/accessible/atk_test_accessible_get_localized_role_name",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_localized_role_name, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_state_set",
+  g_test_add ("/accessible/atk_test_accessible_get_state_set",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_state_set, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_attributes",
+  g_test_add ("/accessible/atk_test_accessible_get_attributes",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_attributes, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_attributes_as_array",
+  g_test_add ("/accessible/atk_test_accessible_get_attributes_as_array",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_attributes_as_array, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_toolkit_name",
+  g_test_add ("/accessible/atk_test_accessible_get_toolkit_name",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_toolkit_name, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_toolkit_version",
+  g_test_add ("/accessible/atk_test_accessible_get_toolkit_version",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_toolkit_version, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_atspi_version",
+  g_test_add ("/accessible/atk_test_accessible_get_atspi_version",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_atspi_version, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_id",
+  g_test_add ("/accessible/atk_test_accessible_get_id",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_id, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_application",
+  g_test_add ("/accessible/atk_test_accessible_get_application",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_application, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_action_iface",
+  g_test_add ("/accessible/atk_test_accessible_get_action_iface",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_action_iface, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_collection_iface",
+  g_test_add ("/accessible/atk_test_accessible_get_collection_iface",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_collection_iface, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_component_iface",
+  g_test_add ("/accessible/atk_test_accessible_get_component_iface",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_component_iface, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_document_iface",
+  g_test_add ("/accessible/atk_test_accessible_get_document_iface",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_document_iface, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_editable_text_iface",
+  g_test_add ("/accessible/atk_test_accessible_get_editable_text_iface",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_editable_text_iface, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_hypertext_iface",
+  g_test_add ("/accessible/atk_test_accessible_get_hypertext_iface",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_hypertext_iface, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_image_iface",
+  g_test_add ("/accessible/atk_test_accessible_get_image_iface",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_image_iface, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_selection_iface",
+  g_test_add ("/accessible/atk_test_accessible_get_selection_iface",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_selection_iface, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_table_iface",
+  g_test_add ("/accessible/atk_test_accessible_get_table_iface",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_table_iface, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_text_iface",
+  g_test_add ("/accessible/atk_test_accessible_get_text_iface",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_text_iface, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_value_iface",
+  g_test_add ("/accessible/atk_test_accessible_get_value_iface",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_value_iface, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_interfaces",
+  g_test_add ("/accessible/atk_test_accessible_get_interfaces",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_interfaces, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_object_locale",
+  g_test_add ("/accessible/atk_test_accessible_get_object_locale",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_object_locale, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_set_cache_mask",
+  g_test_add ("/accessible/atk_test_accessible_set_cache_mask",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_set_cache_mask, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_clear_cache",
+  g_test_add ("/accessible/atk_test_accessible_clear_cache",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_clear_cache, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_process_id",
+  g_test_add ("/accessible/atk_test_accessible_get_process_id",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_process_id, fixture_teardown);
 }
