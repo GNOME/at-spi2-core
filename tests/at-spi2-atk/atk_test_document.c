@@ -93,12 +93,12 @@ atk_test_document_get_attributes (TestAppFixture *fixture, gconstpointer user_da
 void
 atk_test_document (void)
 {
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_document_get_document_iface",
+  g_test_add (ATK_TEST_PATH_DOC "/atk_test_document_get_document_iface",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_document_get_document_iface, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_document_get_locale",
+  g_test_add (ATK_TEST_PATH_DOC "/atk_test_document_get_locale",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_document_get_locale, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_document_get_attribute_value",
+  g_test_add (ATK_TEST_PATH_DOC "/atk_test_document_get_attribute_value",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_document_get_attribute_value, fixture_teardown);
-  g_test_add (ATK_TEST_PATH_ACCESSIBLE "/atk_test_document_get_attributes",
+  g_test_add (ATK_TEST_PATH_DOC "/atk_test_document_get_attributes",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_document_get_attributes, fixture_teardown);
 }
