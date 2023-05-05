@@ -459,7 +459,14 @@ add_accessible_from_iter (DBusMessageIter *iter)
   parent = _atspi_dbus_consume_accessible (&iter_struct);
   if (accessible->accessible_parent)
     g_object_unref (accessible->accessible_parent);
-  accessible->accessible_parent = parent;
+  if (parent == accessible)
+    {
+      guint pid = atspi_accessible_get_process_id (accessible, NULL);
+      g_warning ("Process %d sent an accessible with itself as its parent. This shouldn't happen.", pid);
+      accessible->accessible_parent = NULL;
+    }
+  else
+    accessible->accessible_parent = parent;
 
   if (dbus_message_iter_get_arg_type (&iter_struct) == 'i')
     {
