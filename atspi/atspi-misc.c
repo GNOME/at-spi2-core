@@ -34,6 +34,7 @@
 #endif
 #include "atspi-gmain.h"
 #include <ctype.h>
+#include <locale.h>
 #include <stdio.h>
 #include <string.h>
 
