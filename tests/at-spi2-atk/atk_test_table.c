@@ -311,6 +311,7 @@ atk_test_table_is_row_selected (TestAppFixture *fixture, gconstpointer user_data
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
   AtspiTable *obj = atspi_accessible_get_table_iface (child);
+  g_assert (obj);
   g_assert_true (atspi_table_is_row_selected (obj, 0, NULL));
   g_assert_false (atspi_table_is_row_selected (obj, 1, NULL));
 }
