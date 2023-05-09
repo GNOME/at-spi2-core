@@ -28,7 +28,7 @@ gdbus call --session \
 
 echo "Now running the tests:"
 
-meson test -C _build
+meson test -C _build --print-errorlogs
 
 echo "Telling the mock session to logout so the a11y daemons will exit"
 

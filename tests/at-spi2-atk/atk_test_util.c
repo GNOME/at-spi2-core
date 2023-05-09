@@ -23,62 +23,92 @@
 #include "atk_test_util.h"
 #include <signal.h>
 
-pid_t child_pid;
+static AtspiEventListener *fixture_listener = NULL;
+static TestAppFixture *current_fixture = NULL;
 
-static void
-assert_clean_exit (int sig)
+static pid_t
+run_app (const char *file_name, const char *name_to_claim)
 {
-  kill (child_pid, SIGTERM);
-}
-
-void
-clean_exit_on_fail ()
-{
-  signal (SIGABRT, assert_clean_exit);
-}
-
-void
-run_app (const char *file_name)
-{
-  child_pid = fork ();
+  pid_t child_pid = fork ();
   if (child_pid == 0)
     {
       execlp (TESTS_BUILD_DIR "/app-test",
               TESTS_BUILD_DIR "/app-test",
               "--test-data-file",
               file_name,
+              "--atspi-dbus-name",
+              name_to_claim,
               NULL);
       _exit (EXIT_SUCCESS);
     }
-  if (child_pid)
-    fprintf (stderr, "child_pid %d\n", child_pid);
+
+  return child_pid;
 }
 
 static AtspiAccessible *
 try_get_root_obj (AtspiAccessible *obj)
 {
+  GError *error = NULL;
   gchar *name;
   int i;
 
-  gint child_count = atspi_accessible_get_child_count (obj, NULL);
-  if (child_count < 1)
+  gint child_count = atspi_accessible_get_child_count (obj, &error);
+  if (child_count < 0)
     {
+      if (error)
+        {
+          g_print ("  get_child_count: %s\n", error->message);
+          g_error_free (error);
+        }
+      else
+        {
+          g_print ("  get_child_count=%d with no error\n", child_count);
+        }
+      return NULL;
+    }
+  else if (child_count < 1)
+    {
+      g_print ("  child_count == %d, bailing out\n", child_count);
       return NULL;
     }
 
   for (i = 0; i < child_count; i++)
     {
-      AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, i, NULL);
+      AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, i, &error);
       if (!child)
-        continue;
-      if ((name = atspi_accessible_get_name (child, NULL)) != NULL)
+        {
+          if (error)
+            {
+              g_print ("  getting child_at_index: %s\n", error->message);
+              g_error_free (error);
+            }
+          else
+            {
+              g_print ("  getting child_at_index returned NULL child with no error\n");
+            }
+          continue;
+        }
+      if ((name = atspi_accessible_get_name (child, &error)) != NULL)
         {
           if (!strcmp (name, "root_object"))
             {
               g_free (name);
               return child;
             }
+          g_print ("  name=%s\n", name);
           g_free (name);
+        }
+      else
+        {
+          if (error)
+            {
+              g_print ("try_get_root_obj getting child name: %s\n", error->message);
+              g_error_free (error);
+            }
+          else
+            {
+              g_print ("  get_name returned NULL name with no error\n");
+            }
         }
       g_object_unref (child);
     }
@@ -86,65 +116,117 @@ try_get_root_obj (AtspiAccessible *obj)
   return NULL;
 }
 
-AtspiAccessible *
-get_root_obj (const char *file_name)
+/* Callback from AtspiEventListener.  We monitor children-changed on the root, so we can know
+ * when the helper test-application has launched and registered.
+ */
+static void
+listener_event_cb (AtspiEvent *event, void *user_data)
 {
-  int tries = 0;
-  AtspiAccessible *child;
-  struct timespec timeout = { .tv_sec = 0, .tv_nsec = 10 * 1000000 };
-  AtspiAccessible *obj = NULL;
+  TestAppFixture *fixture = current_fixture;
 
-  fprintf (stderr, "run_app: %s\n", file_name);
-  run_app (file_name);
-
-  obj = atspi_get_desktop (0);
-
-  /* Wait for application to start, up to 100 times 10ms.  */
-  while (++tries <= 100)
+  if (atspi_accessible_get_role (event->source, NULL) == ATSPI_ROLE_DESKTOP_FRAME && strstr (event->type, "add"))
     {
-      child = try_get_root_obj (obj);
-      if (child)
-        return child;
+      AtspiAccessible *obj = atspi_get_desktop (0);
 
-      nanosleep (&timeout, NULL);
-    }
+      fixture->root_obj = try_get_root_obj (obj);
 
-  if (atspi_accessible_get_child_count (obj, NULL) < 1)
-    {
-      g_test_message ("Fail, test application not found\n");
+      if (fixture->root_obj)
+        {
+          fixture->state = FIXTURE_STATE_CHILD_ACQUIRED;
+          atspi_event_quit ();
+        }
     }
-  else
+}
+
+/* Sets up the atspi event listener for the test-application helpers.
+ *
+ * We get notified when the test-application registers its root object by listening
+ * to the children-changed signal.
+ */
+void
+fixture_listener_init (void)
+{
+  GError *error = NULL;
+
+  fixture_listener = atspi_event_listener_new (listener_event_cb, NULL, NULL);
+  if (!atspi_event_listener_register (fixture_listener, "object:children-changed", &error))
     {
-      g_test_message ("test object not found\n");
+      g_error ("Could not register event listener for children-changed: %s\n", error->message);
     }
-  g_test_fail ();
-  kill (child_pid, SIGTERM);
-  return NULL;
 }
 
 void
-terminate_app (void)
+fixture_listener_destroy (void)
 {
-  int tries = 0;
+  GError *error = NULL;
 
-  AtspiAccessible *child;
-  struct timespec timeout = { .tv_sec = 0, .tv_nsec = 10 * 1000000 };
-  AtspiAccessible *obj = NULL;
-
-  kill (child_pid, SIGTERM);
-
-  obj = atspi_get_desktop (0);
-
-  /* Wait for application to stop, up to 100 times 10ms.  */
-  while (++tries <= 100)
+  if (!atspi_event_listener_deregister (fixture_listener, "object:children-changed", &error))
     {
-      child = try_get_root_obj (obj);
-      if (child == NULL)
-        return;
-
-      nanosleep (&timeout, NULL);
+      g_error ("Could not deregister event listener: %s", error->message);
     }
 
-  g_test_message ("Fail, test application still running\n");
-  g_test_fail ();
+  g_object_unref (fixture_listener);
+  fixture_listener = NULL;
+}
+
+static gboolean
+wait_for_test_app_timeout_cb (gpointer user_data)
+{
+  TestAppFixture *fixture = user_data;
+
+  fixture->test_app_timed_out = TRUE;
+  atspi_event_quit ();
+
+  return FALSE;
+}
+
+/* Each of the helper programs with the test fixtures claims a different DBus name,
+ * to make them non-ambiguous when they get restarted all the time.  This is the serial
+ * number that gets appended to each name.
+ */
+static guint fixture_serial = 0;
+
+void
+fixture_setup (TestAppFixture *fixture, gconstpointer user_data)
+{
+  const char *file_name = user_data;
+
+  fixture->state = FIXTURE_STATE_WAITING_FOR_CHILD;
+  fixture->name_to_claim = g_strdup_printf ("org.a11y.Atspi2Atk.TestApplication_%u", fixture_serial);
+  fixture_serial += 1;
+
+  fixture->child_pid = run_app (file_name, fixture->name_to_claim);
+
+  fixture->test_app_timed_out = FALSE;
+  fixture->wait_for_test_app_timeout = g_timeout_add (500, wait_for_test_app_timeout_cb, fixture); /* 500 msec */
+
+  current_fixture = fixture;
+  atspi_event_main ();
+
+  g_source_remove (fixture->wait_for_test_app_timeout);
+  fixture->wait_for_test_app_timeout = 0;
+
+  if (fixture->test_app_timed_out)
+    {
+      g_print ("test app timed out before registering its root object");
+      g_test_fail ();
+    }
+}
+
+void
+fixture_teardown (TestAppFixture *fixture, gconstpointer user_data)
+{
+  current_fixture = NULL;
+
+  kill (fixture->child_pid, SIGTERM);
+  fixture->child_pid = -1;
+
+  if (fixture->root_obj)
+    {
+      g_object_unref (fixture->root_obj);
+      fixture->root_obj = NULL;
+    }
+
+  g_free (fixture->name_to_claim);
+  fixture->name_to_claim = NULL;
 }

@@ -1,6 +1,6 @@
 /*
- * AT-SPI - Assistive Technology Service Provider Interface
- * (Gnome Accessibility Project; https://wiki.gnome.org/Accessibility)
+ * AT-SPI - Assistive Service Provider Interface
+ * (Gnome AccessibiliTestAppFixture, DATA_FILE, fixture_setup://wiki.gnome.org/Accessibility)
  *
  * Copyright (c) 2014 Samsung Electronics Co., Ltd.
  *
@@ -26,24 +26,18 @@
 #define DATA_FILE TESTS_DATA_DIR "/test-document.xml"
 
 static void
-teardown_document_test (gpointer fixture, gconstpointer user_data)
+atk_test_document_get_document_iface (TestAppFixture *fixture, gconstpointer user_data)
 {
-  terminate_app ();
-}
-
-static void
-atk_test_document_get_document_iface (gpointer fixture, gconstpointer user_data)
-{
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiDocument *iface = atspi_accessible_get_document_iface (child);
   g_assert (iface != NULL);
 }
 
 static void
-atk_test_document_get_locale (gpointer fixture, gconstpointer user_data)
+atk_test_document_get_locale (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiDocument *iface = atspi_accessible_get_document_iface (child);
   g_assert (iface != NULL);
@@ -52,9 +46,9 @@ atk_test_document_get_locale (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_document_get_attribute_value (gpointer fixture, gconstpointer user_data)
+atk_test_document_get_attribute_value (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiDocument *iface = atspi_accessible_get_document_iface (child);
   g_assert (iface != NULL);
@@ -64,9 +58,9 @@ atk_test_document_get_attribute_value (gpointer fixture, gconstpointer user_data
 }
 
 static void
-atk_test_document_get_attributes (gpointer fixture, gconstpointer user_data)
+atk_test_document_get_attributes (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiDocument *iface = atspi_accessible_get_document_iface (child);
   g_assert (iface != NULL);
@@ -99,12 +93,12 @@ atk_test_document_get_attributes (gpointer fixture, gconstpointer user_data)
 void
 atk_test_document (void)
 {
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_document_get_document_iface",
-                     0, NULL, NULL, atk_test_document_get_document_iface, teardown_document_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_document_get_locale",
-                     0, NULL, NULL, atk_test_document_get_locale, teardown_document_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_document_get_attribute_value",
-                     0, NULL, NULL, atk_test_document_get_attribute_value, teardown_document_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_document_get_attributes",
-                     0, NULL, NULL, atk_test_document_get_attributes, teardown_document_test);
+  g_test_add ("/document/atk_test_document_get_document_iface",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_document_get_document_iface, fixture_teardown);
+  g_test_add ("/document/atk_test_document_get_locale",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_document_get_locale, fixture_teardown);
+  g_test_add ("/document/atk_test_document_get_attribute_value",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_document_get_attribute_value, fixture_teardown);
+  g_test_add ("/document/atk_test_document_get_attributes",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_document_get_attributes, fixture_teardown);
 }

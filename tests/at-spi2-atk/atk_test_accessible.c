@@ -26,63 +26,57 @@
 #define DATA_FILE TESTS_DATA_DIR "/test-accessible.xml"
 
 static void
-teardown_accessible_test (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_name (TestAppFixture *fixture, gconstpointer user_data)
 {
-  terminate_app ();
-}
-
-static void
-atk_test_accessible_get_name (gpointer fixture, gconstpointer user_data)
-{
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   g_assert_cmpstr (atspi_accessible_get_name (obj, NULL), ==, "root_object");
 }
 
 static void
-atk_test_accessible_get_description (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_description (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   g_assert_cmpstr (atspi_accessible_get_description (obj, NULL), ==, "Root of the accessible tree");
 }
 
 static void
-atk_test_accessible_get_child_count (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_child_count (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   gint child_c = atspi_accessible_get_child_count (obj, NULL);
   g_assert_cmpint (3, ==, child_c);
 }
 
 static void
-atk_test_accessible_get_parent (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_parent (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiAccessible *parent = atspi_accessible_get_parent (child, NULL);
   g_assert (parent == obj);
 }
 
 static void
-atk_test_accessible_get_child_at_index (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_child_at_index (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   g_assert_cmpstr (atspi_accessible_get_name (child, NULL), ==, "obj2");
 }
 
 static void
-atk_test_accessible_get_index_in_parent (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_index_in_parent (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 2, NULL);
   int index = atspi_accessible_get_index_in_parent (child, NULL);
   g_assert_cmpint (index, ==, 2);
 }
 
 static void
-atk_test_accessible_get_relation_set_1 (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_relation_set_1 (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child1 = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (child1, 0, NULL);
   GArray *rel_set = atspi_accessible_get_relation_set (child, NULL);
@@ -90,9 +84,9 @@ atk_test_accessible_get_relation_set_1 (gpointer fixture, gconstpointer user_dat
 }
 
 static void
-atk_test_accessible_get_relation_set_2 (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_relation_set_2 (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *obj2 = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiAccessible *obj2_1 = atspi_accessible_get_child_at_index (obj2, 0, NULL);
   GArray *rel_set = atspi_accessible_get_relation_set (obj2_1, NULL);
@@ -108,33 +102,33 @@ atk_test_accessible_get_relation_set_2 (gpointer fixture, gconstpointer user_dat
 }
 
 static void
-atk_test_accessible_get_role (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_role (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiRole root_role = atspi_accessible_get_role (obj, NULL);
   g_assert_cmpint (root_role, ==, ATSPI_ROLE_ACCELERATOR_LABEL);
 }
 
 static void
-atk_test_accessible_get_role_name (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_role_name (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   gchar *root_role_name = atspi_accessible_get_role_name (obj, NULL);
   g_assert_cmpstr (root_role_name, ==, "accelerator label");
 }
 
 static void
-atk_test_accessible_get_localized_role_name (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_localized_role_name (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   gchar *root_role_name = atspi_accessible_get_localized_role_name (obj, NULL);
   g_assert_cmpstr (root_role_name, ==, "accelerator label");
 }
 
 static void
-atk_test_accessible_get_state_set (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_state_set (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiStateSet *states = atspi_accessible_get_state_set (child);
   GArray *states_arr = atspi_state_set_get_states (states);
@@ -154,9 +148,9 @@ atk_test_accessible_get_state_set (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_accessible_get_attributes (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_attributes (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   GHashTable *attr_hash_tab = atspi_accessible_get_attributes (obj, NULL);
   GHashTableIter iter;
   gpointer key, value;
@@ -184,9 +178,9 @@ atk_test_accessible_get_attributes (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_accessible_get_attributes_as_array (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_attributes_as_array (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   GArray *attr_arr = atspi_accessible_get_attributes_as_array (obj, NULL);
   int i;
   g_assert_cmpint (attr_arr->len, ==, 2);
@@ -199,139 +193,139 @@ atk_test_accessible_get_attributes_as_array (gpointer fixture, gconstpointer use
 }
 
 static void
-atk_test_accessible_get_toolkit_name (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_toolkit_name (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   gchar *toolkit_name = atspi_accessible_get_toolkit_name (obj, NULL);
 
   g_assert_cmpstr (toolkit_name, ==, "atspitesting-toolkit");
 }
 
 static void
-atk_test_accessible_get_toolkit_version (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_toolkit_version (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   gchar *toolkit_ver = atspi_accessible_get_toolkit_version (obj, NULL);
   /* should be empty string, because no value is setted */
   g_assert_cmpstr (toolkit_ver, ==, "");
 }
 
 static void
-atk_test_accessible_get_atspi_version (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_atspi_version (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   gchar *atspi_version = atspi_accessible_get_atspi_version (obj, NULL);
   g_assert_cmpstr (atspi_version, ==, "2.1");
 }
 
 static void
-atk_test_accessible_get_id (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_id (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   gint app_id = atspi_accessible_get_id (obj, NULL);
   g_assert_cmpint (app_id, !=, -1);
 }
 
 static void
-atk_test_accessible_get_application (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_application (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *app = atspi_accessible_get_application (obj, NULL);
   g_assert (app != NULL);
 }
 
 static void
-atk_test_accessible_get_action_iface (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_action_iface (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiAction *iface = atspi_accessible_get_action_iface (obj);
   g_assert (iface == NULL);
 }
 
 static void
-atk_test_accessible_get_collection_iface (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_collection_iface (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiCollection *iface = atspi_accessible_get_collection_iface (obj);
   g_assert (iface != NULL);
 }
 
 static void
-atk_test_accessible_get_component_iface (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_component_iface (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiComponent *iface = atspi_accessible_get_component_iface (obj);
   g_assert (iface == NULL);
 }
 
 static void
-atk_test_accessible_get_document_iface (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_document_iface (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiDocument *iface = atspi_accessible_get_document_iface (obj);
   g_assert (iface == NULL);
 }
 
 static void
-atk_test_accessible_get_editable_text_iface (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_editable_text_iface (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiEditableText *iface = atspi_accessible_get_editable_text_iface (obj);
   g_assert (iface == NULL);
 }
 
 static void
-atk_test_accessible_get_hypertext_iface (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_hypertext_iface (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiHypertext *iface = atspi_accessible_get_hypertext_iface (obj);
   g_assert (iface == NULL);
 }
 
 static void
-atk_test_accessible_get_image_iface (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_image_iface (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiImage *iface = atspi_accessible_get_image_iface (obj);
   g_assert (iface == NULL);
 }
 
 static void
-atk_test_accessible_get_selection_iface (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_selection_iface (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiSelection *iface = atspi_accessible_get_selection_iface (obj);
   g_assert (iface == NULL);
 }
 
 static void
-atk_test_accessible_get_table_iface (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_table_iface (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiTable *iface = atspi_accessible_get_table_iface (obj);
   g_assert (iface == NULL);
 }
 
 static void
-atk_test_accessible_get_text_iface (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_text_iface (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiText *iface = atspi_accessible_get_text_iface (obj);
   g_assert (iface == NULL);
 }
 
 static void
-atk_test_accessible_get_value_iface (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_value_iface (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiValue *iface = atspi_accessible_get_value_iface (obj);
   g_assert (iface == NULL);
 }
 
 static void
-atk_test_accessible_get_interfaces (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_interfaces (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   gchar *valid_obj_ifaces[] = { "Accessible", "Collection" };
 
   GArray *ifaces = atspi_accessible_get_interfaces (obj);
@@ -342,17 +336,17 @@ atk_test_accessible_get_interfaces (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_accessible_get_object_locale (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_object_locale (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   const gchar *obj_locale = atspi_accessible_get_object_locale (obj, NULL);
   g_assert_cmpstr (obj_locale, ==, setlocale (LC_MESSAGES, NULL));
 }
 
 static void
-atk_test_accessible_set_cache_mask (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_set_cache_mask (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   AtspiCache cache_mask = ATSPI_CACHE_ROLE;
   atspi_accessible_set_cache_mask (obj, cache_mask);
   g_assert_cmpint (obj->parent.app->cache, ==, cache_mask);
@@ -369,92 +363,92 @@ atk_test_check_cache_cleared (AtspiAccessible *obj)
 }
 
 static void
-atk_test_accessible_clear_cache (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_clear_cache (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   atspi_accessible_clear_cache (obj);
   atk_test_check_cache_cleared (obj);
 }
 
 static void
-atk_test_accessible_get_process_id (gpointer fixture, gconstpointer user_data)
+atk_test_accessible_get_process_id (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *obj = fixture->root_obj;
   guint proc_id = atspi_accessible_get_process_id (obj, NULL);
-  g_assert_cmpint (proc_id, ==, child_pid);
+  g_assert_cmpint (proc_id, ==, fixture->child_pid);
 }
 
 void
 atk_test_accessible (void)
 {
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_name",
-                     0, NULL, NULL, atk_test_accessible_get_name, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_description",
-                     0, NULL, NULL, atk_test_accessible_get_description, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_child_count",
-                     0, NULL, NULL, atk_test_accessible_get_child_count, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_parent",
-                     0, NULL, NULL, atk_test_accessible_get_parent, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_child_at_index",
-                     0, NULL, NULL, atk_test_accessible_get_child_at_index, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_index_in_parent",
-                     0, NULL, NULL, atk_test_accessible_get_index_in_parent, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_relation_set_1",
-                     0, NULL, NULL, atk_test_accessible_get_relation_set_1, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_relation_set_2",
-                     0, NULL, NULL, atk_test_accessible_get_relation_set_2, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_role",
-                     0, NULL, NULL, atk_test_accessible_get_role, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_role_name",
-                     0, NULL, NULL, atk_test_accessible_get_role_name, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_localized_role_name",
-                     0, NULL, NULL, atk_test_accessible_get_localized_role_name, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_state_set",
-                     0, NULL, NULL, atk_test_accessible_get_state_set, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_attributes",
-                     0, NULL, NULL, atk_test_accessible_get_attributes, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_attributes_as_array",
-                     0, NULL, NULL, atk_test_accessible_get_attributes_as_array, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_toolkit_name",
-                     0, NULL, NULL, atk_test_accessible_get_toolkit_name, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_toolkit_version",
-                     0, NULL, NULL, atk_test_accessible_get_toolkit_version, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_atspi_version",
-                     0, NULL, NULL, atk_test_accessible_get_atspi_version, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_id",
-                     0, NULL, NULL, atk_test_accessible_get_id, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_application",
-                     0, NULL, NULL, atk_test_accessible_get_application, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_action_iface",
-                     0, NULL, NULL, atk_test_accessible_get_action_iface, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_collection_iface",
-                     0, NULL, NULL, atk_test_accessible_get_collection_iface, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_component_iface",
-                     0, NULL, NULL, atk_test_accessible_get_component_iface, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_document_iface",
-                     0, NULL, NULL, atk_test_accessible_get_document_iface, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_editable_text_iface",
-                     0, NULL, NULL, atk_test_accessible_get_editable_text_iface, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_hypertext_iface",
-                     0, NULL, NULL, atk_test_accessible_get_hypertext_iface, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_image_iface",
-                     0, NULL, NULL, atk_test_accessible_get_image_iface, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_selection_iface",
-                     0, NULL, NULL, atk_test_accessible_get_selection_iface, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_table_iface",
-                     0, NULL, NULL, atk_test_accessible_get_table_iface, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_text_iface",
-                     0, NULL, NULL, atk_test_accessible_get_text_iface, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_value_iface",
-                     0, NULL, NULL, atk_test_accessible_get_value_iface, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_interfaces",
-                     0, NULL, NULL, atk_test_accessible_get_interfaces, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_object_locale",
-                     0, NULL, NULL, atk_test_accessible_get_object_locale, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_set_cache_mask",
-                     0, NULL, NULL, atk_test_accessible_set_cache_mask, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_clear_cache",
-                     0, NULL, NULL, atk_test_accessible_clear_cache, teardown_accessible_test);
-  g_test_add_vtable (ATK_TEST_PATH_ACCESSIBLE "/atk_test_accessible_get_process_id",
-                     0, NULL, NULL, atk_test_accessible_get_process_id, teardown_accessible_test);
+  g_test_add ("/accessible/atk_test_accessible_get_name",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_name, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_description",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_description, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_child_count",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_child_count, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_parent",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_parent, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_child_at_index",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_child_at_index, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_index_in_parent",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_index_in_parent, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_relation_set_1",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_relation_set_1, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_relation_set_2",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_relation_set_2, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_role",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_role, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_role_name",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_role_name, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_localized_role_name",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_localized_role_name, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_state_set",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_state_set, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_attributes",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_attributes, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_attributes_as_array",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_attributes_as_array, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_toolkit_name",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_toolkit_name, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_toolkit_version",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_toolkit_version, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_atspi_version",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_atspi_version, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_id",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_id, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_application",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_application, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_action_iface",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_action_iface, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_collection_iface",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_collection_iface, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_component_iface",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_component_iface, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_document_iface",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_document_iface, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_editable_text_iface",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_editable_text_iface, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_hypertext_iface",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_hypertext_iface, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_image_iface",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_image_iface, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_selection_iface",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_selection_iface, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_table_iface",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_table_iface, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_text_iface",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_text_iface, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_value_iface",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_value_iface, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_interfaces",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_interfaces, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_object_locale",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_object_locale, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_set_cache_mask",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_set_cache_mask, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_clear_cache",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_clear_cache, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_process_id",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_process_id, fixture_teardown);
 }

@@ -24,9 +24,9 @@
 #define DATA_FILE TESTS_DATA_DIR "/test-value.xml"
 
 static void
-atk_test_value_get_value_iface (gpointer fixture, gconstpointer user_data)
+atk_test_value_get_value_iface (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -35,9 +35,9 @@ atk_test_value_get_value_iface (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_value_get_minimum_value (gpointer fixture, gconstpointer user_data)
+atk_test_value_get_minimum_value (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -47,9 +47,9 @@ atk_test_value_get_minimum_value (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_value_get_current_value (gpointer fixture, gconstpointer user_data)
+atk_test_value_get_current_value (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -59,9 +59,9 @@ atk_test_value_get_current_value (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_value_get_maximum_value (gpointer fixture, gconstpointer user_data)
+atk_test_value_get_maximum_value (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -71,9 +71,9 @@ atk_test_value_get_maximum_value (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_value_set_current_value (gpointer fixture, gconstpointer user_data)
+atk_test_value_set_current_value (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -84,9 +84,9 @@ atk_test_value_set_current_value (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_value_get_minimum_increment (gpointer fixture, gconstpointer user_data)
+atk_test_value_get_minimum_increment (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -96,9 +96,9 @@ atk_test_value_get_minimum_increment (gpointer fixture, gconstpointer user_data)
 }
 
 static void
-atk_test_value_get_text (gpointer fixture, gconstpointer user_data)
+atk_test_value_get_text (TestAppFixture *fixture, gconstpointer user_data)
 {
-  AtspiAccessible *_obj = get_root_obj (DATA_FILE);
+  AtspiAccessible *_obj = fixture->root_obj;
   g_assert (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
   g_assert (child);
@@ -108,27 +108,21 @@ atk_test_value_get_text (gpointer fixture, gconstpointer user_data)
   g_free (text);
 }
 
-static void
-teardown_value_test (gpointer fixture, gconstpointer user_data)
-{
-  terminate_app ();
-}
-
 void
 atk_test_value (void)
 {
-  g_test_add_vtable (ATK_TEST_PATH_VALUE "/atk_test_value_get_value_iface",
-                     0, NULL, NULL, atk_test_value_get_value_iface, teardown_value_test);
-  g_test_add_vtable (ATK_TEST_PATH_VALUE "/atk_test_value_get_minimum_value",
-                     0, NULL, NULL, atk_test_value_get_minimum_value, teardown_value_test);
-  g_test_add_vtable (ATK_TEST_PATH_VALUE "/atk_test_value_get_current_value",
-                     0, NULL, NULL, atk_test_value_get_current_value, teardown_value_test);
-  g_test_add_vtable (ATK_TEST_PATH_VALUE "/atk_test_value_get_maximum_value",
-                     0, NULL, NULL, atk_test_value_get_maximum_value, teardown_value_test);
-  g_test_add_vtable (ATK_TEST_PATH_VALUE "/atk_test_value_set_current_value",
-                     0, NULL, NULL, atk_test_value_set_current_value, teardown_value_test);
-  g_test_add_vtable (ATK_TEST_PATH_VALUE "/atk_test_value_get_minimum_increment",
-                     0, NULL, NULL, atk_test_value_get_minimum_increment, teardown_value_test);
-  g_test_add_vtable (ATK_TEST_PATH_VALUE "/atk_test_value_get_text",
-                     0, NULL, NULL, atk_test_value_get_text, teardown_value_test);
+  g_test_add ("/value/atk_test_value_get_value_iface",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_value_get_value_iface, fixture_teardown);
+  g_test_add ("/value/atk_test_value_get_minimum_value",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_value_get_minimum_value, fixture_teardown);
+  g_test_add ("/value/atk_test_value_get_current_value",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_value_get_current_value, fixture_teardown);
+  g_test_add ("/value/atk_test_value_get_maximum_value",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_value_get_maximum_value, fixture_teardown);
+  g_test_add ("/value/atk_test_value_set_current_value",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_value_set_current_value, fixture_teardown);
+  g_test_add ("/value/atk_test_value_get_minimum_increment",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_value_get_minimum_increment, fixture_teardown);
+  g_test_add ("/value/atk_test_value_get_text",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_value_get_text, fixture_teardown);
 }

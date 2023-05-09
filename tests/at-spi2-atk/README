@@ -185,7 +185,7 @@ AVAILABLE TESTS:
              -text_get_text_attributes
              -text_get_attribute_run
              -text_get_get_text_attribute_value
-             -text_get_defualt_attributes
+             -text_get_default_attributes
              -text_set_caret_offset
              -text_get_string_at_offset
              -text_get_character_at_offset
