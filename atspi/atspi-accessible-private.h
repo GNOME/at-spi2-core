@@ -37,6 +37,7 @@ struct _AtspiAccessiblePrivate
 {
   GHashTable *cache;
   guint cache_ref_count;
+  guint iteration_stamp;
 };
 
 GHashTable *
