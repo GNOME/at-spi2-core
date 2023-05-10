@@ -1,3 +1,13 @@
+What's new in at-spi2-core 2.48.1:
+
+* Fixes for atk-only builds under Windows.
+
+* meson: Avoid requiring libsystemd when configured to use dbus-daemon
+
+* Fix crash when a bad index is passed to atspi_accessible_get_child_at_index.
+
+* Fix possible infinite recursion in atspi_accessible_clear_cache.
+
 What's new in at-spi2-core 2.48.0:
 
 * Add a "atk-only" build option. This allows atk to be built without libdbus
