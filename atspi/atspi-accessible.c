@@ -490,9 +490,12 @@ atspi_accessible_get_child_at_index (AtspiAccessible *obj,
       if (!obj->children)
         return NULL; /* assume disposed */
 
-      child = g_ptr_array_index (obj->children, child_index);
-      if (child)
-        return g_object_ref (child);
+      if (child_index < obj->children->len)
+        {
+          child = g_ptr_array_index (obj->children, child_index);
+          if (child)
+            return g_object_ref (child);
+        }
     }
 
   reply = _atspi_dbus_call_partial (obj, atspi_interface_accessible,
