@@ -47,7 +47,7 @@ launcher_args = [
            ]
 
 if get_option('dbus_daemon') != 'default'
-  launcher_args += '-DDBUS_DAEMON="@0@"'.format(get_option('dbus_daemon'))
+  dbus_daemon_arg = '-DDBUS_DAEMON="@0@"'.format(get_option('dbus_daemon'))
 else
   dbus_daemon = find_program('dbus-daemon',
                              '/sbin/dbus-daemon',
@@ -58,35 +58,56 @@ else
                              '/usr/pkg/bin/dbus-daemon',
                              required: false)
   if dbus_daemon.found()
-    launcher_args += '-DDBUS_DAEMON="@0@"'.format(dbus_daemon.full_path())
+    dbus_daemon_arg = '-DDBUS_DAEMON="@0@"'.format(dbus_daemon.full_path())
+  else
+    dbus_daemon_arg = ''
   endif
 endif
 
 needs_systemd = false
 if get_option('dbus_broker') != 'default'
-  launcher_args += '-DDBUS_BROKER="@0@"'.format(get_option('dbus_broker'))
-  if get_option('default_bus') != 'dbus-daemon'
-    needs_systemd = true
-  endif
+  dbus_broker_arg = '-DDBUS_BROKER="@0@"'.format(get_option('dbus_broker'))
+  needs_systemd = true
 else
   dbus_broker = find_program('dbus-broker-launch',
                              required: false)
   if dbus_broker.found()
-    launcher_args += '-DDBUS_BROKER="@0@"'.format(dbus_broker.full_path())
+    dbus_broker_arg = '-DDBUS_BROKER="@0@"'.format(dbus_broker.full_path())
     if get_option('default_bus') != 'dbus-daemon'
       needs_systemd = true
     endif
   endif
 endif
 
-if get_option('default_bus') == 'dbus-broker'
-  launcher_args += '-DWANT_DBUS_BROKER'
+if not get_option('use_systemd')
+  if needs_systemd
+    error('Systemd is required for dbus-broker, but use_systemd is set to false.')
+  endif
+  dbus_broker_arg = ''
 endif
 
-if needs_systemd
-  systemd_dep = dependency('libsystemd')
+if dbus_broker_arg != ''
+  if needs_systemd
+    systemd_dep = dependency('libsystemd')
+  else
+    systemd_dep = dependency('libsystemd', required: false)
+    if not systemd_dep.found()
+      dbus_broker_arg = ''
+    endif
+  endif
 else
   systemd_dep = dependency('', required: false)
+endif
+
+if dbus_daemon_arg != ''
+  launcher_args += dbus_daemon_arg
+endif
+if dbus_broker_arg != ''
+  launcher_args += dbus_broker_arg
+endif
+
+if get_option('default_bus') == 'dbus-broker'
+  launcher_args += '-DWANT_DBUS_BROKER'
 endif
 
 executable('at-spi-bus-launcher', 'at-spi-bus-launcher.c',

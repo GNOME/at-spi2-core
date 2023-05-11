@@ -15,6 +15,10 @@ option('default_bus',
        type: 'combo',
        choices: ['dbus-daemon', 'dbus-broker'],
        value: 'dbus-daemon')
+option('use_systemd',
+       description: 'Use systemd if available (needed for dbus-broker)',
+       type: 'boolean',
+       value: true)
 option('systemd_user_dir',
        description: 'Location of the systemd user services',
        type: 'string',
