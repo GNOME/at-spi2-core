@@ -46,6 +46,7 @@ launcher_args = [
              '-DDATADIR="@0@"'.format(atspi_datadir),
            ]
 
+dbus_daemon_arg = ''
 if get_option('dbus_daemon') != 'default'
   dbus_daemon_arg = '-DDBUS_DAEMON="@0@"'.format(get_option('dbus_daemon'))
 else
@@ -59,11 +60,10 @@ else
                              required: false)
   if dbus_daemon.found()
     dbus_daemon_arg = '-DDBUS_DAEMON="@0@"'.format(dbus_daemon.full_path())
-  else
-    dbus_daemon_arg = ''
   endif
 endif
 
+dbus_broker_arg = ''
 needs_systemd = false
 if get_option('dbus_broker') != 'default'
   dbus_broker_arg = '-DDBUS_BROKER="@0@"'.format(get_option('dbus_broker'))
