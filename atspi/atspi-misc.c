@@ -1980,7 +1980,6 @@ _atspi_name_compat (gchar *name)
  * @role: an #AtspiRole object to query.
  *
  * Gets a localizable string that indicates the name of an #AtspiRole.
- * <em>DEPRECATED.</em>
  *
  * Returns: a localizable string name for an #AtspiRole enumerated type.
  **/

@@ -164,7 +164,6 @@ atspi_text_get_caret_offset (AtspiText *obj, GError **error)
  * Gets the attributes applied to a range of text from an #AtspiText
  * object. The text attributes correspond to CSS attributes
  * where possible.
- * <em>DEPRECATED</em>
  *
  * Returns: (element-type gchar* gchar*) (transfer full): a #GHashTable
  * describing the attributes at the given character offset.
@@ -194,7 +193,6 @@ atspi_text_get_attributes (AtspiText *obj,
  * Gets the attributes applied to a range of text from an #AtspiText
  * object. The text attributes correspond to CSS attributes
  * where possible.
- * <em>DEPRECATED</em>
  *
  * Returns: (element-type gchar* gchar*) (transfer full): a #GHashTable
  * describing the attributes at the given character offset.
