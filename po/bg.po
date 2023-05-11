@@ -200,7 +200,7 @@ msgstr "лента с менюта"
 
 #: atk/atkobject.c:134
 msgid "menu button"
-msgstr "бутон от меню"
+msgstr "бутон в меню"
 
 #: atk/atkobject.c:135
 msgid "menu item"
@@ -332,7 +332,7 @@ msgstr "дървовидна таблица"
 
 #: atk/atkobject.c:167
 msgid "unknown"
-msgstr "непознат"
+msgstr "неизвестно"
 
 #: atk/atkobject.c:168
 msgid "viewport"
