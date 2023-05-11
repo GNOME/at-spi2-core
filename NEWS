@@ -1,3 +1,8 @@
+What's new in at-spi2-core 2.48.2:
+
+* Fixed a regression in 2.48.1 where the bus launcher would fail if
+  dbus-broker was configured at build time but not installed on the system.
+
 What's new in at-spi2-core 2.48.1:
 
 * Fixes for atk-only builds under Windows.
