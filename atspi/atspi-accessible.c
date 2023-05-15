@@ -1159,28 +1159,6 @@ atspi_accessible_is_table_cell (AtspiAccessible *obj)
 }
 
 /**
- * atspi_accessible_is_streamable_content:
- * @obj: a pointer to the #AtspiAccessible instance to query.
- *
- * Query whether the specified #AtspiAccessible implements the
- * #AtspiStreamableContent interface.
- *
- * Returns: #TRUE if @obj implements the #AtspiStreamableContent interface,
- *          #FALSE otherwise.
- **/
-gboolean
-atspi_accessible_is_streamable_content (AtspiAccessible *obj)
-{
-#if 0
-  return _atspi_accessible_is_a (obj,
-			      atspi_interface_streamable_content);
-#else
-  g_warning ("Streamable content not implemented");
-  return FALSE;
-#endif
-}
-
-/**
  * atspi_accessible_is_text:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
@@ -1484,24 +1462,6 @@ atspi_accessible_get_selection_iface (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_selection) ? g_object_ref (ATSPI_SELECTION (accessible)) : NULL);
 }
-
-#if 0
-/**
- * atspi_accessible_get_streamable_content:
- * @obj: a pointer to the #AtspiAccessible instance to query.
- *
- * Gets the #AtspiStreamableContent interface for an #AtspiAccessible.
- *
- * Returns: (transfer full): a pointer to an #AtspiStreamableContent interface
- *          instance, or NULL if @obj does not implement #AtspiStreamableContent.
- **/
-AtspiStreamableContent *
-atspi_accessible_get_streamable_content (AtspiAccessible *accessible)
-{
-  return (_atspi_accessible_is_a (accessible, atspi_interface_streamable_content) ?
-          accessible : NULL);  
-}
-#endif
 
 /**
  * atspi_accessible_get_table: (rename-to atspi_accessible_get_table_iface)

@@ -47,15 +47,11 @@ struct _AtspiCollection
   GTypeInterface parent;
 };
 
-gboolean atspi_collection_is_ancestor_of (AtspiCollection *collection, AtspiAccessible *test, GError **error);
-
 GArray *atspi_collection_get_matches (AtspiCollection *collection, AtspiMatchRule *rule, AtspiCollectionSortOrder sortby, gint count, gboolean traverse, GError **error);
 
 GArray *atspi_collection_get_matches_to (AtspiCollection *collection, AtspiAccessible *current_object, AtspiMatchRule *rule, AtspiCollectionSortOrder sortby, AtspiCollectionTreeTraversalType tree, gboolean limit_scope, gint count, gboolean traverse, GError **error);
 
 GArray *atspi_collection_get_matches_from (AtspiCollection *collection, AtspiAccessible *current_object, AtspiMatchRule *rule, AtspiCollectionSortOrder sortby, AtspiCollectionTreeTraversalType tree, gint count, gboolean traverse, GError **error);
-
-AtspiAccessible *atspi_collection_get_active_descendant (AtspiCollection *collection, GError **error);
 
 G_END_DECLS
 

@@ -35,39 +35,6 @@
  * system clipboard via copy, cut, and paste methods.
  */
 
-#if 0
-/* TODO: implement */
-/**
- * atspi_editable_text_set_attributes:
- * @obj: a pointer to the #AtspiEditableText object to modify.
- * @attributes: a string indicating the attributes to apply to the range,
- *        delimited by ':'.
- * @startOffset: a #gint indicating the start of the desired text range.
- * @endOffset: a #gint indicating the first character past the desired range.
- *
- * Sets the attributes applied to a range of text from an #AtspiEditableText
- *          object, and the bounds of the range.
- *
- * Returns: #TRUE if the operation was successful, otherwise #FALSE.
- **/
-gboolean
-atspi_editable_text_set_attributes (AtspiEditableText *obj,
-				    const char *attributes,
-				    gint start_pos,
-				    gint end_pos,
-				    GError **error
-{
-  dbus_int32_t d_start_pos = start_pos, d_end_pos = end_pos;
-  dbus_bool_t retval = FALSE;
-
-  cspi_return_val_if_fail (obj != NULL, FALSE);
-
-  _atspi_dbus_call (obj, atspi_interface_editable_text, "SetAttributes", error, "sii=>b", attributes, d_start_pos, d_end_pos, &retval);
-
-  return retval;
-}
-#endif
-
 /**
  * atspi_editable_text_set_text_contents:
  * @obj: a pointer to the #AtspiEditableText object to modify.

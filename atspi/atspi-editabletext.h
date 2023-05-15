@@ -45,10 +45,6 @@ struct _AtspiEditableText
   GTypeInterface parent;
 };
 
-#if 0
-gboolean atspi_editable_text_set_attributes (AtspiEditableText *obj, const char *attributes, gint start_pos, gint end_pos, GError **error)
-#endif
-
 gboolean atspi_editable_text_set_text_contents (AtspiEditableText *obj, const gchar *new_contents, GError **error);
 
 gboolean atspi_editable_text_insert_text (AtspiEditableText *obj, gint position, const gchar *text, gint length, GError **error);

@@ -36,21 +36,6 @@
  * or client-side search of the object tree.
  */
 
-/**
- * atspi_collection_is_ancestor_of:
- *
- * Not yet implemented.
- *
- **/
-gboolean
-atspi_collection_is_ancestor_of (AtspiCollection *collection,
-                                 AtspiAccessible *test,
-                                 GError **error)
-{
-  g_warning ("AT-SPI: TODO: Implement is_ancestor_of");
-  return FALSE;
-}
-
 static DBusMessage *
 new_message (AtspiCollection *collection, char *method)
 {
@@ -267,19 +252,6 @@ atspi_collection_get_matches_from (AtspiCollection *collection,
   if (!reply)
     return NULL;
   return return_accessibles (reply);
-}
-
-/**
- * atspi_collection_get_active_descendant:
- *
- * Returns: (transfer full): The active descendant of the given object.
- * Not yet implemented.
- **/
-AtspiAccessible *
-atspi_collection_get_active_descendant (AtspiCollection *collection, GError **error)
-{
-  g_warning ("AT-SPI: TODO: Implement get_active_descendants");
-  return NULL;
 }
 
 static void
