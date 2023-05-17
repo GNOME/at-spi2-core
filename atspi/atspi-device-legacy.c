@@ -90,6 +90,7 @@ key_cb (AtspiDeviceEvent *event, void *user_data)
   gboolean ret = priv->keyboard_grabbed;
   guint modifiers;
 
+  g_object_ref (legacy_device);
   set_virtual_modifier (legacy_device, event->hw_code,
                         event->type == (AtspiEventType) ATSPI_KEY_PRESS);
 
@@ -104,6 +105,7 @@ key_cb (AtspiDeviceEvent *event, void *user_data)
                                   event->event_string);
 
   g_boxed_free (ATSPI_TYPE_DEVICE_EVENT, event);
+  g_object_unref (legacy_device);
   return ret;
 }
 
