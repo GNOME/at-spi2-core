@@ -330,6 +330,7 @@ do_event_dispatch (gpointer user_data)
   XComposeStatus status;
   guint modifiers;
 
+  g_object_ref (device);
   while (XPending (display))
     {
       XNextEvent (display, &xevent);
@@ -392,6 +393,8 @@ do_event_dispatch (gpointer user_data)
             continue;
         }
     }
+
+  g_object_unref (device);
   return TRUE;
 }
 
