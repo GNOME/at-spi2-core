@@ -223,7 +223,7 @@ impl_GetChildren (DBusConnection *bus,
                                             &iter_struct);
           dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING,
                                           &child_name);
-          dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING,
+          dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH,
                                           &child_path);
           dbus_message_iter_close_container (&iter_array, &iter_struct);
           g_free (child_name);
