@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.48.3:
+
+* Fix the build when dbus-broker is not set to be used by default.
+
+* Fix a couple of use after frees when finalizing devices.
+
+* atk-adaptor: Fix handling of sockets in impl_GetChildren.
+
 What's new in at-spi2-core 2.48.2:
 
 * Fixed a regression in 2.48.1 where the bus launcher would fail if
