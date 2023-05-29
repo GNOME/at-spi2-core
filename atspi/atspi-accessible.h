@@ -168,6 +168,8 @@ void atspi_accessible_set_cache_mask (AtspiAccessible *accessible, AtspiCache ma
 
 void atspi_accessible_clear_cache (AtspiAccessible *obj);
 
+void atspi_accessible_clear_cache_single (AtspiAccessible *obj);
+
 guint atspi_accessible_get_process_id (AtspiAccessible *accessible, GError **error);
 
 gchar *atspi_accessible_get_accessible_id (AtspiAccessible *obj, GError **error);

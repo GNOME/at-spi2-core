@@ -1747,11 +1747,24 @@ atspi_accessible_clear_cache_internal (AtspiAccessible *obj, guint iteration_sta
   if (obj && obj->priv->iteration_stamp != iteration_stamp)
     {
       obj->priv->iteration_stamp = iteration_stamp;
-      obj->cached_properties = ATSPI_CACHE_NONE;
+      atspi_accessible_clear_cache_single (obj);
       if (obj->children)
         for (i = 0; i < obj->children->len; i++)
           atspi_accessible_clear_cache_internal (g_ptr_array_index (obj->children, i), iteration_stamp);
     }
+}
+
+/**
+ * atspi_accessible_clear_cache_single:
+ * @obj: The #AtspiAccessible whose cache to clear.
+ *
+ * Clears the cached information only for the given accessible.
+ */
+void
+atspi_accessible_clear_cache_single (AtspiAccessible *obj)
+{
+  if (obj)
+    obj->cached_properties = ATSPI_CACHE_NONE;
 }
 
 /**
