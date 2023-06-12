@@ -57,6 +57,7 @@ main (int argc, char **argv)
 
   g_test_init (&argc, &argv, NULL);
 
+  setlocale (LC_ALL, "");
   init_result = atspi_init ();
   if (init_result != 0)
     {

@@ -34,6 +34,7 @@
 #include <atk/atk.h>
 #include <glib-unix.h>
 #include <glib.h>
+#include <locale.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -117,6 +118,7 @@ main (int argc, char *argv[])
   if (!g_option_context_parse (opt, &argc, &argv, &err))
     g_error ("Option parsing failed: %s\n", err->message);
 
+  setlocale (LC_ALL, "");
   setup_atk_util ();
   test_init (tdata_path);
 
