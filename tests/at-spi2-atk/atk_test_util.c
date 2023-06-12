@@ -81,6 +81,7 @@ try_get_root_obj (AtspiAccessible *obj)
             {
               g_print ("  getting child_at_index: %s\n", error->message);
               g_error_free (error);
+              error = NULL;
             }
           else
             {
@@ -97,6 +98,11 @@ try_get_root_obj (AtspiAccessible *obj)
             }
           g_print ("  name=%s\n", name);
           g_free (name);
+          if (error)
+            {
+              g_error_free (error);
+              error = NULL;
+            }
         }
       else
         {
@@ -104,6 +110,7 @@ try_get_root_obj (AtspiAccessible *obj)
             {
               g_print ("try_get_root_obj getting child name: %s\n", error->message);
               g_error_free (error);
+              error = NULL;
             }
           else
             {
