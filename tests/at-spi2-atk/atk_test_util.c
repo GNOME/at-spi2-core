@@ -72,7 +72,7 @@ try_get_root_obj (AtspiAccessible *obj)
       return NULL;
     }
 
-  for (i = 0; i < child_count; i++)
+  for (i = child_count - 1; i >= 0; i--)
     {
       AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, i, &error);
       if (!child)
