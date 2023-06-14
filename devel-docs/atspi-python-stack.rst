@@ -50,7 +50,9 @@ I would like to gradually "disappear" pyatspi2 like this:
   I think a lot of the work to do this is just renaming functions; for
   example, in the way that pyatspi already does things like
   ``Atspi.Hyperlink.getObject = Atspi.Hyperlink.get_object`` just for
-  Orca's benefit.
+  Orca's benefit.  **Update:** This is in progress as of 2023/Jun/14,
+  see `Orca issue #300
+  <https://gitlab.gnome.org/GNOME/orca/-/issues/300>`_.
 
 * If Orca wants to keep running on old versions of the stack, those
   compatibility wrappers should live in Orca itself, not in pyatspi2.
@@ -80,13 +82,52 @@ would be useful to make a choice:
 (I'm trying to reduce the amount of code that the "GNOME accessibility
 team" is expected to keep working at all times.)
 
+Per the discussion in `at-spi2-core !136
+<https://gitlab.gnome.org/GNOME/at-spi2-core/-/merge_requests/136>`,
+these are the reverse dependencies of pyatspi2 in Debian:
+
+* ``accerciser`` - It's in a creaky state; would be good to replace it
+  with something that is not X11-centric.
+* ``autokey-common`` - Only uses the `keyboard listener
+  <https://github.com/autokey/autokey/blob/717f90321b0d4a8053bdb7490ac7ca4e8c086ce9/lib/autokey/interface.py#L1317-L1346>`_,
+  but this is changing in atspi anyway.
+* caribou - It is `archived/read-only
+  <https://gitlab.gnome.org/Archive/caribou>`_ and the last release
+  was `from 2016 <https://download.gnome.org/sources/caribou/0.4/>`_ -
+  probably dead by now.
+* gnome-photos-tests - Only uses dogtail.
+* ibus-speech - Hypra, not open source?
+* ibus-speech-applet - Hypra, not open source?
+* orca - Under discussion in the present document.
+* python3-dogtail - Under discussion in the present document.
+
+At some point we may want to make pyatspi2 emit a deprecation warning,
+when GNOME-owned projects are converted to use the
+gobject-introspected Atspi directly.
+
+Orca's compatibility goals
+--------------------------
+
+Orca has to work in GNOME, MATE, KDE, and basically every other desktop.
+
+Some people update Orca by hand even when they stay on an old distro.
+This is easy to do — Orca can be installed in one's home directory as
+a Python program — but upgrading at-spi2-core and its integrated
+libraries requires superuser privileges.
+
+I'm not sure how to resolve that.  We cannot support everyone's custom
+configuration forever, but maybe we can make it easy for them to get
+distro-like packages with updates.  SUSE's Open Build Service can
+build packages for many distros, or maybe we can find contacts who are
+willing to maintain updated packages or Orca's stack for their old
+distros.
 
 Modern amenities for Orca
 -------------------------
 
 I think this would be a good chance to bring some modern Python 3 amenities to Orca:
 
-* Flake8 - various lints and style checks.
+* Ruff/Flake8 - various lints and style checks.
 * Automatic code formatting around PEP 8, like we ensure the C style
   during CI for at-spi2-core.
 * Code coverage reports.  These are especially useful to find obsolete
