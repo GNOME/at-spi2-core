@@ -2,18 +2,31 @@ Development guide for the accessibility infrastructure
 ======================================================
 
 .. toctree::
-   :caption: Contents:
+   :caption: For toolkit implementors
    :maxdepth: 1
-   at-spi3
    atk-deprecations
-   atspi-python-stack
-   de-controller
-   gitlab-ci
-   meeting-2023-01-13
-   roadmap
    toolkits
    xml-changes
    xml-interfaces
+
+.. toctree::
+   :caption: Roadmap and Design Documents
+   :maxdepth: 1
+   roadmap
+   at-spi3
+   atspi-python-stack
+   de-controller
+
+.. toctree::
+   :caption: Meeting minutes
+   :maxdepth: 1
+   meeting-2023-01-13
+
+.. toctree::
+   :caption: Info for Maintainers
+   :maxdepth: 1
+   gitlab-ci
+             
 
 Welcome to the developer's guide for the freedesktop accessbility
 infrastructure.  This guide intends to become a repository of
