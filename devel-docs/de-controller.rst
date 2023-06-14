@@ -1,5 +1,5 @@
 Notes on the device event controller machinery
-----------------------------------------------
+==============================================
 
 In pyatspi2, ``Registry.setReferenceWIndow()`` is misspelled. However,
 that function is never called in Orca or elsewhere, as far as I can

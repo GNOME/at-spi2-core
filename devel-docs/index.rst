@@ -2,17 +2,31 @@ Development guide for the accessibility infrastructure
 ======================================================
 
 .. toctree::
-   at-spi3
-   atk-deprecations
-   de-controller
-   gitlab-ci
-   meeting-2023-01-13
-   roadmap
+   :caption: For toolkit implementors
+   :maxdepth: 1
    toolkits
+   atk-deprecations
    xml-changes
    xml-interfaces
+
+.. toctree::
+   :caption: Roadmap and Design Documents
    :maxdepth: 1
-   :caption: Contents:
+   roadmap
+   at-spi3
+   atspi-python-stack
+   de-controller
+
+.. toctree::
+   :caption: Meeting minutes
+   :maxdepth: 1
+   meeting-2023-01-13
+
+.. toctree::
+   :caption: Info for Maintainers
+   :maxdepth: 1
+   gitlab-ci
+             
 
 Welcome to the developer's guide for the freedesktop accessbility
 infrastructure.  This guide intends to become a repository of
@@ -22,28 +36,3 @@ who want to make their user interfaces accessible.
 
 If you want to modify this document, `please see its source code
 <https://gitlab.gnome.org/GNOME/at-spi2-core/-/tree/main/devel-docs>`_.
-
-General documentation
----------------------
-
-- :doc:`roadmap`
-- :doc:`toolkits`
-- :doc:`xml-changes`
-- :doc:`xml-interfaces`
-
-Refactoring and cleanup
------------------------
-
-- :doc:`de-controller`
-- :doc:`atk-deprecations`
-- :doc:`at-spi3`
-
-Information for maintainers
----------------------------
-
-- :doc:`gitlab-ci`
-
-Meeting minutes
----------------
-
-- :doc:`meeting-2023-01-13`
