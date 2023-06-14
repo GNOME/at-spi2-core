@@ -182,6 +182,7 @@ wait_for_test_app_timeout_cb (gpointer user_data)
   TestAppFixture *fixture = user_data;
 
   fixture->test_app_timed_out = TRUE;
+  fixture->wait_for_test_app_timeout = 0;
   atspi_event_quit ();
 
   return FALSE;
@@ -210,7 +211,8 @@ fixture_setup (TestAppFixture *fixture, gconstpointer user_data)
   current_fixture = fixture;
   atspi_event_main ();
 
-  g_source_remove (fixture->wait_for_test_app_timeout);
+  if (fixture->wait_for_test_app_timeout)
+    g_source_remove (fixture->wait_for_test_app_timeout);
   fixture->wait_for_test_app_timeout = 0;
 
   if (fixture->test_app_timed_out)
