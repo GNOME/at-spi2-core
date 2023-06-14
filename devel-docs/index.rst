@@ -4,6 +4,7 @@ Development guide for the accessibility infrastructure
 .. toctree::
    :caption: For toolkit implementors
    :maxdepth: 1
+
    toolkits
    atk-deprecations
    xml-changes
@@ -12,6 +13,7 @@ Development guide for the accessibility infrastructure
 .. toctree::
    :caption: Roadmap and Design Documents
    :maxdepth: 1
+
    roadmap
    at-spi3
    atspi-python-stack
@@ -20,11 +22,13 @@ Development guide for the accessibility infrastructure
 .. toctree::
    :caption: Meeting minutes
    :maxdepth: 1
+
    meeting-2023-01-13
 
 .. toctree::
    :caption: Info for Maintainers
    :maxdepth: 1
+
    gitlab-ci
              
 
