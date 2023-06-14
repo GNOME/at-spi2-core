@@ -4,8 +4,8 @@ Development guide for the accessibility infrastructure
 .. toctree::
    :caption: For toolkit implementors
    :maxdepth: 1
-   atk-deprecations
    toolkits
+   atk-deprecations
    xml-changes
    xml-interfaces
 
@@ -36,29 +36,3 @@ who want to make their user interfaces accessible.
 
 If you want to modify this document, `please see its source code
 <https://gitlab.gnome.org/GNOME/at-spi2-core/-/tree/main/devel-docs>`_.
-
-General documentation
----------------------
-
-- :doc:`roadmap`
-- :doc:`toolkits`
-- :doc:`xml-changes`
-- :doc:`xml-interfaces`
-
-Refactoring and cleanup
------------------------
-
-- :doc:`de-controller`
-- :doc:`atk-deprecations`
-- :doc:`at-spi3`
-- :doc:`atspi-python-stack`
-
-Information for maintainers
----------------------------
-
-- :doc:`gitlab-ci`
-
-Meeting minutes
----------------
-
-- :doc:`meeting-2023-01-13`
