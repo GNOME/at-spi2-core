@@ -2017,19 +2017,23 @@ atspi_role_get_name (AtspiRole role)
  *
  * Returns: the localized string describing the AtspiRole
  **/
-const gchar *
+gchar *
 atspi_role_get_localized_name (AtspiRole role)
 {
   gchar *raw_name = NULL;
-  const gchar *ret;
+  const char *translated_name;
 
   _gettext_initialization ();
 
   raw_name = atspi_role_get_name (role);
-  ret = dgettext (GETTEXT_PACKAGE, raw_name);
-  if (ret != raw_name)
-    g_free (raw_name);
-  return ret;
+  translated_name = dgettext (GETTEXT_PACKAGE, raw_name);
+  if (translated_name != raw_name)
+    {
+      g_free (raw_name);
+      return g_strdup (translated_name);
+    }
+  else
+    return raw_name;
 }
 
 GHashTable *

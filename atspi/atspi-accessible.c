@@ -678,7 +678,7 @@ atspi_accessible_get_localized_role_name (AtspiAccessible *obj, GError **error)
 
   role = atspi_accessible_get_role (obj, error);
   if (role >= 0 && role < ATSPI_ROLE_COUNT && role != ATSPI_ROLE_EXTENDED)
-    return g_strdup (atspi_role_get_localized_name (role));
+    return atspi_role_get_localized_name (role);
 
   _atspi_dbus_call (obj, atspi_interface_accessible, "GetLocalizedRoleName", error, "=>s", &retval);
 

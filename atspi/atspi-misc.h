@@ -48,7 +48,7 @@ atspi_set_main_context (GMainContext *cnx);
 
 gchar *atspi_role_get_name (AtspiRole role);
 
-const gchar *atspi_role_get_localized_name (AtspiRole role);
+gchar *atspi_role_get_localized_name (AtspiRole role);
 G_END_DECLS
 
 #endif /* _ATSPI_MISC_H_ */
