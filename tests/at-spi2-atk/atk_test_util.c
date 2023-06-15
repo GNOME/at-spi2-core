@@ -136,6 +136,7 @@ listener_event_cb (AtspiEvent *event, void *user_data)
       AtspiAccessible *obj = atspi_get_desktop (0);
 
       fixture->root_obj = try_get_root_obj (obj);
+      g_object_unref (obj);
 
       if (fixture->root_obj)
         {
