@@ -342,15 +342,20 @@ gchar *
 atspi_accessible_get_name (AtspiAccessible *obj, GError **error)
 {
   g_return_val_if_fail (obj != NULL, g_strdup (""));
+  gchar *name = NULL;
 
   if (!_atspi_accessible_test_cache (obj, ATSPI_CACHE_NAME))
     {
       g_free (obj->name);
       obj->name = NULL;
       if (!_atspi_dbus_get_property (obj, atspi_interface_accessible, "Name", error,
-                                     "s", &obj->name))
+                                     "s", &name))
         return g_strdup ("");
       _atspi_accessible_add_cache (obj, ATSPI_CACHE_NAME);
+      if (!obj->name)
+        obj->name = name;
+      else
+        free (name);
     }
   return g_strdup (obj->name);
 }
@@ -368,6 +373,7 @@ gchar *
 atspi_accessible_get_description (AtspiAccessible *obj, GError **error)
 {
   g_return_val_if_fail (obj != NULL, g_strdup (""));
+  gchar *description = NULL;
 
   if (!_atspi_accessible_test_cache (obj, ATSPI_CACHE_DESCRIPTION))
     {
@@ -378,6 +384,10 @@ atspi_accessible_get_description (AtspiAccessible *obj, GError **error)
                                      &obj->description))
         return g_strdup ("");
       _atspi_accessible_add_cache (obj, ATSPI_CACHE_DESCRIPTION);
+      if (!obj->description)
+        obj->description = description;
+      else
+        free (description);
     }
   return g_strdup (obj->description);
 }
