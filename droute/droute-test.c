@@ -191,6 +191,7 @@ set_reply (DBusPendingCall *pending, void *user_data)
   void **replyptr = (void **) user_data;
 
   *replyptr = dbus_pending_call_steal_reply (pending);
+  dbus_pending_call_unref (pending);
 }
 
 static DBusMessage *

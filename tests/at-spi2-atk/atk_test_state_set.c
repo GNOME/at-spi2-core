@@ -47,6 +47,7 @@ atk_test_accessible_get_state_set (TestAppFixture *fixture, gconstpointer user_d
     }
   g_array_free (states_arr, TRUE);
   g_object_unref (states);
+  g_object_unref (child);
 }
 
 static void

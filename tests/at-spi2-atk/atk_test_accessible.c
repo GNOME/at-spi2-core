@@ -207,10 +207,12 @@ atk_test_accessible_get_attributes_as_array (TestAppFixture *fixture, gconstpoin
   g_assert_cmpint (attr_arr->len, ==, 2);
   for (i = 0; i < attr_arr->len; ++i)
     {
-      const char *pair = g_array_index (attr_arr, gchar *, i);
+      char *pair = g_array_index (attr_arr, gchar *, i);
 
       g_assert (strcmp (pair, "atspi1:test1") == 0 || strcmp (pair, "atspi2:test2") == 0);
+      g_free (pair);
     }
+  g_array_free (attr_arr, TRUE);
 }
 
 static void
@@ -239,6 +241,7 @@ atk_test_accessible_get_atspi_version (TestAppFixture *fixture, gconstpointer us
   AtspiAccessible *obj = fixture->root_obj;
   gchar *atspi_version = atspi_accessible_get_atspi_version (obj, NULL);
   g_assert_cmpstr (atspi_version, ==, "2.1");
+  g_free (atspi_version);
 }
 
 static void
