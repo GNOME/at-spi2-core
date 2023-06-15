@@ -34,6 +34,9 @@ atk_test_accessible_get_table_cell (TestAppFixture *fixture, gconstpointer user_
   AtspiAccessible *cell = atspi_accessible_get_child_at_index (child, 9, NULL);
   AtspiTableCell *obj = atspi_accessible_get_table_cell (cell);
   g_assert (obj);
+  g_object_unref (obj);
+  g_object_unref (cell);
+  g_object_unref (child);
 }
 
 static void
@@ -55,6 +58,9 @@ atk_test_table_cell_get_column_span (TestAppFixture *fixture, gconstpointer user
   g_assert (obj);
 
   g_assert_cmpint (1, ==, atspi_table_cell_get_column_span (obj, NULL));
+  g_object_unref (obj);
+  g_object_unref (cell);
+  g_object_unref (child);
 }
 
 /*
@@ -72,6 +78,10 @@ atk_test_table_cell_get_column_header_cells (TestAppFixture *fixture, gconstpoin
 
   GPtrArray *ret = atspi_table_cell_get_column_header_cells (obj, NULL);
   g_assert_cmpint (3, ==, ret->len);
+  g_array_free (ret, TRUE);
+  g_object_unref (obj);
+  g_object_unref (cell);
+  g_object_unref (child);
 }
 */
 
@@ -94,6 +104,9 @@ atk_test_table_cell_get_row_span (TestAppFixture *fixture, gconstpointer user_da
   g_assert (obj);
 
   g_assert_cmpint (1, ==, atspi_table_cell_get_column_span (obj, NULL));
+  g_object_unref (obj);
+  g_object_unref (cell);
+  g_object_unref (child);
 }
 
 /*
@@ -111,6 +124,10 @@ atk_test_table_cell_get_row_header_cells (TestAppFixture *fixture, gconstpointer
 
   GPtrArray *ret = atspi_table_cell_get_row_header_cells (obj, NULL);
   g_assert_cmpint (4, ==, ret->len);
+  g_array_free (ret, TRUE);
+  g_object_unref (obj);
+  g_object_unref (cell);
+  g_object_unref (child);
 }
 */
 
@@ -137,6 +154,9 @@ atk_test_table_cell_get_row_column_span (TestAppFixture *fixture, gconstpointer 
   g_assert_cmpint (column, ==, 0);
   g_assert_cmpint (row_span, ==, 2);
   g_assert_cmpint (column_span, ==, 1);
+  g_object_unref (obj);
+  g_object_unref (cell);
+  g_object_unref (child);
 }
 
 static void
@@ -159,6 +179,9 @@ atk_test_table_cell_get_position (TestAppFixture *fixture, gconstpointer user_da
   /* TODO: not a very good test for the app to return (-1, -1) */
   g_assert_cmpint (row, ==, -1);
   g_assert_cmpint (column, ==, -1);
+  g_object_unref (obj);
+  g_object_unref (cell);
+  g_object_unref (child);
 }
 
 static void
@@ -176,6 +199,10 @@ atk_test_table_cell_get_table (TestAppFixture *fixture, gconstpointer user_data)
   AtspiAccessible *tab = atspi_table_cell_get_table (obj, NULL);
   g_assert (tab);
   g_assert (child == tab);
+  g_object_unref (tab);
+  g_object_unref (obj);
+  g_object_unref (cell);
+  g_object_unref (child);
 }
 
 void

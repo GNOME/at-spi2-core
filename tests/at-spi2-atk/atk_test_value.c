@@ -32,6 +32,8 @@ atk_test_value_get_value_iface (TestAppFixture *fixture, gconstpointer user_data
   g_assert (child);
   AtspiValue *obj = atspi_accessible_get_value_iface (child);
   g_assert (obj);
+  g_object_unref (obj);
+  g_object_unref (child);
 }
 
 static void
@@ -44,6 +46,8 @@ atk_test_value_get_minimum_value (TestAppFixture *fixture, gconstpointer user_da
   AtspiValue *obj = atspi_accessible_get_value_iface (child);
   gdouble val = atspi_value_get_minimum_value (obj, NULL);
   g_assert_cmpfloat (val, ==, 1.25);
+  g_object_unref (obj);
+  g_object_unref (child);
 }
 
 static void
@@ -56,6 +60,8 @@ atk_test_value_get_current_value (TestAppFixture *fixture, gconstpointer user_da
   AtspiValue *obj = atspi_accessible_get_value_iface (child);
   gdouble val = atspi_value_get_current_value (obj, NULL);
   g_assert_cmpfloat (val, ==, 2.25);
+  g_object_unref (obj);
+  g_object_unref (child);
 }
 
 static void
@@ -68,6 +74,8 @@ atk_test_value_get_maximum_value (TestAppFixture *fixture, gconstpointer user_da
   AtspiValue *obj = atspi_accessible_get_value_iface (child);
   gdouble val = atspi_value_get_maximum_value (obj, NULL);
   g_assert_cmpfloat (val, ==, 3.25);
+  g_object_unref (obj);
+  g_object_unref (child);
 }
 
 static void
@@ -81,6 +89,8 @@ atk_test_value_set_current_value (TestAppFixture *fixture, gconstpointer user_da
   g_assert (atspi_value_set_current_value (obj, 2.5, NULL));
   gdouble val = atspi_value_get_current_value (obj, NULL);
   g_assert_cmpfloat (val, ==, 2.5);
+  g_object_unref (obj);
+  g_object_unref (child);
 }
 
 static void
@@ -93,6 +103,8 @@ atk_test_value_get_minimum_increment (TestAppFixture *fixture, gconstpointer use
   AtspiValue *obj = atspi_accessible_get_value_iface (child);
   gdouble val = atspi_value_get_minimum_increment (obj, NULL);
   g_assert_cmpfloat (val, ==, 0.25);
+  g_object_unref (obj);
+  g_object_unref (child);
 }
 
 static void
@@ -106,6 +118,8 @@ atk_test_value_get_text (TestAppFixture *fixture, gconstpointer user_data)
   gchar *text = atspi_value_get_text (obj, NULL);
   g_assert_cmpstr (text, ==, "2.250000");
   g_free (text);
+  g_object_unref (obj);
+  g_object_unref (child);
 }
 
 void

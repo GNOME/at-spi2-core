@@ -32,6 +32,8 @@ atk_test_document_get_document_iface (TestAppFixture *fixture, gconstpointer use
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiDocument *iface = atspi_accessible_get_document_iface (child);
   g_assert (iface != NULL);
+  g_object_unref (iface);
+  g_object_unref (child);
 }
 
 static void
@@ -42,7 +44,11 @@ atk_test_document_get_locale (TestAppFixture *fixture, gconstpointer user_data)
   AtspiDocument *iface = atspi_accessible_get_document_iface (child);
   g_assert (iface != NULL);
 
-  g_assert_cmpstr (atspi_document_get_locale (iface, NULL), ==, "document_locale");
+  gchar *str = atspi_document_get_locale (iface, NULL);
+  g_assert_cmpstr (str, ==, "document_locale");
+  g_free (str);
+  g_object_unref (iface);
+  g_object_unref (child);
 }
 
 static void
@@ -51,10 +57,17 @@ atk_test_document_get_attribute_value (TestAppFixture *fixture, gconstpointer us
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiDocument *iface = atspi_accessible_get_document_iface (child);
+  gchar *str;
   g_assert (iface != NULL);
 
-  g_assert_cmpstr (atspi_document_get_document_attribute_value (iface, "atspi1", NULL), ==, "test1");
-  g_assert_cmpstr (atspi_document_get_document_attribute_value (iface, "atspi2", NULL), ==, "test2");
+  str = atspi_document_get_document_attribute_value (iface, "atspi1", NULL);
+  g_assert_cmpstr (str, ==, "test1");
+  g_free (str);
+  str = atspi_document_get_document_attribute_value (iface, "atspi2", NULL);
+  g_assert_cmpstr (str, ==, "test2");
+  g_free (str);
+  g_object_unref (iface);
+  g_object_unref (child);
 }
 
 static void
@@ -88,6 +101,9 @@ atk_test_document_get_attributes (TestAppFixture *fixture, gconstpointer user_da
           g_assert_not_reached ();
         }
     }
+  g_hash_table_unref (attr);
+  g_object_unref (iface);
+  g_object_unref (child);
 }
 
 void

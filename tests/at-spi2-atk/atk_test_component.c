@@ -29,10 +29,12 @@ static void
 atk_test_component_sample (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *obj = fixture->root_obj;
-  g_assert_cmpstr (atspi_accessible_get_name (obj, NULL), ==, "root_object");
+  check_name (obj, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiComponent *iface = atspi_accessible_get_component_iface (child);
   g_assert (iface != NULL);
+  g_object_unref (iface);
+  g_object_unref (child);
 }
 
 static void
@@ -45,6 +47,8 @@ atk_test_component_contains (TestAppFixture *fixture, gconstpointer user_data)
 
   gboolean ret = atspi_component_contains (iface, 400, 300, ATSPI_COORD_TYPE_SCREEN, NULL);
   g_assert (ret != FALSE);
+  g_object_unref (iface);
+  g_object_unref (child);
 }
 
 static void
@@ -61,6 +65,9 @@ atk_test_component_get_accessible_at_point (TestAppFixture *fixture, gconstpoint
                                                                 ATSPI_COORD_TYPE_SCREEN,
                                                                 NULL);
   g_assert (r != NULL);
+  g_object_unref (r);
+  g_object_unref (iface);
+  g_object_unref (child);
 }
 
 static void
@@ -77,6 +84,8 @@ atk_test_component_get_extents (TestAppFixture *fixture, gconstpointer user_data
   g_assert_cmpint (r->width, ==, 250);
   g_assert_cmpint (r->height, ==, 250);
   g_free (r);
+  g_object_unref (iface);
+  g_object_unref (child);
 }
 
 static void
@@ -89,6 +98,8 @@ atk_test_component_get_layer (TestAppFixture *fixture, gconstpointer user_data)
 
   AtspiComponentLayer layer = atspi_component_get_layer (iface, NULL);
   g_assert_cmpint (layer, ==, ATSPI_LAYER_WIDGET);
+  g_object_unref (iface);
+  g_object_unref (child);
 }
 
 static void
@@ -101,6 +112,8 @@ atk_test_component_get_mdi_z_order (TestAppFixture *fixture, gconstpointer user_
 
   gshort ret = atspi_component_get_mdi_z_order (iface, NULL);
   g_assert_cmpint (ret, ==, 2);
+  g_object_unref (iface);
+  g_object_unref (child);
 }
 
 static void
@@ -113,6 +126,8 @@ atk_test_component_grab_focus (TestAppFixture *fixture, gconstpointer user_data)
 
   gboolean ret = atspi_component_grab_focus (iface, NULL);
   g_assert (ret != FALSE);
+  g_object_unref (iface);
+  g_object_unref (child);
 }
 
 static void
@@ -125,6 +140,8 @@ atk_test_component_get_alpha (TestAppFixture *fixture, gconstpointer user_data)
 
   gdouble ret = atspi_component_get_alpha (iface, NULL);
   g_assert_cmpfloat (ret, ==, 2.5);
+  g_object_unref (iface);
+  g_object_unref (child);
 }
 
 static void
@@ -151,6 +168,8 @@ atk_test_component_set_extents (TestAppFixture *fixture, gconstpointer user_data
   g_assert_cmpint (r->width, ==, 100);
   g_assert_cmpint (r->height, ==, 100);
   g_free (r);
+  g_object_unref (iface);
+  g_object_unref (child);
 }
 
 void

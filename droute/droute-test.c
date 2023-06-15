@@ -302,6 +302,8 @@ main (int argc, char **argv)
   g_main_loop_run (main_loop);
 
   droute_free (cnx);
+  g_free (object->astring);
+  g_free (object);
 
   if (success)
     return 0;

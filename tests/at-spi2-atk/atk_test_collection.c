@@ -31,6 +31,15 @@ atk_test_collection_get_collection_iface (TestAppFixture *fixture, gconstpointer
   AtspiAccessible *obj = fixture->root_obj;
   AtspiCollection *iface = atspi_accessible_get_collection_iface (obj);
   g_assert (iface);
+  g_object_unref (iface);
+}
+
+static void
+check_and_unref (GArray *array, gint index, const char *expected_name)
+{
+  AtspiAccessible *accessible = g_array_index (array, AtspiAccessible *, index);
+  check_name (accessible, expected_name);
+  g_object_unref (accessible);
 }
 
 static void
@@ -62,11 +71,11 @@ atk_test_collection_get_matches (TestAppFixture *fixture, gconstpointer user_dat
                                               NULL);
   g_assert_cmpint (2, ==, ret->len);
 
-  AtspiAccessible *get = NULL;
-  get = g_array_index (ret, AtspiAccessible *, 0);
-  g_assert_cmpstr ("obj1", ==, atspi_accessible_get_name (get, NULL));
-  get = g_array_index (ret, AtspiAccessible *, 1);
-  g_assert_cmpstr ("obj3", ==, atspi_accessible_get_name (get, NULL));
+  check_and_unref (ret, 0, "obj1");
+  check_and_unref (ret, 1, "obj3");
+  g_array_free (ret, TRUE);
+  g_object_unref (rule);
+  g_object_unref (iface);
 }
 
 static void
@@ -101,9 +110,10 @@ atk_test_collection_get_matches_to (TestAppFixture *fixture, gconstpointer user_
                                                  FALSE,
                                                  NULL);
   g_assert_cmpint (1, ==, ret->len);
-  AtspiAccessible *get = NULL;
-  get = g_array_index (ret, AtspiAccessible *, 0);
-  g_assert_cmpstr ("obj1", ==, atspi_accessible_get_name (get, NULL));
+  check_and_unref (ret, 0, "obj1");
+  g_array_free (ret, TRUE);
+  g_object_unref (rule);
+  g_object_unref (iface);
 }
 
 static void
@@ -137,13 +147,12 @@ atk_test_collection_get_matches_from (TestAppFixture *fixture, gconstpointer use
                                                    FALSE,
                                                    NULL);
   g_assert_cmpint (3, ==, ret->len);
-  AtspiAccessible *get = NULL;
-  get = g_array_index (ret, AtspiAccessible *, 0);
-  g_assert_cmpstr ("obj2/1", ==, atspi_accessible_get_name (get, NULL));
-  get = g_array_index (ret, AtspiAccessible *, 1);
-  g_assert_cmpstr ("obj3", ==, atspi_accessible_get_name (get, NULL));
-  get = g_array_index (ret, AtspiAccessible *, 2);
-  g_assert_cmpstr ("obj3", ==, atspi_accessible_get_name (get, NULL));
+  check_and_unref (ret, 0, "obj2/1");
+  check_and_unref (ret, 1, "obj3");
+  check_and_unref (ret, 2, "obj3");
+  g_array_free (ret, TRUE);
+  g_object_unref (rule);
+  g_object_unref (iface);
 }
 
 void

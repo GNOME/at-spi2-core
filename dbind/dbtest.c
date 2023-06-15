@@ -193,6 +193,7 @@ test_struct_simple ()
 
   dbind_any_free ("a(sss)", &a2);
   dbus_message_unref (msg);
+  g_array_free (a1, TRUE);
 }
 
 void
@@ -308,6 +309,7 @@ test_struct_with_array ()
   dbus_message_unref (msg);
   g_array_free (p[0].vals, TRUE);
   g_array_free (p[1].vals, TRUE);
+  g_array_free (a1, TRUE);
 }
 
 void

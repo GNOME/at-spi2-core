@@ -29,14 +29,16 @@ static void
 atk_test_accessible_get_name (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *obj = fixture->root_obj;
-  g_assert_cmpstr (atspi_accessible_get_name (obj, NULL), ==, "root_object");
+  check_name (obj, "root_object");
 }
 
 static void
 atk_test_accessible_get_description (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *obj = fixture->root_obj;
-  g_assert_cmpstr (atspi_accessible_get_description (obj, NULL), ==, "Root of the accessible tree");
+  gchar *str = atspi_accessible_get_description (obj, NULL);
+  g_assert_cmpstr (str, ==, "Root of the accessible tree");
+  g_free (str);
 }
 
 static void
@@ -54,6 +56,8 @@ atk_test_accessible_get_parent (TestAppFixture *fixture, gconstpointer user_data
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiAccessible *parent = atspi_accessible_get_parent (child, NULL);
   g_assert (parent == obj);
+  g_object_unref (parent);
+  g_object_unref (child);
 }
 
 static void
@@ -61,7 +65,8 @@ atk_test_accessible_get_child_at_index (TestAppFixture *fixture, gconstpointer u
 {
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
-  g_assert_cmpstr (atspi_accessible_get_name (child, NULL), ==, "obj2");
+  check_name (child, "obj2");
+  g_object_unref (child);
 }
 
 static void
@@ -71,6 +76,7 @@ atk_test_accessible_get_index_in_parent (TestAppFixture *fixture, gconstpointer 
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 2, NULL);
   int index = atspi_accessible_get_index_in_parent (child, NULL);
   g_assert_cmpint (index, ==, 2);
+  g_object_unref (child);
 }
 
 static void
@@ -81,6 +87,10 @@ atk_test_accessible_get_relation_set_1 (TestAppFixture *fixture, gconstpointer u
   AtspiAccessible *child = atspi_accessible_get_child_at_index (child1, 0, NULL);
   GArray *rel_set = atspi_accessible_get_relation_set (child, NULL);
   g_assert_cmpint (rel_set->len, ==, 1);
+  g_object_unref (g_array_index (rel_set, AtspiRelation *, 0));
+  g_array_free (rel_set, TRUE);
+  g_object_unref (child);
+  g_object_unref (child1);
 }
 
 static void
@@ -97,8 +107,13 @@ atk_test_accessible_get_relation_set_2 (TestAppFixture *fixture, gconstpointer u
       g_assert_cmpint (atspi_relation_get_relation_type (a), ==, ATSPI_RELATION_CONTROLLER_FOR);
       g_assert_cmpint (atspi_relation_get_n_targets (a), ==, 1);
       AtspiAccessible *target = atspi_relation_get_target (a, 0);
-      g_assert_cmpstr (atspi_accessible_get_name (target, NULL), ==, "obj2");
+      check_name (target, "obj2");
+      g_object_unref (target);
+      g_object_unref (a);
     }
+  g_array_free (rel_set, TRUE);
+  g_object_unref (obj2_1);
+  g_object_unref (obj2);
 }
 
 static void
@@ -115,6 +130,7 @@ atk_test_accessible_get_role_name (TestAppFixture *fixture, gconstpointer user_d
   AtspiAccessible *obj = fixture->root_obj;
   gchar *root_role_name = atspi_accessible_get_role_name (obj, NULL);
   g_assert_cmpstr (root_role_name, ==, "accelerator label");
+  g_free (root_role_name);
 }
 
 static void
@@ -123,6 +139,7 @@ atk_test_accessible_get_localized_role_name (TestAppFixture *fixture, gconstpoin
   AtspiAccessible *obj = fixture->root_obj;
   gchar *root_role_name = atspi_accessible_get_localized_role_name (obj, NULL);
   g_assert_cmpstr (root_role_name, ==, "accelerator label");
+  g_free (root_role_name);
 }
 
 static void
@@ -145,6 +162,9 @@ atk_test_accessible_get_state_set (TestAppFixture *fixture, gconstpointer user_d
       g_assert (atspi_state_set_contains (states, ATSPI_STATE_MODAL));
       g_assert (atspi_state_set_contains (states, ATSPI_STATE_MULTI_LINE));
     }
+  g_array_free (states_arr, TRUE);
+  g_object_unref (states);
+  g_object_unref (child);
 }
 
 static void
@@ -175,6 +195,7 @@ atk_test_accessible_get_attributes (TestAppFixture *fixture, gconstpointer user_
           g_assert_not_reached ();
         }
     }
+  g_hash_table_unref (attr_hash_tab);
 }
 
 static void
@@ -199,6 +220,7 @@ atk_test_accessible_get_toolkit_name (TestAppFixture *fixture, gconstpointer use
   gchar *toolkit_name = atspi_accessible_get_toolkit_name (obj, NULL);
 
   g_assert_cmpstr (toolkit_name, ==, "atspitesting-toolkit");
+  g_free (toolkit_name);
 }
 
 static void
@@ -208,6 +230,7 @@ atk_test_accessible_get_toolkit_version (TestAppFixture *fixture, gconstpointer 
   gchar *toolkit_ver = atspi_accessible_get_toolkit_version (obj, NULL);
   /* should be empty string, because no value is setted */
   g_assert_cmpstr (toolkit_ver, ==, "");
+  g_free (toolkit_ver);
 }
 
 static void
@@ -332,7 +355,11 @@ atk_test_accessible_get_interfaces (TestAppFixture *fixture, gconstpointer user_
   g_assert (ifaces->len == 2);
   int i = 0;
   for (i = 0; i < ifaces->len; ++i)
-    g_assert_cmpstr (valid_obj_ifaces[i], ==, g_array_index (ifaces, gchar *, i));
+    {
+      g_assert_cmpstr (valid_obj_ifaces[i], ==, g_array_index (ifaces, gchar *, i));
+      g_free (g_array_index (ifaces, gchar *, i));
+    }
+  g_array_free (ifaces, TRUE);
 }
 
 static void

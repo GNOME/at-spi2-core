@@ -36,6 +36,9 @@ atk_test_hyperlink_get_n_anchors (TestAppFixture *fixture, gconstpointer user_da
   g_assert (obj);
   gint n = atspi_hyperlink_get_n_anchors (obj, NULL);
   g_assert_cmpint (n, ==, 1);
+  g_object_unref (obj);
+  g_object_unref (obj1);
+  g_object_unref (child);
 }
 
 static void
@@ -52,6 +55,10 @@ atk_test_hyperlink_get_uri (TestAppFixture *fixture, gconstpointer user_data)
   gchar *str = atspi_hyperlink_get_uri (obj, 0, NULL);
   g_assert (str);
   g_assert_cmpstr (str, ==, "pinkbike.com");
+  g_free (str);
+  g_object_unref (obj);
+  g_object_unref (obj1);
+  g_object_unref (child);
 }
 
 static void
@@ -72,6 +79,11 @@ atk_test_hyperlink_get_object (TestAppFixture *fixture, gconstpointer user_data)
   gchar *text = atspi_text_get_text (at, 0, 12, NULL);
   g_assert_cmpstr (text, ==, "pinkbike.com");
   g_free (text);
+  g_object_unref (at);
+  g_object_unref (acc);
+  g_object_unref (obj);
+  g_object_unref (obj1);
+  g_object_unref (child);
 }
 
 static void
@@ -93,6 +105,9 @@ atk_test_hyperlink_get_index_range (TestAppFixture *fixture, gconstpointer user_
   g_assert_cmpint (range->start_offset, ==, -1);
   g_assert_cmpint (range->end_offset, ==, -1);
   g_free (range);
+  g_object_unref (obj);
+  g_object_unref (obj1);
+  g_object_unref (child);
 }
 
 static void
@@ -108,6 +123,9 @@ atk_test_hyperlink_get_start_index (TestAppFixture *fixture, gconstpointer user_
   g_assert (obj);
   gint n = atspi_hyperlink_get_start_index (obj, NULL);
   g_assert_cmpint (n, ==, 69);
+  g_object_unref (obj);
+  g_object_unref (obj1);
+  g_object_unref (child);
 }
 
 static void
@@ -123,6 +141,9 @@ atk_test_hyperlink_get_end_index (TestAppFixture *fixture, gconstpointer user_da
   g_assert (obj);
   gint n = atspi_hyperlink_get_end_index (obj, NULL);
   g_assert_cmpint (n, ==, 81);
+  g_object_unref (obj);
+  g_object_unref (obj1);
+  g_object_unref (child);
 }
 
 static void
@@ -137,6 +158,9 @@ atk_test_hyperlink_is_valid (TestAppFixture *fixture, gconstpointer user_data)
   AtspiHyperlink *obj = atspi_hypertext_get_link (obj1, 1, NULL);
   g_assert (obj);
   g_assert (atspi_hyperlink_is_valid (obj, NULL));
+  g_object_unref (obj);
+  g_object_unref (obj1);
+  g_object_unref (child);
 }
 
 void

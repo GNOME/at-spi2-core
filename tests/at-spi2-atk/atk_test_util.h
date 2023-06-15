@@ -59,4 +59,5 @@ void fixture_listener_destroy (void);
 void fixture_setup (TestAppFixture *fixture, gconstpointer user_data);
 void fixture_teardown (TestAppFixture *fixture, gconstpointer user_data);
 
+void check_name (AtspiAccessible *accessible, const char *expected_name);
 #endif /* _ATK_TEST_UTIL_H */

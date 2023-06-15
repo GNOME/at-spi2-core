@@ -29,10 +29,12 @@ static void
 atk_test_image_sample_get_interface (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *obj = fixture->root_obj;
-  g_assert_cmpstr (atspi_accessible_get_name (obj, NULL), ==, "root_object");
+  check_name (obj, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiImage *iface = atspi_accessible_get_image_iface (child);
   g_assert (iface != NULL);
+  g_object_unref (iface);
+  g_object_unref (child);
 }
 
 static void
@@ -45,6 +47,8 @@ atk_test_image_get_image_description (TestAppFixture *fixture, gconstpointer use
   g_assert (desc);
   g_assert_cmpstr (desc, ==, "image description");
   g_free (desc);
+  g_object_unref (image);
+  g_object_unref (child);
 }
 
 static void
@@ -59,6 +63,8 @@ atk_test_image_get_image_size (TestAppFixture *fixture, gconstpointer user_data)
   g_assert_cmpint (p->x, ==, 100);
   g_assert_cmpint (p->y, ==, 50);
   g_free (p);
+  g_object_unref (image);
+  g_object_unref (child);
 }
 
 static void
@@ -72,6 +78,8 @@ atk_test_image_get_image_position (TestAppFixture *fixture, gconstpointer user_d
   g_assert_cmpint (p->x, ==, 500);
   g_assert_cmpint (p->y, ==, 50);
   g_free (p);
+  g_object_unref (image);
+  g_object_unref (child);
 }
 
 static void
@@ -89,6 +97,8 @@ atk_test_image_get_image_extents (TestAppFixture *fixture, gconstpointer user_da
   g_assert_cmpint (r->height, ==, 50);
 
   g_free (r);
+  g_object_unref (image);
+  g_object_unref (child);
 }
 
 static void
@@ -102,6 +112,8 @@ atk_test_image_get_image_locale (TestAppFixture *fixture, gconstpointer user_dat
   g_assert (locale);
   g_assert_cmpstr (locale, ==, "image_locale");
   g_free (locale);
+  g_object_unref (image);
+  g_object_unref (child);
 }
 
 void

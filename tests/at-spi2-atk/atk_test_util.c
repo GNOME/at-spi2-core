@@ -239,3 +239,14 @@ fixture_teardown (TestAppFixture *fixture, gconstpointer user_data)
   g_free (fixture->name_to_claim);
   fixture->name_to_claim = NULL;
 }
+
+void
+check_name (AtspiAccessible *accessible, const char *expected_name)
+{
+  gchar *obj_name;
+
+  g_assert (accessible);
+  obj_name = atspi_accessible_get_name (accessible, NULL);
+  g_assert_cmpstr (expected_name, ==, obj_name);
+  g_free (obj_name);
+}

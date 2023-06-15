@@ -34,6 +34,8 @@ atk_test_hypertext_get_n_links (TestAppFixture *fixture, gconstpointer user_data
   g_assert (obj);
   gint cnt = atspi_hypertext_get_n_links (obj, NULL);
   g_assert_cmpint (cnt, ==, 2);
+  g_object_unref (obj);
+  g_object_unref (child);
 }
 
 static void
@@ -52,12 +54,16 @@ atk_test_hypertext_get_link (TestAppFixture *fixture, gconstpointer user_data)
   g_assert_cmpstr (str, ==, "pinkbike.com");
 
   g_free (str);
+  g_object_unref (link);
 
   link = atspi_hypertext_get_link (obj, 0, NULL);
   str = atspi_hyperlink_get_uri (link, 0, NULL);
   g_assert_cmpstr (str, ==, "dh-zone.com");
 
   g_free (str);
+  g_object_unref (link);
+  g_object_unref (obj);
+  g_object_unref (child);
 }
 
 static void
@@ -75,6 +81,8 @@ atk_test_hypertext_get_link_index (TestAppFixture *fixture, gconstpointer user_d
   g_assert_cmpint (cnt, ==, 0);
   cnt = atspi_hypertext_get_link_index (obj, 70, NULL);
   g_assert_cmpint (cnt, ==, 1);
+  g_object_unref (obj);
+  g_object_unref (child);
 }
 
 void

@@ -32,6 +32,8 @@ atk_test_editable_text_get_editable_text_iface (TestAppFixture *fixture, gconstp
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiEditableText *iface = atspi_accessible_get_editable_text_iface (child);
   g_assert (iface != NULL);
+  g_object_unref (iface);
+  g_object_unref (child);
 }
 
 #if 0
@@ -56,6 +58,8 @@ atk_test_editable_text_insert_text (TestAppFixture *fixture, gconstpointer user_
   AtspiEditableText *iface = atspi_accessible_get_editable_text_iface (child);
   g_assert (iface != NULL);
   g_assert (atspi_editable_text_insert_text (iface, 0, "test_text", 9, NULL));
+  g_object_unref (iface);
+  g_object_unref (child);
 }
 
 static void
@@ -66,6 +70,8 @@ atk_test_editable_text_copy_text (TestAppFixture *fixture, gconstpointer user_da
   AtspiEditableText *iface = atspi_accessible_get_editable_text_iface (child);
   g_assert (iface != NULL);
   g_assert (atspi_editable_text_copy_text (iface, 1, 2, NULL));
+  g_object_unref (iface);
+  g_object_unref (child);
 }
 
 static void
@@ -76,6 +82,8 @@ atk_test_editable_text_cut_text (TestAppFixture *fixture, gconstpointer user_dat
   AtspiEditableText *iface = atspi_accessible_get_editable_text_iface (child);
   g_assert (iface != NULL);
   g_assert (atspi_editable_text_cut_text (iface, 1, 2, NULL));
+  g_object_unref (iface);
+  g_object_unref (child);
 }
 
 static void
@@ -87,6 +95,8 @@ atk_test_editable_text_delete_text (TestAppFixture *fixture, gconstpointer user_
   g_assert (iface != NULL);
 
   g_assert (atspi_editable_text_delete_text (iface, 1, 2, NULL));
+  g_object_unref (iface);
+  g_object_unref (child);
 }
 
 static void
@@ -98,6 +108,8 @@ atk_test_editable_text_paste_text (TestAppFixture *fixture, gconstpointer user_d
   g_assert (iface != NULL);
 
   g_assert (atspi_editable_text_paste_text (iface, 2, NULL));
+  g_object_unref (iface);
+  g_object_unref (child);
 }
 
 void

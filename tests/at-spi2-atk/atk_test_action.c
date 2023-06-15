@@ -29,10 +29,12 @@ static void
 atk_test_action_sample_get_interface (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *obj = fixture->root_obj;
-  g_assert_cmpstr (atspi_accessible_get_name (obj, NULL), ==, "root_object");
+  check_name (obj, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiAction *iface = atspi_accessible_get_action_iface (child);
   g_assert (iface != NULL);
+  g_object_unref (iface);
+  g_object_unref (child);
 }
 
 static void
@@ -41,7 +43,11 @@ atk_test_action_get_action_description (TestAppFixture *fixture, gconstpointer u
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiAction *action = atspi_accessible_get_action_iface (child);
-  g_assert_cmpstr (atspi_action_get_action_description (action, 0, NULL), ==, "action1 description");
+  gchar *str = atspi_action_get_action_description (action, 0, NULL);
+  g_assert_cmpstr (str, ==, "action1 description");
+  g_free (str);
+  g_object_unref (action);
+  g_object_unref (child);
 }
 
 static void
@@ -50,7 +56,11 @@ atk_test_action_get_action_name (TestAppFixture *fixture, gconstpointer user_dat
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiAction *action = atspi_accessible_get_action_iface (child);
-  g_assert_cmpstr (atspi_action_get_action_name (action, 0, NULL), ==, "action1");
+  gchar *str = atspi_action_get_action_name (action, 0, NULL);
+  g_assert_cmpstr (str, ==, "action1");
+  g_free (str);
+  g_object_unref (action);
+  g_object_unref (child);
 }
 
 static void
@@ -60,6 +70,8 @@ atk_test_action_get_n_actions (TestAppFixture *fixture, gconstpointer user_data)
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiAction *action = atspi_accessible_get_action_iface (child);
   g_assert_cmpint (atspi_action_get_n_actions (action, NULL), ==, 2);
+  g_object_unref (action);
+  g_object_unref (child);
 }
 
 static void
@@ -68,7 +80,11 @@ atk_test_action_get_key_binding (TestAppFixture *fixture, gconstpointer user_dat
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiAction *action = atspi_accessible_get_action_iface (child);
-  g_assert_cmpstr (atspi_action_get_key_binding (action, 0, NULL), ==, "action1 key binding");
+  gchar *str = atspi_action_get_key_binding (action, 0, NULL);
+  g_assert_cmpstr (str, ==, "action1 key binding");
+  g_free (str);
+  g_object_unref (action);
+  g_object_unref (child);
 }
 
 static void
@@ -77,7 +93,11 @@ atk_test_action_get_localized_name (TestAppFixture *fixture, gconstpointer user_
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiAction *action = atspi_accessible_get_action_iface (child);
-  g_assert_cmpstr (atspi_action_get_localized_name (action, 0, NULL), ==, "action1");
+  gchar *str = atspi_action_get_localized_name (action, 0, NULL);
+  g_assert_cmpstr (str, ==, "action1");
+  g_free (str);
+  g_object_unref (action);
+  g_object_unref (child);
 }
 
 static void
@@ -92,6 +112,10 @@ atk_test_action_do_action (TestAppFixture *fixture, gconstpointer user_data)
   AtspiStateSet *s = atspi_accessible_get_state_set (child);
   GArray *array = atspi_state_set_get_states (s);
   g_assert_cmpint (array->len, ==, 1);
+  g_array_free (array, TRUE);
+  g_object_unref (s);
+  g_object_unref (action);
+  g_object_unref (child);
 }
 
 void
