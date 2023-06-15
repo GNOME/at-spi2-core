@@ -1115,6 +1115,7 @@ atspi_event_main (void)
 {
   atspi_main_loop = g_main_loop_new (NULL, FALSE);
   g_main_loop_run (atspi_main_loop);
+  g_main_loop_unref (atspi_main_loop);
   atspi_main_loop = NULL;
 }
 
