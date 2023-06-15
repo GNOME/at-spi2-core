@@ -143,6 +143,7 @@ listener_event_cb (AtspiEvent *event, void *user_data)
           atspi_event_quit ();
         }
     }
+  g_boxed_free (ATSPI_TYPE_EVENT, event);
 }
 
 /* Sets up the atspi event listener for the test-application helpers.
