@@ -116,13 +116,13 @@ declared template with all that stuff instead of redeclaring it each
 time.
 
 The ``container-build`` stage builds container images with the
-reproducible environments described above.  See the :ref:`CI templates`
+reproducible environments described above.  See the :ref:`ci_templates`
 below for details.
 
 The ``style-check`` stage runs a code formatter to ensure that new
 code preserves the coding style.  It does not modify your code;
 instead the job will fail if your code does not match the rest of the
-coding style, so you can fix it.  See :ref:`Code formatting` for details.
+coding style, so you can fix it.  See :ref:`code_formatting` for details.
 
 The ``build`` stage has these jobs:
 
@@ -155,6 +155,9 @@ Finally, the ``docs`` stage builds documentation:
 - ``devel-docs`` - Development guide for the accessibility internals,
    including the document you are reading right now.
 
+
+.. _ci_templates:
+
 CI templates
 ------------
 
@@ -181,6 +184,8 @@ The prebuilt container images are stored here:
 https://gitlab.gnome.org/GNOME/at-spi2-core/container_registry
 
 They get updated automatically thanks to the CI Templates machinery.
+
+.. _code_formatting:
 
 Code formatting
 ---------------
