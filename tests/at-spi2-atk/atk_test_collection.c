@@ -63,6 +63,7 @@ atk_test_collection_get_matches (TestAppFixture *fixture, gconstpointer user_dat
                                NULL,
                                ATSPI_Collection_MATCH_ALL,
                                FALSE);
+  g_object_unref (ss);
   GArray *ret = atspi_collection_get_matches (iface,
                                               rule,
                                               ATSPI_Collection_SORT_ORDER_CANONICAL,
@@ -75,6 +76,7 @@ atk_test_collection_get_matches (TestAppFixture *fixture, gconstpointer user_dat
   check_and_unref (ret, 1, "obj3");
   g_array_free (ret, TRUE);
   g_object_unref (rule);
+  g_object_unref (child);
   g_object_unref (iface);
 }
 
@@ -100,6 +102,7 @@ atk_test_collection_get_matches_to (TestAppFixture *fixture, gconstpointer user_
                                NULL,
                                ATSPI_Collection_MATCH_ALL,
                                FALSE);
+  g_object_unref (ss);
   GArray *ret = atspi_collection_get_matches_to (iface,
                                                  child1,
                                                  rule,
@@ -113,6 +116,8 @@ atk_test_collection_get_matches_to (TestAppFixture *fixture, gconstpointer user_
   check_and_unref (ret, 0, "obj1");
   g_array_free (ret, TRUE);
   g_object_unref (rule);
+  g_object_unref (child1);
+  g_object_unref (child);
   g_object_unref (iface);
 }
 
@@ -146,12 +151,15 @@ atk_test_collection_get_matches_from (TestAppFixture *fixture, gconstpointer use
                                                    0,
                                                    FALSE,
                                                    NULL);
+  g_object_unref (ss);
   g_assert_cmpint (3, ==, ret->len);
   check_and_unref (ret, 0, "obj2/1");
   check_and_unref (ret, 1, "obj3");
   check_and_unref (ret, 2, "obj3");
   g_array_free (ret, TRUE);
   g_object_unref (rule);
+  g_object_unref (child1);
+  g_object_unref (child);
   g_object_unref (iface);
 }
 

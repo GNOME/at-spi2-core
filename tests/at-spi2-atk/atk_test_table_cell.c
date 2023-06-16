@@ -52,6 +52,8 @@ atk_test_table_cell_get_column_span (TestAppFixture *fixture, gconstpointer user
   g_assert (obj);
 
   g_assert_cmpint (3, ==, atspi_table_cell_get_column_span (obj, NULL));
+  g_object_unref (obj);
+  g_object_unref (cell);
 
   cell = atspi_accessible_get_child_at_index (child, 11, NULL);
   obj = atspi_accessible_get_table_cell (cell);
@@ -98,6 +100,8 @@ atk_test_table_cell_get_row_span (TestAppFixture *fixture, gconstpointer user_da
   g_assert (obj);
 
   g_assert_cmpint (2, ==, atspi_table_cell_get_row_span (obj, NULL));
+  g_object_unref (obj);
+  g_object_unref (cell);
 
   cell = atspi_accessible_get_child_at_index (child, 11, NULL);
   obj = atspi_accessible_get_table_cell (cell);
