@@ -258,6 +258,7 @@ atk_test_accessible_get_application (TestAppFixture *fixture, gconstpointer user
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *app = atspi_accessible_get_application (obj, NULL);
   g_assert (app != NULL);
+  g_object_unref (app);
 }
 
 static void
@@ -274,6 +275,7 @@ atk_test_accessible_get_collection_iface (TestAppFixture *fixture, gconstpointer
   AtspiAccessible *obj = fixture->root_obj;
   AtspiCollection *iface = atspi_accessible_get_collection_iface (obj);
   g_assert (iface != NULL);
+  g_object_unref (iface);
 }
 
 static void
