@@ -519,6 +519,8 @@ atspi_accessible_get_child_at_index (AtspiAccessible *obj,
     {
       if (child_index >= obj->children->len)
         g_ptr_array_set_size (obj->children, child_index + 1);
+      else if (g_ptr_array_index (obj->children, child_index))
+        g_object_unref (g_ptr_array_index (obj->children, child_index));
       g_ptr_array_index (obj->children, child_index) = g_object_ref (child);
     }
   return child;
