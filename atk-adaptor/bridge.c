@@ -629,6 +629,7 @@ install_plug_hooks ()
   socket_class->embed = socket_embed_hook;
 }
 
+#ifndef DISABLE_P2P
 static guint
 get_ancestral_uid (guint pid)
 {
@@ -685,6 +686,7 @@ new_connection_cb (DBusServer *server, DBusConnection *con, void *data)
 
   spi_global_app_data->direct_connections = g_list_append (spi_global_app_data->direct_connections, con);
 }
+#endif
 
 static gchar *atspi_dbus_name = NULL;
 static gboolean atspi_no_register = FALSE;
