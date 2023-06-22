@@ -14,6 +14,7 @@ Development guide for the accessibility infrastructure
    :caption: Roadmap and Design Documents
    :maxdepth: 1
 
+   architecture
    roadmap
    at-spi3
    atspi-python-stack

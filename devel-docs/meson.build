@@ -57,6 +57,8 @@ interfaces_rst = custom_target(
 )
 
 docs_sources = [
+  'architecture.rst',
+  'architecture-modules.svg',
   'at-spi3.rst',
   'atk-deprecations.rst',
   'atspi-python-stack.rst',
