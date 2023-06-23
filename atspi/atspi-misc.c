@@ -1278,25 +1278,7 @@ _atspi_dbus_call (gpointer obj, const char *interface, const char *method, GErro
   return retval;
 }
 
-DBusMessage *
-_atspi_dbus_call_partial (gpointer obj,
-                          const char *interface,
-                          const char *method,
-                          GError **error,
-                          const char *type,
-                          ...)
-{
-  DBusMessage *ret;
-  va_list args;
-
-  va_start (args, type);
-  ret = _atspi_dbus_call_partial_va (obj, interface, method, error, type, args);
-  va_end (args);
-
-  return ret;
-}
-
-DBusMessage *
+static DBusMessage *
 _atspi_dbus_call_partial_va (gpointer obj,
                              const char *interface,
                              const char *method,
@@ -1347,6 +1329,24 @@ out:
     }
 
   return reply;
+}
+
+DBusMessage *
+_atspi_dbus_call_partial (gpointer obj,
+                          const char *interface,
+                          const char *method,
+                          GError **error,
+                          const char *type,
+                          ...)
+{
+  DBusMessage *ret;
+  va_list args;
+
+  va_start (args, type);
+  ret = _atspi_dbus_call_partial_va (obj, interface, method, error, type, args);
+  va_end (args);
+
+  return ret;
 }
 
 dbus_bool_t
