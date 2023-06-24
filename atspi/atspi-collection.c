@@ -56,8 +56,7 @@ new_message (AtspiCollection *collection, char *method)
 {
   AtspiAccessible *accessible;
 
-  if (!collection)
-    return NULL;
+  g_assert (collection != NULL);
 
   accessible = ATSPI_ACCESSIBLE (collection);
   if (!accessible->parent.app)
