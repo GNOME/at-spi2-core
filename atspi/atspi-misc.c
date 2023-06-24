@@ -1250,6 +1250,10 @@ set_timeout (AtspiApplication *app)
     dbind_set_timeout (method_call_timeout);
 }
 
+/* Makes a DBus call and returns a success value.  Simple return values can be demarshaled automatically
+ * by passing their types after a "=>" marker in the @type argument (e.g. s=>i for a call that takes a string
+ * and returns an int).
+ */
 dbus_bool_t
 _atspi_dbus_call (gpointer obj, const char *interface, const char *method, GError **error, const char *type, ...)
 {
@@ -1331,6 +1335,10 @@ out:
   return reply;
 }
 
+/* Makes a DBus call but returns the raw DBusMessage reply.  Use this
+ * when you need to demarshal complex return values by hand.  Remember
+ * to dbus_message_unref() the return value when you are done.
+ */
 DBusMessage *
 _atspi_dbus_call_partial (gpointer obj,
                           const char *interface,
