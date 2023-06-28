@@ -1065,7 +1065,7 @@ _atspi_send_event (AtspiEvent *e)
 }
 
 DBusHandlerResult
-_atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message)
+_atspi_dbus_handle_event (DBusMessage *message)
 {
   char *detail = NULL;
   const char *category = dbus_message_get_interface (message);

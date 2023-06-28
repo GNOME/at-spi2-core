@@ -911,7 +911,7 @@ process_deferred_message (BusDataClosure *closure)
   if (type == DBUS_MESSAGE_TYPE_SIGNAL &&
       !strncmp (interface, "org.a11y.atspi.Event.", 21))
     {
-      _atspi_dbus_handle_event (closure->bus, closure->message);
+      _atspi_dbus_handle_event (closure->message);
     }
   if (dbus_message_is_method_call (closure->message, atspi_interface_device_event_listener, "NotifyEvent"))
     {
