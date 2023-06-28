@@ -1064,7 +1064,7 @@ _atspi_send_event (AtspiEvent *e)
   pending_removals = NULL;
 }
 
-DBusHandlerResult
+void
 _atspi_dbus_handle_event (DBusMessage *message)
 {
   char *detail = NULL;
@@ -1087,7 +1087,7 @@ _atspi_dbus_handle_event (DBusMessage *message)
       strcmp (signature, "siiva{sv}") != 0)
     {
       g_warning ("Got invalid signature %s for signal %s from interface %s\n", signature, member, category);
-      return DBUS_HANDLER_RESULT_HANDLED;
+      return;
     }
 
   memset (&e, 0, sizeof (e));
@@ -1139,7 +1139,7 @@ _atspi_dbus_handle_event (DBusMessage *message)
           g_free (converted_type);
           g_free (name);
           g_free (detail);
-          return DBUS_HANDLER_RESULT_HANDLED;
+          return;
         }
     }
 
@@ -1224,7 +1224,6 @@ _atspi_dbus_handle_event (DBusMessage *message)
   g_object_unref (e.source);
   g_object_unref (e.sender);
   g_value_unset (&e.any_data);
-  return DBUS_HANDLER_RESULT_HANDLED;
 }
 
 G_DEFINE_BOXED_TYPE (AtspiEvent, atspi_event, atspi_event_copy, atspi_event_free)
