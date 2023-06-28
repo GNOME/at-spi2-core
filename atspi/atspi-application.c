@@ -104,6 +104,7 @@ _atspi_application_new (const gchar *bus_name)
   AtspiApplication *application;
 
   application = g_object_new (ATSPI_TYPE_APPLICATION, NULL);
+  application->hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
   application->bus_name = g_strdup (bus_name);
   application->root = NULL;
   return application;
