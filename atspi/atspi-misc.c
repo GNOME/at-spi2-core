@@ -913,19 +913,19 @@ process_deferred_message (BusDataClosure *closure)
     {
       _atspi_dbus_handle_event (closure->message);
     }
-  if (dbus_message_is_method_call (closure->message, atspi_interface_device_event_listener, "NotifyEvent"))
+  else if (dbus_message_is_method_call (closure->message, atspi_interface_device_event_listener, "NotifyEvent"))
     {
       _atspi_dbus_handle_DeviceEvent (closure->bus, closure->message);
     }
-  if (dbus_message_is_signal (closure->message, atspi_interface_cache, "AddAccessible"))
+  else if (dbus_message_is_signal (closure->message, atspi_interface_cache, "AddAccessible"))
     {
       handle_add_accessible (closure->bus, closure->message);
     }
-  if (dbus_message_is_signal (closure->message, atspi_interface_cache, "RemoveAccessible"))
+  else if (dbus_message_is_signal (closure->message, atspi_interface_cache, "RemoveAccessible"))
     {
       handle_remove_accessible (closure->bus, closure->message);
     }
-  if (dbus_message_is_signal (closure->message, "org.freedesktop.DBus", "NameOwnerChanged"))
+  else if (dbus_message_is_signal (closure->message, "org.freedesktop.DBus", "NameOwnerChanged"))
     {
       handle_name_owner_changed (closure->bus, closure->message);
     }
