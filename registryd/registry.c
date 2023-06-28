@@ -105,18 +105,19 @@ spi_registry_init (SpiRegistry *registry)
 
 /*---------------------------------------------------------------------------*/
 
-static dbus_bool_t
+static void
 return_v_string (DBusMessageIter *iter, const gchar *str)
 {
   DBusMessageIter variant;
 
   if (!dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, "s",
                                          &variant))
-    return FALSE;
+    {
+      g_error ("Out of memory");
+    }
 
   dbus_message_iter_append_basic (&variant, DBUS_TYPE_STRING, &str);
   dbus_message_iter_close_container (iter, &variant);
-  return TRUE;
 }
 
 static dbus_bool_t
@@ -615,18 +616,18 @@ impl_GetAlpha (DBusMessage *message, SpiRegistry *registry)
 /* org.at_spi.Accessible interface */
 /*---------------------------------------------------------------------------*/
 
-static dbus_bool_t
+static void
 impl_get_Name (DBusMessageIter *iter, SpiRegistry *registry)
 {
   const gchar *name = "main";
-  return return_v_string (iter, name);
+  return_v_string (iter, name);
 }
 
-static dbus_bool_t
+static void
 impl_get_Description (DBusMessageIter *iter, SpiRegistry *registry)
 {
   const gchar *description = "";
-  return return_v_string (iter, description);
+  return_v_string (iter, description);
 }
 
 static dbus_bool_t
@@ -658,16 +659,16 @@ impl_get_ChildCount (DBusMessageIter *iter, SpiRegistry *registry)
   return result;
 }
 
-static dbus_bool_t
+static void
 impl_get_ToolkitName (DBusMessageIter *iter, SpiRegistry *registry)
 {
-  return return_v_string (iter, "at-spi-registry");
+  return_v_string (iter, "at-spi-registry");
 }
 
-static dbus_bool_t
+static void
 impl_get_ToolkitVersion (DBusMessageIter *iter, SpiRegistry *registry)
 {
-  return return_v_string (iter, "2.0");
+  return_v_string (iter, "2.0");
 }
 
 static DBusMessage *
