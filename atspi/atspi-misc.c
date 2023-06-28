@@ -462,8 +462,6 @@ ref_accessible (ReferenceFromMessage *ref)
       return g_object_ref (a);
     }
   a = _atspi_accessible_new (app, ref->path);
-  if (!a)
-    return NULL;
   g_hash_table_insert (app->hash, g_strdup (a->parent.path), g_object_ref (a));
   return a;
 }
@@ -746,10 +744,6 @@ ref_accessible_desktop (AtspiApplication *app)
       return desktop;
     }
   desktop = _atspi_accessible_new (app, atspi_path_root);
-  if (!desktop)
-    {
-      return NULL;
-    }
   g_hash_table_insert (app->hash, g_strdup (desktop->parent.path),
                        g_object_ref (desktop));
   app->root = g_object_ref (desktop);
