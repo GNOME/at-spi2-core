@@ -120,18 +120,20 @@ return_v_string (DBusMessageIter *iter, const gchar *str)
   dbus_message_iter_close_container (iter, &variant);
 }
 
-static dbus_bool_t
+static void
 append_reference (DBusMessageIter *iter, SpiReference *ref)
 {
   DBusMessageIter iter_struct;
 
   if (!dbus_message_iter_open_container (iter, DBUS_TYPE_STRUCT, NULL,
                                          &iter_struct))
-    return FALSE;
+    {
+      g_error ("Out of memory");
+    }
+
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &ref->name);
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &ref->path);
   dbus_message_iter_close_container (iter, &iter_struct);
-  return TRUE;
 }
 
 /*---------------------------------------------------------------------------*/
