@@ -413,8 +413,7 @@ get_application (const char *bus_name)
   if (app)
     return app;
   bus_name_dup = g_strdup (bus_name);
-  if (!bus_name_dup)
-    return NULL;
+
   // TODO: change below to something that will send state-change:defunct notification if necessary */
   app = _atspi_application_new (bus_name);
   app->hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
