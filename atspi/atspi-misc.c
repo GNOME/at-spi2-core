@@ -237,6 +237,27 @@ static const char *interfaces[] = {
   NULL
 };
 
+/* Holds a dbus object reference as a pair of app_name/path.  These have the lifetime
+ * of the DBusMessage that is being processed.
+ */
+typedef struct
+{
+  const char *app_name;
+  const char *path;
+} ReferenceFromMessage;
+
+static void
+get_reference_from_iter (DBusMessageIter *iter, ReferenceFromMessage *ref)
+{
+  DBusMessageIter iter_struct;
+
+  dbus_message_iter_recurse (iter, &iter_struct);
+  dbus_message_iter_get_basic (&iter_struct, &ref->app_name);
+  dbus_message_iter_next (&iter_struct);
+  dbus_message_iter_get_basic (&iter_struct, &ref->path);
+  dbus_message_iter_next (iter);
+}
+
 gint
 _atspi_get_iface_num (const char *iface)
 {
@@ -561,18 +582,6 @@ add_app_to_desktop (AtspiAccessible *a, const char *bus_name)
 }
 
 static void
-get_reference_from_iter (DBusMessageIter *iter, const char **app_name, const char **path)
-{
-  DBusMessageIter iter_struct;
-
-  dbus_message_iter_recurse (iter, &iter_struct);
-  dbus_message_iter_get_basic (&iter_struct, app_name);
-  dbus_message_iter_next (&iter_struct);
-  dbus_message_iter_get_basic (&iter_struct, path);
-  dbus_message_iter_next (iter);
-}
-
-static void
 add_accessible_from_iter (DBusMessageIter *iter)
 {
   DBusMessageIter iter_struct, iter_array;
@@ -771,9 +780,10 @@ ref_accessible_desktop (AtspiApplication *app)
   dbus_message_iter_recurse (&iter, &iter_array);
   while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
     {
-      const char *app_name, *path;
-      get_reference_from_iter (&iter_array, &app_name, &path);
-      add_app_to_desktop (desktop, app_name);
+      ReferenceFromMessage ref;
+
+      get_reference_from_iter (&iter_array, &ref);
+      add_app_to_desktop (desktop, ref.app_name);
     }
 
   /* Record the alternate name as an alias for org.a11y.atspi.Registry */
@@ -829,10 +839,10 @@ _atspi_dbus_return_accessible_from_message (DBusMessage *message)
 AtspiAccessible *
 _atspi_dbus_consume_accessible (DBusMessageIter *iter)
 {
-  const char *app_name, *path;
+  ReferenceFromMessage ref;
 
-  get_reference_from_iter (iter, &app_name, &path);
-  return ref_accessible (app_name, path);
+  get_reference_from_iter (iter, &ref);
+  return ref_accessible (ref.app_name, ref.path);
 }
 
 AtspiHyperlink *
@@ -862,10 +872,10 @@ _atspi_dbus_return_hyperlink_from_message (DBusMessage *message)
 AtspiHyperlink *
 _atspi_dbus_return_hyperlink_from_iter (DBusMessageIter *iter)
 {
-  const char *app_name, *path;
+  ReferenceFromMessage ref;
 
-  get_reference_from_iter (iter, &app_name, &path);
-  return ref_hyperlink (app_name, path);
+  get_reference_from_iter (iter, &ref);
+  return ref_hyperlink (ref.app_name, ref.path);
 }
 
 const char *cache_signal_type = "((so)(so)(so)iiassusau)";
