@@ -1064,8 +1064,8 @@ _atspi_send_event (AtspiEvent *e)
   pending_removals = NULL;
 }
 
-DBusHandlerResult
-_atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message)
+void
+_atspi_dbus_handle_event (DBusMessage *message)
 {
   char *detail = NULL;
   const char *category = dbus_message_get_interface (message);
@@ -1081,32 +1081,22 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message)
   char *p;
   GHashTable *cache = NULL;
 
+  g_assert (strncmp (category, "org.a11y.atspi.Event.", 21) == 0);
+
   if (strcmp (signature, "siiv(so)") != 0 &&
       strcmp (signature, "siiva{sv}") != 0)
     {
       g_warning ("Got invalid signature %s for signal %s from interface %s\n", signature, member, category);
-      return DBUS_HANDLER_RESULT_HANDLED;
+      return;
     }
 
   memset (&e, 0, sizeof (e));
 
-  if (category)
-    {
-      category = g_utf8_strrchr (category, -1, '.');
-      if (category == NULL)
-        {
-          // TODO: Error
-          return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-        }
-      category++;
-    }
-  else
-    {
-      // TODO: Error
-      // Note that the single caller of this function, process_deferred_message(), ignores the return value.
-      // We should probably free the message if we aren't going to process it after all.
-      return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-    }
+  /* Find the plain interface name, e.g. "org.a11y.atspi.Event.ScreenReader" -> "ScreenReader" */
+  category = g_utf8_strrchr (category, -1, '.');
+  g_assert (category != NULL);
+  category++;
+
   dbus_message_iter_get_basic (&iter, &detail);
   dbus_message_iter_next (&iter);
   dbus_message_iter_get_basic (&iter, &detail1);
@@ -1149,7 +1139,7 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message)
           g_free (converted_type);
           g_free (name);
           g_free (detail);
-          return DBUS_HANDLER_RESULT_HANDLED;
+          return;
         }
     }
 
@@ -1234,7 +1224,6 @@ _atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message)
   g_object_unref (e.source);
   g_object_unref (e.sender);
   g_value_unset (&e.any_data);
-  return DBUS_HANDLER_RESULT_HANDLED;
 }
 
 G_DEFINE_BOXED_TYPE (AtspiEvent, atspi_event, atspi_event_copy, atspi_event_free)

@@ -1719,7 +1719,6 @@ _atspi_accessible_new (AtspiApplication *app, const gchar *path)
   AtspiAccessible *accessible;
 
   accessible = g_object_new (ATSPI_TYPE_ACCESSIBLE, NULL);
-  g_return_val_if_fail (accessible != NULL, NULL);
 
   accessible->parent.app = g_object_ref (app);
   accessible->parent.path = g_strdup (path);
