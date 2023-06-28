@@ -1081,6 +1081,8 @@ _atspi_dbus_handle_event (DBusMessage *message)
   char *p;
   GHashTable *cache = NULL;
 
+  g_assert (strncmp (category, "org.a11y.atspi.Event.", 21) == 0);
+
   if (strcmp (signature, "siiv(so)") != 0 &&
       strcmp (signature, "siiva{sv}") != 0)
     {
@@ -1090,23 +1092,11 @@ _atspi_dbus_handle_event (DBusMessage *message)
 
   memset (&e, 0, sizeof (e));
 
-  if (category)
-    {
-      category = g_utf8_strrchr (category, -1, '.');
-      if (category == NULL)
-        {
-          // TODO: Error
-          return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-        }
-      category++;
-    }
-  else
-    {
-      // TODO: Error
-      // Note that the single caller of this function, process_deferred_message(), ignores the return value.
-      // We should probably free the message if we aren't going to process it after all.
-      return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-    }
+  /* Find the plain interface name, e.g. "org.a11y.atspi.Event.ScreenReader" -> "ScreenReader" */
+  category = g_utf8_strrchr (category, -1, '.');
+  g_assert (category != NULL);
+  category++;
+
   dbus_message_iter_get_basic (&iter, &detail);
   dbus_message_iter_next (&iter);
   dbus_message_iter_get_basic (&iter, &detail1);
