@@ -1421,7 +1421,7 @@ extern "C"
  *
  * One higher than the highest valid value of #AtspiRole.
  */
-#define ATSPI_ROLE_COUNT (129 + 1)
+#define ATSPI_ROLE_COUNT (130 + 1)
 
   typedef enum
   {
