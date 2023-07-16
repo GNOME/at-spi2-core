@@ -23,6 +23,7 @@
 /* collection.c: implements the Collection interface */
 
 #include <string.h>
+#include <strings.h>
 
 #include "bridge.h"
 #include <atk/atk.h>
