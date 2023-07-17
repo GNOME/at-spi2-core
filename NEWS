@@ -1,3 +1,36 @@
+What's new in at-spi2-core 2.49.1:
+
+* TableCell.xml: Add Get{Column,Row}HeaderCells methods
+
+* atspi_accessible_get_localized_role_name: Use internal names when possible.
+
+* Add a non-recursive function to clear a single object's cache.
+
+* Code clean-ups.
+
+What's new in at-spi2-core 2.48.3:
+
+* Fix the build when dbus-broker is not set to be used by default.
+
+* Fix a couple of use after frees when finalizing devices.
+
+* atk-adaptor: Fix handling of sockets in impl_GetChildren.
+
+What's new in at-spi2-core 2.48.2:
+
+* Fixed a regression in 2.48.1 where the bus launcher would fail if
+  dbus-broker was configured at build time but not installed on the system.
+
+What's new in at-spi2-core 2.48.1:
+
+* Fixes for atk-only builds under Windows.
+
+* meson: Avoid requiring libsystemd when configured to use dbus-daemon
+
+* Fix crash when a bad index is passed to atspi_accessible_get_child_at_index.
+
+* Fix possible infinite recursion in atspi_accessible_clear_cache.
+
 What's new in at-spi2-core 2.48.0:
 
 * Add a "atk-only" build option. This allows atk to be built without libdbus
