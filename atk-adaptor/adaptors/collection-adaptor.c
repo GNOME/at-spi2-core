@@ -356,7 +356,7 @@ match_attributes_all_p (AtkObject *child, AtkAttributeSet *attributes)
       AtkAttribute *attr = g_slist_nth_data (attributes, i);
       for (k = 0; k < oa_length; k++)
         {
-          AtkAttribute *oa_attr = g_slist_nth_data (attributes, i);
+          AtkAttribute *oa_attr = g_slist_nth_data (oa, k);
           if (!g_ascii_strcasecmp (oa_attr->name, attr->name) &&
               !g_ascii_strcasecmp (oa_attr->value, attr->value))
             {
@@ -429,7 +429,7 @@ match_attributes_none_p (AtkObject *child, AtkAttributeSet *attributes)
       AtkAttribute *attr = g_slist_nth_data (attributes, i);
       for (k = 0; k < oa_length; k++)
         {
-          AtkAttribute *oa_attr = g_slist_nth_data (attributes, i);
+          AtkAttribute *oa_attr = g_slist_nth_data (oa, k);
           if (!g_ascii_strcasecmp (oa_attr->name, attr->name) &&
               !g_ascii_strcasecmp (oa_attr->value, attr->value))
             {
