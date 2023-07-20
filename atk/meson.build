@@ -72,13 +72,13 @@ install_headers(atk_headers + ['atk.h'], subdir: atk_api_path)
 
 # Features header
 atk_version_conf = configuration_data()
-atk_version_conf.set('ATK_MAJOR_VERSION', atk_major_version)
-atk_version_conf.set('ATK_MINOR_VERSION', atk_minor_version)
-atk_version_conf.set('ATK_MICRO_VERSION', atk_micro_version)
+atk_version_conf.set('ATK_MAJOR_VERSION', atspi_major_version)
+atk_version_conf.set('ATK_MINOR_VERSION', atspi_minor_version)
+atk_version_conf.set('ATK_MICRO_VERSION', atspi_micro_version)
 atk_version_conf.set('ATK_BINARY_AGE', atk_binary_age)
 atk_version_conf.set('ATK_INTERFACE_AGE', atk_interface_age)
 atk_version_conf.set('LT_CURRENT_MINUS_AGE', '0')
-atk_version_conf.set('ATK_VERSION', atk_version)
+atk_version_conf.set('ATK_VERSION', atspi_version)
 
 atk_includedir = join_paths(get_option('prefix'), get_option('includedir'))
 

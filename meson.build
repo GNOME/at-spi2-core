@@ -19,14 +19,14 @@ host_system = host_machine.system()
 
 soversion = '0.0.1'
 
-atk_version = meson.project_version()
-version = atk_version.split('.')
-atk_major_version = version[0].to_int()
-atk_minor_version = version[1].to_int()
-atk_micro_version = version[2].to_int()
+atspi_version = meson.project_version()
+version = atspi_version.split('.')
+atspi_major_version = version[0].to_int()
+atspi_minor_version = version[1].to_int()
+atspi_micro_version = version[2].to_int()
 
 atk_interface_age = 1
-atk_binary_age = 10000 * atk_major_version + 100 * atk_minor_version + 10 + atk_micro_version
+atk_binary_age = 10000 * atspi_major_version + 100 * atspi_minor_version + 10 + atspi_micro_version
 
 atk_api_version = '1.0'
 atk_api_name = 'atk-@0@'.format(atk_api_version)
@@ -56,7 +56,7 @@ common_ldflags = []
 test_cflags = []
 
 at_spi_conf = configuration_data()
-at_spi_conf.set_quoted('ATK_VERSION', atk_version)
+at_spi_conf.set_quoted('ATK_VERSION', atspi_version)
 at_spi_conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 
 # Symbol visibility

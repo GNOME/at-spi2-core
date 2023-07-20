@@ -2,8 +2,8 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2001, 2002 Sun Microsystems Inc.,
- * Copyright 2001, 2002 Ximian, Inc.
+ * Copyright 2023 SUSE LLC.
+ *
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,38 +21,38 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_H
-#define _ATSPI_H
+#ifndef _ATSPI_VERSION_H_
+#define _ATSPI_VERSION_H_
 
-#include "glib.h"
+G_BEGIN_DECLS
 
-#include "atspi-accessible.h"
-#include "atspi-action.h"
-#include "atspi-collection.h"
-#include "atspi-component.h"
-#include "atspi-constants.h"
-#include "atspi-device-listener.h"
-#include "atspi-document.h"
-#include "atspi-editabletext.h"
-#include "atspi-event-listener.h"
-#include "atspi-hyperlink.h"
-#include "atspi-hypertext.h"
-#include "atspi-image.h"
-#include "atspi-matchrule.h"
-#include "atspi-misc.h"
-#include "atspi-registry.h"
-#include "atspi-relation.h"
-#include "atspi-selection.h"
-#include "atspi-stateset.h"
-#include "atspi-table-cell.h"
-#include "atspi-table.h"
-#include "atspi-text.h"
-#include "atspi-types.h"
-#include "atspi-value.h"
+/**
+ * ATSPI_MAJOR_VERSION:
+ *
+ * The major version of AT-SPI used at compile time.
+ *
+ * Since: 2.50.0
+ */
+#define ATSPI_MAJOR_VERSION (@ATSPI_MAJOR_VERSION@)
 
-#include "atspi-gmain.h"
+/**
+ * ATSPI_MINOR_VERSION:
+ *
+ * The minor version of AT-SPI used at compile time.
+ *
+ * Since: 2.50.0
+ */
+#define ATSPI_MINOR_VERSION (@ATSPI_MINOR_VERSION@)
 
-#include "atspi-enum-types.h"
+/**
+ * ATSPI_MICRO_VERSION:
+ *
+ * The micro version / patch level of AT-SPI used at compile time.
+ *
+ * Since: 2.50.0
+ */
+#define ATSPI_MICRO_VERSION (@ATSPI_MICRO_VERSION@)
 
-#include "atspi-version.h"
-#endif
+G_END_DECLS
+
+#endif /* _ATSPI_VERSION_H_ */
