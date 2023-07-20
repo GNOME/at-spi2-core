@@ -2016,3 +2016,24 @@ _atspi_strdup_and_adjust_for_dbus (const char *s)
   d[0] = toupper (d[0]);
   return d;
 }
+
+/**
+ * atspi_get_version:
+ * @major: (out): the major version.
+ * @minor: (out): the minor version.
+ * @micro: (out): the micro/patch version.
+ *
+ * Returns the version of the AT-SPI library being used at runtime.
+
+* Since: 2.50
+ */
+void
+atspi_get_version (gint *major, gint *minor, gint *micro)
+{
+  if (major)
+    *major = ATSPI_MAJOR_VERSION;
+  if (minor)
+    *minor = ATSPI_MINOR_VERSION;
+  if (micro)
+    *micro = ATSPI_MICRO_VERSION;
+}

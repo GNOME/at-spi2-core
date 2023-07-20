@@ -69,6 +69,18 @@ atspi_includedir = join_paths(get_option('prefix'), get_option('includedir'), 'a
 
 install_headers(atspi_headers, install_dir: atspi_includedir)
 
+# Features header
+atspi_version_conf = configuration_data()
+atspi_version_conf.set('ATSPI_MAJOR_VERSION', atspi_major_version)
+atspi_version_conf.set('ATSPI_MINOR_VERSION', atspi_minor_version)
+atspi_version_conf.set('ATSPI_MICRO_VERSION', atspi_micro_version)
+
+atspi_version_h = configure_file(input: 'atspi-version.h.in',
+  output: 'atspi-version.h',
+  configuration: atspi_version_conf,
+                            install_dir: atspi_includedir,
+)
+
 # Marshallers
 atspi_marshals = gnome.genmarshal('atspimarshal',
   sources: 'atspimarshal.list',
