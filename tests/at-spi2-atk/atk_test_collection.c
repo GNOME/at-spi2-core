@@ -172,13 +172,13 @@ atk_test_collection_get_matches_from (TestAppFixture *fixture, gconstpointer use
                                ATSPI_Collection_MATCH_ALL,
                                FALSE);
   ret = atspi_collection_get_matches_from (iface,
-                                                   child1,
-                                                   rule,
-                                                   ATSPI_Collection_SORT_ORDER_CANONICAL,
-                                                   ATSPI_Collection_TREE_INORDER,
-                                                   0,
-                                                   FALSE,
-                                                   NULL);
+                                           child1,
+                                           rule,
+                                           ATSPI_Collection_SORT_ORDER_CANONICAL,
+                                           ATSPI_Collection_TREE_INORDER,
+                                           0,
+                                           FALSE,
+                                           NULL);
   g_hash_table_unref (attributes);
   g_assert_cmpint (6, ==, ret->len);
   g_array_free (ret, TRUE);
