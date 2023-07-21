@@ -211,6 +211,7 @@ fixture_setup (TestAppFixture *fixture, gconstpointer user_data)
   fixture->wait_for_test_app_timeout = g_timeout_add (500, wait_for_test_app_timeout_cb, fixture); /* 500 msec */
 
   current_fixture = fixture;
+  putenv ("ATSPI_IN_TESTS=1");
   atspi_event_main ();
 
   if (fixture->wait_for_test_app_timeout)

@@ -374,7 +374,8 @@ handle_get_bus_address (DBusPendingCall *pending, void *user_data)
             }
           else
             {
-              if (!strcmp (error.name, DBUS_ERROR_FILE_NOT_FOUND))
+              if (!strcmp (error.name, DBUS_ERROR_FILE_NOT_FOUND) &&
+                  !g_getenv ("ATSPI_IN_TESTS"))
                 g_warning ("AT-SPI: Unable to open bus connection: %s", error.message);
               dbus_error_free (&error);
             }
