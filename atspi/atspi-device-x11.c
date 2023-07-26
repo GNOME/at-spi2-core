@@ -655,7 +655,7 @@ atspi_device_x11_add_key_grab (AtspiDevice *device, AtspiKeyDefinition *kd)
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
   AtspiX11KeyGrab *grab;
 
-  grab = g_new (AtspiX11KeyGrab, 1);
+  grab = g_new0 (AtspiX11KeyGrab, 1);
   grab->kd = g_boxed_copy (ATSPI_TYPE_KEY_DEFINITION, kd);
   grab->enabled = FALSE;
   priv->key_grabs = g_slist_append (priv->key_grabs, grab);
