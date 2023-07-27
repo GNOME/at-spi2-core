@@ -15,7 +15,6 @@ atspi_sources = [
   'atspi-hypertext.c',
   'atspi-image.c',
   'atspi-matchrule.c',
-  'atspi-mutter.c',
   'atspi-misc.c',
   'atspi-object.c',
   'atspi-registry.c',
