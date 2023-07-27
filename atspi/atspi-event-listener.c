@@ -824,6 +824,8 @@ is_superset (const gchar *super, const gchar *sub)
 {
   if (!super || !super[0])
     return TRUE;
+  if (!sub || !sub[0])
+    return FALSE;
   return (strcmp (super, sub) == 0);
 }
 
