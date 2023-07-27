@@ -100,8 +100,8 @@ atspi_match_rule_class_init (AtspiMatchRuleClass *klass)
  *          interpret @attributes.
  * @interfaces: (element-type gchar*): An array of interfaces to match, or
  *          NULL if not applicable.  Interface names should be specified
- *          by their DBus names (org.a11y.Atspi.Accessible,
- *          org.a11y.Atspi.Component, etc).
+ *          by the final component of their DBus names (Accessible,
+ *          Component, etc).
  * @interfacematchtype: An #AtspiCollectionMatchType specifying how to
  *          interpret @interfaces.
  * @roles: (element-type AtspiRole): A #GArray of roles to match, or NULL if
