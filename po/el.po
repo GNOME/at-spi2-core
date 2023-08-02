@@ -13,616 +13,596 @@
 # Nikos Charonitakis <charosn@her.forthnet.gr>, 2004.
 # Jennie Petoumenou <epetoumenou@gmail.com>, 2009.
 # Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>, 2013.
-#, fuzzy
 msgid ""
 msgstr ""
-"#-#-#-#-#  el.po (at-spi2-core master)  #-#-#-#-#\n"
-"Project-Id-Version: at-spi2-core master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
-"spi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-03-07 11:54+0000\n"
-"PO-Revision-Date: 2014-03-06 16:40+0200\n"
-"Last-Translator: maria thukididu <marablack3@gmail.com>\n"
-"Language-Team: team@gnome.gr\n"
-"Language: el\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.6.1\n"
-"#-#-#-#-#  el.po (el)  #-#-#-#-#\n"
 "Project-Id-Version: el\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=atk&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-08-05 02:47+0000\n"
-"PO-Revision-Date: 2014-08-28 23:08+0200\n"
-"Last-Translator: Tom Tryfonidis <tomtryf@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
+"POT-Creation-Date: 2023-01-25 15:54+0000\n"
+"PO-Revision-Date: 2023-08-02 20:55+0300\n"
+"Last-Translator: Efstathios Iosifidis <eiosifidis@gnome.org>\n"
 "Language-Team: team@lists.gnome.gr\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.3.2\n"
 "X-Generator: Poedit 1.6.5\n"
 "X-Project-Style: gnome\n"
 
-#: ../atspi/atspi-component.c:325 ../atspi/atspi-misc.c:1036
-#: ../atspi/atspi-value.c:111
-msgid "The application no longer exists"
-msgstr "Η εφαρμογή δεν υπάρχει πλέον"
-
-#: ../atspi/atspi-misc.c:1779
-msgid "Attempted synchronous call where prohibited"
-msgstr "Απόπειρα συγχρονισμένης κλήσης όπου απαγορεύεται"
-
-#: ../atk/atkhyperlink.c:128
+#: atk/atkhyperlink.c:127
 msgid "Selected Link"
 msgstr "Επιλεγμένος σύνδεσμος"
 
-#: ../atk/atkhyperlink.c:129
+#: atk/atkhyperlink.c:128
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr "Διευκρινίζει αν το αντικείμενο AtkHyperlink είναι επιλεγμένο"
 
-#: ../atk/atkhyperlink.c:135
+#: atk/atkhyperlink.c:134
 msgid "Number of Anchors"
 msgstr "Αριθμός αγκυρών"
 
-#: ../atk/atkhyperlink.c:136
+#: atk/atkhyperlink.c:135
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr "Ο αριθμός αγκυρών που συνδέονται με το αντικείμενο AtkHyperlink"
 
-#: ../atk/atkhyperlink.c:144
+#: atk/atkhyperlink.c:143
 msgid "End index"
 msgstr "Τέλος ευρετηρίου"
 
-#: ../atk/atkhyperlink.c:145
+#: atk/atkhyperlink.c:144
 msgid "The end index of the AtkHyperlink object"
 msgstr "Το τέλος ευρετηρίου του αντικειμένου AtkHyperlink"
 
-#: ../atk/atkhyperlink.c:153
+#: atk/atkhyperlink.c:152
 msgid "Start index"
 msgstr "Αρχή ευρετηρίου"
 
-#: ../atk/atkhyperlink.c:154
+#: atk/atkhyperlink.c:153
 msgid "The start index of the AtkHyperlink object"
 msgstr "Η αρχή ευρετηρίου του αντικειμένου AtkHyperlink"
 
-#: ../atk/atkobject.c:97
+#: atk/atkobject.c:100
 msgid "invalid"
 msgstr "άκυρο"
 
-#: ../atk/atkobject.c:98
+#: atk/atkobject.c:101
 msgid "accelerator label"
 msgstr "ετικέτα επιταχυντή"
 
-#: ../atk/atkobject.c:99
+#: atk/atkobject.c:102
 msgid "alert"
 msgstr "ειδοποίηση"
 
-#: ../atk/atkobject.c:100
+#: atk/atkobject.c:103
 msgid "animation"
 msgstr "κινούμενο σχέδιο"
 
-#: ../atk/atkobject.c:101
+#: atk/atkobject.c:104
 msgid "arrow"
 msgstr "βέλος"
 
-#: ../atk/atkobject.c:102
+#: atk/atkobject.c:105
 msgid "calendar"
 msgstr "ημερολόγιο"
 
-#: ../atk/atkobject.c:103
+#: atk/atkobject.c:106
 msgid "canvas"
 msgstr "καμβάς"
 
-#: ../atk/atkobject.c:104
+#: atk/atkobject.c:107
 msgid "check box"
 msgstr "πλαίσιο επιλογής"
 
-#: ../atk/atkobject.c:105
+#: atk/atkobject.c:108
 msgid "check menu item"
 msgstr "αντικείμενο μενού επιλογής"
 
-#: ../atk/atkobject.c:106
+#: atk/atkobject.c:109
 msgid "color chooser"
 msgstr "επιλογέας χρώματος"
 
-#: ../atk/atkobject.c:107
+#: atk/atkobject.c:110
 msgid "column header"
 msgstr "κεφαλίδα στήλης"
 
-#: ../atk/atkobject.c:108
+#: atk/atkobject.c:111
 msgid "combo box"
 msgstr "πλαίσιο πολλαπλών επιλογών"
 
-#: ../atk/atkobject.c:109
+#: atk/atkobject.c:112
 msgid "dateeditor"
 msgstr "επεξεργαστής ημερομηνίας"
 
-#: ../atk/atkobject.c:110
+#: atk/atkobject.c:113
 msgid "desktop icon"
 msgstr "εικονίδιο επιφάνειας εργασίας"
 
-#: ../atk/atkobject.c:111
+#: atk/atkobject.c:114
 msgid "desktop frame"
 msgstr "πλαίσιο επιφάνειας εργασίας"
 
-#: ../atk/atkobject.c:112
+#: atk/atkobject.c:115
 msgid "dial"
 msgstr "καντράν"
 
-#: ../atk/atkobject.c:113
+#: atk/atkobject.c:116
 msgid "dialog"
 msgstr "διάλογος"
 
-#: ../atk/atkobject.c:114
+#: atk/atkobject.c:117
 msgid "directory pane"
 msgstr "παράθυρο καταλόγου"
 
-#: ../atk/atkobject.c:115
+#: atk/atkobject.c:118
 msgid "drawing area"
 msgstr "περιοχή σχεδίασης"
 
-#: ../atk/atkobject.c:116
+#: atk/atkobject.c:119
 msgid "file chooser"
 msgstr "επιλογέας αρχείου"
 
-#: ../atk/atkobject.c:117
+#: atk/atkobject.c:120
 msgid "filler"
 msgstr "συμπληρωτής"
 
 #. I know it looks wrong but that is what Java returns
-#: ../atk/atkobject.c:119
+#: atk/atkobject.c:122
 msgid "fontchooser"
 msgstr "επιλογέας γραμματοσειράς"
 
-#: ../atk/atkobject.c:120
+#: atk/atkobject.c:123
 msgid "frame"
 msgstr "πλαίσιο"
 
-#: ../atk/atkobject.c:121
+#: atk/atkobject.c:124
 msgid "glass pane"
 msgstr "γυάλινο παράθυρο"
 
-#: ../atk/atkobject.c:122
+#: atk/atkobject.c:125
 msgid "html container"
 msgstr "περιέκτης html"
 
-#: ../atk/atkobject.c:123
+#: atk/atkobject.c:126
 msgid "icon"
 msgstr "εικονίδιο"
 
-#: ../atk/atkobject.c:124
+#: atk/atkobject.c:127
 msgid "image"
 msgstr "εικόνα"
 
-#: ../atk/atkobject.c:125
+#: atk/atkobject.c:128
 msgid "internal frame"
 msgstr "εσωτερικό πλαίσιο"
 
-#: ../atk/atkobject.c:126
+#: atk/atkobject.c:129
 msgid "label"
 msgstr "ετικέτα"
 
-#: ../atk/atkobject.c:127
+#: atk/atkobject.c:130
 msgid "layered pane"
 msgstr "παράθυρο με στρώσεις"
 
-#: ../atk/atkobject.c:128
+#: atk/atkobject.c:131
 msgid "list"
 msgstr "λίστα"
 
-#: ../atk/atkobject.c:129
+#: atk/atkobject.c:132
 msgid "list item"
 msgstr "αντικείμενο λίστας"
 
-#: ../atk/atkobject.c:130
+#: atk/atkobject.c:133
 msgid "menu"
 msgstr "μενού"
 
-#: ../atk/atkobject.c:131
+#: atk/atkobject.c:134
 msgid "menu bar"
 msgstr "εργαλειοθήκη μενού"
 
-#: ../atk/atkobject.c:132
+#: atk/atkobject.c:135
+msgid "menu button"
+msgstr "κουμπί μενού"
+
+#: atk/atkobject.c:136
 msgid "menu item"
 msgstr "αντικείμενο μενού"
 
-#: ../atk/atkobject.c:133
+#: atk/atkobject.c:137
 msgid "option pane"
 msgstr "παράθυρο επιλογών"
 
-#: ../atk/atkobject.c:134
+#: atk/atkobject.c:138
 msgid "page tab"
 msgstr "στήλη σελίδας"
 
-#: ../atk/atkobject.c:135
+#: atk/atkobject.c:139
 msgid "page tab list"
 msgstr "λίστα στηλών σελίδας"
 
-#: ../atk/atkobject.c:136
+#: atk/atkobject.c:140
 msgid "panel"
 msgstr "πίνακας"
 
-#: ../atk/atkobject.c:137
+#: atk/atkobject.c:141
 msgid "password text"
 msgstr "κείμενο κωδικού πρόσβασης"
 
-#: ../atk/atkobject.c:138
+#: atk/atkobject.c:142
 msgid "popup menu"
 msgstr "αναδυόμενο μενού"
 
-#: ../atk/atkobject.c:139
+#: atk/atkobject.c:143
 msgid "progress bar"
 msgstr "γραμμή προόδου"
 
-#: ../atk/atkobject.c:140
+#: atk/atkobject.c:144
 msgid "push button"
 msgstr "πιεζόμενο κουμπί"
 
-#: ../atk/atkobject.c:141
+#: atk/atkobject.c:145
 msgid "radio button"
 msgstr "κουμπί επιλογής"
 
-#: ../atk/atkobject.c:142
+#: atk/atkobject.c:146
 msgid "radio menu item"
 msgstr "αντικείμενο μενού επιλογής"
 
-#: ../atk/atkobject.c:143
+#: atk/atkobject.c:147
 msgid "root pane"
 msgstr "αρχικό παράθυρο"
 
-#: ../atk/atkobject.c:144
+#: atk/atkobject.c:148
 msgid "row header"
 msgstr "κεφαλίδα γραμμής"
 
-#: ../atk/atkobject.c:145
+#: atk/atkobject.c:149
 msgid "scroll bar"
 msgstr "γραμμή κύλισης"
 
-#: ../atk/atkobject.c:146
+#: atk/atkobject.c:150
 msgid "scroll pane"
 msgstr "παράθυρο κύλισης"
 
-#: ../atk/atkobject.c:147
+#: atk/atkobject.c:151
 msgid "separator"
 msgstr "διαχωριστής"
 
-#: ../atk/atkobject.c:148
+#: atk/atkobject.c:152
 msgid "slider"
 msgstr "γραμμή κύλισης"
 
-#: ../atk/atkobject.c:149
+#: atk/atkobject.c:153
 msgid "split pane"
 msgstr "παράθυρο διαχωρισμού"
 
-#: ../atk/atkobject.c:150
+#: atk/atkobject.c:154
 msgid "spin button"
 msgstr "κουμπί αυξομείωσης"
 
-#: ../atk/atkobject.c:151
+#: atk/atkobject.c:155
 msgid "statusbar"
 msgstr "γραμμή κατάστασης"
 
-#: ../atk/atkobject.c:152
+#: atk/atkobject.c:156
 msgid "table"
 msgstr "πίνακας"
 
-#: ../atk/atkobject.c:153
+#: atk/atkobject.c:157
 msgid "table cell"
 msgstr "κελί πίνακα"
 
-#: ../atk/atkobject.c:154
+#: atk/atkobject.c:158
 msgid "table column header"
 msgstr "κεφαλίδα στήλης πίνακα"
 
-#: ../atk/atkobject.c:155
+#: atk/atkobject.c:159
 msgid "table row header"
 msgstr "κεφαλίδα γραμμής πίνακα"
 
-#: ../atk/atkobject.c:156
+#: atk/atkobject.c:160
 msgid "tear off menu item"
 msgstr "αντικείμενο αποσπώμενου μενού"
 
-#: ../atk/atkobject.c:157
+#: atk/atkobject.c:161
 msgid "terminal"
 msgstr "τερματικό"
 
-#: ../atk/atkobject.c:158
+#: atk/atkobject.c:162
 msgid "text"
 msgstr "κείμενο"
 
-#: ../atk/atkobject.c:159
+#: atk/atkobject.c:163
 msgid "toggle button"
 msgstr "κουμπί εναλλαγής"
 
-#: ../atk/atkobject.c:160
+#: atk/atkobject.c:164
 msgid "tool bar"
 msgstr "εργαλειοθήκη"
 
-#: ../atk/atkobject.c:161
+#: atk/atkobject.c:165
 msgid "tool tip"
 msgstr "αναδυόμενη συμβουλή"
 
-#: ../atk/atkobject.c:162
+#: atk/atkobject.c:166
 msgid "tree"
 msgstr "δένδρο"
 
-#: ../atk/atkobject.c:163
+#: atk/atkobject.c:167
 msgid "tree table"
 msgstr "πίνακας δένδρου"
 
-#: ../atk/atkobject.c:164
+#: atk/atkobject.c:168
 msgid "unknown"
 msgstr "άγνωστο"
 
-#: ../atk/atkobject.c:165
+#: atk/atkobject.c:169
 msgid "viewport"
 msgstr "περιοχή προβολής"
 
-#: ../atk/atkobject.c:166
+#: atk/atkobject.c:170
 msgid "window"
 msgstr "παράθυρο"
 
-#: ../atk/atkobject.c:167
+#: atk/atkobject.c:171
 msgid "header"
 msgstr "κεφαλίδα"
 
-#: ../atk/atkobject.c:168
+#: atk/atkobject.c:172
 msgid "footer"
 msgstr "υποσέλιδο"
 
-#: ../atk/atkobject.c:169
+#: atk/atkobject.c:173
 msgid "paragraph"
 msgstr "παράγραφος"
 
-#: ../atk/atkobject.c:170
+#: atk/atkobject.c:174
 msgid "ruler"
 msgstr "κανόνας"
 
-#: ../atk/atkobject.c:171
+#: atk/atkobject.c:175
 msgid "application"
 msgstr "εφαρμογή"
 
-#: ../atk/atkobject.c:172
+#: atk/atkobject.c:176
 msgid "autocomplete"
 msgstr "αυτόματη συμπλήρωση"
 
-#: ../atk/atkobject.c:173
+#: atk/atkobject.c:177
 msgid "edit bar"
 msgstr "γραμμή επεξεργασίας"
 
-#: ../atk/atkobject.c:174
+#: atk/atkobject.c:178
 msgid "embedded component"
 msgstr "ενσωματωμένο στοιχείο"
 
-#: ../atk/atkobject.c:175
+#: atk/atkobject.c:179
 msgid "entry"
 msgstr "καταχώρηση"
 
-#: ../atk/atkobject.c:176
+#: atk/atkobject.c:180
 msgid "chart"
 msgstr "γράφημα"
 
-#: ../atk/atkobject.c:177
+#: atk/atkobject.c:181
 msgid "caption"
 msgstr "λεζάντα"
 
-#: ../atk/atkobject.c:178
+#: atk/atkobject.c:182
 msgid "document frame"
 msgstr "πλαίσιο εγγράφου"
 
-#: ../atk/atkobject.c:179
+#: atk/atkobject.c:183
 msgid "heading"
 msgstr "κεφαλίδα"
 
-#: ../atk/atkobject.c:180
+#: atk/atkobject.c:184
 msgid "page"
 msgstr "σελίδα"
 
-#: ../atk/atkobject.c:181
+#: atk/atkobject.c:185
 msgid "section"
 msgstr "ενότητα"
 
-#: ../atk/atkobject.c:182
+#: atk/atkobject.c:186
 msgid "redundant object"
 msgstr "πλεονάζον αντικείμενο"
 
-#: ../atk/atkobject.c:183
+#: atk/atkobject.c:187
 msgid "form"
 msgstr "φόρμα"
 
-#: ../atk/atkobject.c:184
+#: atk/atkobject.c:188
 msgid "link"
 msgstr "σύνδεσμος"
 
-#: ../atk/atkobject.c:185
+#: atk/atkobject.c:189
 msgid "input method window"
 msgstr "παράθυρο μεθόδου εισαγωγής"
 
-#: ../atk/atkobject.c:186
+#: atk/atkobject.c:190
 msgid "table row"
 msgstr "γραμμή πίνακα"
 
-#: ../atk/atkobject.c:187
+#: atk/atkobject.c:191
 msgid "tree item"
 msgstr "αντικείμενο δένδρου"
 
-#: ../atk/atkobject.c:188
+#: atk/atkobject.c:192
 msgid "document spreadsheet"
 msgstr "έγγραφο λογιστικού φύλλου"
 
-#: ../atk/atkobject.c:189
+#: atk/atkobject.c:193
 msgid "document presentation"
 msgstr "εγγράφο παρουσίασης"
 
-#: ../atk/atkobject.c:190
+#: atk/atkobject.c:194
 msgid "document text"
 msgstr "έγγραφο κειμένου"
 
-#: ../atk/atkobject.c:191
+#: atk/atkobject.c:195
 msgid "document web"
 msgstr "έγγραφο ιστού"
 
-#: ../atk/atkobject.c:192
+#: atk/atkobject.c:196
 msgid "document email"
 msgstr "έγγραφο ηλεκτρονικής αλληλογγραφίας"
 
-#: ../atk/atkobject.c:193
+#: atk/atkobject.c:197
 msgid "comment"
 msgstr "σχόλιο"
 
-#: ../atk/atkobject.c:194
+#: atk/atkobject.c:198
 msgid "list box"
 msgstr "πλαίσιο λίστας"
 
-#: ../atk/atkobject.c:195
+#: atk/atkobject.c:199
 msgid "grouping"
 msgstr "ομαδοποίηση"
 
-#: ../atk/atkobject.c:196
+#: atk/atkobject.c:200
 msgid "image map"
 msgstr "χάρτης εικόνας"
 
-#: ../atk/atkobject.c:197
+#: atk/atkobject.c:201
 msgid "notification"
 msgstr "ειδοποίηση"
 
-#: ../atk/atkobject.c:198
+#: atk/atkobject.c:202
 msgid "info bar"
 msgstr "γραμμή πληροφοριών"
 
-#: ../atk/atkobject.c:199
+#: atk/atkobject.c:203
 msgid "level bar"
 msgstr "γραμμή επιπέδου"
 
-#: ../atk/atkobject.c:200
+#: atk/atkobject.c:204
 msgid "title bar"
 msgstr "γραμμή τίτλου"
 
-#: ../atk/atkobject.c:201
+#: atk/atkobject.c:205
 msgid "block quote"
 msgstr "μεγάλη παράθεση"
 
-#: ../atk/atkobject.c:202
+#: atk/atkobject.c:206
 msgid "audio"
 msgstr "ήχος"
 
-#: ../atk/atkobject.c:203
+#: atk/atkobject.c:207
 msgid "video"
 msgstr "βίντεο"
 
-#: ../atk/atkobject.c:204
+#: atk/atkobject.c:208
 msgid "definition"
 msgstr "ορισμός"
 
-#: ../atk/atkobject.c:205
+#: atk/atkobject.c:209
 msgid "article"
 msgstr "άρθρο"
 
-#: ../atk/atkobject.c:206
+#: atk/atkobject.c:210
 msgid "landmark"
 msgstr "ορόσημο"
 
-#: ../atk/atkobject.c:207
+#: atk/atkobject.c:211
 msgid "log"
 msgstr "καταγραφή"
 
-#: ../atk/atkobject.c:208
+#: atk/atkobject.c:212
 msgid "marquee"
 msgstr "κυλιόμενο κείμενο"
 
-#: ../atk/atkobject.c:209
+#: atk/atkobject.c:213
 msgid "math"
 msgstr "μαθηματικά"
 
-#: ../atk/atkobject.c:210
+#: atk/atkobject.c:214
 msgid "rating"
 msgstr "αξιολόγηση"
 
-#: ../atk/atkobject.c:211
+#: atk/atkobject.c:215
 msgid "timer"
 msgstr "χρονόμετρο"
 
-#: ../atk/atkobject.c:212
+#: atk/atkobject.c:216
 msgid "description list"
 msgstr "λίστα περιγραφής"
 
-#: ../atk/atkobject.c:213
+#: atk/atkobject.c:217
 msgid "description term"
 msgstr "όρος περιγραφής"
 
-#: ../atk/atkobject.c:214
+#: atk/atkobject.c:218
 msgid "description value"
 msgstr "τιμή περιγραφής"
 
-#: ../atk/atkobject.c:372
+#: atk/atkobject.c:390
 msgid "Accessible Name"
 msgstr "Προσβάσιμο όνομα"
 
-#: ../atk/atkobject.c:373
+#: atk/atkobject.c:391
 msgid "Object instance’s name formatted for assistive technology access"
 msgstr ""
 "Το όνομα του αντίτυπου του αντικειμένου, μορφοποιημένο για πρόσβαση μέσω "
 "βοηθητικής τεχνολογίας"
 
-#: ../atk/atkobject.c:379
+#: atk/atkobject.c:397
 msgid "Accessible Description"
 msgstr "Προσβάσιμη περιγραφή"
 
-#: ../atk/atkobject.c:380
+#: atk/atkobject.c:398
 msgid "Description of an object, formatted for assistive technology access"
 msgstr ""
 "Περιγραφή αντικειμένου, μορφοποιημένη για πρόσβαση μέσω βοηθητικής "
 "τεχνολογίας"
 
-#: ../atk/atkobject.c:386
+#: atk/atkobject.c:404
 msgid "Accessible Parent"
 msgstr "Προσβάσιμο γονικό"
 
-#: ../atk/atkobject.c:387
+#: atk/atkobject.c:405
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr ""
 "Το γονικό του τρέχοντος προσβάσιμου όπως επιστρέφεται από το "
 "atk_object_get_parent()"
 
-#: ../atk/atkobject.c:403
+#: atk/atkobject.c:421
 msgid "Accessible Value"
 msgstr "Προσβάσιμη τιμή"
 
-#: ../atk/atkobject.c:404
+#: atk/atkobject.c:422
 msgid "Is used to notify that the value has changed"
 msgstr "Χρησιμοποιείται για ειδοποίηση ότι η τιμή έχει αλλάξει"
 
-#: ../atk/atkobject.c:412
+#: atk/atkobject.c:430
 msgid "Accessible Role"
 msgstr "Προσβάσιμος ρόλος"
 
-#: ../atk/atkobject.c:413
+#: atk/atkobject.c:431
 msgid "The accessible role of this object"
 msgstr "Ο προσβάσιμος ρόλος του αντικειμένου"
 
-#: ../atk/atkobject.c:421
+#: atk/atkobject.c:438
 msgid "Accessible Layer"
 msgstr "Προσβάσιμο στρώμα"
 
-#: ../atk/atkobject.c:422
+#: atk/atkobject.c:439
 msgid "The accessible layer of this object"
 msgstr "Το προσβάσιμο στρώμα του αντικειμένου"
 
-#: ../atk/atkobject.c:430
+#: atk/atkobject.c:447
 msgid "Accessible MDI Value"
 msgstr "Προσβάσιμη τιμή MDI"
 
-#: ../atk/atkobject.c:431
+#: atk/atkobject.c:448
 msgid "The accessible MDI value of this object"
 msgstr "Η προσβάσιμη τιμή MDI του αντικειμένου"
 
-#: ../atk/atkobject.c:447
+#: atk/atkobject.c:464
 msgid "Accessible Table Caption"
 msgstr "Προσβάσιμη λεζάντα πίνακα"
 
-#: ../atk/atkobject.c:448
+#: atk/atkobject.c:465
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -631,63 +611,63 @@ msgstr ""
 "ιδιότητα δεν πρέπει να χρησιμοποιείται. Αντ' αυτής, χρησιμοποιήστε το "
 "accessible-table-caption-object"
 
-#: ../atk/atkobject.c:462
+#: atk/atkobject.c:479
 msgid "Accessible Table Column Header"
 msgstr "Προσβάσιμη κεφαλίδα στήλης πίνακα"
 
-#: ../atk/atkobject.c:463
+#: atk/atkobject.c:480
 msgid "Is used to notify that the table column header has changed"
 msgstr ""
 "Χρησιμοποιείται για να ενημερώσει ότι η κεφαλίδα στήλης πίνακα έχει αλλάξει"
 
-#: ../atk/atkobject.c:478
+#: atk/atkobject.c:495
 msgid "Accessible Table Column Description"
 msgstr "Προσβάσιμη περιγραφή στήλης πίνακα"
 
-#: ../atk/atkobject.c:479
+#: atk/atkobject.c:496
 msgid "Is used to notify that the table column description has changed"
 msgstr ""
 "Χρησιμοποιείται για να ενημερώσει ότι η περιγραφή στήλης πίνακα έχει αλλάξει"
 
-#: ../atk/atkobject.c:494
+#: atk/atkobject.c:511
 msgid "Accessible Table Row Header"
 msgstr "Προσβάσιμη κεφαλίδα γραμμής πίνακα"
 
-#: ../atk/atkobject.c:495
+#: atk/atkobject.c:512
 msgid "Is used to notify that the table row header has changed"
 msgstr ""
 "Χρησιμοποιείται για να ενημερώσει ότι η κεφαλίδα γραμμής πίνακα έχει αλλάξει"
 
-#: ../atk/atkobject.c:509
+#: atk/atkobject.c:526
 msgid "Accessible Table Row Description"
 msgstr "Προσβάσιμη περιγραφή γραμμής πίνακα"
 
-#: ../atk/atkobject.c:510
+#: atk/atkobject.c:527
 msgid "Is used to notify that the table row description has changed"
 msgstr ""
 "Χρησιμοποιείται για να ενημερώσει ότι η περιγραφή γραμμής πίνακα έχει αλλάξει"
 
-#: ../atk/atkobject.c:516
+#: atk/atkobject.c:533
 msgid "Accessible Table Summary"
 msgstr "Προσβάσιμη περίληψη πίνακα"
 
-#: ../atk/atkobject.c:517
+#: atk/atkobject.c:534
 msgid "Is used to notify that the table summary has changed"
 msgstr "Χρησιμοποιείται για να ενημερώσει ότι η περίληψη πίνακα έχει αλλάξει"
 
-#: ../atk/atkobject.c:523
+#: atk/atkobject.c:540
 msgid "Accessible Table Caption Object"
 msgstr "Προσβάσιμο αντικείμενο λεζάντας πίνακα"
 
-#: ../atk/atkobject.c:524
+#: atk/atkobject.c:541
 msgid "Is used to notify that the table caption has changed"
 msgstr "Χρησιμοποιείται για να ενημερώσει ότι η λεζάντα πίνακα έχει αλλάξει"
 
-#: ../atk/atkobject.c:530
+#: atk/atkobject.c:547
 msgid "Number of Accessible Hypertext Links"
 msgstr "Αριθμός προσβάσιμων συνδέσμων υπερκειμένου"
 
-#: ../atk/atkobject.c:531
+#: atk/atkobject.c:548
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Ο αριθμός των συνδέσμων που έχει το τρέχον AtkHypertext"
 
@@ -697,7 +677,7 @@ msgstr "Ο αριθμός των συνδέσμων που έχει το τρέ�
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: ../atk/atkvalue.c:194
+#: atk/atkvalue.c:193
 msgid "very weak"
 msgstr "πολύ ασθενές"
 
@@ -707,7 +687,7 @@ msgstr "πολύ ασθενές"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: ../atk/atkvalue.c:201
+#: atk/atkvalue.c:200
 msgid "weak"
 msgstr "ασθενές"
 
@@ -717,7 +697,7 @@ msgstr "ασθενές"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: ../atk/atkvalue.c:208
+#: atk/atkvalue.c:207
 msgid "acceptable"
 msgstr "αποδεκτό"
 
@@ -727,7 +707,7 @@ msgstr "αποδεκτό"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: ../atk/atkvalue.c:215
+#: atk/atkvalue.c:214
 msgid "strong"
 msgstr "ισχυρό"
 
@@ -737,7 +717,7 @@ msgstr "ισχυρό"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: ../atk/atkvalue.c:222
+#: atk/atkvalue.c:221
 msgid "very strong"
 msgstr "πολύ ισχυρό"
 
@@ -748,7 +728,7 @@ msgstr "πολύ ισχυρό"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:230
+#: atk/atkvalue.c:229
 msgid "very low"
 msgstr "πολύ χαμηλό"
 
@@ -759,7 +739,7 @@ msgstr "πολύ χαμηλό"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:238
+#: atk/atkvalue.c:237
 msgid "medium"
 msgstr "μεσαίο"
 
@@ -770,7 +750,7 @@ msgstr "μεσαίο"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:246
+#: atk/atkvalue.c:245
 msgid "high"
 msgstr "υψηλό"
 
@@ -781,7 +761,7 @@ msgstr "υψηλό"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:254
+#: atk/atkvalue.c:253
 msgid "very high"
 msgstr "πολύ υψηλό"
 
@@ -792,7 +772,7 @@ msgstr "πολύ υψηλό"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:262
+#: atk/atkvalue.c:261
 msgid "very bad"
 msgstr "πολύ κακό"
 
@@ -803,7 +783,7 @@ msgstr "πολύ κακό"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:270
+#: atk/atkvalue.c:269
 msgid "bad"
 msgstr "κακό"
 
@@ -814,7 +794,7 @@ msgstr "κακό"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:278
+#: atk/atkvalue.c:277
 msgid "good"
 msgstr "καλό"
 
@@ -825,7 +805,7 @@ msgstr "καλό"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:286
+#: atk/atkvalue.c:285
 msgid "very good"
 msgstr "πολύ καλό"
 
@@ -836,9 +816,16 @@ msgstr "πολύ καλό"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:294
+#: atk/atkvalue.c:293
 msgid "best"
 msgstr "το καλύτερο"
+
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1077 atspi/atspi-value.c:123
+msgid "The application no longer exists"
+msgstr "Η εφαρμογή δεν υπάρχει πλέον"
+
+#~ msgid "Attempted synchronous call where prohibited"
+#~ msgstr "Απόπειρα συγχρονισμένης κλήσης όπου απαγορεύεται"
 
 #~ msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
 #~ msgstr "AT-SPI: Άγνωστη υπογραφή %s για RemoveAccessible"
