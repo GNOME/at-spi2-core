@@ -408,6 +408,24 @@ typedef enum
 } AtkLayer;
 
 /**
+ * AtkLive:
+ * @ATK_LIVE_NONE: No live region.
+ * @ATK_LIVE_POLITE: This live region should be considered polite.
+ * @ATK_LIVE_ASSERTIVE: This live region should be considered assertive.
+ *
+ * Enumeration used to indicate a type of live region and how assertive it
+ * should be in terms of speaking notifications. Currently, this is only used
+ * for "notification" events, but it may be used for additional purposes
+ * in the future.
+ */
+typedef enum
+{
+  ATK_LIVE_NONE,
+  ATK_LIVE_POLITE,
+  ATK_LIVE_ASSERTIVE
+} AtkLive;
+
+/**
  * AtkAttributeSet:
  *
  * This is a singly-linked list (a #GSList) of #AtkAttribute. It is

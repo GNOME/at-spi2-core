@@ -1477,6 +1477,24 @@ extern "C"
  */
 #define ATSPI_SCROLLTYPE_COUNT (6 + 1)
 
+  /**
+   * AtspiLive:
+   * @ATSPI_LIVE_NONE: No live region.
+   * @ATSPI_LIVE_POLITE: This live region should be considered polite.
+   * @ATSPI_LIVE_ASSERTIVE: This live region should be considered assertive.
+   *
+   * Enumeration used to indicate a type of live region and how assertive it
+   * should be in terms of speaking notifications. Currently, this is only used
+   * for "announcement" events, but it may be used for additional purposes
+   * in the future.
+   */
+  typedef enum
+  {
+    ATSPI_LIVE_NONE,
+    ATSPI_LIVE_POLITE,
+    ATSPI_LIVE_ASSERTIVE
+  } AtspiLive;
+
 #define ATSPI_DBUS_NAME_REGISTRY "org.a11y.atspi.Registry"
 #define ATSPI_DBUS_PATH_REGISTRY "/org/a11y/atspi/registry"
 #define ATSPI_DBUS_INTERFACE_REGISTRY "org.a11y.atspi.Registry"

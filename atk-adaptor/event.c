@@ -909,7 +909,27 @@ announcement_event_listener (GSignalInvocationHint *signal_hint,
   text = g_value_get_string (&param_values[1]);
   g_return_val_if_fail (text != NULL, TRUE);
 
-  emit_event (accessible, ITF_EVENT_OBJECT, name, "", 0, 0,
+  emit_event (accessible, ITF_EVENT_OBJECT, name, "", ATSPI_LIVE_POLITE, 0,
+              "s", text, append_basic);
+  return TRUE;
+}
+
+static gboolean
+notification_event_listener (GSignalInvocationHint *signal_hint,
+                             guint n_param_values,
+                             const GValue *param_values,
+                             gpointer data)
+{
+  AtkObject *accessible;
+  const gchar *text;
+  gint politeness;
+
+  accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
+  text = g_value_get_string (&param_values[1]);
+  g_return_val_if_fail (text != NULL, TRUE);
+  politeness = g_value_get_int (&param_values[2]);
+
+  emit_event (accessible, ITF_EVENT_OBJECT, "announcement", "", politeness, 0,
               "s", text, append_basic);
   return TRUE;
 }
@@ -1324,6 +1344,8 @@ spi_atk_register_event_listeners (void)
                        "Gtk:AtkObject:active-descendant-changed");
   add_signal_listener (announcement_event_listener,
                        "Gtk:AtkObject:announcement");
+  add_signal_listener (notification_event_listener,
+                       "Gtk:AtkObject:notification");
   add_signal_listener (bounds_event_listener,
                        "Gtk:AtkComponent:bounds-changed");
   add_signal_listener (text_selection_changed_event_listener,

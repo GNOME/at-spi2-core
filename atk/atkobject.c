@@ -91,6 +91,7 @@ enum
   VISIBLE_DATA_CHANGED,
   ACTIVE_DESCENDANT_CHANGED,
   ANNOUNCEMENT,
+  NOTIFICATION,
 
   LAST_SIGNAL
 };
@@ -568,6 +569,8 @@ atk_object_class_init (AtkObjectClass *klass)
    * The "announcement" signal can be emitted to pass an announcement on to
    * be read by a screen reader.
    *
+   * Depcrecated (2.50): Use AtkObject::notification instead.
+   *
    * Since: 2.46
    */
   atk_object_signals[ANNOUNCEMENT] =
@@ -579,6 +582,28 @@ atk_object_class_init (AtkObjectClass *klass)
                     g_cclosure_marshal_VOID__STRING,
                     G_TYPE_NONE,
                     1, G_TYPE_STRING);
+
+  /**
+   * AtkObject::notification
+   * @atkobject: the object which received the signal.
+   * @arg1: the text to be announced.
+   * @arg2: an #AtkLive specifying the politeness of the notification.
+   * Should be either ATK_LIVE_POLITE or ATK_LIVE_ASSERTIVE.
+   *
+   * The "notification" signal can be emitted to pass an announcement on to
+   * be read by a screen reader.
+   *
+   * Since: 2.50
+   */
+  atk_object_signals[NOTIFICATION] =
+      g_signal_new ("notification",
+                    G_TYPE_FROM_CLASS (klass),
+                    G_SIGNAL_RUN_LAST,
+                    0, /* no class handler in order to avoid breaking ABI */
+                    NULL, NULL,
+                    atk_marshal_VOID__STRING_INT,
+                    G_TYPE_NONE,
+                    2, G_TYPE_STRING, G_TYPE_INT);
 }
 
 static void
