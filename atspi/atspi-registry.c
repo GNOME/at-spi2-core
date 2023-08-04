@@ -47,6 +47,12 @@ typedef struct
   gint sync_type;
 } DeviceListenerEntry;
 
+typedef struct
+{
+  AtspiGenerateMouseEventCB callback;
+  void *callback_data;
+} AtspiGenerateMouseEventClosure;
+
 static GList *device_listeners;
 
 /**
@@ -480,6 +486,63 @@ atspi_generate_mouse_event (glong x, glong y, const gchar *name, GError **error)
     }
 
   return TRUE;
+}
+
+static void
+atspi_generate_mouse_event_cb (DBusPendingCall *pending, void *user_data)
+{
+  AtspiGenerateMouseEventClosure *closure = user_data;
+
+  closure->callback (closure->callback_data);
+  dbus_pending_call_unref (pending);
+}
+
+/**
+ * atspi_generate_mouse_event_async:
+ * @x: a #glong indicating the screen x coordinate of the mouse event.
+ * @y: a #glong indicating the screen y coordinate of the mouse event.
+ * @name: a string indicating which mouse event to be synthesized
+ *        (e.g. "b1p", "b1c", "b2r", "rel", "abs").
+ * @callback: (scope notified) (allow-none): a callback to be called when a
+ * reply is received. May be NULL.
+ * @callback_data: (closure) (allow-none): data to be passed to @callback.
+ * @error: (allow-none): a pointer to a %NULL #GError pointer, or %NULL
+ *
+ * Like atspi_generate_mouse_event, but asynchronous.
+ **/
+void
+atspi_generate_mouse_event_async (glong x, glong y, const gchar *name, AtspiGenerateMouseEventCB callback, void *callback_data, GError **error)
+{
+  dbus_int32_t d_x = x, d_y = y;
+  DBusError d_error;
+  DBusMessage *message;
+  DBusPendingCall *pending = NULL;
+  AtspiGenerateMouseEventClosure *closure = NULL;
+
+  g_return_if_fail (name != NULL);
+
+  dbus_error_init (&d_error);
+  message = dbus_message_new_method_call (atspi_bus_registry,
+                                          atspi_path_dec, atspi_interface_dec,
+                                          "GenerateMouseEvent");
+  dbus_message_append_args (message, DBUS_TYPE_INT32, &d_x, DBUS_TYPE_INT32, &d_y, DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID);
+
+  if (!callback)
+    {
+      dbus_connection_send (_atspi_bus (), message, NULL);
+      dbus_message_unref (message);
+      return;
+    }
+
+  dbus_connection_send_with_reply (_atspi_bus (), message, &pending, -1);
+  dbus_message_unref (message);
+  if (pending)
+    {
+      closure = g_new0 (AtspiGenerateMouseEventClosure, 1);
+      closure->callback = callback;
+      closure->callback_data = callback_data;
+      dbus_pending_call_set_notify (pending, atspi_generate_mouse_event_cb, closure, g_free);
+    }
 }
 
 /**

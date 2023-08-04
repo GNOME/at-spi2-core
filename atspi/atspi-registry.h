@@ -31,6 +31,8 @@
 
 G_BEGIN_DECLS
 
+typedef void (*AtspiGenerateMouseEventCB) (void *user_data);
+
 GType atspi_key_definition_get_type ();
 
 gint atspi_get_desktop_count ();
@@ -73,6 +75,9 @@ atspi_generate_keyboard_event (glong keyval,
 
 gboolean
 atspi_generate_mouse_event (glong x, glong y, const gchar *name, GError **error);
+
+void
+atspi_generate_mouse_event_async (glong x, glong y, const gchar *name, AtspiGenerateMouseEventCB callback, void *callback_data, GError **error);
 
 void
 atspi_set_reference_window (AtspiAccessible *accessible);
