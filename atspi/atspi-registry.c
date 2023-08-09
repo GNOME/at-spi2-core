@@ -125,7 +125,6 @@ notify_keystroke_listener (DeviceListenerEntry *e)
   dbus_uint32_t d_event_types = e->event_types;
   AtspiEventListenerMode listener_mode;
   gboolean retval = FALSE;
-  DBusError d_error;
 
   listener_mode.synchronous =
       (dbus_bool_t) ((e->sync_type & ATSPI_KEYLISTENER_SYNCHRONOUS) != 0);
@@ -134,18 +133,12 @@ notify_keystroke_listener (DeviceListenerEntry *e)
   listener_mode.global =
       (dbus_bool_t) ((e->sync_type & ATSPI_KEYLISTENER_ALL_WINDOWS) != 0);
 
-  dbus_error_init (&d_error);
-  dbind_method_call_reentrant (_atspi_bus (), atspi_bus_registry,
-                               atspi_path_dec, atspi_interface_dec,
-                               "RegisterKeystrokeListener", &d_error,
-                               "oa(iisi)uu(bbb)=>b", path, e->key_set,
-                               d_modmask, d_event_types, &listener_mode,
-                               &retval);
-  if (dbus_error_is_set (&d_error))
-    {
-      g_warning ("RegisterKeystrokeListener failed: %s", d_error.message);
-      dbus_error_free (&d_error);
-    }
+  dbind_method_call (_atspi_bus (), atspi_bus_registry,
+                     atspi_path_dec, atspi_interface_dec,
+                     "RegisterKeystrokeListener",
+                     "oa(iisi)uu(bbb)=>b", path, e->key_set,
+                     d_modmask, d_event_types, &listener_mode,
+                     &retval);
 
   g_free (path);
 
@@ -293,15 +286,12 @@ atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
   gint i;
   dbus_uint32_t d_modmask = modmask;
   dbus_uint32_t d_event_types = event_types;
-  DBusError d_error;
   GList *l;
 
   if (!listener)
     {
       return FALSE;
     }
-
-  dbus_error_init (&d_error);
 
   path = _atspi_device_listener_get_path (listener);
 
@@ -331,16 +321,11 @@ atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
       d_key_set = g_array_sized_new (FALSE, TRUE, sizeof (AtspiKeyDefinition), 0);
     }
 
-  dbind_method_call_reentrant (_atspi_bus (), atspi_bus_registry,
-                               atspi_path_dec, atspi_interface_dec,
-                               "DeregisterKeystrokeListener", &d_error,
-                               "oa(iisi)uu", path, d_key_set, d_modmask,
-                               d_event_types);
-  if (dbus_error_is_set (&d_error))
-    {
-      g_warning ("DeregisterKeystrokeListener failed: %s", d_error.message);
-      dbus_error_free (&d_error);
-    }
+  dbind_method_call (_atspi_bus (), atspi_bus_registry,
+                     atspi_path_dec, atspi_interface_dec,
+                     "DeregisterKeystrokeListener",
+                     "oa(iisi)uu", path, d_key_set, d_modmask,
+                     d_event_types);
 
   unregister_listener (listener, NULL);
   for (l = device_listeners; l;)
@@ -514,14 +499,12 @@ void
 atspi_generate_mouse_event_async (glong x, glong y, const gchar *name, AtspiGenerateMouseEventCB callback, void *callback_data, GError **error)
 {
   dbus_int32_t d_x = x, d_y = y;
-  DBusError d_error;
   DBusMessage *message;
   DBusPendingCall *pending = NULL;
   AtspiGenerateMouseEventClosure *closure = NULL;
 
   g_return_if_fail (name != NULL);
 
-  dbus_error_init (&d_error);
   message = dbus_message_new_method_call (atspi_bus_registry,
                                           atspi_path_dec, atspi_interface_dec,
                                           "GenerateMouseEvent");

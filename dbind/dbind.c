@@ -214,8 +214,8 @@ out:
  *             and pointers to argument data.
  *
  * Makes a D-Bus method call using the supplied location data, method name and
- * argument data.This function is re-entrant. It continuously reads from the D-Bus
- * bus and dispatches messages until a reply has been recieved.
+ * argument data. This function is re-entrant. It continuously reads from the D-Bus
+ * bus and dispatches messages until a reply has been received.
  **/
 dbus_bool_t
 dbind_method_call_reentrant (DBusConnection *cnx,
@@ -239,6 +239,78 @@ dbind_method_call_reentrant (DBusConnection *cnx,
                                             opt_error,
                                             arg_types,
                                             args);
+  va_end (args);
+
+  return success;
+}
+
+dbus_bool_t
+dbind_method_call_va (DBusConnection *cnx,
+                      const char *bus_name,
+                      const char *path,
+                      const char *interface,
+                      const char *method,
+                      const char *arg_types,
+                      va_list args)
+{
+  dbus_bool_t success = FALSE;
+  DBusMessage *msg = NULL;
+  DBusMessageIter iter;
+  const char *p;
+  va_list args_demarshal;
+
+  va_copy (args_demarshal, args);
+
+  msg = dbus_message_new_method_call (bus_name, path, interface, method);
+  if (!msg)
+    return FALSE;
+
+  p = arg_types;
+  dbus_message_iter_init_append (msg, &iter);
+  dbind_any_marshal_va (&iter, &p, args);
+
+  dbus_connection_send (cnx, msg, NULL);
+  dbus_message_unref (msg);
+
+  va_end (args_demarshal);
+  return success;
+}
+
+/**
+ * dbind_method_call:
+ *
+ * @cnx:       A D-Bus Connection used to make the method call.
+ * @bus_name:  The D-Bus bus name of the program where the method call should
+ *             be made.
+ * @path:      The D-Bus object path that should handle the method.
+ * @interface: The D-Bus interface used to scope the method name.
+ * @method:    Method to be invoked.
+ * @arg_types: Variable length arguments interleaving D-Bus argument types
+ *             and pointers to argument data.
+ *
+ * Sends a D-Bus method call using the supplied location data, method name and
+ * argument data, without waiting for a re ply.
+ **/
+dbus_bool_t
+dbind_method_call (DBusConnection *cnx,
+                   const char *bus_name,
+                   const char *path,
+                   const char *interface,
+                   const char *method,
+                   const char *arg_types,
+                   ...)
+{
+  dbus_bool_t success = FALSE;
+  va_list args;
+
+  va_start (args, arg_types);
+  success = dbind_method_call_va (cnx,
+                                  bus_name,
+                                  path,
+                                  interface,
+                                  method,
+                                  arg_types,
+                                  args);
   va_end (args);
 
   return success;
