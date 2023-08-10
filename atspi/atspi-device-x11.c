@@ -283,9 +283,14 @@ refresh_key_grabs (AtspiDeviceX11 *x11_device)
   for (l = priv->key_grabs; l; l = l->next)
     {
       AtspiX11KeyGrab *grab = l->data;
-      gboolean new_enabled = grab_should_be_enabled (x11_device, grab);
       if (grab->window != priv->focused_window)
         disable_key_grab (x11_device, grab);
+  }
+
+  for (l = priv->key_grabs; l; l = l->next)
+    {
+      AtspiX11KeyGrab *grab = l->data;
+      gboolean new_enabled = grab_should_be_enabled (x11_device, grab);
       if (new_enabled && !grab->enabled)
         enable_key_grab (x11_device, grab);
       else if (grab->enabled && !new_enabled)
