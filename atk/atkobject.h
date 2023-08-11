@@ -417,6 +417,8 @@ typedef enum
  * should be in terms of speaking notifications. Currently, this is only used
  * for "notification" events, but it may be used for additional purposes
  * in the future.
+ *
+ * Since: 2.50
  */
 typedef enum
 {
