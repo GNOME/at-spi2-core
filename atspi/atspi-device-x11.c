@@ -234,7 +234,7 @@ ungrab_key_aux (AtspiDeviceX11 *x11_device, Window window, int keycode, int modm
   xi_modifiers.modifiers = modmask;
   xi_modifiers.status = 0;
 
-  XIUngrabKeycode (priv->display, XIAllMasterDevices, keycode, window, sizeof (xi_modifiers), &xi_modifiers);
+  XIUngrabKeycode (priv->display, XIAllMasterDevices, keycode, window, 1, &xi_modifiers);
 }
 
 static void
