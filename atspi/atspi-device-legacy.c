@@ -48,8 +48,6 @@ struct _AtspiDeviceLegacyPrivate
   guint virtual_mods_enabled;
   gboolean keyboard_grabbed;
   unsigned int numlock_physical_mask;
-  gint force_consume_mode;
-  struct timeval lock_toggle_time;
 };
 
 GObjectClass *device_legacy_parent_class;
@@ -99,38 +97,6 @@ key_cb (AtspiDeviceEvent *event, void *user_data)
   modifiers = event->modifiers | priv->virtual_mods_enabled;
   if (modifiers & (1 << ATSPI_MODIFIER_NUMLOCK))
     modifiers &= ~priv->numlock_physical_mask;
-
-  if (find_virtual_mapping (legacy_device, event->hw_code))
-    {
-      if (event->type == (AtspiEventType) ATSPI_KEY_PRESS)
-        {
-          if (priv->force_consume_mode == 0 || priv->force_consume_mode == 4)
-            priv->force_consume_mode = 1;
-          else if (priv->force_consume_mode == 2)
-            {
-              struct timeval tv_now, tv_diff;
-              gettimeofday (&tv_now, NULL);
-              timersub (&tv_now, &priv->lock_toggle_time, &tv_diff);
-              priv->force_consume_mode = (tv_diff.tv_sec == 0 && tv_diff.tv_usec < 500000) ? 3 : 1;
-            }
-        }
-      else
-        {
-          if (priv->force_consume_mode == 1)
-            {
-              gettimeofday (&priv->lock_toggle_time, NULL);
-              priv->force_consume_mode = 2;
-            }
-          else if (priv->force_consume_mode == 3)
-            priv->force_consume_mode = 4;
-        }
-      if (priv->force_consume_mode < 3)
-        ret = TRUE;
-    }
-  else
-    {
-      priv->force_consume_mode = 0;
-    }
 
   ret |= atspi_device_notify_key (ATSPI_DEVICE (legacy_device),
                                   event->type == (AtspiEventType) ATSPI_KEY_PRESS,
