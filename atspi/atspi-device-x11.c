@@ -198,11 +198,12 @@ static void
 grab_key (AtspiDeviceX11 *x11_device, Window window, int keycode, int modmask)
 {
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
+  gboolean include_numlock = !_atspi_key_is_on_keypad (keycode);
 
   grab_key_aux (x11_device, window, keycode, modmask);
   if (!(modmask & LockMask))
     grab_key_aux (x11_device, window, keycode, modmask | LockMask);
-  if (!(modmask & priv->numlock_physical_mask))
+  if (include_numlock && !(modmask & priv->numlock_physical_mask))
     {
       grab_key_aux (x11_device, window, keycode, modmask | priv->numlock_physical_mask);
       if (!(modmask & LockMask))
