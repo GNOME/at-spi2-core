@@ -160,6 +160,8 @@ GHashTable *_atspi_dbus_update_cache_from_dict (AtspiAccessible *accessible, DBu
 gboolean _atspi_prepare_screen_reader_interface ();
 
 gchar *_atspi_strdup_and_adjust_for_dbus (const char *s);
+
+gboolean _atspi_key_is_on_keypad (gint keycode);
 G_END_DECLS
 
 #endif /* _ATSPI_MISC_PRIVATE_H_ */
