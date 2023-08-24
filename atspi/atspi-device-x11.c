@@ -38,8 +38,6 @@ struct _AtspiDeviceX11Private
   Window focused_window;
   GSource *source;
   int xi_opcode;
-  int device_id;
-  int device_id_alt;
   GSList *modifiers;
   GSList *key_grabs;
   guint virtual_mods_enabled;
@@ -372,19 +370,11 @@ do_event_dispatch (gpointer user_data)
                   XLookupString ((XKeyEvent *) &keyevent, text, sizeof (text), &keysym, &status);
                   if (text[0] < ' ')
                     text[0] = '\0';
-                  /* The deviceid can change. Would be nice to find a better way of
-                     handling this */
-                  if (priv->device_id && priv->device_id_alt && xiDevEv->deviceid != priv->device_id && xiDevEv->deviceid != priv->device_id_alt)
-                    priv->device_id = priv->device_id_alt = 0;
-                  else if (priv->device_id && !priv->device_id_alt && xiDevEv->deviceid != priv->device_id)
-                    priv->device_id_alt = xiDevEv->deviceid;
-                  if (!priv->device_id)
-                    priv->device_id = xiDevEv->deviceid;
                   set_virtual_modifier (device, xiRawEv->detail, xevent.xcookie.evtype == XI_KeyPress);
                   modifiers = keyevent.xkey.state | priv->virtual_mods_enabled;
                   if (modifiers & priv->numlock_physical_mask)
                     modifiers |= (1 << ATSPI_MODIFIER_NUMLOCK);
-                  if (xiDevEv->deviceid == priv->device_id)
+                  if (xiDevEv->deviceid == xiDevEv->sourceid)
                     atspi_device_notify_key (ATSPI_DEVICE (device), (xevent.xcookie.evtype == XI_KeyPress), xiRawEv->detail, keysym, modifiers, text);
                   /* otherwise it's probably a duplicate event from a key grab */
                   XFreeEventData (priv->display, &xevent.xcookie);
