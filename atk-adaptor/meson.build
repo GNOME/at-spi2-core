@@ -36,18 +36,20 @@ libatk_bridge_dep = declare_dependency(link_with: libatk_bridge,
                                          include_directories('.')
                                        ])
 
-atk_bridge_module = shared_module('atk-bridge', 'gtk-2.0/module.c',
-                                  include_directories: root_inc,
-                                  dependencies: [
-                                    libatk_bridge_dep,
-                                    libdbus_dep,
-                                    libatk_dep,
-                                    atspi_dep,
-                                    gmodule_dep,
-                                  ],
-                                  c_args: p2p_cflags,
-                                  install: true,
-                                  install_dir: join_paths(get_option('libdir'), 'gtk-2.0', 'modules'))
+if get_option('gtk2_atk_adaptor')
+  atk_bridge_module = shared_module('atk-bridge', 'gtk-2.0/module.c',
+                                    include_directories: root_inc,
+                                    dependencies: [
+                                      libatk_bridge_dep,
+                                      libdbus_dep,
+                                      libatk_dep,
+                                      atspi_dep,
+                                      gmodule_dep,
+                                    ],
+                                    c_args: p2p_cflags,
+                                    install: true,
+                                    install_dir: join_paths(get_option('libdir'), 'gtk-2.0', 'modules'))
+endif
 
 pkgconfig = import('pkgconfig')
 pkgconfig.generate(

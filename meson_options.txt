@@ -19,6 +19,10 @@ option('use_systemd',
        description: 'Use systemd if available (needed for dbus-broker)',
        type: 'boolean',
        value: true)
+option('gtk2_atk_adaptor',
+       description: 'Build the runtime module loaded by GTK2',
+       type: 'boolean',
+       value: true)
 option('systemd_user_dir',
        description: 'Location of the systemd user services',
        type: 'string',
