@@ -1,3 +1,14 @@
+What's new in at-spi2-core 2.49.91:
+
+* collection: Avoid locking up if an object has a very large child count
+
+* Fix possible NULL pointer dereference when deregistering an event listener.
+
+* Various fixes for the new key grabbing API.
+
+* Don't wait for a reply when registering or deregistering keystroke
+  listeners.
+
 What's new in at-spi2-core 2.49.90:
 
 * Fix a test failure/timeout.
@@ -15,7 +26,6 @@ What's new in at-spi2-core 2.49.90:
   and document that this should be used for Announcement signals. Also add a
   notification signal in atk to replace the announcement signal that lacks
   the politeness information.
-
 
 * Add an asynchronous version of atspi_generate_mouse_event.
 
