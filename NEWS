@@ -8,6 +8,8 @@ What's new in at-spi2-core 2.48.4:
 
 * Fix possible NULL pointer dereference when deregistering an event listener.
 
+* Various fixes for the new key grabbing API.
+
 What's new in at-spi2-core 2.48.3:
 
 * Fix the build when dbus-broker is not set to be used by default.
