@@ -605,7 +605,8 @@ add_accessible_from_iter (DBusMessageIter *iter)
   if (parent == accessible)
     {
       guint pid = atspi_accessible_get_process_id (accessible, NULL);
-      g_warning ("Process %d sent an accessible with itself as its parent. This shouldn't happen.", pid);
+      if (!g_getenv ("ATSPI_IN_TESTS"))
+        g_warning ("Process %d sent an accessible with itself as its parent. This shouldn't happen.", pid);
       accessible->accessible_parent = NULL;
     }
   else
