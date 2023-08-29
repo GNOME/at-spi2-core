@@ -1,3 +1,13 @@
+What's new in at-spi2-core 2.48.4:
+
+* Add atspi_get_version() to return the runtime version of the AT-SPI library.
+
+* collection: Fix match testing for attributes.
+
+* collection: Avoid locking up if an object has a very large child count
+
+* Fix possible NULL pointer dereference when deregistering an event listener.
+
 What's new in at-spi2-core 2.48.3:
 
 * Fix the build when dbus-broker is not set to be used by default.
