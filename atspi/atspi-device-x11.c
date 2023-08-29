@@ -284,7 +284,7 @@ refresh_key_grabs (AtspiDeviceX11 *x11_device)
       AtspiX11KeyGrab *grab = l->data;
       if (grab->window != priv->focused_window)
         disable_key_grab (x11_device, grab);
-  }
+    }
 
   for (l = priv->key_grabs; l; l = l->next)
     {
