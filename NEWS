@@ -9,6 +9,8 @@ What's new in at-spi2-core 2.49.91:
 * Don't wait for a reply when registering or deregistering keystroke
   listeners.
 
+* Add a meson option to exclude the gtk2 atk-bridge module.
+
 What's new in at-spi2-core 2.49.90:
 
 * Fix a test failure/timeout.
