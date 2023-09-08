@@ -67,6 +67,7 @@ docs_sources = [
   'gitlab-ci.rst',
   'index.rst',
   'meeting-2023-01-13.rst',
+  'new-protocol.rst',
   'roadmap.rst',
   'toolkits.rst',
   'xml-changes.rst',
