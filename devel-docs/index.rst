@@ -19,6 +19,7 @@ Development guide for the accessibility infrastructure
    at-spi3
    atspi-python-stack
    de-controller
+   new-protocol
 
 .. toctree::
    :caption: Meeting minutes
