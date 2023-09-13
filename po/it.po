@@ -3,744 +3,130 @@
 # Copyright (C) 2011, 2014 Free Software Foundation, Inc.
 # This file is distributed under the same license as the at-spi2-core package.
 # Luca Ferretti <lferrett@gnome.org>, 2011.
-# Milo Casagrande <milo@ubuntu.com>, 2014
+# Milo Casagrande <milo@ubuntu.com>, 2014, 2023.
 #
 # #-#-#-#-#  it.po (atk)  #-#-#-#-#
 # Italian translation of atk.
-# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Free Software Foundation, Inc.
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011i, 2023 Free Software Foundation, Inc.
 # Alessio Frusciante <algol@firenze.linux.it>, 2002, 2003, 2004.
 # Luca Ferretti <lferrett@gnome.org>, 2005, 2006, 2007, 2008, 2009, 2010, 2011.
 # Claudio Arseni <claudio.arseni@ubuntu.com>, 2014.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"#-#-#-#-#  it.po (at-spi2-core)  #-#-#-#-#\n"
-"Project-Id-Version: at-spi2-core\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
-"spi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-02-03 23:50+0000\n"
-"PO-Revision-Date: 2014-03-09 12:33+0100\n"
-"Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
-"Language-Team: Italian <tp@lists.linux.it>\n"
-"Language: it\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.4\n"
-"#-#-#-#-#  it.po (atk)  #-#-#-#-#\n"
 "Project-Id-Version: atk\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=atk&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-03-21 03:47+0000\n"
-"PO-Revision-Date: 2014-03-21 11:30+0100\n"
-"Last-Translator: Claudio Arseni <claudio.arseni@ubuntu.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
+"POT-Creation-Date: 2023-08-05 16:00+0000\n"
+"PO-Revision-Date: 2023-09-13 10:15+0200\n"
+"Last-Translator: Milo Casagrande <milo@milo.name>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.1.1\n"
 "X-Generator: Gtranslator 2.91.6\n"
 
-#: ../atspi/atspi-component.c:325 ../atspi/atspi-misc.c:1034
-#: ../atspi/atspi-value.c:111
-msgid "The application no longer exists"
-msgstr "L'applicazione non esiste più"
-
-#: ../atspi/atspi-misc.c:1777
-msgid "Attempted synchronous call where prohibited"
-msgstr "Proibito tentativo di chiamata sincrona"
-
-#: ../atk/atkhyperlink.c:128
+#: atk/atkhyperlink.c:127
 msgid "Selected Link"
 msgstr "Collegamento selezionato"
 
-#: ../atk/atkhyperlink.c:129
+#: atk/atkhyperlink.c:128
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr "Specifica se l'oggetto AtkHyperlink è selezionato"
 
-#: ../atk/atkhyperlink.c:135
+#: atk/atkhyperlink.c:134
 msgid "Number of Anchors"
 msgstr "Numero di anchor"
 
-#: ../atk/atkhyperlink.c:136
+#: atk/atkhyperlink.c:135
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr "Il numero di anchor associate all'oggetto AtkHyperlink"
 
-#: ../atk/atkhyperlink.c:144
+#: atk/atkhyperlink.c:143
 msgid "End index"
 msgstr "Indice finale"
 
-#: ../atk/atkhyperlink.c:145
+#: atk/atkhyperlink.c:144
 msgid "The end index of the AtkHyperlink object"
 msgstr "L'indice finale dell'oggetto AtkHyperlink"
 
-#: ../atk/atkhyperlink.c:153
+#: atk/atkhyperlink.c:152
 msgid "Start index"
 msgstr "Indice iniziale"
 
-#: ../atk/atkhyperlink.c:154
+#: atk/atkhyperlink.c:153
 msgid "The start index of the AtkHyperlink object"
 msgstr "L'indice iniziale dell'oggetto AtkHyperlink"
 
-#  * AtkObject represents the minimum information all accessible objects
-#  * return. This information includes accessible name, accessible
-#  * description, role and state of the object, as well information about
-#  * its parent and children. It is also possible to obtain more specific
-#  * accessibility information about a component if it supports one or more
-#  * of the following interfaces:
-#
-# @ATK_ROLE_INVALID: Invalid role
-#: ../atk/atkobject.c:97
-msgid "invalid"
-msgstr "non valido"
-
-# @ATK_ROLE_ACCEL_LABEL: A label which represents an accelerator
-#: ../atk/atkobject.c:98
-msgid "accelerator label"
-msgstr "etichetta acceleratore"
-
-# @ATK_ROLE_ALERT: An object which is an alert to the user
-#: ../atk/atkobject.c:99
-msgid "alert"
-msgstr "allerta"
-
-# @ATK_ROLE_ANIMATION: An object which is an animated image
-#: ../atk/atkobject.c:100
-msgid "animation"
-msgstr "animazione"
-
-# @ATK_ROLE_ARROW: An arrow in one of the four cardinal directions
-#: ../atk/atkobject.c:101
-msgid "arrow"
-msgstr "freccia"
-
-# @ATK_ROLE_CALENDAR:  An object that displays a calendar and allows the user to select a date
-#: ../atk/atkobject.c:102
-msgid "calendar"
-msgstr "calendario"
-
-# @ATK_ROLE_CANVAS: An object that can be drawn into and is used to trap events
-#: ../atk/atkobject.c:103
-msgid "canvas"
-msgstr "tela"
-
-# @ATK_ROLE_CHECK_BOX: A choice that can be checked or unchecked and provides a separate indicator for the current state
-#: ../atk/atkobject.c:104
-msgid "check box"
-msgstr "casella di spunta"
-
-# @ATK_ROLE_CHECK_MENU_ITEM: A menu item with a check box
-#: ../atk/atkobject.c:105
-msgid "check menu item"
-msgstr "voce di menù di spunta"
-
-# @ATK_ROLE_COLOR_CHOOSER: A specialized dialog that lets the user choose a color
-#: ../atk/atkobject.c:106
-msgid "color chooser"
-msgstr "selettore colore"
-
-# @ATK_ROLE_COLUMN_HEADER: The header for a column of data
-#: ../atk/atkobject.c:107
-msgid "column header"
-msgstr "intestazione di colonna"
-
-# @ATK_ROLE_COMBO_BOX: A list of choices the user can select from
-#: ../atk/atkobject.c:108
-msgid "combo box"
-msgstr "casella combinata"
-
-# @ATK_ROLE_DATE_EDITOR: An object whose purpose is to allow a user to edit a date
-#: ../atk/atkobject.c:109
-msgid "dateeditor"
-msgstr "editor di date"
-
-# @ATK_ROLE_DESKTOP_ICON: An inconifed internal frame within a DESKTOP_PANE
-#: ../atk/atkobject.c:110
-msgid "desktop icon"
-msgstr "icona della scrivania"
-
-# @ATK_ROLE_DESKTOP_FRAME: A pane that supports internal frames and iconified versions of those internal frames
-#: ../atk/atkobject.c:111
-msgid "desktop frame"
-msgstr "cornice della scrivania"
-
-# @ATK_ROLE_DIAL: An object whose purpose is to allow a user to set a value
-#
-# rotella, vista la spiegazione è totalmente fuori luogo... -Luca
-#: ../atk/atkobject.c:112
-msgid "dial"
-msgstr "rotella"
-
-# @ATK_ROLE_DIALOG: A top level window with title bar and a border
-#: ../atk/atkobject.c:113
-msgid "dialog"
-msgstr "dialogo"
-
-# @ATK_ROLE_DIRECTORY_PANE: A pane that allows the user to navigate through and select the contents of a directory
-#: ../atk/atkobject.c:114
-msgid "directory pane"
-msgstr "riquadro directory"
-
-# @ATK_ROLE_DRAWING_AREA: An object used for drawing custom user interface elements
-#: ../atk/atkobject.c:115
-msgid "drawing area"
-msgstr "area di disegno"
-
-# @ATK_ROLE_FILE_CHOOSER: A specialized dialog that lets the user choose a file
-#: ../atk/atkobject.c:116
-msgid "file chooser"
-msgstr "selettore file"
-
-# @ATK_ROLE_FILLER: A object that fills up space in a user interface
-#: ../atk/atkobject.c:117
-msgid "filler"
-msgstr "riempitore"
-
-# @ATK_ROLE_FONT_CHOOSER: A specialized dialog that lets the user choose a font
-#. I know it looks wrong but that is what Java returns
-#: ../atk/atkobject.c:119
-msgid "fontchooser"
-msgstr "selettore tipo di carattere"
-
-# @ATK_ROLE_FRAME: A top level window with a title bar, border, menubar, etc.
-#: ../atk/atkobject.c:120
-msgid "frame"
-msgstr "cornice"
-
-# @ATK_ROLE_GLASS_PANE: A pane that is guaranteed to be painted on top of all panes beneath it
-#: ../atk/atkobject.c:121
-msgid "glass pane"
-msgstr "riquardo trasparente"
-
-# @ATK_ROLE_HTML_CONTAINER: A document container for HTML, whose children represent the document content
-#: ../atk/atkobject.c:122
-msgid "html container"
-msgstr "contenitore html"
-
-# @ATK_ROLE_ICON: A small fixed size picture, typically used to decorate components
-#: ../atk/atkobject.c:123
-msgid "icon"
-msgstr "icona"
-
-# @ATK_ROLE_IMAGE: An object whose primary purpose is to display an image
-#: ../atk/atkobject.c:124
-msgid "image"
-msgstr "immagine"
-
-# @ATK_ROLE_INTERNAL_FRAME: A frame-like object that is clipped by a desktop pane
-#: ../atk/atkobject.c:125
-msgid "internal frame"
-msgstr "cornice interna"
-
-# @ATK_ROLE_LABEL: An object used to present an icon or short string in an interface
-#: ../atk/atkobject.c:126
-msgid "label"
-msgstr "etichetta"
-
-# @ATK_ROLE_LAYERED_PANE: A specialized pane that allows its children to be drawn in layers, providing a form of stacking order
-#: ../atk/atkobject.c:127
-msgid "layered pane"
-msgstr "riquadro a livelli"
-
-# @ATK_ROLE_LIST: An object that presents a list of objects to the user and allows the user to select one or more of them 
-#: ../atk/atkobject.c:128
-msgid "list"
-msgstr "elenco"
-
-# @ATK_ROLE_LIST_ITEM: An object that represents an element of a list 
-#: ../atk/atkobject.c:129
-msgid "list item"
-msgstr "voce di elenco"
-
-# @ATK_ROLE_MENU: An object usually found inside a menu bar that contains a list of actions the user can choose from
-#: ../atk/atkobject.c:130
-msgid "menu"
-msgstr "menù"
-
-# @ATK_ROLE_MENU_BAR: An object usually drawn at the top of the primary dialog box of an application that contains a list of menus the user can choose from
-#: ../atk/atkobject.c:131
-msgid "menu bar"
-msgstr "barra dei menù"
-
-# @ATK_ROLE_MENU_ITEM: An object usually contained in a menu that presents an action the user can choose
-#: ../atk/atkobject.c:132
-msgid "menu item"
-msgstr "voce di menù"
-
-# *@ATK_ROLE_OPTION_PANE: A specialized pane whose primary use is inside a DIALOG
-#: ../atk/atkobject.c:133
-msgid "option pane"
-msgstr "riquadro opzioni"
-
-# @ATK_ROLE_PAGE_TAB: An object that is a child of a page tab list
-#: ../atk/atkobject.c:134
-msgid "page tab"
-msgstr "scheda"
-
-# @ATK_ROLE_PAGE_TAB_LIST: An object that presents a series of panels (or page tabs), one at a time, through some mechanism provided by the object 
-#: ../atk/atkobject.c:135
-msgid "page tab list"
-msgstr "elenco di schede"
-
-# @ATK_ROLE_PANEL: A generic container that is often used to group objects
-#: ../atk/atkobject.c:136
-msgid "panel"
-msgstr "pannello"
-
-# @ATK_ROLE_PASSWORD_TEXT: A text object uses for passwords, or other places where the text content is not shown visibly to the user
-#: ../atk/atkobject.c:137
-msgid "password text"
-msgstr "testo password"
-
-# @ATK_ROLE_POPUP_MENU: A temporary window that is usually used to offer the user a list of choices, and then hides when the user selects one of those choices
-#: ../atk/atkobject.c:138
-msgid "popup menu"
-msgstr "menù a comparsa"
-
-# @ATK_ROLE_PROGRESS_BAR: An object used to indicate how much of a task has been completed
-#: ../atk/atkobject.c:139
-msgid "progress bar"
-msgstr "barra di avanzamento"
-
-# @ATK_ROLE_PUSH_BUTTON: An object the user can manipulate to tell the application to do something
-#: ../atk/atkobject.c:140
-msgid "push button"
-msgstr "pulsante"
-
-# @ATK_ROLE_RADIO_BUTTON: A specialized check box that will cause other radio buttons in the same group to become unchecked when this one is checked
-#: ../atk/atkobject.c:141
-msgid "radio button"
-msgstr "pulsante radio"
-
-# @ATK_ROLE_RADIO_MENU_ITEM: A check menu item which belongs to a group. At each instant exactly one of the radio menu items from a group is selected
-#: ../atk/atkobject.c:142
-msgid "radio menu item"
-msgstr "voce di menù radio"
-
-# @ATK_ROLE_ROOT_PANE: A specialized pane that has a glass pane and a layered pane as its children
-#: ../atk/atkobject.c:143
-msgid "root pane"
-msgstr "riquadro radice"
-
-# @ATK_ROLE_ROW_HEADER: The header for a row of data
-#: ../atk/atkobject.c:144
-msgid "row header"
-msgstr "intestazione di riga"
-
-# @ATK_ROLE_SCROLL_BAR: An object usually used to allow a user to incrementally view a large amount of data.
-#: ../atk/atkobject.c:145
-msgid "scroll bar"
-msgstr "barra di scorrimento"
-
-# @ATK_ROLE_SCROLL_PANE: An object that allows a user to incrementally view a large amount of information
-#: ../atk/atkobject.c:146
-msgid "scroll pane"
-msgstr "riquadro a scorrimento"
-
-# @ATK_ROLE_SEPARATOR: An object usually contained in a menu to provide a visible and logical separation of the contents in a menu
-#: ../atk/atkobject.c:147
-msgid "separator"
-msgstr "separatore"
-
-# @ATK_ROLE_SLIDER: An object that allows the user to select from a bounded range
-#: ../atk/atkobject.c:148
-msgid "slider"
-msgstr "controllo scorrevole"
-
-# @ATK_ROLE_SPLIT_PANE: A specialized panel that presents two other panels at the same time
-#: ../atk/atkobject.c:149
-msgid "split pane"
-msgstr "riquadro diviso"
-
-# @ATK_ROLE_SPIN_BUTTON: An object used to get an integer or floating point number from the user
-#: ../atk/atkobject.c:150
-msgid "spin button"
-msgstr "controllo di selezione"
-
-# @ATK_ROLE_STATUSBAR: An object which reports messages of minor importance to the user
-#: ../atk/atkobject.c:151
-msgid "statusbar"
-msgstr "barra di stato"
-
-# @ATK_ROLE_TABLE: An object used to represent information in terms of rows and columns
-#: ../atk/atkobject.c:152
-msgid "table"
-msgstr "tabella"
-
-# @ATK_ROLE_TABLE_CELL: A cell in a table
-#: ../atk/atkobject.c:153
-msgid "table cell"
-msgstr "cella di tabella"
-
-# @ATK_ROLE_TABLE_COLUMN_HEADER: The header for a column of a table
-#: ../atk/atkobject.c:154
-msgid "table column header"
-msgstr "intestazione di colonna per tabella"
-
-# @ATK_ROLE_TABLE_ROW_HEADER: The header for a row of a table
-#: ../atk/atkobject.c:155
-msgid "table row header"
-msgstr "intestazione di riga per tabella"
-
-# @ATK_ROLE_TEAR_OFF_MENU_ITEM: A menu item used to tear off and reattach its menu
-#: ../atk/atkobject.c:156
-msgid "tear off menu item"
-msgstr "voce di menù staccabile"
-
-# @ATK_ROLE_TERMINAL: An object that represents an accessible terminal
-#: ../atk/atkobject.c:157
-msgid "terminal"
-msgstr "terminale"
-
-# @ATK_ROLE_TEXT: An object that presents text to the user
-#: ../atk/atkobject.c:158
-msgid "text"
-msgstr "testo"
-
-# @ATK_ROLE_TOGGLE_BUTTON: A specialized push button that can be checked or unchecked, but does not provide a separate indicator for the current state
-#: ../atk/atkobject.c:159
-msgid "toggle button"
-msgstr "pulsante di commutazione"
-
-# @ATK_ROLE_TOOL_BAR: A bar or palette usually composed of push buttons or toggle buttons
-#: ../atk/atkobject.c:160
-msgid "tool bar"
-msgstr "barra degli strumenti"
-
-# @ATK_ROLE_TOOL_TIP: An object that provides information about another object
-#: ../atk/atkobject.c:161
-msgid "tool tip"
-msgstr "suggerimento"
-
-# @ATK_ROLE_TREE: An object used to represent hierarchical information to the user
-#: ../atk/atkobject.c:162
-msgid "tree"
-msgstr "albero"
-
-# @ATK_ROLE_TREE_TABLE: An object capable of expanding and collapsing rows as well as showing multiple columns of data
-#: ../atk/atkobject.c:163
-msgid "tree table"
-msgstr "tabella ad albero"
-
-# @ATK_ROLE_UNKNOWN: The object contains some Accessible information, but its role is not known
-#: ../atk/atkobject.c:164
-msgid "unknown"
-msgstr "sconosciuto"
-
-# *@ATK_ROLE_VIEWPORT: An object usually used in a scroll pane
-#: ../atk/atkobject.c:165
-msgid "viewport"
-msgstr "area visibile"
-
-# @ATK_ROLE_WINDOW: A top level window with no title or border.
-#: ../atk/atkobject.c:166
-msgid "window"
-msgstr "finestra"
-
-# @ATK_ROLE_HEADER: An object that serves as a document header.
-#: ../atk/atkobject.c:167
-msgid "header"
-msgstr "intestazione"
-
-# @ATK_ROLE_FOOTER: An object that serves as a document footer.
-#: ../atk/atkobject.c:168
-msgid "footer"
-msgstr "piè di pagina"
-
-# @ATK_ROLE_PARAGRAPH: An object which is contains a paragraph of text content
-#: ../atk/atkobject.c:169
-msgid "paragraph"
-msgstr "paragrafo"
-
-# @ATK_ROLE_RULER: An object which describes margins and tab stops, etc. for text objects which it controls
-#: ../atk/atkobject.c:170
-msgid "ruler"
-msgstr "righello"
-
-# @ATK_ROLE_APPLICATION: The object is an application object, which may contain @ATK_ROLE_FRAME objects or other types of accessibles.
-#: ../atk/atkobject.c:171
-msgid "application"
-msgstr "applicazione"
-
-# @ATK_ROLE_AUTOCOMPLETE: The object is a dialog or list containing items for insertion into an entry widget, for instance a list of words for completion of a text entry.
-#: ../atk/atkobject.c:172
-msgid "autocomplete"
-msgstr "completamento automatico"
-
-# @ATK_ROLE_EDITBAR: The object is an editable text object in a toolbar
-#: ../atk/atkobject.c:173
-msgid "edit bar"
-msgstr "barra di modifica"
-
-# @ATK_ROLE_EMBEDDED: The object is an embedded container within a document or panel.  This role is a grouping "hint" indicating that the contained objects share a context.
-#: ../atk/atkobject.c:174
-msgid "embedded component"
-msgstr "componente incorporato"
-
-# @ATK_ROLE_ENTRY: The object is a component whose textual content may be entered or modified by the user, provided @ATK_STATE_EDITABLE is present.
-#: ../atk/atkobject.c:175
-msgid "entry"
-msgstr "campo inserimento"
-
-# @ATK_ROLE_CHART: The object is a graphical depiction of quantitative data. It may contain multiple subelements whose attributes and/or description may be queried to obtain both the quantitative data and information about how the data is being presented. The LABELLED_BY relation is particularly important in interpreting objects of this type, as is the accessible-description property.
-#: ../atk/atkobject.c:176
-msgid "chart"
-msgstr "diagramma"
-
-# @ATK_ROLE_CAPTION: The object contains descriptive information, usually textual, about another user interface element such as a table, chart, or image.
-#: ../atk/atkobject.c:177
-msgid "caption"
-msgstr "didascalia"
-
-# @ATK_ROLE_DOCUMENT_FRAME: The object is a visual frame or container which contains a view of document content. Document frames may occur within another Document instance, in which case the second document may be said to be embedded in the containing instance. HTML frames are often ROLE_DOCUMENT_FRAME. Either this object, or a singleton descendant, should implement the Document interface.
-#: ../atk/atkobject.c:178
-msgid "document frame"
-msgstr "cornice documento"
-
-# @ATK_ROLE_HEADING: The object serves as a heading for content which follows it in a document. The 'heading level' of the heading, if availabe, may be obtained by querying the object's attributes.
-#: ../atk/atkobject.c:179
-msgid "heading"
-msgstr "intestazione"
-
-# @ATK_ROLE_PAGE: The object is a containing instance which encapsulates a page of information. @ATK_ROLE_PAGE is used in documents and content which support a paginated navigation model.
-#: ../atk/atkobject.c:180
-msgid "page"
-msgstr "pagina"
-
-# @ATK_ROLE_SECTION: The object is a containing instance of document content which constitutes a particular 'logical' section of the document. The type of content within a section, and the nature of the section division itself, may be obtained by querying the object's attributes. Sections may be nested.
-#: ../atk/atkobject.c:181
-msgid "section"
-msgstr "sezione"
-
-# @ATK_ROLE_REDUNDANT_OBJECT: The object is redundant with another object in the hierarchy, and is exposed for purely technical reasons.  Objects of this role should normally be ignored by clients.
-#: ../atk/atkobject.c:182
-msgid "redundant object"
-msgstr "oggetto ridondante"
-
-# @ATK_ROLE_FRAME: A top level window with a title bar, border, menubar, etc.
-#
-#
-# Traduzione non ottimale, ma visto l'originale non penso si potesse
-# fare molto altro -Luca
-#
-#: ../atk/atkobject.c:183
-msgid "form"
-msgstr "modulo"
-
-# @ATK_ROLE_LINK - The object is a hypertext anchor, i.e. a "link" in a hypertext document. Such objects are distinct from 'inline' content which may also use the Hypertext/Hyperlink interfaces to indicate the range/location within a text object where an inline or embedded object lies
-#: ../atk/atkobject.c:184
-msgid "link"
-msgstr "collegamento"
-
-# @ATK_ROLE_INPUT_METHOD_WINDOW - The object is a window or similar viewport which is used to allow composition or input of a 'complex character', in other words it is an "input method window.
-#: ../atk/atkobject.c:185
-msgid "input method window"
-msgstr "finestra metodo di input"
-
-# @ATK_ROLE_TABLE_ROW_HEADER: The header for a row of a table
-#: ../atk/atkobject.c:186
-msgid "table row"
-msgstr "riga di tabella"
-
-# @ATK_ROLE_TREE_TABLE: An object capable of expanding and collapsing rows as well as showing multiple columns of data
-#: ../atk/atkobject.c:187
-msgid "tree item"
-msgstr "elemento albero"
-
-# @ATK_ROLE_DOCUMENT_FRAME: The object is a visual frame or container which contains a view of document content. Document frames may occur within another Document instance, in which case the second document may be said to be embedded in the containing instance. HTML frames are often ROLE_DOCUMENT_FRAME. Either this object, or a singleton descendant, should implement the Document interface.
-#: ../atk/atkobject.c:188
-msgid "document spreadsheet"
-msgstr "documento foglio di calcolo"
-
-# @ATK_ROLE_DOCUMENT_FRAME: The object is a visual frame or container which contains a view of document content. Document frames may occur within another Document instance, in which case the second document may be said to be embedded in the containing instance. HTML frames are often ROLE_DOCUMENT_FRAME. Either this object, or a singleton descendant, should implement the Document interface.
-#: ../atk/atkobject.c:189
-msgid "document presentation"
-msgstr "documento presentazione"
-
-# @ATK_ROLE_DOCUMENT_FRAME: The object is a visual frame or container which contains a view of document content. Document frames may occur within another Document instance, in which case the second document may be said to be embedded in the containing instance. HTML frames are often ROLE_DOCUMENT_FRAME. Either this object, or a singleton descendant, should implement the Document interface.
-#: ../atk/atkobject.c:190
-msgid "document text"
-msgstr "documento testo"
-
-# @ATK_ROLE_DOCUMENT_FRAME: The object is a visual frame or container which contains a view of document content. Document frames may occur within another Document instance, in which case the second document may be said to be embedded in the containing instance. HTML frames are often ROLE_DOCUMENT_FRAME. Either this object, or a singleton descendant, should implement the Document interface.
-#: ../atk/atkobject.c:191
-msgid "document web"
-msgstr "documento web"
-
-# @ATK_ROLE_DOCUMENT_FRAME: The object is a visual frame or container which contains a view of document content. Document frames may occur within another Document instance, in which case the second document may be said to be embedded in the containing instance. HTML frames are often ROLE_DOCUMENT_FRAME. Either this object, or a singleton descendant, should implement the Document interface.
-#: ../atk/atkobject.c:192
-msgid "document email"
-msgstr "documento email"
-
-#: ../atk/atkobject.c:193
-msgid "comment"
-msgstr "commento"
-
-# @ATK_ROLE_LIST: An object that presents a list of objects to the user and allows the user to select one or more of them 
-#: ../atk/atkobject.c:194
-msgid "list box"
-msgstr "casella elenco"
-
-#: ../atk/atkobject.c:195
-msgid "grouping"
-msgstr "raggruppamento"
-
-# @ATK_ROLE_IMAGE: An object whose primary purpose is to display an image
-#: ../atk/atkobject.c:196
-msgid "image map"
-msgstr "mappa immagine"
-
-# @ATK_ROLE_ANIMATION: An object which is an animated image
-#: ../atk/atkobject.c:197
-msgid "notification"
-msgstr "notifica"
-
-# @ATK_ROLE_MENU_BAR: An object usually drawn at the top of the primary dialog box of an application that contains a list of menus the user can choose from
-#: ../atk/atkobject.c:198
-msgid "info bar"
-msgstr "barra delle informazioni"
-
-# @ATK_ROLE_SCROLL_BAR: An object usually used to allow a user to incrementally view a large amount of data.
-#: ../atk/atkobject.c:199
-#| msgid "scroll bar"
-msgid "level bar"
-msgstr "barra di livello"
-
-# @ATK_ROLE_TOOL_BAR: A bar or palette usually composed of push buttons or toggle buttons
-#: ../atk/atkobject.c:200
-#| msgid "tool bar"
-msgid "title bar"
-msgstr "barra del titolo"
-
-#: ../atk/atkobject.c:201
-msgid "block quote"
-msgstr "block quote"
-
-#: ../atk/atkobject.c:202
-msgid "audio"
-msgstr "audio"
-
-#: ../atk/atkobject.c:203
-msgid "video"
-msgstr "video"
-
-# @ATK_ROLE_ANIMATION: An object which is an animated image
-#: ../atk/atkobject.c:204
-#| msgid "animation"
-msgid "definition"
-msgstr "definizione"
-
-#: ../atk/atkobject.c:205
-msgid "article"
-msgstr "articolo"
-
-#: ../atk/atkobject.c:206
-msgid "landmark"
-msgstr "punto di riferimento"
-
-# @ATK_ROLE_DIALOG: A top level window with title bar and a border
-#: ../atk/atkobject.c:207
-#| msgid "dialog"
-msgid "log"
-msgstr "registro"
-
-#: ../atk/atkobject.c:208
-msgid "marquee"
-msgstr "marquee"
-
-#: ../atk/atkobject.c:209
-msgid "math"
-msgstr "matematica"
-
-#: ../atk/atkobject.c:210
-msgid "rating"
-msgstr "valutazione"
-
-#: ../atk/atkobject.c:211
-msgid "timer"
-msgstr "timer"
-
-#: ../atk/atkobject.c:212
-msgid "description list"
-msgstr "elenco descrizione"
-
-#: ../atk/atkobject.c:213
-msgid "description term"
-msgstr "termine descrizione"
-
-#: ../atk/atkobject.c:214
-msgid "description value"
-msgstr "valore descrizione"
-
-#: ../atk/atkobject.c:372
+#: atk/atkobject.c:268
 msgid "Accessible Name"
 msgstr "Nome accessibile"
 
-#: ../atk/atkobject.c:373
+#: atk/atkobject.c:269
 msgid "Object instance’s name formatted for assistive technology access"
 msgstr ""
 "Il nome dell'istanza dell'oggetto formattato per l'accesso tramite "
 "tecnologia assistiva"
 
-#: ../atk/atkobject.c:379
+#: atk/atkobject.c:275
 msgid "Accessible Description"
 msgstr "Descrizione accessibile"
 
-#: ../atk/atkobject.c:380
+#: atk/atkobject.c:276
 msgid "Description of an object, formatted for assistive technology access"
 msgstr ""
 "Descrizione di un oggetto, formattata per l'accesso tramite tecnologia "
 "assistiva"
 
-#: ../atk/atkobject.c:386
+#: atk/atkobject.c:282
 msgid "Accessible Parent"
 msgstr "Genitore accessibile"
 
-#: ../atk/atkobject.c:387
+#: atk/atkobject.c:283
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr ""
 "Genitore dell'attuale accessibile come restituito da atk_object_get_parent()"
 
-#: ../atk/atkobject.c:403
+#: atk/atkobject.c:299
 msgid "Accessible Value"
 msgstr "Valore accessibile"
 
-#: ../atk/atkobject.c:404
+#: atk/atkobject.c:300
 msgid "Is used to notify that the value has changed"
 msgstr "Usato per notificare che il valore è cambiato"
 
-#: ../atk/atkobject.c:412
+#: atk/atkobject.c:308
 msgid "Accessible Role"
 msgstr "Ruolo accessibile"
 
-#: ../atk/atkobject.c:413
+#: atk/atkobject.c:309
 msgid "The accessible role of this object"
 msgstr "Il ruolo accessibile di questo oggetto"
 
-#: ../atk/atkobject.c:421
+#: atk/atkobject.c:316
 msgid "Accessible Layer"
 msgstr "Livello accessibile"
 
-#: ../atk/atkobject.c:422
+#: atk/atkobject.c:317
 msgid "The accessible layer of this object"
 msgstr "Il livello accessibile di questo oggetto"
 
-#: ../atk/atkobject.c:430
+#: atk/atkobject.c:325
 msgid "Accessible MDI Value"
 msgstr "Valore MDI accessibile"
 
-#: ../atk/atkobject.c:431
+#: atk/atkobject.c:326
 msgid "The accessible MDI value of this object"
 msgstr "Il valore MDI accessibile di questo oggetto"
 
-#: ../atk/atkobject.c:447
+#: atk/atkobject.c:342
 msgid "Accessible Table Caption"
 msgstr "Didascalia accessibile della tabella"
 
-#: ../atk/atkobject.c:448
+#: atk/atkobject.c:343
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -749,65 +135,65 @@ msgstr ""
 "proprietà non dovrebbe essere usata. Dovrebbe essere usata accessible-table-"
 "caption-object al suo posto."
 
-#: ../atk/atkobject.c:462
+#: atk/atkobject.c:357
 msgid "Accessible Table Column Header"
 msgstr "Intestazione accessibile della colonna della tabella"
 
-#: ../atk/atkobject.c:463
+#: atk/atkobject.c:358
 msgid "Is used to notify that the table column header has changed"
 msgstr ""
 "Usato per notificare che l'intestazione della colonna della tabella è "
 "cambiata"
 
-#: ../atk/atkobject.c:478
+#: atk/atkobject.c:373
 msgid "Accessible Table Column Description"
 msgstr "Descrizione accessibile della colonna della tabella"
 
-#: ../atk/atkobject.c:479
+#: atk/atkobject.c:374
 msgid "Is used to notify that the table column description has changed"
 msgstr ""
 "Usata per notificare che la descrizione della colonna della tabella è "
 "cambiata"
 
-#: ../atk/atkobject.c:494
+#: atk/atkobject.c:389
 msgid "Accessible Table Row Header"
 msgstr "Intestazione accessibile della riga della tabella"
 
-#: ../atk/atkobject.c:495
+#: atk/atkobject.c:390
 msgid "Is used to notify that the table row header has changed"
 msgstr ""
 "Usato per notificare che l'intestazione della riga della tabella è cambiata"
 
-#: ../atk/atkobject.c:509
+#: atk/atkobject.c:404
 msgid "Accessible Table Row Description"
 msgstr "Descrizione accessibile della riga della tabella"
 
-#: ../atk/atkobject.c:510
+#: atk/atkobject.c:405
 msgid "Is used to notify that the table row description has changed"
 msgstr ""
 "Usata per notificare che la descrizione della riga della tabella è cambiata"
 
-#: ../atk/atkobject.c:516
+#: atk/atkobject.c:411
 msgid "Accessible Table Summary"
 msgstr "Riassunto accessibile della tabella"
 
-#: ../atk/atkobject.c:517
+#: atk/atkobject.c:412
 msgid "Is used to notify that the table summary has changed"
 msgstr "Usato per notificare che il riassunto della tabella è cambiato"
 
-#: ../atk/atkobject.c:523
+#: atk/atkobject.c:418
 msgid "Accessible Table Caption Object"
 msgstr "Oggetto didascalia accessibile della tabella"
 
-#: ../atk/atkobject.c:524
+#: atk/atkobject.c:419
 msgid "Is used to notify that the table caption has changed"
 msgstr "Usato per notificare che la didascalia della tabella e cambiata"
 
-#: ../atk/atkobject.c:530
+#: atk/atkobject.c:425
 msgid "Number of Accessible Hypertext Links"
 msgstr "Numero di collegamenti accessibili nell'ipertesto"
 
-#: ../atk/atkobject.c:531
+#: atk/atkobject.c:426
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Il numero di collegamenti presenti nell'AtkHypertext attuale"
 
@@ -817,7 +203,7 @@ msgstr "Il numero di collegamenti presenti nell'AtkHypertext attuale"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: ../atk/atkvalue.c:194
+#: atk/atkvalue.c:193
 msgid "very weak"
 msgstr "molto debole"
 
@@ -827,7 +213,7 @@ msgstr "molto debole"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: ../atk/atkvalue.c:201
+#: atk/atkvalue.c:200
 msgid "weak"
 msgstr "debole"
 
@@ -838,8 +224,7 @@ msgstr "debole"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: ../atk/atkvalue.c:208
-#| msgid "table"
+#: atk/atkvalue.c:207
 msgid "acceptable"
 msgstr "accettabile"
 
@@ -849,7 +234,7 @@ msgstr "accettabile"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: ../atk/atkvalue.c:215
+#: atk/atkvalue.c:214
 msgid "strong"
 msgstr "robusta"
 
@@ -859,7 +244,7 @@ msgstr "robusta"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: ../atk/atkvalue.c:222
+#: atk/atkvalue.c:221
 msgid "very strong"
 msgstr "molto robusta"
 
@@ -870,7 +255,7 @@ msgstr "molto robusta"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:230
+#: atk/atkvalue.c:229
 msgid "very low"
 msgstr "molto fragile"
 
@@ -881,7 +266,7 @@ msgstr "molto fragile"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:238
+#: atk/atkvalue.c:237
 msgid "medium"
 msgstr "media"
 
@@ -892,7 +277,7 @@ msgstr "media"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:246
+#: atk/atkvalue.c:245
 msgid "high"
 msgstr "elevata"
 
@@ -903,7 +288,7 @@ msgstr "elevata"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:254
+#: atk/atkvalue.c:253
 msgid "very high"
 msgstr "molto elevata"
 
@@ -914,7 +299,7 @@ msgstr "molto elevata"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:262
+#: atk/atkvalue.c:261
 msgid "very bad"
 msgstr "molto brutta"
 
@@ -925,7 +310,7 @@ msgstr "molto brutta"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:270
+#: atk/atkvalue.c:269
 msgid "bad"
 msgstr "brutta"
 
@@ -936,7 +321,7 @@ msgstr "brutta"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:278
+#: atk/atkvalue.c:277
 msgid "good"
 msgstr "buona"
 
@@ -947,7 +332,7 @@ msgstr "buona"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:286
+#: atk/atkvalue.c:285
 msgid "very good"
 msgstr "molto buona"
 
@@ -958,9 +343,601 @@ msgstr "molto buona"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: ../atk/atkvalue.c:294
+#: atk/atkvalue.c:293
 msgid "best"
 msgstr "migliore"
 
-#~ msgid "Is used to notify that the parent has changed"
-#~ msgstr "Usato per notificare che il genitore è cambiato"
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1229 atspi/atspi-value.c:123
+msgid "The application no longer exists"
+msgstr "L'applicazione non esiste più"
+
+#  * AtkObject represents the minimum information all accessible objects
+#  * return. This information includes accessible name, accessible
+#  * description, role and state of the object, as well information about
+#  * its parent and children. It is also possible to obtain more specific
+#  * accessibility information about a component if it supports one or more
+#  * of the following interfaces:
+#
+# @ATK_ROLE_INVALID: Invalid role
+#: atspi/atspi-misc.c:49
+msgid "invalid"
+msgstr "non valido"
+
+# @ATK_ROLE_ACCEL_LABEL: A label which represents an accelerator
+#: atspi/atspi-misc.c:50
+msgid "accelerator label"
+msgstr "etichetta acceleratore"
+
+# @ATK_ROLE_ALERT: An object which is an alert to the user
+#: atspi/atspi-misc.c:51
+msgid "alert"
+msgstr "allerta"
+
+# @ATK_ROLE_ANIMATION: An object which is an animated image
+#: atspi/atspi-misc.c:52
+msgid "animation"
+msgstr "animazione"
+
+# @ATK_ROLE_ARROW: An arrow in one of the four cardinal directions
+#: atspi/atspi-misc.c:53
+msgid "arrow"
+msgstr "freccia"
+
+# @ATK_ROLE_CALENDAR:  An object that displays a calendar and allows the user to select a date
+#: atspi/atspi-misc.c:54
+msgid "calendar"
+msgstr "calendario"
+
+# @ATK_ROLE_CANVAS: An object that can be drawn into and is used to trap events
+#: atspi/atspi-misc.c:55
+msgid "canvas"
+msgstr "tela"
+
+# @ATK_ROLE_CHECK_BOX: A choice that can be checked or unchecked and provides a separate indicator for the current state
+#: atspi/atspi-misc.c:56
+msgid "check box"
+msgstr "casella di spunta"
+
+# @ATK_ROLE_CHECK_MENU_ITEM: A menu item with a check box
+#: atspi/atspi-misc.c:57
+msgid "check menu item"
+msgstr "voce di menù di spunta"
+
+# @ATK_ROLE_COLOR_CHOOSER: A specialized dialog that lets the user choose a color
+#: atspi/atspi-misc.c:58
+msgid "color chooser"
+msgstr "selettore colore"
+
+# @ATK_ROLE_COLUMN_HEADER: The header for a column of data
+#: atspi/atspi-misc.c:59
+msgid "column header"
+msgstr "intestazione di colonna"
+
+# @ATK_ROLE_COMBO_BOX: A list of choices the user can select from
+#: atspi/atspi-misc.c:60
+msgid "combo box"
+msgstr "casella combinata"
+
+# @ATK_ROLE_DATE_EDITOR: An object whose purpose is to allow a user to edit a date
+#: atspi/atspi-misc.c:61
+msgid "dateeditor"
+msgstr "editor di date"
+
+# @ATK_ROLE_DESKTOP_ICON: An inconifed internal frame within a DESKTOP_PANE
+#: atspi/atspi-misc.c:62
+msgid "desktop icon"
+msgstr "icona della scrivania"
+
+# @ATK_ROLE_DESKTOP_FRAME: A pane that supports internal frames and iconified versions of those internal frames
+#: atspi/atspi-misc.c:63
+msgid "desktop frame"
+msgstr "cornice della scrivania"
+
+# @ATK_ROLE_DIAL: An object whose purpose is to allow a user to set a value
+#
+# rotella, vista la spiegazione è totalmente fuori luogo... -Luca
+#: atspi/atspi-misc.c:64
+msgid "dial"
+msgstr "rotella"
+
+# @ATK_ROLE_DIALOG: A top level window with title bar and a border
+#: atspi/atspi-misc.c:65
+msgid "dialog"
+msgstr "dialogo"
+
+# @ATK_ROLE_DIRECTORY_PANE: A pane that allows the user to navigate through and select the contents of a directory
+#: atspi/atspi-misc.c:66
+msgid "directory pane"
+msgstr "riquadro directory"
+
+# @ATK_ROLE_DRAWING_AREA: An object used for drawing custom user interface elements
+#: atspi/atspi-misc.c:67
+msgid "drawing area"
+msgstr "area di disegno"
+
+# @ATK_ROLE_FILE_CHOOSER: A specialized dialog that lets the user choose a file
+#: atspi/atspi-misc.c:68
+msgid "file chooser"
+msgstr "selettore file"
+
+# @ATK_ROLE_FILLER: A object that fills up space in a user interface
+#: atspi/atspi-misc.c:69
+msgid "filler"
+msgstr "riempitore"
+
+# @ATK_ROLE_FONT_CHOOSER: A specialized dialog that lets the user choose a font
+#. I know it looks wrong but that is what Java returns
+#: atspi/atspi-misc.c:71
+msgid "fontchooser"
+msgstr "selettore tipo di carattere"
+
+# @ATK_ROLE_FRAME: A top level window with a title bar, border, menubar, etc.
+#: atspi/atspi-misc.c:72
+msgid "frame"
+msgstr "cornice"
+
+# @ATK_ROLE_GLASS_PANE: A pane that is guaranteed to be painted on top of all panes beneath it
+#: atspi/atspi-misc.c:73
+msgid "glass pane"
+msgstr "riquardo trasparente"
+
+# @ATK_ROLE_HTML_CONTAINER: A document container for HTML, whose children represent the document content
+#: atspi/atspi-misc.c:74
+msgid "html container"
+msgstr "contenitore html"
+
+# @ATK_ROLE_ICON: A small fixed size picture, typically used to decorate components
+#: atspi/atspi-misc.c:75
+msgid "icon"
+msgstr "icona"
+
+# @ATK_ROLE_IMAGE: An object whose primary purpose is to display an image
+#: atspi/atspi-misc.c:76
+msgid "image"
+msgstr "immagine"
+
+# @ATK_ROLE_INTERNAL_FRAME: A frame-like object that is clipped by a desktop pane
+#: atspi/atspi-misc.c:77
+msgid "internal frame"
+msgstr "cornice interna"
+
+# @ATK_ROLE_LABEL: An object used to present an icon or short string in an interface
+#: atspi/atspi-misc.c:78
+msgid "label"
+msgstr "etichetta"
+
+# @ATK_ROLE_LAYERED_PANE: A specialized pane that allows its children to be drawn in layers, providing a form of stacking order
+#: atspi/atspi-misc.c:79
+msgid "layered pane"
+msgstr "riquadro a livelli"
+
+# @ATK_ROLE_LIST: An object that presents a list of objects to the user and allows the user to select one or more of them
+#: atspi/atspi-misc.c:80
+msgid "list"
+msgstr "elenco"
+
+# @ATK_ROLE_LIST_ITEM: An object that represents an element of a list
+#: atspi/atspi-misc.c:81
+msgid "list item"
+msgstr "voce di elenco"
+
+# @ATK_ROLE_MENU: An object usually found inside a menu bar that contains a list of actions the user can choose from
+#: atspi/atspi-misc.c:82
+msgid "menu"
+msgstr "menù"
+
+# @ATK_ROLE_MENU_BAR: An object usually drawn at the top of the primary dialog box of an application that contains a list of menus the user can choose from
+#: atspi/atspi-misc.c:83
+msgid "menu bar"
+msgstr "barra dei menù"
+
+# @ATK_ROLE_PUSH_BUTTON: An object the user can manipulate to tell the application to do something
+#: atspi/atspi-misc.c:84
+msgid "menu button"
+msgstr "pulsante menù"
+
+# @ATK_ROLE_MENU_ITEM: An object usually contained in a menu that presents an action the user can choose
+#: atspi/atspi-misc.c:85
+msgid "menu item"
+msgstr "voce di menù"
+
+# *@ATK_ROLE_OPTION_PANE: A specialized pane whose primary use is inside a DIALOG
+#: atspi/atspi-misc.c:86
+msgid "option pane"
+msgstr "riquadro opzioni"
+
+# @ATK_ROLE_PAGE_TAB: An object that is a child of a page tab list
+#: atspi/atspi-misc.c:87
+msgid "page tab"
+msgstr "scheda"
+
+# @ATK_ROLE_PAGE_TAB_LIST: An object that presents a series of panels (or page tabs), one at a time, through some mechanism provided by the object
+#: atspi/atspi-misc.c:88
+msgid "page tab list"
+msgstr "elenco di schede"
+
+# @ATK_ROLE_PANEL: A generic container that is often used to group objects
+#: atspi/atspi-misc.c:89
+msgid "panel"
+msgstr "pannello"
+
+# @ATK_ROLE_PASSWORD_TEXT: A text object uses for passwords, or other places where the text content is not shown visibly to the user
+#: atspi/atspi-misc.c:90
+msgid "password text"
+msgstr "testo password"
+
+# @ATK_ROLE_POPUP_MENU: A temporary window that is usually used to offer the user a list of choices, and then hides when the user selects one of those choices
+#: atspi/atspi-misc.c:91
+msgid "popup menu"
+msgstr "menù a comparsa"
+
+# @ATK_ROLE_PROGRESS_BAR: An object used to indicate how much of a task has been completed
+#: atspi/atspi-misc.c:92
+msgid "progress bar"
+msgstr "barra di avanzamento"
+
+# @ATK_ROLE_PUSH_BUTTON: An object the user can manipulate to tell the application to do something
+#: atspi/atspi-misc.c:93
+msgid "push button"
+msgstr "pulsante"
+
+# @ATK_ROLE_RADIO_BUTTON: A specialized check box that will cause other radio buttons in the same group to become unchecked when this one is checked
+#: atspi/atspi-misc.c:94
+msgid "radio button"
+msgstr "pulsante radio"
+
+# @ATK_ROLE_RADIO_MENU_ITEM: A check menu item which belongs to a group. At each instant exactly one of the radio menu items from a group is selected
+#: atspi/atspi-misc.c:95
+msgid "radio menu item"
+msgstr "voce di menù radio"
+
+# @ATK_ROLE_ROOT_PANE: A specialized pane that has a glass pane and a layered pane as its children
+#: atspi/atspi-misc.c:96
+msgid "root pane"
+msgstr "riquadro radice"
+
+# @ATK_ROLE_ROW_HEADER: The header for a row of data
+#: atspi/atspi-misc.c:97
+msgid "row header"
+msgstr "intestazione di riga"
+
+# @ATK_ROLE_SCROLL_BAR: An object usually used to allow a user to incrementally view a large amount of data.
+#: atspi/atspi-misc.c:98
+msgid "scroll bar"
+msgstr "barra di scorrimento"
+
+# @ATK_ROLE_SCROLL_PANE: An object that allows a user to incrementally view a large amount of information
+#: atspi/atspi-misc.c:99
+msgid "scroll pane"
+msgstr "riquadro a scorrimento"
+
+# @ATK_ROLE_SEPARATOR: An object usually contained in a menu to provide a visible and logical separation of the contents in a menu
+#: atspi/atspi-misc.c:100
+msgid "separator"
+msgstr "separatore"
+
+# @ATK_ROLE_SLIDER: An object that allows the user to select from a bounded range
+#: atspi/atspi-misc.c:101
+msgid "slider"
+msgstr "controllo scorrevole"
+
+# @ATK_ROLE_SPLIT_PANE: A specialized panel that presents two other panels at the same time
+#: atspi/atspi-misc.c:102
+msgid "split pane"
+msgstr "riquadro diviso"
+
+# @ATK_ROLE_SPIN_BUTTON: An object used to get an integer or floating point number from the user
+#: atspi/atspi-misc.c:103
+msgid "spin button"
+msgstr "controllo di selezione"
+
+# @ATK_ROLE_STATUSBAR: An object which reports messages of minor importance to the user
+#: atspi/atspi-misc.c:104
+msgid "statusbar"
+msgstr "barra di stato"
+
+# @ATK_ROLE_TABLE: An object used to represent information in terms of rows and columns
+#: atspi/atspi-misc.c:105
+msgid "table"
+msgstr "tabella"
+
+# @ATK_ROLE_TABLE_CELL: A cell in a table
+#: atspi/atspi-misc.c:106
+msgid "table cell"
+msgstr "cella di tabella"
+
+# @ATK_ROLE_TABLE_COLUMN_HEADER: The header for a column of a table
+#: atspi/atspi-misc.c:107
+msgid "table column header"
+msgstr "intestazione di colonna per tabella"
+
+# @ATK_ROLE_TABLE_ROW_HEADER: The header for a row of a table
+#: atspi/atspi-misc.c:108
+msgid "table row header"
+msgstr "intestazione di riga per tabella"
+
+# @ATK_ROLE_TEAR_OFF_MENU_ITEM: A menu item used to tear off and reattach its menu
+#: atspi/atspi-misc.c:109
+msgid "tear off menu item"
+msgstr "voce di menù staccabile"
+
+# @ATK_ROLE_TERMINAL: An object that represents an accessible terminal
+#: atspi/atspi-misc.c:110
+msgid "terminal"
+msgstr "terminale"
+
+# @ATK_ROLE_TEXT: An object that presents text to the user
+#: atspi/atspi-misc.c:111
+msgid "text"
+msgstr "testo"
+
+# @ATK_ROLE_TOGGLE_BUTTON: A specialized push button that can be checked or unchecked, but does not provide a separate indicator for the current state
+#: atspi/atspi-misc.c:112
+msgid "toggle button"
+msgstr "pulsante di commutazione"
+
+# @ATK_ROLE_TOOL_BAR: A bar or palette usually composed of push buttons or toggle buttons
+#: atspi/atspi-misc.c:113
+msgid "tool bar"
+msgstr "barra degli strumenti"
+
+# @ATK_ROLE_TOOL_TIP: An object that provides information about another object
+#: atspi/atspi-misc.c:114
+msgid "tool tip"
+msgstr "suggerimento"
+
+# @ATK_ROLE_TREE: An object used to represent hierarchical information to the user
+#: atspi/atspi-misc.c:115
+msgid "tree"
+msgstr "albero"
+
+# @ATK_ROLE_TREE_TABLE: An object capable of expanding and collapsing rows as well as showing multiple columns of data
+#: atspi/atspi-misc.c:116
+msgid "tree table"
+msgstr "tabella ad albero"
+
+# @ATK_ROLE_UNKNOWN: The object contains some Accessible information, but its role is not known
+#: atspi/atspi-misc.c:117
+msgid "unknown"
+msgstr "sconosciuto"
+
+# *@ATK_ROLE_VIEWPORT: An object usually used in a scroll pane
+#: atspi/atspi-misc.c:118
+msgid "viewport"
+msgstr "area visibile"
+
+# @ATK_ROLE_WINDOW: A top level window with no title or border.
+#: atspi/atspi-misc.c:119
+msgid "window"
+msgstr "finestra"
+
+# @ATK_ROLE_HEADER: An object that serves as a document header.
+#: atspi/atspi-misc.c:120
+msgid "header"
+msgstr "intestazione"
+
+# @ATK_ROLE_FOOTER: An object that serves as a document footer.
+#: atspi/atspi-misc.c:121
+msgid "footer"
+msgstr "piè di pagina"
+
+# @ATK_ROLE_PARAGRAPH: An object which is contains a paragraph of text content
+#: atspi/atspi-misc.c:122
+msgid "paragraph"
+msgstr "paragrafo"
+
+# @ATK_ROLE_RULER: An object which describes margins and tab stops, etc. for text objects which it controls
+#: atspi/atspi-misc.c:123
+msgid "ruler"
+msgstr "righello"
+
+# @ATK_ROLE_APPLICATION: The object is an application object, which may contain @ATK_ROLE_FRAME objects or other types of accessibles.
+#: atspi/atspi-misc.c:124
+msgid "application"
+msgstr "applicazione"
+
+# @ATK_ROLE_AUTOCOMPLETE: The object is a dialog or list containing items for insertion into an entry widget, for instance a list of words for completion of a text entry.
+#: atspi/atspi-misc.c:125
+msgid "autocomplete"
+msgstr "completamento automatico"
+
+# @ATK_ROLE_EDITBAR: The object is an editable text object in a toolbar
+#: atspi/atspi-misc.c:126
+msgid "edit bar"
+msgstr "barra di modifica"
+
+# @ATK_ROLE_EMBEDDED: The object is an embedded container within a document or panel.  This role is a grouping "hint" indicating that the contained objects share a context.
+#: atspi/atspi-misc.c:127
+msgid "embedded component"
+msgstr "componente incorporato"
+
+# @ATK_ROLE_ENTRY: The object is a component whose textual content may be entered or modified by the user, provided @ATK_STATE_EDITABLE is present.
+#: atspi/atspi-misc.c:128
+msgid "entry"
+msgstr "campo inserimento"
+
+# @ATK_ROLE_CHART: The object is a graphical depiction of quantitative data. It may contain multiple subelements whose attributes and/or description may be queried to obtain both the quantitative data and information about how the data is being presented. The LABELLED_BY relation is particularly important in interpreting objects of this type, as is the accessible-description property.
+#: atspi/atspi-misc.c:129
+msgid "chart"
+msgstr "diagramma"
+
+# @ATK_ROLE_CAPTION: The object contains descriptive information, usually textual, about another user interface element such as a table, chart, or image.
+#: atspi/atspi-misc.c:130
+msgid "caption"
+msgstr "didascalia"
+
+# @ATK_ROLE_DOCUMENT_FRAME: The object is a visual frame or container which contains a view of document content. Document frames may occur within another Document instance, in which case the second document may be said to be embedded in the containing instance. HTML frames are often ROLE_DOCUMENT_FRAME. Either this object, or a singleton descendant, should implement the Document interface.
+#: atspi/atspi-misc.c:131
+msgid "document frame"
+msgstr "cornice documento"
+
+# @ATK_ROLE_HEADING: The object serves as a heading for content which follows it in a document. The 'heading level' of the heading, if availabe, may be obtained by querying the object's attributes.
+#: atspi/atspi-misc.c:132
+msgid "heading"
+msgstr "intestazione"
+
+# @ATK_ROLE_PAGE: The object is a containing instance which encapsulates a page of information. @ATK_ROLE_PAGE is used in documents and content which support a paginated navigation model.
+#: atspi/atspi-misc.c:133
+msgid "page"
+msgstr "pagina"
+
+# @ATK_ROLE_SECTION: The object is a containing instance of document content which constitutes a particular 'logical' section of the document. The type of content within a section, and the nature of the section division itself, may be obtained by querying the object's attributes. Sections may be nested.
+#: atspi/atspi-misc.c:134
+msgid "section"
+msgstr "sezione"
+
+# @ATK_ROLE_REDUNDANT_OBJECT: The object is redundant with another object in the hierarchy, and is exposed for purely technical reasons.  Objects of this role should normally be ignored by clients.
+#: atspi/atspi-misc.c:135
+msgid "redundant object"
+msgstr "oggetto ridondante"
+
+# @ATK_ROLE_FRAME: A top level window with a title bar, border, menubar, etc.
+#
+#
+# Traduzione non ottimale, ma visto l'originale non penso si potesse
+# fare molto altro -Luca
+#
+#: atspi/atspi-misc.c:136
+msgid "form"
+msgstr "modulo"
+
+# @ATK_ROLE_LINK - The object is a hypertext anchor, i.e. a "link" in a hypertext document. Such objects are distinct from 'inline' content which may also use the Hypertext/Hyperlink interfaces to indicate the range/location within a text object where an inline or embedded object lies
+#: atspi/atspi-misc.c:137
+msgid "link"
+msgstr "collegamento"
+
+# @ATK_ROLE_INPUT_METHOD_WINDOW - The object is a window or similar viewport which is used to allow composition or input of a 'complex character', in other words it is an "input method window.
+#: atspi/atspi-misc.c:138
+msgid "input method window"
+msgstr "finestra metodo di input"
+
+# @ATK_ROLE_TABLE_ROW_HEADER: The header for a row of a table
+#: atspi/atspi-misc.c:139
+msgid "table row"
+msgstr "riga di tabella"
+
+# @ATK_ROLE_TREE_TABLE: An object capable of expanding and collapsing rows as well as showing multiple columns of data
+#: atspi/atspi-misc.c:140
+msgid "tree item"
+msgstr "elemento albero"
+
+# @ATK_ROLE_DOCUMENT_FRAME: The object is a visual frame or container which contains a view of document content. Document frames may occur within another Document instance, in which case the second document may be said to be embedded in the containing instance. HTML frames are often ROLE_DOCUMENT_FRAME. Either this object, or a singleton descendant, should implement the Document interface.
+#: atspi/atspi-misc.c:141
+msgid "document spreadsheet"
+msgstr "documento foglio di calcolo"
+
+# @ATK_ROLE_DOCUMENT_FRAME: The object is a visual frame or container which contains a view of document content. Document frames may occur within another Document instance, in which case the second document may be said to be embedded in the containing instance. HTML frames are often ROLE_DOCUMENT_FRAME. Either this object, or a singleton descendant, should implement the Document interface.
+#: atspi/atspi-misc.c:142
+msgid "document presentation"
+msgstr "documento presentazione"
+
+# @ATK_ROLE_DOCUMENT_FRAME: The object is a visual frame or container which contains a view of document content. Document frames may occur within another Document instance, in which case the second document may be said to be embedded in the containing instance. HTML frames are often ROLE_DOCUMENT_FRAME. Either this object, or a singleton descendant, should implement the Document interface.
+#: atspi/atspi-misc.c:143
+msgid "document text"
+msgstr "documento testo"
+
+# @ATK_ROLE_DOCUMENT_FRAME: The object is a visual frame or container which contains a view of document content. Document frames may occur within another Document instance, in which case the second document may be said to be embedded in the containing instance. HTML frames are often ROLE_DOCUMENT_FRAME. Either this object, or a singleton descendant, should implement the Document interface.
+#: atspi/atspi-misc.c:144
+msgid "document web"
+msgstr "documento web"
+
+# @ATK_ROLE_DOCUMENT_FRAME: The object is a visual frame or container which contains a view of document content. Document frames may occur within another Document instance, in which case the second document may be said to be embedded in the containing instance. HTML frames are often ROLE_DOCUMENT_FRAME. Either this object, or a singleton descendant, should implement the Document interface.
+#: atspi/atspi-misc.c:145
+msgid "document email"
+msgstr "documento email"
+
+#: atspi/atspi-misc.c:146
+msgid "comment"
+msgstr "commento"
+
+# @ATK_ROLE_LIST: An object that presents a list of objects to the user and allows the user to select one or more of them
+#: atspi/atspi-misc.c:147
+msgid "list box"
+msgstr "casella elenco"
+
+#: atspi/atspi-misc.c:148
+msgid "grouping"
+msgstr "raggruppamento"
+
+# @ATK_ROLE_IMAGE: An object whose primary purpose is to display an image
+#: atspi/atspi-misc.c:149
+msgid "image map"
+msgstr "mappa immagine"
+
+# @ATK_ROLE_ANIMATION: An object which is an animated image
+#: atspi/atspi-misc.c:150
+msgid "notification"
+msgstr "notifica"
+
+# @ATK_ROLE_MENU_BAR: An object usually drawn at the top of the primary dialog box of an application that contains a list of menus the user can choose from
+#: atspi/atspi-misc.c:151
+msgid "info bar"
+msgstr "barra delle informazioni"
+
+# @ATK_ROLE_SCROLL_BAR: An object usually used to allow a user to incrementally view a large amount of data.
+#: atspi/atspi-misc.c:152
+msgid "level bar"
+msgstr "barra di livello"
+
+# @ATK_ROLE_TOOL_BAR: A bar or palette usually composed of push buttons or toggle buttons
+#: atspi/atspi-misc.c:153
+msgid "title bar"
+msgstr "barra del titolo"
+
+#: atspi/atspi-misc.c:154
+msgid "block quote"
+msgstr "block quote"
+
+#: atspi/atspi-misc.c:155
+msgid "audio"
+msgstr "audio"
+
+#: atspi/atspi-misc.c:156
+msgid "video"
+msgstr "video"
+
+# @ATK_ROLE_ANIMATION: An object which is an animated image
+#: atspi/atspi-misc.c:157
+msgid "definition"
+msgstr "definizione"
+
+#: atspi/atspi-misc.c:158
+msgid "article"
+msgstr "articolo"
+
+#: atspi/atspi-misc.c:159
+msgid "landmark"
+msgstr "punto di riferimento"
+
+# @ATK_ROLE_DIALOG: A top level window with title bar and a border
+#: atspi/atspi-misc.c:160
+msgid "log"
+msgstr "registro"
+
+#: atspi/atspi-misc.c:161
+msgid "marquee"
+msgstr "marquee"
+
+#: atspi/atspi-misc.c:162
+msgid "math"
+msgstr "matematica"
+
+#: atspi/atspi-misc.c:163
+msgid "rating"
+msgstr "valutazione"
+
+#: atspi/atspi-misc.c:164
+msgid "timer"
+msgstr "timer"
+
+#: atspi/atspi-misc.c:165
+msgid "description list"
+msgstr "elenco descrizione"
+
+#: atspi/atspi-misc.c:166
+msgid "description term"
+msgstr "termine descrizione"
+
+#: atspi/atspi-misc.c:167
+msgid "description value"
+msgstr "valore descrizione"
