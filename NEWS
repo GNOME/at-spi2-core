@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.50.0:
+
+* Fix at-spi2-atk test when running under a non-English locale.
+
 What's new in at-spi2-core 2.49.91:
 
 * collection: Avoid locking up if an object has a very large child count
