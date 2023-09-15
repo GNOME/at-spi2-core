@@ -23,6 +23,9 @@
 #include "atk_suite.h"
 #include "atk_test_util.h"
 
+#include <libintl.h>
+#define _(x) dgettext ("at-spi2-core", x)
+
 #define DATA_FILE TESTS_DATA_DIR "/test-accessible.xml"
 
 static void
@@ -138,7 +141,7 @@ atk_test_accessible_get_localized_role_name (TestAppFixture *fixture, gconstpoin
 {
   AtspiAccessible *obj = fixture->root_obj;
   gchar *root_role_name = atspi_accessible_get_localized_role_name (obj, NULL);
-  g_assert_cmpstr (root_role_name, ==, "accelerator label");
+  g_assert_cmpstr (root_role_name, ==, _ ("accelerator label"));
   g_free (root_role_name);
 }
 
