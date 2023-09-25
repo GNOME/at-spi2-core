@@ -1,6 +1,8 @@
 AT-SPI 3 roadmap
 ================
 
+Note: this document may be obsolete. See also new-protocol.rst.
+
 This document is a place to collect changes that we should consider for a
 future version of the API.
 

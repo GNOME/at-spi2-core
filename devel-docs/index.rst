@@ -34,7 +34,7 @@ Development guide for the accessibility infrastructure
    gitlab-ci
              
 
-Welcome to the developer's guide for the freedesktop accessbility
+Welcome to the developer's guide for the freedesktop accessibility
 infrastructure.  This guide intends to become a repository of
 knowledge on the implementation of the accessibility infrastructure,
 as well as a guide for application developers and toolkit developers
