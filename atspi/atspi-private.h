@@ -29,7 +29,6 @@
 #include "atspi-event-listener-private.h"
 #include "atspi-matchrule-private.h"
 #include "atspi-misc-private.h"
-#include "atspi-mutter-private.h"
 #include <config.h>
 
 #include "glib/gi18n.h"
