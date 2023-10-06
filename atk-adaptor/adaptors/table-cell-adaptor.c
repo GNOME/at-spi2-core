@@ -60,7 +60,8 @@ message_from_object_array (DBusMessage *message, GPtrArray *array)
       spi_object_append_reference (&iter_array, g_ptr_array_index (array, i));
     }
   dbus_message_iter_close_container (&iter, &iter_array);
-  g_ptr_array_unref (array);
+  if (array)
+    g_ptr_array_unref (array);
   return reply;
 }
 
