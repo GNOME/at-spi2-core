@@ -1257,7 +1257,7 @@ atspi_accessible_is_value (AtspiAccessible *obj)
 }
 
 /**
- * atspi_accessible_get_action: (rename-to atspi_accessible_get_action_iface)
+ * atspi_accessible_get_action:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiAction interface for an #AtspiAccessible.
@@ -1289,7 +1289,7 @@ atspi_accessible_get_action_iface (AtspiAccessible *accessible)
 }
 
 /**
- * atspi_accessible_get_collection: (rename-to atspi_accessible_get_collection_iface)
+ * atspi_accessible_get_collection:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiCollection interface for an #AtspiAccessible.
@@ -1321,7 +1321,7 @@ atspi_accessible_get_collection_iface (AtspiAccessible *accessible)
 }
 
 /**
- * atspi_accessible_get_component: (rename-to atspi_accessible_get_component_iface)
+ * atspi_accessible_get_component:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiComponent interface for an #AtspiAccessible.
@@ -1353,7 +1353,7 @@ atspi_accessible_get_component_iface (AtspiAccessible *obj)
 }
 
 /**
- * atspi_accessible_get_document: (rename-to atspi_accessible_get_document_iface)
+ * atspi_accessible_get_document:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiDocument interface for an #AtspiAccessible.
@@ -1385,7 +1385,7 @@ atspi_accessible_get_document_iface (AtspiAccessible *accessible)
 }
 
 /**
- * atspi_accessible_get_editable_text: (rename-to atspi_accessible_get_editable_text_iface)
+ * atspi_accessible_get_editable_text:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiEditableText interface for an #AtspiAccessible.
@@ -1432,7 +1432,7 @@ atspi_accessible_get_hyperlink (AtspiAccessible *accessible)
 }
 
 /**
- * atspi_accessible_get_hypertext: (rename-to atspi_accessible_get_hypertext_iface)
+ * atspi_accessible_get_hypertext:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiHypertext interface for an #AtspiAccessible.
@@ -1464,7 +1464,7 @@ atspi_accessible_get_hypertext_iface (AtspiAccessible *accessible)
 }
 
 /**
- * atspi_accessible_get_image: (rename-to atspi_accessible_get_image_iface)
+ * atspi_accessible_get_image:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiImage interface for an #AtspiAccessible.
@@ -1496,7 +1496,7 @@ atspi_accessible_get_image_iface (AtspiAccessible *accessible)
 }
 
 /**
- * atspi_accessible_get_selection: (rename-to atspi_accessible_get_selection_iface)
+ * atspi_accessible_get_selection:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiSelection interface for an #AtspiAccessible.
@@ -1546,7 +1546,7 @@ atspi_accessible_get_streamable_content (AtspiAccessible *accessible)
 #endif
 
 /**
- * atspi_accessible_get_table: (rename-to atspi_accessible_get_table_iface)
+ * atspi_accessible_get_table:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiTable interface for an #AtspiAccessible.
@@ -1593,7 +1593,7 @@ atspi_accessible_get_table_cell (AtspiAccessible *obj)
 }
 
 /**
- * atspi_accessible_get_text: (rename-to atspi_accessible_get_text_iface)
+ * atspi_accessible_get_text:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiTable interface for an #AtspiAccessible.
@@ -1625,7 +1625,7 @@ atspi_accessible_get_text_iface (AtspiAccessible *obj)
 }
 
 /**
- * atspi_accessible_get_value: (rename-to atspi_accessible_get_value_iface)
+ * atspi_accessible_get_value:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Gets the #AtspiTable interface for an #AtspiAccessible.
