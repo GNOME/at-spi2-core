@@ -805,10 +805,10 @@ AtkRole atk_role_register (const gchar *name);
 ATK_AVAILABLE_IN_2_8
 const gchar *atk_object_get_object_locale (AtkObject *accessible);
 
-ATK_AVAILABLE_IN_ALL
+ATK_AVAILABLE_IN_2_36
 const gchar *atk_object_get_accessible_id (AtkObject *accessible);
 
-ATK_AVAILABLE_IN_ALL
+ATK_AVAILABLE_IN_2_36
 void atk_object_set_accessible_id (AtkObject *accessible,
                                    const gchar *name);
 
