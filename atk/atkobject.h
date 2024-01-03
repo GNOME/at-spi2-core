@@ -812,6 +812,13 @@ ATK_AVAILABLE_IN_2_36
 void atk_object_set_accessible_id (AtkObject *accessible,
                                    const gchar *id);
 
+ATK_AVAILABLE_IN_2_52
+const gchar *atk_object_get_help_text (AtkObject *accessible);
+
+ATK_AVAILABLE_IN_2_52
+void atk_object_set_help_text (AtkObject *accessible,
+                               const gchar *help_text);
+
 G_END_DECLS
 
 #endif /* __ATK_OBJECT_H__ */

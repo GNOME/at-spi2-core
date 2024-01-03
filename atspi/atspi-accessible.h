@@ -174,6 +174,8 @@ guint atspi_accessible_get_process_id (AtspiAccessible *accessible, GError **err
 
 gchar *atspi_accessible_get_accessible_id (AtspiAccessible *obj, GError **error);
 
+gchar *atspi_accessible_get_help_text (AtspiAccessible *obj, GError **error);
+
 /* private */
 void _atspi_accessible_add_cache (AtspiAccessible *accessible, AtspiCache flag);
 AtspiCache _atspi_accessible_get_cache_mask (AtspiAccessible *accessible);

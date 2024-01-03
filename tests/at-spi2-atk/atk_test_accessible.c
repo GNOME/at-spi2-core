@@ -413,6 +413,17 @@ atk_test_accessible_get_process_id (TestAppFixture *fixture, gconstpointer user_
   g_assert_cmpint (proc_id, ==, fixture->child_pid);
 }
 
+static void
+atk_test_accessible_get_help_text (TestAppFixture *fixture, gconstpointer user_data)
+{
+  AtspiAccessible *obj = fixture->root_obj;
+  AtspiAccessible *child1 = atspi_accessible_get_child_at_index (obj, 0, NULL);
+  gchar *str = atspi_accessible_get_help_text (child1, NULL);
+  g_assert_cmpstr (str, ==, "test dialog");
+  g_free (str);
+  g_object_unref (child1);
+}
+
 void
 atk_test_accessible (void)
 {
@@ -486,4 +497,6 @@ atk_test_accessible (void)
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_clear_cache, fixture_teardown);
   g_test_add ("/accessible/atk_test_accessible_get_process_id",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_process_id, fixture_teardown);
+  g_test_add ("/accessible/atk_test_accessible_get_help_text",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_accessible_get_help_text, fixture_teardown);
 }

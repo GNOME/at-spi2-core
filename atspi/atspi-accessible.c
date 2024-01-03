@@ -1944,6 +1944,33 @@ atspi_accessible_get_accessible_id (AtspiAccessible *obj, GError **error)
   return accessible_id;
 }
 
+/**
+ * atspi_accessible_get_help_text:
+ * @obj: an #AtspiAccessible
+ *
+ * Gets the help text associated with the accessible, if set. When this is
+ * present, it provides information that a screen reader can relay to the user
+ * to explain how to interact with the object.
+ *
+ * Since: 2.52
+ *
+ * Returns: a character string representing the help text for the
+ * #AtspiAccessible object or NULL on exception.
+ **/
+gchar *
+atspi_accessible_get_help_text (AtspiAccessible *obj, GError **error)
+{
+  gchar *help_text;
+
+  g_return_val_if_fail (obj != NULL, NULL);
+
+  if (!_atspi_dbus_get_property (obj, atspi_interface_accessible,
+                                 "HelpText", error, "s", &help_text))
+    return NULL;
+
+  return help_text;
+}
+
 void
 free_value (gpointer data)
 {
