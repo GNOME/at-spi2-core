@@ -157,6 +157,7 @@ static const gchar *const atk_object_name_property_table_row_header = "accessibl
 static const gchar *const atk_object_name_property_table_summary = "accessible-table-summary";
 static const gchar *const atk_object_name_property_table_caption_object = "accessible-table-caption-object";
 static const gchar *const atk_object_name_property_hypertext_num_links = "accessible-hypertext-nlinks";
+static const gchar *const atk_object_name_property_accessible_id = "accessible-id";
 
 static void
 initialize_role_names ()
@@ -429,6 +430,13 @@ atk_object_class_init (AtkObjectClass *klass)
                                                      0,
                                                      G_PARAM_READABLE));
 
+  g_object_class_install_property (gobject_class,
+                                   PROP_ACCESSIBLE_ID,
+                                   g_param_spec_string (atk_object_name_property_accessible_id,
+                                                        _ ("Accessible ID"),
+                                                        _ ("ID for the accessible; useful for automated testing"),
+                                                        NULL,
+                                                        G_PARAM_READWRITE));
   /**
    * AtkObject::children-changed:
    * @atkobject: the object which received the signal.
@@ -1685,7 +1693,7 @@ atk_object_get_accessible_id (AtkObject *accessible)
 /**
  * atk_object_set_accessible_id:
  * @accessible: an #AtkObject
- * @name: a character string to be set as the accessible id
+ * @id: a character string to be set as the accessible id
  *
  * Sets the accessible ID of the accessible.  This is not meant to be presented
  * to the user, but to be an ID which is stable over application development.
