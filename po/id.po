@@ -14,13 +14,13 @@
 # Ahmad Riza H Nst  <rizahnst@gnome.org>, 2006.
 # Andika Triwidada <andika@gmail.com>, 2010, 2011, 2014.
 # Dirgita <dirgitadevina@yahoo.co.id>, 2010.
-# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2021-2022.
+# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2021-2022, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: atk master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
-"POT-Creation-Date: 2022-07-25 14:47+0000\n"
-"PO-Revision-Date: 2022-07-26 18:09+0700\n"
+"POT-Creation-Date: 2024-01-03 22:53+0000\n"
+"PO-Revision-Date: 2024-01-05 12:39+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: GNOME Indonesian Translation Team <gnome@i15n.org>\n"
 "Language: id\n"
@@ -29,576 +29,103 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.4\n"
 "X-Generator: Poedit 3.0\n"
 
-#: atk/atkhyperlink.c:126
+#: atk/atkhyperlink.c:127
 msgid "Selected Link"
 msgstr "Taut Terpilih"
 
-#: atk/atkhyperlink.c:127
+#: atk/atkhyperlink.c:128
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr "Menentukan apakah objek AtkHyperlink dipilih atau tidak"
 
-#: atk/atkhyperlink.c:133
+#: atk/atkhyperlink.c:134
 msgid "Number of Anchors"
 msgstr "Jumlah Jangkar/Anchor"
 
-#: atk/atkhyperlink.c:134
+#: atk/atkhyperlink.c:135
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr "Jumlah jangkar/anchor yang dihubungkan dengan objek AtkHyperlink"
 
-#: atk/atkhyperlink.c:142
+#: atk/atkhyperlink.c:143
 msgid "End index"
 msgstr "Indeks akhir"
 
-#: atk/atkhyperlink.c:143
+#: atk/atkhyperlink.c:144
 msgid "The end index of the AtkHyperlink object"
 msgstr "Akhir indeks objek AtkHyperlink"
 
-#: atk/atkhyperlink.c:151
+#: atk/atkhyperlink.c:152
 msgid "Start index"
 msgstr "Indeks awal"
 
-#: atk/atkhyperlink.c:152
+#: atk/atkhyperlink.c:153
 msgid "The start index of the AtkHyperlink object"
 msgstr "Indeks awal objek AtkHyperlink"
 
-#: atk/atkobject.c:98
-msgid "invalid"
-msgstr "tidak sah"
-
-#: atk/atkobject.c:99
-msgid "accelerator label"
-msgstr "label akselerator"
-
-#: atk/atkobject.c:100
-msgid "alert"
-msgstr "waspada"
-
-#: atk/atkobject.c:101
-msgid "animation"
-msgstr "animasi"
-
-#: atk/atkobject.c:102
-msgid "arrow"
-msgstr "panah"
-
-#: atk/atkobject.c:103
-msgid "calendar"
-msgstr "kalender"
-
-#: atk/atkobject.c:104
-msgid "canvas"
-msgstr "kanvas"
-
-#: atk/atkobject.c:105
-msgid "check box"
-msgstr "kotak cek"
-
-#: atk/atkobject.c:106
-msgid "check menu item"
-msgstr "item menu cek"
-
-#: atk/atkobject.c:107
-msgid "color chooser"
-msgstr "pemilih warna"
-
-#: atk/atkobject.c:108
-msgid "column header"
-msgstr "tajuk kolom"
-
-#: atk/atkobject.c:109
-msgid "combo box"
-msgstr "kotak kombo"
-
-#: atk/atkobject.c:110
-msgid "dateeditor"
-msgstr "penyunting tanggal"
-
-#: atk/atkobject.c:111
-msgid "desktop icon"
-msgstr "ikon desktop"
-
-#: atk/atkobject.c:112
-msgid "desktop frame"
-msgstr "bingkai desktop"
-
-#: atk/atkobject.c:113
-msgid "dial"
-msgstr "tombol pemutar"
-
-#: atk/atkobject.c:114
-msgid "dialog"
-msgstr "dialog"
-
-#: atk/atkobject.c:115
-msgid "directory pane"
-msgstr "panel direktori"
-
-#: atk/atkobject.c:116
-msgid "drawing area"
-msgstr "area gambar"
-
-#: atk/atkobject.c:117
-msgid "file chooser"
-msgstr "pemilih berkas"
-
-#: atk/atkobject.c:118
-msgid "filler"
-msgstr "isian"
-
-#. I know it looks wrong but that is what Java returns
-#: atk/atkobject.c:120
-msgid "fontchooser"
-msgstr "pemilih fonta"
-
-#: atk/atkobject.c:121
-msgid "frame"
-msgstr "bingkai"
-
-#: atk/atkobject.c:122
-msgid "glass pane"
-msgstr "panel kaca"
-
-#: atk/atkobject.c:123
-msgid "html container"
-msgstr "kontainer html"
-
-#: atk/atkobject.c:124
-msgid "icon"
-msgstr "ikon"
-
-#: atk/atkobject.c:125
-msgid "image"
-msgstr "gambar"
-
-#: atk/atkobject.c:126
-msgid "internal frame"
-msgstr "bingkai internal"
-
-#: atk/atkobject.c:127
-msgid "label"
-msgstr "label"
-
-#: atk/atkobject.c:128
-msgid "layered pane"
-msgstr "panel  berlapis"
-
-#: atk/atkobject.c:129
-msgid "list"
-msgstr "daftar"
-
-#: atk/atkobject.c:130
-msgid "list item"
-msgstr "isi daftar"
-
-#: atk/atkobject.c:131
-msgid "menu"
-msgstr "menu"
-
-#: atk/atkobject.c:132
-msgid "menu bar"
-msgstr "baris menu"
-
-#: atk/atkobject.c:133
-msgid "menu button"
-msgstr "tombol menu"
-
-#: atk/atkobject.c:134
-msgid "menu item"
-msgstr "objek menu"
-
-#: atk/atkobject.c:135
-msgid "option pane"
-msgstr "panel opsi"
-
-#: atk/atkobject.c:136
-msgid "page tab"
-msgstr "halaman tab"
-
-#: atk/atkobject.c:137
-msgid "page tab list"
-msgstr "daftar halaman tab"
-
-#: atk/atkobject.c:138
-msgid "panel"
-msgstr "panel"
-
-#: atk/atkobject.c:139
-msgid "password text"
-msgstr "teks sandi"
-
-#: atk/atkobject.c:140
-msgid "popup menu"
-msgstr "menu tongol"
-
-#: atk/atkobject.c:141
-msgid "progress bar"
-msgstr "indikator proses"
-
-#: atk/atkobject.c:142
-msgid "push button"
-msgstr "tombol tekan"
-
-#: atk/atkobject.c:143
-msgid "radio button"
-msgstr "tombol radio"
-
-#: atk/atkobject.c:144
-msgid "radio menu item"
-msgstr "objek menu radio"
-
-#: atk/atkobject.c:145
-msgid "root pane"
-msgstr "panel dasar"
-
-#: atk/atkobject.c:146
-msgid "row header"
-msgstr "tajuk baris"
-
-#: atk/atkobject.c:147
-msgid "scroll bar"
-msgstr "batang penggulung"
-
-#: atk/atkobject.c:148
-msgid "scroll pane"
-msgstr "panel penggulung"
-
-#: atk/atkobject.c:149
-msgid "separator"
-msgstr "pemisah"
-
-#: atk/atkobject.c:150
-msgid "slider"
-msgstr "slider"
-
-#: atk/atkobject.c:151
-msgid "split pane"
-msgstr "panel pemisah"
-
-#: atk/atkobject.c:152
-msgid "spin button"
-msgstr "tombol putar"
-
-#: atk/atkobject.c:153
-msgid "statusbar"
-msgstr "baris status"
-
-#: atk/atkobject.c:154
-msgid "table"
-msgstr "tabel"
-
-#: atk/atkobject.c:155
-msgid "table cell"
-msgstr "sel tabel"
-
-#: atk/atkobject.c:156
-msgid "table column header"
-msgstr "tajuk kolom pada tabel"
-
-#: atk/atkobject.c:157
-msgid "table row header"
-msgstr "tajuk baris pada tabel"
-
-#: atk/atkobject.c:158
-msgid "tear off menu item"
-msgstr "anggota menu yang dapat dilepas"
-
-#: atk/atkobject.c:159
-msgid "terminal"
-msgstr "terminal"
-
-#: atk/atkobject.c:160
-msgid "text"
-msgstr "teks"
-
-#: atk/atkobject.c:161
-msgid "toggle button"
-msgstr "tombol togel"
-
-#: atk/atkobject.c:162
-msgid "tool bar"
-msgstr "bilah alat"
-
-#: atk/atkobject.c:163
-msgid "tool tip"
-msgstr "teks bantuan"
-
-#: atk/atkobject.c:164
-msgid "tree"
-msgstr "pohon"
-
-#: atk/atkobject.c:165
-msgid "tree table"
-msgstr "tabel pohon"
-
-#: atk/atkobject.c:166
-msgid "unknown"
-msgstr "tidak diketahui"
-
-#: atk/atkobject.c:167
-msgid "viewport"
-msgstr "viewport"
-
-#: atk/atkobject.c:168
-msgid "window"
-msgstr "jendela"
-
-#: atk/atkobject.c:169
-msgid "header"
-msgstr "tajuk"
-
-#: atk/atkobject.c:170
-msgid "footer"
-msgstr "kaki"
-
-#: atk/atkobject.c:171
-msgid "paragraph"
-msgstr "paragraf"
-
-#: atk/atkobject.c:172
-msgid "ruler"
-msgstr "penggaris"
-
-#: atk/atkobject.c:173
-msgid "application"
-msgstr "aplikasi"
-
-#: atk/atkobject.c:174
-msgid "autocomplete"
-msgstr "lengkap secara otomatis"
-
-#: atk/atkobject.c:175
-msgid "edit bar"
-msgstr "bilah sunting"
-
-#: atk/atkobject.c:176
-msgid "embedded component"
-msgstr "komponen tercangkok"
-
-#: atk/atkobject.c:177
-msgid "entry"
-msgstr "entri"
-
-#: atk/atkobject.c:178
-msgid "chart"
-msgstr "bagan"
-
-#: atk/atkobject.c:179
-msgid "caption"
-msgstr "kapsi"
-
-#: atk/atkobject.c:180
-msgid "document frame"
-msgstr "bingkai dokumen"
-
-#: atk/atkobject.c:181
-msgid "heading"
-msgstr "tajuk"
-
-#: atk/atkobject.c:182
-msgid "page"
-msgstr "halaman"
-
-#: atk/atkobject.c:183
-msgid "section"
-msgstr "bagian"
-
-#: atk/atkobject.c:184
-msgid "redundant object"
-msgstr "objek redundan"
-
-#: atk/atkobject.c:185
-msgid "form"
-msgstr "formulir"
-
-#: atk/atkobject.c:186
-msgid "link"
-msgstr "taut"
-
-#: atk/atkobject.c:187
-msgid "input method window"
-msgstr "jendela metoda masukan"
-
-#: atk/atkobject.c:188
-msgid "table row"
-msgstr "baris tabel"
-
-#: atk/atkobject.c:189
-msgid "tree item"
-msgstr "butir tabel pohon"
-
-#: atk/atkobject.c:190
-msgid "document spreadsheet"
-msgstr "spreadsheet dokumen"
-
-#: atk/atkobject.c:191
-msgid "document presentation"
-msgstr "presentasi dokumen"
-
-#: atk/atkobject.c:192
-msgid "document text"
-msgstr "teks dokumen"
-
-#: atk/atkobject.c:193
-msgid "document web"
-msgstr "web dokumen"
-
-#: atk/atkobject.c:194
-msgid "document email"
-msgstr "surel dokumen"
-
-#: atk/atkobject.c:195
-msgid "comment"
-msgstr "komentar"
-
-#: atk/atkobject.c:196
-msgid "list box"
-msgstr "kotak daftar"
-
-#: atk/atkobject.c:197
-msgid "grouping"
-msgstr "pengelompokan"
-
-#: atk/atkobject.c:198
-msgid "image map"
-msgstr "peta gambar"
-
-#: atk/atkobject.c:199
-msgid "notification"
-msgstr "pemberitahuan"
-
-#: atk/atkobject.c:200
-msgid "info bar"
-msgstr "bilah info"
-
-#: atk/atkobject.c:201
-msgid "level bar"
-msgstr "bilah aras"
-
-#: atk/atkobject.c:202
-msgid "title bar"
-msgstr "bilah judul"
-
-#: atk/atkobject.c:203
-msgid "block quote"
-msgstr "kutip blok"
-
-#: atk/atkobject.c:204
-msgid "audio"
-msgstr "audio"
-
-#: atk/atkobject.c:205
-msgid "video"
-msgstr "video"
-
-#: atk/atkobject.c:206
-msgid "definition"
-msgstr "definisi"
-
-#: atk/atkobject.c:207
-msgid "article"
-msgstr "artikel"
-
-#: atk/atkobject.c:208
-msgid "landmark"
-msgstr "landmark"
-
-#: atk/atkobject.c:209
-msgid "log"
-msgstr "log"
-
-#: atk/atkobject.c:210
-msgid "marquee"
-msgstr "marquee"
-
-#: atk/atkobject.c:211
-msgid "math"
-msgstr "math"
-
-#: atk/atkobject.c:212
-msgid "rating"
-msgstr "rating"
-
-#: atk/atkobject.c:213
-msgid "timer"
-msgstr "timer"
-
-#: atk/atkobject.c:214
-msgid "description list"
-msgstr "daftar deskripsi"
-
-#: atk/atkobject.c:215
-msgid "description term"
-msgstr "istilah deskripsi"
-
-#: atk/atkobject.c:216
-msgid "description value"
-msgstr "nilai deskripsi"
-
-#: atk/atkobject.c:392
+#: atk/atkobject.c:272
 msgid "Accessible Name"
 msgstr "Nama Akses"
 
-#: atk/atkobject.c:393
+#: atk/atkobject.c:273
 msgid "Object instance’s name formatted for assistive technology access"
 msgstr "Nama turunan objek yang digunakan untuk teknologi kemudahan akses"
 
-#: atk/atkobject.c:399
+#: atk/atkobject.c:279
 msgid "Accessible Description"
 msgstr "Keterangan Akses"
 
-#: atk/atkobject.c:400
+#: atk/atkobject.c:280
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Keterangan objek yang digunakan dalam teknologi kemudahan akses"
 
-#: atk/atkobject.c:406
+#: atk/atkobject.c:286
 msgid "Accessible Parent"
 msgstr "Induk Akses"
 
-#: atk/atkobject.c:407
+#: atk/atkobject.c:287
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr ""
 "Induk akses saat ini sebagaimana dikembalikan oleh atk_object_get_parent()"
 
-#: atk/atkobject.c:423
+#: atk/atkobject.c:303
 msgid "Accessible Value"
 msgstr "Nilai Akses"
 
-#: atk/atkobject.c:424
+#: atk/atkobject.c:304
 msgid "Is used to notify that the value has changed"
 msgstr "Digunakan untuk memberitahukan bahwa nilai telah berubah"
 
-#: atk/atkobject.c:432
+#: atk/atkobject.c:312
 msgid "Accessible Role"
 msgstr "Peran Akses"
 
-#: atk/atkobject.c:433
+#: atk/atkobject.c:313
 msgid "The accessible role of this object"
 msgstr "Peran akses objek ini"
 
-#: atk/atkobject.c:440
+#: atk/atkobject.c:320
 msgid "Accessible Layer"
 msgstr "Tapis Akses"
 
-#: atk/atkobject.c:441
+#: atk/atkobject.c:321
 msgid "The accessible layer of this object"
 msgstr "Tapis akses objek ini"
 
-#: atk/atkobject.c:449
+#: atk/atkobject.c:329
 msgid "Accessible MDI Value"
 msgstr "Nilai MDI Akses"
 
-#: atk/atkobject.c:450
+#: atk/atkobject.c:330
 msgid "The accessible MDI value of this object"
 msgstr "Nilai MDI akses objek ini"
 
-#: atk/atkobject.c:466
+#: atk/atkobject.c:346
 msgid "Accessible Table Caption"
 msgstr "Judul Tabel Akses"
 
-#: atk/atkobject.c:467
+#: atk/atkobject.c:347
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -607,61 +134,77 @@ msgstr ""
 "sebaiknya tidak digunakan, silakan gunakan accessible-table-caption-object "
 "saja"
 
-#: atk/atkobject.c:481
+#: atk/atkobject.c:361
 msgid "Accessible Table Column Header"
 msgstr "Kepala Kolom Tabel Akses"
 
-#: atk/atkobject.c:482
+#: atk/atkobject.c:362
 msgid "Is used to notify that the table column header has changed"
 msgstr "Digunakan untuk memberitahu bahwa kepala kolom telah berubah"
 
-#: atk/atkobject.c:497
+#: atk/atkobject.c:377
 msgid "Accessible Table Column Description"
 msgstr "Keterangan Kolom Tabel Akses"
 
-#: atk/atkobject.c:498
+#: atk/atkobject.c:378
 msgid "Is used to notify that the table column description has changed"
 msgstr "Digunakan untuk memberitahu bahwa keterangan kolom tabel telah berubah"
 
-#: atk/atkobject.c:513
+#: atk/atkobject.c:393
 msgid "Accessible Table Row Header"
 msgstr "Kepala Baris Tabel Akses"
 
-#: atk/atkobject.c:514
+#: atk/atkobject.c:394
 msgid "Is used to notify that the table row header has changed"
 msgstr "Digunakan untuk memberitahu bawha kepala baris tabel telah berubah"
 
-#: atk/atkobject.c:528
+#: atk/atkobject.c:408
 msgid "Accessible Table Row Description"
 msgstr "Keterangan Baris Tabel Akses"
 
-#: atk/atkobject.c:529
+#: atk/atkobject.c:409
 msgid "Is used to notify that the table row description has changed"
 msgstr "Digunakan untuk memberitahu bahwa keterangan baris tabel telah berubah"
 
-#: atk/atkobject.c:535
+#: atk/atkobject.c:415
 msgid "Accessible Table Summary"
 msgstr "Ringkasan Tabel Akses"
 
-#: atk/atkobject.c:536
+#: atk/atkobject.c:416
 msgid "Is used to notify that the table summary has changed"
 msgstr "Digunakan untuk memberitahu bahwa keterangan tabel telah berubah"
 
-#: atk/atkobject.c:542
+#: atk/atkobject.c:422
 msgid "Accessible Table Caption Object"
 msgstr "Objek Judul Tabel Akses"
 
-#: atk/atkobject.c:543
+#: atk/atkobject.c:423
 msgid "Is used to notify that the table caption has changed"
 msgstr "Digunakan untuk memberitahu bahwa judul tabel telah berubah"
 
-#: atk/atkobject.c:549
+#: atk/atkobject.c:429
 msgid "Number of Accessible Hypertext Links"
 msgstr "Jumlah Akses Taut Hiperteks"
 
-#: atk/atkobject.c:550
+#: atk/atkobject.c:430
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Jumlah taut yang dimiliki AtkHypertext saat ini"
+
+#: atk/atkobject.c:439
+msgid "Accessible ID"
+msgstr "ID Akses"
+
+#: atk/atkobject.c:440
+msgid "ID for the accessible; useful for automated testing"
+msgstr "ID untuk akses; berguna untuk pengujian otomatis"
+
+#: atk/atkobject.c:446
+msgid "Help text"
+msgstr "Teks bantuan"
+
+#: atk/atkobject.c:447
+msgid "Help text associated with the accessible"
+msgstr "Teks bantuan terkait dengan yang dapat diakses"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a password-strength meter. Note that what such a
@@ -669,7 +212,7 @@ msgstr "Jumlah taut yang dimiliki AtkHypertext saat ini"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:194
+#: atk/atkvalue.c:193
 msgid "very weak"
 msgstr "sangat lemah"
 
@@ -679,7 +222,7 @@ msgstr "sangat lemah"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:201
+#: atk/atkvalue.c:200
 msgid "weak"
 msgstr "lemah"
 
@@ -689,7 +232,7 @@ msgstr "lemah"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:208
+#: atk/atkvalue.c:207
 msgid "acceptable"
 msgstr "dapat diterima"
 
@@ -699,7 +242,7 @@ msgstr "dapat diterima"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:215
+#: atk/atkvalue.c:214
 msgid "strong"
 msgstr "kuat"
 
@@ -709,7 +252,7 @@ msgstr "kuat"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:222
+#: atk/atkvalue.c:221
 msgid "very strong"
 msgstr "sangat kuat"
 
@@ -720,7 +263,7 @@ msgstr "sangat kuat"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:230
+#: atk/atkvalue.c:229
 msgid "very low"
 msgstr "sangat rendah"
 
@@ -731,7 +274,7 @@ msgstr "sangat rendah"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:238
+#: atk/atkvalue.c:237
 msgid "medium"
 msgstr "sedang"
 
@@ -742,7 +285,7 @@ msgstr "sedang"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:246
+#: atk/atkvalue.c:245
 msgid "high"
 msgstr "tinggi"
 
@@ -753,7 +296,7 @@ msgstr "tinggi"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:254
+#: atk/atkvalue.c:253
 msgid "very high"
 msgstr "sangat tinggi"
 
@@ -764,7 +307,7 @@ msgstr "sangat tinggi"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:262
+#: atk/atkvalue.c:261
 msgid "very bad"
 msgstr "sangat buruk"
 
@@ -775,7 +318,7 @@ msgstr "sangat buruk"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:270
+#: atk/atkvalue.c:269
 msgid "bad"
 msgstr "buruk"
 
@@ -786,7 +329,7 @@ msgstr "buruk"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:278
+#: atk/atkvalue.c:277
 msgid "good"
 msgstr "baik"
 
@@ -797,7 +340,7 @@ msgstr "baik"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:286
+#: atk/atkvalue.c:285
 msgid "very good"
 msgstr "sangat baik"
 
@@ -808,13 +351,486 @@ msgstr "sangat baik"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:294
+#: atk/atkvalue.c:293
 msgid "best"
 msgstr "terbaik"
 
-#: atspi/atspi-component.c:332 atspi/atspi-misc.c:1063 atspi/atspi-value.c:111
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1230 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "Aplikasi tak ada lagi"
+
+#: atspi/atspi-misc.c:49
+msgid "invalid"
+msgstr "tidak sah"
+
+#: atspi/atspi-misc.c:50
+msgid "accelerator label"
+msgstr "label akselerator"
+
+#: atspi/atspi-misc.c:51
+msgid "alert"
+msgstr "waspada"
+
+#: atspi/atspi-misc.c:52
+msgid "animation"
+msgstr "animasi"
+
+#: atspi/atspi-misc.c:53
+msgid "arrow"
+msgstr "panah"
+
+#: atspi/atspi-misc.c:54
+msgid "calendar"
+msgstr "kalender"
+
+#: atspi/atspi-misc.c:55
+msgid "canvas"
+msgstr "kanvas"
+
+#: atspi/atspi-misc.c:56
+msgid "check box"
+msgstr "kotak cek"
+
+#: atspi/atspi-misc.c:57
+msgid "check menu item"
+msgstr "item menu cek"
+
+#: atspi/atspi-misc.c:58
+msgid "color chooser"
+msgstr "pemilih warna"
+
+#: atspi/atspi-misc.c:59
+msgid "column header"
+msgstr "tajuk kolom"
+
+#: atspi/atspi-misc.c:60
+msgid "combo box"
+msgstr "kotak kombo"
+
+#: atspi/atspi-misc.c:61
+msgid "dateeditor"
+msgstr "penyunting tanggal"
+
+#: atspi/atspi-misc.c:62
+msgid "desktop icon"
+msgstr "ikon desktop"
+
+#: atspi/atspi-misc.c:63
+msgid "desktop frame"
+msgstr "bingkai desktop"
+
+#: atspi/atspi-misc.c:64
+msgid "dial"
+msgstr "tombol pemutar"
+
+#: atspi/atspi-misc.c:65
+msgid "dialog"
+msgstr "dialog"
+
+#: atspi/atspi-misc.c:66
+msgid "directory pane"
+msgstr "panel direktori"
+
+#: atspi/atspi-misc.c:67
+msgid "drawing area"
+msgstr "area gambar"
+
+#: atspi/atspi-misc.c:68
+msgid "file chooser"
+msgstr "pemilih berkas"
+
+#: atspi/atspi-misc.c:69
+msgid "filler"
+msgstr "isian"
+
+#. I know it looks wrong but that is what Java returns
+#: atspi/atspi-misc.c:71
+msgid "fontchooser"
+msgstr "pemilih fonta"
+
+#: atspi/atspi-misc.c:72
+msgid "frame"
+msgstr "bingkai"
+
+#: atspi/atspi-misc.c:73
+msgid "glass pane"
+msgstr "panel kaca"
+
+#: atspi/atspi-misc.c:74
+msgid "html container"
+msgstr "kontainer html"
+
+#: atspi/atspi-misc.c:75
+msgid "icon"
+msgstr "ikon"
+
+#: atspi/atspi-misc.c:76
+msgid "image"
+msgstr "gambar"
+
+#: atspi/atspi-misc.c:77
+msgid "internal frame"
+msgstr "bingkai internal"
+
+#: atspi/atspi-misc.c:78
+msgid "label"
+msgstr "label"
+
+#: atspi/atspi-misc.c:79
+msgid "layered pane"
+msgstr "panel  berlapis"
+
+#: atspi/atspi-misc.c:80
+msgid "list"
+msgstr "daftar"
+
+#: atspi/atspi-misc.c:81
+msgid "list item"
+msgstr "isi daftar"
+
+#: atspi/atspi-misc.c:82
+msgid "menu"
+msgstr "menu"
+
+#: atspi/atspi-misc.c:83
+msgid "menu bar"
+msgstr "baris menu"
+
+#: atspi/atspi-misc.c:84
+msgid "menu button"
+msgstr "tombol menu"
+
+#: atspi/atspi-misc.c:85
+msgid "menu item"
+msgstr "objek menu"
+
+#: atspi/atspi-misc.c:86
+msgid "option pane"
+msgstr "panel opsi"
+
+#: atspi/atspi-misc.c:87
+msgid "page tab"
+msgstr "halaman tab"
+
+#: atspi/atspi-misc.c:88
+msgid "page tab list"
+msgstr "daftar halaman tab"
+
+#: atspi/atspi-misc.c:89
+msgid "panel"
+msgstr "panel"
+
+#: atspi/atspi-misc.c:90
+msgid "password text"
+msgstr "teks sandi"
+
+#: atspi/atspi-misc.c:91
+msgid "popup menu"
+msgstr "menu tongol"
+
+#: atspi/atspi-misc.c:92
+msgid "progress bar"
+msgstr "indikator proses"
+
+#: atspi/atspi-misc.c:93
+msgid "push button"
+msgstr "tombol tekan"
+
+#: atspi/atspi-misc.c:94
+msgid "radio button"
+msgstr "tombol radio"
+
+#: atspi/atspi-misc.c:95
+msgid "radio menu item"
+msgstr "objek menu radio"
+
+#: atspi/atspi-misc.c:96
+msgid "root pane"
+msgstr "panel dasar"
+
+#: atspi/atspi-misc.c:97
+msgid "row header"
+msgstr "tajuk baris"
+
+#: atspi/atspi-misc.c:98
+msgid "scroll bar"
+msgstr "batang penggulung"
+
+#: atspi/atspi-misc.c:99
+msgid "scroll pane"
+msgstr "panel penggulung"
+
+#: atspi/atspi-misc.c:100
+msgid "separator"
+msgstr "pemisah"
+
+#: atspi/atspi-misc.c:101
+msgid "slider"
+msgstr "slider"
+
+#: atspi/atspi-misc.c:102
+msgid "split pane"
+msgstr "panel pemisah"
+
+#: atspi/atspi-misc.c:103
+msgid "spin button"
+msgstr "tombol putar"
+
+#: atspi/atspi-misc.c:104
+msgid "statusbar"
+msgstr "baris status"
+
+#: atspi/atspi-misc.c:105
+msgid "table"
+msgstr "tabel"
+
+#: atspi/atspi-misc.c:106
+msgid "table cell"
+msgstr "sel tabel"
+
+#: atspi/atspi-misc.c:107
+msgid "table column header"
+msgstr "tajuk kolom pada tabel"
+
+#: atspi/atspi-misc.c:108
+msgid "table row header"
+msgstr "tajuk baris pada tabel"
+
+#: atspi/atspi-misc.c:109
+msgid "tear off menu item"
+msgstr "anggota menu yang dapat dilepas"
+
+#: atspi/atspi-misc.c:110
+msgid "terminal"
+msgstr "terminal"
+
+#: atspi/atspi-misc.c:111
+msgid "text"
+msgstr "teks"
+
+#: atspi/atspi-misc.c:112
+msgid "toggle button"
+msgstr "tombol togel"
+
+#: atspi/atspi-misc.c:113
+msgid "tool bar"
+msgstr "bilah alat"
+
+#: atspi/atspi-misc.c:114
+msgid "tool tip"
+msgstr "teks bantuan"
+
+#: atspi/atspi-misc.c:115
+msgid "tree"
+msgstr "pohon"
+
+#: atspi/atspi-misc.c:116
+msgid "tree table"
+msgstr "tabel pohon"
+
+#: atspi/atspi-misc.c:117
+msgid "unknown"
+msgstr "tidak diketahui"
+
+#: atspi/atspi-misc.c:118
+msgid "viewport"
+msgstr "viewport"
+
+#: atspi/atspi-misc.c:119
+msgid "window"
+msgstr "jendela"
+
+#: atspi/atspi-misc.c:120
+msgid "header"
+msgstr "tajuk"
+
+#: atspi/atspi-misc.c:121
+msgid "footer"
+msgstr "kaki"
+
+#: atspi/atspi-misc.c:122
+msgid "paragraph"
+msgstr "paragraf"
+
+#: atspi/atspi-misc.c:123
+msgid "ruler"
+msgstr "penggaris"
+
+#: atspi/atspi-misc.c:124
+msgid "application"
+msgstr "aplikasi"
+
+#: atspi/atspi-misc.c:125
+msgid "autocomplete"
+msgstr "lengkap secara otomatis"
+
+#: atspi/atspi-misc.c:126
+msgid "edit bar"
+msgstr "bilah sunting"
+
+#: atspi/atspi-misc.c:127
+msgid "embedded component"
+msgstr "komponen tercangkok"
+
+#: atspi/atspi-misc.c:128
+msgid "entry"
+msgstr "entri"
+
+#: atspi/atspi-misc.c:129
+msgid "chart"
+msgstr "bagan"
+
+#: atspi/atspi-misc.c:130
+msgid "caption"
+msgstr "kapsi"
+
+#: atspi/atspi-misc.c:131
+msgid "document frame"
+msgstr "bingkai dokumen"
+
+#: atspi/atspi-misc.c:132
+msgid "heading"
+msgstr "tajuk"
+
+#: atspi/atspi-misc.c:133
+msgid "page"
+msgstr "halaman"
+
+#: atspi/atspi-misc.c:134
+msgid "section"
+msgstr "bagian"
+
+#: atspi/atspi-misc.c:135
+msgid "redundant object"
+msgstr "objek redundan"
+
+#: atspi/atspi-misc.c:136
+msgid "form"
+msgstr "formulir"
+
+#: atspi/atspi-misc.c:137
+msgid "link"
+msgstr "taut"
+
+#: atspi/atspi-misc.c:138
+msgid "input method window"
+msgstr "jendela metoda masukan"
+
+#: atspi/atspi-misc.c:139
+msgid "table row"
+msgstr "baris tabel"
+
+#: atspi/atspi-misc.c:140
+msgid "tree item"
+msgstr "butir tabel pohon"
+
+#: atspi/atspi-misc.c:141
+msgid "document spreadsheet"
+msgstr "spreadsheet dokumen"
+
+#: atspi/atspi-misc.c:142
+msgid "document presentation"
+msgstr "presentasi dokumen"
+
+#: atspi/atspi-misc.c:143
+msgid "document text"
+msgstr "teks dokumen"
+
+#: atspi/atspi-misc.c:144
+msgid "document web"
+msgstr "web dokumen"
+
+#: atspi/atspi-misc.c:145
+msgid "document email"
+msgstr "surel dokumen"
+
+#: atspi/atspi-misc.c:146
+msgid "comment"
+msgstr "komentar"
+
+#: atspi/atspi-misc.c:147
+msgid "list box"
+msgstr "kotak daftar"
+
+#: atspi/atspi-misc.c:148
+msgid "grouping"
+msgstr "pengelompokan"
+
+#: atspi/atspi-misc.c:149
+msgid "image map"
+msgstr "peta gambar"
+
+#: atspi/atspi-misc.c:150
+msgid "notification"
+msgstr "pemberitahuan"
+
+#: atspi/atspi-misc.c:151
+msgid "info bar"
+msgstr "bilah info"
+
+#: atspi/atspi-misc.c:152
+msgid "level bar"
+msgstr "bilah aras"
+
+#: atspi/atspi-misc.c:153
+msgid "title bar"
+msgstr "bilah judul"
+
+#: atspi/atspi-misc.c:154
+msgid "block quote"
+msgstr "kutip blok"
+
+#: atspi/atspi-misc.c:155
+msgid "audio"
+msgstr "audio"
+
+#: atspi/atspi-misc.c:156
+msgid "video"
+msgstr "video"
+
+#: atspi/atspi-misc.c:157
+msgid "definition"
+msgstr "definisi"
+
+#: atspi/atspi-misc.c:158
+msgid "article"
+msgstr "artikel"
+
+#: atspi/atspi-misc.c:159
+msgid "landmark"
+msgstr "landmark"
+
+#: atspi/atspi-misc.c:160
+msgid "log"
+msgstr "log"
+
+#: atspi/atspi-misc.c:161
+msgid "marquee"
+msgstr "marquee"
+
+#: atspi/atspi-misc.c:162
+msgid "math"
+msgstr "math"
+
+#: atspi/atspi-misc.c:163
+msgid "rating"
+msgstr "rating"
+
+#: atspi/atspi-misc.c:164
+msgid "timer"
+msgstr "timer"
+
+#: atspi/atspi-misc.c:165
+msgid "description list"
+msgstr "daftar deskripsi"
+
+#: atspi/atspi-misc.c:166
+msgid "description term"
+msgstr "istilah deskripsi"
+
+#: atspi/atspi-misc.c:167
+msgid "description value"
+msgstr "nilai deskripsi"
 
 #~ msgid "Attempted synchronous call where prohibited"
 #~ msgstr "Mencoba pemanggilan sinkron dimana dilarang"
