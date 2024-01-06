@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.50.1:
+
+* atk-adaptor: Fix critical when no table cell array is returned.
+
 What's new in at-spi2-core 2.50.0:
 
 * Fix at-spi2-atk test when running under a non-English locale.
