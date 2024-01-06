@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.51.0:
+
+* atk-adaptor: Fix critical when no table cell array is returned.
+
+* accessible: Do not rename deprecated methods to the new names.
+
+* Add HelpText property and corresponding functions in atk and libatspi.
+
 What's new in at-spi2-core 2.50.0:
 
 * Fix at-spi2-atk test when running under a non-English locale.
