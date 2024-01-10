@@ -51,6 +51,7 @@ opensuse-x86_64:
   variables:
     MESON_EXTRA_FLAGS: "--buildtype=debug" # -Dwerror=true
   script:
+    - source ci/env.sh
     # See https://gitlab.gnome.org/GNOME/at-spi2-core/-/merge_requests/137 for the reason for disable_p2p
     - meson setup ${MESON_EXTRA_FLAGS} -Ddisable_p2p=true --prefix /usr _build .
     - meson compile -C _build
@@ -125,6 +126,7 @@ asan-build:
     # https://gitlab.freedesktop.org/dbus/dbus/-/issues/326
     LSAN_OPTIONS: "suppressions=${CI_PROJECT_DIR}/ci/address-sanitizer.supp"
   script:
+    - source ci/env.sh
     - CC=clang meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
     - meson compile -C _build
     - meson install -C _build
@@ -185,6 +187,7 @@ reference:
   variables:
     MESON_EXTRA_FLAGS: "--buildtype=release -Ddocs=true"
   script:
+    - source ci/env.sh
     - meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
     - ninja -C _build doc/atk doc/libatspi devel-docs/html
     - mkdir _reference

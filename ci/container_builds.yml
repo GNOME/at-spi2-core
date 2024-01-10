@@ -45,18 +45,14 @@ variables:
       meson
       ninja
       python3-pip
-      python310
-      python310-gobject
-      python310-pytest
-      python310-python-dbusmock
       tar
       wget
       which
       xorg-x11-devel
       xvfb-run
     FDO_DISTRIBUTION_EXEC: >-
-      bash ci/install-rust.sh ${RUST_STABLE} x86_64-unknown-linux-gnu &&
-      pip3 install gi-docgen sphinx sphinx_rtd_theme
+      bash ci/install-python-tools.sh &&
+      bash ci/install-rust.sh ${RUST_STABLE} x86_64-unknown-linux-gnu
 
 opensuse-container@x86_64:
   extends:

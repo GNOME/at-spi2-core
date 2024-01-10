@@ -1,0 +1,7 @@
+docutils
+gi-docgen
+PyGObject
+pytest
+python-dbusmock
+Sphinx
+sphinx_rtd_theme
