@@ -29,6 +29,7 @@ variables:
       dbus-1
       dbus-1-devel
       findutils
+      gawk
       gcc
       gettext
       git
@@ -36,19 +37,20 @@ variables:
       gobject-introspection-devel
       gsettings-desktop-schemas
       itstool
+      libX11-devel
       libXi-devel
       libXtst-devel
-      libasan6
+      libasan8
       libxkbcommon-devel
       libxml2-devel
       llvm
       meson
       ninja
       python3-pip
+      python311-gobject-devel
       tar
       wget
       which
-      xorg-x11-devel
       xvfb-run
     FDO_DISTRIBUTION_EXEC: >-
       bash ci/install-python-tools.sh &&
