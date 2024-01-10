@@ -13,8 +13,8 @@ include:
 variables:
   # When branching change the suffix to avoid conflicts with images
   # from the main branch
-  BASE_TAG: "2023-01-18.0-main"
-  RUST_STABLE: "1.64.0"
+  BASE_TAG: "2024-01-10.0-main"
+  RUST_STABLE: "1.75.0"
 
 .container.opensuse@x86_64:
   stage: "container-build"
