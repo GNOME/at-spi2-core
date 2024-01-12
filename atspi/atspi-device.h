@@ -48,7 +48,7 @@ struct _AtspiDeviceClass
 {
   GObjectClass parent_class;
 
-  void (*add_key_grab) (AtspiDevice *device, AtspiKeyDefinition *kd);
+  gboolean (*add_key_grab) (AtspiDevice *device, AtspiKeyDefinition *kd);
   void (*remove_key_grab) (AtspiDevice *device, guint id);
   guint (*map_modifier) (AtspiDevice *device, gint keycode);
   void (*unmap_modifier) (AtspiDevice *device, gint keycode);

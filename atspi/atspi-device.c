@@ -65,9 +65,10 @@ atspi_device_finalize (GObject *object)
   device_parent_class->finalize (object);
 }
 
-static void
+static gboolean
 atspi_device_real_add_key_grab (AtspiDevice *device, AtspiKeyDefinition *kd)
 {
+  return TRUE;
 }
 
 static void
@@ -181,22 +182,6 @@ get_grab_id (AtspiDevice *device)
   return priv->last_grab_id++;
 }
 
-static gboolean
-grab_has_duplicate (AtspiDevice *device, AtspiKeyGrab *grab)
-{
-  AtspiDevicePrivate *priv = atspi_device_get_instance_private (device);
-  GSList *l;
-
-  for (l = priv->keygrabs; l; l = l->next)
-    {
-      AtspiKeyGrab *other_grab = l->data;
-      if (other_grab->id != grab->id && other_grab->keycode == grab->keycode && other_grab->modifiers == grab->modifiers)
-        return TRUE;
-    }
-
-  return FALSE;
-}
-
 /**
  *atspi_device_add_key_grab:
  * @device: the device.
@@ -207,14 +192,20 @@ grab_has_duplicate (AtspiDevice *device, AtspiKeyGrab *grab)
  * @callback_destroyed: callback function to be called when @callback is
  *                      destroyed.
  *
- * Returns: an identifier that can be later used to remove the grab.
+ * Returns: an identifier that can be later used to remove the grab, or 0
+ * if the key/modifier combination could not be grabbed.
  * Add a key grab for the given key/modifier combination.
  */
 guint
 atspi_device_add_key_grab (AtspiDevice *device, AtspiKeyDefinition *kd, AtspiKeyCallback callback, void *user_data, GDestroyNotify callback_destroyed)
 {
   AtspiDevicePrivate *priv = atspi_device_get_instance_private (device);
-  AtspiKeyGrab *grab = g_new (AtspiKeyGrab, 1);
+  AtspiKeyGrab *grab;
+
+  if (!ATSPI_DEVICE_GET_CLASS (device)->add_key_grab (device, kd))
+    return 0;
+
+  grab = g_new (AtspiKeyGrab, 1);
   grab->keycode = kd->keycode;
   grab->keysym = kd->keysym;
   grab->modifiers = kd->modifiers;
@@ -224,8 +215,6 @@ atspi_device_add_key_grab (AtspiDevice *device, AtspiKeyDefinition *kd, AtspiKey
   grab->id = get_grab_id (device);
   priv->keygrabs = g_slist_append (priv->keygrabs, grab);
 
-  if (!grab_has_duplicate (device, grab))
-    ATSPI_DEVICE_GET_CLASS (device)->add_key_grab (device, kd);
   return grab->id;
 }
 
@@ -247,8 +236,7 @@ atspi_device_remove_key_grab (AtspiDevice *device, guint id)
       AtspiKeyGrab *grab = l->data;
       if (grab->id == id)
         {
-          if (!grab_has_duplicate (device, grab))
-            ATSPI_DEVICE_GET_CLASS (device)->remove_key_grab (device, id);
+          ATSPI_DEVICE_GET_CLASS (device)->remove_key_grab (device, id);
           priv->keygrabs = g_slist_remove (priv->keygrabs, grab);
           if (grab->callback_destroyed)
             (*grab->callback_destroyed) (grab->callback);
