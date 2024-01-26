@@ -106,7 +106,7 @@ atk_component_base_init (AtkComponentIface *class)
        * @atkcomponent: the object which received the signal.
        * @arg1: The AtkRectangle giving the new position and size.
        *
-       * The 'bounds-changed" signal is emitted when the bposition or
+       * The 'bounds-changed" signal is emitted when the position or
        * size of the component changes.
        */
       atk_component_signals[BOUNDS_CHANGED] =

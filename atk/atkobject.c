@@ -459,7 +459,7 @@ atk_object_class_init (AtkObjectClass *klass)
    * NULL.
    *
    * The signal "children-changed" is emitted when a child is added or
-   * removed form an object. It supports two details: "add" and
+   * removed from an object. It supports two details: "add" and
    * "remove"
    */
   atk_object_signals[CHILDREN_CHANGED] =
