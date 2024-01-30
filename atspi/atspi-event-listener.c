@@ -322,6 +322,30 @@ cache_process_state_changed (AtspiEvent *event)
                                  event->detail1);
 }
 
+static void
+cache_process_attributes_changed (AtspiEvent *event)
+{
+  const gchar *name = NULL, *value;
+
+  if (!event->source->attributes)
+    return;
+
+  if (event->type[25] == ':')
+    name = event->type + 26;
+  value = g_value_get_string (&event->any_data);
+
+  if (name && name[0] && value && value[0])
+    {
+      g_hash_table_remove (event->source->attributes, name);
+      g_hash_table_insert (event->source->attributes, g_strdup (name), g_strdup (value));
+    }
+  else
+    {
+      g_clear_pointer (&event->source->attributes, g_hash_table_unref);
+      event->source->attributes = NULL;
+    }
+}
+
 static dbus_bool_t
 demarshal_rect (DBusMessageIter *iter, AtspiRect *rect)
 {
@@ -1208,6 +1232,10 @@ _atspi_dbus_handle_event (DBusMessage *message)
   else if (!strncmp (e.type, "object:state-changed", 20))
     {
       cache_process_state_changed (&e);
+    }
+  else if (!strncmp (e.type, "object:attributes-changed", 25))
+    {
+      cache_process_attributes_changed (&e);
     }
   else if (!strncmp (e.type, "focus", 5))
     {

@@ -20,6 +20,7 @@
 #include "config.h"
 
 #include "atkdocument.h"
+#include "atkmarshal.h"
 
 /**
  * AtkDocument:
@@ -43,6 +44,7 @@ enum
   RELOAD,
   LOAD_STOPPED,
   PAGE_CHANGED,
+  DOCUMENT_ATTRIBUTE_CHANGED,
   LAST_SIGNAL
 };
 
@@ -158,6 +160,28 @@ atk_document_base_init (AtkDocumentIface *class)
                         g_cclosure_marshal_VOID__INT,
                         G_TYPE_NONE, 1, G_TYPE_INT);
 
+      /**
+       * AtkDocument::document-attribute-changed
+       * @atkdocument: the object which received the signal.
+       * @arg1: the name of the attribute being modified, or %NULL if not
+       *          available.
+       * @arg2: the attribute's new value, or %null if not available.
+       *
+       * The "document-attribute-changed" signal should be emitted when there is a
+       * change to one of the document attributes returned by
+       * atk_document_get_attributes.
+       *
+       * Since: 2.52
+       */
+      atk_document_signals[DOCUMENT_ATTRIBUTE_CHANGED] =
+          g_signal_new ("document-attribute-changed",
+                        ATK_TYPE_DOCUMENT,
+                        G_SIGNAL_RUN_LAST,
+                        0,
+                        NULL, NULL,
+                        atk_marshal_VOID__STRING_STRING,
+                        G_TYPE_NONE,
+                        2, G_TYPE_STRING, G_TYPE_STRING);
       initialized = TRUE;
     }
 }

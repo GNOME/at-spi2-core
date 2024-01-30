@@ -1208,6 +1208,64 @@ children_changed_event_listener (GSignalInvocationHint *signal_hint,
   return TRUE;
 }
 
+/*
+ * Handles the ATK signal 'Gtk:AtkObject:attribute-changed' and
+ * converts it to the AT-SPI signal - 'object:attributes-changed'
+ *
+ */
+static gboolean
+attribute_changed_event_listener (GSignalInvocationHint *signal_hint,
+                                  guint n_param_values,
+                                  const GValue *param_values,
+                                  gpointer data)
+{
+  AtkObject *accessible;
+  const gchar *key = NULL, *value = NULL;
+
+  accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
+  if (G_VALUE_TYPE (&param_values[1]) == G_TYPE_STRING)
+    key = g_value_get_string (&param_values[1]);
+  else
+    key = "";
+  if (G_VALUE_TYPE (&param_values[2]) == G_TYPE_STRING)
+    value = g_value_get_string (&param_values[2]);
+  else
+    value = "";
+
+  emit_event (accessible, ITF_EVENT_OBJECT, "attributes-changed", key, 0, 0,
+              DBUS_TYPE_STRING_AS_STRING, value, append_basic);
+  return TRUE;
+}
+
+/*
+ * Handles the ATK signal 'Gtk:AtkDocument:attribute-changed' and
+ * converts it to the AT-SPI signal - 'document:attributes-changed'
+ *
+ */
+static gboolean
+document_attribute_changed_event_listener (GSignalInvocationHint *signal_hint,
+                                           guint n_param_values,
+                                           const GValue *param_values,
+                                           gpointer data)
+{
+  AtkObject *accessible;
+  const gchar *key = NULL, *value = NULL;
+
+  accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
+  if (G_VALUE_TYPE (&param_values[1]) == G_TYPE_STRING)
+    key = g_value_get_string (&param_values[1]);
+  else
+    key = "";
+  if (G_VALUE_TYPE (&param_values[2]) == G_TYPE_STRING)
+    value = g_value_get_string (&param_values[2]);
+  else
+    value = "";
+
+  emit_event (accessible, ITF_EVENT_DOCUMENT, "attributes-changed", key, 0, 0,
+              DBUS_TYPE_STRING_AS_STRING, value, append_basic);
+  return TRUE;
+}
+
 /*---------------------------------------------------------------------------*/
 
 /*
@@ -1337,6 +1395,8 @@ spi_atk_register_event_listeners (void)
                        "Gtk:AtkDocument:load-stopped");
   add_signal_listener (document_event_listener,
                        "Gtk:AtkDocument:page-changed");
+  add_signal_listener (document_attribute_changed_event_listener,
+                       "Gtk:AtkDocument:document-attribute-changed");
   /* TODO Fake this event on the client side */
   add_signal_listener (state_event_listener, "Gtk:AtkObject:state-change");
   /* TODO */
@@ -1346,6 +1406,8 @@ spi_atk_register_event_listeners (void)
                        "Gtk:AtkObject:announcement");
   add_signal_listener (notification_event_listener,
                        "Gtk:AtkObject:notification");
+  add_signal_listener (attribute_changed_event_listener,
+                       "Gtk:AtkObject:attribute-changed");
   add_signal_listener (bounds_event_listener,
                        "Gtk:AtkComponent:bounds-changed");
   add_signal_listener (text_selection_changed_event_listener,

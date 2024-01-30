@@ -93,6 +93,7 @@ enum
   ACTIVE_DESCENDANT_CHANGED,
   ANNOUNCEMENT,
   NOTIFICATION,
+  ATTRIBUTE_CHANGED,
 
   LAST_SIGNAL
 };
@@ -622,6 +623,28 @@ atk_object_class_init (AtkObjectClass *klass)
                     atk_marshal_VOID__STRING_INT,
                     G_TYPE_NONE,
                     2, G_TYPE_STRING, G_TYPE_INT);
+
+  /**
+   * AtkObject::attribute-changed
+   * @atkobject: the object which received the signal.
+   * @arg1: the name of the attribute being modified, or %NULL if not
+   *          available.
+   * @arg2: the attribute's new value, or %null if not available.
+   *
+   * The "attribute-changed" signal should be emitted when one of an object's
+   * attributes changes.
+   *
+   * Since: 2.52
+   */
+  atk_object_signals[ATTRIBUTE_CHANGED] =
+      g_signal_new ("attribute-changed",
+                    G_TYPE_FROM_CLASS (klass),
+                    G_SIGNAL_RUN_LAST,
+                    0, /* no class handler in order to avoid breaking ABI */
+                    NULL, NULL,
+                    atk_marshal_VOID__STRING_STRING,
+                    G_TYPE_NONE,
+                    2, G_TYPE_STRING, G_TYPE_STRING);
 }
 
 static void
@@ -636,7 +659,8 @@ atk_object_init (AtkObject *accessible,
   accessible->relation_set = atk_relation_set_new ();
   accessible->role = ATK_ROLE_UNKNOWN;
   private->accessible_id = NULL;
-  private->help_text = NULL;
+  private
+    ->help_text = NULL;
 }
 
 GType
@@ -1763,7 +1787,8 @@ atk_object_set_help_text (AtkObject *accessible, const gchar *help_text)
 {
   AtkObjectPrivate *private = atk_object_get_instance_private (accessible);
   g_free (private->help_text);
-  private->help_text = g_strdup (help_text);
+private
+  ->help_text = g_strdup (help_text);
 }
 
 static void
