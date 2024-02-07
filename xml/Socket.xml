@@ -37,7 +37,7 @@
         @path: the object path of the socket.
 
         This method is called by a socket to inform the plug that it is being
-        embedded. The plug should register the embedding socket as its child.
+        embedded. The plug should register the embedding socket as its parent.
     -->
     <method name="Embedded">
       <arg direction="in" name="path" type="s"/>
