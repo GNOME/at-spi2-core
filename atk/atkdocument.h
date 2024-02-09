@@ -40,6 +40,46 @@ G_BEGIN_DECLS
 #define ATK_DOCUMENT(obj) G_TYPE_CHECK_INSTANCE_CAST ((obj), ATK_TYPE_DOCUMENT, AtkDocument)
 #define ATK_DOCUMENT_GET_IFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), ATK_TYPE_DOCUMENT, AtkDocumentIface))
 
+/**
+ * AtkTextSelection:
+ * @start_object: the AtkText containing the start of the selection.
+ * @start_offset: the text offset of the beginning of the selection within
+ *                @start_object.
+ * @end_object: the AtkText containing the end of the selection.
+ * @end_offset: the text offset of the end of the selection within @end_object.
+ * @start_is_active: a gboolean indicating whether the start of the selection
+ *                  is the active point.
+ *
+ * This structure represents a single  text selection within a document. This
+ * selection is defined by two points in the content, where each one is defined
+ * by an AtkObject supporting the AtkText interface and a character offset
+ * relative to it.
+ *
+ * The end object must appear after the start object in the accessibility tree,
+ * i.e. the end object must be reachable from the start object by navigating
+ * forward (next, first child etc).
+ *
+ * This struct also contains a @start_is_active boolean, to communicate if the
+ * start of the selection is the active point or not.
+ *
+ * The active point corresponds to the user's focus or point of interest. The
+ * user moves the active point to expand or collapse the range. The anchor
+ * point is the other point of the range and typically remains constant. In
+ * most cases, anchor is the start of the range and active is the end. However,
+ * when selecting backwards (e.g. pressing shift+left arrow in a text field),
+ * the start of the range is the active point, as the user moves this to
+ * manipulate the selection.
+ */
+typedef struct _AtkTextSelection AtkTextSelection;
+struct _AtkTextSelection
+{
+  AtkObject *start_object;
+  gint start_offset;
+  AtkObject *end_object;
+  gint end_offset;
+  gboolean start_is_active;
+};
+
 #ifndef _TYPEDEF_ATK_DOCUMENT_
 #define _TYPEDEF_ATK_DOCUMENT_
 typedef struct _AtkDocument AtkDocument;
@@ -80,6 +120,8 @@ struct _AtkDocumentIface
                                       const gchar *attribute_value);
   gint (*get_current_page_number) (AtkDocument *document);
   gint (*get_page_count) (AtkDocument *document);
+  GArray *(*get_text_selections) (AtkDocument *document);
+  gboolean (*set_text_selections) (AtkDocument *document, GArray *selections);
 };
 
 ATK_AVAILABLE_IN_ALL
@@ -110,4 +152,9 @@ gint atk_document_get_page_count (AtkDocument *document);
 
 G_END_DECLS
 
+ATK_AVAILABLE_IN_2_52
+GArray *atk_document_get_text_selections (AtkDocument *document);
+
+ATK_AVAILABLE_IN_2_52
+gboolean atk_document_set_text_selections (AtkDocument *document, GArray *selections);
 #endif /* __ATK_DOCUMENT_H__ */

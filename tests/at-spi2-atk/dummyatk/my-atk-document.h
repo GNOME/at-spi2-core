@@ -51,6 +51,7 @@ struct _MyAtkDocument
   gint pages;
   gint current_page;
   AtkAttributeSet *attributes;
+  GArray *text_selections;
 };
 
 struct _MyAtkDocumentClass

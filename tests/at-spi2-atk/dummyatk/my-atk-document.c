@@ -118,6 +118,27 @@ my_atk_document_get_document_locale (AtkDocument *document)
   return g_strdup ("document_locale");
 }
 
+static GArray *
+my_atk_document_get_text_selections (AtkDocument *document)
+{
+  g_return_val_if_fail (MY_IS_ATK_DOCUMENT (document), NULL);
+  MyAtkDocument *self = MY_ATK_DOCUMENT (document);
+
+  return self->text_selections;
+}
+
+static gboolean
+my_atk_document_set_text_selections (AtkDocument *document, GArray *selections)
+{
+  g_return_val_if_fail (MY_IS_ATK_DOCUMENT (document), FALSE);
+  MyAtkDocument *self = MY_ATK_DOCUMENT (document);
+
+  if (self->text_selections)
+    g_array_free (self->text_selections, TRUE);
+  self->text_selections = g_array_copy (selections);
+  return TRUE;
+}
+
 static void
 atk_document_interface_init (AtkDocumentIface *iface)
 {
@@ -130,6 +151,8 @@ atk_document_interface_init (AtkDocumentIface *iface)
   iface->set_document_attribute = my_atk_document_set_document_attribute;
   iface->get_current_page_number = my_atk_document_get_current_page_number;
   iface->get_page_count = my_atk_document_get_page_count;
+  iface->get_text_selections = my_atk_document_get_text_selections;
+  iface->set_text_selections = my_atk_document_set_text_selections;
 }
 
 static void

@@ -40,6 +40,46 @@ G_BEGIN_DECLS
 
 GType atspi_document_get_type ();
 
+/**
+ * AtspiTextSelection:
+ * @start_object: the AtspiAccessible containing the start of the selection.
+ * @start_offset: the text offset of the beginning of the selection within
+ *                @start_object.
+ * @end_object: the AtspiAccessible containing the end of the selection.
+ * @end_offset: the text offset of the end of the selection within @end_object.
+ * @start_is_active: a gboolean indicating whether the start of the selection
+ *                  is the active point.
+ *
+ * This structure represents a single  text selection within a document. This
+ * selection is defined by two points in the content, where each one is defined
+ * by an AtkObject supporting the AtkText interface and a character offset
+ * relative to it.
+ *
+ * The end object must appear after the start object in the accessibility tree,
+ * i.e. the end object must be reachable from the start object by navigating
+ * forward (next, first child etc).
+ *
+ * This struct also contains a @start_is_active boolean, to communicate if the
+ * start of the selection is the active point or not.
+ *
+ * The active point corresponds to the user's focus or point of interest. The
+ * user moves the active point to expand or collapse the range. The anchor
+ * point is the other point of the range and typically remains constant. In
+ * most cases, anchor is the start of the range and active is the end. However,
+ * when selecting backwards (e.g. pressing shift+left arrow in a text field),
+ * the start of the range is the active point, as the user moves this to
+ * manipulate the selection.
+ */
+typedef struct _AtspiTextSelection AtspiTextSelection;
+struct _AtspiTextSelection
+{
+  AtspiAccessible *start_object;
+  gint start_offset;
+  AtspiAccessible *end_object;
+  gint end_offset;
+  gboolean start_is_active;
+};
+
 struct _AtspiDocument
 {
   GTypeInterface parent;
@@ -62,6 +102,9 @@ GHashTable *atspi_document_get_document_attributes (AtspiDocument *obj, GError *
 gint atspi_document_get_page_count (AtspiDocument *obj, GError **error);
 gint atspi_document_get_current_page_number (AtspiDocument *obj, GError **error);
 
+GArray *atspi_document_get_text_selections (AtspiDocument *document, GError **error);
+
+gboolean atspi_document_set_text_selections (AtspiDocument *document, GArray *selections, GError **error);
 G_END_DECLS
 
 #endif /* _ATSPI_DOCUMENT_H_ */

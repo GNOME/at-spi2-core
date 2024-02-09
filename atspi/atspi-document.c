@@ -173,6 +173,139 @@ atspi_document_get_current_page_number (AtspiDocument *obj, GError **error)
 }
 
 static void
+clear_text_selection (void *data)
+{
+  AtspiTextSelection *selection = data;
+
+  g_clear_object (&selection->start_object);
+  g_clear_object (&selection->end_object);
+}
+
+/**
+ * atspi_document_get_text_selections:
+ * @document: an #AtspiDocument
+ *
+ * Returns an array of AtspiTextSelections within this document.
+ *
+ * Returns: (element-type AtspiTextSelection) (transfer full): a GArray of
+ * AtspiTextSelection structures representing the selection.
+ *
+ * Since: 2.52
+ */
+GArray *
+atspi_document_get_text_selections (AtspiDocument *obj, GError **error)
+{
+  DBusMessage *message;
+  GArray *selections;
+  DBusMessageIter iter, iter_array, iter_struct;
+
+  g_return_val_if_fail (obj != NULL, NULL);
+
+  message = _atspi_dbus_call_partial (obj, atspi_interface_document, "GetTextSelections", error, "");
+  if (!message)
+    return NULL;
+
+  if (strcmp (dbus_message_get_signature (message), "a((so)i(so)ib)") != 0)
+    {
+      dbus_message_unref (message);
+      return NULL;
+    }
+
+  selections = g_array_new (FALSE, TRUE, sizeof (AtspiTextSelection));
+  g_array_set_clear_func (selections, clear_text_selection);
+  dbus_message_iter_init (message, &iter);
+  dbus_message_iter_recurse (&iter, &iter_array);
+
+  while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
+    {
+      AtspiTextSelection selection;
+      dbus_message_iter_recurse (&iter_array, &iter_struct);
+      selection.start_object = _atspi_dbus_consume_accessible (&iter_struct);
+      dbus_message_iter_get_basic (&iter_struct, &selection.start_offset);
+      dbus_message_iter_next (&iter_struct);
+      selection.end_object = _atspi_dbus_consume_accessible (&iter_struct);
+      dbus_message_iter_get_basic (&iter_struct, &selection.end_offset);
+      dbus_message_iter_next (&iter_struct);
+      dbus_message_iter_get_basic (&iter_struct, &selection.start_is_active);
+      g_array_append_val (selections, selection);
+      dbus_message_iter_next (&iter_array);
+    }
+
+  dbus_message_unref (message);
+  return selections;
+}
+
+static void
+append_accessible_to_iter (DBusMessageIter *iter, AtspiAccessible *accessible)
+{
+  DBusMessageIter iter_struct;
+  dbus_message_iter_open_container (iter, DBUS_TYPE_STRUCT, NULL, &iter_struct);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &accessible->parent.app->bus_name);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &accessible->parent.path);
+  dbus_message_iter_close_container (iter, &iter_struct);
+}
+
+/**
+ * atspi_document_set_text_selections:
+ * @document: an #AtspiDocument.
+ * @selections: (element-type AtspiTextSelection): a GArray of AtspiTextSelections
+ *              to be selected.
+ *
+ * Makes 1 or more selections within this document denoted by the given
+ * array of AtspiTextSelections. Any existing physical selection (inside or
+ * outside this document) is replaced by the new selections. All objects within
+ * the given selection ranges must be descendants of this document. Otherwise
+ * FALSE will be returned.
+ *
+ * Returns TRUE if the selection was made successfully; FALSE otherwise.
+ *
+ * Since: 2.52
+ */
+gboolean
+atspi_document_set_text_selections (AtspiDocument *obj,
+                                    GArray *selections,
+                                    GError **error)
+{
+  DBusMessage *message, *reply;
+  AtspiAccessible *accessible;
+  DBusMessageIter iter, iter_struct, iter_array;
+  gint i, count;
+  dbus_bool_t ret = FALSE;
+
+  g_return_val_if_fail (obj != NULL, FALSE);
+  accessible = ATSPI_ACCESSIBLE (obj);
+
+  message = dbus_message_new_method_call (accessible->parent.app->bus_name,
+                                          accessible->parent.path,
+                                          atspi_interface_document,
+                                          "SetTextSelections");
+  count = (selections ? selections->len : 0);
+
+  dbus_message_iter_init_append (message, &iter);
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "((so)i(so)ib)", &iter_array);
+  for (i = 0; i < count; i++)
+    {
+      dbus_message_iter_open_container (&iter_array, DBUS_TYPE_STRUCT, NULL, &iter_struct);
+      AtspiTextSelection *item = &g_array_index (selections, AtspiTextSelection, i);
+      append_accessible_to_iter (&iter_struct, item->start_object);
+      dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32, &item->start_offset);
+      append_accessible_to_iter (&iter_struct, item->end_object);
+      dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32, &item->end_offset);
+      dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_BOOLEAN, &item->start_is_active);
+      dbus_message_iter_close_container (&iter_array, &iter_struct);
+    }
+  dbus_message_iter_close_container (&iter, &iter_array);
+
+  reply = _atspi_dbus_send_with_reply_and_block (message, error);
+  if (reply)
+    {
+      dbus_message_get_args (reply, NULL, DBUS_TYPE_BOOLEAN, &ret, DBUS_TYPE_INVALID);
+      dbus_message_unref (reply);
+    }
+  return ret;
+}
+
+static void
 atspi_document_base_init (AtspiDocument *klass)
 {
 }

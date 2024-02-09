@@ -106,6 +106,55 @@ atk_test_document_get_attributes (TestAppFixture *fixture, gconstpointer user_da
   g_object_unref (child);
 }
 
+static void
+atk_test_document_text_selections (TestAppFixture *fixture, gconstpointer user_data)
+{
+  AtspiAccessible *obj = fixture->root_obj;
+  AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
+  AtspiDocument *iface = atspi_accessible_get_document_iface (child);
+  GArray *selections;
+  AtspiTextSelection selection;
+
+  g_assert (iface != NULL);
+
+  selections = atspi_document_get_text_selections (iface, NULL);
+  g_assert_true (selections);
+  g_assert_cmpint (selections->len, ==, 0);
+  g_array_free (selections, TRUE);
+
+  selections = g_array_new (FALSE, TRUE, sizeof (AtspiTextSelection));
+  selection.start_object = obj;
+  selection.start_offset = 0;
+  selection.end_object = obj;
+  selection.end_offset = 2;
+  selection.start_is_active = TRUE;
+  g_array_append_val (selections, selection);
+  selection.start_offset = 3;
+  selection.end_offset = 5;
+  selection.start_is_active = FALSE;
+  g_array_append_val (selections, selection);
+  atspi_document_set_text_selections (iface, selections, NULL);
+  g_array_free (selections, TRUE);
+
+  selections = atspi_document_get_text_selections (iface, NULL);
+  g_assert_true (selections);
+  g_assert_cmpint (selections->len, ==, 2);
+  selection = g_array_index (selections, AtspiTextSelection, 0);
+  g_assert_true (selection.start_object == obj);
+  g_assert_cmpint (selection.start_offset, ==, 0);
+  g_assert_cmpint (selection.end_offset, ==, 2);
+  g_assert_true (selection.start_is_active);
+  selection = g_array_index (selections, AtspiTextSelection, 1);
+  g_assert_true (selection.start_object == obj);
+  g_assert_cmpint (selection.start_offset, ==, 3);
+  g_assert_cmpint (selection.end_offset, ==, 5);
+  g_assert_false (selection.start_is_active);
+  g_array_free (selections, TRUE);
+
+  g_object_unref (iface);
+  g_object_unref (child);
+}
+
 void
 atk_test_document (void)
 {
@@ -117,4 +166,6 @@ atk_test_document (void)
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_document_get_attribute_value, fixture_teardown);
   g_test_add ("/document/atk_test_document_get_attributes",
               TestAppFixture, DATA_FILE, fixture_setup, atk_test_document_get_attributes, fixture_teardown);
+  g_test_add ("/document/atk_test_document_text_selections",
+              TestAppFixture, DATA_FILE, fixture_setup, atk_test_document_text_selections, fixture_teardown);
 }

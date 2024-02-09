@@ -27,6 +27,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "accessible-register.h"
 #include <atspi/atspi.h>
 
 DBusMessage *
@@ -282,3 +283,20 @@ dbus_bool_t spi_dbus_get_simple_property (DBusConnection *bus, const char *dest,
   return TRUE;
 }
 */
+
+/* Returns an AtkObject from a DBusMessageIter and advances the iter.
+ * Expects the iter to point to a (so) structure representing an object. */
+GObject *
+spi_dbus_get_object_from_iter (DBusMessageIter *iter)
+{
+  DBusMessageIter iter_struct;
+  const char *bus_name, *path;
+
+  dbus_message_iter_recurse (iter, &iter_struct);
+  dbus_message_iter_get_basic (&iter_struct, &bus_name);
+  dbus_message_iter_next (&iter_struct);
+  dbus_message_iter_get_basic (&iter_struct, &path);
+  dbus_message_iter_next (iter);
+  /* TODO: verify bus name */
+  return spi_global_register_path_to_object (path);
+}

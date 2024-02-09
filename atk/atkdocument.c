@@ -445,3 +445,57 @@ atk_document_get_page_count (AtkDocument *document)
       return -1;
     }
 }
+
+/**
+ * atk_document_get_text_selections:
+ * @document: an #AtkDocument
+ *
+ * Returns an array of AtkTextSelections within this document.
+ *
+ * Returns: (element-type AtkTextSelection) (transfer full): a GArray of
+ * AtkTextSelection structures representing the selection.
+ */
+GArray *
+atk_document_get_text_selections (AtkDocument *document)
+{
+  AtkDocumentIface *iface;
+
+  g_return_val_if_fail (ATK_IS_DOCUMENT (document), NULL);
+
+  iface = ATK_DOCUMENT_GET_IFACE (document);
+
+  if (iface->get_text_selections)
+    return (*(iface->get_text_selections)) (document);
+  else
+    return NULL;
+}
+
+/**
+ * atk_document_set_text_selections:
+ * @document: an #AtkDocument.
+ * @selections: (element-type AtkTextSelection): a GArray of AtkTextSelections
+ *              to be selected.
+ *
+ * Makes 1 or more selections within this document denoted by the given
+ * array of AtkTextSelections. Any existing physical selection (inside or
+ * outside this document) is replaced by the new selections. All objects within
+ * the given selection ranges must be descendants of this document. Otherwise
+ * FALSE will be returned.
+ *
+ * Returns TRUE if the selection was made successfully; FALSE otherwise.
+ */
+gboolean
+atk_document_set_text_selections (AtkDocument *document,
+                                  GArray *selections)
+{
+  AtkDocumentIface *iface;
+
+  g_return_val_if_fail (ATK_IS_DOCUMENT (document), FALSE);
+
+  iface = ATK_DOCUMENT_GET_IFACE (document);
+
+  if (iface->set_text_selections)
+    return (*(iface->set_text_selections)) (document, selections);
+  else
+    return FALSE;
+}
