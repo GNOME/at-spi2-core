@@ -195,7 +195,7 @@ atspi_component_get_position (AtspiComponent *obj,
                               AtspiCoordType ctype,
                               GError **error)
 {
-  dbus_int32_t d_x, d_y;
+  dbus_int32_t d_x = -1, d_y = -1;
   dbus_uint32_t d_ctype = ctype;
   AtspiPoint ret;
 
@@ -224,7 +224,7 @@ atspi_component_get_position (AtspiComponent *obj,
 AtspiPoint *
 atspi_component_get_size (AtspiComponent *obj, GError **error)
 {
-  dbus_int32_t d_w, d_h;
+  dbus_int32_t d_w = -1, d_h = -1;
   AtspiPoint ret;
 
   ret.x = ret.y = -1;
