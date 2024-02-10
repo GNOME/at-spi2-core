@@ -473,13 +473,13 @@ ATK_AVAILABLE_IN_ALL
 const gchar *atk_text_attribute_get_value (AtkTextAttribute attr,
                                            gint index_);
 
-ATK_AVAILABLE_IN_ALL
+ATK_AVAILABLE_IN_2_32
 gboolean atk_text_scroll_substring_to (AtkText *text,
                                        gint start_offset,
                                        gint end_offset,
                                        AtkScrollType type);
 
-ATK_AVAILABLE_IN_ALL
+ATK_AVAILABLE_IN_2_32
 gboolean atk_text_scroll_substring_to_point (AtkText *text,
                                              gint start_offset,
                                              gint end_offset,

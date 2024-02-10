@@ -187,6 +187,16 @@
 #define ATK_VERSION_2_30       (G_ENCODE_VERSION (2, 30))
 
 /**
+ * ATK_VERSION_2_32:
+ *
+ * A macro that evaluates to the 2.30 version of ATK, in a format
+ * that can be used by the C pre-processor.
+ *
+ * Since: 2.52
+ */
+#define ATK_VERSION_2_32       (G_ENCODE_VERSION (2, 32))
+
+/**
  * ATK_VERSION_2_36:
  *
  * A macro that evaluates to the 2.36 version of ATK, in a format
@@ -418,6 +428,12 @@
 # define ATK_AVAILABLE_IN_2_30                 ATK_UNAVAILABLE(2, 30)
 #else
 # define ATK_AVAILABLE_IN_2_30                 _ATK_EXTERN
+#endif
+
+#if ATK_VERSION_MAX_ALLOWED < ATK_VERSION_2_32
+# define ATK_AVAILABLE_IN_2_32                 ATK_UNAVAILABLE(2, 32)
+#else
+# define ATK_AVAILABLE_IN_2_32                 _ATK_EXTERN
 #endif
 
 #if ATK_VERSION_MIN_REQUIRED >= ATK_VERSION_2_36
