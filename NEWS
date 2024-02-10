@@ -1,3 +1,17 @@
+What's new in at-spi2-core 2.51.90:
+
+    Add an attribute-changed signal in atk, and update libatspi attribute cache.
+
+* Add GetTextSelection and SetTextSelection to Document interface.
+
+* Add atspi_device_generate_mouse_event, and implement for mutter.
+
+* Have atspi_device_add_key_grab return 0 if XIGrabKeycode fails.
+
+* xml: Add Embedded to the Socket interface
+
+* Don't return uninitialized values if atspi_component_get_size/position fail.
+
 What's new in at-spi2-core 2.51.0:
 
 * atk-adaptor: Fix critical when no table cell array is returned.
