@@ -775,6 +775,35 @@ atspi_device_x11_ungrab_keyboard (AtspiDevice *device)
 }
 
 static void
+atspi_device_x11_generate_mouse_event (AtspiDevice *device, AtspiAccessible *obj, gint x, gint y, const gchar *name, GError **error)
+{
+  AtspiPoint *p;
+
+  p = atspi_component_get_position (ATSPI_COMPONENT (obj), ATSPI_COORD_TYPE_SCREEN, error);
+  if (p->y == -1 && atspi_accessible_get_role (obj, NULL) == ATSPI_ROLE_APPLICATION)
+    {
+      g_clear_error (error);
+      g_free (p);
+      AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
+      if (child)
+        {
+          p = atspi_component_get_position (ATSPI_COMPONENT (child), ATSPI_COORD_TYPE_SCREEN, error);
+          g_object_unref (child);
+        }
+    }
+
+  if (p->y == -1 || p->x == -1)
+    return;
+
+  x += p->x;
+  y += p->y;
+  g_free (p);
+
+  /* TODO: do this in process */
+  atspi_generate_mouse_event (x, y, name, error);
+}
+
+static void
 atspi_device_x11_class_init (AtspiDeviceX11Class *klass)
 {
   AtspiDeviceClass *device_class = ATSPI_DEVICE_CLASS (klass);
@@ -789,6 +818,7 @@ atspi_device_x11_class_init (AtspiDeviceX11Class *klass)
   device_class->get_locked_modifiers = atspi_device_x11_get_locked_modifiers;
   device_class->grab_keyboard = atspi_device_x11_grab_keyboard;
   device_class->ungrab_keyboard = atspi_device_x11_ungrab_keyboard;
+  device_class->generate_mouse_event = atspi_device_x11_generate_mouse_event;
   object_class->finalize = atspi_device_x11_finalize;
 }
 

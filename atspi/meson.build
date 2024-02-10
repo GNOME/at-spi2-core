@@ -7,6 +7,7 @@ atspi_sources = [
   'atspi-device.c',
   'atspi-device-legacy.c',
   'atspi-device-listener.c',
+  'atspi-device-mutter.c',
   'atspi-document.c',
   'atspi-editabletext.c',
   'atspi-event-listener.c',
@@ -38,6 +39,7 @@ atspi_headers = [
   'atspi-device.h',
   'atspi-device-legacy.h',
   'atspi-device-listener.h',
+  'atspi-device-mutter.h',
   'atspi-document.h',
   'atspi-editabletext.h',
   'atspi-event-listener.h',
@@ -63,6 +65,23 @@ if x11_dep.found()
   atspi_sources += ['atspi-device-x11.c']
   atspi_headers += ['atspi-device-x11.h']
 endif
+
+gen_atspi_sources = []
+
+gen_atspi_sources += gnome.gdbus_codegen('atspi-dbus-mutter-screen-cast',
+                                          'org.gnome.Mutter.ScreenCast.xml',
+                                          interface_prefix: 'org.gnome.Mutter.',
+                                          namespace: 'AtspiDBusMutter')
+gen_atspi_sources += gnome.gdbus_codegen('atspi-dbus-mutter-remote-desktop',
+                                          'org.gnome.Mutter.RemoteDesktop.xml',
+                                          interface_prefix: 'org.gnome.Mutter.',
+                                          namespace: 'AtspiDBusMutter')
+gen_atspi_sources += gnome.gdbus_codegen('atspi-dbus-shell-introspect',
+                                          'org.gnome.Shell.Introspect.xml',
+                                          interface_prefix: 'org.gnome.Shell.',
+                                          namespace: 'AtspiDBusShell')
+
+atspi_sources += gen_atspi_sources
 
 atspi_includedir = join_paths(get_option('prefix'), get_option('includedir'), 'at-spi-2.0', 'atspi')
 
@@ -99,7 +118,7 @@ atspi = library('atspi', atspi_sources + atspi_enums + atspi_marshals,
                        version: soversion,
                        soversion: soversion.split('.')[0],
                        include_directories: [ root_inc, registryd_inc ],
-                       dependencies: [ libdbus_dep, gobject_dep, dbind_dep, x11_deps ],
+                       dependencies: [ libdbus_dep, gobject_dep, gio_dep, dbind_dep, x11_deps, libei_dep, xkbcommon_dep ],
                        install: true)
 
 atspi_dep = declare_dependency(link_with: atspi,
