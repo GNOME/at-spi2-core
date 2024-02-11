@@ -53,7 +53,6 @@ struct _AtspiDeviceMutterPrivate
   AtspiDBusMutterRemoteDesktop *mutter_remote_desktop_proxy;
   AtspiDBusMutterScreenCast *mutter_screen_cast_proxy;
   guint64 window_id;
-  gchar *window_mapping_id;
 
   AtspiDBusMutterRemoteDesktopSession *remote_desktop_session;
   AtspiDBusMutterScreenCastSession *screen_cast_session;
@@ -943,7 +942,6 @@ on_screen_cast_stream_proxy_acquired (GObject *object,
   AtspiDeviceMutterPrivate *priv = atspi_device_mutter_get_instance_private (device);
   g_autoptr (AtspiDBusMutterScreenCastStream) stream_proxy = NULL;
   g_autoptr (GError) error = NULL;
-  GVariant *parameters;
 
   stream_proxy = atspi_dbus_mutter_screen_cast_stream_proxy_new_finish (result, &error);
   if (!stream_proxy)
@@ -959,9 +957,6 @@ on_screen_cast_stream_proxy_acquired (GObject *object,
 
   /* TODO: clear old proxy */
   priv->stream_proxy = stream_proxy;
-
-  parameters = atspi_dbus_mutter_screen_cast_stream_get_parameters (stream_proxy);
-  g_variant_lookup (parameters, "mapping-id", "s", &priv->window_mapping_id);
 
   atspi_dbus_mutter_screen_cast_stream_call_start (stream_proxy,
                                                    priv->cancellable,
