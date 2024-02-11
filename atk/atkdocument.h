@@ -69,6 +69,8 @@ G_BEGIN_DECLS
  * when selecting backwards (e.g. pressing shift+left arrow in a text field),
  * the start of the range is the active point, as the user moves this to
  * manipulate the selection.
+ *
+ * Since: 2.52
  */
 typedef struct _AtkTextSelection AtkTextSelection;
 struct _AtkTextSelection
