@@ -454,6 +454,8 @@ atk_document_get_page_count (AtkDocument *document)
  *
  * Returns: (element-type AtkTextSelection) (transfer full): a GArray of
  * AtkTextSelection structures representing the selection.
+ *
+ * Since: 2.52
  */
 GArray *
 atk_document_get_text_selections (AtkDocument *document)
@@ -482,7 +484,9 @@ atk_document_get_text_selections (AtkDocument *document)
  * the given selection ranges must be descendants of this document. Otherwise
  * FALSE will be returned.
  *
- * Returns TRUE if the selection was made successfully; FALSE otherwise.
+ * Returns: TRUE if the selection was made successfully; FALSE otherwise.
+ *
+ * Since: 2.52
  */
 gboolean
 atk_document_set_text_selections (AtkDocument *document,

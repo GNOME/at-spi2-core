@@ -257,7 +257,7 @@ append_accessible_to_iter (DBusMessageIter *iter, AtspiAccessible *accessible)
  * the given selection ranges must be descendants of this document. Otherwise
  * FALSE will be returned.
  *
- * Returns TRUE if the selection was made successfully; FALSE otherwise.
+ * Returns: TRUE if the selection was made successfully; FALSE otherwise.
  *
  * Since: 2.52
  */
