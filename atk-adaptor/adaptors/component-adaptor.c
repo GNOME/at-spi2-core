@@ -247,20 +247,6 @@ impl_GrabFocus (DBusConnection *bus, DBusMessage *message, void *user_data)
   return reply;
 }
 
-#if 0
-static DBusMessage *
-impl_registerFocusHandler (DBusConnection * bus, DBusMessage * message,
-                           void *user_data)
-{
-}
-
-static DBusMessage *
-impl_deregisterFocusHandler (DBusConnection * bus, DBusMessage * message,
-                             void *user_data)
-{
-}
-#endif
-
 static DBusMessage *
 impl_GetAlpha (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
@@ -482,8 +468,6 @@ static DRouteMethod methods[] = {
   { impl_GetLayer, "GetLayer" },
   { impl_GetMDIZOrder, "GetMDIZOrder" },
   { impl_GrabFocus, "GrabFocus" },
-  //{impl_registerFocusHandler, "registerFocusHandler"},
-  //{impl_deregisterFocusHandler, "deregisterFocusHandler"},
   { impl_GetAlpha, "GetAlpha" },
   { impl_SetExtents, "SetExtents" },
   { impl_SetPosition, "SetPosition" },

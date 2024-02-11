@@ -1143,97 +1143,6 @@ append_accessible_properties (DBusMessageIter *iter, AtkObject *obj, GArray *pro
     }
 }
 
-#if 0
-static void
-skip (const char **p)
-{
-  const char *sig = *p;
-  gint nest = (*sig != 'a');
-
-  sig++;
-  while (*sig)
-  {
-    if (*sig == '(' || *sig == '{')
-      nest++;
-    else if (*sig == ')' || *sig == '}')
-      nest--;
-    sig++;
-  }
-  *p = sig;
-}
- 
-static gboolean
-types_match (DBusMessageIter *iter, char c)
-{
-  char t = dbus_message_iter_get_arg_type (iter);
-
-  if (t == 'r' && c == '(')
-    return TRUE;
-  else
-    return (t == c);
-}
-
-static void
-walk (DBusMessageIter *iter, const char *sig, gboolean array)
-{
-  while (*sig && *sig != ')' && *sig != '}')
-  {
-    if (array && dbus_message_iter_get_arg_type (iter) == DBUS_TYPE_INVALID)
-    break;
-    if (!types_match (iter, *sig))
-    {
-      g_error ("Expected %s, got %c", sig, dbus_message_iter_get_arg_type (iter));
-    }
-    switch (*sig)
-    {
-    case 's':
-      {
-        const char *str;
-        DBusError error;
-        dbus_error_init (&error);
-        dbus_message_iter_get_basic (iter, &str);
-        g_print ("%s\n", str);
-        if (!dbus_validate_utf8 (str, &error))
-          g_error ("Bad UTF-8 string");
-      }
-      break;
-    case 'a':
-      {
-        DBusMessageIter iter_array;
-        dbus_message_iter_recurse (iter, &iter_array);
-        walk (&iter_array, sig + 1, TRUE);
-        skip (&sig);
-      }
-      break;
-    case DBUS_TYPE_STRUCT:
-    case DBUS_TYPE_DICT_ENTRY:
-      {
-        DBusMessageIter iter_struct;
-        dbus_message_iter_recurse (iter, &iter_struct);
-        walk (&iter_struct, sig + 1, FALSE);
-        skip (&sig);
-      }   
-    }
-    dbus_message_iter_next (iter);
-    if (!array)
-      sig++;
-  }
-  if (dbus_message_iter_get_arg_type (iter) != DBUS_TYPE_INVALID)
-    g_error ("Unexpected data '%c'", dbus_message_iter_get_arg_type (iter));
-}
-
-static void
-walkm (DBusMessage *message)
-{
-  DBusMessageIter iter;
-  const char *sig = dbus_message_get_signature (message);
-
-  g_print ("sig: %s\n", sig);
-  dbus_message_iter_init (message, &iter);
-  walk (&iter, sig, FALSE);
-}
-#endif
-
 static DBusMessage *
 impl_GetTree (DBusConnection *bus,
               DBusMessage *message,
@@ -1276,9 +1185,6 @@ impl_GetTree (DBusConnection *bus,
       append_accessible_properties (&iter_array, object, properties);
       dbus_message_iter_close_container (&iter, &iter_array);
     }
-#if 0
-  walkm (reply);
-#endif
   return reply;
 }
 

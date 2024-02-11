@@ -47,7 +47,6 @@ dbus_bool_t spi_dbus_message_iter_get_struct (DBusMessageIter *iter, ...);
 dbus_bool_t spi_dbus_message_iter_append_struct (DBusMessageIter *iter, ...);
 dbus_bool_t spi_dbus_marshal_deviceEvent (DBusMessage *message, const AtspiDeviceEvent *e);
 dbus_bool_t spi_dbus_demarshal_deviceEvent (DBusMessage *message, AtspiDeviceEvent *e);
-dbus_bool_t spi_dbus_get_simple_property (DBusConnection *bus, const char *dest, const char *path, const char *interface, const char *prop, int *type, void *ptr, DBusError *error);
 void spi_dbus_emit_signal (DBusConnection *bus, const char *path, const char *klass, const char *major, const char *minor, dbus_int32_t detail1, dbus_int32_t detail2, const char *type, const void *val);
 GObject *spi_dbus_get_object_from_iter (DBusMessageIter *iter);
 /*

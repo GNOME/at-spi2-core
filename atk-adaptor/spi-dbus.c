@@ -253,37 +253,6 @@ spi_dbus_emit_signal (DBusConnection *bus, const char *path, const char *klass, 
   dbus_message_unref (sig);
 }
 
-/*
-dbus_bool_t spi_dbus_get_simple_property (DBusConnection *bus, const char *dest, const char *path, const char *interface, const char *prop, int *type, void *ptr, DBusError *error)
-{
-  DBusMessage *message, *reply;
-  DBusMessageIter iter, iter_variant;
-  int typ;
-
-  dbus_error_init (error);
-  message = dbus_message_new_method_call (dest, path, "org.freedesktop.DBus.Properties", "get");
-  if (!message) return FALSE;
-  if (!dbus_message_append_args (message, DBUS_TYPE_STRING, &interface, DBUS_TYPE_STRING, &prop, DBUS_TYPE_INVALID))
-  {
-    return FALSE;
-  }
-  reply = dbus_connection_send_with_reply_and_block (bus, message, 1000, error);
-  dbus_message_unref (message);
-  if (!reply) return FALSE;
-  dbus_message_iter_init (reply, &iter);
-  dbus_message_iter_recurse (&iter, &iter_variant);
-  typ = dbus_message_iter_get_arg_type (&iter_variant);
-  if (type) *type = typ;
-  if (typ == DBUS_TYPE_INVALID || typ == DBUS_TYPE_STRUCT || typ == DBUS_TYPE_ARRAY)
-  {
-    return FALSE;
-  }
-  dbus_message_iter_get_basic (&iter_variant, ptr);
-  dbus_message_unref (reply);
-  return TRUE;
-}
-*/
-
 /* Returns an AtkObject from a DBusMessageIter and advances the iter.
  * Expects the iter to point to a (so) structure representing an object. */
 GObject *
