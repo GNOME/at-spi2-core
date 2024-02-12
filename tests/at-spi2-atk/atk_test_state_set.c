@@ -42,8 +42,8 @@ atk_test_accessible_get_state_set (TestAppFixture *fixture, gconstpointer user_d
   for (i = 0; i < states_arr->len; ++i)
     {
       g_assert_cmpint (valid_states[i], ==, g_array_index (states_arr, AtspiStateType, i));
-      g_assert (atspi_state_set_contains (states, ATSPI_STATE_MODAL));
-      g_assert (atspi_state_set_contains (states, ATSPI_STATE_MULTI_LINE));
+      g_assert_true (atspi_state_set_contains (states, ATSPI_STATE_MODAL));
+      g_assert_true (atspi_state_set_contains (states, ATSPI_STATE_MULTI_LINE));
     }
   g_array_free (states_arr, TRUE);
   g_object_unref (states);
@@ -64,8 +64,8 @@ atk_test_state_set_new (TestAppFixture *fixture, gconstpointer user_data)
 
   AtspiStateSet *ss = atspi_state_set_new (states_arr);
 
-  g_assert (atspi_state_set_contains (ss, ATSPI_STATE_FOCUSABLE));
-  g_assert (atspi_state_set_contains (ss, ATSPI_STATE_FOCUSED));
+  g_assert_true (atspi_state_set_contains (ss, ATSPI_STATE_FOCUSABLE));
+  g_assert_true (atspi_state_set_contains (ss, ATSPI_STATE_FOCUSED));
   g_object_unref (ss);
   g_array_free (states_arr, TRUE);
 }
@@ -84,11 +84,11 @@ atk_test_state_set_set_by_name (TestAppFixture *fixture, gconstpointer user_data
   states_arr = atspi_state_set_get_states (states);
 
   g_assert_cmpint (states_arr->len, ==, 1);
-  g_assert (!atspi_state_set_contains (states, ATSPI_STATE_MODAL));
-  g_assert (atspi_state_set_contains (states, ATSPI_STATE_MULTI_LINE));
+  g_assert_true (!atspi_state_set_contains (states, ATSPI_STATE_MODAL));
+  g_assert_true (atspi_state_set_contains (states, ATSPI_STATE_MULTI_LINE));
 
   atspi_state_set_set_by_name (states, "modal", TRUE);
-  g_assert (atspi_state_set_contains (states, ATSPI_STATE_MODAL));
+  g_assert_true (atspi_state_set_contains (states, ATSPI_STATE_MODAL));
   g_array_free (states_arr, TRUE);
   g_object_unref (states);
   g_object_unref (child);
@@ -101,11 +101,11 @@ atk_test_state_set_add (TestAppFixture *fixture, gconstpointer user_data)
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiStateSet *states = atspi_accessible_get_state_set (child);
 
-  g_assert (!atspi_state_set_contains (states, ATSPI_STATE_FOCUSABLE));
+  g_assert_true (!atspi_state_set_contains (states, ATSPI_STATE_FOCUSABLE));
 
   atspi_state_set_add (states, ATSPI_STATE_FOCUSABLE);
 
-  g_assert (atspi_state_set_contains (states, ATSPI_STATE_FOCUSABLE));
+  g_assert_true (atspi_state_set_contains (states, ATSPI_STATE_FOCUSABLE));
   g_object_unref (states);
   g_object_unref (child);
 }
@@ -130,10 +130,10 @@ atk_test_state_set_compare (TestAppFixture *fixture, gconstpointer user_data)
 
   AtspiStateSet *ret = atspi_state_set_compare (states, ss);
 
-  g_assert (atspi_state_set_contains (ret, ATSPI_STATE_MODAL));
-  g_assert (atspi_state_set_contains (ret, ATSPI_STATE_MULTI_LINE));
-  g_assert (atspi_state_set_contains (ret, ATSPI_STATE_FOCUSED));
-  g_assert (atspi_state_set_contains (ret, ATSPI_STATE_FOCUSABLE));
+  g_assert_true (atspi_state_set_contains (ret, ATSPI_STATE_MODAL));
+  g_assert_true (atspi_state_set_contains (ret, ATSPI_STATE_MULTI_LINE));
+  g_assert_true (atspi_state_set_contains (ret, ATSPI_STATE_FOCUSED));
+  g_assert_true (atspi_state_set_contains (ret, ATSPI_STATE_FOCUSABLE));
   g_object_unref (ret);
   g_object_unref (ss);
   g_array_free (states_arr, TRUE);
@@ -148,8 +148,8 @@ atk_test_state_set_contains (TestAppFixture *fixture, gconstpointer user_data)
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiStateSet *states = atspi_accessible_get_state_set (child);
 
-  g_assert (!atspi_state_set_contains (states, ATSPI_STATE_FOCUSABLE));
-  g_assert (atspi_state_set_contains (states, ATSPI_STATE_MODAL));
+  g_assert_true (!atspi_state_set_contains (states, ATSPI_STATE_FOCUSABLE));
+  g_assert_true (atspi_state_set_contains (states, ATSPI_STATE_MODAL));
   g_object_unref (states);
   g_object_unref (child);
 }
@@ -172,7 +172,7 @@ atk_test_state_set_equals (TestAppFixture *fixture, gconstpointer user_data)
 
   AtspiStateSet *ss = atspi_state_set_new (states_arr);
 
-  g_assert (atspi_state_set_equals (states, ss));
+  g_assert_true (atspi_state_set_equals (states, ss));
   g_object_unref (ss);
   g_array_free (states_arr, TRUE);
   g_object_unref (states);
@@ -195,8 +195,8 @@ atk_test_state_set_get_states (TestAppFixture *fixture, gconstpointer user_data)
   int i = 0;
   for (i = 0; i < states_arr->len; ++i)
     g_assert_cmpint (valid_states[i], ==, g_array_index (states_arr, AtspiStateType, i));
-  g_assert (atspi_state_set_contains (states, ATSPI_STATE_MODAL));
-  g_assert (atspi_state_set_contains (states, ATSPI_STATE_MULTI_LINE));
+  g_assert_true (atspi_state_set_contains (states, ATSPI_STATE_MODAL));
+  g_assert_true (atspi_state_set_contains (states, ATSPI_STATE_MULTI_LINE));
   g_array_free (states_arr, TRUE);
   g_object_unref (states);
   g_object_unref (child);
@@ -210,8 +210,8 @@ atk_test_state_set_is_empty (TestAppFixture *fixture, gconstpointer user_data)
   AtspiStateSet *states = atspi_accessible_get_state_set (child);
   AtspiStateSet *root_states = atspi_accessible_get_state_set (obj);
 
-  g_assert (!atspi_state_set_is_empty (states));
-  g_assert (atspi_state_set_is_empty (root_states));
+  g_assert_true (!atspi_state_set_is_empty (states));
+  g_assert_true (atspi_state_set_is_empty (root_states));
   g_object_unref (root_states);
   g_object_unref (states);
   g_object_unref (child);
@@ -232,8 +232,8 @@ atk_test_state_set_remove (TestAppFixture *fixture, gconstpointer user_data)
   states_arr = atspi_state_set_get_states (states);
 
   g_assert_cmpint (states_arr->len, ==, 1);
-  g_assert (!atspi_state_set_contains (states, ATSPI_STATE_MODAL));
-  g_assert (atspi_state_set_contains (states, ATSPI_STATE_MULTI_LINE));
+  g_assert_true (!atspi_state_set_contains (states, ATSPI_STATE_MODAL));
+  g_assert_true (atspi_state_set_contains (states, ATSPI_STATE_MULTI_LINE));
   g_array_free (states_arr, TRUE);
   g_object_unref (states);
   g_object_unref (child);

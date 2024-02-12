@@ -72,7 +72,7 @@ test_relation (void)
   type1 = atk_relation_get_relation_type (relation);
   g_assert_cmpint (type1, ==, ATK_RELATION_LABEL_FOR);
   array = atk_relation_get_target (relation);
-  g_assert (obj == g_ptr_array_index (array, 0));
+  g_assert_true (obj == g_ptr_array_index (array, 0));
   g_object_unref (set);
   g_assert_true (atk_object_remove_relationship (obj, ATK_RELATION_LABEL_FOR, obj));
   set = atk_object_ref_relation_set (obj);

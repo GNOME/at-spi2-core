@@ -39,9 +39,9 @@ static void
 atk_test_text_get_character_count (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
   gint count = atspi_text_get_character_count (obj, NULL);
@@ -54,9 +54,9 @@ static void
 atk_test_text_get_text (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
   gchar *text = atspi_text_get_text (obj, 9, 14, NULL);
@@ -70,9 +70,9 @@ static void
 atk_test_text_get_caret_offset (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
   gint pos = atspi_text_get_caret_offset (obj, NULL);
@@ -85,9 +85,9 @@ static void
 atk_test_text_set_caret_offset (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
   g_assert_true (atspi_text_set_caret_offset (obj, 5, NULL));
@@ -101,9 +101,9 @@ static void
 atk_test_text_get_character_at_offset (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
   guint chr = atspi_text_get_character_at_offset (obj, 5, NULL);
@@ -116,9 +116,9 @@ static void
 atk_test_text_get_character_extents (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
   AtspiRect *rec = atspi_text_get_character_extents (obj, 6, ATSPI_COORD_TYPE_SCREEN, NULL);
@@ -136,9 +136,9 @@ static void
 atk_test_text_get_range_extents (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
   AtspiRect *rec = atspi_text_get_range_extents (obj, 0, 1, ATSPI_COORD_TYPE_SCREEN, NULL);
@@ -157,9 +157,9 @@ static void
 atk_test_text_add_selection (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
   g_assert_true (atspi_text_add_selection (obj, 9, 14, NULL));
@@ -171,9 +171,9 @@ static void
 atk_test_text_get_n_selections (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
   gint n = atspi_text_get_n_selections (obj, NULL);
@@ -191,22 +191,22 @@ static void
 atk_test_text_get_selection (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
   g_assert_true (atspi_text_add_selection (obj, 9, 14, NULL));
   g_assert_true (atspi_text_add_selection (obj, 14, 15, NULL));
 
   AtspiRange *range = atspi_text_get_selection (obj, 0, NULL);
-  g_assert (range);
+  g_assert_nonnull (range);
   g_assert_cmpint (range->start_offset, ==, 9);
   g_assert_cmpint (range->end_offset, ==, 14);
   g_free (range);
 
   range = atspi_text_get_selection (obj, 1, NULL);
-  g_assert (range);
+  g_assert_nonnull (range);
   g_assert_cmpint (range->start_offset, ==, 14);
   g_assert_cmpint (range->end_offset, ==, 15);
   g_free (range);
@@ -218,9 +218,9 @@ static void
 atk_test_text_set_selection (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
   g_assert_true (atspi_text_add_selection (obj, 9, 14, NULL));
@@ -229,13 +229,13 @@ atk_test_text_set_selection (TestAppFixture *fixture, gconstpointer user_data)
   g_assert_true (atspi_text_set_selection (obj, 1, 3, 4, NULL));
 
   AtspiRange *range = atspi_text_get_selection (obj, 0, NULL);
-  g_assert (range);
+  g_assert_nonnull (range);
   g_assert_cmpint (range->start_offset, ==, 1);
   g_assert_cmpint (range->end_offset, ==, 2);
   g_free (range);
 
   range = atspi_text_get_selection (obj, 1, NULL);
-  g_assert (range);
+  g_assert_nonnull (range);
   g_assert_cmpint (range->start_offset, ==, 3);
   g_assert_cmpint (range->end_offset, ==, 4);
   g_free (range);
@@ -247,9 +247,9 @@ static void
 atk_test_text_remove_selection (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
   gint n = atspi_text_get_n_selections (obj, NULL);
@@ -275,9 +275,9 @@ static void
 atk_test_text_get_offset_at_point (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
   gint n = atspi_text_get_offset_at_point (obj, 0, 0, ATSPI_COORD_TYPE_SCREEN, NULL);
@@ -290,21 +290,21 @@ static void
 atk_test_text_get_text_attribute_value (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
   GError *err = NULL;
   gchar *str = atspi_text_get_text_attribute_value (obj, 0, "text_test_attr1", &err);
   if (err)
     g_print ("error msg:%s\n", err->message);
-  g_assert (str);
+  g_assert_nonnull (str);
   g_assert_cmpstr (str, ==, "on");
   g_free (str);
 
   str = atspi_text_get_text_attribute_value (obj, 0, "text_test_attr2", NULL);
-  g_assert (str);
+  g_assert_nonnull (str);
   g_assert_cmpstr (str, ==, "off");
   g_free (str);
   g_object_unref (obj);
@@ -315,16 +315,16 @@ static void
 atk_test_text_get_attribute_run (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
   gint start_offset = 0;
   gint end_offset = 0;
   GHashTable *tab = atspi_text_get_attribute_run (obj, 0, FALSE, &start_offset, &end_offset, NULL);
 
-  g_assert (tab);
+  g_assert_nonnull (tab);
 
   g_assert_cmpstr ((const char *) g_hash_table_find (tab, GHRunc_find, "text_test_attr1"), ==, "on");
   g_assert_cmpstr ((const char *) g_hash_table_find (tab, GHRunc_find, "text_test_attr2"), ==, "off");
@@ -339,13 +339,13 @@ static void
 atk_test_text_get_default_attributes (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
   GHashTable *tab = atspi_text_get_default_attributes (obj, NULL);
-  g_assert (tab);
+  g_assert_nonnull (tab);
 
   g_assert_cmpstr ((const char *) g_hash_table_find (tab, GHRunc_find, "bold_text"), ==, "on");
   g_assert_cmpstr ((const char *) g_hash_table_find (tab, GHRunc_find, "underline_text"), ==, "off");
@@ -359,16 +359,16 @@ static void
 atk_test_text_get_text_attributes (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
   gint start_offset = 0;
   gint end_offset = 0;
   GHashTable *tab = atspi_text_get_text_attributes (obj, 0, &start_offset, &end_offset, NULL);
 
-  g_assert (tab);
+  g_assert_nonnull (tab);
 
   g_assert_cmpstr ((const char *) g_hash_table_find (tab, GHRunc_find, "text_test_attr1"), ==, "on");
   g_assert_cmpstr ((const char *) g_hash_table_find (tab, GHRunc_find, "text_test_attr2"), ==, "off");
@@ -383,9 +383,9 @@ static void
 atk_test_text_get_string_at_offset_s1 (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
   AtspiTextRange *range = atspi_text_get_string_at_offset (obj, 0, ATSPI_TEXT_GRANULARITY_CHAR, NULL);
@@ -411,9 +411,9 @@ static void
 atk_test_text_get_string_at_offset_s2 (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 1, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
   AtspiTextRange *range = atspi_text_get_string_at_offset (obj, 20, ATSPI_TEXT_GRANULARITY_SENTENCE, NULL);
@@ -447,13 +447,13 @@ static void
 atk_test_text_get_bounded_ranges (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiText *obj = atspi_accessible_get_text_iface (child);
 
   GArray *array = atspi_text_get_bounded_ranges (obj, 15, 21, 100, 50, ATSPI_COORD_TYPE_SCREEN, ATSPI_TEXT_CLIP_MAX, ATSPI_TEXT_CLIP_MIN, NULL);
-  g_assert (array);
+  g_assert_nonnull (array);
 
   AtspiTextRange *range = &g_array_index (array, AtspiTextRange, 0);
   g_assert_cmpint (g_array_get_element_size (array), ==, sizeof (AtspiTextRange));

@@ -30,7 +30,7 @@ atk_test_collection_get_collection_iface (TestAppFixture *fixture, gconstpointer
 {
   AtspiAccessible *obj = fixture->root_obj;
   AtspiCollection *iface = atspi_accessible_get_collection_iface (obj);
-  g_assert (iface);
+  g_assert_nonnull (iface);
   g_object_unref (iface);
 }
 
@@ -47,7 +47,7 @@ atk_test_collection_get_matches (TestAppFixture *fixture, gconstpointer user_dat
 {
   AtspiAccessible *obj = fixture->root_obj;
   AtspiCollection *iface = atspi_accessible_get_collection_iface (obj);
-  g_assert (iface);
+  g_assert_nonnull (iface);
 
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
 
@@ -85,7 +85,7 @@ atk_test_collection_get_matches_to (TestAppFixture *fixture, gconstpointer user_
 {
   AtspiAccessible *obj = fixture->root_obj;
   AtspiCollection *iface = atspi_accessible_get_collection_iface (obj);
-  g_assert (iface);
+  g_assert_nonnull (iface);
 
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiAccessible *child1 = atspi_accessible_get_child_at_index (obj, 1, NULL);
@@ -127,7 +127,7 @@ atk_test_collection_get_matches_from (TestAppFixture *fixture, gconstpointer use
   AtspiAccessible *obj = fixture->root_obj;
   AtspiCollection *iface = atspi_accessible_get_collection_iface (obj);
   GHashTable *attributes;
-  g_assert (iface);
+  g_assert_nonnull (iface);
 
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiAccessible *child1 = atspi_accessible_get_child_at_index (obj, 1, NULL);

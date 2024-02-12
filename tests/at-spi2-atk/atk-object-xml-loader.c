@@ -402,7 +402,7 @@ atk_object_xml_parse (gchar *filename)
   MyAtkObject *new_atk_object = NULL;
 
   doc = xmlReadFile (filename, NULL, 0);
-  g_assert (doc != NULL);
+  g_assert_nonnull (doc);
 
   root_element = xmlDocGetRootElement (doc);
 

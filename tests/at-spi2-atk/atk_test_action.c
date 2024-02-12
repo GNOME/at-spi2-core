@@ -32,7 +32,7 @@ atk_test_action_sample_get_interface (TestAppFixture *fixture, gconstpointer use
   check_name (obj, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiAction *iface = atspi_accessible_get_action_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
   g_object_unref (iface);
   g_object_unref (child);
 }
@@ -106,7 +106,7 @@ atk_test_action_do_action (TestAppFixture *fixture, gconstpointer user_data)
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiAction *action = atspi_accessible_get_action_iface (child);
-  g_assert (action != NULL);
+  g_assert_nonnull (action);
   atspi_action_do_action (action, 0, NULL);
   atspi_accessible_clear_cache (obj);
   AtspiStateSet *s = atspi_accessible_get_state_set (child);

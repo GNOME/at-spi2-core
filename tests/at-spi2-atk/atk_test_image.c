@@ -32,7 +32,7 @@ atk_test_image_sample_get_interface (TestAppFixture *fixture, gconstpointer user
   check_name (obj, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiImage *iface = atspi_accessible_get_image_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
   g_object_unref (iface);
   g_object_unref (child);
 }
@@ -44,7 +44,7 @@ atk_test_image_get_image_description (TestAppFixture *fixture, gconstpointer use
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiImage *image = atspi_accessible_get_image_iface (child);
   gchar *desc = atspi_image_get_image_description (image, NULL);
-  g_assert (desc);
+  g_assert_nonnull (desc);
   g_assert_cmpstr (desc, ==, "image description");
   g_free (desc);
   g_object_unref (image);
@@ -58,7 +58,7 @@ atk_test_image_get_image_size (TestAppFixture *fixture, gconstpointer user_data)
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiImage *image = atspi_accessible_get_image_iface (child);
   AtspiPoint *p = atspi_image_get_image_size (image, NULL);
-  g_assert (p);
+  g_assert_nonnull (p);
 
   g_assert_cmpint (p->x, ==, 100);
   g_assert_cmpint (p->y, ==, 50);
@@ -74,7 +74,7 @@ atk_test_image_get_image_position (TestAppFixture *fixture, gconstpointer user_d
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiImage *image = atspi_accessible_get_image_iface (child);
   AtspiPoint *p = atspi_image_get_image_position (image, ATSPI_COORD_TYPE_SCREEN, NULL);
-  g_assert (p);
+  g_assert_nonnull (p);
   g_assert_cmpint (p->x, ==, 500);
   g_assert_cmpint (p->y, ==, 50);
   g_free (p);
@@ -89,7 +89,7 @@ atk_test_image_get_image_extents (TestAppFixture *fixture, gconstpointer user_da
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiImage *image = atspi_accessible_get_image_iface (child);
   AtspiRect *r = atspi_image_get_image_extents (image, ATSPI_COORD_TYPE_SCREEN, NULL);
-  g_assert (r);
+  g_assert_nonnull (r);
 
   g_assert_cmpint (r->x, ==, 500);
   g_assert_cmpint (r->y, ==, 50);
@@ -109,7 +109,7 @@ atk_test_image_get_image_locale (TestAppFixture *fixture, gconstpointer user_dat
   AtspiImage *image = atspi_accessible_get_image_iface (child);
   gchar *locale = atspi_image_get_image_locale (image, NULL);
 
-  g_assert (locale);
+  g_assert_nonnull (locale);
   g_assert_cmpstr (locale, ==, "image_locale");
   g_free (locale);
   g_object_unref (image);

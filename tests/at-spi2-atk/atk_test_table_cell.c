@@ -27,13 +27,13 @@ static void
 atk_test_accessible_get_table_cell (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
 
   AtspiAccessible *cell = atspi_accessible_get_child_at_index (child, 9, NULL);
   AtspiTableCell *obj = atspi_accessible_get_table_cell (cell);
-  g_assert (obj);
+  g_assert_nonnull (obj);
   g_object_unref (obj);
   g_object_unref (cell);
   g_object_unref (child);
@@ -43,13 +43,13 @@ static void
 atk_test_table_cell_get_column_span (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
 
   AtspiAccessible *cell = atspi_accessible_get_child_at_index (child, 10, NULL);
   AtspiTableCell *obj = atspi_accessible_get_table_cell (cell);
-  g_assert (obj);
+  g_assert_nonnull (obj);
 
   g_assert_cmpint (3, ==, atspi_table_cell_get_column_span (obj, NULL));
   g_object_unref (obj);
@@ -57,7 +57,7 @@ atk_test_table_cell_get_column_span (TestAppFixture *fixture, gconstpointer user
 
   cell = atspi_accessible_get_child_at_index (child, 11, NULL);
   obj = atspi_accessible_get_table_cell (cell);
-  g_assert (obj);
+  g_assert_nonnull (obj);
 
   g_assert_cmpint (1, ==, atspi_table_cell_get_column_span (obj, NULL));
   g_object_unref (obj);
@@ -70,13 +70,13 @@ static void
 atk_test_table_cell_get_column_header_cells (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
 
   AtspiAccessible *cell = atspi_accessible_get_child_at_index (child, 10, NULL);
   AtspiTableCell *obj = atspi_accessible_get_table_cell (cell);
-  g_assert (obj);
+  g_assert_nonnull (obj);
 
   GPtrArray *ret = atspi_table_cell_get_column_header_cells (obj, NULL);
   g_assert_cmpint (3, ==, ret->len);
@@ -91,13 +91,13 @@ static void
 atk_test_table_cell_get_row_span (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
 
   AtspiAccessible *cell = atspi_accessible_get_child_at_index (child, 9, NULL);
   AtspiTableCell *obj = atspi_accessible_get_table_cell (cell);
-  g_assert (obj);
+  g_assert_nonnull (obj);
 
   g_assert_cmpint (2, ==, atspi_table_cell_get_row_span (obj, NULL));
   g_object_unref (obj);
@@ -105,7 +105,7 @@ atk_test_table_cell_get_row_span (TestAppFixture *fixture, gconstpointer user_da
 
   cell = atspi_accessible_get_child_at_index (child, 11, NULL);
   obj = atspi_accessible_get_table_cell (cell);
-  g_assert (obj);
+  g_assert_nonnull (obj);
 
   g_assert_cmpint (1, ==, atspi_table_cell_get_column_span (obj, NULL));
   g_object_unref (obj);
@@ -118,13 +118,13 @@ static void
 atk_test_table_cell_get_row_header_cells (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
 
   AtspiAccessible *cell = atspi_accessible_get_child_at_index (child, 10, NULL);
   AtspiTableCell *obj = atspi_accessible_get_table_cell (cell);
-  g_assert (obj);
+  g_assert_nonnull (obj);
 
   GPtrArray *ret = atspi_table_cell_get_row_header_cells (obj, NULL);
   g_assert_cmpint (4, ==, ret->len);
@@ -139,13 +139,13 @@ static void
 atk_test_table_cell_get_row_column_span (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
 
   AtspiAccessible *cell = atspi_accessible_get_child_at_index (child, 9, NULL);
   AtspiTableCell *obj = atspi_accessible_get_table_cell (cell);
-  g_assert (obj);
+  g_assert_nonnull (obj);
 
   gint row = 10;
   gint column = 10;
@@ -167,13 +167,13 @@ static void
 atk_test_table_cell_get_position (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
 
   AtspiAccessible *cell = atspi_accessible_get_child_at_index (child, 9, NULL);
   AtspiTableCell *obj = atspi_accessible_get_table_cell (cell);
-  g_assert (cell);
+  g_assert_nonnull (cell);
 
   gint row = 10;
   gint column = 10;
@@ -192,17 +192,17 @@ static void
 atk_test_table_cell_get_table (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
 
   AtspiAccessible *cell = atspi_accessible_get_child_at_index (child, 9, NULL);
   AtspiTableCell *obj = atspi_accessible_get_table_cell (cell);
-  g_assert (obj);
+  g_assert_nonnull (obj);
 
   AtspiAccessible *tab = atspi_table_cell_get_table (obj, NULL);
-  g_assert (tab);
-  g_assert (child == tab);
+  g_assert_nonnull (tab);
+  g_assert_true (child == tab);
   g_object_unref (tab);
   g_object_unref (obj);
   g_object_unref (cell);

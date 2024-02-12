@@ -32,7 +32,7 @@ atk_test_selection_sample_get_interface (TestAppFixture *fixture, gconstpointer 
   check_name (obj, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiSelection *iface = atspi_accessible_get_selection_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
   g_object_unref (iface);
   g_object_unref (child);
 }
@@ -44,7 +44,7 @@ atk_test_selection_get_n_selected_children (TestAppFixture *fixture, gconstpoint
   check_name (obj, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiSelection *iface = atspi_accessible_get_selection_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
 
   g_assert_cmpint (atspi_selection_get_n_selected_children (iface, NULL), ==, 3);
   g_object_unref (iface);
@@ -58,7 +58,7 @@ atk_test_selection_get_selected_child (TestAppFixture *fixture, gconstpointer us
   check_name (obj, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiSelection *iface = atspi_accessible_get_selection_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
   gchar *valid_names[] = { "obj2/1", "obj2/2", "obj3/1" };
 
   AtspiAccessible *o = NULL;
@@ -82,7 +82,7 @@ atk_test_selection_select_child (TestAppFixture *fixture, gconstpointer user_dat
   check_name (obj, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiSelection *iface = atspi_accessible_get_selection_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
 
   g_assert_cmpint (atspi_selection_get_n_selected_children (iface, NULL), ==, 3);
 
@@ -100,7 +100,7 @@ atk_test_selection_deselect_selected (TestAppFixture *fixture, gconstpointer use
   check_name (obj, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiSelection *iface = atspi_accessible_get_selection_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
 
   g_assert_cmpint (atspi_selection_get_n_selected_children (iface, NULL), ==, 3);
 
@@ -121,7 +121,7 @@ atk_test_selection_deselect_child (TestAppFixture *fixture, gconstpointer user_d
   check_name (obj, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiSelection *iface = atspi_accessible_get_selection_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
 
   g_assert_cmpint (atspi_selection_get_n_selected_children (iface, NULL), ==, 3);
 
@@ -142,13 +142,13 @@ atk_test_selection_is_child_selected (TestAppFixture *fixture, gconstpointer use
   check_name (obj, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiSelection *iface = atspi_accessible_get_selection_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
 
-  g_assert (atspi_selection_is_child_selected (iface, 0, NULL));
-  g_assert (atspi_selection_is_child_selected (iface, 1, NULL));
-  g_assert (atspi_selection_is_child_selected (iface, 4, NULL));
-  g_assert (!atspi_selection_is_child_selected (iface, 2, NULL));
-  g_assert (!atspi_selection_is_child_selected (iface, 3, NULL));
+  g_assert_true (atspi_selection_is_child_selected (iface, 0, NULL));
+  g_assert_true (atspi_selection_is_child_selected (iface, 1, NULL));
+  g_assert_true (atspi_selection_is_child_selected (iface, 4, NULL));
+  g_assert_true (!atspi_selection_is_child_selected (iface, 2, NULL));
+  g_assert_true (!atspi_selection_is_child_selected (iface, 3, NULL));
   g_object_unref (iface);
   g_object_unref (child);
 }
@@ -160,7 +160,7 @@ atk_test_selection_select_all (TestAppFixture *fixture, gconstpointer user_data)
   check_name (obj, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiSelection *iface = atspi_accessible_get_selection_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
 
   g_assert_cmpint (atspi_selection_get_n_selected_children (iface, NULL), ==, 3);
   atspi_selection_select_all (iface, NULL);
@@ -176,7 +176,7 @@ atk_test_selection_clear_selection (TestAppFixture *fixture, gconstpointer user_
   check_name (obj, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiSelection *iface = atspi_accessible_get_selection_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
 
   g_assert_cmpint (atspi_selection_get_n_selected_children (iface, NULL), ==, 3);
   atspi_selection_clear_selection (iface, NULL);

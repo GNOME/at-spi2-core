@@ -32,7 +32,7 @@ atk_test_component_sample (TestAppFixture *fixture, gconstpointer user_data)
   check_name (obj, "root_object");
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiComponent *iface = atspi_accessible_get_component_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
   g_object_unref (iface);
   g_object_unref (child);
 }
@@ -43,10 +43,10 @@ atk_test_component_contains (TestAppFixture *fixture, gconstpointer user_data)
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiComponent *iface = atspi_accessible_get_component_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
 
   gboolean ret = atspi_component_contains (iface, 400, 300, ATSPI_COORD_TYPE_SCREEN, NULL);
-  g_assert (ret != FALSE);
+  g_assert_true (ret);
   g_object_unref (iface);
   g_object_unref (child);
 }
@@ -57,14 +57,14 @@ atk_test_component_get_accessible_at_point (TestAppFixture *fixture, gconstpoint
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiComponent *iface = atspi_accessible_get_component_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
 
   AtspiAccessible *r = atspi_component_get_accessible_at_point (iface,
                                                                 400,
                                                                 300,
                                                                 ATSPI_COORD_TYPE_SCREEN,
                                                                 NULL);
-  g_assert (r != NULL);
+  g_assert_nonnull (r);
   g_object_unref (r);
   g_object_unref (iface);
   g_object_unref (child);
@@ -76,7 +76,7 @@ atk_test_component_get_extents (TestAppFixture *fixture, gconstpointer user_data
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiComponent *iface = atspi_accessible_get_component_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
 
   AtspiRect *r = atspi_component_get_extents (iface, ATSPI_COORD_TYPE_SCREEN, NULL);
   g_assert_cmpint (r->x, ==, 350);
@@ -94,7 +94,7 @@ atk_test_component_get_layer (TestAppFixture *fixture, gconstpointer user_data)
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiComponent *iface = atspi_accessible_get_component_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
 
   AtspiComponentLayer layer = atspi_component_get_layer (iface, NULL);
   g_assert_cmpint (layer, ==, ATSPI_LAYER_WIDGET);
@@ -108,7 +108,7 @@ atk_test_component_get_mdi_z_order (TestAppFixture *fixture, gconstpointer user_
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiComponent *iface = atspi_accessible_get_component_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
 
   gshort ret = atspi_component_get_mdi_z_order (iface, NULL);
   g_assert_cmpint (ret, ==, 2);
@@ -122,10 +122,10 @@ atk_test_component_grab_focus (TestAppFixture *fixture, gconstpointer user_data)
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiComponent *iface = atspi_accessible_get_component_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
 
   gboolean ret = atspi_component_grab_focus (iface, NULL);
-  g_assert (ret != FALSE);
+  g_assert_true (ret);
   g_object_unref (iface);
   g_object_unref (child);
 }
@@ -136,7 +136,7 @@ atk_test_component_get_alpha (TestAppFixture *fixture, gconstpointer user_data)
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiComponent *iface = atspi_accessible_get_component_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
 
   gdouble ret = atspi_component_get_alpha (iface, NULL);
   g_assert_cmpfloat (ret, ==, 2.5);
@@ -150,7 +150,7 @@ atk_test_component_set_extents (TestAppFixture *fixture, gconstpointer user_data
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiComponent *iface = atspi_accessible_get_component_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
 
   AtspiRect *r = atspi_component_get_extents (iface, ATSPI_COORD_TYPE_SCREEN, NULL);
   g_assert_cmpint (r->x, ==, 350);
@@ -160,7 +160,7 @@ atk_test_component_set_extents (TestAppFixture *fixture, gconstpointer user_data
   g_free (r);
 
   gboolean ret = atspi_component_set_extents (iface, 100, 100, 100, 100, ATSPI_COORD_TYPE_SCREEN, NULL);
-  g_assert (ret != FALSE);
+  g_assert_true (ret);
 
   r = atspi_component_get_extents (iface, ATSPI_COORD_TYPE_SCREEN, NULL);
   g_assert_cmpint (r->x, ==, 100);

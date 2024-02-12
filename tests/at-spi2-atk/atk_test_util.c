@@ -248,7 +248,7 @@ check_name (AtspiAccessible *accessible, const char *expected_name)
 {
   gchar *obj_name;
 
-  g_assert (accessible);
+  g_assert_nonnull (accessible);
   obj_name = atspi_accessible_get_name (accessible, NULL);
   g_assert_cmpstr (expected_name, ==, obj_name);
   g_free (obj_name);

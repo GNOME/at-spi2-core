@@ -58,7 +58,7 @@ atk_test_accessible_get_parent (TestAppFixture *fixture, gconstpointer user_data
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiAccessible *parent = atspi_accessible_get_parent (child, NULL);
-  g_assert (parent == obj);
+  g_assert_true (parent == obj);
   g_object_unref (parent);
   g_object_unref (child);
 }
@@ -162,8 +162,8 @@ atk_test_accessible_get_state_set (TestAppFixture *fixture, gconstpointer user_d
   for (i = 0; i < states_arr->len; ++i)
     {
       g_assert_cmpint (valid_states[i], ==, g_array_index (states_arr, AtspiStateType, i));
-      g_assert (atspi_state_set_contains (states, ATSPI_STATE_MODAL));
-      g_assert (atspi_state_set_contains (states, ATSPI_STATE_MULTI_LINE));
+      g_assert_true (atspi_state_set_contains (states, ATSPI_STATE_MODAL));
+      g_assert_true (atspi_state_set_contains (states, ATSPI_STATE_MULTI_LINE));
     }
   g_array_free (states_arr, TRUE);
   g_object_unref (states);
@@ -212,7 +212,7 @@ atk_test_accessible_get_attributes_as_array (TestAppFixture *fixture, gconstpoin
     {
       char *pair = g_array_index (attr_arr, gchar *, i);
 
-      g_assert (strcmp (pair, "atspi1:test1") == 0 || strcmp (pair, "atspi2:test2") == 0);
+      g_assert_true (strcmp (pair, "atspi1:test1") == 0 || strcmp (pair, "atspi2:test2") == 0);
       g_free (pair);
     }
   g_array_free (attr_arr, TRUE);
@@ -260,7 +260,7 @@ atk_test_accessible_get_application (TestAppFixture *fixture, gconstpointer user
 {
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *app = atspi_accessible_get_application (obj, NULL);
-  g_assert (app != NULL);
+  g_assert_nonnull (app);
   g_object_unref (app);
 }
 
@@ -269,7 +269,7 @@ atk_test_accessible_get_action_iface (TestAppFixture *fixture, gconstpointer use
 {
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAction *iface = atspi_accessible_get_action_iface (obj);
-  g_assert (iface == NULL);
+  g_assert_null (iface);
 }
 
 static void
@@ -277,7 +277,7 @@ atk_test_accessible_get_collection_iface (TestAppFixture *fixture, gconstpointer
 {
   AtspiAccessible *obj = fixture->root_obj;
   AtspiCollection *iface = atspi_accessible_get_collection_iface (obj);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
   g_object_unref (iface);
 }
 
@@ -286,7 +286,7 @@ atk_test_accessible_get_component_iface (TestAppFixture *fixture, gconstpointer 
 {
   AtspiAccessible *obj = fixture->root_obj;
   AtspiComponent *iface = atspi_accessible_get_component_iface (obj);
-  g_assert (iface == NULL);
+  g_assert_null (iface);
 }
 
 static void
@@ -294,7 +294,7 @@ atk_test_accessible_get_document_iface (TestAppFixture *fixture, gconstpointer u
 {
   AtspiAccessible *obj = fixture->root_obj;
   AtspiDocument *iface = atspi_accessible_get_document_iface (obj);
-  g_assert (iface == NULL);
+  g_assert_null (iface);
 }
 
 static void
@@ -302,7 +302,7 @@ atk_test_accessible_get_editable_text_iface (TestAppFixture *fixture, gconstpoin
 {
   AtspiAccessible *obj = fixture->root_obj;
   AtspiEditableText *iface = atspi_accessible_get_editable_text_iface (obj);
-  g_assert (iface == NULL);
+  g_assert_null (iface);
 }
 
 static void
@@ -310,7 +310,7 @@ atk_test_accessible_get_hypertext_iface (TestAppFixture *fixture, gconstpointer 
 {
   AtspiAccessible *obj = fixture->root_obj;
   AtspiHypertext *iface = atspi_accessible_get_hypertext_iface (obj);
-  g_assert (iface == NULL);
+  g_assert_null (iface);
 }
 
 static void
@@ -318,7 +318,7 @@ atk_test_accessible_get_image_iface (TestAppFixture *fixture, gconstpointer user
 {
   AtspiAccessible *obj = fixture->root_obj;
   AtspiImage *iface = atspi_accessible_get_image_iface (obj);
-  g_assert (iface == NULL);
+  g_assert_null (iface);
 }
 
 static void
@@ -326,7 +326,7 @@ atk_test_accessible_get_selection_iface (TestAppFixture *fixture, gconstpointer 
 {
   AtspiAccessible *obj = fixture->root_obj;
   AtspiSelection *iface = atspi_accessible_get_selection_iface (obj);
-  g_assert (iface == NULL);
+  g_assert_null (iface);
 }
 
 static void
@@ -334,7 +334,7 @@ atk_test_accessible_get_table_iface (TestAppFixture *fixture, gconstpointer user
 {
   AtspiAccessible *obj = fixture->root_obj;
   AtspiTable *iface = atspi_accessible_get_table_iface (obj);
-  g_assert (iface == NULL);
+  g_assert_null (iface);
 }
 
 static void
@@ -342,7 +342,7 @@ atk_test_accessible_get_text_iface (TestAppFixture *fixture, gconstpointer user_
 {
   AtspiAccessible *obj = fixture->root_obj;
   AtspiText *iface = atspi_accessible_get_text_iface (obj);
-  g_assert (iface == NULL);
+  g_assert_null (iface);
 }
 
 static void
@@ -350,7 +350,7 @@ atk_test_accessible_get_value_iface (TestAppFixture *fixture, gconstpointer user
 {
   AtspiAccessible *obj = fixture->root_obj;
   AtspiValue *iface = atspi_accessible_get_value_iface (obj);
-  g_assert (iface == NULL);
+  g_assert_null (iface);
 }
 
 static void
@@ -360,7 +360,7 @@ atk_test_accessible_get_interfaces (TestAppFixture *fixture, gconstpointer user_
   gchar *valid_obj_ifaces[] = { "Accessible", "Collection" };
 
   GArray *ifaces = atspi_accessible_get_interfaces (obj);
-  g_assert (ifaces->len == 2);
+  g_assert_cmpint (ifaces->len, ==, 2);
   int i = 0;
   for (i = 0; i < ifaces->len; ++i)
     {

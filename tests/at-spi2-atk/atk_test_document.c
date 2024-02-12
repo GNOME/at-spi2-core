@@ -31,7 +31,7 @@ atk_test_document_get_document_iface (TestAppFixture *fixture, gconstpointer use
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiDocument *iface = atspi_accessible_get_document_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
   g_object_unref (iface);
   g_object_unref (child);
 }
@@ -42,7 +42,7 @@ atk_test_document_get_locale (TestAppFixture *fixture, gconstpointer user_data)
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiDocument *iface = atspi_accessible_get_document_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
 
   gchar *str = atspi_document_get_locale (iface, NULL);
   g_assert_cmpstr (str, ==, "document_locale");
@@ -58,7 +58,7 @@ atk_test_document_get_attribute_value (TestAppFixture *fixture, gconstpointer us
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiDocument *iface = atspi_accessible_get_document_iface (child);
   gchar *str;
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
 
   str = atspi_document_get_document_attribute_value (iface, "atspi1", NULL);
   g_assert_cmpstr (str, ==, "test1");
@@ -76,7 +76,7 @@ atk_test_document_get_attributes (TestAppFixture *fixture, gconstpointer user_da
   AtspiAccessible *obj = fixture->root_obj;
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
   AtspiDocument *iface = atspi_accessible_get_document_iface (child);
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
 
   GHashTable *attr = atspi_document_get_document_attributes (iface, NULL);
   GHashTableIter iter;
@@ -115,7 +115,7 @@ atk_test_document_text_selections (TestAppFixture *fixture, gconstpointer user_d
   GArray *selections;
   AtspiTextSelection selection;
 
-  g_assert (iface != NULL);
+  g_assert_nonnull (iface);
 
   selections = atspi_document_get_text_selections (iface, NULL);
   g_assert_true (selections);

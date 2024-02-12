@@ -27,11 +27,11 @@ static void
 atk_test_hypertext_get_n_links (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiHypertext *obj = atspi_accessible_get_hypertext_iface (child);
-  g_assert (obj);
+  g_assert_nonnull (obj);
   gint cnt = atspi_hypertext_get_n_links (obj, NULL);
   g_assert_cmpint (cnt, ==, 2);
   g_object_unref (obj);
@@ -42,15 +42,15 @@ static void
 atk_test_hypertext_get_link (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiHypertext *obj = atspi_accessible_get_hypertext_iface (child);
-  g_assert (obj);
+  g_assert_nonnull (obj);
   AtspiHyperlink *link = atspi_hypertext_get_link (obj, 1, NULL);
-  g_assert (link);
+  g_assert_nonnull (link);
   gchar *str = atspi_hyperlink_get_uri (link, 0, NULL);
-  g_assert (str);
+  g_assert_nonnull (str);
   g_assert_cmpstr (str, ==, "pinkbike.com");
 
   g_free (str);
@@ -70,11 +70,11 @@ static void
 atk_test_hypertext_get_link_index (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *_obj = fixture->root_obj;
-  g_assert (_obj);
+  g_assert_nonnull (_obj);
   AtspiAccessible *child = atspi_accessible_get_child_at_index (_obj, 0, NULL);
-  g_assert (child);
+  g_assert_nonnull (child);
   AtspiHypertext *obj = atspi_accessible_get_hypertext_iface (child);
-  g_assert (obj);
+  g_assert_nonnull (obj);
   gint cnt = atspi_hypertext_get_link_index (obj, 15, NULL);
   g_assert_cmpint (cnt, ==, -1);
   cnt = atspi_hypertext_get_link_index (obj, 55, NULL);
