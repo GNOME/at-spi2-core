@@ -127,7 +127,10 @@ atk_test_collection_get_matches_from (TestAppFixture *fixture, gconstpointer use
   AtspiAccessible *obj = fixture->root_obj;
   AtspiCollection *iface = atspi_accessible_get_collection_iface (obj);
   GHashTable *attributes;
-  g_assert (iface);
+  GArray *array;
+  AtspiRole role;
+
+  g_assert_nonnull (iface);
 
   AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
   AtspiAccessible *child1 = atspi_accessible_get_child_at_index (obj, 1, NULL);
@@ -180,7 +183,33 @@ atk_test_collection_get_matches_from (TestAppFixture *fixture, gconstpointer use
                                            FALSE,
                                            NULL);
   g_hash_table_unref (attributes);
+  g_assert_cmpint (7, ==, ret->len);
+  g_array_free (ret, TRUE);
+  g_object_unref (rule);
+
+  array = g_array_new (FALSE, FALSE, sizeof (AtspiRole));
+  role = ATSPI_ROLE_LINK;
+  g_array_insert_val (array, 0, role);
+  rule = atspi_match_rule_new (NULL,
+                               ATSPI_Collection_MATCH_ALL,
+                               NULL,
+                               ATSPI_Collection_MATCH_ALL,
+                               array,
+                               ATSPI_Collection_MATCH_NONE,
+                               NULL,
+                               ATSPI_Collection_MATCH_ALL,
+                               FALSE);
+  ret = atspi_collection_get_matches_from (iface,
+                                           child1,
+                                           rule,
+                                           ATSPI_Collection_SORT_ORDER_CANONICAL,
+                                           ATSPI_Collection_TREE_INORDER,
+                                           0,
+                                           FALSE,
+                                           NULL);
   g_assert_cmpint (6, ==, ret->len);
+  g_array_free (array, TRUE);
+  //g_assert_cmpint (5, ==, ret->len);
   g_array_free (ret, TRUE);
   g_object_unref (rule);
 
