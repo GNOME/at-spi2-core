@@ -11,6 +11,7 @@
 			<state state_enum="multi-line"/>
 		</accessible>
 		<accessible description="second prechild" name="obj2/2" role="canvas"/>
+		<accessible description="third prechild" name="obj2/3" role="link"/>
 	</accessible>
 	<accessible description="third child" name="obj3" role="check box">
 		<state state_enum="modal"/>

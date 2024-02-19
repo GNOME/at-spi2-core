@@ -199,7 +199,7 @@ match_roles_all_p (AtkObject *child, gint *roles)
   else if (roles[1] != BITARRAY_SEQ_TERM)
     return FALSE;
 
-  return (atk_object_get_role (child) == roles[0]);
+  return (spi_get_role (child) == roles[0]);
 }
 
 static gboolean
@@ -223,13 +223,13 @@ match_roles_any_p (AtkObject *child, gint *roles)
 static gboolean
 match_roles_none_p (AtkObject *child, gint *roles)
 {
-  AtkRole role;
+  AtspiRole role;
   int i;
 
   if (roles == NULL || roles[0] == BITARRAY_SEQ_TERM)
     return TRUE;
 
-  role = atk_object_get_role (child);
+  role = spi_get_role (child);
 
   for (i = 0; roles[i] != BITARRAY_SEQ_TERM; i++)
     if (role == roles[i])
