@@ -9,8 +9,8 @@
 msgid ""
 msgstr "Project-Id-Version: atk master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
-"POT-Creation-Date: 2022-07-25 14:47+0000\n"
-"PO-Revision-Date: 2022-07-31 18:58+0100\n"
+"POT-Creation-Date: 2024-01-06 16:43+0000\n"
+"PO-Revision-Date: 2024-02-20 18:58+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -19,632 +19,175 @@ msgstr "Project-Id-Version: atk master\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: atk/atkhyperlink.c:126
+#: atk/atkhyperlink.c:127
 msgid "Selected Link"
 msgstr "Hautatutako esteka"
 
-#: atk/atkhyperlink.c:127
+#: atk/atkhyperlink.c:128
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr "AtkHyperlink objektua hautatuta dagoen den edo ez zehazten du"
 
-#: atk/atkhyperlink.c:133
+#: atk/atkhyperlink.c:134
 msgid "Number of Anchors"
 msgstr "Aingura kopurua"
 
-#: atk/atkhyperlink.c:134
+#: atk/atkhyperlink.c:135
 msgid "The number of anchors associated with the AtkHyperlink object"
-msgstr "AtkHyperlink objektuarekin asoziatutako aingura kopurua"
+msgstr "AtkHyperlink objektuari lotutako aingura kopurua"
 
-#: atk/atkhyperlink.c:142
+#: atk/atkhyperlink.c:143
 msgid "End index"
 msgstr "Amaierako indizea"
 
-#: atk/atkhyperlink.c:143
+#: atk/atkhyperlink.c:144
 msgid "The end index of the AtkHyperlink object"
 msgstr "AtkHyperlink objektuaren amaierako indizea"
 
-#: atk/atkhyperlink.c:151
+#: atk/atkhyperlink.c:152
 msgid "Start index"
 msgstr "Hasierako indizea"
 
-#: atk/atkhyperlink.c:152
+#: atk/atkhyperlink.c:153
 msgid "The start index of the AtkHyperlink object"
 msgstr "AtkHyperlink objektuaren hasierako indizea"
 
-#: atk/atkobject.c:98
-msgid "invalid"
-msgstr "baliogabea"
-
-#: atk/atkobject.c:99
-msgid "accelerator label"
-msgstr "bizkortze-etiketa"
-
-#: atk/atkobject.c:100
-msgid "alert"
-msgstr "abisua"
-
-#: atk/atkobject.c:101
-msgid "animation"
-msgstr "animazioa"
-
-#: atk/atkobject.c:102
-msgid "arrow"
-msgstr "gezia"
-
-#: atk/atkobject.c:103
-msgid "calendar"
-msgstr "egutegia"
-
-#: atk/atkobject.c:104
-msgid "canvas"
-msgstr "oihala"
-
-#: atk/atkobject.c:105
-msgid "check box"
-msgstr "kontrol-laukia"
-
-#: atk/atkobject.c:106
-msgid "check menu item"
-msgstr "egiaztatu menu-elementua"
-
-#: atk/atkobject.c:107
-msgid "color chooser"
-msgstr "kolore-hautatzailea"
-
-#: atk/atkobject.c:108
-msgid "column header"
-msgstr "zutabe-goiburua"
-
-#: atk/atkobject.c:109
-msgid "combo box"
-msgstr "konbinazio-koadroa"
-
-#: atk/atkobject.c:110
-msgid "dateeditor"
-msgstr "data-editorea"
-
-#: atk/atkobject.c:111
-msgid "desktop icon"
-msgstr "mahaigaineko ikonoa"
-
-#: atk/atkobject.c:112
-msgid "desktop frame"
-msgstr "mahaigaineko markoa"
-
-#: atk/atkobject.c:113
-msgid "dial"
-msgstr "markatu"
-
-#: atk/atkobject.c:114
-msgid "dialog"
-msgstr "elkarrizketa"
-
-#: atk/atkobject.c:115
-msgid "directory pane"
-msgstr "direktorio-panela"
-
-#: atk/atkobject.c:116
-msgid "drawing area"
-msgstr "marrazte-area"
-
-#: atk/atkobject.c:117
-msgid "file chooser"
-msgstr "fitxategi-hautatzailea"
-
-#: atk/atkobject.c:118
-msgid "filler"
-msgstr "betegarria"
-
-#. I know it looks wrong but that is what Java returns
-#: atk/atkobject.c:120
-msgid "fontchooser"
-msgstr "letra-tipoen hautatzailea"
-
-#: atk/atkobject.c:121
-msgid "frame"
-msgstr "markoa"
-
-#: atk/atkobject.c:122
-msgid "glass pane"
-msgstr "panel gardena"
-
-#: atk/atkobject.c:123
-msgid "html container"
-msgstr "html-edukiontzia"
-
-#: atk/atkobject.c:124
-msgid "icon"
-msgstr "ikonoa"
-
-#: atk/atkobject.c:125
-msgid "image"
-msgstr "irudia"
-
-#: atk/atkobject.c:126
-msgid "internal frame"
-msgstr "barneko markoa"
-
-#: atk/atkobject.c:127
-msgid "label"
-msgstr "etiketa"
-
-#: atk/atkobject.c:128
-msgid "layered pane"
-msgstr "geruzadun panela"
-
-#: atk/atkobject.c:129
-msgid "list"
-msgstr "zerrenda"
-
-#: atk/atkobject.c:130
-msgid "list item"
-msgstr "zerrenda-elementua"
-
-#: atk/atkobject.c:131
-msgid "menu"
-msgstr "menua"
-
-#: atk/atkobject.c:132
-msgid "menu bar"
-msgstr "menu-barra"
-
-#: atk/atkobject.c:133
-msgid "menu button"
-msgstr "menu-botoia"
-
-#: atk/atkobject.c:134
-msgid "menu item"
-msgstr "menu-elementua"
-
-#: atk/atkobject.c:135
-msgid "option pane"
-msgstr "aukera-panela"
-
-#: atk/atkobject.c:136
-msgid "page tab"
-msgstr "orrialde-fitxa"
-
-#: atk/atkobject.c:137
-msgid "page tab list"
-msgstr "orrialde-fitxen zerrenda"
-
-#: atk/atkobject.c:138
-msgid "panel"
-msgstr "panela"
-
-#: atk/atkobject.c:139
-msgid "password text"
-msgstr "pasahitzaren testua"
-
-#: atk/atkobject.c:140
-msgid "popup menu"
-msgstr "laster-menua"
-
-#: atk/atkobject.c:141
-msgid "progress bar"
-msgstr "progresio-barra"
-
-#: atk/atkobject.c:142
-msgid "push button"
-msgstr "sakatze-botoia"
-
-#: atk/atkobject.c:143
-msgid "radio button"
-msgstr "irrati-botoia"
-
-#: atk/atkobject.c:144
-msgid "radio menu item"
-msgstr "irratiaren menu-elementua"
-
-#: atk/atkobject.c:145
-msgid "root pane"
-msgstr "erro-panela"
-
-#: atk/atkobject.c:146
-msgid "row header"
-msgstr "errenkada-goiburua"
-
-#: atk/atkobject.c:147
-msgid "scroll bar"
-msgstr "korritze-barra"
-
-#: atk/atkobject.c:148
-msgid "scroll pane"
-msgstr "korritze-panela"
-
-#: atk/atkobject.c:149
-msgid "separator"
-msgstr "bereizlea"
-
-#: atk/atkobject.c:150
-msgid "slider"
-msgstr "graduatzailea"
-
-#: atk/atkobject.c:151
-msgid "split pane"
-msgstr "zatitze-panela"
-
-#: atk/atkobject.c:152
-msgid "spin button"
-msgstr "biratze-botoia"
-
-#: atk/atkobject.c:153
-msgid "statusbar"
-msgstr "egoera-barra"
-
-#: atk/atkobject.c:154
-msgid "table"
-msgstr "taula"
-
-#: atk/atkobject.c:155
-msgid "table cell"
-msgstr "taulako gelaxka"
-
-#: atk/atkobject.c:156
-msgid "table column header"
-msgstr "taulako zutabe-goiburua"
-
-#: atk/atkobject.c:157
-msgid "table row header"
-msgstr "taulako errenkada-goiburua"
-
-#: atk/atkobject.c:158
-msgid "tear off menu item"
-msgstr "menu askagarriko elementua"
-
-#: atk/atkobject.c:159
-msgid "terminal"
-msgstr "terminala"
-
-#: atk/atkobject.c:160
-msgid "text"
-msgstr "testua"
-
-#: atk/atkobject.c:161
-msgid "toggle button"
-msgstr "txandakatze-botoia"
-
-#: atk/atkobject.c:162
-msgid "tool bar"
-msgstr "tresna-barra"
-
-#: atk/atkobject.c:163
-msgid "tool tip"
-msgstr "aholkua"
-
-#: atk/atkobject.c:164
-msgid "tree"
-msgstr "zuhaitza"
-
-#: atk/atkobject.c:165
-msgid "tree table"
-msgstr "zuhaitz-taula"
-
-#: atk/atkobject.c:166
-msgid "unknown"
-msgstr "ezezaguna"
-
-#: atk/atkobject.c:167
-msgid "viewport"
-msgstr "leihatila"
-
-#: atk/atkobject.c:168
-msgid "window"
-msgstr "leihoa"
-
-#: atk/atkobject.c:169
-msgid "header"
-msgstr "goiburua"
-
-#: atk/atkobject.c:170
-msgid "footer"
-msgstr "orri-oina"
-
-#: atk/atkobject.c:171
-msgid "paragraph"
-msgstr "paragrafoa"
-
-#: atk/atkobject.c:172
-msgid "ruler"
-msgstr "erregela"
-
-#: atk/atkobject.c:173
-msgid "application"
-msgstr "aplikazioa"
-
-#: atk/atkobject.c:174
-msgid "autocomplete"
-msgstr "auto-osatzea"
-
-#: atk/atkobject.c:175
-msgid "edit bar"
-msgstr "edizio-barra"
-
-#: atk/atkobject.c:176
-msgid "embedded component"
-msgstr "kapsulatutako osagaia"
-
-#: atk/atkobject.c:177
-msgid "entry"
-msgstr "sarrera"
-
-#: atk/atkobject.c:178
-msgid "chart"
-msgstr "diagrama"
-
-#: atk/atkobject.c:179
-msgid "caption"
-msgstr "epigrafea"
-
-#: atk/atkobject.c:180
-msgid "document frame"
-msgstr "dokumentuaren markoa"
-
-#: atk/atkobject.c:181
-msgid "heading"
-msgstr "izenburua"
-
-#: atk/atkobject.c:182
-msgid "page"
-msgstr "orria"
-
-#: atk/atkobject.c:183
-msgid "section"
-msgstr "atala"
-
-#: atk/atkobject.c:184
-msgid "redundant object"
-msgstr "objektu erredundanteak"
-
-#: atk/atkobject.c:185
-msgid "form"
-msgstr "inprimakia"
-
-#: atk/atkobject.c:186
-msgid "link"
-msgstr "esteka"
-
-#: atk/atkobject.c:187
-msgid "input method window"
-msgstr "sarrerako metodoaren leihoa"
-
-#: atk/atkobject.c:188
-msgid "table row"
-msgstr "taulako errenkada"
-
-#: atk/atkobject.c:189
-msgid "tree item"
-msgstr "zuhaitzeko elementua"
-
-#: atk/atkobject.c:190
-msgid "document spreadsheet"
-msgstr "kalkulu-orriaren dokumentua"
-
-#: atk/atkobject.c:191
-msgid "document presentation"
-msgstr "aurkezpenaren dokumentua"
-
-#: atk/atkobject.c:192
-msgid "document text"
-msgstr "testu-dokumentua"
-
-#: atk/atkobject.c:193
-msgid "document web"
-msgstr "web dokumentua"
-
-#: atk/atkobject.c:194
-msgid "document email"
-msgstr "posta elektronikoaren dokumentua"
-
-#: atk/atkobject.c:195
-msgid "comment"
-msgstr "iruzkina"
-
-#: atk/atkobject.c:196
-msgid "list box"
-msgstr "zerrenda-koadroa"
-
-#: atk/atkobject.c:197
-msgid "grouping"
-msgstr "elkartzea"
-
-#: atk/atkobject.c:198
-msgid "image map"
-msgstr "irudi-mapa"
-
-#: atk/atkobject.c:199
-msgid "notification"
-msgstr "jakinarazpena"
-
-#: atk/atkobject.c:200
-msgid "info bar"
-msgstr "informazio-barra"
-
-#: atk/atkobject.c:201
-msgid "level bar"
-msgstr "maila-barra"
-
-#: atk/atkobject.c:202
-msgid "title bar"
-msgstr "titulu-barra"
-
-#: atk/atkobject.c:203
-msgid "block quote"
-msgstr "aipuaren blokea"
-
-#: atk/atkobject.c:204
-msgid "audio"
-msgstr "audioa"
-
-#: atk/atkobject.c:205
-msgid "video"
-msgstr "bideoa"
-
-#: atk/atkobject.c:206
-msgid "definition"
-msgstr "definizioa"
-
-#: atk/atkobject.c:207
-msgid "article"
-msgstr "artikulua"
-
-#: atk/atkobject.c:208
-msgid "landmark"
-msgstr "erreferentzia puntua"
-
-#: atk/atkobject.c:209
-msgid "log"
-msgstr "erregistroa"
-
-#: atk/atkobject.c:210
-msgid "marquee"
-msgstr "markesina"
-
-#: atk/atkobject.c:211
-msgid "math"
-msgstr "matematikak"
-
-#: atk/atkobject.c:212
-msgid "rating"
-msgstr "puntuazioa"
-
-#: atk/atkobject.c:213
-msgid "timer"
-msgstr "kronometroa"
-
-#: atk/atkobject.c:214
-msgid "description list"
-msgstr "azalpenen zerrenda"
-
-#: atk/atkobject.c:215
-msgid "description term"
-msgstr "azalpenaren terminoa"
-
-#: atk/atkobject.c:216
-msgid "description value"
-msgstr "azalpenaren balioa"
-
-#: atk/atkobject.c:392
+#: atk/atkobject.c:272
 msgid "Accessible Name"
-msgstr "Izen erabilgarria"
+msgstr "Izen irisgarria"
 
-#: atk/atkobject.c:393
+#: atk/atkobject.c:273
 msgid "Object instance’s name formatted for assistive technology access"
-msgstr "Objektuaren instatziaren izena, erabilgarritasunaren laguntza-euskarriarentzako formateatuta"
+msgstr "Objektuaren instantziaren izena, irisgarritasun-teknologien atzipenerako formateatuta"
 
-#: atk/atkobject.c:399
+#: atk/atkobject.c:279
 msgid "Accessible Description"
-msgstr "Azalpen erabilgarria"
+msgstr "Azalpen irisgarria"
 
-#: atk/atkobject.c:400
+#: atk/atkobject.c:280
 msgid "Description of an object, formatted for assistive technology access"
-msgstr "Objektu baten azalpena, erabilgarritasunaren laguntza-euskarriarentzako formateatuta"
+msgstr "Objektu baten azalpena, irisgarritasun-teknologien atzipenerako formateatuta"
 
-#: atk/atkobject.c:406
+#: atk/atkobject.c:286
 msgid "Accessible Parent"
-msgstr "Guraso erabilgarria"
+msgstr "Guraso irisgarria"
 
-#: atk/atkobject.c:407
+#: atk/atkobject.c:287
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
-msgstr "Uneko elementu atzigarriaren gurasoa 'atk_object_get_parent()'-ek itzulita"
+msgstr "Uneko elementu irisgarriaren gurasoa, 'atk_object_get_parent()'-ek itzultzen duen moduan"
 
-#: atk/atkobject.c:423
+#: atk/atkobject.c:303
 msgid "Accessible Value"
-msgstr "Balio erabilgarria"
+msgstr "Balio irisgarria"
 
-#: atk/atkobject.c:424
+#: atk/atkobject.c:304
 msgid "Is used to notify that the value has changed"
 msgstr "Balioa aldatu dela adierazteko erabiltzen da"
 
-#: atk/atkobject.c:432
+#: atk/atkobject.c:312
 msgid "Accessible Role"
-msgstr "Egiteko erabilgarria"
+msgstr "Egiteko irisgarria"
 
-#: atk/atkobject.c:433
+#: atk/atkobject.c:313
 msgid "The accessible role of this object"
-msgstr "Objektu honen egiteko erabilgarria"
+msgstr "Objektu honen egiteko irisgarria"
 
-#: atk/atkobject.c:440
+#: atk/atkobject.c:320
 msgid "Accessible Layer"
-msgstr "Geruza erabilgarria"
+msgstr "Geruza irisgarria"
 
-#: atk/atkobject.c:441
+#: atk/atkobject.c:321
 msgid "The accessible layer of this object"
-msgstr "Objektu honentzako geruza erabilgarria"
+msgstr "Objektu honen geruza irisgarria"
 
-#: atk/atkobject.c:449
+#: atk/atkobject.c:329
 msgid "Accessible MDI Value"
-msgstr "MDI balio erabilgarria"
+msgstr "MDI balio irisgarria"
 
-#: atk/atkobject.c:450
+#: atk/atkobject.c:330
 msgid "The accessible MDI value of this object"
-msgstr "Objektu honentzako MDI balio erabilgarria"
+msgstr "Objektu honen MDI balio irisgarria"
 
-#: atk/atkobject.c:466
+#: atk/atkobject.c:346
 msgid "Accessible Table Caption"
-msgstr "Taularen epigrafe erabilgarria"
+msgstr "Taularen epigrafe irisgarria"
 
-#: atk/atkobject.c:467
+#: atk/atkobject.c:347
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
-msgstr "Taularen epigrafea aldatu dela adierazteko erabiltzen da; propietate hau ez litzateke erabili behar. Honen ordez erabili accessible-table-caption-object behar da"
+msgstr "Taularen epigrafea aldatu dela adierazteko erabiltzen da; propietate hau ez litzateke erabili behar. Honen ordez erabili 'accessible-table-caption-object'"
 
-#: atk/atkobject.c:481
+#: atk/atkobject.c:361
 msgid "Accessible Table Column Header"
-msgstr "Taularen zutabe-goiburu erabilgarria"
+msgstr "Taularen zutabe-goiburu irisgarria"
 
-#: atk/atkobject.c:482
+#: atk/atkobject.c:362
 msgid "Is used to notify that the table column header has changed"
 msgstr "Taularen zutabe-goiburua aldatu dela adierazteko erabiltzen da"
 
-#: atk/atkobject.c:497
+#: atk/atkobject.c:377
 msgid "Accessible Table Column Description"
-msgstr "Taularen zutabe-azalpen erabilgarria"
+msgstr "Taularen zutabe-azalpen irisgarria"
 
-#: atk/atkobject.c:498
+#: atk/atkobject.c:378
 msgid "Is used to notify that the table column description has changed"
 msgstr "Taularen zutabe-azalpena aldatu dela adierazteko erabiltzen da"
 
-#: atk/atkobject.c:513
+#: atk/atkobject.c:393
 msgid "Accessible Table Row Header"
-msgstr "Taularen errenkada-goiburu erabilgarria"
+msgstr "Taularen errenkada-goiburu irisgarria"
 
-#: atk/atkobject.c:514
+#: atk/atkobject.c:394
 msgid "Is used to notify that the table row header has changed"
 msgstr "Taularen errenkada-goiburua aldatu dela adierazteko erabiltzen da"
 
-#: atk/atkobject.c:528
+#: atk/atkobject.c:408
 msgid "Accessible Table Row Description"
-msgstr "Taularen errenkada-azalpen erabilgarria"
+msgstr "Taularen errenkada-azalpen irisgarria"
 
-#: atk/atkobject.c:529
+#: atk/atkobject.c:409
 msgid "Is used to notify that the table row description has changed"
 msgstr "Taularen errenkada-azalpena aldatu dela adierazteko erabiltzen da"
 
-#: atk/atkobject.c:535
+#: atk/atkobject.c:415
 msgid "Accessible Table Summary"
-msgstr "Taularen laburpen erabilgarria"
+msgstr "Taularen laburpen irisgarria"
 
-#: atk/atkobject.c:536
+#: atk/atkobject.c:416
 msgid "Is used to notify that the table summary has changed"
 msgstr "Taularen laburpena aldatu dela adierazteko erabiltzen da"
 
-#: atk/atkobject.c:542
+#: atk/atkobject.c:422
 msgid "Accessible Table Caption Object"
-msgstr "Taularen epigrafe-objektu erabilgarria"
+msgstr "Taularen epigrafe-objektu irisgarria"
 
-#: atk/atkobject.c:543
+#: atk/atkobject.c:423
 msgid "Is used to notify that the table caption has changed"
 msgstr "Taularen epigrafea aldatu dela adierazteko erabiltzen da"
 
-#: atk/atkobject.c:549
+#: atk/atkobject.c:429
 msgid "Number of Accessible Hypertext Links"
-msgstr "Hipertestu-esteka erabilgarrien kopurua"
+msgstr "Hipertestu-esteka irisgarrien kopurua"
 
-#: atk/atkobject.c:550
+#: atk/atkobject.c:430
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Uneko AtkHypertext-ek duen esteka kopurua"
+
+#: atk/atkobject.c:439
+msgid "Accessible ID"
+msgstr "ID irisgarria"
+
+#: atk/atkobject.c:440
+msgid "ID for the accessible; useful for automated testing"
+msgstr "ID irisgarria; proba automatikoetan erabiltzen da"
+
+#: atk/atkobject.c:446
+msgid "Help text"
+msgstr "Laguntza-testua"
+
+#: atk/atkobject.c:447
+msgid "Help text associated with the accessible"
+msgstr "Irisgarriari lotutako laguntza-testua"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a password-strength meter. Note that what such a
@@ -652,7 +195,7 @@ msgstr "Uneko AtkHypertext-ek duen esteka kopurua"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:194
+#: atk/atkvalue.c:193
 msgid "very weak"
 msgstr "oso ahula"
 
@@ -662,7 +205,7 @@ msgstr "oso ahula"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:201
+#: atk/atkvalue.c:200
 msgid "weak"
 msgstr "ahula"
 
@@ -672,7 +215,7 @@ msgstr "ahula"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:208
+#: atk/atkvalue.c:207
 msgid "acceptable"
 msgstr "onargarria"
 
@@ -682,7 +225,7 @@ msgstr "onargarria"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:215
+#: atk/atkvalue.c:214
 msgid "strong"
 msgstr "sendoa"
 
@@ -692,7 +235,7 @@ msgstr "sendoa"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:222
+#: atk/atkvalue.c:221
 msgid "very strong"
 msgstr "oso sendoa"
 
@@ -703,7 +246,7 @@ msgstr "oso sendoa"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:230
+#: atk/atkvalue.c:229
 msgid "very low"
 msgstr "oso baxua"
 
@@ -714,7 +257,7 @@ msgstr "oso baxua"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:238
+#: atk/atkvalue.c:237
 msgid "medium"
 msgstr "ertaina"
 
@@ -725,7 +268,7 @@ msgstr "ertaina"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:246
+#: atk/atkvalue.c:245
 msgid "high"
 msgstr "altua"
 
@@ -736,7 +279,7 @@ msgstr "altua"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:254
+#: atk/atkvalue.c:253
 msgid "very high"
 msgstr "oso altua"
 
@@ -747,7 +290,7 @@ msgstr "oso altua"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:262
+#: atk/atkvalue.c:261
 msgid "very bad"
 msgstr "oso txarra"
 
@@ -758,7 +301,7 @@ msgstr "oso txarra"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:270
+#: atk/atkvalue.c:269
 msgid "bad"
 msgstr "txarra"
 
@@ -769,7 +312,7 @@ msgstr "txarra"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:278
+#: atk/atkvalue.c:277
 msgid "good"
 msgstr "ona"
 
@@ -780,7 +323,7 @@ msgstr "ona"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:286
+#: atk/atkvalue.c:285
 msgid "very good"
 msgstr "oso ona"
 
@@ -791,13 +334,486 @@ msgstr "oso ona"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:294
+#: atk/atkvalue.c:293
 msgid "best"
 msgstr "onena"
 
-#: atspi/atspi-component.c:332 atspi/atspi-misc.c:1063 atspi/atspi-value.c:111
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1230 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "Aplikazioa ez da gehiago existitzen"
+
+#: atspi/atspi-misc.c:49
+msgid "invalid"
+msgstr "baliogabea"
+
+#: atspi/atspi-misc.c:50
+msgid "accelerator label"
+msgstr "bizkortze-etiketa"
+
+#: atspi/atspi-misc.c:51
+msgid "alert"
+msgstr "abisua"
+
+#: atspi/atspi-misc.c:52
+msgid "animation"
+msgstr "animazioa"
+
+#: atspi/atspi-misc.c:53
+msgid "arrow"
+msgstr "gezia"
+
+#: atspi/atspi-misc.c:54
+msgid "calendar"
+msgstr "egutegia"
+
+#: atspi/atspi-misc.c:55
+msgid "canvas"
+msgstr "oihala"
+
+#: atspi/atspi-misc.c:56
+msgid "check box"
+msgstr "kontrol-laukia"
+
+#: atspi/atspi-misc.c:57
+msgid "check menu item"
+msgstr "egiaztatu menu-elementua"
+
+#: atspi/atspi-misc.c:58
+msgid "color chooser"
+msgstr "kolore-hautatzailea"
+
+#: atspi/atspi-misc.c:59
+msgid "column header"
+msgstr "zutabe-goiburua"
+
+#: atspi/atspi-misc.c:60
+msgid "combo box"
+msgstr "konbinazio-koadroa"
+
+#: atspi/atspi-misc.c:61
+msgid "dateeditor"
+msgstr "data-editorea"
+
+#: atspi/atspi-misc.c:62
+msgid "desktop icon"
+msgstr "mahaigaineko ikonoa"
+
+#: atspi/atspi-misc.c:63
+msgid "desktop frame"
+msgstr "mahaigaineko markoa"
+
+#: atspi/atspi-misc.c:64
+msgid "dial"
+msgstr "markatu"
+
+#: atspi/atspi-misc.c:65
+msgid "dialog"
+msgstr "elkarrizketa"
+
+#: atspi/atspi-misc.c:66
+msgid "directory pane"
+msgstr "direktorio-panela"
+
+#: atspi/atspi-misc.c:67
+msgid "drawing area"
+msgstr "marrazte-area"
+
+#: atspi/atspi-misc.c:68
+msgid "file chooser"
+msgstr "fitxategi-hautatzailea"
+
+#: atspi/atspi-misc.c:69
+msgid "filler"
+msgstr "betegarria"
+
+#. I know it looks wrong but that is what Java returns
+#: atspi/atspi-misc.c:71
+msgid "fontchooser"
+msgstr "letra-tipoen hautatzailea"
+
+#: atspi/atspi-misc.c:72
+msgid "frame"
+msgstr "markoa"
+
+#: atspi/atspi-misc.c:73
+msgid "glass pane"
+msgstr "panel gardena"
+
+#: atspi/atspi-misc.c:74
+msgid "html container"
+msgstr "html-edukiontzia"
+
+#: atspi/atspi-misc.c:75
+msgid "icon"
+msgstr "ikonoa"
+
+#: atspi/atspi-misc.c:76
+msgid "image"
+msgstr "irudia"
+
+#: atspi/atspi-misc.c:77
+msgid "internal frame"
+msgstr "barneko markoa"
+
+#: atspi/atspi-misc.c:78
+msgid "label"
+msgstr "etiketa"
+
+#: atspi/atspi-misc.c:79
+msgid "layered pane"
+msgstr "geruzadun panela"
+
+#: atspi/atspi-misc.c:80
+msgid "list"
+msgstr "zerrenda"
+
+#: atspi/atspi-misc.c:81
+msgid "list item"
+msgstr "zerrenda-elementua"
+
+#: atspi/atspi-misc.c:82
+msgid "menu"
+msgstr "menua"
+
+#: atspi/atspi-misc.c:83
+msgid "menu bar"
+msgstr "menu-barra"
+
+#: atspi/atspi-misc.c:84
+msgid "menu button"
+msgstr "menu-botoia"
+
+#: atspi/atspi-misc.c:85
+msgid "menu item"
+msgstr "menu-elementua"
+
+#: atspi/atspi-misc.c:86
+msgid "option pane"
+msgstr "aukera-panela"
+
+#: atspi/atspi-misc.c:87
+msgid "page tab"
+msgstr "orri-fitxa"
+
+#: atspi/atspi-misc.c:88
+msgid "page tab list"
+msgstr "orri-fitxen zerrenda"
+
+#: atspi/atspi-misc.c:89
+msgid "panel"
+msgstr "panela"
+
+#: atspi/atspi-misc.c:90
+msgid "password text"
+msgstr "pasahitzaren testua"
+
+#: atspi/atspi-misc.c:91
+msgid "popup menu"
+msgstr "laster-menua"
+
+#: atspi/atspi-misc.c:92
+msgid "progress bar"
+msgstr "progresio-barra"
+
+#: atspi/atspi-misc.c:93
+msgid "push button"
+msgstr "sakatze-botoia"
+
+#: atspi/atspi-misc.c:94
+msgid "radio button"
+msgstr "aukera-botoia"
+
+#: atspi/atspi-misc.c:95
+msgid "radio menu item"
+msgstr "aukera-menuaren elementua"
+
+#: atspi/atspi-misc.c:96
+msgid "root pane"
+msgstr "erro-panela"
+
+#: atspi/atspi-misc.c:97
+msgid "row header"
+msgstr "errenkada-goiburua"
+
+#: atspi/atspi-misc.c:98
+msgid "scroll bar"
+msgstr "korritze-barra"
+
+#: atspi/atspi-misc.c:99
+msgid "scroll pane"
+msgstr "korritze-panela"
+
+#: atspi/atspi-misc.c:100
+msgid "separator"
+msgstr "bereizlea"
+
+#: atspi/atspi-misc.c:101
+msgid "slider"
+msgstr "graduatzailea"
+
+#: atspi/atspi-misc.c:102
+msgid "split pane"
+msgstr "zatitze-panela"
+
+#: atspi/atspi-misc.c:103
+msgid "spin button"
+msgstr "biratze-botoia"
+
+#: atspi/atspi-misc.c:104
+msgid "statusbar"
+msgstr "egoera-barra"
+
+#: atspi/atspi-misc.c:105
+msgid "table"
+msgstr "taula"
+
+#: atspi/atspi-misc.c:106
+msgid "table cell"
+msgstr "taulako gelaxka"
+
+#: atspi/atspi-misc.c:107
+msgid "table column header"
+msgstr "taulako zutabe-goiburua"
+
+#: atspi/atspi-misc.c:108
+msgid "table row header"
+msgstr "taulako errenkada-goiburua"
+
+#: atspi/atspi-misc.c:109
+msgid "tear off menu item"
+msgstr "menu askagarriko elementua"
+
+#: atspi/atspi-misc.c:110
+msgid "terminal"
+msgstr "terminala"
+
+#: atspi/atspi-misc.c:111
+msgid "text"
+msgstr "testua"
+
+#: atspi/atspi-misc.c:112
+msgid "toggle button"
+msgstr "txandakatze-botoia"
+
+#: atspi/atspi-misc.c:113
+msgid "tool bar"
+msgstr "tresna-barra"
+
+#: atspi/atspi-misc.c:114
+msgid "tool tip"
+msgstr "aholkua"
+
+#: atspi/atspi-misc.c:115
+msgid "tree"
+msgstr "zuhaitza"
+
+#: atspi/atspi-misc.c:116
+msgid "tree table"
+msgstr "zuhaitz-taula"
+
+#: atspi/atspi-misc.c:117
+msgid "unknown"
+msgstr "ezezaguna"
+
+#: atspi/atspi-misc.c:118
+msgid "viewport"
+msgstr "leihatila"
+
+#: atspi/atspi-misc.c:119
+msgid "window"
+msgstr "leihoa"
+
+#: atspi/atspi-misc.c:120
+msgid "header"
+msgstr "goiburua"
+
+#: atspi/atspi-misc.c:121
+msgid "footer"
+msgstr "orri-oina"
+
+#: atspi/atspi-misc.c:122
+msgid "paragraph"
+msgstr "paragrafoa"
+
+#: atspi/atspi-misc.c:123
+msgid "ruler"
+msgstr "erregela"
+
+#: atspi/atspi-misc.c:124
+msgid "application"
+msgstr "aplikazioa"
+
+#: atspi/atspi-misc.c:125
+msgid "autocomplete"
+msgstr "auto-osatzea"
+
+#: atspi/atspi-misc.c:126
+msgid "edit bar"
+msgstr "edizio-barra"
+
+#: atspi/atspi-misc.c:127
+msgid "embedded component"
+msgstr "kapsulatutako osagaia"
+
+#: atspi/atspi-misc.c:128
+msgid "entry"
+msgstr "sarrera"
+
+#: atspi/atspi-misc.c:129
+msgid "chart"
+msgstr "diagrama"
+
+#: atspi/atspi-misc.c:130
+msgid "caption"
+msgstr "epigrafea"
+
+#: atspi/atspi-misc.c:131
+msgid "document frame"
+msgstr "dokumentuaren markoa"
+
+#: atspi/atspi-misc.c:132
+msgid "heading"
+msgstr "izenburua"
+
+#: atspi/atspi-misc.c:133
+msgid "page"
+msgstr "orria"
+
+#: atspi/atspi-misc.c:134
+msgid "section"
+msgstr "atala"
+
+#: atspi/atspi-misc.c:135
+msgid "redundant object"
+msgstr "objektu erredundantea"
+
+#: atspi/atspi-misc.c:136
+msgid "form"
+msgstr "inprimakia"
+
+#: atspi/atspi-misc.c:137
+msgid "link"
+msgstr "esteka"
+
+#: atspi/atspi-misc.c:138
+msgid "input method window"
+msgstr "sarrerako metodoaren leihoa"
+
+#: atspi/atspi-misc.c:139
+msgid "table row"
+msgstr "taulako errenkada"
+
+#: atspi/atspi-misc.c:140
+msgid "tree item"
+msgstr "zuhaitzeko elementua"
+
+#: atspi/atspi-misc.c:141
+msgid "document spreadsheet"
+msgstr "kalkulu-orriaren dokumentua"
+
+#: atspi/atspi-misc.c:142
+msgid "document presentation"
+msgstr "aurkezpenaren dokumentua"
+
+#: atspi/atspi-misc.c:143
+msgid "document text"
+msgstr "testu-dokumentua"
+
+#: atspi/atspi-misc.c:144
+msgid "document web"
+msgstr "web dokumentua"
+
+#: atspi/atspi-misc.c:145
+msgid "document email"
+msgstr "posta elektronikoaren dokumentua"
+
+#: atspi/atspi-misc.c:146
+msgid "comment"
+msgstr "iruzkina"
+
+#: atspi/atspi-misc.c:147
+msgid "list box"
+msgstr "zerrenda-koadroa"
+
+#: atspi/atspi-misc.c:148
+msgid "grouping"
+msgstr "taldekatzea"
+
+#: atspi/atspi-misc.c:149
+msgid "image map"
+msgstr "irudi-mapa"
+
+#: atspi/atspi-misc.c:150
+msgid "notification"
+msgstr "jakinarazpena"
+
+#: atspi/atspi-misc.c:151
+msgid "info bar"
+msgstr "informazio-barra"
+
+#: atspi/atspi-misc.c:152
+msgid "level bar"
+msgstr "maila-barra"
+
+#: atspi/atspi-misc.c:153
+msgid "title bar"
+msgstr "titulu-barra"
+
+#: atspi/atspi-misc.c:154
+msgid "block quote"
+msgstr "aipuaren blokea"
+
+#: atspi/atspi-misc.c:155
+msgid "audio"
+msgstr "audioa"
+
+#: atspi/atspi-misc.c:156
+msgid "video"
+msgstr "bideoa"
+
+#: atspi/atspi-misc.c:157
+msgid "definition"
+msgstr "definizioa"
+
+#: atspi/atspi-misc.c:158
+msgid "article"
+msgstr "artikulua"
+
+#: atspi/atspi-misc.c:159
+msgid "landmark"
+msgstr "erreferentzia puntua"
+
+#: atspi/atspi-misc.c:160
+msgid "log"
+msgstr "erregistroa"
+
+#: atspi/atspi-misc.c:161
+msgid "marquee"
+msgstr "markesina"
+
+#: atspi/atspi-misc.c:162
+msgid "math"
+msgstr "matematikak"
+
+#: atspi/atspi-misc.c:163
+msgid "rating"
+msgstr "puntuazioa"
+
+#: atspi/atspi-misc.c:164
+msgid "timer"
+msgstr "kronometroa"
+
+#: atspi/atspi-misc.c:165
+msgid "description list"
+msgstr "azalpenen zerrenda"
+
+#: atspi/atspi-misc.c:166
+msgid "description term"
+msgstr "azalpenaren terminoa"
+
+#: atspi/atspi-misc.c:167
+msgid "description value"
+msgstr "azalpenaren balioa"
 
 #~ msgid "Attempted synchronous call where prohibited"
 #~ msgstr "Dei sinkronizatuen saiakera debekatuta dago"
