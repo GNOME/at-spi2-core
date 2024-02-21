@@ -209,7 +209,6 @@ atk_test_collection_get_matches_from (TestAppFixture *fixture, gconstpointer use
                                            NULL);
   g_assert_cmpint (6, ==, ret->len);
   g_array_free (array, TRUE);
-  //g_assert_cmpint (5, ==, ret->len);
   g_array_free (ret, TRUE);
   g_object_unref (rule);
 
