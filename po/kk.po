@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
-"POT-Creation-Date: 2022-09-17 14:43+0000\n"
-"PO-Revision-Date: 2022-09-18 12:17+0600\n"
+"POT-Creation-Date: 2024-01-06 16:43+0000\n"
+"PO-Revision-Date: 2024-02-24 23:50+0600\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
 "Language: kk\n"
@@ -21,634 +21,178 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-Generator: Poedit 1.7.3\n"
 
-#: atk/atkhyperlink.c:126
+#: atk/atkhyperlink.c:127
 msgid "Selected Link"
 msgstr "Таңдалған сілтеме"
 
-#: atk/atkhyperlink.c:127
+#: atk/atkhyperlink.c:128
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr ""
 
-#: atk/atkhyperlink.c:133
+#: atk/atkhyperlink.c:134
 msgid "Number of Anchors"
 msgstr ""
 
-#: atk/atkhyperlink.c:134
+#: atk/atkhyperlink.c:135
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr ""
 
-#: atk/atkhyperlink.c:142
+#: atk/atkhyperlink.c:143
 msgid "End index"
 msgstr "Индекс соңы"
 
-#: atk/atkhyperlink.c:143
+#: atk/atkhyperlink.c:144
 msgid "The end index of the AtkHyperlink object"
 msgstr "AtkHyperlink объектінің индекс соңы"
 
-#: atk/atkhyperlink.c:151
+#: atk/atkhyperlink.c:152
 msgid "Start index"
 msgstr "Индекс басы"
 
-#: atk/atkhyperlink.c:152
+#: atk/atkhyperlink.c:153
 msgid "The start index of the AtkHyperlink object"
 msgstr "AtkHyperlink объектінің индекс басы"
 
-#: atk/atkobject.c:99
-msgid "invalid"
-msgstr "бұрыс"
-
-#: atk/atkobject.c:100
-msgid "accelerator label"
-msgstr ""
-
-#: atk/atkobject.c:101
-msgid "alert"
-msgstr "ескерту"
-
-#: atk/atkobject.c:102
-msgid "animation"
-msgstr "анимация"
-
-#: atk/atkobject.c:103
-msgid "arrow"
-msgstr "сызықша"
-
-#: atk/atkobject.c:104
-msgid "calendar"
-msgstr "күнтізбе"
-
-#: atk/atkobject.c:105
-msgid "canvas"
-msgstr ""
-
-#: atk/atkobject.c:106
-msgid "check box"
-msgstr ""
-
-#: atk/atkobject.c:107
-msgid "check menu item"
-msgstr ""
-
-#: atk/atkobject.c:108
-msgid "color chooser"
-msgstr "түсті таңдаушы"
-
-#: atk/atkobject.c:109
-msgid "column header"
-msgstr ""
-
-#: atk/atkobject.c:110
-msgid "combo box"
-msgstr ""
-
-#: atk/atkobject.c:111
-msgid "dateeditor"
-msgstr ""
-
-#: atk/atkobject.c:112
-msgid "desktop icon"
-msgstr "жұмыс үстел таңбашасы"
-
-#: atk/atkobject.c:113
-msgid "desktop frame"
-msgstr ""
-
-#: atk/atkobject.c:114
-msgid "dial"
-msgstr ""
-
-#: atk/atkobject.c:115
-msgid "dialog"
-msgstr "сұхбат терезесі"
-
-#: atk/atkobject.c:116
-msgid "directory pane"
-msgstr ""
-
-#: atk/atkobject.c:117
-msgid "drawing area"
-msgstr ""
-
-#: atk/atkobject.c:118
-msgid "file chooser"
-msgstr ""
-
-#: atk/atkobject.c:119
-msgid "filler"
-msgstr ""
-
-#. I know it looks wrong but that is what Java returns
-#: atk/atkobject.c:121
-msgid "fontchooser"
-msgstr ""
-
-#: atk/atkobject.c:122
-msgid "frame"
-msgstr "фрейм"
-
-#: atk/atkobject.c:123
-msgid "glass pane"
-msgstr ""
-
-#: atk/atkobject.c:124
-msgid "html container"
-msgstr ""
-
-#: atk/atkobject.c:125
-msgid "icon"
-msgstr "таңбаша"
-
-#: atk/atkobject.c:126
-msgid "image"
-msgstr "сурет"
-
-#: atk/atkobject.c:127
-msgid "internal frame"
-msgstr ""
-
-#: atk/atkobject.c:128
-msgid "label"
-msgstr "белгі"
-
-#: atk/atkobject.c:129
-msgid "layered pane"
-msgstr ""
-
-#: atk/atkobject.c:130
-msgid "list"
-msgstr "тізім"
-
-#: atk/atkobject.c:131
-msgid "list item"
-msgstr ""
-
-#: atk/atkobject.c:132
-msgid "menu"
-msgstr "мәзір"
-
-#: atk/atkobject.c:133
-msgid "menu bar"
-msgstr ""
-
-#: atk/atkobject.c:134
-msgid "menu button"
-msgstr "мәзір батырмасы"
-
-#: atk/atkobject.c:135
-msgid "menu item"
-msgstr "мәзір элементі"
-
-#: atk/atkobject.c:136
-msgid "option pane"
-msgstr ""
-
-#: atk/atkobject.c:137
-msgid "page tab"
-msgstr ""
-
-#: atk/atkobject.c:138
-msgid "page tab list"
-msgstr ""
-
-#: atk/atkobject.c:139
-msgid "panel"
-msgstr "панель"
-
-#: atk/atkobject.c:140
-msgid "password text"
-msgstr ""
-
-#: atk/atkobject.c:141
-msgid "popup menu"
-msgstr ""
-
-#: atk/atkobject.c:142
-msgid "progress bar"
-msgstr ""
-
-#: atk/atkobject.c:143
-msgid "push button"
-msgstr ""
-
-#: atk/atkobject.c:144
-msgid "radio button"
-msgstr ""
-
-#: atk/atkobject.c:145
-msgid "radio menu item"
-msgstr ""
-
-#: atk/atkobject.c:146
-msgid "root pane"
-msgstr ""
-
-#: atk/atkobject.c:147
-msgid "row header"
-msgstr ""
-
-#: atk/atkobject.c:148
-msgid "scroll bar"
-msgstr "айналдыру жолағы"
-
-#: atk/atkobject.c:149
-msgid "scroll pane"
-msgstr ""
-
-#: atk/atkobject.c:150
-msgid "separator"
-msgstr "ажыратқыш"
-
-#: atk/atkobject.c:151
-msgid "slider"
-msgstr ""
-
-#: atk/atkobject.c:152
-msgid "split pane"
-msgstr ""
-
-#: atk/atkobject.c:153
-msgid "spin button"
-msgstr ""
-
-#: atk/atkobject.c:154
-msgid "statusbar"
-msgstr "қалып-күй жолағы"
-
-#: atk/atkobject.c:155
-msgid "table"
-msgstr "кесте"
-
-#: atk/atkobject.c:156
-msgid "table cell"
-msgstr "кесте ұяшығы"
-
-#: atk/atkobject.c:157
-msgid "table column header"
-msgstr ""
-
-#: atk/atkobject.c:158
-msgid "table row header"
-msgstr ""
-
-#: atk/atkobject.c:159
-msgid "tear off menu item"
-msgstr ""
-
-#: atk/atkobject.c:160
-msgid "terminal"
-msgstr "терминал"
-
-#: atk/atkobject.c:161
-msgid "text"
-msgstr "мәтін"
-
-#: atk/atkobject.c:162
-msgid "toggle button"
-msgstr ""
-
-#: atk/atkobject.c:163
-msgid "tool bar"
-msgstr "саймандар панелі"
-
-#: atk/atkobject.c:164
-msgid "tool tip"
-msgstr ""
-
-#: atk/atkobject.c:165
-msgid "tree"
-msgstr "ағаш"
-
-#: atk/atkobject.c:166
-msgid "tree table"
-msgstr ""
-
-#: atk/atkobject.c:167
-msgid "unknown"
-msgstr "белгісіз"
-
-#: atk/atkobject.c:168
-msgid "viewport"
-msgstr ""
-
-#: atk/atkobject.c:169
-msgid "window"
-msgstr "терезе"
-
-#: atk/atkobject.c:170
-msgid "header"
-msgstr "тақырыптама"
-
-#: atk/atkobject.c:171
-msgid "footer"
-msgstr ""
-
-#: atk/atkobject.c:172
-msgid "paragraph"
-msgstr "параграф"
-
-#: atk/atkobject.c:173
-msgid "ruler"
-msgstr ""
-
-#: atk/atkobject.c:174
-msgid "application"
-msgstr "қолданба"
-
-#: atk/atkobject.c:175
-msgid "autocomplete"
-msgstr ""
-
-#: atk/atkobject.c:176
-msgid "edit bar"
-msgstr ""
-
-#: atk/atkobject.c:177
-msgid "embedded component"
-msgstr ""
-
-#: atk/atkobject.c:178
-msgid "entry"
-msgstr "жазба"
-
-#: atk/atkobject.c:179
-msgid "chart"
-msgstr ""
-
-#: atk/atkobject.c:180
-msgid "caption"
-msgstr ""
-
-#: atk/atkobject.c:181
-msgid "document frame"
-msgstr ""
-
-#: atk/atkobject.c:182
-msgid "heading"
-msgstr ""
-
-#: atk/atkobject.c:183
-msgid "page"
-msgstr "парақ"
-
-#: atk/atkobject.c:184
-msgid "section"
-msgstr "санат"
-
-#: atk/atkobject.c:185
-msgid "redundant object"
-msgstr ""
-
-#: atk/atkobject.c:186
-msgid "form"
-msgstr "форма"
-
-#: atk/atkobject.c:187
-msgid "link"
-msgstr "сілтеме"
-
-#: atk/atkobject.c:188
-msgid "input method window"
-msgstr ""
-
-#: atk/atkobject.c:189
-msgid "table row"
-msgstr "кесте жолы"
-
-#: atk/atkobject.c:190
-msgid "tree item"
-msgstr "ағаш элементі"
-
-#: atk/atkobject.c:191
-msgid "document spreadsheet"
-msgstr "құжат эл. кестесі"
-
-#: atk/atkobject.c:192
-msgid "document presentation"
-msgstr "құжат презентациясы"
-
-#: atk/atkobject.c:193
-msgid "document text"
-msgstr "құжат мәтіні"
-
-#: atk/atkobject.c:194
-msgid "document web"
-msgstr ""
-
-#: atk/atkobject.c:195
-msgid "document email"
-msgstr ""
-
-#: atk/atkobject.c:196
-msgid "comment"
-msgstr "түсіндірме"
-
-#: atk/atkobject.c:197
-msgid "list box"
-msgstr ""
-
-#: atk/atkobject.c:198
-msgid "grouping"
-msgstr ""
-
-#: atk/atkobject.c:199
-msgid "image map"
-msgstr ""
-
-#: atk/atkobject.c:200
-msgid "notification"
-msgstr ""
-
-#: atk/atkobject.c:201
-msgid "info bar"
-msgstr ""
-
-#: atk/atkobject.c:202
-msgid "level bar"
-msgstr ""
-
-#: atk/atkobject.c:203
-msgid "title bar"
-msgstr ""
-
-#: atk/atkobject.c:204
-msgid "block quote"
-msgstr ""
-
-#: atk/atkobject.c:205
-msgid "audio"
-msgstr ""
-
-#: atk/atkobject.c:206
-msgid "video"
-msgstr ""
-
-#: atk/atkobject.c:207
-msgid "definition"
-msgstr ""
-
-#: atk/atkobject.c:208
-msgid "article"
-msgstr ""
-
-#: atk/atkobject.c:209
-msgid "landmark"
-msgstr ""
-
-#: atk/atkobject.c:210
-msgid "log"
-msgstr ""
-
-#: atk/atkobject.c:211
-msgid "marquee"
-msgstr ""
-
-#: atk/atkobject.c:212
-msgid "math"
-msgstr ""
-
-#: atk/atkobject.c:213
-msgid "rating"
-msgstr ""
-
-#: atk/atkobject.c:214
-msgid "timer"
-msgstr ""
-
-#: atk/atkobject.c:215
-msgid "description list"
-msgstr ""
-
-#: atk/atkobject.c:216
-msgid "description term"
-msgstr ""
-
-#: atk/atkobject.c:217
-msgid "description value"
-msgstr ""
-
-#: atk/atkobject.c:393
+#: atk/atkobject.c:272
 msgid "Accessible Name"
 msgstr ""
 
-#: atk/atkobject.c:394
+#: atk/atkobject.c:273
 msgid "Object instance’s name formatted for assistive technology access"
 msgstr ""
 
-#: atk/atkobject.c:400
+#: atk/atkobject.c:279
 msgid "Accessible Description"
 msgstr ""
 
-#: atk/atkobject.c:401
+#: atk/atkobject.c:280
 msgid "Description of an object, formatted for assistive technology access"
 msgstr ""
 
-#: atk/atkobject.c:407
+#: atk/atkobject.c:286
 msgid "Accessible Parent"
 msgstr ""
 
-#: atk/atkobject.c:408
+#: atk/atkobject.c:287
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr ""
 
-#: atk/atkobject.c:424
+#: atk/atkobject.c:303
 msgid "Accessible Value"
 msgstr ""
 
-#: atk/atkobject.c:425
+#: atk/atkobject.c:304
 msgid "Is used to notify that the value has changed"
 msgstr ""
 
-#: atk/atkobject.c:433
+#: atk/atkobject.c:312
 msgid "Accessible Role"
 msgstr ""
 
-#: atk/atkobject.c:434
+#: atk/atkobject.c:313
 msgid "The accessible role of this object"
 msgstr ""
 
-#: atk/atkobject.c:441
+#: atk/atkobject.c:320
 msgid "Accessible Layer"
 msgstr ""
 
-#: atk/atkobject.c:442
+#: atk/atkobject.c:321
 msgid "The accessible layer of this object"
 msgstr ""
 
-#: atk/atkobject.c:450
+#: atk/atkobject.c:329
 msgid "Accessible MDI Value"
 msgstr ""
 
-#: atk/atkobject.c:451
+#: atk/atkobject.c:330
 msgid "The accessible MDI value of this object"
 msgstr ""
 
-#: atk/atkobject.c:467
+#: atk/atkobject.c:346
 msgid "Accessible Table Caption"
 msgstr ""
 
-#: atk/atkobject.c:468
+#: atk/atkobject.c:347
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
 
-#: atk/atkobject.c:482
+#: atk/atkobject.c:361
 msgid "Accessible Table Column Header"
 msgstr ""
 
-#: atk/atkobject.c:483
+#: atk/atkobject.c:362
 msgid "Is used to notify that the table column header has changed"
 msgstr ""
 
-#: atk/atkobject.c:498
+#: atk/atkobject.c:377
 msgid "Accessible Table Column Description"
 msgstr ""
 
-#: atk/atkobject.c:499
+#: atk/atkobject.c:378
 msgid "Is used to notify that the table column description has changed"
 msgstr ""
 
-#: atk/atkobject.c:514
+#: atk/atkobject.c:393
 msgid "Accessible Table Row Header"
 msgstr ""
 
-#: atk/atkobject.c:515
+#: atk/atkobject.c:394
 msgid "Is used to notify that the table row header has changed"
 msgstr ""
 
-#: atk/atkobject.c:529
+#: atk/atkobject.c:408
 msgid "Accessible Table Row Description"
 msgstr ""
 
-#: atk/atkobject.c:530
+#: atk/atkobject.c:409
 msgid "Is used to notify that the table row description has changed"
 msgstr ""
 
-#: atk/atkobject.c:536
+#: atk/atkobject.c:415
 msgid "Accessible Table Summary"
 msgstr ""
 
-#: atk/atkobject.c:537
+#: atk/atkobject.c:416
 msgid "Is used to notify that the table summary has changed"
 msgstr ""
 
-#: atk/atkobject.c:543
+#: atk/atkobject.c:422
 msgid "Accessible Table Caption Object"
 msgstr ""
 
-#: atk/atkobject.c:544
+#: atk/atkobject.c:423
 msgid "Is used to notify that the table caption has changed"
 msgstr ""
 
-#: atk/atkobject.c:550
+#: atk/atkobject.c:429
 msgid "Number of Accessible Hypertext Links"
 msgstr ""
 
-#: atk/atkobject.c:551
+#: atk/atkobject.c:430
 msgid "The number of links which the current AtkHypertext has"
+msgstr ""
+
+#: atk/atkobject.c:439
+msgid "Accessible ID"
+msgstr ""
+
+#: atk/atkobject.c:440
+msgid "ID for the accessible; useful for automated testing"
+msgstr ""
+
+#: atk/atkobject.c:446
+#| msgid "text"
+msgid "Help text"
+msgstr "Анықтама мәтіні"
+
+#: atk/atkobject.c:447
+msgid "Help text associated with the accessible"
 msgstr ""
 
 #. Translators: This string describes a range within value-related
@@ -657,7 +201,7 @@ msgstr ""
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:194
+#: atk/atkvalue.c:193
 msgid "very weak"
 msgstr "өте әлсіз"
 
@@ -667,7 +211,7 @@ msgstr "өте әлсіз"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:201
+#: atk/atkvalue.c:200
 msgid "weak"
 msgstr "әлсіз"
 
@@ -677,7 +221,7 @@ msgstr "әлсіз"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:208
+#: atk/atkvalue.c:207
 msgid "acceptable"
 msgstr "жарайтын"
 
@@ -687,7 +231,7 @@ msgstr "жарайтын"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:215
+#: atk/atkvalue.c:214
 msgid "strong"
 msgstr "қатаң"
 
@@ -697,7 +241,7 @@ msgstr "қатаң"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:222
+#: atk/atkvalue.c:221
 msgid "very strong"
 msgstr "өте қатаң"
 
@@ -708,7 +252,7 @@ msgstr "өте қатаң"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:230
+#: atk/atkvalue.c:229
 msgid "very low"
 msgstr "өте төмен"
 
@@ -719,7 +263,7 @@ msgstr "өте төмен"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:238
+#: atk/atkvalue.c:237
 msgid "medium"
 msgstr "орташа"
 
@@ -730,7 +274,7 @@ msgstr "орташа"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:246
+#: atk/atkvalue.c:245
 msgid "high"
 msgstr "жоғары"
 
@@ -741,7 +285,7 @@ msgstr "жоғары"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:254
+#: atk/atkvalue.c:253
 msgid "very high"
 msgstr "өте жоғары"
 
@@ -752,7 +296,7 @@ msgstr "өте жоғары"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:262
+#: atk/atkvalue.c:261
 msgid "very bad"
 msgstr "өте нашар"
 
@@ -763,7 +307,7 @@ msgstr "өте нашар"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:270
+#: atk/atkvalue.c:269
 msgid "bad"
 msgstr "нашар"
 
@@ -774,7 +318,7 @@ msgstr "нашар"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:278
+#: atk/atkvalue.c:277
 msgid "good"
 msgstr "жақсы"
 
@@ -785,7 +329,7 @@ msgstr "жақсы"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:286
+#: atk/atkvalue.c:285
 msgid "very good"
 msgstr "өте жақсы"
 
@@ -796,13 +340,486 @@ msgstr "өте жақсы"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:294
+#: atk/atkvalue.c:293
 msgid "best"
 msgstr "ең жақсы"
 
-#: atspi/atspi-component.c:332 atspi/atspi-misc.c:1068 atspi/atspi-value.c:111
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1230 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "Қолданба енді жоқ болып тұр"
+
+#: atspi/atspi-misc.c:49
+msgid "invalid"
+msgstr "бұрыс"
+
+#: atspi/atspi-misc.c:50
+msgid "accelerator label"
+msgstr ""
+
+#: atspi/atspi-misc.c:51
+msgid "alert"
+msgstr "ескерту"
+
+#: atspi/atspi-misc.c:52
+msgid "animation"
+msgstr "анимация"
+
+#: atspi/atspi-misc.c:53
+msgid "arrow"
+msgstr "сызықша"
+
+#: atspi/atspi-misc.c:54
+msgid "calendar"
+msgstr "күнтізбе"
+
+#: atspi/atspi-misc.c:55
+msgid "canvas"
+msgstr ""
+
+#: atspi/atspi-misc.c:56
+msgid "check box"
+msgstr ""
+
+#: atspi/atspi-misc.c:57
+msgid "check menu item"
+msgstr ""
+
+#: atspi/atspi-misc.c:58
+msgid "color chooser"
+msgstr "түсті таңдаушы"
+
+#: atspi/atspi-misc.c:59
+msgid "column header"
+msgstr ""
+
+#: atspi/atspi-misc.c:60
+msgid "combo box"
+msgstr ""
+
+#: atspi/atspi-misc.c:61
+msgid "dateeditor"
+msgstr ""
+
+#: atspi/atspi-misc.c:62
+msgid "desktop icon"
+msgstr "жұмыс үстел таңбашасы"
+
+#: atspi/atspi-misc.c:63
+msgid "desktop frame"
+msgstr ""
+
+#: atspi/atspi-misc.c:64
+msgid "dial"
+msgstr ""
+
+#: atspi/atspi-misc.c:65
+msgid "dialog"
+msgstr "сұхбат терезесі"
+
+#: atspi/atspi-misc.c:66
+msgid "directory pane"
+msgstr ""
+
+#: atspi/atspi-misc.c:67
+msgid "drawing area"
+msgstr ""
+
+#: atspi/atspi-misc.c:68
+msgid "file chooser"
+msgstr ""
+
+#: atspi/atspi-misc.c:69
+msgid "filler"
+msgstr ""
+
+#. I know it looks wrong but that is what Java returns
+#: atspi/atspi-misc.c:71
+msgid "fontchooser"
+msgstr ""
+
+#: atspi/atspi-misc.c:72
+msgid "frame"
+msgstr "фрейм"
+
+#: atspi/atspi-misc.c:73
+msgid "glass pane"
+msgstr ""
+
+#: atspi/atspi-misc.c:74
+msgid "html container"
+msgstr ""
+
+#: atspi/atspi-misc.c:75
+msgid "icon"
+msgstr "таңбаша"
+
+#: atspi/atspi-misc.c:76
+msgid "image"
+msgstr "сурет"
+
+#: atspi/atspi-misc.c:77
+msgid "internal frame"
+msgstr ""
+
+#: atspi/atspi-misc.c:78
+msgid "label"
+msgstr "белгі"
+
+#: atspi/atspi-misc.c:79
+msgid "layered pane"
+msgstr ""
+
+#: atspi/atspi-misc.c:80
+msgid "list"
+msgstr "тізім"
+
+#: atspi/atspi-misc.c:81
+msgid "list item"
+msgstr ""
+
+#: atspi/atspi-misc.c:82
+msgid "menu"
+msgstr "мәзір"
+
+#: atspi/atspi-misc.c:83
+msgid "menu bar"
+msgstr "мәзір жолағы"
+
+#: atspi/atspi-misc.c:84
+msgid "menu button"
+msgstr "мәзір батырмасы"
+
+#: atspi/atspi-misc.c:85
+msgid "menu item"
+msgstr "мәзір элементі"
+
+#: atspi/atspi-misc.c:86
+msgid "option pane"
+msgstr ""
+
+#: atspi/atspi-misc.c:87
+msgid "page tab"
+msgstr ""
+
+#: atspi/atspi-misc.c:88
+msgid "page tab list"
+msgstr ""
+
+#: atspi/atspi-misc.c:89
+msgid "panel"
+msgstr "панель"
+
+#: atspi/atspi-misc.c:90
+msgid "password text"
+msgstr ""
+
+#: atspi/atspi-misc.c:91
+msgid "popup menu"
+msgstr ""
+
+#: atspi/atspi-misc.c:92
+msgid "progress bar"
+msgstr ""
+
+#: atspi/atspi-misc.c:93
+msgid "push button"
+msgstr ""
+
+#: atspi/atspi-misc.c:94
+msgid "radio button"
+msgstr ""
+
+#: atspi/atspi-misc.c:95
+msgid "radio menu item"
+msgstr ""
+
+#: atspi/atspi-misc.c:96
+msgid "root pane"
+msgstr ""
+
+#: atspi/atspi-misc.c:97
+msgid "row header"
+msgstr ""
+
+#: atspi/atspi-misc.c:98
+msgid "scroll bar"
+msgstr "айналдыру жолағы"
+
+#: atspi/atspi-misc.c:99
+msgid "scroll pane"
+msgstr ""
+
+#: atspi/atspi-misc.c:100
+msgid "separator"
+msgstr "ажыратқыш"
+
+#: atspi/atspi-misc.c:101
+msgid "slider"
+msgstr ""
+
+#: atspi/atspi-misc.c:102
+msgid "split pane"
+msgstr ""
+
+#: atspi/atspi-misc.c:103
+msgid "spin button"
+msgstr ""
+
+#: atspi/atspi-misc.c:104
+msgid "statusbar"
+msgstr "қалып-күй жолағы"
+
+#: atspi/atspi-misc.c:105
+msgid "table"
+msgstr "кесте"
+
+#: atspi/atspi-misc.c:106
+msgid "table cell"
+msgstr "кесте ұяшығы"
+
+#: atspi/atspi-misc.c:107
+msgid "table column header"
+msgstr ""
+
+#: atspi/atspi-misc.c:108
+msgid "table row header"
+msgstr ""
+
+#: atspi/atspi-misc.c:109
+msgid "tear off menu item"
+msgstr ""
+
+#: atspi/atspi-misc.c:110
+msgid "terminal"
+msgstr "терминал"
+
+#: atspi/atspi-misc.c:111
+msgid "text"
+msgstr "мәтін"
+
+#: atspi/atspi-misc.c:112
+msgid "toggle button"
+msgstr ""
+
+#: atspi/atspi-misc.c:113
+msgid "tool bar"
+msgstr "саймандар панелі"
+
+#: atspi/atspi-misc.c:114
+msgid "tool tip"
+msgstr ""
+
+#: atspi/atspi-misc.c:115
+msgid "tree"
+msgstr "ағаш"
+
+#: atspi/atspi-misc.c:116
+msgid "tree table"
+msgstr ""
+
+#: atspi/atspi-misc.c:117
+msgid "unknown"
+msgstr "белгісіз"
+
+#: atspi/atspi-misc.c:118
+msgid "viewport"
+msgstr ""
+
+#: atspi/atspi-misc.c:119
+msgid "window"
+msgstr "терезе"
+
+#: atspi/atspi-misc.c:120
+msgid "header"
+msgstr "тақырыптама"
+
+#: atspi/atspi-misc.c:121
+msgid "footer"
+msgstr ""
+
+#: atspi/atspi-misc.c:122
+msgid "paragraph"
+msgstr "параграф"
+
+#: atspi/atspi-misc.c:123
+msgid "ruler"
+msgstr "сызғыш"
+
+#: atspi/atspi-misc.c:124
+msgid "application"
+msgstr "қолданба"
+
+#: atspi/atspi-misc.c:125
+msgid "autocomplete"
+msgstr "автотолықтыру"
+
+#: atspi/atspi-misc.c:126
+msgid "edit bar"
+msgstr ""
+
+#: atspi/atspi-misc.c:127
+msgid "embedded component"
+msgstr ""
+
+#: atspi/atspi-misc.c:128
+msgid "entry"
+msgstr "жазба"
+
+#: atspi/atspi-misc.c:129
+msgid "chart"
+msgstr ""
+
+#: atspi/atspi-misc.c:130
+msgid "caption"
+msgstr ""
+
+#: atspi/atspi-misc.c:131
+msgid "document frame"
+msgstr ""
+
+#: atspi/atspi-misc.c:132
+msgid "heading"
+msgstr ""
+
+#: atspi/atspi-misc.c:133
+msgid "page"
+msgstr "парақ"
+
+#: atspi/atspi-misc.c:134
+msgid "section"
+msgstr "санат"
+
+#: atspi/atspi-misc.c:135
+msgid "redundant object"
+msgstr ""
+
+#: atspi/atspi-misc.c:136
+msgid "form"
+msgstr "форма"
+
+#: atspi/atspi-misc.c:137
+msgid "link"
+msgstr "сілтеме"
+
+#: atspi/atspi-misc.c:138
+msgid "input method window"
+msgstr ""
+
+#: atspi/atspi-misc.c:139
+msgid "table row"
+msgstr "кесте жолы"
+
+#: atspi/atspi-misc.c:140
+msgid "tree item"
+msgstr "ағаш элементі"
+
+#: atspi/atspi-misc.c:141
+msgid "document spreadsheet"
+msgstr "құжат эл. кестесі"
+
+#: atspi/atspi-misc.c:142
+msgid "document presentation"
+msgstr "құжат презентациясы"
+
+#: atspi/atspi-misc.c:143
+msgid "document text"
+msgstr "құжат мәтіні"
+
+#: atspi/atspi-misc.c:144
+msgid "document web"
+msgstr ""
+
+#: atspi/atspi-misc.c:145
+msgid "document email"
+msgstr ""
+
+#: atspi/atspi-misc.c:146
+msgid "comment"
+msgstr "түсіндірме"
+
+#: atspi/atspi-misc.c:147
+msgid "list box"
+msgstr ""
+
+#: atspi/atspi-misc.c:148
+msgid "grouping"
+msgstr ""
+
+#: atspi/atspi-misc.c:149
+msgid "image map"
+msgstr ""
+
+#: atspi/atspi-misc.c:150
+msgid "notification"
+msgstr "хабарлама"
+
+#: atspi/atspi-misc.c:151
+msgid "info bar"
+msgstr ""
+
+#: atspi/atspi-misc.c:152
+msgid "level bar"
+msgstr ""
+
+#: atspi/atspi-misc.c:153
+msgid "title bar"
+msgstr ""
+
+#: atspi/atspi-misc.c:154
+msgid "block quote"
+msgstr ""
+
+#: atspi/atspi-misc.c:155
+msgid "audio"
+msgstr "аудио"
+
+#: atspi/atspi-misc.c:156
+msgid "video"
+msgstr "видео"
+
+#: atspi/atspi-misc.c:157
+msgid "definition"
+msgstr ""
+
+#: atspi/atspi-misc.c:158
+msgid "article"
+msgstr "мақала"
+
+#: atspi/atspi-misc.c:159
+msgid "landmark"
+msgstr ""
+
+#: atspi/atspi-misc.c:160
+msgid "log"
+msgstr ""
+
+#: atspi/atspi-misc.c:161
+msgid "marquee"
+msgstr ""
+
+#: atspi/atspi-misc.c:162
+msgid "math"
+msgstr "математика"
+
+#: atspi/atspi-misc.c:163
+msgid "rating"
+msgstr ""
+
+#: atspi/atspi-misc.c:164
+msgid "timer"
+msgstr ""
+
+#: atspi/atspi-misc.c:165
+msgid "description list"
+msgstr ""
+
+#: atspi/atspi-misc.c:166
+msgid "description term"
+msgstr ""
+
+#: atspi/atspi-misc.c:167
+msgid "description value"
+msgstr ""
 
 #~ msgid "Attempted synchronous call where prohibited"
 #~ msgstr "Рұқсат етілмеген жерде синхронды шақырулар талабы жасалды"
