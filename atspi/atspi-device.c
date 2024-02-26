@@ -22,7 +22,6 @@
 
 #include "atspi-device.h"
 #include "atspi-device-legacy.h"
-#include "atspi-device-mutter.h"
 #include "atspi-device-x11.h"
 #include "atspi-private.h"
 
@@ -99,21 +98,10 @@ atspi_device_class_init (AtspiDeviceClass *klass)
 AtspiDevice *
 atspi_device_new ()
 {
-  AtspiDevice *device;
-  const gchar *desktop;
-
 #ifdef HAVE_X11
   if (!g_getenv ("WAYLAND_DISPLAY") && !g_getenv ("ATSPI_USE_LEGACY_DEVICE"))
     return ATSPI_DEVICE (atspi_device_x11_new ());
 #endif
-
-  desktop = g_getenv ("XDG_CURRENT_DESKTOP");
-  if (desktop && !strcmp (desktop, "GNOME"))
-    {
-      device = ATSPI_DEVICE (atspi_device_mutter_new ());
-      if (device)
-        return device;
-    }
 
   return ATSPI_DEVICE (atspi_device_legacy_new ());
 }

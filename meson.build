@@ -128,13 +128,10 @@ gobject_req_version = '>= 2.0.0'
 gmodule_req_version = '>= 2.0.0'
 gio_req_version = '>= 2.28.0'
 libxml_req_version = '>= 2.9.1'
-libei_req_version = '>= 1.0.0'
 xkbcommon_req_version = '>= 1.0.0'
 
 if not get_option('atk_only')
   libdbus_dep = dependency('dbus-1', version: libdbus_req_version)
-  # TODO: Possibly make libei optional and disable mutter support if not found
-  libei_dep = dependency('libei-1.0', version: libei_req_version)
   xkbcommon_dep = dependency('xkbcommon', version: xkbcommon_req_version)
 endif
 
