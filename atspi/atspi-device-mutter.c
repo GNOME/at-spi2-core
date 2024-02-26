@@ -1036,8 +1036,6 @@ atspi_device_mutter_init (AtspiDeviceMutter *device)
   priv->bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
   if (!priv->bus)
     return;
-  /* TODO: Following line is for testing. Remove before commit. */
-  g_bus_own_name (G_BUS_TYPE_SESSION, "org.gnome.orca", 0, NULL, NULL, NULL, NULL, NULL);
 
   priv->cancellable = g_cancellable_new ();
 
