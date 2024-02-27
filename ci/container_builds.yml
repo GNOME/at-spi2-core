@@ -37,7 +37,6 @@ variables:
       gobject-introspection-devel
       gsettings-desktop-schemas
       itstool
-      libei-devel
       libX11-devel
       libXi-devel
       libXtst-devel
@@ -84,7 +83,6 @@ opensuse-container@x86_64:
       gsettings-desktop-schemas
       itstool
       lcov
-      libei-devel
       libXi-devel
       libXtst-devel
       libasan
