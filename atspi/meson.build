@@ -99,7 +99,7 @@ atspi = library('atspi', atspi_sources + atspi_enums + atspi_marshals,
                        version: soversion,
                        soversion: soversion.split('.')[0],
                        include_directories: [ root_inc, registryd_inc ],
-                       dependencies: [ libdbus_dep, gobject_dep, gio_dep, dbind_dep, x11_deps, xkbcommon_dep ],
+                       dependencies: [ libdbus_dep, gobject_dep, gio_dep, dbind_dep, x11_deps, ],
                        install: true)
 
 atspi_dep = declare_dependency(link_with: atspi,

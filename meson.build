@@ -128,11 +128,9 @@ gobject_req_version = '>= 2.0.0'
 gmodule_req_version = '>= 2.0.0'
 gio_req_version = '>= 2.28.0'
 libxml_req_version = '>= 2.9.1'
-xkbcommon_req_version = '>= 1.0.0'
 
 if not get_option('atk_only')
   libdbus_dep = dependency('dbus-1', version: libdbus_req_version)
-  xkbcommon_dep = dependency('xkbcommon', version: xkbcommon_req_version)
 endif
 
 glib_dep = dependency('glib-2.0', version: glib_req_version)
