@@ -1,5 +1,17 @@
 What's new in at-spi2-core 2.51.90:
 
+* Back out code to generate mouse events on mutter. It had a couple of
+  unwanted side effects. Also remove dependencies on libei and xkbcommon.
+
+* atk-adaptor: Fix collection role matching.
+
+* Have atspi_text_get_string_at_offset fall back to calling
+  GetTextAtOffset if GetStringAtOffset is unimplemented.
+
+* Don't use g_assert in the unit tests.
+
+What's new in at-spi2-core 2.51.91:
+
     Add an attribute-changed signal in atk, and update libatspi attribute cache.
 
 * Add GetTextSelection and SetTextSelection to Document interface.
