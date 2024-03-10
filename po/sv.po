@@ -17,9 +17,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-core\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
-"POT-Creation-Date: 2023-09-13 08:16+0000\n"
-"PO-Revision-Date: 2023-10-19 16:00+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
+"POT-Creation-Date: 2024-02-06 01:29+0000\n"
+"PO-Revision-Date: 2024-03-09 21:59+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: atk/atkhyperlink.c:127
 msgid "Selected Link"
@@ -61,69 +61,69 @@ msgstr "Startindex"
 msgid "The start index of the AtkHyperlink object"
 msgstr "Startindexet för AtkHyperlink-objektet"
 
-#: atk/atkobject.c:268
+#: atk/atkobject.c:273
 msgid "Accessible Name"
 msgstr "Tillgängligt namn"
 
-#: atk/atkobject.c:269
+#: atk/atkobject.c:274
 msgid "Object instance’s name formatted for assistive technology access"
 msgstr "Objektinstansens namn formaterat för åtkomst av hjälpmedelsteknik"
 
-#: atk/atkobject.c:275
+#: atk/atkobject.c:280
 msgid "Accessible Description"
 msgstr "Tillgänglig beskrivning"
 
-#: atk/atkobject.c:276
+#: atk/atkobject.c:281
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Beskrivning av ett objekt, formaterat för åtkomst av hjälpmedelsteknik"
 
-#: atk/atkobject.c:282
+#: atk/atkobject.c:287
 msgid "Accessible Parent"
 msgstr "Tillgänglig förälder"
 
-#: atk/atkobject.c:283
+#: atk/atkobject.c:288
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr ""
 "Förälder för den aktuella tillgängliga som returnerades av "
 "atk_object_get_parent()"
 
-#: atk/atkobject.c:299
+#: atk/atkobject.c:304
 msgid "Accessible Value"
 msgstr "Tillgängligt värde"
 
-#: atk/atkobject.c:300
+#: atk/atkobject.c:305
 msgid "Is used to notify that the value has changed"
 msgstr "Används för att meddela att värdet har ändrats"
 
-#: atk/atkobject.c:308
+#: atk/atkobject.c:313
 msgid "Accessible Role"
 msgstr "Tillgänglig roll"
 
-#: atk/atkobject.c:309
+#: atk/atkobject.c:314
 msgid "The accessible role of this object"
 msgstr "Den tillgängliga rollen för detta objekt"
 
-#: atk/atkobject.c:316
+#: atk/atkobject.c:321
 msgid "Accessible Layer"
 msgstr "Tillgängligt lager"
 
-#: atk/atkobject.c:317
+#: atk/atkobject.c:322
 msgid "The accessible layer of this object"
 msgstr "Det tillgängliga lagret för detta objekt"
 
-#: atk/atkobject.c:325
+#: atk/atkobject.c:330
 msgid "Accessible MDI Value"
 msgstr "Tillgängligt MDI-värde"
 
-#: atk/atkobject.c:326
+#: atk/atkobject.c:331
 msgid "The accessible MDI value of this object"
 msgstr "Det tillgängliga MDI-värdet för detta objekt"
 
-#: atk/atkobject.c:342
+#: atk/atkobject.c:347
 msgid "Accessible Table Caption"
 msgstr "Tillgänglig tabellrubrik"
 
-#: atk/atkobject.c:343
+#: atk/atkobject.c:348
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -131,61 +131,77 @@ msgstr ""
 "Används för att meddela att tabellrubriken har ändrats; denna egenskap ska "
 "inte användas. accessible-table-caption-object ska användas i stället"
 
-#: atk/atkobject.c:357
+#: atk/atkobject.c:362
 msgid "Accessible Table Column Header"
 msgstr "Tillgängligt tabellkolumnhuvud"
 
-#: atk/atkobject.c:358
+#: atk/atkobject.c:363
 msgid "Is used to notify that the table column header has changed"
 msgstr "Används för att meddela att tabellkolumnrubriken har ändrats"
 
-#: atk/atkobject.c:373
+#: atk/atkobject.c:378
 msgid "Accessible Table Column Description"
 msgstr "Tillgänglig tabellkolumnbeskrivning"
 
-#: atk/atkobject.c:374
+#: atk/atkobject.c:379
 msgid "Is used to notify that the table column description has changed"
 msgstr "Används för att meddela att tabellkolumnbeskrivningen har ändrats"
 
-#: atk/atkobject.c:389
+#: atk/atkobject.c:394
 msgid "Accessible Table Row Header"
 msgstr "Tillgängligt tabellradshuvud"
 
-#: atk/atkobject.c:390
+#: atk/atkobject.c:395
 msgid "Is used to notify that the table row header has changed"
 msgstr "Används för att meddela att tabellradshuvudet har ändrats"
 
-#: atk/atkobject.c:404
+#: atk/atkobject.c:409
 msgid "Accessible Table Row Description"
 msgstr "Tillgänglig tabellradsbeskrivning"
 
-#: atk/atkobject.c:405
+#: atk/atkobject.c:410
 msgid "Is used to notify that the table row description has changed"
 msgstr "Används för att meddela att tabellradsbeskrivningen har ändrats"
 
-#: atk/atkobject.c:411
+#: atk/atkobject.c:416
 msgid "Accessible Table Summary"
 msgstr "Tillgänglig tabellsammanfattning"
 
-#: atk/atkobject.c:412
+#: atk/atkobject.c:417
 msgid "Is used to notify that the table summary has changed"
 msgstr "Används för att meddela att tabellsammanfattningen har ändrats"
 
-#: atk/atkobject.c:418
+#: atk/atkobject.c:423
 msgid "Accessible Table Caption Object"
 msgstr "Tillgängligt tabellrubriksobjekt"
 
-#: atk/atkobject.c:419
+#: atk/atkobject.c:424
 msgid "Is used to notify that the table caption has changed"
 msgstr "Används för att meddela att tabellrubriken har ändrats"
 
-#: atk/atkobject.c:425
+#: atk/atkobject.c:430
 msgid "Number of Accessible Hypertext Links"
 msgstr "Antal tillgängliga hypertextlänkar"
 
-#: atk/atkobject.c:426
+#: atk/atkobject.c:431
 msgid "The number of links which the current AtkHypertext has"
-msgstr "Antalet länkar som den aktuella AtkHypertext har"
+msgstr "Antalet länkar som aktuell AtkHypertext har"
+
+#: atk/atkobject.c:440
+msgid "Accessible ID"
+msgstr "Tillgängligt ID"
+
+#: atk/atkobject.c:441
+msgid "ID for the accessible; useful for automated testing"
+msgstr "ID för den tillgängliga; användbart för automatisk testning"
+
+#: atk/atkobject.c:447
+msgid "Help text"
+msgstr "Hjälptext"
+
+#: atk/atkobject.c:448
+msgid "Help text associated with the accessible"
+msgstr "Hjälptext som är associerad med den tillgängliga"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a password-strength meter. Note that what such a
