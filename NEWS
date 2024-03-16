@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.52.0:
+
+* tests: Fix missing declaration for getpid().
+
 What's new in at-spi2-core 2.51.90:
 
 * Back out code to generate mouse events on mutter. It had a couple of
