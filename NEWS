@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.50.2:
+
+* atk-adaptor: Fix collection role matching.
+
+* tests: Fix missing declaration for getpid().
+
 What's new in at-spi2-core 2.50.1:
 
 * atk-adaptor: Fix critical when no table cell array is returned.
