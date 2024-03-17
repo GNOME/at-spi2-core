@@ -522,10 +522,10 @@ atspi_text_get_string_at_offset (AtspiText *obj,
     {
       AtspiTextBoundaryType boundary = get_legacy_boundary_type (granularity);
       if (boundary == -1)
-	{
+        {
           g_propagate_error (error, local_error);
           return range;
-	}
+        }
 
       g_clear_error (&local_error);
       atspi_text_range_free (range);
