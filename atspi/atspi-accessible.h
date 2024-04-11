@@ -108,6 +108,34 @@ gchar *atspi_accessible_get_atspi_version (AtspiAccessible *obj, GError **error)
 
 gint atspi_accessible_get_id (AtspiAccessible *obj, GError **error);
 
+gboolean atspi_accessible_is_action (AtspiAccessible *obj);
+
+gboolean atspi_accessible_is_application (AtspiAccessible *obj);
+
+gboolean atspi_accessible_is_collection (AtspiAccessible *obj);
+
+gboolean atspi_accessible_is_component (AtspiAccessible *obj);
+
+gboolean atspi_accessible_is_document (AtspiAccessible *obj);
+
+gboolean atspi_accessible_is_editable_text (AtspiAccessible *obj);
+
+gboolean atspi_accessible_is_hypertext (AtspiAccessible *obj);
+
+gboolean atspi_accessible_is_hyperlink (AtspiAccessible *obj);
+
+gboolean atspi_accessible_is_image (AtspiAccessible *obj);
+
+gboolean atspi_accessible_is_selection (AtspiAccessible *obj);
+
+gboolean atspi_accessible_is_table (AtspiAccessible *obj);
+
+gboolean atspi_accessible_is_table_cell (AtspiAccessible *obj);
+
+gboolean atspi_accessible_is_text (AtspiAccessible *obj);
+
+gboolean atspi_accessible_is_value (AtspiAccessible *obj);
+
 AtspiAccessible *atspi_accessible_get_application (AtspiAccessible *obj, GError **error);
 
 #ifndef ATSPI_DISABLE_DEPRECATED
