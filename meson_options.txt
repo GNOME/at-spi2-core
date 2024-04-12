@@ -40,10 +40,6 @@ option('x11',
        description: 'Enable X11 support',
        type: 'feature',
        value: 'auto')
-option('disable_p2p',
-       description: 'Disable peer-to-peer DBus connections for at-spi2-atk',
-       type: 'boolean',
-       value: false)
 option('atk_only',
        description: 'Build only the ATK stub library without atspi or at-spi2-atk (UNSUPPORTED)',
        type: 'boolean',

@@ -194,12 +194,6 @@ configure_file(output: 'config.h', configuration: at_spi_conf)
 pkgconfig = import('pkgconfig')
 gnome = import('gnome')
 
-if get_option('disable_p2p')
-  p2p_cflags = [ '-DDISABLE_P2P' ]
-else
-  p2p_cflags = []
-endif
-
 subdir('atk')
 
 if not get_option('atk_only')

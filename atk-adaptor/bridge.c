@@ -630,7 +630,6 @@ install_plug_hooks ()
   socket_class->embed = socket_embed_hook;
 }
 
-#ifndef DISABLE_P2P
 static guint
 get_ancestral_uid (guint pid)
 {
@@ -687,7 +686,6 @@ new_connection_cb (DBusServer *server, DBusConnection *con, void *data)
 
   spi_global_app_data->direct_connections = g_list_append (spi_global_app_data->direct_connections, con);
 }
-#endif
 
 static gchar *atspi_dbus_name = NULL;
 static gboolean atspi_no_register = FALSE;
@@ -907,12 +905,16 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
 int
 spi_atk_create_socket (SpiBridge *app)
 {
-#ifndef DISABLE_P2P
   DBusServer *server;
   DBusError error;
   const gchar *user_runtime_dir = g_get_user_runtime_dir ();
   char *socket_path;
   char *escaped_socket_path;
+  const char *disable_p2p;
+
+  disable_p2p = g_getenv ("ATSPI_DISABLE_P2P");
+  if (disable_p2p && atoi (disable_p2p) > 0)
+    return 0;
 
   if (g_mkdir_with_parents (user_runtime_dir, 0700) != 0)
     return -1;
@@ -959,7 +961,6 @@ spi_atk_create_socket (SpiBridge *app)
   dbus_server_set_new_connection_function (server, new_connection_cb, NULL, NULL);
 
   app->server = server;
-#endif
 
   return 0;
 }

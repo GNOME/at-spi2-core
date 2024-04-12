@@ -25,7 +25,6 @@ libatk_bridge = library('atk-bridge-2.0', atk_bridge_sources,
                           libatk_dep,
                           atspi_dep,
                         ],
-                        c_args: p2p_cflags,
                         version: atk_bridge_libversion,
                         soversion: atk_bridge_soversion,
                         install: true)
@@ -46,7 +45,6 @@ if get_option('gtk2_atk_adaptor')
                                       atspi_dep,
                                       gmodule_dep,
                                     ],
-                                    c_args: p2p_cflags,
                                     install: true,
                                     install_dir: join_paths(get_option('libdir'), 'gtk-2.0', 'modules'))
 endif
