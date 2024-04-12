@@ -52,8 +52,7 @@ opensuse-x86_64:
     MESON_EXTRA_FLAGS: "--buildtype=debug" # -Dwerror=true
   script:
     - source ci/env.sh
-    # See https://gitlab.gnome.org/GNOME/at-spi2-core/-/merge_requests/137 for the reason for disable_p2p
-    - meson setup ${MESON_EXTRA_FLAGS} -Ddisable_p2p=true --prefix /usr _build .
+    - meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
     - meson compile -C _build
     - meson install -C _build
     - mkdir /tmp/test+dir+with+funny+chars
@@ -152,8 +151,7 @@ coverage:
     CFLAGS: "-coverage -ftest-coverage -fprofile-arcs"
   script:
     - source ./ci/env.sh
-    # See https://gitlab.gnome.org/GNOME/at-spi2-core/-/merge_requests/137 for the reason for disable_p2p
-    - meson setup ${MESON_EXTRA_FLAGS} -Ddisable_p2p=true --prefix /usr _build .
+    - meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
     - meson compile -C _build
     - meson install -C _build
     - xvfb-run --auto-servernum dbus-run-session -- ci/run-registryd-tests.sh
