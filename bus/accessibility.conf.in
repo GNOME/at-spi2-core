@@ -12,9 +12,12 @@
     <!-- Allow root to connect -->
     <allow user="root"/>
     <!-- Allow everything to be sent -->
-    <allow send_destination="*" eavesdrop="true"/>
-    <!-- Allow everything to be received -->
-    <allow eavesdrop="true"/>
+    <allow send_destination="*"/>
+    <!-- All messages may be received by default -->
+    <allow receive_type="method_call"/>
+    <allow receive_type="method_return"/>
+    <allow receive_type="error"/>
+    <allow receive_type="signal"/>
     <!-- Allow anyone to own anything -->
     <allow own="*"/>
   </policy>
