@@ -24,9 +24,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Gnome Nepali Translation Project\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
-"POT-Creation-Date: 2022-07-25 14:47+0000\n"
-"PO-Revision-Date: 2022-09-11 05:08+0545\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
+"POT-Creation-Date: 2024-05-19 12:53+0000\n"
+"PO-Revision-Date: 2024-06-03 14:27+0545\n"
 "Last-Translator: Pawan Chitrakar <chautari@gmail.com>\n"
 "Language-Team: Nepali Translation Team <chautari@gmail.com>\n"
 "Language: ne\n"
@@ -35,576 +35,102 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Plural-Forms: nplurals=2;plural=(n!=1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Generator: Poedit 2.0.4\n"
 
-#: atk/atkhyperlink.c:126
+#: atk/atkhyperlink.c:127
 msgid "Selected Link"
 msgstr "चयन गरिएको लिङ्क"
 
-#: atk/atkhyperlink.c:127
+#: atk/atkhyperlink.c:128
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr "AtkHyperlink वस्तु चयन गरिएको छ कि छैन निश्चित गर्नुहोस्"
 
-#: atk/atkhyperlink.c:133
+#: atk/atkhyperlink.c:134
 msgid "Number of Anchors"
 msgstr "एङ्करहरूको सङ्ख्या"
 
-#: atk/atkhyperlink.c:134
+#: atk/atkhyperlink.c:135
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr "AtkHyperlink वस्तुसँग सम्बद्ध एङ्करहरूको सङ्ख्या"
 
-#: atk/atkhyperlink.c:142
+#: atk/atkhyperlink.c:143
 msgid "End index"
 msgstr "अन्तिम अनुक्रमणिका"
 
-#: atk/atkhyperlink.c:143
+#: atk/atkhyperlink.c:144
 msgid "The end index of the AtkHyperlink object"
 msgstr "AtkHyperlink वस्तुको अन्तिम अनुक्रमणिका"
 
-#: atk/atkhyperlink.c:151
+#: atk/atkhyperlink.c:152
 msgid "Start index"
 msgstr "सुरु अनुक्रमणिका"
 
-#: atk/atkhyperlink.c:152
+#: atk/atkhyperlink.c:153
 msgid "The start index of the AtkHyperlink object"
 msgstr "AtkHyperlink वस्तुको प्रथम अनुक्रमणिका"
 
-#: atk/atkobject.c:98
-msgid "invalid"
-msgstr "अवैध"
-
-#: atk/atkobject.c:99
-msgid "accelerator label"
-msgstr "गतिवर्धक लेबुल"
-
-#: atk/atkobject.c:100
-msgid "alert"
-msgstr "सावधान"
-
-#: atk/atkobject.c:101
-msgid "animation"
-msgstr "एनिमेसन"
-
-#: atk/atkobject.c:102
-msgid "arrow"
-msgstr "बाँण"
-
-#: atk/atkobject.c:103
-msgid "calendar"
-msgstr "पात्रो"
-
-#: atk/atkobject.c:104
-msgid "canvas"
-msgstr "क्यानभास"
-
-#: atk/atkobject.c:105
-msgid "check box"
-msgstr "जाँच बाकस"
-
-#: atk/atkobject.c:106
-msgid "check menu item"
-msgstr "मेनु वस्तु जाँच्नुहोस्"
-
-#: atk/atkobject.c:107
-msgid "color chooser"
-msgstr "रङ चयनकर्ता"
-
-#: atk/atkobject.c:108
-msgid "column header"
-msgstr "स्तम्भ हेडर"
-
-#: atk/atkobject.c:109
-msgid "combo box"
-msgstr "कम्बो बाकस"
-
-#: atk/atkobject.c:110
-msgid "dateeditor"
-msgstr "मिति सम्पादक"
-
-#: atk/atkobject.c:111
-msgid "desktop icon"
-msgstr "डेस्कटप प्रतिमा"
-
-#: atk/atkobject.c:112
-msgid "desktop frame"
-msgstr "डेस्कटप फ्रेम"
-
-#: atk/atkobject.c:113
-msgid "dial"
-msgstr "डायल"
-
-#: atk/atkobject.c:114
-msgid "dialog"
-msgstr "संवाद"
-
-#: atk/atkobject.c:115
-msgid "directory pane"
-msgstr "डाइरेक्टरी फलक"
-
-#: atk/atkobject.c:116
-msgid "drawing area"
-msgstr "रेखाचित्र क्षेत्र"
-
-#: atk/atkobject.c:117
-msgid "file chooser"
-msgstr "फाइल चयनकर्ता"
-
-#: atk/atkobject.c:118
-msgid "filler"
-msgstr "फिलर"
-
-#  I know it looks wrong but that is what Java returns
-#. I know it looks wrong but that is what Java returns
-#: atk/atkobject.c:120
-msgid "fontchooser"
-msgstr "फन्ट चयनकर्ता"
-
-#: atk/atkobject.c:121
-msgid "frame"
-msgstr "फ्रेम"
-
-#: atk/atkobject.c:122
-msgid "glass pane"
-msgstr "ग्लास फलक"
-
-#: atk/atkobject.c:123
-msgid "html container"
-msgstr "html भाँडो"
-
-#: atk/atkobject.c:124
-msgid "icon"
-msgstr "प्रतिमा"
-
-#: atk/atkobject.c:125
-msgid "image"
-msgstr "छवि"
-
-#: atk/atkobject.c:126
-msgid "internal frame"
-msgstr "आन्तरिक फ्रेम"
-
-#: atk/atkobject.c:127
-msgid "label"
-msgstr "लेबुल"
-
-#: atk/atkobject.c:128
-msgid "layered pane"
-msgstr "तहगत फलक"
-
-#: atk/atkobject.c:129
-msgid "list"
-msgstr "सूची"
-
-#: atk/atkobject.c:130
-msgid "list item"
-msgstr "सूची वस्तु"
-
-#: atk/atkobject.c:131
-msgid "menu"
-msgstr "मेनु"
-
-#: atk/atkobject.c:132
-msgid "menu bar"
-msgstr "मेनु पट्टि"
-
-#: atk/atkobject.c:133
-msgid "menu button"
-msgstr "मेनु बटन"
-
-#: atk/atkobject.c:134
-msgid "menu item"
-msgstr "मेनु वस्तु"
-
-#: atk/atkobject.c:135
-msgid "option pane"
-msgstr "विकल्प फलक"
-
-#: atk/atkobject.c:136
-msgid "page tab"
-msgstr "पृष्ठ ट्याब"
-
-#: atk/atkobject.c:137
-msgid "page tab list"
-msgstr "पृष्ठ ट्याब सूची"
-
-#: atk/atkobject.c:138
-msgid "panel"
-msgstr "प्यानल"
-
-#: atk/atkobject.c:139
-msgid "password text"
-msgstr "पासवर्ड पाठ"
-
-#: atk/atkobject.c:140
-msgid "popup menu"
-msgstr "पपअप मेनु"
-
-#: atk/atkobject.c:141
-msgid "progress bar"
-msgstr "प्रगति पट्टि"
-
-#: atk/atkobject.c:142
-msgid "push button"
-msgstr "थिच्ने बटन"
-
-#: atk/atkobject.c:143
-msgid "radio button"
-msgstr "रेडियो बटन"
-
-#: atk/atkobject.c:144
-msgid "radio menu item"
-msgstr "रेडियो मेनु वस्तु"
-
-#: atk/atkobject.c:145
-msgid "root pane"
-msgstr "मूल फलक"
-
-#: atk/atkobject.c:146
-msgid "row header"
-msgstr "पङ्क्ति हेडर"
-
-#: atk/atkobject.c:147
-msgid "scroll bar"
-msgstr "स्क्रोलपट्टी"
-
-#: atk/atkobject.c:148
-msgid "scroll pane"
-msgstr "स्क्रोल फलक"
-
-#: atk/atkobject.c:149
-msgid "separator"
-msgstr "विभाजक"
-
-#: atk/atkobject.c:150
-msgid "slider"
-msgstr "स्लाइडर"
-
-#: atk/atkobject.c:151
-msgid "split pane"
-msgstr "छुट्टिएको फलक"
-
-#: atk/atkobject.c:152
-msgid "spin button"
-msgstr "स्पिन बटन"
-
-#: atk/atkobject.c:153
-msgid "statusbar"
-msgstr "वस्तुस्थितिपट्टी"
-
-#: atk/atkobject.c:154
-msgid "table"
-msgstr "तालिका"
-
-#: atk/atkobject.c:155
-msgid "table cell"
-msgstr "तालिका कक्ष"
-
-#: atk/atkobject.c:156
-msgid "table column header"
-msgstr "तालिका स्तम्भ हेडर"
-
-#: atk/atkobject.c:157
-msgid "table row header"
-msgstr "तालिका पङ्क्ति हेडर"
-
-#: atk/atkobject.c:158
-msgid "tear off menu item"
-msgstr "मेनु वस्तु छुट्याउनुहोस्"
-
-#: atk/atkobject.c:159
-msgid "terminal"
-msgstr "टर्मिनल"
-
-#: atk/atkobject.c:160
-msgid "text"
-msgstr "पाठ"
-
-#: atk/atkobject.c:161
-msgid "toggle button"
-msgstr "टगल बटन"
-
-#: atk/atkobject.c:162
-msgid "tool bar"
-msgstr "उपकरणपट्टी"
-
-#: atk/atkobject.c:163
-msgid "tool tip"
-msgstr "टुल टिप"
-
-#: atk/atkobject.c:164
-msgid "tree"
-msgstr "ट्रि"
-
-#: atk/atkobject.c:165
-msgid "tree table"
-msgstr "ट्रि तालिका"
-
-#: atk/atkobject.c:166
-msgid "unknown"
-msgstr "अज्ञात"
-
-#: atk/atkobject.c:167
-msgid "viewport"
-msgstr "दृश्य पोर्ट"
-
-#: atk/atkobject.c:168
-msgid "window"
-msgstr "सञ्झ्याल"
-
-#: atk/atkobject.c:169
-msgid "header"
-msgstr "हेडर"
-
-#: atk/atkobject.c:170
-msgid "footer"
-msgstr "फुटर"
-
-#: atk/atkobject.c:171
-msgid "paragraph"
-msgstr "अनुच्छेद"
-
-#: atk/atkobject.c:172
-msgid "ruler"
-msgstr "रुलर"
-
-#: atk/atkobject.c:173
-msgid "application"
-msgstr "अनुप्रयोग"
-
-#: atk/atkobject.c:174
-msgid "autocomplete"
-msgstr "स्वत:समाप्ती"
-
-#: atk/atkobject.c:175
-msgid "edit bar"
-msgstr "सम्पादन पट्टी"
-
-#: atk/atkobject.c:176
-msgid "embedded component"
-msgstr "सन्निबेश गरिएको अवयव"
-
-#: atk/atkobject.c:177
-msgid "entry"
-msgstr "प्रविष्टि"
-
-#: atk/atkobject.c:178
-msgid "chart"
-msgstr "चित्रपट"
-
-#: atk/atkobject.c:179
-msgid "caption"
-msgstr "क्याप्सन"
-
-#: atk/atkobject.c:180
-msgid "document frame"
-msgstr "कागजात फ्रेम"
-
-#: atk/atkobject.c:181
-msgid "heading"
-msgstr "हेडिङ"
-
-#: atk/atkobject.c:182
-msgid "page"
-msgstr "पृष्ठ"
-
-#: atk/atkobject.c:183
-msgid "section"
-msgstr "सेक्सन"
-
-#: atk/atkobject.c:184
-msgid "redundant object"
-msgstr "अतिरिक्त वस्तु"
-
-#: atk/atkobject.c:185
-msgid "form"
-msgstr "फारम"
-
-#: atk/atkobject.c:186
-msgid "link"
-msgstr "लिङ्क"
-
-#: atk/atkobject.c:187
-msgid "input method window"
-msgstr "आयात विधि सञ्झ्याल"
-
-#: atk/atkobject.c:188
-msgid "table row"
-msgstr "तालिका पङ्क्ति"
-
-#: atk/atkobject.c:189
-msgid "tree item"
-msgstr "ट्रि सामाग्री"
-
-#: atk/atkobject.c:190
-msgid "document spreadsheet"
-msgstr "सप्रेडशिट कागजात"
-
-#: atk/atkobject.c:191
-msgid "document presentation"
-msgstr "प्रस्तुतिकरण कागजात"
-
-#: atk/atkobject.c:192
-msgid "document text"
-msgstr "पाठ कागजात"
-
-#: atk/atkobject.c:193
-msgid "document web"
-msgstr "कागजात वेब"
-
-#: atk/atkobject.c:194
-msgid "document email"
-msgstr "इमेल कागजात"
-
-#: atk/atkobject.c:195
-msgid "comment"
-msgstr "टिप्पणी"
-
-#: atk/atkobject.c:196
-msgid "list box"
-msgstr "सुची बाकस"
-
-#: atk/atkobject.c:197
-msgid "grouping"
-msgstr "समूहबद्ध"
-
-#: atk/atkobject.c:198
-msgid "image map"
-msgstr "छवि मानचित्र"
-
-#: atk/atkobject.c:199
-msgid "notification"
-msgstr "सूचना"
-
-#: atk/atkobject.c:200
-msgid "info bar"
-msgstr "सूचना पट्टी"
-
-#: atk/atkobject.c:201
-msgid "level bar"
-msgstr "निसानी पट्टी"
-
-#: atk/atkobject.c:202
-msgid "title bar"
-msgstr "शीर्षक पट्टी"
-
-#: atk/atkobject.c:203
-msgid "block quote"
-msgstr "बाक्लो उद्धरण"
-
-#: atk/atkobject.c:204
-msgid "audio"
-msgstr "ध्वनी"
-
-#: atk/atkobject.c:205
-msgid "video"
-msgstr "भिडियो"
-
-#: atk/atkobject.c:206
-msgid "definition"
-msgstr "परिभाषा"
-
-#: atk/atkobject.c:207
-msgid "article"
-msgstr "लेख"
-
-#: atk/atkobject.c:208
-msgid "landmark"
-msgstr "भूमिनिसान"
-
-#: atk/atkobject.c:209
-msgid "log"
-msgstr "दैनिकि"
-
-#: atk/atkobject.c:210
-msgid "marquee"
-msgstr "मार्की"
-
-#: atk/atkobject.c:211
-msgid "math"
-msgstr "गणित"
-
-#: atk/atkobject.c:212
-msgid "rating"
-msgstr "दर निर्धारण"
-
-#: atk/atkobject.c:213
-msgid "timer"
-msgstr "समयक"
-
-#: atk/atkobject.c:214
-msgid "description list"
-msgstr "वर्णन सूची"
-
-#: atk/atkobject.c:215
-msgid "description term"
-msgstr "वर्णन शब्द"
-
-#: atk/atkobject.c:216
-msgid "description value"
-msgstr "वर्णन मान"
-
-#: atk/atkobject.c:392
+#: atk/atkobject.c:273
 msgid "Accessible Name"
 msgstr "पहुँचयोग्य नाम"
 
-#: atk/atkobject.c:393
+#: atk/atkobject.c:274
 msgid "Object instance’s name formatted for assistive technology access"
 msgstr "सहयोगी प्रविधि पहुंचका लागि वस्तु दृष्टान्तको नाम ढाँचा पारियो"
 
-#: atk/atkobject.c:399
+#: atk/atkobject.c:280
 msgid "Accessible Description"
 msgstr "पहुँचयोग्य वर्णन"
 
-#: atk/atkobject.c:400
+#: atk/atkobject.c:281
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "एउटा वस्तुको वर्णन, सहयोगी प्रविधि पहुँचका लागि ढाँचा पारियो"
 
-#: atk/atkobject.c:406
+#: atk/atkobject.c:287
 msgid "Accessible Parent"
 msgstr "पहुँचयोग्य प्रमूल"
 
-#: atk/atkobject.c:407
+#: atk/atkobject.c:288
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr "atk_object_get_parent() द्वारा फर्काइएको वर्तमान पहुँचको अभिभावक"
 
-#: atk/atkobject.c:423
+#: atk/atkobject.c:304
 msgid "Accessible Value"
 msgstr "पहुँचयोग्य मान"
 
-#: atk/atkobject.c:424
+#: atk/atkobject.c:305
 msgid "Is used to notify that the value has changed"
 msgstr "मान परिवर्तन भइसक्यो भनेर सूचीत गर्न प्रयोग गरिन्छ"
 
-#: atk/atkobject.c:432
+#: atk/atkobject.c:313
 msgid "Accessible Role"
 msgstr "पहुँचयोग्य भूमिका"
 
-#: atk/atkobject.c:433
+#: atk/atkobject.c:314
 msgid "The accessible role of this object"
 msgstr "यस वस्तुको पहुँच योग्य भूमिका"
 
-#: atk/atkobject.c:440
+#: atk/atkobject.c:321
 msgid "Accessible Layer"
 msgstr "पहुँच योग्य तह"
 
-#: atk/atkobject.c:441
+#: atk/atkobject.c:322
 msgid "The accessible layer of this object"
 msgstr "यस वस्तुको पहुँच योग्य तह"
 
-#: atk/atkobject.c:449
+#: atk/atkobject.c:330
 msgid "Accessible MDI Value"
 msgstr "पहुँच योग्य MDI मान"
 
-#: atk/atkobject.c:450
+#: atk/atkobject.c:331
 msgid "The accessible MDI value of this object"
 msgstr "यस वस्तुको पहुँच योग्य MDI मान"
 
-#: atk/atkobject.c:466
+#: atk/atkobject.c:347
 msgid "Accessible Table Caption"
 msgstr "पहुँच योग्य तालिका क्याप्सन"
 
-#: atk/atkobject.c:467
+#: atk/atkobject.c:348
 msgid ""
 "Is used to notify that the table caption has changed; this property should not be "
 "used. accessible-table-caption-object should be used instead"
@@ -612,61 +138,77 @@ msgstr ""
 "तालिका क्याप्सन परिवर्तन भइसक्यो भनेर सूचीत गर्न प्रयोग गरिन्छ; यो गुण प्रयोग गर्न सकिँदैन। यसको "
 "सट्टामा पहुँच योग्य-तालिका-क्याप्सन-वस्तु प्रयोग गर्नुहोस्"
 
-#: atk/atkobject.c:481
+#: atk/atkobject.c:362
 msgid "Accessible Table Column Header"
 msgstr "पहुँच योग्य तालिका स्तम्भ हेडर"
 
-#: atk/atkobject.c:482
+#: atk/atkobject.c:363
 msgid "Is used to notify that the table column header has changed"
 msgstr "तालिका स्तम्भ हेडर परिवर्तन भइसक्यो भनेर सूचीत गर्न प्रयोग गरिन्छ"
 
-#: atk/atkobject.c:497
+#: atk/atkobject.c:378
 msgid "Accessible Table Column Description"
 msgstr "पहुँच योग्य तालिका स्तम्भ वर्णन"
 
-#: atk/atkobject.c:498
+#: atk/atkobject.c:379
 msgid "Is used to notify that the table column description has changed"
 msgstr "तालिका स्तम्भ वर्णन परिवर्तन भइसक्यो भनेर सूचीत गर्न प्रयोग गरिन्छ"
 
-#: atk/atkobject.c:513
+#: atk/atkobject.c:394
 msgid "Accessible Table Row Header"
 msgstr "पहुँच योग्य तालिका पङ्क्ति हेडर"
 
-#: atk/atkobject.c:514
+#: atk/atkobject.c:395
 msgid "Is used to notify that the table row header has changed"
 msgstr "तालिका पङ्क्ति हेडर परिवर्तन भइसक्यो भनेर सूचीत गर्न प्रयोग गरिन्छ"
 
-#: atk/atkobject.c:528
+#: atk/atkobject.c:409
 msgid "Accessible Table Row Description"
 msgstr "पहुँच योग्य तालिका पङ्क्ति वर्णन"
 
-#: atk/atkobject.c:529
+#: atk/atkobject.c:410
 msgid "Is used to notify that the table row description has changed"
 msgstr "तालिका पङ्क्ति वर्णन परिवर्तन भइसक्यो भनेर सूचीत गर्न प्रयोग गरिन्छ"
 
-#: atk/atkobject.c:535
+#: atk/atkobject.c:416
 msgid "Accessible Table Summary"
 msgstr "पहुँच योग्य तालिका सारांश"
 
-#: atk/atkobject.c:536
+#: atk/atkobject.c:417
 msgid "Is used to notify that the table summary has changed"
 msgstr "तालिका सारांश परिवर्तन भइसक्यो भनेर सूचीत गर्न प्रयोग गरिन्छ"
 
-#: atk/atkobject.c:542
+#: atk/atkobject.c:423
 msgid "Accessible Table Caption Object"
 msgstr "पहुँच योग्य तालिका क्याप्सन वस्तु"
 
-#: atk/atkobject.c:543
+#: atk/atkobject.c:424
 msgid "Is used to notify that the table caption has changed"
 msgstr "तालिका क्याप्सन परिवर्तन भइसक्यो भनेर सूचीत गर्न प्रयोग गरिन्छ"
 
-#: atk/atkobject.c:549
+#: atk/atkobject.c:430
 msgid "Number of Accessible Hypertext Links"
 msgstr "पहुँच योग्य हाइपरटेक्स्ट लिङ्कहरूको सङ्ख्या"
 
-#: atk/atkobject.c:550
+#: atk/atkobject.c:431
 msgid "The number of links which the current AtkHypertext has"
 msgstr "हालको AtkHypertext संगरहेको लिङ्कहरूको सङ्ख्या"
+
+#: atk/atkobject.c:440
+msgid "Accessible ID"
+msgstr "पहुँचयोग्य आईडी"
+
+#: atk/atkobject.c:441
+msgid "ID for the accessible; useful for automated testing"
+msgstr "पहुँचको लागि आईडी; स्वचालित परीक्षणको लागि उपयोगी"
+
+#: atk/atkobject.c:447
+msgid "Help text"
+msgstr "मद्दत पाठ"
+
+#: atk/atkobject.c:448
+msgid "Help text associated with the accessible"
+msgstr "पहुँचयोग्यसँग सम्बन्धित मद्दत पाठ"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a password-strength meter. Note that what such a
@@ -674,7 +216,7 @@ msgstr "हालको AtkHypertext संगरहेको लिङ्कह
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:194
+#: atk/atkvalue.c:193
 msgid "very weak"
 msgstr "सार्‍है कमजोर"
 
@@ -684,7 +226,7 @@ msgstr "सार्‍है कमजोर"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:201
+#: atk/atkvalue.c:200
 msgid "weak"
 msgstr "कमजोर"
 
@@ -694,7 +236,7 @@ msgstr "कमजोर"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:208
+#: atk/atkvalue.c:207
 msgid "acceptable"
 msgstr "स्वीकार्य"
 
@@ -704,7 +246,7 @@ msgstr "स्वीकार्य"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:215
+#: atk/atkvalue.c:214
 msgid "strong"
 msgstr "बलियो"
 
@@ -714,7 +256,7 @@ msgstr "बलियो"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:222
+#: atk/atkvalue.c:221
 msgid "very strong"
 msgstr "धेरै बलियो"
 
@@ -725,7 +267,7 @@ msgstr "धेरै बलियो"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:230
+#: atk/atkvalue.c:229
 msgid "very low"
 msgstr "अति न्यून"
 
@@ -736,7 +278,7 @@ msgstr "अति न्यून"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:238
+#: atk/atkvalue.c:237
 msgid "medium"
 msgstr "मध्यम"
 
@@ -747,7 +289,7 @@ msgstr "मध्यम"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:246
+#: atk/atkvalue.c:245
 msgid "high"
 msgstr "उच्च"
 
@@ -758,7 +300,7 @@ msgstr "उच्च"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:254
+#: atk/atkvalue.c:253
 msgid "very high"
 msgstr "अति उच्च"
 
@@ -769,7 +311,7 @@ msgstr "अति उच्च"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:262
+#: atk/atkvalue.c:261
 msgid "very bad"
 msgstr "धेरै खराब"
 
@@ -780,7 +322,7 @@ msgstr "धेरै खराब"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:270
+#: atk/atkvalue.c:269
 msgid "bad"
 msgstr "खराब"
 
@@ -791,7 +333,7 @@ msgstr "खराब"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:278
+#: atk/atkvalue.c:277
 msgid "good"
 msgstr "असल"
 
@@ -802,7 +344,7 @@ msgstr "असल"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:286
+#: atk/atkvalue.c:285
 msgid "very good"
 msgstr "अति असल"
 
@@ -813,13 +355,487 @@ msgstr "अति असल"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:294
+#: atk/atkvalue.c:293
 msgid "best"
 msgstr "उत्तम"
 
-#: atspi/atspi-component.c:332 atspi/atspi-misc.c:1063 atspi/atspi-value.c:111
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1230 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "अनुप्रयोग अब उप्रान्त उपलब्ध छैन"
+
+#: atspi/atspi-misc.c:49
+msgid "invalid"
+msgstr "अवैध"
+
+#: atspi/atspi-misc.c:50
+msgid "accelerator label"
+msgstr "गतिवर्धक लेबुल"
+
+#: atspi/atspi-misc.c:51
+msgid "alert"
+msgstr "सावधान"
+
+#: atspi/atspi-misc.c:52
+msgid "animation"
+msgstr "एनिमेसन"
+
+#: atspi/atspi-misc.c:53
+msgid "arrow"
+msgstr "बाँण"
+
+#: atspi/atspi-misc.c:54
+msgid "calendar"
+msgstr "पात्रो"
+
+#: atspi/atspi-misc.c:55
+msgid "canvas"
+msgstr "क्यानभास"
+
+#: atspi/atspi-misc.c:56
+msgid "check box"
+msgstr "जाँच बाकस"
+
+#: atspi/atspi-misc.c:57
+msgid "check menu item"
+msgstr "मेनु वस्तु जाँच्नुहोस्"
+
+#: atspi/atspi-misc.c:58
+msgid "color chooser"
+msgstr "रङ चयनकर्ता"
+
+#: atspi/atspi-misc.c:59
+msgid "column header"
+msgstr "स्तम्भ हेडर"
+
+#: atspi/atspi-misc.c:60
+msgid "combo box"
+msgstr "कम्बो बाकस"
+
+#: atspi/atspi-misc.c:61
+msgid "dateeditor"
+msgstr "मिति सम्पादक"
+
+#: atspi/atspi-misc.c:62
+msgid "desktop icon"
+msgstr "डेस्कटप प्रतिमा"
+
+#: atspi/atspi-misc.c:63
+msgid "desktop frame"
+msgstr "डेस्कटप फ्रेम"
+
+#: atspi/atspi-misc.c:64
+msgid "dial"
+msgstr "डायल"
+
+#: atspi/atspi-misc.c:65
+msgid "dialog"
+msgstr "संवाद"
+
+#: atspi/atspi-misc.c:66
+msgid "directory pane"
+msgstr "डाइरेक्टरी फलक"
+
+#: atspi/atspi-misc.c:67
+msgid "drawing area"
+msgstr "रेखाचित्र क्षेत्र"
+
+#: atspi/atspi-misc.c:68
+msgid "file chooser"
+msgstr "फाइल चयनकर्ता"
+
+#: atspi/atspi-misc.c:69
+msgid "filler"
+msgstr "फिलर"
+
+#  I know it looks wrong but that is what Java returns
+#. I know it looks wrong but that is what Java returns
+#: atspi/atspi-misc.c:71
+msgid "fontchooser"
+msgstr "फन्ट चयनकर्ता"
+
+#: atspi/atspi-misc.c:72
+msgid "frame"
+msgstr "फ्रेम"
+
+#: atspi/atspi-misc.c:73
+msgid "glass pane"
+msgstr "ग्लास फलक"
+
+#: atspi/atspi-misc.c:74
+msgid "html container"
+msgstr "html भाँडो"
+
+#: atspi/atspi-misc.c:75
+msgid "icon"
+msgstr "प्रतिमा"
+
+#: atspi/atspi-misc.c:76
+msgid "image"
+msgstr "छवि"
+
+#: atspi/atspi-misc.c:77
+msgid "internal frame"
+msgstr "आन्तरिक फ्रेम"
+
+#: atspi/atspi-misc.c:78
+msgid "label"
+msgstr "लेबुल"
+
+#: atspi/atspi-misc.c:79
+msgid "layered pane"
+msgstr "तहगत फलक"
+
+#: atspi/atspi-misc.c:80
+msgid "list"
+msgstr "सूची"
+
+#: atspi/atspi-misc.c:81
+msgid "list item"
+msgstr "सूची वस्तु"
+
+#: atspi/atspi-misc.c:82
+msgid "menu"
+msgstr "मेनु"
+
+#: atspi/atspi-misc.c:83
+msgid "menu bar"
+msgstr "मेनु पट्टि"
+
+#: atspi/atspi-misc.c:84
+msgid "menu button"
+msgstr "मेनु बटन"
+
+#: atspi/atspi-misc.c:85
+msgid "menu item"
+msgstr "मेनु वस्तु"
+
+#: atspi/atspi-misc.c:86
+msgid "option pane"
+msgstr "विकल्प फलक"
+
+#: atspi/atspi-misc.c:87
+msgid "page tab"
+msgstr "पृष्ठ ट्याब"
+
+#: atspi/atspi-misc.c:88
+msgid "page tab list"
+msgstr "पृष्ठ ट्याब सूची"
+
+#: atspi/atspi-misc.c:89
+msgid "panel"
+msgstr "प्यानल"
+
+#: atspi/atspi-misc.c:90
+msgid "password text"
+msgstr "पासवर्ड पाठ"
+
+#: atspi/atspi-misc.c:91
+msgid "popup menu"
+msgstr "पपअप मेनु"
+
+#: atspi/atspi-misc.c:92
+msgid "progress bar"
+msgstr "प्रगति पट्टि"
+
+#: atspi/atspi-misc.c:93
+msgid "push button"
+msgstr "थिच्ने बटन"
+
+#: atspi/atspi-misc.c:94
+msgid "radio button"
+msgstr "रेडियो बटन"
+
+#: atspi/atspi-misc.c:95
+msgid "radio menu item"
+msgstr "रेडियो मेनु वस्तु"
+
+#: atspi/atspi-misc.c:96
+msgid "root pane"
+msgstr "मूल फलक"
+
+#: atspi/atspi-misc.c:97
+msgid "row header"
+msgstr "पङ्क्ति हेडर"
+
+#: atspi/atspi-misc.c:98
+msgid "scroll bar"
+msgstr "स्क्रोलपट्टी"
+
+#: atspi/atspi-misc.c:99
+msgid "scroll pane"
+msgstr "स्क्रोल फलक"
+
+#: atspi/atspi-misc.c:100
+msgid "separator"
+msgstr "विभाजक"
+
+#: atspi/atspi-misc.c:101
+msgid "slider"
+msgstr "स्लाइडर"
+
+#: atspi/atspi-misc.c:102
+msgid "split pane"
+msgstr "छुट्टिएको फलक"
+
+#: atspi/atspi-misc.c:103
+msgid "spin button"
+msgstr "स्पिन बटन"
+
+#: atspi/atspi-misc.c:104
+msgid "statusbar"
+msgstr "वस्तुस्थितिपट्टी"
+
+#: atspi/atspi-misc.c:105
+msgid "table"
+msgstr "तालिका"
+
+#: atspi/atspi-misc.c:106
+msgid "table cell"
+msgstr "तालिका कक्ष"
+
+#: atspi/atspi-misc.c:107
+msgid "table column header"
+msgstr "तालिका स्तम्भ हेडर"
+
+#: atspi/atspi-misc.c:108
+msgid "table row header"
+msgstr "तालिका पङ्क्ति हेडर"
+
+#: atspi/atspi-misc.c:109
+msgid "tear off menu item"
+msgstr "मेनु वस्तु छुट्याउनुहोस्"
+
+#: atspi/atspi-misc.c:110
+msgid "terminal"
+msgstr "टर्मिनल"
+
+#: atspi/atspi-misc.c:111
+msgid "text"
+msgstr "पाठ"
+
+#: atspi/atspi-misc.c:112
+msgid "toggle button"
+msgstr "टगल बटन"
+
+#: atspi/atspi-misc.c:113
+msgid "tool bar"
+msgstr "उपकरणपट्टी"
+
+#: atspi/atspi-misc.c:114
+msgid "tool tip"
+msgstr "टुल टिप"
+
+#: atspi/atspi-misc.c:115
+msgid "tree"
+msgstr "ट्रि"
+
+#: atspi/atspi-misc.c:116
+msgid "tree table"
+msgstr "ट्रि तालिका"
+
+#: atspi/atspi-misc.c:117
+msgid "unknown"
+msgstr "अज्ञात"
+
+#: atspi/atspi-misc.c:118
+msgid "viewport"
+msgstr "दृश्य पोर्ट"
+
+#: atspi/atspi-misc.c:119
+msgid "window"
+msgstr "सञ्झ्याल"
+
+#: atspi/atspi-misc.c:120
+msgid "header"
+msgstr "हेडर"
+
+#: atspi/atspi-misc.c:121
+msgid "footer"
+msgstr "फुटर"
+
+#: atspi/atspi-misc.c:122
+msgid "paragraph"
+msgstr "अनुच्छेद"
+
+#: atspi/atspi-misc.c:123
+msgid "ruler"
+msgstr "रुलर"
+
+#: atspi/atspi-misc.c:124
+msgid "application"
+msgstr "अनुप्रयोग"
+
+#: atspi/atspi-misc.c:125
+msgid "autocomplete"
+msgstr "स्वत:समाप्ती"
+
+#: atspi/atspi-misc.c:126
+msgid "edit bar"
+msgstr "सम्पादन पट्टी"
+
+#: atspi/atspi-misc.c:127
+msgid "embedded component"
+msgstr "सन्निबेश गरिएको अवयव"
+
+#: atspi/atspi-misc.c:128
+msgid "entry"
+msgstr "प्रविष्टि"
+
+#: atspi/atspi-misc.c:129
+msgid "chart"
+msgstr "चित्रपट"
+
+#: atspi/atspi-misc.c:130
+msgid "caption"
+msgstr "क्याप्सन"
+
+#: atspi/atspi-misc.c:131
+msgid "document frame"
+msgstr "कागजात फ्रेम"
+
+#: atspi/atspi-misc.c:132
+msgid "heading"
+msgstr "हेडिङ"
+
+#: atspi/atspi-misc.c:133
+msgid "page"
+msgstr "पृष्ठ"
+
+#: atspi/atspi-misc.c:134
+msgid "section"
+msgstr "सेक्सन"
+
+#: atspi/atspi-misc.c:135
+msgid "redundant object"
+msgstr "अतिरिक्त वस्तु"
+
+#: atspi/atspi-misc.c:136
+msgid "form"
+msgstr "फारम"
+
+#: atspi/atspi-misc.c:137
+msgid "link"
+msgstr "लिङ्क"
+
+#: atspi/atspi-misc.c:138
+msgid "input method window"
+msgstr "आयात विधि सञ्झ्याल"
+
+#: atspi/atspi-misc.c:139
+msgid "table row"
+msgstr "तालिका पङ्क्ति"
+
+#: atspi/atspi-misc.c:140
+msgid "tree item"
+msgstr "ट्रि सामाग्री"
+
+#: atspi/atspi-misc.c:141
+msgid "document spreadsheet"
+msgstr "सप्रेडशिट कागजात"
+
+#: atspi/atspi-misc.c:142
+msgid "document presentation"
+msgstr "प्रस्तुतिकरण कागजात"
+
+#: atspi/atspi-misc.c:143
+msgid "document text"
+msgstr "पाठ कागजात"
+
+#: atspi/atspi-misc.c:144
+msgid "document web"
+msgstr "कागजात वेब"
+
+#: atspi/atspi-misc.c:145
+msgid "document email"
+msgstr "इमेल कागजात"
+
+#: atspi/atspi-misc.c:146
+msgid "comment"
+msgstr "टिप्पणी"
+
+#: atspi/atspi-misc.c:147
+msgid "list box"
+msgstr "सुची बाकस"
+
+#: atspi/atspi-misc.c:148
+msgid "grouping"
+msgstr "समूहबद्ध"
+
+#: atspi/atspi-misc.c:149
+msgid "image map"
+msgstr "छवि मानचित्र"
+
+#: atspi/atspi-misc.c:150
+msgid "notification"
+msgstr "सूचना"
+
+#: atspi/atspi-misc.c:151
+msgid "info bar"
+msgstr "सूचना पट्टी"
+
+#: atspi/atspi-misc.c:152
+msgid "level bar"
+msgstr "निसानी पट्टी"
+
+#: atspi/atspi-misc.c:153
+msgid "title bar"
+msgstr "शीर्षक पट्टी"
+
+#: atspi/atspi-misc.c:154
+msgid "block quote"
+msgstr "बाक्लो उद्धरण"
+
+#: atspi/atspi-misc.c:155
+msgid "audio"
+msgstr "ध्वनी"
+
+#: atspi/atspi-misc.c:156
+msgid "video"
+msgstr "भिडियो"
+
+#: atspi/atspi-misc.c:157
+msgid "definition"
+msgstr "परिभाषा"
+
+#: atspi/atspi-misc.c:158
+msgid "article"
+msgstr "लेख"
+
+#: atspi/atspi-misc.c:159
+msgid "landmark"
+msgstr "भूमिनिसान"
+
+#: atspi/atspi-misc.c:160
+msgid "log"
+msgstr "दैनिकि"
+
+#: atspi/atspi-misc.c:161
+msgid "marquee"
+msgstr "मार्की"
+
+#: atspi/atspi-misc.c:162
+msgid "math"
+msgstr "गणित"
+
+#: atspi/atspi-misc.c:163
+msgid "rating"
+msgstr "दर निर्धारण"
+
+#: atspi/atspi-misc.c:164
+msgid "timer"
+msgstr "समयक"
+
+#: atspi/atspi-misc.c:165
+msgid "description list"
+msgstr "वर्णन सूची"
+
+#: atspi/atspi-misc.c:166
+msgid "description term"
+msgstr "वर्णन शब्द"
+
+#: atspi/atspi-misc.c:167
+msgid "description value"
+msgstr "वर्णन मान"
 
 #~ msgid "Attempted synchronous call where prohibited"
 #~ msgstr "निषेधित भए सिंक्रोनस कल कोशिश गर्नुहोस्"
