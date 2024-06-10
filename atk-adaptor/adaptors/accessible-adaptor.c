@@ -33,6 +33,8 @@
 #include "spi-dbus.h"
 #include <string.h>
 
+#define MAX_CHILDREN 65536
+
 static dbus_bool_t
 impl_get_Name (DBusMessageIter *iter, void *user_data)
 {
@@ -202,6 +204,10 @@ impl_GetChildren (DBusConnection *bus,
   g_return_val_if_fail (ATK_IS_OBJECT (user_data),
                         droute_not_yet_handled_error (message));
   count = atk_object_get_n_accessible_children (object);
+
+  if (count > MAX_CHILDREN)
+    count = MAX_CHILDREN;
+
   reply = dbus_message_new_method_return (message);
   if (!reply)
     goto oom;
