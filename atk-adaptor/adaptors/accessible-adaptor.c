@@ -206,7 +206,13 @@ impl_GetChildren (DBusConnection *bus,
   count = atk_object_get_n_accessible_children (object);
 
   if (count > MAX_CHILDREN)
-    count = MAX_CHILDREN;
+    {
+      gchar *errmsg = g_strdup_printf (
+          "Accessible's child count %d exceeds the maximum of %d handled by GetChildren.", count, MAX_CHILDREN);
+      reply = dbus_message_new_error (message, DBUS_ERROR_INVALID_ARGS, errmsg);
+      g_free (errmsg);
+      return reply;
+    }
 
   reply = dbus_message_new_method_return (message);
   if (!reply)
