@@ -1778,7 +1778,9 @@ atk_object_get_help_text (AtkObject *accessible)
  *
  * Sets the help text associated with the accessible. This can be used to
  * expose context-sensitive information to help a user understand how to
- * interact with the object.
+ * interact with the object. You can't set the help text to NULL.
+ * This is reserved for the initial value. If you want to set the name to
+ * an empty value, you can use "".
  *
  * Since: 2.52
  **/
@@ -1786,9 +1788,20 @@ void
 atk_object_set_help_text (AtkObject *accessible, const gchar *help_text)
 {
   AtkObjectPrivate *private = atk_object_get_instance_private (accessible);
+
+  g_return_if_fail (help_text != NULL);
+
+  if (!g_strcmp0 (private->help_text, help_text))
+    return;
+
+  /* Do not notify for initial help text setting. */
+  gboolean notify = (private->help_text != NULL);
+
   g_free (private->help_text);
-private
-  ->help_text = g_strdup (help_text);
+  private->help_text = g_strdup (help_text);
+
+  if (notify)
+    g_object_notify (G_OBJECT (accessible), atk_object_name_property_help_text);
 }
 
 static void
