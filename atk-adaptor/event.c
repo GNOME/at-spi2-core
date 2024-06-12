@@ -659,6 +659,13 @@ property_event_listener (GSignalInvocationHint *signal_hint,
         emit_event (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
                     DBUS_TYPE_STRING_AS_STRING, s1, append_basic);
     }
+  else if (strcmp (pname, "accessible-help-text") == 0)
+    {
+      s1 = atk_object_get_help_text (accessible);
+      if (s1 != NULL)
+        emit_event (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
+                    DBUS_TYPE_STRING_AS_STRING, s1, append_basic);
+    }
   else if (strcmp (pname, "accessible-parent") == 0)
     {
       otemp = atk_object_get_parent (accessible);
