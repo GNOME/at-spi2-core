@@ -108,6 +108,9 @@
         Returns a list of the object's accessible children.
 
         Each array element (so) is a string for the application name, and an object path.
+
+        An implementor may return an error if the object exposes a large
+        number of children such that returning a list would be prohibitive.
     -->
     <method name="GetChildren">
       <arg direction="out" type="a(so)"/>
