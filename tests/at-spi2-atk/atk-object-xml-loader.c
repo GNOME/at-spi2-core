@@ -219,7 +219,7 @@ create_atk_object_from_element (xmlNode *element)
                       "accessible-name", name,
                       "accessible-description", description,
                       "accessible-role", atk_role_for_name ((const gchar *) role),
-                      "accessible-help-text", help_text,
+                      "accessible-help-text", (help_text ? (const char *)help_text : ""),
                       NULL);
   xmlFree (name);
   xmlFree (description);
