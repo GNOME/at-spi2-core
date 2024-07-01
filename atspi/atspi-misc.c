@@ -618,6 +618,7 @@ add_accessible_from_iter (DBusMessageIter *iter)
       dbus_message_iter_get_basic (&iter_struct, &index);
       if (index >= 0 && accessible->accessible_parent)
         {
+          AtspiAccessible *old_child = NULL;
           if (index >= accessible->accessible_parent->children->len)
             {
               /* There is no room for this object */
@@ -627,9 +628,10 @@ add_accessible_from_iter (DBusMessageIter *iter)
             {
               /* This place is already taken - let's free this place with dignity */
               if (g_ptr_array_index (accessible->accessible_parent->children, index))
-                g_object_unref (g_ptr_array_index (accessible->accessible_parent->children, index));
+                old_child = g_ptr_array_index (accessible->accessible_parent->children, index);
             }
           g_ptr_array_index (accessible->accessible_parent->children, index) = g_object_ref (accessible);
+          g_clear_object (&old_child);
         }
 
       /* get child count */
