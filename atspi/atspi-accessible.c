@@ -236,6 +236,8 @@ atspi_accessible_dispose (GObject *object)
       accessible->children = NULL;
     }
 
+  _atspi_accessible_set_cached (accessible, FALSE);
+
   G_OBJECT_CLASS (atspi_accessible_parent_class)->dispose (object);
 }
 
@@ -2003,5 +2005,22 @@ _atspi_accessible_unref_cache (AtspiAccessible *accessible)
       g_hash_table_unref (priv->cache);
       if (--priv->cache_ref_count == 0)
         priv->cache = NULL;
+    }
+}
+
+void
+_atspi_accessible_set_cached (AtspiAccessible *accessible, gboolean cached)
+{
+  AtspiAccessiblePrivate *priv = accessible->priv;
+
+  if (cached && !priv->holds_cache_ref)
+    {
+      priv->holds_cache_ref = TRUE;
+      g_object_ref (accessible);
+    }
+  else if (!cached && priv->holds_cache_ref)
+    {
+      priv->holds_cache_ref = FALSE;
+      g_object_unref (accessible);
     }
 }
