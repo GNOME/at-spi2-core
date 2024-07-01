@@ -464,7 +464,7 @@ ref_accessible (ReferenceFromMessage *ref)
       return g_object_ref (a);
     }
   a = _atspi_accessible_new (app, ref->path);
-  g_hash_table_insert (app->hash, g_strdup (a->parent.path), g_object_ref (a));
+  g_hash_table_insert (app->hash, g_strdup (a->parent.path), a);
   return a;
 }
 
@@ -484,8 +484,6 @@ ref_hyperlink (const char *app_name, const char *path)
     }
   hyperlink = _atspi_hyperlink_new (app, path);
   g_hash_table_insert (app->hash, g_strdup (hyperlink->parent.path), hyperlink);
-  /* TODO: This should be a weak ref */
-  g_object_ref (hyperlink); /* for the hash */
   return hyperlink;
 }
 
@@ -505,7 +503,6 @@ static DBusHandlerResult
 handle_remove_accessible (DBusConnection *bus, DBusMessage *message)
 {
   ReferenceFromMessage ref;
-  AtspiApplication *app;
   DBusMessageIter iter;
   const char *signature = dbus_message_get_signature (message);
   AtspiAccessible *a;
@@ -519,12 +516,10 @@ handle_remove_accessible (DBusConnection *bus, DBusMessage *message)
   dbus_message_iter_init (message, &iter);
 
   get_reference_from_iter (&iter, &ref);
-  app = get_application (ref.app_name);
   a = ref_accessible (&ref);
   if (!a)
     return DBUS_HANDLER_RESULT_HANDLED;
   g_object_run_dispose (G_OBJECT (a));
-  g_hash_table_remove (app->hash, a->parent.path);
   g_object_unref (a); /* unref our own ref */
   return DBUS_HANDLER_RESULT_HANDLED;
 }
@@ -693,6 +688,8 @@ add_accessible_from_iter (DBusMessageIter *iter)
       children_cached)
     _atspi_accessible_add_cache (accessible, ATSPI_CACHE_CHILDREN);
 
+  _atspi_accessible_set_cached (accessible, TRUE);
+
   /* This is a bit of a hack since the cache holds a ref, so we don't need
    * the one provided for us anymore */
   g_object_unref (accessible);
@@ -749,8 +746,7 @@ ref_accessible_desktop (AtspiApplication *app)
       return desktop;
     }
   desktop = _atspi_accessible_new (app, atspi_path_root);
-  g_hash_table_insert (app->hash, g_strdup (desktop->parent.path),
-                       g_object_ref (desktop));
+  g_hash_table_insert (app->hash, g_strdup (desktop->parent.path), desktop);
   app->root = g_object_ref (desktop);
   desktop->name = g_strdup ("main");
   message = dbus_message_new_method_call (atspi_bus_registry,
