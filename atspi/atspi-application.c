@@ -41,21 +41,9 @@ atspi_application_init (AtspiApplication *application)
 }
 
 static void
-ref_object (void *obj, void *user_data)
+dispose_accessible (gpointer key, gpointer obj_data, gpointer data)
 {
-  g_object_ref (obj);
-}
-
-static void
-unref_object (void *obj, void *user_data)
-{
-  g_object_unref (obj);
-}
-
-static void
-dispose_object (void *obj, void *user_data)
-{
-  g_object_run_dispose (obj);
+  g_object_run_dispose (obj_data);
 }
 
 static void
@@ -73,11 +61,7 @@ atspi_application_dispose (GObject *object)
 
   if (application->hash)
     {
-      GList *list = g_hash_table_get_values (application->hash);
-      g_list_foreach (list, ref_object, NULL);
-      g_list_foreach (list, dispose_object, NULL);
-      g_list_foreach (list, unref_object, NULL);
-      g_list_free (list);
+      g_hash_table_foreach (application->hash, dispose_accessible, NULL);
       g_hash_table_unref (application->hash);
       application->hash = NULL;
     }
@@ -120,7 +104,7 @@ _atspi_application_new (const gchar *bus_name)
   AtspiApplication *application;
 
   application = g_object_new (ATSPI_TYPE_APPLICATION, NULL);
-  application->hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+  application->hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
   application->bus_name = g_strdup (bus_name);
   application->root = NULL;
   return application;
