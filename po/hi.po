@@ -20,26 +20,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hi\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
-"POT-Creation-Date: 2024-04-02 01:52+0000\n"
-"PO-Revision-Date: 2024-04-19 09:00+0530\n"
+"POT-Creation-Date: 2024-06-13 20:51+0000\n"
+"PO-Revision-Date: 2024-06-19 14:03+0530\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
-"Language-Team: Hindi\n"
+"Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  hi.po (at-spi2-core.po.master.hi)  #-#-#-#-#\n"
-"X-Generator: Gtranslator 46.0\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"#-#-#-#-#  hi.po (hi)  #-#-#-#-#\n"
-"X-Generator: Lokalize 1.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
+"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Lokalize 1.2\n"
 
 #: atk/atkhyperlink.c:127
 msgid "Selected Link"
@@ -47,7 +39,7 @@ msgstr "चयनित लिंक"
 
 #: atk/atkhyperlink.c:128
 msgid "Specifies whether the AtkHyperlink object is selected"
-msgstr "उल्लेखित करता है कि क्या एटीके-हायपरलिंक वस्तु चयनित है"
+msgstr "उल्लेखित करता है कि क्या AtkHyperlink वस्तु चयनित है"
 
 #: atk/atkhyperlink.c:134
 msgid "Number of Anchors"
@@ -55,23 +47,23 @@ msgstr "लंगर की संख्या"
 
 #: atk/atkhyperlink.c:135
 msgid "The number of anchors associated with the AtkHyperlink object"
-msgstr "एटीके-हायपरलिंक वस्तु के साथ सम्बद्ध लंगर की संख्या"
+msgstr "AtkHyperlink वस्तु के साथ सम्बद्ध लंगर की संख्या"
 
 #: atk/atkhyperlink.c:143
 msgid "End index"
-msgstr "अंतिम सूची"
+msgstr "अंतिम सूचकांक"
 
 #: atk/atkhyperlink.c:144
 msgid "The end index of the AtkHyperlink object"
-msgstr "एटीके-हायपरलिंक वस्तु की अंतिम सूची"
+msgstr "AtkHyperlink वस्तु का अंतिम सूचकांक"
 
 #: atk/atkhyperlink.c:152
 msgid "Start index"
-msgstr "प्रारंभ सूची"
+msgstr "प्रारंभ सूचकांक"
 
 #: atk/atkhyperlink.c:153
 msgid "The start index of the AtkHyperlink object"
-msgstr "एटीके-हायपरलिंक वस्तु का प्रारंभ सूची"
+msgstr "AtkHyperlink वस्तु का प्रारंभ सूचकांक"
 
 #: atk/atkobject.c:273
 msgid "Accessible Name"
@@ -79,19 +71,19 @@ msgstr "पंहुचयोग्य नाम"
 
 #: atk/atkobject.c:274
 msgid "Object instance’s name formatted for assistive technology access"
-msgstr "मददगार तकनीक पँहुच हेतु प्रारूपित वस्तु उदाहरण नाम"
+msgstr "मददगार तकनीक पहुंच हेतु प्रारूपित वस्तु उदाहरण नाम"
 
 #: atk/atkobject.c:280
 msgid "Accessible Description"
-msgstr "पहुँच योग्य वर्णन"
+msgstr "पहुंच योग्य वर्णन"
 
 #: atk/atkobject.c:281
 msgid "Description of an object, formatted for assistive technology access"
-msgstr "मददगार तकनीक पँहुच हेतु प्रारूपित वस्तु का वर्णन"
+msgstr "मददगार तकनीक पहुंच हेतु प्रारूपित वस्तु का वर्णन"
 
 #: atk/atkobject.c:287
 msgid "Accessible Parent"
-msgstr "पहुँच योग्य जनक"
+msgstr "पहुंच योग्य जनक"
 
 #: atk/atkobject.c:288
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
@@ -99,7 +91,7 @@ msgstr "atk_object_get_parent() द्वारा लौटाए गए वर
 
 #: atk/atkobject.c:304
 msgid "Accessible Value"
-msgstr "पहुँच योग्य मूल्य"
+msgstr "पहुंच योग्य मूल्य"
 
 #: atk/atkobject.c:305
 msgid "Is used to notify that the value has changed"
@@ -107,43 +99,43 @@ msgstr "मान बदल चुका है यह बताने हेत
 
 #: atk/atkobject.c:313
 msgid "Accessible Role"
-msgstr "पहुँच योग्य भूमिका"
+msgstr "पहुंच योग्य भूमिका"
 
 #: atk/atkobject.c:314
 msgid "The accessible role of this object"
-msgstr "इस वस्तु की पहुँच योग्य भूमिका"
+msgstr "इस वस्तु की पहुंच योग्य भूमिका"
 
 #: atk/atkobject.c:321
 msgid "Accessible Layer"
-msgstr "पहुँच योग्य परत"
+msgstr "पहुंच योग्य परत"
 
 #: atk/atkobject.c:322
 msgid "The accessible layer of this object"
-msgstr "इस वस्तु की पहुँच योग्य परत"
+msgstr "इस वस्तु की पहुंच योग्य परत"
 
 #: atk/atkobject.c:330
 msgid "Accessible MDI Value"
-msgstr "पहुँच योग्य एमडीआई मूल्य"
+msgstr "पहुंच योग्य MDI मान"
 
 #: atk/atkobject.c:331
 msgid "The accessible MDI value of this object"
-msgstr "इस वस्तु का पहुँच योग्य एमडीआई मूल्य"
+msgstr "इस वस्तु का पहुंच योग्य MDI मूल्य"
 
 #: atk/atkobject.c:347
 msgid "Accessible Table Caption"
-msgstr "पहुँच योग्य सारणी शीर्षक"
+msgstr "पहुंच योग्य सारणी शीर्षक"
 
 #: atk/atkobject.c:348
 msgid ""
-"Is used to notify that the table caption has changed; this property should "
-"not be used. accessible-table-caption-object should be used instead"
+"Is used to notify that the table caption has changed; this property should not be used. "
+"accessible-table-caption-object should be used instead"
 msgstr ""
-"सारणी शीर्षक बदल चुका है यह बताने हेतु उपयोग में आता है, यह गुण उपयोग में नहीं लेना चाहिए. "
-"बदले में पहुँच योग्य-सारणी-शीर्षक-वस्तु उपयोग में लेना चाहिए"
+"सारणी शीर्षक बदल चुका है यह बताने हेतु उपयोग में आता है, यह गुण उपयोग में नहीं लेना चाहिए। बदले में पहुंच "
+"योग्य-सारणी-शीर्षक-वस्तु उपयोग में लेना चाहिए"
 
 #: atk/atkobject.c:362
 msgid "Accessible Table Column Header"
-msgstr "पहुँच योग्य सारणी स्तंभ शीर्षिका"
+msgstr "पहुंच योग्य सारणी स्तंभ शीर्षिका"
 
 #: atk/atkobject.c:363
 msgid "Is used to notify that the table column header has changed"
@@ -151,15 +143,15 @@ msgstr "सारणी स्तंभ शीर्षिका बदल च�
 
 #: atk/atkobject.c:378
 msgid "Accessible Table Column Description"
-msgstr "पहुँच योग्य सारणी स्तंभ वर्णन"
+msgstr "पहुंच योग्य सारणी स्तंभ वर्णन"
 
 #: atk/atkobject.c:379
 msgid "Is used to notify that the table column description has changed"
-msgstr "पहुँच योग्य सारणी स्तंभ वर्णन बदल चुका है यह बताने हेतु उपयोग में आता है"
+msgstr "पहुंच योग्य सारणी स्तंभ वर्णन बदल चुका है यह बताने हेतु उपयोग में आता है"
 
 #: atk/atkobject.c:394
 msgid "Accessible Table Row Header"
-msgstr "पहुँच योग्य सारणी पंक्ति शीर्षिका"
+msgstr "पहुंच योग्य सारणी पंक्ति शीर्षिका"
 
 #: atk/atkobject.c:395
 msgid "Is used to notify that the table row header has changed"
@@ -167,15 +159,15 @@ msgstr "सारणी पंक्ति शीर्षिका बदल �
 
 #: atk/atkobject.c:409
 msgid "Accessible Table Row Description"
-msgstr "पहुँच योग्य सारणी पंक्ति वर्णन"
+msgstr "पहुंच योग्य सारणी पंक्ति वर्णन"
 
 #: atk/atkobject.c:410
 msgid "Is used to notify that the table row description has changed"
-msgstr "पहुँच योग्य सारणी पंक्ति वर्णन बदल चुका है यह बताने हेतु उपयोग में आता है"
+msgstr "पहुंच योग्य सारणी पंक्ति वर्णन बदल चुका है यह बताने हेतु उपयोग में आता है"
 
 #: atk/atkobject.c:416
 msgid "Accessible Table Summary"
-msgstr "पहुँच योग्य सारणी सारांश"
+msgstr "पहुंच योग्य सारणी सारांश"
 
 #: atk/atkobject.c:417
 msgid "Is used to notify that the table summary has changed"
@@ -183,7 +175,7 @@ msgstr "सारणी स्तंभ सारांश बदल चुक�
 
 #: atk/atkobject.c:423
 msgid "Accessible Table Caption Object"
-msgstr "पहुँच योग्य सारणी शीर्षक वस्तु"
+msgstr "पहुंच योग्य सारणी शीर्षक वस्तु"
 
 #: atk/atkobject.c:424
 msgid "Is used to notify that the table caption has changed"
@@ -191,11 +183,11 @@ msgstr "सारणी शीर्षक बदल चुका है यह 
 
 #: atk/atkobject.c:430
 msgid "Number of Accessible Hypertext Links"
-msgstr "पहुँच योग्य हायपरटेक्स्ट कड़ी की संख्या"
+msgstr "पहुंच योग्य हायपरटेक्स्ट कड़ी की संख्या"
 
 #: atk/atkobject.c:431
 msgid "The number of links which the current AtkHypertext has"
-msgstr "कड़ी की संख्या जो कि वर्तमान एटीके-हायपरटेक्स्ट में हैं"
+msgstr "कड़ी की संख्या जो कि वर्तमान AtkHypertext में हैं"
 
 #: atk/atkobject.c:440
 msgid "Accessible ID"
@@ -316,7 +308,7 @@ msgstr "बहुत ऊंचा"
 #.
 #: atk/atkvalue.c:261
 msgid "very bad"
-msgstr "बहुत ख़राब"
+msgstr "बहुत खराब"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a hard drive usage. Note that what such a widget
@@ -327,7 +319,7 @@ msgstr "बहुत ख़राब"
 #.
 #: atk/atkvalue.c:269
 msgid "bad"
-msgstr "ख़राब"
+msgstr "खराब"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a hard drive usage. Note that what such a widget
@@ -396,7 +388,7 @@ msgstr "कैनवास"
 
 #: atspi/atspi-misc.c:56
 msgid "check box"
-msgstr "जाँच पेटी"
+msgstr "जांच पेटी"
 
 #: atspi/atspi-misc.c:57
 msgid "check menu item"
@@ -444,7 +436,7 @@ msgstr "आरेखण-क्षेत्र"
 
 #: atspi/atspi-misc.c:68
 msgid "file chooser"
-msgstr "फ़ाइल-चयनक"
+msgstr "फाइल-चयनक"
 
 #: atspi/atspi-misc.c:69
 msgid "filler"
@@ -454,7 +446,7 @@ msgstr "भरनेवाला"
 #. I know it looks wrong but that is what Java returns
 #: atspi/atspi-misc.c:71
 msgid "fontchooser"
-msgstr "फ़ॉन्टचयनकर्ता"
+msgstr "फॉन्टचयनकर्ता"
 
 #: atspi/atspi-misc.c:72
 msgid "frame"
@@ -466,7 +458,7 @@ msgstr "काँच-फलक"
 
 #: atspi/atspi-misc.c:74
 msgid "html container"
-msgstr "एचटीएमएल-धारक"
+msgstr "html-धारक"
 
 #: atspi/atspi-misc.c:75
 msgid "icon"
@@ -498,11 +490,11 @@ msgstr "सूची मद"
 
 #: atspi/atspi-misc.c:82
 msgid "menu"
-msgstr "मेन्यू"
+msgstr "मेनू"
 
 #: atspi/atspi-misc.c:83
 msgid "menu bar"
-msgstr "मेन्यू पट्टी"
+msgstr "मेनू पट्टी"
 
 #: atspi/atspi-misc.c:84
 msgid "menu button"
@@ -510,7 +502,7 @@ msgstr "मेनू बटन"
 
 #: atspi/atspi-misc.c:85
 msgid "menu item"
-msgstr "मेन्यू मद"
+msgstr "मेनू मद"
 
 #: atspi/atspi-misc.c:86
 msgid "option pane"
@@ -534,7 +526,7 @@ msgstr "पासवर्ड पाठ"
 
 #: atspi/atspi-misc.c:91
 msgid "popup menu"
-msgstr "पॉपअप मेन्यू"
+msgstr "पॉपअप मेनू"
 
 #: atspi/atspi-misc.c:92
 msgid "progress bar"
@@ -550,7 +542,7 @@ msgstr "रेडियो बटन"
 
 #: atspi/atspi-misc.c:95
 msgid "radio menu item"
-msgstr "रेडियो मेन्यू मद"
+msgstr "रेडियो मेनू मद"
 
 #: atspi/atspi-misc.c:96
 msgid "root pane"
@@ -578,7 +570,7 @@ msgstr "स्लाइडर"
 
 #: atspi/atspi-misc.c:102
 msgid "split pane"
-msgstr "कटा फलक"
+msgstr "विभाजित फलक"
 
 #: atspi/atspi-misc.c:103
 msgid "spin button"
@@ -654,7 +646,7 @@ msgstr "शीर्षिका"
 
 #: atspi/atspi-misc.c:121
 msgid "footer"
-msgstr "फुटर"
+msgstr "पादलेख"
 
 #: atspi/atspi-misc.c:122
 msgid "paragraph"
@@ -678,7 +670,7 @@ msgstr "संपादन पट्टी"
 
 #: atspi/atspi-misc.c:127
 msgid "embedded component"
-msgstr "एंबेडेड घटक"
+msgstr "सन्निहित घटक"
 
 #: atspi/atspi-misc.c:128
 msgid "entry"
@@ -839,6 +831,3 @@ msgstr "विवरण शब्द"
 #: atspi/atspi-misc.c:167
 msgid "description value"
 msgstr "विवरण मान"
-
-#~ msgid "Is used to notify that the parent has changed"
-#~ msgstr "जनक बदल चुका है यह बताने हेतु उपयोग में आता है"
