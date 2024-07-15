@@ -1,3 +1,17 @@
+What's new in at-spi2-core 2.53.0:
+
+    Add missing prototypes for functions to check the presence of interfaces.
+
+* Replace disable_p2p with an ATSPI_DISABLE_P2P environment variable.
+
+* Drop use of deprecated eaves-dropping option in dbus configuration
+
+    atk-adaptor: Limit amount of children to return for GetChildren
+
+* Notify about HelpText attribute change.
+
+* Fix possible double unref in add_accessible_from_iter.
+
 What's new in at-spi2-core 2.52.0:
 
 * tests: Fix missing declaration for getpid().
