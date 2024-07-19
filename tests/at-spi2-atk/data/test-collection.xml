@@ -1,21 +1,39 @@
 <?xml version="1.0" ?>
-<accessible description="Root of the accessible tree" name="root_object" role="accelerator label">
+<accessible description="Root of the accessible tree" name="root_object" role="application">
+	<state state_enum="enabled"/>
+	<state state_enum="sensitive"/>
+	<state state_enum="showing"/>
+	<state state_enum="visible"/>
 	<accessible description="first child" name="obj1" role="alert">
+		<state state_enum="enabled"/>
+		<state state_enum="sensitive"/>
+		<state state_enum="showing"/>
+		<state state_enum="visible"/>
 		<state state_enum="modal"/>
 		<state state_enum="multi-line"/>
 	</accessible>
 	<accessible description="second child" name="obj2" role="animation">
+		<state state_enum="enabled"/>
+		<state state_enum="sensitive"/>
+		<state state_enum="showing"/>
+		<state state_enum="visible"/>
 		<accessible description="first prechild" name="obj2/1" role="arrow">
 			<relation relation_type="2" target_name="obj2"/>
-			<state state_enum="modal"/>
-			<state state_enum="multi-line"/>
+			<state state_enum="enabled"/>
+			<state state_enum="sensitive"/>
+			<state state_enum="showing"/>
+			<state state_enum="visible"/>
 		</accessible>
 		<accessible description="second prechild" name="obj2/2" role="canvas"/>
 		<accessible description="third prechild" name="obj2/3" role="link"/>
 	</accessible>
 	<accessible description="third child" name="obj3" role="check box">
-		<state state_enum="modal"/>
-		<state state_enum="multi-line"/>
+		<state state_enum="enabled"/>
+		<state state_enum="sensitive"/>
+		<state state_enum="showing"/>
+		<state state_enum="visible"/>
+		<state state_enum="checked"/>
+		<state state_enum="checkable"/>
 		<accessible description="first prechild" name="obj3/1" role="check menu item"/>
 	</accessible>
 </accessible>

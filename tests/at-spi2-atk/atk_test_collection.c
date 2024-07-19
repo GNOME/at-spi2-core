@@ -49,7 +49,7 @@ atk_test_collection_get_matches (TestAppFixture *fixture, gconstpointer user_dat
   AtspiCollection *iface = atspi_accessible_get_collection_iface (obj);
   g_assert_nonnull (iface);
 
-  AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
+  AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 1, NULL);
 
   AtspiMatchRule *rule = NULL;
   AtspiStateSet *ss = atspi_accessible_get_state_set (child);
@@ -70,10 +70,11 @@ atk_test_collection_get_matches (TestAppFixture *fixture, gconstpointer user_dat
                                               0,
                                               FALSE,
                                               NULL);
-  g_assert_cmpint (2, ==, ret->len);
+  g_assert_cmpint (3, ==, ret->len);
 
   check_and_unref (ret, 0, "obj1");
-  check_and_unref (ret, 1, "obj3");
+  check_and_unref (ret, 1, "obj2");
+  check_and_unref (ret, 2, "obj3");
   g_array_free (ret, TRUE);
   g_object_unref (rule);
   g_object_unref (child);
@@ -136,7 +137,7 @@ atk_test_collection_get_matches_from (TestAppFixture *fixture, gconstpointer use
   AtspiAccessible *child1 = atspi_accessible_get_child_at_index (obj, 1, NULL);
 
   AtspiMatchRule *rule = NULL;
-  AtspiStateSet *ss = atspi_accessible_get_state_set (child);
+  AtspiStateSet *ss = atspi_accessible_get_state_set (child1);
 
   rule = atspi_match_rule_new (ss,
                                ATSPI_Collection_MATCH_ALL,
