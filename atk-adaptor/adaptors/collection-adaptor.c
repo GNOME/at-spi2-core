@@ -827,12 +827,6 @@ inorder (AtkObject *collection, MatchRulePrivate *mrp, GList *ls, gint kount, gi
       obj = parent;
     }
 
-  if (max == 0 || kount < max)
-    {
-      kount = sort_order_canonical (mrp, ls, kount, max,
-                                    obj, i + 1, TRUE, FALSE, TRUE, TRUE);
-    }
-
   return kount;
 }
 

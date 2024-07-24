@@ -157,10 +157,9 @@ atk_test_collection_get_matches_from (TestAppFixture *fixture, gconstpointer use
                                                    FALSE,
                                                    NULL);
   g_object_unref (ss);
-  g_assert_cmpint (3, ==, ret->len);
+  g_assert_cmpint (2, ==, ret->len);
   check_and_unref (ret, 0, "obj2/1");
   check_and_unref (ret, 1, "obj3");
-  check_and_unref (ret, 2, "obj3");
   g_array_free (ret, TRUE);
   g_object_unref (rule);
 
@@ -184,7 +183,7 @@ atk_test_collection_get_matches_from (TestAppFixture *fixture, gconstpointer use
                                            FALSE,
                                            NULL);
   g_hash_table_unref (attributes);
-  g_assert_cmpint (7, ==, ret->len);
+  g_assert_cmpint (5, ==, ret->len);
   g_array_free (ret, TRUE);
   g_object_unref (rule);
 
@@ -208,7 +207,7 @@ atk_test_collection_get_matches_from (TestAppFixture *fixture, gconstpointer use
                                            0,
                                            FALSE,
                                            NULL);
-  g_assert_cmpint (6, ==, ret->len);
+  g_assert_cmpint (4, ==, ret->len);
   g_array_free (array, TRUE);
   g_array_free (ret, TRUE);
   g_object_unref (rule);
