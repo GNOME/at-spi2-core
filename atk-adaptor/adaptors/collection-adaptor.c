@@ -57,7 +57,7 @@ static gboolean
 child_interface_p (AtkObject *child, gchar *repo_id)
 {
   if (!strcasecmp (repo_id, "action"))
-    return ATK_IS_ACTION (child);
+    return ATK_IS_ACTION (child) && atk_action_get_n_actions (ATK_ACTION (child)) > 0;
   if (!strcasecmp (repo_id, "component"))
     return ATK_IS_COMPONENT (child);
   if (!strcasecmp (repo_id, "editabletext"))

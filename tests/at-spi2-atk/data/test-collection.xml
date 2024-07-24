@@ -27,13 +27,14 @@
 		<accessible description="second prechild" name="obj2/2" role="canvas"/>
 		<accessible description="third prechild" name="obj2/3" role="link"/>
 	</accessible>
-	<accessible description="third child" name="obj3" role="check box">
+	<accessible_action description="third child" name="obj3" role="check box">
 		<state state_enum="enabled"/>
 		<state state_enum="sensitive"/>
 		<state state_enum="showing"/>
 		<state state_enum="visible"/>
 		<state state_enum="checked"/>
 		<state state_enum="checkable"/>
-		<accessible description="first prechild" name="obj3/1" role="check menu item"/>
-	</accessible>
+		<action action_name="click" action_description="" key_binding=""/>
+		<accessible_action description="first prechild" name="obj3/1" role="check menu item"/>
+	</accessible_action>
 </accessible>
