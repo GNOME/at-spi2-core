@@ -151,8 +151,6 @@ atspi_match_rule_new (AtspiStateSet *states,
                                      (gpointer *) &value))
         g_hash_table_insert (rule->attributes, g_strdup (key), g_strdup (value));
     }
-  else
-    rule->attributes = NULL;
   rule->attributematchtype = attributematchtype;
 
   if (interfaces)
@@ -177,8 +175,6 @@ atspi_match_rule_new (AtspiStateSet *states,
             g_warning ("AT-SPI: unexpected role %d\n", role);
         }
     }
-  else
-    rule->roles[0] = rule->roles[1] = 0;
   rule->rolematchtype = rolematchtype;
 
   rule->invert = invert;
