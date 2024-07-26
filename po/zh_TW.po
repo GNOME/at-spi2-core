@@ -13,604 +13,112 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"#-#-#-#-#  zh_TW.po (at-spi2-core 1.91.91)  #-#-#-#-#\n"
-"Project-Id-Version: at-spi2-core 1.91.91\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
-"spi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-02-03 23:50+0000\n"
-"PO-Revision-Date: 2014-03-08 22:52+0800\n"
-"Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
-"Language-Team: Chinese (Taiwan) <chinese-l10n@googlegroups.com>\n"
-"Language: zh_TW\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.3\n"
-"#-#-#-#-#  zh_TW.po (atk 2.1.0)  #-#-#-#-#\n"
 "Project-Id-Version: atk 2.1.0\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=atk&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2018-03-12 08:32+0000\n"
-"PO-Revision-Date: 2018-03-26 16:51+0800\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
+"POT-Creation-Date: 2024-05-19 12:53+0000\n"
+"PO-Revision-Date: 2024-07-26 15:32+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <zh-l10n@lists.linux.org.tw>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Generator: Poedit 2.0.6\n"
 
-#: ../atspi/atspi-component.c:325 ../atspi/atspi-misc.c:1034
-#: ../atspi/atspi-value.c:111
-msgid "The application no longer exists"
-msgstr "應用程式已不存在"
-
-#: ../atspi/atspi-misc.c:1777
-msgid "Attempted synchronous call where prohibited"
-msgstr "在禁止處嘗試同步化"
-
-#: atk/atkhyperlink.c:126
+#: atk/atkhyperlink.c:127
 msgid "Selected Link"
 msgstr "選擇的連結"
 
-#: atk/atkhyperlink.c:127
+#: atk/atkhyperlink.c:128
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr "顯示 AtkHyperlink 物件是否被選擇"
 
-#: atk/atkhyperlink.c:133
+#: atk/atkhyperlink.c:134
 msgid "Number of Anchors"
 msgstr "標定的數目"
 
-#: atk/atkhyperlink.c:134
+#: atk/atkhyperlink.c:135
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr "與 AtkHyperlink 物件有關的標定數目"
 
-#: atk/atkhyperlink.c:142
+#: atk/atkhyperlink.c:143
 msgid "End index"
 msgstr "結尾索引"
 
-#: atk/atkhyperlink.c:143
+#: atk/atkhyperlink.c:144
 msgid "The end index of the AtkHyperlink object"
 msgstr "AtkHyperlink 物件的結尾索引"
 
-#: atk/atkhyperlink.c:151
+#: atk/atkhyperlink.c:152
 msgid "Start index"
 msgstr "起點索引"
 
-#: atk/atkhyperlink.c:152
+#: atk/atkhyperlink.c:153
 msgid "The start index of the AtkHyperlink object"
 msgstr "AtkHyperlink 物件的起點索引"
 
-#: atk/atkobject.c:97
-msgid "invalid"
-msgstr "無效"
-
-#: atk/atkobject.c:98
-msgid "accelerator label"
-msgstr "捷徑鍵標籤"
-
-#: atk/atkobject.c:99
-msgid "alert"
-msgstr "警示"
-
-#: atk/atkobject.c:100
-msgid "animation"
-msgstr "動畫"
-
-#: atk/atkobject.c:101
-msgid "arrow"
-msgstr "箭頭"
-
-#: atk/atkobject.c:102
-msgid "calendar"
-msgstr "月曆"
-
-#: atk/atkobject.c:103
-msgid "canvas"
-msgstr "畫布"
-
-#: atk/atkobject.c:104
-msgid "check box"
-msgstr "勾選盒"
-
-#: atk/atkobject.c:105
-msgid "check menu item"
-msgstr "勾選選單項目"
-
-#: atk/atkobject.c:106
-msgid "color chooser"
-msgstr "顏色選擇元件"
-
-#: atk/atkobject.c:107
-msgid "column header"
-msgstr "欄位標頭"
-
-#: atk/atkobject.c:108
-msgid "combo box"
-msgstr "組合方塊"
-
-#: atk/atkobject.c:109
-msgid "dateeditor"
-msgstr "日期編輯器"
-
-#: atk/atkobject.c:110
-msgid "desktop icon"
-msgstr "桌面圖示"
-
-#: atk/atkobject.c:111
-msgid "desktop frame"
-msgstr "桌面框架"
-
-#: atk/atkobject.c:112
-msgid "dial"
-msgstr "設置值"
-
-#: atk/atkobject.c:113
-msgid "dialog"
-msgstr "對話盒"
-
-#: atk/atkobject.c:114
-msgid "directory pane"
-msgstr "目錄窗格"
-
-#: atk/atkobject.c:115
-msgid "drawing area"
-msgstr "繪圖區域"
-
-#: atk/atkobject.c:116
-msgid "file chooser"
-msgstr "檔案選擇元件"
-
-#: atk/atkobject.c:117
-msgid "filler"
-msgstr "填充元件"
-
-#. I know it looks wrong but that is what Java returns
-#: atk/atkobject.c:119
-msgid "fontchooser"
-msgstr "字型選擇元件"
-
-#: atk/atkobject.c:120
-msgid "frame"
-msgstr "框架"
-
-#: atk/atkobject.c:121
-msgid "glass pane"
-msgstr "頂層分格"
-
-#: atk/atkobject.c:122
-msgid "html container"
-msgstr "HTML 容器元件"
-
-#: atk/atkobject.c:123
-msgid "icon"
-msgstr "圖示"
-
-#: atk/atkobject.c:124
-msgid "image"
-msgstr "影像"
-
-#: atk/atkobject.c:125
-msgid "internal frame"
-msgstr "內部框架"
-
-#: atk/atkobject.c:126
-msgid "label"
-msgstr "標籤"
-
-#: atk/atkobject.c:127
-msgid "layered pane"
-msgstr "多層分格"
-
-#: atk/atkobject.c:128
-msgid "list"
-msgstr "清單"
-
-#: atk/atkobject.c:129
-msgid "list item"
-msgstr "清單項目"
-
-#: atk/atkobject.c:130
-msgid "menu"
-msgstr "選單"
-
-#: atk/atkobject.c:131
-msgid "menu bar"
-msgstr "選單列"
-
-#: atk/atkobject.c:132
-msgid "menu item"
-msgstr "選單項目"
-
-#: atk/atkobject.c:133
-msgid "option pane"
-msgstr "選項窗格"
-
-#: atk/atkobject.c:134
-msgid "page tab"
-msgstr "分頁標籤"
-
-#: atk/atkobject.c:135
-msgid "page tab list"
-msgstr "分頁標籤清單"
-
-#: atk/atkobject.c:136
-msgid "panel"
-msgstr "面板"
-
-#: atk/atkobject.c:137
-msgid "password text"
-msgstr "密碼文字"
-
-#: atk/atkobject.c:138
-msgid "popup menu"
-msgstr "彈出式選單"
-
-#: atk/atkobject.c:139
-msgid "progress bar"
-msgstr "進度列"
-
-#: atk/atkobject.c:140
-msgid "push button"
-msgstr "推送按鈕"
-
-#: atk/atkobject.c:141
-msgid "radio button"
-msgstr "單選按鈕"
-
-#: atk/atkobject.c:142
-msgid "radio menu item"
-msgstr "單選選單項目"
-
-#: atk/atkobject.c:143
-msgid "root pane"
-msgstr "根窗格"
-
-#: atk/atkobject.c:144
-msgid "row header"
-msgstr "列標頭"
-
-#: atk/atkobject.c:145
-msgid "scroll bar"
-msgstr "捲動列"
-
-#: atk/atkobject.c:146
-msgid "scroll pane"
-msgstr "捲動分格"
-
-#: atk/atkobject.c:147
-msgid "separator"
-msgstr "分隔線"
-
-#: atk/atkobject.c:148
-msgid "slider"
-msgstr "滑動鈕"
-
-#: atk/atkobject.c:149
-msgid "split pane"
-msgstr "分割窗格"
-
-#: atk/atkobject.c:150
-msgid "spin button"
-msgstr "微調按鈕"
-
-#: atk/atkobject.c:151
-msgid "statusbar"
-msgstr "狀態列"
-
-#: atk/atkobject.c:152
-msgid "table"
-msgstr "表格"
-
-#: atk/atkobject.c:153
-msgid "table cell"
-msgstr "儲存格"
-
-#: atk/atkobject.c:154
-msgid "table column header"
-msgstr "表格直欄標頭"
-
-#: atk/atkobject.c:155
-msgid "table row header"
-msgstr "表格橫列標頭"
-
-#: atk/atkobject.c:156
-msgid "tear off menu item"
-msgstr "卸下選單項目"
-
-#: atk/atkobject.c:157
-msgid "terminal"
-msgstr "終端機"
-
-#: atk/atkobject.c:158
-msgid "text"
-msgstr "文字"
-
-#: atk/atkobject.c:159
-msgid "toggle button"
-msgstr "切換按鈕"
-
-#: atk/atkobject.c:160
-msgid "tool bar"
-msgstr "工具列"
-
-#: atk/atkobject.c:161
-msgid "tool tip"
-msgstr "工具提示"
-
-#: atk/atkobject.c:162
-msgid "tree"
-msgstr "樹狀資料元件"
-
-#: atk/atkobject.c:163
-msgid "tree table"
-msgstr "樹狀資料表格"
-
-#: atk/atkobject.c:164
-msgid "unknown"
-msgstr "不明"
-
-#: atk/atkobject.c:165
-msgid "viewport"
-msgstr "視接口"
-
-#: atk/atkobject.c:166
-msgid "window"
-msgstr "視窗"
-
-#: atk/atkobject.c:167
-msgid "header"
-msgstr "頁首"
-
-#: atk/atkobject.c:168
-msgid "footer"
-msgstr "頁尾"
-
-#: atk/atkobject.c:169
-msgid "paragraph"
-msgstr "段落"
-
-#: atk/atkobject.c:170
-msgid "ruler"
-msgstr "尺規"
-
-#: atk/atkobject.c:171
-msgid "application"
-msgstr "應用程式"
-
-#: atk/atkobject.c:172
-msgid "autocomplete"
-msgstr "自動完成"
-
-#: atk/atkobject.c:173
-msgid "edit bar"
-msgstr "編輯列"
-
-#: atk/atkobject.c:174
-msgid "embedded component"
-msgstr "內嵌組成元件"
-
-#: atk/atkobject.c:175
-msgid "entry"
-msgstr "項目"
-
-#: atk/atkobject.c:176
-msgid "chart"
-msgstr "圖表"
-
-#: atk/atkobject.c:177
-msgid "caption"
-msgstr "圖標"
-
-#: atk/atkobject.c:178
-msgid "document frame"
-msgstr "文件框架"
-
-#: atk/atkobject.c:179
-msgid "heading"
-msgstr "標題"
-
-#: atk/atkobject.c:180
-msgid "page"
-msgstr "頁面"
-
-#: atk/atkobject.c:181
-msgid "section"
-msgstr "區段"
-
-#: atk/atkobject.c:182
-msgid "redundant object"
-msgstr "冗餘物件"
-
-#: atk/atkobject.c:183
-msgid "form"
-msgstr "表單"
-
-#: atk/atkobject.c:184
-msgid "link"
-msgstr "連結"
-
-#: atk/atkobject.c:185
-msgid "input method window"
-msgstr "輸入法視窗"
-
-#: atk/atkobject.c:186
-msgid "table row"
-msgstr "表格列"
-
-#: atk/atkobject.c:187
-msgid "tree item"
-msgstr "樹狀項目"
-
-#: atk/atkobject.c:188
-msgid "document spreadsheet"
-msgstr "文件試算表"
-
-#: atk/atkobject.c:189
-msgid "document presentation"
-msgstr "文件簡報"
-
-#: atk/atkobject.c:190
-msgid "document text"
-msgstr "文件文字"
-
-#: atk/atkobject.c:191
-msgid "document web"
-msgstr "文件網頁"
-
-#: atk/atkobject.c:192
-msgid "document email"
-msgstr "文件郵件"
-
-#: atk/atkobject.c:193
-msgid "comment"
-msgstr "註解"
-
-#: atk/atkobject.c:194
-msgid "list box"
-msgstr "清單方塊"
-
-#: atk/atkobject.c:195
-msgid "grouping"
-msgstr "群組"
-
-#: atk/atkobject.c:196
-msgid "image map"
-msgstr "影像地圖"
-
-#: atk/atkobject.c:197
-msgid "notification"
-msgstr "通知"
-
-#: atk/atkobject.c:198
-msgid "info bar"
-msgstr "資訊列"
-
-#: atk/atkobject.c:199
-msgid "level bar"
-msgstr "等級列"
-
-#: atk/atkobject.c:200
-msgid "title bar"
-msgstr "標題列"
-
-#: atk/atkobject.c:201
-msgid "block quote"
-msgstr "引言區塊"
-
-#: atk/atkobject.c:202
-msgid "audio"
-msgstr "音訊"
-
-#: atk/atkobject.c:203
-msgid "video"
-msgstr "視訊"
-
-#: atk/atkobject.c:204
-msgid "definition"
-msgstr "定義"
-
-#: atk/atkobject.c:205
-msgid "article"
-msgstr "文章"
-
-#: atk/atkobject.c:206
-msgid "landmark"
-msgstr "地標"
-
-#: atk/atkobject.c:207
-msgid "log"
-msgstr "紀錄"
-
-#: atk/atkobject.c:208
-msgid "marquee"
-msgstr "跑馬燈"
-
-#: atk/atkobject.c:209
-msgid "math"
-msgstr "數學"
-
-#: atk/atkobject.c:210
-msgid "rating"
-msgstr "評等"
-
-#: atk/atkobject.c:211
-msgid "timer"
-msgstr "計時"
-
-#: atk/atkobject.c:212
-msgid "description list"
-msgstr "描述清單"
-
-#: atk/atkobject.c:213
-msgid "description term"
-msgstr "描述語詞"
-
-#: atk/atkobject.c:214
-msgid "description value"
-msgstr "描述數值"
-
-#: atk/atkobject.c:372
+#: atk/atkobject.c:273
 msgid "Accessible Name"
 msgstr "輔助鍵名稱"
 
-#: atk/atkobject.c:373
+#: atk/atkobject.c:274
 msgid "Object instance’s name formatted for assistive technology access"
 msgstr "已格式化的物件實體名稱，便於輔助技術存取"
 
-#: atk/atkobject.c:379
+#: atk/atkobject.c:280
 msgid "Accessible Description"
 msgstr "輔助鍵描述"
 
-#: atk/atkobject.c:380
+#: atk/atkobject.c:281
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "已格式化的物件描述，便於輔助技術存取"
 
-#: atk/atkobject.c:386
+#: atk/atkobject.c:287
 msgid "Accessible Parent"
 msgstr "輔助鍵母元件"
 
-#: atk/atkobject.c:387
+#: atk/atkobject.c:288
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr "由 atk_object_get_parent() 傳回目前無障礙功能的上層"
 
-#: atk/atkobject.c:403
+#: atk/atkobject.c:304
 msgid "Accessible Value"
 msgstr "輔助鍵設定值"
 
-#: atk/atkobject.c:404
+#: atk/atkobject.c:305
 msgid "Is used to notify that the value has changed"
 msgstr "用來知會該設定值已有變動"
 
-#: atk/atkobject.c:412
+#: atk/atkobject.c:313
 msgid "Accessible Role"
 msgstr "輔助鍵類型"
 
-#: atk/atkobject.c:413
+#: atk/atkobject.c:314
 msgid "The accessible role of this object"
 msgstr "此物件的輔助鍵類型"
 
-#: atk/atkobject.c:421
+#: atk/atkobject.c:321
 msgid "Accessible Layer"
 msgstr "輔助鍵層級"
 
-#: atk/atkobject.c:422
+#: atk/atkobject.c:322
 msgid "The accessible layer of this object"
 msgstr "此物件的輔助鍵層級"
 
-#: atk/atkobject.c:430
+#: atk/atkobject.c:330
 msgid "Accessible MDI Value"
 msgstr "輔助鍵 MDI 值"
 
-#: atk/atkobject.c:431
+#: atk/atkobject.c:331
 msgid "The accessible MDI value of this object"
 msgstr "此物件的輔助鍵 MDI 值"
 
-#: atk/atkobject.c:447
+#: atk/atkobject.c:347
 msgid "Accessible Table Caption"
 msgstr "輔助鍵表格標題"
 
-#: atk/atkobject.c:448
+#: atk/atkobject.c:348
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -618,61 +126,77 @@ msgstr ""
 "用來知會表格標題已經改變；不應使用此屬性。應使用 accessible-table-caption-"
 "object 代替"
 
-#: atk/atkobject.c:462
+#: atk/atkobject.c:362
 msgid "Accessible Table Column Header"
 msgstr "輔助鍵表格直欄標頭"
 
-#: atk/atkobject.c:463
+#: atk/atkobject.c:363
 msgid "Is used to notify that the table column header has changed"
 msgstr "用來知會表格直列標頭已變動"
 
-#: atk/atkobject.c:478
+#: atk/atkobject.c:378
 msgid "Accessible Table Column Description"
 msgstr "輔助鍵表格直欄描述"
 
-#: atk/atkobject.c:479
+#: atk/atkobject.c:379
 msgid "Is used to notify that the table column description has changed"
 msgstr "用來知會表格直欄描述以已變動"
 
-#: atk/atkobject.c:494
+#: atk/atkobject.c:394
 msgid "Accessible Table Row Header"
 msgstr "輔助鍵表格橫列標頭"
 
-#: atk/atkobject.c:495
+#: atk/atkobject.c:395
 msgid "Is used to notify that the table row header has changed"
 msgstr "用來知會表格橫列標頭已變動"
 
-#: atk/atkobject.c:509
+#: atk/atkobject.c:409
 msgid "Accessible Table Row Description"
 msgstr "輔助鍵表格橫列描述"
 
-#: atk/atkobject.c:510
+#: atk/atkobject.c:410
 msgid "Is used to notify that the table row description has changed"
 msgstr "用來知會表格橫列描述已變動"
 
-#: atk/atkobject.c:516
+#: atk/atkobject.c:416
 msgid "Accessible Table Summary"
 msgstr "輔助鍵表格總結"
 
-#: atk/atkobject.c:517
+#: atk/atkobject.c:417
 msgid "Is used to notify that the table summary has changed"
 msgstr "用來知會表格總結描述已變動"
 
-#: atk/atkobject.c:523
+#: atk/atkobject.c:423
 msgid "Accessible Table Caption Object"
 msgstr "輔助鍵表格標題物件"
 
-#: atk/atkobject.c:524
+#: atk/atkobject.c:424
 msgid "Is used to notify that the table caption has changed"
 msgstr "用來知會表格標題物件已變動"
 
-#: atk/atkobject.c:530
+#: atk/atkobject.c:430
 msgid "Number of Accessible Hypertext Links"
 msgstr "輔助鍵超連結總數"
 
-#: atk/atkobject.c:531
+#: atk/atkobject.c:431
 msgid "The number of links which the current AtkHypertext has"
 msgstr "目前 AtkHypertext 含有的超連結數目"
+
+#: atk/atkobject.c:440
+msgid "Accessible ID"
+msgstr "輔助功能名稱"
+
+#: atk/atkobject.c:441
+msgid "ID for the accessible; useful for automated testing"
+msgstr "輔助功能 ID；對於自動化測試很有用"
+
+#: atk/atkobject.c:447
+msgid "Help text"
+msgstr "求助文字"
+
+#: atk/atkobject.c:448
+msgid "Help text associated with the accessible"
+msgstr "與輔助功能相關的求助文字"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a password-strength meter. Note that what such a
@@ -680,7 +204,7 @@ msgstr "目前 AtkHypertext 含有的超連結數目"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:194
+#: atk/atkvalue.c:193
 msgid "very weak"
 msgstr "非常弱"
 
@@ -690,7 +214,7 @@ msgstr "非常弱"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:201
+#: atk/atkvalue.c:200
 msgid "weak"
 msgstr "弱"
 
@@ -700,7 +224,7 @@ msgstr "弱"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:208
+#: atk/atkvalue.c:207
 msgid "acceptable"
 msgstr "可接受"
 
@@ -710,7 +234,7 @@ msgstr "可接受"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:215
+#: atk/atkvalue.c:214
 msgid "strong"
 msgstr "強"
 
@@ -720,7 +244,7 @@ msgstr "強"
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
 #.
-#: atk/atkvalue.c:222
+#: atk/atkvalue.c:221
 msgid "very strong"
 msgstr "非常強"
 
@@ -731,7 +255,7 @@ msgstr "非常強"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:230
+#: atk/atkvalue.c:229
 msgid "very low"
 msgstr "非常低"
 
@@ -742,7 +266,7 @@ msgstr "非常低"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:238
+#: atk/atkvalue.c:237
 msgid "medium"
 msgstr "普通"
 
@@ -753,7 +277,7 @@ msgstr "普通"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:246
+#: atk/atkvalue.c:245
 msgid "high"
 msgstr "高"
 
@@ -764,7 +288,7 @@ msgstr "高"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:254
+#: atk/atkvalue.c:253
 msgid "very high"
 msgstr "非常高"
 
@@ -775,7 +299,7 @@ msgstr "非常高"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:262
+#: atk/atkvalue.c:261
 msgid "very bad"
 msgstr "非常差"
 
@@ -786,7 +310,7 @@ msgstr "非常差"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:270
+#: atk/atkvalue.c:269
 msgid "bad"
 msgstr "差"
 
@@ -797,7 +321,7 @@ msgstr "差"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:278
+#: atk/atkvalue.c:277
 msgid "good"
 msgstr "良好"
 
@@ -808,7 +332,7 @@ msgstr "良好"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:286
+#: atk/atkvalue.c:285
 msgid "very good"
 msgstr "非常好"
 
@@ -819,9 +343,489 @@ msgstr "非常好"
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
 #.
-#: atk/atkvalue.c:294
+#: atk/atkvalue.c:293
 msgid "best"
 msgstr "最好"
+
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1230 atspi/atspi-value.c:123
+msgid "The application no longer exists"
+msgstr "應用程式已不存在"
+
+#: atspi/atspi-misc.c:49
+msgid "invalid"
+msgstr "無效"
+
+#: atspi/atspi-misc.c:50
+msgid "accelerator label"
+msgstr "捷徑鍵標籤"
+
+#: atspi/atspi-misc.c:51
+msgid "alert"
+msgstr "警示"
+
+#: atspi/atspi-misc.c:52
+msgid "animation"
+msgstr "動畫"
+
+#: atspi/atspi-misc.c:53
+msgid "arrow"
+msgstr "箭頭"
+
+#: atspi/atspi-misc.c:54
+msgid "calendar"
+msgstr "月曆"
+
+#: atspi/atspi-misc.c:55
+msgid "canvas"
+msgstr "畫布"
+
+#: atspi/atspi-misc.c:56
+msgid "check box"
+msgstr "勾選盒"
+
+#: atspi/atspi-misc.c:57
+msgid "check menu item"
+msgstr "勾選選單項目"
+
+#: atspi/atspi-misc.c:58
+msgid "color chooser"
+msgstr "顏色選擇元件"
+
+#: atspi/atspi-misc.c:59
+msgid "column header"
+msgstr "欄位標頭"
+
+#: atspi/atspi-misc.c:60
+msgid "combo box"
+msgstr "組合方塊"
+
+#: atspi/atspi-misc.c:61
+msgid "dateeditor"
+msgstr "日期編輯器"
+
+#: atspi/atspi-misc.c:62
+msgid "desktop icon"
+msgstr "桌面圖示"
+
+#: atspi/atspi-misc.c:63
+msgid "desktop frame"
+msgstr "桌面框架"
+
+#: atspi/atspi-misc.c:64
+msgid "dial"
+msgstr "設置值"
+
+#: atspi/atspi-misc.c:65
+msgid "dialog"
+msgstr "對話盒"
+
+#: atspi/atspi-misc.c:66
+msgid "directory pane"
+msgstr "目錄窗格"
+
+#: atspi/atspi-misc.c:67
+msgid "drawing area"
+msgstr "繪圖區域"
+
+#: atspi/atspi-misc.c:68
+msgid "file chooser"
+msgstr "檔案選擇元件"
+
+#: atspi/atspi-misc.c:69
+msgid "filler"
+msgstr "填充元件"
+
+#. I know it looks wrong but that is what Java returns
+#: atspi/atspi-misc.c:71
+msgid "fontchooser"
+msgstr "字型選擇元件"
+
+#: atspi/atspi-misc.c:72
+msgid "frame"
+msgstr "框架"
+
+#: atspi/atspi-misc.c:73
+msgid "glass pane"
+msgstr "頂層分格"
+
+#: atspi/atspi-misc.c:74
+msgid "html container"
+msgstr "HTML 容器元件"
+
+#: atspi/atspi-misc.c:75
+msgid "icon"
+msgstr "圖示"
+
+#: atspi/atspi-misc.c:76
+msgid "image"
+msgstr "影像"
+
+#: atspi/atspi-misc.c:77
+msgid "internal frame"
+msgstr "內部框架"
+
+#: atspi/atspi-misc.c:78
+msgid "label"
+msgstr "標籤"
+
+#: atspi/atspi-misc.c:79
+msgid "layered pane"
+msgstr "多層分格"
+
+#: atspi/atspi-misc.c:80
+msgid "list"
+msgstr "清單"
+
+#: atspi/atspi-misc.c:81
+msgid "list item"
+msgstr "清單項目"
+
+#: atspi/atspi-misc.c:82
+msgid "menu"
+msgstr "選單"
+
+#: atspi/atspi-misc.c:83
+msgid "menu bar"
+msgstr "選單列"
+
+#: atspi/atspi-misc.c:84
+msgid "menu button"
+msgstr "選單按鈕"
+
+#: atspi/atspi-misc.c:85
+msgid "menu item"
+msgstr "選單項目"
+
+#: atspi/atspi-misc.c:86
+msgid "option pane"
+msgstr "選項窗格"
+
+#: atspi/atspi-misc.c:87
+msgid "page tab"
+msgstr "分頁標籤"
+
+#: atspi/atspi-misc.c:88
+msgid "page tab list"
+msgstr "分頁標籤清單"
+
+#: atspi/atspi-misc.c:89
+msgid "panel"
+msgstr "面板"
+
+#: atspi/atspi-misc.c:90
+msgid "password text"
+msgstr "密碼文字"
+
+#: atspi/atspi-misc.c:91
+msgid "popup menu"
+msgstr "彈出式選單"
+
+#: atspi/atspi-misc.c:92
+msgid "progress bar"
+msgstr "進度列"
+
+#: atspi/atspi-misc.c:93
+msgid "push button"
+msgstr "推送按鈕"
+
+#: atspi/atspi-misc.c:94
+msgid "radio button"
+msgstr "單選按鈕"
+
+#: atspi/atspi-misc.c:95
+msgid "radio menu item"
+msgstr "單選選單項目"
+
+#: atspi/atspi-misc.c:96
+msgid "root pane"
+msgstr "根窗格"
+
+#: atspi/atspi-misc.c:97
+msgid "row header"
+msgstr "列標頭"
+
+#: atspi/atspi-misc.c:98
+msgid "scroll bar"
+msgstr "捲動列"
+
+#: atspi/atspi-misc.c:99
+msgid "scroll pane"
+msgstr "捲動分格"
+
+#: atspi/atspi-misc.c:100
+msgid "separator"
+msgstr "分隔線"
+
+#: atspi/atspi-misc.c:101
+msgid "slider"
+msgstr "滑動鈕"
+
+#: atspi/atspi-misc.c:102
+msgid "split pane"
+msgstr "分割窗格"
+
+#: atspi/atspi-misc.c:103
+msgid "spin button"
+msgstr "微調按鈕"
+
+#: atspi/atspi-misc.c:104
+msgid "statusbar"
+msgstr "狀態列"
+
+#: atspi/atspi-misc.c:105
+msgid "table"
+msgstr "表格"
+
+#: atspi/atspi-misc.c:106
+msgid "table cell"
+msgstr "儲存格"
+
+#: atspi/atspi-misc.c:107
+msgid "table column header"
+msgstr "表格直欄標頭"
+
+#: atspi/atspi-misc.c:108
+msgid "table row header"
+msgstr "表格橫列標頭"
+
+#: atspi/atspi-misc.c:109
+msgid "tear off menu item"
+msgstr "卸下選單項目"
+
+#: atspi/atspi-misc.c:110
+msgid "terminal"
+msgstr "終端機"
+
+#: atspi/atspi-misc.c:111
+msgid "text"
+msgstr "文字"
+
+#: atspi/atspi-misc.c:112
+msgid "toggle button"
+msgstr "切換按鈕"
+
+#: atspi/atspi-misc.c:113
+msgid "tool bar"
+msgstr "工具列"
+
+#: atspi/atspi-misc.c:114
+msgid "tool tip"
+msgstr "工具提示"
+
+#: atspi/atspi-misc.c:115
+msgid "tree"
+msgstr "樹狀資料元件"
+
+#: atspi/atspi-misc.c:116
+msgid "tree table"
+msgstr "樹狀資料表格"
+
+#: atspi/atspi-misc.c:117
+msgid "unknown"
+msgstr "不明"
+
+#: atspi/atspi-misc.c:118
+msgid "viewport"
+msgstr "視接口"
+
+#: atspi/atspi-misc.c:119
+msgid "window"
+msgstr "視窗"
+
+#: atspi/atspi-misc.c:120
+msgid "header"
+msgstr "頁首"
+
+#: atspi/atspi-misc.c:121
+msgid "footer"
+msgstr "頁尾"
+
+#: atspi/atspi-misc.c:122
+msgid "paragraph"
+msgstr "段落"
+
+#: atspi/atspi-misc.c:123
+msgid "ruler"
+msgstr "尺規"
+
+#: atspi/atspi-misc.c:124
+msgid "application"
+msgstr "應用程式"
+
+#: atspi/atspi-misc.c:125
+msgid "autocomplete"
+msgstr "自動完成"
+
+#: atspi/atspi-misc.c:126
+msgid "edit bar"
+msgstr "編輯列"
+
+#: atspi/atspi-misc.c:127
+msgid "embedded component"
+msgstr "內嵌組成元件"
+
+#: atspi/atspi-misc.c:128
+msgid "entry"
+msgstr "項目"
+
+#: atspi/atspi-misc.c:129
+msgid "chart"
+msgstr "圖表"
+
+#: atspi/atspi-misc.c:130
+msgid "caption"
+msgstr "圖標"
+
+#: atspi/atspi-misc.c:131
+msgid "document frame"
+msgstr "文件框架"
+
+#: atspi/atspi-misc.c:132
+msgid "heading"
+msgstr "標題"
+
+#: atspi/atspi-misc.c:133
+msgid "page"
+msgstr "頁面"
+
+#: atspi/atspi-misc.c:134
+msgid "section"
+msgstr "區段"
+
+#: atspi/atspi-misc.c:135
+msgid "redundant object"
+msgstr "冗餘物件"
+
+#: atspi/atspi-misc.c:136
+msgid "form"
+msgstr "表單"
+
+#: atspi/atspi-misc.c:137
+msgid "link"
+msgstr "連結"
+
+#: atspi/atspi-misc.c:138
+msgid "input method window"
+msgstr "輸入法視窗"
+
+#: atspi/atspi-misc.c:139
+msgid "table row"
+msgstr "表格列"
+
+#: atspi/atspi-misc.c:140
+msgid "tree item"
+msgstr "樹狀項目"
+
+#: atspi/atspi-misc.c:141
+msgid "document spreadsheet"
+msgstr "文件試算表"
+
+#: atspi/atspi-misc.c:142
+msgid "document presentation"
+msgstr "文件簡報"
+
+#: atspi/atspi-misc.c:143
+msgid "document text"
+msgstr "文件文字"
+
+#: atspi/atspi-misc.c:144
+msgid "document web"
+msgstr "文件網頁"
+
+#: atspi/atspi-misc.c:145
+msgid "document email"
+msgstr "文件郵件"
+
+#: atspi/atspi-misc.c:146
+msgid "comment"
+msgstr "註解"
+
+#: atspi/atspi-misc.c:147
+msgid "list box"
+msgstr "清單方塊"
+
+#: atspi/atspi-misc.c:148
+msgid "grouping"
+msgstr "群組"
+
+#: atspi/atspi-misc.c:149
+msgid "image map"
+msgstr "影像地圖"
+
+#: atspi/atspi-misc.c:150
+msgid "notification"
+msgstr "通知"
+
+#: atspi/atspi-misc.c:151
+msgid "info bar"
+msgstr "資訊列"
+
+#: atspi/atspi-misc.c:152
+msgid "level bar"
+msgstr "等級列"
+
+#: atspi/atspi-misc.c:153
+msgid "title bar"
+msgstr "標題列"
+
+#: atspi/atspi-misc.c:154
+msgid "block quote"
+msgstr "引言區塊"
+
+#: atspi/atspi-misc.c:155
+msgid "audio"
+msgstr "音訊"
+
+#: atspi/atspi-misc.c:156
+msgid "video"
+msgstr "視訊"
+
+#: atspi/atspi-misc.c:157
+msgid "definition"
+msgstr "定義"
+
+#: atspi/atspi-misc.c:158
+msgid "article"
+msgstr "文章"
+
+#: atspi/atspi-misc.c:159
+msgid "landmark"
+msgstr "地標"
+
+#: atspi/atspi-misc.c:160
+msgid "log"
+msgstr "紀錄"
+
+#: atspi/atspi-misc.c:161
+msgid "marquee"
+msgstr "跑馬燈"
+
+#: atspi/atspi-misc.c:162
+msgid "math"
+msgstr "數學"
+
+#: atspi/atspi-misc.c:163
+msgid "rating"
+msgstr "評等"
+
+#: atspi/atspi-misc.c:164
+msgid "timer"
+msgstr "計時"
+
+#: atspi/atspi-misc.c:165
+msgid "description list"
+msgstr "描述清單"
+
+#: atspi/atspi-misc.c:166
+msgid "description term"
+msgstr "描述語詞"
+
+#: atspi/atspi-misc.c:167
+msgid "description value"
+msgstr "描述數值"
+
+#~ msgid "Attempted synchronous call where prohibited"
+#~ msgstr "在禁止處嘗試同步化"
 
 #~ msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
 #~ msgstr "AT-SPI： RemoveAccessible 有不明的簽章 %s"
