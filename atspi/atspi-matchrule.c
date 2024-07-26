@@ -103,7 +103,12 @@ atspi_match_rule_class_init (AtspiMatchRuleClass *klass)
  * @interfaces: (element-type gchar*) (allow-none): An array of interfaces to
  *              match, or NULL if not applicable.  Interface names should be
  *              specified by the final component of their DBus names
- *              (Accessible, *          Component, etc).
+ *              (Accessible, Component, etc). For Action, it is possible to
+ *              specify an action name by enclosing it in parenthesis after
+ *              the interface name, in which case only accessibles that
+ *              implement that particular action will be returned. For
+ *              instance, Action(click) will return accessibles that provide
+ *              an action called "click".
  * @interfacematchtype: An #AtspiCollectionMatchType specifying how to
  *                      interpret @interfaces.
  * @roles: (element-type AtspiRole) (allow-none): A #GArray of roles to match,

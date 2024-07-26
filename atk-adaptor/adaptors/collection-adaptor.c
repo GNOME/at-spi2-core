@@ -56,8 +56,36 @@ struct _MatchRulePrivate
 static gboolean
 child_interface_p (AtkObject *child, gchar *repo_id)
 {
-  if (!strcasecmp (repo_id, "action"))
-    return ATK_IS_ACTION (child) && atk_action_get_n_actions (ATK_ACTION (child)) > 0;
+  if (!strncasecmp (repo_id, "action", 6))
+    {
+      AtkAction *iface;
+      gint i, count;
+      char *p;
+      char name[64];
+      if (!ATK_IS_ACTION (child))
+        return FALSE;
+      iface = ATK_ACTION (child);
+      count = atk_action_get_n_actions (iface);
+      if (count <= 0)
+        return FALSE;
+      if (repo_id[6] == '\0')
+        return TRUE;
+      p = strchr (repo_id, '(');
+      if (!p)
+        return FALSE;
+      strncpy (name, p + 1, sizeof (name));
+      name[sizeof (name) - 1] = '\0';
+      p = strchr (name, ')');
+      if (p)
+        *p = '\0';
+      for (i = 0; i < count; i++)
+        {
+          const char *action = atk_action_get_name (iface, i);
+          if (!strcasecmp (name, action))
+            return TRUE;
+        }
+      return FALSE;
+    }
   if (!strcasecmp (repo_id, "component"))
     return ATK_IS_COMPONENT (child);
   if (!strcasecmp (repo_id, "editabletext"))
