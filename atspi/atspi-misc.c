@@ -90,7 +90,7 @@
   N_("password text")
   N_("popup menu")
   N_("progress bar")
-  N_("push button")
+  N_("button")
   N_("radio button")
   N_("radio menu item")
   N_("root pane")
