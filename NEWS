@@ -1,3 +1,18 @@
+What's new in at-spi2-core 2.53.1:
+
+* tests: Clean up test application on SIGABRT/SIGSEGV.
+
+* Set (allow-none) for nullable parameters to atspi_match_rule_new.
+
+* collection: Allow specifying specific action names in match rules.
+
+    atk-adaptor: Fix duplicated results in GetMatchesFrom.
+
+* atk-adaptor: For collections, don't return objects with 0 actions as
+  supporting AtkAction.
+
+* Rename ATSPI_ROLE_PUSH_BUTTON to ATSPI_ROLE_BUTTON.
+
 What's new in at-spi2-core 2.53.0:
 
     Add missing prototypes for functions to check the presence of interfaces.
