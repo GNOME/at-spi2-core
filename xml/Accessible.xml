@@ -264,7 +264,7 @@
         technologies (ATs) with a standard interface, regardless of toolkit.  For example,
         a widget that acts like a conventional push button (appears unpressed; presses
         when acted upon; invokes a certain action when pressed) can expose an
-        ATSPI_ROLE_PUSH_BUTTON role.
+        ATSPI_ROLE_BUTTON role.
 
         Role values - these are the enum values from AtspiRole in atspi-constants.h:
 
@@ -387,7 +387,7 @@
         42 - ATSPI_ROLE_PROGRESS_BAR: An object used to indicate how much of a task has
              been completed.
 
-        43 - ATSPI_ROLE_PUSH_BUTTON: An object the user can manipulate to tell the
+        43 - ATSPI_ROLE_BUTTON: An object the user can manipulate to tell the
              application to do something.
 
         44 - ATSPI_ROLE_RADIO_BUTTON: A specialized check box that will cause other
