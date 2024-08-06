@@ -12,9 +12,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
-"POT-Creation-Date: 2023-01-25 15:54+0000\n"
-"PO-Revision-Date: 2023-07-29 13:51+0300\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
+"POT-Creation-Date: 2024-07-26 07:33+0000\n"
+"PO-Revision-Date: 2024-08-04 12:43+0300\n"
 "Last-Translator: Florentina Mușat <florentina [dot] musat [dot] 28 [at] "
 "gmail [dot] com>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Project-Style: gnome\n"
 "X-Generator: Poedit 2.0.6\n"
 
@@ -60,542 +60,69 @@ msgstr "Index inițial"
 msgid "The start index of the AtkHyperlink object"
 msgstr "Indexul inițial al obiectului AtkHyperlink"
 
-#: atk/atkobject.c:100
-msgid "invalid"
-msgstr "invalid"
-
-#: atk/atkobject.c:101
-msgid "accelerator label"
-msgstr "etichetă accelerator"
-
-#: atk/atkobject.c:102
-msgid "alert"
-msgstr "alertă"
-
-#: atk/atkobject.c:103
-msgid "animation"
-msgstr "animație"
-
-#: atk/atkobject.c:104
-msgid "arrow"
-msgstr "săgeată"
-
-#: atk/atkobject.c:105
-msgid "calendar"
-msgstr "calendar"
-
-#: atk/atkobject.c:106
-msgid "canvas"
-msgstr "canava"
-
-#: atk/atkobject.c:107
-msgid "check box"
-msgstr "căsuță de bifare"
-
-#: atk/atkobject.c:108
-msgid "check menu item"
-msgstr "element meniu de bifare"
-
-#: atk/atkobject.c:109
-msgid "color chooser"
-msgstr "selector de culoare"
-
-#: atk/atkobject.c:110
-msgid "column header"
-msgstr "antet coloană"
-
-#: atk/atkobject.c:111
-msgid "combo box"
-msgstr "căsuță combo"
-
-#: atk/atkobject.c:112
-msgid "dateeditor"
-msgstr "editor al datei"
-
-#: atk/atkobject.c:113
-msgid "desktop icon"
-msgstr "iconiță pe desktop"
-
-#: atk/atkobject.c:114
-msgid "desktop frame"
-msgstr "cadru desktop"
-
-#: atk/atkobject.c:115
-msgid "dial"
-msgstr "cadran"
-
-#: atk/atkobject.c:116
-msgid "dialog"
-msgstr "dialog"
-
-#: atk/atkobject.c:117
-msgid "directory pane"
-msgstr "vedere directoare"
-
-#: atk/atkobject.c:118
-msgid "drawing area"
-msgstr "arie de desenare"
-
-#: atk/atkobject.c:119
-msgid "file chooser"
-msgstr "selector de fișiere"
-
-#: atk/atkobject.c:120
-msgid "filler"
-msgstr "umplere"
-
-#. I know it looks wrong but that is what Java returns
-#: atk/atkobject.c:122
-msgid "fontchooser"
-msgstr "selector de fonturi"
-
-#: atk/atkobject.c:123
-msgid "frame"
-msgstr "cadru"
-
-#: atk/atkobject.c:124
-msgid "glass pane"
-msgstr "vedere parțială"
-
-#: atk/atkobject.c:125
-msgid "html container"
-msgstr "recipient html"
-
-#: atk/atkobject.c:126
-msgid "icon"
-msgstr "iconiță"
-
-#: atk/atkobject.c:127
-msgid "image"
-msgstr "imagine"
-
-#: atk/atkobject.c:128
-msgid "internal frame"
-msgstr "cadru intern"
-
-#: atk/atkobject.c:129
-msgid "label"
-msgstr "etichetă"
-
-#: atk/atkobject.c:130
-msgid "layered pane"
-msgstr "vedere suprapusă"
-
-#: atk/atkobject.c:131
-msgid "list"
-msgstr "listă"
-
-#: atk/atkobject.c:132
-msgid "list item"
-msgstr "element listă"
-
-#: atk/atkobject.c:133
-msgid "menu"
-msgstr "meniu"
-
-#: atk/atkobject.c:134
-msgid "menu bar"
-msgstr "bară de meniu"
-
-#: atk/atkobject.c:135
-msgid "menu button"
-msgstr "buton de meniu"
-
-#: atk/atkobject.c:136
-msgid "menu item"
-msgstr "element meniu"
-
-#: atk/atkobject.c:137
-msgid "option pane"
-msgstr "vedere opțiuni"
-
-#: atk/atkobject.c:138
-msgid "page tab"
-msgstr "tab pagină"
-
-#: atk/atkobject.c:139
-msgid "page tab list"
-msgstr "listă taburi pagină"
-
-#: atk/atkobject.c:140
-msgid "panel"
-msgstr "panou"
-
-#: atk/atkobject.c:141
-msgid "password text"
-msgstr "text parolă"
-
-#: atk/atkobject.c:142
-msgid "popup menu"
-msgstr "meniu popup"
-
-#: atk/atkobject.c:143
-msgid "progress bar"
-msgstr "bară de progres"
-
-#: atk/atkobject.c:144
-msgid "push button"
-msgstr "buton normal"
-
-#: atk/atkobject.c:145
-msgid "radio button"
-msgstr "buton radio"
-
-#: atk/atkobject.c:146
-msgid "radio menu item"
-msgstr "element radio meniu"
-
-#: atk/atkobject.c:147
-msgid "root pane"
-msgstr "vedere rădăcină"
-
-#: atk/atkobject.c:148
-msgid "row header"
-msgstr "antet rând"
-
-#: atk/atkobject.c:149
-msgid "scroll bar"
-msgstr "bară de derulare"
-
-#: atk/atkobject.c:150
-msgid "scroll pane"
-msgstr "vedere derulare"
-
-#: atk/atkobject.c:151
-msgid "separator"
-msgstr "separator"
-
-#: atk/atkobject.c:152
-msgid "slider"
-msgstr "derulator"
-
-#: atk/atkobject.c:153
-msgid "split pane"
-msgstr "vedere împărțită"
-
-#: atk/atkobject.c:154
-msgid "spin button"
-msgstr "iconiță animată"
-
-#: atk/atkobject.c:155
-msgid "statusbar"
-msgstr "bară de stare"
-
-#: atk/atkobject.c:156
-msgid "table"
-msgstr "tabel"
-
-#: atk/atkobject.c:157
-msgid "table cell"
-msgstr "celulă tabel"
-
-#: atk/atkobject.c:158
-msgid "table column header"
-msgstr "antet coloană tabel"
-
-#: atk/atkobject.c:159
-msgid "table row header"
-msgstr "antet rând tabel"
-
-#: atk/atkobject.c:160
-msgid "tear off menu item"
-msgstr "element meniu desprins"
-
-#: atk/atkobject.c:161
-msgid "terminal"
-msgstr "terminal"
-
-#: atk/atkobject.c:162
-msgid "text"
-msgstr "text"
-
-#: atk/atkobject.c:163
-msgid "toggle button"
-msgstr "buton comutator"
-
-#: atk/atkobject.c:164
-msgid "tool bar"
-msgstr "bară cu unelte"
-
-#: atk/atkobject.c:165
-msgid "tool tip"
-msgstr "indiciu"
-
-#: atk/atkobject.c:166
-msgid "tree"
-msgstr "arbore"
-
-#: atk/atkobject.c:167
-msgid "tree table"
-msgstr "tabel arbore"
-
-#: atk/atkobject.c:168
-msgid "unknown"
-msgstr "necunoscut"
-
-#: atk/atkobject.c:169
-msgid "viewport"
-msgstr "arie vizibilă"
-
-#: atk/atkobject.c:170
-msgid "window"
-msgstr "fereastră"
-
-#: atk/atkobject.c:171
-msgid "header"
-msgstr "antet"
-
-#: atk/atkobject.c:172
-msgid "footer"
-msgstr "notă de subsol"
-
-#: atk/atkobject.c:173
-msgid "paragraph"
-msgstr "paragraf"
-
-#: atk/atkobject.c:174
-msgid "ruler"
-msgstr "riglă"
-
-#: atk/atkobject.c:175
-msgid "application"
-msgstr "aplicație"
-
-#: atk/atkobject.c:176
-msgid "autocomplete"
-msgstr "auto-completare"
-
-#: atk/atkobject.c:177
-msgid "edit bar"
-msgstr "bară de editare"
-
-#: atk/atkobject.c:178
-msgid "embedded component"
-msgstr "componentă încapsulată"
-
-#: atk/atkobject.c:179
-msgid "entry"
-msgstr "intrare"
-
-#: atk/atkobject.c:180
-msgid "chart"
-msgstr "diagramă"
-
-#: atk/atkobject.c:181
-msgid "caption"
-msgstr "titlu"
-
-#: atk/atkobject.c:182
-msgid "document frame"
-msgstr "cadru document"
-
-#: atk/atkobject.c:183
-msgid "heading"
-msgstr "titlu"
-
-#: atk/atkobject.c:184
-msgid "page"
-msgstr "pagină"
-
-#: atk/atkobject.c:185
-msgid "section"
-msgstr "secțiune"
-
-#: atk/atkobject.c:186
-msgid "redundant object"
-msgstr "obiect redundant"
-
-#: atk/atkobject.c:187
-msgid "form"
-msgstr "formular"
-
-#: atk/atkobject.c:188
-msgid "link"
-msgstr "link"
-
-#: atk/atkobject.c:189
-msgid "input method window"
-msgstr "fereastra metodei de input"
-
-#: atk/atkobject.c:190
-msgid "table row"
-msgstr "rând de tabel"
-
-#: atk/atkobject.c:191
-msgid "tree item"
-msgstr "element arbore"
-
-#: atk/atkobject.c:192
-msgid "document spreadsheet"
-msgstr "foaie de calcul document"
-
-#: atk/atkobject.c:193
-msgid "document presentation"
-msgstr "prezentare document"
-
-#: atk/atkobject.c:194
-msgid "document text"
-msgstr "document text"
-
-#: atk/atkobject.c:195
-msgid "document web"
-msgstr "web document"
-
-#: atk/atkobject.c:196
-msgid "document email"
-msgstr "email document"
-
-#: atk/atkobject.c:197
-msgid "comment"
-msgstr "comentariu"
-
-#: atk/atkobject.c:198
-msgid "list box"
-msgstr "căsuță de tip listă"
-
-#: atk/atkobject.c:199
-msgid "grouping"
-msgstr "grupare"
-
-#: atk/atkobject.c:200
-msgid "image map"
-msgstr "hartă de imagini"
-
-#: atk/atkobject.c:201
-msgid "notification"
-msgstr "notificare"
-
-#: atk/atkobject.c:202
-msgid "info bar"
-msgstr "bară de informații"
-
-#: atk/atkobject.c:203
-msgid "level bar"
-msgstr "bară de nivel"
-
-#: atk/atkobject.c:204
-msgid "title bar"
-msgstr "bară de titlu"
-
-#: atk/atkobject.c:205
-msgid "block quote"
-msgstr "bloc de citat"
-
-#: atk/atkobject.c:206
-msgid "audio"
-msgstr "audio"
-
-#: atk/atkobject.c:207
-msgid "video"
-msgstr "video"
-
-#: atk/atkobject.c:208
-msgid "definition"
-msgstr "definiție"
-
-#: atk/atkobject.c:209
-msgid "article"
-msgstr "articol"
-
-#: atk/atkobject.c:210
-msgid "landmark"
-msgstr "reper"
-
-#: atk/atkobject.c:211
-msgid "log"
-msgstr "istoric"
-
-#: atk/atkobject.c:212
-msgid "marquee"
-msgstr "marquee"
-
-#: atk/atkobject.c:213
-msgid "math"
-msgstr "matematică"
-
-#: atk/atkobject.c:214
-msgid "rating"
-msgstr "evaluare"
-
-#: atk/atkobject.c:215
-msgid "timer"
-msgstr "cronometru"
-
-#: atk/atkobject.c:216
-msgid "description list"
-msgstr "listă de descriere"
-
-#: atk/atkobject.c:217
-msgid "description term"
-msgstr "termen de descriere"
-
-#: atk/atkobject.c:218
-msgid "description value"
-msgstr "valoare de descriere"
-
-#: atk/atkobject.c:390
+#: atk/atkobject.c:273
 msgid "Accessible Name"
 msgstr "Nume accesibil"
 
-#: atk/atkobject.c:391
+#: atk/atkobject.c:274
 msgid "Object instance’s name formatted for assistive technology access"
 msgstr "Numele instanței obiectului formatat pentru accesul asistat"
 
-#: atk/atkobject.c:397
+#: atk/atkobject.c:280
 msgid "Accessible Description"
 msgstr "Descriere accesibilă"
 
-#: atk/atkobject.c:398
+#: atk/atkobject.c:281
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Descrierea unui obiect, formatată pentru accesul asistat"
 
-#: atk/atkobject.c:404
+#: atk/atkobject.c:287
 msgid "Accessible Parent"
 msgstr "Părinte accesibil"
 
-#: atk/atkobject.c:405
+#: atk/atkobject.c:288
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr ""
 "Superiorul de accesibil curent așa cum a fost întors de "
 "atk_object_get_parent()"
 
-#: atk/atkobject.c:421
+#: atk/atkobject.c:304
 msgid "Accessible Value"
 msgstr "Valoare accesibilă"
 
-#: atk/atkobject.c:422
+#: atk/atkobject.c:305
 msgid "Is used to notify that the value has changed"
 msgstr "Utilizată pentru a notifica schimbarea valorii"
 
-#: atk/atkobject.c:430
+#: atk/atkobject.c:313
 msgid "Accessible Role"
 msgstr "Rol accesibil"
 
-#: atk/atkobject.c:431
+#: atk/atkobject.c:314
 msgid "The accessible role of this object"
 msgstr "Rolul accesibil al acestui obiect"
 
-#: atk/atkobject.c:438
+#: atk/atkobject.c:321
 msgid "Accessible Layer"
 msgstr "Nivel accesibil"
 
-#: atk/atkobject.c:439
+#: atk/atkobject.c:322
 msgid "The accessible layer of this object"
 msgstr "Nivelul accesibil al acestui obiect"
 
-#: atk/atkobject.c:447
+#: atk/atkobject.c:330
 msgid "Accessible MDI Value"
 msgstr "Valoare MDI accesibilă"
 
-#: atk/atkobject.c:448
+#: atk/atkobject.c:331
 msgid "The accessible MDI value of this object"
 msgstr "Valoarea accesibilă MDI a acestui obiect"
 
-#: atk/atkobject.c:464
+#: atk/atkobject.c:347
 msgid "Accessible Table Caption"
 msgstr "Etichetă accesibilă tabel"
 
-#: atk/atkobject.c:465
+#: atk/atkobject.c:348
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -604,61 +131,77 @@ msgstr ""
 "proprietate nu ar trebui folosită. A se utiliza accessible-table-caption-"
 "object"
 
-#: atk/atkobject.c:479
+#: atk/atkobject.c:362
 msgid "Accessible Table Column Header"
 msgstr "Antet accesibil coloană tabel"
 
-#: atk/atkobject.c:480
+#: atk/atkobject.c:363
 msgid "Is used to notify that the table column header has changed"
 msgstr "Utilizat pentru a notifica schimbarea antetului coloanei în tabel"
 
-#: atk/atkobject.c:495
+#: atk/atkobject.c:378
 msgid "Accessible Table Column Description"
 msgstr "Descriere accesibilă coloană tabel"
 
-#: atk/atkobject.c:496
+#: atk/atkobject.c:379
 msgid "Is used to notify that the table column description has changed"
 msgstr "Utilizată pentru a notifica schimbarea descrierii coloanei în tabel"
 
-#: atk/atkobject.c:511
+#: atk/atkobject.c:394
 msgid "Accessible Table Row Header"
 msgstr "Antet accesibil rând tabel"
 
-#: atk/atkobject.c:512
+#: atk/atkobject.c:395
 msgid "Is used to notify that the table row header has changed"
 msgstr "Utilizat pentru a notifica schimbarea antetului rândului în tabel"
 
-#: atk/atkobject.c:526
+#: atk/atkobject.c:409
 msgid "Accessible Table Row Description"
 msgstr "Descriere accesibilă rând tabel"
 
-#: atk/atkobject.c:527
+#: atk/atkobject.c:410
 msgid "Is used to notify that the table row description has changed"
 msgstr "Utilizată pentru a notifica schimbarea descrierii rândului în tabel"
 
-#: atk/atkobject.c:533
+#: atk/atkobject.c:416
 msgid "Accessible Table Summary"
 msgstr "Sumar tabel accesibil"
 
-#: atk/atkobject.c:534
+#: atk/atkobject.c:417
 msgid "Is used to notify that the table summary has changed"
 msgstr "Utilizat pentru a notifica schimbarea sumarului tabelului"
 
-#: atk/atkobject.c:540
+#: atk/atkobject.c:423
 msgid "Accessible Table Caption Object"
 msgstr "Obiect etichetă tabel accesibil"
 
-#: atk/atkobject.c:541
+#: atk/atkobject.c:424
 msgid "Is used to notify that the table caption has changed"
 msgstr "Utilizat pentru a notifica schimbarea etichetei tabelului"
 
-#: atk/atkobject.c:547
+#: atk/atkobject.c:430
 msgid "Number of Accessible Hypertext Links"
 msgstr "Număr de linkuri hipertext accesibile"
 
-#: atk/atkobject.c:548
+#: atk/atkobject.c:431
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Numărul de linkuri din instanța curentă AtkHypertext"
+
+#: atk/atkobject.c:440
+msgid "Accessible ID"
+msgstr "ID accesibil"
+
+#: atk/atkobject.c:441
+msgid "ID for the accessible; useful for automated testing"
+msgstr "ID pentru accesibil; util pentru testarea automată"
+
+#: atk/atkobject.c:447
+msgid "Help text"
+msgstr "Text de ajutor"
+
+#: atk/atkobject.c:448
+msgid "Help text associated with the accessible"
+msgstr "Text de ajutor asociat cu accesibilul"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a password-strength meter. Note that what such a
@@ -809,9 +352,482 @@ msgstr "foarte bun"
 msgid "best"
 msgstr "cel mai bun"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1077 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1230 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "Aplicația nu mai există"
+
+#: atspi/atspi-misc.c:49
+msgid "invalid"
+msgstr "invalid"
+
+#: atspi/atspi-misc.c:50
+msgid "accelerator label"
+msgstr "etichetă accelerator"
+
+#: atspi/atspi-misc.c:51
+msgid "alert"
+msgstr "alertă"
+
+#: atspi/atspi-misc.c:52
+msgid "animation"
+msgstr "animație"
+
+#: atspi/atspi-misc.c:53
+msgid "arrow"
+msgstr "săgeată"
+
+#: atspi/atspi-misc.c:54
+msgid "calendar"
+msgstr "calendar"
+
+#: atspi/atspi-misc.c:55
+msgid "canvas"
+msgstr "canava"
+
+#: atspi/atspi-misc.c:56
+msgid "check box"
+msgstr "căsuță de bifare"
+
+#: atspi/atspi-misc.c:57
+msgid "check menu item"
+msgstr "element meniu de bifare"
+
+#: atspi/atspi-misc.c:58
+msgid "color chooser"
+msgstr "selector de culoare"
+
+#: atspi/atspi-misc.c:59
+msgid "column header"
+msgstr "antet coloană"
+
+#: atspi/atspi-misc.c:60
+msgid "combo box"
+msgstr "căsuță combo"
+
+#: atspi/atspi-misc.c:61
+msgid "dateeditor"
+msgstr "editor al datei"
+
+#: atspi/atspi-misc.c:62
+msgid "desktop icon"
+msgstr "iconiță pe desktop"
+
+#: atspi/atspi-misc.c:63
+msgid "desktop frame"
+msgstr "cadru desktop"
+
+#: atspi/atspi-misc.c:64
+msgid "dial"
+msgstr "cadran"
+
+#: atspi/atspi-misc.c:65
+msgid "dialog"
+msgstr "dialog"
+
+#: atspi/atspi-misc.c:66
+msgid "directory pane"
+msgstr "vedere directoare"
+
+#: atspi/atspi-misc.c:67
+msgid "drawing area"
+msgstr "arie de desenare"
+
+#: atspi/atspi-misc.c:68
+msgid "file chooser"
+msgstr "selector de fișiere"
+
+#: atspi/atspi-misc.c:69
+msgid "filler"
+msgstr "umplere"
+
+#. I know it looks wrong but that is what Java returns
+#: atspi/atspi-misc.c:71
+msgid "fontchooser"
+msgstr "selector de fonturi"
+
+#: atspi/atspi-misc.c:72
+msgid "frame"
+msgstr "cadru"
+
+#: atspi/atspi-misc.c:73
+msgid "glass pane"
+msgstr "vedere parțială"
+
+#: atspi/atspi-misc.c:74
+msgid "html container"
+msgstr "recipient html"
+
+#: atspi/atspi-misc.c:75
+msgid "icon"
+msgstr "iconiță"
+
+#: atspi/atspi-misc.c:76
+msgid "image"
+msgstr "imagine"
+
+#: atspi/atspi-misc.c:77
+msgid "internal frame"
+msgstr "cadru intern"
+
+#: atspi/atspi-misc.c:78
+msgid "label"
+msgstr "etichetă"
+
+#: atspi/atspi-misc.c:79
+msgid "layered pane"
+msgstr "vedere suprapusă"
+
+#: atspi/atspi-misc.c:80
+msgid "list"
+msgstr "listă"
+
+#: atspi/atspi-misc.c:81
+msgid "list item"
+msgstr "element listă"
+
+#: atspi/atspi-misc.c:82
+msgid "menu"
+msgstr "meniu"
+
+#: atspi/atspi-misc.c:83
+msgid "menu bar"
+msgstr "bară de meniu"
+
+#: atspi/atspi-misc.c:84
+msgid "menu button"
+msgstr "buton de meniu"
+
+#: atspi/atspi-misc.c:85
+msgid "menu item"
+msgstr "element meniu"
+
+#: atspi/atspi-misc.c:86
+msgid "option pane"
+msgstr "vedere opțiuni"
+
+#: atspi/atspi-misc.c:87
+msgid "page tab"
+msgstr "tab pagină"
+
+#: atspi/atspi-misc.c:88
+msgid "page tab list"
+msgstr "listă taburi pagină"
+
+#: atspi/atspi-misc.c:89
+msgid "panel"
+msgstr "panou"
+
+#: atspi/atspi-misc.c:90
+msgid "password text"
+msgstr "text parolă"
+
+#: atspi/atspi-misc.c:91
+msgid "popup menu"
+msgstr "meniu popup"
+
+#: atspi/atspi-misc.c:92
+msgid "progress bar"
+msgstr "bară de progres"
+
+#: atspi/atspi-misc.c:93
+msgid "push button"
+msgstr "buton normal"
+
+#: atspi/atspi-misc.c:94
+msgid "radio button"
+msgstr "buton radio"
+
+#: atspi/atspi-misc.c:95
+msgid "radio menu item"
+msgstr "element radio meniu"
+
+#: atspi/atspi-misc.c:96
+msgid "root pane"
+msgstr "vedere rădăcină"
+
+#: atspi/atspi-misc.c:97
+msgid "row header"
+msgstr "antet rând"
+
+#: atspi/atspi-misc.c:98
+msgid "scroll bar"
+msgstr "bară de derulare"
+
+#: atspi/atspi-misc.c:99
+msgid "scroll pane"
+msgstr "vedere derulare"
+
+#: atspi/atspi-misc.c:100
+msgid "separator"
+msgstr "separator"
+
+#: atspi/atspi-misc.c:101
+msgid "slider"
+msgstr "derulator"
+
+#: atspi/atspi-misc.c:102
+msgid "split pane"
+msgstr "vedere împărțită"
+
+#: atspi/atspi-misc.c:103
+msgid "spin button"
+msgstr "iconiță animată"
+
+#: atspi/atspi-misc.c:104
+msgid "statusbar"
+msgstr "bară de stare"
+
+#: atspi/atspi-misc.c:105
+msgid "table"
+msgstr "tabel"
+
+#: atspi/atspi-misc.c:106
+msgid "table cell"
+msgstr "celulă tabel"
+
+#: atspi/atspi-misc.c:107
+msgid "table column header"
+msgstr "antet coloană tabel"
+
+#: atspi/atspi-misc.c:108
+msgid "table row header"
+msgstr "antet rând tabel"
+
+#: atspi/atspi-misc.c:109
+msgid "tear off menu item"
+msgstr "element meniu desprins"
+
+#: atspi/atspi-misc.c:110
+msgid "terminal"
+msgstr "terminal"
+
+#: atspi/atspi-misc.c:111
+msgid "text"
+msgstr "text"
+
+#: atspi/atspi-misc.c:112
+msgid "toggle button"
+msgstr "buton comutator"
+
+#: atspi/atspi-misc.c:113
+msgid "tool bar"
+msgstr "bară cu unelte"
+
+#: atspi/atspi-misc.c:114
+msgid "tool tip"
+msgstr "indiciu"
+
+#: atspi/atspi-misc.c:115
+msgid "tree"
+msgstr "arbore"
+
+#: atspi/atspi-misc.c:116
+msgid "tree table"
+msgstr "tabel arbore"
+
+#: atspi/atspi-misc.c:117
+msgid "unknown"
+msgstr "necunoscut"
+
+#: atspi/atspi-misc.c:118
+msgid "viewport"
+msgstr "arie vizibilă"
+
+#: atspi/atspi-misc.c:119
+msgid "window"
+msgstr "fereastră"
+
+#: atspi/atspi-misc.c:120
+msgid "header"
+msgstr "antet"
+
+#: atspi/atspi-misc.c:121
+msgid "footer"
+msgstr "notă de subsol"
+
+#: atspi/atspi-misc.c:122
+msgid "paragraph"
+msgstr "paragraf"
+
+#: atspi/atspi-misc.c:123
+msgid "ruler"
+msgstr "riglă"
+
+#: atspi/atspi-misc.c:124
+msgid "application"
+msgstr "aplicație"
+
+#: atspi/atspi-misc.c:125
+msgid "autocomplete"
+msgstr "auto-completare"
+
+#: atspi/atspi-misc.c:126
+msgid "edit bar"
+msgstr "bară de editare"
+
+#: atspi/atspi-misc.c:127
+msgid "embedded component"
+msgstr "componentă încapsulată"
+
+#: atspi/atspi-misc.c:128
+msgid "entry"
+msgstr "intrare"
+
+#: atspi/atspi-misc.c:129
+msgid "chart"
+msgstr "diagramă"
+
+#: atspi/atspi-misc.c:130
+msgid "caption"
+msgstr "titlu"
+
+#: atspi/atspi-misc.c:131
+msgid "document frame"
+msgstr "cadru document"
+
+#: atspi/atspi-misc.c:132
+msgid "heading"
+msgstr "titlu"
+
+#: atspi/atspi-misc.c:133
+msgid "page"
+msgstr "pagină"
+
+#: atspi/atspi-misc.c:134
+msgid "section"
+msgstr "secțiune"
+
+#: atspi/atspi-misc.c:135
+msgid "redundant object"
+msgstr "obiect redundant"
+
+#: atspi/atspi-misc.c:136
+msgid "form"
+msgstr "formular"
+
+#: atspi/atspi-misc.c:137
+msgid "link"
+msgstr "link"
+
+#: atspi/atspi-misc.c:138
+msgid "input method window"
+msgstr "fereastra metodei de input"
+
+#: atspi/atspi-misc.c:139
+msgid "table row"
+msgstr "rând de tabel"
+
+#: atspi/atspi-misc.c:140
+msgid "tree item"
+msgstr "element arbore"
+
+#: atspi/atspi-misc.c:141
+msgid "document spreadsheet"
+msgstr "foaie de calcul document"
+
+#: atspi/atspi-misc.c:142
+msgid "document presentation"
+msgstr "prezentare document"
+
+#: atspi/atspi-misc.c:143
+msgid "document text"
+msgstr "document text"
+
+#: atspi/atspi-misc.c:144
+msgid "document web"
+msgstr "web document"
+
+#: atspi/atspi-misc.c:145
+msgid "document email"
+msgstr "email document"
+
+#: atspi/atspi-misc.c:146
+msgid "comment"
+msgstr "comentariu"
+
+#: atspi/atspi-misc.c:147
+msgid "list box"
+msgstr "căsuță de tip listă"
+
+#: atspi/atspi-misc.c:148
+msgid "grouping"
+msgstr "grupare"
+
+#: atspi/atspi-misc.c:149
+msgid "image map"
+msgstr "hartă de imagini"
+
+#: atspi/atspi-misc.c:150
+msgid "notification"
+msgstr "notificare"
+
+#: atspi/atspi-misc.c:151
+msgid "info bar"
+msgstr "bară de informații"
+
+#: atspi/atspi-misc.c:152
+msgid "level bar"
+msgstr "bară de nivel"
+
+#: atspi/atspi-misc.c:153
+msgid "title bar"
+msgstr "bară de titlu"
+
+#: atspi/atspi-misc.c:154
+msgid "block quote"
+msgstr "bloc de citat"
+
+#: atspi/atspi-misc.c:155
+msgid "audio"
+msgstr "audio"
+
+#: atspi/atspi-misc.c:156
+msgid "video"
+msgstr "video"
+
+#: atspi/atspi-misc.c:157
+msgid "definition"
+msgstr "definiție"
+
+#: atspi/atspi-misc.c:158
+msgid "article"
+msgstr "articol"
+
+#: atspi/atspi-misc.c:159
+msgid "landmark"
+msgstr "reper"
+
+#: atspi/atspi-misc.c:160
+msgid "log"
+msgstr "istoric"
+
+#: atspi/atspi-misc.c:161
+msgid "marquee"
+msgstr "marquee"
+
+#: atspi/atspi-misc.c:162
+msgid "math"
+msgstr "matematică"
+
+#: atspi/atspi-misc.c:163
+msgid "rating"
+msgstr "evaluare"
+
+#: atspi/atspi-misc.c:164
+msgid "timer"
+msgstr "cronometru"
+
+#: atspi/atspi-misc.c:165
+msgid "description list"
+msgstr "listă de descriere"
+
+#: atspi/atspi-misc.c:166
+msgid "description term"
+msgstr "termen de descriere"
+
+#: atspi/atspi-misc.c:167
+msgid "description value"
+msgstr "valoare de descriere"
 
 #~ msgid "Attempted synchronous call where prohibited"
 #~ msgstr "S-a încercat un apel sincron unde a fost interzis"
