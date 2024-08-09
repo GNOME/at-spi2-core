@@ -1414,10 +1414,10 @@ extern "C"
     ATSPI_ROLE_SUGGESTION,
     ATSPI_ROLE_PUSH_BUTTON_MENU,
     ATSPI_ROLE_LAST_DEFINED,
-  } AtspiRole;
 
-/* For backwards compatibility */
-#define ATSPI_ROLE_PUSH_BUTTON ATSPI_ROLE_BUTTON
+    /* For backwards compatibility */
+    ATSPI_ROLE_PUSH_BUTTON = ATSPI_ROLE_BUTTON,
+  } AtspiRole;
 
 /**
  * ATSPI_ROLE_COUNT:
