@@ -67,13 +67,4 @@ communication to allow accessibility-oriented software to operate.
     </foaf:Person>
   </maintainer>
 
-  <!-- Marge-bot to automatically handle merge requests with successful pipelines  -->
-
-  <maintainer>
-    <foaf:Person>
-      <foaf:name>Marge Bot</foaf:name>
-      <gnome:userid>marge-bot</gnome:userid>
-    </foaf:Person>
-  </maintainer>
-
 </Project>
