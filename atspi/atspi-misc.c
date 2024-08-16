@@ -1137,7 +1137,8 @@ atspi_event_main (void)
 void
 atspi_event_quit (void)
 {
-  g_main_loop_quit (atspi_main_loop);
+  if (atspi_main_loop)
+              g_main_loop_quit (atspi_main_loop);
 }
 
 /**
