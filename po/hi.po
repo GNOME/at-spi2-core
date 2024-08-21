@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hi\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
-"POT-Creation-Date: 2024-06-13 20:51+0000\n"
-"PO-Revision-Date: 2024-06-19 14:03+0530\n"
+"POT-Creation-Date: 2024-08-06 21:05+0000\n"
+"PO-Revision-Date: 2024-08-15 13:51+0530\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
 "Language: hi\n"
@@ -30,7 +30,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Gtranslator 46.1\n"
 "X-Generator: Lokalize 1.2\n"
 
 #: atk/atkhyperlink.c:127
@@ -127,11 +127,11 @@ msgstr "पहुंच योग्य सारणी शीर्षक"
 
 #: atk/atkobject.c:348
 msgid ""
-"Is used to notify that the table caption has changed; this property should not be used. "
-"accessible-table-caption-object should be used instead"
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
 msgstr ""
-"सारणी शीर्षक बदल चुका है यह बताने हेतु उपयोग में आता है, यह गुण उपयोग में नहीं लेना चाहिए। बदले में पहुंच "
-"योग्य-सारणी-शीर्षक-वस्तु उपयोग में लेना चाहिए"
+"सारणी शीर्षक बदल चुका है यह बताने हेतु उपयोग में आता है, यह गुण उपयोग में नहीं लेना चाहिए। "
+"बदले में पहुंच योग्य-सारणी-शीर्षक-वस्तु उपयोग में लेना चाहिए"
 
 #: atk/atkobject.c:362
 msgid "Accessible Table Column Header"
@@ -354,7 +354,7 @@ msgstr "बहुत अच्छा"
 msgid "best"
 msgstr "श्रेष्ठ"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1230 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1232 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "अनुप्रयोग अब मौजूद नहीं है"
 
@@ -533,8 +533,8 @@ msgid "progress bar"
 msgstr "प्रगति पट्टी"
 
 #: atspi/atspi-misc.c:93
-msgid "push button"
-msgstr "पुश बटन"
+msgid "button"
+msgstr "बटन"
 
 #: atspi/atspi-misc.c:94
 msgid "radio button"
