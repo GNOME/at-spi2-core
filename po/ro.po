@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
-"POT-Creation-Date: 2024-07-26 07:33+0000\n"
-"PO-Revision-Date: 2024-08-04 12:43+0300\n"
+"POT-Creation-Date: 2024-08-06 21:05+0000\n"
+"PO-Revision-Date: 2024-08-23 08:03+0300\n"
 "Last-Translator: Florentina Mușat <florentina [dot] musat [dot] 28 [at] "
 "gmail [dot] com>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
@@ -352,7 +352,7 @@ msgstr "foarte bun"
 msgid "best"
 msgstr "cel mai bun"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1230 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1232 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "Aplicația nu mai există"
 
@@ -530,8 +530,8 @@ msgid "progress bar"
 msgstr "bară de progres"
 
 #: atspi/atspi-misc.c:93
-msgid "push button"
-msgstr "buton normal"
+msgid "button"
+msgstr "buton"
 
 #: atspi/atspi-misc.c:94
 msgid "radio button"
@@ -828,6 +828,9 @@ msgstr "termen de descriere"
 #: atspi/atspi-misc.c:167
 msgid "description value"
 msgstr "valoare de descriere"
+
+#~ msgid "push button"
+#~ msgstr "buton normal"
 
 #~ msgid "Attempted synchronous call where prohibited"
 #~ msgstr "S-a încercat un apel sincron unde a fost interzis"
