@@ -14,11 +14,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
-"POT-Creation-Date: 2024-01-03 22:53+0000\n"
-"PO-Revision-Date: 2024-01-04 09:53+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
+"POT-Creation-Date: 2024-08-06 21:05+0000\n"
+"PO-Revision-Date: 2024-08-23 12:39+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
+"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +26,7 @@ msgstr ""
 "#-#-#-#-#  uk.po (1.1)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 23.04.1\n"
+"X-Generator: Lokalize 23.04.3\n"
 "#-#-#-#-#  uk.po (atk)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
@@ -64,71 +64,71 @@ msgstr "Початковий індекс"
 msgid "The start index of the AtkHyperlink object"
 msgstr "Початковий індекс об'єкта AtkHyperlink"
 
-#: atk/atkobject.c:272
+#: atk/atkobject.c:273
 msgid "Accessible Name"
 msgstr "Назва об'єкта"
 
-#: atk/atkobject.c:273
+#: atk/atkobject.c:274
 msgid "Object instance’s name formatted for assistive technology access"
 msgstr ""
 "Назва екземпляру об'єкта для доступу з використанням допоміжних технологій"
 
-#: atk/atkobject.c:279
+#: atk/atkobject.c:280
 msgid "Accessible Description"
 msgstr "Опис об'єкта"
 
-#: atk/atkobject.c:280
+#: atk/atkobject.c:281
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Опис об'єкта для доступу з використанням допоміжних технологій"
 
-#: atk/atkobject.c:286
+#: atk/atkobject.c:287
 msgid "Accessible Parent"
 msgstr "Батьківський об'єкт"
 
-#: atk/atkobject.c:287
+#: atk/atkobject.c:288
 msgid ""
 "Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr ""
 "Батьківський елемент поточного доступного елемента, який повертатиме "
 "atk_object_get_parent()"
 
-#: atk/atkobject.c:303
+#: atk/atkobject.c:304
 msgid "Accessible Value"
 msgstr "Значення об'єкта"
 
-#: atk/atkobject.c:304
+#: atk/atkobject.c:305
 msgid "Is used to notify that the value has changed"
 msgstr "Використовується для сповіщення, що значення змінились"
 
-#: atk/atkobject.c:312
+#: atk/atkobject.c:313
 msgid "Accessible Role"
 msgstr "Роль об'єкта"
 
-#: atk/atkobject.c:313
+#: atk/atkobject.c:314
 msgid "The accessible role of this object"
 msgstr "Роль цього об'єкта у допоміжних технологіях"
 
-#: atk/atkobject.c:320
+#: atk/atkobject.c:321
 msgid "Accessible Layer"
 msgstr "Рівень об'єкта"
 
-#: atk/atkobject.c:321
+#: atk/atkobject.c:322
 msgid "The accessible layer of this object"
 msgstr "Рівень цього об'єкта в допоміжних технологіях"
 
-#: atk/atkobject.c:329
+#: atk/atkobject.c:330
 msgid "Accessible MDI Value"
 msgstr "Допоміжне значення MDI"
 
-#: atk/atkobject.c:330
+#: atk/atkobject.c:331
 msgid "The accessible MDI value of this object"
 msgstr "Значення MDI цього об'єкта у допоміжних технологіях"
 
-#: atk/atkobject.c:346
+#: atk/atkobject.c:347
 msgid "Accessible Table Caption"
 msgstr "Допоміжний заголовок таблиці"
 
-#: atk/atkobject.c:347
+#: atk/atkobject.c:348
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -137,79 +137,77 @@ msgstr ""
 "не повинна використовуватись. Натомість повинна використовуватись "
 "властивість accessible-table-caption-object."
 
-#: atk/atkobject.c:361
+#: atk/atkobject.c:362
 msgid "Accessible Table Column Header"
 msgstr "Допоміжний заголовок стовпчика таблиці"
 
-#: atk/atkobject.c:362
+#: atk/atkobject.c:363
 msgid "Is used to notify that the table column header has changed"
 msgstr "Використовується для сповіщення про зміну заголовку стовпця"
 
-#: atk/atkobject.c:377
+#: atk/atkobject.c:378
 msgid "Accessible Table Column Description"
 msgstr "Допоміжний опис стовпця таблиці"
 
-#: atk/atkobject.c:378
+#: atk/atkobject.c:379
 msgid "Is used to notify that the table column description has changed"
 msgstr "Використовується для сповіщення про зміну опису стовпця"
 
-#: atk/atkobject.c:393
+#: atk/atkobject.c:394
 msgid "Accessible Table Row Header"
 msgstr "Допоміжний заголовок рядка таблиці"
 
-#: atk/atkobject.c:394
+#: atk/atkobject.c:395
 msgid "Is used to notify that the table row header has changed"
 msgstr "Використовується для сповіщення про зміну заголовку рядка таблиці"
 
-#: atk/atkobject.c:408
+#: atk/atkobject.c:409
 msgid "Accessible Table Row Description"
 msgstr "Допоміжний опис рядка таблиці"
 
-#: atk/atkobject.c:409
+#: atk/atkobject.c:410
 msgid "Is used to notify that the table row description has changed"
 msgstr "Використовується для сповіщення про зміну опису рядка таблиці"
 
-#: atk/atkobject.c:415
+#: atk/atkobject.c:416
 msgid "Accessible Table Summary"
 msgstr "Допоміжний підсумок таблиці "
 
-#: atk/atkobject.c:416
+#: atk/atkobject.c:417
 msgid "Is used to notify that the table summary has changed"
 msgstr "Використовується для сповіщення про зміну підсумку таблиці"
 
-#: atk/atkobject.c:422
+#: atk/atkobject.c:423
 msgid "Accessible Table Caption Object"
 msgstr "Допоміжний об'єкт заголовку таблиці"
 
-#: atk/atkobject.c:423
+#: atk/atkobject.c:424
 msgid "Is used to notify that the table caption has changed"
 msgstr "Використовується для сповіщення про зміну заголовку таблиці"
 
-#: atk/atkobject.c:429
+#: atk/atkobject.c:430
 msgid "Number of Accessible Hypertext Links"
 msgstr "Кількість допоміжних гіпертекстових посилань"
 
-#: atk/atkobject.c:430
+#: atk/atkobject.c:431
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Кількість посилань, які має поточний об'єкт AtkHypertext"
 
-#: atk/atkobject.c:439
-#| msgid "Accessible Name"
+#: atk/atkobject.c:440
 msgid "Accessible ID"
 msgstr "Ідентифікатор доступності"
 
-#: atk/atkobject.c:440
+#: atk/atkobject.c:441
 msgid "ID for the accessible; useful for automated testing"
 msgstr ""
-"Ідентифікатор для елемента доступності: корисно для автоматизованого"
-" тестування"
+"Ідентифікатор для елемента доступності: корисно для автоматизованого "
+"тестування"
 
-#: atk/atkobject.c:446
-#| msgid "text"
+#: atk/atkobject.c:447
 msgid "Help text"
 msgstr "Текст довідки"
 
-#: atk/atkobject.c:447
+#: atk/atkobject.c:448
 msgid "Help text associated with the accessible"
 msgstr "Текст довідки, який пов'язано із елементом доступності"
 
@@ -362,7 +360,7 @@ msgstr "дуже добре"
 msgid "best"
 msgstr "якнайкраще"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1230 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1232 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "Програми більше не існує"
 
@@ -540,8 +538,9 @@ msgid "progress bar"
 msgstr "індикатор поступу"
 
 #: atspi/atspi-misc.c:93
-msgid "push button"
-msgstr "звичайна кнопка"
+#| msgid "menu button"
+msgid "button"
+msgstr "кнопка"
 
 #: atspi/atspi-misc.c:94
 msgid "radio button"
@@ -838,6 +837,9 @@ msgstr "термін опису"
 #: atspi/atspi-misc.c:167
 msgid "description value"
 msgstr "значення опису"
+
+#~ msgid "push button"
+#~ msgstr "звичайна кнопка"
 
 #~ msgid "Attempted synchronous call where prohibited"
 #~ msgstr "Спроба синхронного виклику там, де це заборонено"
