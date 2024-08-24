@@ -5,7 +5,7 @@
 #
 # Muhammed EKEN <gnome@m-eken.com>, 2011.
 # Muhammet Kara <muhammetk@gmail.com>, 2011, 2014.
-# Sabri Ünal <libreajans@gmail.com>, 2024.
+# Sabri Ünal <yakushabb@gmail.com>, 2024.
 # Emin Tufan Çetin <etcetin@gmail.com>, 2022, 2024.
 #
 # -------------------------------------------------
@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-core\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
-"POT-Creation-Date: 2024-02-12 19:13+0000\n"
-"PO-Revision-Date: 2024-02-13 16:19+0300\n"
+"POT-Creation-Date: 2024-08-06 21:05+0000\n"
+"PO-Revision-Date: 2024-08-24 08:00+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Turkish <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -359,7 +359,7 @@ msgstr "çok iyi"
 msgid "best"
 msgstr "en iyi"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1230 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1232 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "Artık böyle bir uygulama bulunmuyor"
 
@@ -537,7 +537,7 @@ msgid "progress bar"
 msgstr "ilerleme çubuğu"
 
 #: atspi/atspi-misc.c:93
-msgid "push button"
+msgid "button"
 msgstr "düğme"
 
 #: atspi/atspi-misc.c:94
@@ -835,3 +835,6 @@ msgstr "açıklama terimi"
 #: atspi/atspi-misc.c:167
 msgid "description value"
 msgstr "açıklama değeri"
+
+#~ msgid "push button"
+#~ msgstr "düğme"
