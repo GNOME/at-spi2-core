@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk 1.6.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
-"POT-Creation-Date: 2024-03-02 10:44+0000\n"
-"PO-Revision-Date: 2024-03-03 21:05+0100\n"
+"POT-Creation-Date: 2024-08-06 21:05+0000\n"
+"PO-Revision-Date: 2024-08-25 09:53+0200\n"
 "Last-Translator: Jordi Mas i Herǹandez <jmas@softcatala.org>\n"
 "Language-Team: català; valencià <<tradgnome@softcatala.org>>\n"
 "Language: ca\n"
@@ -357,7 +357,7 @@ msgstr "molt bo"
 msgid "best"
 msgstr "el millor"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1230 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1232 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "L'aplicació ja no existeix"
 
@@ -535,8 +535,8 @@ msgid "progress bar"
 msgstr "barra de progrés"
 
 #: atspi/atspi-misc.c:93
-msgid "push button"
-msgstr "botó de pulsació"
+msgid "button"
+msgstr "botó"
 
 #: atspi/atspi-misc.c:94
 msgid "radio button"
@@ -833,6 +833,9 @@ msgstr "terme de descripció"
 #: atspi/atspi-misc.c:167
 msgid "description value"
 msgstr "valor de descripció"
+
+#~ msgid "push button"
+#~ msgstr "botó de pulsació"
 
 #~ msgid "Attempted synchronous call where prohibited"
 #~ msgstr "S'ha intentat una crida síncrona on és prohibit"
