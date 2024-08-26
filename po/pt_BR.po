@@ -11,21 +11,22 @@
 # Tiago Melo Casal <tcasal@intervox.nce.ufrj.br>, 2018.
 # Leônidas Araújo <leorusvellt@hotmail.com>, 2022.
 # Hugo Fortini <hugofortinipbi@gmail.com>, 2024.
+# Juliano de Souza Camargo <julianosc@pm.me>, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
-"POT-Creation-Date: 2024-03-18 21:28+0000\n"
-"PO-Revision-Date: 2024-04-16 09:40-0300\n"
-"Last-Translator: Leônidas Araújo <leorusvellt@hotmail.com>\n"
-"Language-Team: Brazilian Portuguese\n"
+"POT-Creation-Date: 2024-08-22 14:17+0000\n"
+"PO-Revision-Date: 2024-08-26 09:02-0300\n"
+"Last-Translator: Juliano de Souza Camargo <julianosc@pm.me>\n"
+"Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Gtranslator 46.1\n"
 "X-DL-Team: pt_BR\n"
 "X-DL-Module: at-spi2-core\n"
 "X-DL-Branch: main\n"
@@ -354,7 +355,7 @@ msgstr "muito bom"
 msgid "best"
 msgstr "melhor"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1230 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1233 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "Este aplicativo não existe mais"
 
@@ -532,8 +533,8 @@ msgid "progress bar"
 msgstr "barra de progresso"
 
 #: atspi/atspi-misc.c:93
-msgid "push button"
-msgstr "botão de apertar"
+msgid "button"
+msgstr "botão"
 
 #: atspi/atspi-misc.c:94
 msgid "radio button"
@@ -830,6 +831,9 @@ msgstr "termo de descrição"
 #: atspi/atspi-misc.c:167
 msgid "description value"
 msgstr "valor da descrição"
+
+#~ msgid "push button"
+#~ msgstr "botão de apertar"
 
 #~ msgid "Attempted synchronous call where prohibited"
 #~ msgstr "A tentativa de chamadas síncronas foram proibidas"
