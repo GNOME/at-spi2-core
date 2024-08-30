@@ -6,13 +6,13 @@
 # Pedro Albuquerque <palbuquerque73@openmailbox.com>, 2015.
 # Hugo Carvalho <hugokarvalho@hotmail.com>, 2020, 2021, 2022, 2024.
 # João Carvalhinho <joao.carvalhinho@gmail.com>, 2024.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: 3.12\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
-"POT-Creation-Date: 2024-04-29 16:59+0000\n"
-"PO-Revision-Date: 2024-05-06 22:12+0100\n"
+"POT-Creation-Date: 2024-08-22 14:17+0000\n"
+"PO-Revision-Date: 2024-08-30 11:41+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Português <hugokarvalho@hugokarvalho.com>\n"
 "Language: pt\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Generator: Gtranslator 2.91.6\n"
 
 #: atk/atkhyperlink.c:127
@@ -353,7 +353,7 @@ msgstr "muito bom"
 msgid "best"
 msgstr "ideal"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1230 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1233 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "A aplicação já não existe"
 
@@ -531,8 +531,8 @@ msgid "progress bar"
 msgstr "barra de progresso"
 
 #: atspi/atspi-misc.c:93
-msgid "push button"
-msgstr "botão de pressão"
+msgid "button"
+msgstr "botão"
 
 #: atspi/atspi-misc.c:94
 msgid "radio button"
@@ -829,6 +829,9 @@ msgstr "termo de descrição"
 #: atspi/atspi-misc.c:167
 msgid "description value"
 msgstr "valor de descrição"
+
+#~ msgid "push button"
+#~ msgstr "botão de pressão"
 
 #~ msgid "Attempted synchronous call where prohibited"
 #~ msgstr "Tentativa de chamada síncrona onde proibida"
