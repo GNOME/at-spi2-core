@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.53.90:
+
+* Make ATSPI_ROLE_PUSH_BUTTON an enum value again.
+
+* atk: Align button role with AT-SPI one.
+
+* Fix warning when atspi_event_quit is called multiple times.
+
 What's new in at-spi2-core 2.53.1:
 
 * tests: Clean up test application on SIGABRT/SIGSEGV.
