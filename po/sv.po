@@ -1,9 +1,10 @@
 # #-#-#-#-#  sv.po (at-spi2-core)  #-#-#-#-#
 # Swedish translation for at-spi2-core.
-# Copyright © 2011-2014 Free Software Foundation, Inc.
+# Copyright © 2011-2024 Free Software Foundation, Inc.
 # This file is distributed under the same license as the at-spi2-core package.
 # Daniel Nylander <po@danielnylaner.se>, 2011.
 # Sebastian Rasmussen <sebras@gmail.com>, 2014.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2023, 2024.
 #
 # #-#-#-#-#  sv.po (atk)  #-#-#-#-#
 # Swedish messages for atk.
@@ -12,14 +13,14 @@
 # Christian Rose <menthos@menthos.com>, 2002, 2003, 2004, 2005, 2006.
 # Daniel Nylander <po@danielnylander.se>, 2006, 2008, 2011.
 # Josef Andersson <l10nl18nsweja@gmail.com>, 2015.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2014, 2016, 2021, 2023.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2014, 2016, 2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-core\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
-"POT-Creation-Date: 2024-02-06 01:29+0000\n"
-"PO-Revision-Date: 2024-03-09 21:59+0100\n"
+"POT-Creation-Date: 2024-08-16 15:40+0000\n"
+"PO-Revision-Date: 2024-08-08 14:42+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -27,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: atk/atkhyperlink.c:127
 msgid "Selected Link"
@@ -352,7 +353,7 @@ msgstr "mycket bra"
 msgid "best"
 msgstr "bäst"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1230 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1233 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "Programmet finns inte längre"
 
@@ -530,8 +531,8 @@ msgid "progress bar"
 msgstr "förloppsindikator"
 
 #: atspi/atspi-misc.c:93
-msgid "push button"
-msgstr "tryckknapp"
+msgid "button"
+msgstr "knapp"
 
 #: atspi/atspi-misc.c:94
 msgid "radio button"
