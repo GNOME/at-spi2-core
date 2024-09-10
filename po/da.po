@@ -18,9 +18,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
-"POT-Creation-Date: 2024-01-06 16:43+0000\n"
-"PO-Revision-Date: 2024-03-12 00:31+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
+"POT-Creation-Date: 2024-08-06 21:05+0000\n"
+"PO-Revision-Date: 2024-09-10 00:13+0200\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -64,69 +64,69 @@ msgstr "Startindeks"
 msgid "The start index of the AtkHyperlink object"
 msgstr "Startindeks for AtkHyperlink-objektet"
 
-#: atk/atkobject.c:272
+#: atk/atkobject.c:273
 msgid "Accessible Name"
 msgstr "Tilgængeligt navn"
 
-#: atk/atkobject.c:273
+#: atk/atkobject.c:274
 msgid "Object instance’s name formatted for assistive technology access"
 msgstr "Objektinstansens navn formateret til tilgængelighedsteknologier"
 
-#: atk/atkobject.c:279
+#: atk/atkobject.c:280
 msgid "Accessible Description"
 msgstr "Tilgængelig beskrivelse"
 
-#: atk/atkobject.c:280
+#: atk/atkobject.c:281
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Beskrivelse af et objekt, formateret til tilgængelighedsteknologier"
 
-#: atk/atkobject.c:286
+#: atk/atkobject.c:287
 msgid "Accessible Parent"
 msgstr "Ophavselement for tilgængeligt object"
 
-#: atk/atkobject.c:287
+#: atk/atkobject.c:288
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr ""
 "Ophavselement for det nuværende tilgængelige objekt som returneret af "
 "atk_object_get_parent()"
 
-#: atk/atkobject.c:303
+#: atk/atkobject.c:304
 msgid "Accessible Value"
 msgstr "Tilgængelig værdi"
 
-#: atk/atkobject.c:304
+#: atk/atkobject.c:305
 msgid "Is used to notify that the value has changed"
 msgstr "Bruges til at bekendtgøre at værdien er ændret"
 
-#: atk/atkobject.c:312
+#: atk/atkobject.c:313
 msgid "Accessible Role"
 msgstr "Tilgængelig rolle"
 
-#: atk/atkobject.c:313
+#: atk/atkobject.c:314
 msgid "The accessible role of this object"
 msgstr "Tilgængelighedsrolle for dette objekt"
 
-#: atk/atkobject.c:320
+#: atk/atkobject.c:321
 msgid "Accessible Layer"
 msgstr "Tilgængelighedslag"
 
-#: atk/atkobject.c:321
+#: atk/atkobject.c:322
 msgid "The accessible layer of this object"
 msgstr "Tilgængelighedslaget for dette objekt"
 
-#: atk/atkobject.c:329
+#: atk/atkobject.c:330
 msgid "Accessible MDI Value"
 msgstr "Tilgængeligheds-MDI-værdi"
 
-#: atk/atkobject.c:330
+#: atk/atkobject.c:331
 msgid "The accessible MDI value of this object"
 msgstr "Tilgængeligheds-MDI-værdien for dette objekt"
 
-#: atk/atkobject.c:346
+#: atk/atkobject.c:347
 msgid "Accessible Table Caption"
 msgstr "Tilgængelighedstabeltitel"
 
-#: atk/atkobject.c:347
+#: atk/atkobject.c:348
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -134,75 +134,75 @@ msgstr ""
 "Bruges til at bekendtgøre at tabeltitlen er ændret; denne egenskab bør ikke "
 "benyttes. accessible-table-caption-object bør bruges i stedet"
 
-#: atk/atkobject.c:361
+#: atk/atkobject.c:362
 msgid "Accessible Table Column Header"
 msgstr "Tilgængelighedstabelkolonnetitel"
 
-#: atk/atkobject.c:362
+#: atk/atkobject.c:363
 msgid "Is used to notify that the table column header has changed"
 msgstr "Bruges til at bekendtgøre at tabelkolonnetitlen er ændret"
 
-#: atk/atkobject.c:377
+#: atk/atkobject.c:378
 msgid "Accessible Table Column Description"
 msgstr "Tilgængelighedstabelkolonnebeskrivelse"
 
-#: atk/atkobject.c:378
+#: atk/atkobject.c:379
 msgid "Is used to notify that the table column description has changed"
 msgstr "Bruges til at bekendtgøre at tabelkolonnebeskrivelsen er ændret"
 
-#: atk/atkobject.c:393
+#: atk/atkobject.c:394
 msgid "Accessible Table Row Header"
 msgstr "Tilgængelighedstabelrækkebeskrivelse"
 
-#: atk/atkobject.c:394
+#: atk/atkobject.c:395
 msgid "Is used to notify that the table row header has changed"
 msgstr "Bruges til at bekendtgøre at tabelrækketitlen er ændret"
 
-#: atk/atkobject.c:408
+#: atk/atkobject.c:409
 msgid "Accessible Table Row Description"
 msgstr "Tilgængelighedstabelrækkebeskrivelse"
 
-#: atk/atkobject.c:409
+#: atk/atkobject.c:410
 msgid "Is used to notify that the table row description has changed"
 msgstr "Bruges til at bekendtgøre at tabelrækkebeskrivelsen er ændret"
 
-#: atk/atkobject.c:415
+#: atk/atkobject.c:416
 msgid "Accessible Table Summary"
 msgstr "Tilgængelighedstabelsammendrag"
 
-#: atk/atkobject.c:416
+#: atk/atkobject.c:417
 msgid "Is used to notify that the table summary has changed"
 msgstr "Bruges til at bekendtgøre at tabelsammendraget er ændret"
 
-#: atk/atkobject.c:422
+#: atk/atkobject.c:423
 msgid "Accessible Table Caption Object"
 msgstr "Tilgængelighedstabeltitelobjekt"
 
-#: atk/atkobject.c:423
+#: atk/atkobject.c:424
 msgid "Is used to notify that the table caption has changed"
 msgstr "Bruges til at bekendtgøre at tabeltitlen er ændret"
 
-#: atk/atkobject.c:429
+#: atk/atkobject.c:430
 msgid "Number of Accessible Hypertext Links"
 msgstr "Antal tilgængelighedshypertekst-henvisninger"
 
-#: atk/atkobject.c:430
+#: atk/atkobject.c:431
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Antallet af henvisninger som den aktuelle AtkHypertext har"
 
-#: atk/atkobject.c:439
+#: atk/atkobject.c:440
 msgid "Accessible ID"
 msgstr "Id for tilgængeligt objekt"
 
-#: atk/atkobject.c:440
+#: atk/atkobject.c:441
 msgid "ID for the accessible; useful for automated testing"
 msgstr "Id for det tilgængelige objekt; nyttigt til automatisk test"
 
-#: atk/atkobject.c:446
+#: atk/atkobject.c:447
 msgid "Help text"
 msgstr "Hjælpetekst"
 
-#: atk/atkobject.c:447
+#: atk/atkobject.c:448
 msgid "Help text associated with the accessible"
 msgstr "Hjælpetekst tilknyttet tilgængeligt objekt"
 
@@ -355,7 +355,7 @@ msgstr "meget god"
 msgid "best"
 msgstr "bedst"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1230 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1232 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "Programmet findes ikke længere"
 
@@ -533,8 +533,8 @@ msgid "progress bar"
 msgstr "fremgangslinje"
 
 #: atspi/atspi-misc.c:93
-msgid "push button"
-msgstr "trykknap"
+msgid "button"
+msgstr "knap"
 
 #: atspi/atspi-misc.c:94
 msgid "radio button"
@@ -832,6 +832,9 @@ msgstr "beskrivelsesbegreb"
 #: atspi/atspi-misc.c:167
 msgid "description value"
 msgstr "beskrivelsesværdi"
+
+#~ msgid "push button"
+#~ msgstr "trykknap"
 
 #~ msgid "Attempted synchronous call where prohibited"
 #~ msgstr "Et forsøgt synkront kald blev forbudt"
