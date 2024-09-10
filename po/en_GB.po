@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
-"POT-Creation-Date: 2024-02-22 18:11+0000\n"
-"PO-Revision-Date: 2024-03-03 13:44+0000\n"
+"POT-Creation-Date: 2024-08-22 14:17+0000\n"
+"PO-Revision-Date: 2024-08-31 11:39+0100\n"
 "Last-Translator: Bruce Cowan <bruce@bcowan.me.uk>\n"
 "Language-Team: British English <en@li.org>\n"
 "Language: en_GB\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Generator: Virtaal 0.7.1-beta1\n"
 
 #: atk/atkhyperlink.c:127
@@ -351,7 +351,7 @@ msgstr "very good"
 msgid "best"
 msgstr "best"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1230 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1233 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "The application no longer exists"
 
@@ -529,8 +529,8 @@ msgid "progress bar"
 msgstr "progress bar"
 
 #: atspi/atspi-misc.c:93
-msgid "push button"
-msgstr "push button"
+msgid "button"
+msgstr "button"
 
 #: atspi/atspi-misc.c:94
 msgid "radio button"
@@ -738,7 +738,7 @@ msgstr "document web"
 
 #: atspi/atspi-misc.c:145
 msgid "document email"
-msgstr "document e-mail"
+msgstr "document email"
 
 #: atspi/atspi-misc.c:146
 msgid "comment"
@@ -827,6 +827,9 @@ msgstr "description term"
 #: atspi/atspi-misc.c:167
 msgid "description value"
 msgstr "description value"
+
+#~ msgid "push button"
+#~ msgstr "push button"
 
 #~ msgid "Attempted synchronous call where prohibited"
 #~ msgstr "Attempted synchronous call where prohibited"
