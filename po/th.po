@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
 "POT-Creation-Date: 2024-08-06 21:05+0000\n"
-"PO-Revision-Date: 2024-10-01 11:43+0700\n"
+"PO-Revision-Date: 2024-10-01 11:49+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "Language: th\n"
@@ -112,11 +112,9 @@ msgstr "ป้ายบรรยายตารางของสิ่งอำ
 
 #: atk/atkobject.c:348
 msgid ""
-"Is used to notify that the table caption has changed; this property should not be used. "
-"accessible-table-caption-object should be used instead"
-msgstr ""
-"ใช้แจ้งเหตุเมื่อป้ายบรรยายตารางมีการเปลี่ยนแปลง ไม่ควรใช้ช่องข้อมูลนี้ แต่ควรใช้ accessible-table-caption-"
-"object แทน"
+"Is used to notify that the table caption has changed; this property should not be used. accessible-table-"
+"caption-object should be used instead"
+msgstr "ใช้แจ้งเหตุเมื่อป้ายบรรยายตารางมีการเปลี่ยนแปลง ไม่ควรใช้ช่องข้อมูลนี้ แต่ควรใช้ accessible-table-caption-object แทน"
 
 #: atk/atkobject.c:362
 msgid "Accessible Table Column Header"
@@ -421,7 +419,7 @@ msgstr "พื้นที่วาดรูป"
 
 #: atspi/atspi-misc.c:68
 msgid "file chooser"
-msgstr "กล่องเลือกแฟ้ม"
+msgstr "กล่องเลือกไฟล์"
 
 #: atspi/atspi-misc.c:69
 msgid "filler"
@@ -438,7 +436,7 @@ msgstr "กรอบ"
 
 #: atspi/atspi-misc.c:73
 msgid "glass pane"
-msgstr ""
+msgstr "ช่องหน้าต่างแบบใส"
 
 #: atspi/atspi-misc.c:74
 msgid "html container"
@@ -462,7 +460,7 @@ msgstr "ป้ายชื่อ"
 
 #: atspi/atspi-misc.c:79
 msgid "layered pane"
-msgstr ""
+msgstr "ช่องหน้าต่างแบบเป็นชั้น"
 
 #: atspi/atspi-misc.c:80
 msgid "list"
@@ -481,10 +479,8 @@ msgid "menu bar"
 msgstr "แถบเมนู"
 
 #: atspi/atspi-misc.c:84
-#, fuzzy
-#| msgid "push button"
 msgid "menu button"
-msgstr "ปุ่มกด"
+msgstr "ปุ่มเมนู"
 
 #: atspi/atspi-misc.c:85
 msgid "menu item"
@@ -492,7 +488,7 @@ msgstr "รายการเมนู"
 
 #: atspi/atspi-misc.c:86
 msgid "option pane"
-msgstr ""
+msgstr "ช่องหน้าต่างตัวเลือก"
 
 #: atspi/atspi-misc.c:87
 msgid "page tab"
@@ -519,10 +515,8 @@ msgid "progress bar"
 msgstr "แถบบอกความคืบหน้า"
 
 #: atspi/atspi-misc.c:93
-#, fuzzy
-#| msgid "push button"
 msgid "button"
-msgstr "ปุ่มกด"
+msgstr "ปุ่ม"
 
 #: atspi/atspi-misc.c:94
 msgid "radio button"
@@ -757,76 +751,68 @@ msgid "info bar"
 msgstr "แถบข้อมูล"
 
 #: atspi/atspi-misc.c:152
-#, fuzzy
-#| msgid "scroll bar"
 msgid "level bar"
-msgstr "แถบเลื่อน"
+msgstr "แถบระดับ"
 
 #: atspi/atspi-misc.c:153
-#, fuzzy
-#| msgid "tool bar"
 msgid "title bar"
-msgstr "แถบเครื่องมือ"
+msgstr "แถบชื่อ"
 
 #: atspi/atspi-misc.c:154
 msgid "block quote"
-msgstr ""
+msgstr "ข้อความอ้างอิง"
 
 #: atspi/atspi-misc.c:155
 msgid "audio"
-msgstr ""
+msgstr "เสียง"
 
 #: atspi/atspi-misc.c:156
 msgid "video"
-msgstr ""
+msgstr "วิดีโอ"
 
 #: atspi/atspi-misc.c:157
-#, fuzzy
-#| msgid "animation"
 msgid "definition"
-msgstr "ภาพเคลื่อนไหว"
+msgstr "ความคมชัด"
 
 #: atspi/atspi-misc.c:158
 msgid "article"
-msgstr ""
+msgstr "บทความ"
 
 #: atspi/atspi-misc.c:159
 msgid "landmark"
-msgstr ""
+msgstr "ตำแหน่งสำคัญ"
 
 #: atspi/atspi-misc.c:160
-#, fuzzy
-#| msgid "dialog"
 msgid "log"
-msgstr "กล่องโต้ตอบ"
+msgstr "ปูมบันทึก"
 
 #: atspi/atspi-misc.c:161
 msgid "marquee"
-msgstr ""
+msgstr "ตัวอักษรวิ่ง"
 
 #: atspi/atspi-misc.c:162
 msgid "math"
-msgstr ""
+msgstr "คณิตศาสตร์"
 
 #: atspi/atspi-misc.c:163
 msgid "rating"
-msgstr ""
+msgstr "การจัดระดับ"
 
 #: atspi/atspi-misc.c:164
 msgid "timer"
-msgstr ""
+msgstr "เวลานับถอยหลัง"
 
 #: atspi/atspi-misc.c:165
 msgid "description list"
-msgstr ""
+msgstr "รายชื่อคำอธิบาย"
 
 #: atspi/atspi-misc.c:166
 msgid "description term"
-msgstr ""
+msgstr "คำบอกรายละเอียด"
 
 #: atspi/atspi-misc.c:167
 msgid "description value"
-msgstr ""
+msgstr "ค่าของคำอธิบาย"
 
 #~ msgid "Is used to notify that the parent has changed"
 #~ msgstr "ใช้แจ้งเหตุเมื่อออบเจกต์แม่มีการเปลี่ยนแปลง"
