@@ -1112,6 +1112,9 @@ atk_bridge_adaptor_init (gint *argc, gchar **argv[])
   spi_global_app_data->bus = atspi_get_a11y_bus ();
   if (!spi_global_app_data->bus)
     {
+      g_object_unref (spi_global_app_data->root);
+      g_free (spi_global_app_data->desktop_name);
+      g_free (spi_global_app_data->desktop_path);
       g_free (spi_global_app_data);
       spi_global_app_data = NULL;
       inited = FALSE;
