@@ -12,14 +12,15 @@
 # Leônidas Araújo <leorusvellt@hotmail.com>, 2022.
 # Hugo Fortini <hugofortinipbi@gmail.com>, 2024.
 # Juliano de Souza Camargo <julianosc@pm.me>, 2024.
+# Jhonata Fernandes <fjhonata14@gmail.com>, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
-"POT-Creation-Date: 2024-08-31 08:55+0000\n"
+"POT-Creation-Date: 2024-09-29 16:07+0000\n"
 "PO-Revision-Date: 2024-08-26 09:02-0300\n"
-"Last-Translator: Juliano de Souza Camargo <julianosc@pm.me>\n"
+"Last-Translator: Jhonata Fernandes <fjhonata14@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -204,7 +205,7 @@ msgstr "Texto de ajuda"
 
 #: atk/atkobject.c:448
 msgid "Help text associated with the accessible"
-msgstr "Texto de ajuda associado ao acessível"
+msgstr "Texto de ajuda associado ao elemento acessível"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a password-strength meter. Note that what such a
