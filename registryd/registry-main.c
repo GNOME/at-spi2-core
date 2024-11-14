@@ -235,6 +235,7 @@ main (int argc, char **argv)
       g_error ("Option parsing failed: %s\n", err->message);
       g_clear_error (&err);
     }
+  g_option_context_free (opt);
 
   if (dbus_name == NULL)
     dbus_name = SPI_DBUS_NAME_REGISTRY;
