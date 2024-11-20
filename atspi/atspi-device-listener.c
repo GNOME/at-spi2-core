@@ -217,12 +217,12 @@ G_DEFINE_TYPE (AtspiDeviceListener, atspi_device_listener, G_TYPE_OBJECT)
 
 /**
  * atspi_device_listener_new:
- * @callback: (scope notified): an #AtspiDeviceListenerCB callback function,
- *            or NULL.
- * @user_data: (closure): a pointer to data which will be passed to the
- * callback when invoked.
+ * @callback: (scope notified) (closure user_data) (destroy callback_destroyed) (nullable): an
+ *   #AtspiDeviceListenerCB callback function, or NULL.
+ * @user_data: a pointer to data which will be passed to the
+ *   callback when invoked.
  * @callback_destroyed: A #GDestroyNotify called when the listener is freed
- * and data associated with the callback should be freed. It can be NULL.
+ *   and data associated with the callback should be freed. It can be NULL.
  *
  * Creates a new #AtspiDeviceListener with a specified callback function.
  *
@@ -266,11 +266,12 @@ atspi_device_listener_new_simple (AtspiDeviceListenerSimpleCB callback,
 /**
  * atspi_device_listener_add_callback:
  * @listener: the #AtspiDeviceListener instance to modify.
- * @callback: (scope notified): an #AtspiDeviceListenerCB function pointer.
+ * @callback: (scope notified) (closure user_data) (destroy callback_destroyed): an
+ *   #AtspiDeviceListenerCB function pointer.
  * @callback_destroyed: A #GDestroyNotify called when the listener is freed
- * and data associated with the callback should be freed. It can be NULL.
- * @user_data: (closure): a pointer to data which will be passed to the
- *             callback when invoked.
+ *   and data associated with the callback should be freed. It can be NULL.
+ * @user_data: a pointer to data which will be passed to the
+ *   callback when invoked.
  *
  * Adds an in-process callback function to an existing #AtspiDeviceListener.
  *

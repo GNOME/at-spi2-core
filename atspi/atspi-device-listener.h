@@ -37,13 +37,14 @@ GType atspi_device_event_get_type (void);
 /**
  * AtspiDeviceListenerCB:
  * @stroke: (transfer full): The #AtspiDeviceEvent for which notification is
- *          being received.
- * @user_data: Data which is passed to the client each time this callback is notified.
+ *   being received.
+ * @user_data: (closure): Data which is passed to the client each time this callback is notified.
  *
  * A callback function prototype via which clients receive device event notifications.
  *
- * Returns: #TRUE if the client wishes to consume/preempt the event, preventing it from being
- * relayed to the currently focussed application, #FALSE if the event delivery should proceed as normal.
+ * Returns: %TRUE if the client wishes to consume/preempt the event,
+ *   preventing it from being relayed to the currently focussed application,
+ *   %FALSE if the event delivery should proceed as normal
  **/
 typedef gboolean (*AtspiDeviceListenerCB) (AtspiDeviceEvent *stroke,
                                            void *user_data);
@@ -51,7 +52,7 @@ typedef gboolean (*AtspiDeviceListenerCB) (AtspiDeviceEvent *stroke,
 /**
  * AtspiDeviceListenerSimpleCB:
  * @stroke: (transfer full): The #AtspiDeviceEvent for which notification is
- *          being received.
+ *   being received.
  *
  * Similar to #AtspiDeviceListenerCB, but with no user data.
  *
