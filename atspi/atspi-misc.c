@@ -1417,13 +1417,13 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
   dbus_message_iter_init (reply, &iter);
   if (dbus_message_iter_get_arg_type (&iter) != 'v')
     {
-      g_warning ("atspi_dbus_get_property: expected a variant when fetching %s from interface %s; got %s\n", name, interface, dbus_message_get_signature (reply));
+      g_warning ("atspi_dbus_get_property: expected a variant when fetching %s:%s; got %s instead", interface, name, dbus_message_get_signature (reply));
       goto done;
     }
   dbus_message_iter_recurse (&iter, &iter_variant);
   if (dbus_message_iter_get_arg_type (&iter_variant) != expected_type)
     {
-      g_warning ("atspi_dbus_get_property: Wrong type: expected %s, got %c\n", type, dbus_message_iter_get_arg_type (&iter_variant));
+      g_warning ("atspi_dbus_get_property: Wrong type: expected %s when fetching %s:%s; got %c instead", type, interface, name, dbus_message_iter_get_arg_type (&iter_variant));
       goto done;
     }
   if (!strcmp (type, "(so)"))
