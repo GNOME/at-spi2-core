@@ -133,11 +133,11 @@ callback_unref (gpointer callback)
 
 /**
  * atspi_event_listener_new:
- * @callback: (scope notified): An #AtspiEventListenerCB to be called
- * when an event is fired.
- * @user_data: (closure): data to pass to the callback.
+ * @callback: (scope notified) (destroy callback_destroyed) (closure user_data): an
+ *   #AtspiEventListenerCB to be called when an event is fired.
+ * @user_data: data to pass to the callback.
  * @callback_destroyed: A #GDestroyNotify called when the listener is freed
- * and data associated with the callback should be freed.  Can be NULL.
+ *   and data associated with the callback should be freed.  Can be NULL.
  *
  * Creates a new #AtspiEventListener associated with a specified @callback.
  *
@@ -656,13 +656,13 @@ notify_event_registered (EventListenerEntry *e)
 
 /**
  * atspi_event_listener_register_from_callback:
- * @callback: (scope notified): the #AtspiEventListenerCB to be registered
- * against an event type.
- * @user_data: (closure): User data to be passed to the callback.
+ * @callback: (scope notified) (closure user_data) (destroy callback_destroyed): the
+ *   #AtspiEventListenerCB to be registered against an event type.
+ * @user_data: User data to be passed to the callback.
  * @callback_destroyed: A #GDestroyNotify called when the callback is destroyed.
  * @event_type: a character string indicating the type of events for which
- *            notification is requested.  See #atspi_event_listener_register
- * for a description of the format.
+ *    notification is requested.  See atspi_event_listener_register()
+ *    for a description of the format.
  *
  * Registers an #AtspiEventListenerCB against an @event_type.
  *
@@ -702,11 +702,12 @@ copy_event_properties (GArray *src)
 
 /**
  * atspi_event_listener_register_from_callback_full:
- * @callback: (scope async): an #AtspiEventListenerCB function pointer.
- * @user_data: (closure callback)
- * @callback_destroyed: (destroy callback)
+ * @callback: (scope notified) (closure user_data) (destroy callback_destroyed): an
+ *   #AtspiEventListenerCB function pointer.
+ * @user_data:
+ * @callback_destroyed:
  * @event_type:
- * @properties: (element-type utf8)
+ * @properties: (element-type utf8):
  * @error:
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
@@ -729,12 +730,13 @@ atspi_event_listener_register_from_callback_full (AtspiEventListenerCB callback,
 
 /**
  * atspi_event_listener_register_from_callback_with_app:
- * @callback: (scope async): an #AtspiEventListenerCB function pointer.
- * @user_data: (closure callback)
- * @callback_destroyed: (destroy callback)
+ * @callback: (scope notified) (closure user_data) (destroy callback_destroyed): an
+ *   #AtspiEventListenerCB function pointer.
+ * @user_data:
+ * @callback_destroyed:
  * @event_type:
- * @properties: (element-type utf8)
- * @app: (allow-none)
+ * @properties: (element-type utf8):
+ * @app: (nullable):
  * @error:
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
@@ -877,14 +879,14 @@ atspi_event_listener_deregister (AtspiEventListener *listener,
 
 /**
  * atspi_event_listener_deregister_from_callback:
- * @callback: (scope call): the #AtspiEventListenerCB registered against an
- *            event type.
- * @user_data: (closure): User data that was passed in for this callback.
+ * @callback: (scope call) (closure user_data): the #AtspiEventListenerCB
+ *   registered against an event type.
+ * @user_data: User data that was passed in for this callback.
  * @event_type: a string specifying the event type for which this
- *             listener is to be deregistered.
+ *   listener is to be deregistered.
  *
  * Deregisters an #AtspiEventListenerCB from the registry, for a specific
- *             event type.
+ * event type.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  **/
