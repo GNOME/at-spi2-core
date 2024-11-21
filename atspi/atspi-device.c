@@ -249,11 +249,10 @@ atspi_device_remove_key_grab (AtspiDevice *device, guint id)
 /**
  *atspi_device_add_key_watcher:
  * @device: the device.
- * @callback: (scope notified): the function to call when the given key is
- *            pressed.
- * @user_data: (closure callback): Data to be passed to @callback.
- * @callback_destroyed: (destroy callback): callback function to be called
- *                      when @callback is destroyed.
+ * @callback: (scope notified) (closure user_data) (destroy callback_destroyed): the
+ *   function to call when the given key is pressed.
+ * @user_data: Data to be passed to @callback.
+ * @callback_destroyed: callback function to be called when @callback is destroyed.
  *
  * Add a callback that will receive a notification whenever a key is
  * pressed or released.

@@ -488,10 +488,10 @@ atspi_generate_mouse_event_cb (DBusPendingCall *pending, void *user_data)
  * @y: a #glong indicating the screen y coordinate of the mouse event.
  * @name: a string indicating which mouse event to be synthesized
  *        (e.g. "b1p", "b1c", "b2r", "rel", "abs").
- * @callback: (scope notified) (allow-none): a callback to be called when a
+ * @callback: (scope async) (closure callback_data): a callback to be called when a
  * reply is received. May be NULL.
- * @callback_data: (closure) (allow-none): data to be passed to @callback.
- * @error: (allow-none): a pointer to a %NULL #GError pointer, or %NULL
+ * @callback_data: data to be passed to @callback.
+ * @error: a pointer to a %NULL #GError pointer, or %NULL
  *
  * Like atspi_generate_mouse_event, but asynchronous.
  **/
