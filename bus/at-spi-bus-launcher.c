@@ -892,6 +892,7 @@ init_sigterm_handling (A11yBusLauncher *app)
                   G_IO_IN | G_IO_ERR | G_IO_HUP,
                   on_sigterm_pipe,
                   app);
+  g_io_channel_unref (sigterm_channel);
 }
 
 static GSettings *
