@@ -31,17 +31,9 @@
 G_BEGIN_DECLS
 
 #define ATSPI_TYPE_DEVICE (atspi_device_get_type ())
-#define ATSPI_DEVICE(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_DEVICE, AtspiDevice))
-#define ATSPI_DEVICE_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), ATSPI_TYPE_DEVICE, AtspiDeviceClass))
-#define ATSPI_IS_DEVICE(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_DEVICE))
-#define ATSPI_IS_DEVICE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), ATSPI_TYPE_DEVICE))
-#define ATSPI_DEVICE_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), ATSPI_TYPE_DEVICE, AtspiDeviceClass))
+G_DECLARE_DERIVABLE_TYPE (AtspiDevice, atspi_device, ATSPI, DEVICE, GObject)
 
 typedef struct _AtspiDevice AtspiDevice;
-struct _AtspiDevice
-{
-  GObject parent;
-};
 
 typedef struct _AtspiDeviceClass AtspiDeviceClass;
 struct _AtspiDeviceClass
