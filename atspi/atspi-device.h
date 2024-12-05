@@ -54,8 +54,6 @@ struct _AtspiDeviceClass
   guint (*get_keysym_modifier) (AtspiDevice *device, guint keysym);
 };
 
-GType atspi_device_get_type (void);
-
 /**
  * AtspiKeyCallback:
  * @device: the device.

@@ -21,6 +21,7 @@
  */
 
 #include "atspi-device.h"
+#include "atspi-device-a11y-manager.h"
 #include "atspi-device-legacy.h"
 #include "atspi-device-x11.h"
 #include "atspi-private.h"
@@ -99,11 +100,24 @@ AtspiDevice *
 atspi_device_new ()
 {
 #ifdef HAVE_X11
-  if (!g_getenv ("WAYLAND_DISPLAY") && !g_getenv ("ATSPI_USE_LEGACY_DEVICE"))
+  if (!g_getenv ("WAYLAND_DISPLAY") && !g_getenv ("ATSPI_USE_LEGACY_DEVICE") && !g_getenv ("ATSPI_USE_A11Y_MANAGER_DEVICE"))
     return ATSPI_DEVICE (atspi_device_x11_new ());
 #endif
 
-  return ATSPI_DEVICE (atspi_device_legacy_new ());
+  AtspiDeviceA11yManager *a11y_manager_device = NULL;
+  if (!g_getenv ("ATSPI_USE_LEGACY_DEVICE"))
+    a11y_manager_device = atspi_device_a11y_manager_try_new ();
+
+  if (!a11y_manager_device)
+    {
+      if (g_getenv ("ATSPI_USE_A11Y_MANAGER_DEVICE"))
+        g_critical ("ATSPI_USE_A11Y_MANAGER_DEVICE is set, but no a11y manager device could be created. Falling back to legacy device.");
+      return ATSPI_DEVICE (atspi_device_legacy_new ());
+    }
+  else
+    {
+      return ATSPI_DEVICE (a11y_manager_device);
+    }
 }
 
 static gboolean
