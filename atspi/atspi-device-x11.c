@@ -167,7 +167,7 @@ grab_has_active_duplicate (AtspiDeviceX11 *x11_device, AtspiX11KeyGrab *grab)
   for (l = priv->key_grabs; l; l = l->next)
     {
       AtspiX11KeyGrab *other = l->data;
-      if (other != grab && other->enabled && other->kd->keycode == grab->kd->keycode && (other->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK) == (grab->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK))
+      if (other != grab && other->enabled && other->kd->keycode == grab->kd->keycode && other->kd->keysym == grab->kd->keysym && (other->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK) == (grab->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK))
         return TRUE;
     }
   return FALSE;
@@ -220,13 +220,21 @@ enable_key_grab (AtspiDeviceX11 *x11_device, AtspiX11KeyGrab *grab)
 {
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
   gboolean ret;
+  gint grab_keycode;
 
   g_return_val_if_fail (priv->display != NULL, FALSE);
 
   if (grab_has_active_duplicate (x11_device, grab))
     ret = TRUE;
   else
-    ret = grab_key (x11_device, priv->focused_window, grab->kd->keycode, grab->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK);
+    {
+      if (grab->kd->keysym != 0)
+        grab_keycode = XKeysymToKeycode (priv->display, grab->kd->keysym);
+      else
+        grab_keycode = grab->kd->keycode;
+
+      ret = grab_key (x11_device, priv->focused_window, grab_keycode, grab->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK);
+    }
   grab->enabled = TRUE;
   grab->window = priv->focused_window;
   return ret;
@@ -264,6 +272,7 @@ static void
 disable_key_grab (AtspiDeviceX11 *x11_device, AtspiX11KeyGrab *grab)
 {
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
+  gint grab_keycode;
 
   g_return_if_fail (priv->display != NULL);
 
@@ -275,7 +284,11 @@ disable_key_grab (AtspiDeviceX11 *x11_device, AtspiX11KeyGrab *grab)
   if (grab_has_active_duplicate (x11_device, grab))
     return;
 
-  ungrab_key (x11_device, grab->window, grab->kd->keycode, grab->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK);
+  if (grab->kd->keysym != 0)
+    grab_keycode = XKeysymToKeycode (priv->display, grab->kd->keysym);
+  else
+    grab_keycode = grab->kd->keycode;
+  ungrab_key (x11_device, grab->window, grab_keycode, grab->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK);
 }
 
 static void
@@ -692,7 +705,7 @@ atspi_device_x11_remove_key_grab (AtspiDevice *device, guint id)
   for (l = priv->key_grabs; l; l = g_slist_next (l))
     {
       AtspiX11KeyGrab *other = l->data;
-      if (other->kd->keycode == kd->keycode && other->kd->modifiers == kd->modifiers)
+      if (other->kd->keycode == kd->keycode && other->kd->modifiers == kd->modifiers && other->kd->keysym == kd->keysym)
         {
           disable_key_grab (x11_device, other);
           priv->key_grabs = g_slist_remove (priv->key_grabs, other);
