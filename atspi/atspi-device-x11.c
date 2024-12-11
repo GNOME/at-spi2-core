@@ -816,6 +816,36 @@ atspi_device_x11_generate_mouse_event (AtspiDevice *device, AtspiAccessible *obj
   atspi_generate_mouse_event (x, y, name, error);
 }
 
+static guint
+atspi_device_x11_map_keysym_modifier (AtspiDevice *device, guint keysym)
+{
+  AtspiDeviceX11 *x11_device = ATSPI_DEVICE_X11 (device);
+  AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
+
+  gint keycode = XKeysymToKeycode (priv->display, keysym);
+  return atspi_device_x11_map_modifier (device, keycode);
+}
+
+static void
+atspi_device_x11_unmap_keysym_modifier (AtspiDevice *device, guint keysym)
+{
+  AtspiDeviceX11 *x11_device = ATSPI_DEVICE_X11 (device);
+  AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
+
+  gint keycode = XKeysymToKeycode (priv->display, keysym);
+  atspi_device_x11_unmap_modifier (device, keycode);
+}
+
+static guint
+atspi_device_x11_get_keysym_modifier (AtspiDevice *device, guint keysym)
+{
+  AtspiDeviceX11 *x11_device = ATSPI_DEVICE_X11 (device);
+  AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
+
+  gint keycode = XKeysymToKeycode (priv->display, keysym);
+  return atspi_device_x11_get_modifier (device, keycode);
+}
+
 static void
 atspi_device_x11_class_init (AtspiDeviceX11Class *klass)
 {
@@ -832,6 +862,9 @@ atspi_device_x11_class_init (AtspiDeviceX11Class *klass)
   device_class->grab_keyboard = atspi_device_x11_grab_keyboard;
   device_class->ungrab_keyboard = atspi_device_x11_ungrab_keyboard;
   device_class->generate_mouse_event = atspi_device_x11_generate_mouse_event;
+  device_class->map_keysym_modifier = atspi_device_x11_map_keysym_modifier;
+  device_class->unmap_keysym_modifier = atspi_device_x11_unmap_keysym_modifier;
+  device_class->get_keysym_modifier = atspi_device_x11_get_keysym_modifier;
   object_class->finalize = atspi_device_x11_finalize;
 }
 

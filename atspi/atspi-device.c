@@ -425,3 +425,70 @@ atspi_device_generate_mouse_event (AtspiDevice *device, AtspiAccessible *obj, gi
   if (ATSPI_DEVICE_GET_CLASS (device)->generate_mouse_event)
     ATSPI_DEVICE_GET_CLASS (device)->generate_mouse_event (device, obj, x, y, name, error);
 }
+
+/**
+ * atspi_device_map_keysym_modifier:
+ * @device: the device.
+ * @keysym: the XKB keysym to map.
+ * 
+ * Maps the specified keysym to a modifier so that it can be used in
+ * conjunction with other keys to create a key grab. If the given keysym is
+ * already mapped, then this function will return the modifier that is
+ * currently mapped to the keysym, without doing anything else. Otherwise,
+ * it will use the last modifier that AT-SPI used to map a keysym. If no keys
+ * have yet been mapped using this device, then it will look for a modifier
+ * that is not currently being used. If no unused modifier can be found,
+ * then it will use the first modifier by default.
+ * 
+ * Returns: the modifier that is now mapped to this keysym. This return
+ * value can be passed to atspi_device_add_key_grab.
+ * 
+ * Since: 2.55
+  */
+guint
+atspi_device_map_keysym_modifier (AtspiDevice *device, guint keysym)
+{
+  if (ATSPI_DEVICE_GET_CLASS (device)->map_keysym_modifier)
+    return ATSPI_DEVICE_GET_CLASS (device)->map_keysym_modifier (device, keysym);
+
+  return 0;
+}
+
+/**
+ * atspi_device_unmap_keysym_modifier:
+ * @device: the device.
+ * @keysym: the XKB keysym to unmap.
+ * 
+ * Removes a mapped modifier from the given keysym.
+ * 
+ * Since: 2.55
+ */
+void
+atspi_device_unmap_keysym_modifier (AtspiDevice *device, guint keysym)
+{
+  if (ATSPI_DEVICE_GET_CLASS (device)->unmap_keysym_modifier)
+    ATSPI_DEVICE_GET_CLASS (device)->unmap_keysym_modifier (device, keysym);
+}
+
+/**
+ * atspi_device_get_keysym_modifier:
+ * @device: the device.
+ * @keysym: the XKB keysym to map.
+ * 
+ * Gets the modifier for a given keysym, if one exists. Does not create a new
+ * mapping. This function should be used when the intention is to query a
+ * locking modifier such as num lock via atspi_device_get_locked_modifiers,
+ * rather than to add key grabs.
+ * 
+ * Returns: the modifier that is mapped to this keysym.
+ * 
+ * Since: 2.55
+ */
+guint
+atspi_device_get_keysym_modifier (AtspiDevice *device, guint keysym)
+{
+  if (ATSPI_DEVICE_GET_CLASS (device)->get_keysym_modifier)
+    return ATSPI_DEVICE_GET_CLASS (device)->get_keysym_modifier (device, keysym);
+
+  return 0;
+}
