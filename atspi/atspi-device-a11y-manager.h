@@ -29,6 +29,9 @@
 
 G_BEGIN_DECLS
 
+#define ATSPI_DEVICE_A11Y_MANAGER_VIRTUAL_MOD_START 15 /* To avoid the clash with ATSPI_MODIFIER_NUMLOCK */
+#define ATSPI_DEVICE_A11Y_MANAGER_VIRTUAL_MOD_END 31
+
 G_DECLARE_FINAL_TYPE (AtspiDeviceA11yManager, atspi_device_a11y_manager, ATSPI, DEVICE_A11Y_MANAGER, AtspiDevice)
 
 AtspiDeviceA11yManager *atspi_device_a11y_manager_try_new ();

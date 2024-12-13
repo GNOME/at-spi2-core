@@ -32,6 +32,13 @@ struct _AtspiDeviceA11yManagerKey
   guint32 modifiers;
 };
 
+typedef struct _AtspiDeviceA11yManagerVirtualModifier AtspiDeviceA11yManagerVirtualModifier;
+struct _AtspiDeviceA11yManagerVirtualModifier
+{
+  guint32 modifier;
+  guint32 keysym;
+};
+
 typedef struct _AtspiDeviceA11yManager AtspiDeviceA11yManager;
 
 struct _AtspiDeviceA11yManager
@@ -42,35 +49,11 @@ struct _AtspiDeviceA11yManager
   GDBusProxy *keyboard_monitor;
   GSList *grabbed_modifiers;
   GSList *grabbed_keys;
+  GSList *virtual_modifiers;
+  guint enabled_virtual_modifiers;
 };
 
 G_DEFINE_TYPE (AtspiDeviceA11yManager, atspi_device_a11y_manager, ATSPI_TYPE_DEVICE)
-
-static void
-a11y_manager_signal_cb (GDBusProxy *proxy,
-                        gchar      *sender_name,
-                        gchar      *signal_name,
-                        GVariant   *parameters,
-                        gpointer    user_data)
-{
-  if (g_strcmp0 (signal_name, "KeyEvent") != 0)
-    return;
-
-  AtspiDeviceA11yManager *device = ATSPI_DEVICE_A11Y_MANAGER (user_data);
-  gboolean released;
-  gchar *text;
-  gint utf8_len;
-  guint32 state, keysym, unichar;
-  guint16 keycode;
-
-  g_variant_get (parameters, "(buuuq)", &released, &state, &keysym, &unichar, &keycode);
-  utf8_len = g_unichar_to_utf8 (unichar, NULL);
-  text = g_new (gchar, utf8_len + 1);
-  g_unichar_to_utf8 (unichar, text);
-  text[utf8_len] = '\0';
-  atspi_device_notify_key (ATSPI_DEVICE (device), !released, keycode, keysym, state, text);
-  g_free (text);
-}
 
 static guint
 atspi_device_a11y_manager_get_locked_modifiers (AtspiDevice *device)
@@ -79,101 +62,39 @@ atspi_device_a11y_manager_get_locked_modifiers (AtspiDevice *device)
   return 0;
 }
 
-/*static gboolean
-check_virtual_modifier (AtspiDeviceA11yManager *manager_device, guint modifier)
-{
-    GSList *l;
-
-  if (modifier == (1 << ATSPI_MODIFIER_NUMLOCK))
-    return TRUE;
-
-  for (l = manager_device->modifiers; l; l = l->next)
-    {
-      AtspiA11yManagerKeyModifier *entry = l->data;
-      if (entry->modifier == modifier)
-        return TRUE;
-    }
-
-  return FALSE;
-}
-
 static guint
 get_unused_virtual_modifier (AtspiDeviceA11yManager *manager_device)
 {
-  guint ret = 0x1000;
-
-  while (ret < 0x10000)
-    {
-      if (!check_virtual_modifier (manager_device, ret))
-        return ret;
-      ret <<= 1;
-    }
-
-  return 0;
-}*/
-
-static guint
-atspi_device_a11y_manager_map_modifier (AtspiDevice *device, gint keycode)
-{
-  g_warning ("Requested to map keycode %d", keycode);
-  return 0;
-}
-
-static void
-atspi_device_a11y_manager_unmap_modifier (AtspiDevice *device, gint keycode)
-{
-  g_warning ("Requested to unmap keycode %d", keycode);
-  /*AtspiDeviceA11yManager *manager_device = ATSPI_DEVICE_LEGACY (device);
+  guint prev_mod = ATSPI_DEVICE_A11Y_MANAGER_VIRTUAL_MOD_START - 1;
+  guint cur_mod = ATSPI_DEVICE_A11Y_MANAGER_VIRTUAL_MOD_START - 1;
   GSList *l;
 
-  for (l = manager_device->modifiers; l; l = l->next)
+  for (l = manager_device->virtual_modifiers; l; l = l->next)
     {
-      AtspiA11yManagerKeyModifier *entry = l->data;
-      if (entry->keycode == keycode)
-        {
-          manager_device->modifiers = g_slist_remove (manager_device->modifiers, entry);
-          g_free (entry);
-          return;
-        }
-    }*/
-}
+      AtspiDeviceA11yManagerVirtualModifier *entry = l->data;
+      cur_mod = entry->modifier;
+      if (cur_mod - prev_mod > 1) /* Found a hole from a previous unmap, reuse it */
+        return prev_mod + 1;
+      prev_mod = entry->modifier;
+    }
 
-static guint
-atspi_device_a11y_manager_get_modifier (AtspiDevice *device, gint keycode)
-{
-  /*AtspiDeviceA11yManager *manager_device = ATSPI_DEVICE_LEGACY (device);
-
-  return find_virtual_mapping (manager_device, keycode);*/
+  if (cur_mod < ATSPI_DEVICE_A11Y_MANAGER_VIRTUAL_MOD_END)
+    return cur_mod + 1;
   return 0;
 }
 
-static gboolean
-atspi_device_a11y_manager_grab_keyboard (AtspiDevice *device)
+static GSList *
+find_insertion_point_for_modifier (AtspiDeviceA11yManager *manager_device, guint32 modifier)
 {
-  AtspiDeviceA11yManager *manager_device = ATSPI_DEVICE_A11Y_MANAGER (device);
+  GSList *l;
 
-  g_dbus_proxy_call_sync (manager_device->keyboard_monitor,
-                          "GrabKeyboard",
-                          NULL,
-                          G_DBUS_CALL_FLAGS_NONE,
-                          -1,
-                          NULL,
-                          NULL);
-  return TRUE;
-}
-
-static void
-atspi_device_a11y_manager_ungrab_keyboard (AtspiDevice *device)
-{
-  AtspiDeviceA11yManager *manager_device = ATSPI_DEVICE_A11Y_MANAGER (device);
-
-  g_dbus_proxy_call_sync (manager_device->keyboard_monitor,
-                          "UngrabKeyboard",
-                          NULL,
-                          G_DBUS_CALL_FLAGS_NONE,
-                          -1,
-                          NULL,
-                          NULL);
+  for (l = manager_device->virtual_modifiers; l; l = l->next)
+    {
+      AtspiDeviceA11yManagerVirtualModifier *entry = l->data;
+        if (entry->modifier == modifier - 1)
+          return l->next;
+            }
+  return NULL;
 }
 
 static void
@@ -203,6 +124,119 @@ refresh_grabs (AtspiDeviceA11yManager *manager_device)
   g_dbus_proxy_call_sync (manager_device->keyboard_monitor,
                           "SetGrabs",
                           g_variant_builder_end (&builder),
+                          G_DBUS_CALL_FLAGS_NONE,
+                          -1,
+                          NULL,
+                          NULL);
+}
+
+static guint
+atspi_device_a11y_manager_map_modifier (AtspiDevice *device, gint keycode)
+{
+  g_warning ("Mapping of keycode %d is not supported, use the keysym instead", keycode);
+  return 0;
+}
+
+static void
+atspi_device_a11y_manager_unmap_modifier (AtspiDevice *device, gint keycode)
+{
+  g_warning ("Mapping of keycode %d is not supported, use the keysym instead", keycode);
+}
+
+static guint
+atspi_device_a11y_manager_get_modifier (AtspiDevice *device, gint keycode)
+{
+  g_warning ("Querying of keycode %d is not supported, use the keysym instead", keycode);
+  return 0;
+}
+
+static guint
+atspi_device_a11y_manager_get_keysym_modifier (AtspiDevice *device, guint keysym)
+{
+  AtspiDeviceA11yManager *manager_device = ATSPI_DEVICE_A11Y_MANAGER (device);
+  GSList *l;
+
+  for (l = manager_device->virtual_modifiers; l; l = l->next)
+    {
+      AtspiDeviceA11yManagerVirtualModifier *entry = l->data;
+      if (entry->keysym == keysym)
+        return 1 << entry->modifier;
+    }
+  return 0;
+}
+
+static  guint
+atspi_device_a11y_manager_map_keysym_modifier (AtspiDevice *device, guint keysym)
+{
+  AtspiDeviceA11yManager *manager_device = ATSPI_DEVICE_A11Y_MANAGER (device);
+  guint modifier = atspi_device_a11y_manager_get_keysym_modifier (device, keysym);
+  if (modifier)
+    return modifier;
+  modifier = get_unused_virtual_modifier (manager_device);
+
+  if (!modifier)
+    {
+      g_warning ("No more virtual modifiers available");
+      return 0;
+    }
+
+  AtspiDeviceA11yManagerVirtualModifier *entry = g_new (AtspiDeviceA11yManagerVirtualModifier, 1);
+  entry->modifier = modifier;
+  entry->keysym = keysym;
+  GSList *insertion_point = find_insertion_point_for_modifier (manager_device, modifier);
+  manager_device->virtual_modifiers = g_slist_insert_before (manager_device->virtual_modifiers, insertion_point, entry);
+
+  manager_device->grabbed_modifiers = g_slist_append (manager_device->grabbed_modifiers, GUINT_TO_POINTER (keysym));
+  refresh_grabs (manager_device);
+  g_warning ("Mapped keysym %d to virtual modifier %d", keysym, modifier);
+  return 1 << modifier;
+}
+
+static void
+atspi_device_a11y_manager_unmap_keysym_modifier (AtspiDevice *device, guint modifier)
+{
+  AtspiDeviceA11yManager *manager_device = ATSPI_DEVICE_A11Y_MANAGER (device);
+  GSList *l;
+
+  for (l = manager_device->virtual_modifiers; l; l = l->next)
+    {
+      AtspiDeviceA11yManagerVirtualModifier *entry = l->data;
+      if (entry->modifier == modifier)
+        {
+          manager_device->virtual_modifiers = g_slist_remove (manager_device->virtual_modifiers, entry);
+          g_free (entry);
+          break;
+        }
+    }
+
+  manager_device->grabbed_modifiers = g_slist_remove (manager_device->grabbed_modifiers, GUINT_TO_POINTER (modifier));
+  refresh_grabs (manager_device);
+  g_warning ("Unmapped virtual modifier %d", modifier);
+}
+
+static gboolean
+atspi_device_a11y_manager_grab_keyboard (AtspiDevice *device)
+{
+  AtspiDeviceA11yManager *manager_device = ATSPI_DEVICE_A11Y_MANAGER (device);
+
+  g_dbus_proxy_call_sync (manager_device->keyboard_monitor,
+                          "GrabKeyboard",
+                          NULL,
+                          G_DBUS_CALL_FLAGS_NONE,
+                          -1,
+                          NULL,
+                          NULL);
+  return TRUE;
+}
+
+static void
+atspi_device_a11y_manager_ungrab_keyboard (AtspiDevice *device)
+{
+  AtspiDeviceA11yManager *manager_device = ATSPI_DEVICE_A11Y_MANAGER (device);
+
+  g_dbus_proxy_call_sync (manager_device->keyboard_monitor,
+                          "UngrabKeyboard",
+                          NULL,
                           G_DBUS_CALL_FLAGS_NONE,
                           -1,
                           NULL,
@@ -244,6 +278,41 @@ atspi_device_a11y_manager_remove_key_grab (AtspiDevice *device, guint id)
 }
 
 static void
+a11y_manager_signal_cb (GDBusProxy *proxy,
+                        gchar      *sender_name,
+                        gchar      *signal_name,
+                        GVariant   *parameters,
+                        gpointer    user_data)
+{
+  if (g_strcmp0 (signal_name, "KeyEvent") != 0)
+    return;
+
+  AtspiDeviceA11yManager *device = ATSPI_DEVICE_A11Y_MANAGER (user_data);
+  gboolean released;
+  gchar *text;
+  gint utf8_len;
+  guint32 state, keysym, unichar, virtual_modifier;
+  guint16 keycode;
+
+  g_variant_get (parameters, "(buuuq)", &released, &state, &keysym, &unichar, &keycode);
+  utf8_len = g_unichar_to_utf8 (unichar, NULL);
+  text = g_new (gchar, utf8_len + 1);
+  g_unichar_to_utf8 (unichar, text);
+  text[utf8_len] = '\0';
+  virtual_modifier = atspi_device_a11y_manager_get_keysym_modifier (ATSPI_DEVICE (device), keysym);
+  if (virtual_modifier)
+    {
+      if (released)
+        device->enabled_virtual_modifiers &= ~virtual_modifier;
+      else
+        device->enabled_virtual_modifiers |= virtual_modifier;
+    }
+  state = state | device->enabled_virtual_modifiers;
+  atspi_device_notify_key (ATSPI_DEVICE (device), !released, keycode, keysym, state, text);
+  g_free (text);
+}
+
+static void
 atspi_device_a11y_manager_init (AtspiDeviceA11yManager *device)
 {
   g_signal_connect_object (device->keyboard_monitor, "g-signal", G_CALLBACK (a11y_manager_signal_cb), device, 0);
@@ -273,6 +342,9 @@ atspi_device_a11y_manager_class_init (AtspiDeviceA11yManagerClass *klass)
   device_class->unmap_modifier = atspi_device_a11y_manager_unmap_modifier;
   device_class->get_modifier = atspi_device_a11y_manager_get_modifier;
   device_class->get_locked_modifiers = atspi_device_a11y_manager_get_locked_modifiers;
+  device_class->map_keysym_modifier = atspi_device_a11y_manager_map_keysym_modifier;
+  device_class->unmap_keysym_modifier = atspi_device_a11y_manager_unmap_keysym_modifier;
+  device_class->get_keysym_modifier = atspi_device_a11y_manager_get_keysym_modifier;
   device_class->grab_keyboard = atspi_device_a11y_manager_grab_keyboard;
   device_class->ungrab_keyboard = atspi_device_a11y_manager_ungrab_keyboard;
   device_class->add_key_grab = atspi_device_a11y_manager_add_key_grab;
