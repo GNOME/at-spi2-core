@@ -315,8 +315,6 @@ a11y_manager_signal_cb (GDBusProxy *proxy,
 static void
 atspi_device_a11y_manager_init (AtspiDeviceA11yManager *device)
 {
-  g_signal_connect_object (device->keyboard_monitor, "g-signal", G_CALLBACK (a11y_manager_signal_cb), device, 0);
-
   device->grabbed_modifiers = NULL;
   device->grabbed_keys = NULL;
   }
@@ -384,6 +382,8 @@ atspi_device_a11y_manager_try_new ()
   AtspiDeviceA11yManager *device = g_object_new (atspi_device_a11y_manager_get_type (), NULL);
   device->session_bus = session_bus;
   device->keyboard_monitor = keyboard_monitor;
+
+  g_signal_connect_object (device->keyboard_monitor, "g-signal", G_CALLBACK (a11y_manager_signal_cb), device, 0);
 
   return device;
 }

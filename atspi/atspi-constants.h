@@ -1537,7 +1537,7 @@ extern "C"
 
 #define ATSPI_DBUS_INTERFACE_KEYBOARD_MONITOR "org.freedesktop.a11y.KeyboardMonitor"
 #define ATSPI_DBUS_NAME_A11Y_MANAGER "org.freedesktop.a11y.Manager"
-#define ATSPI_DBUS_PATH_A11Y_MANAGER "/orgfreedesktop/a11y/Manager"
+#define ATSPI_DBUS_PATH_A11Y_MANAGER "/org/freedesktop/a11y/Manager"
 
 #ifdef __cplusplus
 }
