@@ -51,6 +51,7 @@ struct _AtspiDeviceA11yManager
   GSList *grabbed_keys;
   GSList *virtual_modifiers;
   guint enabled_virtual_modifiers;
+  guint virtual_modifier_mask;
 };
 
 G_DEFINE_TYPE (AtspiDeviceA11yManager, atspi_device_a11y_manager, ATSPI_TYPE_DEVICE)
@@ -117,12 +118,12 @@ refresh_grabs (AtspiDeviceA11yManager *manager_device)
       AtspiDeviceA11yManagerKey *entry = l->data;
       g_variant_builder_open (&builder, G_VARIANT_TYPE ("(uu)"));
       g_variant_builder_add (&builder, "u", entry->keysym);
-      g_variant_builder_add (&builder, "u", entry->modifiers);
+      g_variant_builder_add (&builder, "u", entry->modifiers & ~manager_device->virtual_modifier_mask);
       g_variant_builder_close (&builder);
     }
   g_variant_builder_close (&builder);
   g_dbus_proxy_call_sync (manager_device->keyboard_monitor,
-                          "SetGrabs",
+                          "SetKeyGrabs",
                           g_variant_builder_end (&builder),
                           G_DBUS_CALL_FLAGS_NONE,
                           -1,
@@ -133,7 +134,6 @@ refresh_grabs (AtspiDeviceA11yManager *manager_device)
 static guint
 atspi_device_a11y_manager_map_modifier (AtspiDevice *device, gint keycode)
 {
-  g_warning ("Mapping of keycode %d is not supported, use the keysym instead", keycode);
   return 0;
 }
 
@@ -188,7 +188,7 @@ atspi_device_a11y_manager_map_keysym_modifier (AtspiDevice *device, guint keysym
 
   manager_device->grabbed_modifiers = g_slist_append (manager_device->grabbed_modifiers, GUINT_TO_POINTER (keysym));
   refresh_grabs (manager_device);
-  g_warning ("Mapped keysym %d to virtual modifier %d", keysym, modifier);
+  //manager_device->virtual_modifier_mask |= 1 << modifier;
   return 1 << modifier;
 }
 
@@ -204,6 +204,7 @@ atspi_device_a11y_manager_unmap_keysym_modifier (AtspiDevice *device, guint modi
       if (entry->modifier == modifier)
         {
           manager_device->virtual_modifiers = g_slist_remove (manager_device->virtual_modifiers, entry);
+          manager_device->virtual_modifier_mask &= ~(1 << modifier);
           g_free (entry);
           break;
         }
@@ -211,7 +212,6 @@ atspi_device_a11y_manager_unmap_keysym_modifier (AtspiDevice *device, guint modi
 
   manager_device->grabbed_modifiers = g_slist_remove (manager_device->grabbed_modifiers, GUINT_TO_POINTER (modifier));
   refresh_grabs (manager_device);
-  g_warning ("Unmapped virtual modifier %d", modifier);
 }
 
 static gboolean
@@ -248,7 +248,6 @@ atspi_device_a11y_manager_add_key_grab (AtspiDevice *device, AtspiKeyDefinition 
 {
   AtspiDeviceA11yManager *manager_device = ATSPI_DEVICE_A11Y_MANAGER (device);
 
-  g_warning ("Requested to grab keysym %d with modifiers %d and keycode %d", kd->keysym, kd->modifiers, kd->keycode);
   AtspiDeviceA11yManagerKey *entry = g_new (AtspiDeviceA11yManagerKey, 1);
   entry->keysym = kd->keysym;
   entry->modifiers = kd->modifiers;
