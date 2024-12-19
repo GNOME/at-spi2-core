@@ -244,10 +244,26 @@ atspi_device_a11y_manager_ungrab_keyboard (AtspiDevice *device)
 }
 
 static gboolean
+has_key_grab (AtspiDeviceA11yManager  *device, guint32 keysym, guint32 modifiers)
+{
+  GSList *l;
+
+  for (l = device->grabbed_keys; l; l = l->next)
+    {
+      AtspiDeviceA11yManagerKey *entry = l->data;
+      if (entry->keysym == keysym && entry->modifiers == modifiers)
+        return TRUE;
+    }
+  return FALSE;
+}
+
+static gboolean
 atspi_device_a11y_manager_add_key_grab (AtspiDevice *device, AtspiKeyDefinition *kd)
 {
   AtspiDeviceA11yManager *manager_device = ATSPI_DEVICE_A11Y_MANAGER (device);
 
+  if (has_key_grab (manager_device, kd->keysym, kd->modifiers))
+    return FALSE;
   AtspiDeviceA11yManagerKey *entry = g_new (AtspiDeviceA11yManagerKey, 1);
   entry->keysym = kd->keysym;
   entry->modifiers = kd->modifiers;
