@@ -25,6 +25,8 @@
 
 #include <gio/gio.h>
 
+#define REFRESH_KEYS_TIMEOUT 10
+
 typedef struct _AtspiDeviceA11yManagerKey AtspiDeviceA11yManagerKey;
 struct _AtspiDeviceA11yManagerKey
 {
@@ -52,6 +54,8 @@ struct _AtspiDeviceA11yManager
   GSList *virtual_modifiers;
   guint enabled_virtual_modifiers;
   guint virtual_modifier_mask;
+
+  guint refresh_timeout_id;
 };
 
 G_DEFINE_TYPE (AtspiDeviceA11yManager, atspi_device_a11y_manager, ATSPI_TYPE_DEVICE)
@@ -258,6 +262,14 @@ has_key_grab (AtspiDeviceA11yManager  *device, guint32 keysym, guint32 modifiers
 }
 
 static gboolean
+refresh_keys_timeout_cb (gpointer user_data)
+{
+  AtspiDeviceA11yManager *device = ATSPI_DEVICE_A11Y_MANAGER (user_data);
+  refresh_grabs (device);
+  return G_SOURCE_REMOVE;
+}
+
+static gboolean
 atspi_device_a11y_manager_add_key_grab (AtspiDevice *device, AtspiKeyDefinition *kd)
 {
   AtspiDeviceA11yManager *manager_device = ATSPI_DEVICE_A11Y_MANAGER (device);
@@ -268,7 +280,7 @@ atspi_device_a11y_manager_add_key_grab (AtspiDevice *device, AtspiKeyDefinition 
   entry->keysym = kd->keysym;
   entry->modifiers = kd->modifiers;
   manager_device->grabbed_keys = g_slist_append (manager_device->grabbed_keys, entry);
-  refresh_grabs (manager_device);
+  manager_device->refresh_timeout_id = g_timeout_add (REFRESH_KEYS_TIMEOUT, refresh_keys_timeout_cb, manager_device);
   return TRUE;
 }
 
@@ -286,7 +298,7 @@ atspi_device_a11y_manager_remove_key_grab (AtspiDevice *device, guint id)
         {
           manager_device->grabbed_keys = g_slist_remove (manager_device->grabbed_keys, entry);
           g_free (entry);
-          refresh_grabs (manager_device);
+          manager_device->refresh_timeout_id = g_timeout_add (REFRESH_KEYS_TIMEOUT, refresh_keys_timeout_cb, manager_device);
           return;
         }
     }
@@ -332,6 +344,7 @@ atspi_device_a11y_manager_init (AtspiDeviceA11yManager *device)
 {
   device->grabbed_modifiers = NULL;
   device->grabbed_keys = NULL;
+  device->refresh_timeout_id = 0;
   }
 
 static void
@@ -345,11 +358,25 @@ atspi_device_a11y_manager_finalize (GObject *object)
 }
 
 static void
+atspi_device_a11y_manager_dispose (GObject *object)
+{
+  AtspiDeviceA11yManager *device = ATSPI_DEVICE_A11Y_MANAGER (object);
+
+  g_slist_free_full (device->grabbed_modifiers, g_free);
+  g_slist_free_full (device->grabbed_keys, g_free);
+  g_slist_free_full (device->virtual_modifiers, g_free);
+  if (device->refresh_timeout_id)
+    g_source_remove (device->refresh_timeout_id);
+  G_OBJECT_CLASS (atspi_device_a11y_manager_parent_class)->dispose (object);
+}
+
+static void
 atspi_device_a11y_manager_class_init (AtspiDeviceA11yManagerClass *klass)
 {
   GObjectClass *object_class = (GObjectClass *) klass;
   AtspiDeviceClass *device_class = ATSPI_DEVICE_CLASS (klass);
 
+  object_class->dispose = atspi_device_a11y_manager_dispose;
   object_class->finalize = atspi_device_a11y_manager_finalize;
   device_class->map_modifier = atspi_device_a11y_manager_map_modifier;
   device_class->unmap_modifier = atspi_device_a11y_manager_unmap_modifier;
