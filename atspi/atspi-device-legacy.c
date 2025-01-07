@@ -331,7 +331,7 @@ atspi_device_legacy_get_keysym_modifier (AtspiDevice *device, guint keysym)
 #endif
 
   return atspi_device_legacy_get_modifier (device, resolved_keysym);
-  }
+}
 
 static void
 atspi_device_legacy_init (AtspiDeviceLegacy *device)
