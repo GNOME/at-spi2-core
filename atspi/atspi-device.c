@@ -282,6 +282,7 @@ atspi_device_get_grab_by_id (AtspiDevice *device, guint id)
         {
           AtspiKeyDefinition *kd = g_new0 (AtspiKeyDefinition, 1);
           kd->keycode = grab->keycode;
+          kd->keysym = grab->keysym;
           kd->modifiers = grab->modifiers;
           return kd;
         }
