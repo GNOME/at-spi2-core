@@ -167,7 +167,7 @@ grab_has_active_duplicate (AtspiDeviceX11 *x11_device, AtspiX11KeyGrab *grab)
   for (l = priv->key_grabs; l; l = l->next)
     {
       AtspiX11KeyGrab *other = l->data;
-      if (other != grab && other->enabled && other->kd->keycode == grab->kd->keycode && (other->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK) == (grab->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK))
+      if (other != grab && other->enabled && other->kd->keycode == grab->kd->keycode && other->kd->keysym == grab->kd->keysym && (other->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK) == (grab->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK))
         return TRUE;
     }
   return FALSE;
@@ -220,13 +220,21 @@ enable_key_grab (AtspiDeviceX11 *x11_device, AtspiX11KeyGrab *grab)
 {
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
   gboolean ret;
+  gint grab_keycode;
 
   g_return_val_if_fail (priv->display != NULL, FALSE);
 
   if (grab_has_active_duplicate (x11_device, grab))
     ret = TRUE;
   else
-    ret = grab_key (x11_device, priv->focused_window, grab->kd->keycode, grab->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK);
+    {
+      if (grab->kd->keysym != 0)
+        grab_keycode = XKeysymToKeycode (priv->display, grab->kd->keysym);
+      else
+        grab_keycode = grab->kd->keycode;
+
+      ret = grab_key (x11_device, priv->focused_window, grab_keycode, grab->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK);
+    }
   grab->enabled = TRUE;
   grab->window = priv->focused_window;
   return ret;
@@ -264,6 +272,7 @@ static void
 disable_key_grab (AtspiDeviceX11 *x11_device, AtspiX11KeyGrab *grab)
 {
   AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
+  gint grab_keycode;
 
   g_return_if_fail (priv->display != NULL);
 
@@ -275,7 +284,11 @@ disable_key_grab (AtspiDeviceX11 *x11_device, AtspiX11KeyGrab *grab)
   if (grab_has_active_duplicate (x11_device, grab))
     return;
 
-  ungrab_key (x11_device, grab->window, grab->kd->keycode, grab->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK);
+  if (grab->kd->keysym != 0)
+    grab_keycode = XKeysymToKeycode (priv->display, grab->kd->keysym);
+  else
+    grab_keycode = grab->kd->keycode;
+  ungrab_key (x11_device, grab->window, grab_keycode, grab->kd->modifiers & ~ATSPI_VIRTUAL_MODIFIER_MASK);
 }
 
 static void
@@ -692,7 +705,7 @@ atspi_device_x11_remove_key_grab (AtspiDevice *device, guint id)
   for (l = priv->key_grabs; l; l = g_slist_next (l))
     {
       AtspiX11KeyGrab *other = l->data;
-      if (other->kd->keycode == kd->keycode && other->kd->modifiers == kd->modifiers)
+      if ((other->kd->keycode == kd->keycode || other->kd->keysym == kd->keysym) && other->kd->modifiers == kd->modifiers)
         {
           disable_key_grab (x11_device, other);
           priv->key_grabs = g_slist_remove (priv->key_grabs, other);
@@ -803,6 +816,36 @@ atspi_device_x11_generate_mouse_event (AtspiDevice *device, AtspiAccessible *obj
   atspi_generate_mouse_event (x, y, name, error);
 }
 
+static guint
+atspi_device_x11_map_keysym_modifier (AtspiDevice *device, guint keysym)
+{
+  AtspiDeviceX11 *x11_device = ATSPI_DEVICE_X11 (device);
+  AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
+
+  gint keycode = XKeysymToKeycode (priv->display, keysym);
+  return atspi_device_x11_map_modifier (device, keycode);
+}
+
+static void
+atspi_device_x11_unmap_keysym_modifier (AtspiDevice *device, guint keysym)
+{
+  AtspiDeviceX11 *x11_device = ATSPI_DEVICE_X11 (device);
+  AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
+
+  gint keycode = XKeysymToKeycode (priv->display, keysym);
+  atspi_device_x11_unmap_modifier (device, keycode);
+}
+
+static guint
+atspi_device_x11_get_keysym_modifier (AtspiDevice *device, guint keysym)
+{
+  AtspiDeviceX11 *x11_device = ATSPI_DEVICE_X11 (device);
+  AtspiDeviceX11Private *priv = atspi_device_x11_get_instance_private (x11_device);
+
+  gint keycode = XKeysymToKeycode (priv->display, keysym);
+  return atspi_device_x11_get_modifier (device, keycode);
+}
+
 static void
 atspi_device_x11_class_init (AtspiDeviceX11Class *klass)
 {
@@ -819,6 +862,9 @@ atspi_device_x11_class_init (AtspiDeviceX11Class *klass)
   device_class->grab_keyboard = atspi_device_x11_grab_keyboard;
   device_class->ungrab_keyboard = atspi_device_x11_ungrab_keyboard;
   device_class->generate_mouse_event = atspi_device_x11_generate_mouse_event;
+  device_class->map_keysym_modifier = atspi_device_x11_map_keysym_modifier;
+  device_class->unmap_keysym_modifier = atspi_device_x11_unmap_keysym_modifier;
+  device_class->get_keysym_modifier = atspi_device_x11_get_keysym_modifier;
   object_class->finalize = atspi_device_x11_finalize;
 }
 

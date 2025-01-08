@@ -57,6 +57,9 @@ struct _AtspiDeviceClass
   void (*ungrab_keyboard) (AtspiDevice *device);
   guint (*get_locked_modifiers) (AtspiDevice *device);
   void (*generate_mouse_event) (AtspiDevice *device, AtspiAccessible *obj, gint x, gint y, const gchar *name, GError **error);
+  guint (*map_keysym_modifier) (AtspiDevice *device, guint keysym);
+  void (*unmap_keysym_modifier) (AtspiDevice *device, guint keysym);
+  guint (*get_keysym_modifier) (AtspiDevice *device, guint keysym);
 };
 
 GType atspi_device_get_type (void);
@@ -100,6 +103,12 @@ gboolean atspi_device_grab_keyboard (AtspiDevice *device);
 void atspi_device_ungrab_keyboard (AtspiDevice *device);
 
 void atspi_device_generate_mouse_event (AtspiDevice *device, AtspiAccessible *obj, gint x, gint y, const gchar *name, GError **error);
+
+guint atspi_device_map_keysym_modifier (AtspiDevice *device, guint keysym);
+
+void atspi_device_unmap_keysym_modifier (AtspiDevice *device, guint keysym);
+
+guint atspi_device_get_keysym_modifier (AtspiDevice *device, guint keysym);
 
 G_END_DECLS
 

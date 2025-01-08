@@ -291,6 +291,48 @@ atspi_device_legacy_generate_mouse_event (AtspiDevice *device, AtspiAccessible *
   atspi_generate_mouse_event (x, y, name, error);
 }
 
+static guint
+atspi_device_legacy_map_keysym_modifier (AtspiDevice *device, guint keysym)
+{
+  AtspiDeviceLegacy *legacy_device = ATSPI_DEVICE_LEGACY (device);
+  AtspiDeviceLegacyPrivate *priv = atspi_device_legacy_get_instance_private (legacy_device);
+
+  guint resolved_keysym = keysym;
+#ifdef HAVE_X11
+  resolved_keysym = XKeysymToKeycode (priv->display, keysym);
+#endif
+
+  return atspi_device_legacy_map_modifier (device, resolved_keysym);
+}
+
+static void
+atspi_device_legacy_unmap_keysym_modifier (AtspiDevice *device, guint keysym)
+{
+  AtspiDeviceLegacy *legacy_device = ATSPI_DEVICE_LEGACY (device);
+  AtspiDeviceLegacyPrivate *priv = atspi_device_legacy_get_instance_private (legacy_device);
+
+  guint resolved_keysym = keysym;
+#ifdef HAVE_X11
+  resolved_keysym = XKeysymToKeycode (priv->display, keysym);
+#endif
+
+  atspi_device_legacy_unmap_modifier (device, resolved_keysym);
+}
+
+static guint
+atspi_device_legacy_get_keysym_modifier (AtspiDevice *device, guint keysym)
+{
+  AtspiDeviceLegacy *legacy_device = ATSPI_DEVICE_LEGACY (device);
+  AtspiDeviceLegacyPrivate *priv = atspi_device_legacy_get_instance_private (legacy_device);
+
+  guint resolved_keysym = keysym;
+#ifdef HAVE_X11
+  resolved_keysym = XKeysymToKeycode (priv->display, keysym);
+#endif
+
+  return atspi_device_legacy_get_modifier (device, resolved_keysym);
+}
+
 static void
 atspi_device_legacy_init (AtspiDeviceLegacy *device)
 {
@@ -335,6 +377,9 @@ atspi_device_legacy_class_init (AtspiDeviceLegacyClass *klass)
   device_class->grab_keyboard = atspi_device_legacy_grab_keyboard;
   device_class->ungrab_keyboard = atspi_device_legacy_ungrab_keyboard;
   device_class->generate_mouse_event = atspi_device_legacy_generate_mouse_event;
+  device_class->map_keysym_modifier = atspi_device_legacy_map_keysym_modifier;
+  device_class->unmap_keysym_modifier = atspi_device_legacy_unmap_keysym_modifier;
+  device_class->get_keysym_modifier = atspi_device_legacy_get_keysym_modifier;
 }
 
 /**
