@@ -53,7 +53,6 @@ struct _AtspiDeviceA11yManager
   GSList *grabbed_keys;
   GSList *virtual_modifiers;
   guint enabled_virtual_modifiers;
-  guint virtual_modifier_mask;
 
   guint refresh_timeout_id;
 };
@@ -96,9 +95,9 @@ find_insertion_point_for_modifier (AtspiDeviceA11yManager *manager_device, guint
   for (l = manager_device->virtual_modifiers; l; l = l->next)
     {
       AtspiDeviceA11yManagerVirtualModifier *entry = l->data;
-        if (entry->modifier == modifier - 1)
-          return l->next;
-            }
+      if (entry->modifier == modifier - 1)
+        return l->next;
+    }
   return NULL;
 }
 
@@ -122,7 +121,7 @@ refresh_grabs (AtspiDeviceA11yManager *manager_device)
       AtspiDeviceA11yManagerKey *entry = l->data;
       g_variant_builder_open (&builder, G_VARIANT_TYPE ("(uu)"));
       g_variant_builder_add (&builder, "u", entry->keysym);
-      g_variant_builder_add (&builder, "u", entry->modifiers & ~manager_device->virtual_modifier_mask);
+      g_variant_builder_add (&builder, "u", entry->modifiers);
       g_variant_builder_close (&builder);
     }
   g_variant_builder_close (&builder);
@@ -169,7 +168,7 @@ atspi_device_a11y_manager_get_keysym_modifier (AtspiDevice *device, guint keysym
   return 0;
 }
 
-static  guint
+static guint
 atspi_device_a11y_manager_map_keysym_modifier (AtspiDevice *device, guint keysym)
 {
   AtspiDeviceA11yManager *manager_device = ATSPI_DEVICE_A11Y_MANAGER (device);
@@ -192,7 +191,6 @@ atspi_device_a11y_manager_map_keysym_modifier (AtspiDevice *device, guint keysym
 
   manager_device->grabbed_modifiers = g_slist_append (manager_device->grabbed_modifiers, GUINT_TO_POINTER (keysym));
   refresh_grabs (manager_device);
-  //manager_device->virtual_modifier_mask |= 1 << modifier;
   return 1 << modifier;
 }
 
@@ -208,7 +206,6 @@ atspi_device_a11y_manager_unmap_keysym_modifier (AtspiDevice *device, guint modi
       if (entry->modifier == modifier)
         {
           manager_device->virtual_modifiers = g_slist_remove (manager_device->virtual_modifiers, entry);
-          manager_device->virtual_modifier_mask &= ~(1 << modifier);
           g_free (entry);
           break;
         }
@@ -248,7 +245,7 @@ atspi_device_a11y_manager_ungrab_keyboard (AtspiDevice *device)
 }
 
 static gboolean
-has_key_grab (AtspiDeviceA11yManager  *device, guint32 keysym, guint32 modifiers)
+has_key_grab (AtspiDeviceA11yManager *device, guint32 keysym, guint32 modifiers)
 {
   GSList *l;
 
@@ -306,10 +303,10 @@ atspi_device_a11y_manager_remove_key_grab (AtspiDevice *device, guint id)
 
 static void
 a11y_manager_signal_cb (GDBusProxy *proxy,
-                        gchar      *sender_name,
-                        gchar      *signal_name,
-                        GVariant   *parameters,
-                        gpointer    user_data)
+                        gchar  *sender_name,
+                        gchar *signal_name,
+                        GVariant *parameters,
+                        gpointer user_data)
 {
   if (g_strcmp0 (signal_name, "KeyEvent") != 0)
     return;
@@ -345,7 +342,7 @@ atspi_device_a11y_manager_init (AtspiDeviceA11yManager *device)
   device->grabbed_modifiers = NULL;
   device->grabbed_keys = NULL;
   device->refresh_timeout_id = 0;
-  }
+}
 
 static void
 atspi_device_a11y_manager_finalize (GObject *object)
@@ -406,13 +403,13 @@ atspi_device_a11y_manager_try_new ()
   GError *error = NULL;
   GDBusConnection *session_bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
   GDBusProxy *keyboard_monitor = g_dbus_proxy_new_sync (session_bus,
-                                                    G_DBUS_PROXY_FLAGS_NONE,
-                                                    NULL,
-                                                    ATSPI_DBUS_NAME_A11Y_MANAGER,
-                                                    ATSPI_DBUS_PATH_A11Y_MANAGER,
-                                                    ATSPI_DBUS_INTERFACE_KEYBOARD_MONITOR,
-                                                    NULL,
-                                                    &error);
+                                                        G_DBUS_PROXY_FLAGS_NONE,
+                                                        NULL,
+                                                        ATSPI_DBUS_NAME_A11Y_MANAGER,
+                                                        ATSPI_DBUS_PATH_A11Y_MANAGER,
+                                                        ATSPI_DBUS_INTERFACE_KEYBOARD_MONITOR,
+                                                        NULL,
+                                                        &error);
 
   if (error)
     {
