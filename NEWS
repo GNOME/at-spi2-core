@@ -1,3 +1,15 @@
+What's new in at-spi2-core 2.55.0:
+
+* Fix various memory leaks.
+
+* Fix the build on FreeBSD.
+
+* Improve warnings when setting a property.
+
+* Use the appropriate annotations for callbacks.
+
+* device: Support adding grabs given a keysym.
+
 What's new in at-spi2-core 2.53.90:
 
 * Make ATSPI_ROLE_PUSH_BUTTON an enum value again.
