@@ -9,6 +9,10 @@
 # Include the parameters we need from Freedesktop CI Templates
 include:
   - local: 'ci/container_builds.yml'
+  - component: gitlab.gnome.org/GNOME/citemplates/release-service@master
+    inputs:
+      dist-job-name: "opensuse-distcheck"
+      tarball-artifact-path: "_build/meson-dist/$CI_PROJECT_NAME-$CI_COMMIT_TAG.tar.xz"
 
 # Stages in the CI pipeline in which jobs will be run
 stages:
@@ -18,6 +22,7 @@ stages:
   - analysis
   - docs
   - deploy
+  release
 
 # Enable merge request pipelines and avoid duplicate pipelines
 # https://docs.gitlab.com/ee/ci/yaml/index.html#switch-between-branch-pipelines-and-merge-request-pipelines
@@ -90,6 +95,22 @@ fedora-x86_64:
     paths:
       - "_build/meson-logs"
 
+opensuse-distcheck:
+  stage: build
+  extends:
+    - '.container.opensuse@x86_64'
+    - '.fdo.distribution-image@opensuse'
+  needs: ['opensuse-container@x86_64']
+  variables:
+    MESON_EXTRA_FLAGS: "--buildtype=debug" # -Dwerror=true
+  script:
+    - source ci/env.sh
+    - meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
+    - meson dist -C _build
+  artifacts:
+    paths:
+      - "_build/meson-dist/*.xz"
+
 # Run static analysis on the code.
 #
 # The logs are part of the compilation stderr.
@@ -110,6 +131,7 @@ static-scan:
     paths:
       - "_scan_build/meson-logs/scanbuild"
 
+xx
 # Build and run with address sanitizer (asan).
 asan-build:
   stage: analysis
