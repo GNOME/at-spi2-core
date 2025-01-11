@@ -131,7 +131,6 @@ static-scan:
     paths:
       - "_scan_build/meson-logs/scanbuild"
 
-xx
 # Build and run with address sanitizer (asan).
 asan-build:
   stage: analysis
