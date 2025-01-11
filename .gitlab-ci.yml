@@ -96,7 +96,7 @@ fedora-x86_64:
       - "_build/meson-logs"
 
 opensuse-distcheck:
-  stage: release
+  stage: build
   extends:
     - '.container.opensuse@x86_64'
     - '.fdo.distribution-image@opensuse'
