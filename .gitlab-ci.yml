@@ -22,7 +22,7 @@ stages:
   - analysis
   - docs
   - deploy
-  release
+  - release
 
 # Enable merge request pipelines and avoid duplicate pipelines
 # https://docs.gitlab.com/ee/ci/yaml/index.html#switch-between-branch-pipelines-and-merge-request-pipelines
