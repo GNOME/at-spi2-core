@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.54.1:
+
+* Fix various memory leaks.
+
+* Fix the build on FreeBSD.
+
 What's new in at-spi2-core 2.53.90:
 
 * Make ATSPI_ROLE_PUSH_BUTTON an enum value again.
