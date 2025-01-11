@@ -9,6 +9,10 @@
 # Include the parameters we need from Freedesktop CI Templates
 include:
   - local: 'ci/container_builds.yml'
+  - component: gitlab.gnome.org/GNOME/citemplates/release-service@master
+    inputs:
+      dist-job-name: "opensuse-distcheck"
+      tarball-artifact-path: "_build/meson-dist/$CI_PROJECT_NAME-$CI_COMMIT_TAG.tar.xz"
 
 # Stages in the CI pipeline in which jobs will be run
 stages:
@@ -18,6 +22,7 @@ stages:
   - analysis
   - docs
   - deploy
+  - release
 
 # Enable merge request pipelines and avoid duplicate pipelines
 # https://docs.gitlab.com/ee/ci/yaml/index.html#switch-between-branch-pipelines-and-merge-request-pipelines
@@ -89,6 +94,29 @@ fedora-x86_64:
     name: "at-spi2-core-${CI_COMMIT_REF_NAME}"
     paths:
       - "_build/meson-logs"
+
+opensuse-distcheck:
+  stage: build
+  extends:
+    - '.container.opensuse@x86_64'
+    - '.fdo.distribution-image@opensuse'
+  needs: ['opensuse-container@x86_64']
+  variables:
+    MESON_EXTRA_FLAGS: "--buildtype=debug" # -Dwerror=true
+  script:
+    - source ci/env.sh
+    - git config --global --add safe.directory $CI_PROJECT_DIR
+    - meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
+    - meson compile -C _build
+    - meson install -C _build
+    - mkdir /tmp/test+dir+with+funny+chars
+    - export XDG_RUNTIME_DIR=/tmp/test+dir+with+funny+chars # See https://gitlab.gnome.org/GNOME/at-spi2-core/-/issues/48
+    - xvfb-run --auto-servernum dbus-run-session -- ci/run-registryd-tests.sh
+    - xvfb-run --auto-servernum dbus-run-session -- ci/run-tests.sh
+    - meson dist -C _build --no-tests
+  artifacts:
+    paths:
+      - "_build/meson-dist/*.xz"
 
 # Run static analysis on the code.
 #
