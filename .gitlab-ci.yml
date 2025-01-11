@@ -96,7 +96,7 @@ fedora-x86_64:
       - "_build/meson-logs"
 
 opensuse-distcheck:
-  stage: build
+  stage: release
   extends:
     - '.container.opensuse@x86_64'
     - '.fdo.distribution-image@opensuse'
@@ -105,8 +105,15 @@ opensuse-distcheck:
     MESON_EXTRA_FLAGS: "--buildtype=debug" # -Dwerror=true
   script:
     - source ci/env.sh
+    - git config --global --add safe.directory $CI_PROJECT_DIR
     - meson setup ${MESON_EXTRA_FLAGS} --prefix /usr _build .
-    - meson dist -C _build
+    - meson compile -C _build
+    - meson install -C _build
+    - mkdir /tmp/test+dir+with+funny+chars
+    - export XDG_RUNTIME_DIR=/tmp/test+dir+with+funny+chars # See https://gitlab.gnome.org/GNOME/at-spi2-core/-/issues/48
+    - xvfb-run --auto-servernum dbus-run-session -- ci/run-registryd-tests.sh
+    - xvfb-run --auto-servernum dbus-run-session -- ci/run-tests.sh
+    - meson dist -C _build --no-tests
   artifacts:
     paths:
       - "_build/meson-dist/*.xz"
