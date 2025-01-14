@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.55.0.1:
+
+* Fix regression in 2.55.0 where ungrabbing keys did not work reliably.
+
 What's new in at-spi2-core 2.55.0:
 
 * Fix various memory leaks.
