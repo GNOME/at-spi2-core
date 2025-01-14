@@ -705,7 +705,7 @@ atspi_device_x11_remove_key_grab (AtspiDevice *device, guint id)
   for (l = priv->key_grabs; l; l = g_slist_next (l))
     {
       AtspiX11KeyGrab *other = l->data;
-      if ((other->kd->keycode == kd->keycode || other->kd->keysym == kd->keysym) && other->kd->modifiers == kd->modifiers)
+      if (((kd->keycode && other->kd->keycode == kd->keycode) || (kd->keysym && other->kd->keysym == kd->keysym)) && other->kd->modifiers == kd->modifiers)
         {
           disable_key_grab (x11_device, other);
           priv->key_grabs = g_slist_remove (priv->key_grabs, other);
