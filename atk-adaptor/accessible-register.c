@@ -198,12 +198,14 @@ spi_register_deregister_object (SpiRegister *reg, GObject *gobj, gboolean unref)
   ref = object_to_ref (gobj);
   if (ref != 0)
     {
-      g_signal_emit (reg,
-                     register_signals[OBJECT_DEREGISTERED],
-                     0,
-                     gobj);
       if (unref)
-        g_object_weak_unref (gobj, deregister_object, reg);
+        {
+          g_signal_emit (reg,
+                         register_signals[OBJECT_DEREGISTERED],
+                         0,
+                         gobj);
+          g_object_weak_unref (gobj, deregister_object, reg);
+        }
       g_hash_table_remove (reg->ref2ptr, GINT_TO_POINTER (ref));
 
 #ifdef SPI_ATK_DEBUG

@@ -134,6 +134,20 @@ spi_cache_init (SpiCache *cache)
 }
 
 static void
+cache_weak_ref (gpointer data, GObject *gobj)
+{
+  SpiCache *cache = SPI_CACHE (data);
+
+  g_hash_table_remove (cache->objects, gobj);
+}
+
+static void
+spi_cache_remove_weak_ref (gpointer key, gpointer val, gpointer cache)
+{
+  g_object_weak_unref (val, cache_weak_ref, cache);
+}
+
+static void
 spi_cache_finalize (GObject *object)
 {
   SpiCache *cache = SPI_CACHE (object);
@@ -141,6 +155,7 @@ spi_cache_finalize (GObject *object)
   while (!g_queue_is_empty (cache->add_traversal))
     g_object_unref (G_OBJECT (g_queue_pop_head (cache->add_traversal)));
   g_queue_free (cache->add_traversal);
+  g_hash_table_foreach (cache->objects, spi_cache_remove_weak_ref, cache);
   g_hash_table_unref (cache->objects);
 
   g_signal_handlers_disconnect_by_func (spi_global_register,
@@ -169,6 +184,7 @@ remove_object (GObject *source, GObject *gobj, gpointer data)
                spi_register_object_to_path (spi_global_register, gobj));
 #endif
       g_signal_emit (cache, cache_signals[OBJECT_REMOVED], 0, gobj);
+      g_object_weak_unref (G_OBJECT (gobj), cache_weak_ref, cache);
       g_hash_table_remove (cache->objects, gobj);
     }
   else if (g_queue_remove (cache->add_traversal, gobj))
@@ -183,6 +199,7 @@ add_object (SpiCache *cache, GObject *gobj)
   g_return_if_fail (G_IS_OBJECT (gobj));
 
   g_hash_table_insert (cache->objects, gobj, NULL);
+  g_object_weak_ref (G_OBJECT (gobj), cache_weak_ref, cache);
 
 #ifdef SPI_ATK_DEBUG
   g_debug ("CACHE ADD - %s - %d - %s\n", atk_object_get_name (ATK_OBJECT (gobj)),
@@ -302,10 +319,6 @@ add_pending_items (gpointer data)
   while (!g_queue_is_empty (to_add))
     {
       current = g_queue_pop_head (to_add);
-
-      /* Make sure object is registerd so we are notified if it goes away */
-      g_free (spi_register_object_to_path (spi_global_register,
-                                           G_OBJECT (current)));
 
       add_object (cache, G_OBJECT (current));
       g_object_unref (G_OBJECT (current));
