@@ -303,7 +303,7 @@ atspi_device_a11y_manager_remove_key_grab (AtspiDevice *device, guint id)
 
 static void
 a11y_manager_signal_cb (GDBusProxy *proxy,
-                        gchar  *sender_name,
+                        gchar *sender_name,
                         gchar *signal_name,
                         GVariant *parameters,
                         gpointer user_data)
