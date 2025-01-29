@@ -134,6 +134,23 @@ refresh_grabs (AtspiDeviceA11yManager *manager_device)
                           NULL);
 }
 
+static gboolean
+refresh_keys_timeout_cb (gpointer user_data)
+{
+  AtspiDeviceA11yManager *device = ATSPI_DEVICE_A11Y_MANAGER (user_data);
+  refresh_grabs (device);
+  device->refresh_timeout_id = 0;
+  return G_SOURCE_REMOVE;
+}
+
+static void
+schedule_refresh_grabs (AtspiDeviceA11yManager *device)
+{
+  if (device->refresh_timeout_id)
+    return;
+  device->refresh_timeout_id = g_timeout_add (REFRESH_KEYS_TIMEOUT, refresh_keys_timeout_cb, device);
+}
+
 static guint
 atspi_device_a11y_manager_map_modifier (AtspiDevice *device, gint keycode)
 {
@@ -191,7 +208,7 @@ atspi_device_a11y_manager_map_keysym_modifier (AtspiDevice *device, guint keysym
   manager_device->virtual_modifiers = g_slist_insert_before (manager_device->virtual_modifiers, insertion_point, entry);
 
   manager_device->grabbed_modifiers = g_slist_append (manager_device->grabbed_modifiers, GUINT_TO_POINTER (keysym));
-  refresh_grabs (manager_device);
+  schedule_refresh_grabs (manager_device);
   return 1 << modifier;
 }
 
@@ -213,7 +230,7 @@ atspi_device_a11y_manager_unmap_keysym_modifier (AtspiDevice *device, guint modi
     }
 
   manager_device->grabbed_modifiers = g_slist_remove (manager_device->grabbed_modifiers, GUINT_TO_POINTER (modifier));
-  refresh_grabs (manager_device);
+  schedule_refresh_grabs (manager_device);
 }
 
 static gboolean
@@ -260,14 +277,6 @@ has_key_grab (AtspiDeviceA11yManager *device, guint32 keysym, guint32 modifiers)
 }
 
 static gboolean
-refresh_keys_timeout_cb (gpointer user_data)
-{
-  AtspiDeviceA11yManager *device = ATSPI_DEVICE_A11Y_MANAGER (user_data);
-  refresh_grabs (device);
-  return G_SOURCE_REMOVE;
-}
-
-static gboolean
 atspi_device_a11y_manager_add_key_grab (AtspiDevice *device, AtspiKeyDefinition *kd)
 {
   AtspiDeviceA11yManager *manager_device = ATSPI_DEVICE_A11Y_MANAGER (device);
@@ -278,7 +287,7 @@ atspi_device_a11y_manager_add_key_grab (AtspiDevice *device, AtspiKeyDefinition 
   entry->keysym = kd->keysym;
   entry->modifiers = kd->modifiers;
   manager_device->grabbed_keys = g_slist_append (manager_device->grabbed_keys, entry);
-  manager_device->refresh_timeout_id = g_timeout_add (REFRESH_KEYS_TIMEOUT, refresh_keys_timeout_cb, manager_device);
+  schedule_refresh_grabs (manager_device);
   return TRUE;
 }
 
@@ -296,7 +305,7 @@ atspi_device_a11y_manager_remove_key_grab (AtspiDevice *device, guint id)
         {
           manager_device->grabbed_keys = g_slist_remove (manager_device->grabbed_keys, entry);
           g_free (entry);
-          manager_device->refresh_timeout_id = g_timeout_add (REFRESH_KEYS_TIMEOUT, refresh_keys_timeout_cb, manager_device);
+          schedule_refresh_grabs (manager_device);
           return;
         }
     }
