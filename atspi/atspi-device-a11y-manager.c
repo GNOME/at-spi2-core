@@ -137,13 +137,14 @@ refresh_grabs (AtspiDeviceA11yManager *manager_device)
 static guint
 atspi_device_a11y_manager_map_modifier (AtspiDevice *device, gint keycode)
 {
+  g_warning ("Mapping of keycode %d is not supported, use the keysym instead", keycode);
   return 0;
 }
 
 static void
 atspi_device_a11y_manager_unmap_modifier (AtspiDevice *device, gint keycode)
 {
-  g_warning ("Mapping of keycode %d is not supported, use the keysym instead", keycode);
+  g_warning ("Unmapping of keycode %d is not supported, use the keysym instead", keycode);
 }
 
 static guint
