@@ -237,6 +237,8 @@ G_BEGIN_DECLS
  * actual change is. (Since: 2.36)
  *@ATK_ROLE_PUSH_BUTTON_MENU: A specialized push button to open a menu.
  * (Since: 2.46)
+ *@ATK_ROLE_SWITCH: A switch that can be toggled on/off.
+ * (Since: 2.56)
  *@ATK_ROLE_LAST_DEFINED: not a valid role, used for finding end of the enumeration
  *
  * Describes the role of an object
@@ -375,6 +377,7 @@ typedef enum
   ATK_ROLE_MARK,
   ATK_ROLE_SUGGESTION,
   ATK_ROLE_PUSH_BUTTON_MENU,
+  ATK_ROLE_SWITCH,
   ATK_ROLE_LAST_DEFINED,
 
   /* For backwards compatibility */

@@ -490,6 +490,7 @@ init_role_lookup_table (AtspiRole *role_table)
   role_table[ATK_ROLE_MARK] = ATSPI_ROLE_MARK;
   role_table[ATK_ROLE_SUGGESTION] = ATSPI_ROLE_SUGGESTION;
   role_table[ATK_ROLE_PUSH_BUTTON_MENU] = ATSPI_ROLE_PUSH_BUTTON_MENU;
+  role_table[ATK_ROLE_SWITCH] = ATSPI_ROLE_SWITCH;
 
   return TRUE;
 }

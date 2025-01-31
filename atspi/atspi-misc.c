@@ -102,6 +102,7 @@
   N_("split pane")
   N_("spin button")
   N_("statusbar")
+  N_("switch")
   N_("table")
   N_("table cell")
   N_("table column header")

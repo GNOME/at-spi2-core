@@ -1274,6 +1274,7 @@ extern "C"
    * %ATSPI_ROLE_CONTENT_INSERTION, in any order, to indicate what the
    * actual change is. @Since: 2.36
    * @ATSPI_ROLE_PUSH_BUTTON_MENU: A specialized push button to open a menu. @Since 2.46
+   * @ATSPI_ROLE_SWITCH: A switch that can be toggled on/off. @Since 2.56
    * @ATSPI_ROLE_LAST_DEFINED: Not a valid role, used for finding end of
    * enumeration.
    *
@@ -1413,6 +1414,7 @@ extern "C"
     ATSPI_ROLE_MARK,
     ATSPI_ROLE_SUGGESTION,
     ATSPI_ROLE_PUSH_BUTTON_MENU,
+    ATSPI_ROLE_SWITCH,
     ATSPI_ROLE_LAST_DEFINED,
 
     /* For backwards compatibility */
