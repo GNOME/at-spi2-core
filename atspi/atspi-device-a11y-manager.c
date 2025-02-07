@@ -432,6 +432,14 @@ atspi_device_a11y_manager_try_new ()
   device->session_bus = session_bus;
   device->keyboard_monitor = keyboard_monitor;
 
+  g_dbus_proxy_call_sync (device->keyboard_monitor,
+                     "WatchKeyboard",
+                     NULL,
+                     G_DBUS_CALL_FLAGS_NONE,
+                     -1,
+                     NULL,
+                     NULL);
+
   g_signal_connect_object (device->keyboard_monitor, "g-signal", G_CALLBACK (a11y_manager_signal_cb), device, 0);
 
   return device;
