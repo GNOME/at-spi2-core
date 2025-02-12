@@ -378,11 +378,39 @@ atspi_device_a11y_manager_dispose (GObject *object)
 }
 
 static void
+atspi_device_a11y_manager_constructed (GObject *object)
+{
+  AtspiDeviceA11yManager *device = ATSPI_DEVICE_A11Y_MANAGER (object);
+  const gchar *keyboard_monitor_id;
+
+  G_OBJECT_CLASS (atspi_device_a11y_manager_parent_class)->constructed (object);
+
+  const gchar *app_id = atspi_device_get_app_id (ATSPI_DEVICE (device));
+
+  if (app_id)
+    keyboard_monitor_id = g_strdup_printf ("%s.KeyboardMonitor", atspi_device_get_app_id (ATSPI_DEVICE (device)));
+  else
+    keyboard_monitor_id = "org.a11y.atspi.KeyboardMonitor";
+  g_dbus_connection_call_sync (device->session_bus,
+                               "org.freedesktop.DBus",
+                               "/org/freedesktop/DBus",
+                               "org.freedesktop.DBus",
+                               "RequestName",
+                               g_variant_new ("(su)", keyboard_monitor_id, 0),
+                               NULL,
+                               G_DBUS_CALL_FLAGS_NONE,
+                               -1,
+                               NULL,
+                               NULL);
+}
+
+static void
 atspi_device_a11y_manager_class_init (AtspiDeviceA11yManagerClass *klass)
 {
   GObjectClass *object_class = (GObjectClass *) klass;
   AtspiDeviceClass *device_class = ATSPI_DEVICE_CLASS (klass);
 
+  object_class->constructed = atspi_device_a11y_manager_constructed;
   object_class->dispose = atspi_device_a11y_manager_dispose;
   object_class->finalize = atspi_device_a11y_manager_finalize;
   device_class->map_modifier = atspi_device_a11y_manager_map_modifier;
