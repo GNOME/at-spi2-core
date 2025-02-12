@@ -399,16 +399,17 @@ atspi_device_a11y_manager_class_init (AtspiDeviceA11yManagerClass *klass)
 }
 
 /**
- * atspi_device_a11y_manager_try_new:
- *
- * Tries to create a new #AtspiDeviceA11yManager.
+ * atspi_device_a11y_manager_try_new_full:
+ * @app_id: (nullable):    The app id
+ * Tries to create a new #AtspiDeviceA11yManager with the given app id.
  *
  * Returns: (transfer full): a pointer to a newly-created #AtspiDeviceA11yManager
  * if it could establish the required DBus connection, NULL otherwise.
  *
- **/
+ * Since: 2.55
+ */
 AtspiDeviceA11yManager *
-atspi_device_a11y_manager_try_new ()
+atspi_device_a11y_manager_try_new_full (const gchar *app_id)
 {
   GError *error = NULL;
   GDBusConnection *session_bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
@@ -428,7 +429,7 @@ atspi_device_a11y_manager_try_new ()
       return NULL;
     }
 
-  AtspiDeviceA11yManager *device = g_object_new (atspi_device_a11y_manager_get_type (), NULL);
+  AtspiDeviceA11yManager *device = g_object_new (atspi_device_a11y_manager_get_type (), "app-id", app_id, NULL);
   device->session_bus = session_bus;
   device->keyboard_monitor = keyboard_monitor;
 
@@ -443,4 +444,19 @@ atspi_device_a11y_manager_try_new ()
   g_signal_connect_object (device->keyboard_monitor, "g-signal", G_CALLBACK (a11y_manager_signal_cb), device, 0);
 
   return device;
+}
+
+/**
+ * atspi_device_a11y_manager_new:
+ * 
+ * Tries to create a new #AtspiDeviceA11yManager.
+ *
+ * Returns: (transfer full): a pointer to a newly-created #AtspiDeviceA11yManager
+ *
+ * Since: 2.55
+ */
+AtspiDeviceA11yManager *
+atspi_device_a11y_manager_try_new ()
+{
+  return atspi_device_a11y_manager_try_new_full (NULL);
 }

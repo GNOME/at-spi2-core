@@ -100,6 +100,12 @@ void atspi_device_unmap_keysym_modifier (AtspiDevice *device, guint keysym);
 
 guint atspi_device_get_keysym_modifier (AtspiDevice *device, guint keysym);
 
+const gchar *atspi_device_get_app_id (AtspiDevice *device);
+
+void atspi_device_set_app_id (AtspiDevice *device, const gchar *app_id);
+
+AtspiDevice *atspi_device_new_full (const gchar *app_id);
+
 G_END_DECLS
 
 #endif /* _ATSPI_DEVICE_H_ */

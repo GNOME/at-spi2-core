@@ -36,4 +36,6 @@ G_DECLARE_FINAL_TYPE (AtspiDeviceA11yManager, atspi_device_a11y_manager, ATSPI, 
 
 AtspiDeviceA11yManager *atspi_device_a11y_manager_try_new ();
 
+AtspiDeviceA11yManager *atspi_device_a11y_manager_try_new_full (const gchar *app_id);
+
 G_END_DECLS
