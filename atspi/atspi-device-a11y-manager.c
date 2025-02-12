@@ -25,6 +25,16 @@
 
 #include <gio/gio.h>
 
+
+enum {
+  PROP_0,
+  PROP_SESSION_BUS,
+  PROP_KEYBOARD_MONITOR,
+  N_PROPERTIES
+};
+
+static GParamSpec *properties[N_PROPERTIES] = { NULL, };
+
 #define REFRESH_KEYS_TIMEOUT 10
 
 typedef struct _AtspiDeviceA11yManagerKey AtspiDeviceA11yManagerKey;
@@ -388,7 +398,7 @@ atspi_device_a11y_manager_constructed (GObject *object)
   const gchar *app_id = atspi_device_get_app_id (ATSPI_DEVICE (device));
 
   if (app_id)
-    keyboard_monitor_id = g_strdup_printf ("%s.KeyboardMonitor", atspi_device_get_app_id (ATSPI_DEVICE (device)));
+    keyboard_monitor_id = g_strdup_printf ("%s.KeyboardMonitor", app_id);
   else
     keyboard_monitor_id = "org.a11y.atspi.KeyboardMonitor";
   g_dbus_connection_call_sync (device->session_bus,
@@ -402,6 +412,59 @@ atspi_device_a11y_manager_constructed (GObject *object)
                                -1,
                                NULL,
                                NULL);
+
+  g_dbus_proxy_call_sync (device->keyboard_monitor,
+                          "WatchKeyboard",
+                          NULL,
+                          G_DBUS_CALL_FLAGS_NONE,
+                          -1,
+                          NULL,
+                          NULL);
+  g_signal_connect_object (device->keyboard_monitor, "g-signal", G_CALLBACK (a11y_manager_signal_cb), device, 0);
+}
+
+static void
+atspi_device_a11y_manager_get_property (GObject *object,
+                                        guint property_id,
+                                        GValue *value,
+                                        GParamSpec *pspec)
+{
+  AtspiDeviceA11yManager *device = ATSPI_DEVICE_A11Y_MANAGER (object);
+
+  switch (property_id)
+    {
+    case PROP_SESSION_BUS:
+      g_value_set_object (value, device->session_bus);
+      break;
+    case PROP_KEYBOARD_MONITOR:
+      g_value_set_object (value, device->keyboard_monitor);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+    }
+}
+
+static void
+atspi_device_a11y_manager_set_property (GObject *object,
+                                        guint property_id,
+                                        const GValue *value,
+                                        GParamSpec *pspec)
+{
+  AtspiDeviceA11yManager *device = ATSPI_DEVICE_A11Y_MANAGER (object);
+
+  switch (property_id)
+    {
+    case PROP_SESSION_BUS:
+      device->session_bus = g_value_dup_object (value);
+      break;
+    case PROP_KEYBOARD_MONITOR:
+      device->keyboard_monitor = g_value_dup_object (value);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+    }
 }
 
 static void
@@ -413,6 +476,9 @@ atspi_device_a11y_manager_class_init (AtspiDeviceA11yManagerClass *klass)
   object_class->constructed = atspi_device_a11y_manager_constructed;
   object_class->dispose = atspi_device_a11y_manager_dispose;
   object_class->finalize = atspi_device_a11y_manager_finalize;
+  object_class->get_property = atspi_device_a11y_manager_get_property;
+  object_class->set_property = atspi_device_a11y_manager_set_property;
+
   device_class->map_modifier = atspi_device_a11y_manager_map_modifier;
   device_class->unmap_modifier = atspi_device_a11y_manager_unmap_modifier;
   device_class->get_modifier = atspi_device_a11y_manager_get_modifier;
@@ -424,7 +490,22 @@ atspi_device_a11y_manager_class_init (AtspiDeviceA11yManagerClass *klass)
   device_class->ungrab_keyboard = atspi_device_a11y_manager_ungrab_keyboard;
   device_class->add_key_grab = atspi_device_a11y_manager_add_key_grab;
   device_class->remove_key_grab = atspi_device_a11y_manager_remove_key_grab;
-}
+
+  properties[PROP_SESSION_BUS] =
+    g_param_spec_object ("session-bus",
+                         "Session Bus",
+                         "The session bus",
+                         G_TYPE_DBUS_CONNECTION,
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
+
+  properties[PROP_KEYBOARD_MONITOR] =
+    g_param_spec_object ("keyboard-monitor",
+                         "Keyboard Monitor",
+                         "The keyboard monitor proxy",
+                         G_TYPE_DBUS_PROXY,
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
+  g_object_class_install_properties (object_class, N_PROPERTIES, properties);
+                        }
 
 /**
  * atspi_device_a11y_manager_try_new_full:
@@ -457,19 +538,11 @@ atspi_device_a11y_manager_try_new_full (const gchar *app_id)
       return NULL;
     }
 
-  AtspiDeviceA11yManager *device = g_object_new (atspi_device_a11y_manager_get_type (), "app-id", app_id, NULL);
-  device->session_bus = session_bus;
-  device->keyboard_monitor = keyboard_monitor;
-
-  g_dbus_proxy_call_sync (device->keyboard_monitor,
-                     "WatchKeyboard",
-                     NULL,
-                     G_DBUS_CALL_FLAGS_NONE,
-                     -1,
-                     NULL,
-                     NULL);
-
-  g_signal_connect_object (device->keyboard_monitor, "g-signal", G_CALLBACK (a11y_manager_signal_cb), device, 0);
+  AtspiDeviceA11yManager *device = g_object_new (ATSPI_TYPE_DEVICE_A11Y_MANAGER,
+                                                 "session-bus", session_bus,
+                                                 "keyboard-monitor", keyboard_monitor,
+                                                 "app-id", app_id,
+                                                 NULL);
 
   return device;
 }
