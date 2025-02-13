@@ -352,6 +352,13 @@ a11y_manager_signal_cb (GDBusProxy *proxy,
         device->enabled_virtual_modifiers |= virtual_modifier;
     }
   state = state | device->enabled_virtual_modifiers;
+  // Mapping Num Lock is just a best efford, as we do not have a way how to get the proper modifier.
+  // However, this mapping is the most common one.
+  if (state & (1 << ATSPI_MODIFIER_META))
+    {
+      state &= ~(1 << ATSPI_MODIFIER_META);
+      state |= (1 << ATSPI_MODIFIER_NUMLOCK);
+    }
   atspi_device_notify_key (ATSPI_DEVICE (device), !released, keycode, keysym, state, text);
   g_free (text);
 }
