@@ -25,6 +25,7 @@
 #include <dbus/dbus.h>
 
 dbus_bool_t droute_return_v_int32 (DBusMessageIter *iter, dbus_int32_t val);
+dbus_bool_t droute_return_v_uint32 (DBusMessageIter *iter, dbus_uint32_t val);
 dbus_bool_t droute_return_v_double (DBusMessageIter *iter, double val);
 dbus_bool_t droute_return_v_string (DBusMessageIter *iter, const char *val);
 dbus_bool_t droute_return_v_object (DBusMessageIter *iter, const char *path);
