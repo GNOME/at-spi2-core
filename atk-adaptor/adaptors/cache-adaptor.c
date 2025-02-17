@@ -338,6 +338,12 @@ impl_GetItems (DBusConnection *bus, DBusMessage *message, void *user_data)
   return reply;
 }
 
+static dbus_bool_t
+impl_get_Version (DBusMessageIter *iter, void *user_data)
+{
+  return droute_return_v_uint32 (iter, SPI_DBUS_CACHE_VERSION);
+}
+
 /*---------------------------------------------------------------------------*/
 
 static DRouteMethod methods[] = {
@@ -346,10 +352,16 @@ static DRouteMethod methods[] = {
   { NULL, NULL }
 };
 
+static DRouteProperty properties[] = {
+  { impl_get_Version, NULL, "version" },
+  { NULL, NULL }
+};
+
 void
 spi_initialize_cache (DRoutePath *path)
 {
-  droute_path_add_interface (path, ATSPI_DBUS_INTERFACE_CACHE, spi_org_a11y_atspi_Cache, methods, NULL);
+  droute_path_add_interface (path, ATSPI_DBUS_INTERFACE_CACHE, spi_org_a11y_atspi_Cache,
+                             methods, properties);
 
   g_signal_connect (spi_global_cache, "object-added",
                     (GCallback) emit_cache_add, NULL);

@@ -182,6 +182,12 @@ impl_PasteText (DBusConnection *bus, DBusMessage *message, void *user_data)
   return reply;
 }
 
+static dbus_bool_t
+impl_get_Version (DBusMessageIter *iter, void *user_data)
+{
+  return droute_return_v_uint32 (iter, SPI_DBUS_EDITABLE_TEXT_VERSION);
+}
+
 static DRouteMethod methods[] = {
   { impl_SetTextContents, "SetTextContents" },
   { impl_InsertText, "InsertText" },
@@ -192,9 +198,15 @@ static DRouteMethod methods[] = {
   { NULL, NULL }
 };
 
+static DRouteProperty properties[] = {
+  { impl_get_Version, NULL, "version" },
+  { NULL, NULL, NULL },
+};
+
 void
 spi_initialize_editabletext (DRoutePath *path)
 {
   spi_atk_add_interface (path,
-                         ATSPI_DBUS_INTERFACE_EDITABLE_TEXT, spi_org_a11y_atspi_EditableText, methods, NULL);
+                         ATSPI_DBUS_INTERFACE_EDITABLE_TEXT, spi_org_a11y_atspi_EditableText,
+                         methods, properties);
 };

@@ -32,6 +32,12 @@
 #include "object.h"
 
 static dbus_bool_t
+impl_get_Version (DBusMessageIter *iter, void *user_data)
+{
+  return droute_return_v_uint32 (iter, SPI_DBUS_IMAGE_VERSION);
+}
+
+static dbus_bool_t
 impl_get_ImageDescription (DBusMessageIter *iter, void *user_data)
 {
   AtkImage *image = (AtkImage *) user_data;
@@ -125,6 +131,7 @@ static DRouteMethod methods[] = {
 static DRouteProperty properties[] = {
   { impl_get_ImageDescription, NULL, "ImageDescription" },
   { impl_get_ImageLocale, NULL, "ImageLocale" },
+  { impl_get_Version, NULL, "version" },
   { NULL, NULL, NULL }
 };
 
@@ -132,5 +139,7 @@ void
 spi_initialize_image (DRoutePath *path)
 {
   spi_atk_add_interface (path,
-                         ATSPI_DBUS_INTERFACE_IMAGE, spi_org_a11y_atspi_Image, methods, properties);
+                         ATSPI_DBUS_INTERFACE_IMAGE,
+                         spi_org_a11y_atspi_Image,
+                         methods, properties);
 };

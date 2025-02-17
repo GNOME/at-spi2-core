@@ -94,6 +94,12 @@ impl_GetLinkIndex (DBusConnection *bus, DBusMessage *message, void *user_data)
   return reply;
 }
 
+static dbus_bool_t
+impl_get_Version (DBusMessageIter *iter, void *user_data)
+{
+  return droute_return_v_uint32 (iter, SPI_DBUS_HYPERTEXT_VERSION);
+}
+
 static DRouteMethod methods[] = {
   { impl_GetNLinks, "GetNLinks" },
   { impl_GetLink, "GetLink" },
@@ -101,9 +107,16 @@ static DRouteMethod methods[] = {
   { NULL, NULL }
 };
 
+static DRouteProperty properties[] = {
+  { impl_get_Version, NULL, "version" },
+  { NULL, NULL, NULL },
+};
+
 void
 spi_initialize_hypertext (DRoutePath *path)
 {
   spi_atk_add_interface (path,
-                         ATSPI_DBUS_INTERFACE_HYPERTEXT, spi_org_a11y_atspi_Hypertext, methods, NULL);
+                         ATSPI_DBUS_INTERFACE_HYPERTEXT,
+                         spi_org_a11y_atspi_Hypertext,
+                         methods, properties);
 };

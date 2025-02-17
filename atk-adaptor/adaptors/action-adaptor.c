@@ -31,6 +31,12 @@
 #include "introspection.h"
 
 static dbus_bool_t
+impl_get_Version (DBusMessageIter *iter, void *user_data)
+{
+  return droute_return_v_uint32 (iter, SPI_DBUS_ACTION_VERSION);
+}
+
+static dbus_bool_t
 impl_get_NActions (DBusMessageIter *iter, void *user_data)
 {
   AtkAction *action = (AtkAction *) user_data;
@@ -226,6 +232,7 @@ DRouteMethod methods[] = {
 
 static DRouteProperty properties[] = {
   { impl_get_NActions, NULL, "NActions" },
+  { impl_get_Version, NULL, "version" },
   { NULL, NULL }
 };
 

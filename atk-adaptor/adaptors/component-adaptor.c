@@ -459,6 +459,12 @@ impl_ScrollToPoint (DBusConnection *bus,
   return reply;
 }
 
+static dbus_bool_t
+impl_get_Version (DBusMessageIter *iter, void *user_data)
+{
+  return droute_return_v_uint32 (iter, SPI_DBUS_COMPONENT_VERSION);
+}
+
 static DRouteMethod methods[] = {
   { impl_Contains, "Contains" },
   { impl_GetAccessibleAtPoint, "GetAccessibleAtPoint" },
@@ -479,6 +485,7 @@ static DRouteMethod methods[] = {
 
 static DRouteProperty properties[] = {
   { impl_get_ScreenExtents, NULL, "ScreenExtents" },
+  { impl_get_Version, NULL, "version" },
   { NULL, NULL, NULL }
 };
 void

@@ -33,6 +33,12 @@
 #include "spi-dbus.h"
 
 static dbus_bool_t
+impl_get_Version (DBusMessageIter *iter, void *user_data)
+{
+  return droute_return_v_uint32 (iter, SPI_DBUS_VALUE_VERSION);
+}
+
+static dbus_bool_t
 impl_get_MinimumValue (DBusMessageIter *iter, void *user_data)
 {
   AtkValue *value = (AtkValue *) user_data;
@@ -259,6 +265,7 @@ static DRouteProperty properties[] = {
   { impl_get_MinimumIncrement, NULL, "MinimumIncrement" },
   { impl_get_CurrentValue, impl_set_CurrentValue, "CurrentValue" },
   { impl_get_Text, NULL, "Text" },
+  { impl_get_Version, NULL, "version" },
   { NULL, NULL, NULL }
 };
 
@@ -266,5 +273,7 @@ void
 spi_initialize_value (DRoutePath *path)
 {
   spi_atk_add_interface (path,
-                         ATSPI_DBUS_INTERFACE_VALUE, spi_org_a11y_atspi_Value, methods, properties);
+                         ATSPI_DBUS_INTERFACE_VALUE,
+                         spi_org_a11y_atspi_Value,
+                         methods, properties);
 };

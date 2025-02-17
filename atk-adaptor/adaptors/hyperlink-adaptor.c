@@ -42,6 +42,12 @@ get_hyperlink (void *user_data)
 }
 
 static dbus_bool_t
+impl_get_Version (DBusMessageIter *iter, void *user_data)
+{
+  return droute_return_v_uint32 (iter, SPI_DBUS_HYPERLINK_VERSION);
+}
+
+static dbus_bool_t
 impl_get_NAnchors (DBusMessageIter *iter, void *user_data)
 {
   AtkHyperlink *link = get_hyperlink (user_data);
@@ -141,6 +147,7 @@ static DRouteProperty properties[] = {
   { impl_get_NAnchors, NULL, "NAnchors" },
   { impl_get_StartIndex, NULL, "StartIndex" },
   { impl_get_EndIndex, NULL, "EndIndex" },
+  { impl_get_Version, NULL, "version" },
   { NULL, NULL, NULL }
 };
 

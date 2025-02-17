@@ -35,6 +35,12 @@
 #include "object.h"
 
 static dbus_bool_t
+impl_get_Version (DBusMessageIter *iter, void *user_data)
+{
+  return droute_return_v_uint32 (iter, SPI_DBUS_TEXT_VERSION);
+}
+
+static dbus_bool_t
 impl_get_CharacterCount (DBusMessageIter *iter, void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
@@ -905,6 +911,7 @@ static DRouteMethod methods[] = {
 static DRouteProperty properties[] = {
   { impl_get_CharacterCount, NULL, "CharacterCount" },
   { impl_get_CaretOffset, NULL, "CaretOffset" },
+  { impl_get_Version, NULL, "version" },
   { NULL, NULL, NULL }
 };
 
@@ -912,5 +919,7 @@ void
 spi_initialize_text (DRoutePath *path)
 {
   spi_atk_add_interface (path,
-                         ATSPI_DBUS_INTERFACE_TEXT, spi_org_a11y_atspi_Text, methods, properties);
+                         ATSPI_DBUS_INTERFACE_TEXT,
+                         spi_org_a11y_atspi_Text,
+                         methods, properties);
 };

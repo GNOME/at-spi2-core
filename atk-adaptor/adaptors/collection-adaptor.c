@@ -1239,6 +1239,12 @@ impl_GetMatches (DBusConnection *bus, DBusMessage *message, void *user_data)
   return return_and_free_list (message, ls);
 }
 
+static dbus_bool_t
+impl_get_Version (DBusMessageIter *iter, void *user_data)
+{
+  return droute_return_v_uint32 (iter, SPI_DBUS_COLLECTION_VERSION);
+}
+
 static DRouteMethod methods[] = {
   { impl_GetMatchesFrom, "GetMatchesFrom" },
   { impl_GetMatchesTo, "GetMatchesTo" },
@@ -1247,9 +1253,15 @@ static DRouteMethod methods[] = {
   { NULL, NULL }
 };
 
+static DRouteProperty properties[] = {
+  { impl_get_Version, NULL, "version" },
+  { NULL, NULL, NULL }
+};
+
 void
 spi_initialize_collection (DRoutePath *path)
 {
   spi_atk_add_interface (path,
-                         ATSPI_DBUS_INTERFACE_COLLECTION, spi_org_a11y_atspi_Collection, methods, NULL);
+                         ATSPI_DBUS_INTERFACE_COLLECTION, spi_org_a11y_atspi_Collection,
+                         methods, properties);
 };

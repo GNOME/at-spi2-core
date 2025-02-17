@@ -39,6 +39,28 @@ extern int _dbg;
 #define SPI_DBUS_PATH_NULL "/org/a11y/atspi/null"
 #define SPI_DBUS_PATH_ROOT "/org/a11y/atspi/accessible/root"
 
+#define SPI_DBUS_ACCESSIBLE_VERSION                     ATSPI_ACCESSIBLE_VERSION
+#define SPI_DBUS_ACTION_VERSION                         ATSPI_ACTION_VERSION
+#define SPI_DBUS_APPLICATION_VERSION                    ATSPI_APPLICATION_VERSION
+#define SPI_DBUS_CACHE_VERSION                          ATSPI_CACHE_VERSION
+#define SPI_DBUS_COLLECTION_VERSION                     ATSPI_COLLECTION_VERSION
+#define SPI_DBUS_COMPONENT_VERSION                      ATSPI_COMPONENT_VERSION
+#define SPI_DBUS_DEVICE_EVENT_CONTROLLER_VERSION        ATSPI_DEVICE_EVENT_CONTROLLER_VERSION
+#define SPI_DBUS_DEVICE_EVENT_LISTENER_VERSION          ATSPI_DEVICE_EVENT_LISTENER_VERSION
+#define SPI_DBUS_DOCUMENT_VERSION                       ATSPI_DOCUMENT_VERSION
+#define SPI_DBUS_EDITABLE_TEXT_VERSION                  ATSPI_EDITABLE_TEXT_VERSION
+#define SPI_DBUS_EVENT_VERSION                          ATSPI_EVENT_VERSION
+#define SPI_DBUS_HYPERLINK_VERSION                      ATSPI_HYPERLINK_VERSION
+#define SPI_DBUS_HYPERTEXT_VERSION                      ATSPI_HYPERTEXT_VERSION
+#define SPI_DBUS_IMAGE_VERSION                          ATSPI_IMAGE_VERSION
+#define SPI_DBUS_REGISTRY_VERSION                       ATSPI_REGISTRY_VERSION
+#define SPI_DBUS_SELECTION_VERSION                      ATSPI_SELECTION_VERSION
+#define SPI_DBUS_SOCKET_VERSION                         ATSPI_SOCKET_VERSION
+#define SPI_DBUS_TABLE_VERSION                          ATSPI_TABLE_VERSION
+#define SPI_DBUS_TABLE_CELL_VERSION                     ATSPI_TABLE_CELL_VERSION
+#define SPI_DBUS_TEXT_VERSION                           ATSPI_TEXT_VERSION
+#define SPI_DBUS_VALUE_VERSION                          ATSPI_VALUE_VERSION
+
 DBusMessage *spi_dbus_general_error (DBusMessage *message);
 DBusMessage *spi_dbus_return_rect (DBusMessage *message, gint ix, gint iy, gint iwidth, gint iheight);
 

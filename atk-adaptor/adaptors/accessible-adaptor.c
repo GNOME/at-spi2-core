@@ -34,6 +34,12 @@
 #include <string.h>
 
 static dbus_bool_t
+impl_get_Version (DBusMessageIter *iter, void *user_data)
+{
+  return droute_return_v_uint32 (iter, SPI_DBUS_ACCESSIBLE_VERSION);
+}
+
+static dbus_bool_t
 impl_get_Name (DBusMessageIter *iter, void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
@@ -612,6 +618,7 @@ static DRouteProperty properties[] = {
   { impl_get_Attributes, NULL, "Attributes" },
   { impl_get_AccessibleId, NULL, "AccessibleId" },
   { impl_get_HelpText, NULL, "HelpText" },
+  { impl_get_Version, NULL, "version" },
   { NULL, NULL, NULL }
 };
 
