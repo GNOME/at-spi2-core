@@ -40,6 +40,27 @@ extern int _dbg;
 #define SPI_DBUS_PATH_NULL "/org/a11y/atspi/null"
 #define SPI_DBUS_PATH_ROOT "/org/a11y/atspi/accessible/root"
 
+#define SPI_DBUS_ACCESSIBLE_VERSION                     1
+#define SPI_DBUS_ACTION_VERSION                         1
+#define SPI_DBUS_CACHE_VERSION                          1
+#define SPI_DBUS_COLLECTION_VERSION                     1
+#define SPI_DBUS_COMPONENT_VERSION                      1
+#define SPI_DBUS_DEVICE_EVENT_CONTROLLER_VERSION        1
+#define SPI_DBUS_DEVICE_EVENT_LISTENER_VERSION          1
+#define SPI_DBUS_DOCUMENT_VERSION                       1
+#define SPI_DBUS_EDITABLE_TEXT_VERSION                  1
+#define SPI_DBUS_EVENT_VERSION                          1
+#define SPI_DBUS_HYPERLINK_VERSION                      1
+#define SPI_DBUS_HYPERTEXT_VERSION                      1
+#define SPI_DBUS_IMAGE_VERSION                          1
+#define SPI_DBUS_REGISTRY_VERSION                       1
+#define SPI_DBUS_SELECTION_VERSION                      1
+#define SPI_DBUS_SOCKET_VERSION                         1
+#define SPI_DBUS_TABLE_VERSION                          1
+#define SPI_DBUS_TABLE_CELL_VERSION                     1
+#define SPI_DBUS_TEXT_VERSION                           1
+#define SPI_DBUS_VALUE_VERSION                          1
+
 DBusMessage *spi_dbus_general_error (DBusMessage *message);
 DBusMessage *spi_dbus_return_rect (DBusMessage *message, gint ix, gint iy, gint iwidth, gint iheight);
 

@@ -33,6 +33,12 @@
 #include "object.h"
 
 static dbus_bool_t
+impl_get_Version (DBusMessageIter *iter, void *user_data)
+{
+  return droute_return_v_uint32 (iter, SPI_DBUS_TABLE_VERSION);
+}
+
+static dbus_bool_t
 impl_get_NRows (DBusMessageIter *iter, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
@@ -628,6 +634,7 @@ static DRouteProperty properties[] = {
   { impl_get_Summary, NULL, "Summary" },
   { impl_get_NSelectedRows, NULL, "NSelectedRows" },
   { impl_get_NSelectedColumns, NULL, "NSelectedColumns" },
+  { impl_get_Version, NULL, "version" },
   { NULL, NULL, NULL }
 };
 
@@ -635,5 +642,7 @@ void
 spi_initialize_table (DRoutePath *path)
 {
   spi_atk_add_interface (path,
-                         ATSPI_DBUS_INTERFACE_TABLE, spi_org_a11y_atspi_Table, methods, properties);
+                         ATSPI_DBUS_INTERFACE_TABLE,
+                         spi_org_a11y_atspi_Table,
+                         methods, properties);
 };

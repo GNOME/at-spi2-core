@@ -33,6 +33,12 @@
 #include "object.h"
 
 static dbus_bool_t
+impl_get_Version (DBusMessageIter *iter, void *user_data)
+{
+  return droute_return_v_uint32 (iter, SPI_DBUS_DOCUMENT_VERSION);
+}
+
+static dbus_bool_t
 impl_get_CurrentPageNumber (DBusMessageIter *iter, void *user_data)
 {
   AtkDocument *document = (AtkDocument *) user_data;
@@ -216,6 +222,7 @@ static DRouteMethod methods[] = {
 static DRouteProperty properties[] = {
   { impl_get_CurrentPageNumber, NULL, "CurrentPageNumber" },
   { impl_get_PageCount, NULL, "PageCount" },
+  { impl_get_Version, NULL, "version" },
   { NULL, NULL, NULL }
 };
 

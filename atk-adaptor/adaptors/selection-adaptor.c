@@ -32,6 +32,12 @@
 #include "object.h"
 
 static dbus_bool_t
+impl_get_Version (DBusMessageIter *iter, void *user_data)
+{
+  return droute_return_v_uint32 (iter, SPI_DBUS_SELECTION_VERSION);
+}
+
+static dbus_bool_t
 impl_get_NSelectedChildren (DBusMessageIter *iter, void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
@@ -233,6 +239,7 @@ static DRouteMethod methods[] = {
 
 static DRouteProperty properties[] = {
   { impl_get_NSelectedChildren, NULL, "NSelectedChildren" },
+  { impl_get_Version, NULL, "version" },
   { NULL, NULL, NULL }
 };
 

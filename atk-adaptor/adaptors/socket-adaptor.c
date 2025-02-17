@@ -213,9 +213,20 @@ impl_Embedded (DBusConnection *bus,
   return dbus_message_new_method_return (message);
 }
 
+static dbus_bool_t
+impl_get_Version (DBusMessageIter *iter, void *user_data)
+{
+  return droute_return_v_uint32 (iter, SPI_DBUS_SOCKET_VERSION);
+}
+
 static DRouteMethod methods[] = {
   { impl_Embedded, "Embedded" },
   { NULL, NULL }
+};
+
+static DRouteProperty properties[] = {
+  { impl_get_Version, NULL, "version" },
+  { NULL, NULL, NULL },
 };
 
 void
@@ -224,5 +235,5 @@ spi_initialize_socket (DRoutePath *path)
   droute_path_add_interface (path,
                              ATSPI_DBUS_INTERFACE_SOCKET,
                              spi_org_a11y_atspi_Socket,
-                             methods, NULL);
+                             methods, properties);
 };
