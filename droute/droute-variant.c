@@ -43,6 +43,20 @@ droute_return_v_int32 (DBusMessageIter *iter, dbus_int32_t val)
 }
 
 dbus_bool_t
+droute_return_v_uint32 (DBusMessageIter *iter, dbus_uint32_t val)
+{
+  DBusMessageIter sub;
+
+  if (!dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, DBUS_TYPE_UINT32_AS_STRING, &sub))
+    {
+      return FALSE;
+    }
+  dbus_message_iter_append_basic (&sub, DBUS_TYPE_UINT32, &val);
+  dbus_message_iter_close_container (iter, &sub);
+  return TRUE;
+}
+
+dbus_bool_t
 droute_return_v_double (DBusMessageIter *iter, double val)
 {
   DBusMessageIter sub;
