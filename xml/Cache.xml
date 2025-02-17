@@ -24,6 +24,14 @@
   <interface name="org.a11y.atspi.Cache">
 
     <!--
+        Version: The version of this interface.
+
+        This property is incremented by one every time a new method, signal, or property
+        is added to this interface.
+    -->
+    <property name="version" type="u" access="read"/>
+
+    <!--
         GetItems: bulk query an application's accessible objects.
 
         Returns: an array with one element for each available object.  Each element's

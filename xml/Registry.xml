@@ -2,6 +2,14 @@
 <node>
   <interface name="org.a11y.atspi.Registry">
 
+    <!--
+        Version: The version of this interface.
+
+        This property is incremented by one every time a new method, signal, or property
+        is added to this interface.
+    -->
+    <property name="version" type="u" access="read"/>
+
     <method name="RegisterEvent">
       <arg direction="in" name="event" type="s"/>
       <arg direction="in" name="properties" type="as"/>

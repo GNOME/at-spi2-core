@@ -12,6 +12,14 @@
   <interface name="org.a11y.atspi.Action">
 
     <!--
+        Version: The version of this interface.
+
+        This property is incremented by one every time a new method, signal, or property
+        is added to this interface.
+    -->
+    <property name="version" type="u" access="read"/>
+
+    <!--
         NActions: returns the number of available actions.
 
         By convention, if there is more than one action available, the first one is
