@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node>
   <interface name="org.a11y.atspi.Event.Object">
+
+    <!--
+        Version: The version of this interface.
+
+        This property is incremented by one every time a new method, signal, or property
+        is added to this interface.
+    -->
+    <property name="version" type="u" access="read"/>
     <signal name="PropertyChange">
       <arg name="property" type="s"/>
       <arg type="i"/>

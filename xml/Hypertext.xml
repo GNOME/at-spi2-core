@@ -2,6 +2,14 @@
 <node>
   <interface name="org.a11y.atspi.Hypertext">
 
+    <!--
+        Version: The version of this interface.
+
+        This property is incremented by one every time a new method, signal, or property
+        is added to this interface.
+    -->
+    <property name="version" type="u" access="read"/>
+
     <method name="GetNLinks">
       <arg direction="out" type="i"/>
     </method>

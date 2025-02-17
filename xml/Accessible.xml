@@ -7,6 +7,14 @@
   <interface name="org.a11y.atspi.Accessible">
 
     <!--
+        Version: The version of this interface.
+
+        This property is incremented by one every time a new method, signal, or property
+        is added to this interface.
+    -->
+    <property name="version" type="u" access="read"/>
+
+    <!--
         Name: Human-readable, localized, short name for the object.
 
         Normally you need to set this for objects which do not have a labelled-by

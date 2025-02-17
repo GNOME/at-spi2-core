@@ -13,8 +13,17 @@
 
     <!--
         Version: version of the toolkit used to implement the application's user interface.
+
+        Deprecated: Use org.a11y.atspi.Application:ToolkitVersion instead.
     -->
-    <property name="Version" type="s" access="read"/>
+    <property name="Version" type="s" access="read">
+      <annotation name="org.freedesktop.DBus.Deprecated" value="true"/>
+    </property>
+
+    <!--
+        Version: version of the toolkit used to implement the application's user interface.
+    -->
+    <property name="ToolkitVersion" type="s" access="read"/>
 
     <!--
         AtspiVersion: You should return "2.1" here.
@@ -24,6 +33,14 @@
         using versioned interface names instead.  Just return "2.1" here.
     -->
     <property name="AtspiVersion" type="s" access="read"/>
+
+    <!--
+        InterfaceVersion:  The version of this interface.
+
+        This property is incremented by one every time a new method, signal, or property
+        is added to this interface.
+    -->
+    <property name="InterfaceVersion" type="u" access="read"/>
 
     <!--
         Id: set to an arbitrary numerical id when an application registers with the registry.
@@ -55,13 +72,14 @@
       <arg direction="out" type="s"/>
     </method>
 
-	<!-- Get a P2P DBus address for further direct communication from the client.
+    <!--
+        Get a P2P DBus address for further direct communication from the client.
 
-	This allows for communication without being proxied by the daemon.
-	-->
-	<method name="GetApplicationBusAddress">
-		<arg direction="out" type="s"/>
-	</method>
+        This allows for communication without being proxied by the daemon.
+    -->
+    <method name="GetApplicationBusAddress">
+      <arg direction="out" type="s"/>
+    </method>
 
   </interface>
 </node>

@@ -9,6 +9,14 @@
   <interface name="org.a11y.atspi.DeviceEventController">
 
     <!--
+        Version: The version of this interface.
+
+        This property is incremented by one every time a new method, signal, or property
+        is added to this interface.
+    -->
+    <property name="version" type="u" access="read"/>
+
+    <!--
         RegisterKeystrokeListener:
         @listener: path of object to be notified when the following keys are pressed
         @keys: array of (key_code, key_sym, key_string, unused)

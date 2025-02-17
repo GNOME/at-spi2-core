@@ -7,6 +7,14 @@
   <interface name="org.a11y.atspi.Socket">
 
     <!--
+        Version: The version of this interface.
+
+        This property is incremented by one every time a new method, signal, or property
+        is added to this interface.
+    -->
+    <property name="version" type="u" access="read"/>
+
+    <!--
         Embed:
         @plug: a string for the unique bus name of the application, and an object path
         for the application's' root object.
