@@ -44,3 +44,4 @@ option('atk_only',
        description: 'Build only the ATK stub library without atspi or at-spi2-atk (UNSUPPORTED)',
        type: 'boolean',
        value: false)
+option('python', type : 'string', value : 'python3')

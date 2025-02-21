@@ -187,6 +187,9 @@ at_spi_conf.set('ALIGNOF_DBIND_STRUCT', cc.alignment('dbind_struct', prefix: 'ty
 gir = find_program('g-ir-scanner', required : get_option('introspection'))
 have_gir = gir.found() and (not meson.is_cross_build() or get_option('introspection').enabled())
 
+pymod = import('python')
+python = pymod.find_installation(get_option('python'), pure: false)
+
 xgettext = find_program('xgettext', required : false)
 
 configure_file(output: 'config.h', configuration: at_spi_conf)
@@ -208,6 +211,9 @@ if not get_option('atk_only')
   subdir('droute')
   subdir('atk-adaptor')
   subdir('tests')
+  if python.found()
+    subdir('python')
+  endif
 endif
 
 if get_option('docs')
