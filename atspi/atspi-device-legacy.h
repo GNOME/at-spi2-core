@@ -54,6 +54,7 @@ GType atspi_device_legacy_get_type (void);
 
 AtspiDeviceLegacy *atspi_device_legacy_new ();
 
+AtspiDeviceLegacy *atspi_device_legacy_new_full (const gchar *app_id);
 G_END_DECLS
 
 #endif /* _ATSPI_DEVICE_LEGACY_H_ */

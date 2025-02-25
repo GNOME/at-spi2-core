@@ -21,9 +21,18 @@
  */
 
 #include "atspi-device.h"
+#include "atspi-device-a11y-manager.h"
 #include "atspi-device-legacy.h"
 #include "atspi-device-x11.h"
 #include "atspi-private.h"
+
+enum {
+  PROP_0,
+  PROP_APP_ID,
+  NUM_PROPERTIES
+};
+
+static GParamSpec *obj_props[NUM_PROPERTIES];
 
 typedef struct
 {
@@ -42,6 +51,7 @@ struct _AtspiDevicePrivate
   GSList *key_watchers;
   GSList *keygrabs;
   guint last_grab_id;
+  gchar *app_id;
 };
 
 GObjectClass *device_parent_class;
@@ -77,6 +87,38 @@ atspi_device_real_remove_key_grab (AtspiDevice *device, guint id)
 }
 
 static void
+atspi_device_get_property (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec)
+{
+  AtspiDevice *device = ATSPI_DEVICE (object);
+
+  switch (prop_id)
+    {
+    case PROP_APP_ID:
+      g_value_set_string (value, atspi_device_get_app_id (device));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+      break;
+    }
+}
+
+static void
+atspi_device_set_property (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
+{
+  AtspiDevice *device = ATSPI_DEVICE (object);
+
+  switch (prop_id)
+    {
+    case PROP_APP_ID:
+      atspi_device_set_app_id (device, g_value_get_string (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+      break;
+    }
+}
+
+static void
 atspi_device_class_init (AtspiDeviceClass *klass)
 {
   GObjectClass *object_class = (GObjectClass *) klass;
@@ -85,25 +127,71 @@ atspi_device_class_init (AtspiDeviceClass *klass)
   klass->add_key_grab = atspi_device_real_add_key_grab;
   klass->remove_key_grab = atspi_device_real_remove_key_grab;
   object_class->finalize = atspi_device_finalize;
+  object_class->get_property = atspi_device_get_property;
+  object_class->set_property = atspi_device_set_property;
+
+  /**
+   * AtspiDevice:app-id:
+   *
+   * The application ID of the application that created this device.
+   * The ID might be used for access control purposes
+   * by some device backends.
+   */
+  obj_props[PROP_APP_ID] =
+    g_param_spec_string ("app-id",
+                         "Application ID",
+                         "The application ID of the application that created this device",
+                         NULL,
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
+
+  g_object_class_install_properties (object_class, NUM_PROPERTIES, obj_props);
+                        }
+
+/**
+ * atspi_device_new_full:
+ * @app_id: (nullable): The application ID of the application that created this device.
+ *
+ * Creates a new #AtspiDevice with a specified app id.
+ *
+ * Returns: (transfer full): a pointer to a newly-created #AtspiDevice.
+ *
+ * Since: 2.55
+ */
+AtspiDevice *
+atspi_device_new_full (const gchar *app_id)
+{
+#ifdef HAVE_X11
+  if (!g_getenv ("WAYLAND_DISPLAY") && !g_getenv ("ATSPI_USE_LEGACY_DEVICE") && !g_getenv ("ATSPI_USE_A11Y_MANAGER_DEVICE"))
+    return ATSPI_DEVICE (atspi_device_x11_new_full (app_id));
+#endif
+
+  AtspiDeviceA11yManager *a11y_manager_device = NULL;
+  if (!g_getenv ("ATSPI_USE_LEGACY_DEVICE"))
+    a11y_manager_device = atspi_device_a11y_manager_try_new_full (app_id);
+
+  if (!a11y_manager_device)
+    {
+      if (g_getenv ("ATSPI_USE_A11Y_MANAGER_DEVICE"))
+        g_critical ("ATSPI_USE_A11Y_MANAGER_DEVICE is set, but no a11y manager device could be created. Falling back to legacy device.");
+      return ATSPI_DEVICE (atspi_device_legacy_new_full (app_id));
+    }
+  else
+    {
+      return ATSPI_DEVICE (a11y_manager_device);
+    }
 }
 
 /**
  * atspi_device_new:
  *
- * Creates a new #AtspiDevice with a specified callback function.
+ * Creates a new #AtspiDevice.
  *
  * Returns: (transfer full): a pointer to a newly-created #AtspiDevice.
- *
- **/
+ */
 AtspiDevice *
 atspi_device_new ()
 {
-#ifdef HAVE_X11
-  if (!g_getenv ("WAYLAND_DISPLAY") && !g_getenv ("ATSPI_USE_LEGACY_DEVICE"))
-    return ATSPI_DEVICE (atspi_device_x11_new ());
-#endif
-
-  return ATSPI_DEVICE (atspi_device_legacy_new ());
+  return atspi_device_new_full (NULL);
 }
 
 static gboolean
@@ -492,4 +580,36 @@ atspi_device_get_keysym_modifier (AtspiDevice *device, guint keysym)
     return ATSPI_DEVICE_GET_CLASS (device)->get_keysym_modifier (device, keysym);
 
   return 0;
+}
+
+/**
+ * atspi_device_get_app_id:
+ * @device: the device.
+ * 
+ * Returns the application ID of the device.
+ * 
+ * Since: 2.55
+ */
+const gchar *
+atspi_device_get_app_id (AtspiDevice *device)
+{
+  AtspiDevicePrivate *priv = atspi_device_get_instance_private (device);
+  return priv->app_id;
+}
+
+/**
+ * atspi_device_set_app_id:
+ * @device: the device.
+ * @app_id: the application ID.
+ * 
+ * Sets the application ID of the device.
+ * 
+ * Since: 2.55
+ */
+void
+atspi_device_set_app_id (AtspiDevice *device, const gchar *app_id)
+{
+  AtspiDevicePrivate *priv = atspi_device_get_instance_private (device);
+  if (g_set_str (&priv->app_id, app_id))
+    g_object_notify_by_pspec (G_OBJECT (device), obj_props[PROP_APP_ID]);
 }

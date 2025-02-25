@@ -383,17 +383,33 @@ atspi_device_legacy_class_init (AtspiDeviceLegacyClass *klass)
 }
 
 /**
+ * atspi_device_legacy_new_full:
+ * @app_id: (nullable): The application id.
+ *
+ * Creates a new #AtspiDeviceLegacy with the given app id.
+ *
+ * Returns: (transfer full): a pointer to a newly-created #AtspiDeviceLegacy.
+ *
+ * Since: 2.55
+ */
+AtspiDeviceLegacy *
+atspi_device_legacy_new_full (const gchar *app_id)
+{
+  AtspiDeviceLegacy *device = g_object_new (atspi_device_legacy_get_type (), "app-id", app_id, NULL);
+
+  return device;
+}
+
+/**
  * atspi_device_legacy_new:
  *
  * Creates a new #AtspiDeviceLegacy.
  *
  * Returns: (transfer full): a pointer to a newly-created #AtspiDeviceLegacy.
  *
- **/
+ */
 AtspiDeviceLegacy *
-atspi_device_legacy_new ()
+atspi_device_legacy_new (void)
 {
-  AtspiDeviceLegacy *device = g_object_new (atspi_device_legacy_get_type (), NULL);
-
-  return device;
+  return atspi_device_legacy_new_full (NULL);
 }

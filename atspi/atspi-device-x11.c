@@ -869,6 +869,24 @@ atspi_device_x11_class_init (AtspiDeviceX11Class *klass)
 }
 
 /**
+ * atspi_device_x11_new_full:
+ * @app_id: (nullable): the application id.
+ *
+ * Creates a new #AtspiDeviceX11 with the given app id.
+ *
+ * Returns: (transfer full): a pointer to a newly-created #AtspiDeviceX11.
+ *
+ * Since: 2.55
+ */
+AtspiDeviceX11 *
+atspi_device_x11_new_full (const gchar *app_id)
+{
+  AtspiDeviceX11 *device = g_object_new (atspi_device_x11_get_type (), "app-id", app_id, NULL);
+
+  return device;
+}
+
+/**
  * atspi_device_x11_new:
  *
  * Creates a new #AtspiDeviceX11.
@@ -879,7 +897,5 @@ atspi_device_x11_class_init (AtspiDeviceX11Class *klass)
 AtspiDeviceX11 *
 atspi_device_x11_new ()
 {
-  AtspiDeviceX11 *device = g_object_new (atspi_device_x11_get_type (), NULL);
-
-  return device;
+  return atspi_device_x11_new_full (NULL);
 }
