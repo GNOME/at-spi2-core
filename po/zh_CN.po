@@ -19,14 +19,14 @@
 # YunQiang Su <wzssyqa@gmail.com>, 2011.
 # Tong Hui <tonghuix@gmail.com>, 2014.
 # Sphinx Jiang <yishanj13@gmail.com>, 2014.
-# lumingzh <lumingzh@qq.com>, 2022-2024.
+# lumingzh <lumingzh@qq.com>, 2022-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ATK HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
-"POT-Creation-Date: 2024-08-06 21:05+0000\n"
-"PO-Revision-Date: 2024-08-24 13:33+0800\n"
+"POT-Creation-Date: 2025-02-11 18:33+0000\n"
+"PO-Revision-Date: 2025-02-25 09:08+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -35,7 +35,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "#-#-#-#-#  zh_CN.po (at-spi2-core master)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 46.1\n"
+"X-Generator: Gtranslator 47.1\n"
 "#-#-#-#-#  zh_CN.po (ATK HEAD)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 1.5\n"
@@ -361,7 +361,7 @@ msgstr "很好"
 msgid "best"
 msgstr "极好"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1232 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1234 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "该应用程序已经不存在"
 
@@ -587,254 +587,258 @@ msgid "statusbar"
 msgstr "状态栏"
 
 #: atspi/atspi-misc.c:105
+msgid "switch"
+msgstr "开关"
+
+#: atspi/atspi-misc.c:106
 msgid "table"
 msgstr "表格"
 
-#: atspi/atspi-misc.c:106
+#: atspi/atspi-misc.c:107
 msgid "table cell"
 msgstr "表格单元"
 
-#: atspi/atspi-misc.c:107
+#: atspi/atspi-misc.c:108
 msgid "table column header"
 msgstr "表格列头"
 
-#: atspi/atspi-misc.c:108
+#: atspi/atspi-misc.c:109
 msgid "table row header"
 msgstr "表格行头"
 
-#: atspi/atspi-misc.c:109
+#: atspi/atspi-misc.c:110
 msgid "tear off menu item"
 msgstr "可分离菜单项"
 
-#: atspi/atspi-misc.c:110
+#: atspi/atspi-misc.c:111
 msgid "terminal"
 msgstr "终端"
 
-#: atspi/atspi-misc.c:111
+#: atspi/atspi-misc.c:112
 msgid "text"
 msgstr "文本"
 
-#: atspi/atspi-misc.c:112
+#: atspi/atspi-misc.c:113
 msgid "toggle button"
 msgstr "切换按钮"
 
-#: atspi/atspi-misc.c:113
+#: atspi/atspi-misc.c:114
 msgid "tool bar"
 msgstr "工具栏"
 
-#: atspi/atspi-misc.c:114
+#: atspi/atspi-misc.c:115
 msgid "tool tip"
 msgstr "工具提示"
 
-#: atspi/atspi-misc.c:115
+#: atspi/atspi-misc.c:116
 msgid "tree"
 msgstr "树"
 
-#: atspi/atspi-misc.c:116
+#: atspi/atspi-misc.c:117
 msgid "tree table"
 msgstr "树型表格"
 
-#: atspi/atspi-misc.c:117
+#: atspi/atspi-misc.c:118
 msgid "unknown"
 msgstr "未知"
 
-#: atspi/atspi-misc.c:118
+#: atspi/atspi-misc.c:119
 msgid "viewport"
 msgstr "视区"
 
-#: atspi/atspi-misc.c:119
+#: atspi/atspi-misc.c:120
 msgid "window"
 msgstr "窗口"
 
-#: atspi/atspi-misc.c:120
+#: atspi/atspi-misc.c:121
 msgid "header"
 msgstr "页眉"
 
-#: atspi/atspi-misc.c:121
+#: atspi/atspi-misc.c:122
 msgid "footer"
 msgstr "页脚"
 
-#: atspi/atspi-misc.c:122
+#: atspi/atspi-misc.c:123
 msgid "paragraph"
 msgstr "段落"
 
-#: atspi/atspi-misc.c:123
+#: atspi/atspi-misc.c:124
 msgid "ruler"
 msgstr "标尺"
 
-#: atspi/atspi-misc.c:124
+#: atspi/atspi-misc.c:125
 msgid "application"
 msgstr "应用程序"
 
-#: atspi/atspi-misc.c:125
+#: atspi/atspi-misc.c:126
 msgid "autocomplete"
 msgstr "自动补全"
 
-#: atspi/atspi-misc.c:126
+#: atspi/atspi-misc.c:127
 msgid "edit bar"
 msgstr "编辑栏"
 
-#: atspi/atspi-misc.c:127
+#: atspi/atspi-misc.c:128
 msgid "embedded component"
 msgstr "嵌入组件"
 
-#: atspi/atspi-misc.c:128
+#: atspi/atspi-misc.c:129
 msgid "entry"
 msgstr "输入"
 
-#: atspi/atspi-misc.c:129
+#: atspi/atspi-misc.c:130
 msgid "chart"
 msgstr "图表"
 
-#: atspi/atspi-misc.c:130
+#: atspi/atspi-misc.c:131
 msgid "caption"
 msgstr "题目"
 
-#: atspi/atspi-misc.c:131
+#: atspi/atspi-misc.c:132
 msgid "document frame"
 msgstr "文档框架"
 
-#: atspi/atspi-misc.c:132
+#: atspi/atspi-misc.c:133
 msgid "heading"
 msgstr "标题"
 
-#: atspi/atspi-misc.c:133
+#: atspi/atspi-misc.c:134
 msgid "page"
 msgstr "页面"
 
-#: atspi/atspi-misc.c:134
+#: atspi/atspi-misc.c:135
 msgid "section"
 msgstr "节"
 
-#: atspi/atspi-misc.c:135
+#: atspi/atspi-misc.c:136
 msgid "redundant object"
 msgstr "冗余对象"
 
-#: atspi/atspi-misc.c:136
+#: atspi/atspi-misc.c:137
 msgid "form"
 msgstr "窗体"
 
-#: atspi/atspi-misc.c:137
+#: atspi/atspi-misc.c:138
 msgid "link"
 msgstr "链接"
 
-#: atspi/atspi-misc.c:138
+#: atspi/atspi-misc.c:139
 msgid "input method window"
 msgstr "输入法窗口"
 
-#: atspi/atspi-misc.c:139
+#: atspi/atspi-misc.c:140
 msgid "table row"
 msgstr "表格行"
 
-#: atspi/atspi-misc.c:140
+#: atspi/atspi-misc.c:141
 msgid "tree item"
 msgstr "树条目"
 
-#: atspi/atspi-misc.c:141
+#: atspi/atspi-misc.c:142
 msgid "document spreadsheet"
 msgstr "电子表格文档"
 
-#: atspi/atspi-misc.c:142
+#: atspi/atspi-misc.c:143
 msgid "document presentation"
 msgstr "演示文档"
 
-#: atspi/atspi-misc.c:143
+#: atspi/atspi-misc.c:144
 msgid "document text"
 msgstr "字处理文档"
 
-#: atspi/atspi-misc.c:144
+#: atspi/atspi-misc.c:145
 msgid "document web"
 msgstr "网页文档"
 
-#: atspi/atspi-misc.c:145
+#: atspi/atspi-misc.c:146
 msgid "document email"
 msgstr "电子邮件文档"
 
-#: atspi/atspi-misc.c:146
+#: atspi/atspi-misc.c:147
 msgid "comment"
 msgstr "注释"
 
-#: atspi/atspi-misc.c:147
+#: atspi/atspi-misc.c:148
 msgid "list box"
 msgstr "列表盒"
 
-#: atspi/atspi-misc.c:148
+#: atspi/atspi-misc.c:149
 msgid "grouping"
 msgstr "分组"
 
-#: atspi/atspi-misc.c:149
+#: atspi/atspi-misc.c:150
 msgid "image map"
 msgstr "位图"
 
-#: atspi/atspi-misc.c:150
+#: atspi/atspi-misc.c:151
 msgid "notification"
 msgstr "通知"
 
-#: atspi/atspi-misc.c:151
+#: atspi/atspi-misc.c:152
 msgid "info bar"
 msgstr "信息栏"
 
-#: atspi/atspi-misc.c:152
+#: atspi/atspi-misc.c:153
 msgid "level bar"
 msgstr "级别栏"
 
-#: atspi/atspi-misc.c:153
+#: atspi/atspi-misc.c:154
 msgid "title bar"
 msgstr "标题栏"
 
-#: atspi/atspi-misc.c:154
+#: atspi/atspi-misc.c:155
 msgid "block quote"
 msgstr "块引用"
 
-#: atspi/atspi-misc.c:155
+#: atspi/atspi-misc.c:156
 msgid "audio"
 msgstr "音频"
 
-#: atspi/atspi-misc.c:156
+#: atspi/atspi-misc.c:157
 msgid "video"
 msgstr "视频"
 
-#: atspi/atspi-misc.c:157
+#: atspi/atspi-misc.c:158
 msgid "definition"
 msgstr "定义"
 
-#: atspi/atspi-misc.c:158
+#: atspi/atspi-misc.c:159
 msgid "article"
 msgstr "文章"
 
-#: atspi/atspi-misc.c:159
+#: atspi/atspi-misc.c:160
 msgid "landmark"
 msgstr "界标"
 
-#: atspi/atspi-misc.c:160
+#: atspi/atspi-misc.c:161
 msgid "log"
 msgstr "日志"
 
-#: atspi/atspi-misc.c:161
+#: atspi/atspi-misc.c:162
 msgid "marquee"
 msgstr "选取框"
 
-#: atspi/atspi-misc.c:162
+#: atspi/atspi-misc.c:163
 msgid "math"
 msgstr "数学"
 
-#: atspi/atspi-misc.c:163
+#: atspi/atspi-misc.c:164
 msgid "rating"
 msgstr "评级"
 
-#: atspi/atspi-misc.c:164
+#: atspi/atspi-misc.c:165
 msgid "timer"
 msgstr "定时器"
 
-#: atspi/atspi-misc.c:165
+#: atspi/atspi-misc.c:166
 msgid "description list"
 msgstr "描述列表"
 
-#: atspi/atspi-misc.c:166
+#: atspi/atspi-misc.c:167
 msgid "description term"
 msgstr "描述术语"
 
-#: atspi/atspi-misc.c:167
+#: atspi/atspi-misc.c:168
 msgid "description value"
 msgstr "描述值"
 
