@@ -555,7 +555,7 @@ atspi_device_a11y_manager_try_new_full (const gchar *app_id)
 }
 
 /**
- * atspi_device_a11y_manager_new:
+ * atspi_device_a11y_manager_try_new:
  * 
  * Tries to create a new #AtspiDeviceA11yManager.
  *
