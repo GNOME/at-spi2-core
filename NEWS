@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.55.90:
+
+* Support grabbing keyboard shortcuts through the new
+  org.freedesktop.a11y.KeyboardMonitor interface. This allows key grabs to
+  be supported under Wayland with the latest mutter.
+
 What's new in at-spi2-core 2.55.2:
 
 * Attempt to fix a use after free in the atk bridge.
