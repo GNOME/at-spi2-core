@@ -26,7 +26,7 @@ msgstr ""
 "Project-Id-Version: Gnome Nepali Translation Project\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
 "POT-Creation-Date: 2025-02-11 18:33+0000\n"
-"PO-Revision-Date: 2025-02-27 15:17+0545\n"
+"PO-Revision-Date: 2025-02-27 15:18+0545\n"
 "Last-Translator: Pawan Chitrakar <chautari@gmail.com>\n"
 "Language-Team: Nepali Translation Team <chautari@gmail.com>\n"
 "Language: ne\n"
@@ -132,11 +132,11 @@ msgstr "पहुँच योग्य तालिका क्याप्स
 
 #: atk/atkobject.c:348
 msgid ""
-"Is used to notify that the table caption has changed; this property should not be "
-"used. accessible-table-caption-object should be used instead"
+"Is used to notify that the table caption has changed; this property should not be used. "
+"accessible-table-caption-object should be used instead"
 msgstr ""
-"तालिका क्याप्सन परिवर्तन भइसक्यो भनेर सूचीत गर्न प्रयोग गरिन्छ; यो गुण प्रयोग गर्न सकिँदैन। यसको "
-"सट्टामा पहुँच योग्य-तालिका-क्याप्सन-वस्तु प्रयोग गर्नुहोस्"
+"तालिका क्याप्सन परिवर्तन भइसक्यो भनेर सूचीत गर्न प्रयोग गरिन्छ; यो गुण प्रयोग गर्न सकिँदैन। यसको सट्टामा पहुँच "
+"योग्य-तालिका-क्याप्सन-वस्तु प्रयोग गर्नुहोस्"
 
 #: atk/atkobject.c:362
 msgid "Accessible Table Column Header"
@@ -587,7 +587,7 @@ msgstr "वस्तुस्थितिपट्टी"
 
 #: atspi/atspi-misc.c:105
 msgid "switch"
-msgstr ""
+msgstr "स्विच"
 
 #: atspi/atspi-misc.c:106
 msgid "table"
