@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
-"POT-Creation-Date: 2024-08-06 21:05+0000\n"
-"PO-Revision-Date: 2024-08-22 16:16+0200\n"
+"POT-Creation-Date: 2025-02-11 18:33+0000\n"
+"PO-Revision-Date: 2025-02-27 22:11+0100\n"
 "Last-Translator: Fran Dieguez <fran.dieguez@gnome.org>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -28,14 +28,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
-"X-Generator: Poedit 2.2.4\n"
-"X-DL-Team: gl\n"
-"X-DL-Module: at-spi2-core\n"
 "X-DL-Branch: main\n"
 "X-DL-Domain: po\n"
+"X-DL-Module: at-spi2-core\n"
 "X-DL-State: Translating\n"
+"X-DL-Team: gl\n"
+"X-Generator: Poedit 3.5\n"
 
 #: atk/atkhyperlink.c:127
 msgid "Selected Link"
@@ -93,7 +91,8 @@ msgid "Accessible Parent"
 msgstr "Pai accesíbel"
 
 #: atk/atkobject.c:288
-msgid "Parent of the current accessible as returned by atk_object_get_parent()"
+msgid ""
+"Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr "O pai do accesíbel actual como o devolve atk_object_get_parent()"
 
 #: atk/atkobject.c:304
@@ -217,7 +216,6 @@ msgstr "Texto de axuda asociado ao accesíbel"
 #. * widget presents is controlled by application developers. Thus
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
-#.
 #: atk/atkvalue.c:193
 msgid "very weak"
 msgstr "moi débil"
@@ -227,7 +225,6 @@ msgstr "moi débil"
 #. * widget presents is controlled by application developers. Thus
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
-#.
 #: atk/atkvalue.c:200
 msgid "weak"
 msgstr "débil"
@@ -237,7 +234,6 @@ msgstr "débil"
 #. * widget presents is controlled by application developers. Thus
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
-#.
 #: atk/atkvalue.c:207
 msgid "acceptable"
 msgstr "aceptábel"
@@ -247,7 +243,6 @@ msgstr "aceptábel"
 #. * widget presents is controlled by application developers. Thus
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
-#.
 #: atk/atkvalue.c:214
 msgid "strong"
 msgstr "forte"
@@ -257,7 +252,6 @@ msgstr "forte"
 #. * widget presents is controlled by application developers. Thus
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
-#.
 #: atk/atkvalue.c:221
 msgid "very strong"
 msgstr "moi forte"
@@ -268,7 +262,6 @@ msgstr "moi forte"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: atk/atkvalue.c:229
 msgid "very low"
 msgstr "moi baixa"
@@ -279,7 +272,6 @@ msgstr "moi baixa"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: atk/atkvalue.c:237
 msgid "medium"
 msgstr "media"
@@ -290,7 +282,6 @@ msgstr "media"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: atk/atkvalue.c:245
 msgid "high"
 msgstr "alta"
@@ -301,7 +292,6 @@ msgstr "alta"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: atk/atkvalue.c:253
 msgid "very high"
 msgstr "moi alta"
@@ -312,7 +302,6 @@ msgstr "moi alta"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: atk/atkvalue.c:261
 msgid "very bad"
 msgstr "moi mala"
@@ -323,7 +312,6 @@ msgstr "moi mala"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: atk/atkvalue.c:269
 msgid "bad"
 msgstr "mala"
@@ -334,7 +322,6 @@ msgstr "mala"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: atk/atkvalue.c:277
 msgid "good"
 msgstr "boa"
@@ -345,7 +332,6 @@ msgstr "boa"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: atk/atkvalue.c:285
 msgid "very good"
 msgstr "moi mala"
@@ -356,12 +342,11 @@ msgstr "moi mala"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: atk/atkvalue.c:293
 msgid "best"
 msgstr "a mellor"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1232 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1234 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "A aplicación xa non existe"
 
@@ -587,254 +572,258 @@ msgid "statusbar"
 msgstr "barra de estado"
 
 #: atspi/atspi-misc.c:105
+msgid "switch"
+msgstr "cambiar"
+
+#: atspi/atspi-misc.c:106
 msgid "table"
 msgstr "táboa"
 
-#: atspi/atspi-misc.c:106
+#: atspi/atspi-misc.c:107
 msgid "table cell"
 msgstr "cela de táboa"
 
-#: atspi/atspi-misc.c:107
+#: atspi/atspi-misc.c:108
 msgid "table column header"
 msgstr "cabeceira de columna de táboa"
 
-#: atspi/atspi-misc.c:108
+#: atspi/atspi-misc.c:109
 msgid "table row header"
 msgstr "cabeceira de fila de táboa"
 
-#: atspi/atspi-misc.c:109
+#: atspi/atspi-misc.c:110
 msgid "tear off menu item"
 msgstr "elemento de menú desprazábel"
 
-#: atspi/atspi-misc.c:110
+#: atspi/atspi-misc.c:111
 msgid "terminal"
 msgstr "terminal"
 
-#: atspi/atspi-misc.c:111
+#: atspi/atspi-misc.c:112
 msgid "text"
 msgstr "texto"
 
-#: atspi/atspi-misc.c:112
+#: atspi/atspi-misc.c:113
 msgid "toggle button"
 msgstr "botón de estado"
 
-#: atspi/atspi-misc.c:113
+#: atspi/atspi-misc.c:114
 msgid "tool bar"
 msgstr "barra de ferramentas"
 
-#: atspi/atspi-misc.c:114
+#: atspi/atspi-misc.c:115
 msgid "tool tip"
 msgstr "ferramenta de suxestións"
 
-#: atspi/atspi-misc.c:115
+#: atspi/atspi-misc.c:116
 msgid "tree"
 msgstr "árbore"
 
-#: atspi/atspi-misc.c:116
+#: atspi/atspi-misc.c:117
 msgid "tree table"
 msgstr "táboa en árbore"
 
-#: atspi/atspi-misc.c:117
+#: atspi/atspi-misc.c:118
 msgid "unknown"
 msgstr "descoñecido"
 
-#: atspi/atspi-misc.c:118
+#: atspi/atspi-misc.c:119
 msgid "viewport"
 msgstr "área de visualización"
 
-#: atspi/atspi-misc.c:119
+#: atspi/atspi-misc.c:120
 msgid "window"
 msgstr "xanela"
 
-#: atspi/atspi-misc.c:120
+#: atspi/atspi-misc.c:121
 msgid "header"
 msgstr "cabeceira"
 
-#: atspi/atspi-misc.c:121
+#: atspi/atspi-misc.c:122
 msgid "footer"
 msgstr "pé de páxina"
 
-#: atspi/atspi-misc.c:122
+#: atspi/atspi-misc.c:123
 msgid "paragraph"
 msgstr "parágrafo"
 
-#: atspi/atspi-misc.c:123
+#: atspi/atspi-misc.c:124
 msgid "ruler"
 msgstr "regra"
 
-#: atspi/atspi-misc.c:124
+#: atspi/atspi-misc.c:125
 msgid "application"
 msgstr "aplicación"
 
-#: atspi/atspi-misc.c:125
+#: atspi/atspi-misc.c:126
 msgid "autocomplete"
 msgstr "completar automaticamente"
 
-#: atspi/atspi-misc.c:126
+#: atspi/atspi-misc.c:127
 msgid "edit bar"
 msgstr "barra de edición"
 
-#: atspi/atspi-misc.c:127
+#: atspi/atspi-misc.c:128
 msgid "embedded component"
 msgstr "compoñente incorporado"
 
-#: atspi/atspi-misc.c:128
+#: atspi/atspi-misc.c:129
 msgid "entry"
 msgstr "entrada"
 
-#: atspi/atspi-misc.c:129
+#: atspi/atspi-misc.c:130
 msgid "chart"
 msgstr "gráfica"
 
-#: atspi/atspi-misc.c:130
+#: atspi/atspi-misc.c:131
 msgid "caption"
 msgstr "lenda"
 
-#: atspi/atspi-misc.c:131
+#: atspi/atspi-misc.c:132
 msgid "document frame"
 msgstr "marco de documento"
 
-#: atspi/atspi-misc.c:132
+#: atspi/atspi-misc.c:133
 msgid "heading"
 msgstr "título"
 
-#: atspi/atspi-misc.c:133
+#: atspi/atspi-misc.c:134
 msgid "page"
 msgstr "páxina"
 
-#: atspi/atspi-misc.c:134
+#: atspi/atspi-misc.c:135
 msgid "section"
 msgstr "sección"
 
-#: atspi/atspi-misc.c:135
+#: atspi/atspi-misc.c:136
 msgid "redundant object"
 msgstr "obxecto redundante"
 
-#: atspi/atspi-misc.c:136
+#: atspi/atspi-misc.c:137
 msgid "form"
 msgstr "formulario"
 
-#: atspi/atspi-misc.c:137
+#: atspi/atspi-misc.c:138
 msgid "link"
 msgstr "ligazón"
 
-#: atspi/atspi-misc.c:138
+#: atspi/atspi-misc.c:139
 msgid "input method window"
 msgstr "xanela de método de entrada"
 
-#: atspi/atspi-misc.c:139
+#: atspi/atspi-misc.c:140
 msgid "table row"
 msgstr "fila de táboa"
 
-#: atspi/atspi-misc.c:140
+#: atspi/atspi-misc.c:141
 msgid "tree item"
 msgstr "elemento de árbore"
 
-#: atspi/atspi-misc.c:141
+#: atspi/atspi-misc.c:142
 msgid "document spreadsheet"
 msgstr "documento da folla de cálculo"
 
-#: atspi/atspi-misc.c:142
+#: atspi/atspi-misc.c:143
 msgid "document presentation"
 msgstr "documento de presentación"
 
-#: atspi/atspi-misc.c:143
+#: atspi/atspi-misc.c:144
 msgid "document text"
 msgstr "documento de texto"
 
-#: atspi/atspi-misc.c:144
+#: atspi/atspi-misc.c:145
 msgid "document web"
 msgstr "documento web"
 
-#: atspi/atspi-misc.c:145
+#: atspi/atspi-misc.c:146
 msgid "document email"
 msgstr "documento de correo electrónico"
 
-#: atspi/atspi-misc.c:146
+#: atspi/atspi-misc.c:147
 msgid "comment"
 msgstr "comentario"
 
-#: atspi/atspi-misc.c:147
+#: atspi/atspi-misc.c:148
 msgid "list box"
 msgstr "caixa de lista"
 
-#: atspi/atspi-misc.c:148
+#: atspi/atspi-misc.c:149
 msgid "grouping"
 msgstr "agrupación"
 
-#: atspi/atspi-misc.c:149
+#: atspi/atspi-misc.c:150
 msgid "image map"
 msgstr "mapa de imaxe"
 
-#: atspi/atspi-misc.c:150
+#: atspi/atspi-misc.c:151
 msgid "notification"
 msgstr "notificación"
 
-#: atspi/atspi-misc.c:151
+#: atspi/atspi-misc.c:152
 msgid "info bar"
 msgstr "barra de información"
 
-#: atspi/atspi-misc.c:152
+#: atspi/atspi-misc.c:153
 msgid "level bar"
 msgstr "barra de nivel"
 
-#: atspi/atspi-misc.c:153
+#: atspi/atspi-misc.c:154
 msgid "title bar"
 msgstr "barra de título"
 
-#: atspi/atspi-misc.c:154
+#: atspi/atspi-misc.c:155
 msgid "block quote"
 msgstr "bloque de cita"
 
-#: atspi/atspi-misc.c:155
+#: atspi/atspi-misc.c:156
 msgid "audio"
 msgstr "son"
 
-#: atspi/atspi-misc.c:156
+#: atspi/atspi-misc.c:157
 msgid "video"
 msgstr "vídeo"
 
-#: atspi/atspi-misc.c:157
+#: atspi/atspi-misc.c:158
 msgid "definition"
 msgstr "definición"
 
-#: atspi/atspi-misc.c:158
+#: atspi/atspi-misc.c:159
 msgid "article"
 msgstr "artigo"
 
-#: atspi/atspi-misc.c:159
+#: atspi/atspi-misc.c:160
 msgid "landmark"
 msgstr "punto de referencia"
 
-#: atspi/atspi-misc.c:160
+#: atspi/atspi-misc.c:161
 msgid "log"
 msgstr "rexistro"
 
-#: atspi/atspi-misc.c:161
+#: atspi/atspi-misc.c:162
 msgid "marquee"
 msgstr "marquesiña"
 
-#: atspi/atspi-misc.c:162
+#: atspi/atspi-misc.c:163
 msgid "math"
 msgstr "matemáticas"
 
-#: atspi/atspi-misc.c:163
+#: atspi/atspi-misc.c:164
 msgid "rating"
 msgstr "puntuación"
 
-#: atspi/atspi-misc.c:164
+#: atspi/atspi-misc.c:165
 msgid "timer"
 msgstr "temporizador"
 
-#: atspi/atspi-misc.c:165
+#: atspi/atspi-misc.c:166
 msgid "description list"
 msgstr "lista de descricións"
 
-#: atspi/atspi-misc.c:166
+#: atspi/atspi-misc.c:167
 msgid "description term"
 msgstr "termo de descrición"
 
-#: atspi/atspi-misc.c:167
+#: atspi/atspi-misc.c:168
 msgid "description value"
 msgstr "valor de descrición"
 
