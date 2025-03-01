@@ -4,14 +4,14 @@
 #
 # Hizkuntza Politikarako Sailburuordetza <hizpol@ej-gv.es>, 2004.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2007, 2011, 2014.
-# Asier Sarasua Garmendia  <asiersarasua@ni.eus>, 2022.
+# Asier Saratsua Garmendia  <asiersarasua@ni.eus>, 2022, 2025.
 #
 msgid ""
 msgstr "Project-Id-Version: atk master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
-"POT-Creation-Date: 2024-08-06 21:05+0000\n"
-"PO-Revision-Date: 2024-089-02 18:58+0100\n"
-"Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
+"POT-Creation-Date: 2025-02-11 18:33+0000\n"
+"PO-Revision-Date: 2025-03-01 18:58+0100\n"
+"Last-Translator: Asier Saratsua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
@@ -338,7 +338,7 @@ msgstr "oso ona"
 msgid "best"
 msgstr "onena"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1232 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1234 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "Aplikazioa ez da gehiago existitzen"
 
@@ -564,254 +564,258 @@ msgid "statusbar"
 msgstr "egoera-barra"
 
 #: atspi/atspi-misc.c:105
+msgid "switch"
+msgstr "txandakatzailea"
+
+#: atspi/atspi-misc.c:106
 msgid "table"
 msgstr "taula"
 
-#: atspi/atspi-misc.c:106
+#: atspi/atspi-misc.c:107
 msgid "table cell"
 msgstr "taulako gelaxka"
 
-#: atspi/atspi-misc.c:107
+#: atspi/atspi-misc.c:108
 msgid "table column header"
 msgstr "taulako zutabe-goiburua"
 
-#: atspi/atspi-misc.c:108
+#: atspi/atspi-misc.c:109
 msgid "table row header"
 msgstr "taulako errenkada-goiburua"
 
-#: atspi/atspi-misc.c:109
+#: atspi/atspi-misc.c:110
 msgid "tear off menu item"
 msgstr "menu askagarriko elementua"
 
-#: atspi/atspi-misc.c:110
+#: atspi/atspi-misc.c:111
 msgid "terminal"
 msgstr "terminala"
 
-#: atspi/atspi-misc.c:111
+#: atspi/atspi-misc.c:112
 msgid "text"
 msgstr "testua"
 
-#: atspi/atspi-misc.c:112
+#: atspi/atspi-misc.c:113
 msgid "toggle button"
 msgstr "txandakatze-botoia"
 
-#: atspi/atspi-misc.c:113
+#: atspi/atspi-misc.c:114
 msgid "tool bar"
 msgstr "tresna-barra"
 
-#: atspi/atspi-misc.c:114
+#: atspi/atspi-misc.c:115
 msgid "tool tip"
 msgstr "aholkua"
 
-#: atspi/atspi-misc.c:115
+#: atspi/atspi-misc.c:116
 msgid "tree"
 msgstr "zuhaitza"
 
-#: atspi/atspi-misc.c:116
+#: atspi/atspi-misc.c:117
 msgid "tree table"
 msgstr "zuhaitz-taula"
 
-#: atspi/atspi-misc.c:117
+#: atspi/atspi-misc.c:118
 msgid "unknown"
 msgstr "ezezaguna"
 
-#: atspi/atspi-misc.c:118
+#: atspi/atspi-misc.c:119
 msgid "viewport"
 msgstr "leihatila"
 
-#: atspi/atspi-misc.c:119
+#: atspi/atspi-misc.c:120
 msgid "window"
 msgstr "leihoa"
 
-#: atspi/atspi-misc.c:120
+#: atspi/atspi-misc.c:121
 msgid "header"
 msgstr "goiburua"
 
-#: atspi/atspi-misc.c:121
+#: atspi/atspi-misc.c:122
 msgid "footer"
 msgstr "orri-oina"
 
-#: atspi/atspi-misc.c:122
+#: atspi/atspi-misc.c:123
 msgid "paragraph"
 msgstr "paragrafoa"
 
-#: atspi/atspi-misc.c:123
+#: atspi/atspi-misc.c:124
 msgid "ruler"
 msgstr "erregela"
 
-#: atspi/atspi-misc.c:124
+#: atspi/atspi-misc.c:125
 msgid "application"
 msgstr "aplikazioa"
 
-#: atspi/atspi-misc.c:125
+#: atspi/atspi-misc.c:126
 msgid "autocomplete"
 msgstr "auto-osatzea"
 
-#: atspi/atspi-misc.c:126
+#: atspi/atspi-misc.c:127
 msgid "edit bar"
 msgstr "edizio-barra"
 
-#: atspi/atspi-misc.c:127
+#: atspi/atspi-misc.c:128
 msgid "embedded component"
 msgstr "kapsulatutako osagaia"
 
-#: atspi/atspi-misc.c:128
+#: atspi/atspi-misc.c:129
 msgid "entry"
 msgstr "sarrera"
 
-#: atspi/atspi-misc.c:129
+#: atspi/atspi-misc.c:130
 msgid "chart"
 msgstr "diagrama"
 
-#: atspi/atspi-misc.c:130
+#: atspi/atspi-misc.c:131
 msgid "caption"
 msgstr "epigrafea"
 
-#: atspi/atspi-misc.c:131
+#: atspi/atspi-misc.c:132
 msgid "document frame"
 msgstr "dokumentuaren markoa"
 
-#: atspi/atspi-misc.c:132
+#: atspi/atspi-misc.c:133
 msgid "heading"
 msgstr "izenburua"
 
-#: atspi/atspi-misc.c:133
+#: atspi/atspi-misc.c:134
 msgid "page"
 msgstr "orria"
 
-#: atspi/atspi-misc.c:134
+#: atspi/atspi-misc.c:135
 msgid "section"
 msgstr "atala"
 
-#: atspi/atspi-misc.c:135
+#: atspi/atspi-misc.c:136
 msgid "redundant object"
 msgstr "objektu erredundantea"
 
-#: atspi/atspi-misc.c:136
+#: atspi/atspi-misc.c:137
 msgid "form"
 msgstr "inprimakia"
 
-#: atspi/atspi-misc.c:137
+#: atspi/atspi-misc.c:138
 msgid "link"
 msgstr "esteka"
 
-#: atspi/atspi-misc.c:138
+#: atspi/atspi-misc.c:139
 msgid "input method window"
 msgstr "sarrerako metodoaren leihoa"
 
-#: atspi/atspi-misc.c:139
+#: atspi/atspi-misc.c:140
 msgid "table row"
 msgstr "taulako errenkada"
 
-#: atspi/atspi-misc.c:140
+#: atspi/atspi-misc.c:141
 msgid "tree item"
 msgstr "zuhaitzeko elementua"
 
-#: atspi/atspi-misc.c:141
+#: atspi/atspi-misc.c:142
 msgid "document spreadsheet"
 msgstr "kalkulu-orriaren dokumentua"
 
-#: atspi/atspi-misc.c:142
+#: atspi/atspi-misc.c:143
 msgid "document presentation"
 msgstr "aurkezpenaren dokumentua"
 
-#: atspi/atspi-misc.c:143
+#: atspi/atspi-misc.c:144
 msgid "document text"
 msgstr "testu-dokumentua"
 
-#: atspi/atspi-misc.c:144
+#: atspi/atspi-misc.c:145
 msgid "document web"
 msgstr "web dokumentua"
 
-#: atspi/atspi-misc.c:145
+#: atspi/atspi-misc.c:146
 msgid "document email"
 msgstr "posta elektronikoaren dokumentua"
 
-#: atspi/atspi-misc.c:146
+#: atspi/atspi-misc.c:147
 msgid "comment"
 msgstr "iruzkina"
 
-#: atspi/atspi-misc.c:147
+#: atspi/atspi-misc.c:148
 msgid "list box"
 msgstr "zerrenda-koadroa"
 
-#: atspi/atspi-misc.c:148
+#: atspi/atspi-misc.c:149
 msgid "grouping"
 msgstr "taldekatzea"
 
-#: atspi/atspi-misc.c:149
+#: atspi/atspi-misc.c:150
 msgid "image map"
 msgstr "irudi-mapa"
 
-#: atspi/atspi-misc.c:150
+#: atspi/atspi-misc.c:151
 msgid "notification"
 msgstr "jakinarazpena"
 
-#: atspi/atspi-misc.c:151
+#: atspi/atspi-misc.c:152
 msgid "info bar"
 msgstr "informazio-barra"
 
-#: atspi/atspi-misc.c:152
+#: atspi/atspi-misc.c:153
 msgid "level bar"
 msgstr "maila-barra"
 
-#: atspi/atspi-misc.c:153
+#: atspi/atspi-misc.c:154
 msgid "title bar"
 msgstr "titulu-barra"
 
-#: atspi/atspi-misc.c:154
+#: atspi/atspi-misc.c:155
 msgid "block quote"
 msgstr "aipuaren blokea"
 
-#: atspi/atspi-misc.c:155
+#: atspi/atspi-misc.c:156
 msgid "audio"
 msgstr "audioa"
 
-#: atspi/atspi-misc.c:156
+#: atspi/atspi-misc.c:157
 msgid "video"
 msgstr "bideoa"
 
-#: atspi/atspi-misc.c:157
+#: atspi/atspi-misc.c:158
 msgid "definition"
 msgstr "definizioa"
 
-#: atspi/atspi-misc.c:158
+#: atspi/atspi-misc.c:159
 msgid "article"
 msgstr "artikulua"
 
-#: atspi/atspi-misc.c:159
+#: atspi/atspi-misc.c:160
 msgid "landmark"
 msgstr "erreferentzia puntua"
 
-#: atspi/atspi-misc.c:160
+#: atspi/atspi-misc.c:161
 msgid "log"
 msgstr "erregistroa"
 
-#: atspi/atspi-misc.c:161
+#: atspi/atspi-misc.c:162
 msgid "marquee"
 msgstr "markesina"
 
-#: atspi/atspi-misc.c:162
+#: atspi/atspi-misc.c:163
 msgid "math"
 msgstr "matematikak"
 
-#: atspi/atspi-misc.c:163
+#: atspi/atspi-misc.c:164
 msgid "rating"
 msgstr "puntuazioa"
 
-#: atspi/atspi-misc.c:164
+#: atspi/atspi-misc.c:165
 msgid "timer"
 msgstr "kronometroa"
 
-#: atspi/atspi-misc.c:165
+#: atspi/atspi-misc.c:166
 msgid "description list"
 msgstr "azalpenen zerrenda"
 
-#: atspi/atspi-misc.c:166
+#: atspi/atspi-misc.c:167
 msgid "description term"
 msgstr "azalpenaren terminoa"
 
-#: atspi/atspi-misc.c:167
+#: atspi/atspi-misc.c:168
 msgid "description value"
 msgstr "azalpenaren balioa"
 
