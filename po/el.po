@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
-"POT-Creation-Date: 2024-07-26 07:33+0000\n"
+"POT-Creation-Date: 2024-08-06 21:05+0000\n"
 "PO-Revision-Date: 2023-08-02 20:55+0300\n"
 "Last-Translator: Giannis Antypas <gianni.antypas@gmail.com>\n"
 "Language-Team: team@lists.gnome.gr\n"
@@ -199,20 +199,18 @@ msgid "The number of links which the current AtkHypertext has"
 msgstr "Ο αριθμός των συνδέσμων που έχει το τρέχον AtkHypertext"
 
 #: atk/atkobject.c:440
-#, fuzzy
 #| msgid "Accessible Name"
 msgid "Accessible ID"
-msgstr "Προσβάσιμο όνομα"
+msgstr "Προσβάσιμο αναγνωριστικό"
 
 #: atk/atkobject.c:441
 msgid "ID for the accessible; useful for automated testing"
 msgstr "Όνομα για το προσβάσιμο, χρήσιμο για αυτοματοποιημένο έλεγχο"
 
 #: atk/atkobject.c:447
-#, fuzzy
 #| msgid "text"
 msgid "Help text"
-msgstr "κείμενο"
+msgstr "Κείμενο βοήθειας"
 
 #: atk/atkobject.c:448
 msgid "Help text associated with the accessible"
@@ -367,7 +365,7 @@ msgstr "πολύ καλό"
 msgid "best"
 msgstr "το καλύτερο"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1230 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1232 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "Η εφαρμογή δεν υπάρχει πλέον"
 
@@ -545,8 +543,9 @@ msgid "progress bar"
 msgstr "γραμμή προόδου"
 
 #: atspi/atspi-misc.c:93
-msgid "push button"
-msgstr "πιεζόμενο κουμπί"
+#| msgid "menu button"
+msgid "button"
+msgstr "κουμπί"
 
 #: atspi/atspi-misc.c:94
 msgid "radio button"
@@ -843,6 +842,9 @@ msgstr "όρος περιγραφής"
 #: atspi/atspi-misc.c:167
 msgid "description value"
 msgstr "τιμή περιγραφής"
+
+#~ msgid "push button"
+#~ msgstr "πιεζόμενο κουμπί"
 
 #~ msgid "Attempted synchronous call where prohibited"
 #~ msgstr "Απόπειρα συγχρονισμένης κλήσης όπου απαγορεύεται"
