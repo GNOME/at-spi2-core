@@ -5,13 +5,14 @@
 # Nam SungHyun <namsh@kldp.org>, 2002
 # Changwoo Ryu <cwryu@debian.org>, 2004, 2006, 2008, 2009, 2011, 2014
 # (at-spi2-core)
-# Changwoo Ryu <cwryu@debian.org>, 2011, 2014, 2022, 2024.
+# Changwoo Ryu <cwryu@debian.org>, 2011, 2014, 2022, 2024-2025.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
-"POT-Creation-Date: 2024-08-06 21:05+0000\n"
-"PO-Revision-Date: 2024-08-29 20:46+0900\n"
+"POT-Creation-Date: 2025-02-11 18:33+0000\n"
+"PO-Revision-Date: 2025-03-03 00:04+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
@@ -341,7 +342,7 @@ msgstr "매우 좋음"
 msgid "best"
 msgstr "최고"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1232 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1234 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "프로그램이 더 이상 없습니다"
 
@@ -567,254 +568,258 @@ msgid "statusbar"
 msgstr "상태 표시줄"
 
 #: atspi/atspi-misc.c:105
+msgid "switch"
+msgstr "스위치"
+
+#: atspi/atspi-misc.c:106
 msgid "table"
 msgstr "테이블"
 
-#: atspi/atspi-misc.c:106
+#: atspi/atspi-misc.c:107
 msgid "table cell"
 msgstr "테이블 셀"
 
-#: atspi/atspi-misc.c:107
+#: atspi/atspi-misc.c:108
 msgid "table column header"
 msgstr "테이블 열 헤더"
 
-#: atspi/atspi-misc.c:108
+#: atspi/atspi-misc.c:109
 msgid "table row header"
 msgstr "테이블 행 헤더"
 
-#: atspi/atspi-misc.c:109
+#: atspi/atspi-misc.c:110
 msgid "tear off menu item"
 msgstr "떼어내기 메뉴 항목"
 
-#: atspi/atspi-misc.c:110
+#: atspi/atspi-misc.c:111
 msgid "terminal"
 msgstr "터미널"
 
-#: atspi/atspi-misc.c:111
+#: atspi/atspi-misc.c:112
 msgid "text"
 msgstr "텍스트"
 
-#: atspi/atspi-misc.c:112
+#: atspi/atspi-misc.c:113
 msgid "toggle button"
 msgstr "토글 단추"
 
-#: atspi/atspi-misc.c:113
+#: atspi/atspi-misc.c:114
 msgid "tool bar"
 msgstr "도구 모음"
 
-#: atspi/atspi-misc.c:114
+#: atspi/atspi-misc.c:115
 msgid "tool tip"
 msgstr "도구 설명"
 
-#: atspi/atspi-misc.c:115
+#: atspi/atspi-misc.c:116
 msgid "tree"
 msgstr "트리"
 
-#: atspi/atspi-misc.c:116
+#: atspi/atspi-misc.c:117
 msgid "tree table"
 msgstr "트리 테이블"
 
-#: atspi/atspi-misc.c:117
+#: atspi/atspi-misc.c:118
 msgid "unknown"
 msgstr "알 수 없음"
 
-#: atspi/atspi-misc.c:118
+#: atspi/atspi-misc.c:119
 msgid "viewport"
 msgstr "뷰포트"
 
-#: atspi/atspi-misc.c:119
+#: atspi/atspi-misc.c:120
 msgid "window"
 msgstr "창"
 
-#: atspi/atspi-misc.c:120
+#: atspi/atspi-misc.c:121
 msgid "header"
 msgstr "머리글"
 
-#: atspi/atspi-misc.c:121
+#: atspi/atspi-misc.c:122
 msgid "footer"
 msgstr "바닥글"
 
-#: atspi/atspi-misc.c:122
+#: atspi/atspi-misc.c:123
 msgid "paragraph"
 msgstr "단락"
 
-#: atspi/atspi-misc.c:123
+#: atspi/atspi-misc.c:124
 msgid "ruler"
 msgstr "눈금자"
 
-#: atspi/atspi-misc.c:124
+#: atspi/atspi-misc.c:125
 msgid "application"
 msgstr "응용프로그램"
 
-#: atspi/atspi-misc.c:125
+#: atspi/atspi-misc.c:126
 msgid "autocomplete"
 msgstr "자동 완성"
 
-#: atspi/atspi-misc.c:126
+#: atspi/atspi-misc.c:127
 msgid "edit bar"
 msgstr "편집 막대"
 
-#: atspi/atspi-misc.c:127
+#: atspi/atspi-misc.c:128
 msgid "embedded component"
 msgstr "포함된 컴포넌트"
 
-#: atspi/atspi-misc.c:128
+#: atspi/atspi-misc.c:129
 msgid "entry"
 msgstr "입력창"
 
-#: atspi/atspi-misc.c:129
+#: atspi/atspi-misc.c:130
 msgid "chart"
 msgstr "표"
 
-#: atspi/atspi-misc.c:130
+#: atspi/atspi-misc.c:131
 msgid "caption"
 msgstr "캡션"
 
-#: atspi/atspi-misc.c:131
+#: atspi/atspi-misc.c:132
 msgid "document frame"
 msgstr "문서 프레임"
 
-#: atspi/atspi-misc.c:132
+#: atspi/atspi-misc.c:133
 msgid "heading"
 msgstr "머리글"
 
-#: atspi/atspi-misc.c:133
+#: atspi/atspi-misc.c:134
 msgid "page"
 msgstr "쪽"
 
-#: atspi/atspi-misc.c:134
+#: atspi/atspi-misc.c:135
 msgid "section"
 msgstr "절"
 
-#: atspi/atspi-misc.c:135
+#: atspi/atspi-misc.c:136
 msgid "redundant object"
 msgstr "추가 객체"
 
-#: atspi/atspi-misc.c:136
+#: atspi/atspi-misc.c:137
 msgid "form"
 msgstr "폼"
 
-#: atspi/atspi-misc.c:137
+#: atspi/atspi-misc.c:138
 msgid "link"
 msgstr "링크"
 
-#: atspi/atspi-misc.c:138
+#: atspi/atspi-misc.c:139
 msgid "input method window"
 msgstr "입력기 창"
 
-#: atspi/atspi-misc.c:139
+#: atspi/atspi-misc.c:140
 msgid "table row"
 msgstr "테이블 행"
 
-#: atspi/atspi-misc.c:140
+#: atspi/atspi-misc.c:141
 msgid "tree item"
 msgstr "트리 항목"
 
-#: atspi/atspi-misc.c:141
+#: atspi/atspi-misc.c:142
 msgid "document spreadsheet"
 msgstr "문서 스프레드시트"
 
-#: atspi/atspi-misc.c:142
+#: atspi/atspi-misc.c:143
 msgid "document presentation"
 msgstr "문서 프리젠테이션"
 
-#: atspi/atspi-misc.c:143
+#: atspi/atspi-misc.c:144
 msgid "document text"
 msgstr "문서 텍스트"
 
-#: atspi/atspi-misc.c:144
+#: atspi/atspi-misc.c:145
 msgid "document web"
 msgstr "문서 웹"
 
-#: atspi/atspi-misc.c:145
+#: atspi/atspi-misc.c:146
 msgid "document email"
 msgstr "문서 전자 메일"
 
-#: atspi/atspi-misc.c:146
+#: atspi/atspi-misc.c:147
 msgid "comment"
 msgstr "주석"
 
-#: atspi/atspi-misc.c:147
+#: atspi/atspi-misc.c:148
 msgid "list box"
 msgstr "목록 상자"
 
-#: atspi/atspi-misc.c:148
+#: atspi/atspi-misc.c:149
 msgid "grouping"
 msgstr "모음"
 
-#: atspi/atspi-misc.c:149
+#: atspi/atspi-misc.c:150
 msgid "image map"
 msgstr "그림 맵"
 
-#: atspi/atspi-misc.c:150
+#: atspi/atspi-misc.c:151
 msgid "notification"
 msgstr "알림"
 
-#: atspi/atspi-misc.c:151
+#: atspi/atspi-misc.c:152
 msgid "info bar"
 msgstr "정보 모음"
 
-#: atspi/atspi-misc.c:152
+#: atspi/atspi-misc.c:153
 msgid "level bar"
 msgstr "단계 표시 막대"
 
-#: atspi/atspi-misc.c:153
+#: atspi/atspi-misc.c:154
 msgid "title bar"
 msgstr "제목 표시줄"
 
-#: atspi/atspi-misc.c:154
+#: atspi/atspi-misc.c:155
 msgid "block quote"
 msgstr "블럭 인용"
 
-#: atspi/atspi-misc.c:155
+#: atspi/atspi-misc.c:156
 msgid "audio"
 msgstr "오디오"
 
-#: atspi/atspi-misc.c:156
+#: atspi/atspi-misc.c:157
 msgid "video"
 msgstr "비디오"
 
-#: atspi/atspi-misc.c:157
+#: atspi/atspi-misc.c:158
 msgid "definition"
 msgstr "정의"
 
-#: atspi/atspi-misc.c:158
+#: atspi/atspi-misc.c:159
 msgid "article"
 msgstr "글"
 
-#: atspi/atspi-misc.c:159
+#: atspi/atspi-misc.c:160
 msgid "landmark"
 msgstr "랜드마크"
 
-#: atspi/atspi-misc.c:160
+#: atspi/atspi-misc.c:161
 msgid "log"
 msgstr "기록"
 
-#: atspi/atspi-misc.c:161
+#: atspi/atspi-misc.c:162
 msgid "marquee"
 msgstr "그늘"
 
-#: atspi/atspi-misc.c:162
+#: atspi/atspi-misc.c:163
 msgid "math"
 msgstr "수학"
 
-#: atspi/atspi-misc.c:163
+#: atspi/atspi-misc.c:164
 msgid "rating"
 msgstr "평가"
 
-#: atspi/atspi-misc.c:164
+#: atspi/atspi-misc.c:165
 msgid "timer"
 msgstr "타미어"
 
-#: atspi/atspi-misc.c:165
+#: atspi/atspi-misc.c:166
 msgid "description list"
 msgstr "설명 목록"
 
-#: atspi/atspi-misc.c:166
+#: atspi/atspi-misc.c:167
 msgid "description term"
 msgstr "설명 용어"
 
-#: atspi/atspi-misc.c:167
+#: atspi/atspi-misc.c:168
 msgid "description value"
 msgstr "설명 값"
 
