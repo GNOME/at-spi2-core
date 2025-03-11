@@ -7,15 +7,15 @@
 #
 # Mohammad DAMT <mdamt@bisnisweb.com>, 2005.
 # Ahmad Riza H Nst  <rizahnst@gnome.org>, 2006.
-# Andika Triwidada <andika@gmail.com>, 2010, 2011, 2014, 2024.
+# Andika Triwidada <andika@gmail.com>, 2010, 2011, 2014, 2024, 2025.
 # Dirgita <dirgitadevina@yahoo.co.id>, 2010, 2011.
 # Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2021-2022, 2024.
 msgid ""
 msgstr ""
-"Project-Id-Version: atk master\n"
+"Project-Id-Version: at-spi2-core main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
-"POT-Creation-Date: 2024-08-06 21:05+0000\n"
-"PO-Revision-Date: 2024-09-09 15:08+0700\n"
+"POT-Creation-Date: 2025-03-10 11:11+0000\n"
+"PO-Revision-Date: 2025-03-12 04:39+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: GNOME Indonesian Translation Team <gnome@i15n.org>\n"
 "Language: id\n"
@@ -348,7 +348,7 @@ msgstr "sangat baik"
 msgid "best"
 msgstr "terbaik"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1232 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1234 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "Aplikasi tak ada lagi"
 
@@ -574,253 +574,257 @@ msgid "statusbar"
 msgstr "baris status"
 
 #: atspi/atspi-misc.c:105
+msgid "switch"
+msgstr "saklar"
+
+#: atspi/atspi-misc.c:106
 msgid "table"
 msgstr "tabel"
 
-#: atspi/atspi-misc.c:106
+#: atspi/atspi-misc.c:107
 msgid "table cell"
 msgstr "sel tabel"
 
-#: atspi/atspi-misc.c:107
+#: atspi/atspi-misc.c:108
 msgid "table column header"
 msgstr "tajuk kolom pada tabel"
 
-#: atspi/atspi-misc.c:108
+#: atspi/atspi-misc.c:109
 msgid "table row header"
 msgstr "tajuk baris pada tabel"
 
-#: atspi/atspi-misc.c:109
+#: atspi/atspi-misc.c:110
 msgid "tear off menu item"
 msgstr "anggota menu yang dapat dilepas"
 
-#: atspi/atspi-misc.c:110
+#: atspi/atspi-misc.c:111
 msgid "terminal"
 msgstr "terminal"
 
-#: atspi/atspi-misc.c:111
+#: atspi/atspi-misc.c:112
 msgid "text"
 msgstr "teks"
 
-#: atspi/atspi-misc.c:112
+#: atspi/atspi-misc.c:113
 msgid "toggle button"
 msgstr "tombol togel"
 
-#: atspi/atspi-misc.c:113
+#: atspi/atspi-misc.c:114
 msgid "tool bar"
 msgstr "bilah alat"
 
-#: atspi/atspi-misc.c:114
+#: atspi/atspi-misc.c:115
 msgid "tool tip"
 msgstr "teks bantuan"
 
-#: atspi/atspi-misc.c:115
+#: atspi/atspi-misc.c:116
 msgid "tree"
 msgstr "pohon"
 
-#: atspi/atspi-misc.c:116
+#: atspi/atspi-misc.c:117
 msgid "tree table"
 msgstr "tabel pohon"
 
-#: atspi/atspi-misc.c:117
+#: atspi/atspi-misc.c:118
 msgid "unknown"
 msgstr "tidak diketahui"
 
-#: atspi/atspi-misc.c:118
+#: atspi/atspi-misc.c:119
 msgid "viewport"
 msgstr "viewport"
 
-#: atspi/atspi-misc.c:119
+#: atspi/atspi-misc.c:120
 msgid "window"
 msgstr "jendela"
 
-#: atspi/atspi-misc.c:120
+#: atspi/atspi-misc.c:121
 msgid "header"
 msgstr "tajuk"
 
-#: atspi/atspi-misc.c:121
+#: atspi/atspi-misc.c:122
 msgid "footer"
 msgstr "kaki"
 
-#: atspi/atspi-misc.c:122
+#: atspi/atspi-misc.c:123
 msgid "paragraph"
 msgstr "paragraf"
 
-#: atspi/atspi-misc.c:123
+#: atspi/atspi-misc.c:124
 msgid "ruler"
 msgstr "penggaris"
 
-#: atspi/atspi-misc.c:124
+#: atspi/atspi-misc.c:125
 msgid "application"
 msgstr "aplikasi"
 
-#: atspi/atspi-misc.c:125
+#: atspi/atspi-misc.c:126
 msgid "autocomplete"
 msgstr "lengkap secara otomatis"
 
-#: atspi/atspi-misc.c:126
+#: atspi/atspi-misc.c:127
 msgid "edit bar"
 msgstr "bilah sunting"
 
-#: atspi/atspi-misc.c:127
+#: atspi/atspi-misc.c:128
 msgid "embedded component"
 msgstr "komponen tercangkok"
 
-#: atspi/atspi-misc.c:128
+#: atspi/atspi-misc.c:129
 msgid "entry"
 msgstr "entri"
 
-#: atspi/atspi-misc.c:129
+#: atspi/atspi-misc.c:130
 msgid "chart"
 msgstr "bagan"
 
-#: atspi/atspi-misc.c:130
+#: atspi/atspi-misc.c:131
 msgid "caption"
 msgstr "kapsi"
 
-#: atspi/atspi-misc.c:131
+#: atspi/atspi-misc.c:132
 msgid "document frame"
 msgstr "bingkai dokumen"
 
-#: atspi/atspi-misc.c:132
+#: atspi/atspi-misc.c:133
 msgid "heading"
 msgstr "tajuk"
 
-#: atspi/atspi-misc.c:133
+#: atspi/atspi-misc.c:134
 msgid "page"
 msgstr "halaman"
 
-#: atspi/atspi-misc.c:134
+#: atspi/atspi-misc.c:135
 msgid "section"
 msgstr "bagian"
 
-#: atspi/atspi-misc.c:135
+#: atspi/atspi-misc.c:136
 msgid "redundant object"
 msgstr "objek redundan"
 
-#: atspi/atspi-misc.c:136
+#: atspi/atspi-misc.c:137
 msgid "form"
 msgstr "formulir"
 
-#: atspi/atspi-misc.c:137
+#: atspi/atspi-misc.c:138
 msgid "link"
 msgstr "taut"
 
-#: atspi/atspi-misc.c:138
+#: atspi/atspi-misc.c:139
 msgid "input method window"
 msgstr "jendela metoda masukan"
 
-#: atspi/atspi-misc.c:139
+#: atspi/atspi-misc.c:140
 msgid "table row"
 msgstr "baris tabel"
 
-#: atspi/atspi-misc.c:140
+#: atspi/atspi-misc.c:141
 msgid "tree item"
 msgstr "butir tabel pohon"
 
-#: atspi/atspi-misc.c:141
+#: atspi/atspi-misc.c:142
 msgid "document spreadsheet"
 msgstr "spreadsheet dokumen"
 
-#: atspi/atspi-misc.c:142
+#: atspi/atspi-misc.c:143
 msgid "document presentation"
 msgstr "presentasi dokumen"
 
-#: atspi/atspi-misc.c:143
+#: atspi/atspi-misc.c:144
 msgid "document text"
 msgstr "teks dokumen"
 
-#: atspi/atspi-misc.c:144
+#: atspi/atspi-misc.c:145
 msgid "document web"
 msgstr "web dokumen"
 
-#: atspi/atspi-misc.c:145
+#: atspi/atspi-misc.c:146
 msgid "document email"
 msgstr "surel dokumen"
 
-#: atspi/atspi-misc.c:146
+#: atspi/atspi-misc.c:147
 msgid "comment"
 msgstr "komentar"
 
-#: atspi/atspi-misc.c:147
+#: atspi/atspi-misc.c:148
 msgid "list box"
 msgstr "kotak daftar"
 
-#: atspi/atspi-misc.c:148
+#: atspi/atspi-misc.c:149
 msgid "grouping"
 msgstr "pengelompokan"
 
-#: atspi/atspi-misc.c:149
+#: atspi/atspi-misc.c:150
 msgid "image map"
 msgstr "peta gambar"
 
-#: atspi/atspi-misc.c:150
+#: atspi/atspi-misc.c:151
 msgid "notification"
 msgstr "pemberitahuan"
 
-#: atspi/atspi-misc.c:151
+#: atspi/atspi-misc.c:152
 msgid "info bar"
 msgstr "bilah info"
 
-#: atspi/atspi-misc.c:152
+#: atspi/atspi-misc.c:153
 msgid "level bar"
 msgstr "bilah aras"
 
-#: atspi/atspi-misc.c:153
+#: atspi/atspi-misc.c:154
 msgid "title bar"
 msgstr "bilah judul"
 
-#: atspi/atspi-misc.c:154
+#: atspi/atspi-misc.c:155
 msgid "block quote"
 msgstr "kutip blok"
 
-#: atspi/atspi-misc.c:155
+#: atspi/atspi-misc.c:156
 msgid "audio"
 msgstr "audio"
 
-#: atspi/atspi-misc.c:156
+#: atspi/atspi-misc.c:157
 msgid "video"
 msgstr "video"
 
-#: atspi/atspi-misc.c:157
+#: atspi/atspi-misc.c:158
 msgid "definition"
 msgstr "definisi"
 
-#: atspi/atspi-misc.c:158
+#: atspi/atspi-misc.c:159
 msgid "article"
 msgstr "artikel"
 
-#: atspi/atspi-misc.c:159
+#: atspi/atspi-misc.c:160
 msgid "landmark"
 msgstr "landmark"
 
-#: atspi/atspi-misc.c:160
+#: atspi/atspi-misc.c:161
 msgid "log"
 msgstr "log"
 
-#: atspi/atspi-misc.c:161
+#: atspi/atspi-misc.c:162
 msgid "marquee"
 msgstr "marquee"
 
-#: atspi/atspi-misc.c:162
+#: atspi/atspi-misc.c:163
 msgid "math"
 msgstr "math"
 
-#: atspi/atspi-misc.c:163
+#: atspi/atspi-misc.c:164
 msgid "rating"
 msgstr "rating"
 
-#: atspi/atspi-misc.c:164
+#: atspi/atspi-misc.c:165
 msgid "timer"
 msgstr "timer"
 
-#: atspi/atspi-misc.c:165
+#: atspi/atspi-misc.c:166
 msgid "description list"
 msgstr "daftar deskripsi"
 
-#: atspi/atspi-misc.c:166
+#: atspi/atspi-misc.c:167
 msgid "description term"
 msgstr "istilah deskripsi"
 
-#: atspi/atspi-misc.c:167
+#: atspi/atspi-misc.c:168
 msgid "description value"
 msgstr "nilai deskripsi"
