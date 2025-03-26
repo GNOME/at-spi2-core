@@ -386,7 +386,7 @@ atspi_device_a11y_manager_dispose (GObject *object)
 {
   AtspiDeviceA11yManager *device = ATSPI_DEVICE_A11Y_MANAGER (object);
 
-  g_slist_free_full (device->grabbed_modifiers, g_free);
+  g_slist_free (device->grabbed_modifiers);
   g_slist_free_full (device->grabbed_keys, g_free);
   g_slist_free_full (device->virtual_modifiers, g_free);
   if (device->refresh_timeout_id)
