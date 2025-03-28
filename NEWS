@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.57.0:
+
+* device-a11y-manager: Fix crash on dispose
+
+* device-a11y-manager: Check properly for the DBus backend presence
+
 What's new in at-spi2-core 2.56.0:
 
 * Updated translations.
