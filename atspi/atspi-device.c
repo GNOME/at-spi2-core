@@ -86,6 +86,25 @@ atspi_device_real_remove_key_grab (AtspiDevice *device, guint id)
 {
 }
 
+#if !GLIB_CHECK_VERSION(2, 76, 0)
+static inline gboolean
+g_set_str (char **str_pointer,
+           const char *new_str)
+{
+  char *copy;
+
+  if (*str_pointer == new_str ||
+      (*str_pointer && new_str && strcmp (*str_pointer, new_str) == 0))
+    return FALSE;
+
+  copy = g_strdup (new_str);
+  g_free (*str_pointer);
+  *str_pointer = copy;
+
+  return TRUE;
+}
+#endif
+
 static void
 atspi_device_get_property (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec)
 {
