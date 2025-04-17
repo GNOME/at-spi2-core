@@ -223,7 +223,7 @@ atspi_device_a11y_manager_map_keysym_modifier (AtspiDevice *device, guint keysym
 }
 
 static void
-atspi_device_a11y_manager_unmap_keysym_modifier (AtspiDevice *device, guint modifier)
+atspi_device_a11y_manager_unmap_keysym_modifier (AtspiDevice *device, guint keysym)
 {
   AtspiDeviceA11yManager *manager_device = ATSPI_DEVICE_A11Y_MANAGER (device);
   GSList *l;
@@ -231,7 +231,7 @@ atspi_device_a11y_manager_unmap_keysym_modifier (AtspiDevice *device, guint modi
   for (l = manager_device->virtual_modifiers; l; l = l->next)
     {
       AtspiDeviceA11yManagerVirtualModifier *entry = l->data;
-      if (entry->modifier == modifier)
+      if (entry->keysym == keysym)
         {
           manager_device->virtual_modifiers = g_slist_remove (manager_device->virtual_modifiers, entry);
           g_free (entry);
@@ -239,7 +239,7 @@ atspi_device_a11y_manager_unmap_keysym_modifier (AtspiDevice *device, guint modi
         }
     }
 
-  manager_device->grabbed_modifiers = g_slist_remove (manager_device->grabbed_modifiers, GUINT_TO_POINTER (modifier));
+  manager_device->grabbed_modifiers = g_slist_remove (manager_device->grabbed_modifiers, GUINT_TO_POINTER (keysym));
   schedule_refresh_grabs (manager_device);
 }
 
