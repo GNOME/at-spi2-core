@@ -1685,6 +1685,8 @@ atspi_accessible_get_interfaces (AtspiAccessible *obj)
   append_const_val (ret, "Accessible");
   if (atspi_accessible_is_action (obj))
     append_const_val (ret, "Action");
+  if (atspi_accessible_is_application (obj))
+    append_const_val (ret, "Application");
   if (atspi_accessible_is_collection (obj))
     append_const_val (ret, "Collection");
   if (atspi_accessible_is_component (obj))
