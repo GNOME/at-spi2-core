@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.56.2:
+
+* Fix the build with glib < 2.76.
+
+* a11y-manager-device: Fix unmap_keysym_modifier.
+
 What's new in at-spi2-core 2.56.1:
 
 * device-a11y-manager: Fix crash on dispose
