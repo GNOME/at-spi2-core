@@ -9,7 +9,7 @@
 # This file is distributed under the same license as the atk package.
 #
 #
-# SPDX-FileCopyrightText: 2011, 2014, 2024 Rudolfs <rudolfs.mazurs@gmail.com>
+# SPDX-FileCopyrightText: 2011, 2014, 2024, 2025 Rudolfs <rudolfs.mazurs@gmail.com>
 # Artis Trops <hornet@navigator.lv>, 2002.
 # Raivis Dejus <orvils@gmail.com>, 2006, 2009.
 # Rūdofls Mazurs <rudolfs.mazurs@gmail.com>, 2011.
@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
-"POT-Creation-Date: 2024-08-06 21:05+0000\n"
-"PO-Revision-Date: 2024-09-11 22:24+0300\n"
+"POT-Creation-Date: 2025-04-10 11:11+0000\n"
+"PO-Revision-Date: 2025-05-01 17:45+0300\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
@@ -359,7 +359,7 @@ msgstr "ļoti labs"
 msgid "best"
 msgstr "labākais"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1232 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1234 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "Šī lietotne vairs neeksistē"
 
@@ -537,7 +537,6 @@ msgid "progress bar"
 msgstr "progresa josla"
 
 #: atspi/atspi-misc.c:93
-#| msgid "menu button"
 msgid "button"
 msgstr "poga"
 
@@ -586,254 +585,258 @@ msgid "statusbar"
 msgstr "statusjosla"
 
 #: atspi/atspi-misc.c:105
+msgid "switch"
+msgstr "pārslēgs"
+
+#: atspi/atspi-misc.c:106
 msgid "table"
 msgstr "tabula"
 
-#: atspi/atspi-misc.c:106
+#: atspi/atspi-misc.c:107
 msgid "table cell"
 msgstr "tabulas šūna"
 
-#: atspi/atspi-misc.c:107
+#: atspi/atspi-misc.c:108
 msgid "table column header"
 msgstr "tabulas kolonas galvene"
 
-#: atspi/atspi-misc.c:108
+#: atspi/atspi-misc.c:109
 msgid "table row header"
 msgstr "tabulas rindas galvene"
 
-#: atspi/atspi-misc.c:109
+#: atspi/atspi-misc.c:110
 msgid "tear off menu item"
 msgstr "pārceļamās izvēlnes elements"
 
-#: atspi/atspi-misc.c:110
+#: atspi/atspi-misc.c:111
 msgid "terminal"
 msgstr "terminālis"
 
-#: atspi/atspi-misc.c:111
+#: atspi/atspi-misc.c:112
 msgid "text"
 msgstr "teksts"
 
-#: atspi/atspi-misc.c:112
+#: atspi/atspi-misc.c:113
 msgid "toggle button"
 msgstr "pārslēgšanas poga"
 
-#: atspi/atspi-misc.c:113
+#: atspi/atspi-misc.c:114
 msgid "tool bar"
 msgstr "rīku josla"
 
-#: atspi/atspi-misc.c:114
+#: atspi/atspi-misc.c:115
 msgid "tool tip"
 msgstr "padoms"
 
-#: atspi/atspi-misc.c:115
+#: atspi/atspi-misc.c:116
 msgid "tree"
 msgstr "koks"
 
-#: atspi/atspi-misc.c:116
+#: atspi/atspi-misc.c:117
 msgid "tree table"
 msgstr "koka tabula"
 
-#: atspi/atspi-misc.c:117
+#: atspi/atspi-misc.c:118
 msgid "unknown"
 msgstr "nezināms"
 
-#: atspi/atspi-misc.c:118
+#: atspi/atspi-misc.c:119
 msgid "viewport"
 msgstr "skatpunkts"
 
-#: atspi/atspi-misc.c:119
+#: atspi/atspi-misc.c:120
 msgid "window"
 msgstr "logs"
 
-#: atspi/atspi-misc.c:120
+#: atspi/atspi-misc.c:121
 msgid "header"
 msgstr "galvene"
 
-#: atspi/atspi-misc.c:121
+#: atspi/atspi-misc.c:122
 msgid "footer"
 msgstr "kājene"
 
-#: atspi/atspi-misc.c:122
+#: atspi/atspi-misc.c:123
 msgid "paragraph"
 msgstr "rindkopa"
 
-#: atspi/atspi-misc.c:123
+#: atspi/atspi-misc.c:124
 msgid "ruler"
 msgstr "lineāls"
 
-#: atspi/atspi-misc.c:124
+#: atspi/atspi-misc.c:125
 msgid "application"
 msgstr "lietotne"
 
-#: atspi/atspi-misc.c:125
+#: atspi/atspi-misc.c:126
 msgid "autocomplete"
 msgstr "automātiskas pabeigšana"
 
-#: atspi/atspi-misc.c:126
+#: atspi/atspi-misc.c:127
 msgid "edit bar"
 msgstr "rediģēšanas josla"
 
-#: atspi/atspi-misc.c:127
+#: atspi/atspi-misc.c:128
 msgid "embedded component"
 msgstr "iegulta komponente"
 
-#: atspi/atspi-misc.c:128
+#: atspi/atspi-misc.c:129
 msgid "entry"
 msgstr "ieraksts"
 
-#: atspi/atspi-misc.c:129
+#: atspi/atspi-misc.c:130
 msgid "chart"
 msgstr "diagramma"
 
-#: atspi/atspi-misc.c:130
+#: atspi/atspi-misc.c:131
 msgid "caption"
 msgstr "virsraksts"
 
-#: atspi/atspi-misc.c:131
+#: atspi/atspi-misc.c:132
 msgid "document frame"
 msgstr "dokumenta ietvars"
 
-#: atspi/atspi-misc.c:132
+#: atspi/atspi-misc.c:133
 msgid "heading"
 msgstr "virsraksts"
 
-#: atspi/atspi-misc.c:133
+#: atspi/atspi-misc.c:134
 msgid "page"
 msgstr "lapa"
 
-#: atspi/atspi-misc.c:134
+#: atspi/atspi-misc.c:135
 msgid "section"
 msgstr "sadaļa"
 
-#: atspi/atspi-misc.c:135
+#: atspi/atspi-misc.c:136
 msgid "redundant object"
 msgstr "rezerves objekts"
 
-#: atspi/atspi-misc.c:136
+#: atspi/atspi-misc.c:137
 msgid "form"
 msgstr "forma"
 
-#: atspi/atspi-misc.c:137
+#: atspi/atspi-misc.c:138
 msgid "link"
 msgstr "saite"
 
-#: atspi/atspi-misc.c:138
+#: atspi/atspi-misc.c:139
 msgid "input method window"
 msgstr "ievades metodes logs"
 
-#: atspi/atspi-misc.c:139
+#: atspi/atspi-misc.c:140
 msgid "table row"
 msgstr "tabulas rinda"
 
-#: atspi/atspi-misc.c:140
+#: atspi/atspi-misc.c:141
 msgid "tree item"
 msgstr "koka vienums"
 
-#: atspi/atspi-misc.c:141
+#: atspi/atspi-misc.c:142
 msgid "document spreadsheet"
 msgstr "dokumenta izklājlapa"
 
-#: atspi/atspi-misc.c:142
+#: atspi/atspi-misc.c:143
 msgid "document presentation"
 msgstr "dokumenta prezentācija"
 
-#: atspi/atspi-misc.c:143
+#: atspi/atspi-misc.c:144
 msgid "document text"
 msgstr "dokumenta teksts"
 
-#: atspi/atspi-misc.c:144
+#: atspi/atspi-misc.c:145
 msgid "document web"
 msgstr "dokumenta tīmeklis"
 
-#: atspi/atspi-misc.c:145
+#: atspi/atspi-misc.c:146
 msgid "document email"
 msgstr "dokumenta e-pasts"
 
-#: atspi/atspi-misc.c:146
+#: atspi/atspi-misc.c:147
 msgid "comment"
 msgstr "komentārs"
 
-#: atspi/atspi-misc.c:147
+#: atspi/atspi-misc.c:148
 msgid "list box"
 msgstr "saraksta lauks"
 
-#: atspi/atspi-misc.c:148
+#: atspi/atspi-misc.c:149
 msgid "grouping"
 msgstr "grupēšana"
 
-#: atspi/atspi-misc.c:149
+#: atspi/atspi-misc.c:150
 msgid "image map"
 msgstr "attēla karte"
 
-#: atspi/atspi-misc.c:150
+#: atspi/atspi-misc.c:151
 msgid "notification"
 msgstr "paziņojums"
 
-#: atspi/atspi-misc.c:151
+#: atspi/atspi-misc.c:152
 msgid "info bar"
 msgstr "informācijas josla"
 
-#: atspi/atspi-misc.c:152
+#: atspi/atspi-misc.c:153
 msgid "level bar"
 msgstr "līmeņa josla"
 
-#: atspi/atspi-misc.c:153
+#: atspi/atspi-misc.c:154
 msgid "title bar"
 msgstr "virsraksta josla"
 
-#: atspi/atspi-misc.c:154
+#: atspi/atspi-misc.c:155
 msgid "block quote"
 msgstr "bloka citāts"
 
-#: atspi/atspi-misc.c:155
+#: atspi/atspi-misc.c:156
 msgid "audio"
 msgstr "audio"
 
-#: atspi/atspi-misc.c:156
+#: atspi/atspi-misc.c:157
 msgid "video"
 msgstr "video"
 
-#: atspi/atspi-misc.c:157
+#: atspi/atspi-misc.c:158
 msgid "definition"
 msgstr "definīcija"
 
-#: atspi/atspi-misc.c:158
+#: atspi/atspi-misc.c:159
 msgid "article"
 msgstr "raksts"
 
-#: atspi/atspi-misc.c:159
+#: atspi/atspi-misc.c:160
 msgid "landmark"
 msgstr "orientieris"
 
-#: atspi/atspi-misc.c:160
+#: atspi/atspi-misc.c:161
 msgid "log"
 msgstr "žurnāls"
 
-#: atspi/atspi-misc.c:161
+#: atspi/atspi-misc.c:162
 msgid "marquee"
 msgstr "slīdjosla"
 
-#: atspi/atspi-misc.c:162
+#: atspi/atspi-misc.c:163
 msgid "math"
 msgstr "matemātika"
 
-#: atspi/atspi-misc.c:163
+#: atspi/atspi-misc.c:164
 msgid "rating"
 msgstr "vērtējums"
 
-#: atspi/atspi-misc.c:164
+#: atspi/atspi-misc.c:165
 msgid "timer"
 msgstr "taimeris"
 
-#: atspi/atspi-misc.c:165
+#: atspi/atspi-misc.c:166
 msgid "description list"
 msgstr "aprakstu saraksts"
 
-#: atspi/atspi-misc.c:166
+#: atspi/atspi-misc.c:167
 msgid "description term"
 msgstr "apraksta terms"
 
-#: atspi/atspi-misc.c:167
+#: atspi/atspi-misc.c:168
 msgid "description value"
 msgstr "apraksta vērtība"
 
