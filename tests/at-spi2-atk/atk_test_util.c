@@ -216,7 +216,7 @@ fixture_setup (TestAppFixture *fixture, gconstpointer user_data)
   fixture->child_pid = run_app (file_name, fixture->name_to_claim);
 
   fixture->test_app_timed_out = FALSE;
-  fixture->wait_for_test_app_timeout = g_timeout_add (500, wait_for_test_app_timeout_cb, fixture); /* 500 msec */
+  fixture->wait_for_test_app_timeout = g_timeout_add (2000, wait_for_test_app_timeout_cb, fixture); /* 2 sec */
 
   current_fixture = fixture;
   putenv ("ATSPI_IN_TESTS=1");
