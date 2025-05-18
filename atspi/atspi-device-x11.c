@@ -344,6 +344,14 @@ set_virtual_modifier (AtspiDeviceX11 *x11_device, gint keycode, gboolean enabled
 }
 
 static gboolean
+should_suppress_keygrab_window_events ()
+{
+  /* The goal here is to only enable this hack for i3 and ratpoison, so,
+     as an imperfect proxy, check that XDG_CURRENT_DESKTOP is unset. */
+  return (getenv ("XDG_CURRENT_DESKTOP") == NULL);
+}
+
+static gboolean
 do_event_dispatch (gpointer user_data)
 {
   AtspiDeviceX11 *device = user_data;
@@ -397,7 +405,8 @@ do_event_dispatch (gpointer user_data)
                     modifiers |= (1 << ATSPI_MODIFIER_NUMLOCK);
                   if (xiDevEv->deviceid == xiDevEv->sourceid)
                     atspi_device_notify_key (ATSPI_DEVICE (device), (xevent.xcookie.evtype == XI_KeyPress), xiRawEv->detail, keysym, modifiers, text);
-                  /* otherwise it's probably a duplicate event from a key grab */
+                  else if (should_suppress_keygrab_window_events ())
+                    _atspi_update_window_filter_time ();
                   XFreeEventData (priv->display, &xevent.xcookie);
                   break;
                 case FocusIn:

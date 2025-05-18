@@ -28,6 +28,8 @@
 #include <string.h>
 #include <strings.h>
 
+static struct timeval window_filter_time;
+
 /**
  * AtspiEventListener:
  *
@@ -1029,6 +1031,20 @@ resolve_pending_removal (gpointer data)
   listener_entry_free (data);
 }
 
+static gboolean
+should_filter_window_events ()
+{
+  struct timeval cur_time, elapsed_time;
+
+  if (!window_filter_time.tv_sec && !window_filter_time.tv_usec)
+    return FALSE;
+
+  gettimeofday (&cur_time, NULL);
+  timersub (&cur_time, &window_filter_time, &elapsed_time);
+
+  return (elapsed_time.tv_sec == 0 && elapsed_time.tv_usec < 20000);
+}
+
 void
 _atspi_send_event (AtspiEvent *e)
 {
@@ -1050,6 +1066,10 @@ _atspi_send_event (AtspiEvent *e)
       g_warning ("AT-SPI: Couldn't parse event: %s\n", e->type);
       return;
     }
+
+  if (!strcmp (category, "Window") && should_filter_window_events ())
+    return;
+
   in_send++;
   for (l = event_listeners; l; l = g_list_next (l))
     {
@@ -1257,6 +1277,12 @@ _atspi_dbus_handle_event (DBusMessage *message)
   g_object_unref (e.source);
   g_object_unref (e.sender);
   g_value_unset (&e.any_data);
+}
+
+void
+_atspi_update_window_filter_time ()
+{
+  gettimeofday (&window_filter_time, NULL);
 }
 
 G_DEFINE_BOXED_TYPE (AtspiEvent, atspi_event, atspi_event_copy, atspi_event_free)
