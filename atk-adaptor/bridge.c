@@ -1044,8 +1044,6 @@ spi_object_has_dbus_interface (void *obj, const char *interface)
     return ATK_IS_VALUE (obj);
 
   return FALSE;
-
-  return TRUE;
 }
 
 /**
