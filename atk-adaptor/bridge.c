@@ -1016,6 +1016,8 @@ spi_object_has_dbus_interface (void *obj, const char *interface)
     return TRUE;
   if (!strcmp (interface, ATSPI_DBUS_INTERFACE_ACTION))
     return ATK_IS_ACTION (obj);
+  if (!strcmp (interface, ATSPI_DBUS_INTERFACE_APPLICATION))
+      return ATK_IS_OBJECT(obj) && (atk_object_get_role (obj) == ATK_ROLE_APPLICATION);
   if (!strcmp (interface, ATSPI_DBUS_INTERFACE_COLLECTION))
     return TRUE;
   if (!strcmp (interface, ATSPI_DBUS_INTERFACE_COMPONENT))
@@ -1044,8 +1046,6 @@ spi_object_has_dbus_interface (void *obj, const char *interface)
     return ATK_IS_VALUE (obj);
 
   return FALSE;
-
-  return TRUE;
 }
 
 /**
