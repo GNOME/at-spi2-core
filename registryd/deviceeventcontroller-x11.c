@@ -370,18 +370,6 @@ spi_dec_x11_mouse_check (SpiDEController *controller,
                  &root_return, &child_return,
                  x, y,
                  &win_x_return, &win_y_return, &mask_return);
-  /*
-   * Since many clients grab the pointer, and X goes an automatic
-   * pointer grab on mouse-down, we often must detect mouse button events
-   * by polling rather than via a button grab.
-   * The while loop (rather than if) is used since it's possible that
-   * multiple buttons have changed state since we last checked.
-   */
-  if (mask_return != mouse_mask_state)
-    {
-      while (spi_dec_button_update_and_emit (controller, mask_return))
-        ;
-    }
 
   if (*x != last_mouse_pos->x || *y != last_mouse_pos->y)
     {
@@ -398,6 +386,19 @@ spi_dec_x11_mouse_check (SpiDEController *controller,
   else
     {
       *moved = False;
+    }
+
+  /*
+   * Since many clients grab the pointer, and X goes an automatic
+   * pointer grab on mouse-down, we often must detect mouse button events
+   * by polling rather than via a button grab.
+   * The while loop (rather than if) is used since it's possible that
+   * multiple buttons have changed state since we last checked.
+   */
+  if (mask_return != mouse_mask_state)
+    {
+      while (spi_dec_button_update_and_emit (controller, mask_return))
+        ;
     }
 
   return mask_return;
