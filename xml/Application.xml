@@ -55,7 +55,7 @@
       <arg direction="out" type="s"/>
     </method>
 
-	<!-- Get the application's AT-SPI bus id to communicate directly with the application.
+	<!-- Get a P2P DBus address for further direct communication from the client.
 
 	This allows for communication without being proxied by the daemon.
 	-->
