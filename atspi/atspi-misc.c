@@ -2044,14 +2044,7 @@ atspi_role_get_localized_name (AtspiRole role)
 
   _gettext_initialization ();
 
-  switch (role)
-    {
-    case ATSPI_ROLE_EDITBAR:
-      raw_name = g_strdup ("edit bar");
-      break;
-    default:
-      raw_name = atspi_role_get_name (role);
-    }
+  raw_name = atspi_role_get_name (role);
   translated_name = dgettext (GETTEXT_PACKAGE, raw_name);
   if (translated_name != raw_name)
     {
