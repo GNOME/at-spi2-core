@@ -74,7 +74,6 @@ struct _SpiBridge
   gboolean events_initialized;
   GHashTable *property_hash;
   guint registration_pending;
-  gint replies_received;
 };
 
 extern SpiBridge *spi_global_app_data;
