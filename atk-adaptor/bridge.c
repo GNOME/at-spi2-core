@@ -87,13 +87,11 @@ static GSList *clients = NULL;
 static void
 tally_event_reply ()
 {
-  static int replies_received = 0;
-
   if (!spi_global_app_data)
     return;
 
-  replies_received++;
-  if (replies_received == 3)
+  spi_global_app_data->replies_received++;
+  if (spi_global_app_data->replies_received == 3)
     {
       if (!clients)
         spi_atk_deregister_event_listeners ();
@@ -1048,6 +1046,115 @@ spi_object_has_dbus_interface (void *obj, const char *interface)
   return FALSE;
 }
 
+static gboolean
+init_bus ()
+{
+  DBusError error;
+
+  /* Set up D-Bus connection and register bus name */
+  dbus_error_init (&error);
+  spi_global_app_data->bus = atspi_get_a11y_bus ();
+  if (!spi_global_app_data->bus)
+    return FALSE;
+
+  if (atspi_dbus_name != NULL)
+    {
+      if (dbus_bus_request_name (spi_global_app_data->bus, atspi_dbus_name, 0, &error))
+        {
+          g_print ("AT-SPI Received D-Bus name - %s\n", atspi_dbus_name);
+        }
+      else
+        {
+          g_print ("AT-SPI D-Bus name requested but could not be allocated - %s\n",
+                   atspi_dbus_name);
+        }
+    }
+
+  atspi_dbus_connection_setup_with_g_main (spi_global_app_data->bus, NULL);
+
+  droute_context_register (spi_global_app_data->droute,
+                           spi_global_app_data->bus);
+
+  /* Set up filter and match rules to catch signals */
+  dbus_bus_add_match (spi_global_app_data->bus, "type='signal', interface='org.a11y.atspi.Registry', sender='org.a11y.atspi.Registry'", NULL);
+  dbus_bus_add_match (spi_global_app_data->bus, "type='signal', interface='org.a11y.atspi.DeviceEventListener', sender='org.a11y.atspi.Registry'", NULL);
+  dbus_bus_add_match (spi_global_app_data->bus, "type='signal', arg0='org.a11y.atspi.Registry', interface='org.freedesktop.DBus', member='NameOwnerChanged'", NULL);
+  dbus_connection_add_filter (spi_global_app_data->bus, signal_filter, NULL,
+                              NULL);
+
+  /* Register this app by sending a signal out to AT-SPI registry daemon */
+  if (!atspi_no_register && !ATK_IS_PLUG (spi_global_app_data->root))
+    _atk_bridge_schedule_application_registration (spi_global_app_data);
+  else
+    get_registered_event_listeners (spi_global_app_data);
+
+  dbus_error_free (&error);
+  return TRUE;
+}
+
+static void
+deactivate_bus ()
+{
+  if (!spi_global_app_data->bus)
+    return;
+
+  dbus_connection_remove_filter (spi_global_app_data->bus, signal_filter, NULL);
+  droute_context_unregister (spi_global_app_data->droute, spi_global_app_data->bus);
+
+  if (atspi_dbus_name != NULL)
+    {
+      DBusError error;
+      int result;
+
+      dbus_error_init (&error);
+      result = dbus_bus_release_name (spi_global_app_data->bus, atspi_dbus_name, &error);
+      if (result == -1)
+        {
+          g_warning ("atk-bridge: could not release dbus name: %s", error.message);
+        }
+      else
+        {
+          g_print ("bridge: released name, result %d\n", result);
+        }
+
+      dbus_error_free (&error);
+    }
+
+  dbus_connection_close (spi_global_app_data->bus);
+  dbus_connection_unref (spi_global_app_data->bus);
+  spi_global_app_data->bus = NULL;
+}
+
+static void
+on_session_name_owner_changed (GDBusConnection *connection,
+                               const gchar *sender_name,
+                               const gchar *object_path,
+                               const gchar *interface_name,
+                               const gchar *signal_name,
+                               GVariant *parameters,
+                               gpointer user_data)
+{
+  const gchar *old_owner;
+  const gchar *new_owner;
+
+  g_variant_get (parameters,
+                 "(&s&s&s)",
+                 NULL,
+                 &old_owner,
+                 &new_owner);
+
+  if (strlen (new_owner) == 0)
+    {
+      spi_atk_deregister_event_listeners ();
+      deactivate_bus ();
+    }
+  else
+    {
+      init_bus ();
+      spi_atk_register_event_listeners ();
+    }
+}
+
 /**
  * atk_bridge_adaptor_init: initializes the atk bridge adaptor
  *
@@ -1066,7 +1173,6 @@ atk_bridge_adaptor_init (gint *argc, gchar **argv[])
 {
   GOptionContext *opt;
   GError *err = NULL;
-  DBusError error;
   AtkObject *root;
   gboolean load_bridge;
   DRoutePath *accpath;
@@ -1106,37 +1212,6 @@ atk_bridge_adaptor_init (gint *argc, gchar **argv[])
   spi_global_app_data->root = g_object_ref (root);
   spi_global_app_data->desktop_name = g_strdup (ATSPI_DBUS_NAME_REGISTRY);
   spi_global_app_data->desktop_path = g_strdup (ATSPI_DBUS_PATH_ROOT);
-
-  /* Set up D-Bus connection and register bus name */
-  dbus_error_init (&error);
-  spi_global_app_data->bus = atspi_get_a11y_bus ();
-  if (!spi_global_app_data->bus)
-    {
-      g_object_unref (spi_global_app_data->root);
-      g_free (spi_global_app_data->desktop_name);
-      g_free (spi_global_app_data->desktop_path);
-      g_free (spi_global_app_data);
-      spi_global_app_data = NULL;
-      inited = FALSE;
-      return -1;
-    }
-
-  if (atspi_dbus_name != NULL)
-    {
-      if (dbus_bus_request_name (spi_global_app_data->bus, atspi_dbus_name, 0, &error))
-        {
-          g_print ("AT-SPI Received D-Bus name - %s\n", atspi_dbus_name);
-        }
-      else
-        {
-          g_print ("AT-SPI D-Bus name requested but could not be allocated - %s\n",
-                   atspi_dbus_name);
-        }
-    }
-
-  spi_global_app_data->main_context = g_main_context_new ();
-
-  atspi_dbus_connection_setup_with_g_main (spi_global_app_data->bus, NULL);
 
   /* Hook our plug-and socket functions */
   install_plug_hooks ();
@@ -1180,31 +1255,42 @@ atk_bridge_adaptor_init (gint *argc, gchar **argv[])
   spi_initialize_text (accpath);
   spi_initialize_value (accpath);
 
-  droute_context_register (spi_global_app_data->droute,
-                           spi_global_app_data->bus);
+  if (!init_bus ())
+    {
+      g_object_unref (spi_global_app_data->root);
+      g_free (spi_global_app_data->desktop_name);
+      g_free (spi_global_app_data->desktop_path);
+      droute_free (spi_global_app_data->droute);
+      g_free (spi_global_app_data);
+      spi_global_app_data = NULL;
+      inited = FALSE;
+      return -1;
+    }
+
+  spi_global_app_data->main_context = g_main_context_new ();
 
   /* Register methods to send D-Bus signals on certain ATK events */
   if (clients)
     spi_atk_activate ();
 
-  /* Set up filter and match rules to catch signals */
-  dbus_bus_add_match (spi_global_app_data->bus, "type='signal', interface='org.a11y.atspi.Registry', sender='org.a11y.atspi.Registry'", NULL);
-  dbus_bus_add_match (spi_global_app_data->bus, "type='signal', interface='org.a11y.atspi.DeviceEventListener', sender='org.a11y.atspi.Registry'", NULL);
-  dbus_bus_add_match (spi_global_app_data->bus, "type='signal', arg0='org.a11y.atspi.Registry', interface='org.freedesktop.DBus', member='NameOwnerChanged'", NULL);
-  dbus_connection_add_filter (spi_global_app_data->bus, signal_filter, NULL,
-                              NULL);
-
-  /* Register this app by sending a signal out to AT-SPI registry daemon */
-  if (!atspi_no_register && (!root || !ATK_IS_PLUG (root)))
-    _atk_bridge_schedule_application_registration (spi_global_app_data);
-  else
-    get_registered_event_listeners (spi_global_app_data);
-
   if (!atexit_added)
     atexit (remove_socket);
   atexit_added = TRUE;
 
-  dbus_error_free (&error);
+  spi_global_app_data->session_bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
+  g_assert (spi_global_app_data->session_bus);
+  spi_global_app_data->name_owner_changed_subscription_id =
+      g_dbus_connection_signal_subscribe (spi_global_app_data->session_bus,
+                                          "org.freedesktop.DBus",  /* name */
+                                          "org.freedesktop.DBus",  /* interface */
+                                          "NameOwnerChanged",      /* signal name */
+                                          "/org/freedesktop/DBus", /* path */
+                                          "org.a11y.Bus",          /* arg0 */
+                                          G_DBUS_SIGNAL_FLAGS_NONE,
+                                          on_session_name_owner_changed,
+                                          NULL,
+                                          (GDestroyNotify) NULL);
+
   return 0;
 }
 
@@ -1225,34 +1311,7 @@ atk_bridge_adaptor_cleanup (void)
 
   deregister_application (spi_global_app_data);
 
-  if (spi_global_app_data->bus)
-    {
-      dbus_connection_remove_filter (spi_global_app_data->bus, signal_filter, NULL);
-      droute_context_unregister (spi_global_app_data->droute, spi_global_app_data->bus);
-
-      if (atspi_dbus_name != NULL)
-        {
-          DBusError error;
-          int result;
-
-          dbus_error_init (&error);
-          result = dbus_bus_release_name (spi_global_app_data->bus, atspi_dbus_name, &error);
-          if (result == -1)
-            {
-              g_warning ("atk-bridge: could not release dbus name: %s", error.message);
-            }
-          else
-            {
-              g_print ("bridge: released name, result %d\n", result);
-            }
-
-          dbus_error_free (&error);
-        }
-
-      dbus_connection_close (spi_global_app_data->bus);
-      dbus_connection_unref (spi_global_app_data->bus);
-      spi_global_app_data->bus = NULL;
-    }
+  deactivate_bus ();
 
   for (l = spi_global_app_data->direct_connections; l; l = l->next)
     {
@@ -1281,6 +1340,8 @@ atk_bridge_adaptor_cleanup (void)
     g_main_context_unref (spi_global_app_data->main_context);
 
   droute_free (spi_global_app_data->droute);
+
+  g_clear_object (&spi_global_app_data->session_bus);
 
   g_free (spi_global_app_data);
   spi_global_app_data = NULL;

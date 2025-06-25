@@ -25,6 +25,8 @@
 #ifndef BRIDGE_H
 #define BRIDGE_H
 
+#include <gio/gio.h>
+
 #include <atk/atk.h>
 #include <droute/droute.h>
 
@@ -74,6 +76,10 @@ struct _SpiBridge
   gboolean events_initialized;
   GHashTable *property_hash;
   guint registration_pending;
+  gint replies_received;
+
+  GDBusConnection *session_bus;
+  guint name_owner_changed_subscription_id;
 };
 
 extern SpiBridge *spi_global_app_data;
