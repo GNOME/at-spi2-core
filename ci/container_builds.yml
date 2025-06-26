@@ -7,14 +7,14 @@
 # It doesn't change often, but you can update to newer SHAs if there are important
 # changes there.
 include:
-  - remote: "https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/3e66ea37e5672bb8f48e3056ba92915b5fc5b888/templates/opensuse.yml"
-  - remote: "https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/3e66ea37e5672bb8f48e3056ba92915b5fc5b888/templates/fedora.yml"
+  - remote: "https://gitlab.gnome.org/Infrastructure/freedesktop-ci-templates/-/raw/3cd5fdf6dcfbef9a75514256d210db5178bd9c2a/templates/opensuse.yml"
+  - remote: "https://gitlab.gnome.org/Infrastructure/freedesktop-ci-templates/-/raw/3cd5fdf6dcfbef9a75514256d210db5178bd9c2a/templates/fedora.yml"
 
 variables:
   # When branching change the suffix to avoid conflicts with images
   # from the main branch
-  BASE_TAG: "2025-01-11.2-main"
-  RUST_STABLE: "1.81.0"
+  BASE_TAG: "2025-06-25.5-main"
+  RUST_STABLE: "1.82.0"
 
 .container.opensuse@x86_64:
   stage: "container-build"
@@ -46,8 +46,7 @@ variables:
       llvm
       meson
       ninja
-      python3-pip
-      python311-gobject-devel
+      python3-gobject-devel
       tar
       wget
       which
@@ -66,7 +65,7 @@ opensuse-container@x86_64:
   stage: "container-build"
   variables:
     FDO_DISTRIBUTION_TAG: "x86_64-${BASE_TAG}"
-    FDO_DISTRIBUTION_VERSION: "39"
+    FDO_DISTRIBUTION_VERSION: "41"
     FDO_UPSTREAM_REPO: "gnome/at-spi2-core"
     FDO_DISTRIBUTION_PACKAGES: >-
       clang
@@ -88,13 +87,12 @@ opensuse-container@x86_64:
       libasan
       libxkbcommon-devel
       libxml2-devel
+      meson
       ninja-build
       procps
       python3
-      python3-pip
+      python3-devel
       systemd-devel
-    FDO_DISTRIBUTION_EXEC: >-
-      pip3 install meson==0.63
 
 fedora-container@x86_64:
   extends:
