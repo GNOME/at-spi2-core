@@ -260,13 +260,6 @@ spi_init_keystroke_from_atk_key_event (AtspiDeviceEvent *keystroke,
       g_error ("atk passed us an AtkKeyEventStruct invalid type %d", event->type);
       return;
     }
-#if 0
-  g_print
-    ("key_event type %d; val=%d code=%d modifiers=%x name=%s is_text=%d, time=%lx\n",
-     (int) keystroke->type, (int) keystroke->id, (int) keystroke->hw_code,
-     (int) keystroke->modifiers, keystroke->event_string,
-     (int) keystroke->is_text, (unsigned long) keystroke->timestamp);
-#endif
 }
 
 static gint
@@ -1445,16 +1438,6 @@ spi_atk_register_event_listeners (void)
   add_signal_listener (generic_event_listener, "Gtk:AtkTable:column-deleted");
   add_signal_listener (generic_event_listener, "Gtk:AtkTable:model-changed");
   add_signal_listener (children_changed_event_listener, "Gtk:AtkObject:children-changed");
-
-#if 0
-  g_signal_connect (G_OBJECT (spi_global_app_data->root),
-                    "children-changed::add",
-                    (GCallback) toplevel_added_event_listener, NULL);
-
-  g_signal_connect (G_OBJECT (spi_global_app_data->root),
-                    "children-changed::remove",
-                    (GCallback) toplevel_removed_event_listener, NULL);
-#endif
 
   /*
    * May add the following listeners to implement preemptive key listening for GTK+
