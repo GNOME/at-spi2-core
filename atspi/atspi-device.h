@@ -33,9 +33,6 @@ G_BEGIN_DECLS
 #define ATSPI_TYPE_DEVICE (atspi_device_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AtspiDevice, atspi_device, ATSPI, DEVICE, GObject)
 
-typedef struct _AtspiDevice AtspiDevice;
-
-typedef struct _AtspiDeviceClass AtspiDeviceClass;
 struct _AtspiDeviceClass
 {
   GObjectClass parent_class;
