@@ -171,17 +171,20 @@ atspi_device_legacy_map_modifier (AtspiDevice *device, gint keycode)
 
   desc = XkbGetMap (priv->display, XkbModifierMapMask, XkbUseCoreKbd);
 
-  if (keycode < desc->min_key_code || keycode >= desc->max_key_code)
+  if (desc)
     {
-      XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
-      g_warning ("Passed invalid keycode %d", keycode);
-      return 0;
-    }
+      if (keycode < desc->min_key_code || keycode >= desc->max_key_code)
+        {
+          XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
+          g_warning ("Passed invalid keycode %d", keycode);
+          return 0;
+        }
 
-  ret = desc->map->modmap[keycode];
-  XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
-  if (ret & (ShiftMask | ControlMask))
-    return ret;
+      ret = desc->map->modmap[keycode];
+      XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
+      if (ret & (ShiftMask | ControlMask))
+        return ret;
+    }
 #endif
 
   ret = find_virtual_mapping (legacy_device, keycode);
@@ -228,17 +231,20 @@ atspi_device_legacy_get_modifier (AtspiDevice *device, gint keycode)
 
   desc = XkbGetMap (priv->display, XkbModifierMapMask, XkbUseCoreKbd);
 
-  if (keycode < desc->min_key_code || keycode >= desc->max_key_code)
+  if (desc)
     {
-      XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
-      g_warning ("Passed invalid keycode %d", keycode);
-      return 0;
-    }
+      if (keycode < desc->min_key_code || keycode >= desc->max_key_code)
+        {
+          XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
+          g_warning ("Passed invalid keycode %d", keycode);
+          return 0;
+        }
 
-  ret = desc->map->modmap[keycode];
-  XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
-  if (ret)
-    return ret;
+      ret = desc->map->modmap[keycode];
+      XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
+      if (ret)
+        return ret;
+    }
 #endif
 
   return find_virtual_mapping (legacy_device, keycode);
