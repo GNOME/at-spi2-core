@@ -4,6 +4,24 @@ What's new in at-spi2-core 2.57.0:
 
 * device-a11y-manager: Check properly for the DBus backend presence
 
+* Fix the build with glib < 2.76.
+
+* a11y-manager-device: Fix unmap_keysym_modifier.
+
+* DeviceEventController: update mouse coordinates before sending button events
+
+* atspi-device-legacy: Don't crash when XkbGetMap fails
+
+* Return localized role name for ATSPI_ROLE_EDITBAR
+
+    atk-adaptor: Reconnect when the bus launcher reappears.
+
+* Don't keep references to uncached objects in the application's hash table.
+
+* Add some Python overrides.
+
+    AtspiDeviceX11: Suppress window events following key grabs when needed.
+
 What's new in at-spi2-core 2.56.0:
 
 * Updated translations.
