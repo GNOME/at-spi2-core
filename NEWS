@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.56.3:
+
+* DeviceEventController: update mouse coordinates before sending button events
+
+* atspi-device-legacy: Don't crash when XkbGetMap fails
+
+* Return localized role name for ATSPI_ROLE_EDITBAR
+
 What's new in at-spi2-core 2.56.2:
 
 * Fix the build with glib < 2.76.
