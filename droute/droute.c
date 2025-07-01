@@ -719,13 +719,6 @@ droute_context_unregister (DRouteContext *cnx, DBusConnection *bus)
 }
 
 void
-droute_context_deregister (DRouteContext *cnx, DBusConnection *bus)
-{
-  g_ptr_array_foreach (cnx->registered_paths, (GFunc) droute_path_unregister,
-                       bus);
-}
-
-void
 droute_intercept_dbus (DBusConnection *bus)
 {
   dbus_connection_register_object_path (bus, DBUS_PATH_DBUS,
