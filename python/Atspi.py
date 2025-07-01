@@ -30,6 +30,12 @@ class Accessible(Atspi.Accessible):
     def __bool__(self):
         return True
 
+    def __eq__(a, b):
+        try:
+            return a.app.bus_name == b.app.bus_name and a.path == b.path
+        except:
+            return False
+
     def __getitem__(self, i):
         len = self.get_child_count()
         if i < 0:
