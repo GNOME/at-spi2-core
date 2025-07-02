@@ -84,8 +84,8 @@
 
  */
 
-#ifndef _ATSPI_CONSTANTS_H_
-#define _ATSPI_CONSTANTS_H_
+#pragma once
+
 /**
  * AtspiConstants:
  *
@@ -1542,4 +1542,3 @@ extern "C"
 #ifdef __cplusplus
 }
 #endif
-#endif /* _ATSPI_CONSTANTS_H_ */

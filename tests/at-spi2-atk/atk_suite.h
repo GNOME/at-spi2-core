@@ -20,8 +20,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATK_SUITE_H
-#define _ATK_SUITE_H
+#pragma once
 
 #include <atspi/atspi.h>
 
@@ -40,5 +39,3 @@ void atk_test_table (void);
 void atk_test_table_cell (void);
 void atk_test_text (void);
 void atk_test_value (void);
-
-#endif /* _ATK_SUITE_H */

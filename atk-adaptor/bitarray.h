@@ -20,8 +20,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _BITARRAY_H
-#define _BITARRAY_H
+#pragma once
 
 #include "dbus/dbus.h"
 #include "glib.h"
@@ -29,4 +28,3 @@
 #define BITARRAY_SEQ_TERM 0xffffffff
 
 #define BITARRAY_SET(p, n) ((p)[n >> 5] |= (1 << (n & 31)))
-#endif /* _BITARRAY_H */

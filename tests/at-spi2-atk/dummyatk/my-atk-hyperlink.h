@@ -18,8 +18,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef MY_ATK_HYPERLINK_H_
-#define MY_ATK_HYPERLINK_H_
+#pragma once
 
 #include <atk/atk.h>
 #include <glib-object.h>
@@ -57,5 +56,3 @@ GType my_atk_hyperlink_get_type (void);
 MyAtkHyperlink *new_MyAtkHyperlink (void);
 
 gint my_atk_set_hyperlink (AtkHyperlink *obj, const gchar *uri, gint start, gint end);
-
-#endif /* MY_ATK_HYPERLINK_H_ */

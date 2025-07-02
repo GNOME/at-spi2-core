@@ -21,8 +21,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef ACCESSIBLE_STATE_SET_H_
-#define ACCESSIBLE_STATE_SET_H_
+#pragma once
 
 #include "atk/atk.h"
 #include "atspi/atspi.h"
@@ -47,5 +46,3 @@ void spi_atk_state_set_to_dbus_array (AtkStateSet *set, dbus_uint32_t *array);
 #define spi_state_set_cache_is_empty(a) atk_state_set_is_empty (ATK_STATE_SET (a))
 
 G_END_DECLS
-
-#endif /* ACCESSIBLE_STATE_SET_H_ */

@@ -20,8 +20,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef ACCESSIBLE_CACHE_H
-#define ACCESSIBLE_CACHE_H
+#pragma once
 
 #include <glib-object.h>
 #include <glib.h>
@@ -64,4 +63,3 @@ gboolean
 spi_cache_in (SpiCache *cache, GObject *object);
 
 G_END_DECLS
-#endif /* ACCESSIBLE_CACHE_H */

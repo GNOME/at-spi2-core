@@ -22,8 +22,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_ACTION_H_
-#define _ATSPI_ACTION_H_
+#pragma once
 
 #include "glib-object.h"
 
@@ -62,5 +61,3 @@ gchar *atspi_action_get_description (AtspiAction *obj, gint i, GError **error);
 gchar *atspi_action_get_name (AtspiAction *obj, gint i, GError **error);
 #endif
 G_END_DECLS
-
-#endif /* _ATSPI_ACTION_H_ */

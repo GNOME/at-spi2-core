@@ -23,8 +23,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_EVENT_LISTENER_H_
-#define _ATSPI_EVENT_LISTENER_H_
+#pragma once
 
 #include "glib-object.h"
 
@@ -152,5 +151,3 @@ atspi_event_listener_deregister_no_data (AtspiEventListenerSimpleCB callback,
                                          GError **error);
 
 G_END_DECLS
-
-#endif /* _ATSPI_EVENT_LISTENER_H_ */

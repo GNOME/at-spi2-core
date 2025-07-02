@@ -22,8 +22,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef BRIDGE_H
-#define BRIDGE_H
+#pragma once
 
 #include <gio/gio.h>
 
@@ -103,5 +102,3 @@ GType _atk_bridge_type_from_iface (const char *iface);
 void _atk_bridge_schedule_application_registration (SpiBridge *app);
 gboolean _atk_bridge_remove_pending_application_registration (SpiBridge *app);
 G_END_DECLS
-
-#endif /* BRIDGE_H */

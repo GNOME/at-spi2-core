@@ -17,8 +17,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef __ATK_REGISTRY_H__
-#define __ATK_REGISTRY_H__
+#pragma once
 
 #if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined(__ATK_H_INSIDE__) && !defined(ATK_COMPILATION)
 #error "Only <atk/atk.h> can be included directly."
@@ -68,5 +67,3 @@ ATK_AVAILABLE_IN_ALL
 AtkRegistry *atk_get_default_registry (void);
 
 G_END_DECLS
-
-#endif /* __ATK_REGISTRY_H__ */

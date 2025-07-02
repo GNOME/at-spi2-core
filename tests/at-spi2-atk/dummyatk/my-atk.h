@@ -20,8 +20,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef MY_ATK_H
-#define MY_ATK_H
+#pragma once
 
 #include "my-atk-action.h"
 #include "my-atk-component.h"
@@ -36,5 +35,3 @@
 #include "my-atk-table.h"
 #include "my-atk-text.h"
 #include "my-atk-value.h"
-
-#endif /*MY_ATK_H*/

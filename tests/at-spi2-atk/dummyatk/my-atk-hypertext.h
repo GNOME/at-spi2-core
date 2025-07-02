@@ -18,8 +18,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef MY_ATK_HYPERTEXT_H_
-#define MY_ATK_HYPERTEXT_H_
+#pragma once
 
 #include <atk/atk.h>
 #include <glib-object.h>
@@ -50,5 +49,3 @@ struct _MyAtkHypertextClass
 GType my_atk_hypertext_get_type (void);
 
 gint my_atk_set_hypertext (AtkHypertext *obj, const gchar *text);
-
-#endif /* MY_ATK_HYPERTEXT_H_ */

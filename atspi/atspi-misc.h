@@ -23,8 +23,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_MISC_H_
-#define _ATSPI_MISC_H_
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -52,5 +51,3 @@ gchar *atspi_role_get_localized_name (AtspiRole role);
 
 void atspi_get_version (gint *major, gint *minor, gint *micro);
 G_END_DECLS
-
-#endif /* _ATSPI_MISC_H_ */

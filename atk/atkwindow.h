@@ -17,8 +17,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef __ATK_WINDOW_H__
-#define __ATK_WINDOW_H__
+#pragma once
 
 #if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined(__ATK_H_INSIDE__) && !defined(ATK_COMPILATION)
 #error "Only <atk/atk.h> can be included directly."
@@ -48,5 +47,3 @@ struct _AtkWindowIface
 ATK_AVAILABLE_IN_2_2
 GType atk_window_get_type (void);
 G_END_DECLS
-
-#endif /* __ATK_WINDOW_H__ */

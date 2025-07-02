@@ -23,8 +23,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_IMAGE_H_
-#define _ATSPI_IMAGE_H_
+#pragma once
 
 #include "glib-object.h"
 
@@ -57,5 +56,3 @@ AtspiRect *atspi_image_get_image_extents (AtspiImage *obj, AtspiCoordType ctype,
 gchar *atspi_image_get_image_locale (AtspiImage *obj, GError **error);
 
 G_END_DECLS
-
-#endif /* _ATSPI_IMAGE_H_ */

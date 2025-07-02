@@ -22,8 +22,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef ATK_BRIDGE_H
-#define ATK_BRIDGE_H
+#pragma once
 
 #include <glib.h>
 
@@ -34,5 +33,3 @@ void atk_bridge_adaptor_cleanup (void);
 void atk_bridge_set_event_context (GMainContext *cnx);
 
 G_END_DECLS
-
-#endif /* ATK_BRIDGE_H */

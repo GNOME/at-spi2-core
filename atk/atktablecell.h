@@ -17,8 +17,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef __ATK_TABLE_CELL_H__
-#define __ATK_TABLE_CELL_H__
+#pragma once
 
 #if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined(__ATK_H_INSIDE__) && !defined(ATK_COMPILATION)
 #error "Only <atk/atk.h> can be included directly."
@@ -106,5 +105,3 @@ ATK_AVAILABLE_IN_2_12
 AtkObject *atk_table_cell_get_table (AtkTableCell *cell);
 
 G_END_DECLS
-
-#endif /* __ATK_TABLE_CELL_H__ */

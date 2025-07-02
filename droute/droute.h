@@ -20,8 +20,8 @@
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
-#ifndef _DROUTE_H
-#define _DROUTE_H
+
+#pragma once
 
 #include <dbus/dbus.h>
 #include <glib.h>
@@ -111,4 +111,3 @@ droute_intercept_dbus (DBusConnection *connection);
 
 void
 droute_unintercept_dbus (DBusConnection *connection);
-#endif /* _DROUTE_H */

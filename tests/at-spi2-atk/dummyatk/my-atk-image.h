@@ -20,8 +20,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef MY_ATK_IMAGE_H_
-#define MY_ATK_IMAGE_H_
+#pragma once
 
 #include <atk/atk.h>
 #include <glib-object.h>
@@ -66,5 +65,3 @@ guint my_atk_set_image (AtkImage *image,
                         const gint width,
                         const gint height,
                         const gchar *locale);
-
-#endif /* MY_ATK_IMAGE_H_ */

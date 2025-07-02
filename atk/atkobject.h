@@ -17,8 +17,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef __ATK_OBJECT_H__
-#define __ATK_OBJECT_H__
+#pragma once
 
 #if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined(__ATK_H_INSIDE__) && !defined(ATK_COMPILATION)
 #error "Only <atk/atk.h> can be included directly."
@@ -826,5 +825,3 @@ void atk_object_set_help_text (AtkObject *accessible,
                                const gchar *help_text);
 
 G_END_DECLS
-
-#endif /* __ATK_OBJECT_H__ */

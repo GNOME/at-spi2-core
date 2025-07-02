@@ -21,8 +21,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_H
-#define _ATSPI_H
+#pragma once
 
 #include "glib.h"
 
@@ -55,4 +54,3 @@
 #include "atspi-enum-types.h"
 
 #include "atspi-version.h"
-#endif

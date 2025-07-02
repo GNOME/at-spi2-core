@@ -23,8 +23,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_TEXT_H_
-#define _ATSPI_TEXT_H_
+#pragma once
 
 #include "glib-object.h"
 
@@ -140,5 +139,3 @@ gboolean atspi_text_scroll_substring_to (AtspiText *obj, gint start_offset, gint
 
 gboolean atspi_text_scroll_substring_to_point (AtspiText *obj, gint start_offset, gint end_offset, AtspiCoordType coords, gint x, gint y, GError **error);
 G_END_DECLS
-
-#endif /* _ATSPI_TEXT_H_ */

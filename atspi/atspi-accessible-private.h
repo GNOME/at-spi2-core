@@ -23,8 +23,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_ACCESSIBLE_PRIVATE_H_
-#define _ATSPI_ACCESSIBLE_PRIVATE_H_
+#pragma once
 
 #include <glib.h>
 
@@ -50,5 +49,3 @@ _atspi_accessible_unref_cache (AtspiAccessible *accessible);
 void
 _atspi_accessible_set_cached (AtspiAccessible *accessible, gboolean cached);
 G_END_DECLS
-
-#endif /* _ATSPI_ACCESSIBLE_H_ */

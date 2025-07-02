@@ -20,8 +20,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef MY_ATK_TEXT_H_
-#define MY_ATK_TEXT_H_
+#pragma once
 
 #include <atk/atk.h>
 #include <glib-object.h>
@@ -69,5 +68,3 @@ guint my_atk_set_text (AtkText *obj,
                        AtkAttributeSet *attrSet);
 
 MyAtkText *my_atk_text_new (void);
-
-#endif /* MY_ATK_TEXT_H_ */

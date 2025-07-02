@@ -23,8 +23,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_HYPERLINK_H_
-#define _ATSPI_HYPERLINK_H_
+#pragma once
 
 #include "glib-object.h"
 
@@ -73,5 +72,3 @@ gint atspi_hyperlink_get_end_index (AtspiHyperlink *obj, GError **error);
 gboolean atspi_hyperlink_is_valid (AtspiHyperlink *obj, GError **error);
 
 G_END_DECLS
-
-#endif /* _ATSPI_HYPERLINK_H_ */

@@ -22,8 +22,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_COMPONENT_H_
-#define _ATSPI_COMPONENT_H_
+#pragma once
 
 #include "glib-object.h"
 
@@ -112,5 +111,3 @@ gboolean atspi_component_scroll_to (AtspiComponent *obj, AtspiScrollType type, G
 gboolean atspi_component_scroll_to_point (AtspiComponent *obj, AtspiCoordType coords, gint x, gint y, GError **error);
 
 G_END_DECLS
-
-#endif /* _ATSPI_COMPONENT_H_ */

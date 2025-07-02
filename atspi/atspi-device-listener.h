@@ -23,8 +23,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_DEVICE_LISTENER_H_
-#define _ATSPI_DEVICE_LISTENER_H_
+#pragma once
 
 #include "glib-object.h"
 
@@ -94,5 +93,3 @@ void atspi_device_listener_add_callback (AtspiDeviceListener *listener, AtspiDev
 void atspi_device_listener_remove_callback (AtspiDeviceListener *listener, AtspiDeviceListenerCB callback);
 
 G_END_DECLS
-
-#endif /* _ATSPI_DEVICE_LISTENER_H_ */

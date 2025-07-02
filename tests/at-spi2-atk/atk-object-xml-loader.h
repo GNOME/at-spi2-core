@@ -20,12 +20,9 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef ATK_OBJECT_XML_LOADER_H
-#define ATK_OBJECT_XML_LOADER_H
+#pragma once
 
 #include "my-atk.h"
 #include <glib.h>
 
 MyAtkObject *atk_object_xml_parse (gchar *filename);
-
-#endif /*ATK_OBJECT_XML_LOADER_H*/

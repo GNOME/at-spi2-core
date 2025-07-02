@@ -22,8 +22,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef EVENT_H
-#define EVENT_H
+#pragma once
 
 void spi_atk_register_event_listeners (void);
 void spi_atk_deregister_event_listeners (void);
@@ -35,4 +34,3 @@ extern GMainContext *spi_context;
 guint spi_idle_add (GSourceFunc function, gpointer data);
 guint spi_timeout_add_seconds (gint interval, GSourceFunc function, gpointer data);
 guint spi_timeout_add_full (gint priority, guint interval, GSourceFunc function, gpointer data, GDestroyNotify notify);
-#endif /* EVENT_H */

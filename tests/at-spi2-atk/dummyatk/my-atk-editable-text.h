@@ -20,8 +20,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef MY_ATK_EDITABLE_TEXT_H_
-#define MY_ATK_EDITABLE_TEXT_H_
+#pragma once
 
 #include <atk/atk.h>
 #include <glib-object.h>
@@ -55,5 +54,3 @@ struct _MyAtkEditableTextClass
 GType my_atk_editable_text_get_type (void);
 
 guint my_atk_set_editable_text (AtkEditableText *editable_text, const gchar *text);
-
-#endif /* MY_ATK_EDITABLE_TEXT_H_ */

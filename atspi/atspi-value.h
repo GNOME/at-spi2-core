@@ -23,8 +23,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_VALUE_H_
-#define _ATSPI_VALUE_H_
+#pragma once
 
 #include "glib-object.h"
 
@@ -58,5 +57,3 @@ gdouble atspi_value_get_minimum_increment (AtspiValue *obj, GError **error);
 
 gchar *atspi_value_get_text (AtspiValue *obj, GError **error);
 G_END_DECLS
-
-#endif /* _ATSPI_VALUE_H_ */

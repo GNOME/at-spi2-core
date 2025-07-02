@@ -17,8 +17,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef __ATK_SELECTION_H__
-#define __ATK_SELECTION_H__
+#pragma once
 
 #if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined(__ATK_H_INSIDE__) && !defined(ATK_COMPILATION)
 #error "Only <atk/atk.h> can be included directly."
@@ -96,5 +95,3 @@ ATK_AVAILABLE_IN_ALL
 gboolean atk_selection_select_all_selection (AtkSelection *selection);
 
 G_END_DECLS
-
-#endif /* __ATK_SELECTION_H__ */

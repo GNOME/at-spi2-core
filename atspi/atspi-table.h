@@ -23,8 +23,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_TABLE_H_
-#define _ATSPI_TABLE_H_
+#pragma once
 
 #include "glib-object.h"
 
@@ -101,5 +100,3 @@ gboolean atspi_table_get_row_column_extents_at_index (AtspiTable *obj, gint inde
 gboolean atspi_table_is_selected (AtspiTable *obj, gint row, gint column, GError **error);
 
 G_END_DECLS
-
-#endif /* _ATSPI_TABLE_H_ */

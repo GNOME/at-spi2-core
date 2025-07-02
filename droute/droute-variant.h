@@ -19,8 +19,8 @@
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
-#ifndef _DROUTE_VARIANT_H
-#define _DROUTE_VARIANT_H
+
+#pragma once
 
 #include <dbus/dbus.h>
 
@@ -31,5 +31,3 @@ dbus_bool_t droute_return_v_object (DBusMessageIter *iter, const char *path);
 
 dbus_int32_t droute_get_v_int32 (DBusMessageIter *iter);
 const char *droute_get_v_string (DBusMessageIter *iter);
-
-#endif /* _DROUTE_VARIANT_H */

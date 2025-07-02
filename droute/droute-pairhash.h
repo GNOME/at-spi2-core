@@ -19,8 +19,8 @@
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
-#ifndef _DROUTE_PAIRHASH_H
-#define _DROUTE_PAIRHASH_H
+
+#pragma once
 
 #include <glib.h>
 
@@ -37,5 +37,3 @@ StrPair *str_pair_new (const gchar *one,
 guint str_pair_hash (gconstpointer key);
 gboolean str_pair_equal (gconstpointer a,
                          gconstpointer b);
-
-#endif /* _DROUTE_PAIRHASH_H */

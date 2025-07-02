@@ -22,8 +22,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_DOCUMENT_H_
-#define _ATSPI_DOCUMENT_H_
+#pragma once
 
 #include "glib-object.h"
 
@@ -108,5 +107,3 @@ GArray *atspi_document_get_text_selections (AtspiDocument *document, GError **er
 
 gboolean atspi_document_set_text_selections (AtspiDocument *document, GArray *selections, GError **error);
 G_END_DECLS
-
-#endif /* _ATSPI_DOCUMENT_H_ */

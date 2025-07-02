@@ -21,8 +21,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_DEVICE_H_
-#define _ATSPI_DEVICE_H_
+#pragma once
 
 #include "glib-object.h"
 
@@ -104,5 +103,3 @@ void atspi_device_set_app_id (AtspiDevice *device, const gchar *app_id);
 AtspiDevice *atspi_device_new_full (const gchar *app_id);
 
 G_END_DECLS
-
-#endif /* _ATSPI_DEVICE_H_ */

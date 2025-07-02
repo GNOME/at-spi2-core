@@ -23,8 +23,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_MATCH_RULE_H_
-#define _ATSPI_MATCH_RULE_H_
+#pragma once
 
 #include "glib-object.h"
 
@@ -76,5 +75,3 @@ atspi_match_rule_new (AtspiStateSet *states,
                       gboolean invert);
 
 G_END_DECLS
-
-#endif /* _ATSPI_MATCH_RULE_H_ */

@@ -23,8 +23,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_MISC_PRIVATE_H_
-#define _ATSPI_MISC_PRIVATE_H_
+#pragma once
 
 /* Private internal implementation details of at-spi. */
 
@@ -163,5 +162,3 @@ gchar *_atspi_strdup_and_adjust_for_dbus (const char *s);
 
 gboolean _atspi_key_is_on_keypad (gint keycode);
 G_END_DECLS
-
-#endif /* _ATSPI_MISC_PRIVATE_H_ */

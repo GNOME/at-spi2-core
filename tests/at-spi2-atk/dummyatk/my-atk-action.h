@@ -20,8 +20,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef MY_ATK_ACTION_H
-#define MY_ATK_ACTION_H
+#pragma once
 
 #include <atk/atk.h>
 #include <glib-object.h>
@@ -60,5 +59,3 @@ guint my_atk_action_add_action (MyAtkAction *action,
                                 const gchar *action_name,
                                 const gchar *action_description,
                                 const gchar *action_keybinding);
-
-#endif /*MY_ATK_ACTION_H*/

@@ -21,8 +21,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef ACCESSIBLE_REGISTER_H
-#define ACCESSIBLE_REGISTER_H
+#pragma once
 
 #include <glib-object.h>
 #include <glib.h>
@@ -76,5 +75,3 @@ void
 spi_register_deregister_object (SpiRegister *reg, GObject *gobj, gboolean unref);
 
 /*---------------------------------------------------------------------------*/
-
-#endif /* ACCESSIBLE_REGISTER_H */

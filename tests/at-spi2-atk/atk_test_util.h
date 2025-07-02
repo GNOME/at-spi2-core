@@ -20,8 +20,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATK_TEST_UTIL_H
-#define _ATK_TEST_UTIL_H
+#pragma once
 
 #include "atk_suite.h"
 #include <glib.h>
@@ -60,4 +59,3 @@ void fixture_setup (TestAppFixture *fixture, gconstpointer user_data);
 void fixture_teardown (TestAppFixture *fixture, gconstpointer user_data);
 
 void check_name (AtspiAccessible *accessible, const char *expected_name);
-#endif /* _ATK_TEST_UTIL_H */

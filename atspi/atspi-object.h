@@ -22,8 +22,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_OBJECT_H_
-#define _ATSPI_OBJECT_H_
+#pragma once
 
 #include "glib-object.h"
 
@@ -56,5 +55,3 @@ struct _AtspiObjectClass
 GType atspi_object_get_type (void);
 
 G_END_DECLS
-
-#endif /* _ATSPI_OBJECT_H_ */

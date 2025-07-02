@@ -17,8 +17,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef __ATK_DOCUMENT_H__
-#define __ATK_DOCUMENT_H__
+#pragma once
 
 #if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined(__ATK_H_INSIDE__) && !defined(ATK_COMPILATION)
 #error "Only <atk/atk.h> can be included directly."
@@ -159,4 +158,3 @@ GArray *atk_document_get_text_selections (AtkDocument *document);
 
 ATK_AVAILABLE_IN_2_52
 gboolean atk_document_set_text_selections (AtkDocument *document, GArray *selections);
-#endif /* __ATK_DOCUMENT_H__ */

@@ -22,8 +22,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_STATE_SET_H_
-#define _ATSPI_STATE_SET_H_
+#pragma once
 
 #define ATSPI_TYPE_STATE_SET (atspi_state_set_get_type ())
 #define ATSPI_STATE_SET(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_STATE_SET, AtspiStateSet))
@@ -71,5 +70,3 @@ void atspi_state_set_remove (AtspiStateSet *set, AtspiStateType state);
 AtspiStateSet *_atspi_state_set_new_internal (struct _AtspiAccessible *accessible, gint64 states);
 
 G_END_DECLS
-
-#endif /* _ATSPI_STATE_SET_H_ */

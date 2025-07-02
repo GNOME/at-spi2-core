@@ -22,8 +22,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_EDITABLE_TEXT_H_
-#define _ATSPI_EDITABLE_TEXT_H_
+#pragma once
 
 #include "glib-object.h"
 
@@ -62,5 +61,3 @@ gboolean atspi_editable_text_delete_text (AtspiEditableText *obj, gint start_pos
 gboolean atspi_editable_text_paste_text (AtspiEditableText *obj, gint position, GError **error);
 
 G_END_DECLS
-
-#endif /* _ATSPI_EDITABLE_TEXT_H_ */

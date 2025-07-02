@@ -23,8 +23,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_EVENT_LISTENER_PRIVATE_H_
-#define _ATSPI_EVENT_LISTENER_PRIVATE_H_
+#pragma once
 
 #include "atspi-event-listener.h"
 
@@ -39,5 +38,3 @@ void _atspi_reregister_event_listeners ();
 
 void _atspi_update_window_filter_time ();
 G_END_DECLS
-
-#endif /* _ATSPI_EVENT_LISTENER_H_ */

@@ -21,8 +21,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef SPI_DBUS_H_
-#define SPI_DBUS_H_
+#pragma once
 
 #include <atspi/atspi.h>
 #include <glib.h>
@@ -54,5 +53,3 @@ void spi_dbus_add_disconnect_match (DBusConnection *bus, const char *name);
 void spi_dbus_remove_disconnect_match (DBusConnection *bus, const char *name);
 
 */
-
-#endif /* SPI_DBUS_H_ */

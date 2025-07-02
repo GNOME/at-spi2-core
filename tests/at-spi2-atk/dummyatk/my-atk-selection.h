@@ -20,8 +20,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef MY_ATK_SELECTION_H
-#define MY_ATK_SELECTION_H
+#pragma once
 
 #include <atk/atk.h>
 #include <glib-object.h>
@@ -59,4 +58,3 @@ struct _MyAtkSelectionClass
 GType my_atk_selection_get_type (void);
 
 guint my_atk_selection_set (MyAtkSelection *selection);
-#endif /*MY_ATK_SELECTION_H*/

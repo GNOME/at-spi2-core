@@ -23,8 +23,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_SELECTION_H_
-#define _ATSPI_SELECTION_H_
+#pragma once
 
 #include "glib-object.h"
 
@@ -66,5 +65,3 @@ gboolean atspi_selection_select_all (AtspiSelection *obj, GError **error);
 gboolean atspi_selection_clear_selection (AtspiSelection *obj, GError **error);
 
 G_END_DECLS
-
-#endif /* _ATSPI_SELECTION_H_ */

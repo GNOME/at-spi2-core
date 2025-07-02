@@ -18,8 +18,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef MY_ATK_VALUE_H_
-#define MY_ATK_VALUE_H_
+#pragma once
 
 #include <atk/atk.h>
 #include <glib-object.h>
@@ -53,5 +52,3 @@ struct _MyAtkValueClass
 GType my_atk_value_get_type (void);
 
 guint my_atk_set_value (AtkValue *obj, gdouble min, gdouble cur, gdouble max, gdouble step);
-
-#endif /* MY_ATK_VALUE_H_ */

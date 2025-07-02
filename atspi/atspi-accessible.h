@@ -23,8 +23,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_ACCESSIBLE_H_
-#define _ATSPI_ACCESSIBLE_H_
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -210,5 +209,3 @@ AtspiCache _atspi_accessible_get_cache_mask (AtspiAccessible *accessible);
 gboolean _atspi_accessible_test_cache (AtspiAccessible *accessible, AtspiCache flag);
 
 G_END_DECLS
-
-#endif /* _ATSPI_ACCESSIBLE_H_ */

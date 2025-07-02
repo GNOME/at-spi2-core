@@ -21,8 +21,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef ADAPTORS_H
-#define ADAPTORS_H
+#pragma once
 
 #include <atk/atk.h>
 #include <droute/droute.h>
@@ -46,5 +45,3 @@ void spi_initialize_table_cell (DRoutePath *path);
 void spi_initialize_text (DRoutePath *path);
 void spi_initialize_value (DRoutePath *path);
 void spi_initialize_cache (DRoutePath *path);
-
-#endif /* ADAPTORS_H */

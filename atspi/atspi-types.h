@@ -22,8 +22,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_TYPES_H_
-#define _ATSPI_TYPES_H_
+#pragma once
 
 #include "glib-object.h"
 
@@ -170,4 +169,3 @@ typedef enum
   ATSPI_KEYLISTENER_CANCONSUME = 1 << 1,
   ATSPI_KEYLISTENER_ALL_WINDOWS = 1 << 2
 } AtspiKeyListenerSyncType;
-#endif /* _ATSPI_TYPES_H_ */

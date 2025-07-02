@@ -23,8 +23,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_COLLECTION_H_
-#define _ATSPI_COLLECTION_H_
+#pragma once
 
 #include "glib-object.h"
 
@@ -58,5 +57,3 @@ GArray *atspi_collection_get_matches_from (AtspiCollection *collection, AtspiAcc
 AtspiAccessible *atspi_collection_get_active_descendant (AtspiCollection *collection, GError **error);
 
 G_END_DECLS
-
-#endif /* _ATSPI_COLLECTION_H_ */

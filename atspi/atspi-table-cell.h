@@ -23,8 +23,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_TABLE_CELL_H_
-#define _ATSPI_TABLE_CELL_H_
+#pragma once
 
 #include "glib-object.h"
 
@@ -73,5 +72,3 @@ void atspi_table_cell_get_row_column_span (AtspiTableCell *obj,
 AtspiAccessible *atspi_table_cell_get_table (AtspiTableCell *obj,
                                              GError **error);
 G_END_DECLS
-
-#endif /* _ATSPI_TABLE_CELL_H_ */

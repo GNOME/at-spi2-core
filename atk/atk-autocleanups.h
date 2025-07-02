@@ -19,6 +19,8 @@
 #error "Only <atk/atk.h> can be included directly."
 #endif
 
+#pragma once
+
 #ifndef __GI_SCANNER__
 
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (AtkAction, g_object_unref)

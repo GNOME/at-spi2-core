@@ -22,8 +22,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_DEVICE_LISTENER_PRIVATE_H_
-#define _ATSPI_DEVICE_LISTENER_PRIVATE_H_
+#pragma once
 
 #include "atspi-device-listener.h"
 
@@ -36,5 +35,3 @@ DBusHandlerResult _atspi_dbus_handle_DeviceEvent (DBusConnection *bus, DBusMessa
 gchar *_atspi_device_listener_get_path (AtspiDeviceListener *listener);
 
 G_END_DECLS
-
-#endif /* _ATSPI_DEVICE_LISTENER_H_ */

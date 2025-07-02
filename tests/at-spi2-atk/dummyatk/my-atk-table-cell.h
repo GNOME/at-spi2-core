@@ -18,8 +18,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef MY_ATK_TABLE_CELL_H_
-#define MY_ATK_TABLE_CELL_H_
+#pragma once
 
 #include <atk/atk.h>
 #include <glib-object.h>
@@ -60,5 +59,3 @@ GType my_atk_tablecell_get_type (void);
 
 gboolean my_atk_set_table_cell (AtkTableCell *self, gint x, gint y, gint row, gint column);
 gboolean my_atk_set_tablecell (MyAtkTableCell *self, gpointer value, const gchar *row_desc, MyAtkObject *parent_table, gboolean selected, gint *xy);
-
-#endif /* MY_ATK_TABLE_CELL_H_ */

@@ -22,8 +22,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_REGISTRY_H_
-#define _ATSPI_REGISTRY_H_
+#pragma once
 
 #include "atspi-accessible.h"
 #include "atspi-device-listener.h"
@@ -82,5 +81,3 @@ atspi_generate_mouse_event_async (glong x, glong y, const gchar *name, AtspiGene
 void
 atspi_set_reference_window (AtspiAccessible *accessible);
 G_END_DECLS
-
-#endif /* _ATSPI_REGISTRY_H_ */

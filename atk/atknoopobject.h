@@ -23,8 +23,7 @@
 
 #include <atk/atkversion.h>
 
-#ifndef __ATK_NO_OP_OBJECT_H__
-#define __ATK_NO_OP_OBJECT_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -55,5 +54,3 @@ ATK_AVAILABLE_IN_ALL
 AtkObject *atk_no_op_object_new (GObject *obj);
 
 G_END_DECLS
-
-#endif /* __ATK_NO_OP_OBJECT_H__ */

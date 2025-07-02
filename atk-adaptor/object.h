@@ -21,8 +21,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef ACCESSIBLE_OBJECT_H
-#define ACCESSIBLE_OBJECT_H
+#pragma once
 
 #include <atk/atk.h>
 #include <dbus/dbus.h>
@@ -59,5 +58,3 @@ spi_object_append_attribute_set (DBusMessageIter *iter, AtkAttributeSet *attr);
 
 AtspiRole
 spi_accessible_role_from_atk_role (AtkRole role);
-
-#endif /* ACCESSIBLE_OBJECT_H */

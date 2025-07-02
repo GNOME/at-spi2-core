@@ -23,8 +23,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_RELATION_H_
-#define _ATSPI_RELATION_H_
+#pragma once
 
 #include "glib-object.h"
 
@@ -63,5 +62,3 @@ AtspiAccessible *atspi_relation_get_target (AtspiRelation *obj, gint i);
 AtspiRelation *_atspi_relation_new_from_iter (DBusMessageIter *iter);
 
 G_END_DECLS
-
-#endif /* _ATSPI_RELATION_H_ */

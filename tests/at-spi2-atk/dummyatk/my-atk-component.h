@@ -20,8 +20,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef MY_ATK_COMPONENT_H
-#define MY_ATK_COMPONENT_H
+#pragma once
 
 #include <atk/atk.h>
 
@@ -58,5 +57,3 @@ GType my_atk_component_get_type ();
 void my_atk_component_set_layer (AtkComponent *component, AtkLayer layer);
 void my_atk_component_set_mdi_zorder (AtkComponent *component, gint mdi_zorder);
 void my_atk_component_set_alpha (AtkComponent *component, gdouble alpha);
-
-#endif /*MY_ATK_COMPONENT_H*/

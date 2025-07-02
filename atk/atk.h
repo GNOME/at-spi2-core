@@ -17,8 +17,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef __ATK_H__
-#define __ATK_H__
+#pragma once
 
 #define __ATK_H_INSIDE__
 
@@ -59,5 +58,3 @@
 #include <atk/atk-autocleanups.h>
 
 #undef __ATK_H_INSIDE__
-
-#endif /* __ATK_H__ */

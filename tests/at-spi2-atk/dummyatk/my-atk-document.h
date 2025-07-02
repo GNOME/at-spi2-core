@@ -20,8 +20,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef MY_ATK_DOCUMENT_H
-#define MY_ATK_DOCUMENT_H
+#pragma once
 
 #include "my-atk-object.h"
 #include <atk/atk.h>
@@ -62,5 +61,3 @@ struct _MyAtkDocumentClass
 GType my_atk_document_get_type (void);
 
 void my_atk_set_document (AtkDocument *obj, gint page, gint page_num);
-
-#endif /*MY_ATK_DOCUMENT_H*/

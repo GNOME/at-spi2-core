@@ -22,8 +22,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_APPLICATION_H_
-#define _ATSPI_APPLICATION_H_
+#pragma once
 
 #include <dbus/dbus.h>
 
@@ -67,5 +66,3 @@ _atspi_application_new (const char *bus_name);
 GType atspi_application_get_type (void);
 
 G_END_DECLS
-
-#endif /* _ATSPI_APPLICATION_H_ */

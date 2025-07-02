@@ -21,8 +21,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_DEVICE_LEGACY_H_
-#define _ATSPI_DEVICE_LEGACY_H_
+#pragma once
 
 #include "glib-object.h"
 
@@ -56,5 +55,3 @@ AtspiDeviceLegacy *atspi_device_legacy_new ();
 
 AtspiDeviceLegacy *atspi_device_legacy_new_full (const gchar *app_id);
 G_END_DECLS
-
-#endif /* _ATSPI_DEVICE_LEGACY_H_ */

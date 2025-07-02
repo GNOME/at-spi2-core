@@ -20,8 +20,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef MY_ATK_OBJECT_H
-#define MY_ATK_OBJECT_H
+#pragma once
 
 #include <atk/atk.h>
 
@@ -57,5 +56,3 @@ void my_atk_object_add_child (MyAtkObject *parent,
 
 void my_atk_object_remove_child (MyAtkObject *parent,
                                  MyAtkObject *child);
-
-#endif /*MY_ATK_OBJECT_H*/

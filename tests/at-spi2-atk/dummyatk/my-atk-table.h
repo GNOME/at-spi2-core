@@ -18,8 +18,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef MY_ATK_TABLE_H_
-#define MY_ATK_TABLE_H_
+#pragma once
 
 #include <atk/atk.h>
 #include <glib-object.h>
@@ -66,5 +65,3 @@ guint my_atk_set_table (AtkTable *obj,
 
 AtkObject *
 test_get_cell_from_table (AtkTable *obj, gint row);
-
-#endif /* MY_ATK_TABLE_H_ */

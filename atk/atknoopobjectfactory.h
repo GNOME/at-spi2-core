@@ -17,8 +17,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef __ATK_NO_OP_OBJECT_FACTORY_H__
-#define __ATK_NO_OP_OBJECT_FACTORY_H__
+#pragma once
 
 #if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined(__ATK_H_INSIDE__) && !defined(ATK_COMPILATION)
 #error "Only <atk/atk.h> can be included directly."
@@ -55,5 +54,3 @@ ATK_AVAILABLE_IN_ALL
 AtkObjectFactory *atk_no_op_object_factory_new (void);
 
 G_END_DECLS
-
-#endif /* __ATK_NO_OP_OBJECT_FACTORY_H__ */
