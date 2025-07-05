@@ -59,6 +59,12 @@ class Accessible(Atspi.Accessible):
             return 0
         return count
 
+    def __ne__(a, b):
+        try:
+            return a.app.bus_name != b.app.bus_name or a.path != b.path
+        except:
+            return True
+
     def __nonzero__(self):
         return True
 
