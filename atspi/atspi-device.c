@@ -632,3 +632,22 @@ atspi_device_set_app_id (AtspiDevice *device, const gchar *app_id)
   if (g_set_str (&priv->app_id, app_id))
     g_object_notify_by_pspec (G_OBJECT (device), obj_props[PROP_APP_ID]);
 }
+
+/*
+ * atspi_device_clear_key_grabs:
+ *
+ * Removes all key grabs from a device.
+ *
+ * Since: 2.58
+ */
+void
+atspi_device_clear_key_grabs (AtspiDevice *device)
+{
+  AtspiDevicePrivate *priv = atspi_device_get_instance_private (device);
+
+  while (priv->keygrabs != NULL)
+    {
+      AtspiKeyGrab *grab = priv->keygrabs->data;
+      atspi_device_remove_key_grab (device, grab->id);
+    }
+}

@@ -102,4 +102,5 @@ void atspi_device_set_app_id (AtspiDevice *device, const gchar *app_id);
 
 AtspiDevice *atspi_device_new_full (const gchar *app_id);
 
+void atspi_device_clear_key_grabs (AtspiDevice *device);
 G_END_DECLS
