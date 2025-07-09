@@ -512,10 +512,14 @@ static AtkSocketClass *socket_class;
 static gchar *
 get_plug_id (AtkPlug *plug)
 {
-  const char *uname = dbus_bus_get_unique_name (spi_global_app_data->bus);
+  const char *uname;
   gchar *path;
   GString *str = g_string_new (NULL);
 
+  if (!spi_global_app_data || !spi_global_app_data->bus)
+    return NULL;
+
+  uname = dbus_bus_get_unique_name (spi_global_app_data->bus);
   path = spi_register_object_to_path (spi_global_register, G_OBJECT (plug));
   g_string_printf (str, "%s:%s", uname, path);
   g_free (path);
