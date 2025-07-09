@@ -296,7 +296,11 @@ atspi_device_a11y_manager_add_key_grab (AtspiDevice *device, AtspiKeyDefinition 
   AtspiDeviceA11yManagerKey *entry = g_new (AtspiDeviceA11yManagerKey, 1);
   entry->keysym = kd->keysym;
   entry->modifiers = kd->modifiers;
+  AtspiDeviceA11yManagerKey *entry_with_numlock = g_new (AtspiDeviceA11yManagerKey, 1);
+  entry_with_numlock->keysym = kd->keysym;
+  entry_with_numlock->modifiers = kd->modifiers | (1 << ATSPI_MODIFIER_META);
   manager_device->grabbed_keys = g_slist_append (manager_device->grabbed_keys, entry);
+  manager_device->grabbed_keys = g_slist_append (manager_device->grabbed_keys, entry_with_numlock);
   schedule_refresh_grabs (manager_device);
   return TRUE;
 }
@@ -313,8 +317,11 @@ atspi_device_a11y_manager_remove_key_grab (AtspiDevice *device, guint id)
       AtspiDeviceA11yManagerKey *entry = l->data;
       if (entry->keysym == kd->keysym && entry->modifiers == kd->modifiers)
         {
-          manager_device->grabbed_keys = g_slist_remove (manager_device->grabbed_keys, entry);
+          /* The entry with numlock is always after the entry we got from the client */
+          g_free (l->next->data);
+          manager_device->grabbed_keys = g_slist_delete_link (manager_device->grabbed_keys, l->next);
           g_free (entry);
+          manager_device->grabbed_keys = g_slist_delete_link (manager_device->grabbed_keys, l);
           schedule_refresh_grabs (manager_device);
           return;
         }
