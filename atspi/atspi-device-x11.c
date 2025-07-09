@@ -718,9 +718,11 @@ atspi_device_x11_remove_key_grab (AtspiDevice *device, guint id)
         {
           disable_key_grab (x11_device, other);
           priv->key_grabs = g_slist_remove (priv->key_grabs, other);
-          return;
+          break;
         }
     }
+
+  g_free (kd);
 }
 
 static guint

@@ -316,9 +316,11 @@ atspi_device_a11y_manager_remove_key_grab (AtspiDevice *device, guint id)
           manager_device->grabbed_keys = g_slist_remove (manager_device->grabbed_keys, entry);
           g_free (entry);
           schedule_refresh_grabs (manager_device);
-          return;
+          break;
         }
     }
+
+  g_free (kd);
 }
 
 static void
