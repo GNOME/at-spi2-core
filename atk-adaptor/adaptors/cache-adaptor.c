@@ -260,6 +260,9 @@ emit_cache_remove (SpiCache *cache, GObject *obj)
 {
   DBusMessage *message;
 
+  if (!spi_global_app_data->bus)
+    return;
+
   if ((message = dbus_message_new_signal (SPI_CACHE_OBJECT_PATH,
                                           ATSPI_DBUS_INTERFACE_CACHE,
                                           "RemoveAccessible")))
@@ -281,6 +284,9 @@ emit_cache_add (SpiCache *cache, GObject *obj)
 {
   AtkObject *accessible = ATK_OBJECT (obj);
   DBusMessage *message;
+
+  if (!spi_global_app_data->bus)
+    return;
 
   if ((message = dbus_message_new_signal (SPI_CACHE_OBJECT_PATH,
                                           ATSPI_DBUS_INTERFACE_CACHE,
