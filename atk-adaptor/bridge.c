@@ -1282,18 +1282,20 @@ atk_bridge_adaptor_init (gint *argc, gchar **argv[])
   atexit_added = TRUE;
 
   spi_global_app_data->session_bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
-  g_assert (spi_global_app_data->session_bus);
-  spi_global_app_data->name_owner_changed_subscription_id =
-      g_dbus_connection_signal_subscribe (spi_global_app_data->session_bus,
-                                          "org.freedesktop.DBus",  /* name */
-                                          "org.freedesktop.DBus",  /* interface */
-                                          "NameOwnerChanged",      /* signal name */
-                                          "/org/freedesktop/DBus", /* path */
-                                          "org.a11y.Bus",          /* arg0 */
-                                          G_DBUS_SIGNAL_FLAGS_NONE,
-                                          on_session_name_owner_changed,
-                                          NULL,
-                                          (GDestroyNotify) NULL);
+  if (spi_global_app_data->session_bus)
+    {
+      spi_global_app_data->name_owner_changed_subscription_id =
+          g_dbus_connection_signal_subscribe (spi_global_app_data->session_bus,
+                                              "org.freedesktop.DBus",  /* name */
+                                              "org.freedesktop.DBus",  /* interface */
+                                              "NameOwnerChanged",      /* signal name */
+                                              "/org/freedesktop/DBus", /* path */
+                                              "org.a11y.Bus",          /* arg0 */
+                                              G_DBUS_SIGNAL_FLAGS_NONE,
+                                              on_session_name_owner_changed,
+                                              NULL,
+                                              (GDestroyNotify) NULL);
+    }
 
   return 0;
 }
