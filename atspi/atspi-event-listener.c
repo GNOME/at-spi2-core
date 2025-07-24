@@ -239,12 +239,7 @@ cache_process_children_changed (AtspiEvent *event)
           event->source->cached_properties &= ~ATSPI_CACHE_CHILDREN;
           return;
         }
-      /* Unfortunately, there's no g_ptr_array_insert or similar */
-      g_ptr_array_add (event->source->children, NULL);
-      memmove (event->source->children->pdata + event->detail1 + 1,
-               event->source->children->pdata + event->detail1,
-               (event->source->children->len - event->detail1 - 1) * sizeof (gpointer));
-      g_ptr_array_index (event->source->children, event->detail1) = g_object_ref (child);
+      g_ptr_array_insert (event->source->children, event->detail1, g_object_ref (child));
     }
   else
     {
