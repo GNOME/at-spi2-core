@@ -96,7 +96,7 @@ spi_object_append_reference (DBusMessageIter *iter, AtkObject *obj)
   const gchar *name;
   gchar *path;
 
-  if (!obj)
+  if (!obj || !spi_global_app_data->bus)
     {
       spi_object_append_null_reference (iter);
       return;
