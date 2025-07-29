@@ -66,6 +66,7 @@ static void
 spi_leasing_init (SpiLeasing *leasing)
 {
   leasing->expiry_queue = g_queue_new ();
+  leasing->expiry_queue_hash = g_hash_table_new (g_direct_hash, g_direct_equal);
   leasing->expiry_func_id = 0;
 }
 
@@ -76,6 +77,7 @@ spi_leasing_finalize (GObject *object)
 
   if (leasing->expiry_func_id)
     g_source_remove (leasing->expiry_func_id);
+  g_hash_table_unref (leasing->expiry_queue_hash);
   g_queue_free (leasing->expiry_queue);
   G_OBJECT_CLASS (spi_leasing_parent_class)->finalize (object);
 }
@@ -90,6 +92,7 @@ spi_leasing_dispose (GObject *object)
     {
       g_object_unref (head->object);
       g_slice_free (ExpiryElement, head);
+      g_hash_table_remove (leasing->expiry_queue_hash, object);
     }
   G_OBJECT_CLASS (spi_leasing_parent_class)->dispose (object);
 }
@@ -119,6 +122,7 @@ expiry_func (gpointer data)
       spi_cache_print_info (current->object);
 #endif
 
+      g_hash_table_remove (leasing->expiry_queue_hash, current->object);
       g_object_unref (current->object);
       g_slice_free (ExpiryElement, current);
 
@@ -178,9 +182,13 @@ add_expiry_timeout (SpiLeasing *leasing)
 GObject *
 spi_leasing_take (SpiLeasing *leasing, GObject *object)
 {
+  GList *old_entry;
+  ExpiryElement *elem;
+
   /*
      Get the current time.
      Quantize the time.
+     Remove any earlier lease for the given object.
      Add the release event to the queue.
      Check the next expiry.
    */
@@ -188,15 +196,25 @@ spi_leasing_take (SpiLeasing *leasing, GObject *object)
   gint64 secs = g_get_monotonic_time () / 1000000;
   guint expiry_s;
 
-  ExpiryElement *elem;
-
   expiry_s = secs + EXPIRY_TIME_S;
 
-  elem = g_slice_new (ExpiryElement);
+  old_entry = g_hash_table_lookup (leasing->expiry_queue_hash, object);
+  if (old_entry)
+    {
+      elem = old_entry->data;
+      g_queue_delete_link (leasing->expiry_queue, old_entry);
+      g_hash_table_remove (leasing->expiry_queue_hash, object);
+    }
+  else
+    {
+      elem = g_slice_new (ExpiryElement);
+      elem->object = g_object_ref (object);
+    }
+
   elem->expiry_s = expiry_s;
-  elem->object = g_object_ref (object);
 
   g_queue_push_tail (leasing->expiry_queue, elem);
+  g_hash_table_insert (leasing->expiry_queue_hash, object, leasing->expiry_queue->tail);
 
   add_expiry_timeout (leasing);
 

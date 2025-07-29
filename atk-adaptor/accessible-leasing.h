@@ -42,6 +42,7 @@ struct _SpiLeasing
   GObject parent;
 
   GQueue *expiry_queue;
+  GHashTable *expiry_queue_hash;
   guint expiry_func_id;
 };
 
