@@ -159,7 +159,6 @@ atspi_component_get_extents (AtspiComponent *obj,
 {
   dbus_uint32_t d_ctype = ctype;
   AtspiRect bbox;
-  AtspiAccessible *accessible;
 
   bbox.x = bbox.y = bbox.width = bbox.height = -1;
   g_return_val_if_fail (obj != NULL, atspi_rect_copy (&bbox));
