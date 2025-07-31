@@ -496,7 +496,7 @@ atspi_accessible_get_child_at_index (AtspiAccessible *obj,
   DBusMessage *reply;
 
   g_return_val_if_fail (obj != NULL, NULL);
-  g_return_val_if_fail (child_index < 0, NULL);
+  g_return_val_if_fail (child_index >= 0, NULL);
 
   if (_atspi_accessible_test_cache (obj, ATSPI_CACHE_CHILDREN))
     {
