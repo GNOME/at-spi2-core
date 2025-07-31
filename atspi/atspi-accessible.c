@@ -494,6 +494,7 @@ atspi_accessible_get_child_at_index (AtspiAccessible *obj,
   DBusMessage *reply;
 
   g_return_val_if_fail (obj != NULL, NULL);
+  g_return_val_if_fail (child_index >= 0, NULL);
 
   if (_atspi_accessible_test_cache (obj, ATSPI_CACHE_CHILDREN))
     {
@@ -515,7 +516,7 @@ atspi_accessible_get_child_at_index (AtspiAccessible *obj,
   if (!child)
     return NULL;
 
-  if (_atspi_accessible_test_cache (obj, ATSPI_CACHE_CHILDREN))
+  if (_atspi_accessible_test_cache (obj, ATSPI_CACHE_CHILDREN) && child_index < 65536)
     {
       if (child_index >= obj->children->len)
         g_ptr_array_set_size (obj->children, child_index + 1);
