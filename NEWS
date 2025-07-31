@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.56.4:
+
+* Fix key grabs when num lock or caps lock are on under Wayland.
+
+    atk-bridge: Don't crash when requesting a plug if not activated
+
+* Add sanity checks for child indices received via DBus.
+
 What's new in at-spi2-core 2.56.3:
 
 * DeviceEventController: update mouse coordinates before sending button events
