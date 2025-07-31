@@ -612,7 +612,7 @@ add_accessible_from_iter (DBusMessageIter *iter)
     {
       /* Get index in parent */
       dbus_message_iter_get_basic (&iter_struct, &index);
-      if (index >= 0 && accessible->accessible_parent)
+      if (index >= 0 && index < ATSPI_MAX_CHILDREN && accessible->accessible_parent)
         {
           AtspiAccessible *old_child = NULL;
           if (index >= accessible->accessible_parent->children->len)

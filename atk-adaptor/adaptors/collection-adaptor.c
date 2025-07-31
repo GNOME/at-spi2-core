@@ -37,8 +37,6 @@
 #include "introspection.h"
 #include "object.h"
 
-#define MAX_CHILDREN 65536
-
 typedef struct _MatchRulePrivate MatchRulePrivate;
 struct _MatchRulePrivate
 {
@@ -515,8 +513,8 @@ sort_order_canonical (MatchRulePrivate *mrp, GList *ls, gint kount, gint max, At
   glong acount = atk_object_get_n_accessible_children (obj);
   gboolean prev = pobj ? TRUE : FALSE;
 
-  if (acount > MAX_CHILDREN)
-    acount = MAX_CHILDREN;
+  if (acount > ATSPI_MAX_CHILDREN)
+    acount = ATSPI_MAX_CHILDREN;
   for (; i < acount && (max == 0 || kount < max); i++)
     {
       AtkObject *child = atk_object_ref_accessible_child (obj, i);
@@ -585,8 +583,8 @@ sort_order_rev_canonical (MatchRulePrivate *mrp, GList *ls, gint kount, gint max
         {
           AtkObject *follow;
           gint count = atk_object_get_n_accessible_children (nextobj);
-          if (count > MAX_CHILDREN)
-            count = MAX_CHILDREN;
+          if (count > ATSPI_MAX_CHILDREN)
+            count = ATSPI_MAX_CHILDREN;
 
           follow = atk_object_ref_accessible_child (nextobj, count - 1);
           g_object_unref (nextobj);
@@ -1152,8 +1150,8 @@ append_accessible_properties (DBusMessageIter *iter, AtkObject *obj, GArray *pro
         return;
     }
   count = atk_object_get_n_accessible_children (obj);
-  if (count > MAX_CHILDREN)
-    count = MAX_CHILDREN;
+  if (count > ATSPI_MAX_CHILDREN)
+    count = ATSPI_MAX_CHILDREN;
   for (i = 0; i < count; i++)
     {
       AtkObject *child = atk_object_ref_accessible_child (obj, i);
