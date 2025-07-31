@@ -885,15 +885,21 @@ gchar *
 atspi_accessible_get_toolkit_name (AtspiAccessible *obj, GError **error)
 {
   g_return_val_if_fail (obj != NULL, NULL);
+  gchar *toolkit_name = NULL;
 
   if (!obj->parent.app)
     return NULL;
 
-  if (!obj->parent.app->toolkit_name)
-    _atspi_dbus_get_property (obj, atspi_interface_application, "ToolkitName",
-                              error, "s", &obj->parent.app->toolkit_name);
+  if (obj->parent.app->toolkit_name)
+    return g_strdup (obj->parent.app->toolkit_name);
 
-  return g_strdup (obj->parent.app->toolkit_name);
+  _atspi_dbus_get_property (obj, atspi_interface_application, "ToolkitName",
+                            error, "s", &toolkit_name);
+
+  if (obj->parent.app)
+    obj->parent.app->toolkit_name = g_strdup (toolkit_name);
+
+  return toolkit_name;
 }
 
 /**
@@ -909,15 +915,21 @@ gchar *
 atspi_accessible_get_toolkit_version (AtspiAccessible *obj, GError **error)
 {
   g_return_val_if_fail (obj != NULL, NULL);
+  gchar *toolkit_version = NULL;
 
   if (!obj->parent.app)
     return NULL;
 
-  if (!obj->parent.app->toolkit_version)
-    _atspi_dbus_get_property (obj, atspi_interface_application, "Version",
-                              error, "s", &obj->parent.app->toolkit_version);
+  if (obj->parent.app->toolkit_version)
+    return g_strdup (obj->parent.app->toolkit_version);
 
-  return g_strdup (obj->parent.app->toolkit_version);
+  _atspi_dbus_get_property (obj, atspi_interface_application, "Version",
+                            error, "s", &toolkit_version);
+
+  if (obj->parent.app)
+    obj->parent.app->toolkit_version = g_strdup (toolkit_version);
+
+  return toolkit_version;
 }
 
 /**
@@ -934,15 +946,21 @@ gchar *
 atspi_accessible_get_atspi_version (AtspiAccessible *obj, GError **error)
 {
   g_return_val_if_fail (obj != NULL, NULL);
+  gchar *atspi_version = NULL;
 
   if (!obj->parent.app)
     return NULL;
 
-  if (!obj->parent.app->atspi_version)
-    _atspi_dbus_get_property (obj, atspi_interface_application, "AtspiVersion",
-                              error, "s", &obj->parent.app->atspi_version);
+  if (obj->parent.app->atspi_version)
+    return g_strdup (obj->parent.app->atspi_version);
 
-  return g_strdup (obj->parent.app->atspi_version);
+  _atspi_dbus_get_property (obj, atspi_interface_application, "AtspiVersion",
+                            error, "s", &atspi_version);
+
+  if (obj->parent.app)
+    obj->parent.app->atspi_version = g_strdup (atspi_version);
+
+  return atspi_version;
 }
 
 /**
