@@ -1,3 +1,18 @@
+What's new in at-spi2-core 2.57.1:
+
+* Fix several crashes introduced by the code to handle the accessibility
+  bus going away.
+
+* Add atspi_device_clear_key_grabs.
+
+* Fix key grabs when num lock or caps lock are on under Wayland.
+
+    atk-bridge: Don't crash when requesting a plug if not activated
+    
+* Have python overrides check DBus object paths when testing for equality.
+
+* Add sanity checks for child indices received via DBus.
+
 What's new in at-spi2-core 2.57.0:
 
 * device-a11y-manager: Fix crash on dispose
