@@ -27,6 +27,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <strings.h>
+#include <sys/time.h>
 
 static struct timeval window_filter_time;
 

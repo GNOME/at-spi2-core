@@ -8,7 +8,7 @@ project('at-spi2-core', 'c',
         ],
         meson_version: '>= 0.64.0')
 
-add_project_arguments([ '-D_XOPEN_SOURCE=700', '-D_DEFAULT_SOURCE' ], language: 'c')
+add_project_arguments([ '-D_XOPEN_SOURCE=700', '-D_GNU_SOURCE' ], language: 'c')
 
 fs = import('fs')
 
