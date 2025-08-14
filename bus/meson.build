@@ -32,6 +32,7 @@ configure_file(input: 'org.a11y.Bus.service.in',
 configure_file(input: 'at-spi-dbus-bus.service.in',
                output: 'at-spi-dbus-bus.service',
                configuration: libexec_conf,
+               install: get_option('use_systemd'),
                install_dir: systemd_user_dir)
 
 if x11_dep.found()
