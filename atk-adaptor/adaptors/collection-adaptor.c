@@ -109,8 +109,6 @@ child_interface_p (AtkObject *child, gchar *repo_id)
   return FALSE;
 }
 
-#define child_collection_p(ch) (TRUE)
-
 static gboolean
 match_states_all_p (AtkObject *child, gint *set)
 {
@@ -499,15 +497,6 @@ match_attributes_lookup (AtkObject *child, MatchRulePrivate *mrp)
   return FALSE;
 }
 
-static gboolean
-traverse_p (AtkObject *child, const gboolean traverse)
-{
-  if (traverse)
-    return TRUE;
-  else
-    return !child_collection_p (child);
-}
-
 static int
 sort_order_canonical (MatchRulePrivate *mrp, GList *ls, gint kount, gint max, AtkObject *obj, glong index, gboolean flag, AtkObject *pobj, gboolean recurse, gboolean traverse)
 {
@@ -540,7 +529,7 @@ sort_order_canonical (MatchRulePrivate *mrp, GList *ls, gint kount, gint max, At
       if (!flag)
         flag = TRUE;
 
-      if (recurse && traverse_p (child, traverse))
+      if (recurse && traverse)
         kount = sort_order_canonical (mrp, ls, kount,
                                       max, child, 0, TRUE,
                                       pobj, recurse, traverse);
