@@ -360,7 +360,6 @@ do_event_dispatch (gpointer user_data)
   XEvent xevent;
   char text[10];
   KeySym keysym;
-  XComposeStatus status;
   guint modifiers;
 
   g_object_ref (device);
