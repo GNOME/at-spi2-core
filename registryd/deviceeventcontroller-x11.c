@@ -726,11 +726,39 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
 {
   Accessibility_DeviceEvent key_event;
   KeySym keysym;
-  const int cbuf_bytes = 20;
-  char cbuf[21];
-  int nbytes;
 
-  nbytes = XLookupString (x_key_event, cbuf, cbuf_bytes, &keysym, NULL);
+  /* Resolve keysym using current XKB group with robust fallback across levels and group 0.
+   * This ensures special keys (Backspace, arrows, etc.) are found even when a non-zero group is active. */
+  {
+    XkbStateRec st;
+    memset (&st, 0, sizeof (st));
+    XkbGetState (spi_get_display (), XkbUseCoreKbd, &st);
+
+    /* First try the "natural" level based on Shift state in the current group. */
+    keysym = XkbKeycodeToKeysym (spi_get_display (),
+                                 x_key_event->keycode,
+                                 st.group,
+                                 (x_key_event->state & ShiftMask) ? 1 : 0);
+
+    if (keysym == NoSymbol || keysym == 0)
+      {
+        /* Fallback: scan levels 0..3 in current group, then group 0. */
+        int groups_to_try[2] = { st.group, 0 };
+        for (int gi = 0; gi < 2 && (keysym == NoSymbol || keysym == 0); gi++)
+          {
+            int g = groups_to_try[gi];
+            for (int lvl = 0; lvl < 4; lvl++)
+              {
+                KeySym ks = XkbKeycodeToKeysym (spi_get_display (), x_key_event->keycode, g, lvl);
+                if (ks != NoSymbol && ks != 0)
+                  {
+                    keysym = ks;
+                    break;
+                  }
+              }
+          }
+      }
+  }
   key_event.id = (dbus_int32_t) (keysym);
   key_event.hw_code = (dbus_int16_t) x_key_event->keycode;
   if (((XEvent *) x_key_event)->type == KeyPress)
@@ -821,22 +849,21 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
       key_event.event_string = g_strdup ("Right");
       break;
     default:
-      if (nbytes > 0)
-        {
-          gunichar c;
-          cbuf[nbytes] = '\0'; /* OK since length is cbuf_bytes+1 */
-          key_event.event_string = g_strdup (cbuf);
-          c = keysym2ucs (keysym);
-          if (c > 0 && !g_unichar_iscntrl (c))
-            {
-              key_event.is_text = TRUE;
-              /* incorrect for some composed chars? */
-            }
-        }
-      else
-        {
-          key_event.event_string = g_strdup ("");
-        }
+      {
+        gunichar uc = (gunichar) keysym2ucs (keysym);
+        if (uc > 0 && !g_unichar_iscntrl (uc))
+          {
+            char utf8[6];
+            int len = g_unichar_to_utf8 (uc, utf8);
+            utf8[len] = '\0';
+            key_event.event_string = g_strdup (utf8);
+            key_event.is_text = TRUE;
+          }
+        else
+          {
+            key_event.event_string = g_strdup ("");
+          }
+      }
     }
 
   key_event.timestamp = (dbus_uint32_t) x_key_event->time;

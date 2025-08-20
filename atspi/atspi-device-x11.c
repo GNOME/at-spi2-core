@@ -373,7 +373,37 @@ do_event_dispatch (gpointer user_data)
         {
         case KeyPress:
         case KeyRelease:
-          XLookupString (&xevent.xkey, text, sizeof (text), &keysym, &status);
+          /* Resolve keysym using current XKB group with fallback across levels and group 0 for specials. */
+          {
+            XkbStateRec st;
+            memset (&st, 0, sizeof (st));
+            XkbGetState (priv->display, XkbUseCoreKbd, &st);
+            /* First try the "natural" level derived from ShiftMask in the current group. */
+            keysym = XkbKeycodeToKeysym (priv->display,
+                                         xevent.xkey.keycode,
+                                         st.group,
+                                         (xevent.xkey.state & ShiftMask) ? 1 : 0);
+            if (keysym == NoSymbol || keysym == 0)
+              {
+                /* Fallback: scan levels 0..3 in current group, then group 0 (handles specials under non-0 group). */
+                int groups_to_try[2] = { st.group, 0 };
+                for (int gi = 0; gi < 2 && (keysym == NoSymbol || keysym == 0); gi++)
+                  {
+                    int g = groups_to_try[gi];
+                    for (int lvl = 0; lvl < 4; lvl++)
+                      {
+                        KeySym ks = XkbKeycodeToKeysym (priv->display, xevent.xkey.keycode, g, lvl);
+                        if (ks != NoSymbol && ks != 0)
+                          {
+                            keysym = ks;
+                            break;
+                          }
+                      }
+                  }
+              }
+            /* Let consumers derive text from keysym; avoid stale text from XLookupString. */
+            text[0] = '\0';
+          }
           modifiers = xevent.xkey.state | priv->virtual_mods_enabled;
           if (modifiers & priv->numlock_physical_mask)
             {
@@ -396,9 +426,34 @@ do_event_dispatch (gpointer user_data)
                 case XI_KeyPress:
                 case XI_KeyRelease:
                   xi2keyevent (xiDevEv, &keyevent);
-                  XLookupString ((XKeyEvent *) &keyevent, text, sizeof (text), &keysym, &status);
-                  if (text[0] < ' ')
+                  /* Resolve keysym using current XKB group with fallback across levels and group 0 (XI2 path). */
+                  {
+                    XkbStateRec st;
+                    memset (&st, 0, sizeof (st));
+                    XkbGetState (priv->display, XkbUseCoreKbd, &st);
+                    keysym = XkbKeycodeToKeysym (priv->display,
+                                                 xiDevEv->detail,
+                                                 st.group,
+                                                 (keyevent.xkey.state & ShiftMask) ? 1 : 0);
+                    if (keysym == NoSymbol || keysym == 0)
+                      {
+                        int groups_to_try[2] = { st.group, 0 };
+                        for (int gi = 0; gi < 2 && (keysym == NoSymbol || keysym == 0); gi++)
+                          {
+                            int g = groups_to_try[gi];
+                            for (int lvl = 0; lvl < 4; lvl++)
+                              {
+                                KeySym ks = XkbKeycodeToKeysym (priv->display, xiDevEv->detail, g, lvl);
+                                if (ks != NoSymbol && ks != 0)
+                                  {
+                                    keysym = ks;
+                                    break;
+                                  }
+                              }
+                          }
+                      }
                     text[0] = '\0';
+                  }
                   set_virtual_modifier (device, xiRawEv->detail, xevent.xcookie.evtype == XI_KeyPress);
                   modifiers = keyevent.xkey.state | priv->virtual_mods_enabled;
                   if (modifiers & priv->numlock_physical_mask)
