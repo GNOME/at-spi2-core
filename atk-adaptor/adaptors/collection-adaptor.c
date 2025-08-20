@@ -84,6 +84,8 @@ child_interface_p (AtkObject *child, gchar *repo_id)
         }
       return FALSE;
     }
+  if (!strcasecmp (repo_id, "accessible") || !strcasecmp (repo_id, "collection"))
+    return ATK_IS_OBJECT (child);
   if (!strcasecmp (repo_id, "component"))
     return ATK_IS_COMPONENT (child);
   if (!strcasecmp (repo_id, "editabletext"))
