@@ -296,7 +296,7 @@ spi_object_append_interfaces (DBusMessageIter *iter, AtkObject *obj)
 
   if (ATK_IS_OBJECT (obj))
     {
-      itf = "org.a11y.atspi.Collection";
+      itf = ATSPI_DBUS_INTERFACE_COLLECTION;
       dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
     }
 
