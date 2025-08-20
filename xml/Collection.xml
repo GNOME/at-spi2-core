@@ -2,6 +2,50 @@
 <node>
   <interface name="org.a11y.atspi.Collection">
 
+    <!--
+        GetMatches:
+
+        Return descendants which satisfy a set of criteria specified in the
+        match rule.
+
+        @rule: Criteria that objects to be returned must fulfil.
+               This structure is composed as follows:
+                  ai: States (see below for more how they are encoded)
+                  i: Match type used for matching states
+                  a{ss}: Attributes. See also the Accessible.GetAttributes method
+                  i: Match type used for matching attributes
+                  ai: Roles (see below for how they are encoded)
+                  i: Match type used for matching roles
+                  as: Interfaces, by name (like "Action" or "Text").
+                  i: Match type used for matching interfaces
+                  b: Whether to invert the criteria. If true, the match rule should
+                     be denied (inverted); if false, it should not. For example, if
+                     the match rule defines that a match is an object of ROLE_HEADING
+                     which has STATE_FOCUSABLE and a click action, inverting it would
+                     match all objects that are not of ROLE_HEADING, focusable and
+                     clickable at the same time.
+
+               For all criteria, the value used for the match type corresponds to the
+               AtspiCollectionMatchType enum values.
+
+               The set of states and roles are bitsets encoded as an array of
+               multiple 32-bit integers.
+               A state/role with enum value N is set by setting the Nth bit in the bit
+               set.
+               The first integer in the array contains the lowest 0-31 bits, the next
+               integer bits 32-63, etc.
+
+               For example, enum value AT_SPI_ROLE_COMBOBOX has a value of 83. In order to
+               pass a set of roles in which only this role is set, an array of integers
+               representing (1 << 83) = 0x800000000000000000000 would be
+               passed: { 0, 0, 0x80000, 0 }
+
+        @sortby: The way objects should be sorted.
+           The values correspond to those defined in the AtspiCollectionSortOrder enum.
+        @count: Maximum number of objects to return.
+        @traverse: Whether to return descendants from the accessible subtree
+                   (in case of #TRUE) or only direct children (on case of #FALSE).
+    -->
     <method name="GetMatches">
       <arg direction="in" name="rule" type="(aiia{ss}iaiiasib)"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QSpiMatchRule"/>
