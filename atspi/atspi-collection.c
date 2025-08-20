@@ -116,7 +116,8 @@ return_accessibles (DBusMessage *message)
  * @sortby: An #AtspiCollectionSortOrder specifying the way the results are to
  *          be sorted.
  * @count: The maximum number of results to return, or 0 for no limit.
- * @traverse: Not supported.
+ * @traverse: Whether to traverse the accessible subtree (in case
+ *         of #TRUE) or only the direct children (on case of #FALSE).
  *
  * Gets all #AtspiAccessible objects from the @collection matching a given
  * @rule.
@@ -167,7 +168,8 @@ atspi_collection_get_matches (AtspiCollection *collection,
  *          returned if it would preceed @current_object in a flattened
  *          hierarchy.
  * @count: The maximum number of results to return, or 0 for no limit.
- * @traverse: Not supported.
+ * @traverse: Whether to traverse the accessible subtree (in case
+ *         of #TRUE) or only the direct children (on case of #FALSE).
  *
  * Gets all #AtspiAccessible objects from the @collection, after
  * @current_object, matching a given @rule.
@@ -224,7 +226,8 @@ atspi_collection_get_matches_to (AtspiCollection *collection,
  * @tree: An #AtspiCollectionTreeTraversalType specifying restrictions on
  *          the objects to be traversed.
  * @count: The maximum number of results to return, or 0 for no limit.
- * @traverse: Not supported.
+ * @traverse: Whether to traverse the accessible subtree (in case
+ *         of #TRUE) or only the direct children (on case of #FALSE).
  *
  * Gets all #AtspiAccessible objects from the @collection, before
  * @current_object, matching a given @rule.
