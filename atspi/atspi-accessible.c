@@ -383,7 +383,7 @@ atspi_accessible_get_description (AtspiAccessible *obj, GError **error)
       obj->description = NULL;
       if (!_atspi_dbus_get_property (obj, atspi_interface_accessible,
                                      "Description", error, "s",
-                                     &obj->description))
+                                     &description))
         return g_strdup ("");
       _atspi_accessible_add_cache (obj, ATSPI_CACHE_DESCRIPTION);
       if (!obj->description)
