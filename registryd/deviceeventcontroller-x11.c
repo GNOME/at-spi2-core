@@ -721,44 +721,75 @@ spi_controller_register_with_devices (SpiDEController *controller)
   x_default_error_handler = XSetErrorHandler (_spi_controller_device_error_handler);
 }
 
+/* Compute effective XKB level from modifier state:
+ * bit0: Shift, bit1: ISO_Level3_Shift (AltGr), bit2: ISO_Level5_Shift.
+ * Lock and NumLock do not affect level.
+ */
+static unsigned int
+get_level_from_state (Display *dpy, unsigned int state)
+{
+  unsigned int level = 0;
+  unsigned int altgr_mask = XkbKeysymToModifiers (dpy, XK_ISO_Level3_Shift);
+  unsigned int level5_mask = XkbKeysymToModifiers (dpy, XK_ISO_Level5_Shift);
+
+  if (state & ShiftMask)
+    level |= 1;
+  if (altgr_mask && (state & altgr_mask))
+    level |= 2;
+  if (level5_mask && (state & level5_mask))
+    level |= 4;
+
+  return level;
+}
+
+/* Resolve keysym using explicit current group (st.group) and effective level.
+ * Fallback: scan levels in current group, then group 0 for specials.
+ */
+static KeySym
+resolve_keysym_with_xkb (Display *dpy, KeyCode keycode, unsigned int state)
+{
+  unsigned int cleaned = state & ~(_numlock_physical_mask | LockMask);
+
+  XkbStateRec st;
+  memset (&st, 0, sizeof (st));
+  XkbGetState (dpy, XkbUseCoreKbd, &st);
+
+  unsigned int level = get_level_from_state (dpy, cleaned);
+
+  KeySym ks = XkbKeycodeToKeysym (dpy, keycode, st.group, level);
+  if (ks != NoSymbol && ks != 0)
+    return ks;
+
+  /* Fallback 1: scan levels in current group */
+  for (int lvl = 0; lvl < 8; lvl++)
+    {
+      KeySym t = XkbKeycodeToKeysym (dpy, keycode, st.group, lvl);
+      if (t != NoSymbol && t != 0)
+        return t;
+    }
+
+  /* Fallback 2: scan group 0 */
+  for (int lvl = 0; lvl < 8; lvl++)
+    {
+      KeySym t = XkbKeycodeToKeysym (dpy, keycode, 0, lvl);
+      if (t != NoSymbol && t != 0)
+        return t;
+    }
+
+  return NoSymbol;
+}
+
 static Accessibility_DeviceEvent
 spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
 {
   Accessibility_DeviceEvent key_event;
   KeySym keysym;
 
-  /* Resolve keysym using current XKB group with robust fallback across levels and group 0.
-   * This ensures special keys (Backspace, arrows, etc.) are found even when a non-zero group is active. */
-  {
-    XkbStateRec st;
-    memset (&st, 0, sizeof (st));
-    XkbGetState (spi_get_display (), XkbUseCoreKbd, &st);
+  /* Resolve keysym via XKB using current state; honors group and effective modifiers. */
+  keysym = resolve_keysym_with_xkb (spi_get_display (),
+                                    x_key_event->keycode,
+                                    x_key_event->state);
 
-    /* First try the "natural" level based on Shift state in the current group. */
-    keysym = XkbKeycodeToKeysym (spi_get_display (),
-                                 x_key_event->keycode,
-                                 st.group,
-                                 (x_key_event->state & ShiftMask) ? 1 : 0);
-
-    if (keysym == NoSymbol || keysym == 0)
-      {
-        /* Fallback: scan levels 0..3 in current group, then group 0. */
-        int groups_to_try[2] = { st.group, 0 };
-        for (int gi = 0; gi < 2 && (keysym == NoSymbol || keysym == 0); gi++)
-          {
-            int g = groups_to_try[gi];
-            for (int lvl = 0; lvl < 4; lvl++)
-              {
-                KeySym ks = XkbKeycodeToKeysym (spi_get_display (), x_key_event->keycode, g, lvl);
-                if (ks != NoSymbol && ks != 0)
-                  {
-                    keysym = ks;
-                    break;
-                  }
-              }
-          }
-      }
-  }
   key_event.id = (dbus_int32_t) (keysym);
   key_event.hw_code = (dbus_int16_t) x_key_event->keycode;
   if (((XEvent *) x_key_event)->type == KeyPress)
