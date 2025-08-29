@@ -1,3 +1,12 @@
+What's new in at-spi2-core 2.57.2:
+
+* Don't install at-spi-dbus-bus.service if systemd is not enabled.
+
+* Some collection fixes and documentation improvements.
+
+* Fix reporting the wrong keysym on X11 setups where multiple keyboard
+  layouts are in use.
+
 What's new in at-spi2-core 2.57.1:
 
 * Fix several crashes introduced by the code to handle the accessibility
