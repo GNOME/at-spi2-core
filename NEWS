@@ -7,6 +7,8 @@ What's new in at-spi2-core 2.57.2:
 * Fix reporting the wrong keysym on X11 setups where multiple keyboard
   layouts are in use.
 
+* Fix possible memory leak in atspi_accessible_get_description.
+
 What's new in at-spi2-core 2.57.1:
 
 * Fix several crashes introduced by the code to handle the accessibility
