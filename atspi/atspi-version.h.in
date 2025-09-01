@@ -53,6 +53,23 @@ G_BEGIN_DECLS
  */
 #define ATSPI_MICRO_VERSION (@ATSPI_MICRO_VERSION@)
 
+/**
+ * ATSPI_CHECK_VERSION:
+ * @major: major version (e.g. 2 for version 2.58.0)
+ * @minor: minor version (e.g. 58 for version 2.58.0)
+ * @micro: micro version (e.g. 0 for version 2.58.0)
+ *
+ * Returns %TRUE if the version of AT-SPI used at compile
+ * time is the same as or newer than the passed-in version.
+ *
+ * Since: 2.58.0
+ */
+#define ATSPI_CHECK_VERSION(major,minor,micro)                          \
+    (ATSPI_MAJOR_VERSION > (major) ||                                   \
+     (ATSPI_MAJOR_VERSION == (major) && ATSPI_MINOR_VERSION > (minor)) || \
+     (ATSPI_MAJOR_VERSION == (major) && ATSPI_MINOR_VERSION == (minor) && \
+      ATSPI_MICRO_VERSION >= (micro)))
+
 G_END_DECLS
 
 #endif /* _ATSPI_VERSION_H_ */
