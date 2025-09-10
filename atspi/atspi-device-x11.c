@@ -98,7 +98,10 @@ event_check (GSource *source)
 static void
 xi2keyevent (XIDeviceEvent *xievent, XEvent *xkeyevent)
 {
+                    XkbStateRec st= {};
+
   memset (xkeyevent, 0, sizeof (*xkeyevent));
+                    XkbGetState (xievent->display, XkbUseCoreKbd, &st);
 
   switch (xievent->evtype)
     {
@@ -122,7 +125,7 @@ xi2keyevent (XIDeviceEvent *xievent, XEvent *xkeyevent)
   xkeyevent->xkey.y = xievent->event_y;
   xkeyevent->xkey.x_root = xievent->root_x;
   xkeyevent->xkey.y_root = xievent->root_y;
-  xkeyevent->xkey.state = xievent->mods.effective;
+  xkeyevent->xkey.state = xievent->mods.effective | (st.group << 13);
   xkeyevent->xkey.keycode = xievent->detail;
   xkeyevent->xkey.same_screen = 1;
 }
