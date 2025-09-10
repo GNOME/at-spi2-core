@@ -27,7 +27,6 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/extensions/XInput2.h>
-#include <X11/keysymdef.h>
 
 #define ATSPI_VIRTUAL_MODIFIER_MASK 0x0000f000
 
@@ -352,132 +351,6 @@ should_suppress_keygrab_window_events ()
   return (getenv ("XDG_CURRENT_DESKTOP") == NULL);
 }
 
-/* Resolve keysym using explicit current group (st.group) and effective level
- * computed from modifiers. Falls back to scan levels in current group, and
- * finally group 0 to handle specials.
- */
-static KeySym
-resolve_keysym_with_xkb (Display *dpy, KeyCode keycode, unsigned int state, unsigned int numlock_physical_mask)
-{
-  /* Ignore Lock/NumLock when selecting level */
-  unsigned int cleaned = state & ~(numlock_physical_mask | LockMask);
-
-  XkbStateRec st;
-  memset (&st, 0, sizeof (st));
-  XkbGetState (dpy, XkbUseCoreKbd, &st);
-
-  /* Compute modifier flags, not level index directly */
-  unsigned int altgr_mask = XkbKeysymToModifiers (dpy, XK_ISO_Level3_Shift);
-  unsigned int level5_mask = XkbKeysymToModifiers (dpy, XK_ISO_Level5_Shift);
-
-  gboolean shift_on = (cleaned & ShiftMask) != 0;
-  gboolean altgr_on = (altgr_mask && (cleaned & altgr_mask));
-  gboolean level5_on = (level5_mask && (cleaned & level5_mask));
-
-  /* Preferred level order for common 2/4/8-level layouts:
-   * - without Level5:
-   *   (none) -> [0,1,2,3]
-   *   (Shift) -> [1,0,3,2]
-   *   (AltGr) -> [2,3,0,1]
-   *   (Shift+AltGr) -> [3,2,1,0]
-   * - with Level5: same logic but prefer the upper levels (4..7) when Level5 is active
-   */
-  int candidates[8];
-  int n = 0;
-
-  if (!level5_on)
-    {
-      if (!shift_on && !altgr_on)
-        {
-          int pref[] = { 0, 1, 2, 3 };
-          memcpy (candidates, pref, sizeof (pref));
-        }
-      else if (shift_on && !altgr_on)
-        {
-          int pref[] = { 1, 0, 3, 2 };
-          memcpy (candidates, pref, sizeof (pref));
-        }
-      else if (!shift_on && altgr_on)
-        {
-          int pref[] = { 2, 3, 0, 1 };
-          memcpy (candidates, pref, sizeof (pref));
-        }
-      else /* shift_on && altgr_on */
-        {
-          int pref[] = { 3, 2, 1, 0 };
-          memcpy (candidates, pref, sizeof (pref));
-        }
-      n = 4;
-
-      /* then append levels 4..7 as fallback */
-      for (int lvl = 4; lvl < 8; lvl++)
-        candidates[n++] = lvl;
-    }
-  else
-    {
-      /* Level5 active: try 4..7 first, analogous logic */
-      if (!shift_on && !altgr_on)
-        {
-          int pref[] = { 4, 5, 6, 7 };
-          memcpy (candidates, pref, sizeof (pref));
-        }
-      else if (shift_on && !altgr_on)
-        {
-          int pref[] = { 5, 4, 7, 6 };
-          memcpy (candidates, pref, sizeof (pref));
-        }
-      else if (!shift_on && altgr_on)
-        {
-          int pref[] = { 6, 7, 4, 5 };
-          memcpy (candidates, pref, sizeof (pref));
-        }
-      else /* shift_on && altgr_on */
-        {
-          int pref[] = { 7, 6, 5, 4 };
-          memcpy (candidates, pref, sizeof (pref));
-        }
-      n = 4;
-
-      /* then levels 0..3 as fallback */
-      for (int lvl = 0; lvl < 4; lvl++)
-        candidates[n++] = lvl;
-    }
-
-  /* 1) Try candidates in current group */
-  for (int i = 0; i < n; i++)
-    {
-      KeySym t = XkbKeycodeToKeysym (dpy, keycode, st.group, candidates[i]);
-      if (t != NoSymbol && t != 0)
-        return t;
-    }
-
-  /* 2) Exhaustive scan of levels in current group */
-  for (int lvl = 0; lvl < 8; lvl++)
-    {
-      KeySym t = XkbKeycodeToKeysym (dpy, keycode, st.group, lvl);
-      if (t != NoSymbol && t != 0)
-        return t;
-    }
-
-  /* 3) Last chance: group 0, same candidates first */
-  for (int i = 0; i < n; i++)
-    {
-      KeySym t = XkbKeycodeToKeysym (dpy, keycode, 0, candidates[i]);
-      if (t != NoSymbol && t != 0)
-        return t;
-    }
-
-  /* 4) Exhaustive scan of group 0 */
-  for (int lvl = 0; lvl < 8; lvl++)
-    {
-      KeySym t = XkbKeycodeToKeysym (dpy, keycode, 0, lvl);
-      if (t != NoSymbol && t != 0)
-        return t;
-    }
-
-  return NoSymbol;
-}
-
 static gboolean
 do_event_dispatch (gpointer user_data)
 {
@@ -487,6 +360,7 @@ do_event_dispatch (gpointer user_data)
   XEvent xevent;
   char text[10];
   KeySym keysym;
+  XComposeStatus status;
   guint modifiers;
 
   g_object_ref (device);
@@ -499,14 +373,7 @@ do_event_dispatch (gpointer user_data)
         {
         case KeyPress:
         case KeyRelease:
-          /* Resolve keysym via XKB using current state; avoid stale text. */
-          {
-            keysym = resolve_keysym_with_xkb (priv->display,
-                                              xevent.xkey.keycode,
-                                              xevent.xkey.state,
-                                              priv->numlock_physical_mask);
-            text[0] = '\0';
-          }
+          XLookupString (&xevent.xkey, text, sizeof (text), &keysym, &status);
           modifiers = xevent.xkey.state | priv->virtual_mods_enabled;
           if (modifiers & priv->numlock_physical_mask)
             {
@@ -529,14 +396,9 @@ do_event_dispatch (gpointer user_data)
                 case XI_KeyPress:
                 case XI_KeyRelease:
                   xi2keyevent (xiDevEv, &keyevent);
-                  /* Resolve keysym via XKB using current state (XI2 path). */
-                  {
-                    keysym = resolve_keysym_with_xkb (priv->display,
-                                                      xiDevEv->detail,
-                                                      keyevent.xkey.state,
-                                                      priv->numlock_physical_mask);
+                  XLookupString ((XKeyEvent *) &keyevent, text, sizeof (text), &keysym, &status);
+                  if (text[0] < ' ')
                     text[0] = '\0';
-                  }
                   set_virtual_modifier (device, xiRawEv->detail, xevent.xcookie.evtype == XI_KeyPress);
                   modifiers = keyevent.xkey.state | priv->virtual_mods_enabled;
                   if (modifiers & priv->numlock_physical_mask)
