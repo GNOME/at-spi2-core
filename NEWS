@@ -1,3 +1,12 @@
+What's new in at-spi2-core 2.56.5:
+
+* Fix possible memory leak in atspi_accessible_get_description.
+
+* Fix reporting the wrong keysym on X11 setups where multiple keyboard
+  layouts are in use.
+
+* libatspi: Increase ATSPI_ROLE_COUNT after switch role was added
+
 What's new in at-spi2-core 2.56.4:
 
 * Fix key grabs when num lock or caps lock are on under Wayland.
