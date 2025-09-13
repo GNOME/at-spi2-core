@@ -1,5 +1,5 @@
 project('at-spi2-core', 'c',
-        version: '2.57.2',
+        version: '2.58.0',
         license: 'LGPLv2.1+',
         default_options: [
           'buildtype=debugoptimized',
