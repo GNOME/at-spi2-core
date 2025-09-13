@@ -1,3 +1,17 @@
+What's new in at-spi2-core 2.54.2:
+
+* Use the appropriate notifications for callbacks.
+
+* atspi-device-legacy: Don't crash when XkbGetMap fails
+
+* DeviceEventController: update mouse coordinates before sending button events
+
+    atk-bridge: Don't crash when requesting a plug if not activated
+
+* Fix a couple of memory leaks.
+
+* Fix key notifications under X11 when multiple keyboard layouts are in use.
+
 What's new in at-spi2-core 2.54.1:
 
 * Fix various memory leaks.
