@@ -21,8 +21,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _ATSPI_VERSION_H_
-#define _ATSPI_VERSION_H_
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -71,5 +70,3 @@ G_BEGIN_DECLS
       ATSPI_MICRO_VERSION >= (micro)))
 
 G_END_DECLS
-
-#endif /* _ATSPI_VERSION_H_ */
