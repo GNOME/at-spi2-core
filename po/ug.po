@@ -10,689 +10,858 @@
 # Gheyret T.Kenji <gheyret@yahoo.com>, 2005.
 # Sahran <sahran.ug@gmail.com>, 2010
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"#-#-#-#-#  ug.po (at-spi2-core)  #-#-#-#-#\n"
-"Project-Id-Version: at-spi2-core\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
-"spi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-03-18 16:31+0000\n"
-"PO-Revision-Date: 2011-01-31 15:04+0000\n"
-"Last-Translator: Gheyret Kenji <gheyret@yahoo.com>\n"
-"Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
+"Project-Id-Version: atk 2.12\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
+"POT-Creation-Date: 2023-08-05 16:00+0000\n"
+"PO-Revision-Date: 2024-01-06 18:50-0500\n"
+"Last-Translator: Abduqadir Abliz <sahran@live.com>\n"
+"Language-Team: Gnome Uighur Translation Project <gnome-uighur@yahoogroups.com>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  ug.po (atk 2.12 )  #-#-#-#-#\n"
-"Project-Id-Version: atk 2.12 \n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=atk&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-02-26 02:21+0000\n"
-"PO-Revision-Date: 2013-02-02 13:24+0900\n"
-"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
-"Language-Team: Gnome Uighur Translation Project <gnome-uighur@yahoogroups."
-"com>\n"
-"Language: ug\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
 
-#: ../atspi/atspi-misc.c:291
-#, c-format
-msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
-msgstr "AT-SPI: RemoveAccessible نىڭ ئىمزاسى %s نامەلۇم"
-
-#: ../atspi/atspi-misc.c:328
-#, c-format
-msgid "AT-SPI: Error calling getRoot for %s: %s"
-msgstr "AT-SPI: %s ئۈچۈن getRoot نى چاقىرغاندا خاتالىق كۆرۈلدى: %s"
-
-#: ../atspi/atspi-misc.c:486
-#, c-format
-msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
-msgstr "AT-SPI: GetItems دا خاتالىق بار. ئەۋەتكۈچى=%s، خاتالىق=%s"
-
-#: ../atspi/atspi-misc.c:588
-#, c-format
-msgid ""
-"AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
-"signature %s"
-msgstr ""
-"AT-SPI: _atspi_dbus_return_accessible_from_message نى غەلىتە ئىمزا %s بىلەن "
-"چاقىردى"
-
-#: ../atspi/atspi-misc.c:617
-#, c-format
-msgid ""
-"AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
-"signature %s"
-msgstr ""
-"AT-SPI: _atspi_dbus_return_hyperlink_from_message نى غەلىتە ئىمزا %s بىلەن "
-"چاقىردى"
-
-#: ../atspi/atspi-misc.c:642
-#, c-format
-msgid "AT-SPI: AddAccessible with unknown signature %s\n"
-msgstr "AT-SPI: AddAccessible غەلىتە ئىمزا %s بىلەن بىرگە\n"
-
-#: ../atspi/atspi-misc.c:935 ../atspi/atspi-misc.c:986
-#: ../atspi/atspi-misc.c:1027
-msgid "The application no longer exists"
-msgstr "بۇ پروگرامما مەۋجۇت ئەمەس"
-
-#: ../atspi/atspi-misc.c:1063
-#, c-format
-msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
-msgstr ""
-"AT-SPI: %s نى ئارايۈز %s دىن ئالغاندا بىر variant كېلىشى كېرەك ئىدى؛ %s غا "
-"ئېرىشتى\n"
-
-#: ../atspi/atspi-misc.c:1069
-#, c-format
-msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
-msgstr ""
-"atspi_dbus_get_property: تىپى خاتا: %s بولۇشى كېرەك ئىدى، %c غا ئېرىشتى\n"
-
-#: ../atspi/atspi-misc.c:1212
-#, c-format
-msgid "AT-SPI: Unknown interface %s"
-msgstr "AT-SPI:ئارايۈز %s نامەلۇم"
-
-#: ../atspi/atspi-misc.c:1232
-#, c-format
-msgid "AT-SPI: expected 2 values in states array; got %d\n"
-msgstr "AT-SPI: ھالەت تىزىقىدا ئىككى قىممەت بولۇشى كېرەك ئىدى؛ %d غا ئېرىشتى\n"
-
-#: ../atspi/atspi-accessible.c:997
-msgid "Streamable content not implemented"
-msgstr "ئېقىنلاشتۇرغىلى بولىدىغان مەزمۇننى تېخى ئىشلەتكىلى بولمايدۇ"
-
-#: ../atspi/atspi-event-listener.c:510
-msgid ""
-"called atspi_event_listener_register_from_callback with a NULL event_type"
-msgstr ""
-"atspi_event_listener_register_from_callback نى  نۆل(NULL event_type) بىلەن "
-"چاقىردى"
-
-#: ../atspi/atspi-event-listener.c:777
-#, c-format
-msgid "Got invalid signature %s for signal %s from interface %s\n"
-msgstr ""
-"خاتا ئىمزا %s ئېرىشتى. بۇ سىگنال %s ئۈچۈن كېرەك ئىدى. بۇ سىگنال %s "
-"ئارايۈزدىن كەلگەن\n"
-
-#: ../atk/atkhyperlink.c:103
+#: atk/atkhyperlink.c:127
 msgid "Selected Link"
 msgstr "تاللانغان ئۇلانما"
 
-#: ../atk/atkhyperlink.c:104
+#: atk/atkhyperlink.c:128
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr "AtkHyperlink نەڭىنىڭ تاللانغان تاللانمىغانلىقىنى كۆرسىتىدۇ"
 
-#: ../atk/atkhyperlink.c:110
+#: atk/atkhyperlink.c:134
 msgid "Number of Anchors"
 msgstr "لەڭگەر سانى"
 
-#: ../atk/atkhyperlink.c:111
+#: atk/atkhyperlink.c:135
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr "AtkHyperlink بىلەن باغلىنىشلىق بولغان لەڭگەرلەرنىڭ سانى"
 
-#: ../atk/atkhyperlink.c:119
+#: atk/atkhyperlink.c:143
 msgid "End index"
 msgstr "ئاخىرلىشىش ئىندېكسى"
 
-#: ../atk/atkhyperlink.c:120
+#: atk/atkhyperlink.c:144
 msgid "The end index of the AtkHyperlink object"
 msgstr "AtkHyperlink نەڭىنىڭ ئاخىرلىشىش ئىندېكسى"
 
-#: ../atk/atkhyperlink.c:128
+#: atk/atkhyperlink.c:152
 msgid "Start index"
 msgstr "باشلىنىش ئىندېكسى"
 
-#: ../atk/atkhyperlink.c:129
+#: atk/atkhyperlink.c:153
 msgid "The start index of the AtkHyperlink object"
 msgstr "AtkHyperlink نەڭىنىڭ باشلىنىش ئىندېكسى"
 
-#: ../atk/atkobject.c:74
+#: atk/atkobject.c:268
+msgid "Accessible Name"
+msgstr "زىيارەتچان ئاتى"
+
+#: atk/atkobject.c:269
+msgid "Object instance’s name formatted for assistive technology access"
+msgstr "نەڭ ئۈلگىسىنىڭ ئاتى ياردەمچى تېخنىكا زىيارىتى ئۈچۈن پىچىلغان"
+
+#: atk/atkobject.c:275
+msgid "Accessible Description"
+msgstr "زىيارەتچان چۈشەندۈرۈلۈش"
+
+#: atk/atkobject.c:276
+msgid "Description of an object, formatted for assistive technology access"
+msgstr "نەڭنىڭ چۈشەندۈرۈشى، ياردەمچى تېخنىكا زىيارىتى ئۈچۈن پىچىلغان"
+
+#: atk/atkobject.c:282
+msgid "Accessible Parent"
+msgstr "زىيارەتچان ئاتا تىزگىن"
+
+#: atk/atkobject.c:283
+msgid "Parent of the current accessible as returned by atk_object_get_parent()"
+msgstr "بۇ atk_object_get_parent() نۆۋەتتىكى زىيارەتچاننىڭ ئانا قىممىتىنىڭ قايتۇردى"
+
+#: atk/atkobject.c:299
+msgid "Accessible Value"
+msgstr "زىيارەتچان قىممەت"
+
+#: atk/atkobject.c:300
+msgid "Is used to notify that the value has changed"
+msgstr "مەزكۇر قىممەتنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+
+#: atk/atkobject.c:308
+msgid "Accessible Role"
+msgstr "زىيارەتچان رول"
+
+#: atk/atkobject.c:309
+msgid "The accessible role of this object"
+msgstr "مەزكۇر نەڭنىڭ زىيارەتچان رولى"
+
+#: atk/atkobject.c:316
+msgid "Accessible Layer"
+msgstr "زىيارەتچان قەۋەت"
+
+#: atk/atkobject.c:317
+msgid "The accessible layer of this object"
+msgstr "مەزكۇر نەڭنىڭ زىيارەتچان قەۋىتى"
+
+#: atk/atkobject.c:325
+msgid "Accessible MDI Value"
+msgstr "زىيارەتچان MDI قىممىتى"
+
+#: atk/atkobject.c:326
+msgid "The accessible MDI value of this object"
+msgstr "مەزكۇر نەڭنىڭ زىيارەتچان MDI قىممىتى"
+
+#: atk/atkobject.c:342
+msgid "Accessible Table Caption"
+msgstr "زىيارەتچان جەدۋەل ماۋزۇسى"
+
+#: atk/atkobject.c:343
+msgid ""
+"Is used to notify that the table caption has changed; this property should not be used. accessible-table-caption-object "
+"should be used instead"
+msgstr "جەدۋەل قېشى ئۆزگەرگەندە خەۋەر بېرىش ئۈچۈن ئىشلىتىلىدۇ. بۇنى ئىشلەتمەي accessible-table-caption-object ئىشلەتكەن ياخشى"
+
+#: atk/atkobject.c:357
+msgid "Accessible Table Column Header"
+msgstr "زىيارەتچان جەدۋەل ئىستون قېشى"
+
+#: atk/atkobject.c:358
+msgid "Is used to notify that the table column header has changed"
+msgstr "جەدۋەل ئىستون قېشىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+
+#: atk/atkobject.c:373
+msgid "Accessible Table Column Description"
+msgstr "زىيارەتچان جەدۋەل ئىستونىنىڭ چۈشەندۈرۈلۈشى"
+
+#: atk/atkobject.c:374
+msgid "Is used to notify that the table column description has changed"
+msgstr "جەدۋەل ئىستونىنىڭ چۈشەندۈرۈشىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+
+#: atk/atkobject.c:389
+msgid "Accessible Table Row Header"
+msgstr "زىيارەتچان جەدۋەل قۇر قېشى"
+
+#: atk/atkobject.c:390
+msgid "Is used to notify that the table row header has changed"
+msgstr "جەدۋەل قۇر قېشىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+
+#: atk/atkobject.c:404
+msgid "Accessible Table Row Description"
+msgstr "زىيارەتچان جەدۋەل قۇرىنىڭ چۈشەندۈرۈلۈشى"
+
+#: atk/atkobject.c:405
+msgid "Is used to notify that the table row description has changed"
+msgstr "جەدۋەل قۇرىنىڭ چۈشەندۈرۈشىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+
+#: atk/atkobject.c:411
+msgid "Accessible Table Summary"
+msgstr "زىيارەتچان جەدۋەل ئۈزۈندىسى"
+
+#: atk/atkobject.c:412
+msgid "Is used to notify that the table summary has changed"
+msgstr "جەدۋەل ئۈزۈندىسىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+
+#: atk/atkobject.c:418
+msgid "Accessible Table Caption Object"
+msgstr "زىيارەتچان جەدۋەل ماۋزۇ نەڭى"
+
+#: atk/atkobject.c:419
+msgid "Is used to notify that the table caption has changed"
+msgstr "جەدۋەل ماۋزۇسىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+
+#: atk/atkobject.c:425
+msgid "Number of Accessible Hypertext Links"
+msgstr "زىيارەتچان مول تېكىست ئۇلانمىلىرىنىڭ سانى"
+
+#: atk/atkobject.c:426
+msgid "The number of links which the current AtkHypertext has"
+msgstr "ھازىرقى AtkHypertext  ئۇلانمىلىرىنىڭ سانى"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:193
+msgid "very weak"
+msgstr "ناھايىتى ئاجىز"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:200
+msgid "weak"
+msgstr "ئاجىز"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:207
+msgid "acceptable"
+msgstr "قوشۇلۇشچان"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:214
+msgid "strong"
+msgstr "كۈچلۈك"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:221
+msgid "very strong"
+msgstr "ناھايىتى كۈچلۈك"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:229
+msgid "very low"
+msgstr "ناھايىتى تۆۋەن"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:237
+msgid "medium"
+msgstr "ئوتتۇراھال"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:245
+msgid "high"
+msgstr "يۇقىرى"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:253
+msgid "very high"
+msgstr "ناھايىتى يۇقىرى"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:261
+msgid "very bad"
+msgstr "ناھايىتى ناچار"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:269
+msgid "bad"
+msgstr "ناچار"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:277
+msgid "good"
+msgstr "ياخشى"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:285
+msgid "very good"
+msgstr "بەك ياخشى"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:293
+msgid "best"
+msgstr "ئەڭ ياخشى"
+
+#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1229 atspi/atspi-value.c:123
+msgid "The application no longer exists"
+msgstr "بۇ پىروگرامما مەۋجۇت ئەمەس"
+
+#: atspi/atspi-misc.c:49
 msgid "invalid"
 msgstr "ئىناۋەتسىز"
 
-#: ../atk/atkobject.c:75
+#: atspi/atspi-misc.c:50
 msgid "accelerator label"
 msgstr "تېزلەتكۈچنىڭ ئەنى"
 
-#: ../atk/atkobject.c:76
+#: atspi/atspi-misc.c:51
 msgid "alert"
 msgstr "ئاگاھلاندۇرۇش"
 
-#: ../atk/atkobject.c:77
+#: atspi/atspi-misc.c:52
 msgid "animation"
 msgstr "جانلاندۇرۇم"
 
-#: ../atk/atkobject.c:78
+#: atspi/atspi-misc.c:53
 msgid "arrow"
 msgstr "يا ئوق"
 
-#: ../atk/atkobject.c:79
+#: atspi/atspi-misc.c:54
 msgid "calendar"
 msgstr "يىلنامە"
 
-#: ../atk/atkobject.c:80
+#: atspi/atspi-misc.c:55
 msgid "canvas"
 msgstr "رەسىم رەختى"
 
-#: ../atk/atkobject.c:81
+#: atspi/atspi-misc.c:56
 msgid "check box"
 msgstr "تاللاش كۆزنەكچىسى"
 
-#: ../atk/atkobject.c:82
+#: atspi/atspi-misc.c:57
 msgid "check menu item"
 msgstr "تاللىغىلى بولىدىغان تىزىملىك تۇرى"
 
-#: ../atk/atkobject.c:83
+#: atspi/atspi-misc.c:58
 msgid "color chooser"
 msgstr "رەڭ تاللىغۇچ"
 
-#: ../atk/atkobject.c:84
+#: atspi/atspi-misc.c:59
 msgid "column header"
-msgstr "ئىستون قېشى"
+msgstr "رەت قېشى"
 
-#: ../atk/atkobject.c:85
+#: atspi/atspi-misc.c:60
 msgid "combo box"
 msgstr "بىرىكمە كۆزنەكچىسى"
 
-#: ../atk/atkobject.c:86
+#: atspi/atspi-misc.c:61
 msgid "dateeditor"
 msgstr "چېسلا تەھرىرلىگۈچ"
 
-#: ../atk/atkobject.c:87
+#: atspi/atspi-misc.c:62
 msgid "desktop icon"
 msgstr "ئۈستەلئۈستى سىنبەلگىسى"
 
-#: ../atk/atkobject.c:88
+#: atspi/atspi-misc.c:63
 msgid "desktop frame"
 msgstr "ئۈستەلئۈستى كۆزنىكى"
 
-#: ../atk/atkobject.c:89
+#: atspi/atspi-misc.c:64
 msgid "dial"
 msgstr "نومۇر بۇراش"
 
-#: ../atk/atkobject.c:90
+#: atspi/atspi-misc.c:65
 msgid "dialog"
 msgstr "سۆزلەشكۈ"
 
-#: ../atk/atkobject.c:91
+#: atspi/atspi-misc.c:66
 msgid "directory pane"
 msgstr "مۇندەرىجە پەنجىرىسى"
 
-#: ../atk/atkobject.c:92
+#: atspi/atspi-misc.c:67
 msgid "drawing area"
 msgstr "سىزىش دائىرىسى"
 
-#: ../atk/atkobject.c:93
+#: atspi/atspi-misc.c:68
 msgid "file chooser"
 msgstr "ھۆججەت تاللىغۇچ"
 
-#: ../atk/atkobject.c:94
+#: atspi/atspi-misc.c:69
 msgid "filler"
 msgstr "تولدۇرغۇچ"
 
 #. I know it looks wrong but that is what Java returns
-#: ../atk/atkobject.c:96
+#: atspi/atspi-misc.c:71
 msgid "fontchooser"
 msgstr "خەت نۇسخا تاللىغۇچ"
 
-#: ../atk/atkobject.c:97
+#: atspi/atspi-misc.c:72
 msgid "frame"
 msgstr "كۆزنەك"
 
-#: ../atk/atkobject.c:98
+#: atspi/atspi-misc.c:73
 msgid "glass pane"
 msgstr "ئەينەك پەنجىرە"
 
-#: ../atk/atkobject.c:99
+#: atspi/atspi-misc.c:74
 msgid "html container"
-msgstr "HTML قاچىسى"
+msgstr "html قاچىسى"
 
-#: ../atk/atkobject.c:100
+#: atspi/atspi-misc.c:75
 msgid "icon"
 msgstr "سىنبەلگە"
 
-#: ../atk/atkobject.c:101
+#: atspi/atspi-misc.c:76
 msgid "image"
 msgstr "سۈرەت"
 
-#: ../atk/atkobject.c:102
+#: atspi/atspi-misc.c:77
 msgid "internal frame"
 msgstr "ئىچكى كۆزنەك"
 
-#: ../atk/atkobject.c:103
+#: atspi/atspi-misc.c:78
 msgid "label"
 msgstr "ئەن"
 
-#: ../atk/atkobject.c:104
+#: atspi/atspi-misc.c:79
 msgid "layered pane"
 msgstr "قەۋەتلىك پەنجىرە"
 
-#: ../atk/atkobject.c:105
+#: atspi/atspi-misc.c:80
 msgid "list"
 msgstr "تىزىم"
 
-#: ../atk/atkobject.c:106
+#: atspi/atspi-misc.c:81
 msgid "list item"
 msgstr "تىزىم تۈرى"
 
-#: ../atk/atkobject.c:107
+#: atspi/atspi-misc.c:82
 msgid "menu"
 msgstr "تىزىملىك"
 
-#: ../atk/atkobject.c:108
+#: atspi/atspi-misc.c:83
 msgid "menu bar"
 msgstr "تىزىملىك بالدىقى"
 
-#: ../atk/atkobject.c:109
+#: atspi/atspi-misc.c:84
+msgid "menu button"
+msgstr "تىزىملىك توپچە"
+
+#: atspi/atspi-misc.c:85
 msgid "menu item"
 msgstr "تىزىملىك تۈرى"
 
-#: ../atk/atkobject.c:110
+#: atspi/atspi-misc.c:86
 msgid "option pane"
 msgstr "تاللانما پەنجىرىسى"
 
-#: ../atk/atkobject.c:111
+#: atspi/atspi-misc.c:87
 msgid "page tab"
 msgstr "بەتكۈچ"
 
-#: ../atk/atkobject.c:112
+#: atspi/atspi-misc.c:88
 msgid "page tab list"
 msgstr "بەتكۈچ تىزىمى"
 
-#: ../atk/atkobject.c:113
+#: atspi/atspi-misc.c:89
 msgid "panel"
 msgstr "پەنجىرە"
 
-#: ../atk/atkobject.c:114
+#: atspi/atspi-misc.c:90
 msgid "password text"
 msgstr "ئىم تېكىستى"
 
-#: ../atk/atkobject.c:115
+#: atspi/atspi-misc.c:91
 msgid "popup menu"
 msgstr "سەكرىمە تىزىملىك"
 
-#: ../atk/atkobject.c:116
+#: atspi/atspi-misc.c:92
 msgid "progress bar"
 msgstr "ئىلگىرىلەش بالدىقى"
 
-#: ../atk/atkobject.c:117
+#: atspi/atspi-misc.c:93
 msgid "push button"
 msgstr "بېسىلما توپچا"
 
-#: ../atk/atkobject.c:118
+#: atspi/atspi-misc.c:94
 msgid "radio button"
 msgstr "تاق تاللاش توپچىسى"
 
-#: ../atk/atkobject.c:119
+#: atspi/atspi-misc.c:95
 msgid "radio menu item"
 msgstr "تاق تاللاش تىزىملىك تۈرى"
 
-#: ../atk/atkobject.c:120
+#: atspi/atspi-misc.c:96
 msgid "root pane"
 msgstr "يىلتىز پەنجىرە"
 
-#: ../atk/atkobject.c:121
+#: atspi/atspi-misc.c:97
 msgid "row header"
 msgstr "قۇر قېشى"
 
-#: ../atk/atkobject.c:122
+#: atspi/atspi-misc.c:98
 msgid "scroll bar"
 msgstr "سىيرىغۇچ بالداق"
 
-#: ../atk/atkobject.c:123
+#: atspi/atspi-misc.c:99
 msgid "scroll pane"
 msgstr "سىيرىغۇچ پەنجىرە"
 
-#: ../atk/atkobject.c:124
+#: atspi/atspi-misc.c:100
 msgid "separator"
 msgstr "ئايرىغۇچ"
 
-#: ../atk/atkobject.c:125
+#: atspi/atspi-misc.c:101
 msgid "slider"
 msgstr "سۈرگۈچ"
 
-#: ../atk/atkobject.c:126
+#: atspi/atspi-misc.c:102
 msgid "split pane"
 msgstr "ئايرىغۇچ پەنجىرىسى"
 
-#: ../atk/atkobject.c:127
+#: atspi/atspi-misc.c:103
 msgid "spin button"
 msgstr "چىغ توپچا"
 
-#: ../atk/atkobject.c:128
+#: atspi/atspi-misc.c:104
 msgid "statusbar"
 msgstr "ھالەت بالداق"
 
-#: ../atk/atkobject.c:129
+#: atspi/atspi-misc.c:105
 msgid "table"
 msgstr "جەدۋەل"
 
-#: ../atk/atkobject.c:130
+#: atspi/atspi-misc.c:106
 msgid "table cell"
 msgstr "جەدۋەل كاتەكچە"
 
-#: ../atk/atkobject.c:131
+#: atspi/atspi-misc.c:107
 msgid "table column header"
 msgstr "جەدۋەل ئىستونىنىڭ قېشى"
 
-#: ../atk/atkobject.c:132
+#: atspi/atspi-misc.c:108
 msgid "table row header"
 msgstr "جەدۋەل قۇرىنىڭ قېشى"
 
-#: ../atk/atkobject.c:133
+#: atspi/atspi-misc.c:109
 msgid "tear off menu item"
 msgstr "تىزىملىك تۈرىنى يىرتماق"
 
-#: ../atk/atkobject.c:134
+#: atspi/atspi-misc.c:110
 msgid "terminal"
 msgstr "تېرمىنال"
 
-#: ../atk/atkobject.c:135
+#: atspi/atspi-misc.c:111
 msgid "text"
 msgstr "تېكىست"
 
-#: ../atk/atkobject.c:136
+#: atspi/atspi-misc.c:112
 msgid "toggle button"
 msgstr "ئالماشتۇرغۇچ توپچا"
 
-#: ../atk/atkobject.c:137
+#: atspi/atspi-misc.c:113
 msgid "tool bar"
 msgstr "قورال بالداق"
 
-#: ../atk/atkobject.c:138
+#: atspi/atspi-misc.c:114
 msgid "tool tip"
 msgstr "كۆرسەتمە"
 
-#: ../atk/atkobject.c:139
+#: atspi/atspi-misc.c:115
 msgid "tree"
 msgstr "شاخسىمان"
 
-#: ../atk/atkobject.c:140
+#: atspi/atspi-misc.c:116
 msgid "tree table"
 msgstr "شاخسىمان جەدۋەل"
 
-#: ../atk/atkobject.c:141
+#: atspi/atspi-misc.c:117
 msgid "unknown"
 msgstr "نامەلۇم"
 
-#: ../atk/atkobject.c:142
+#: atspi/atspi-misc.c:118
 msgid "viewport"
 msgstr "كۆرۈنۈش ئېغىزى"
 
-#: ../atk/atkobject.c:143
+#: atspi/atspi-misc.c:119
 msgid "window"
 msgstr "كۆزنەك"
 
-#: ../atk/atkobject.c:144
+#: atspi/atspi-misc.c:120
 msgid "header"
 msgstr "قاش"
 
-#: ../atk/atkobject.c:145
+#: atspi/atspi-misc.c:121
 msgid "footer"
 msgstr "بەت ئاستى"
 
-#: ../atk/atkobject.c:146
+#: atspi/atspi-misc.c:122
 msgid "paragraph"
 msgstr "ئابزاس"
 
-#: ../atk/atkobject.c:147
+#: atspi/atspi-misc.c:123
 msgid "ruler"
 msgstr "سىزغۇچ"
 
-#: ../atk/atkobject.c:148
+#: atspi/atspi-misc.c:124
 msgid "application"
 msgstr "پروگرامما"
 
-#: ../atk/atkobject.c:149
+#: atspi/atspi-misc.c:125
 msgid "autocomplete"
 msgstr "ئۆزلۈكىدىن تاماملاش"
 
-#: ../atk/atkobject.c:150
+#: atspi/atspi-misc.c:126
 msgid "edit bar"
 msgstr "تەھرىرلەش بالدىقى"
 
-#: ../atk/atkobject.c:151
+#: atspi/atspi-misc.c:127
 msgid "embedded component"
 msgstr "سىڭدۈرمە بۆلەك"
 
-#: ../atk/atkobject.c:152
+#: atspi/atspi-misc.c:128
 msgid "entry"
 msgstr "كىرگۈ"
 
-#: ../atk/atkobject.c:153
+#: atspi/atspi-misc.c:129
 msgid "chart"
 msgstr "دىئاگرامما"
 
-#: ../atk/atkobject.c:154
+#: atspi/atspi-misc.c:130
 msgid "caption"
 msgstr "ماۋزۇ"
 
-#: ../atk/atkobject.c:155
+#: atspi/atspi-misc.c:131
 msgid "document frame"
 msgstr "پۈتۈك كاندۇكى"
 
-#: ../atk/atkobject.c:156
+#: atspi/atspi-misc.c:132
 msgid "heading"
 msgstr "ماۋزۇ"
 
-#: ../atk/atkobject.c:157
+#: atspi/atspi-misc.c:133
 msgid "page"
 msgstr "بەت"
 
-#: ../atk/atkobject.c:158
+#: atspi/atspi-misc.c:134
 msgid "section"
 msgstr "دائىرە"
 
-#: ../atk/atkobject.c:159
+#: atspi/atspi-misc.c:135
 msgid "redundant object"
 msgstr "ئارتۇقچە نەڭ"
 
-#: ../atk/atkobject.c:160
+#: atspi/atspi-misc.c:136
 msgid "form"
 msgstr "كۆزنەك"
 
-#: ../atk/atkobject.c:161
+#: atspi/atspi-misc.c:137
 msgid "link"
 msgstr "ئۇلانما"
 
-#: ../atk/atkobject.c:162
+#: atspi/atspi-misc.c:138
 msgid "input method window"
 msgstr "كىرگۈزگۈچ كۆزنىكى"
 
-#: ../atk/atkobject.c:163
+#: atspi/atspi-misc.c:139
 msgid "table row"
 msgstr "جەدۋەل قۇرى"
 
-#: ../atk/atkobject.c:164
+#: atspi/atspi-misc.c:140
 msgid "tree item"
 msgstr "شاخسىمان تۇر"
 
-#: ../atk/atkobject.c:165
+#: atspi/atspi-misc.c:141
 msgid "document spreadsheet"
 msgstr "پۈتۈك جەدۋىلى"
 
-#: ../atk/atkobject.c:166
+#: atspi/atspi-misc.c:142
 msgid "document presentation"
 msgstr "پۈتۈك سۇنۇلمىسى"
 
-#: ../atk/atkobject.c:167
+#: atspi/atspi-misc.c:143
 msgid "document text"
 msgstr "پۈتۈك تېكىستى"
 
-#: ../atk/atkobject.c:168
+#: atspi/atspi-misc.c:144
 msgid "document web"
 msgstr "پۈتۈك تورتۇراسى"
 
-#: ../atk/atkobject.c:169
+#: atspi/atspi-misc.c:145
 msgid "document email"
 msgstr "پۈتۈك ئېلخېتى"
 
-#: ../atk/atkobject.c:170
+#: atspi/atspi-misc.c:146
 msgid "comment"
 msgstr "ئىزاھات"
 
-#: ../atk/atkobject.c:171
+#: atspi/atspi-misc.c:147
 msgid "list box"
 msgstr "تىزىم كۆزنەكچىسى"
 
-#: ../atk/atkobject.c:172
+#: atspi/atspi-misc.c:148
 msgid "grouping"
 msgstr "گۇرۇپپىلاش"
 
-#: ../atk/atkobject.c:173
+#: atspi/atspi-misc.c:149
 msgid "image map"
 msgstr "سۈرەت خەرىتىسى"
 
-#: ../atk/atkobject.c:174
+#: atspi/atspi-misc.c:150
 msgid "notification"
 msgstr "ئۇقتۇرۇش"
 
-#: ../atk/atkobject.c:175
+#: atspi/atspi-misc.c:151
 msgid "info bar"
 msgstr "ئۇچۇر بالدىقى"
 
-#: ../atk/atkobject.c:514
-msgid "Accessible Name"
-msgstr "زىيارەتچان ئاتى"
+#: atspi/atspi-misc.c:152
+msgid "level bar"
+msgstr "دەرىجە بالدىقى"
 
-#: ../atk/atkobject.c:515
-msgid "Object instance’s name formatted for assistive technology access"
-msgstr "نەڭ ئۈلگىسىنىڭ ئاتى ياردەمچى تېخنىكا زىيارىتى ئۈچۈن پىچىلغان"
+#: atspi/atspi-misc.c:153
+msgid "title bar"
+msgstr "ماۋزۇ بالداق"
 
-#: ../atk/atkobject.c:521
-msgid "Accessible Description"
-msgstr "زىيارەتچان چۈشەندۈرۈلۈش"
+#: atspi/atspi-misc.c:154
+msgid "block quote"
+msgstr "بۆلەك نەقىل"
 
-#: ../atk/atkobject.c:522
-msgid "Description of an object, formatted for assistive technology access"
-msgstr "نەڭنىڭ چۈشەندۈرۈشى، ياردەمچى تېخنىكا زىيارىتى ئۈچۈن پىچىلغان"
+#: atspi/atspi-misc.c:155
+msgid "audio"
+msgstr "ئۈن"
 
-#: ../atk/atkobject.c:528
-msgid "Accessible Parent"
-msgstr "زىيارەتچان ئاتا تىزگىن"
+#: atspi/atspi-misc.c:156
+msgid "video"
+msgstr "سىن"
 
-#: ../atk/atkobject.c:529
-msgid "Is used to notify that the parent has changed"
-msgstr "ئاتا تىزگىننىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+#: atspi/atspi-misc.c:157
+msgid "definition"
+msgstr "ئېنىقلىما"
 
-#: ../atk/atkobject.c:535
-msgid "Accessible Value"
-msgstr "زىيارەتچان قىممەت"
+#: atspi/atspi-misc.c:158
+msgid "article"
+msgstr "ماقالە"
 
-#: ../atk/atkobject.c:536
-msgid "Is used to notify that the value has changed"
-msgstr "مەزكۇر قىممەتنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+#: atspi/atspi-misc.c:159
+msgid "landmark"
+msgstr "مۇساپە بەلگىسى"
 
-#: ../atk/atkobject.c:544
-msgid "Accessible Role"
-msgstr "زىيارەتچان رول"
+#: atspi/atspi-misc.c:160
+msgid "log"
+msgstr "خاتىرە"
 
-#: ../atk/atkobject.c:545
-msgid "The accessible role of this object"
-msgstr "مەزكۇر نەڭنىڭ زىيارەتچان رولى"
+#: atspi/atspi-misc.c:161
+msgid "marquee"
+msgstr "لەيلىمە تېكىست"
 
-#: ../atk/atkobject.c:553
-msgid "Accessible Layer"
-msgstr "زىيارەتچان قەۋەت"
+#: atspi/atspi-misc.c:162
+msgid "math"
+msgstr "ماتېماتىكا"
 
-#: ../atk/atkobject.c:554
-msgid "The accessible layer of this object"
-msgstr "مەزكۇر نەڭنىڭ زىيارەتچان قەۋىتى"
+#: atspi/atspi-misc.c:163
+msgid "rating"
+msgstr "باھا"
 
-#: ../atk/atkobject.c:562
-msgid "Accessible MDI Value"
-msgstr "زىيارەتچان MDI قىممىتى"
+#: atspi/atspi-misc.c:164
+msgid "timer"
+msgstr "ۋاقىت خاتىرىلىگۈچ"
 
-#: ../atk/atkobject.c:563
-msgid "The accessible MDI value of this object"
-msgstr "مەزكۇر نەڭنىڭ زىيارەتچان MDI قىممىتى"
+#: atspi/atspi-misc.c:165
+msgid "description list"
+msgstr "چۈشەندۈرۈش تىزىمى"
 
-#: ../atk/atkobject.c:571
-msgid "Accessible Table Caption"
-msgstr "زىيارەتچان جەدۋەل ماۋزۇسى"
+#: atspi/atspi-misc.c:166
+msgid "description term"
+msgstr "چۈشەندۈرۈش  شەرتى"
 
-#: ../atk/atkobject.c:572
-msgid ""
-"Is used to notify that the table caption has changed; this property should "
-"not be used. accessible-table-caption-object should be used instead"
-msgstr ""
-"جەدۋەل قېشى ئۆزگەرگەندە خەۋەر بېرىش ئۈچۈن ئىشلىتىلىدۇ. بۇنى ئىشلەتمەي "
-"accessible-table-caption-object ئىشلەتكەن ياخشى"
+#: atspi/atspi-misc.c:167
+msgid "description value"
+msgstr "چۈشەندۈرۈش قىممىتى"
 
-#: ../atk/atkobject.c:578
-msgid "Accessible Table Column Header"
-msgstr "زىيارەتچان جەدۋەل ئىستون قېشى"
+#, c-format
+#~ msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
+#~ msgstr "AT-SPI: RemoveAccessible نىڭ ئىمزاسى %s نامەلۇم"
 
-#: ../atk/atkobject.c:579
-msgid "Is used to notify that the table column header has changed"
-msgstr "جەدۋەل ئىستون قېشىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+#, c-format
+#~ msgid "AT-SPI: Error calling getRoot for %s: %s"
+#~ msgstr "AT-SPI: %s ئۈچۈن getRoot نى چاقىرغاندا خاتالىق كۆرۈلدى: %s"
 
-#: ../atk/atkobject.c:585
-msgid "Accessible Table Column Description"
-msgstr "زىيارەتچان جەدۋەل ئىستونىنىڭ چۈشەندۈرۈلۈشى"
+#, c-format
+#~ msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
+#~ msgstr "AT-SPI: GetItems دا خاتالىق بار. ئەۋەتكۈچى=%s، خاتالىق=%s"
 
-#: ../atk/atkobject.c:586
-msgid "Is used to notify that the table column description has changed"
-msgstr ""
-"جەدۋەل ئىستونىنىڭ چۈشەندۈرۈشىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+#, c-format
+#~ msgid "AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange signature %s"
+#~ msgstr "AT-SPI: _atspi_dbus_return_accessible_from_message نى غەلىتە ئىمزا %s بىلەن چاقىردى"
 
-#: ../atk/atkobject.c:592
-msgid "Accessible Table Row Header"
-msgstr "زىيارەتچان جەدۋەل قۇر قېشى"
+#, c-format
+#~ msgid "AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange signature %s"
+#~ msgstr "AT-SPI: _atspi_dbus_return_hyperlink_from_message نى غەلىتە ئىمزا %s بىلەن چاقىردى"
 
-#: ../atk/atkobject.c:593
-msgid "Is used to notify that the table row header has changed"
-msgstr "جەدۋەل قۇر قېشىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+#, c-format
+#~ msgid "AT-SPI: AddAccessible with unknown signature %s\n"
+#~ msgstr "AT-SPI: AddAccessible غەلىتە ئىمزا %s بىلەن بىرگە\n"
 
-#: ../atk/atkobject.c:599
-msgid "Accessible Table Row Description"
-msgstr "زىيارەتچان جەدۋەل قۇرىنىڭ چۈشەندۈرۈلۈشى"
+#, c-format
+#~ msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
+#~ msgstr "AT-SPI: %s نى ئارايۈز %s دىن ئالغاندا بىر variant كېلىشى كېرەك ئىدى؛ %s غا ئېرىشتى\n"
 
-#: ../atk/atkobject.c:600
-msgid "Is used to notify that the table row description has changed"
-msgstr ""
-"جەدۋەل قۇرىنىڭ چۈشەندۈرۈشىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+#, c-format
+#~ msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
+#~ msgstr "atspi_dbus_get_property: تىپى خاتا: %s بولۇشى كېرەك ئىدى، %c غا ئېرىشتى\n"
 
-#: ../atk/atkobject.c:606
-msgid "Accessible Table Summary"
-msgstr "زىيارەتچان جەدۋەل ئۈزۈندىسى"
+#, c-format
+#~ msgid "AT-SPI: Unknown interface %s"
+#~ msgstr "AT-SPI:ئارايۈز %s نامەلۇم"
 
-#: ../atk/atkobject.c:607
-msgid "Is used to notify that the table summary has changed"
-msgstr "جەدۋەل ئۈزۈندىسىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+#, c-format
+#~ msgid "AT-SPI: expected 2 values in states array; got %d\n"
+#~ msgstr "AT-SPI: ھالەت تىزىقىدا ئىككى قىممەت بولۇشى كېرەك ئىدى؛ %d غا ئېرىشتى\n"
 
-#: ../atk/atkobject.c:613
-msgid "Accessible Table Caption Object"
-msgstr "زىيارەتچان جەدۋەل ماۋزۇ نەڭى"
+#~ msgid "Streamable content not implemented"
+#~ msgstr "ئېقىنلاشتۇرغىلى بولىدىغان مەزمۇننى تېخى ئىشلەتكىلى بولمايدۇ"
 
-#: ../atk/atkobject.c:614
-msgid "Is used to notify that the table caption has changed"
-msgstr "جەدۋەل ماۋزۇسىنىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
+#~ msgid "called atspi_event_listener_register_from_callback with a NULL event_type"
+#~ msgstr "atspi_event_listener_register_from_callback نى  نۆل(NULL event_type) بىلەن چاقىردى"
 
-#: ../atk/atkobject.c:620
-msgid "Number of Accessible Hypertext Links"
-msgstr "زىيارەتچان مول تېكىست ئۇلانمىلىرىنىڭ سانى"
+#, c-format
+#~ msgid "Got invalid signature %s for signal %s from interface %s\n"
+#~ msgstr "خاتا ئىمزا %s ئېرىشتى. بۇ سىگنال %s ئۈچۈن كېرەك ئىدى. بۇ سىگنال %s ئارايۈزدىن كەلگەن\n"
 
-#: ../atk/atkobject.c:621
-msgid "The number of links which the current AtkHypertext has"
-msgstr "ھازىرقى AtkHypertext  ئۇلانمىلىرىنىڭ سانى"
+#~ msgid "Is used to notify that the parent has changed"
+#~ msgstr "ئاتا تىزگىننىڭ ئۆزگەرگەنلىكىنى خەۋەر قىلىشقا ئىشلىتىلىدۇ"
 
 #~ msgid "AT-SPI: Could not get the display\n"
 #~ msgstr "AT-SPI: ئېكرانغا ئېرىشەلمىدى\n"
 
 #~ msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
-#~ msgstr ""
-#~ "AT-SPI: Accessibility باش لىنىيىسى تېپىلمىدى، شۇڭا ئەڭگىمە باش لىنىيىسى "
-#~ "ئىشلىتىلىدۇ.\n"
+#~ msgstr "AT-SPI: Accessibility باش لىنىيىسى تېپىلمىدى، شۇڭا ئەڭگىمە باش لىنىيىسى ئىشلىتىلىدۇ.\n"
 
 #~ msgid "AT-SPI: Couldn't connect to bus: %s\n"
 #~ msgstr "AT-SPI:باش لىنىيىسىگە باغلىنالمىدى: %s\n"
