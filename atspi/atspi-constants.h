@@ -1541,6 +1541,175 @@ extern "C"
 
 #define ATSPI_MAX_CHILDREN 65536
 
+/**
+ * ATSPI_ACCESSIBLE_VERSION:
+ *
+ * The version of the Application D-Bus interface.
+ *
+ * Since: 2.59
+ */
+#define ATSPI_ACCESSIBLE_VERSION                1
+/**
+ * ATSPI_ACTION_VERSION:
+ *
+ * The version of the Action D-Bus interface.
+ *
+ * Since: 2.59
+ */
+#define ATSPI_ACTION_VERSION                    1
+/**
+ * ATSPI_APPLICATION_VERSION:
+ *
+ * The version of the Application D-Bus interface.
+ *
+ * Since: 2.59
+ */
+#define ATSPI_APPLICATION_VERSION               1
+/**
+ * ATSPI_CACHE_VERSION:
+ *
+ * The version of the Cache D-Bus interface.
+ *
+ * Since: 2.59
+ */
+#define ATSPI_CACHE_VERSION                     1
+/**
+ * ATSPI_COLLECTION_VERSION:
+ *
+ * The version of the Collection D-Bus interface.
+ *
+ * Since: 2.59
+ */
+#define ATSPI_COLLECTION_VERSION                1
+/**
+ * ATSPI_COMPONENT_VERSION:
+ *
+ * The version of the Component D-Bus interface.
+ *
+ * Since: 2.59
+ */
+#define ATSPI_COMPONENT_VERSION                 1
+/**
+ * ATSPI_DEVICE_EVENT_CONTROLLER_VERSION:
+ *
+ * The version of the DeviceEventController D-Bus interface.
+ *
+ * Since: 2.59
+ */
+#define ATSPI_DEVICE_EVENT_CONTROLLER_VERSION   1
+/**
+ * ATSPI_DEVICE_EVENT_LISTENER_VERSION:
+ *
+ * The version of the DeviceEventListener D-Bus interface.
+ *
+ * Since: 2.59
+ */
+#define ATSPI_DEVICE_EVENT_LISTENER_VERSION     1
+/**
+ * ATSPI_DOCUMENT_VERSION:
+ *
+ * The version of the Document D-Bus interface.
+ *
+ * Since: 2.59
+ */
+#define ATSPI_DOCUMENT_VERSION                  1
+/**
+ * ATSPI_EDITABLE_TEXT_VERSION:
+ *
+ * The version of the EditableText D-Bus interface.
+ *
+ * Since: 2.59
+ */
+#define ATSPI_EDITABLE_TEXT_VERSION             1
+/**
+ * ATSPI_EVENT_VERSION:
+ *
+ * The version of the Event D-Bus interface.
+ *
+ * Since: 2.59
+ */
+#define ATSPI_EVENT_VERSION                     1
+/**
+ * ATSPI_HYPERLINK_VERSION:
+ *
+ * The version of the Hyperlink D-Bus interface.
+ *
+ * Since: 2.59
+ */
+#define ATSPI_HYPERLINK_VERSION                 1
+/**
+ * ATSPI_HYPERTEXT_VERSION:
+ *
+ * The version of the Hypertext D-Bus interface.
+ *
+ * Since: 2.59
+ */
+#define ATSPI_HYPERTEXT_VERSION                 1
+/**
+ * ATSPI_IMAGE_VERSION:
+ *
+ * The version of the Image D-Bus interface.
+ *
+ * Since: 2.59
+ */
+#define ATSPI_IMAGE_VERSION                     1
+/**
+ * ATSPI_REGISTRY_VERSION:
+ *
+ * The version of the Registry D-Bus interface.
+ *
+ * Since: 2.59
+ */
+#define ATSPI_REGISTRY_VERSION                  1
+/**
+ * ATSPI_SELECTION_VERSION:
+ *
+ * The version of the Selection D-Bus interface.
+ *
+ * Since: 2.59
+ */
+#define ATSPI_SELECTION_VERSION                 1
+/**
+ * ATSPI_SOCKET_VERSION:
+ *
+ * The version of the Socket D-Bus interface.
+ *
+ * Since: 2.59
+ */
+#define ATSPI_SOCKET_VERSION                    1
+/**
+ * ATSPI_TABLE_VERSION:
+ *
+ * The version of the Table D-Bus interface.
+ *
+ * Since: 2.59
+ */
+#define ATSPI_TABLE_VERSION                     1
+/**
+ * ATSPI_TABLE_CELL_VERSION:
+ *
+ * The version of the TableCell D-Bus interface.
+ *
+ * Since: 2.59
+ */
+#define ATSPI_TABLE_CELL_VERSION                1
+/**
+ * ATSPI_TEXT_VERSION:
+ *
+ * The version of the Text D-Bus interface.
+ *
+ * Since: 2.59
+ */
+#define ATSPI_TEXT_VERSION                      1
+/**
+ * ATSPI_VALUE_VERSION:
+ *
+ * The version of the Value D-Bus interface.
+ *
+ * Since: 2.59
+ */
+#define ATSPI_VALUE_VERSION                     1
+
 #ifdef __cplusplus
 }
 #endif
