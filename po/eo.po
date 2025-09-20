@@ -1,14 +1,14 @@
 # Esperanto translation for at-spi2-core.
 # Copyright (C) 2011 Free Software Foundation, Inc.
 # This file is distributed under the same license as the at-spi2-core package.
-# Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2011-2023.
+# Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2011-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk 1.3.4\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
-"POT-Creation-Date: 2023-08-05 16:00+0000\n"
-"PO-Revision-Date: 2023-09-15 19:23+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
+"POT-Creation-Date: 2025-09-17 02:41+0000\n"
+"PO-Revision-Date: 2025-09-20 12:31+0200\n"
 "Last-Translator: Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>\n"
 "Language-Team: Esperanto <gnome-eo-list@gnome.org>\n"
 "Language: eo\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 42.0\n"
+"X-Generator: Gtranslator 48.0\n"
 "X-Project-Style: gnome\n"
 
 #: atk/atkhyperlink.c:127
@@ -51,130 +51,145 @@ msgstr "Komencindekso"
 msgid "The start index of the AtkHyperlink object"
 msgstr "La komencindekso de la AtkHyperlink-objekto"
 
-#: atk/atkobject.c:268
+#: atk/atkobject.c:273
 msgid "Accessible Name"
 msgstr "Atingebla nomo"
 
-#: atk/atkobject.c:269
+#: atk/atkobject.c:274
 msgid "Object instance’s name formatted for assistive technology access"
 msgstr "Nomo de objekta eksemplero formatita por asist-teknologia atingo"
 
-#: atk/atkobject.c:275
+#: atk/atkobject.c:280
 msgid "Accessible Description"
 msgstr "Atingebla priskribo"
 
-#: atk/atkobject.c:276
+#: atk/atkobject.c:281
 msgid "Description of an object, formatted for assistive technology access"
-msgstr ""
-"Priskribo de objekto, formatita por formatita por asist-teknologia atingo"
+msgstr "Priskribo de objekto, formatita por asist-teknologia atingo"
 
-#: atk/atkobject.c:282
+#: atk/atkobject.c:287
 msgid "Accessible Parent"
 msgstr "Atingebla gepatro"
 
-#: atk/atkobject.c:283
+#: atk/atkobject.c:288
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
-msgstr "Gepatro de la nuna alireblo kiel resendita de atk_object_get_parent()"
+msgstr "Gepatro de la aktuala alireblaĵo kiel redonita de atk_object_get_parent()"
 
-#: atk/atkobject.c:299
+#: atk/atkobject.c:304
 msgid "Accessible Value"
 msgstr "Atingebla valoro"
 
-#: atk/atkobject.c:300
+#: atk/atkobject.c:305
 msgid "Is used to notify that the value has changed"
-msgstr "Uzita por avizi ke la valororo ŝanĝiĝis"
+msgstr "Uzata por avizi, ke la valoro ŝanĝiĝis"
 
-#: atk/atkobject.c:308
+#: atk/atkobject.c:313
 msgid "Accessible Role"
 msgstr "Atingebla rolo"
 
-#: atk/atkobject.c:309
+#: atk/atkobject.c:314
 msgid "The accessible role of this object"
 msgstr "La atingebla rolo de ĉi tiu objekto"
 
-#: atk/atkobject.c:316
+#: atk/atkobject.c:321
 msgid "Accessible Layer"
 msgstr "Atingebla tavolo"
 
-#: atk/atkobject.c:317
+#: atk/atkobject.c:322
 msgid "The accessible layer of this object"
 msgstr "La atingebla tavolo de ĉi tiu objekto"
 
-#: atk/atkobject.c:325
+#: atk/atkobject.c:330
 msgid "Accessible MDI Value"
 msgstr "Atingebla MDI-valoro"
 
-#: atk/atkobject.c:326
+#: atk/atkobject.c:331
 msgid "The accessible MDI value of this object"
 msgstr "La atingebla MDI-valoro de ĉi tiu objekto"
 
-#: atk/atkobject.c:342
+#: atk/atkobject.c:347
 msgid "Accessible Table Caption"
 msgstr "Atingebla tabela apudskribo"
 
-#: atk/atkobject.c:343
+#: atk/atkobject.c:348
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
-"Uzita por avizi ke la tabela apudskribo ŝanĝiĝis; ĉi tiu eco ne devas esti "
-"uzita. la \"accessible-table-caption\"-objekto devus esti uzita anstataŭ"
+"Uzata por avizi, ke la tabela apudskribo ŝanĝiĝis; ĉi tiu eco ne uziĝu. "
+"Anstataŭe uzu 'accessible-table-caption-object'"
 
-#: atk/atkobject.c:357
+#: atk/atkobject.c:362
 msgid "Accessible Table Column Header"
 msgstr "Atingebla tabela kolumna ĉapo"
 
-#: atk/atkobject.c:358
+#: atk/atkobject.c:363
 msgid "Is used to notify that the table column header has changed"
 msgstr "Uzita por avizi ke la tabela kolumna ĉapo ŝanĝiĝis"
 
-#: atk/atkobject.c:373
+#: atk/atkobject.c:378
 msgid "Accessible Table Column Description"
 msgstr "Atingebla tabela kolumna priskribo"
 
-#: atk/atkobject.c:374
+#: atk/atkobject.c:379
 msgid "Is used to notify that the table column description has changed"
 msgstr "Uzita por avizi ke la tabela kolumna priskribo ŝanĝiĝis"
 
-#: atk/atkobject.c:389
+#: atk/atkobject.c:394
 msgid "Accessible Table Row Header"
 msgstr "Atingebla tabela vica ĉapo"
 
-#: atk/atkobject.c:390
+#: atk/atkobject.c:395
 msgid "Is used to notify that the table row header has changed"
 msgstr "Uzita por avizi ke la tabela vica ĉapo ŝanĝiĝis"
 
-#: atk/atkobject.c:404
+#: atk/atkobject.c:409
 msgid "Accessible Table Row Description"
 msgstr "Atingebla tabela vica priskribo"
 
-#: atk/atkobject.c:405
+#: atk/atkobject.c:410
 msgid "Is used to notify that the table row description has changed"
 msgstr "Uzita por avizi ke la tabela vica priskribo ŝanĝiĝis"
 
-#: atk/atkobject.c:411
+#: atk/atkobject.c:416
 msgid "Accessible Table Summary"
 msgstr "Atingebla tabela resumo"
 
-#: atk/atkobject.c:412
+#: atk/atkobject.c:417
 msgid "Is used to notify that the table summary has changed"
 msgstr "Uzita por avizi ke la tabela resumo ŝanĝiĝis"
 
-#: atk/atkobject.c:418
+#: atk/atkobject.c:423
 msgid "Accessible Table Caption Object"
 msgstr "Atingebla tabela apudskriba objekto"
 
-#: atk/atkobject.c:419
+#: atk/atkobject.c:424
 msgid "Is used to notify that the table caption has changed"
 msgstr "Uzita por avizi ke la tabela apudskribo ŝanĝiĝis"
 
-#: atk/atkobject.c:425
+#: atk/atkobject.c:430
 msgid "Number of Accessible Hypertext Links"
 msgstr "Nombro da atingeblaj hipertekstaj ligiloj"
 
-#: atk/atkobject.c:426
+#: atk/atkobject.c:431
 msgid "The number of links which the current AtkHypertext has"
-msgstr "La nombro da ligiloj kiujn havas la aktuala \"AtkHypertext\""
+msgstr "La nombro da ligiloj, kiujn havas la aktuala AtkHypertext"
+
+#: atk/atkobject.c:440
+msgid "Accessible ID"
+msgstr "Atingebla identigilo"
+
+#: atk/atkobject.c:441
+msgid "ID for the accessible; useful for automated testing"
+msgstr "Identigilo por la alireblaĵo; utila por aŭtomatigitaj testoj"
+
+#: atk/atkobject.c:447
+msgid "Help text"
+msgstr "Helpa teksto"
+
+#: atk/atkobject.c:448
+msgid "Help text associated with the accessible"
+msgstr "Helpa teksto asociita kun la alireblaĵo"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a password-strength meter. Note that what such a
@@ -325,7 +340,7 @@ msgstr "tre bone"
 msgid "best"
 msgstr "plej bone"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1229 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:341 atspi/atspi-misc.c:1230 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "La aplikaĵo ne plu ekzistas"
 
@@ -503,8 +518,8 @@ msgid "progress bar"
 msgstr "plenumskalo"
 
 #: atspi/atspi-misc.c:93
-msgid "push button"
-msgstr "prembutono"
+msgid "button"
+msgstr "butono"
 
 #: atspi/atspi-misc.c:94
 msgid "radio button"
@@ -551,256 +566,263 @@ msgid "statusbar"
 msgstr "statobreto"
 
 #: atspi/atspi-misc.c:105
+msgid "switch"
+msgstr "ŝaltilo"
+
+#: atspi/atspi-misc.c:106
 msgid "table"
 msgstr "tabelo"
 
-#: atspi/atspi-misc.c:106
+#: atspi/atspi-misc.c:107
 msgid "table cell"
 msgstr "tabela ĉelo"
 
-#: atspi/atspi-misc.c:107
+#: atspi/atspi-misc.c:108
 msgid "table column header"
 msgstr "tabela kolumna ĉapo"
 
-#: atspi/atspi-misc.c:108
+#: atspi/atspi-misc.c:109
 msgid "table row header"
 msgstr "tabela vica ĉapo"
 
-#: atspi/atspi-misc.c:109
+#: atspi/atspi-misc.c:110
 msgid "tear off menu item"
 msgstr "deŝirebla menuero"
 
-#: atspi/atspi-misc.c:110
+#: atspi/atspi-misc.c:111
 msgid "terminal"
 msgstr "terminalo"
 
-#: atspi/atspi-misc.c:111
+#: atspi/atspi-misc.c:112
 msgid "text"
 msgstr "teksto"
 
-#: atspi/atspi-misc.c:112
+#: atspi/atspi-misc.c:113
 msgid "toggle button"
 msgstr "baskula butono"
 
-#: atspi/atspi-misc.c:113
+#: atspi/atspi-misc.c:114
 msgid "tool bar"
 msgstr "ilobreto"
 
-#: atspi/atspi-misc.c:114
+#: atspi/atspi-misc.c:115
 msgid "tool tip"
 msgstr "ŝpruchelpilo"
 
-#: atspi/atspi-misc.c:115
+#: atspi/atspi-misc.c:116
 msgid "tree"
 msgstr "arbo"
 
-#: atspi/atspi-misc.c:116
+#: atspi/atspi-misc.c:117
 msgid "tree table"
 msgstr "arba tabelo"
 
-#: atspi/atspi-misc.c:117
+#: atspi/atspi-misc.c:118
 msgid "unknown"
 msgstr "nekonate"
 
-#: atspi/atspi-misc.c:118
+#: atspi/atspi-misc.c:119
 msgid "viewport"
 msgstr "vidujo"
 
-#: atspi/atspi-misc.c:119
+#: atspi/atspi-misc.c:120
 msgid "window"
 msgstr "fenestro"
 
-#: atspi/atspi-misc.c:120
+#: atspi/atspi-misc.c:121
 msgid "header"
 msgstr "ĉapo"
 
-#: atspi/atspi-misc.c:121
+#: atspi/atspi-misc.c:122
 msgid "footer"
 msgstr "paĝopiedo"
 
-#: atspi/atspi-misc.c:122
+#: atspi/atspi-misc.c:123
 msgid "paragraph"
 msgstr "alineo"
 
-#: atspi/atspi-misc.c:123
+#: atspi/atspi-misc.c:124
 msgid "ruler"
 msgstr "mezurilo"
 
-#: atspi/atspi-misc.c:124
+#: atspi/atspi-misc.c:125
 msgid "application"
 msgstr "aplikaĵo"
 
-#: atspi/atspi-misc.c:125
+#: atspi/atspi-misc.c:126
 msgid "autocomplete"
 msgstr "aŭtomate kompletigi"
 
-#: atspi/atspi-misc.c:126
+#: atspi/atspi-misc.c:127
 msgid "edit bar"
 msgstr "redaktobreto"
 
-#: atspi/atspi-misc.c:127
+#: atspi/atspi-misc.c:128
 msgid "embedded component"
 msgstr "enkorpigita komponanto"
 
-#: atspi/atspi-misc.c:128
+#: atspi/atspi-misc.c:129
 msgid "entry"
 msgstr "ero"
 
-#: atspi/atspi-misc.c:129
+#: atspi/atspi-misc.c:130
 msgid "chart"
 msgstr "diagramo"
 
-#: atspi/atspi-misc.c:130
+#: atspi/atspi-misc.c:131
 msgid "caption"
 msgstr "apudskribo"
 
-#: atspi/atspi-misc.c:131
+#: atspi/atspi-misc.c:132
 msgid "document frame"
 msgstr "dokumenta framo"
 
-#: atspi/atspi-misc.c:132
+#: atspi/atspi-misc.c:133
 msgid "heading"
 msgstr "ĉapo"
 
-#: atspi/atspi-misc.c:133
+#: atspi/atspi-misc.c:134
 msgid "page"
 msgstr "paĝo"
 
-#: atspi/atspi-misc.c:134
+#: atspi/atspi-misc.c:135
 msgid "section"
 msgstr "sekcio"
 
-#: atspi/atspi-misc.c:135
+#: atspi/atspi-misc.c:136
 msgid "redundant object"
 msgstr "redunda objekto"
 
-#: atspi/atspi-misc.c:136
+#: atspi/atspi-misc.c:137
 msgid "form"
 msgstr "formularo"
 
-#: atspi/atspi-misc.c:137
+#: atspi/atspi-misc.c:138
 msgid "link"
 msgstr "ligilo"
 
-#: atspi/atspi-misc.c:138
+#: atspi/atspi-misc.c:139
 msgid "input method window"
 msgstr "enigmetodejo"
 
-#: atspi/atspi-misc.c:139
+#: atspi/atspi-misc.c:140
 msgid "table row"
 msgstr "tabela vico"
 
-#: atspi/atspi-misc.c:140
+#: atspi/atspi-misc.c:141
 msgid "tree item"
 msgstr "arba elemento"
 
-#: atspi/atspi-misc.c:141
+#: atspi/atspi-misc.c:142
 msgid "document spreadsheet"
 msgstr "tabela dokumento"
 
-#: atspi/atspi-misc.c:142
+#: atspi/atspi-misc.c:143
 msgid "document presentation"
 msgstr "prezentaĵo"
 
-#: atspi/atspi-misc.c:143
+#: atspi/atspi-misc.c:144
 msgid "document text"
 msgstr "dokumenta teksto"
 
-#: atspi/atspi-misc.c:144
+#: atspi/atspi-misc.c:145
 msgid "document web"
 msgstr "retpaĝo"
 
-#: atspi/atspi-misc.c:145
+#: atspi/atspi-misc.c:146
 msgid "document email"
 msgstr "retpoŝt-mesaĝo"
 
-#: atspi/atspi-misc.c:146
+#: atspi/atspi-misc.c:147
 msgid "comment"
 msgstr "komento"
 
-#: atspi/atspi-misc.c:147
+#: atspi/atspi-misc.c:148
 msgid "list box"
 msgstr "listujo"
 
-#: atspi/atspi-misc.c:148
+#: atspi/atspi-misc.c:149
 msgid "grouping"
 msgstr "grupado"
 
-#: atspi/atspi-misc.c:149
+#: atspi/atspi-misc.c:150
 msgid "image map"
 msgstr "bildomapo"
 
-#: atspi/atspi-misc.c:150
+#: atspi/atspi-misc.c:151
 msgid "notification"
 msgstr "sciigo"
 
-#: atspi/atspi-misc.c:151
+#: atspi/atspi-misc.c:152
 msgid "info bar"
 msgstr "informobreto"
 
-#: atspi/atspi-misc.c:152
+#: atspi/atspi-misc.c:153
 msgid "level bar"
 msgstr "nivelbreto"
 
-#: atspi/atspi-misc.c:153
+#: atspi/atspi-misc.c:154
 msgid "title bar"
 msgstr "titolbreto"
 
-#: atspi/atspi-misc.c:154
+#: atspi/atspi-misc.c:155
 msgid "block quote"
 msgstr "bloka citaĵo"
 
-#: atspi/atspi-misc.c:155
+#: atspi/atspi-misc.c:156
 msgid "audio"
 msgstr "sono"
 
-#: atspi/atspi-misc.c:156
+#: atspi/atspi-misc.c:157
 msgid "video"
 msgstr "video"
 
-#: atspi/atspi-misc.c:157
+#: atspi/atspi-misc.c:158
 msgid "definition"
 msgstr "difino"
 
-#: atspi/atspi-misc.c:158
+#: atspi/atspi-misc.c:159
 msgid "article"
 msgstr "artikolo"
 
-#: atspi/atspi-misc.c:159
+#: atspi/atspi-misc.c:160
 msgid "landmark"
 msgstr "orientilo"
 
-#: atspi/atspi-misc.c:160
+#: atspi/atspi-misc.c:161
 msgid "log"
 msgstr "protokolo"
 
-#: atspi/atspi-misc.c:161
+#: atspi/atspi-misc.c:162
 msgid "marquee"
 msgstr "markezo"
 
-#: atspi/atspi-misc.c:162
+#: atspi/atspi-misc.c:163
 msgid "math"
 msgstr "matematiko"
 
-#: atspi/atspi-misc.c:163
+#: atspi/atspi-misc.c:164
 msgid "rating"
 msgstr "pritakso"
 
-#: atspi/atspi-misc.c:164
+#: atspi/atspi-misc.c:165
 msgid "timer"
 msgstr "tempmezurilo"
 
-#: atspi/atspi-misc.c:165
+#: atspi/atspi-misc.c:166
 msgid "description list"
 msgstr "priskribo-listo"
 
-#: atspi/atspi-misc.c:166
+#: atspi/atspi-misc.c:167
 msgid "description term"
 msgstr "priskribo-termino"
 
-#: atspi/atspi-misc.c:167
+#: atspi/atspi-misc.c:168
 msgid "description value"
 msgstr "priskribo-valoro"
+
+#~ msgid "push button"
+#~ msgstr "prembutono"
 
 #~ msgid "Is used to notify that the parent has changed"
 #~ msgstr "Uzita por avizi ke la gepatro ŝanĝiĝis"
