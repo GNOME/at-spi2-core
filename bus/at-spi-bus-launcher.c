@@ -155,7 +155,7 @@ client_registered (GObject *source,
   A11yBusLauncher *app = user_data;
   GError *error = NULL;
   GVariant *variant;
-  gchar *object_path;
+  gchar *object_path = NULL;
   GDBusProxyFlags flags;
 
   variant = g_dbus_proxy_call_finish (app->sm_proxy, result, &error);
@@ -172,13 +172,20 @@ client_registered (GObject *source,
       g_variant_get (variant, "(o)", &object_path);
       g_variant_unref (variant);
 
-      flags = G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES;
-      g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION, flags, NULL,
-                                "org.gnome.SessionManager", object_path,
-                                "org.gnome.SessionManager.ClientPrivate",
-                                NULL, client_proxy_ready_cb, app);
+      if (object_path == NULL)
+        {
+          g_warning ("Failed to register client: no object in reply");
+        }
+      else
+        {
+          flags = G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES;
+          g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION, flags, NULL,
+                                    "org.gnome.SessionManager", object_path,
+                                    "org.gnome.SessionManager.ClientPrivate",
+                                    NULL, client_proxy_ready_cb, app);
 
-      g_free (object_path);
+          g_free (object_path);
+        }
     }
   g_clear_object (&app->sm_proxy);
 }
