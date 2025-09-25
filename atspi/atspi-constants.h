@@ -657,7 +657,7 @@ extern "C"
  *
  * One higher than the highest valid value of #AtspiStateType.
  **/
-#define ATSPI_STATETYPE_COUNT (41 + 1)
+#define ATSPI_STATETYPE_COUNT (44 + 1)
 
   /**
    * AtspiKeyEventType:
