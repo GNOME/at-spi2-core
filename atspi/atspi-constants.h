@@ -86,6 +86,8 @@
 
 #pragma once
 
+#include <glib.h>
+
 /**
  * AtspiConstants:
  *
@@ -193,6 +195,8 @@ extern "C"
  */
 #define ATSPI_SORTORDER_COUNT (7 + 1)
 
+G_STATIC_ASSERT(ATSPI_SORTORDER_COUNT == ATSPI_Collection_SORT_ORDER_LAST_DEFINED + 1);
+
   /**
    * AtspiCollectionMatchType:
    * @ATSPI_Collection_MATCH_INVALID: Indicates an error condition or
@@ -227,6 +231,8 @@ extern "C"
  **/
 #define ATSPI_MATCHTYPES_COUNT (5 + 1)
 
+G_STATIC_ASSERT(ATSPI_MATCHTYPES_COUNT == ATSPI_Collection_MATCH_LAST_DEFINED + 1);
+
   /**
    * AtspiCollectionTreeTraversalType:
    * @ATSPI_Collection_TREE_RESTRICT_CHILDREN: Restrict children tree traveral
@@ -254,6 +260,8 @@ extern "C"
  * #AtspiCollection_TreeTraversalType.
  */
 #define ATSPI_TREETRAVERSALTYPE_COUNT (3 + 1)
+
+G_STATIC_ASSERT(ATSPI_TREETRAVERSALTYPE_COUNT == ATSPI_Collection_TREE_LAST_DEFINED + 1);
 
   /**
    * AtspiComponentLayer:
@@ -314,6 +322,8 @@ extern "C"
  * One higher than the highest valid value of #AtspiComponentLayer.
  **/
 #define ATSPI_COMPONENTLAYER_COUNT (8 + 1)
+
+G_STATIC_ASSERT(ATSPI_COMPONENTLAYER_COUNT == ATSPI_LAYER_LAST_DEFINED + 1);
 
   /**
    * AtspiTextBoundaryType:
@@ -659,6 +669,8 @@ extern "C"
  **/
 #define ATSPI_STATETYPE_COUNT (44 + 1)
 
+G_STATIC_ASSERT(ATSPI_STATETYPE_COUNT == ATSPI_STATE_LAST_DEFINED + 1);
+
   /**
    * AtspiKeyEventType:
    * @ATSPI_KEY_PRESSED: Key press event
@@ -936,6 +948,8 @@ extern "C"
  * One higher than the highest valid value of #AtspiRelationType.
  **/
 #define ATSPI_RELATIONTYPE_COUNT (23 + 1)
+
+G_STATIC_ASSERT(ATSPI_RELATIONTYPE_COUNT == ATSPI_RELATION_LAST_DEFINED + 1);
 
   /**
    * AtspiRole:
@@ -1427,6 +1441,8 @@ extern "C"
  * One higher than the highest valid value of #AtspiRole.
  */
 #define ATSPI_ROLE_COUNT (131 + 1)
+
+G_STATIC_ASSERT(ATSPI_ROLE_COUNT == ATSPI_ROLE_LAST_DEFINED + 1);
 
   typedef enum
   {
