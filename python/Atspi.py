@@ -47,7 +47,10 @@ class Accessible(Atspi.Accessible):
     def __hash__(self):
         if hasattr(self, "_hashval"):
             return self._hashval
-        self._hashval = hash(self.app.bus_name + self.path)
+        if self.app is not None:
+            self._hashval = hash(self.app.bus_name + self.path)
+        else:
+            self._hashval = super.__hash__(self)
         return self._hashval
 
     def __len__(self):
