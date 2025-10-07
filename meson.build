@@ -85,6 +85,7 @@ endif
 # Maintain compatibility with autotools on macOS
 if host_machine.system() == 'darwin'
   common_ldflags += [ '-compatibility_version', darwin_versions[0], '-current_version', darwin_versions[1]]
+  add_project_arguments([ '-D_DARWIN_C_SOURCE' ], language: 'c')
 endif
 
 # Functions
