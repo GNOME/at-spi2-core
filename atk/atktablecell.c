@@ -241,7 +241,7 @@ atk_table_cell_get_row_column_span (AtkTableCell *cell,
  *
  * Returns a reference to the accessible of the containing table.
  *
- * Returns: (transfer full): the atk object for the containing table.
+ * Returns: (transfer none): the atk object for the containing table.
  *
  * Since: 2.12
  */

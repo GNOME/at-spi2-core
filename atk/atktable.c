@@ -590,7 +590,7 @@ atk_table_get_row_header (AtkTable *table, gint row)
  *
  * Gets the summary description of the table.
  *
- * Returns: (transfer full): a AtkObject* representing a summary description
+ * Returns: (transfer none): a AtkObject* representing a summary description
  * of the table, or zero if value does not implement this interface.
  **/
 AtkObject *
