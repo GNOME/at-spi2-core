@@ -63,6 +63,7 @@ struct _AtspiDeviceA11yManager
   GSList *grabbed_keys;
   GSList *virtual_modifiers;
   guint enabled_virtual_modifiers;
+  guint last_observed_state;
 
   guint refresh_timeout_id;
 };
@@ -72,8 +73,10 @@ G_DEFINE_TYPE (AtspiDeviceA11yManager, atspi_device_a11y_manager, ATSPI_TYPE_DEV
 static guint
 atspi_device_a11y_manager_get_locked_modifiers (AtspiDevice *device)
 {
+  AtspiDeviceA11yManager *manager_device = ATSPI_DEVICE_A11Y_MANAGER (device);
 
-  return 0;
+  guint lockable_mask = (1 << ATSPI_MODIFIER_NUMLOCK) | (1 << ATSPI_MODIFIER_SHIFTLOCK);
+  return manager_device->last_observed_state & lockable_mask;
 }
 
 static guint
@@ -373,6 +376,7 @@ a11y_manager_signal_cb (GDBusProxy *proxy,
       state &= ~(1 << ATSPI_MODIFIER_META);
       state |= (1 << ATSPI_MODIFIER_NUMLOCK);
     }
+  device->last_observed_state = state;
   atspi_device_notify_key (ATSPI_DEVICE (device), !released, keycode, keysym, state, text);
   g_free (text);
 }
@@ -383,6 +387,7 @@ atspi_device_a11y_manager_init (AtspiDeviceA11yManager *device)
   device->grabbed_modifiers = NULL;
   device->grabbed_keys = NULL;
   device->refresh_timeout_id = 0;
+  device->last_observed_state = 0;
 }
 
 static void
