@@ -1,3 +1,13 @@
+What's new in at-spi2-core 2.58.1:
+
+* at-spi-bus-launcher: Fix a possible crash when registering.
+
+* python: Avoid traceback when hashing a disposed object
+
+* Fix build failure on MacOS.
+
+* Fix transfer rule for atk_table_cell_get_table and atk_table_get_summary.
+
 What's new in at-spi2-core 2.58.0:
 
 * libatspi: Increase ATSPI_ROLE_COUNT after switch role was added
