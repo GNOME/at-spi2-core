@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.56.6:
+
+* at-spi-bus-launcher: Fix possible crash when registering.
+
+* Fix transfer rule for atk_table_cell_get_table and atk_table_get_summary
+
 What's new in at-spi2-core 2.56.5:
 
 * Fix possible memory leak in atspi_accessible_get_description.
