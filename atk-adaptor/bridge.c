@@ -1264,6 +1264,8 @@ atk_bridge_adaptor_init (gint *argc, gchar **argv[])
       g_free (spi_global_app_data->desktop_name);
       g_free (spi_global_app_data->desktop_path);
       droute_free (spi_global_app_data->droute);
+      if (spi_global_app_data->property_hash)
+        g_hash_table_destroy (spi_global_app_data->property_hash);
       g_free (spi_global_app_data);
       spi_global_app_data = NULL;
       inited = FALSE;
@@ -1347,6 +1349,9 @@ atk_bridge_adaptor_cleanup (void)
   droute_free (spi_global_app_data->droute);
 
   g_clear_object (&spi_global_app_data->session_bus);
+
+  if (spi_global_app_data->property_hash)
+    g_hash_table_destroy (spi_global_app_data->property_hash);
 
   g_free (spi_global_app_data);
   spi_global_app_data = NULL;
