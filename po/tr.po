@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-core\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
-"POT-Creation-Date: 2025-02-11 18:33+0000\n"
-"PO-Revision-Date: 2025-02-23 00:10+0300\n"
+"POT-Creation-Date: 2025-10-16 07:38+0000\n"
+"PO-Revision-Date: 2025-10-19 01:00+0300\n"
 "Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Turkish <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.8\n"
 "X-Generator: Gtranslator 2.91.6\n"
 
 #: atk/atkhyperlink.c:127
@@ -359,7 +359,7 @@ msgstr "çok iyi"
 msgid "best"
 msgstr "en iyi"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1234 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:341 atspi/atspi-misc.c:1230 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "Artık böyle bir uygulama bulunmuyor"
 
@@ -722,7 +722,7 @@ msgstr "bağ"
 
 #: atspi/atspi-misc.c:139
 msgid "input method window"
-msgstr "giriş yöntemi penceresi"
+msgstr "girdi yöntemi penceresi"
 
 #: atspi/atspi-misc.c:140
 msgid "table row"
