@@ -1321,6 +1321,7 @@ atk_text_attribute_get_value (AtkTextAttribute attr,
     case ATK_TEXT_ATTR_STRIKETHROUGH:
     case ATK_TEXT_ATTR_BG_STIPPLE:
     case ATK_TEXT_ATTR_FG_STIPPLE:
+    case ATK_TEXT_ATTR_MARK:
       g_assert (index >= 0 && index < G_N_ELEMENTS (boolean_offsets));
       return boolean + boolean_offsets[index];
     case ATK_TEXT_ATTR_UNDERLINE:
