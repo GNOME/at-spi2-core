@@ -50,7 +50,7 @@
 
         @sortby: The way objects should be sorted.
            The values correspond to those defined in the AtspiCollectionSortOrder enum.
-        @count: Maximum number of objects to return.
+        @count: Maximum number of objects to return, or 0 for no limit.
         @traverse: Whether to return descendants from the accessible subtree
                    (in case of #TRUE) or only direct children (on case of #FALSE).
     -->
