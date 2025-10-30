@@ -646,8 +646,8 @@ atspi_device_x11_finalize (GObject *object)
       AtspiX11KeyGrab *grab = priv->key_grabs->data;
       disable_key_grab (device, grab);
       g_boxed_free (ATSPI_TYPE_KEY_DEFINITION, grab->kd);
-      g_free (grab);
       priv->key_grabs = g_slist_remove (priv->key_grabs, grab);
+      g_free (grab);
     }
 
   g_slist_free_full (priv->modifiers, g_free);
