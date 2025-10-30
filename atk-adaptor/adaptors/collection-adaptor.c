@@ -1207,6 +1207,7 @@ impl_GetTree (DBusConnection *bus,
       append_accessible_properties (&iter_array, object, properties);
       dbus_message_iter_close_container (&iter, &iter_array);
     }
+  free_mrp_data (&rule);
   return reply;
 }
 
