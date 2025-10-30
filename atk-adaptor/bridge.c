@@ -513,11 +513,12 @@ get_plug_id (AtkPlug *plug)
 {
   const char *uname;
   gchar *path;
-  GString *str = g_string_new (NULL);
+  GString *str;
 
   if (!spi_global_app_data || !spi_global_app_data->bus)
     return NULL;
 
+  str = g_string_new (NULL);
   uname = dbus_bus_get_unique_name (spi_global_app_data->bus);
   path = spi_register_object_to_path (spi_global_register, G_OBJECT (plug));
   g_string_printf (str, "%s:%s", uname, path);
