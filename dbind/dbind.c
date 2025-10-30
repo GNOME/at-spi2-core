@@ -259,11 +259,11 @@ dbind_method_call_va (DBusConnection *cnx,
   const char *p;
   va_list args_demarshal;
 
-  va_copy (args_demarshal, args);
-
   msg = dbus_message_new_method_call (bus_name, path, interface, method);
   if (!msg)
     return FALSE;
+
+  va_copy (args_demarshal, args);
 
   p = arg_types;
   dbus_message_iter_init_append (msg, &iter);
