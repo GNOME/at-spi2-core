@@ -1002,6 +1002,7 @@ impl_GetMatchesFrom (DBusConnection *bus, DBusMessage *message, void *user_data)
                                 &rule, sortby, TRUE, count, traverse);
       break;
     default:
+      free_mrp_data (&rule);
       return NULL;
     }
 }
@@ -1065,6 +1066,7 @@ impl_GetMatchesTo (DBusConnection *bus, DBusMessage *message, void *user_data)
                                     &rule, sortby, count);
       break;
     default:
+      free_mrp_data (&rule);
       return NULL;
     }
 }
