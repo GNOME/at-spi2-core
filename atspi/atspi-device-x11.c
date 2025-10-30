@@ -810,10 +810,10 @@ atspi_device_x11_generate_mouse_event (AtspiDevice *device, AtspiAccessible *obj
   if (p->y == -1 && atspi_accessible_get_role (obj, NULL) == ATSPI_ROLE_APPLICATION)
     {
       g_clear_error (error);
-      g_free (p);
       AtspiAccessible *child = atspi_accessible_get_child_at_index (obj, 0, NULL);
       if (child)
         {
+          g_free (p);
           p = atspi_component_get_position (ATSPI_COMPONENT (child), ATSPI_COORD_TYPE_SCREEN, error);
           g_object_unref (child);
         }
