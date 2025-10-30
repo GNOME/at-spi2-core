@@ -288,7 +288,10 @@ atspi_device_legacy_generate_mouse_event (AtspiDevice *device, AtspiAccessible *
     }
 
   if (p->y == -1 || p->x == -1)
-    return;
+    {
+      g_free(p);
+      return;
+    }
 
   x += p->x;
   y += p->y;
