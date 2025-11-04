@@ -32,7 +32,7 @@ class Accessible(Atspi.Accessible):
 
     def __eq__(a, b):
         try:
-            return a.app.bus_name == b.app.bus_name and a.path == b.path
+            return a._hashval == b._hashval
         except:
             return False
 
@@ -44,13 +44,13 @@ class Accessible(Atspi.Accessible):
                 raise IndexError
         return self.get_child_at_index(i)
 
-    def __hash__(self):
-        if hasattr(self, "_hashval"):
-            return self._hashval
+    def __init__(self):
         if self.app is not None:
             self._hashval = hash(self.app.bus_name + self.path)
         else:
             self._hashval = super.__hash__(self)
+
+    def __hash__(self):
         return self._hashval
 
     def __len__(self):
@@ -64,7 +64,7 @@ class Accessible(Atspi.Accessible):
 
     def __ne__(a, b):
         try:
-            return a.app.bus_name != b.app.bus_name or a.path != b.path
+            return a._hashval != b._hashval
         except:
             return True
 
