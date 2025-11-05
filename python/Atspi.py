@@ -31,10 +31,7 @@ class Accessible(Atspi.Accessible):
         return True
 
     def __eq__(a, b):
-        try:
-            return a.app.bus_name == b.app.bus_name and a.path == b.path
-        except:
-            return False
+        return hash(a) == hash(b)
 
     def __getitem__(self, i):
         len = self.get_child_count()
@@ -63,10 +60,7 @@ class Accessible(Atspi.Accessible):
         return count
 
     def __ne__(a, b):
-        try:
-            return a.app.bus_name != b.app.bus_name or a.path != b.path
-        except:
-            return True
+        return hash(a) != hash(b)
 
     def __nonzero__(self):
         return True
