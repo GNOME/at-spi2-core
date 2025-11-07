@@ -71,7 +71,7 @@ child_interface_p (AtkObject *child, gchar *repo_id)
       p = strchr (repo_id, '(');
       if (!p)
         return FALSE;
-      strncpy (name, p + 1, sizeof (name));
+      strncpy (name, p + 1, sizeof (name) - 1);
       name[sizeof (name) - 1] = '\0';
       p = strchr (name, ')');
       if (p)
