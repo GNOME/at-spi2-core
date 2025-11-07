@@ -118,6 +118,7 @@ main (int argc, char *argv[])
 
   if (!g_option_context_parse (opt, &argc, &argv, &err))
     g_error ("Option parsing failed: %s\n", err->message);
+  g_option_context_free (opt);
 
   setlocale (LC_ALL, "");
   setup_atk_util ();
