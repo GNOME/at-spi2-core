@@ -43,6 +43,17 @@ check_and_unref (GArray *array, gint index, const char *expected_name)
 }
 
 static void
+check_len_and_unref (GArray *array, gint expected)
+{
+  gint i;
+
+  g_assert_cmpint (expected, ==, array->len);
+  for (i = 0; i < expected; i++)
+    g_object_unref (g_array_index (array, AtspiAccessible *, i));
+  g_array_free (array, TRUE);
+}
+
+static void
 atk_test_collection_get_matches (TestAppFixture *fixture, gconstpointer user_data)
 {
   AtspiAccessible *obj = fixture->root_obj;
@@ -140,9 +151,8 @@ do_interface_test (AtspiCollection *iface, AtspiAccessible *start, const char *s
                                            ATSPI_Collection_SORT_ORDER_CANONICAL,
                                            ATSPI_Collection_TREE_INORDER,
                                            0, FALSE, NULL);
-  g_assert_cmpint (expected, ==, ret->len);
+  check_len_and_unref (ret, expected);
   g_array_free (array, TRUE);
-  g_array_free (ret, TRUE);
   g_object_unref (rule);
 }
 
@@ -207,8 +217,7 @@ atk_test_collection_get_matches_from (TestAppFixture *fixture, gconstpointer use
                                            FALSE,
                                            NULL);
   g_hash_table_unref (attributes);
-  g_assert_cmpint (5, ==, ret->len);
-  g_array_free (ret, TRUE);
+  check_len_and_unref (ret, 5);
   g_object_unref (rule);
 
   array = g_array_new (FALSE, FALSE, sizeof (AtspiRole));
@@ -231,9 +240,8 @@ atk_test_collection_get_matches_from (TestAppFixture *fixture, gconstpointer use
                                            0,
                                            FALSE,
                                            NULL);
-  g_assert_cmpint (4, ==, ret->len);
+  check_len_and_unref (ret, 4);
   g_array_free (array, TRUE);
-  g_array_free (ret, TRUE);
   g_object_unref (rule);
 
   do_interface_test (iface, child1, "Action", 1);
