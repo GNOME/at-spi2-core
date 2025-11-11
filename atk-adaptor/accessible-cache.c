@@ -144,7 +144,7 @@ cache_weak_ref (gpointer data, GObject *gobj)
 static void
 spi_cache_remove_weak_ref (gpointer key, gpointer val, gpointer cache)
 {
-  g_object_weak_unref (val, cache_weak_ref, cache);
+  g_object_weak_unref (key, cache_weak_ref, cache);
 }
 
 static void
