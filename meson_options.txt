@@ -14,7 +14,7 @@ option('default_bus',
        description: 'The default DBus implementation to use',
        type: 'combo',
        choices: ['dbus-daemon', 'dbus-broker'],
-       value: 'dbus-daemon')
+       value: 'dbus-broker')
 option('use_systemd',
        description: 'Use systemd if available (needed for dbus-broker)',
        type: 'boolean',

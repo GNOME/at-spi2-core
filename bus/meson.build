@@ -108,7 +108,9 @@ if dbus_broker_arg != ''
 endif
 
 if get_option('default_bus') == 'dbus-broker'
+  if dbus_broker.found()
   launcher_args += '-DWANT_DBUS_BROKER'
+  endif
 endif
 
 executable('at-spi-bus-launcher', 'at-spi-bus-launcher.c',
