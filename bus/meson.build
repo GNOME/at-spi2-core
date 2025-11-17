@@ -105,11 +105,8 @@ if dbus_daemon_arg != ''
 endif
 if dbus_broker_arg != ''
   launcher_args += dbus_broker_arg
-endif
-
-if get_option('default_bus') == 'dbus-broker'
-  if dbus_broker.found()
-  launcher_args += '-DWANT_DBUS_BROKER'
+  if get_option('default_bus') == 'dbus-broker'
+    launcher_args += '-DWANT_DBUS_BROKER'
   endif
 endif
 
