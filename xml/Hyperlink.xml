@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<node>
+<node xmlns:doc="http://www.freedesktop.org/dbus/1.0/doc.dtd">
+  <!--
+      org.a11y.atspi.Hyperlink:
+      @short_description: Interfacing for interacting with linked content.
+
+      Objects implementing org.a11y.Atspi.Hyperlink are returned by objects
+      that implment org.a11y.Atspi.Hypertext and are the means by which
+      end users and clients interact with linked, and in some cases
+      embedded, content. These instances may have multiple "anchors", where
+      an anchor corresponds to a reference to a particular resource with a
+      corresponding resource identified (URI).
+    -->
   <interface name="org.a11y.atspi.Hyperlink">
 
     <!--
@@ -10,23 +21,67 @@
     -->
     <property name="version" type="u" access="read"/>
 
+    <!--
+        NAnchors: The total number of anchors that this hyperlink has.
+
+        Though typical hyperlinks have only one anchor, client-side image
+        maps and other hypertext objects may potentially activate or refer
+        to multiple URIs.  For each anchor there is a corresponding URI and
+        object.
+
+        See also GetURI and GetObject.
+    -->
     <property name="NAnchors" type="n" access="read"/>
 
+    <!--
+        StartIndex: The starting character offset of the text range associated
+        with a Hyperlink, in its originating Hypertext object.
+    -->
     <property name="StartIndex" type="i" access="read"/>
 
+    <!--
+        EndIndex: The ending character offset of the text range associated
+        with a Hyperlink, in its originating Hypertext object.
+    -->
     <property name="EndIndex" type="i" access="read"/>
 
+    <!--
+        GetObject:
+
+        @i: a (zero-index) integer indicating which hyperlink anchor to query.
+
+        Gets the object associated with a particular hyperlink anchor, as an
+        implementor of org.a11y.Atspi.Accessible.
+
+        Returns: a reference (bus name + object path) for the object
+        associated with the @ith anchor of the specified Hyperlink.
+    -->
     <method name="GetObject">
       <arg direction="in" name="i" type="i"/>
       <arg direction="out" type="(so)"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QSpiObjectReference"/>
     </method>
 
+    <!--
+        GetURI:
+
+        @i: a (zero-index) integer indicating which hyperlink anchor to query.
+
+        Gets the URI associated with a particular hyperlink anchor.
+
+        Returns: a UTF-8 string giving the URI of the @ith hyperlink anchor.
+    -->
     <method name="GetURI">
       <arg direction="in" name="i" type="i"/>
       <arg direction="out" type="s"/>
     </method>
 
+    <!--
+        IsValid:
+
+        Tells whether a Hyperlink object is still valid with respect to its
+        originating hypertext object.
+    -->
     <method name="IsValid">
       <arg direction="out" type="b"/>
     </method>

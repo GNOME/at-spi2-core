@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<node>
+<node xmlns:doc="http://www.freedesktop.org/dbus/1.0/doc.dtd">
+  <!--
+      org.a11y.atspi.Hypertext:
+      @short_description: An interface used for objects which implement linking
+      between multiple resource locations.
+  -->
   <interface name="org.a11y.atspi.Hypertext">
 
     <!--
@@ -10,16 +15,50 @@
     -->
     <property name="version" type="u" access="read"/>
 
+    <!--
+        GetNLinks:
+
+        Gets the total number of Hyperlink objects that a Hypertext implementor
+        has.
+
+        Returns: a integer indicating the number of Hyperlink objects of the
+        Hypertext implementor, or -1 if the number cannot be determined (for
+        example, if the Hypertext object is so large that it is not
+        all currently in the memory cache).
+    -->
     <method name="GetNLinks">
       <arg direction="out" type="i"/>
     </method>
 
+    <!--
+        Getlink:
+
+        @linkIndex: a (zero-index) integer indicating which hyperlink
+        to query.
+
+        Gets the Hyperlink object at a specified index.
+
+        Returns: A reference (bus name + object path) to the hyperlink at
+        the specified index.
+    -->
     <method name="GetLink">
       <arg direction="in" name="linkIndex" type="i"/>
       <arg direction="out" type="(so)"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QSpiObjectReference"/>
     </method>
 
+    <!--
+        GetLinkIndex:
+
+        @characterOffset: a integer specifying the character offset to query.
+
+        Gets the index of the Hyperlink object at a specified character
+        offset.
+
+        Returns: the link index of the Hyperlink active at character offset
+        @characterOffset, or -1 if there is no hyperlink at the
+        specified character offset.
+    -->
     <method name="GetLinkIndex">
       <arg direction="in" name="characterIndex" type="i"/>
       <arg direction="out" type="i"/>

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<node>
+<node xmlns:doc="http://www.freedesktop.org/dbus/1.0/doc.dtd">
+  <!--
+      org.a11y.atspi.Table:
+      @short_description: An interface used by containers whose data is
+      arranged in a tabular form.
+    -->
   <interface name="org.a11y.atspi.Table">
 
     <!--
@@ -10,22 +15,69 @@
     -->
     <property name="version" type="u" access="read"/>
 
+    <!--
+        NRows: the number of rows in a table, exclusive of any rows that are
+        programmatically hidden, but inclusive of rows that may be outside
+        of the current scrolling window or viewport.
+    -->
     <property name="NRows" type="i" access="read"/>
 
+    <!--
+        NColumn: the number of columns in a table, exclusive of any columns
+        that are programmatically hidden, but inclusive of columns that may
+        be outside of the current scrolling window or viewport.
+    -->
     <property name="NColumns" type="i" access="read"/>
 
+    <!--
+        Caption: an accessible representation of the caption for a table.
+
+        Returns: An object reference (bus name + object path) for the
+        accessible representing the caption.
+    -->
     <property name="Caption" type="(so)" access="read">
       <annotation name="org.qtproject.QtDBus.QtTypeName" value="QSpiObjectReference"/>
     </property>
 
+    <!--
+        Summary: an accessible object which summarizes the contents of a
+        table.
+
+        Returns: An object reference (bus name + object path) for the
+        accessible representing the table's summary (often a reduced table).
+    -->
     <property name="Summary" type="(so)" access="read">
       <annotation name="org.qtproject.QtDBus.QtTypeName" value="QSpiObjectReference"/>
     </property>
 
+    <!--
+        NSelectedRows: the number of rows that are currently selected.
+        Not all tables support row selection.
+    -->
     <property name="NSelectedRows" type="i" access="read"/>
 
+    <!--
+        NSelectedColumns: the number of columns that are currently selected.
+        Not all tables support column selection.
+    -->
     <property name="NSelectedColumns" type="i" access="read"/>
 
+    <!--
+        GetAccessibleAt:
+
+        @row: the specified table row, zero-indexed.
+
+        @column: the specified table column, zero-indexed.
+
+        Gets the table cell at the specified row and column indices.
+        To get the accessible object at a particular (x, y) screen
+        coordinate, use org.a11y.Atspi.Component.GetAccessibleAtPoint.
+
+        Returns: a refernce (bus name + object path) to the accessible
+        object at the specified table cell. If there is no object at the
+        specified row/column, then the special object path
+        "/org/a11y/atspi/null" will be returned.
+    -->
     <method name="GetAccessibleAt">
       <arg direction="in" name="row" type="i"/>
       <arg direction="in" name="column" type="i"/>
@@ -33,102 +85,353 @@
       <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QSpiObjectReference"/>
     </method>
 
+    <!--
+        GetIndexAt:
+
+        @row: the specified table row, zero-indexed.
+
+        @column: the specified table column, zero-indexed.
+
+        Gets the 1-D child index corresponding to the specified 2-D row and
+        column indices. To get the accessible object at a particular (x, y)
+        screen coordinate, use org.a11y.Atspi.Component.GetAccessibleAtPoint.
+
+        Returns: an integer which serves as the index of a specified cell in
+        the table, in a form usable by org.a11y.Atspi.GetChildAtInde.
+    -->
     <method name="GetIndexAt">
       <arg direction="in" name="row" type="i"/>
       <arg direction="in" name="column" type="i"/>
       <arg direction="out" type="i"/>
     </method>
 
+    <!--
+        GetRowAtIndex:
+
+        @index: the specified child index, zero-indexed.
+
+        Gets the table row index occupied by the child at a particular 1-D
+        child index.
+
+        Returns: an integer indicating the first row spanned by the child of a
+        table, at the specified 1-D (zero-offset) @index.
+    -->
     <method name="GetRowAtIndex">
       <arg direction="in" name="index" type="i"/>
       <arg direction="out" type="i"/>
     </method>
 
+    <!--
+        GetColumnAtIndex:
+
+        @index: the specified child index, zero-indexed.
+
+        Gets the table column index occupied by the child at a particular 1-D
+        child index.
+
+        Returns: an integer indicating the first column spanned by the child
+        of a table, at the specified 1-D (zero-offset) @index.
+    -->
     <method name="GetColumnAtIndex">
       <arg direction="in" name="index" type="i"/>
       <arg direction="out" type="i"/>
     </method>
 
+    <!--
+        GetRowDescription:
+
+        @row: the specified table row, zero-indexed.
+
+        Gets a text description of a particular table row.  This differs from
+        GetRowHeader, which returns an accessible object.
+
+        Returns: a UTF-8 string describing the specified table row, if
+        available.
+    -->
     <method name="GetRowDescription">
       <arg direction="in" name="row" type="i"/>
       <arg direction="out" type="s"/>
     </method>
 
+    <!--
+        GetColumnDescription:
+
+        @column: the specified table column, zero-indexed.
+
+        Gets a text description of a particular table column.  This differs
+        from GetColumnHeader, which returns an accessible object.
+
+        Returns: a UTF-8 string describing the specified table column, if
+        available.
+    -->
     <method name="GetColumnDescription">
       <arg direction="in" name="column" type="i"/>
       <arg direction="out" type="s"/>
     </method>
 
+    <!--
+        GetRowExtentAt:
+
+        @row: the specified table row, zero-indexed.
+
+        @column: the specified table column, zero-indexed.
+
+        Gets the number of rows spanned by the table cell at the specific row
+        and column. (some tables can have cells which span multiple rows
+        and/or columns).
+        The returned values are meaningful only if the Table has both
+        STATE_VISIBLE and STATE_SHOWING.
+
+        Returns: an integer indicating the number of rows spanned by the specified cell.
+    -->
     <method name="GetRowExtentAt">
       <arg direction="in" name="row" type="i"/>
       <arg direction="in" name="column" type="i"/>
       <arg direction="out" type="i"/>
     </method>
 
+    <!--
+        GetColumnExtentAt:
+
+        @row: the specified table row, zero-indexed.
+
+        @column: the specified table column, zero-indexed.
+
+        Gets the number of columns spanned by the table cell at the specific
+        row and column (some tables can have cells which span multiple
+        rows and/or columns).
+        The returned values are meaningful only if the Table has both
+        STATE_VISIBLE and STATE_SHOWING.
+
+        Returns: an integer indicating the number of columns spanned by the specified cell.
+    -->
     <method name="GetColumnExtentAt">
       <arg direction="in" name="row" type="i"/>
       <arg direction="in" name="column" type="i"/>
       <arg direction="out" type="i"/>
     </method>
 
+    <!--
+        GetRowHeader:
+
+        @row: the specified table row, zero-indexed.
+
+        Gets the header associated with a table row, if available. This
+        differs from GetRowDescription, which returns a string.
+
+        Returns: An accessible reference (bus name + object path)
+        representing the specified table row, if available.
+    -->
     <method name="GetRowHeader">
       <arg direction="in" name="row" type="i"/>
       <arg direction="out" type="(so)"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QSpiObjectReference"/>
     </method>
 
+    <!--
+        GetColumnHeader:
+
+        @column: the specified table column, zero-indexed.
+
+        Gets the header associated with a table column, if available. This
+        differs from GetColumnDescription, which returns a string.
+
+        Returns: An accessible reference (bus name + object path)
+        representing the specified table column, if available.
+    -->
     <method name="GetColumnHeader">
       <arg direction="in" name="column" type="i"/>
       <arg direction="out" type="(so)"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QSpiObjectReference"/>
     </method>
 
+    <!--
+        GetSelectedRows:
+
+        Queries a table for a list of indices of rows which are currently
+        selected.
+
+        Returns: an array of integer values, specifying which rows are
+        currently selected.
+    -->
     <method name="GetSelectedRows">
       <arg direction="out" type="ai"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QSpiIntList"/>
     </method>
 
+    <!--
+        GetSelectedColumns:
+
+        Queries a table for a list of indices of columns which are currently
+        selected.
+
+        Returns: an array of integer values, specifying which columns are
+        currently selected.
+    -->
     <method name="GetSelectedColumns">
       <arg direction="out" type="ai"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QSpiIntList"/>
     </method>
 
+    <!--
+        IsRowSelected:
+
+        @row: the zero-indexed row number of the row being queried.
+
+        Determines whether a table row is selected.  Not all tables support
+        row selection.
+
+        Returns: true if the specified row is currently selected, false
+        if not.
+    -->
     <method name="IsRowSelected">
       <arg direction="in" name="row" type="i"/>
       <arg direction="out" type="b"/>
     </method>
 
+    <!--
+        IsColumnSelected:
+
+        @column: the zero-indexed column number of the column being queried.
+
+        Determines whether a table column is selected.  Not all tables
+        support row selection.
+
+        Returns: true if the specified column is currently selected, false
+        if not.
+    -->
     <method name="IsColumnSelected">
       <arg direction="in" name="column" type="i"/>
       <arg direction="out" type="b"/>
     </method>
 
+    <!--
+        IsSelected:
+
+        @row: the zero-indexed row of the cell being queried.
+
+        @column: the zero-indexed column of the cell being queried.
+
+        Determines whether the cell at a specific row and column is selected.
+
+        Returns: true if the specified cell is currently selected, false
+        if not.
+    -->
     <method name="IsSelected">
       <arg direction="in" name="row" type="i"/>
       <arg direction="in" name="column" type="i"/>
       <arg direction="out" type="b"/>
     </method>
 
+    <!--
+        AddRowSelection:
+
+        @row: the zero-indexed row number of the row being selected.
+
+        Selects the specified row, adding it to the current row selection.
+        Not all tables support row selection.
+
+        Returns: true if the specified row was successfully selected,
+        false if not.
+    -->
     <method name="AddRowSelection">
       <arg direction="in" name="row" type="i"/>
       <arg direction="out" type="b"/>
     </method>
 
+    <!--
+        AddColumnSelection:
+
+        @column: the zero-indexed column number of the column being selected.
+
+        Selects the specified column, adding it to the current column
+        selection.  Not all tables support column selection.
+
+        Returns: true if the specified column was successfully selected,
+        false if not.
+    -->
     <method name="AddColumnSelection">
       <arg direction="in" name="column" type="i"/>
       <arg direction="out" type="b"/>
     </method>
 
+    <!--
+        RemoveRowSelection:
+
+        @row: the zero-indexed number of the row being de-selected.
+
+        De-selects the specified row, removing it from the current row
+        selection. Not all tables support row selection.
+
+        Returns: true if the specified row was successfully de-selected,
+        false if not.
+    -->
     <method name="RemoveRowSelection">
       <arg direction="in" name="row" type="i"/>
       <arg direction="out" type="b"/>
     </method>
 
+    <!--
+        RemoveColumnSelection:
+
+        @column: the zero-indexed number of the column being de-selected.
+
+        De-selects the specified column, removing it from the current column
+        selection. Not all tables support column selection.
+
+        Returns: true if the specified column was successfully de-selected,
+        false if not.
+    -->
     <method name="RemoveColumnSelection">
       <arg direction="in" name="column" type="i"/>
       <arg direction="out" type="b"/>
     </method>
 
+    <!--
+        GetRowColumnExtentsAtIndex:
+
+        @index: the index of the Table child whose row/column extents are
+        requested.
+
+        @row: (out): back-filled with the first table row associated with
+        the cell with child index.
+
+        @col: (out): back-filled with the first table column associated
+        with the cell with child index.
+
+        @rowExtents: (out): back-filled with the number of table rows
+        across which child i extends.
+
+        @colExtents: (out): back-filled with the number of table columns
+        across which child i extends.
+
+        @isSelected: (out): a boolean which is back-filled with true
+        if the child at index i corresponds to a selected table cell,
+        false otherwise.
+
+        Given a child index, determines the row and column indices and
+        extents, and whether the cell is currently selected.  If
+        the child at index is not a cell (for instance, if it is
+        a summary, caption, etc.), false is returned.
+        The returned values are meaningful only if the Table has both
+        STATE_VISIBLE and STATE_SHOWING.
+
+        Example:
+        If the Table child at index '6' extends across columns 5 and 6 of
+        row 2 of a Table and is currently selected, then
+
+        GetRowColumnExtentsAtIndex(6)
+
+        will return true, and after the call
+        row, col, row_extents, col_extents,
+        and isSelected will contain 2, 5, 1, 2, and
+        true, respectively.
+
+        Returns: true if the index is associated with a valid table cell,
+        false if the index does not correspond to a cell.  If
+        false is returned, the values of the out parameters are
+        undefined.
+    -->
     <method name="GetRowColumnExtentsAtIndex">
       <arg direction="in" name="index" type="i"/>
       <arg direction="out" type="b"/>

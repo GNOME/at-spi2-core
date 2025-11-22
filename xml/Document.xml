@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<node>
+<node xmlns:doc="http://www.freedesktop.org/dbus/1.0/doc.dtd">
+  <!--
+      org.a11y.atspi.Document:
+      @short_description: Allows querying of information pertaining to documents.
+      This interface would typically be implemented by an accessible corresponding
+      to the top level of a document.
+  -->
   <interface name="org.a11y.atspi.Document">
 
     <!--
@@ -10,28 +16,86 @@
     -->
     <property name="version" type="u" access="read"/>
 
+    <!--
+        CurrentPageNumber: returns the current page number in the document.
+    -->
     <property name="CurrentPageNumber" type="i" access="read"/>
 
+    <!--
+        PageCount: returns the total number of pages in the document.
+    -->
     <property name="PageCount" type="i" access="read"/>
 
+    <!--
+        GetLocale:
+
+        Returns: A string compliant with the POSIX standard for the locale
+        associated with the document's content.
+    -->
     <method name="GetLocale">
       <arg direction="out" type="s"/>
     </method>
 
+    <!--
+        GetAttributeValue:
+
+        Gets the value of a single attribute, if specified for the document as
+        a whole.
+    -->
     <method name="GetAttributeValue">
       <arg direction="in" name="attributename" type="s"/>
       <arg direction="out" type="s"/>
     </method>
 
+    <!--
+        GetAttributes:
+
+        Gets all constant attributes for the document as a whole. For
+        attributes that change within the document content, see
+        org.a11y.Atspi.Text.GetAttributeRun instead.
+    -->
     <method name="GetAttributes">
       <arg direction="out" type="a{ss}"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QSpiAttributeSet"/>
     </method>
 
+    <!--
+        GetTextSelections:
+
+        Returns an array of text selections in this document. This method is
+        intended to support complex selections that span multiple accessible
+        objects that are descendants of the document.
+
+        The return value should be an array of structures with the following
+        members:
+
+        - (so): A reference to the accessible containing the start of the
+          selection (a bus name + object path).
+        - i: The text offset of the beginning of the selection within the start
+          object.
+        - (so): A reference to the accessible containing the end of the
+          selection (a bus name + object path).
+        - (i): The text offset of the end of the selection within the end
+          object.
+        - (b): A boolean indicating whether the start of the selection is the
+          active point.
+    -->
     <method name="GetTextSelections">
       <arg direction="out" name="selections" type="a((so)i(so)ib)"/>
     </method>
 
+    <!--
+        SetTextSelections:
+
+        Makes 1 or more selections within this document denoted by the given
+        array of text selections. See the documentation for GetTextSelections
+        for the format of the array. Any existing physical selection (inside or
+        outside this document) is replaced by the new selections. All objects
+        within the given selection ranges must be descendants of this document.
+        Otherwise FALSE will be returned.
+
+        Returns: true if successful, false otherwise.
+    -->
     <method name="SetTextSelections">
       <arg direction="in" name="selections" type="a((so)i(so)ib)"/>
       <arg direction="out" type="b"/>

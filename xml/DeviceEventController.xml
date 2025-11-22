@@ -19,32 +19,32 @@
     <!--
         RegisterKeystrokeListener:
         @listener: path of object to be notified when the following keys are pressed
+
         @keys: array of (key_code, key_sym, key_string, unused)
+
         @mask: modifier mask in X11 style (see Xlib.h)
+
         @types: mask of press/release; see the description below.
+
         @mode: struct of flags (synchronous, preemptive, global), see the description below.
 
         The @types can be a mask of the following:
-
-          * KEY_PRESS   = 1 << 0
-          * KEY_RELEASE = 1 << 1
+        - KEY_PRESS   = 1 << 0
+        - KEY_RELEASE = 1 << 1
 
         Note that Orca always passes (KEY_PRESS | KEY_RELEASE).
 
         The @mode is composed of three flags (see AtspiKeyListenerSyncType):
-
-          * synchronous: Events are delivered synchronously, before
-            the currently focused application sees them.  If false,
-            events may be delivered asynchronously, which means in some
-            cases they may already have been delivered to the
-            application before the AT client receives the notification.
-
-          * preemptive: (called CANCONSUME in AtspiKeyListenerSyncType)
-            Events may be consumed by the AT client.  Requires the synchronous flag to be set.
-
-          * global: (called ALL_WINDOWS in AtspiKeyListenerSyncType)
-            Events are received not from the application toolkit layer,
-            but from the device driver or windowing system subsystem.
+        - synchronous: Events are delivered synchronously, before
+          the currently focused application sees them.  If false,
+          events may be delivered asynchronously, which means in some
+          cases they may already have been delivered to the
+          application before the AT client receives the notification.
+        - preemptive: (called CANCONSUME in AtspiKeyListenerSyncType)
+          Events may be consumed by the AT client.  Requires the synchronous flag to be set.
+        - global: (called ALL_WINDOWS in AtspiKeyListenerSyncType)
+          Events are received not from the application toolkit layer,
+          but from the device driver or windowing system subsystem.
 
         Returns: boolean indicating whether the operation was successful.  This is always
         TRUE for non-global listeners (c.f. @mode), and may be FALSE for global listeners

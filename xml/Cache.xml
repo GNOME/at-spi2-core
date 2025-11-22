@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<node>
+<node xmlns:doc="http://www.freedesktop.org/dbus/1.0/doc.dtd">
   <!--
       org.a11y.atspi.Cache:
       @short_description: Interface to query accessible objects in bulk.
@@ -32,48 +32,38 @@
     <property name="version" type="u" access="read"/>
 
     <!--
-        GetItems: bulk query an application's accessible objects.
+        GetItems:
+
+        Bulk query an application's accessible objects.
 
         Returns: an array with one element for each available object.  Each element's
         fields are like this:
 
         - (so): accessible object reference - DBus name and object
           path.  The rest of the fields refer to this main object.
-
         - (so): application reference - DBus name and object path.  This is the owner of
           the main object; the root path of the application that registered via
           the Embed method of the org.a11y.atspi.Socket interface.
-
         - (so): parent object reference - DBus name and object path.
-                If the main object has no parent:
-
-                - If it is a control, or a window, return the parent application.
-
-                - If the object has the application role, return a null reference.  FIXME:
-                  atk-adaptor/adaptors/cache-adaptor.c:append_cache_item() returns a
-                  reference to the registry in this case (the one it obtained from the
-                  initial Socket::Embed call); GTK4 returns a null reference.
-
-                - Otherwise, return a null reference ("" for the application name name and
-                  "/org/a11y/atspi/null" for the object path).
-
+          If the main object has no parent:
+          - If it is a control, or a window, return the parent application.
+          - If the object has the application role, return a null reference.  FIXME:
+          atk-adaptor/adaptors/cache-adaptor.c:append_cache_item() returns a
+          reference to the registry in this case (the one it obtained from the
+          initial Socket::Embed call); GTK4 returns a null reference.
+          - Otherwise, return a null reference ("" for the application name name and
+          "/org/a11y/atspi/null" for the object path).
         - i: index in parent, or -1 for transient widgets/menu items.  Equivalent to the
           GetIndexInParent method of the org.a11y.atspi.Accessible interface.
-
         - i: child count of main object, or -1 for defunct/menus.  Equivalent to the
           ChildCount property of the org.a11y.atspi.Accessible interface.
-
         - as: array of names of the interfaces that the main object supports.  Equivalent
           to the GetInterfaces method of the org.a11y.atspi.Accessible interface.
-
         - s: human-readable, localized, short name for the main object.  Equivalent to the
           Name property of the org.a11y.atspi.Accessible interface.
-
         - u: role.  Equivalent to the GetRole method of the org.a11y.atspi.Accessible interface.
-
         - s: human-readable, localized description of the object in more detail.
           Equivalent to the Description property of the org.a11y.atspi.Accessible interface.
-
         - au: Set of states currently held by an object.  Equivalent to the GetState
           method of the org.a11y.atspi.Accessible interface.
 
