@@ -1,3 +1,12 @@
+What's new in at-spi2-core 2.58.2:
+
+    python: Speed up __eq__ and __ne__
+
+* collection-adaptor: Correct 'child' reference handling (fixes crashes
+  with evolution and orca).
+
+* Fix several memory leaks.
+
 What's new in at-spi2-core 2.58.1:
 
 * at-spi-bus-launcher: Fix a possible crash when registering.
