@@ -1,3 +1,10 @@
+What's new in at-spi2-core 2.56.7:
+
+* collection-adaptor: Correct 'child' reference handling (fixes crashes
+  with evolution and orca).
+
+* Fix several memory leaks.
+
 What's new in at-spi2-core 2.56.6:
 
 * at-spi-bus-launcher: Fix possible crash when registering.
