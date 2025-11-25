@@ -128,13 +128,13 @@ atspi_selection_select_child (AtspiSelection *obj,
  * atspi_selection_deselect_selected_child:
  * @obj: a pointer to the #AtspiSelection on which to operate.
  * @selected_child_index: a #gint indicating which of the selected children
- *              of the #Accessible is to be selected.
+ *              of the #Accessible is to be deselected.
  *
  * Removes a child from the selected children list of an #AtspiSelection.
- *          Note that @child_index is the index in the selected-children list,
- *          not the index in the parent container.  @selectedChildIndex in this
- *          method, and @child_index in #atspi_selection_select_child
- *          are asymmetric.
+ *          Note that @selected_child_index is the index in the
+ *          selected-children list, not the index in the parent container.
+ *          @selected_child_index in this method and @child_index in
+ *          #atspi_selection_select_child are asymmetric.
  *
  * Returns: #TRUE if the child was successfully deselected, #FALSE otherwise.
  **/
