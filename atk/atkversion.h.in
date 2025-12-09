@@ -30,6 +30,8 @@
 
 #include <glib.h>
 
+G_BEGIN_DECLS
+
 /**
  * ATK_MAJOR_VERSION:
  *
@@ -472,5 +474,7 @@ guint atk_get_interface_age (void) G_GNUC_CONST;
 #define atk_micro_version atk_get_micro_version ()
 #define atk_binary_age atk_get_binary_age ()
 #define atk_interface_age atk_get_interface_age ()
+
+G_END_DECLS
 
 #endif /* __ATK_VERSION_H__ */
