@@ -1,6 +1,10 @@
+What's new in at-spi2-core 2.58.3:
+
+* Fix atk_get_major_version etc not linking on C++.
+
 What's new in at-spi2-core 2.58.2:
 
-    python: Speed up __eq__ and __ne__
+* python: Speed up __eq__ and __ne__
 
 * collection-adaptor: Correct 'child' reference handling (fixes crashes
   with evolution and orca).
