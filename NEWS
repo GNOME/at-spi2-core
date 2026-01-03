@@ -1,3 +1,32 @@
+What's new in at-spi2-core 2.59.0:
+
+    meson: Use dbus-broker by default.
+
+    Document the remaining DBus interfaces.
+
+What's new in at-spi2-core 2.58.3:
+
+* Fix atk_get_major_version etc not linking on C++.
+
+What's new in at-spi2-core 2.58.2:
+
+* python: Speed up __eq__ and __ne__
+
+* collection-adaptor: Correct 'child' reference handling (fixes crashes
+  with evolution and orca).
+
+* Fix several memory leaks.
+
+What's new in at-spi2-core 2.58.1:
+
+* at-spi-bus-launcher: Fix a possible crash when registering.
+
+* python: Avoid traceback when hashing a disposed object
+
+* Fix build failure on MacOS.
+
+* Fix transfer rule for atk_table_cell_get_table and atk_table_get_summary.
+
 What's new in at-spi2-core 2.58.0:
 
 * libatspi: Increase ATSPI_ROLE_COUNT after switch role was added
