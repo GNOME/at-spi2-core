@@ -16,6 +16,7 @@
 
     <!--
         Embed:
+
         @plug: a string for the unique bus name of the application, and an object path
         for the application's' root object.
 
@@ -42,6 +43,7 @@
 
     <!--
         Embedded:
+
         @path: the object path of the socket.
 
         This method is called by a socket to inform the plug that it is being
@@ -53,6 +55,7 @@
 
     <!--
         Unembed:
+
         @plug: a string for the unique bus name of the application, and an object path
         for the application's' root object.
 
@@ -67,6 +70,7 @@
 
     <!--
         Available:
+
         @socket: application and object path for the registry's root object.
 
         The accessibility registry emits this signal early during startup, when it has

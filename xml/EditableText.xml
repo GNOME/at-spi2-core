@@ -18,6 +18,9 @@
     <!--
         SetTextContents:
 
+        @newContents: a character string, encoded in UTF-8, which is to
+        become the new text contents of the object.
+
         Replace the entire text contents of the accessible with the given text.
 
         Returns: True if successful, false otherwise.
@@ -32,6 +35,7 @@
 
         @position: an integer indicating the character offset at which to
         insert the new text.
+
         @text: a string representing the text to insert, in UTF-8 encoding.
         @length:  the number of characters of text to insert, in bytes. If the
         byte count of text is less than or equal to length, the entire contents
@@ -56,6 +60,7 @@
 
         @startPos: an integer indicating the starting character offset
         of the text to copy.
+
         @endPos: an integer indicating the offset of the first character
         past the end of the text section to be copied.
 
@@ -71,6 +76,7 @@
 
         @startPos: an integer indicating the starting character offset
         of the text to cut.
+
         @endPos: an integer indicating the offset of the first character
         past the end of the text section to be cut.
 
@@ -90,6 +96,7 @@
 
         @startPos: an integer indicating the starting character offset
         of the text to delete.
+
         @endPos: an integer indicating the offset of the first character
         past the end of the text section to be deleted.
 
