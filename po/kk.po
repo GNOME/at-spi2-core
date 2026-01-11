@@ -11,9 +11,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues\n"
-"POT-Creation-Date: 2024-01-06 16:43+0000\n"
-"PO-Revision-Date: 2024-02-24 23:50+0600\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
+"POT-Creation-Date: 2025-08-22 20:01+0000\n"
+"PO-Revision-Date: 2026-01-11 18:39+0500\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
 "Language: kk\n"
@@ -21,8 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.4.2\n"
-"X-Generator: Poedit 1.7.3\n"
+"X-Generator: Poedit 3.8\n"
 
 #: atk/atkhyperlink.c:127
 msgid "Selected Link"
@@ -30,15 +29,15 @@ msgstr "Таңдалған сілтеме"
 
 #: atk/atkhyperlink.c:128
 msgid "Specifies whether the AtkHyperlink object is selected"
-msgstr ""
+msgstr "AtkHyperlink объектісі таңдалған ба, соны анықтайды"
 
 #: atk/atkhyperlink.c:134
 msgid "Number of Anchors"
-msgstr ""
+msgstr "Зәкірлер саны"
 
 #: atk/atkhyperlink.c:135
 msgid "The number of anchors associated with the AtkHyperlink object"
-msgstr ""
+msgstr "AtkHyperlink объектісімен байланысты зәкірлер саны"
 
 #: atk/atkhyperlink.c:143
 msgid "End index"
@@ -56,151 +55,164 @@ msgstr "Индекс басы"
 msgid "The start index of the AtkHyperlink object"
 msgstr "AtkHyperlink объектінің индекс басы"
 
-#: atk/atkobject.c:272
-msgid "Accessible Name"
-msgstr ""
-
 #: atk/atkobject.c:273
+msgid "Accessible Name"
+msgstr "Қолжетімді аты"
+
+#: atk/atkobject.c:274
 msgid "Object instance’s name formatted for assistive technology access"
 msgstr ""
-
-#: atk/atkobject.c:279
-msgid "Accessible Description"
-msgstr ""
+"Көмекші технологиялардың қол жеткізуі үшін пішімделген объект данасының аты"
 
 #: atk/atkobject.c:280
+msgid "Accessible Description"
+msgstr "Қолжетімді сипаттамасы"
+
+#: atk/atkobject.c:281
 msgid "Description of an object, formatted for assistive technology access"
 msgstr ""
-
-#: atk/atkobject.c:286
-msgid "Accessible Parent"
-msgstr ""
+"Көмекші технологиялардың қол жеткізуі үшін пішімделген объектінің "
+"сипаттамасы"
 
 #: atk/atkobject.c:287
-msgid "Parent of the current accessible as returned by atk_object_get_parent()"
-msgstr ""
+msgid "Accessible Parent"
+msgstr "Қолжетімді аталық объекті"
 
-#: atk/atkobject.c:303
-msgid "Accessible Value"
+#: atk/atkobject.c:288
+msgid ""
+"Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr ""
+"atk_object_get_parent() функциясымен қайтарылатын ағымдағы қолжетімді "
+"объектінің аталыө объекті"
 
 #: atk/atkobject.c:304
-msgid "Is used to notify that the value has changed"
-msgstr ""
+msgid "Accessible Value"
+msgstr "Қолжетімді мәні"
 
-#: atk/atkobject.c:312
-msgid "Accessible Role"
-msgstr ""
+#: atk/atkobject.c:305
+msgid "Is used to notify that the value has changed"
+msgstr "Мәннің өзгергені туралы хабарлау үшін қолданылады"
 
 #: atk/atkobject.c:313
-msgid "The accessible role of this object"
-msgstr ""
+msgid "Accessible Role"
+msgstr "Қолжетімді рөлі"
 
-#: atk/atkobject.c:320
-msgid "Accessible Layer"
-msgstr ""
+#: atk/atkobject.c:314
+msgid "The accessible role of this object"
+msgstr "Бұл объектінің қолжетімді рөлі"
 
 #: atk/atkobject.c:321
-msgid "The accessible layer of this object"
-msgstr ""
+msgid "Accessible Layer"
+msgstr "Қолжетімді қабаты"
 
-#: atk/atkobject.c:329
-msgid "Accessible MDI Value"
-msgstr ""
+#: atk/atkobject.c:322
+msgid "The accessible layer of this object"
+msgstr "Бұл объектінің қолжетімді қабаты"
 
 #: atk/atkobject.c:330
-msgid "The accessible MDI value of this object"
-msgstr ""
+msgid "Accessible MDI Value"
+msgstr "Қолжетімді MDI мәні"
 
-#: atk/atkobject.c:346
-msgid "Accessible Table Caption"
-msgstr ""
+#: atk/atkobject.c:331
+msgid "The accessible MDI value of this object"
+msgstr "Бұл объектінің қолжетімді MDI мәні"
 
 #: atk/atkobject.c:347
+msgid "Accessible Table Caption"
+msgstr "Қолжетімді кесте тақырыбы"
+
+#: atk/atkobject.c:348
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
-
-#: atk/atkobject.c:361
-msgid "Accessible Table Column Header"
-msgstr ""
+"Кесте тақырыбының өзгергені туралы хабарлау үшін қолданылады; бұл қасиет "
+"қолданылмауы тиіс. Оның орнына accessible-table-caption-object қолданылуы "
+"керек"
 
 #: atk/atkobject.c:362
+msgid "Accessible Table Column Header"
+msgstr "Қолжетімді кесте бағанының жоғарғы колонтитулы"
+
+#: atk/atkobject.c:363
 msgid "Is used to notify that the table column header has changed"
 msgstr ""
-
-#: atk/atkobject.c:377
-msgid "Accessible Table Column Description"
-msgstr ""
+"Кесте бағанының жоғарғы колонтитулы өзгергені туралы хабарлау үшін "
+"қолданылады"
 
 #: atk/atkobject.c:378
+msgid "Accessible Table Column Description"
+msgstr "Қолжетімді кесте бағанының сипаттамасы"
+
+#: atk/atkobject.c:379
 msgid "Is used to notify that the table column description has changed"
 msgstr ""
-
-#: atk/atkobject.c:393
-msgid "Accessible Table Row Header"
-msgstr ""
+"Кесте бағанының сипаттамасы өзгергені туралы хабарлау үшін қолданылады"
 
 #: atk/atkobject.c:394
+msgid "Accessible Table Row Header"
+msgstr "Қолжетімді кесте жолының жоғарғы колонтитулы"
+
+#: atk/atkobject.c:395
 msgid "Is used to notify that the table row header has changed"
 msgstr ""
-
-#: atk/atkobject.c:408
-msgid "Accessible Table Row Description"
-msgstr ""
+"Кесте жолының жоғарғы колонтитулы өзгергені туралы хабарлау үшін қолданылады"
 
 #: atk/atkobject.c:409
-msgid "Is used to notify that the table row description has changed"
-msgstr ""
+msgid "Accessible Table Row Description"
+msgstr "Арнайы мүмкіндігі бар кесте жолының сипаттамасы"
 
-#: atk/atkobject.c:415
-msgid "Accessible Table Summary"
-msgstr ""
+#: atk/atkobject.c:410
+msgid "Is used to notify that the table row description has changed"
+msgstr "Кесте жолының сипаттамасы өзгергенін хабарлау үшін қолданылады"
 
 #: atk/atkobject.c:416
-msgid "Is used to notify that the table summary has changed"
-msgstr ""
+msgid "Accessible Table Summary"
+msgstr "Арнайы мүмкіндігі бар кесте жиынтығы"
 
-#: atk/atkobject.c:422
-msgid "Accessible Table Caption Object"
-msgstr ""
+#: atk/atkobject.c:417
+msgid "Is used to notify that the table summary has changed"
+msgstr "Кесте жиынтығы өзгергенін хабарлау үшін қолданылады"
 
 #: atk/atkobject.c:423
-msgid "Is used to notify that the table caption has changed"
-msgstr ""
+msgid "Accessible Table Caption Object"
+msgstr "Арнайы мүмкіндігі бар кесте атауының объектісі"
 
-#: atk/atkobject.c:429
-msgid "Number of Accessible Hypertext Links"
-msgstr ""
+#: atk/atkobject.c:424
+msgid "Is used to notify that the table caption has changed"
+msgstr "Кесте атауы өзгергенін хабарлау үшін қолданылады"
 
 #: atk/atkobject.c:430
-msgid "The number of links which the current AtkHypertext has"
-msgstr ""
+msgid "Number of Accessible Hypertext Links"
+msgstr "Арнайы мүмкіндігі бар гипермәтіндік сілтемелер саны"
 
-#: atk/atkobject.c:439
-msgid "Accessible ID"
-msgstr ""
+#: atk/atkobject.c:431
+msgid "The number of links which the current AtkHypertext has"
+msgstr "Ағымдағы AtkHypertext нысанындағы сілтемелер саны"
 
 #: atk/atkobject.c:440
+msgid "Accessible ID"
+msgstr "Арнайы мүмкіндік ID-і"
+
+#: atk/atkobject.c:441
 msgid "ID for the accessible; useful for automated testing"
 msgstr ""
+"Арнайы мүмкіндік нысанына арналған ID; автоматтандырылған тестілеу үшін "
+"пайдалы"
 
-#: atk/atkobject.c:446
-#| msgid "text"
+#: atk/atkobject.c:447
 msgid "Help text"
 msgstr "Анықтама мәтіні"
 
-#: atk/atkobject.c:447
+#: atk/atkobject.c:448
 msgid "Help text associated with the accessible"
-msgstr ""
+msgstr "Арнайы мүмкіндік нысанымен байланысты көмек мәтіні"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a password-strength meter. Note that what such a
 #. * widget presents is controlled by application developers. Thus
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
-#.
 #: atk/atkvalue.c:193
 msgid "very weak"
 msgstr "өте әлсіз"
@@ -210,7 +222,6 @@ msgstr "өте әлсіз"
 #. * widget presents is controlled by application developers. Thus
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
-#.
 #: atk/atkvalue.c:200
 msgid "weak"
 msgstr "әлсіз"
@@ -220,7 +231,6 @@ msgstr "әлсіз"
 #. * widget presents is controlled by application developers. Thus
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
-#.
 #: atk/atkvalue.c:207
 msgid "acceptable"
 msgstr "жарайтын"
@@ -230,7 +240,6 @@ msgstr "жарайтын"
 #. * widget presents is controlled by application developers. Thus
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
-#.
 #: atk/atkvalue.c:214
 msgid "strong"
 msgstr "қатаң"
@@ -240,7 +249,6 @@ msgstr "қатаң"
 #. * widget presents is controlled by application developers. Thus
 #. * assistive technologies such as screen readers are expected to
 #. * present this string alone or as a token in a list.
-#.
 #: atk/atkvalue.c:221
 msgid "very strong"
 msgstr "өте қатаң"
@@ -251,7 +259,6 @@ msgstr "өте қатаң"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: atk/atkvalue.c:229
 msgid "very low"
 msgstr "өте төмен"
@@ -262,7 +269,6 @@ msgstr "өте төмен"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: atk/atkvalue.c:237
 msgid "medium"
 msgstr "орташа"
@@ -273,7 +279,6 @@ msgstr "орташа"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: atk/atkvalue.c:245
 msgid "high"
 msgstr "жоғары"
@@ -284,7 +289,6 @@ msgstr "жоғары"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: atk/atkvalue.c:253
 msgid "very high"
 msgstr "өте жоғары"
@@ -295,7 +299,6 @@ msgstr "өте жоғары"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: atk/atkvalue.c:261
 msgid "very bad"
 msgstr "өте нашар"
@@ -306,7 +309,6 @@ msgstr "өте нашар"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: atk/atkvalue.c:269
 msgid "bad"
 msgstr "нашар"
@@ -317,7 +319,6 @@ msgstr "нашар"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: atk/atkvalue.c:277
 msgid "good"
 msgstr "жақсы"
@@ -328,7 +329,6 @@ msgstr "жақсы"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: atk/atkvalue.c:285
 msgid "very good"
 msgstr "өте жақсы"
@@ -339,12 +339,11 @@ msgstr "өте жақсы"
 #. * application developers. Thus assistive technologies such as screen
 #. * readers are expected to present this string alone or as a token in
 #. * a list.
-#.
 #: atk/atkvalue.c:293
 msgid "best"
 msgstr "ең жақсы"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1230 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:341 atspi/atspi-misc.c:1230 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "Қолданба енді жоқ болып тұр"
 
@@ -354,7 +353,7 @@ msgstr "бұрыс"
 
 #: atspi/atspi-misc.c:50
 msgid "accelerator label"
-msgstr ""
+msgstr "үдеткіш белгісі"
 
 #: atspi/atspi-misc.c:51
 msgid "alert"
@@ -374,15 +373,15 @@ msgstr "күнтізбе"
 
 #: atspi/atspi-misc.c:55
 msgid "canvas"
-msgstr ""
+msgstr "кенеп"
 
 #: atspi/atspi-misc.c:56
 msgid "check box"
-msgstr ""
+msgstr "құсбелгі"
 
 #: atspi/atspi-misc.c:57
 msgid "check menu item"
-msgstr ""
+msgstr "мәзірдің құсбелгі элементі"
 
 #: atspi/atspi-misc.c:58
 msgid "color chooser"
@@ -390,15 +389,15 @@ msgstr "түсті таңдаушы"
 
 #: atspi/atspi-misc.c:59
 msgid "column header"
-msgstr ""
+msgstr "баған тақырыптамасы"
 
 #: atspi/atspi-misc.c:60
 msgid "combo box"
-msgstr ""
+msgstr "аралас тізім"
 
 #: atspi/atspi-misc.c:61
 msgid "dateeditor"
-msgstr ""
+msgstr "күн түзеткіші"
 
 #: atspi/atspi-misc.c:62
 msgid "desktop icon"
@@ -406,11 +405,11 @@ msgstr "жұмыс үстел таңбашасы"
 
 #: atspi/atspi-misc.c:63
 msgid "desktop frame"
-msgstr ""
+msgstr "жұмыс үстелінің фреймі"
 
 #: atspi/atspi-misc.c:64
 msgid "dial"
-msgstr ""
+msgstr "шкала"
 
 #: atspi/atspi-misc.c:65
 msgid "dialog"
@@ -418,24 +417,24 @@ msgstr "сұхбат терезесі"
 
 #: atspi/atspi-misc.c:66
 msgid "directory pane"
-msgstr ""
+msgstr "бума панелі"
 
 #: atspi/atspi-misc.c:67
 msgid "drawing area"
-msgstr ""
+msgstr "сурет салу аймағы"
 
 #: atspi/atspi-misc.c:68
 msgid "file chooser"
-msgstr ""
+msgstr "файлдарды таңдаушы"
 
 #: atspi/atspi-misc.c:69
 msgid "filler"
-msgstr ""
+msgstr "толтырғыш"
 
 #. I know it looks wrong but that is what Java returns
 #: atspi/atspi-misc.c:71
 msgid "fontchooser"
-msgstr ""
+msgstr "қаріпті таңдаушы"
 
 #: atspi/atspi-misc.c:72
 msgid "frame"
@@ -443,11 +442,11 @@ msgstr "фрейм"
 
 #: atspi/atspi-misc.c:73
 msgid "glass pane"
-msgstr ""
+msgstr "шыны панелі"
 
 #: atspi/atspi-misc.c:74
 msgid "html container"
-msgstr ""
+msgstr "html контейнері"
 
 #: atspi/atspi-misc.c:75
 msgid "icon"
@@ -459,7 +458,7 @@ msgstr "сурет"
 
 #: atspi/atspi-misc.c:77
 msgid "internal frame"
-msgstr ""
+msgstr "ішкі фрейм"
 
 #: atspi/atspi-misc.c:78
 msgid "label"
@@ -467,7 +466,7 @@ msgstr "белгі"
 
 #: atspi/atspi-misc.c:79
 msgid "layered pane"
-msgstr ""
+msgstr "қабатты панель"
 
 #: atspi/atspi-misc.c:80
 msgid "list"
@@ -475,7 +474,7 @@ msgstr "тізім"
 
 #: atspi/atspi-misc.c:81
 msgid "list item"
-msgstr ""
+msgstr "тізім элементі"
 
 #: atspi/atspi-misc.c:82
 msgid "menu"
@@ -495,15 +494,15 @@ msgstr "мәзір элементі"
 
 #: atspi/atspi-misc.c:86
 msgid "option pane"
-msgstr ""
+msgstr "опция панелі"
 
 #: atspi/atspi-misc.c:87
 msgid "page tab"
-msgstr ""
+msgstr "бет"
 
 #: atspi/atspi-misc.c:88
 msgid "page tab list"
-msgstr ""
+msgstr "беттер тізімі"
 
 #: atspi/atspi-misc.c:89
 msgid "panel"
@@ -511,35 +510,35 @@ msgstr "панель"
 
 #: atspi/atspi-misc.c:90
 msgid "password text"
-msgstr ""
+msgstr "пароль мәтіні"
 
 #: atspi/atspi-misc.c:91
 msgid "popup menu"
-msgstr ""
+msgstr "қалқымалы мәзір"
 
 #: atspi/atspi-misc.c:92
 msgid "progress bar"
-msgstr ""
+msgstr "барыс жолағы"
 
 #: atspi/atspi-misc.c:93
-msgid "push button"
-msgstr ""
+msgid "button"
+msgstr "батырма"
 
 #: atspi/atspi-misc.c:94
 msgid "radio button"
-msgstr ""
+msgstr "радио батырма"
 
 #: atspi/atspi-misc.c:95
 msgid "radio menu item"
-msgstr ""
+msgstr "радио мәзір элементі"
 
 #: atspi/atspi-misc.c:96
 msgid "root pane"
-msgstr ""
+msgstr "түбірлік панель"
 
 #: atspi/atspi-misc.c:97
 msgid "row header"
-msgstr ""
+msgstr "жол тақырыптамасы"
 
 #: atspi/atspi-misc.c:98
 msgid "scroll bar"
@@ -547,7 +546,7 @@ msgstr "айналдыру жолағы"
 
 #: atspi/atspi-misc.c:99
 msgid "scroll pane"
-msgstr ""
+msgstr "айналдыру панелі"
 
 #: atspi/atspi-misc.c:100
 msgid "separator"
@@ -555,271 +554,275 @@ msgstr "ажыратқыш"
 
 #: atspi/atspi-misc.c:101
 msgid "slider"
-msgstr ""
+msgstr "жүгірткі"
 
 #: atspi/atspi-misc.c:102
 msgid "split pane"
-msgstr ""
+msgstr "бөлінген панель"
 
 #: atspi/atspi-misc.c:103
 msgid "spin button"
-msgstr ""
+msgstr "айналдыру батырмасы"
 
 #: atspi/atspi-misc.c:104
 msgid "statusbar"
 msgstr "қалып-күй жолағы"
 
 #: atspi/atspi-misc.c:105
+msgid "switch"
+msgstr "ауыстырғыш"
+
+#: atspi/atspi-misc.c:106
 msgid "table"
 msgstr "кесте"
 
-#: atspi/atspi-misc.c:106
+#: atspi/atspi-misc.c:107
 msgid "table cell"
 msgstr "кесте ұяшығы"
 
-#: atspi/atspi-misc.c:107
-msgid "table column header"
-msgstr ""
-
 #: atspi/atspi-misc.c:108
-msgid "table row header"
-msgstr ""
+msgid "table column header"
+msgstr "кесте бағанының тақырыптамасы"
 
 #: atspi/atspi-misc.c:109
-msgid "tear off menu item"
-msgstr ""
+msgid "table row header"
+msgstr "кесте жолының тақырыптамасы"
 
 #: atspi/atspi-misc.c:110
+msgid "tear off menu item"
+msgstr "үзілмелі мәзір элементі"
+
+#: atspi/atspi-misc.c:111
 msgid "terminal"
 msgstr "терминал"
 
-#: atspi/atspi-misc.c:111
+#: atspi/atspi-misc.c:112
 msgid "text"
 msgstr "мәтін"
 
-#: atspi/atspi-misc.c:112
-msgid "toggle button"
-msgstr ""
-
 #: atspi/atspi-misc.c:113
+msgid "toggle button"
+msgstr "ауыстырып-қосқыш батырма"
+
+#: atspi/atspi-misc.c:114
 msgid "tool bar"
 msgstr "саймандар панелі"
 
-#: atspi/atspi-misc.c:114
-msgid "tool tip"
-msgstr ""
-
 #: atspi/atspi-misc.c:115
+msgid "tool tip"
+msgstr "сайман кеңесі"
+
+#: atspi/atspi-misc.c:116
 msgid "tree"
 msgstr "ағаш"
 
-#: atspi/atspi-misc.c:116
-msgid "tree table"
-msgstr ""
-
 #: atspi/atspi-misc.c:117
+msgid "tree table"
+msgstr "ағаш кестесі"
+
+#: atspi/atspi-misc.c:118
 msgid "unknown"
 msgstr "белгісіз"
 
-#: atspi/atspi-misc.c:118
-msgid "viewport"
-msgstr ""
-
 #: atspi/atspi-misc.c:119
+msgid "viewport"
+msgstr "көру аймағы"
+
+#: atspi/atspi-misc.c:120
 msgid "window"
 msgstr "терезе"
 
-#: atspi/atspi-misc.c:120
+#: atspi/atspi-misc.c:121
 msgid "header"
 msgstr "тақырыптама"
 
-#: atspi/atspi-misc.c:121
-msgid "footer"
-msgstr ""
-
 #: atspi/atspi-misc.c:122
+msgid "footer"
+msgstr "төменгі колонтитул"
+
+#: atspi/atspi-misc.c:123
 msgid "paragraph"
 msgstr "параграф"
 
-#: atspi/atspi-misc.c:123
+#: atspi/atspi-misc.c:124
 msgid "ruler"
 msgstr "сызғыш"
 
-#: atspi/atspi-misc.c:124
+#: atspi/atspi-misc.c:125
 msgid "application"
 msgstr "қолданба"
 
-#: atspi/atspi-misc.c:125
+#: atspi/atspi-misc.c:126
 msgid "autocomplete"
 msgstr "автотолықтыру"
 
-#: atspi/atspi-misc.c:126
-msgid "edit bar"
-msgstr ""
-
 #: atspi/atspi-misc.c:127
-msgid "embedded component"
-msgstr ""
+msgid "edit bar"
+msgstr "түзету панелі"
 
 #: atspi/atspi-misc.c:128
+msgid "embedded component"
+msgstr "ендірілген компонент"
+
+#: atspi/atspi-misc.c:129
 msgid "entry"
 msgstr "жазба"
 
-#: atspi/atspi-misc.c:129
-msgid "chart"
-msgstr ""
-
 #: atspi/atspi-misc.c:130
-msgid "caption"
-msgstr ""
+msgid "chart"
+msgstr "диаграмма"
 
 #: atspi/atspi-misc.c:131
-msgid "document frame"
-msgstr ""
+msgid "caption"
+msgstr "тақырыпша"
 
 #: atspi/atspi-misc.c:132
-msgid "heading"
-msgstr ""
+msgid "document frame"
+msgstr "құжат жақтауы"
 
 #: atspi/atspi-misc.c:133
+msgid "heading"
+msgstr "айдар"
+
+#: atspi/atspi-misc.c:134
 msgid "page"
 msgstr "парақ"
 
-#: atspi/atspi-misc.c:134
+#: atspi/atspi-misc.c:135
 msgid "section"
 msgstr "санат"
 
-#: atspi/atspi-misc.c:135
-msgid "redundant object"
-msgstr ""
-
 #: atspi/atspi-misc.c:136
+msgid "redundant object"
+msgstr "артық объект"
+
+#: atspi/atspi-misc.c:137
 msgid "form"
 msgstr "форма"
 
-#: atspi/atspi-misc.c:137
+#: atspi/atspi-misc.c:138
 msgid "link"
 msgstr "сілтеме"
 
-#: atspi/atspi-misc.c:138
-msgid "input method window"
-msgstr ""
-
 #: atspi/atspi-misc.c:139
+msgid "input method window"
+msgstr "енгізу әдісі терезесі"
+
+#: atspi/atspi-misc.c:140
 msgid "table row"
 msgstr "кесте жолы"
 
-#: atspi/atspi-misc.c:140
+#: atspi/atspi-misc.c:141
 msgid "tree item"
 msgstr "ағаш элементі"
 
-#: atspi/atspi-misc.c:141
+#: atspi/atspi-misc.c:142
 msgid "document spreadsheet"
 msgstr "құжат эл. кестесі"
 
-#: atspi/atspi-misc.c:142
+#: atspi/atspi-misc.c:143
 msgid "document presentation"
 msgstr "құжат презентациясы"
 
-#: atspi/atspi-misc.c:143
+#: atspi/atspi-misc.c:144
 msgid "document text"
 msgstr "құжат мәтіні"
 
-#: atspi/atspi-misc.c:144
-msgid "document web"
-msgstr ""
-
 #: atspi/atspi-misc.c:145
-msgid "document email"
-msgstr ""
+msgid "document web"
+msgstr "веб-құжат"
 
 #: atspi/atspi-misc.c:146
+msgid "document email"
+msgstr "электрондық пошта құжаты"
+
+#: atspi/atspi-misc.c:147
 msgid "comment"
 msgstr "түсіндірме"
 
-#: atspi/atspi-misc.c:147
-msgid "list box"
-msgstr ""
-
 #: atspi/atspi-misc.c:148
-msgid "grouping"
-msgstr ""
+msgid "list box"
+msgstr "тізім өрісі"
 
 #: atspi/atspi-misc.c:149
-msgid "image map"
-msgstr ""
+msgid "grouping"
+msgstr "топтастыру"
 
 #: atspi/atspi-misc.c:150
+msgid "image map"
+msgstr "сурет картасы"
+
+#: atspi/atspi-misc.c:151
 msgid "notification"
 msgstr "хабарлама"
 
-#: atspi/atspi-misc.c:151
-msgid "info bar"
-msgstr ""
-
 #: atspi/atspi-misc.c:152
-msgid "level bar"
-msgstr ""
+msgid "info bar"
+msgstr "ақпараттық панель"
 
 #: atspi/atspi-misc.c:153
-msgid "title bar"
-msgstr ""
+msgid "level bar"
+msgstr "деңгей панелі"
 
 #: atspi/atspi-misc.c:154
-msgid "block quote"
-msgstr ""
+msgid "title bar"
+msgstr "тақырып панелі"
 
 #: atspi/atspi-misc.c:155
+msgid "block quote"
+msgstr "блоктық цитата"
+
+#: atspi/atspi-misc.c:156
 msgid "audio"
 msgstr "аудио"
 
-#: atspi/atspi-misc.c:156
+#: atspi/atspi-misc.c:157
 msgid "video"
 msgstr "видео"
 
-#: atspi/atspi-misc.c:157
-msgid "definition"
-msgstr ""
-
 #: atspi/atspi-misc.c:158
+msgid "definition"
+msgstr "анықтама"
+
+#: atspi/atspi-misc.c:159
 msgid "article"
 msgstr "мақала"
 
-#: atspi/atspi-misc.c:159
-msgid "landmark"
-msgstr ""
-
 #: atspi/atspi-misc.c:160
-msgid "log"
-msgstr ""
+msgid "landmark"
+msgstr "бағдар"
 
 #: atspi/atspi-misc.c:161
-msgid "marquee"
-msgstr ""
+msgid "log"
+msgstr "журнал"
 
 #: atspi/atspi-misc.c:162
+msgid "marquee"
+msgstr "жүгіртпе жол"
+
+#: atspi/atspi-misc.c:163
 msgid "math"
 msgstr "математика"
 
-#: atspi/atspi-misc.c:163
-msgid "rating"
-msgstr ""
-
 #: atspi/atspi-misc.c:164
-msgid "timer"
-msgstr ""
+msgid "rating"
+msgstr "рейтинг"
 
 #: atspi/atspi-misc.c:165
-msgid "description list"
-msgstr ""
+msgid "timer"
+msgstr "таймер"
 
 #: atspi/atspi-misc.c:166
-msgid "description term"
-msgstr ""
+msgid "description list"
+msgstr "сипаттамалар тізімі"
 
 #: atspi/atspi-misc.c:167
+msgid "description term"
+msgstr "сипаттама термині"
+
+#: atspi/atspi-misc.c:168
 msgid "description value"
-msgstr ""
+msgstr "сипаттама мәні"
 
 #~ msgid "Attempted synchronous call where prohibited"
 #~ msgstr "Рұқсат етілмеген жерде синхронды шақырулар талабы жасалды"
