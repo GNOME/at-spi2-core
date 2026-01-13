@@ -61,7 +61,7 @@ G_BEGIN_DECLS
  *@ATK_TEXT_ATTR_VARIANT: The capitalization variant of the text, if set. Values are "normal" or "small_caps"
  *@ATK_TEXT_ATTR_STYLE: The slant style of the text, if set. Values are "normal", "oblique" or "italic"
  *@ATK_TEXT_ATTR_TEXT_POSITION: The vertical position with respect to the baseline. Values are "baseline", "super", or "sub". Note that a super or sub text attribute refers to position with respect to the baseline of the prior character.
- *ATK_TEXT_ATTR_MARK: A run of content that is marked or highlighted, such as for reference purposes, or to call it out as having a special purpose that is clear from context. This is similar to ATK_ROLE_MARK, but this is used where it may apply to a partial span of text in an object, rather than to an entire object. Values are "true" or "false".
+ *@ATK_TEXT_ATTR_MARK: A run of content that is marked or highlighted, such as for reference purposes, or to call it out as having a special purpose that is clear from context. This is similar to ATK_ROLE_MARK, but this is used where it may apply to a partial span of text in an object, rather than to an entire object. Values are "true" or "false".
  *@ATK_TEXT_ATTR_LAST_DEFINED: not a valid text attribute, used for finding end of enumeration
  *
  * Describes the text attributes supported
