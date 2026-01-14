@@ -36,8 +36,8 @@ G_BEGIN_DECLS
  *@ATK_TEXT_ATTR_LEFT_MARGIN: The pixel width of the left margin
  *@ATK_TEXT_ATTR_RIGHT_MARGIN: The pixel width of the right margin
  *@ATK_TEXT_ATTR_INDENT: The number of pixels that the text is indented
- *@ATK_TEXT_ATTR_INVISIBLE: Either "true" or "false" indicating whether text is visible or not
- *@ATK_TEXT_ATTR_EDITABLE: Either "true" or "false" indicating whether text is editable or not
+ *@ATK_TEXT_ATTR_INVISIBLE: Either "true" or "false" indicating whether text is visible or not.
+ *@ATK_TEXT_ATTR_EDITABLE: Either "true" or "false" indicating whether text is editable or not.
  *@ATK_TEXT_ATTR_PIXELS_ABOVE_LINES: Pixels of blank space to leave above each newline-terminated line.
  *@ATK_TEXT_ATTR_PIXELS_BELOW_LINES: Pixels of blank space to leave below each newline-terminated line.
  *@ATK_TEXT_ATTR_PIXELS_INSIDE_WRAP: Pixels of blank space to leave between wrapped lines inside the same newline-terminated line (paragraph).
@@ -61,11 +61,22 @@ G_BEGIN_DECLS
  *@ATK_TEXT_ATTR_VARIANT: The capitalization variant of the text, if set. Values are "normal" or "small_caps"
  *@ATK_TEXT_ATTR_STYLE: The slant style of the text, if set. Values are "normal", "oblique" or "italic"
  *@ATK_TEXT_ATTR_TEXT_POSITION: The vertical position with respect to the baseline. Values are "baseline", "super", or "sub". Note that a super or sub text attribute refers to position with respect to the baseline of the prior character.
- *@ATK_TEXT_ATTR_MARK: A run of content that is marked or highlighted, such as for reference purposes, or to call it out as having a special purpose that is clear from context. This is similar to ATK_ROLE_MARK, but this is used where it may apply to a partial span of text in an object, rather than to an entire object. Values are "true" or "false".
  *@ATK_TEXT_ATTR_LAST_DEFINED: not a valid text attribute, used for finding end of enumeration
  *
  * Describes the text attributes supported
- **/
+ */
+
+/**
+ * ATK_TEXT_ATTR_MARK:
+ *
+ * A run of content that is marked or highlighted, such as for reference
+ * purposes, or to call it out as having a special purpose that is clear from
+ * context. This is similar to ATK_ROLE_MARK, but this is used where it may
+ * apply to a partial span of text in an object, rather than to an entire
+ * object. Values are "true" or "false".
+ *
+ * Since: 2.60
+ */
 typedef enum
 {
   ATK_TEXT_ATTR_INVALID = 0,

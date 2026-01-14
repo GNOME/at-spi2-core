@@ -123,28 +123,57 @@ G_BEGIN_DECLS
  * be taken as definitive evidence that the object's visual representation is
  * static; this state is advisory.
  *@ATK_STATE_VISITED: Indicates that the object (typically a hyperlink) has already been 'activated', and/or its backing data has already been downloaded, rendered, or otherwise "visited".
- *@ATK_STATE_CHECKABLE: Indicates this object has the potential to be
- *  checked, such as a checkbox or toggle-able table cell. @Since:
- *  ATK-2.12
- *@ATK_STATE_HAS_POPUP: Indicates that the object has a popup context
- * menu or sub-level menu which may or may not be showing. This means
- * that activation renders conditional content.  Note that ordinary
- * tooltips are not considered popups in this context. @Since: ATK-2.12
- *@ATK_STATE_HAS_TOOLTIP: Indicates this object has a tooltip. @Since: ATK-2.16
- *@ATK_STATE_READ_ONLY: Indicates that a widget which is ENABLED and SENSITIVE
- * has a value which can be read, but not modified, by the user. Note that this
- * state should only be applied to widget types whose value is normally directly
- * user modifiable, such as check boxes, radio buttons, spin buttons, text input
- * fields, and combo boxes, as a means to convey that the expected interaction
- * with that widget is not possible. When the expected interaction with a
- * widget does not include modification by the user, as is the case with
- * labels and containers, ATK_STATE_READ_ONLY should not be applied. See also
- * ATK_STATE_EDITABLE. @Since: ATK-2-16
- *@ATK_STATE_COLLAPSED: Indicates this object is collapsed. @Since: ATK-2.38
  *@ATK_STATE_LAST_DEFINED: Not a valid state, used for finding end of enumeration
  *
  *The possible types of states of an object
  **/
+
+/**
+ * ATK_STATE_CHECKABLE:
+ *
+ *  Indicates this object has the potential to be  checked, such as a checkbox
+ * or toggle-able table cell.
+ * Since: 2.12
+ */
+
+/**
+ * ATK_STATE_HAS_POPUP:
+ *
+ *  Indicates that the object has a popup context menu or sub-level menu which
+ * may or may not be showing. This means that activation renders conditional
+ * content.  Note that ordinary tooltips are not considered popups in this
+ * context.
+ * Since:  ATK-2.12
+ */
+
+/**
+ * ATK_STATE_HAS_TOOLTIP:
+ *
+ *  Indicates this object has a tooltip.
+ * Since: 2.16
+ */
+
+/**
+ * ATK_STATE_READ_ONLY:
+ *
+ *  Indicates that a widget which is ENABLED and SENSITIVE has a value which
+ * can be read, but not modified, by the user. Note that this state should only
+ * be applied to widget types whose value is normally directly user modifiable,
+ * such as check boxes, radio buttons, spin buttons, text input fields, and
+ * combo boxes, as a means to convey that the expected interaction with that
+ * widget is not possible. When the expected interaction with a widget does not
+ * include modification by the user, as is the case with labels and containers,
+ * ATK_STATE_READ_ONLY should not be applied. See also ATK_STATE_EDITABLE.
+ * Since: 2.16
+ */
+
+/**
+ * ATK_STATE_COLLAPSED:
+ *
+ *  Indicates this object is collapsed.
+ * Since: 2.38
+ */
+
 typedef enum
 {
   ATK_STATE_INVALID,

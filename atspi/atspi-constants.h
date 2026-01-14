@@ -455,12 +455,12 @@ G_STATIC_ASSERT(ATSPI_COMPONENTLAYER_COUNT == ATSPI_LAYER_LAST_DEFINED + 1);
    * parent container.
    * @ATSPI_STATE_ARMED: Indicates that the object is armed.
    * @ATSPI_STATE_BUSY: Indicates the current object is busy, i.e. onscreen
-   * representation is in the process of changing, or       the object is
+   * representation is in the process of changing, or the object is
    * temporarily unavailable for interaction due to activity already in progress.
    * @ATSPI_STATE_CHECKED: Indicates this object is currently checked.
    * @ATSPI_STATE_COLLAPSED: Indicates this object is collapsed.
    * @ATSPI_STATE_DEFUNCT: Indicates that this object no longer has a valid
-   * backing widget        (for instance, if its peer object has been destroyed).
+   * backing widget (for instance, if its peer object has been destroyed).
    * @ATSPI_STATE_EDITABLE: Indicates the user can change the contents of this
    * object.
    * @ATSPI_STATE_ENABLED: Indicates that this object is enabled, i.e. that it
@@ -497,7 +497,7 @@ G_STATIC_ASSERT(ATSPI_COMPONENTLAYER_COUNT == ATSPI_LAYER_LAST_DEFINED + 1);
    * fixed.
    * @ATSPI_STATE_SELECTABLE: Indicates this object is the child of an object
    * that allows its children to be selected and that this child is one of
-   * those children       that can be selected.
+   * those children that can be selected.
    * @ATSPI_STATE_SELECTED: Indicates this object is the child of an object that
    * allows its children to be selected and that this child is one of those
    * children that has been selected.
@@ -593,26 +593,41 @@ G_STATIC_ASSERT(ATSPI_COMPONENTLAYER_COUNT == ATSPI_LAYER_LAST_DEFINED + 1);
    * @ATSPI_STATE_VISITED: This state indicates that the object (typically a
    * hyperlink) has already been activated or invoked, with the result that
    * some backing data has been downloaded or rendered.
-   *@ATSPI_STATE_CHECKABLE: Indicates this object has the potential to
-   *  be checked, such as a checkbox or toggle-able table cell. @Since:
-   *  2.12
-   *@ATSPI_STATE_HAS_POPUP: Indicates that the object has a popup
-   * context menu or sub-level menu which may or may not be
-   * showing. This means that activation renders conditional content.
-   * Note that ordinary tooltips are not considered popups in this
-   * context. @Since: 2.12
-   * @ATSPI_STATE_READ_ONLY: Indicates that an object which is ENABLED and
-   * SENSITIVE has a value which can be read, but not modified, by the
-   * user. @Since: 2.16
    * @ATSPI_STATE_LAST_DEFINED: This value of the enumeration should not be used
    * as a parameter, it indicates the number of items in the #AtspiStateType
    * enumeration.
    *
-   *
    * Enumeration used by various interfaces indicating every possible state
-   * an #AtspiAccesible object can assume.
+   * an #AtspiAccessible object can assume.
    *
    **/
+
+  /**
+   * ATSPI_STATE_CHECKABLE:
+   *
+   * Indicates this object has the potential to be checked, such as a checkbox
+   * or toggle-able table cell.
+   * Since: 2.12
+   */
+
+  /**
+   * ATSPI_STATE_HAS_POPUP:
+   *
+   * Indicates that the object has a popup context menu or sub-level menu
+   * which may or may not be showing. This means that activation renders
+   * conditional content. Note that ordinary tooltips are not considered
+   * popups in this context.
+   * Since: 2.12
+   */
+
+  /**
+   * ATSPI_STATE_READ_ONLY:
+   *
+   * Indicates that an object which is ENABLED and SENSITIVE has a value
+   * which can be read, but not modified, by the user.
+   * Since: 2.16
+   */
+
   typedef enum
   {
     ATSPI_STATE_INVALID,
@@ -873,38 +888,18 @@ G_STATIC_ASSERT(ATSPI_STATETYPE_COUNT == ATSPI_STATE_LAST_DEFINED + 1);
    * assistive technologies may provide a means for the user to navigate to
    * objects containing detailed descriptions so that their content can be more
    * closely reviewed.
-   * @ATSPI_RELATION_DETAILS: Reciprocal of %ATSPI_RELATION_DETAILS_FOR. Indicates
-   * that this object has a detailed or extended description, the contents of
-   * which can be found in the target object(s). This relation type is most
-   * appropriate for information that is sufficiently lengthy as to make
-   * navigation to the container of that information desirable. For less verbose
-   * information suitable for announcement only, see %ATSPI_RELATION_DESCRIBED_BY.
-   * If the detailed information describes an error condition,
-   * %ATSPI_RELATION_ERROR_FOR should be used instead. @Since: 2.26.
-   * @ATSPI_RELATION_DETAILS_FOR: Reciprocal of %ATSPI_RELATION_DETAILS. Indicates
-   * that this object provides a detailed or extended description about the target
-   * object(s). See also %ATSPI_RELATION_DESCRIPTION_FOR and
-   * %ATSPI_RELATION_ERROR_FOR. @Since: 2.26.
-   * @ATSPI_RELATION_ERROR_MESSAGE: Reciprocal of %ATSPI_RELATION_ERROR_FOR.
-   * Indicates that this object has one or more errors, the nature of which is
-   * described in the contents of the target object(s). Objects that have this
-   * relation type should also contain %ATSPI_STATE_INVALID_ENTRY in their
-   * #AtspiStateSet. @Since: 2.26.
-   * @ATSPI_RELATION_ERROR_FOR: Reciprocal of %ATSPI_RELATION_ERROR_MESSAGE.
-   * Indicates that this object contains an error message describing an invalid
-   * condition in the target object(s). @Since: 2.26.
    * @ATSPI_RELATION_LAST_DEFINED: Do not use as a parameter value, used to
    * determine the size of the enumeration.
    *
    * #AtspiRelationType specifies a relationship between objects
    * (possibly one-to-many
    * or many-to-one) outside of the normal parent/child hierarchical
-   * relationship. It allows better semantic       identification of how objects
+   * relationship. It allows better semantic identification of how objects
    * are associated with one another.       For instance the
    * @ATSPI_RELATION_LABELLED_BY
-   * relationship may be used to identify labelling information       that should
+   * relationship may be used to identify labelling information that should
    * accompany the accessible name property when presenting an object's content or
-   * identity       to the end user.  Similarly,
+   * identity to the end user.  Similarly,
    * @ATSPI_RELATION_CONTROLLER_FOR can be used
    * to further specify the context in which a valuator is useful, and/or the
    * other UI components which are directly effected by user interactions with
@@ -916,6 +911,49 @@ G_STATIC_ASSERT(ATSPI_STATETYPE_COUNT == ATSPI_STATE_LAST_DEFINED + 1);
    * the type of relation encapsulated in an #AtspiRelation object.
    *
    **/
+
+  /**
+   * ATSPI_RELATION_DETAILS:
+   *
+   * Reciprocal of %ATSPI_RELATION_DETAILS_FOR. Indicates that this object has a
+   * detailed or extended description, the contents of which can be found in the
+   * target object(s). This relation type is most appropriate for information
+   * that is sufficiently lengthy as to make navigation to the container of that
+   * information desirable. For less verbose information suitable for
+   * announcement only, see %ATSPI_RELATION_DESCRIBED_BY. If the detailed
+   * information describes an error condition, %ATSPI_RELATION_ERROR_FOR should
+   * be used instead.
+   * Since: 2.26.
+   */
+
+  /**
+   * ATSPI_RELATION_DETAILS_FOR:
+   *
+   * Reciprocal of %ATSPI_RELATION_DETAILS. Indicates that this object provides a
+   * detailed or extended description about the target object(s). See also
+   * %ATSPI_RELATION_DESCRIPTION_FOR and %ATSPI_RELATION_ERROR_FOR.
+   * Since: 2.26.
+   */
+
+  /**
+   * ATSPI_RELATION_ERROR_MESSAGE:
+   *
+   * Reciprocal of %ATSPI_RELATION_ERROR_FOR. Indicates that this object has one
+   * or more errors, the nature of which is described in the contents of the
+   * target object(s). Objects that have this relation type should also contain
+   * %ATSPI_STATE_INVALID_ENTRY in their #AtspiStateSet.
+   * Since: 2.26.
+   */
+
+  /**
+   * ATSPI_RELATION_ERROR_FOR:
+   *
+   * Reciprocal of %ATSPI_RELATION_ERROR_MESSAGE. Indicates that this object
+   * contains an error message describing an invalid condition in the target
+   * object(s).
+   * Since: 2.26.
+   */
+
   typedef enum
   {
     ATSPI_RELATION_NULL,
@@ -953,489 +991,642 @@ G_STATIC_ASSERT(ATSPI_STATETYPE_COUNT == ATSPI_STATE_LAST_DEFINED + 1);
 
 G_STATIC_ASSERT(ATSPI_RELATIONTYPE_COUNT == ATSPI_RELATION_LAST_DEFINED + 1);
 
-  /**
-   * AtspiRole:
-   * @ATSPI_ROLE_INVALID: A role indicating an error condition, such as
-   * uninitialized Role data.
-   * @ATSPI_ROLE_ACCELERATOR_LABEL: Object is a label indicating the keyboard
-   * accelerators for the parent.
-   * @ATSPI_ROLE_ALERT: Object is used to alert the user about something.
-   * @ATSPI_ROLE_ANIMATION: Object contains a dynamic or moving image of some
-   * kind.
-   * @ATSPI_ROLE_ARROW: Object is a 2d directional indicator.
-   * @ATSPI_ROLE_CALENDAR: Object contains one or more dates, usually arranged
-   * into a 2d list.
-   * @ATSPI_ROLE_CANVAS: Object that can be drawn into and is used to trap
-   * events.
-   * @ATSPI_ROLE_CHECK_BOX: A choice that can be checked or unchecked and
-   * provides a separate       indicator for the current state.
-   * @ATSPI_ROLE_CHECK_MENU_ITEM: A menu item that behaves like a check box. See
-   * @ATSPI_ROLE_CHECK_BOX.
-   * @ATSPI_ROLE_COLOR_CHOOSER: A specialized dialog that lets the user choose a
-   * color.
-   * @ATSPI_ROLE_COLUMN_HEADER: The header for a column of data.
-   * @ATSPI_ROLE_COMBO_BOX: A list of choices the user can select from.
-   * @ATSPI_ROLE_DATE_EDITOR: An object which allows entry of a date.
-   * @ATSPI_ROLE_DESKTOP_ICON: An inconifed internal frame within a DESKTOP_FRAME.
-   * @ATSPI_ROLE_DESKTOP_FRAME: A pane that supports internal frames and
-   * iconified versions of those internal frames.
-   * @ATSPI_ROLE_DIAL: An object that allows a value to be changed via rotating a
-   * visual element, or which displays a value via such a rotating element.
-   * @ATSPI_ROLE_DIALOG: A top level window with title bar and a border.
-   * @ATSPI_ROLE_DIRECTORY_PANE: A pane that allows the user to navigate through
-   * and select the contents of a directory.
-   * @ATSPI_ROLE_DRAWING_AREA: An object used for drawing custom user interface
-   * elements.
-   * @ATSPI_ROLE_FILE_CHOOSER: A specialized dialog that displays the files in
-   * the directory and lets the user select a file, browse a different
-   * directory, or specify a filename.
-   * @ATSPI_ROLE_FILLER: A object that fills up space in a user interface.
-   * @ATSPI_ROLE_FOCUS_TRAVERSABLE: Don't use, reserved for future use.
-   * @ATSPI_ROLE_FONT_CHOOSER: Allows selection of a display font.
-   * @ATSPI_ROLE_FRAME: A top level window with a title bar, border, menubar,
-   * etc.
-   * @ATSPI_ROLE_GLASS_PANE: A pane that is guaranteed to be painted on top of
-   * all panes beneath it.
-   * @ATSPI_ROLE_HTML_CONTAINER: A document container for HTML, whose children
-   * represent the document content.
-   * @ATSPI_ROLE_ICON: A small fixed size picture, typically used to decorate
-   * components.
-   * @ATSPI_ROLE_IMAGE: An image, typically static.
-   * @ATSPI_ROLE_INTERNAL_FRAME: A frame-like object that is clipped by a desktop
-   * pane.
-   * @ATSPI_ROLE_LABEL: An object used to present an icon or short string in an
-   * interface.
-   * @ATSPI_ROLE_LAYERED_PANE: A specialized pane that allows its children to be
-   * drawn in layers, providing a form of stacking order.
-   * @ATSPI_ROLE_LIST: An object that presents a list of objects to the user and
-   * allows the user to select one or more of them.
-   * @ATSPI_ROLE_LIST_ITEM: An object that represents an element of a list.
-   * @ATSPI_ROLE_MENU: An object usually found inside a menu bar that contains a
-   * list of actions the user can choose from.
-   * @ATSPI_ROLE_MENU_BAR: An object usually drawn at the top of the primary
-   * dialog box of an application that contains a list of menus the user can
-   * choose from.
-   * @ATSPI_ROLE_MENU_ITEM: An object usually contained in a menu that presents
-   * an action the user can choose.
-   * @ATSPI_ROLE_OPTION_PANE: A specialized pane whose primary use is inside a
-   * dialog.
-   * @ATSPI_ROLE_PAGE_TAB: An object that is a child of a page tab list.
-   * @ATSPI_ROLE_PAGE_TAB_LIST: An object that presents a series of panels (or
-   * page tabs), one at a time,through some mechanism provided by the
-   * object.
-   * @ATSPI_ROLE_PANEL: A generic container that is often used to group objects.
-   * @ATSPI_ROLE_PASSWORD_TEXT: A text object uses for passwords, or other places
-   * where the text content is not shown visibly to the user.
-   * @ATSPI_ROLE_POPUP_MENU: A temporary window that is usually used to offer the
-   * user a list of choices, and then hides when the user selects one of those
-   * choices.
-   * @ATSPI_ROLE_PROGRESS_BAR: An object used to indicate how much of a task has
-   * been completed.
-   * @ATSPI_ROLE_BUTTON: An object the user can manipulate to tell the
-   * application to do something.
-   * @ATSPI_ROLE_RADIO_BUTTON: A specialized check box that will cause other
-   * radio buttons in the same group to become unchecked when this one is
-   * checked.
-   * @ATSPI_ROLE_RADIO_MENU_ITEM: Object is both a menu item and a "radio button"
-   * . See @ATSPI_ROLE_RADIO_BUTTON.
-   * @ATSPI_ROLE_ROOT_PANE: A specialized pane that has a glass pane and a
-   * layered pane as its children.
-   * @ATSPI_ROLE_ROW_HEADER: The header for a row of data.
-   * @ATSPI_ROLE_SCROLL_BAR: An object usually used to allow a user to
-   * incrementally view a large amount of data by moving the bounds of a
-   * viewport along a one-dimensional axis.
-   * @ATSPI_ROLE_SCROLL_PANE: An object that allows a user to incrementally view
-   * a large amount of information. @ATSPI_ROLE_SCROLL_PANE objects are usually
-   * accompanied by @ATSPI_ROLE_SCROLL_BAR controllers, on which the
-   * @ATSPI_RELATION_CONTROLLER_FOR and @ATSPI_RELATION_CONTROLLED_BY
-   * reciprocal relations are set. See  #atspi_get_relation_set.
-   * @ATSPI_ROLE_SEPARATOR: An object usually contained in a menu to provide a
-   * visible and logical separation of the contents in a menu.
-   * @ATSPI_ROLE_SLIDER: An object that allows the user to select from a bounded
-   * range.  Unlike @ATSPI_ROLE_SCROLL_BAR, @ATSPI_ROLE_SLIDER objects need not control
-   * 'viewport'-like objects.
-   * @ATSPI_ROLE_SPIN_BUTTON: An object which allows one of a set of choices to
-   * be selected, and which displays the current choice.
-   * @ATSPI_ROLE_SPLIT_PANE: A specialized panel that presents two other panels
-   * at the same time.
-   * @ATSPI_ROLE_STATUS_BAR: Object displays non-quantitative status information
-   * (c.f. @ATSPI_ROLE_PROGRESS_BAR)
-   * @ATSPI_ROLE_TABLE: An object used to repesent information in terms of rows
-   * and columns.
-   * @ATSPI_ROLE_TABLE_CELL: A 'cell' or discrete child within a Table. Note:
-   * Table cells need not have @ATSPI_ROLE_TABLE_CELL, other
-   * #AtspiRoleType values are valid as well.
-   * @ATSPI_ROLE_TABLE_COLUMN_HEADER: An object which labels a particular column
-   * in an #AtspiTable.
-   * @ATSPI_ROLE_TABLE_ROW_HEADER: An object which labels a particular row in a
-   * #AtspiTable. #AtspiTable rows and columns may also be labelled via the
-   * @ATSPI_RELATION_LABEL_FOR/@ATSPI_RELATION_LABELLED_BY relationships.
-   * See #atspi_get_relation_set.
-   * @ATSPI_ROLE_TEAROFF_MENU_ITEM: Object allows menu to be removed from menubar
-   * and shown in its own window.
-   * @ATSPI_ROLE_TERMINAL: An object that emulates a terminal.
-   * @ATSPI_ROLE_TEXT: An interactive widget that supports multiple lines of text
-   * and optionally accepts user input, but whose purpose is not to solicit user
-   * input. Thus @ATSPI_ROLE_TEXT is appropriate for the text view in a plain text
-   * editor but inappropriate for an input field in a dialog box or web form. For
-   * widgets whose purpose is to solicit input from the user, see @ATSPI_ROLE_ENTRY
-   * and @ATSPI_ROLE_PASSWORD_TEXT. For generic objects which display a brief amount
-   * of textual information, see @ATSPI_ROLE_STATIC.
-   * @ATSPI_ROLE_TOGGLE_BUTTON: A specialized push button that can be checked or
-   * unchecked, but does not procide a separate indicator for the current
-   * state.
-   * @ATSPI_ROLE_TOOL_BAR: A bar or palette usually composed of push buttons or
-   * toggle buttons.
-   * @ATSPI_ROLE_TOOL_TIP: An object that provides information about another
-   * object.
-   * @ATSPI_ROLE_TREE: An object used to repsent hierarchical information to the
-   * user.
-   * @ATSPI_ROLE_TREE_TABLE: An object that presents both tabular and
-   * hierarchical info to the user.
-   * @ATSPI_ROLE_UNKNOWN: The object contains some #AtspiAccessible information,
-   * but its role is not known.
-   * @ATSPI_ROLE_VIEWPORT: An object usually used in a scroll pane, or to
-   * otherwise clip a larger object or content renderer to a specific
-   * onscreen viewport.
-   * @ATSPI_ROLE_WINDOW: A top level window with no title or border.
-   * @ATSPI_ROLE_EXTENDED: means that the role for this item is known, but not
-   * included in the core enumeration. Deprecated since 2.24.
-   * @ATSPI_ROLE_HEADER: An object that serves as a document header.
-   * @ATSPI_ROLE_FOOTER: An object that serves as a document footer.
-   * @ATSPI_ROLE_PARAGRAPH: An object which is contains a single paragraph of
-   * text content. See also @ATSPI_ROLE_TEXT.
-   * @ATSPI_ROLE_RULER: An object which describes margins and tab stops, etc.
-   *    for text objects which it controls (should have
-   * @ATSPI_RELATION_CONTROLLER_FOR relation to such).
-   * @ATSPI_ROLE_APPLICATION: An object corresponding to the toplevel accessible
-   * of an application, which may contain @ATSPI_ROLE_FRAME objects or other
-   * accessible objects. Children of objects with the #ATSPI_ROLE_DESKTOP_FRAME role are generally
-   * @ATSPI_ROLE_APPLICATION objects.
-   * @ATSPI_ROLE_AUTOCOMPLETE: The object is a dialog or list containing items
-   * for insertion into an entry widget, for instance a list of words for
-   * completion of a text entry.
-   * @ATSPI_ROLE_EDITBAR: The object is an editable text object in a toolbar.
-   * @ATSPI_ROLE_EMBEDDED: The object is an embedded component container.  This
-   * role is a "grouping" hint that the contained objects share a context
-   * which is different from the container in which this accessible is
-   * embedded. In particular, it is used for some kinds of document embedding,
-   * and for embedding of out-of-process component, "panel applets", etc.
-   * @ATSPI_ROLE_ENTRY: The object is a component whose textual content may be
-   * entered or modified by the user, provided @ATSPI_STATE_EDITABLE is present.
-   * A readonly @ATSPI_ROLE_ENTRY object (i.e. where @ATSPI_STATE_EDITABLE is
-   * not present) implies a read-only 'text field' in a form, as opposed to a
-   * title, label, or caption.
-   * @ATSPI_ROLE_CHART: The object is a graphical depiction of quantitative data.
-   * It may contain multiple subelements whose attributes and/or description
-   * may be queried to obtain both the  quantitative data and information about
-   * how the data is being presented. The @ATSPI_LABELLED_BY relation is
-   * particularly important in interpreting objects of this type, as is the
-   * accessible description property. See @ATSPI_ROLE_CAPTION.
-   * @ATSPI_ROLE_CAPTION: The object contains descriptive information, usually
-   * textual, about another user interface element such as a table, chart, or
-   * image.
-   * @ATSPI_ROLE_DOCUMENT_FRAME: The object is a visual frame or container which
-   * contains a view of document content. #AtspiDocument frames may occur within
-   * another #AtspiDocument instance, in which case the second  document may be
-   * said to be embedded in the containing instance.  HTML frames are often
-   * ATSPI_ROLE_DOCUMENT_FRAME:  Either this object, or a singleton descendant,
-   * should implement the #AtspiDocument interface.
-   * @ATSPI_ROLE_HEADING: The object serves as a heading for content which
-   * follows it in a document. The 'heading level' of the heading, if
-   * availabe,  may be obtained by       querying the object's attributes.
-   * @ATSPI_ROLE_PAGE: The object is a containing instance which encapsulates a
-   * page of information. @ATSPI_ROLE_PAGE is used in documents and content which
-   * support a paginated navigation model.
-   * @ATSPI_ROLE_SECTION: The object is a containing instance of document content
-   * which constitutes a particular 'logical' section of the document.  The
-   * type of content within a section, and the nature of the section division
-   * itself, may be obtained by querying the object's attributes.  Sections
-   * may be nested.
-   * @ATSPI_ROLE_REDUNDANT_OBJECT: The object is redundant with another object in
-   * the hierarchy, and is exposed for purely technical reasons.  Objects of
-   * this role should be ignored by clients, if they are encountered at all.
-   * @ATSPI_ROLE_FORM: The object is a containing instance of document content
-   * which has within it components with which the user can interact in order
-   * to input information; i.e. the object is a container for pushbuttons,
-   * comboboxes, text input fields, and other 'GUI' components. @ATSPI_ROLE_FORM
-   * should not, in general, be used for toplevel GUI containers or dialogs,
-   * but should be reserved for 'GUI' containers which occur within document
-   * content, for instance within Web documents, presentations, or text
-   * documents.  Unlike other GUI containers and dialogs which occur inside
-   * application instances, @ATSPI_ROLE_FORM containers' components are
-   * associated with the current document, rather than the current foreground
-   * application or viewer instance.
-   * @ATSPI_ROLE_LINK: The object is a hypertext anchor, i.e. a "link" in a
-   * hypertext document.  Such objects are distinct from 'inline'       content
-   * which may also use the #AtspiHypertext/#AtspiHyperlink interfacesto indicate
-   * the range/location within a text object where an inline or embedded object
-   * lies.
-   * @ATSPI_ROLE_INPUT_METHOD_WINDOW: The object is a window or similar viewport
-   * which is used to allow composition or input of a 'complex character',
-   * in other words it is an "input method window".
-   * @ATSPI_ROLE_TABLE_ROW: A row in a table.
-   * @ATSPI_ROLE_TREE_ITEM: An object that represents an element of a tree.
-   * @ATSPI_ROLE_DOCUMENT_SPREADSHEET: A document frame which contains a
-   * spreadsheet.
-   * @ATSPI_ROLE_DOCUMENT_PRESENTATION: A document frame which contains a
-   * presentation or slide content.
-   * @ATSPI_ROLE_DOCUMENT_TEXT: A document frame which contains textual content,
-   * such as found in a word processing
-   * application.
-   * @ATSPI_ROLE_DOCUMENT_WEB: A document frame which contains HTML or other
-   * markup suitable for display in a web browser.
-   * @ATSPI_ROLE_DOCUMENT_EMAIL: A document frame which contains email content
-   * to be displayed or composed either in plain text or
-   * HTML.
-   * @ATSPI_ROLE_COMMENT: An object found within a document and designed to
-   * present a comment, note, or other annotation. In some cases, this object
-   * might not be visible until activated.
-   * @ATSPI_ROLE_LIST_BOX: A non-collapsible list of choices the user can
-   * select from.
-   * @ATSPI_ROLE_GROUPING: A group of related widgets. This group typically has
-   * a label.
-   * @ATSPI_ROLE_IMAGE_MAP: An image map object. Usually a graphic with multiple
-   * hotspots, where each hotspot can be activated resulting in the loading of
-   * another document or section of a document.
-   * @ATSPI_ROLE_NOTIFICATION: A transitory object designed to present a
-   * message to the user, typically at the desktop level rather than inside a
-   * particular application.
-   * @ATSPI_ROLE_INFO_BAR: An object designed to present a message to the user
-   * within an existing window.
-   * @ATSPI_ROLE_LEVEL_BAR: A bar that serves as a level indicator to, for
-   * instance, show the strength of a password or the state of a battery. @Since: 2.8
-   * @ATSPI_ROLE_TITLE_BAR: A bar that serves as the title of a window or a
-   *  dialog. @Since: 2.12
-   * @ATSPI_ROLE_BLOCK_QUOTE: An object which contains a text section
-   *  that is quoted from another source.  @Since: 2.12
-   * @ATSPI_ROLE_AUDIO: An object which represents an audio
-   *  element. @Since: 2.12
-   * @ATSPI_ROLE_VIDEO: An object which represents a video
-   *  element. @Since: 2.12
-   * @ATSPI_ROLE_DEFINITION: A definition of a term or concept. @Since: 2.12
-   * @ATSPI_ROLE_ARTICLE: A section of a page that consists of a
-   *  composition that forms an independent part of a document, page, or
-   *  site. Examples: A blog entry, a news story, a forum post. @Since:
-   *  2.12
-   * @ATSPI_ROLE_LANDMARK: A region of a web page intended as a
-   *  navigational landmark. This is designed to allow Assistive
-   *  Technologies to provide quick navigation among key regions within a
-   *  document. @Since: 2.12
-   * @ATSPI_ROLE_LOG: A text widget or container holding log content, such
-   *  as chat history and error logs. In this role there is a
-   *  relationship between the arrival of new items in the log and the
-   *  reading order. The log contains a meaningful sequence and new
-   *  information is added only to the end of the log, not at arbitrary
-   *  points. @Since: 2.12
-   * @ATSPI_ROLE_MARQUEE: A container where non-essential information
-   *  changes frequently. Common usages of marquee include stock tickers
-   *  and ad banners. The primary difference between a marquee and a log
-   *  is that logs usually have a meaningful order or sequence of
-   *  important content changes. @Since: 2.12
-   * @ATSPI_ROLE_MATH: A text widget or container that holds a mathematical
-   *  expression. @Since: 2.12
-   * @ATSPI_ROLE_RATING: A widget whose purpose is to display a rating,
-   *  such as the number of stars associated with a song in a media
-   *  player. Objects of this role should also implement
-   *  AtspiValue. @Since: 2.12
-   * @ATSPI_ROLE_TIMER: An object containing a numerical counter which
-   *  indicates an amount of elapsed time from a start point, or the time
-   *  remaining until an end point. @Since: 2.12
-   * @ATSPI_ROLE_STATIC: A generic non-container object whose purpose is to display
-   *  a brief amount of information to the user and whose role is known by the
-   *  implementor but lacks semantic value for the user. Examples in which
-   *  @ATSPI_ROLE_STATIC is appropriate include the message displayed in a message
-   *  box and an image used as an alternative means to display text.
-   *  @ATSPI_ROLE_STATIC should not be applied to widgets which are traditionally
-   *  interactive, objects which display a significant amount of content, or any
-   *  object which has an accessible relation pointing to another object. The
-   *  displayed information, as a general rule, should be exposed through the
-   *  accessible name of the object. For labels which describe another widget, see
-   *  @ATSPI_ROLE_LABEL. For text views, see @ATSPI_ROLE_TEXT. For generic
-   *  containers, see @ATSPI_ROLE_PANEL. For objects whose role is not known by the
-   *  implementor, see @ATSPI_ROLE_UNKNOWN. @Since: 2.16.
-   * @ATSPI_ROLE_MATH_FRACTION: An object that represents a mathematical fraction. @Since: 2.16.
-   * @ATSPI_ROLE_MATH_ROOT: An object that represents a mathematical expression
-   *  displayed with a radical. @Since: 2.16.
-   * @ATSPI_ROLE_SUBSCRIPT: An object that contains text that is displayed as a
-   *  subscript. @Since: 2.16.
-   * @ATSPI_ROLE_SUPERSCRIPT: An object that contains text that is displayed as a
-   *  superscript. @Since: 2.16.
-   * @ATSPI_ROLE_DESCRIPTION_LIST: An object that represents a list of term-value
-   *  groups. A term-value group represents an individual description and consist
-   *  of one or more names (@ATSPI_ROLE_DESCRIPTION_TERM) followed by one or more
-   *  values (@ATSPI_ROLE_DESCRIPTION_VALUE). For each list, there should not be
-   *  more than one group with the same term name. @Since: 2.26.
-   * @ATSPI_ROLE_DESCRIPTION_TERM: An object that represents a term or phrase
-   *  with a corresponding definition. @Since: 2.26.
-   * @ATSPI_ROLE_DESCRIPTION_VALUE: An object that represents the description,
-   *  definition, or value of a term. @Since: 2.26.
-   * @ATSPI_ROLE_FOOTNOTE: An object that contains the text of a footnote. @Since: 2.26.
-   * @ATSPI_ROLE_CONTENT_DELETION: Content previously deleted or proposed to be
-   * deleted, e.g. in revision history or a content view providing suggestions
-   * from reviewers. @Since: 2.34.
-   * @ATSPI_ROLE_CONTENT_INSERTION: Content previously inserted or proposed to be
-   * inserted, e.g. in revision history or a content view providing suggestions
-   * from reviewers. @Since: 2.34.
-   * @ATSPI_ROLE_MARK: A run of content that is marked or highlighted, such as for
-   * reference purposes, or to call it out as having a special purpose. If the
-   * marked content has an associated section in the document elaborating on the
-   * reason for the mark, then %ATSPI_RELATION_DETAILS should be used on the mark
-   * to point to that associated section. In addition, the reciprocal relation
-   * %ATSPI_RELATION_DETAILS_FOR should be used on the associated content section
-   * to point back to the mark. @Since: 2.36.
-   * @ATSPI_ROLE_SUGGESTION: A container for content that is called out as a proposed
-   * change from the current version of the document, such as by a reviewer of the
-   * content. An object with this role should include children with %ATSPI_ROLE_CONTENT_DELETION and/or
-   * %ATSPI_ROLE_CONTENT_INSERTION, in any order, to indicate what the
-   * actual change is. @Since: 2.36
-   * @ATSPI_ROLE_PUSH_BUTTON_MENU: A specialized push button to open a menu. @Since 2.46
-   * @ATSPI_ROLE_SWITCH: A switch that can be toggled on/off. @Since 2.56
-   * @ATSPI_ROLE_LAST_DEFINED: Not a valid role, used for finding end of
-   * enumeration.
-   *
-   * Enumeration used by interface #AtspiAccessible to specify the role
-   * of an #AtspiAccessible object.
-   *
-   */
-  typedef enum
-  {
-    ATSPI_ROLE_INVALID,
-    ATSPI_ROLE_ACCELERATOR_LABEL,
-    ATSPI_ROLE_ALERT,
-    ATSPI_ROLE_ANIMATION,
-    ATSPI_ROLE_ARROW,
-    ATSPI_ROLE_CALENDAR,
-    ATSPI_ROLE_CANVAS,
-    ATSPI_ROLE_CHECK_BOX,
-    ATSPI_ROLE_CHECK_MENU_ITEM,
-    ATSPI_ROLE_COLOR_CHOOSER,
-    ATSPI_ROLE_COLUMN_HEADER,
-    ATSPI_ROLE_COMBO_BOX,
-    ATSPI_ROLE_DATE_EDITOR,
-    ATSPI_ROLE_DESKTOP_ICON,
-    ATSPI_ROLE_DESKTOP_FRAME,
-    ATSPI_ROLE_DIAL,
-    ATSPI_ROLE_DIALOG,
-    ATSPI_ROLE_DIRECTORY_PANE,
-    ATSPI_ROLE_DRAWING_AREA,
-    ATSPI_ROLE_FILE_CHOOSER,
-    ATSPI_ROLE_FILLER,
-    ATSPI_ROLE_FOCUS_TRAVERSABLE,
-    ATSPI_ROLE_FONT_CHOOSER,
-    ATSPI_ROLE_FRAME,
-    ATSPI_ROLE_GLASS_PANE,
-    ATSPI_ROLE_HTML_CONTAINER,
-    ATSPI_ROLE_ICON,
-    ATSPI_ROLE_IMAGE,
-    ATSPI_ROLE_INTERNAL_FRAME,
-    ATSPI_ROLE_LABEL,
-    ATSPI_ROLE_LAYERED_PANE,
-    ATSPI_ROLE_LIST,
-    ATSPI_ROLE_LIST_ITEM,
-    ATSPI_ROLE_MENU,
-    ATSPI_ROLE_MENU_BAR,
-    ATSPI_ROLE_MENU_ITEM,
-    ATSPI_ROLE_OPTION_PANE,
-    ATSPI_ROLE_PAGE_TAB,
-    ATSPI_ROLE_PAGE_TAB_LIST,
-    ATSPI_ROLE_PANEL,
-    ATSPI_ROLE_PASSWORD_TEXT,
-    ATSPI_ROLE_POPUP_MENU,
-    ATSPI_ROLE_PROGRESS_BAR,
-    ATSPI_ROLE_BUTTON,
-    ATSPI_ROLE_RADIO_BUTTON,
-    ATSPI_ROLE_RADIO_MENU_ITEM,
-    ATSPI_ROLE_ROOT_PANE,
-    ATSPI_ROLE_ROW_HEADER,
-    ATSPI_ROLE_SCROLL_BAR,
-    ATSPI_ROLE_SCROLL_PANE,
-    ATSPI_ROLE_SEPARATOR,
-    ATSPI_ROLE_SLIDER,
-    ATSPI_ROLE_SPIN_BUTTON,
-    ATSPI_ROLE_SPLIT_PANE,
-    ATSPI_ROLE_STATUS_BAR,
-    ATSPI_ROLE_TABLE,
-    ATSPI_ROLE_TABLE_CELL,
-    ATSPI_ROLE_TABLE_COLUMN_HEADER,
-    ATSPI_ROLE_TABLE_ROW_HEADER,
-    ATSPI_ROLE_TEAROFF_MENU_ITEM,
-    ATSPI_ROLE_TERMINAL,
-    ATSPI_ROLE_TEXT,
-    ATSPI_ROLE_TOGGLE_BUTTON,
-    ATSPI_ROLE_TOOL_BAR,
-    ATSPI_ROLE_TOOL_TIP,
-    ATSPI_ROLE_TREE,
-    ATSPI_ROLE_TREE_TABLE,
-    ATSPI_ROLE_UNKNOWN,
-    ATSPI_ROLE_VIEWPORT,
-    ATSPI_ROLE_WINDOW,
-    ATSPI_ROLE_EXTENDED,
-    ATSPI_ROLE_HEADER,
-    ATSPI_ROLE_FOOTER,
-    ATSPI_ROLE_PARAGRAPH,
-    ATSPI_ROLE_RULER,
-    ATSPI_ROLE_APPLICATION,
-    ATSPI_ROLE_AUTOCOMPLETE,
-    ATSPI_ROLE_EDITBAR,
-    ATSPI_ROLE_EMBEDDED,
-    ATSPI_ROLE_ENTRY,
-    ATSPI_ROLE_CHART,
-    ATSPI_ROLE_CAPTION,
-    ATSPI_ROLE_DOCUMENT_FRAME,
-    ATSPI_ROLE_HEADING,
-    ATSPI_ROLE_PAGE,
-    ATSPI_ROLE_SECTION,
-    ATSPI_ROLE_REDUNDANT_OBJECT,
-    ATSPI_ROLE_FORM,
-    ATSPI_ROLE_LINK,
-    ATSPI_ROLE_INPUT_METHOD_WINDOW,
-    ATSPI_ROLE_TABLE_ROW,
-    ATSPI_ROLE_TREE_ITEM,
-    ATSPI_ROLE_DOCUMENT_SPREADSHEET,
-    ATSPI_ROLE_DOCUMENT_PRESENTATION,
-    ATSPI_ROLE_DOCUMENT_TEXT,
-    ATSPI_ROLE_DOCUMENT_WEB,
-    ATSPI_ROLE_DOCUMENT_EMAIL,
-    ATSPI_ROLE_COMMENT,
-    ATSPI_ROLE_LIST_BOX,
-    ATSPI_ROLE_GROUPING,
-    ATSPI_ROLE_IMAGE_MAP,
-    ATSPI_ROLE_NOTIFICATION,
-    ATSPI_ROLE_INFO_BAR,
-    ATSPI_ROLE_LEVEL_BAR,
-    ATSPI_ROLE_TITLE_BAR,
-    ATSPI_ROLE_BLOCK_QUOTE,
-    ATSPI_ROLE_AUDIO,
-    ATSPI_ROLE_VIDEO,
-    ATSPI_ROLE_DEFINITION,
-    ATSPI_ROLE_ARTICLE,
-    ATSPI_ROLE_LANDMARK,
-    ATSPI_ROLE_LOG,
-    ATSPI_ROLE_MARQUEE,
-    ATSPI_ROLE_MATH,
-    ATSPI_ROLE_RATING,
-    ATSPI_ROLE_TIMER,
-    ATSPI_ROLE_STATIC,
-    ATSPI_ROLE_MATH_FRACTION,
-    ATSPI_ROLE_MATH_ROOT,
-    ATSPI_ROLE_SUBSCRIPT,
-    ATSPI_ROLE_SUPERSCRIPT,
-    ATSPI_ROLE_DESCRIPTION_LIST,
-    ATSPI_ROLE_DESCRIPTION_TERM,
-    ATSPI_ROLE_DESCRIPTION_VALUE,
-    ATSPI_ROLE_FOOTNOTE,
-    ATSPI_ROLE_CONTENT_DELETION,
-    ATSPI_ROLE_CONTENT_INSERTION,
-    ATSPI_ROLE_MARK,
-    ATSPI_ROLE_SUGGESTION,
-    ATSPI_ROLE_PUSH_BUTTON_MENU,
-    ATSPI_ROLE_SWITCH,
-    ATSPI_ROLE_LAST_DEFINED,
+/**
+ * AtspiRole:
+ * @ATSPI_ROLE_INVALID: A role indicating an error condition, such as
+ * uninitialized Role data.
+ * @ATSPI_ROLE_ACCELERATOR_LABEL: Object is a label indicating the keyboard
+ * accelerators for the parent.
+ * @ATSPI_ROLE_ALERT: Object is used to alert the user about something.
+ * @ATSPI_ROLE_ANIMATION: Object contains a dynamic or moving image of some
+ * kind.
+ * @ATSPI_ROLE_ARROW: Object is a 2d directional indicator.
+ * @ATSPI_ROLE_CALENDAR: Object contains one or more dates, usually arranged
+ * into a 2d list.
+ * @ATSPI_ROLE_CANVAS: Object that can be drawn into and is used to trap
+ * events.
+ * @ATSPI_ROLE_CHECK_BOX: A choice that can be checked or unchecked and
+ * provides a separate indicator for the current state.
+ * @ATSPI_ROLE_CHECK_MENU_ITEM: A menu item that behaves like a check box. See
+ * @ATSPI_ROLE_CHECK_BOX.
+ * @ATSPI_ROLE_COLOR_CHOOSER: A specialized dialog that lets the user choose a
+ * color.
+ * @ATSPI_ROLE_COLUMN_HEADER: The header for a column of data.
+ * @ATSPI_ROLE_COMBO_BOX: A list of choices the user can select from.
+ * @ATSPI_ROLE_DATE_EDITOR: An object which allows entry of a date.
+ * @ATSPI_ROLE_DESKTOP_ICON: An inconifed internal frame within a DESKTOP_FRAME.
+ * @ATSPI_ROLE_DESKTOP_FRAME: A pane that supports internal frames and
+ * iconified versions of those internal frames.
+ * @ATSPI_ROLE_DIAL: An object that allows a value to be changed via rotating a
+ * visual element, or which displays a value via such a rotating element.
+ * @ATSPI_ROLE_DIALOG: A top level window with title bar and a border.
+ * @ATSPI_ROLE_DIRECTORY_PANE: A pane that allows the user to navigate through
+ * and select the contents of a directory.
+ * @ATSPI_ROLE_DRAWING_AREA: An object used for drawing custom user interface
+ * elements.
+ * @ATSPI_ROLE_FILE_CHOOSER: A specialized dialog that displays the files in
+ * the directory and lets the user select a file, browse a different
+ * directory, or specify a filename.
+ * @ATSPI_ROLE_FILLER: A object that fills up space in a user interface.
+ * @ATSPI_ROLE_FOCUS_TRAVERSABLE: Don't use, reserved for future use.
+ * @ATSPI_ROLE_FONT_CHOOSER: Allows selection of a display font.
+ * @ATSPI_ROLE_FRAME: A top level window with a title bar, border, menubar,
+ * etc.
+ * @ATSPI_ROLE_GLASS_PANE: A pane that is guaranteed to be painted on top of
+ * all panes beneath it.
+ * @ATSPI_ROLE_HTML_CONTAINER: A document container for HTML, whose children
+ * represent the document content.
+ * @ATSPI_ROLE_ICON: A small fixed size picture, typically used to decorate
+ * components.
+ * @ATSPI_ROLE_IMAGE: An image, typically static.
+ * @ATSPI_ROLE_INTERNAL_FRAME: A frame-like object that is clipped by a desktop
+ * pane.
+ * @ATSPI_ROLE_LABEL: An object used to present an icon or short string in an
+ * interface.
+ * @ATSPI_ROLE_LAYERED_PANE: A specialized pane that allows its children to be
+ * drawn in layers, providing a form of stacking order.
+ * @ATSPI_ROLE_LIST: An object that presents a list of objects to the user and
+ * allows the user to select one or more of them.
+ * @ATSPI_ROLE_LIST_ITEM: An object that represents an element of a list.
+ * @ATSPI_ROLE_MENU: An object usually found inside a menu bar that contains a
+ * list of actions the user can choose from.
+ * @ATSPI_ROLE_MENU_BAR: An object usually drawn at the top of the primary
+ * dialog box of an application that contains a list of menus the user can
+ * choose from.
+ * @ATSPI_ROLE_MENU_ITEM: An object usually contained in a menu that presents
+ * an action the user can choose.
+ * @ATSPI_ROLE_OPTION_PANE: A specialized pane whose primary use is inside a
+ * dialog.
+ * @ATSPI_ROLE_PAGE_TAB: An object that is a child of a page tab list.
+ * @ATSPI_ROLE_PAGE_TAB_LIST: An object that presents a series of panels (or
+ * page tabs), one at a time,through some mechanism provided by the
+ * object.
+ * @ATSPI_ROLE_PANEL: A generic container that is often used to group objects.
+ * @ATSPI_ROLE_PASSWORD_TEXT: A text object uses for passwords, or other places
+ * where the text content is not shown visibly to the user.
+ * @ATSPI_ROLE_POPUP_MENU: A temporary window that is usually used to offer the
+ * user a list of choices, and then hides when the user selects one of those
+ * choices.
+ * @ATSPI_ROLE_PROGRESS_BAR: An object used to indicate how much of a task has
+ * been completed.
+ * @ATSPI_ROLE_BUTTON: An object the user can manipulate to tell the
+ * application to do something.
+ * @ATSPI_ROLE_RADIO_BUTTON: A specialized check box that will cause other
+ * radio buttons in the same group to become unchecked when this one is
+ * checked.
+ * @ATSPI_ROLE_RADIO_MENU_ITEM: Object is both a menu item and a "radio button"
+ * . See @ATSPI_ROLE_RADIO_BUTTON.
+ * @ATSPI_ROLE_ROOT_PANE: A specialized pane that has a glass pane and a
+ * layered pane as its children.
+ * @ATSPI_ROLE_ROW_HEADER: The header for a row of data.
+ * @ATSPI_ROLE_SCROLL_BAR: An object usually used to allow a user to
+ * incrementally view a large amount of data by moving the bounds of a
+ * viewport along a one-dimensional axis.
+ * @ATSPI_ROLE_SCROLL_PANE: An object that allows a user to incrementally view
+ * a large amount of information. @ATSPI_ROLE_SCROLL_PANE objects are usually
+ * accompanied by @ATSPI_ROLE_SCROLL_BAR controllers, on which the
+ * @ATSPI_RELATION_CONTROLLER_FOR and @ATSPI_RELATION_CONTROLLED_BY
+ * reciprocal relations are set. See #atspi_get_relation_set.
+ * @ATSPI_ROLE_SEPARATOR: An object usually contained in a menu to provide a
+ * visible and logical separation of the contents in a menu.
+ * @ATSPI_ROLE_SLIDER: An object that allows the user to select from a bounded
+ * range.  Unlike @ATSPI_ROLE_SCROLL_BAR, @ATSPI_ROLE_SLIDER objects need not control
+ * 'viewport'-like objects.
+ * @ATSPI_ROLE_SPIN_BUTTON: An object which allows one of a set of choices to
+ * be selected, and which displays the current choice.
+ * @ATSPI_ROLE_SPLIT_PANE: A specialized panel that presents two other panels
+ * at the same time.
+ * @ATSPI_ROLE_STATUS_BAR: Object displays non-quantitative status information
+ * (c.f. @ATSPI_ROLE_PROGRESS_BAR)
+ * @ATSPI_ROLE_TABLE: An object used to repesent information in terms of rows
+ * and columns.
+ * @ATSPI_ROLE_TABLE_CELL: A 'cell' or discrete child within a Table. Note:
+ * Table cells need not have @ATSPI_ROLE_TABLE_CELL, other
+ * #AtspiRoleType values are valid as well.
+ * @ATSPI_ROLE_TABLE_COLUMN_HEADER: An object which labels a particular column
+ * in an #AtspiTable.
+ * @ATSPI_ROLE_TABLE_ROW_HEADER: An object which labels a particular row in a
+ * #AtspiTable. #AtspiTable rows and columns may also be labelled via the
+ * @ATSPI_RELATION_LABEL_FOR/@ATSPI_RELATION_LABELLED_BY relationships.
+ * See #atspi_get_relation_set.
+ * @ATSPI_ROLE_TEAROFF_MENU_ITEM: Object allows menu to be removed from menubar
+ * and shown in its own window.
+ * @ATSPI_ROLE_TERMINAL: An object that emulates a terminal.
+ * @ATSPI_ROLE_TEXT: An interactive widget that supports multiple lines of text
+ * and optionally accepts user input, but whose purpose is not to solicit user
+ * input. Thus @ATSPI_ROLE_TEXT is appropriate for the text view in a plain text
+ * editor but inappropriate for an input field in a dialog box or web form. For
+ * widgets whose purpose is to solicit input from the user, see @ATSPI_ROLE_ENTRY
+ * and @ATSPI_ROLE_PASSWORD_TEXT. For generic objects which display a brief amount
+ * of textual information, see @ATSPI_ROLE_STATIC.
+ * @ATSPI_ROLE_TOGGLE_BUTTON: A specialized push button that can be checked or
+ * unchecked, but does not procide a separate indicator for the current
+ * state.
+ * @ATSPI_ROLE_TOOL_BAR: A bar or palette usually composed of push buttons or
+ * toggle buttons.
+ * @ATSPI_ROLE_TOOL_TIP: An object that provides information about another
+ * object.
+ * @ATSPI_ROLE_TREE: An object used to repsent hierarchical information to the
+ * user.
+ * @ATSPI_ROLE_TREE_TABLE: An object that presents both tabular and
+ * hierarchical info to the user.
+ * @ATSPI_ROLE_UNKNOWN: The object contains some #AtspiAccessible information,
+ * but its role is not known.
+ * @ATSPI_ROLE_VIEWPORT: An object usually used in a scroll pane, or to
+ * otherwise clip a larger object or content renderer to a specific
+ * onscreen viewport.
+ * @ATSPI_ROLE_WINDOW: A top level window with no title or border.
+ * @ATSPI_ROLE_EXTENDED: means that the role for this item is known, but not
+ * included in the core enumeration. Deprecated since 2.24.
+ * @ATSPI_ROLE_HEADER: An object that serves as a document header.
+ * @ATSPI_ROLE_FOOTER: An object that serves as a document footer.
+ * @ATSPI_ROLE_PARAGRAPH: An object which is contains a single paragraph of
+ * text content. See also @ATSPI_ROLE_TEXT.
+ * @ATSPI_ROLE_RULER: An object which describes margins and tab stops, etc.
+ *    for text objects which it controls (should have
+ * @ATSPI_RELATION_CONTROLLER_FOR relation to such).
+ * @ATSPI_ROLE_APPLICATION: An object corresponding to the toplevel accessible
+ * of an application, which may contain @ATSPI_ROLE_FRAME objects or other
+ * accessible objects. Children of objects with the #ATSPI_ROLE_DESKTOP_FRAME role are generally
+ * @ATSPI_ROLE_APPLICATION objects.
+ * @ATSPI_ROLE_AUTOCOMPLETE: The object is a dialog or list containing items
+ * for insertion into an entry widget, for instance a list of words for
+ * completion of a text entry.
+ * @ATSPI_ROLE_EDITBAR: The object is an editable text object in a toolbar.
+ * @ATSPI_ROLE_EMBEDDED: The object is an embedded component container.  This
+ * role is a "grouping" hint that the contained objects share a context
+ * which is different from the container in which this accessible is
+ * embedded. In particular, it is used for some kinds of document embedding,
+ * and for embedding of out-of-process component, "panel applets", etc.
+ * @ATSPI_ROLE_ENTRY: The object is a component whose textual content may be
+ * entered or modified by the user, provided @ATSPI_STATE_EDITABLE is present.
+ * A readonly @ATSPI_ROLE_ENTRY object (i.e. where @ATSPI_STATE_EDITABLE is
+ * not present) implies a read-only 'text field' in a form, as opposed to a
+ * title, label, or caption.
+ * @ATSPI_ROLE_CHART: The object is a graphical depiction of quantitative data.
+ * It may contain multiple subelements whose attributes and/or description
+ * may be queried to obtain both the quantitative data and information about
+ * how the data is being presented. The @ATSPI_LABELLED_BY relation is
+ * particularly important in interpreting objects of this type, as is the
+ * accessible description property. See @ATSPI_ROLE_CAPTION.
+ * @ATSPI_ROLE_CAPTION: The object contains descriptive information, usually
+ * textual, about another user interface element such as a table, chart, or
+ * image.
+ * @ATSPI_ROLE_DOCUMENT_FRAME: The object is a visual frame or container which
+ * contains a view of document content. #AtspiDocument frames may occur within
+ * another #AtspiDocument instance, in which case the second document may be
+ * said to be embedded in the containing instance.  HTML frames are often
+ * ATSPI_ROLE_DOCUMENT_FRAME:  Either this object, or a singleton descendant,
+ * should implement the #AtspiDocument interface.
+ * @ATSPI_ROLE_HEADING: The object serves as a heading for content which
+ * follows it in a document. The 'heading level' of the heading, if
+ * available,  may be obtained by querying the object's attributes.
+ * @ATSPI_ROLE_PAGE: The object is a containing instance which encapsulates a
+ * page of information. @ATSPI_ROLE_PAGE is used in documents and content which
+ * support a paginated navigation model.
+ * @ATSPI_ROLE_SECTION: The object is a containing instance of document content
+ * which constitutes a particular 'logical' section of the document.  The
+ * type of content within a section, and the nature of the section division
+ * itself, may be obtained by querying the object's attributes.  Sections
+ * may be nested.
+ * @ATSPI_ROLE_REDUNDANT_OBJECT: The object is redundant with another object in
+ * the hierarchy, and is exposed for purely technical reasons.  Objects of
+ * this role should be ignored by clients, if they are encountered at all.
+ * @ATSPI_ROLE_FORM: The object is a containing instance of document content
+ * which has within it components with which the user can interact in order
+ * to input information; i.e. the object is a container for pushbuttons,
+ * comboboxes, text input fields, and other 'GUI' components. @ATSPI_ROLE_FORM
+ * should not, in general, be used for toplevel GUI containers or dialogs,
+ * but should be reserved for 'GUI' containers which occur within document
+ * content, for instance within Web documents, presentations, or text
+ * documents.  Unlike other GUI containers and dialogs which occur inside
+ * application instances, @ATSPI_ROLE_FORM containers' components are
+ * associated with the current document, rather than the current foreground
+ * application or viewer instance.
+ * @ATSPI_ROLE_LINK: The object is a hypertext anchor, i.e. a "link" in a
+ * hypertext document.  Such objects are distinct from 'inline'       content
+ * which may also use the #AtspiHypertext/#AtspiHyperlink interfacesto indicate
+ * the range/location within a text object where an inline or embedded object
+ * lies.
+ * @ATSPI_ROLE_INPUT_METHOD_WINDOW: The object is a window or similar viewport
+ * which is used to allow composition or input of a 'complex character',
+ * in other words it is an "input method window".
+ * @ATSPI_ROLE_TABLE_ROW: A row in a table.
+ * @ATSPI_ROLE_TREE_ITEM: An object that represents an element of a tree.
+ * @ATSPI_ROLE_DOCUMENT_SPREADSHEET: A document frame which contains a
+ * spreadsheet.
+ * @ATSPI_ROLE_DOCUMENT_PRESENTATION: A document frame which contains a
+ * presentation or slide content.
+ * @ATSPI_ROLE_DOCUMENT_TEXT: A document frame which contains textual content,
+ * such as found in a word processing
+ * application.
+ * @ATSPI_ROLE_DOCUMENT_WEB: A document frame which contains HTML or other
+ * markup suitable for display in a web browser.
+ * @ATSPI_ROLE_DOCUMENT_EMAIL: A document frame which contains email content
+ * to be displayed or composed either in plain text or
+ * HTML.
+ * @ATSPI_ROLE_COMMENT: An object found within a document and designed to
+ * present a comment, note, or other annotation. In some cases, this object
+ * might not be visible until activated.
+ * @ATSPI_ROLE_LIST_BOX: A non-collapsible list of choices the user can
+ * select from.
+ * @ATSPI_ROLE_GROUPING: A group of related widgets. This group typically has
+ * a label.
+ * @ATSPI_ROLE_IMAGE_MAP: An image map object. Usually a graphic with multiple
+ * hotspots, where each hotspot can be activated resulting in the loading of
+ * another document or section of a document.
+ * @ATSPI_ROLE_NOTIFICATION: A transitory object designed to present a
+ * message to the user, typically at the desktop level rather than inside a
+ * particular application.
+ * @ATSPI_ROLE_INFO_BAR: An object designed to present a message to the user
+ * within an existing window.
+ * @ATSPI_ROLE_STATIC: A generic non-container object whose purpose is to display
+ *  a brief amount of information to the user and whose role is known by the
+ *  implementor but lacks semantic value for the user. Examples in which
+ *  @ATSPI_ROLE_STATIC is appropriate include the message displayed in a message
+ *  box and an image used as an alternative means to display text.
+ *  @ATSPI_ROLE_STATIC should not be applied to widgets which are traditionally
+ *  interactive, objects which display a significant amount of content, or any
+ *  object which has an accessible relation pointing to another object. The
+ *  displayed information, as a general rule, should be exposed through the
+ *  accessible name of the object. For labels which describe another widget, see
+ * @ATSPI_ROLE_LAST_DEFINED: Not a valid role, used for finding end of
+ * enumeration.
+ *
+ * Enumeration used by interface #AtspiAccessible to specify the role
+ * of an #AtspiAccessible object.
+ *
+ */
 
-    /* For backwards compatibility */
-    ATSPI_ROLE_PUSH_BUTTON = ATSPI_ROLE_BUTTON,
-  } AtspiRole;
+/**
+ * ATSPI_ROLE_LEVEL_BAR:
+ *
+ * A bar that serves as a level indicator to, for instance, show the strength
+ * of a password or the state of a battery.
+ * Since: 2.8
+ */
+
+/**
+ * ATSPI_ROLE_TITLE_BAR:
+ *
+ * A bar that serves as the title of a window or a dialog.
+ * Since: 2.12
+ */
+
+/**
+ * ATSPI_ROLE_BLOCK_QUOTE:
+ *
+ * An object which contains a text section that is quoted from another source.
+ *
+ * Since: 2.12
+ */
+
+/**
+ * ATSPI_ROLE_AUDIO:
+ *
+ * An object which represents an audio element.
+ * Since: 2.12
+ */
+
+/**
+ * ATSPI_ROLE_VIDEO:
+ *
+ * An object which represents a video element.
+ * Since: 2.12
+ */
+
+/**
+ * ATSPI_ROLE_DEFINITION:
+ *
+ * A definition of a term or concept.
+ * Since: 2.12
+ */
+
+/**
+ * ATSPI_ROLE_ARTICLE:
+ *
+ * A section of a page that consists of a composition that forms an
+ * independent part of a document, page, or site. Examples: A blog entry, a
+ * news story, a forum post.
+ * Since: 2.12
+ */
+
+/**
+ * ATSPI_ROLE_LANDMARK:
+ *
+ * A region of a web page intended as a navigational landmark. This is
+ * designed to allow Assistive Technologies to provide quick navigation among
+ * key regions within a document.
+ * Since: 2.12
+ */
+
+/**
+ * ATSPI_ROLE_LOG:
+ *
+ * A text widget or container holding log content, such as chat history and
+ * error logs. In this role there is a relationship between the arrival of new
+ * items in the log and the reading order. The log contains a meaningful
+ * sequence and new information is added only to the end of the log, not at
+ * arbitrary points.
+ * Since: 2.12
+ */
+
+/**
+ * ATSPI_ROLE_MARQUEE:
+ *
+ * A container where non-essential information changes frequently. Common
+ * usages of marquee include stock tickers and ad banners. The primary
+ * difference between a marquee and a log is that logs usually have a
+ * meaningful order or sequence of important content changes.
+ * Since: 2.12
+ */
+
+/**
+ * ATSPI_ROLE_MATH:
+ *
+ * A text widget or container that holds a mathematical expression.
+ * Since: 2.12
+ */
+
+/**
+ * ATSPI_ROLE_RATING:
+ *
+ * A widget whose purpose is to display a rating,  such as the number of stars
+ * associated with a song in a media player. Objects of this role should also
+ * implement AtspiValue.
+ * Since: 2.12
+ */
+
+/**
+ * ATSPI_ROLE_TIMER:
+ *
+ * An object containing a numerical counter which indicates an amount of
+ * elapsed time from a start point, or the time remaining until an end point.
+ * Since: 2.12
+ */
+
+/**
+ *  ATSPI_ROLE_LABEL:
+ *
+ * For text views, see @ATSPI_ROLE_TEXT. For generic containers, see
+ * @ATSPI_ROLE_PANEL. For objects whose role is not known by the implementor,
+ * see @ATSPI_ROLE_UNKNOWN.
+ * Since: 2.16.
+ */
+
+/**
+ * ATSPI_ROLE_MATH_FRACTION:
+ *
+ * An object that represents a mathematical fraction.
+ * Since: 2.16.
+ */
+
+/**
+ * ATSPI_ROLE_MATH_ROOT:
+ *
+ * An object that represents a mathematical expression displayed with a
+ * radical.
+ * Since: 2.16.
+ */
+
+/**
+ * ATSPI_ROLE_SUBSCRIPT:
+ *
+ * An object that contains text that is displayed as a subscript.
+ * Since: 2.16.
+ */
+
+/**
+ * ATSPI_ROLE_SUPERSCRIPT:
+ *
+ * An object that contains text that is displayed as a superscript.
+ * Since: 2.16.
+ */
+
+/**
+ * ATSPI_ROLE_DESCRIPTION_LIST:
+ *
+ * An object that represents a list of term-value groups. A term-value group
+ * represents an individual description and consist of one or more names
+ * (@ATSPI_ROLE_DESCRIPTION_TERM) followed by one or more values
+ * (@ATSPI_ROLE_DESCRIPTION_VALUE). For each list, there should not be more
+ * than one group with the same term name.
+ * Since: 2.26.
+ */
+
+/**
+ * ATSPI_ROLE_DESCRIPTION_TERM:
+ *
+ * An object that represents a term or phrase with a corresponding definition.
+ * Since: 2.26.
+ */
+
+/**
+ * ATSPI_ROLE_DESCRIPTION_VALUE:
+ *
+ * An object that represents the description,  definition, or value of a term.
+ * Since: 2.26.
+ */
+
+/**
+ * ATSPI_ROLE_FOOTNOTE:
+ *
+ * An object that contains the text of a footnote.
+ * Since: 2.26.
+ */
+
+/**
+ * ATSPI_ROLE_CONTENT_DELETION:
+ *
+ * Content previously deleted or proposed to be deleted, e.g. in revision
+ * history or a content view providing suggestions from reviewers.
+ * Since: 2.34.
+ */
+
+/**
+ * ATSPI_ROLE_CONTENT_INSERTION:
+ *
+ * Content previously inserted or proposed to be inserted, e.g. in revision
+ * history or a content view providing suggestions from reviewers.
+ * Since: 2.34.
+ */
+
+/**
+ * ATSPI_ROLE_MARK:
+ *
+ * A run of content that is marked or highlighted, such as for reference
+ * purposes, or to call it out as having a special purpose. If the marked
+ * content has an associated section in the document elaborating on the reason
+ * for the mark, then %ATSPI_RELATION_DETAILS should be used on the mark to
+ * point to that associated section. In addition, the reciprocal relation
+ * %ATSPI_RELATION_DETAILS_FOR should be used on the associated content section
+ * to point back to the mark.
+ * Since: 2.36.
+ */
+
+/**
+ * ATSPI_ROLE_SUGGESTION:
+ *
+ * A container for content that is called out as a proposed change from the
+ * current version of the document, such as by a reviewer of the content. An
+ * object with this role should include children with
+ * %ATSPI_ROLE_CONTENT_DELETION and/or %ATSPI_ROLE_CONTENT_INSERTION, in any
+ * order, to indicate what the actual change is.
+ * Since: 2.36
+ */
+
+/**
+ * ATSPI_ROLE_PUSH_BUTTON_MENU:
+ *
+ * A specialized push button to open a menu.
+ * Since: 2.46
+ */
+
+/**
+ * ATSPI_ROLE_SWITCH:
+ *
+ * A switch that can be toggled on/off.
+ * Since: 2.56
+ */
+
+typedef enum
+{
+  ATSPI_ROLE_INVALID,
+  ATSPI_ROLE_ACCELERATOR_LABEL,
+  ATSPI_ROLE_ALERT,
+  ATSPI_ROLE_ANIMATION,
+  ATSPI_ROLE_ARROW,
+  ATSPI_ROLE_CALENDAR,
+  ATSPI_ROLE_CANVAS,
+  ATSPI_ROLE_CHECK_BOX,
+  ATSPI_ROLE_CHECK_MENU_ITEM,
+  ATSPI_ROLE_COLOR_CHOOSER,
+  ATSPI_ROLE_COLUMN_HEADER,
+  ATSPI_ROLE_COMBO_BOX,
+  ATSPI_ROLE_DATE_EDITOR,
+  ATSPI_ROLE_DESKTOP_ICON,
+  ATSPI_ROLE_DESKTOP_FRAME,
+  ATSPI_ROLE_DIAL,
+  ATSPI_ROLE_DIALOG,
+  ATSPI_ROLE_DIRECTORY_PANE,
+  ATSPI_ROLE_DRAWING_AREA,
+  ATSPI_ROLE_FILE_CHOOSER,
+  ATSPI_ROLE_FILLER,
+  ATSPI_ROLE_FOCUS_TRAVERSABLE,
+  ATSPI_ROLE_FONT_CHOOSER,
+  ATSPI_ROLE_FRAME,
+  ATSPI_ROLE_GLASS_PANE,
+  ATSPI_ROLE_HTML_CONTAINER,
+  ATSPI_ROLE_ICON,
+  ATSPI_ROLE_IMAGE,
+  ATSPI_ROLE_INTERNAL_FRAME,
+  ATSPI_ROLE_LABEL,
+  ATSPI_ROLE_LAYERED_PANE,
+  ATSPI_ROLE_LIST,
+  ATSPI_ROLE_LIST_ITEM,
+  ATSPI_ROLE_MENU,
+  ATSPI_ROLE_MENU_BAR,
+  ATSPI_ROLE_MENU_ITEM,
+  ATSPI_ROLE_OPTION_PANE,
+  ATSPI_ROLE_PAGE_TAB,
+  ATSPI_ROLE_PAGE_TAB_LIST,
+  ATSPI_ROLE_PANEL,
+  ATSPI_ROLE_PASSWORD_TEXT,
+  ATSPI_ROLE_POPUP_MENU,
+  ATSPI_ROLE_PROGRESS_BAR,
+  ATSPI_ROLE_BUTTON,
+  ATSPI_ROLE_RADIO_BUTTON,
+  ATSPI_ROLE_RADIO_MENU_ITEM,
+  ATSPI_ROLE_ROOT_PANE,
+  ATSPI_ROLE_ROW_HEADER,
+  ATSPI_ROLE_SCROLL_BAR,
+  ATSPI_ROLE_SCROLL_PANE,
+  ATSPI_ROLE_SEPARATOR,
+  ATSPI_ROLE_SLIDER,
+  ATSPI_ROLE_SPIN_BUTTON,
+  ATSPI_ROLE_SPLIT_PANE,
+  ATSPI_ROLE_STATUS_BAR,
+  ATSPI_ROLE_TABLE,
+  ATSPI_ROLE_TABLE_CELL,
+  ATSPI_ROLE_TABLE_COLUMN_HEADER,
+  ATSPI_ROLE_TABLE_ROW_HEADER,
+  ATSPI_ROLE_TEAROFF_MENU_ITEM,
+  ATSPI_ROLE_TERMINAL,
+  ATSPI_ROLE_TEXT,
+  ATSPI_ROLE_TOGGLE_BUTTON,
+  ATSPI_ROLE_TOOL_BAR,
+  ATSPI_ROLE_TOOL_TIP,
+  ATSPI_ROLE_TREE,
+  ATSPI_ROLE_TREE_TABLE,
+  ATSPI_ROLE_UNKNOWN,
+  ATSPI_ROLE_VIEWPORT,
+  ATSPI_ROLE_WINDOW,
+  ATSPI_ROLE_EXTENDED,
+  ATSPI_ROLE_HEADER,
+  ATSPI_ROLE_FOOTER,
+  ATSPI_ROLE_PARAGRAPH,
+  ATSPI_ROLE_RULER,
+  ATSPI_ROLE_APPLICATION,
+  ATSPI_ROLE_AUTOCOMPLETE,
+  ATSPI_ROLE_EDITBAR,
+  ATSPI_ROLE_EMBEDDED,
+  ATSPI_ROLE_ENTRY,
+  ATSPI_ROLE_CHART,
+  ATSPI_ROLE_CAPTION,
+  ATSPI_ROLE_DOCUMENT_FRAME,
+  ATSPI_ROLE_HEADING,
+  ATSPI_ROLE_PAGE,
+  ATSPI_ROLE_SECTION,
+  ATSPI_ROLE_REDUNDANT_OBJECT,
+  ATSPI_ROLE_FORM,
+  ATSPI_ROLE_LINK,
+  ATSPI_ROLE_INPUT_METHOD_WINDOW,
+  ATSPI_ROLE_TABLE_ROW,
+  ATSPI_ROLE_TREE_ITEM,
+  ATSPI_ROLE_DOCUMENT_SPREADSHEET,
+  ATSPI_ROLE_DOCUMENT_PRESENTATION,
+  ATSPI_ROLE_DOCUMENT_TEXT,
+  ATSPI_ROLE_DOCUMENT_WEB,
+  ATSPI_ROLE_DOCUMENT_EMAIL,
+  ATSPI_ROLE_COMMENT,
+  ATSPI_ROLE_LIST_BOX,
+  ATSPI_ROLE_GROUPING,
+  ATSPI_ROLE_IMAGE_MAP,
+  ATSPI_ROLE_NOTIFICATION,
+  ATSPI_ROLE_INFO_BAR,
+  ATSPI_ROLE_LEVEL_BAR,
+  ATSPI_ROLE_TITLE_BAR,
+  ATSPI_ROLE_BLOCK_QUOTE,
+  ATSPI_ROLE_AUDIO,
+  ATSPI_ROLE_VIDEO,
+  ATSPI_ROLE_DEFINITION,
+  ATSPI_ROLE_ARTICLE,
+  ATSPI_ROLE_LANDMARK,
+  ATSPI_ROLE_LOG,
+  ATSPI_ROLE_MARQUEE,
+  ATSPI_ROLE_MATH,
+  ATSPI_ROLE_RATING,
+  ATSPI_ROLE_TIMER,
+  ATSPI_ROLE_STATIC,
+  ATSPI_ROLE_MATH_FRACTION,
+  ATSPI_ROLE_MATH_ROOT,
+  ATSPI_ROLE_SUBSCRIPT,
+  ATSPI_ROLE_SUPERSCRIPT,
+  ATSPI_ROLE_DESCRIPTION_LIST,
+  ATSPI_ROLE_DESCRIPTION_TERM,
+  ATSPI_ROLE_DESCRIPTION_VALUE,
+  ATSPI_ROLE_FOOTNOTE,
+  ATSPI_ROLE_CONTENT_DELETION,
+  ATSPI_ROLE_CONTENT_INSERTION,
+  ATSPI_ROLE_MARK,
+  ATSPI_ROLE_SUGGESTION,
+  ATSPI_ROLE_PUSH_BUTTON_MENU,
+  ATSPI_ROLE_SWITCH,
+  ATSPI_ROLE_LAST_DEFINED,
+
+  /* For backwards compatibility */
+  ATSPI_ROLE_PUSH_BUTTON = ATSPI_ROLE_BUTTON,
+} AtspiRole;
 
 /**
  * ATSPI_ROLE_COUNT:
