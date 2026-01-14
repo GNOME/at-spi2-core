@@ -62,27 +62,53 @@ G_BEGIN_DECLS
  * object provides descriptive information about the target object(s). See also
  * %ATK_RELATION_DETAILS_FOR and %ATK_RELATION_ERROR_FOR.
  *@ATK_RELATION_NODE_PARENT_OF: Indicates an object is a cell in a treetable and is expanded to display other cells in the same column.
- *@ATK_RELATION_DETAILS: Reciprocal of %ATK_RELATION_DETAILS_FOR. Indicates that this object
- * has a detailed or extended description, the contents of which can be found in the target
- * object(s). This relation type is most appropriate for information that is sufficiently
- * lengthy as to make navigation to the container of that information desirable. For less
- * verbose information suitable for announcement only, see %ATK_RELATION_DESCRIBED_BY. If
- * the detailed information describes an error condition, %ATK_RELATION_ERROR_FOR should be
- * used instead. @Since: ATK-2.26.
- *@ATK_RELATION_DETAILS_FOR: Reciprocal of %ATK_RELATION_DETAILS. Indicates that this object
- * provides a detailed or extended description about the target object(s). See also
- * %ATK_RELATION_DESCRIPTION_FOR and %ATK_RELATION_ERROR_FOR. @Since: ATK-2.26.
- *@ATK_RELATION_ERROR_MESSAGE: Reciprocal of %ATK_RELATION_ERROR_FOR. Indicates that this object
- * has one or more errors, the nature of which is described in the contents of the target
- * object(s). Objects that have this relation type should also contain %ATK_STATE_INVALID_ENTRY
- * in their #AtkStateSet. @Since: ATK-2.26.
- *@ATK_RELATION_ERROR_FOR: Reciprocal of %ATK_RELATION_ERROR_MESSAGE. Indicates that this object
- * contains an error message describing an invalid condition in the target object(s). @Since:
- * ATK_2.26.
  *@ATK_RELATION_LAST_DEFINED: Not used, this value indicates the end of the enumeration.
  *
  *Describes the type of the relation
  **/
+
+/**
+ * ATK_RELATION_DETAILS:
+ *
+ * Reciprocal of %ATK_RELATION_DETAILS_FOR. Indicates that this object has a
+ * detailed or extended description, the contents of which can be found in the
+ * target object(s). This relation type is most appropriate for information
+ * that is sufficiently lengthy as to make navigation to the container of that
+ * information desirable. For less verbose information suitable for
+ * announcement only, see %ATK_RELATION_DESCRIBED_BY. If the detailed
+ * information describes an error condition, %ATK_RELATION_ERROR_FOR should be
+ * used instead.
+ * Since: ATK-2.26.
+ */
+
+/**
+ * ATK_RELATION_DETAILS_FOR:
+ *
+ * Reciprocal of %ATK_RELATION_DETAILS. Indicates that this object provides a
+ * detailed or extended description about the target object(s). See also
+ * %ATK_RELATION_DESCRIPTION_FOR and %ATK_RELATION_ERROR_FOR.
+ * Since: 2.26
+ */
+
+/**
+ * ATK_RELATION_ERROR_MESSAGE:
+ *
+ * Reciprocal of %ATK_RELATION_ERROR_FOR. Indicates that this object has one or
+ * more errors, the nature of which is described in the contents of the target
+ * object(s). Objects that have this relation type should also contain
+ * %ATK_STATE_INVALID_ENTRY in their #AtkStateSet.
+ * Since: 2.26
+ */
+
+/**
+ * ATK_RELATION_ERROR_FOR:
+ *
+ * Reciprocal of %ATK_RELATION_ERROR_MESSAGE. Indicates that this object
+ * contains an error message describing an invalid condition in the target
+ * object(s).
+ * Since: 2.26
+ */
+
 typedef enum
 {
   ATK_RELATION_NULL = 0,
