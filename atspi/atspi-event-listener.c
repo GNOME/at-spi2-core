@@ -1105,8 +1105,11 @@ _atspi_send_event (AtspiEvent *e)
   g_free (category);
   g_list_free (called_listeners);
 
-  g_list_free_full (pending_removals, resolve_pending_removal);
-  pending_removals = NULL;
+  if (!in_send)
+    {
+      g_list_free_full (pending_removals, resolve_pending_removal);
+      pending_removals = NULL;
+    }
 }
 
 void
