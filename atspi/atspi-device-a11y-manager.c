@@ -485,8 +485,19 @@ test_pointer_locator (AtspiDeviceA11yManager *manager_device)
 
   if (error)
     {
-      manager_device->pointer_locator_tested = -1;
-      g_warning ("QueryPointer failed: %s", error->message);
+      if (error->domain == G_DBUS_ERROR && error->code == G_DBUS_ERROR_ACCESS_DENIED)
+        {
+          /* It is possible that we have not yet claimed the appropriate
+             DBus name yet, in which case this error will be returned. In
+             this case, assume that the interface is available and may
+             become accessible in the near future. */
+          manager_device->pointer_locator_tested = 1;
+        }
+      else
+        {
+          manager_device->pointer_locator_tested = -1;
+          g_warning ("QueryPointer failed: %s", error->message);
+        }
       g_error_free (error);
     }
   else
