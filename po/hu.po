@@ -1,5 +1,5 @@
 # Hungarian translation of at-spi2-core
-# Copyright (C) 2011. Free Software Foundation, Inc.
+# Copyright (C) 2011 Free Software Foundation, Inc.
 # This file is distributed under the same license as the at-spi2-core package
 #
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2011.
@@ -7,21 +7,822 @@ msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-core master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
-"POT-Creation-Date: 2020-09-02 22:11+0000\n"
-"PO-Revision-Date: 2011-03-14 01:51+0100\n"
-"Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
-"Language-Team: Hungarian <gnome at fsf dot hu>\n"
-"Language: \n"
+"POT-Creation-Date: 2026-02-16 23:05+0000\n"
+"PO-Revision-Date: 2026-03-11 12:07+0100\n"
+"Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
+"Language-Team: Hungarian <openscope at fsf dot hu>\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 25.08.1\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: atspi/atspi-component.c:332 atspi/atspi-misc.c:1076 atspi/atspi-value.c:111
+#: atk/atkhyperlink.c:127
+msgid "Selected Link"
+msgstr "Kijelölt hivatkozás"
+
+#: atk/atkhyperlink.c:128
+msgid "Specifies whether the AtkHyperlink object is selected"
+msgstr "Megadja, hogy ki van-e jelölve az AtkHyperlink objektum"
+
+#: atk/atkhyperlink.c:134
+msgid "Number of Anchors"
+msgstr "Horgonyok száma"
+
+#: atk/atkhyperlink.c:135
+msgid "The number of anchors associated with the AtkHyperlink object"
+msgstr "Az AtkHyperlink objektumhoz rendelt horgonyok száma"
+
+#: atk/atkhyperlink.c:143
+msgid "End index"
+msgstr "Befejező index"
+
+#: atk/atkhyperlink.c:144
+msgid "The end index of the AtkHyperlink object"
+msgstr "Az AtkHyperlink objektum befejező indexe"
+
+#: atk/atkhyperlink.c:152
+msgid "Start index"
+msgstr "Kezdő index"
+
+#: atk/atkhyperlink.c:153
+msgid "The start index of the AtkHyperlink object"
+msgstr "Az AtkHyperlink objektum kezdő indexe"
+
+#: atk/atkobject.c:273
+msgid "Accessible Name"
+msgstr "Akadálymentes név"
+
+#: atk/atkobject.c:274
+msgid "Object instance’s name formatted for assistive technology access"
+msgstr ""
+"Az objektumpéldány neve az akadálymentesítési technológiás hozzáféréshez "
+"formázva"
+
+#: atk/atkobject.c:280
+msgid "Accessible Description"
+msgstr "Akadálymentes leírás"
+
+#: atk/atkobject.c:281
+msgid "Description of an object, formatted for assistive technology access"
+msgstr ""
+"Az objektumpéldány leírása, a akadálymentesítési technológiás hozzáféréshez "
+"formázva"
+
+#: atk/atkobject.c:287
+msgid "Accessible Parent"
+msgstr "Akadálymentes szülő"
+
+#: atk/atkobject.c:288
+msgid "Parent of the current accessible as returned by atk_object_get_parent()"
+msgstr ""
+"A pillanatnyi akadálymentes objektumról visszaadott szülőobjektum az "
+"atk_object_get_parent() függvény használatával"
+
+#: atk/atkobject.c:304
+msgid "Accessible Value"
+msgstr "Akadálymentes érték"
+
+#: atk/atkobject.c:305
+msgid "Is used to notify that the value has changed"
+msgstr "Értesítésre szolgál, ha az érték módosult"
+
+#: atk/atkobject.c:313
+msgid "Accessible Role"
+msgstr "Akadálymentes szerep"
+
+#: atk/atkobject.c:314
+msgid "The accessible role of this object"
+msgstr "Az objektum akadálymentes szerepe"
+
+#: atk/atkobject.c:321
+msgid "Accessible Layer"
+msgstr "Akadálymentes réteg"
+
+#: atk/atkobject.c:322
+msgid "The accessible layer of this object"
+msgstr "Az objektum akadálymentes rétege"
+
+#: atk/atkobject.c:330
+msgid "Accessible MDI Value"
+msgstr "Akadálymentes MDI-érték"
+
+#: atk/atkobject.c:331
+msgid "The accessible MDI value of this object"
+msgstr "Az objektum akadálymentes MDI-értéke"
+
+#: atk/atkobject.c:347
+msgid "Accessible Table Caption"
+msgstr "Akadálymentes táblázatcím"
+
+#: atk/atkobject.c:348
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr ""
+"Értesítésre szolgál, ha a táblázat címe módosult. Ezt a tulajdonságot nem "
+"szabad használni, helyette az accessible-table-caption-object tulajdonság "
+"használandó"
+
+#: atk/atkobject.c:362
+msgid "Accessible Table Column Header"
+msgstr "Akadálymentes táblázat-oszlopfejléc"
+
+#: atk/atkobject.c:363
+msgid "Is used to notify that the table column header has changed"
+msgstr "Értesítésre szolgál, ha a táblázat oszlopfejléc módosult"
+
+#: atk/atkobject.c:378
+msgid "Accessible Table Column Description"
+msgstr "Akadálymentes táblázat-oszlopleírás"
+
+#: atk/atkobject.c:379
+msgid "Is used to notify that the table column description has changed"
+msgstr "Értesítésre szolgál, ha a táblázat oszlopleírás módosult"
+
+#: atk/atkobject.c:394
+msgid "Accessible Table Row Header"
+msgstr "Akadálymentes táblázat-sorfejléc"
+
+#: atk/atkobject.c:395
+msgid "Is used to notify that the table row header has changed"
+msgstr "Értesítésre szolgál, ha a táblázat sorfejléc módosult"
+
+#: atk/atkobject.c:409
+msgid "Accessible Table Row Description"
+msgstr "Akadálymentes táblázat-sorleírás"
+
+#: atk/atkobject.c:410
+msgid "Is used to notify that the table row description has changed"
+msgstr "Értesítésre szolgál, ha a táblázat sorleírás módosult"
+
+#: atk/atkobject.c:416
+msgid "Accessible Table Summary"
+msgstr "Akadálymentes táblázat-összefoglalás"
+
+#: atk/atkobject.c:417
+msgid "Is used to notify that the table summary has changed"
+msgstr "Értesítésre szolgál, ha a táblázat-összefoglalás módosult"
+
+#: atk/atkobject.c:423
+msgid "Accessible Table Caption Object"
+msgstr "Akadálymentes táblázatcím objektum"
+
+#: atk/atkobject.c:424
+msgid "Is used to notify that the table caption has changed"
+msgstr "Értesítésre szolgál, ha a táblázatcím módosult"
+
+#: atk/atkobject.c:430
+msgid "Number of Accessible Hypertext Links"
+msgstr "Az akadálymentes hiperszöveg-hivatkozások száma"
+
+#: atk/atkobject.c:431
+msgid "The number of links which the current AtkHypertext has"
+msgstr "Az aktuális AtkHypertext hivatkozásainak száma"
+
+#: atk/atkobject.c:440
+msgid "Accessible ID"
+msgstr "Akadálymentes azonosító"
+
+#: atk/atkobject.c:441
+msgid "ID for the accessible; useful for automated testing"
+msgstr "Azonosító az akadálymentességhez, automatikus tesztelésnél hasznos"
+
+#: atk/atkobject.c:447
+msgid "Help text"
+msgstr "Súgószöveg"
+
+#: atk/atkobject.c:448
+msgid "Help text associated with the accessible"
+msgstr "Az akadálymentességhez kapcsolódó súgószöveg"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:193
+msgid "very weak"
+msgstr "nagyon gyenge"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:200
+msgid "weak"
+msgstr "gyenge"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:207
+msgid "acceptable"
+msgstr "elfogadható"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:214
+msgid "strong"
+msgstr "erős"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a password-strength meter. Note that what such a
+#. * widget presents is controlled by application developers. Thus
+#. * assistive technologies such as screen readers are expected to
+#. * present this string alone or as a token in a list.
+#.
+#: atk/atkvalue.c:221
+msgid "very strong"
+msgstr "nagyon erős"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:229
+msgid "very low"
+msgstr "nagyon alacsony"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:237
+msgid "medium"
+msgstr "közepes"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:245
+msgid "high"
+msgstr "magas"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a volume slider. Note that what such a widget
+#. * presents (e.g. temperature, volume, price) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:253
+msgid "very high"
+msgstr "nagyon magas"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:261
+msgid "very bad"
+msgstr "nagyon rossz"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:269
+msgid "bad"
+msgstr "rossz"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:277
+msgid "good"
+msgstr "jó"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:285
+msgid "very good"
+msgstr "nagyon jó"
+
+#. Translators: This string describes a range within value-related
+#. * widgets such as a hard drive usage. Note that what such a widget
+#. * presents (e.g. hard drive usage, network traffic) is controlled by
+#. * application developers. Thus assistive technologies such as screen
+#. * readers are expected to present this string alone or as a token in
+#. * a list.
+#.
+#: atk/atkvalue.c:293
+msgid "best"
+msgstr "legjobb"
+
+#: atspi/atspi-component.c:341 atspi/atspi-misc.c:1232 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "Az alkalmazás már nem létezik"
 
-#: atspi/atspi-misc.c:1854
-msgid "Attempted synchronous call where prohibited"
-msgstr "Szinkronizációs hívást próbáltak, ahol tilos"
+#: atspi/atspi-misc.c:51
+msgid "invalid"
+msgstr "érvénytelen"
+
+#: atspi/atspi-misc.c:52
+msgid "accelerator label"
+msgstr "gyorsítócímke"
+
+#: atspi/atspi-misc.c:53
+msgid "alert"
+msgstr "értesítés"
+
+#: atspi/atspi-misc.c:54
+msgid "animation"
+msgstr "animáció"
+
+#: atspi/atspi-misc.c:55
+msgid "arrow"
+msgstr "nyíl"
+
+#: atspi/atspi-misc.c:56
+msgid "calendar"
+msgstr "naptár"
+
+#: atspi/atspi-misc.c:57
+msgid "canvas"
+msgstr "rajzvászon"
+
+#: atspi/atspi-misc.c:58
+msgid "check box"
+msgstr "jelölőnégyzet"
+
+#: atspi/atspi-misc.c:59
+msgid "check menu item"
+msgstr "jelölőelem"
+
+#: atspi/atspi-misc.c:60
+msgid "color chooser"
+msgstr "színválasztó"
+
+#: atspi/atspi-misc.c:61
+msgid "column header"
+msgstr "oszlopfejléc"
+
+#: atspi/atspi-misc.c:62
+msgid "combo box"
+msgstr "kombinált listamező"
+
+#: atspi/atspi-misc.c:63
+msgid "dateeditor"
+msgstr "dátumszerkesztő"
+
+#: atspi/atspi-misc.c:64
+msgid "desktop icon"
+msgstr "asztali ikon"
+
+#: atspi/atspi-misc.c:65
+msgid "desktop frame"
+msgstr "asztali keret"
+
+#: atspi/atspi-misc.c:66
+msgid "dial"
+msgstr "tárcsa"
+
+#: atspi/atspi-misc.c:67
+msgid "dialog"
+msgstr "párbeszédablak"
+
+#: atspi/atspi-misc.c:68
+msgid "directory pane"
+msgstr "könyvtár-ablaktábla"
+
+#: atspi/atspi-misc.c:69
+msgid "drawing area"
+msgstr "rajzterület"
+
+#: atspi/atspi-misc.c:70
+msgid "file chooser"
+msgstr "fájlválasztó"
+
+#: atspi/atspi-misc.c:71
+msgid "filler"
+msgstr "kitöltő"
+
+#. I know it looks wrong but that is what Java returns
+#: atspi/atspi-misc.c:73
+msgid "fontchooser"
+msgstr "betűkészlet-választó"
+
+#: atspi/atspi-misc.c:74
+msgid "frame"
+msgstr "keret"
+
+#: atspi/atspi-misc.c:75
+msgid "glass pane"
+msgstr "üveg-ablaktábla"
+
+#: atspi/atspi-misc.c:76
+msgid "html container"
+msgstr "html-konténer"
+
+#: atspi/atspi-misc.c:77
+msgid "icon"
+msgstr "ikon"
+
+#: atspi/atspi-misc.c:78
+msgid "image"
+msgstr "kép"
+
+#: atspi/atspi-misc.c:79
+msgid "internal frame"
+msgstr "belső keret"
+
+#: atspi/atspi-misc.c:80
+msgid "label"
+msgstr "címke"
+
+#: atspi/atspi-misc.c:81
+msgid "layered pane"
+msgstr "réteges ablaktábla"
+
+#: atspi/atspi-misc.c:82
+msgid "list"
+msgstr "lista"
+
+#: atspi/atspi-misc.c:83
+msgid "list item"
+msgstr "listaelem"
+
+#: atspi/atspi-misc.c:84
+msgid "menu"
+msgstr "menü"
+
+#: atspi/atspi-misc.c:85
+msgid "menu bar"
+msgstr "menüsor"
+
+#: atspi/atspi-misc.c:86
+msgid "menu button"
+msgstr "menügomb"
+
+#: atspi/atspi-misc.c:87
+msgid "menu item"
+msgstr "menüelem"
+
+#: atspi/atspi-misc.c:88
+msgid "option pane"
+msgstr "beállítás-ablaktábla"
+
+#: atspi/atspi-misc.c:89
+msgid "page tab"
+msgstr "lapfül"
+
+#: atspi/atspi-misc.c:90
+msgid "page tab list"
+msgstr "laplista"
+
+#: atspi/atspi-misc.c:91
+msgid "panel"
+msgstr "panel"
+
+#: atspi/atspi-misc.c:92
+msgid "password text"
+msgstr "jelszó szerkesztőmező"
+
+#: atspi/atspi-misc.c:93
+msgid "popup menu"
+msgstr "helyi menü"
+
+#: atspi/atspi-misc.c:94
+msgid "progress bar"
+msgstr "folyamatjelző"
+
+#: atspi/atspi-misc.c:95
+msgid "button"
+msgstr "gomb"
+
+#: atspi/atspi-misc.c:96
+msgid "radio button"
+msgstr "választógomb"
+
+#: atspi/atspi-misc.c:97
+msgid "radio menu item"
+msgstr "választógomb-elem"
+
+#: atspi/atspi-misc.c:98
+msgid "root pane"
+msgstr "gyökér-ablaktábla"
+
+#: atspi/atspi-misc.c:99
+msgid "row header"
+msgstr "sorfejléc"
+
+#: atspi/atspi-misc.c:100
+msgid "scroll bar"
+msgstr "gördítősáv"
+
+#: atspi/atspi-misc.c:101
+msgid "scroll pane"
+msgstr "gördíthető ablaktábla"
+
+#: atspi/atspi-misc.c:102
+msgid "separator"
+msgstr "elválasztó"
+
+#: atspi/atspi-misc.c:103
+msgid "slider"
+msgstr "csúszka"
+
+#: atspi/atspi-misc.c:104
+msgid "split pane"
+msgstr "felosztott ablaktábla"
+
+#: atspi/atspi-misc.c:105
+msgid "spin button"
+msgstr "léptetőgomb"
+
+#: atspi/atspi-misc.c:106
+msgid "statusbar"
+msgstr "állapotsor"
+
+#: atspi/atspi-misc.c:107
+msgid "switch"
+msgstr "kapcsoló"
+
+#: atspi/atspi-misc.c:108
+msgid "table"
+msgstr "táblázat"
+
+#: atspi/atspi-misc.c:109
+msgid "table cell"
+msgstr "táblázatcella"
+
+#: atspi/atspi-misc.c:110
+msgid "table column header"
+msgstr "táblázat-oszlopfejléc"
+
+#: atspi/atspi-misc.c:111
+msgid "table row header"
+msgstr "táblázat-sorfejléc"
+
+#: atspi/atspi-misc.c:112
+msgid "tear off menu item"
+msgstr "leválasztható menüelem"
+
+#: atspi/atspi-misc.c:113
+msgid "terminal"
+msgstr "terminál"
+
+#: atspi/atspi-misc.c:114
+msgid "text"
+msgstr "szerkesztőmező"
+
+#: atspi/atspi-misc.c:115
+msgid "toggle button"
+msgstr "kapcsológomb"
+
+#: atspi/atspi-misc.c:116
+msgid "tool bar"
+msgstr "eszköztár"
+
+#: atspi/atspi-misc.c:117
+msgid "tool tip"
+msgstr "buboréksúgó"
+
+#: atspi/atspi-misc.c:118
+msgid "tree"
+msgstr "fa"
+
+#: atspi/atspi-misc.c:119
+msgid "tree table"
+msgstr "fatáblázat"
+
+#: atspi/atspi-misc.c:120
+msgid "unknown"
+msgstr "ismeretlen"
+
+#: atspi/atspi-misc.c:121
+msgid "viewport"
+msgstr "munkalap"
+
+#: atspi/atspi-misc.c:122
+msgid "window"
+msgstr "ablak"
+
+#: atspi/atspi-misc.c:123
+msgid "header"
+msgstr "élőfej"
+
+#: atspi/atspi-misc.c:124
+msgid "footer"
+msgstr "élőláb"
+
+#: atspi/atspi-misc.c:125
+msgid "paragraph"
+msgstr "bekezdés"
+
+#: atspi/atspi-misc.c:126
+msgid "ruler"
+msgstr "vonalzó"
+
+#: atspi/atspi-misc.c:127
+msgid "application"
+msgstr "alkalmazás"
+
+#: atspi/atspi-misc.c:128
+msgid "autocomplete"
+msgstr "automatikus kiegészítés"
+
+#: atspi/atspi-misc.c:129
+msgid "edit bar"
+msgstr "szerkesztősáv"
+
+#: atspi/atspi-misc.c:130
+msgid "embedded component"
+msgstr "beágyazott komponens"
+
+#: atspi/atspi-misc.c:131
+msgid "entry"
+msgstr "szerkesztőmező"
+
+#: atspi/atspi-misc.c:132
+msgid "chart"
+msgstr "diagram"
+
+#: atspi/atspi-misc.c:133
+msgid "caption"
+msgstr "felirat"
+
+#: atspi/atspi-misc.c:134
+msgid "document frame"
+msgstr "dokumentumkeret"
+
+#: atspi/atspi-misc.c:135
+msgid "heading"
+msgstr "címsor"
+
+#: atspi/atspi-misc.c:136
+msgid "page"
+msgstr "oldal"
+
+#: atspi/atspi-misc.c:137
+msgid "section"
+msgstr "szakasz"
+
+#: atspi/atspi-misc.c:138
+msgid "redundant object"
+msgstr "redundáns objektum"
+
+#: atspi/atspi-misc.c:139
+msgid "form"
+msgstr "űrlap"
+
+#: atspi/atspi-misc.c:140
+msgid "link"
+msgstr "hivatkozás"
+
+#: atspi/atspi-misc.c:141
+msgid "input method window"
+msgstr "bemeneti módszer ablak"
+
+#: atspi/atspi-misc.c:142
+msgid "table row"
+msgstr "táblázatsor"
+
+#: atspi/atspi-misc.c:143
+msgid "tree item"
+msgstr "faelem"
+
+#: atspi/atspi-misc.c:144
+msgid "document spreadsheet"
+msgstr "táblázat dokumentum"
+
+#: atspi/atspi-misc.c:145
+msgid "document presentation"
+msgstr "bemutató dokumentum"
+
+#: atspi/atspi-misc.c:146
+msgid "document text"
+msgstr "szöveges dokumentum"
+
+#: atspi/atspi-misc.c:147
+msgid "document web"
+msgstr "webes dokumentum"
+
+#: atspi/atspi-misc.c:148
+msgid "document email"
+msgstr "e-mail dokumentum"
+
+#: atspi/atspi-misc.c:149
+msgid "comment"
+msgstr "megjegyzés"
+
+#: atspi/atspi-misc.c:150
+msgid "list box"
+msgstr "listadoboz"
+
+#: atspi/atspi-misc.c:151
+msgid "grouping"
+msgstr "csoportosítás"
+
+#: atspi/atspi-misc.c:152
+msgid "image map"
+msgstr "kép"
+
+#: atspi/atspi-misc.c:153
+msgid "notification"
+msgstr "értesítés"
+
+#: atspi/atspi-misc.c:154
+msgid "info bar"
+msgstr "információs sor"
+
+#: atspi/atspi-misc.c:155
+msgid "level bar"
+msgstr "szintsáv"
+
+#: atspi/atspi-misc.c:156
+msgid "title bar"
+msgstr "címsor"
+
+#: atspi/atspi-misc.c:157
+msgid "block quote"
+msgstr "idézetblokk"
+
+#: atspi/atspi-misc.c:158
+msgid "audio"
+msgstr "hang"
+
+#: atspi/atspi-misc.c:159
+msgid "video"
+msgstr "videó"
+
+#: atspi/atspi-misc.c:160
+msgid "definition"
+msgstr "definíció"
+
+#: atspi/atspi-misc.c:161
+msgid "article"
+msgstr "cikk"
+
+#: atspi/atspi-misc.c:162
+msgid "landmark"
+msgstr "jelölő"
+
+#: atspi/atspi-misc.c:163
+msgid "log"
+msgstr "napló"
+
+#: atspi/atspi-misc.c:164
+msgid "marquee"
+msgstr "futó szöveg"
+
+#: atspi/atspi-misc.c:165
+msgid "math"
+msgstr "matematikai kifejezés"
+
+#: atspi/atspi-misc.c:166
+msgid "rating"
+msgstr "értékelés"
+
+#: atspi/atspi-misc.c:167
+msgid "timer"
+msgstr "időzítő"
+
+#: atspi/atspi-misc.c:168
+msgid "description list"
+msgstr "leíráslista"
+
+#: atspi/atspi-misc.c:169
+msgid "description term"
+msgstr "leírt kifejezés"
+
+#: atspi/atspi-misc.c:170
+msgid "description value"
+msgstr "leíró érték"
