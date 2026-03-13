@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.58.4:
+
+* Fix a use after free in _atspi_send_event.
+
 What's new in at-spi2-core 2.58.3:
 
 * Fix atk_get_major_version etc not linking on C++.
