@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.56.8:
+
+* Fix a use after free in _atspi_send_event.
+
 What's new in at-spi2-core 2.56.7:
 
 * collection-adaptor: Correct 'child' reference handling (fixes crashes
