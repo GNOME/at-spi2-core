@@ -1,3 +1,8 @@
+What's new in at-spi2-core 2.60.0:
+
+* Fix detection of whether the org.freedesktop.a11y.PointerLocator
+  interface is available.
+
 What's new in at-spi2-core 2.59.90:
 
 * AtspiDevice: Add API to enable and disable features. This can be used
