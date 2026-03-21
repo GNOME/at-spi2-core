@@ -205,6 +205,9 @@ add_application (SpiRegistry *registry, SpiReference *app_root)
 {
   gint index;
 
+  if (app_root && app_root->name)
+    g_debug ("Adding application with name '%s'", app_root->name);
+
   g_ptr_array_add (registry->apps, app_root);
   index = registry->apps->len - 1;
 
@@ -234,9 +237,12 @@ call_set_id (SpiRegistry *registry, SpiReference *app, dbus_int32_t id)
 }
 
 static void
-remove_application (SpiRegistry *registry, guint index)
+remove_application (SpiRegistry *registry, guint index, const gchar *reason)
 {
   SpiReference *ref = g_ptr_array_index (registry->apps, index);
+
+  if (ref && ref->name)
+    g_debug ("Removing application with name '%s' due to %s", ref->name, reason);
 
   spi_remove_device_listeners (registry->dec, ref->name);
   emit_children_changed (registry->bus, "remove", index, ref);
@@ -335,7 +341,7 @@ handle_disconnection (SpiRegistry *registry, DBusMessage *message)
               SpiReference *ref = g_ptr_array_index (registry->apps, i);
               if (!g_strcmp0 (old, ref->name))
                 {
-                  remove_application (registry, i);
+                  remove_application (registry, i, "NameOwnerChanged");
                   i--;
                 }
             }
@@ -484,7 +490,7 @@ impl_Unembed (DBusMessage *message, SpiRegistry *registry)
     }
 
   if (find_index_of_reference (registry->apps, app_reference, &index))
-    remove_application (registry, index);
+    remove_application (registry, index, "Unembed");
 
   spi_reference_free (app_reference);
 
