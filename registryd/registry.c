@@ -44,32 +44,35 @@ typedef struct
 {
   gchar *name;
   gchar *path;
-} SpiReference;
+  DBusPendingCall *pending;
+  gboolean disabled;
+  pid_t pid;
+} SpiApplication;
 
-static SpiReference *
-spi_reference_new (const gchar *name, const gchar *path)
+static SpiApplication *
+spi_application_new (const gchar *name, const gchar *path)
 {
-  SpiReference *ref;
+  SpiApplication *app;
 
-  ref = g_new0 (SpiReference, 1);
-  ref->name = g_strdup (name);
-  ref->path = g_strdup (path);
+  app = g_new0 (SpiApplication, 1);
+  app->name = g_strdup (name);
+  app->path = g_strdup (path);
 
-  return ref;
+  return app;
 }
 
-static SpiReference *
-spi_reference_null (const char *bus_name)
+static SpiApplication *
+spi_application_null (const char *bus_name)
 {
-  return spi_reference_new (bus_name, SPI_DBUS_PATH_NULL);
+  return spi_application_new (bus_name, SPI_DBUS_PATH_NULL);
 }
 
 static void
-spi_reference_free (SpiReference *ref)
+spi_application_free (SpiApplication *app)
 {
-  g_free (ref->name);
-  g_free (ref->path);
-  g_free (ref);
+  g_free (app->name);
+  g_free (app->path);
+  g_free (app);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -82,6 +85,7 @@ spi_registry_finalize (GObject *object)
   SpiRegistry *registry = SPI_REGISTRY (object);
 
   g_clear_pointer (&registry->bus_unique_name, g_free);
+  g_source_remove (registry->ping_applications_source);
 
   G_OBJECT_CLASS (spi_registry_parent_class)->finalize (object);
 }
@@ -100,7 +104,7 @@ spi_registry_class_init (SpiRegistryClass *klass)
 static void
 spi_registry_init (SpiRegistry *registry)
 {
-  registry->apps = g_ptr_array_new_with_free_func ((GDestroyNotify) spi_reference_free);
+  registry->apps = g_ptr_array_new_with_free_func ((GDestroyNotify) spi_application_free);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -121,7 +125,7 @@ return_v_string (DBusMessageIter *iter, const gchar *str)
 }
 
 static void
-append_reference (DBusMessageIter *iter, SpiReference *ref)
+append_reference (DBusMessageIter *iter, SpiApplication *app)
 {
   DBusMessageIter iter_struct;
 
@@ -131,15 +135,15 @@ append_reference (DBusMessageIter *iter, SpiReference *ref)
       g_error ("Out of memory");
     }
 
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &ref->name);
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &ref->path);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &app->name);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &app->path);
   dbus_message_iter_close_container (iter, &iter_struct);
 }
 
 /*---------------------------------------------------------------------------*/
 
 static gboolean
-compare_reference (const SpiReference *one, const SpiReference *two)
+compare_reference (const SpiApplication *one, const SpiApplication *two)
 {
   if (g_strcmp0 (one->name, two->name) == 0 &&
       g_strcmp0 (one->path, two->path) == 0)
@@ -149,7 +153,7 @@ compare_reference (const SpiReference *one, const SpiReference *two)
 }
 
 static gboolean
-find_index_of_reference (GPtrArray *arr, const SpiReference *ref, guint *index)
+find_index_of_reference (GPtrArray *arr, const SpiApplication *ref, guint *index)
 {
   gboolean found = FALSE;
   guint i = 0;
@@ -168,14 +172,25 @@ find_index_of_reference (GPtrArray *arr, const SpiReference *ref, guint *index)
 }
 
 static void
-emit_children_changed (DBusConnection *bus,
-                       const char *operation,
-                       dbus_int32_t index,
-                       SpiReference *app)
+emit_children_changed (SpiRegistry *registry,
+                       gboolean add,
+                       SpiApplication *app)
 {
   DBusMessage *sig;
   DBusMessageIter iter, iter_variant, iter_array;
+  dbus_uint32_t index = 0;
   dbus_int32_t unused = 0;
+  gint i;
+  const char *operation = (add ? "add" : "remove");
+
+  for (i = 0; i < registry->apps->len; i++)
+    {
+      SpiApplication *other_app = g_ptr_array_index (registry->apps, i);
+      if (other_app == app)
+        break;
+      if (!other_app->disabled)
+        index++;
+    }
 
   sig = dbus_message_new_signal (SPI_DBUS_PATH_ROOT,
                                  SPI_DBUS_INTERFACE_EVENT_OBJECT,
@@ -196,26 +211,52 @@ emit_children_changed (DBusConnection *bus,
                                     &iter_array);
   dbus_message_iter_close_container (&iter, &iter_array);
 
-  dbus_connection_send (bus, sig, NULL);
+  dbus_connection_send (registry->bus, sig, NULL);
   dbus_message_unref (sig);
 }
 
 static void
-add_application (SpiRegistry *registry, SpiReference *app_root)
+set_app_pid (DBusPendingCall *pending, void *user_data)
 {
-  gint index;
+  SpiApplication *app = user_data;
+  DBusMessage *reply = dbus_pending_call_steal_reply (pending);
+  dbus_uint32_t pid = 0;
 
-  if (app_root && app_root->name)
-    g_debug ("Adding application with name '%s'", app_root->name);
-
-  g_ptr_array_add (registry->apps, app_root);
-  index = registry->apps->len - 1;
-
-  emit_children_changed (registry->bus, "add", index, app_root);
+  if (!strcmp (dbus_message_get_signature (reply), "u"))
+    {
+      dbus_message_get_args (reply, NULL, DBUS_TYPE_UINT32, &pid, DBUS_TYPE_INVALID);
+      app->pid = pid;
+      g_debug ("App with bus name '%s' has pid %d", app->name, app->pid);
+    }
+  dbus_pending_call_unref (pending);
 }
 
 static void
-call_set_id (SpiRegistry *registry, SpiReference *app, dbus_int32_t id)
+add_application (SpiRegistry *registry, SpiApplication *app)
+{
+  DBusMessage *message;
+  DBusPendingCall *pending;
+
+  g_debug ("Adding application with name '%s'", app->name);
+
+  g_ptr_array_add (registry->apps, app);
+
+  emit_children_changed (registry, TRUE, app);
+
+  message = dbus_message_new_method_call ("org.freedesktop.DBus",
+                                          "/org/freedesktop/DBus",
+                                          "org.freedesktop.DBus",
+                                          "GetConnectionUnixProcessID");
+  dbus_message_append_args (message, DBUS_TYPE_STRING,
+                            &app->name,
+                            DBUS_TYPE_INVALID);
+  dbus_connection_send_with_reply (registry->bus, message, &pending, 10000);
+  dbus_pending_call_set_notify (pending, set_app_pid, app, NULL);
+  dbus_message_unref (message);
+}
+
+static void
+call_set_id (SpiRegistry *registry, SpiApplication *app, dbus_int32_t id)
 {
   DBusMessage *message;
   DBusMessageIter iter, iter_variant;
@@ -239,13 +280,12 @@ call_set_id (SpiRegistry *registry, SpiReference *app, dbus_int32_t id)
 static void
 remove_application (SpiRegistry *registry, guint index, const gchar *reason)
 {
-  SpiReference *ref = g_ptr_array_index (registry->apps, index);
+  SpiApplication *app = g_ptr_array_index (registry->apps, index);
 
-  if (ref && ref->name)
-    g_debug ("Removing application with name '%s' due to %s", ref->name, reason);
+  g_debug ("Removing application with name '%s' due to %s", app->name, reason);
 
-  spi_remove_device_listeners (registry->dec, ref->name);
-  emit_children_changed (registry->bus, "remove", index, ref);
+  spi_remove_device_listeners (registry->dec, app->name);
+  emit_children_changed (registry, FALSE, app);
   g_ptr_array_remove_index (registry->apps, index);
 }
 
@@ -338,8 +378,8 @@ handle_disconnection (SpiRegistry *registry, DBusMessage *message)
           guint i;
           for (i = 0; i < registry->apps->len; i++)
             {
-              SpiReference *ref = g_ptr_array_index (registry->apps, i);
-              if (!g_strcmp0 (old, ref->name))
+              SpiApplication *app = g_ptr_array_index (registry->apps, i);
+              if (!g_strcmp0 (old, app->name))
                 {
                   remove_application (registry, i, "NameOwnerChanged");
                   i--;
@@ -419,12 +459,12 @@ typedef enum
 /*---------------------------------------------------------------------------*/
 
 static DemarshalStatus
-demarshal_reference (DBusMessage *message, SpiReference **out_reference)
+demarshal_reference (DBusMessage *message, SpiApplication **out_app)
 {
   DBusMessageIter iter, iter_struct;
   const gchar *app_name, *obj_path;
 
-  *out_reference = NULL;
+  *out_app = NULL;
 
   dbus_message_iter_init (message, &iter);
   dbus_message_iter_recurse (&iter, &iter_struct);
@@ -439,26 +479,26 @@ demarshal_reference (DBusMessage *message, SpiReference **out_reference)
     return DEMARSHAL_STATUS_INVALID_SIGNATURE;
   dbus_message_iter_get_basic (&iter_struct, &obj_path);
 
-  *out_reference = spi_reference_new (app_name, obj_path);
+  *out_app = spi_application_new (app_name, obj_path);
 
   return DEMARSHAL_STATUS_SUCCESS;
 }
 
-static SpiReference *
-socket_embed (SpiRegistry *registry, SpiReference *app_root)
+static SpiApplication *
+socket_embed (SpiRegistry *registry, SpiApplication *app_root)
 {
   add_application (registry, app_root);
   call_set_id (registry, app_root, registry->id);
   /* TODO: This will cause problems if we cycle through 2^31 ids */
   registry->id++;
-  return spi_reference_new (registry->bus_unique_name, SPI_DBUS_PATH_ROOT);
+  return spi_application_new (registry->bus_unique_name, SPI_DBUS_PATH_ROOT);
 }
 
 static DBusMessage *
 impl_Embed (DBusMessage *message, SpiRegistry *registry)
 {
-  SpiReference *app_root = NULL;
-  SpiReference *result;
+  SpiApplication *app_root = NULL;
+  SpiApplication *result;
 
   if (demarshal_reference (message, &app_root) != DEMARSHAL_STATUS_SUCCESS)
     {
@@ -473,7 +513,7 @@ impl_Embed (DBusMessage *message, SpiRegistry *registry)
   reply = dbus_message_new_method_return (message);
   dbus_message_iter_init_append (reply, &reply_iter);
   append_reference (&reply_iter, result);
-  spi_reference_free (result);
+  spi_application_free (result);
 
   return reply;
 }
@@ -481,18 +521,18 @@ impl_Embed (DBusMessage *message, SpiRegistry *registry)
 static DBusMessage *
 impl_Unembed (DBusMessage *message, SpiRegistry *registry)
 {
-  SpiReference *app_reference;
+  SpiApplication *app;
   guint index;
 
-  if (demarshal_reference (message, &app_reference) != DEMARSHAL_STATUS_SUCCESS)
+  if (demarshal_reference (message, &app) != DEMARSHAL_STATUS_SUCCESS)
     {
       return dbus_message_new_error (message, DBUS_ERROR_FAILED, "Invalid arguments");
     }
 
-  if (find_index_of_reference (registry->apps, app_reference, &index))
+  if (find_index_of_reference (registry->apps, app, &index))
     remove_application (registry, index, "Unembed");
 
-  spi_reference_free (app_reference);
+  spi_application_free (app);
 
   return NULL;
 }
@@ -517,12 +557,12 @@ impl_GetAccessibleAtPoint (DBusMessage *message, SpiRegistry *registry)
 {
   DBusMessage *reply = NULL;
   DBusMessageIter iter;
-  SpiReference *null_ref = spi_reference_null (registry->bus_unique_name);
+  SpiApplication *null_app = spi_application_null (registry->bus_unique_name);
 
   reply = dbus_message_new_method_return (message);
   dbus_message_iter_init_append (reply, &iter);
-  append_reference (&iter, null_ref);
-  spi_reference_free (null_ref);
+  append_reference (&iter, null_app);
+  spi_application_free (null_app);
 
   return reply;
 }
@@ -642,12 +682,12 @@ static dbus_bool_t
 impl_get_Parent (DBusMessageIter *iter, SpiRegistry *registry)
 {
   DBusMessageIter iter_variant;
-  SpiReference *null_ref = spi_reference_null ("");
+  SpiApplication *null_app = spi_application_null ("");
 
   dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, "(so)",
                                     &iter_variant);
-  append_reference (&iter_variant, null_ref);
-  spi_reference_free (null_ref);
+  append_reference (&iter_variant, null_app);
+  spi_application_free (null_app);
   dbus_message_iter_close_container (iter, &iter_variant);
   return TRUE;
 }
@@ -655,9 +695,17 @@ impl_get_Parent (DBusMessageIter *iter, SpiRegistry *registry)
 static dbus_bool_t
 impl_get_ChildCount (DBusMessageIter *iter, SpiRegistry *registry)
 {
-  dbus_int32_t rv = registry->apps->len;
+  dbus_int32_t rv = 0;
   dbus_bool_t result;
   DBusMessageIter iter_variant;
+  gint i;
+
+  for (i = 0; i < registry->apps->len; i++)
+    {
+      SpiApplication *current = g_ptr_array_index (registry->apps, i);
+      if (!current->disabled)
+        rv++;
+    }
 
   if (!dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, "i",
                                          &iter_variant))
@@ -679,13 +727,35 @@ impl_get_ToolkitVersion (DBusMessageIter *iter, SpiRegistry *registry)
   return_v_string (iter, "2.0");
 }
 
+static SpiApplication *
+get_application_at_index (SpiRegistry *registry, gint index)
+{
+  gint i;
+  gint count = 0;
+
+  if (index < 0)
+    return NULL;
+
+  for (i = 0; i < registry->apps->len; i++)
+    {
+      SpiApplication *current = g_ptr_array_index (registry->apps, i);
+      if (current->disabled)
+        continue;
+      if (index == count)
+        return current;
+      count++;
+    }
+
+  return NULL;
+}
+
 static DBusMessage *
 impl_GetChildAtIndex (DBusMessage *message, SpiRegistry *registry)
 {
   DBusMessage *reply;
   DBusMessageIter iter;
   DBusError error;
-  SpiReference *ref;
+  SpiApplication *app;
   dbus_int32_t i;
 
   dbus_error_init (&error);
@@ -697,16 +767,14 @@ impl_GetChildAtIndex (DBusMessage *message, SpiRegistry *registry)
   reply = dbus_message_new_method_return (message);
   dbus_message_iter_init_append (reply, &iter);
 
-  if (i < 0 || i >= registry->apps->len)
-    {
-      SpiReference *null_ref = spi_reference_null (SPI_DBUS_NAME_REGISTRY);
-      append_reference (&iter, null_ref);
-      spi_reference_free (null_ref);
-    }
+  app = get_application_at_index (registry, i);
+  if (app)
+    append_reference (&iter, app);
   else
     {
-      ref = g_ptr_array_index (registry->apps, i);
-      append_reference (&iter, ref);
+      SpiApplication *null_app = spi_application_null (SPI_DBUS_NAME_REGISTRY);
+      append_reference (&iter, null_app);
+      spi_application_free (null_app);
     }
 
   return reply;
@@ -725,8 +793,9 @@ impl_GetChildren (DBusMessage *message, SpiRegistry *registry)
   dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(so)", &iter_array);
   for (i = 0; i < registry->apps->len; i++)
     {
-      SpiReference *current = g_ptr_array_index (registry->apps, i);
-      append_reference (&iter_array, current);
+      SpiApplication *current = g_ptr_array_index (registry->apps, i);
+      if (!current->disabled)
+        append_reference (&iter_array, current);
     }
   dbus_message_iter_close_container (&iter, &iter_array);
   return reply;
@@ -834,12 +903,12 @@ impl_GetApplication (DBusMessage *message, SpiRegistry *registry)
 {
   DBusMessage *reply = NULL;
   DBusMessageIter iter;
-  SpiReference *null_ref = spi_reference_null (registry->bus_unique_name);
+  SpiApplication *null_app = spi_application_null (registry->bus_unique_name);
 
   reply = dbus_message_new_method_return (message);
   dbus_message_iter_init_append (reply, &iter);
-  append_reference (&iter, null_ref);
-  spi_reference_free (null_ref);
+  append_reference (&iter, null_app);
+  spi_application_free (null_app);
 
   return reply;
 }
@@ -1034,7 +1103,7 @@ emit_Available (DBusConnection *bus)
 {
   DBusMessage *sig;
   DBusMessageIter iter;
-  SpiReference root_ref = {
+  SpiApplication root_ref = {
     SPI_DBUS_NAME_REGISTRY,
     SPI_DBUS_PATH_ROOT,
   };
@@ -1415,6 +1484,76 @@ static DBusObjectPathVTable cache_vtable = {
   NULL, NULL, NULL, NULL
 };
 
+static void
+disable_app (SpiRegistry *registry, SpiApplication *app)
+{
+  if (app->disabled)
+    return;
+
+  g_warning ("Disabling unresponsive app with pid %d", app->pid);
+  app->disabled = TRUE;
+  emit_children_changed (registry, FALSE, app);
+}
+
+static void
+enable_app (SpiRegistry *registry, SpiApplication *app)
+{
+  if (!app->disabled)
+    return;
+
+  g_warning ("Re-enabling app with pid %d", app->pid);
+  app->disabled = FALSE;
+  emit_children_changed (registry, TRUE, app);
+}
+
+static void
+handle_app_ping (DBusPendingCall *pending, void *user_data)
+{
+  SpiRegistry *registry = user_data;
+  gint i;
+
+  for (i = 0; i < registry->apps->len; i++)
+    {
+      SpiApplication *app = g_ptr_array_index (registry->apps, i);
+      if (app->pending == pending)
+        {
+          DBusMessage *reply = dbus_pending_call_steal_reply (pending);
+
+          if (dbus_message_get_type (reply) == DBUS_MESSAGE_TYPE_ERROR)
+            {
+              g_warning ("%s got error %s", __func__, dbus_message_get_error_name (reply));
+              disable_app (registry, app);
+            }
+          else
+            enable_app (registry, app);
+          app->pending = NULL;
+          break;
+        }
+    }
+
+  dbus_pending_call_unref (pending);
+}
+
+static gboolean
+ping_applications (gpointer data)
+{
+  SpiRegistry *registry = data;
+  DBusMessage *message;
+  gint i;
+
+  for (i = 0; i < registry->apps->len; i++)
+    {
+      SpiApplication *app = g_ptr_array_index (registry->apps, i);
+
+      message = dbus_message_new_method_call (app->name, "/", "org.freedesktop.DBus.Peer", "Ping");
+      dbus_connection_send_with_reply (registry->bus, message, &app->pending, 10000);
+      dbus_pending_call_set_notify (app->pending, handle_app_ping, registry, NULL);
+      dbus_message_unref (message);
+    }
+
+  return G_SOURCE_CONTINUE;
+}
+
 static gchar *app_sig_match_name_owner =
     "type='signal', interface='org.freedesktop.DBus', member='NameOwnerChanged'";
 
@@ -1442,7 +1581,7 @@ spi_registry_new (DBusConnection *bus, SpiDEController *dec)
 
   emit_Available (bus);
 
-  registry->events = NULL;
+  registry->ping_applications_source = g_timeout_add_seconds (30, ping_applications, registry);
 
   return registry;
 }
