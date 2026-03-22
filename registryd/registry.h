@@ -52,6 +52,7 @@ struct _SpiRegistry
   DBusConnection *bus;
   char *bus_unique_name;
   GList *events;
+  guint ping_applications_source;
 };
 
 struct _SpiRegistryClass
