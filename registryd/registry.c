@@ -1522,7 +1522,6 @@ handle_app_ping (DBusPendingCall *pending, void *user_data)
 
           if (dbus_message_get_type (reply) == DBUS_MESSAGE_TYPE_ERROR)
             {
-              g_warning ("%s got error %s", __func__, dbus_message_get_error_name (reply));
               disable_app (registry, app);
             }
           else
