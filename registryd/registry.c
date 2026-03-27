@@ -228,6 +228,7 @@ set_app_pid (DBusPendingCall *pending, void *user_data)
       app->pid = pid;
       g_debug ("App with bus name '%s' has pid %d", app->name, app->pid);
     }
+  dbus_message_unref (reply);
   dbus_pending_call_unref (pending);
 }
 
@@ -1526,6 +1527,7 @@ handle_app_ping (DBusPendingCall *pending, void *user_data)
             }
           else
             enable_app (registry, app);
+          dbus_message_unref (reply);
           app->pending = NULL;
           break;
         }
