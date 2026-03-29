@@ -50,7 +50,7 @@ struct _AtspiMatchRule
   AtspiCollectionMatchType attributematchtype;
   GArray *interfaces;
   AtspiCollectionMatchType interfacematchtype;
-  gint roles[4];
+  gint roles[5];
   AtspiCollectionMatchType rolematchtype;
   gboolean invert;
 };

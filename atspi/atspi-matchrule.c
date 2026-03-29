@@ -174,7 +174,7 @@ atspi_match_rule_new (AtspiStateSet *states,
       for (i = 0; i < roles->len; i++)
         {
           AtspiRole role = g_array_index (roles, AtspiRole, i);
-          if (role < 128)
+          if (role < 160)
             rule->roles[role / 32] |= (1 << (role % 32));
           else
             g_warning ("AT-SPI: unexpected role %d\n", role);
@@ -253,6 +253,8 @@ _atspi_match_rule_marshal (AtspiMatchRule *rule, DBusMessageIter *iter)
   d_role = rule->roles[2];
   dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_INT32, &d_role);
   d_role = rule->roles[3];
+  dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_INT32, &d_role);
+  d_role = rule->roles[4];
   dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_INT32, &d_role);
   dbus_message_iter_close_container (&iter_struct, &iter_array);
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32,
