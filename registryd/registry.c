@@ -1548,7 +1548,8 @@ ping_applications (gpointer data)
 
       message = dbus_message_new_method_call (app->name, "/", "org.freedesktop.DBus.Peer", "Ping");
       dbus_connection_send_with_reply (registry->bus, message, &app->pending, 10000);
-      dbus_pending_call_set_notify (app->pending, handle_app_ping, registry, NULL);
+      if (app->pending)
+        dbus_pending_call_set_notify (app->pending, handle_app_ping, registry, NULL);
       dbus_message_unref (message);
     }
 
