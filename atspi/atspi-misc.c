@@ -580,7 +580,7 @@ add_accessible_from_iter (DBusMessageIter *iter)
 {
   DBusMessageIter iter_struct, iter_array;
   AtspiAccessible *accessible;
-  AtspiAccessible *parent;
+  AtspiAccessible *parent, *old_parent;
   const char *name, *description;
   dbus_uint32_t role;
   gboolean children_cached = FALSE;
@@ -598,8 +598,7 @@ add_accessible_from_iter (DBusMessageIter *iter)
 
   /* get parent */
   parent = _atspi_dbus_consume_accessible (&iter_struct);
-  if (accessible->accessible_parent)
-    g_object_unref (accessible->accessible_parent);
+  old_parent = accessible->accessible_parent;
   if (parent == accessible)
     {
       guint pid = atspi_accessible_get_process_id (accessible, NULL);
@@ -609,6 +608,7 @@ add_accessible_from_iter (DBusMessageIter *iter)
     }
   else
     accessible->accessible_parent = parent;
+  g_clear_object (&old_parent);
 
   if (dbus_message_iter_get_arg_type (&iter_struct) == 'i')
     {
