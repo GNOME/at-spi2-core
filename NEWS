@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.58.5:
+
+* Detect unresponsive applications, and do not expose them as children
+  of the desktop.
+
+* Attempt to fix a crash when opening a group chat in pidgin that contains
+  new messages.
+
 What's new in at-spi2-core 2.58.4:
 
 * Fix a use after free in _atspi_send_event.
