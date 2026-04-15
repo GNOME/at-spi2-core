@@ -36,7 +36,7 @@ class Accessible(Atspi.Accessible):
     def __getitem__(self, i):
         len = self.get_child_count()
         if i < 0:
-                i = self + i
+                i = len(self) + i
         if i < 0 or i >= len:
                 raise IndexError
         return self.get_child_at_index(i)
