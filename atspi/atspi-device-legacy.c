@@ -167,23 +167,26 @@ atspi_device_legacy_map_modifier (AtspiDevice *device, gint keycode)
   guint ret;
   AtspiLegacyKeyModifier *entry;
 #ifdef HAVE_X11
-  XkbDescPtr desc;
-
-  desc = XkbGetMap (priv->display, XkbModifierMapMask, XkbUseCoreKbd);
-
-  if (desc)
+  if (priv->display)
     {
-      if (keycode < desc->min_key_code || keycode >= desc->max_key_code)
-        {
-          XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
-          g_warning ("Passed invalid keycode %d", keycode);
-          return 0;
-        }
+      XkbDescPtr desc;
 
-      ret = desc->map->modmap[keycode];
-      XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
-      if (ret & (ShiftMask | ControlMask))
-        return ret;
+      desc = XkbGetMap (priv->display, XkbModifierMapMask, XkbUseCoreKbd);
+
+      if (desc)
+        {
+          if (keycode < desc->min_key_code || keycode >= desc->max_key_code)
+            {
+              XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
+              g_warning ("Passed invalid keycode %d", keycode);
+              return 0;
+            }
+
+          ret = desc->map->modmap[keycode];
+          XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
+          if (ret & (ShiftMask | ControlMask))
+            return ret;
+        }
     }
 #endif
 
@@ -226,24 +229,27 @@ atspi_device_legacy_get_modifier (AtspiDevice *device, gint keycode)
   AtspiDeviceLegacy *legacy_device = ATSPI_DEVICE_LEGACY (device);
 #ifdef HAVE_X11
   AtspiDeviceLegacyPrivate *priv = atspi_device_legacy_get_instance_private (legacy_device);
-  XkbDescPtr desc;
-  guint ret;
-
-  desc = XkbGetMap (priv->display, XkbModifierMapMask, XkbUseCoreKbd);
-
-  if (desc)
+  if (priv->display)
     {
-      if (keycode < desc->min_key_code || keycode >= desc->max_key_code)
-        {
-          XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
-          g_warning ("Passed invalid keycode %d", keycode);
-          return 0;
-        }
+      XkbDescPtr desc;
+      guint ret;
 
-      ret = desc->map->modmap[keycode];
-      XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
-      if (ret)
-        return ret;
+      desc = XkbGetMap (priv->display, XkbModifierMapMask, XkbUseCoreKbd);
+
+      if (desc)
+        {
+          if (keycode < desc->min_key_code || keycode >= desc->max_key_code)
+            {
+              XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
+              g_warning ("Passed invalid keycode %d", keycode);
+              return 0;
+            }
+
+          ret = desc->map->modmap[keycode];
+          XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
+          if (ret)
+            return ret;
+        }
     }
 #endif
 
@@ -308,7 +314,8 @@ atspi_device_legacy_map_keysym_modifier (AtspiDevice *device, guint keysym)
 
   guint resolved_keysym = keysym;
 #ifdef HAVE_X11
-  resolved_keysym = XKeysymToKeycode (priv->display, keysym);
+  if (priv->display)
+    resolved_keysym = XKeysymToKeycode (priv->display, keysym);
 #endif
 
   return atspi_device_legacy_map_modifier (device, resolved_keysym);
@@ -322,7 +329,8 @@ atspi_device_legacy_unmap_keysym_modifier (AtspiDevice *device, guint keysym)
 
   guint resolved_keysym = keysym;
 #ifdef HAVE_X11
-  resolved_keysym = XKeysymToKeycode (priv->display, keysym);
+  if (priv->display)
+    resolved_keysym = XKeysymToKeycode (priv->display, keysym);
 #endif
 
   atspi_device_legacy_unmap_modifier (device, resolved_keysym);
@@ -336,7 +344,8 @@ atspi_device_legacy_get_keysym_modifier (AtspiDevice *device, guint keysym)
 
   guint resolved_keysym = keysym;
 #ifdef HAVE_X11
-  resolved_keysym = XKeysymToKeycode (priv->display, keysym);
+  if (priv->display)
+    resolved_keysym = XKeysymToKeycode (priv->display, keysym);
 #endif
 
   return atspi_device_legacy_get_modifier (device, resolved_keysym);
@@ -355,9 +364,11 @@ atspi_device_legacy_init (AtspiDeviceLegacy *device)
 #ifdef HAVE_X11
   priv->display = XOpenDisplay ("");
   if (priv->display)
-    priv->window = DefaultRootWindow (priv->display);
-  priv->numlock_physical_mask = XkbKeysymToModifiers (priv->display,
-                                                      XK_Num_Lock);
+    {
+      priv->window = DefaultRootWindow (priv->display);
+      priv->numlock_physical_mask = XkbKeysymToModifiers (priv->display,
+                                                          XK_Num_Lock);
+    }
 #endif
 }
 
