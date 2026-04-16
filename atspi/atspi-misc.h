@@ -63,4 +63,6 @@ atspi_dbus_connection_setup_with_g_main (DBusConnection *connection,
 void
 atspi_dbus_server_setup_with_g_main (DBusServer *server,
                                      GMainContext *context);
+
+void atspi_set_g_main_loop_reentrancy (gboolean enabled);
 G_END_DECLS

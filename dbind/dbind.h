@@ -66,4 +66,6 @@ dbind_method_call (DBusConnection *cnx,
                    ...);
 
 void dbind_set_timeout (int timeout);
+
+void dbind_set_g_main_loop_reentrancy (int enabled);
 #endif /* _DBIND_H_ */

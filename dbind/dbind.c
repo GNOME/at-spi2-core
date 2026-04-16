@@ -27,6 +27,7 @@
 #include "dbind/dbind.h"
 
 static int dbind_timeout = -1;
+static gboolean dbind_use_g_main_loop = FALSE;
 
 /*
  * FIXME: compare types - to ensure they match &
@@ -38,6 +39,7 @@ static int dbind_timeout = -1;
 typedef struct _SpiReentrantCallClosure
 {
   DBusMessage *reply;
+  GMainLoop *loop;
 } SpiReentrantCallClosure;
 
 static void
@@ -47,6 +49,8 @@ set_reply (DBusPendingCall *pending, void *user_data)
 
   closure->reply = dbus_pending_call_steal_reply (pending);
   dbus_pending_call_unref (pending);
+  if (closure->loop)
+    g_main_loop_quit (closure->loop);
 }
 
 static gint
@@ -69,7 +73,7 @@ dbind_send_and_allow_reentry (DBusConnection *bus, DBusMessage *message, DBusErr
   DBusMessage *ret;
   static gboolean in_dispatch = FALSE;
 
-  if (unique_name && destination &&
+  if (!dbind_use_g_main_loop && unique_name && destination &&
       strcmp (destination, unique_name) != 0)
     {
       ret = dbus_connection_send_with_reply_and_block (bus, message,
@@ -94,25 +98,33 @@ dbind_send_and_allow_reentry (DBusConnection *bus, DBusMessage *message, DBusErr
   dbus_pending_call_set_notify (pending, set_reply, (void *) closure, g_free);
 
   closure->reply = NULL;
-  gettimeofday (&tv, NULL);
   dbus_pending_call_ref (pending);
-  while (!closure->reply)
+
+  if (dbind_use_g_main_loop)
     {
-      if (!dbus_connection_read_write_dispatch (bus, dbind_timeout))
+      closure->loop = g_main_loop_new (NULL, 0);
+      g_main_loop_run (closure->loop);
+      g_clear_pointer (&closure->loop, g_main_loop_unref);
+    }
+  else
+    {
+      gettimeofday (&tv, NULL);
+      while (!closure->reply)
         {
-          // dbus_pending_call_set_notify (pending, NULL, NULL, NULL);
-          dbus_pending_call_cancel (pending);
-          dbus_pending_call_unref (pending);
-          return NULL;
-        }
-      if (time_elapsed (&tv) > dbind_timeout)
-        {
-          // dbus_pending_call_set_notify (pending, NULL, NULL, NULL);
-          dbus_pending_call_cancel (pending);
-          dbus_pending_call_unref (pending);
-          dbus_set_error_const (error, "org.freedesktop.DBus.Error.NoReply",
-                                "timeout from dbind");
-          return NULL;
+          if (!dbus_connection_read_write_dispatch (bus, dbind_timeout))
+            {
+              dbus_pending_call_cancel (pending);
+              dbus_pending_call_unref (pending);
+              return NULL;
+            }
+          if (time_elapsed (&tv) > dbind_timeout)
+            {
+              dbus_pending_call_cancel (pending);
+              dbus_pending_call_unref (pending);
+              dbus_set_error_const (error, "org.freedesktop.DBus.Error.NoReply",
+                                    "timeout from dbind");
+              return NULL;
+            }
         }
     }
 
@@ -319,6 +331,12 @@ void
 dbind_set_timeout (int timeout)
 {
   dbind_timeout = timeout;
+}
+
+void
+dbind_set_g_main_loop_reentrancy (int enabled)
+{
+  dbind_use_g_main_loop = enabled;
 }
 
 /*END------------------------------------------------------------------------*/
