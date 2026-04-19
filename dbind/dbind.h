@@ -17,8 +17,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _DBIND_H_
-#define _DBIND_H_
+#pragma once
 
 #define DBUS_API_SUBJECT_TO_CHANGE
 #include <dbind/dbind-any.h>
@@ -68,4 +67,3 @@ dbind_method_call (DBusConnection *cnx,
 void dbind_set_timeout (int timeout);
 
 void dbind_set_g_main_loop_reentrancy (int enabled);
-#endif /* _DBIND_H_ */

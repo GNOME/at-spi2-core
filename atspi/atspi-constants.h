@@ -94,10 +94,7 @@
  * Constant definitions needed by multiple interfaces.
  */
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
+G_BEGIN_DECLS
 
   /**
    * AtspiLocaleType:
@@ -1945,6 +1942,4 @@ G_STATIC_ASSERT(ATSPI_ROLE_COUNT == ATSPI_ROLE_LAST_DEFINED + 1);
  */
 #define ATSPI_VALUE_VERSION                     1
 
-#ifdef __cplusplus
-}
-#endif
+G_END_DECLS
