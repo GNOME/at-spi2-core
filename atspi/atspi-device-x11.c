@@ -53,6 +53,7 @@ struct _AtspiDeviceX11Private
   AtspiEventListener *event_listener;
   gboolean pointer_monitor_enabled;
   AtspiPoint last_mouse_pos;
+  guint cached_physical_mods;
 };
 
 GObjectClass *device_x11_parent_class;
@@ -414,12 +415,70 @@ do_event_dispatch (gpointer user_data)
                   set_virtual_modifier (device, xiRawEv->detail, xevent.xcookie.evtype == XI_KeyPress);
                   modifiers = keyevent.xkey.state | priv->virtual_mods_enabled;
                   if (modifiers & priv->numlock_physical_mask)
-                    modifiers |= (1 << ATSPI_MODIFIER_NUMLOCK);
+                    {
+                      modifiers |= (1 << ATSPI_MODIFIER_NUMLOCK);
+                      modifiers &= ~priv->numlock_physical_mask;
+                    }
                   if (xiDevEv->deviceid == xiDevEv->sourceid)
                     atspi_device_notify_key (ATSPI_DEVICE (device), (xevent.xcookie.evtype == XI_KeyPress), xiRawEv->detail, keysym, modifiers, text);
                   else if (should_suppress_keygrab_window_events ())
                     _atspi_update_window_filter_time ();
                   XFreeEventData (priv->display, &xevent.xcookie);
+                  break;
+                case XI_RawKeyPress:
+                case XI_RawKeyRelease:
+                  {
+                    if (priv->focused_window != None && priv->focused_window != PointerRoot)
+                      {
+                        XFreeEventData (priv->display, &xevent.xcookie);
+                        break;
+                      }
+
+                    XIRawEvent *xiRawEvent = (XIRawEvent *) xevent.xcookie.data;
+                    XkbDescPtr desc;
+                    XkbStateRec raw_state;
+                    XKeyEvent raw_keyevent = { 0 };
+
+                    XkbGetState (priv->display, XkbUseCoreKbd, &raw_state);
+                    raw_keyevent.type = (xevent.xcookie.evtype == XI_RawKeyPress) ? KeyPress : KeyRelease;
+                    raw_keyevent.display = priv->display;
+                    raw_keyevent.keycode = xiRawEvent->detail;
+                    raw_keyevent.state = priv->cached_physical_mods | (raw_state.group << 13);
+
+                    XLookupString (&raw_keyevent, text, sizeof (text), &keysym, &status);
+                    if (text[0] < ' ')
+                      text[0] = '\0';
+
+                    set_virtual_modifier (device, xiRawEvent->detail,
+                                          xevent.xcookie.evtype == XI_RawKeyPress);
+
+                    modifiers = priv->cached_physical_mods | priv->virtual_mods_enabled;
+                    if (modifiers & priv->numlock_physical_mask)
+                      {
+                        modifiers |= (1 << ATSPI_MODIFIER_NUMLOCK);
+                        modifiers &= ~priv->numlock_physical_mask;
+                      }
+
+                    atspi_device_notify_key (ATSPI_DEVICE (device),
+                                             (xevent.xcookie.evtype == XI_RawKeyPress),
+                                             xiRawEvent->detail, keysym, modifiers, text);
+
+                    /* Update cached modifiers after notification so that state
+                       reflects the modifier state before the event (X11 convention) */
+                    desc = XkbGetMap (priv->display, XkbModifierMapMask, XkbUseCoreKbd);
+                    if (xiRawEvent->detail >= desc->min_key_code &&
+                        xiRawEvent->detail < desc->max_key_code)
+                      {
+                        unsigned int mod_mask = desc->map->modmap[xiRawEvent->detail];
+                        if (xevent.xcookie.evtype == XI_RawKeyPress)
+                          priv->cached_physical_mods |= mod_mask;
+                        else
+                          priv->cached_physical_mods &= ~mod_mask;
+                      }
+                    XkbFreeKeyboard (desc, XkbModifierMapMask, TRUE);
+
+                    XFreeEventData (priv->display, &xevent.xcookie);
+                  }
                   break;
                 case FocusIn:
                   refresh_key_grabs (device);
@@ -621,6 +680,14 @@ atspi_device_x11_init (AtspiDeviceX11 *device)
   priv->root_window = DefaultRootWindow (priv->display);
   XGetInputFocus (priv->display, &priv->focused_window, &focus_revert);
 
+  /* Initialize cached modifier state */
+  {
+    XkbStateRec state;
+    memset (&state, 0, sizeof (state));
+    XkbGetState (priv->display, XkbUseCoreKbd, &state);
+    priv->cached_physical_mods = state.mods;
+  }
+
   if (XQueryExtension (priv->display, "XInputExtension", &priv->xi_opcode, &first_event, &first_error))
     {
       int major = 2;
@@ -636,6 +703,8 @@ atspi_device_x11_init (AtspiDeviceX11 *device)
 
           XISetMask (mask, XI_KeyPress);
           XISetMask (mask, XI_KeyRelease);
+          XISetMask (mask, XI_RawKeyPress);
+          XISetMask (mask, XI_RawKeyRelease);
           XISetMask (mask, XI_ButtonPress);
           XISetMask (mask, XI_ButtonRelease);
           XISetMask (mask, XI_Motion);
