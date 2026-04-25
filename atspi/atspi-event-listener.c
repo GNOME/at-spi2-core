@@ -1073,8 +1073,10 @@ _atspi_send_event (AtspiEvent *e)
       if (!strcmp (category, entry->category) &&
           (entry->name == NULL || !strcmp (name, entry->name)) &&
           detail_matches_listener (detail, entry->detail) &&
-          (entry->app == NULL || !strcmp (entry->app->parent.app->bus_name,
-                                          e->source->parent.app->bus_name)))
+          (entry->app == NULL || (entry->app->parent.app != NULL &&
+                                  e->source->parent.app != NULL &&
+                                  !strcmp (entry->app->parent.app->bus_name,
+                                           e->source->parent.app->bus_name))))
         {
           GList *l2;
           for (l2 = called_listeners; l2; l2 = l2->next)
