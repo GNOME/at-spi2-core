@@ -1,3 +1,13 @@
+What's new in at-spi2-core 2.60.2:
+
+* atspi-device-legacy: add null checks for when x11 isnt available.
+
+* python: Fix __getitem__ with a negative offset.
+
+* Fix a NULL pointer dereference when sending an event.
+
+* device-x11: Fall back on raw key events if there is no focus.
+
 What's new in at-spi2-core 2.60.1:
 
 * Detect unresponsive applications, and do not expose them as children
