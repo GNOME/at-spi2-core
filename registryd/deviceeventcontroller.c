@@ -931,7 +931,7 @@ static gboolean
 key_set_contains_key (GSList *key_set,
                       const Accessibility_DeviceEvent *key_event)
 {
-  gint i;
+  gint i G_GNUC_UNUSED = 0;
   gint len;
   GSList *l;
 
