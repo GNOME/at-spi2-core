@@ -255,8 +255,7 @@ cache_process_property_change (AtspiEvent *event)
 {
   if (!strcmp (event->type, "object:property-change:accessible-parent"))
     {
-      if (event->source->accessible_parent)
-        g_object_unref (event->source->accessible_parent);
+      AtspiAccessible *old_parent = event->source->accessible_parent;
       if (G_VALUE_HOLDS (&event->any_data, ATSPI_TYPE_ACCESSIBLE))
         {
           event->source->accessible_parent = g_value_dup_object (&event->any_data);
@@ -267,6 +266,7 @@ cache_process_property_change (AtspiEvent *event)
           event->source->accessible_parent = NULL;
           event->source->cached_properties &= ~ATSPI_CACHE_PARENT;
         }
+      g_clear_object (&old_parent);
     }
   else if (!strcmp (event->type, "object:property-change:accessible-name"))
     {
