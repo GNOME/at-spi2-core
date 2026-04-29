@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.60.3:
+
+* libatspi: Fix another NULL pointer dereference.
+
 What's new in at-spi2-core 2.60.2:
 
 * atspi-device-legacy: add null checks for when x11 isnt available.
