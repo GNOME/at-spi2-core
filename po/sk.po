@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
-"POT-Creation-Date: 2026-04-11 15:09+0000\n"
-"PO-Revision-Date: 2026-04-23 22:08+0200\n"
+"POT-Creation-Date: 2026-04-29 15:22+0000\n"
+"PO-Revision-Date: 2026-04-30 09:37+0200\n"
 "Last-Translator: Jose Riha <jose1711@gmail.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -82,8 +82,7 @@ msgstr "Názov pre zjednodušené ovládanie"
 # property blurb
 #: atk/atkobject.c:274
 msgid "Object instance’s name formatted for assistive technology access"
-msgstr ""
-"Názov inštancie objektu naformátovaný pre zjednodušené ovládanie"
+msgstr "Názov inštancie objektu naformátovaný pre zjednodušené ovládanie"
 
 # property name
 #: atk/atkobject.c:280
@@ -103,7 +102,8 @@ msgstr "Rodič pre zjednodušené ovládanie"
 #: atk/atkobject.c:288
 msgid "Parent of the current accessible as returned by atk_object_get_parent()"
 msgstr ""
-"Rodič aktuálneho zjednodušeného ovládania tak, ako ho vracia funkcia atk_object_get_parent()"
+"Rodič aktuálneho zjednodušeného ovládania tak, ako ho vracia funkcia "
+"atk_object_get_parent()"
 
 # property name
 #: atk/atkobject.c:304
@@ -234,7 +234,6 @@ msgstr "Počet odkazov, ktoré AtkHypertext obsahuje"
 # pv: podľa mňa nie je zobrazené v UI, len pri návrhu UI. Možno zvážiť názov pre prístupnosť. Predstavujem si to ako label pre poli v aplikácii typu designer
 # property name
 #: atk/atkobject.c:440
-#| msgid "Accessible Name"
 msgid "Accessible ID"
 msgstr "ID pre zjednodušené ovládanie"
 
@@ -243,7 +242,6 @@ msgid "ID for the accessible; useful for automated testing"
 msgstr "ID pre dostupnosť; užitočné pre automatizované testovanie"
 
 #: atk/atkobject.c:447
-#| msgid "text"
 msgid "Help text"
 msgstr "Pomocný text"
 
@@ -435,11 +433,11 @@ msgstr "plátno"
 
 #: atspi/atspi-misc.c:58
 msgid "check box"
-msgstr "zaškrtávacie pole"
+msgstr "začiarkavacie pole"
 
 #: atspi/atspi-misc.c:59
 msgid "check menu item"
-msgstr "zaškrtávacia položka ponuky"
+msgstr "začiarkavacia položka ponuky"
 
 #: atspi/atspi-misc.c:60
 msgid "color chooser"
@@ -582,7 +580,6 @@ msgid "progress bar"
 msgstr "ukazovateľ priebehu"
 
 #: atspi/atspi-misc.c:95
-#| msgid "menu button"
 msgid "button"
 msgstr "tlačidlo"
 
