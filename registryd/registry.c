@@ -314,7 +314,7 @@ needs_mouse_poll (char **event)
 }
 
 static void
-remove_events (SpiRegistry *registry, const char *bus_name, const char *event)
+remove_events (SpiRegistry *registry, const char *bus_name, const char *event, const char *app)
 {
   gchar **remove_data;
   GList *list;
@@ -332,6 +332,7 @@ remove_events (SpiRegistry *registry, const char *bus_name, const char *event)
       EventData *evdata = list->data;
       list = list->next;
       if (!g_strcmp0 (evdata->listener_bus_name, bus_name) &&
+          (!event[0] || !g_strcmp0 (evdata->app_bus_name, app)) &&
           event_is_subtype (evdata->data, remove_data))
         {
           g_strfreev (evdata->data);
@@ -387,7 +388,7 @@ handle_disconnection (SpiRegistry *registry, DBusMessage *message)
                 }
             }
 
-          remove_events (registry, old, "");
+          remove_events (registry, old, "", "");
         }
     }
 }
@@ -1050,13 +1051,27 @@ impl_DeregisterEvent (DBusMessage *message, SpiRegistry *registry)
   const char *orig_name;
   gchar *name;
   const char *sender = dbus_message_get_sender (message);
+  const char *signature = dbus_message_get_signature (message);
+  const char *app;
 
-  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &orig_name,
-                              DBUS_TYPE_INVALID))
+  if (strcmp (signature, "s") == 0)
+    {
+      dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &orig_name,
+                             DBUS_TYPE_INVALID);
+      app = "";
+    }
+  else if (strcmp (signature, "ss") == 0)
+    {
+      dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &orig_name,
+                             DBUS_TYPE_STRING, &app,
+                             DBUS_TYPE_INVALID);
+    }
+  else
     return NULL;
+
   name = ensure_proper_format (orig_name);
 
-  remove_events (registry, sender, name);
+  remove_events (registry, sender, name, app);
 
   g_free (name);
   return dbus_message_new_method_return (message);

@@ -59,12 +59,17 @@
         deregistered. See RegisterEvent for a description of the format of
         this string.
 
+        @app_bus_name: The application that this request pertains to.
+        If the event listener was registered only for a certain application,
+        then the value passed should matched the app_bus_name passed for the
+        corresponding RegisterEvent call.
+
         Indicates that an AT is no longer interested in listening to a
         particular event.
-        TODO: Add app_bus_name here.
     -->
     <method name="DeregisterEvent">
       <arg direction="in" name="event" type="s"/>
+      <arg direction="in" name="app_bus_name" type="s"/>
     </method>
 
     <!--
