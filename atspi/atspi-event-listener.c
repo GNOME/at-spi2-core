@@ -398,7 +398,7 @@ convert_event_type_to_dbus (const char *eventType, char **categoryp, char **name
       gchar *matchrule;
       (*matchrule_array) = g_ptr_array_new ();
       matchrule = g_strdup_printf ("type='signal',interface='org.a11y.atspi.Event.%s'", category);
-      if (app)
+      if (app && app->parent.app)
         {
           gchar *new_str = g_strconcat (matchrule, ",sender='",
                                         app->parent.app->bus_name, "'",
@@ -899,7 +899,7 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
   gint i;
   GList *l;
 
-  if (!convert_event_type_to_dbus (event_type, &category, &name, &detail, NULL, &matchrule_array))
+  if (!convert_event_type_to_dbus (event_type, &category, &name, &detail, NULL, NULL))
     {
       return FALSE;
     }
@@ -926,21 +926,28 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
             }
           else
             event_listeners = g_list_remove (event_listeners, e);
+          convert_event_type_to_dbus (event_type, NULL, NULL, NULL, e->app, &matchrule_array);
           for (i = 0; i < matchrule_array->len; i++)
             {
               char *matchrule = g_ptr_array_index (matchrule_array, i);
               dbus_bus_remove_match (_atspi_bus (), matchrule, NULL);
+              g_free (matchrule);
             }
-          message = dbus_message_new_method_call (atspi_bus_registry,
-                                                  atspi_path_registry,
-                                                  atspi_interface_registry,
-                                                  "DeregisterEvent");
-          if (!message)
-            return FALSE;
-          dbus_message_append_args (message, DBUS_TYPE_STRING, &event_type, DBUS_TYPE_INVALID);
-          reply = _atspi_dbus_send_with_reply_and_block (message, error);
-          if (reply)
-            dbus_message_unref (reply);
+          g_ptr_array_free (matchrule_array, TRUE);
+          if (!e->app || e->app->parent.app)
+            {
+              const char *app_bus_name = (e->app ? e->app->parent.app->bus_name : "");
+              message = dbus_message_new_method_call (atspi_bus_registry,
+                                                      atspi_path_registry,
+                                                      atspi_interface_registry,
+                                                      "DeregisterEvent");
+              if (!message)
+                return FALSE;
+              dbus_message_append_args (message, DBUS_TYPE_STRING, &event_type, DBUS_TYPE_STRING, &app_bus_name, DBUS_TYPE_INVALID);
+              reply = _atspi_dbus_send_with_reply_and_block (message, error);
+              if (reply)
+                dbus_message_unref (reply);
+            }
 
           if (!in_send)
             listener_entry_free (e);
@@ -952,9 +959,6 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
   g_free (name);
   if (detail)
     g_free (detail);
-  for (i = 0; i < matchrule_array->len; i++)
-    g_free (g_ptr_array_index (matchrule_array, i));
-  g_ptr_array_free (matchrule_array, TRUE);
   return TRUE;
 }
 

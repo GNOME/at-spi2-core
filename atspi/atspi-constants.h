@@ -1892,7 +1892,7 @@ G_STATIC_ASSERT(ATSPI_ROLE_COUNT == ATSPI_ROLE_LAST_DEFINED + 1);
  *
  * Since: 2.59
  */
-#define ATSPI_REGISTRY_VERSION                  1
+#define ATSPI_REGISTRY_VERSION                  2
 /**
  * ATSPI_SELECTION_VERSION:
  *
