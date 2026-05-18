@@ -2288,3 +2288,30 @@ atspi_set_g_main_loop_reentrancy (gboolean enabled)
 {
   dbind_set_g_main_loop_reentrancy (enabled);
 }
+
+AtspiAccessible *
+_atspi_get_accessible_from_pid (pid_t pid)
+{
+  AtspiAccessible *desktop = atspi_get_desktop (0);
+  gint count = atspi_accessible_get_child_count (desktop, NULL);
+  gint i;
+  guint child_pid;
+
+  for (i = 0; i < count; i++)
+    {
+      AtspiAccessible *child = atspi_accessible_get_child_at_index (desktop, i, NULL);
+      if (!child)
+        continue;
+      child_pid = atspi_accessible_get_process_id (child, NULL);
+      if (child_pid == pid)
+        {
+          g_object_unref (desktop);
+          return child;
+        }
+      g_object_unref (child);
+    }
+
+  g_object_unref (desktop);
+  return NULL;
+}
+

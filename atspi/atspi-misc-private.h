@@ -161,4 +161,6 @@ gboolean _atspi_prepare_screen_reader_interface ();
 gchar *_atspi_strdup_and_adjust_for_dbus (const char *s);
 
 gboolean _atspi_key_is_on_keypad (gint keycode);
+
+AtspiAccessible *_atspi_get_accessible_from_pid (pid_t pid);
 G_END_DECLS
