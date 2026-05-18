@@ -57,9 +57,7 @@ typedef struct
   GMainLoop *loop;
   gboolean launch_immediately;
   gboolean a11y_enabled;
-  gboolean screen_reader_enabled;
   GDBusConnection *session_bus;
-  GSettings *a11y_schema;
   GSettings *interface_schema;
   int name_owner_id;
 
@@ -77,9 +75,13 @@ typedef struct
   int listenfd;
   char *a11y_launch_error_message;
   GDBusProxy *sm_proxy;
+  GDBusConnection *a11y_bus;
+  GHashTable *event_listeners;
 } A11yBusLauncher;
 
 static A11yBusLauncher *_global_app = NULL;
+
+static void handle_a11y_enabled_change (A11yBusLauncher *app, gboolean enabled, gboolean notify_gsettings);
 
 static const gchar introspection_xml[] =
     "<node>"
@@ -90,7 +92,6 @@ static const gchar introspection_xml[] =
     "  </interface>"
     "  <interface name='org.a11y.Status'>"
     "    <property name='IsEnabled' type='b' access='readwrite'/>"
-    "    <property name='ScreenReaderEnabled' type='b' access='readwrite'/>"
     "  </interface>"
     "</node>";
 static GDBusNodeInfo *introspection_data = NULL;
@@ -531,12 +532,71 @@ ensure_a11y_bus_broker (A11yBusLauncher *app, char *config_path)
 }
 #endif
 
+static void
+event_listener_vanished_callback (GDBusConnection *connection,
+                                  const char *name,
+                                  gpointer user_data)
+{
+  A11yBusLauncher *app = user_data;
+
+  g_debug ("App %s vanished; removing from list", name);
+
+  g_hash_table_remove (app->event_listeners, name);
+  handle_a11y_enabled_change (app, g_hash_table_size (app->event_listeners) > 0, FALSE);
+}
+
+static void
+on_event_listener_registered (GDBusConnection *connection,
+                              const char *sender_name,
+                              const char *object_path,
+                              const char *interface_name,
+                              const char *signal_name,
+                              GVariant *parameters,
+                              gpointer user_data)
+{
+  A11yBusLauncher *app = user_data;
+
+  if (g_strcmp0 (object_path, "/org/a11y/atspi/registry") == 0 &&
+      g_strcmp0 (interface_name, "org.a11y.atspi.Registry") == 0 &&
+      g_strcmp0 (signal_name, "EventListenerRegistered") == 0)
+    {
+      const char *sender = NULL;
+      const char *event_name = NULL;
+      guint *watcher_id;
+
+      if (app->event_listeners == NULL)
+        app->event_listeners = g_hash_table_new_full (g_str_hash, g_str_equal,
+                                                      g_free,
+                                                      g_free);
+
+      g_variant_get (parameters, "(&s&sas)", &sender, &event_name, NULL);
+
+      watcher_id = g_hash_table_lookup (app->event_listeners, sender);
+      if (watcher_id == NULL)
+        {
+          watcher_id = g_new (guint, 1);
+          g_debug ("App %s registered an event listener on the a11y bus", sender);
+          *watcher_id =
+              g_bus_watch_name_on_connection (connection,
+                                              sender,
+                                              G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                              NULL,
+                                              event_listener_vanished_callback,
+                                              app,
+                                              NULL);
+          g_hash_table_insert (app->event_listeners, g_strdup (sender), watcher_id);
+          handle_a11y_enabled_change (app, g_hash_table_size (app->event_listeners) > 0, TRUE);
+        }
+    }
+}
+
 static gboolean
 ensure_a11y_bus (A11yBusLauncher *app)
 {
   char *config_path = NULL;
   gboolean success = FALSE;
   const gchar *xdg_runtime_dir;
+  GError *error = NULL;
 
   if (app->a11y_bus_pid != 0)
     return FALSE;
@@ -616,6 +676,33 @@ ensure_a11y_bus (A11yBusLauncher *app)
     }
 #endif
 
+  app->a11y_bus =
+      g_dbus_connection_new_for_address_sync (app->a11y_bus_address,
+                                              G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_CLIENT |
+                                                  G_DBUS_CONNECTION_FLAGS_MESSAGE_BUS_CONNECTION,
+                                              NULL, NULL,
+                                              &error);
+
+  if (error != NULL)
+    {
+      g_critical ("Unable to connect to the accessibility bus at '%s': %s",
+                  app->a11y_bus_address,
+                  error->message);
+      g_error_free (error);
+      return TRUE;
+    }
+
+  g_dbus_connection_signal_subscribe (app->a11y_bus,
+                                      "org.a11y.atspi.Registry",
+                                      "org.a11y.atspi.Registry",
+                                      "EventListenerRegistered",
+                                      "/org/a11y/atspi/registry",
+                                      NULL,
+                                      G_DBUS_SIGNAL_FLAGS_NONE,
+                                      on_event_listener_registered,
+                                      app,
+                                      NULL);
+
   return TRUE;
 }
 
@@ -657,10 +744,44 @@ handle_get_property (GDBusConnection *connection,
 
   if (g_strcmp0 (property_name, "IsEnabled") == 0)
     return g_variant_new ("b", app->a11y_enabled);
-  else if (g_strcmp0 (property_name, "ScreenReaderEnabled") == 0)
-    return g_variant_new ("b", app->screen_reader_enabled);
   else
     return NULL;
+}
+
+static gboolean
+handle_set_property (GDBusConnection *connection,
+                     const gchar *sender,
+                     const gchar *object_path,
+                     const gchar *interface_name,
+                     const gchar *property_name,
+                     GVariant *value,
+                     GError **error,
+                     gpointer user_data)
+{
+  A11yBusLauncher *app = user_data;
+  const gchar *type = g_variant_get_type_string (value);
+  gboolean enabled;
+
+  if (g_strcmp0 (type, "b") != 0)
+    {
+      g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_INVALID_ARGS,
+                   "org.a11y.Status.%s expects a boolean but got %s", property_name, type);
+      return FALSE;
+    }
+
+  enabled = g_variant_get_boolean (value);
+
+  if (g_strcmp0 (property_name, "IsEnabled") == 0)
+    {
+      handle_a11y_enabled_change (app, enabled, TRUE);
+      return TRUE;
+    }
+  else
+    {
+      g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_INVALID_ARGS,
+                   "Unknown property '%s'", property_name);
+      return FALSE;
+    }
 }
 
 static void
@@ -696,87 +817,6 @@ handle_a11y_enabled_change (A11yBusLauncher *app, gboolean enabled, gboolean not
 
   g_variant_builder_clear (&builder);
   g_variant_builder_clear (&invalidated_builder);
-}
-
-static void
-handle_screen_reader_enabled_change (A11yBusLauncher *app, gboolean enabled, gboolean notify_gsettings)
-{
-  GVariantBuilder builder;
-  GVariantBuilder invalidated_builder;
-
-  if (enabled == app->screen_reader_enabled)
-    return;
-
-  /* If the screen reader is being enabled, we should enable accessibility
-   * if it isn't enabled already */
-  if (enabled)
-    handle_a11y_enabled_change (app, enabled, notify_gsettings);
-
-  app->screen_reader_enabled = enabled;
-
-  if (notify_gsettings && app->a11y_schema)
-    {
-      g_settings_set_boolean (app->a11y_schema, "screen-reader-enabled",
-                              enabled);
-      g_settings_sync ();
-    }
-
-  g_variant_builder_init (&builder, G_VARIANT_TYPE_ARRAY);
-  g_variant_builder_init (&invalidated_builder, G_VARIANT_TYPE ("as"));
-  g_variant_builder_add (&builder, "{sv}", "ScreenReaderEnabled",
-                         g_variant_new_boolean (enabled));
-
-  g_dbus_connection_emit_signal (app->session_bus, NULL, "/org/a11y/bus",
-                                 "org.freedesktop.DBus.Properties",
-                                 "PropertiesChanged",
-                                 g_variant_new ("(sa{sv}as)", "org.a11y.Status",
-                                                &builder,
-                                                &invalidated_builder),
-                                 NULL);
-
-  g_variant_builder_clear (&builder);
-  g_variant_builder_clear (&invalidated_builder);
-}
-
-static gboolean
-handle_set_property (GDBusConnection *connection,
-                     const gchar *sender,
-                     const gchar *object_path,
-                     const gchar *interface_name,
-                     const gchar *property_name,
-                     GVariant *value,
-                     GError **error,
-                     gpointer user_data)
-{
-  A11yBusLauncher *app = user_data;
-  const gchar *type = g_variant_get_type_string (value);
-  gboolean enabled;
-
-  if (g_strcmp0 (type, "b") != 0)
-    {
-      g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_INVALID_ARGS,
-                   "org.a11y.Status.%s expects a boolean but got %s", property_name, type);
-      return FALSE;
-    }
-
-  enabled = g_variant_get_boolean (value);
-
-  if (g_strcmp0 (property_name, "IsEnabled") == 0)
-    {
-      handle_a11y_enabled_change (app, enabled, TRUE);
-      return TRUE;
-    }
-  else if (g_strcmp0 (property_name, "ScreenReaderEnabled") == 0)
-    {
-      handle_screen_reader_enabled_change (app, enabled, TRUE);
-      return TRUE;
-    }
-  else
-    {
-      g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_INVALID_ARGS,
-                   "Unknown property '%s'", property_name);
-      return FALSE;
-    }
 }
 
 static const GDBusInterfaceVTable bus_vtable = {
@@ -933,23 +973,10 @@ get_schema (const gchar *name)
 #endif
 }
 
-static void
-gsettings_key_changed (GSettings *gsettings, const gchar *key, void *user_data)
-{
-  gboolean new_val = g_settings_get_boolean (gsettings, key);
-
-  if (!strcmp (key, "toolkit-accessibility"))
-    handle_a11y_enabled_change (_global_app, new_val, FALSE);
-  else if (!strcmp (key, "screen-reader-enabled"))
-    handle_screen_reader_enabled_change (_global_app, new_val, FALSE);
-}
-
 int
 main (int argc,
       char **argv)
 {
-  gboolean a11y_set = FALSE;
-  gboolean screen_reader_set = FALSE;
   gint i;
 
   _global_app = g_new0 (A11yBusLauncher, 1);
@@ -959,41 +986,11 @@ main (int argc,
     {
       if (!strcmp (argv[i], "--launch-immediately"))
         _global_app->launch_immediately = TRUE;
-      else if (sscanf (argv[i], "--a11y=%d", &_global_app->a11y_enabled) == 1)
-        a11y_set = TRUE;
-      else if (sscanf (argv[i], "--screen-reader=%d",
-                       &_global_app->screen_reader_enabled) == 1)
-        screen_reader_set = TRUE;
       else
         g_error ("usage: %s [--launch-immediately] [--a11y=0|1] [--screen-reader=0|1]", argv[0]);
     }
 
   _global_app->interface_schema = get_schema ("org.gnome.desktop.interface");
-  _global_app->a11y_schema = get_schema ("org.gnome.desktop.a11y.applications");
-
-  if (!a11y_set)
-    {
-      _global_app->a11y_enabled = _global_app->interface_schema
-                                      ? g_settings_get_boolean (_global_app->interface_schema, "toolkit-accessibility")
-                                      : _global_app->launch_immediately;
-    }
-
-  if (!screen_reader_set)
-    {
-      _global_app->screen_reader_enabled = _global_app->a11y_schema
-                                               ? g_settings_get_boolean (_global_app->a11y_schema, "screen-reader-enabled")
-                                               : FALSE;
-    }
-
-  if (_global_app->interface_schema)
-    g_signal_connect (_global_app->interface_schema,
-                      "changed::toolkit-accessibility",
-                      G_CALLBACK (gsettings_key_changed), _global_app);
-
-  if (_global_app->a11y_schema)
-    g_signal_connect (_global_app->a11y_schema,
-                      "changed::screen-reader-enabled",
-                      G_CALLBACK (gsettings_key_changed), _global_app);
 
   init_sigterm_handling (_global_app);
 
