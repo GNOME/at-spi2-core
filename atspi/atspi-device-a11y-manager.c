@@ -397,6 +397,7 @@ a11y_manager_query_pointer_finished (GObject *gobj,
   gchar *object_path = NULL;
   double x = 0, y = 0;
   AtspiAccessible *obj;
+  gint pid = -1;
 
   if (!ret)
     return;
@@ -404,9 +405,16 @@ a11y_manager_query_pointer_finished (GObject *gobj,
   g_variant_get (ret, "(@a{sv}dd)", &values, &x, &y);
   g_variant_lookup (values, "app-dbus-name", "s", &bus_name);
   g_variant_lookup (values, "toplevel-object-path", "o", &object_path);
+  g_variant_lookup (values, "pid", "i", &pid);
   if (bus_name && object_path)
     {
       obj = _atspi_ref_accessible (bus_name, object_path);
+      g_signal_emit_by_name (device, "pointer-moved", obj, (gint) x, (gint) y);
+      g_object_unref (obj);
+    }
+  else if (pid > 0)
+    {
+      obj = _atspi_get_accessible_from_pid (pid);
       g_signal_emit_by_name (device, "pointer-moved", obj, (gint) x, (gint) y);
       g_object_unref (obj);
     }
