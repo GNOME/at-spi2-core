@@ -2314,4 +2314,3 @@ _atspi_get_accessible_from_pid (pid_t pid)
   g_object_unref (desktop);
   return NULL;
 }
-
