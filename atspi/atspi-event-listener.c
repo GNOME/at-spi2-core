@@ -642,6 +642,7 @@ notify_event_registered (EventListenerEntry *e)
 {
   const char *app_path = (e->app ? e->app->parent.app->bus_name : "");
 
+  g_debug ("Calling RegisterEvent: event_type=%s app=%s\n", e->event_type, app_path);
   dbind_method_call_reentrant (_atspi_bus (), atspi_bus_registry,
                                atspi_path_registry,
                                atspi_interface_registry,
@@ -765,6 +766,7 @@ atspi_event_listener_register_from_callback_with_app (AtspiEventListenerCB callb
       return FALSE;
     }
 
+  g_debug ("Registering event listener for %s\n", event_type);
   e = g_new0 (EventListenerEntry, 1);
   e->event_type = g_strdup (event_type);
   e->callback = callback;
@@ -786,6 +788,7 @@ atspi_event_listener_register_from_callback_with_app (AtspiEventListenerCB callb
     {
       char *matchrule = g_ptr_array_index (matchrule_array, i);
       dbus_error_init (&d_error);
+      g_print ("Calling dbus_bus_add_match for match rule %s\n", matchrule);
       dbus_bus_add_match (_atspi_bus (), matchrule, &d_error);
       if (dbus_error_is_set (&d_error))
         {
@@ -899,6 +902,7 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
   gint i;
   GList *l;
 
+  g_debug ("Deregistering event listener for %s\n", event_type);
   if (!convert_event_type_to_dbus (event_type, &category, &name, &detail, NULL, NULL))
     {
       return FALSE;
@@ -930,6 +934,7 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
           for (i = 0; i < matchrule_array->len; i++)
             {
               char *matchrule = g_ptr_array_index (matchrule_array, i);
+              g_print ("Calling dbus_bus_remove_match for match rule %s", matchrule);
               dbus_bus_remove_match (_atspi_bus (), matchrule, NULL);
               g_free (matchrule);
             }
@@ -937,6 +942,7 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
           if (!e->app || e->app->parent.app)
             {
               const char *app_bus_name = (e->app ? e->app->parent.app->bus_name : "");
+              g_debug ("Calling DeregisterEvent: event_type=%s app=%s\n", event_type, app_bus_name);
               message = dbus_message_new_method_call (atspi_bus_registry,
                                                       atspi_path_registry,
                                                       atspi_interface_registry,
