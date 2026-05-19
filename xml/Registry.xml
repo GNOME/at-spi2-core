@@ -10,6 +10,7 @@
 
     <method name="DeregisterEvent">
       <arg direction="in" name="event" type="s"/>
+      <arg direction="in" name="app_bus_name" type="s"/>
     </method>
 
     <method name="GetRegisteredEvents">
