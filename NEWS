@@ -1,3 +1,9 @@
+What's new in at-spi2-core 2.60.4:
+
+* AtspiDeviceA11yManager: Make use of pid when returned by queryPointer
+
+* Fix deregistering application-specific event listeners
+
 What's new in at-spi2-core 2.60.3:
 
 * libatspi: Fix another NULL pointer dereference.
