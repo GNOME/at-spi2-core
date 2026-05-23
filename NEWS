@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.58.6:
+
+* python: Fix __getitem__ with a negative offset
+
+* Fix deregistering application-specific event listeners
+
+* Fix several crashes.
+
 What's new in at-spi2-core 2.58.5:
 
 * Detect unresponsive applications, and do not expose them as children
