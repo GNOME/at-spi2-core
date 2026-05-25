@@ -934,7 +934,7 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
           for (i = 0; i < matchrule_array->len; i++)
             {
               char *matchrule = g_ptr_array_index (matchrule_array, i);
-              g_print ("Calling dbus_bus_remove_match for match rule %s", matchrule);
+              g_print ("Calling dbus_bus_remove_match for match rule %s\n", matchrule);
               dbus_bus_remove_match (_atspi_bus (), matchrule, NULL);
               g_free (matchrule);
             }
