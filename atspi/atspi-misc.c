@@ -408,6 +408,7 @@ get_application (const char *bus_name)
   char *bus_name_dup;
   DBusMessage *message;
   DBusPendingCall *pending = NULL;
+  const char *disable_p2p;
 
   if (!app_hash)
     {
@@ -424,17 +425,18 @@ get_application (const char *bus_name)
   gettimeofday (&app->time_added, NULL);
   app->cache = ATSPI_CACHE_UNDEFINED;
   g_hash_table_insert (app_hash, bus_name_dup, app);
-  message = dbus_message_new_method_call (bus_name, atspi_path_root,
-                                          atspi_interface_application, "GetApplicationBusAddress");
 
-  dbus_connection_send_with_reply (app->bus, message, &pending, 2000);
-  dbus_message_unref (message);
-  if (!pending)
+  disable_p2p = g_getenv ("ATSPI_DISABLE_P2P");
+  if (!disable_p2p || atoi (disable_p2p) == 0)
     {
-      g_hash_table_remove (app_hash, bus_name_dup);
-      return NULL;
+      message = dbus_message_new_method_call (bus_name, atspi_path_root,
+                                              atspi_interface_application, "GetApplicationBusAddress");
+      dbus_connection_send_with_reply (app->bus, message, &pending, 2000);
+      dbus_message_unref (message);
+      if (pending)
+        dbus_pending_call_set_notify (pending, handle_get_bus_address, app, NULL);
     }
-  dbus_pending_call_set_notify (pending, handle_get_bus_address, app, NULL);
+
   return app;
 }
 
