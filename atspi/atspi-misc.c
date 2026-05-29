@@ -390,6 +390,9 @@ handle_get_bus_address (DBusPendingCall *pending, void *user_data)
   if (!app->bus)
     return; /* application has gone away / been disposed */
 
+  if (atspi_no_cache)
+    return;
+
   message = dbus_message_new_method_call (app->bus_name,
                                           "/org/a11y/atspi/cache",
                                           atspi_interface_cache, "GetItems");
