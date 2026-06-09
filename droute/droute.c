@@ -413,7 +413,7 @@ handle_dbus (DBusConnection *bus,
     }
 
   /* TODO: Fix this hack (we don't handle wrap-around, for instance) */
-  sprintf (id_str, ":1.%d", id++);
+  snprintf (id_str, 40, ":1.%d", id++);
   reply = dbus_message_new_method_return (message);
   dbus_message_append_args (reply, DBUS_TYPE_STRING, &id_str, DBUS_TYPE_INVALID);
   dbus_connection_send (bus, reply, NULL);
