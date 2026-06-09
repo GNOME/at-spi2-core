@@ -198,6 +198,11 @@ add_object (SpiCache *cache, GObject *gobj)
 {
   g_return_if_fail (G_IS_OBJECT (gobj));
 
+  if (spi_cache_in (cache, gobj))
+    {
+      return;
+    }
+
   g_hash_table_insert (cache->objects, gobj, NULL);
   g_object_weak_ref (G_OBJECT (gobj), cache_weak_ref, cache);
 
