@@ -113,77 +113,83 @@ G_BEGIN_DECLS
    * enumeration corresponds to the POSIX 'setlocale' enum values.
    *
    **/
-  typedef enum
-  {
-    ATSPI_LOCALE_TYPE_MESSAGES,
-    ATSPI_LOCALE_TYPE_COLLATE,
-    ATSPI_LOCALE_TYPE_CTYPE,
-    ATSPI_LOCALE_TYPE_MONETARY,
-    ATSPI_LOCALE_TYPE_NUMERIC,
-    ATSPI_LOCALE_TYPE_TIME,
-  } AtspiLocaleType;
+typedef enum
+{
+  ATSPI_LOCALE_TYPE_MESSAGES,
+  ATSPI_LOCALE_TYPE_COLLATE,
+  ATSPI_LOCALE_TYPE_CTYPE,
+  ATSPI_LOCALE_TYPE_MONETARY,
+  ATSPI_LOCALE_TYPE_NUMERIC,
+  ATSPI_LOCALE_TYPE_TIME,
+  ATSPI_LOCALE_TYPE_LAST_DEFINED,
+} AtspiLocaleType;
 
 /**
  * ATSPI_LOCALE_TYPE_COUNT:
  *
  * One higher than the highest valid value of #AtspiLocaleType.
  **/
-#define ATSPI_LOCALE_TYPE_COUNT (5 + 1)
+#define ATSPI_LOCALE_TYPE_COUNT (6 + 1)
 
-  /**
-   * AtspiCoordType:
-   * @ATSPI_COORD_TYPE_SCREEN: Specifies xy coordinates relative to the screen.
-   * @ATSPI_COORD_TYPE_WINDOW: Specifies xy coordinates relative to the widget's
-   * top-level window.
-   * @ATSPI_COORD_TYPE_PARENT: Specifies xy coordinates relative to the widget's
-   * immediate parent.
-   *
-   * Enumeration used by #AtspiComponent, #AtspiImage, and #AtspiText interfaces
-   * to specify whether coordinates are relative to the window or the screen.
-   *
-   **/
-  typedef enum
-  {
-    ATSPI_COORD_TYPE_SCREEN,
-    ATSPI_COORD_TYPE_WINDOW,
-    ATSPI_COORD_TYPE_PARENT,
-  } AtspiCoordType;
+G_STATIC_ASSERT (ATSPI_LOCALE_TYPE_COUNT == ATSPI_LOCALE_TYPE_LAST_DEFINED + 1);
+
+/**
+ * AtspiCoordType:
+ * @ATSPI_COORD_TYPE_SCREEN: Specifies xy coordinates relative to the screen.
+ * @ATSPI_COORD_TYPE_WINDOW: Specifies xy coordinates relative to the widget's
+ * top-level window.
+ * @ATSPI_COORD_TYPE_PARENT: Specifies xy coordinates relative to the widget's
+ * immediate parent.
+ *
+ * Enumeration used by #AtspiComponent, #AtspiImage, and #AtspiText interfaces
+ * to specify whether coordinates are relative to the window or the screen.
+ *
+ **/
+typedef enum
+{
+  ATSPI_COORD_TYPE_SCREEN,
+  ATSPI_COORD_TYPE_WINDOW,
+  ATSPI_COORD_TYPE_PARENT,
+  ATSPI_COORD_TYPE_LAST_DEFINED,
+} AtspiCoordType;
 
 /**
  * ATSPI_COORD_TYPE_COUNT:
  *
  * One higher than the highest valid value of #AtspiCoordType.
  **/
-#define ATSPI_COORD_TYPE_COUNT (2 + 1)
+#define ATSPI_COORD_TYPE_COUNT (3 + 1)
 
-  /**
-   * AtspiCollectionSortOrder:
-   * @ATSPI_Collection_SORT_ORDER_INVALID: Invalid sort order
-   * @ATSPI_Collection_SORT_ORDER_CANONICAL: Canonical sort order
-   * @ATSPI_Collection_SORT_ORDER_FLOW: Flow sort order
-   * @ATSPI_Collection_SORT_ORDER_TAB: Tab sort order
-   * @ATSPI_Collection_SORT_ORDER_REVERSE_CANONICAL: Reverse canonical sort order
-   * @ATSPI_Collection_SORT_ORDER_REVERSE_FLOW: Reverse flow sort order
-   * @ATSPI_Collection_SORT_ORDER_REVERSE_TAB: Reverse tab sort order
-   * @ATSPI_Collection_SORT_ORDER_LAST_DEFINED: Used only to determine the end of the
-   * enumeration.
+G_STATIC_ASSERT (ATSPI_COORD_TYPE_COUNT == ATSPI_COORD_TYPE_LAST_DEFINED + 1);
 
-   *
-   * Enumeration used by interface #AtspiCollection to specify
-   * the way #AtspiAccesible objects should be sorted.
-   *
-   **/
-  typedef enum
-  {
-    ATSPI_Collection_SORT_ORDER_INVALID,
-    ATSPI_Collection_SORT_ORDER_CANONICAL,
-    ATSPI_Collection_SORT_ORDER_FLOW,
-    ATSPI_Collection_SORT_ORDER_TAB,
-    ATSPI_Collection_SORT_ORDER_REVERSE_CANONICAL,
-    ATSPI_Collection_SORT_ORDER_REVERSE_FLOW,
-    ATSPI_Collection_SORT_ORDER_REVERSE_TAB,
-    ATSPI_Collection_SORT_ORDER_LAST_DEFINED,
-  } AtspiCollectionSortOrder;
+/**
+ * AtspiCollectionSortOrder:
+ * @ATSPI_Collection_SORT_ORDER_INVALID: Invalid sort order
+ * @ATSPI_Collection_SORT_ORDER_CANONICAL: Canonical sort order
+ * @ATSPI_Collection_SORT_ORDER_FLOW: Flow sort order
+ * @ATSPI_Collection_SORT_ORDER_TAB: Tab sort order
+ * @ATSPI_Collection_SORT_ORDER_REVERSE_CANONICAL: Reverse canonical sort order
+ * @ATSPI_Collection_SORT_ORDER_REVERSE_FLOW: Reverse flow sort order
+ * @ATSPI_Collection_SORT_ORDER_REVERSE_TAB: Reverse tab sort order
+ * @ATSPI_Collection_SORT_ORDER_LAST_DEFINED: Used only to determine the end of the
+ * enumeration.
+
+ *
+ * Enumeration used by interface #AtspiCollection to specify
+ * the way #AtspiAccesible objects should be sorted.
+ *
+ **/
+typedef enum
+{
+  ATSPI_Collection_SORT_ORDER_INVALID,
+  ATSPI_Collection_SORT_ORDER_CANONICAL,
+  ATSPI_Collection_SORT_ORDER_FLOW,
+  ATSPI_Collection_SORT_ORDER_TAB,
+  ATSPI_Collection_SORT_ORDER_REVERSE_CANONICAL,
+  ATSPI_Collection_SORT_ORDER_REVERSE_FLOW,
+  ATSPI_Collection_SORT_ORDER_REVERSE_TAB,
+  ATSPI_Collection_SORT_ORDER_LAST_DEFINED,
+} AtspiCollectionSortOrder;
 
 /**
  * ATSPI_SORTORDER_COUNT:
@@ -362,317 +368,323 @@ G_STATIC_ASSERT(ATSPI_COMPONENTLAYER_COUNT == ATSPI_LAYER_LAST_DEFINED + 1);
    * This enumerationis deprecated since 2.9.90 and should not be used. Use
    * AtspiTextGranularity with #atspi_text_get_string_at_offset instead.
    **/
-  typedef enum
-  {
-    ATSPI_TEXT_BOUNDARY_CHAR,
-    ATSPI_TEXT_BOUNDARY_WORD_START,
-    ATSPI_TEXT_BOUNDARY_WORD_END,
-    ATSPI_TEXT_BOUNDARY_SENTENCE_START,
-    ATSPI_TEXT_BOUNDARY_SENTENCE_END,
-    ATSPI_TEXT_BOUNDARY_LINE_START,
-    ATSPI_TEXT_BOUNDARY_LINE_END,
-  } AtspiTextBoundaryType;
+typedef enum
+{
+  ATSPI_TEXT_BOUNDARY_CHAR,
+  ATSPI_TEXT_BOUNDARY_WORD_START,
+  ATSPI_TEXT_BOUNDARY_WORD_END,
+  ATSPI_TEXT_BOUNDARY_SENTENCE_START,
+  ATSPI_TEXT_BOUNDARY_SENTENCE_END,
+  ATSPI_TEXT_BOUNDARY_LINE_START,
+  ATSPI_TEXT_BOUNDARY_LINE_END,
+  ATSPI_TEXT_BOUNDARY_LAST_DEFINED,
+} AtspiTextBoundaryType;
 
-  /**
-   *AtspiTextGranularity:
-   *@ATSPI_TEXT_GRANULARITY_CHAR: Granularity is defined by the boundaries between characters
-   * (including non-printing characters)
-   *@ATSPI_TEXT_GRANULARITY_WORD: Granularity is defined by the boundaries of a word,
-   * starting at the beginning of the current word and finishing at the beginning of
-   * the following one, if present.
-   *@ATSPI_TEXT_GRANULARITY_SENTENCE: Granularity is defined by the boundaries of a sentence,
-   * starting at the beginning of the current sentence and finishing at the beginning of
-   * the following one, if present.
-   *@ATSPI_TEXT_GRANULARITY_LINE: Granularity is defined by the boundaries of a line,
-   * starting at the beginning of the current line and finishing at the beginning of
-   * the following one, if present.
-   *@ATSPI_TEXT_GRANULARITY_PARAGRAPH: Granularity is defined by the boundaries of a paragraph,
-   * starting at the beginning of the current paragraph and finishing at the beginning of
-   * the following one, if present.
-   *
-   * Text granularity types used for specifying the granularity of the region of
-   * text we are interested in.
-   **/
-  typedef enum
-  {
-    ATSPI_TEXT_GRANULARITY_CHAR,
-    ATSPI_TEXT_GRANULARITY_WORD,
-    ATSPI_TEXT_GRANULARITY_SENTENCE,
-    ATSPI_TEXT_GRANULARITY_LINE,
-    ATSPI_TEXT_GRANULARITY_PARAGRAPH
-  } AtspiTextGranularity;
+/**
+ *AtspiTextGranularity:
+ *@ATSPI_TEXT_GRANULARITY_CHAR: Granularity is defined by the boundaries between characters
+ * (including non-printing characters)
+ *@ATSPI_TEXT_GRANULARITY_WORD: Granularity is defined by the boundaries of a word,
+ * starting at the beginning of the current word and finishing at the beginning of
+ * the following one, if present.
+ *@ATSPI_TEXT_GRANULARITY_SENTENCE: Granularity is defined by the boundaries of a sentence,
+ * starting at the beginning of the current sentence and finishing at the beginning of
+ * the following one, if present.
+ *@ATSPI_TEXT_GRANULARITY_LINE: Granularity is defined by the boundaries of a line,
+ * starting at the beginning of the current line and finishing at the beginning of
+ * the following one, if present.
+ *@ATSPI_TEXT_GRANULARITY_PARAGRAPH: Granularity is defined by the boundaries of a paragraph,
+ * starting at the beginning of the current paragraph and finishing at the beginning of
+ * the following one, if present.
+ *
+ * Text granularity types used for specifying the granularity of the region of
+ * text we are interested in.
+ **/
+typedef enum
+{
+  ATSPI_TEXT_GRANULARITY_CHAR,
+  ATSPI_TEXT_GRANULARITY_WORD,
+  ATSPI_TEXT_GRANULARITY_SENTENCE,
+  ATSPI_TEXT_GRANULARITY_LINE,
+  ATSPI_TEXT_GRANULARITY_PARAGRAPH
+} AtspiTextGranularity;
 
 /**
  * ATSPI_TEXT_BOUNDARY_TYPE_COUNT:
  *
  * One higher than the highest valid value of #AtspiTextBoundaryType.
  */
-#define ATSPI_TEXT_BOUNDARY_TYPE_COUNT (6 + 1)
+#define ATSPI_TEXT_BOUNDARY_TYPE_COUNT (7 + 1)
 
-  /**
-   * AtspiTextClipType:
-   * @ATSPI_TEXT_CLIP_NONE: No characters/glyphs are omitted.
-   * @ATSPI_TEXT_CLIP_MIN: Characters/glyphs clipped by the minimum coordinate
-   * are omitted.
-   * @ATSPI_TEXT_CLIP_MAX: Characters/glyphs which intersect the maximum
-   * coordinate are omitted.
-   * @ATSPI_TEXT_CLIP_BOTH: Only glyphs falling entirely within the region
-   * bounded by min and max are retained.
-   *
-   * Enumeration used by interface #AtspiText to indicate
-   * how to treat characters intersecting bounding boxes.
-   *
-   **/
-  typedef enum
-  {
-    ATSPI_TEXT_CLIP_NONE,
-    ATSPI_TEXT_CLIP_MIN,
-    ATSPI_TEXT_CLIP_MAX,
-    ATSPI_TEXT_CLIP_BOTH,
-  } AtspiTextClipType;
+G_STATIC_ASSERT (ATSPI_TEXT_BOUNDARY_TYPE_COUNT == ATSPI_TEXT_BOUNDARY_LAST_DEFINED + 1);
+
+/**
+ * AtspiTextClipType:
+ * @ATSPI_TEXT_CLIP_NONE: No characters/glyphs are omitted.
+ * @ATSPI_TEXT_CLIP_MIN: Characters/glyphs clipped by the minimum coordinate
+ * are omitted.
+ * @ATSPI_TEXT_CLIP_MAX: Characters/glyphs which intersect the maximum
+ * coordinate are omitted.
+ * @ATSPI_TEXT_CLIP_BOTH: Only glyphs falling entirely within the region
+ * bounded by min and max are retained.
+ *
+ * Enumeration used by interface #AtspiText to indicate
+ * how to treat characters intersecting bounding boxes.
+ *
+ **/
+typedef enum
+{
+  ATSPI_TEXT_CLIP_NONE,
+  ATSPI_TEXT_CLIP_MIN,
+  ATSPI_TEXT_CLIP_MAX,
+  ATSPI_TEXT_CLIP_BOTH,
+  ATSPI_TEXT_CLIP_LAST_DEFINED,
+} AtspiTextClipType;
 
 /**
  * ATSPI_TEXT_CLIP_TYPE_COUNT:
  *
  * One higher than the highest valid value of #AtspiTextClipType.
  */
-#define ATSPI_TEXT_CLIP_TYPE_COUNT (3 + 1)
+#define ATSPI_TEXT_CLIP_TYPE_COUNT (4 + 1)
 
-  /**
-   * AtspiStateType:
-   * @ATSPI_STATE_INVALID: Indicates an invalid state - probably an error
-   * condition.
-   * @ATSPI_STATE_ACTIVE: Indicates a window is currently the active window, or
-   * an object is the active subelement within a container or table.
-   * @ATSPI_STATE_ACTIVE should not be used for objects which have
-   * #ATSPI_STATE_FOCUSABLE or #ATSPI_STATE_SELECTABLE: Those objects should use
-   * @ATSPI_STATE_FOCUSED and @ATSPI_STATE_SELECTED respectively.
-   * @ATSPI_STATE_ACTIVE is a means to indicate that an object which is not
-   * focusable and not selectable is the currently-active item within its
-   * parent container.
-   * @ATSPI_STATE_ARMED: Indicates that the object is armed.
-   * @ATSPI_STATE_BUSY: Indicates the current object is busy, i.e. onscreen
-   * representation is in the process of changing, or the object is
-   * temporarily unavailable for interaction due to activity already in progress.
-   * @ATSPI_STATE_CHECKED: Indicates this object is currently checked.
-   * @ATSPI_STATE_COLLAPSED: Indicates this object is collapsed.
-   * @ATSPI_STATE_DEFUNCT: Indicates that this object no longer has a valid
-   * backing widget (for instance, if its peer object has been destroyed).
-   * @ATSPI_STATE_EDITABLE: Indicates the user can change the contents of this
-   * object.
-   * @ATSPI_STATE_ENABLED: Indicates that this object is enabled, i.e. that it
-   * currently reflects some application state. Objects that are "greyed out"
-   * may lack this state, and may lack the @ATSPI_STATE_SENSITIVE if direct
-   * user interaction cannot cause them to acquire @ATSPI_STATE_ENABLED.
-   * See @ATSPI_STATE_SENSITIVE.
-   * @ATSPI_STATE_EXPANDABLE: Indicates this object allows progressive
-   * disclosure of its children.
-   * @ATSPI_STATE_EXPANDED: Indicates this object is expanded.
-   * @ATSPI_STATE_FOCUSABLE: Indicates this object can accept keyboard focus,
-   * which means all events resulting from typing on the keyboard will
-   * normally be passed to it when it has focus.
-   * @ATSPI_STATE_FOCUSED: Indicates this object currently has the keyboard
-   * focus.
-   * @ATSPI_STATE_HAS_TOOLTIP: Indicates that the object has an associated
-   * tooltip.
-   * @ATSPI_STATE_HORIZONTAL: Indicates the orientation of this object is
-   * horizontal.
-   * @ATSPI_STATE_ICONIFIED: Indicates this object is minimized and is
-   * represented only by an icon.
-   * @ATSPI_STATE_MODAL: Indicates something must be done with this object
-   * before the user can interact with an object in a different window.
-   * @ATSPI_STATE_MULTI_LINE: Indicates this (text) object can contain multiple
-   * lines of text.
-   * @ATSPI_STATE_MULTISELECTABLE: Indicates this object allows more than one of
-   * its children to be selected at the same time, or in the case of text
-   * objects, that the object supports non-contiguous text selections.
-   * @ATSPI_STATE_OPAQUE: Indicates this object paints every pixel within its
-   * rectangular region. It also indicates an alpha value of unity, if it
-   * supports alpha blending.
-   * @ATSPI_STATE_PRESSED: Indicates this object is currently pressed.
-   * @ATSPI_STATE_RESIZABLE: Indicates the size of this object's size is not
-   * fixed.
-   * @ATSPI_STATE_SELECTABLE: Indicates this object is the child of an object
-   * that allows its children to be selected and that this child is one of
-   * those children that can be selected.
-   * @ATSPI_STATE_SELECTED: Indicates this object is the child of an object that
-   * allows its children to be selected and that this child is one of those
-   * children that has been selected.
-   * @ATSPI_STATE_SENSITIVE: Indicates this object is sensitive, e.g. to user
-   * interaction. @ATSPI_STATE_SENSITIVE usually accompanies.
-   * @ATSPI_STATE_ENABLED for user-actionable controls, but may be found in the
-   * absence of @ATSPI_STATE_ENABLED if the current visible state of the control
-   * is "disconnected" from the application state.  In such cases, direct user
-   * interaction can often result in the object gaining @ATSPI_STATE_SENSITIVE,
-   * for instance if a user makes an explicit selection using an object whose
-   * current state is ambiguous or undefined. See @ATSPI_STATE_ENABLED,
-   * @ATSPI_STATE_INDETERMINATE.
-   * @ATSPI_STATE_SHOWING: Indicates this object, the object's parent, the
-   * object's parent's parent, and so on, are all 'shown' to the end-user,
-   * i.e. subject to "exposure" if blocking or obscuring objects do not
-   * interpose between this object and the top of the window stack.
-   * @ATSPI_STATE_SINGLE_LINE: Indicates this (text) object can contain only a
-   * single line of text.
-   * @ATSPI_STATE_STALE: Indicates that the information returned for this object
-   * may no longer be synchronized with the application state.  This can occur
-   * if the object has @ATSPI_STATE_TRANSIENT, and can also occur towards the
-   * end of the object peer's lifecycle.
-   * @ATSPI_STATE_TRANSIENT: Indicates this object is transient.
-   * @ATSPI_STATE_VERTICAL: Indicates the orientation of this object is vertical;
-   * for example this state may appear on such objects as scrollbars, text
-   * objects (with vertical text flow), separators, etc.
-   * @ATSPI_STATE_VISIBLE: Indicates this object is visible, e.g. has been
-   * explicitly marked for exposure to the user. @ATSPI_STATE_VISIBLE is no
-   * guarantee that the object is actually unobscured on the screen, only that
-   * it is 'potentially' visible, barring obstruction, being scrolled or clipped
-   * out of the field of view, or having an ancestor container that has not yet
-   * made visible. A widget is potentially onscreen if it has both
-   * @ATSPI_STATE_VISIBLE and @ATSPI_STATE_SHOWING. The absence of
-   * @ATSPI_STATE_VISIBLE and @ATSPI_STATE_SHOWING is
-   * semantically equivalent to saying that an object is 'hidden'.
-   * @ATSPI_STATE_MANAGES_DESCENDANTS: Indicates that "active-descendant-changed"
-   * event is sent when children become 'active' (i.e. are selected or
-   * navigated to onscreen).  Used to prevent need to enumerate all children
-   * in very large containers, like tables. The presence of
-   * @ATSPI_STATE_MANAGES_DESCENDANTS is an indication to the client that the
-   * children should not, and need not, be enumerated by the client.
-   * Objects implementing this state are expected to provide relevant state
-   * notifications to listening clients, for instance notifications of
-   * visibility changes and activation of their contained child objects, without
-   * the client having previously requested references to those children.
-   * @ATSPI_STATE_INDETERMINATE: Indicates that a check box or other boolean
-   * indicator is in a state other than checked or not checked.  This
-   * usually means that the boolean value reflected or controlled by the
-   * object does not apply consistently to the entire current context.
-   * For example, a checkbox for the "Bold" attribute of text may have
-   * @ATSPI_STATE_INDETERMINATE if the currently selected text contains a mixture
-   * of weight attributes. In many cases interacting with a
-   * @ATSPI_STATE_INDETERMINATE object will cause the context's corresponding
-   * boolean attribute to be homogenized, whereupon the object will lose
-   * @ATSPI_STATE_INDETERMINATE and a corresponding state-changed event will be
-   * fired.
-   * @ATSPI_STATE_REQUIRED: Indicates that user interaction with this object is
-   * 'required' from the user, for instance before completing the
-   * processing of a form.
-   * @ATSPI_STATE_TRUNCATED: 	  Indicates that an object's onscreen content
-   * is truncated, e.g. a text value in a spreadsheet cell.
-   * @ATSPI_STATE_ANIMATED: Indicates this object's visual representation is
-   * dynamic, not static. This state may be applied to an object during an
-   * animated 'effect' and be removed from the object once its visual
-   * representation becomes static. Some applications, notably content viewers,
-   * may not be able to detect all kinds of animated content.  Therefore the
-   * absence of this state should not be taken as
-   * definitive evidence that the object's visual representation is
-   * static; this state is advisory.
-   * @ATSPI_STATE_INVALID_ENTRY: This object has indicated an error condition
-   * due to failure of input validation.  For instance, a form control may
-   * acquire this state in response to invalid or malformed user input.
-   * @ATSPI_STATE_SUPPORTS_AUTOCOMPLETION: This state indicates that the object
-   * in question implements some form of typeahead or
-   * pre-selection behavior whereby entering the first character of one or more
-   * sub-elements causes those elements to scroll into view or become
-   * selected. Subsequent character input may narrow the selection further as
-   * long as one or more sub-elements match the string. This state is normally
-   * only useful and encountered on objects that implement #AtspiSelection.
-   * In some cases the typeahead behavior may result in full or partial
-   * completion of the data in the input field, in which case
-   * these input events may trigger text-changed events from the source.
-   * @ATSPI_STATE_SELECTABLE_TEXT: This state indicates that the object in
-   * question supports text selection. It should only be exposed on objects
-   * which implement the #AtspiText interface, in order to distinguish this state
-   * from @ATSPI_STATE_SELECTABLE, which infers that the object in question is a
-   * selectable child of an object which implements #AtspiSelection. While
-   * similar, text selection and subelement selection are distinct operations.
-   * @ATSPI_STATE_IS_DEFAULT: This state indicates that the object in question is
-   * the 'default' interaction object in a dialog, i.e. the one that gets
-   * activated if the user presses "Enter" when the dialog is initially
-   * posted.
-   * @ATSPI_STATE_VISITED: This state indicates that the object (typically a
-   * hyperlink) has already been activated or invoked, with the result that
-   * some backing data has been downloaded or rendered.
-   * @ATSPI_STATE_LAST_DEFINED: This value of the enumeration should not be used
-   * as a parameter, it indicates the number of items in the #AtspiStateType
-   * enumeration.
-   *
-   * Enumeration used by various interfaces indicating every possible state
-   * an #AtspiAccessible object can assume.
-   *
-   **/
+G_STATIC_ASSERT (ATSPI_TEXT_CLIP_TYPE_COUNT == ATSPI_TEXT_CLIP_LAST_DEFINED + 1);
 
-  /**
-   * ATSPI_STATE_CHECKABLE:
-   *
-   * Indicates this object has the potential to be checked, such as a checkbox
-   * or toggle-able table cell.
-   * Since: 2.12
-   */
+/**
+ * AtspiStateType:
+ * @ATSPI_STATE_INVALID: Indicates an invalid state - probably an error
+ * condition.
+ * @ATSPI_STATE_ACTIVE: Indicates a window is currently the active window, or
+ * an object is the active subelement within a container or table.
+ * @ATSPI_STATE_ACTIVE should not be used for objects which have
+ * #ATSPI_STATE_FOCUSABLE or #ATSPI_STATE_SELECTABLE: Those objects should use
+ * @ATSPI_STATE_FOCUSED and @ATSPI_STATE_SELECTED respectively.
+ * @ATSPI_STATE_ACTIVE is a means to indicate that an object which is not
+ * focusable and not selectable is the currently-active item within its
+ * parent container.
+ * @ATSPI_STATE_ARMED: Indicates that the object is armed.
+ * @ATSPI_STATE_BUSY: Indicates the current object is busy, i.e. onscreen
+ * representation is in the process of changing, or the object is
+ * temporarily unavailable for interaction due to activity already in progress.
+ * @ATSPI_STATE_CHECKED: Indicates this object is currently checked.
+ * @ATSPI_STATE_COLLAPSED: Indicates this object is collapsed.
+ * @ATSPI_STATE_DEFUNCT: Indicates that this object no longer has a valid
+ * backing widget (for instance, if its peer object has been destroyed).
+ * @ATSPI_STATE_EDITABLE: Indicates the user can change the contents of this
+ * object.
+ * @ATSPI_STATE_ENABLED: Indicates that this object is enabled, i.e. that it
+ * currently reflects some application state. Objects that are "greyed out"
+ * may lack this state, and may lack the @ATSPI_STATE_SENSITIVE if direct
+ * user interaction cannot cause them to acquire @ATSPI_STATE_ENABLED.
+ * See @ATSPI_STATE_SENSITIVE.
+ * @ATSPI_STATE_EXPANDABLE: Indicates this object allows progressive
+ * disclosure of its children.
+ * @ATSPI_STATE_EXPANDED: Indicates this object is expanded.
+ * @ATSPI_STATE_FOCUSABLE: Indicates this object can accept keyboard focus,
+ * which means all events resulting from typing on the keyboard will
+ * normally be passed to it when it has focus.
+ * @ATSPI_STATE_FOCUSED: Indicates this object currently has the keyboard
+ * focus.
+ * @ATSPI_STATE_HAS_TOOLTIP: Indicates that the object has an associated
+ * tooltip.
+ * @ATSPI_STATE_HORIZONTAL: Indicates the orientation of this object is
+ * horizontal.
+ * @ATSPI_STATE_ICONIFIED: Indicates this object is minimized and is
+ * represented only by an icon.
+ * @ATSPI_STATE_MODAL: Indicates something must be done with this object
+ * before the user can interact with an object in a different window.
+ * @ATSPI_STATE_MULTI_LINE: Indicates this (text) object can contain multiple
+ * lines of text.
+ * @ATSPI_STATE_MULTISELECTABLE: Indicates this object allows more than one of
+ * its children to be selected at the same time, or in the case of text
+ * objects, that the object supports non-contiguous text selections.
+ * @ATSPI_STATE_OPAQUE: Indicates this object paints every pixel within its
+ * rectangular region. It also indicates an alpha value of unity, if it
+ * supports alpha blending.
+ * @ATSPI_STATE_PRESSED: Indicates this object is currently pressed.
+ * @ATSPI_STATE_RESIZABLE: Indicates the size of this object's size is not
+ * fixed.
+ * @ATSPI_STATE_SELECTABLE: Indicates this object is the child of an object
+ * that allows its children to be selected and that this child is one of
+ * those children that can be selected.
+ * @ATSPI_STATE_SELECTED: Indicates this object is the child of an object that
+ * allows its children to be selected and that this child is one of those
+ * children that has been selected.
+ * @ATSPI_STATE_SENSITIVE: Indicates this object is sensitive, e.g. to user
+ * interaction. @ATSPI_STATE_SENSITIVE usually accompanies.
+ * @ATSPI_STATE_ENABLED for user-actionable controls, but may be found in the
+ * absence of @ATSPI_STATE_ENABLED if the current visible state of the control
+ * is "disconnected" from the application state.  In such cases, direct user
+ * interaction can often result in the object gaining @ATSPI_STATE_SENSITIVE,
+ * for instance if a user makes an explicit selection using an object whose
+ * current state is ambiguous or undefined. See @ATSPI_STATE_ENABLED,
+ * @ATSPI_STATE_INDETERMINATE.
+ * @ATSPI_STATE_SHOWING: Indicates this object, the object's parent, the
+ * object's parent's parent, and so on, are all 'shown' to the end-user,
+ * i.e. subject to "exposure" if blocking or obscuring objects do not
+ * interpose between this object and the top of the window stack.
+ * @ATSPI_STATE_SINGLE_LINE: Indicates this (text) object can contain only a
+ * single line of text.
+ * @ATSPI_STATE_STALE: Indicates that the information returned for this object
+ * may no longer be synchronized with the application state.  This can occur
+ * if the object has @ATSPI_STATE_TRANSIENT, and can also occur towards the
+ * end of the object peer's lifecycle.
+ * @ATSPI_STATE_TRANSIENT: Indicates this object is transient.
+ * @ATSPI_STATE_VERTICAL: Indicates the orientation of this object is vertical;
+ * for example this state may appear on such objects as scrollbars, text
+ * objects (with vertical text flow), separators, etc.
+ * @ATSPI_STATE_VISIBLE: Indicates this object is visible, e.g. has been
+ * explicitly marked for exposure to the user. @ATSPI_STATE_VISIBLE is no
+ * guarantee that the object is actually unobscured on the screen, only that
+ * it is 'potentially' visible, barring obstruction, being scrolled or clipped
+ * out of the field of view, or having an ancestor container that has not yet
+ * made visible. A widget is potentially onscreen if it has both
+ * @ATSPI_STATE_VISIBLE and @ATSPI_STATE_SHOWING. The absence of
+ * @ATSPI_STATE_VISIBLE and @ATSPI_STATE_SHOWING is
+ * semantically equivalent to saying that an object is 'hidden'.
+ * @ATSPI_STATE_MANAGES_DESCENDANTS: Indicates that "active-descendant-changed"
+ * event is sent when children become 'active' (i.e. are selected or
+ * navigated to onscreen).  Used to prevent need to enumerate all children
+ * in very large containers, like tables. The presence of
+ * @ATSPI_STATE_MANAGES_DESCENDANTS is an indication to the client that the
+ * children should not, and need not, be enumerated by the client.
+ * Objects implementing this state are expected to provide relevant state
+ * notifications to listening clients, for instance notifications of
+ * visibility changes and activation of their contained child objects, without
+ * the client having previously requested references to those children.
+ * @ATSPI_STATE_INDETERMINATE: Indicates that a check box or other boolean
+ * indicator is in a state other than checked or not checked.  This
+ * usually means that the boolean value reflected or controlled by the
+ * object does not apply consistently to the entire current context.
+ * For example, a checkbox for the "Bold" attribute of text may have
+ * @ATSPI_STATE_INDETERMINATE if the currently selected text contains a mixture
+ * of weight attributes. In many cases interacting with a
+ * @ATSPI_STATE_INDETERMINATE object will cause the context's corresponding
+ * boolean attribute to be homogenized, whereupon the object will lose
+ * @ATSPI_STATE_INDETERMINATE and a corresponding state-changed event will be
+ * fired.
+ * @ATSPI_STATE_REQUIRED: Indicates that user interaction with this object is
+ * 'required' from the user, for instance before completing the
+ * processing of a form.
+ * @ATSPI_STATE_TRUNCATED: 	  Indicates that an object's onscreen content
+ * is truncated, e.g. a text value in a spreadsheet cell.
+ * @ATSPI_STATE_ANIMATED: Indicates this object's visual representation is
+ * dynamic, not static. This state may be applied to an object during an
+ * animated 'effect' and be removed from the object once its visual
+ * representation becomes static. Some applications, notably content viewers,
+ * may not be able to detect all kinds of animated content.  Therefore the
+ * absence of this state should not be taken as
+ * definitive evidence that the object's visual representation is
+ * static; this state is advisory.
+ * @ATSPI_STATE_INVALID_ENTRY: This object has indicated an error condition
+ * due to failure of input validation.  For instance, a form control may
+ * acquire this state in response to invalid or malformed user input.
+ * @ATSPI_STATE_SUPPORTS_AUTOCOMPLETION: This state indicates that the object
+ * in question implements some form of typeahead or
+ * pre-selection behavior whereby entering the first character of one or more
+ * sub-elements causes those elements to scroll into view or become
+ * selected. Subsequent character input may narrow the selection further as
+ * long as one or more sub-elements match the string. This state is normally
+ * only useful and encountered on objects that implement #AtspiSelection.
+ * In some cases the typeahead behavior may result in full or partial
+ * completion of the data in the input field, in which case
+ * these input events may trigger text-changed events from the source.
+ * @ATSPI_STATE_SELECTABLE_TEXT: This state indicates that the object in
+ * question supports text selection. It should only be exposed on objects
+ * which implement the #AtspiText interface, in order to distinguish this state
+ * from @ATSPI_STATE_SELECTABLE, which infers that the object in question is a
+ * selectable child of an object which implements #AtspiSelection. While
+ * similar, text selection and subelement selection are distinct operations.
+ * @ATSPI_STATE_IS_DEFAULT: This state indicates that the object in question is
+ * the 'default' interaction object in a dialog, i.e. the one that gets
+ * activated if the user presses "Enter" when the dialog is initially
+ * posted.
+ * @ATSPI_STATE_VISITED: This state indicates that the object (typically a
+ * hyperlink) has already been activated or invoked, with the result that
+ * some backing data has been downloaded or rendered.
+ * @ATSPI_STATE_LAST_DEFINED: This value of the enumeration should not be used
+ * as a parameter, it indicates the number of items in the #AtspiStateType
+ * enumeration.
+ *
+ * Enumeration used by various interfaces indicating every possible state
+ * an #AtspiAccessible object can assume.
+ *
+ **/
 
-  /**
-   * ATSPI_STATE_HAS_POPUP:
-   *
-   * Indicates that the object has a popup context menu or sub-level menu
-   * which may or may not be showing. This means that activation renders
-   * conditional content. Note that ordinary tooltips are not considered
-   * popups in this context.
-   * Since: 2.12
-   */
+/**
+ * ATSPI_STATE_CHECKABLE:
+ *
+ * Indicates this object has the potential to be checked, such as a checkbox
+ * or toggle-able table cell.
+ * Since: 2.12
+ */
 
-  /**
-   * ATSPI_STATE_READ_ONLY:
-   *
-   * Indicates that an object which is ENABLED and SENSITIVE has a value
-   * which can be read, but not modified, by the user.
-   * Since: 2.16
-   */
+/**
+ * ATSPI_STATE_HAS_POPUP:
+ *
+ * Indicates that the object has a popup context menu or sub-level menu
+ * which may or may not be showing. This means that activation renders
+ * conditional content. Note that ordinary tooltips are not considered
+ * popups in this context.
+ * Since: 2.12
+ */
 
-  typedef enum
-  {
-    ATSPI_STATE_INVALID,
-    ATSPI_STATE_ACTIVE,
-    ATSPI_STATE_ARMED,
-    ATSPI_STATE_BUSY,
-    ATSPI_STATE_CHECKED,
-    ATSPI_STATE_COLLAPSED,
-    ATSPI_STATE_DEFUNCT,
-    ATSPI_STATE_EDITABLE,
-    ATSPI_STATE_ENABLED,
-    ATSPI_STATE_EXPANDABLE,
-    ATSPI_STATE_EXPANDED,
-    ATSPI_STATE_FOCUSABLE,
-    ATSPI_STATE_FOCUSED,
-    ATSPI_STATE_HAS_TOOLTIP,
-    ATSPI_STATE_HORIZONTAL,
-    ATSPI_STATE_ICONIFIED,
-    ATSPI_STATE_MODAL,
-    ATSPI_STATE_MULTI_LINE,
-    ATSPI_STATE_MULTISELECTABLE,
-    ATSPI_STATE_OPAQUE,
-    ATSPI_STATE_PRESSED,
-    ATSPI_STATE_RESIZABLE,
-    ATSPI_STATE_SELECTABLE,
-    ATSPI_STATE_SELECTED,
-    ATSPI_STATE_SENSITIVE,
-    ATSPI_STATE_SHOWING,
-    ATSPI_STATE_SINGLE_LINE,
-    ATSPI_STATE_STALE,
-    ATSPI_STATE_TRANSIENT,
-    ATSPI_STATE_VERTICAL,
-    ATSPI_STATE_VISIBLE,
-    ATSPI_STATE_MANAGES_DESCENDANTS,
-    ATSPI_STATE_INDETERMINATE,
-    ATSPI_STATE_REQUIRED,
-    ATSPI_STATE_TRUNCATED,
-    ATSPI_STATE_ANIMATED,
-    ATSPI_STATE_INVALID_ENTRY,
-    ATSPI_STATE_SUPPORTS_AUTOCOMPLETION,
-    ATSPI_STATE_SELECTABLE_TEXT,
-    ATSPI_STATE_IS_DEFAULT,
-    ATSPI_STATE_VISITED,
-    ATSPI_STATE_CHECKABLE,
-    ATSPI_STATE_HAS_POPUP,
-    ATSPI_STATE_READ_ONLY,
-    ATSPI_STATE_LAST_DEFINED,
-  } AtspiStateType;
+/**
+ * ATSPI_STATE_READ_ONLY:
+ *
+ * Indicates that an object which is ENABLED and SENSITIVE has a value
+ * which can be read, but not modified, by the user.
+ * Since: 2.16
+ */
+
+typedef enum
+{
+  ATSPI_STATE_INVALID,
+  ATSPI_STATE_ACTIVE,
+  ATSPI_STATE_ARMED,
+  ATSPI_STATE_BUSY,
+  ATSPI_STATE_CHECKED,
+  ATSPI_STATE_COLLAPSED,
+  ATSPI_STATE_DEFUNCT,
+  ATSPI_STATE_EDITABLE,
+  ATSPI_STATE_ENABLED,
+  ATSPI_STATE_EXPANDABLE,
+  ATSPI_STATE_EXPANDED,
+  ATSPI_STATE_FOCUSABLE,
+  ATSPI_STATE_FOCUSED,
+  ATSPI_STATE_HAS_TOOLTIP,
+  ATSPI_STATE_HORIZONTAL,
+  ATSPI_STATE_ICONIFIED,
+  ATSPI_STATE_MODAL,
+  ATSPI_STATE_MULTI_LINE,
+  ATSPI_STATE_MULTISELECTABLE,
+  ATSPI_STATE_OPAQUE,
+  ATSPI_STATE_PRESSED,
+  ATSPI_STATE_RESIZABLE,
+  ATSPI_STATE_SELECTABLE,
+  ATSPI_STATE_SELECTED,
+  ATSPI_STATE_SENSITIVE,
+  ATSPI_STATE_SHOWING,
+  ATSPI_STATE_SINGLE_LINE,
+  ATSPI_STATE_STALE,
+  ATSPI_STATE_TRANSIENT,
+  ATSPI_STATE_VERTICAL,
+  ATSPI_STATE_VISIBLE,
+  ATSPI_STATE_MANAGES_DESCENDANTS,
+  ATSPI_STATE_INDETERMINATE,
+  ATSPI_STATE_REQUIRED,
+  ATSPI_STATE_TRUNCATED,
+  ATSPI_STATE_ANIMATED,
+  ATSPI_STATE_INVALID_ENTRY,
+  ATSPI_STATE_SUPPORTS_AUTOCOMPLETION,
+  ATSPI_STATE_SELECTABLE_TEXT,
+  ATSPI_STATE_IS_DEFAULT,
+  ATSPI_STATE_VISITED,
+  ATSPI_STATE_CHECKABLE,
+  ATSPI_STATE_HAS_POPUP,
+  ATSPI_STATE_READ_ONLY,
+  ATSPI_STATE_LAST_DEFINED,
+} AtspiStateType;
 
 /**
  * ATSPI_STATETYPE_COUNT:
@@ -691,131 +703,140 @@ G_STATIC_ASSERT(ATSPI_STATETYPE_COUNT == ATSPI_STATE_LAST_DEFINED + 1);
    * Deprecated. Should not be used.
    *
    **/
-  typedef enum
-  {
-    ATSPI_KEY_PRESSED,
-    ATSPI_KEY_RELEASED,
-  } AtspiKeyEventType;
+typedef enum
+{
+  ATSPI_KEY_PRESSED,
+  ATSPI_KEY_RELEASED,
+  ATSPI_KEY_EVENT_LAST_DEFINED,
+} AtspiKeyEventType;
 
 /**
  * ATSPI_KEYEVENTTYPE_COUNT:
  *
  * One higher than the highest valid value of #AtspiKeyEventType.
  **/
-#define ATSPI_KEYEVENTTYPE_COUNT (1 + 1)
+#define ATSPI_KEYEVENTTYPE_COUNT (2 + 1)
 
-  /**
-   * AtspiEventType:
-   * @ATSPI_KEY_PRESSED_EVENT: Indicates that a key on a keyboard device was
-   * pressed.
-   * @ATSPI_KEY_RELEASED_EVENT: Indicates that a key on a keyboard device was
-   * released.
-   * @ATSPI_BUTTON_PRESSED_EVENT: Indicates that a button on a non-keyboard
-   * human interface device (HID) was pressed.
-   * @ATSPI_BUTTON_RELEASED_EVENT: Indicates that a button on a non-keyboard
-   * human interface device (HID) was released.
-   *
-   * Enumeration used to specify the event types of interest to an
-   * #AtspiEventListener, or
-   * to identify the type of an event for which notification has been sent.
-   *
-   **/
-  typedef enum
-  {
-    ATSPI_KEY_PRESSED_EVENT,
-    ATSPI_KEY_RELEASED_EVENT,
-    ATSPI_BUTTON_PRESSED_EVENT,
-    ATSPI_BUTTON_RELEASED_EVENT,
-  } AtspiEventType;
+G_STATIC_ASSERT (ATSPI_KEYEVENTTYPE_COUNT == ATSPI_KEY_EVENT_LAST_DEFINED + 1);
+
+/**
+ * AtspiEventType:
+ * @ATSPI_KEY_PRESSED_EVENT: Indicates that a key on a keyboard device was
+ * pressed.
+ * @ATSPI_KEY_RELEASED_EVENT: Indicates that a key on a keyboard device was
+ * released.
+ * @ATSPI_BUTTON_PRESSED_EVENT: Indicates that a button on a non-keyboard
+ * human interface device (HID) was pressed.
+ * @ATSPI_BUTTON_RELEASED_EVENT: Indicates that a button on a non-keyboard
+ * human interface device (HID) was released.
+ *
+ * Enumeration used to specify the event types of interest to an
+ * #AtspiEventListener, or
+ * to identify the type of an event for which notification has been sent.
+ *
+ **/
+typedef enum
+{
+  ATSPI_KEY_PRESSED_EVENT,
+  ATSPI_KEY_RELEASED_EVENT,
+  ATSPI_BUTTON_PRESSED_EVENT,
+  ATSPI_BUTTON_RELEASED_EVENT,
+  ATSPI_EVENT_LAST_DEFINED,
+} AtspiEventType;
 
 /**
  * ATSPI_EVENTTYPE_COUNT:
  *
  * One higher than the highest valid value of #AtspiEventType.
  */
-#define ATSPI_EVENTTYPE_COUNT (3 + 1)
+#define ATSPI_EVENTTYPE_COUNT (4 + 1)
 
-  /**
-   * AtspiKeySynthType:
-   * @ATSPI_KEY_PRESS: Emulates the pressing of a hardware keyboard key.
-   * @ATSPI_KEY_RELEASE: Emulates the release of a hardware keyboard key.
-   * @ATSPI_KEY_PRESSRELEASE: Emulates the pressing and immediate releasing
-   * of a hardware keyboard key.
-   * @ATSPI_KEY_SYM: A symbolic key event is generated, without specifying a
-   * hardware key. Note: if the keysym is not present in the current keyboard
-   * map, the #AtspiDeviceEventController instance has a limited ability to
-   * generate such keysyms on-the-fly. Reliability of GenerateKeyboardEvent
-   * calls using out-of-keymap keysyms will vary from system to system, and on
-   * the number of different out-of-keymap keysyms being generated in quick
-   * succession.
-   * In practice this is rarely significant, since the keysyms of interest to
-   * AT clients and keyboard emulators are usually part of the current keymap,
-   * i.e., present on the system keyboard for the current locale (even if a
-   * physical hardware keyboard is not connected).
-   * @ATSPI_KEY_STRING: A string is converted to its equivalent keyboard events
-   * and emitted. If the string consists of complex characters or composed
-   * characters which are not in the current keymap, string emission is
-   * subject to the out-of-keymap limitations described for
-   * @ATSPI_KEY_SYM. In practice this limitation primarily effects
-   * Chinese and Japanese locales.
-   * @ATSPI_KEY_LOCKMODIFIERS: Emulates locking a set of modifiers.
-   * @ATSPI_KEY_UNLOCKMODIFIERS: Emulates unlocking a set of modifiers.
-   *
-   * Enumeration used when synthesizing keyboard input via
-   * #atspi_generate_keyboard_event.
-   *
-   **/
-  typedef enum
-  {
-    ATSPI_KEY_PRESS,
-    ATSPI_KEY_RELEASE,
-    ATSPI_KEY_PRESSRELEASE,
-    ATSPI_KEY_SYM,
-    ATSPI_KEY_STRING,
-    ATSPI_KEY_LOCKMODIFIERS,
-    ATSPI_KEY_UNLOCKMODIFIERS,
-  } AtspiKeySynthType;
+G_STATIC_ASSERT (ATSPI_EVENTTYPE_COUNT == ATSPI_EVENT_LAST_DEFINED + 1);
+
+/**
+ * AtspiKeySynthType:
+ * @ATSPI_KEY_PRESS: Emulates the pressing of a hardware keyboard key.
+ * @ATSPI_KEY_RELEASE: Emulates the release of a hardware keyboard key.
+ * @ATSPI_KEY_PRESSRELEASE: Emulates the pressing and immediate releasing
+ * of a hardware keyboard key.
+ * @ATSPI_KEY_SYM: A symbolic key event is generated, without specifying a
+ * hardware key. Note: if the keysym is not present in the current keyboard
+ * map, the #AtspiDeviceEventController instance has a limited ability to
+ * generate such keysyms on-the-fly. Reliability of GenerateKeyboardEvent
+ * calls using out-of-keymap keysyms will vary from system to system, and on
+ * the number of different out-of-keymap keysyms being generated in quick
+ * succession.
+ * In practice this is rarely significant, since the keysyms of interest to
+ * AT clients and keyboard emulators are usually part of the current keymap,
+ * i.e., present on the system keyboard for the current locale (even if a
+ * physical hardware keyboard is not connected).
+ * @ATSPI_KEY_STRING: A string is converted to its equivalent keyboard events
+ * and emitted. If the string consists of complex characters or composed
+ * characters which are not in the current keymap, string emission is
+ * subject to the out-of-keymap limitations described for
+ * @ATSPI_KEY_SYM. In practice this limitation primarily effects
+ * Chinese and Japanese locales.
+ * @ATSPI_KEY_LOCKMODIFIERS: Emulates locking a set of modifiers.
+ * @ATSPI_KEY_UNLOCKMODIFIERS: Emulates unlocking a set of modifiers.
+ *
+ * Enumeration used when synthesizing keyboard input via
+ * #atspi_generate_keyboard_event.
+ *
+ **/
+typedef enum
+{
+  ATSPI_KEY_PRESS,
+  ATSPI_KEY_RELEASE,
+  ATSPI_KEY_PRESSRELEASE,
+  ATSPI_KEY_SYM,
+  ATSPI_KEY_STRING,
+  ATSPI_KEY_LOCKMODIFIERS,
+  ATSPI_KEY_UNLOCKMODIFIERS,
+  ATSPI_KEY_SYNTH_LAST_DEFINED,
+} AtspiKeySynthType;
 
 /**
  * ATSPI_KEYSYNTHTYPE_COUNT:
  *
  * One higher than the highest valid value of #AtspiKeySynthType.
  **/
-#define ATSPI_KEYSYNTHTYPE_COUNT (4 + 1)
+#define ATSPI_KEYSYNTHTYPE_COUNT (7 + 1)
 
-  /**
-   * AtspiModifierType:
-   * @ATSPI_MODIFIER_SHIFT: The left or right 'Shift' key.
-   * @ATSPI_MODIFIER_SHIFTLOCK: The ShiftLock or CapsLock key.
-   * @ATSPI_MODIFIER_CONTROL: 'Control'/'Ctrl'.
-   * @ATSPI_MODIFIER_ALT: The Alt key (as opposed to AltGr).
-   * @ATSPI_MODIFIER_META: Depending on the platform, this may map to 'Window',
-   * 'Function', 'Meta', 'Menu', or 'NumLock'. Such 'Meta keys' will
-   * map to one of META, META2, META3. On X Windows platforms these META
-   * values map to the modifier masks Mod1Mask, Mod2Mask, Mod3Mask, e.g. an
-   * event having @ATSPI_MODIFIER_META2 means that the 'Mod2Mask' bit
-   * is set in the corresponding XEvent.
-   * @ATSPI_MODIFIER_META2: See @ATSPI_MODIFIER_META.
-   * @ATSPI_MODIFIER_META3: See @ATSPI_MODIFIER_META.
-   * @ATSPI_MODIFIER_SUPER: Alias for META3.
-   * @ATSPI_MODIFIER_NUMLOCK: A symbolic meta key name that is mapped by AT-SPI
-   * to the appropriate META value, for the convenience of the client.
-   *
-   *
-   *
-   **/
-  typedef enum
-  {
-    ATSPI_MODIFIER_SHIFT,
-    ATSPI_MODIFIER_SHIFTLOCK,
-    ATSPI_MODIFIER_CONTROL,
-    ATSPI_MODIFIER_ALT,
-    ATSPI_MODIFIER_META,
-    ATSPI_MODIFIER_META2,
-    ATSPI_MODIFIER_META3,
-    ATSPI_MODIFIER_SUPER = ATSPI_MODIFIER_META3,
-    ATSPI_MODIFIER_NUMLOCK = 14,
-  } AtspiModifierType;
+G_STATIC_ASSERT (ATSPI_KEYSYNTHTYPE_COUNT == ATSPI_KEY_SYNTH_LAST_DEFINED + 1);
+
+/**
+ * AtspiModifierType:
+ * @ATSPI_MODIFIER_SHIFT: The left or right 'Shift' key.
+ * @ATSPI_MODIFIER_SHIFTLOCK: The ShiftLock or CapsLock key.
+ * @ATSPI_MODIFIER_CONTROL: 'Control'/'Ctrl'.
+ * @ATSPI_MODIFIER_ALT: The Alt key (as opposed to AltGr).
+ * @ATSPI_MODIFIER_META: Depending on the platform, this may map to 'Window',
+ * 'Function', 'Meta', 'Menu', or 'NumLock'. Such 'Meta keys' will
+ * map to one of META, META2, META3. On X Windows platforms these META
+ * values map to the modifier masks Mod1Mask, Mod2Mask, Mod3Mask, e.g. an
+ * event having @ATSPI_MODIFIER_META2 means that the 'Mod2Mask' bit
+ * is set in the corresponding XEvent.
+ * @ATSPI_MODIFIER_META2: See @ATSPI_MODIFIER_META.
+ * @ATSPI_MODIFIER_META3: See @ATSPI_MODIFIER_META.
+ * @ATSPI_MODIFIER_SUPER: Alias for META3.
+ * @ATSPI_MODIFIER_NUMLOCK: A symbolic meta key name that is mapped by AT-SPI
+ * to the appropriate META value, for the convenience of the client.
+ *
+ *
+ *
+ **/
+typedef enum
+{
+  ATSPI_MODIFIER_SHIFT,
+  ATSPI_MODIFIER_SHIFTLOCK,
+  ATSPI_MODIFIER_CONTROL,
+  ATSPI_MODIFIER_ALT,
+  ATSPI_MODIFIER_META,
+  ATSPI_MODIFIER_META2,
+  ATSPI_MODIFIER_META3,
+  ATSPI_MODIFIER_SUPER = ATSPI_MODIFIER_META3,
+  ATSPI_MODIFIER_NUMLOCK = 14,
+} AtspiModifierType;
 
 /**
  * ATSPI_MODIFIERTYPE_COUNT:
@@ -1678,15 +1699,18 @@ G_STATIC_ASSERT(ATSPI_ROLE_COUNT == ATSPI_ROLE_LAST_DEFINED + 1);
     ATSPI_SCROLL_BOTTOM_EDGE,
     ATSPI_SCROLL_LEFT_EDGE,
     ATSPI_SCROLL_RIGHT_EDGE,
-    ATSPI_SCROLL_ANYWHERE
+    ATSPI_SCROLL_ANYWHERE,
+    ATSPI_SCROLL_LAST_DEFINED,
   } AtspiScrollType;
 
-/**
- * ATSPI_SCROLLTYPE_COUNT:
- *
- * One higher than the highest valid value of #AtspiScrollType.
- */
-#define ATSPI_SCROLLTYPE_COUNT (6 + 1)
+  /**
+   * ATSPI_SCROLLTYPE_COUNT:
+   *
+   * One higher than the highest valid value of #AtspiScrollType.
+   */
+#define ATSPI_SCROLLTYPE_COUNT (7 + 1)
+
+  G_STATIC_ASSERT (ATSPI_SCROLLTYPE_COUNT == ATSPI_SCROLL_LAST_DEFINED + 1);
 
   /**
    * AtspiLive:
