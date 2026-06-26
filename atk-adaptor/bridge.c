@@ -572,7 +572,7 @@ socket_ref_state_set (AtkObject *accessible)
       dbus_message_iter_get_basic (&iter_array, &v);
       for (j = 0; j < 32; j++)
         {
-          if (v & (1 << j))
+          if (v & (1u << j))
             {
               AtkState state = spi_atk_state_from_spi_state ((count << 5) + j);
               atk_state_set_add_state (set, state);

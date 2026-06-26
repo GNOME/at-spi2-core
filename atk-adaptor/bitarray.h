@@ -27,4 +27,4 @@
 
 #define BITARRAY_SEQ_TERM 0xffffffff
 
-#define BITARRAY_SET(p, n) ((p)[n >> 5] |= (1 << (n & 31)))
+#define BITARRAY_SET(p, n) ((p)[n >> 5] |= (1u << (n & 31)))
