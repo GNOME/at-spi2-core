@@ -1,3 +1,10 @@
+What's new in at-spi2-core 2.60.5:
+
+* Fix a possible crash in atk_bridge_adaptor_cleanup.
+
+* Attempt to fix event listeners still being wrongly deregistered in some
+  cases.
+
 What's new in at-spi2-core 2.60.4:
 
 * AtspiDeviceA11yManager: Make use of pid when returned by queryPointer
