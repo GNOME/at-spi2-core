@@ -89,7 +89,7 @@
 
         @limit_scope: If true, only descendants of @currentObject's parent
         will be returned. Otherwise (if false), any accessible may be
-        returned if it would preceed @currentObject in a flattened
+        returned if it would precede @currentObject in a flattened
         hierarchy.
 
         @count: The maximum number of results to return, or 0 for no limit.

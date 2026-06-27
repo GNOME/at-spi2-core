@@ -404,7 +404,7 @@
           and ATSPI_ROLE_PASSWORD_TEXT. For generic objects which display a brief amount
           of textual information, see ATSPI_ROLE_STATIC.
         - 62 - ATSPI_ROLE_TOGGLE_BUTTON: A specialized push button that can be checked or
-          unchecked, but does not procide a separate indicator for the current
+          unchecked, but does not provide a separate indicator for the current
           state.
         - 63 - ATSPI_ROLE_TOOL_BAR: A bar or palette usually composed of push buttons or
           toggle buttons.

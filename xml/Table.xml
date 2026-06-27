@@ -73,7 +73,7 @@
         To get the accessible object at a particular (x, y) screen
         coordinate, use org.a11y.Atspi.Component.GetAccessibleAtPoint.
 
-        Returns: a refernce (bus name + object path) to the accessible
+        Returns: a reference (bus name + object path) to the accessible
         object at the specified table cell. If there is no object at the
         specified row/column, then the special object path
         "/org/a11y/atspi/null" will be returned.
