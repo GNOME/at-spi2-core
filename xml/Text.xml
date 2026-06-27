@@ -85,7 +85,7 @@
         is from the line start at or before the offset to the line
         start after the offset.
 
-        If @granularity is ATSPI_TEXT_GRANULARITY_PARAGRAPH the returned strin
+        If @granularity is ATSPI_TEXT_GRANULARITY_PARAGRAPH the returned string
         is from the start of the paragraph at or before the offset to the start
         of the following paragraph after the offset.
     -->

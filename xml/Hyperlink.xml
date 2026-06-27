@@ -5,7 +5,7 @@
       @short_description: Interfacing for interacting with linked content.
 
       Objects implementing org.a11y.Atspi.Hyperlink are returned by objects
-      that implment org.a11y.Atspi.Hypertext and are the means by which
+      that implement org.a11y.Atspi.Hypertext and are the means by which
       end users and clients interact with linked, and in some cases
       embedded, content. These instances may have multiple "anchors", where
       an anchor corresponds to a reference to a particular resource with a
