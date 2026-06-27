@@ -1,3 +1,12 @@
+What's new in at-spi2-core 2.58.7:
+
+* Fix a possible crash in atk_bridge_adaptor_cleanup.
+
+* Attempt to fix event listeners still being wrongly deregistered in some
+  cases.
+
+- device-x11: Fall back on raw key events if there is no focus.
+
 What's new in at-spi2-core 2.58.6:
 
 * python: Fix __getitem__ with a negative offset
