@@ -1,3 +1,56 @@
+What's new in at-spi2-core 2.61.0:
+
+* Add atspi_set_g_main_loop_reentrancy. If this is enabled, then
+  libatspi will use a GMainLoop when waiting for replies from DBus calls.
+  This is off by default but can be enabled in cases where reentrancy is
+  needed.
+
+* at-spi-bus-launcher: Rework the way org.a11y.Status.IsEnabled is
+  handled. At-spi-bus-launcher now listens for ATs registering events and
+  assumes that accessibility is enabled if events are registered, rather
+  than relying on the value of a gsettings key.
+
+* meson: Build dbind with -DG_LOG_DOMAIN=atspi.
+
+* libatspi: Disable direct DBus connections if ATSPI_DISABLE_P2P is set.
+
+* Do not call GetItems if ATSPI_NO_CACHE is set.
+
+What's new in at-spi2-core 2.60.5:
+
+* Fix a possible crash in atk_bridge_adaptor_cleanup.
+
+* Attempt to fix event listeners still being wrongly deregistered in some
+  cases.
+
+What's new in at-spi2-core 2.60.4:
+
+* AtspiDeviceA11yManager: Make use of pid when returned by queryPointer
+
+* Fix deregistering application-specific event listeners
+
+What's new in at-spi2-core 2.60.3:
+
+* libatspi: Fix another NULL pointer dereference.
+
+What's new in at-spi2-core 2.60.2:
+
+* atspi-device-legacy: add null checks for when x11 isnt available.
+
+* python: Fix __getitem__ with a negative offset.
+
+* Fix a NULL pointer dereference when sending an event.
+
+* device-x11: Fall back on raw key events if there is no focus.
+
+What's new in at-spi2-core 2.60.1:
+
+* Detect unresponsive applications, and do not expose them as children
+  of the desktop.
+
+* Attempt to fix a crash when opening a group chat in pidgin that contains
+  new messages.
+
 What's new in at-spi2-core 2.60.0:
 
 * Fix detection of whether the org.freedesktop.a11y.PointerLocator
