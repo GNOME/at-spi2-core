@@ -79,6 +79,7 @@ struct _SpiBridge
 
   GDBusConnection *session_bus;
   guint name_owner_changed_subscription_id;
+  DBusPendingCall *register_pending;
 };
 
 extern SpiBridge *spi_global_app_data;

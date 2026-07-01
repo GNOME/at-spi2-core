@@ -412,6 +412,7 @@ register_application (gpointer data)
       return FALSE;
     }
 
+  app->register_pending = pending;
   dbus_pending_call_set_notify (pending, register_reply, app, NULL);
 
   if (message)
@@ -1122,6 +1123,12 @@ deactivate_bus ()
         }
 
       dbus_error_free (&error);
+    }
+
+  if (spi_global_app_data->register_pending)
+    {
+      dbus_pending_call_cancel (spi_global_app_data->register_pending);
+      spi_global_app_data->register_pending = NULL;
     }
 
   dbus_connection_close (spi_global_app_data->bus);
