@@ -331,6 +331,9 @@ is_id_used (AtspiDevice *device, guint id)
   AtspiDevicePrivate *priv = atspi_device_get_instance_private (device);
   GSList *l;
 
+  if (id == 0)
+    return TRUE;
+
   for (l = priv->key_watchers; l; l = l->next)
     {
       AtspiKeyGrab *grab = l->data;
