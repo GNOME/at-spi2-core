@@ -44,7 +44,7 @@ struct _TestDocumentClass
   AtkObjectClass parent_class;
 };
 
-GType test_document_get_type (void) G_GNUC_CONST;
+GType test_document_get_type (void);
 static void test_document_interface_init (AtkDocumentIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (TestDocument,

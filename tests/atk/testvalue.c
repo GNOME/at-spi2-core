@@ -80,7 +80,7 @@ struct _TestValueClass
   AtkObjectClass parent_class;
 };
 
-GType test_value_get_type (void) G_GNUC_CONST;
+GType test_value_get_type (void);
 static void test_value_interface_init (AtkValueIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (TestValue,
