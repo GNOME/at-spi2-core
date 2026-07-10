@@ -15,7 +15,7 @@ G_BEGIN_DECLS
 
 /*** BEGIN enumeration-production ***/
 #define ATSPI_TYPE_@ENUMSHORT@	(@enum_name@_get_type())
-GType @enum_name@_get_type	(void) G_GNUC_CONST;
+GType @enum_name@_get_type	(void);
 
 /*** END enumeration-production ***/
 
