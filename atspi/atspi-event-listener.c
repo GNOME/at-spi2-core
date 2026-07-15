@@ -942,15 +942,17 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
             }
           else
             event_listeners = g_list_remove (event_listeners, e);
-          convert_event_type_to_dbus (event_type, NULL, NULL, NULL, e->app_name, &matchrule_array);
-          for (i = 0; i < matchrule_array->len; i++)
+          if (convert_event_type_to_dbus (event_type, NULL, NULL, NULL, e->app_name, &matchrule_array))
             {
-              char *matchrule = g_ptr_array_index (matchrule_array, i);
-              g_debug ("Calling dbus_bus_remove_match for match rule %s", matchrule);
-              dbus_bus_remove_match (_atspi_bus (), matchrule, NULL);
-              g_free (matchrule);
+              for (i = 0; i < matchrule_array->len; i++)
+                {
+                  char *matchrule = g_ptr_array_index (matchrule_array, i);
+                  g_debug ("Calling dbus_bus_remove_match for match rule %s", matchrule);
+                  dbus_bus_remove_match (_atspi_bus (), matchrule, NULL);
+                  g_free (matchrule);
+                }
+              g_ptr_array_free (matchrule_array, TRUE);
             }
-          g_ptr_array_free (matchrule_array, TRUE);
           g_debug ("Calling DeregisterEvent: event_type=%s app=%s", event_type, app_bus_name);
           message = dbus_message_new_method_call (atspi_bus_registry,
                                                   atspi_path_registry,
