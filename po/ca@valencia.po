@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: atk 1.6.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
 "POT-Creation-Date: 2026-06-09 18:47+0000\n"
-"PO-Revision-Date: 2026-07-17 21:46+0000\n"
+"PO-Revision-Date: 2026-07-17 21:56+0000\n"
 "Last-Translator: Xavi Ivars <xavi.ivars@gmail.com>\n"
 "Language-Team: català; valencià <<tradgnome@softcatala.org>>\n"
 "Language: ca@valencia\n"
@@ -194,7 +194,6 @@ msgid "The number of links which the current AtkHypertext has"
 msgstr "El nombre d'enllaços que té l'AtkHypertext actual"
 
 #: atk/atkobject.c:440
-#| msgid "Accessible Name"
 msgid "Accessible ID"
 msgstr "Identificador accessible"
 
@@ -203,7 +202,6 @@ msgid "ID for the accessible; useful for automated testing"
 msgstr "Identificador de l'accessible; útil per a les proves automàtiques"
 
 #: atk/atkobject.c:447
-#| msgid "text"
 msgid "Help text"
 msgstr "Text d'ajuda"
 
@@ -502,7 +500,6 @@ msgid "menu bar"
 msgstr "barra de menú"
 
 #: atspi/atspi-misc.c:86
-#| msgid "push button"
 msgid "menu button"
 msgstr "botó de menú"
 
@@ -539,7 +536,6 @@ msgid "progress bar"
 msgstr "barra de progrés"
 
 #: atspi/atspi-misc.c:95
-#| msgid "push button"
 msgid "button"
 msgstr "botó"
 
