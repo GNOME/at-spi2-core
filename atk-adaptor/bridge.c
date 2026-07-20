@@ -341,6 +341,8 @@ register_reply (DBusPendingCall *pending, void *user_data)
   DBusMessage *reply;
   SpiBridge *app = user_data;
 
+  app->register_pending = NULL;
+
   reply = dbus_pending_call_steal_reply (pending);
   dbus_pending_call_unref (pending);
 
