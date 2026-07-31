@@ -1,3 +1,11 @@
+What's new in at-spi2-core 2.58.8:
+
+* atk-bridge: Attempt to fix a crash in get_registered_event_listeners
+
+* AtspiDevice: Avoid assigning 0 as a grab id
+
+* Remove G_GNUC_CONST from *_get_type_declarations
+
 What's new in at-spi2-core 2.58.7:
 
 * Fix a possible crash in atk_bridge_adaptor_cleanup.
