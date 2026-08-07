@@ -233,7 +233,7 @@ atspi_document_get_text_selections (AtspiDocument *obj, GError **error)
     }
 
   selections = g_array_new (FALSE, TRUE, sizeof (AtspiTextSelection));
-   g_array_set_clear_func (selections, clear_text_selection);
+  g_array_set_clear_func (selections, clear_text_selection);
   dbus_message_iter_init (message, &iter);
   dbus_message_iter_recurse (&iter, &iter_array);
 
