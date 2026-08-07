@@ -81,6 +81,15 @@ struct _AtspiTextSelection
   gboolean start_is_active;
 };
 
+/**
+ * ATSPI_TYPE_TEXT_SELECTION:
+ *
+ * The #GType for a boxed type holding a text selection within a document.
+ */
+#define ATSPI_TYPE_TEXT_SELECTION atspi_text_selection_get_type ()
+
+GType atspi_text_selection_get_type ();
+
 struct _AtspiDocument
 {
   GTypeInterface parent;

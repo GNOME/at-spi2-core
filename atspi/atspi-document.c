@@ -23,6 +23,27 @@
 
 #include "atspi-private.h"
 
+static AtspiTextSelection *
+atspi_text_selection_copy (AtspiTextSelection *src)
+{
+  AtspiTextSelection *dst = g_new (AtspiTextSelection, 1);
+  dst->start_object = g_object_ref (src->start_object);
+  dst->start_offset = src->start_offset;
+  dst->end_object = g_object_ref (src->end_object);
+  dst->end_offset = src->end_offset;
+  return dst;
+}
+
+static void
+atspi_text_selection_free (AtspiTextSelection *selection)
+{
+  g_clear_object (&selection->start_object);
+  g_clear_object (&selection->end_object);
+  g_free (selection);
+}
+
+G_DEFINE_BOXED_TYPE (AtspiTextSelection, atspi_text_selection, atspi_text_selection_copy, atspi_text_selection_free)
+
 /**
  * atspi_document_get_locale:
  * @obj: a pointer to the #AtspiDocument object on which to operate.
@@ -212,7 +233,7 @@ atspi_document_get_text_selections (AtspiDocument *obj, GError **error)
     }
 
   selections = g_array_new (FALSE, TRUE, sizeof (AtspiTextSelection));
-  g_array_set_clear_func (selections, clear_text_selection);
+   g_array_set_clear_func (selections, clear_text_selection);
   dbus_message_iter_init (message, &iter);
   dbus_message_iter_recurse (&iter, &iter_array);
 
