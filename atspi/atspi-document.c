@@ -208,7 +208,7 @@ clear_text_selection (void *data)
  *
  * Returns an array of AtspiTextSelections within this document.
  *
- * Returns: (element-type AtspiTextSelection) (transfer full): a GArray of
+ * Returns: (element-type AtspiTextSelection) (transfer container): a GArray of
  * AtspiTextSelection structures representing the selection.
  *
  * Since: 2.52
