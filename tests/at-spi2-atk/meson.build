@@ -79,4 +79,16 @@ foreach t: tests
   endif
 endforeach
 
+direct_connection_test_bin = executable(
+  'direct-connection-test',
+  'test-direct-connection.c',
+  dependencies: gio_dep,
+  c_args: [
+    '-DTESTS_BUILD_DIR="@0@"'.format(meson.current_build_dir()),
+    '-DTESTS_DATA_DIR="@0@"'.format(join_paths(meson.current_source_dir(), 'data')),
+  ],
+)
+
+test('direct-connection', direct_connection_test_bin, timeout: 30)
+
 test('atk-test', atk_test_bin, timeout: 300)
