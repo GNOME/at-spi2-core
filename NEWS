@@ -1,3 +1,7 @@
+What's new in at-spi2-core 2.62.0:
+
+* atk-bridge: Release disconnected direct connections.
+
 What's new in at-spi2-core 2.61.90:
 
 * libatspi: Fix transfer annotation on atspi_document_get_text_selections
