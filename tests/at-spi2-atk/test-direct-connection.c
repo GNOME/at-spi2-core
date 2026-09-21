@@ -218,6 +218,29 @@ test_direct_connection_is_released (void)
       goto out;
     }
 
+  /* Perform an initial connection and disconnection (warmup) to let any
+     background registration and connection setup settle. */
+  direct_connection = open_direct_connection (application_address, &error);
+  if (!direct_connection)
+    {
+      g_test_fail_printf ("Failed to open direct connection: %s", error->message);
+      goto out;
+    }
+
+  if (!query_direct_connection (direct_connection, &error))
+    {
+      g_test_fail_printf ("Failed to query direct connection: %s", error->message);
+      goto out;
+    }
+
+  if (!g_dbus_connection_close_sync (direct_connection, NULL, &error))
+    {
+      g_test_fail_printf ("Failed to close direct connection: %s", error->message);
+      goto out;
+    }
+  g_clear_object (&direct_connection);
+  g_usleep (100 * 1000);
+
   baseline = count_pidfds (app_pid);
   direct_connection = open_direct_connection (application_address, &error);
   if (!direct_connection)
