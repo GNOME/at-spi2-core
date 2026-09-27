@@ -7,21 +7,22 @@
 # Hugo Carvalho <hugokarvalho@hotmail.com>, 2020, 2021, 2022, 2024, 2025.
 # João Carvalhinho <joao.carvalhinho@gmail.com>, 2024, 2025.
 #
+# SPDX-FileCopyrightText: 2026 Cátia Silva <catias89@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-core\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/at-spi2-core/issues/\n"
-"POT-Creation-Date: 2025-02-24 14:03+0000\n"
-"PO-Revision-Date: 2025-02-27 01:04+0000\n"
-"Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
-"Language-Team: Português <hugokarvalho@hugokarvalho.com>\n"
+"POT-Creation-Date: 2026-08-28 23:59+0000\n"
+"PO-Revision-Date: 2026-09-26 21:59+0100\n"
+"Last-Translator: Cátia Silva <catias89@gmail.com>\n"
+"Language-Team: Portuguese <li@pt.corg>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Lokalize 23.08.5\n"
 "X-Generator: Gtranslator 2.91.6\n"
 
 #: atk/atkhyperlink.c:127
@@ -30,7 +31,7 @@ msgstr "Ligação selecionada"
 
 #: atk/atkhyperlink.c:128
 msgid "Specifies whether the AtkHyperlink object is selected"
-msgstr "Especifica se o objeto AtkHyperlink está selecionado"
+msgstr "Especifica se o objeto AtkHyperlink se encontra selecionado"
 
 #: atk/atkhyperlink.c:134
 msgid "Number of Anchors"
@@ -38,7 +39,7 @@ msgstr "Número de âncoras"
 
 #: atk/atkhyperlink.c:135
 msgid "The number of anchors associated with the AtkHyperlink object"
-msgstr "O número de âncoras associadas com o objeto AtkHyperlink"
+msgstr "O número de âncoras associadas ao objeto AtkHyperlink"
 
 #: atk/atkhyperlink.c:143
 msgid "End index"
@@ -125,8 +126,8 @@ msgid ""
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
 "Utilizada para notificar que a legenda da tabela foi alterada; esta "
-"propriedade não deverá ser utilizada. Deverá antes ser utilizado accessible-"
-"table-caption-object"
+"propriedade não deverá ser utilizada. Em vez disso, deverá ser utilizado o "
+"accessible-table-caption-object"
 
 #: atk/atkobject.c:362
 msgid "Accessible Table Column Header"
@@ -194,7 +195,7 @@ msgstr "ID acessível"
 
 #: atk/atkobject.c:441
 msgid "ID for the accessible; useful for automated testing"
-msgstr "ID para acessibilidade, útil para testes automatizados"
+msgstr "Identificador para acessibilidade, útil para testes automatizados"
 
 #: atk/atkobject.c:447
 msgid "Help text"
@@ -202,7 +203,7 @@ msgstr "Texto de ajuda"
 
 #: atk/atkobject.c:448
 msgid "Help text associated with the accessible"
-msgstr "Texto de ajuda associado a acessibilidade"
+msgstr "Texto de ajuda associado à acessibilidade"
 
 #. Translators: This string describes a range within value-related
 #. * widgets such as a password-strength meter. Note that what such a
@@ -353,484 +354,484 @@ msgstr "muito bom"
 msgid "best"
 msgstr "ideal"
 
-#: atspi/atspi-component.c:352 atspi/atspi-misc.c:1234 atspi/atspi-value.c:123
+#: atspi/atspi-component.c:341 atspi/atspi-misc.c:1266 atspi/atspi-value.c:123
 msgid "The application no longer exists"
 msgstr "A aplicação já não existe"
 
-#: atspi/atspi-misc.c:49
+#: atspi/atspi-misc.c:51
 msgid "invalid"
 msgstr "inválido"
 
-#: atspi/atspi-misc.c:50
+#: atspi/atspi-misc.c:52
 msgid "accelerator label"
 msgstr "rótulo de atalho"
 
-#: atspi/atspi-misc.c:51
+#: atspi/atspi-misc.c:53
 msgid "alert"
 msgstr "alerta"
 
-#: atspi/atspi-misc.c:52
+#: atspi/atspi-misc.c:54
 msgid "animation"
 msgstr "animação"
 
-#: atspi/atspi-misc.c:53
+#: atspi/atspi-misc.c:55
 msgid "arrow"
 msgstr "seta"
 
-#: atspi/atspi-misc.c:54
+#: atspi/atspi-misc.c:56
 msgid "calendar"
 msgstr "calendário"
 
-#: atspi/atspi-misc.c:55
+#: atspi/atspi-misc.c:57
 msgid "canvas"
 msgstr "tela"
 
-#: atspi/atspi-misc.c:56
+#: atspi/atspi-misc.c:58
 msgid "check box"
 msgstr "caixa de verificação"
 
-#: atspi/atspi-misc.c:57
+#: atspi/atspi-misc.c:59
 msgid "check menu item"
 msgstr "item de menu de verificação"
 
-#: atspi/atspi-misc.c:58
+#: atspi/atspi-misc.c:60
 msgid "color chooser"
 msgstr "seletor de cores"
 
-#: atspi/atspi-misc.c:59
+#: atspi/atspi-misc.c:61
 msgid "column header"
 msgstr "cabeçalho de coluna"
 
-#: atspi/atspi-misc.c:60
+#: atspi/atspi-misc.c:62
 msgid "combo box"
 msgstr "caixa de combinação"
 
-#: atspi/atspi-misc.c:61
+#: atspi/atspi-misc.c:63
 msgid "dateeditor"
 msgstr "editor de datas"
 
-#: atspi/atspi-misc.c:62
+#: atspi/atspi-misc.c:64
 msgid "desktop icon"
 msgstr "ícone de área de trabalho"
 
-#: atspi/atspi-misc.c:63
+#: atspi/atspi-misc.c:65
 msgid "desktop frame"
 msgstr "moldura da área de trabalho"
 
-#: atspi/atspi-misc.c:64
+#: atspi/atspi-misc.c:66
 msgid "dial"
 msgstr "botão giratório"
 
-#: atspi/atspi-misc.c:65
+#: atspi/atspi-misc.c:67
 msgid "dialog"
 msgstr "diálogo"
 
-#: atspi/atspi-misc.c:66
+#: atspi/atspi-misc.c:68
 msgid "directory pane"
 msgstr "painel de pasta"
 
-#: atspi/atspi-misc.c:67
+#: atspi/atspi-misc.c:69
 msgid "drawing area"
 msgstr "área de desenho"
 
-#: atspi/atspi-misc.c:68
+#: atspi/atspi-misc.c:70
 msgid "file chooser"
 msgstr "seletor de ficheiro"
 
-#: atspi/atspi-misc.c:69
+#: atspi/atspi-misc.c:71
 msgid "filler"
 msgstr "ferramenta de preencher"
 
 #. I know it looks wrong but that is what Java returns
-#: atspi/atspi-misc.c:71
+#: atspi/atspi-misc.c:73
 msgid "fontchooser"
-msgstr "seletor de letra"
+msgstr "seletor de tipo de letra"
 
-#: atspi/atspi-misc.c:72
+#: atspi/atspi-misc.c:74
 msgid "frame"
 msgstr "moldura"
 
-#: atspi/atspi-misc.c:73
+#: atspi/atspi-misc.c:75
 msgid "glass pane"
 msgstr "painel transparente"
 
-#: atspi/atspi-misc.c:74
+#: atspi/atspi-misc.c:76
 msgid "html container"
 msgstr "contentor de html"
 
-#: atspi/atspi-misc.c:75
+#: atspi/atspi-misc.c:77
 msgid "icon"
 msgstr "ícone"
 
-#: atspi/atspi-misc.c:76
+#: atspi/atspi-misc.c:78
 msgid "image"
 msgstr "imagem"
 
-#: atspi/atspi-misc.c:77
+#: atspi/atspi-misc.c:79
 msgid "internal frame"
 msgstr "moldura interna"
 
-#: atspi/atspi-misc.c:78
+#: atspi/atspi-misc.c:80
 msgid "label"
 msgstr "rótulo"
 
-#: atspi/atspi-misc.c:79
+#: atspi/atspi-misc.c:81
 msgid "layered pane"
 msgstr "painel em camadas"
 
-#: atspi/atspi-misc.c:80
+#: atspi/atspi-misc.c:82
 msgid "list"
 msgstr "lista"
 
-#: atspi/atspi-misc.c:81
+#: atspi/atspi-misc.c:83
 msgid "list item"
 msgstr "item de lista"
 
-#: atspi/atspi-misc.c:82
+#: atspi/atspi-misc.c:84
 msgid "menu"
 msgstr "menu"
 
-#: atspi/atspi-misc.c:83
+#: atspi/atspi-misc.c:85
 msgid "menu bar"
 msgstr "barra de menu"
 
-#: atspi/atspi-misc.c:84
+#: atspi/atspi-misc.c:86
 msgid "menu button"
 msgstr "botão do menu"
 
-#: atspi/atspi-misc.c:85
+#: atspi/atspi-misc.c:87
 msgid "menu item"
 msgstr "item de menu"
 
-#: atspi/atspi-misc.c:86
+#: atspi/atspi-misc.c:88
 msgid "option pane"
 msgstr "painel de opções"
 
-#: atspi/atspi-misc.c:87
+#: atspi/atspi-misc.c:89
 msgid "page tab"
 msgstr "separador de página"
 
-#: atspi/atspi-misc.c:88
+#: atspi/atspi-misc.c:90
 msgid "page tab list"
 msgstr "lista de separadores de página"
 
-#: atspi/atspi-misc.c:89
+#: atspi/atspi-misc.c:91
 msgid "panel"
 msgstr "painel"
 
-#: atspi/atspi-misc.c:90
+#: atspi/atspi-misc.c:92
 msgid "password text"
-msgstr "texto da senha"
+msgstr "texto da palavra-passe"
 
-#: atspi/atspi-misc.c:91
+#: atspi/atspi-misc.c:93
 msgid "popup menu"
 msgstr "menu contextual"
 
-#: atspi/atspi-misc.c:92
+#: atspi/atspi-misc.c:94
 msgid "progress bar"
 msgstr "barra de progresso"
 
-#: atspi/atspi-misc.c:93
+#: atspi/atspi-misc.c:95
 msgid "button"
 msgstr "botão"
 
-#: atspi/atspi-misc.c:94
+#: atspi/atspi-misc.c:96
 msgid "radio button"
 msgstr "botão rádio"
 
-#: atspi/atspi-misc.c:95
+#: atspi/atspi-misc.c:97
 msgid "radio menu item"
 msgstr "item de menu rádio"
 
-#: atspi/atspi-misc.c:96
+#: atspi/atspi-misc.c:98
 msgid "root pane"
 msgstr "painel de raiz"
 
-#: atspi/atspi-misc.c:97
+#: atspi/atspi-misc.c:99
 msgid "row header"
 msgstr "cabeçalho de linha"
 
-#: atspi/atspi-misc.c:98
+#: atspi/atspi-misc.c:100
 msgid "scroll bar"
 msgstr "barra de rolamento"
 
-#: atspi/atspi-misc.c:99
+#: atspi/atspi-misc.c:101
 msgid "scroll pane"
 msgstr "painel de rolamento"
 
-#: atspi/atspi-misc.c:100
+#: atspi/atspi-misc.c:102
 msgid "separator"
 msgstr "separador"
 
-#: atspi/atspi-misc.c:101
+#: atspi/atspi-misc.c:103
 msgid "slider"
 msgstr "deslizador"
 
-#: atspi/atspi-misc.c:102
+#: atspi/atspi-misc.c:104
 msgid "split pane"
 msgstr "painel dividido"
 
-#: atspi/atspi-misc.c:103
+#: atspi/atspi-misc.c:105
 msgid "spin button"
 msgstr "botão rotativo"
 
-#: atspi/atspi-misc.c:104
+#: atspi/atspi-misc.c:106
 msgid "statusbar"
 msgstr "barra de estado"
 
-#: atspi/atspi-misc.c:105
+#: atspi/atspi-misc.c:107
 msgid "switch"
-msgstr "interruptor"
+msgstr "interrutor"
 
-#: atspi/atspi-misc.c:106
+#: atspi/atspi-misc.c:108
 msgid "table"
 msgstr "tabela"
 
-#: atspi/atspi-misc.c:107
+#: atspi/atspi-misc.c:109
 msgid "table cell"
 msgstr "célula de tabela"
 
-#: atspi/atspi-misc.c:108
+#: atspi/atspi-misc.c:110
 msgid "table column header"
 msgstr "cabeçalho de coluna de tabela"
 
-#: atspi/atspi-misc.c:109
+#: atspi/atspi-misc.c:111
 msgid "table row header"
 msgstr "cabeçalho de linha de tabela"
 
-#: atspi/atspi-misc.c:110
+#: atspi/atspi-misc.c:112
 msgid "tear off menu item"
 msgstr "item de menu destacável"
 
-#: atspi/atspi-misc.c:111
+#: atspi/atspi-misc.c:113
 msgid "terminal"
 msgstr "terminal"
 
-#: atspi/atspi-misc.c:112
+#: atspi/atspi-misc.c:114
 msgid "text"
 msgstr "texto"
 
-#: atspi/atspi-misc.c:113
+#: atspi/atspi-misc.c:115
 msgid "toggle button"
 msgstr "botão de alternar"
 
-#: atspi/atspi-misc.c:114
+#: atspi/atspi-misc.c:116
 msgid "tool bar"
 msgstr "barra de ferramentas"
 
-#: atspi/atspi-misc.c:115
+#: atspi/atspi-misc.c:117
 msgid "tool tip"
 msgstr "dica"
 
-#: atspi/atspi-misc.c:116
+#: atspi/atspi-misc.c:118
 msgid "tree"
 msgstr "árvore"
 
-#: atspi/atspi-misc.c:117
+#: atspi/atspi-misc.c:119
 msgid "tree table"
 msgstr "tabela de árvore"
 
-#: atspi/atspi-misc.c:118
+#: atspi/atspi-misc.c:120
 msgid "unknown"
 msgstr "desconhecido"
 
-#: atspi/atspi-misc.c:119
+#: atspi/atspi-misc.c:121
 msgid "viewport"
 msgstr "zona de vista"
 
-#: atspi/atspi-misc.c:120
+#: atspi/atspi-misc.c:122
 msgid "window"
 msgstr "janela"
 
-#: atspi/atspi-misc.c:121
+#: atspi/atspi-misc.c:123
 msgid "header"
 msgstr "cabeçalho"
 
-#: atspi/atspi-misc.c:122
+#: atspi/atspi-misc.c:124
 msgid "footer"
 msgstr "rodapé"
 
-#: atspi/atspi-misc.c:123
+#: atspi/atspi-misc.c:125
 msgid "paragraph"
 msgstr "parágrafo"
 
-#: atspi/atspi-misc.c:124
+#: atspi/atspi-misc.c:126
 msgid "ruler"
 msgstr "régua"
 
-#: atspi/atspi-misc.c:125
+#: atspi/atspi-misc.c:127
 msgid "application"
 msgstr "aplicação"
 
-#: atspi/atspi-misc.c:126
+#: atspi/atspi-misc.c:128
 msgid "autocomplete"
-msgstr "autocompletar"
+msgstr "auto completar"
 
-#: atspi/atspi-misc.c:127
+#: atspi/atspi-misc.c:129
 msgid "edit bar"
 msgstr "barra de edição"
 
-#: atspi/atspi-misc.c:128
+#: atspi/atspi-misc.c:130
 msgid "embedded component"
 msgstr "componente embutido"
 
-#: atspi/atspi-misc.c:129
+#: atspi/atspi-misc.c:131
 msgid "entry"
 msgstr "entrada"
 
-#: atspi/atspi-misc.c:130
+#: atspi/atspi-misc.c:132
 msgid "chart"
 msgstr "gráfico"
 
-#: atspi/atspi-misc.c:131
+#: atspi/atspi-misc.c:133
 msgid "caption"
 msgstr "legenda"
 
-#: atspi/atspi-misc.c:132
+#: atspi/atspi-misc.c:134
 msgid "document frame"
 msgstr "moldura de documento"
 
-#: atspi/atspi-misc.c:133
+#: atspi/atspi-misc.c:135
 msgid "heading"
 msgstr "título"
 
-#: atspi/atspi-misc.c:134
+#: atspi/atspi-misc.c:136
 msgid "page"
 msgstr "página"
 
-#: atspi/atspi-misc.c:135
+#: atspi/atspi-misc.c:137
 msgid "section"
 msgstr "secção"
 
-#: atspi/atspi-misc.c:136
+#: atspi/atspi-misc.c:138
 msgid "redundant object"
 msgstr "objeto redundante"
 
-#: atspi/atspi-misc.c:137
+#: atspi/atspi-misc.c:139
 msgid "form"
 msgstr "formulário"
 
-#: atspi/atspi-misc.c:138
+#: atspi/atspi-misc.c:140
 msgid "link"
 msgstr "ligação"
 
-#: atspi/atspi-misc.c:139
+#: atspi/atspi-misc.c:141
 msgid "input method window"
 msgstr "janela de método de introdução"
 
-#: atspi/atspi-misc.c:140
+#: atspi/atspi-misc.c:142
 msgid "table row"
 msgstr "linha de tabela"
 
-#: atspi/atspi-misc.c:141
+#: atspi/atspi-misc.c:143
 msgid "tree item"
 msgstr "item de árvore"
 
-#: atspi/atspi-misc.c:142
+#: atspi/atspi-misc.c:144
 msgid "document spreadsheet"
 msgstr "documento de folha de cálculo"
 
-#: atspi/atspi-misc.c:143
+#: atspi/atspi-misc.c:145
 msgid "document presentation"
 msgstr "documento de apresentação"
 
-#: atspi/atspi-misc.c:144
+#: atspi/atspi-misc.c:146
 msgid "document text"
 msgstr "documento de texto"
 
-#: atspi/atspi-misc.c:145
+#: atspi/atspi-misc.c:147
 msgid "document web"
 msgstr "documento web"
 
-#: atspi/atspi-misc.c:146
+#: atspi/atspi-misc.c:148
 msgid "document email"
-msgstr "documento de email"
+msgstr "documento de e-mail"
 
-#: atspi/atspi-misc.c:147
+#: atspi/atspi-misc.c:149
 msgid "comment"
 msgstr "comentário"
 
-#: atspi/atspi-misc.c:148
+#: atspi/atspi-misc.c:150
 msgid "list box"
 msgstr "caixa de lista"
 
-#: atspi/atspi-misc.c:149
+#: atspi/atspi-misc.c:151
 msgid "grouping"
-msgstr "agrupar"
+msgstr "agrupamento"
 
-#: atspi/atspi-misc.c:150
+#: atspi/atspi-misc.c:152
 msgid "image map"
 msgstr "mapa de imagem"
 
-#: atspi/atspi-misc.c:151
+#: atspi/atspi-misc.c:153
 msgid "notification"
 msgstr "notificação"
 
-#: atspi/atspi-misc.c:152
+#: atspi/atspi-misc.c:154
 msgid "info bar"
 msgstr "barra de informação"
 
-#: atspi/atspi-misc.c:153
+#: atspi/atspi-misc.c:155
 msgid "level bar"
 msgstr "barra de nível"
 
-#: atspi/atspi-misc.c:154
+#: atspi/atspi-misc.c:156
 msgid "title bar"
 msgstr "barra de título"
 
-#: atspi/atspi-misc.c:155
+#: atspi/atspi-misc.c:157
 msgid "block quote"
-msgstr "citação"
+msgstr "bloco de citação"
 
-#: atspi/atspi-misc.c:156
+#: atspi/atspi-misc.c:158
 msgid "audio"
 msgstr "áudio"
 
-#: atspi/atspi-misc.c:157
+#: atspi/atspi-misc.c:159
 msgid "video"
 msgstr "vídeo"
 
-#: atspi/atspi-misc.c:158
+#: atspi/atspi-misc.c:160
 msgid "definition"
 msgstr "definição"
 
-#: atspi/atspi-misc.c:159
+#: atspi/atspi-misc.c:161
 msgid "article"
 msgstr "artigo"
 
-#: atspi/atspi-misc.c:160
+#: atspi/atspi-misc.c:162
 msgid "landmark"
 msgstr "marco"
 
-#: atspi/atspi-misc.c:161
+#: atspi/atspi-misc.c:163
 msgid "log"
 msgstr "registo"
 
-#: atspi/atspi-misc.c:162
+#: atspi/atspi-misc.c:164
 msgid "marquee"
 msgstr "destaque"
 
-#: atspi/atspi-misc.c:163
+#: atspi/atspi-misc.c:165
 msgid "math"
 msgstr "matemática"
 
-#: atspi/atspi-misc.c:164
+#: atspi/atspi-misc.c:166
 msgid "rating"
 msgstr "classificação"
 
-#: atspi/atspi-misc.c:165
+#: atspi/atspi-misc.c:167
 msgid "timer"
 msgstr "temporizador"
 
-#: atspi/atspi-misc.c:166
+#: atspi/atspi-misc.c:168
 msgid "description list"
 msgstr "lista de descrição"
 
-#: atspi/atspi-misc.c:167
+#: atspi/atspi-misc.c:169
 msgid "description term"
 msgstr "termo de descrição"
 
-#: atspi/atspi-misc.c:168
+#: atspi/atspi-misc.c:170
 msgid "description value"
 msgstr "valor de descrição"
 
