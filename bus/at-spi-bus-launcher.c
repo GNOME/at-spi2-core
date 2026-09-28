@@ -323,6 +323,27 @@ on_bus_exited (GPid pid,
 }
 
 #ifdef DBUS_DAEMON
+#ifdef __linux__
+static pid_t launcher_pid;
+
+/* Runs in the child between fork and exec.  The launcher terminates the
+ * a11y bus itself when it exits cleanly, but if it is killed by a signal
+ * it does not handle, the bus would be left running with no owner.  Ask
+ * the kernel to send the bus SIGTERM when the launcher goes away.
+ */
+static void
+setup_bus_child_daemon (gpointer data)
+{
+  (void) data;
+
+  prctl (PR_SET_PDEATHSIG, SIGTERM);
+
+  /* The launcher may already have died before prctl() took effect. */
+  if (getppid () != launcher_pid)
+    _exit (1);
+}
+#endif
+
 static gboolean
 ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
 {
@@ -359,7 +380,11 @@ ensure_a11y_bus_daemon (A11yBusLauncher *app, char *config_path)
                                          (const gchar *const *) argv,
                                          NULL,
                                          G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_LEAVE_DESCRIPTORS_OPEN,
+#ifdef __linux__
+                                         setup_bus_child_daemon,
+#else
                                          NULL, /* child_setup */
+#endif
                                          app,
                                          -1, /* stdin_fd */
                                          -1, /* stdout_fd */
@@ -932,7 +957,14 @@ init_sigterm_handling (A11yBusLauncher *app)
 
   if (pipe (sigterm_pipefd) < 0)
     g_error ("Failed to create pipe: %s", strerror (errno));
+  /* Shut down cleanly (terminating the a11y bus) on any of the usual
+   * termination signals, not only SIGTERM: without a service manager
+   * to clean up the session, the launcher may get SIGHUP or SIGINT
+   * when the session ends, and would otherwise leave the bus behind.
+   */
   signal (SIGTERM, sigterm_handler);
+  signal (SIGHUP, sigterm_handler);
+  signal (SIGINT, sigterm_handler);
 
   sigterm_channel = g_io_channel_unix_new (sigterm_pipefd[0]);
   g_io_add_watch (sigterm_channel,
@@ -981,6 +1013,10 @@ main (int argc,
 
   _global_app = g_new0 (A11yBusLauncher, 1);
   _global_app->loop = g_main_loop_new (NULL, FALSE);
+
+#if defined(DBUS_DAEMON) && defined(__linux__)
+  launcher_pid = getpid ();
+#endif
 
   for (i = 1; i < argc; i++)
     {
