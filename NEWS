@@ -1,3 +1,12 @@
+What's new in at-spi2-core 2.62.1:
+
+* Fix baseline race in direct connection test.
+
+* Fix typecasting macros in atspi-application.h.
+
+* at-spi-bus-launcher: Clean up dbus-daemon when terminating from signals
+  other than SIGTERM.
+
 What's new in at-spi2-core 2.62.0:
 
 * atk-bridge: Release disconnected direct connections.
