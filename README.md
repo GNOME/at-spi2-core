@@ -9,7 +9,7 @@ between AT-SPI and ATK.
 
 The version control repository and bug tracker are at https://gitlab.gnome.org/GNOME/at-spi2-core/
 
-You can visit an ever-changing roadmap in [`devel-docs/roadmap.md`](devel-docs/roadmap.md).
+You can visit an ever-changing roadmap in [`devel-docs/roadmap.rst`](devel-docs/roadmap.rst).
 
 To write accessible applications, look into `atk` or your
 programming language's bindings for the `xml` DBus interfaces
@@ -68,7 +68,7 @@ include:
   
 * `droute` - DBus utilities for use by `atk-adaptor` above.
 
-* Documentation for the Gitlab [Continuous Integration pipeline](devel-docs/gitlab-ci.md).
+* Documentation for the Gitlab [Continuous Integration pipeline](devel-docs/gitlab-ci.rst).
 
 ## Historical note
 
