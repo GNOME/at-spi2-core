@@ -29,6 +29,9 @@
 #include <strings.h>
 #include <sys/time.h>
 
+static void callback_ref (void *callback, GDestroyNotify callback_destroyed, void *user_data);
+static void callback_unref (void *callback);
+
 static struct timeval window_filter_time;
 
 /**
@@ -64,8 +67,19 @@ atspi_event_listener_init (AtspiEventListener *listener)
 }
 
 void
+atspi_event_listener_finalize (GObject *object)
+{
+  AtspiEventListener *listener = ATSPI_EVENT_LISTENER (object);
+
+  callback_unref (listener->callback);
+}
+
+void
 atspi_event_listener_class_init (AtspiEventListenerClass *klass)
 {
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+  object_class->finalize = atspi_event_listener_finalize;
 }
 
 static void
@@ -79,12 +93,13 @@ typedef struct
 {
   gpointer callback;
   GDestroyNotify callback_destroyed;
+  void *user_data;
   gint ref_count;
 } CallbackInfo;
 static GHashTable *callbacks;
 
-void
-callback_ref (void *callback, GDestroyNotify callback_destroyed)
+static void
+callback_ref (void *callback, GDestroyNotify callback_destroyed, void *user_data)
 {
   CallbackInfo *info;
 
@@ -101,6 +116,7 @@ callback_ref (void *callback, GDestroyNotify callback_destroyed)
       info = g_new (CallbackInfo, 1);
       info->callback = callback;
       info->callback_destroyed = callback_destroyed;
+      info->user_data = user_data;
       info->ref_count = 1;
       g_hash_table_insert (callbacks, callback, info);
     }
@@ -108,7 +124,7 @@ callback_ref (void *callback, GDestroyNotify callback_destroyed)
     info->ref_count++;
 }
 
-void
+static void
 callback_unref (gpointer callback)
 {
   CallbackInfo *info;
@@ -124,11 +140,8 @@ callback_unref (gpointer callback)
   info->ref_count--;
   if (info->ref_count == 0)
     {
-#if 0
-    /* TODO: Figure out why this seg faults from Python */
-    if (info->callback_destroyed)
-      (*info->callback_destroyed) (info->callback);
-#endif
+      if (info->callback_destroyed)
+        (*info->callback_destroyed) (info->user_data);
       g_free (info);
       g_hash_table_remove (callbacks, callback);
     }
@@ -153,7 +166,7 @@ atspi_event_listener_new (AtspiEventListenerCB callback,
 {
   AtspiEventListener *listener = g_object_new (ATSPI_TYPE_EVENT_LISTENER, NULL);
   listener->callback = callback;
-  callback_ref (callback, callback_destroyed);
+  callback_ref (callback, callback_destroyed, user_data);
   listener->user_data = user_data;
   listener->cb_destroyed = callback_destroyed;
   return listener;
@@ -175,7 +188,7 @@ atspi_event_listener_new_simple (AtspiEventListenerSimpleCB callback,
 {
   AtspiEventListener *listener = g_object_new (ATSPI_TYPE_EVENT_LISTENER, NULL);
   listener->callback = remove_datum;
-  callback_ref (remove_datum, callback_destroyed);
+  callback_ref (remove_datum, callback_destroyed, NULL);
   listener->user_data = callback;
   listener->cb_destroyed = callback_destroyed;
   return listener;
@@ -784,7 +797,7 @@ atspi_event_listener_register_from_callback_with_app (AtspiEventListenerCB callb
   e->user_data = user_data;
   e->callback_destroyed = callback_destroyed;
   callback_ref (callback == remove_datum ? (gpointer) user_data : (gpointer) callback,
-                callback_destroyed);
+                callback_destroyed, user_data);
   if (!convert_event_type_to_dbus (event_type, &e->category, &e->name, &e->detail, app_name, &matchrule_array))
     {
       g_free (e->event_type);
