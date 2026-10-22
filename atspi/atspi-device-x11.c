@@ -331,6 +331,12 @@ refresh_key_grabs (AtspiDeviceX11 *x11_device)
     }
 }
 
+static gboolean
+using_raw_key_fallback (AtspiDeviceX11Private *priv)
+{
+  return priv->focused_window == None || priv->focused_window == PointerRoot;
+}
+
 static void
 set_virtual_modifier (AtspiDeviceX11 *x11_device, gint keycode, gboolean enabled)
 {
@@ -420,7 +426,11 @@ do_event_dispatch (gpointer user_data)
                       modifiers &= ~priv->numlock_physical_mask;
                     }
                   if (xiDevEv->deviceid == xiDevEv->sourceid)
-                    atspi_device_notify_key (ATSPI_DEVICE (device), (xevent.xcookie.evtype == XI_KeyPress), xiRawEv->detail, keysym, modifiers, text);
+                    {
+                      /* The raw-event fallback below reports this key */
+                      if (!using_raw_key_fallback (priv))
+                        atspi_device_notify_key (ATSPI_DEVICE (device), (xevent.xcookie.evtype == XI_KeyPress), xiRawEv->detail, keysym, modifiers, text);
+                    }
                   else if (should_suppress_keygrab_window_events ())
                     _atspi_update_window_filter_time ();
                   XFreeEventData (priv->display, &xevent.xcookie);
@@ -428,7 +438,8 @@ do_event_dispatch (gpointer user_data)
                 case XI_RawKeyPress:
                 case XI_RawKeyRelease:
                   {
-                    if (priv->focused_window != None && priv->focused_window != PointerRoot)
+                    /* Raw events arrive from both the master and the slave device */
+                    if (!using_raw_key_fallback (priv) || xiRawEv->deviceid != xiRawEv->sourceid)
                       {
                         XFreeEventData (priv->display, &xevent.xcookie);
                         break;
