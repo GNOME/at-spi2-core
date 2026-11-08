@@ -47,10 +47,12 @@
         - (so): parent object reference - DBus name and object path.
           If the main object has no parent:
           - If it is a control, or a window, return the parent application.
-          - If the object has the application role, return a null reference.  FIXME:
+          - If the object has the application role, return a null reference.
+          FIXME: apparently the null reference confuses Orca (https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/10009#note_2780172).
           atk-adaptor/adaptors/cache-adaptor.c:append_cache_item() returns a
           reference to the registry in this case (the one it obtained from the
-          initial Socket::Embed call); GTK4 returns a null reference.
+          initial Socket::Embed call); GTK4 used to return a null reference, but now also returns the registry
+            (https://gitlab.gnome.org/GNOME/gtk/-/commit/96838fb3)
           - Otherwise, return a null reference ("" for the application name name and
           "/org/a11y/atspi/null" for the object path).
         - i: index in parent, or -1 for transient widgets/menu items.  Equivalent to the
