@@ -131,7 +131,8 @@ listener_event_cb (AtspiEvent *event, void *user_data)
 {
   TestAppFixture *fixture = current_fixture;
 
-  if (atspi_accessible_get_role (event->source, NULL) == ATSPI_ROLE_DESKTOP_FRAME && strstr (event->type, "add"))
+  if (fixture && fixture->state == FIXTURE_STATE_WAITING_FOR_CHILD &&
+      atspi_accessible_get_role (event->source, NULL) == ATSPI_ROLE_DESKTOP_FRAME && strstr (event->type, "add"))
     {
       AtspiAccessible *obj = atspi_get_desktop (0);
 
