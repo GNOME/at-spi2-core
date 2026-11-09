@@ -393,7 +393,7 @@ handle_get_bus_address (DBusPendingCall *pending, void *user_data)
             }
           else
             {
-              guint pid = atspi_accessible_get_process_id (app->root, NULL);
+              guint pid = app->root ? atspi_accessible_get_process_id (app->root, NULL) : -1;
               if (!strcmp (error.name, DBUS_ERROR_FILE_NOT_FOUND) &&
                   !g_getenv ("ATSPI_IN_TESTS") && pid != -1)
                 g_warning ("AT-SPI: Unable to open bus connection for application with pid %d: %s", pid, error.message);
