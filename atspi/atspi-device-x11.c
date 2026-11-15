@@ -759,9 +759,13 @@ atspi_device_x11_finalize (GObject *object)
     }
 
   /* TODO: deregister event listeners automatically when the listener is finalized */
-  atspi_event_listener_deregister (priv->event_listener, "window:deactivate", NULL);
-  atspi_event_listener_deregister (priv->event_listener, "window:activate", NULL);
-  g_object_unref (priv->event_listener);
+  /* NULL if init returned early because the display could not be opened */
+  if (priv->event_listener)
+    {
+      atspi_event_listener_deregister (priv->event_listener, "window:deactivate", NULL);
+      atspi_event_listener_deregister (priv->event_listener, "window:activate", NULL);
+      g_object_unref (priv->event_listener);
+    }
 
   device_x11_parent_class->finalize (object);
 }
