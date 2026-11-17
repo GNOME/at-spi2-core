@@ -431,8 +431,17 @@ do_event_dispatch (gpointer user_data)
                       if (!using_raw_key_fallback (priv))
                         atspi_device_notify_key (ATSPI_DEVICE (device), (xevent.xcookie.evtype == XI_KeyPress), xiRawEv->detail, keysym, modifiers, text);
                     }
-                  else if (should_suppress_keygrab_window_events ())
-                    _atspi_update_window_filter_time ();
+                  else
+                    {
+                      if (should_suppress_keygrab_window_events ())
+                        _atspi_update_window_filter_time ();
+                      /* Thaw only the synchronous master key grab, not slave monitoring. */
+                      if (xevent.xcookie.evtype == XI_KeyPress)
+                        {
+                          XIAllowEvents (display, xiDevEv->deviceid, XIAsyncDevice, xiDevEv->time);
+                          XFlush (display);
+                        }
+                    }
                   XFreeEventData (priv->display, &xevent.xcookie);
                   break;
                 case XI_RawKeyPress:
