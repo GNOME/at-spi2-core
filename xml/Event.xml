@@ -555,8 +555,11 @@
     </signal>
   </interface>
 
+  <!--
+      org.a11y.atspi.Event.Focus:
+      @short_description: Focus is deprecated in favor of org.a11y.Atspi.Event.Object.StateChanged with focused passed as its first argument -->
+  -->
   <interface name="org.a11y.atspi.Event.Focus">
-    <!-- Focus is deprecated in favor of StateChanged with focus passed as its first argument -->
     <signal name="Focus">
       <arg type="s"/>
       <arg type="i"/>
