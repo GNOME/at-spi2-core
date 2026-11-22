@@ -1,3 +1,26 @@
+What's new in at-spi2-core 2.62.2:
+
+    libatspi: Don't crash when a direct connection fails before the root is known.
+
+    libatspi: Notify when an AtspiEventListener's callback is no longer valid.
+
+* bus: Send SIGTERM only to the launcher when the unit stops
+
+    device-x11: Report each key once while using the raw key fallback.
+
+* device-x11: Don't crash in finalize when the display couldn't be opened
+
+* device-x11: resume keyboard input after handling a synchronous key grab.
+
+What's new in at-spi2-core 2.62.1:
+
+* Fix baseline race in direct connection test.
+
+* Fix typecasting macros in atspi-application.h.
+
+* at-spi-bus-launcher: Clean up dbus-daemon when terminating from signals
+  other than SIGTERM.
+
 What's new in at-spi2-core 2.62.0:
 
 * atk-bridge: Release disconnected direct connections.
