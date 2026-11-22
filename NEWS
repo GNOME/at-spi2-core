@@ -1,3 +1,15 @@
+What's new in at-spi2-core 2.60.8:
+
+    libatspi: Notify when an AtspiEventListener's callback is no longer valid.
+
+* bus: Send SIGTERM only to the launcher when the unit stops
+
+    device-x11: Report each key once while using the raw key fallback.
+
+* device-x11: Don't crash in finalize when the display couldn't be opened
+
+* device-x11: resume keyboard input after handling a synchronous key grab.
+
 What's new in at-spi2-core 2.60.7:
 
 * libatspi: Fix transfer annotation on atspi_document_get_text_selections.
